@@ -14,7 +14,7 @@
 
             }
             .bg-main{
-                background-color: rgb(247, 247, 247);
+                background-color: #133369;
             }
             .text-main{
                 color: rgb(0, 0, 255);
@@ -44,15 +44,14 @@
                 width: 100%;
                 height: 100vh;
                 content: "";
-                background: url("../imgForAcademy/20211025＿170446.jpg");
+                background: url("../imgForAcademy/backgroundimg.png");
                 background-size: cover;
                 display: grid;
                 position: absolute;
                 top: 0;
                 left: 0;
                 z-index: -1;
-               
-                opacity: 0.5;
+                opacity: 0.6;
                 font-size: 0px;
             }
 
@@ -63,7 +62,18 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
-            
+            .border-main{
+                border-color: #081C70;
+            }
+            .test{
+                content: "";
+            }
+            .test::after{
+                font-size: small;
+                font-weight: lighter;
+                content: " | ";
+                
+            }
                 
         </style>
         
@@ -80,12 +90,14 @@
                     <div class="row">
                         <div class="col">
                             <div class="row">
-                                <div class="col-1">
+                                <div class="col-1 p-0">
                                     <img src="../imgForAcademy/logo_black.png" alt="" class="img-fluid">
                                 </div>
-                                <div class="col align-self-center text-white fw-bold fs-4">
-                                    MK대학교 포털사이트
+                                <div class="col p-0 align-self-center text-black fw-bold fs-3">
+                                    MK University<span class="fs-6"> | </span> <span class="fs-5">포털사이트</span> 
                                 </div>
+
+                                
                             </div>
 
                         </div>
@@ -101,13 +113,13 @@
                             <div class="row mt-2">
                                 <div class="col ms-4">
                                     <div class="row">
-                                        <div class="col fw-light" style="color: #909090;">
-                                            민규대학교 포털시스템에
+                                        <div class="col" style="color: #909090;">
+                                            서울민규대학교 포털시스템에
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col fw-light" style="color: #909090;">
-                                            오신걸 환영합니다.
+                                        <div class="col" style="color: #909090;">
+                                            오신것을 환영합니다.
                                         </div>
                                     </div>
                                 </div>
@@ -120,9 +132,20 @@
                         </div>
                         <div class="col-7 py-5" style="background-color: #F3F6FC;">
                             <!-- 아이디/비밀번호/로그인 -->
-                            <form action="./loginProcess" method="post">
+                            <form action="./mainPage" method="post">
                                 <div class="row mx-5">
                                     <div class="col-8">
+                                        <div class="row text-center fs-s">
+                                            <div class="col-4 d-grid px-0">
+                                                <a class="navbar-brand bg-main text-white" href="../student/loginPage">학생</a>
+                                            </div>
+                                            <div class="col-4 d-grid px-0">
+                                                <a class="navbar-brand border border-2" href="../staff/loginPage">교직원</a>
+                                            </div>
+                                            <div class="col-4 d-grid px-0">
+                                                <a class="navbar-brand border border-2" href="..//loginPage">외부인</a>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col">
                                                 <div class="row border bg-white">
@@ -130,7 +153,7 @@
                                                         <i class="bi bi-person fs-2" style="color: #133369;"></i>
                                                     </div>
                                                     <div class="col align-self-center">
-                                                        <input class="py-2 border-0 bg-transparent" type="text" name="student_id" placeholder="아이디">
+                                                        <input class="py-2 border-0 bg-transparent" type="text" name="#" placeholder="아이디">
                                                     </div>
                                                 </div>
                                             </div>                                        
@@ -142,7 +165,7 @@
                                                         <i class="bi bi-key fs-2" style="color: #133369;"></i>
                                                     </div>
                                                     <div class="col align-self-center">
-                                                        <input class="py-2 border-0 bg-transparent" type="text" name="password" placeholder="비밀번호">
+                                                        <input class="py-2 border-0 bg-transparent" type="text" name="#" placeholder="비밀번호">
                                                     </div>
                                                 </div>
                                             </div>                                        
@@ -162,7 +185,7 @@
                                 </div>
                             </div>
                             <!-- 찾기 -->
-                            <div class="row mt-5">
+                            <div class="row mt-4">
                                 <div class="col text-end">
                                     <a href="#" class="text-secondary-emphasis" style="text-decoration: none;">사번 및 학번 찾기</a>
                                 </div>
@@ -182,59 +205,160 @@
                             </div>
                             <div class="row my-2">
                                 <div class="col ms-4">
-                                    <!-- 아마도 반복문 돌 부분.. -->
+                                    <!-- 아마도 반복문 돌 부분.. 공지사항 중 최신 5개 ㄱㄱ -->
                                     <div class="row">
-                                        <div class="col-9 fw-light">
+                                        <div class="col-8 fw-light">
                                             <a href="#" class="text-over-cut text-black" style="text-decoration: none; font-size: 0.9rem;">
                                                 <i class="bi bi-dot"></i>
-                                                [학생생활관] 대학 기숙사비 납부제도 인식 및 선호도 관련 의견조사                                                
+                                                [클래스공지] 2차 프로젝트 시작 노가다의 시간 안내
                                             </a>
                                         </div>
-                                        <div class="col fw-light text-secondary" style="font-size: 0.9rem;">
+                                        <div class="col fw-light text-secondary text-end" style="font-size: 0.9rem;">
                                             2023.11.29
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-9 fw-light">
+                                        <div class="col-8 fw-light">
                                             <a href="#" class="text-over-cut text-black" style="text-decoration: none; font-size: 0.9rem;">
                                                 <i class="bi bi-dot"></i>
                                                 [학생생활관] 대학 기숙사비 납부제도 인식 및 선호도 관련 의견조사                                                
                                             </a>
                                         </div>
-                                        <div class="col fw-light text-secondary" style="font-size: 0.9rem;">
+                                        <div class="col fw-light text-secondary text-end" style="font-size: 0.9rem;">
                                             2023.11.29
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-9 fw-light">
+                                        <div class="col-8 fw-light">
                                             <a href="#" class="text-over-cut text-black" style="text-decoration: none; font-size: 0.9rem;">
                                                 <i class="bi bi-dot"></i>
-                                                [학생생활관] 대학 기숙사비 납부제도 인식 및 선호도 관련 의견조사                                                
+                                                [학생포털시스템공지] 학생 포털 로그인 불가능에 대한 조치 안내                                                
                                             </a>
                                         </div>
-                                        <div class="col fw-light text-secondary" style="font-size: 0.9rem;">
-                                            2023.11.29
+                                        <div class="col fw-light text-secondary text-end" style="font-size: 0.9rem;">
+                                            2023.11.28
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-9 fw-light">
+                                        <div class="col-8 fw-light">
                                             <a href="#" class="text-over-cut text-black" style="text-decoration: none; font-size: 0.9rem;">
                                                 <i class="bi bi-dot"></i>
-                                                [학생생활관] 대학 기숙사비 납부제도 인식 및 선호도 관련 의견조사                                                
+                                                [공지] 제 1회 대방어 축제 대방어 뱃살 당첨자 안내                                                
                                             </a>
                                         </div>
-                                        <div class="col fw-light text-secondary" style="font-size: 0.9rem;">
-                                            2023.11.29
+                                        <div class="col fw-light text-secondary text-end" style="font-size: 0.9rem;">
+                                            2023.11.26
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-8 fw-light">
+                                            <a href="#" class="text-over-cut text-black" style="text-decoration: none; font-size: 0.9rem;">
+                                                <i class="bi bi-dot"></i>
+                                                [학사 공지] 휴학생 및 복학생 신청 기간 안내                                              
+                                            </a>
+                                        </div>
+                                        <div class="col fw-light text-secondary text-end" style="font-size: 0.9rem;">
+                                            2023.11.24
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-7"></div>
+                        <div class="col-7 bg-white py-4">
+                            <div class="row ms-3 me-5">
+                                <div class="col border py-2 me-1" style="background-color: #F7F7F7;">
+                                    <a href="#" class="text-black" style="text-decoration: none;">
+                                        <div class="row">
+                                            <div class="col-8 ms-3 align-self-center">
+                                                대표홈페이지
+                                            </div>
+                                            <div class="col me-3 text-end ">
+                                                <i class="bi bi-mortarboard fs-5"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col border py-2 ms-1" style="background-color: #F7F7F7;">
+                                    <a href="#" class="text-black" style="text-decoration: none;">
+                                        <div class="row">
+                                            <div class="col-8 ms-3 align-self-center">
+                                                기숙사정보
+                                            </div>
+                                            <div class="col me-3 text-end">
+                                                <i class="bi bi-building-fill-add"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row ms-3 me-5 mt-2">
+                                <div class="col border py-2 me-1" style="background-color: #F7F7F7;">
+                                    <a href="#" class="text-black" style="text-decoration: none;">
+                                        <div class="row">
+                                            <div class="col-8 ms-3 align-self-center">
+                                                평생교육원
+                                            </div>
+                                            <div class="col me-3 text-end">
+                                                <i class="bi bi-buildings fs-5"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col border py-2 ms-1" style="background-color: #F7F7F7;">
+                                    <a href="#" class="text-black" style="text-decoration: none;">
+                                        <div class="row">
+                                            <div class="col-8 ms-3 align-self-center">
+                                                취업정보
+                                            </div>
+                                            <div class="col me-3 text-end">
+                                                <i class="bi bi-calendar4-week fs-5"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row ms-3 me-5 mt-2">
+                                <div class="col border py-2 me-1" style="background-color: #F7F7F7;">
+                                    <a href="#" class="text-black" style="text-decoration: none;">
+                                        <div class="row">
+                                            <div class="col-8 ms-3 align-self-center">
+                                                산학협력단
+                                            </div>
+                                            <div class="col me-3 text-end">
+                                                <i class="bi bi-brilliance fs-5"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col border py-2 ms-1" style="background-color: #F7F7F7;">
+                                    <a href="#" class="text-black" style="text-decoration: none;">
+                                        <div class="row">
+                                            <div class="col-8 ms-3 align-self-center">
+                                                학술정보원
+                                            </div>
+                                            <div class="col me-3 text-end">
+                                                <i class="bi bi-pencil fs-5"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- 하단 -->
-                    <div class="row">
-                        <div class="col"></div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col text-white text-center fw-light">
+                                    서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / TEL:02-561-1911 / e-mail:se001lec@naver.com
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-white text-center fw-light" style="font-size: 0.9rem;">
+                                    COPYRIGHT© 2023 MINKUE UNIVERSITY ALL RIGHTS RESERVED.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
