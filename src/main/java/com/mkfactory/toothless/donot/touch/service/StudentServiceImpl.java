@@ -7,7 +7,7 @@ import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.donot.touch.mapper.StudentSqlMapper;
 
 @Service
-public class StudentService {
+public class StudentServiceImpl {
 	@Autowired
 	private StudentSqlMapper studentSqlMapper;
 	

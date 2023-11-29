@@ -7,13 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
-import com.mkfactory.toothless.donot.touch.service.StudentService;
+import com.mkfactory.toothless.donot.touch.service.StudentServiceImpl;
 
 @Controller
 @RequestMapping("/student/*")
 public class StudentController {
 	@Autowired
-	private StudentService studentService;
+	private StudentServiceImpl studentService;
 	
 	@RequestMapping("loginPage")
 	public String loginPage() {
@@ -37,5 +37,12 @@ public class StudentController {
 		
 		
 		
+	}
+	
+	@RequestMapping("mainPage")
+	public String mainPage(int student_pk) {
+		
+		
+		return "student/mainPage";
 	}
 }
