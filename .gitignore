@@ -1,7 +1,7 @@
 # 빌드 출력물
 bin/
 target/
-.settings/
+
 
 # 로그 파일
 *.log
