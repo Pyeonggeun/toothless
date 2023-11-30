@@ -88,10 +88,10 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col">
-                                    이름 : ${sessionProfessorInfo.name }
+                                    이름 : ${sessionProfessorInfo.name } 교수
                                 </div>
                                 <div class="col">
-                                    ${studentOtherInfo.departmentName } ${studentOtherInfo.studentYear } 학년
+                                    학과:
                                 </div>
                             </div>
                         </div>

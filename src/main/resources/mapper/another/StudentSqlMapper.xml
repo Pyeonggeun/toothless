@@ -26,7 +26,10 @@
 		WHERE student_pk = #{student_pk}
 		AND student_pk IN (SELECT student_pk FROM graduation_info)
 	</select>
-
+	
+	<select id="getStudentPk" resultType="int">
+		SELECT student_info_seq.nextval FROM dual
+	</select>
 	
 </mapper>
 

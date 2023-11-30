@@ -27,16 +27,32 @@ public class StaffController {
 		public String loginProcess(HttpSession session, StaffInfoDto params) {
 			
 			StaffInfoDto staffInfoDto = staffService.loginByStaffIdAndPassword(params);
+			int center_pk = staffInfoDto.getCenter_pk();
 			
 			if( staffInfoDto != null ) {
 				session.setAttribute("sessionStaffInfo", staffInfoDto);
-				return "redirect: ./mainPage";
+				if(center_pk == 1) {
+					return "redirect: ./mainPage";
+					
+				}else if(center_pk == 2){
+					return "redirect: ./mainPage";
+					
+				}else if(center_pk == 3){
+					return "redirect: ./mainPage";
+					
+				}else if(center_pk == 4){
+					return "redirect: ./mainPage";
+					
+				}else if(center_pk == 5){
+					return "redirect: ./mainPage";
+					
+				}else{
+					return "redirect: ./mainPage";
+				}
+			
 			}else{
 				return "redirect: ./loginPage";
 			}
-			
-			
-			
 		}
 		
 		@RequestMapping("mainPage")

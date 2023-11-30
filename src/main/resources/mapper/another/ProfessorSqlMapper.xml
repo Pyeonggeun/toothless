@@ -9,7 +9,13 @@
 		WHERE professor_id = #{professor_id}
 		AND password = #{password}
 	</select>
-
-
+	
+	<select id="selectDepartmentList" resultType="com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto">
+		SELECT * FROM department_category
+	</select>
+	<select id="selectProfessorList" resultType="com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto">
+		SELECT * FROM professor_info
+	</select>
+	
 	
 </mapper>

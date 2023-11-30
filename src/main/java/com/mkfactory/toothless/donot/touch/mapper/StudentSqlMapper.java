@@ -11,4 +11,6 @@ public interface StudentSqlMapper {
 	public int selectStudentYear(int student_pk);
 	
 	public int selectGraduationInfo(int student_pk);
+	
+	public int getStudentPk();
 }
