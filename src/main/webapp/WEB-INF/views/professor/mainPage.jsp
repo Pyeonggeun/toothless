@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <style>
              @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;800&family=Roboto+Mono:wght@700&display=swap');
-            .body{
+            .font{
                 font-family: 'Noto Sans KR', sans-serif;
                 font-family: 'Roboto Mono', monospace;
             }
@@ -88,27 +88,11 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col">
-                                    이름 : ${sessionStudentInfo.name }
+                                    이름 : ${sessionProfessorInfo.name }
                                 </div>
                                 <div class="col">
                                     ${studentOtherInfo.departmentName } ${studentOtherInfo.studentYear } 학년
                                 </div>
-                            </div>
-                            <div class="row">
-                            <c:choose>
-                            	<c:when test="${studentOtherInfo.graduationInfo != 0 }">
-                            		<div class="col">
-                                 		 현재 상태: 졸업생
-                                	</div>
-                            	</c:when>
-                            	<c:otherwise>
-                            		<div class="col">
-                                  		현재 상태: 재학생  
-                                	</div>
-                            	</c:otherwise>
-                            
-                            </c:choose>
-                                
                             </div>
                         </div>
                     </div>

@@ -37,7 +37,7 @@
     </head>
     <body>
         <div class="container-fluid">
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col">
                     <div class="row text-center">
                         <div class="col-4"></div>
@@ -45,7 +45,7 @@
                             <img src="../imgForAcademy/logo_black.png" alt="" style="height: 4em;">
                         </div>
                         <div class="col-3 ps-0 fw-bold fs-1 text-start ">
-                            MK University<span class="fs-6"> | </span> <span class="fs-5">학생포털사이트</span> 
+                            MK University<span class="fs-6"> | </span> <span class="fs-5">포털사이트</span> 
                         </div>
                         <div class="col-2"></div>
                         <div class="col-1 border-end border-secondary text-end fs-s text-secondary mt-5">
@@ -57,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row text-center bg-main py-1 fw-bold text-light">
+            <div class="row mt-1 text-center bg-main py-2 fw-bold text-light">
                 <div class="col-2"></div>
                 <div class="col align-self-center">
                     <a class="navbar-brand" href="./mainpage">현장실습 센터</a>
@@ -76,8 +76,8 @@
                 </div>
                 <div class="col-3">    
                     <form class="d-flex ps-5" role="search">
-                        <input class="form-control me-2 py-0" type="search" placeholder="검색어 입력" aria-label="Search">
-                        <button class="btn btn-outline-light py-0" type="submit">Search</button>
+                        <input class="form-control me-2" type="search" placeholder="검색어 입력" aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit">Search</button>
                     </form>    
                 </div>
                 <div class="col-1"></div>
@@ -86,30 +86,7 @@
                 <div class="col-2">
                     <div class="row border border-2">
                         <div class="col">
-                            <div class="row">
-                                <div class="col">
-                                    이름 : ${sessionStudentInfo.name }
-                                </div>
-                                <div class="col">
-                                    ${studentOtherInfo.departmentName } ${studentOtherInfo.studentYear } 학년
-                                </div>
-                            </div>
-                            <div class="row">
-                            <c:choose>
-                            	<c:when test="${studentOtherInfo.graduationInfo != 0 }">
-                            		<div class="col">
-                                 		 현재 상태: 졸업생
-                                	</div>
-                            	</c:when>
-                            	<c:otherwise>
-                            		<div class="col">
-                                  		현재 상태: 재학생  
-                                	</div>
-                            	</c:otherwise>
-                            
-                            </c:choose>
-                                
-                            </div>
+                       		<a></a>
                         </div>
                     </div>
                 </div>

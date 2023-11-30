@@ -9,7 +9,23 @@
 		WHERE student_id = #{student_id}
 		AND password = #{password}
 	</select>
-
+	
+	<select id="selectStudnetDepartmentName" resultType="String">
+		SELECT name FROM department_category
+		WHERE department_pk = #{department_pk}
+	</select>
+	
+	<select id="selectStudentYear" resultType="int">
+		SELECT FLOOR((SELECT count(*) FROM student_semester
+		WHERE student_pk = #{student_pk}
+		and semester_pk IN (SELECT semester_pk FROM semester_info )) / 2) + 1 AS int FROM dual
+	</select>
+	
+	<select id="selectGraduationInfo" resultType="int">
+		SELECT nvl(count(*),0) FROM student_info
+		WHERE student_pk = #{student_pk}
+		AND student_pk IN (SELECT student_pk FROM graduation_info)
+	</select>
 
 	
 </mapper>
