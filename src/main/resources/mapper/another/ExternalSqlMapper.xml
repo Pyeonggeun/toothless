@@ -4,9 +4,9 @@
 
 <mapper namespace="com.mkfactory.toothless.donot.touch.mapper.ExternalSqlMapper">
 
-	<select id="selectByIdAndPassword" resultType="com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto">
+	<select id="selectExternalByIdAndPassword" resultType="com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto">
 		SELECT * FROM external_info
-		WHERE external_id = #{student_id}
+		WHERE external_id = #{external_id}
 		AND password = #{password}
 	</select>
 

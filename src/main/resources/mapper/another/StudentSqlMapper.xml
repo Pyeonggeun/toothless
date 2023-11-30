@@ -4,7 +4,7 @@
 
 <mapper namespace="com.mkfactory.toothless.donot.touch.mapper.StudentSqlMapper">
 
-	<select id="selectByIdAndPassword" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+	<select id="selectStudentByIdAndPassword" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
 		SELECT * FROM student_info
 		WHERE student_id = #{student_id}
 		AND password = #{password}

@@ -30,9 +30,9 @@ public class StaffController {
 			
 			if( staffInfoDto != null ) {
 				session.setAttribute("sessionStaffInfo", staffInfoDto);
-				return "rediract: ./mainPage";
+				return "redirect: ./mainPage";
 			}else{
-				return "rediract: ./loginPage";
+				return "redirect: ./loginPage";
 			}
 			
 			
@@ -40,7 +40,7 @@ public class StaffController {
 		}
 		
 		@RequestMapping("mainPage")
-		public String mainPage(int student_pk) {
+		public String mainPage() {
 			
 			
 			return "staff/mainPage";

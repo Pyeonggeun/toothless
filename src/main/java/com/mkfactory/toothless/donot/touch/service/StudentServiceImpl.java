@@ -14,7 +14,7 @@ public class StudentServiceImpl {
 	
 	public StudentInfoDto loginByStudentIdAndPassword(StudentInfoDto studentInfoDto){
 		
-		return studentSqlMapper.selectByIdAndPassword(studentInfoDto);
+		return studentSqlMapper.selectStudentByIdAndPassword(studentInfoDto);
 		
 	}
 }

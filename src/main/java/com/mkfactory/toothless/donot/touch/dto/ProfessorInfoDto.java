@@ -2,7 +2,7 @@ package com.mkfactory.toothless.donot.touch.dto;
 
 import java.util.Date;
 
-public class ProfessorInfo {
+public class ProfessorInfoDto {
 	private int professor_pk;
 	private int department_pk;
 	private String professor_id;
@@ -16,10 +16,10 @@ public class ProfessorInfo {
 	private String email;
 	private Date entered_at;
 	private Date created_at;
-	public ProfessorInfo() {
+	public ProfessorInfoDto() {
 		super();
 	}
-	public ProfessorInfo(int professor_pk, int department_pk, String professor_id, String password, String name,
+	public ProfessorInfoDto(int professor_pk, int department_pk, String professor_id, String password, String name,
 			String resident_id, Date birth, String gender, String address, String phone, String email, Date entered_at,
 			Date created_at) {
 		super();

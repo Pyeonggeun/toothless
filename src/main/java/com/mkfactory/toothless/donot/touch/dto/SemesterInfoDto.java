@@ -2,15 +2,15 @@ package com.mkfactory.toothless.donot.touch.dto;
 
 import java.util.Date;
 
-public class SemesterInfo {
+public class SemesterInfoDto {
 	private int semester_pk;
 	private int semester_year;
 	private int semester;
 	private Date created_at;
-	public SemesterInfo() {
+	public SemesterInfoDto() {
 		super();
 	}
-	public SemesterInfo(int semester_pk, int semester_year, int semester, Date created_at) {
+	public SemesterInfoDto(int semester_pk, int semester_year, int semester, Date created_at) {
 		super();
 		this.semester_pk = semester_pk;
 		this.semester_year = semester_year;

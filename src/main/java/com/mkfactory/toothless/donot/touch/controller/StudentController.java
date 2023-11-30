@@ -30,17 +30,18 @@ public class StudentController {
 		
 		if( studentInfoDto != null ) {
 			session.setAttribute("sessionStudentInfo", studentInfoDto);
-			return "rediract: ./mainPage";
+			
+			return "redirect:./mainPage";
+			
 		}else{
-			return "rediract: ./loginPage";
+			
+			return "redirect:./loginPage";
 		}
-		
-		
 		
 	}
 	
 	@RequestMapping("mainPage")
-	public String mainPage(int student_pk) {
+	public String mainPage() {
 		
 		
 		return "student/mainPage";

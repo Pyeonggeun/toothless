@@ -4,7 +4,7 @@
 
 <mapper namespace="com.mkfactory.toothless.donot.touch.mapper.StaffSqlMapper">
 
-	<select id="selectByIdAndPassword" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
+	<select id="selectStaffByIdAndPassword" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
 		SELECT * FROM staff_info
 		WHERE staff_id = #{staff_id}
 		AND password = #{password}
