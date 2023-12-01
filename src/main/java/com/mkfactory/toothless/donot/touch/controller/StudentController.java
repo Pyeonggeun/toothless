@@ -31,15 +31,12 @@ public class StudentController {
 		
 		StudentInfoDto studentInfoDto = studentService.loginByStudentIdAndPassword(params);
 		
-		if( studentInfoDto != null ) {
-			session.setAttribute("sessionStudentInfo", studentInfoDto);
-			
-			return "redirect:./mainPage";
-			
-		}else{
-			
+		if( studentInfoDto == null ) {
 			return "redirect:./loginPage";
 		}
+		session.setAttribute("sessionStudentInfo", studentInfoDto);
+		
+		return "redirect:./mainPage";
 		
 	}
 	
