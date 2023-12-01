@@ -27,13 +27,13 @@ public class ProfessorController {
 		
 		ProfessorInfoDto professorInfo = professorService.loginByProfessorIdAndPassword(params);
 		
-		if( professorInfo != null ) {
-			session.setAttribute("sessionProfessorInfo", professorInfo);
-			return "redirect: ./mainPage";
-		}else{
+		if( professorInfo == null ) {
 			return "redirect: ./loginPage";
 		}
+			
+		session.setAttribute("sessionProfessorInfo", professorInfo);
 		
+		return "redirect: ./mainPage";
 		
 		
 	}
