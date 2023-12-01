@@ -37,86 +37,501 @@
     </head>
     <body>
         <div class="container-fluid">
-            <div class="row mt-3">
+            <div class="row">
                 <div class="col">
                     <div class="row text-center">
                         <div class="col-4"></div>
                         <div class="col-1 pe-2 text-end">
-                            <img src="../imgForAcademy/logo_black.png" alt="" style="height: 4em;">
+                            <img src="../resources/img/another/logo_black.png" alt="" style="height: 4em;">
                         </div>
                         <div class="col-3 ps-0 fw-bold fs-1 text-start ">
-                            MK University<span class="fs-6"> | </span> <span class="fs-5">포털사이트</span> 
+                            MK University<span class="fs-6"> | </span> <span class="fs-5">학생포털사이트</span> 
                         </div>
                         <div class="col-2"></div>
-                        <div class="col-1 border-end border-secondary text-end fs-s text-secondary mt-5">
+                        <div class="col-1 border-end border-secondary text-end text-secondary mt-5" style="font-size: small">
                             포털이용안내
                         </div>
-                        <div class="col-1 text-start fs-s text-secondary mt-5">
+                        <div class="col-1 text-start text-secondary mt-5 "style="font-size: small">
                             로그아웃
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row mt-1 text-center bg-main py-2 fw-bold text-light">
+            <div class="row text-center py-1 fw-bold text-light" style="background-color: #133369">
                 <div class="col-2"></div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">현장실습 센터</a>
+                    <a class="navbar-brand" href="./mainpage">현장실습 지원 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">취업<i class="bi bi-dot"></i>창업 센터</a>
+                    <a class="navbar-brand" href="./mainpage">취업<i class="bi bi-dot"></i>창업 지원 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">학생상담 센터</a>
+                    <a class="navbar-brand" href="./mainpage">상담 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">생활관 센터</a>
+                    <a class="navbar-brand" href="./mainpage">생활관 관리 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">학생보건 센터</a>
+                    <a class="navbar-brand" href="../tl_b_views/common/studentMainPage">보건 센터</a>
                 </div>
                 <div class="col-3">    
                     <form class="d-flex ps-5" role="search">
-                        <input class="form-control me-2" type="search" placeholder="검색어 입력" aria-label="Search">
-                        <button class="btn btn-outline-light" type="submit">Search</button>
+                        <input class="form-control me-2 py-0" type="search" placeholder="검색어 입력" aria-label="Search">
+                        <button class="btn btn-outline-light py-0" type="submit">Search</button>
                     </form>    
                 </div>
                 <div class="col-1"></div>
             </div>
-            <div class="row mt-3">
-                <div class="col-2">
-                    <div class="row border border-2">
-                        <div class="col">
-                       		<a></a>
-                        </div>
+             <div class="row mt-5">
+                <div class="col ms-5">
+                    <div class="row">
+                        <form action="./studentRegisterProcess" method="get" >
+                            <div class="col border border-2 align-self-center py-3 px-3 text-end">
+                                <div class="row">
+                                    <div class="col fs-3 fw-bold text-center">
+                                        학생 등록
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-3 fw-bold ">
+                                        학과명:
+                                    </div>
+                                    <div class="col">
+                                        <select name="department_pk" class="form-select form-select-sm border-black" aria-label=".form-select-sm example">
+                                                <option selected>학과 선택</option>
+                                                <c:forEach items="${listMap.departmentList }" var="department">
+                                      	          	<option value="${department.department_pk }">${department.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        지도교수:
+                                    </div>
+                                    <div class="col">
+                                        <select name="professor_pk" class="form-select form-select-sm border-black" aria-label=".form-select-sm example">
+                                            <option selected>지도교수 선택</option>
+                                            <c:forEach items="${listMap.professorList }" var="professor">
+                                      	          	<option value="${professor.professor_pk }">${professor.name}</option>
+                                                </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        ID(학번): 
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="student_id" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        PW:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="password" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        이름:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="name" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        학년:
+                                    </div>
+                                    <div class="col-4">
+                                        <input class="form-control border-black py-0" name="semester_count" type="number" min="1" max="4"> 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        평균 학점:
+                                    </div>
+                                    <div class="col-4">
+                                        <input class="form-control border-black py-0" name="scoreAVG" type="number" step="0.5" min="0" max="4.5"> 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        주민번호:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="resident_id" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        생년월일: 
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="birth" type="date" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        성별: 
+                                    </div>
+                                    <div class="col text-center">
+                                        <input name="gender" type="radio" value="M"> 남  
+                                    </div>
+                                    <div class="col text-center">
+                                        <input name="gender" type="radio" value="F"> 여
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        주소:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="address" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        전화번호:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="phone" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        e-mail:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="email" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <div class="col-3 fw-bold">
+                                        졸업여부:
+                                    </div>
+                                    <div class="col text-start">
+                                        <input name="graduation" type="checkbox" value="1" ><span class="text-danger"> *</span> 필요한 경우만  체크
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-2"></div>
+                                    <div class="col">
+                                        <button class="btn btn-primary form-control">등록</button>
+                                    </div>
+                                    <div class="col-2"></div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col">
                     <div class="row">
-                        <div class="col text-end">
-                            <img src="../resources/img/another/iu1.png" alt="" style="height: 8em;">
-                        </div>
-                        <div class="col text-center fs-1 fw-bold">
-                            서울민규 대학교 총장님 말씀
-                        </div>
-                        <div class="col text-start">
-                            <img src="../resources/img/another/iu2.png" alt=""style="height: 8em;">
-                        </div>
+                        <form action="./registerProcess">
+                            <div class="col border border-2 align-self-center py-3 px-3 text-end">
+                                <div class="row">
+                                    <div class="col fs-3 fw-bold text-center">
+                                        교직원 등록
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-3 fw-bold ">
+                                        학과명:
+                                    </div>
+                                    <div class="col">
+                                        <select name="department_pk" class="form-select form-select-sm border-black" aria-label=".form-select-sm example">
+                                                <option selected>학과 선택</option>
+                                                <option value="1">군사학과</option>
+                                                <option value="2">간호학과</option>
+                                                <option value="3">컴퓨터공학과</option>
+                                                <option value="4">심리학과</option>
+                                                <option value="5">사회복지과</option>
+                                                <option value="6">미디어학과</option>
+                                                <option value="7">안경광학</option>
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        지도교수:
+                                    </div>
+                                    <div class="col">
+                                        <select name="professor_pk" class="form-select form-select-sm border-black" aria-label=".form-select-sm example">
+                                            <option selected>학과 선택</option>
+                                            <option value="1">군사학과</option>
+                                            <option value="2">간호학과</option>
+                                            <option value="3">컴퓨터공학과</option>
+                                            <option value="4">심리학과</option>
+                                            <option value="5">사회복지과</option>
+                                            <option value="6">미디어학과</option>
+                                            <option value="7">안경광학</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        ID(학번): 
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="student_id" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        PW:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="password" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        이름:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="name" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        학년:
+                                    </div>
+                                    <div class="col-4">
+                                        <input class="form-control border-black py-0" name="semester_count" type="number" min="1" max="4"> 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        평균 학점:
+                                    </div>
+                                    <div class="col-4">
+                                        <input class="form-control border-black py-0" name="total_score" type="number" step="0.5" min="0" max="4.5"> 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        주민번호:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="resident_id" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        생년월일: 
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="birth" type="date" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        성별: 
+                                    </div>
+                                    <div class="col text-center">
+                                        <input name="gender" type="radio" value="M"> 남  
+                                    </div>
+                                    <div class="col text-center">
+                                        <input name="gender" type="radio" value="F"> 여
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        주소:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="address" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        전화번호:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="phone" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        e-mail:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="email" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <div class="col-3 fw-bold">
+                                        졸업여부:
+                                    </div>
+                                    <div class="col text-start">
+                                        <input name="graduation" type="checkbox" value="1" ><span class="text-danger"> *</span> 필요한 경우만  체크
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-2"></div>
+                                    <div class="col">
+                                        <button class="btn btn-primary form-control">등록</button>
+                                    </div>
+                                    <div class="col-2"></div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
+                </div>
+                <div class="col me-5">
                     <div class="row">
-                        <div class="col text-center">
-                            <img src="../resources/img/another/minkue.png" alt="" style="height: 30em;">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col text-end">
-                            <img src="../resources/img/another/iu3.png" alt="" style="height: 8em;">
-                        </div>
-                        <div class="col text-center fs-2 mt-5">
-                            2차 프로젝트 화이팅~! &gt; _ &lt;
-                        </div>
-                        <div class="col text-start">
-                            <img src="../resources/img/another/iu4.png" alt="" style="height: 8em;">
-                        </div>
+                        <form action="./registerProcess">
+                            <div class="col border border-2 align-self-center py-3 px-3 text-end">
+                                <div class="row">
+                                    <div class="col fs-3 fw-bold text-center">
+                                        학생 등록
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-3 fw-bold ">
+                                        학과명:
+                                    </div>
+                                    <div class="col">
+                                        <select name="department_pk" class="form-select form-select-sm border-black" aria-label=".form-select-sm example">
+                                                <option selected>학과 선택</option>
+                                                <option value="1">군사학과</option>
+                                                <option value="2">간호학과</option>
+                                                <option value="3">컴퓨터공학과</option>
+                                                <option value="4">심리학과</option>
+                                                <option value="5">사회복지과</option>
+                                                <option value="6">미디어학과</option>
+                                                <option value="7">안경광학</option>
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        지도교수:
+                                    </div>
+                                    <div class="col">
+                                        <select name="professor_pk" class="form-select form-select-sm border-black" aria-label=".form-select-sm example">
+                                            <option selected>학과 선택</option>
+                                            <option value="1">군사학과</option>
+                                            <option value="2">간호학과</option>
+                                            <option value="3">컴퓨터공학과</option>
+                                            <option value="4">심리학과</option>
+                                            <option value="5">사회복지과</option>
+                                            <option value="6">미디어학과</option>
+                                            <option value="7">안경광학</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        ID(학번): 
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="student_id" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        PW:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="password" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        이름:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="name" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        학년:
+                                    </div>
+                                    <div class="col-4">
+                                        <input class="form-control border-black py-0" name="semester_count" type="number" min="1" max="4"> 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        평균 학점:
+                                    </div>
+                                    <div class="col-4">
+                                        <input class="form-control border-black py-0" name="scoreAVG" type="number" step="0.5" min="0" max="4.5"> 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        주민번호:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="resident_id" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        생년월일: 
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="birth" type="date" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        성별: 
+                                    </div>
+                                    <div class="col text-center">
+                                        <input name="gender" type="radio" value="M"> 남  
+                                    </div>
+                                    <div class="col text-center">
+                                        <input name="gender" type="radio" value="F"> 여
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        주소:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="address" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        전화번호:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="phone" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-3 fw-bold">
+                                        e-mail:
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control border-black py-0" name="email" type="text" > 
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <div class="col-3 fw-bold">
+                                        졸업여부:
+                                    </div>
+                                    <div class="col text-start">
+                                        <input name="graduation" type="checkbox" ><span class="text-danger"> *</span> 필요한 경우만  체크
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-2"></div>
+                                    <div class="col">
+                                        <button class="btn btn-primary form-control">등록</button>
+                                    </div>
+                                    <div class="col-2"></div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
