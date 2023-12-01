@@ -29,26 +29,27 @@ public class ExternalController {
 		ExternalInfoDto externalInfoDto = externalService.loginByExternalIdAndPassword(params);
 		
 		
-		if( externalInfoDto != null ) {
-			session.setAttribute("sessionExternalInfo", externalInfoDto);
-			if(externalInfoDto.getExternal_category() == 1) {
-				
-				return "redirect: ./mainPage";
-				
-			}else if(externalInfoDto.getExternal_category() == 2) {
-				
-				return "redirect: ./mainPage";
-			
-			}else if(externalInfoDto.getExternal_category() == 3){
-				
-				return "redirect: ./mainPage";
-			}else {
-				return "redirect: ./loginPage";
-			}
-			
-		}else {
+		if( externalInfoDto == null ) {
 			return "rediract: ./loginPage";
 		}
+		session.setAttribute("sessionExternalInfo", externalInfoDto);
+		if(externalInfoDto.getExternal_category() == 1) {
+				
+			return "redirect: ./mainPage";
+		
+		}else if(externalInfoDto.getExternal_category() == 2) {
+				
+			return "redirect: ./mainPage";
+			
+		}else if(externalInfoDto.getExternal_category() == 3){
+			
+			return "redirect: ./mainPage";
+			
+		}else {
+			
+			return "redirect: ./loginPage";
+		}
+			
 	}
 	
 	@RequestMapping("mainPage")
