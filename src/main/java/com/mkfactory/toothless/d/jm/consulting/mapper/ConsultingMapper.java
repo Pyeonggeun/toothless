@@ -1,5 +1,8 @@
 package com.mkfactory.toothless.d.jm.consulting.mapper;
 
-public interface ConsultingMapper {
+import com.mkfactory.toothless.d.dto.HopeJobDto;
 
+public interface ConsultingMapper {
+	
+	public void insertHopeJobApply(HopeJobDto par);
 }
