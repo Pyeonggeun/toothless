@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="getStudentPk" resultType="int">
-		SELECT tl_jic_tudent_info_seq.nextval FROM dual
+		SELECT tl_jic_student_info_seq.nextval FROM dual
 	</select>
 	
 	<select id="selectDepartmentList" resultType="com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto">
@@ -24,7 +24,7 @@
 	
 	<insert id="insertStudentInfo">
 		INSERT INTO tl_jic_student_info values(
-			#{student_pk}
+			#{student_pk},
 			#{department_pk},
 			#{professor_pk},
 			#{student_id},
@@ -40,6 +40,9 @@
 			sysdate
 		)
 	</insert>
+	<select id="selectCenterList" resultType="com.mkfactory.toothless.donot.touch.dto.CenterCategoryDto">
+		select * from tl_jic_center_category
+	</select>
 	<insert id="insertSemesterInfo">
 		INSERT INTO tl_jic_student_semester VALUES(
 			tl_jic_student_semester_seq.nextval,
@@ -56,6 +59,41 @@
 			#{student_pk},
 			SYSDATE,
 			SYSDATE
+		)
+	</insert>
+	<insert id="insertStaff">
+		INSERT INTO tl_jic_staff_info values(
+			tl_jic_staff_info_seq.nextval,
+			#{center_pk},
+			#{staff_id},
+			#{password},
+			#{name},
+			#{resident_id},
+			#{birth},
+			#{gender},
+			#{address},
+			#{phone},
+			#{email},
+			sysdate,
+			sysdate
+		)
+	</insert>
+	
+	<insert id="insertProfessor">
+		INSERT INTO tl_jic_professor_info values(
+			tl_jic_professor_info_seq.nextval,
+			#{department_pk},
+			#{professor_id},
+			#{password},
+			#{name},
+			#{resident_id},
+			#{birth},
+			#{gender},
+			#{address},
+			#{phone},
+			#{email},
+			sysdate,
+			sysdate
 		)
 	</insert>
 	
