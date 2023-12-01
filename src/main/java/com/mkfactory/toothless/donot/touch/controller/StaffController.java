@@ -1,12 +1,17 @@
 package com.mkfactory.toothless.donot.touch.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.donot.touch.service.StaffServiceImpl;
 
 @Controller
@@ -40,7 +45,7 @@ public class StaffController {
 				
 			}else if(staffInfoDto.getCenter_pk() == 2){
 				
-				return "redirect: ./mainPage";
+				return "redirect: ./tl_b_views/common/studentMainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 3){
 				
@@ -55,15 +60,27 @@ public class StaffController {
 				return "redirect: ./mainPage";
 				
 			}else{
-				return "redirect: ./mainPage";
+				return "redirect: ./anotherMainPage";
 			}
 		
 		}
 		
-		@RequestMapping("mainPage")
-		public String mainPage() {
+		@RequestMapping("anotherMainPage")
+		public String anotherMainPage(Model model) {
 			
+			Map<String, Object> listMap = staffService.getProfessorAndDepqrtmentList();
 			
-			return "staff/mainPage";
+			model.addAttribute("listMap", listMap);
+			
+			return "staff/anotherMainPage";
 		}
+		@RequestMapping("studentRegisterProcess")
+		public String studentRegisterProcess(StudentInfoDto studentInfoDto,int semester_count,int graduation, double scoreAVG) {
+			
+			staffService.insertStudentInfo(studentInfoDto, semester_count, graduation, scoreAVG);
+			
+			return "redirect:./anotherMainPage";
+		}
+		
+		
 }

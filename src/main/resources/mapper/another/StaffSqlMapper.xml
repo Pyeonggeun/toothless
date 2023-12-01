@@ -5,11 +5,59 @@
 <mapper namespace="com.mkfactory.toothless.donot.touch.mapper.StaffSqlMapper">
 
 	<select id="selectStaffByIdAndPassword" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
-		SELECT * FROM staff_info
+		SELECT * FROM tl_jic_staff_info
 		WHERE staff_id = #{staff_id}
 		AND password = #{password}
 	</select>
-
-
+	
+	<select id="getStudentPk" resultType="int">
+		SELECT tl_jic_tudent_info_seq.nextval FROM dual
+	</select>
+	
+	<select id="selectDepartmentList" resultType="com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto">
+		SELECT * FROM tl_jic_department_category
+	</select>
+	
+	<select id="selectProfessorList" resultType="com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto">
+		SELECT * FROM tl_jic_professor_info
+	</select>
+	
+	<insert id="insertStudentInfo">
+		INSERT INTO tl_jic_student_info values(
+			#{student_pk}
+			#{department_pk},
+			#{professor_pk},
+			#{student_id},
+			#{password},
+			#{name},
+			#{resident_id},
+			#{birth},
+			#{gender},
+			#{address},
+			#{phone},
+			#{email},
+			sysdate,
+			sysdate
+		)
+	</insert>
+	<insert id="insertSemesterInfo">
+		INSERT INTO tl_jic_student_semester VALUES(
+			tl_jic_student_semester_seq.nextval,
+			#{semester_pk},
+			#{student_pk},
+			#{total_score},
+			SYSDATE
+		)
+	</insert>
+	
+	<insert id="insertGraduationInfo">
+		INSERT INTO tl_jic_graduation_info VALUES(
+			tl_jic_graduation_info_seq.nextval,
+			#{student_pk},
+			SYSDATE,
+			SYSDATE
+		)
+	</insert>
+	
 	
 </mapper>
