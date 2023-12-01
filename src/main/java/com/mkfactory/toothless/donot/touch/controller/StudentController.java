@@ -49,4 +49,6 @@ public class StudentController {
 		 
 		return "student/mainPage";
 	}
+
+	
 }
