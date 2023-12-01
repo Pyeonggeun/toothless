@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/tl_b/common/*")
-public class CommonController {
+public class HealthRoomCommonController {
 	
 	@RequestMapping("studentMainPage")
 	public String studentMainPage() {

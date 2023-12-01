@@ -102,7 +102,7 @@
                                                 <c:forEach items="${listMap.departmentList }" var="department">
                                       	          	<option value="${department.department_pk }">${department.name}</option>
                                                 </c:forEach>
-                                            </select>
+                                         </select>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -230,7 +230,7 @@
                 </div>
                 <div class="col">
                     <div class="row">
-                        <form action="./registerProcess">
+                        <form action="./staffRegisterProcess">
                             <div class="col border border-2 align-self-center py-3 px-3 text-end">
                                 <div class="row">
                                     <div class="col fs-3 fw-bold text-center">
@@ -239,44 +239,23 @@
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-3 fw-bold ">
-                                        학과명:
+                                        센터명:
                                     </div>
                                     <div class="col">
-                                        <select name="department_pk" class="form-select form-select-sm border-black" aria-label=".form-select-sm example">
-                                                <option selected>학과 선택</option>
-                                                <option value="1">군사학과</option>
-                                                <option value="2">간호학과</option>
-                                                <option value="3">컴퓨터공학과</option>
-                                                <option value="4">심리학과</option>
-                                                <option value="5">사회복지과</option>
-                                                <option value="6">미디어학과</option>
-                                                <option value="7">안경광학</option>
-                                            </select>
+                                          <select name="center_pk" class="form-select form-select-sm border-black" aria-label=".form-select-sm example">
+                                                <option selected>직책 선택</option>
+                                                <c:forEach items="${listMap.centerList }" var="center">
+                                      	          	<option value="${center.center_pk }">${center.position}</option>
+                                                </c:forEach>
+                                         </select>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-3 fw-bold">
-                                        지도교수:
+                                        ID(사번): 
                                     </div>
                                     <div class="col">
-                                        <select name="professor_pk" class="form-select form-select-sm border-black" aria-label=".form-select-sm example">
-                                            <option selected>학과 선택</option>
-                                            <option value="1">군사학과</option>
-                                            <option value="2">간호학과</option>
-                                            <option value="3">컴퓨터공학과</option>
-                                            <option value="4">심리학과</option>
-                                            <option value="5">사회복지과</option>
-                                            <option value="6">미디어학과</option>
-                                            <option value="7">안경광학</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-3 fw-bold">
-                                        ID(학번): 
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control border-black py-0" name="student_id" type="text" > 
+                                        <input class="form-control border-black py-0" name="staff_id" type="text" > 
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -293,22 +272,6 @@
                                     </div>
                                     <div class="col">
                                         <input class="form-control border-black py-0" name="name" type="text" > 
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-3 fw-bold">
-                                        학년:
-                                    </div>
-                                    <div class="col-4">
-                                        <input class="form-control border-black py-0" name="semester_count" type="number" min="1" max="4"> 
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-3 fw-bold">
-                                        평균 학점:
-                                    </div>
-                                    <div class="col-4">
-                                        <input class="form-control border-black py-0" name="total_score" type="number" step="0.5" min="0" max="4.5"> 
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -360,14 +323,6 @@
                                     </div>
                                     <div class="col">
                                         <input class="form-control border-black py-0" name="email" type="text" > 
-                                    </div>
-                                </div>
-                                <div class="row mt-5">
-                                    <div class="col-3 fw-bold">
-                                        졸업여부:
-                                    </div>
-                                    <div class="col text-start">
-                                        <input name="graduation" type="checkbox" value="1" ><span class="text-danger"> *</span> 필요한 경우만  체크
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -383,11 +338,11 @@
                 </div>
                 <div class="col me-5">
                     <div class="row">
-                        <form action="./registerProcess">
+                        <form action="./professorRegisterProcess">
                             <div class="col border border-2 align-self-center py-3 px-3 text-end">
                                 <div class="row">
                                     <div class="col fs-3 fw-bold text-center">
-                                        학생 등록
+                                        교수 등록
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -395,41 +350,20 @@
                                         학과명:
                                     </div>
                                     <div class="col">
-                                        <select name="department_pk" class="form-select form-select-sm border-black" aria-label=".form-select-sm example">
-                                                <option selected>학과 선택</option>
-                                                <option value="1">군사학과</option>
-                                                <option value="2">간호학과</option>
-                                                <option value="3">컴퓨터공학과</option>
-                                                <option value="4">심리학과</option>
-                                                <option value="5">사회복지과</option>
-                                                <option value="6">미디어학과</option>
-                                                <option value="7">안경광학</option>
-                                            </select>
+                                         <select name="department_pk" class="form-select form-select-sm border-black" aria-label=".form-select-sm example">
+                                               <option selected>학과 선택</option>
+                                                <c:forEach items="${listMap.departmentList }" var="department">
+                                      	          	<option value="${department.department_pk }">${department.name}</option>
+                                                </c:forEach>
+                                         </select>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-3 fw-bold">
-                                        지도교수:
+                                        ID(사번): 
                                     </div>
                                     <div class="col">
-                                        <select name="professor_pk" class="form-select form-select-sm border-black" aria-label=".form-select-sm example">
-                                            <option selected>학과 선택</option>
-                                            <option value="1">군사학과</option>
-                                            <option value="2">간호학과</option>
-                                            <option value="3">컴퓨터공학과</option>
-                                            <option value="4">심리학과</option>
-                                            <option value="5">사회복지과</option>
-                                            <option value="6">미디어학과</option>
-                                            <option value="7">안경광학</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-3 fw-bold">
-                                        ID(학번): 
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control border-black py-0" name="student_id" type="text" > 
+                                        <input class="form-control border-black py-0" name="professor_id" type="text" > 
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -446,22 +380,6 @@
                                     </div>
                                     <div class="col">
                                         <input class="form-control border-black py-0" name="name" type="text" > 
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-3 fw-bold">
-                                        학년:
-                                    </div>
-                                    <div class="col-4">
-                                        <input class="form-control border-black py-0" name="semester_count" type="number" min="1" max="4"> 
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-3 fw-bold">
-                                        평균 학점:
-                                    </div>
-                                    <div class="col-4">
-                                        <input class="form-control border-black py-0" name="scoreAVG" type="number" step="0.5" min="0" max="4.5"> 
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -513,14 +431,6 @@
                                     </div>
                                     <div class="col">
                                         <input class="form-control border-black py-0" name="email" type="text" > 
-                                    </div>
-                                </div>
-                                <div class="row mt-5">
-                                    <div class="col-3 fw-bold">
-                                        졸업여부:
-                                    </div>
-                                    <div class="col text-start">
-                                        <input name="graduation" type="checkbox" ><span class="text-danger"> *</span> 필요한 경우만  체크
                                     </div>
                                 </div>
                                 <div class="row mt-3">

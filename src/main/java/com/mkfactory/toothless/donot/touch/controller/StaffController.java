@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
+import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.donot.touch.service.StaffServiceImpl;
@@ -75,9 +78,27 @@ public class StaffController {
 			return "staff/anotherMainPage";
 		}
 		@RequestMapping("studentRegisterProcess")
-		public String studentRegisterProcess(StudentInfoDto studentInfoDto,int semester_count,int graduation, double scoreAVG) {
+		public String studentRegisterProcess(StudentInfoDto studentInfoDto,
+				int semester_count,
+				@RequestParam(required = false, defaultValue="0")
+				int graduation,
+				double scoreAVG) {
 			
 			staffService.insertStudentInfo(studentInfoDto, semester_count, graduation, scoreAVG);
+			
+			return "redirect:./anotherMainPage";
+		}
+		@RequestMapping("staffRegisterProcess")
+		public String staffRegisterProcess(StaffInfoDto staffInfoDto) {
+			
+			staffService.insertStaffInfo(staffInfoDto);
+			
+			return "redirect:./anotherMainPage";
+		}
+		@RequestMapping("professorRegisterProcess")
+		public String professorRegisterProcess(ProfessorInfoDto professorInfoDto) {
+			
+			staffService.insertProfessorInfo(professorInfoDto);
 			
 			return "redirect:./anotherMainPage";
 		}
