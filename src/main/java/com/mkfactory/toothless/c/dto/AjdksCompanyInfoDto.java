@@ -1,6 +1,6 @@
 package com.mkfactory.toothless.c.dto;
 
-public class AjdksCompanyInfo {
+public class AjdksCompanyInfoDto {
 	
 	public int company_pk;
 	public int company_category_pk;
