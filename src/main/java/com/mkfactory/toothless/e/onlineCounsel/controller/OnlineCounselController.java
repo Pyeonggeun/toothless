@@ -16,15 +16,3 @@ public class OnlineCounselController {
 	
 	
 }
-
-//@Controller
-//@RequestMapping("/tl_b/common/*")
-//public class CommonController {
-//	
-//	@RequestMapping("studentMainPage")
-//	public String studentMainPage() {
-//		
-//		return "tl_b/common/studentMainPage";
-//	}
-//
-//}
