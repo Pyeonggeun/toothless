@@ -4,15 +4,17 @@ import java.util.Date;
 
 public class StudentSemesterDto {
 	private int student_semester_pk;
+	private int semester_pk;
 	private int student_pk;
 	private double total_score;
 	private Date created_at;
 	public StudentSemesterDto() {
 		super();
 	}
-	public StudentSemesterDto(int student_semester_pk, int student_pk, double total_score, Date created_at) {
+	public StudentSemesterDto(int student_semester_pk,int semester_pk, int student_pk, double total_score, Date created_at) {
 		super();
 		this.student_semester_pk = student_semester_pk;
+		this.semester_pk = semester_pk;
 		this.student_pk = student_pk;
 		this.total_score = total_score;
 		this.created_at = created_at;
@@ -22,6 +24,13 @@ public class StudentSemesterDto {
 	}
 	public void setStudent_semester_pk(int student_semester_pk) {
 		this.student_semester_pk = student_semester_pk;
+	}
+	
+	public int getSemester_pk() {
+		return semester_pk;
+	}
+	public void setSemester_pk(int semester_pk) {
+		this.semester_pk = semester_pk;
 	}
 	public int getStudent_pk() {
 		return student_pk;
