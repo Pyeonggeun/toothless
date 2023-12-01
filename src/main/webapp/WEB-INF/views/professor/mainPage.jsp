@@ -48,31 +48,31 @@
                             MK University<span class="fs-6"> | </span> <span class="fs-5">학생포털사이트</span> 
                         </div>
                         <div class="col-2"></div>
-                        <div class="col-1 border-end border-secondary text-end fs-s text-secondary mt-5">
+                        <div class="col-1 border-end border-secondary text-end text-secondary mt-5"style="font-size: small">
                             포털이용안내
                         </div>
-                        <div class="col-1 text-start fs-s text-secondary mt-5">
+                        <div class="col-1 text-start text-secondary mt-5" style="font-size: small">
                             로그아웃
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row text-center bg-main py-1 fw-bold text-light">
+            <div class="row text-center py-1 fw-bold text-light" style="background-color: #133369">
                 <div class="col-2"></div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">현장실습 센터</a>
+                    <a class="navbar-brand" href="./mainpage">현장실습 지도 관리</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">취업<i class="bi bi-dot"></i>창업 센터</a>
+                    <a class="navbar-brand" href="./mainpage">산학협력 연구</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">학생상담 센터</a>
+                    <a class="navbar-brand" href="./mainpage">보건 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">생활관 센터</a>
+                    <a class="navbar-brand" href="./mainpage">지도학생 관리</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">학생보건 센터</a>
+                    <a class="navbar-brand" href="./mainpage">학과 홈페이지</a>
                 </div>
                 <div class="col-3">    
                     <form class="d-flex ps-5" role="search">

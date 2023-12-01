@@ -13,9 +13,7 @@
                 font-family: 'Noto Sans KR', sans-serif;
                 font-family: 'Roboto Mono', monospace;
             }
-            .bg-main{
-                background-color: #133369;
-            }
+
             .text-main{
                 color: rgb(0, 0, 255);
             }
@@ -42,22 +40,22 @@
                     <div class="row text-center">
                         <div class="col-4"></div>
                         <div class="col-1 pe-2 text-end">
-                            <img src="../imgForAcademy/logo_black.png" alt="" style="height: 4em;">
+                            <img src="../resources/img/another/logo_black.png" alt="" style="height: 4em;">
                         </div>
                         <div class="col-3 ps-0 fw-bold fs-1 text-start ">
                             MK University<span class="fs-6"> | </span> <span class="fs-5">학생포털사이트</span> 
                         </div>
                         <div class="col-2"></div>
-                        <div class="col-1 border-end border-secondary text-end fs-s text-secondary mt-5">
+                        <div class="col-1 border-end border-secondary text-end text-secondary mt-5" style="font-size: small">
                             포털이용안내
                         </div>
-                        <div class="col-1 text-start fs-s text-secondary mt-5">
+                        <div class="col-1 text-start text-secondary mt-5 "style="font-size: small">
                             로그아웃
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row text-center bg-main py-1 fw-bold text-light">
+            <div class="row text-center py-1 fw-bold text-light" style="background-color: #133369">
                 <div class="col-2"></div>
                 <div class="col align-self-center">
                     <a class="navbar-brand" href="./mainpage">현장실습 센터</a>

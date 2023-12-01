@@ -12,5 +12,4 @@ public interface StudentSqlMapper {
 	
 	public int selectGraduationInfo(int student_pk);
 	
-	public int getStudentPk();
 }
