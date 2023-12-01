@@ -6,7 +6,7 @@
 
 <insert id="insertHopeJobApply">
 	INSERT INTO tl_d_hope_job values(
-	tl_d_hope_job_seq,
+	tl_d_hope_job_seq.nextval,
 	#{student_pk},
 	#{hope_salary},
 	#{hope_area},
