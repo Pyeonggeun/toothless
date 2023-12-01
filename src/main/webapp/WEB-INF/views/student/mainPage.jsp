@@ -58,19 +58,19 @@
             <div class="row text-center py-1 fw-bold text-light" style="background-color: #133369">
                 <div class="col-2"></div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">현장실습 센터</a>
+                    <a class="navbar-brand" href="./mainpage">현장실습 지원 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">취업<i class="bi bi-dot"></i>창업 센터</a>
+                    <a class="navbar-brand" href="./mainpage">취업<i class="bi bi-dot"></i>창업 지원 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">학생상담 센터</a>
+                    <a class="navbar-brand" href="./mainpage">상담 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">생활관 센터</a>
+                    <a class="navbar-brand" href="./mainpage">생활관 관리 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">학생보건 센터</a>
+                    <a class="navbar-brand" href="./mainpage">보건 센터</a>
                 </div>
                 <div class="col-3">    
                     <form class="d-flex ps-5" role="search">
@@ -89,7 +89,7 @@
                                     이름 : ${sessionStudentInfo.name }
                                 </div>
                                 <div class="col">
-                                    ${studentOtherInfo.departmentName } ${studentOtherInfo.studentYear } 학년
+                                    ${studentOtherInfo.departmentName } <c:if test="${studentOtherInfo.graduationInfo == 0 }">${studentOtherInfo.studentYear } 학년</c:if> 
                                 </div>
                             </div>
                             <div class="row">
