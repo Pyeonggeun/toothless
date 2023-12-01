@@ -6,12 +6,12 @@
 
 <insert id="insertHopeJobApply">
 	INSERT INTO tl_d_hope_job values(
-	999,
-	999,
-	999,
-	'강남',
-	'베라',
-	'N',
+	tl_d_hope_job_seq,
+	#{student_pk},
+	#{hope_salary},
+	#{hope_area},
+	#{requierments},
+	#{is_end_hope_job},
 	sysdate
 	)
 </insert>
