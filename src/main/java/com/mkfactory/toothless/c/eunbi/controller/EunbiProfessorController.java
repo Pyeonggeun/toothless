@@ -1,4 +1,4 @@
-package com.mkfactory.toothless.c.eunbi;
+package com.mkfactory.toothless.c.eunbi.controller;
 
 import org.springframework.stereotype.Controller;
 
