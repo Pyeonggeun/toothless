@@ -44,7 +44,7 @@ public class StaffController {
 			session.setAttribute("sessionStaffInfo", staffInfoDto);
 			if(staffInfoDto.getCenter_pk() == 1) {
 				
-				return "redirect: ./mainPage";
+				return "redirect: ../tl_c/woojae/ajdksSraffMainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 2){
 				
