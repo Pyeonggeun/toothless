@@ -5,12 +5,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/tl_b/common/*")
-public class CommonController {
+public class HealthRoomCommonController {
 	
 	@RequestMapping("studentMainPage")
 	public String studentMainPage() {
 		
 		return "tl_b/common/studentMainPage";
+	}
+	
+	@RequestMapping("staffMainPage")
+	public String staffMainPage() {
+		
+		return "tl_b/common/staffMainPage";
 	}
 
 }

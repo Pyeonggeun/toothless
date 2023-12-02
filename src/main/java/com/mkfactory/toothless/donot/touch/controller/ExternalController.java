@@ -43,7 +43,7 @@ public class ExternalController {
 			
 		}else if(externalInfoDto.getExternal_category() == 3){
 			
-			return "redirect: ./mainPage";
+			return "redirect: ../tl_e/commons/counselorCounselMainPage";
 			
 		}else {
 			

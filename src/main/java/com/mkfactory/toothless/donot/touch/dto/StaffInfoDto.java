@@ -2,6 +2,8 @@ package com.mkfactory.toothless.donot.touch.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class StaffInfoDto {
 	private int staff_pk;
 	private int center_pk;
@@ -9,6 +11,7 @@ public class StaffInfoDto {
 	private String password;
 	private String name;
 	private String resident_id;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
 	private String gender;
 	private String address;

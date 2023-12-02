@@ -2,6 +2,7 @@ package com.mkfactory.toothless.donot.touch.mapper;
 
 import java.util.List;
 
+import com.mkfactory.toothless.donot.touch.dto.CenterCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
@@ -20,5 +21,9 @@ public interface StaffSqlMapper {
 	public void insertSemesterInfo(StudentSemesterDto suSemesterDto);
 	public void insertGraduationInfo(int student_pk);
 	
+	public List<CenterCategoryDto> selectCenterList();
+	
+	public void insertProfessor(ProfessorInfoDto professorInfoDto);
+	public void insertStaff(StaffInfoDto staffInfoDto);
 	
 }
