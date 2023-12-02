@@ -4,4 +4,13 @@
 
 <mapper namespace="com.mkfactory.toothless.b.hn.clinic.mapper.ClinicSqlMapper">
 	
+	<select id="getAllClinicPatientInfoList" resultType="com.mkfactory.toothless.b.dto.ClinicPatientDto">
+		SELECT * FROM (
+			SELECT cpi.*, rownum rnum FROM tl_b_clinic_patient_info cpi	
+		)t1
+		<![CDATA[
+			WHERE t1.rnum <= 20
+		]]>
+	</select>
+	
 </mapper>
