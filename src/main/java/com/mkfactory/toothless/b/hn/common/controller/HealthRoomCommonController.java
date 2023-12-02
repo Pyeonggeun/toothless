@@ -12,5 +12,11 @@ public class HealthRoomCommonController {
 		
 		return "tl_b/common/studentMainPage";
 	}
+	
+	@RequestMapping("staffMainPage")
+	public String staffMainPage() {
+		
+		return "tl_b/common/staffMainPage";
+	}
 
 }
