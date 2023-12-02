@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mkfactory.toothless.donot.touch.dto.CenterCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.GraduationInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
@@ -53,11 +54,23 @@ public class StaffServiceImpl {
 		
 		List<ProfessorInfoDto> professorList = staffSqlMapper.selectProfessorList();
 		List<DepartmentCategoryDto> departmentList = staffSqlMapper.selectDepartmentList();
+		List<CenterCategoryDto> centerList = staffSqlMapper.selectCenterList();
 		
 		map.put("professorList", professorList);
 		map.put("departmentList", departmentList);
+		map.put("centerList", centerList);
 		
 		return map;
 		
+	}
+	
+	public void insertStaffInfo(StaffInfoDto staffInfoDto) {
+		
+		staffSqlMapper.insertStaff(staffInfoDto);
+		
+	}
+	public void insertProfessorInfo(ProfessorInfoDto professorInfoDto) {
+		
+		staffSqlMapper.insertProfessor(professorInfoDto);
 	}
 }
