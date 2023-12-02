@@ -22,6 +22,12 @@ public class StaffboardController {
 		
 		return "tl_b/dy/writeTextPage";
 	}
-	
+	//글 작성 프로세스
+	@RequestMapping("writeTextProcess")
+	public String writeTextProcess() {
+		
+		
+		return "redirect:./staffNoticeboardPage";
+	}
 	
 }

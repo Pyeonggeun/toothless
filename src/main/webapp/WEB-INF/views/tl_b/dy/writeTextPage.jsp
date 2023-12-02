@@ -216,8 +216,10 @@
                                 </div>
                                 <div class="col">
                                     <h1>작성 글 쓰기</h1>
-                                    <form action="./writeTextCompletePage" method="post">
+                                    <form action="./writeTextProcess" method="post">
                                     제목 <input type="text">
+                                    <br>
+                                    작성자 <!-- 로그인 했을 때, 작성자 이름 노출 -->
                                     <br>
                                     내용 <br>
                                     <textarea rows='20' cols='60'></textarea>
