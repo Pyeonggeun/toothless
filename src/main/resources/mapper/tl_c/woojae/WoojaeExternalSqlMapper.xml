@@ -4,8 +4,10 @@
 
 
 
-<mapper namespace="com.mkfactory.toothless.c.woojae.mapper.WoojaeExternalMapper">
+<mapper namespace="com.mkfactory.toothless.c.woojae.mapper.WoojaeExternalSqlMapper">
 
-
+	<select id="selectCompanyCategoryList" resultType="com.mkfactory.toothless.c.dto.AjdksCompanyCategoryDto">
+		SELECT * FROM tl_c_company_category ORDER BY company_category_pk ASC
+	</select>
 
 </mapper>
