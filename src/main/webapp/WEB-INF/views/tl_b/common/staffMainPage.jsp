@@ -22,8 +22,10 @@
                         <div class="col">
                             <div class="row border-bottom">
                                 <div class="col py-2 fw-bold">
-                                    <img class="img-fluid" src="../../resources/img/another/logo_black.png" style="width: 2%;">
-                                    <span style="font-size: 1.1em; word-spacing: -0.25em">MK University</span>&nbsp;|<span style="font-size: 0.75em"> 보건센터</span>
+                                    <a href="./staffMainPage" class="link-underline link-underline-opacity-0 link-dark">
+                                    	<img class="img-fluid" src="../../resources/img/another/logo_black.png" style="width: 2%;">
+                                    	<span style="font-size: 0.95em; word-spacing: -0.25em">MK University</span>&nbsp;|<span style="font-size: 0.75em"> 보건센터</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -99,14 +101,16 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-ui-checks"></i>&nbsp;&nbsp;진료관리
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
+                                                            <p class="mb-0">
+                                                                <a class="d-grid link-underline link-underline-opacity-0" href="../hn/clinicPage">
+                                                               		<button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button">
+	                                                                    <div class="row py-2 mx-1">
+	                                                                        <div class="col text-start">
+	                                                                            <i class="bi bi-ui-checks"></i>&nbsp;&nbsp;진료관리
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </button>
+                                                                </a>
                                                             </p>
                                                         </div>
                                                     </div>
@@ -613,7 +617,7 @@
                                                             </div>
                                                             <div class="row mt-3">
                                                                 <div class="col px-1">
-                                                                    <img class="img-fluid" src="./img/health/1.4.3-3.png" style="width: 100%; aspect-ratio: 4/0.7;">
+                                                                    <img class="img-fluid" src="../../resources/img/healthRoom/chart.png" style="width: 100%; aspect-ratio: 4/0.7;">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -633,10 +637,13 @@
                                     <div class="row" style="margin-left: 16%; margin-right: 16%;">
                                         <div class="col">
                                             <div class="row">
-                                                <div class="col-4 my-auto">
-                                                    <img class="img-fluid" src="./img/health/health_ci.gif">
+                                                <div class="col-1 my-auto">
+                                                    <img class="img-fluid" src="../../resources/img/another/logo_black.png">
                                                 </div>
-                                                <div class="col text-body-tertiary" style="font-size: small;">
+                                                <div class="col-3 ps-0 my-auto" style="font-size: x-large">
+                                                    MK University | 보건센터
+                                                </div>
+                                                <div class="col text-body-tertiary my-auto" style="font-size: small;">
                                                     <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
                                                     <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
                                                 </div>
