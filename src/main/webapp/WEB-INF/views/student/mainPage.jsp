@@ -64,13 +64,13 @@
                     <a class="navbar-brand" href="./mainpage">취업<i class="bi bi-dot"></i>창업 지원 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">상담 센터</a>
+                    <a class="navbar-brand" href="../tl_e/commons/studentCounselMainPage">상담 센터</a>
                 </div>
                 <div class="col align-self-center">
                     <a class="navbar-brand" href="./mainpage">생활관 관리 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="../tl_b_views/common/studentMainPage">보건 센터</a>
+                    <a class="navbar-brand" href="../tl_b/common/studentMainPage">보건 센터</a>
                 </div>
                 <div class="col-3">    
                     <form class="d-flex ps-5" role="search">
