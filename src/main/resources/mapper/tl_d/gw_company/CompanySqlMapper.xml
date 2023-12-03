@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.d.gw.company.mapper.CompanySqlMapper">
+
+	<insert id="insertCompany">
+		INSERT INTO tl_d_company VALUES(
+			tl_d_company_seq.nextval,
+			#{com_manager_pk},
+			#{com_scale_category_pk},
+			#{business_number},
+			#{com_name},
+			#{com_bossname},
+			#{com_address},
+			#{is_family_company},
+			SYSDATE
+		)
+	</insert>
+
+	<insert id="insertCompanyManager">
+		INSERT INTO tl_d_company_manager VALUES(
+			tl_d_company_manager_seq.nextval,
+			#{external_pk},
+			#{com_manager_name},
+			#{com_manager_email},
+			#{com_manager_department},
+			#{com_manager_position},
+			#{com_direct_number},
+			#{com_manager_phone},
+			SYSDATE
+		)
+	</insert>
+	
+	
+
+</mapper>

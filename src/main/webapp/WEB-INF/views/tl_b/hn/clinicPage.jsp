@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,16 +17,18 @@
                 <div class="col">
                     <div class="row">
                         <div class="col px-0">
-                            <img class="img-fluid" src="./img/health/구름.jpg" style="height: 11vh; width: 100%; object-fit: cover; object-position: 50% 43%;">
+                            <img class="img-fluid" src="../../resources/img/healthRoom/staffTopImg.jpg" style="height: 11vh; width: 100%; object-fit: cover; object-position: 50% 43%;">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="row border-bottom">
-                                <div class="col-2 py-3">
-                                    <img class="img-fluid" src="./img/health/health_ci.gif" style="width: 80%;">
+                                <div class="col py-2 fw-bold">
+                                    <a href="../common/staffMainPage" class="link-underline link-underline-opacity-0 link-dark">
+                                    	<img class="img-fluid" src="../../resources/img/another/logo_black.png" style="width: 2%;">
+                                    	<span style="font-size: 0.95em; word-spacing: -0.25em">MK University</span>&nbsp;|<span style="font-size: 0.75em"> 보건센터</span>
+                                    </a>
                                 </div>
-                                <div class="col"></div>
                             </div>
                         </div>
                     </div>
@@ -222,7 +226,7 @@
                                                     <div class="row mt-2">
                                                         <div class="col">
                                                             <div class="input-group mb-3">
-                                                                <input type="text" class="form-control border-0 border-bottom" placeholder="이름 / 생년월일을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2" style="font-size: 0.8em;">
+                                                                <input type="text" class="form-control border-0 border-bottom" placeholder="이름을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2" style="font-size: 0.8em;">
                                                                 <button class="btn btn-transparent rounded-0 border-bottom" type="button" id="button-addon2">
                                                                     <i class="bi bi-search" style="font-size: 0.8em;"></i>
                                                                 </button>
@@ -231,21 +235,24 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <table class="table table-borderless table-hover">
+                                                            <table class="table table-borderless table-hover text-center">
                                                                 <thead style="font-size: 0.75em;">
                                                                     <tr>
-                                                                        <th scope="col" class="pb-2" style="width: 22%;">번호</th>
+                                                                        <th scope="col" class="pb-2" style="width: 20%;">번호</th>
                                                                         <th scope="col" class="pb-2">이름</th>
                                                                         <th scope="col" class="pb-2" style="width: 34%;">생년월일</th>
+                                                                        <th scope="col" class="pb-2">등급</th>
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody style="font-size: 0.8em;">
-                                                                    <!-- 20명 -->
-                                                                    <tr>
-                                                                        <th scope="row" class="pt-0 pb-1 align-bottom">1</th>
-                                                                        <td class="py-1">이도율</td>
-                                                                        <td class="py-1">020408</td>
-                                                                    </tr>
+                                                                <tbody style="font-size: 0.75em;">
+                                                                    <c:forEach items="${allClinicPatientInfoList }" var="list">
+                                                                    	<tr>
+	                                                                        <th scope="row" class="pt-0 pb-1 align-bottom">${list.clinic_patient_pk }</th>
+	                                                                        <td class="py-1">${list.name }</td>
+	                                                                        <td class="py-1"></td>
+	                                                                        <td class="py-1">교직원</td>
+	                                                                    </tr>
+                                                                    </c:forEach>
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -535,10 +542,13 @@
                                     <div class="row" style="margin-left: 16%; margin-right: 16%;">
                                         <div class="col">
                                             <div class="row">
-                                                <div class="col-4 my-auto">
-                                                    <img class="img-fluid" src="./img/health/health_ci.gif">
+                                                <div class="col-1 my-auto">
+                                                    <img class="img-fluid" src="../../resources/img/another/logo_black.png">
                                                 </div>
-                                                <div class="col text-body-tertiary" style="font-size: small;">
+                                                <div class="col-3 ps-0 my-auto" style="font-size: x-large">
+                                                    MK University | 보건센터
+                                                </div>
+                                                <div class="col text-body-tertiary my-auto" style="font-size: small;">
                                                     <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
                                                     <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
                                                 </div>
