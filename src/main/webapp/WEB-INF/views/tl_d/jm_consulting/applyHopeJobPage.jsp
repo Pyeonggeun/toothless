@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>      
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +18,14 @@
 			<div class="row mt-5">
 				<div class="col">구직 희망 신청서</div>
 			</div>
+			<c:if test="${checkOverlapHopejob}">
+				<div class="row mt-5">
+					<div class="col" style="color:red">
+						이미 구직희망 프로그램을 신청 하셨습니다!
+					</div>
+				</div>
+			</c:if>
+			
 			<form action="hopeJobApplyProcess" method="post">
 			<div class="row mt-5 border">
 				<div class="col">
@@ -27,7 +37,7 @@
 							작성자
 						</div>
 						<div class="col-9">
-							${sessionStudentInfo}
+							${sessionStudentInfo.name}
 						</div>						
 					</div>
 					<%-- 희망연봉 입력칸 --%>

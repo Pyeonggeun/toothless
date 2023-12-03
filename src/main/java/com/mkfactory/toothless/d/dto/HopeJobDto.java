@@ -2,6 +2,7 @@ package com.mkfactory.toothless.d.dto;
 
 import java.util.Date;
 
+//구직희망신청 dto
 public class HopeJobDto {
 	private int hope_job_pk;
 	private int student_pk;
