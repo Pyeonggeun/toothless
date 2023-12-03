@@ -6,8 +6,29 @@
 
 <mapper namespace="com.mkfactory.toothless.c.woojae.mapper.WoojaeExternalSqlMapper">
 
+	<!-- 업종 카테고리 -->
 	<select id="selectCompanyCategoryList" resultType="com.mkfactory.toothless.c.dto.AjdksCompanyCategoryDto">
 		SELECT * FROM tl_c_company_category ORDER BY company_category_pk ASC
 	</select>
-
+	
+	<!-- 산업체 등록 -->
+	<insert id="insertCompanyInfo">
+		INSERT INTO tl_c_company_info VALUES(
+			tl_c_company_info_seq.nextval,
+			#{company_category_pk},
+			#{staff_pk},
+			#{external_pk},
+			#{company_id},
+			#{company_name},
+			#{ceo_name},
+			#{address},
+			#{phone},
+			#{url}
+		)
+	</insert>
+	
+	<!-- 등록된 산업체 리스트 -->
+	<select id="selectRegisteredCompanyList" resultType="com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto">
+		SELECT * FROM tl_c_company_info ORDER BY company_pk DESC
+	</select>
 </mapper>
