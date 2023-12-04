@@ -2,13 +2,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<!DOCTYPE html>
-<html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -217,12 +210,12 @@
                                 <div class="col">
                                     <h1>작성 글 쓰기</h1>
                                     <form action="./writeTextProcess" method="post">
-                                    제목 <input type="text">
+                                    제목 <input name="title" type="text">
                                     <br>
                                     작성자 <!-- 로그인 했을 때, 작성자 이름 노출 -->
                                     <br>
                                     내용 <br>
-                                    <textarea rows='20' cols='60'></textarea>
+                                    <textarea name="content" rows='20' cols='60'></textarea>
                                     <br>
                                     <input type="submit" value="작성완료">
                                     </form>
@@ -259,6 +252,4 @@
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
-</html>
-</body>
 </html>

@@ -22,7 +22,7 @@ public class ExternalController {
 		
 		return "another/external/loginPage";
 	}
-	
+		
 	@RequestMapping("loginProcess")
 	public String loginProcess(HttpSession session, ExternalInfoDto params) {
 		
