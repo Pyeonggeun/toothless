@@ -2,7 +2,7 @@ package com.mkfactory.toothless.a.dto;
 
 import java.util.Date;
 
-public class joinDormApplicationDto {
+public class JoinDormApplicationDto {
 
 	private int dorm_application_pk;
 	private int student_pk;
@@ -14,11 +14,11 @@ public class joinDormApplicationDto {
 	
 	
 	
-	public joinDormApplicationDto() {}
+	public JoinDormApplicationDto() {}
 
 
 
-	public joinDormApplicationDto(int dorm_application_pk, int student_pk, int dorm_info_pk, Date created_at,
+	public JoinDormApplicationDto(int dorm_application_pk, int student_pk, int dorm_info_pk, Date created_at,
 			String priority_select, String selection_status, String payment_status) {
 		
 		this.dorm_application_pk = dorm_application_pk;

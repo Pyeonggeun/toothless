@@ -2,7 +2,7 @@ package com.mkfactory.toothless.a.dto;
 
 import java.util.Date;
 
-public class pointDto {
+public class PointDto {
 
 	private int dorm_point_pk;
 	private int dorm_student_pk;
@@ -12,10 +12,10 @@ public class pointDto {
 	private Date created_at;
 	
 	
-	public pointDto() {}
+	public PointDto() {}
 
 
-	public pointDto(int dorm_point_pk, int dorm_student_pk, int staff_pk, int point_category_pk, String reason,
+	public PointDto(int dorm_point_pk, int dorm_student_pk, int staff_pk, int point_category_pk, String reason,
 			Date created_at) {
 		
 		this.dorm_point_pk = dorm_point_pk;

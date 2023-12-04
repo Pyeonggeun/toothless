@@ -5,7 +5,13 @@
 <!-- 공고~납부 + 임원관리 -->
 <div class="row mt-4 py-1 border-bottom align-self-center" style="background-color:white">
 	<div class="col-2 align-self-center">
-		<img src="../../resources/img/dormitory/domMainLogo.png" class="img-fluid w-75 h-50">
-		<span class="fw-bold">관리</span>
+		<div class="row">
+            <div class="col-2 p-0">
+                <img src="../../resources/img/another/logo_black.png" alt="" class="img-fluid">
+            </div>
+            <div class="col p-0 align-self-center text-black fw-bold fs-3">
+                MK <span class="fs-4">대학교</span> <span class="fs-6"> | </span> <span class="fs-6"> 기숙사 관리</span> 
+            </div>
+        </div>
    	</div>
 </div>

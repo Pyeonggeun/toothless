@@ -1,16 +1,16 @@
 package com.mkfactory.toothless.a.dto;
 
-public class pointCategory {
+public class PointCategory {
 
 	private int point_category_pk;
 	private String content;
 	private int point;
 	
 	
-	public pointCategory() {}
+	public PointCategory() {}
 
 
-	public pointCategory(int point_category_pk, String content, int point) {
+	public PointCategory(int point_category_pk, String content, int point) {
 	
 		this.point_category_pk = point_category_pk;
 		this.content = content;

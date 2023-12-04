@@ -1,14 +1,14 @@
 package com.mkfactory.toothless.a.dto;
 
-public class dormStudentDto {
+public class DormStudentDto {
 	public int dorm_student_pk;
 	public int semester_pk;
 	public int student_pk;
 	public int dorm_room_pk;
-	public dormStudentDto() {
+	public DormStudentDto() {
 		super();
 	}
-	public dormStudentDto(int dorm_student_pk, int semester_pk, int student_pk, int dorm_room_pk) {
+	public DormStudentDto(int dorm_student_pk, int semester_pk, int student_pk, int dorm_room_pk) {
 		super();
 		this.dorm_student_pk = dorm_student_pk;
 		this.semester_pk = semester_pk;

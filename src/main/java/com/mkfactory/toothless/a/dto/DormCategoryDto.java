@@ -1,17 +1,17 @@
 package com.mkfactory.toothless.a.dto;
 
-public class dormCategoryDto {
+public class DormCategoryDto {
 	private int dorm_amount_pk;
 	private int dorm_amount;
 	private String dorm_imgs;
 	
 	
-	public dormCategoryDto() {
+	public DormCategoryDto() {
 		super();
 	}
 
 
-	public dormCategoryDto(int dorm_amount_pk, int dorm_amount, String dorm_imgs) {
+	public DormCategoryDto(int dorm_amount_pk, int dorm_amount, String dorm_imgs) {
 		super();
 		this.dorm_amount_pk = dorm_amount_pk;
 		this.dorm_amount = dorm_amount;

@@ -2,18 +2,18 @@ package com.mkfactory.toothless.a.dto;
 
 import java.util.Date;
 
-public class diaryDto {
+public class DiaryDto {
 
 	private int diary_pk;
 	private int executive_pk;
 	private String content;
 	private Date created_at;
 	
-	public diaryDto() {
+	public DiaryDto() {
 		super();
 	}
 	
-	public diaryDto(int diary_pk, int executive_pk, String content, Date created_at) {
+	public DiaryDto(int diary_pk, int executive_pk, String content, Date created_at) {
 		super();
 		this.diary_pk = diary_pk;
 		this.executive_pk = executive_pk;

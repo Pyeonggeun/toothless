@@ -1,6 +1,6 @@
 package com.mkfactory.toothless.a.dto;
 
-public class dormRoomDto {
+public class DormRoomDto {
 	private int dorm_room_pk;
 	private int dorm_pk;
 	private String room_name;
@@ -8,12 +8,12 @@ public class dormRoomDto {
 	private int dorm_floor;
 	
 	
-	public dormRoomDto() {
+	public DormRoomDto() {
 		super();
 	}
 
 
-	public dormRoomDto(int dorm_room_pk, int dorm_pk, String room_name, String gender, int dorm_floor) {
+	public DormRoomDto(int dorm_room_pk, int dorm_pk, String room_name, String gender, int dorm_floor) {
 		super();
 		this.dorm_room_pk = dorm_room_pk;
 		this.dorm_pk = dorm_pk;

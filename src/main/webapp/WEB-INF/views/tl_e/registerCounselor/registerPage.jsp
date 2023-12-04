@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +46,7 @@
 			<div class="col ms-4">
 				<div class="row pt-5">
 					<div class="col fw-bold fs-3">
-						<a href="../commons/staffCounselMainPage" role="button" class="btn btn-white">
+						<a href="../commons/counselCenterStaffMainPage" role="button" class="btn btn-white">
 							<span class="fw-bold fs-3">MENU</span>
 						</a>
 					</div>
@@ -118,6 +119,33 @@
 									</div>
 								</div>								
 							</div>
+							
+							<!-- 상담원카테고리 -->
+							<div class="col-auto">
+								<div class="row">
+									<div class="col">
+										<label for="type_category_id" class="form-label">상담카테고리</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-auto">
+										<c:forEach items="${typeCategoryList}" var="typeCategoryList">										
+										<div class="form-check form-check-inline" id="type_category_id" required>
+											<input name="type_category_id" class="form-check-input" type="checkbox" id="typeCategory${typeCategoryList.id}" value="${typeCategoryList.id}">
+											<label class="form-check-label" for="typeCategory${typeCategoryList.id}">${typeCategoryList.name}</label>
+										</div>
+										</c:forEach>										
+										<div class="valid-feedback">
+									    	Check!
+									    </div>
+									    <div class="invalid-feedback">
+									    	담당 카테고리를 선택해주세요
+									    </div>	
+									</div>
+								</div>								
+							</div>
+							
+							
 						</div>	
 						
 						<!-- 상담사 이름/나이/성별 -->

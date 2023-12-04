@@ -2,7 +2,7 @@ package com.mkfactory.toothless.a.dto;
 
 import java.util.Date;
 
-public class joinDormInfoDto {
+public class JoinDormInfoDto {
 
 	private int dorm_info_pk;
 	private int semester_pk;
@@ -20,11 +20,11 @@ public class joinDormInfoDto {
 	
 	
 	
-	public joinDormInfoDto() {}
+	public JoinDormInfoDto() {}
 
 
 
-	public joinDormInfoDto(int dorm_info_pk, int semester_pk, String title, String detail_expln, Date apply_start_date,
+	public JoinDormInfoDto(int dorm_info_pk, int semester_pk, String title, String detail_expln, Date apply_start_date,
 			Date apply_end_date, int selection_amount, Date pass_anncm_date, Date payment_start_date,
 			Date payment_end_date, Date asgnm_anncm_date, Date join_dorm_date, Date created_at) {
 		

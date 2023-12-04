@@ -2,7 +2,7 @@ package com.mkfactory.toothless.a.dto;
 
 import java.util.Date;
 
-public class exitDto {
+public class ExitDto {
 	
 	private int exit_pk;
 	private int dorm_student_pk;
@@ -12,9 +12,9 @@ public class exitDto {
 	
 	
 	
-	public exitDto() {}
+	public ExitDto() {}
 
-	public exitDto(int exit_pk, int dorm_student_pk, String reason, Date exit_date, Date apply_create_at) {
+	public ExitDto(int exit_pk, int dorm_student_pk, String reason, Date exit_date, Date apply_create_at) {
 	
 		this.exit_pk = exit_pk;
 		this.dorm_student_pk = dorm_student_pk;

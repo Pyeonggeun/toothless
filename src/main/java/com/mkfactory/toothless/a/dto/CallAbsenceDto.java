@@ -2,17 +2,17 @@ package com.mkfactory.toothless.a.dto;
 
 import java.util.Date;
 
-public class callAbsenceDto {
+public class CallAbsenceDto {
 	
 	private int call_absence_pk;
 	private int executive_management_pk;
 	private Date created_at;
 	
 	
-	public callAbsenceDto() {}
+	public CallAbsenceDto() {}
 
 
-	public callAbsenceDto(int call_absence_pk, int executive_management_pk, Date created_at) {
+	public CallAbsenceDto(int call_absence_pk, int executive_management_pk, Date created_at) {
 		
 		this.call_absence_pk = call_absence_pk;
 		this.executive_management_pk = executive_management_pk;

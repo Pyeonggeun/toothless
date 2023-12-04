@@ -1,16 +1,16 @@
 package com.mkfactory.toothless.a.dto;
 
-public class dormBuildingDto {
+public class DormBuildingDto {
 	private int dorm_pk;
 	private String name;
 	private String main_img;
 	private String address;
 	
-	public dormBuildingDto() {
+	public DormBuildingDto() {
 		super();
 	}
 
-	public dormBuildingDto(int dorm_pk, String name, String main_img, String address) {
+	public DormBuildingDto(int dorm_pk, String name, String main_img, String address) {
 		super();
 		this.dorm_pk = dorm_pk;
 		this.name = name;
