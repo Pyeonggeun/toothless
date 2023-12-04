@@ -4,9 +4,18 @@
 
 <mapper namespace="com.mkfactory.toothless.c.eunbi.mapper.EunbiProfessorSqlMapper">
 
+	<!-- 담당 학생 조회 -->
+	<select id="getChargedStudent" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO
+		WHERE professor_pk = #{professor_pk}
+	</select>
 
-
-
+	<select id="getChargedInternshipCourse" resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
+		SELECT * FROM TL_C_INTERNSHIP_COURSE
+		WHERE professor_pk = #{professor_pk}
+	</select>
+	
+	
 
 
 
