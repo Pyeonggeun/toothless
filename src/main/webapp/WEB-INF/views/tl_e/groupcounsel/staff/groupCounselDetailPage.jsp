@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-	<title>집단 상담 등록 페이지</title>
+	<title>집단 상담 디테일 페이지</title>
 </head>
 <body>
 
@@ -72,9 +72,6 @@
 		</div>
 		
 	
-	
-		<!-- 상담 등록 화면 -->		
-		<form action="./groupCounselRegisterProcess" method="post" enctype="multipart/form-data">
 		
 		<div class="row mt-0">
 			<!-- 왼쪽 여백 -->
@@ -108,102 +105,80 @@
 					<div class="col-1"></div>
 					<div class="col">
 						<div class="row mt-5"></div>
-						<!-- 제목, 내용 -->
-						<div class="row mt-5">
-							<div class="col border-top border-black border-2">
-								<div class="row my-3">
-									<div class="col-2 text-center">
-										<div class="fw-bold" style="font-size: 1.0em;">제목</div>
-									</div>
-									<div class="col">
-										<input type="text" name="title" class="form-control">
-									</div>
-								</div>
-								<div class="row mb-3">
-									<div class="col-2 text-center">
-										<div class="fw-bold" style="font-size: 1.0em;">내용</div>
-									</div>
-									<div class="col">
-										<textarea class="form-control" name="text" style="width:100%; height: 300px;"></textarea>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- 신청인원, 일시, 장소, 신청 시작일, 신청 종료일 -->
-						<div class="row">
-							<div class="col border-top border-black border-2">
-								<div class="row my-3">
-									<div class="col-2 text-center">
-										<div class="fw-bold" style="font-size: 1.0em;">상담 인원</div>
-									</div>
-									<div class="col">
-										<input type="number" name="amount" class="form-control">
-									</div>
-									<div class="col-2 text-center">
-										<div class="fw-bold" style="font-size: 1.0em;">상담 일시</div>
-									</div>
-									<div class="col">
-										<input type="date" name="counsel_date" class="form-control">
-									</div>
-								</div>
-								<div class="row mb-3">
-									<div class="col-2 text-center">
-										<div class="fw-bold" style="font-size: 1.0em;">장소</div>
-									</div>
-									<div class="col">
-										<input type="text" name="location" class="form-control">
-									</div>
-								</div>
-								<div class="row mb-3">
-									<div class="col-2 text-center">
-										<div class="fw-bold" style="font-size: 1.0em;">신청 시작 일자</div>
-									</div>
-									<div class="col">
-										<input type="date" name="start_apply_date" class="form-control">
-									</div>
-									<div class="col-2 text-center">
-										<div class="fw-bold" style="font-size: 1.0em;">신청 종료 일자</div>
-									</div>
-									<div class="col">
-										<input type="date" name="end_apply_date" class="form-control">
-									</div>								
-								</div>
-							</div>
-						</div>
-						<!-- 이미지 추가 -->
-						<div class="row">
-							<div class="col border-top border-black border-2">
-								<div class="row my-3">
-									<div class="col-2 text-center">
-										<div class="fw-bold" style="font-size: 1.0em;">이미지 등록</div>
-									</div>
-									<div class="col">
-										<input type="file" name="mainImageFile" class="form-control" accept="image/*">
-									</div>
-
-								</div>
-							</div>						
-						</div>
-						<!-- 상담원 등록?? -->
-						<div class="row"></div>
 						
-						<!-- 등록 버튼 -->
-						<div class="row mt-5">
-							<div class="col-10"></div>
+						<div class="row">
+							<div class="col-5">
+								<img class="img-fluid" style="height:36em ; width:100%" src="/uploadFiles/${groupCounselDto.posterImage}">
+							</div>
+							
 							<div class="col">
-								<input type="submit" class="form-control btn btn-secondary" value="등록">						
+								<div style="position: sticky; top: 100px;">
+									<div class="row">
+										<div class="col">
+											<div class="fw-bold mb-2" style="font-size: 1.2em;">[${map.sellerDto.store_name}]</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<div class="text-black" style="font-size: 0.8em;">${map.goodsDto.title}</div>
+										</div>
+										<div class="col-1">
+											<c:choose>
+												<c:when test="${distinguishGoodsWish==1 && distinguishGoodsWish!=null}">
+													<div><a href="./goodsWishListProcess?customer_id=${sessionCustomerInfo.id}&goods_id=${map.goodsDto.id}"><i class="bi bi-bookmark-fill" style="font-size: 1.0em; color: black;"></i></a></div>
+												</c:when>
+												<c:otherwise>
+													<div><a href="./goodsWishListProcess?customer_id=${sessionCustomerInfo.id}&goods_id=${map.goodsDto.id}"><i class="bi bi-bookmark" style="font-size: 1.0em; color: black;"></i></a></div>
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<div class="col-2"></div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<div class="text-black" style="font-size: 0.8em;">KRW ${map.goodsDto.price}</div>
+										</div>
+									</div>
+									<div class="row my-3">
+										<div class="col">
+											<div class="text-primary-secondary" style="font-size: 0.6em;">${map.goodsDto.content}</div>							
+										</div>
+										<div class="col-2"></div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<div class="text-primary-secondary" style="font-size: 0.6em;">VIRGIN WOOL 80% NYLON 20%</div>
+											<div class="text-primary-secondary mb-3" style="font-size: 0.6em;">FABRIC MADE IN ITALY</div>
+											<div class="text-primary-secondary mb-1" style="font-size: 0.6em;">S 총장 116cm 어깨 52cm 가슴 60cm 소매 61.9cm</div>
+											<div class="text-primary-secondary mb-1" style="font-size: 0.6em;">M 총장 117.5cm 어깨 53.5cm 가슴 62.5cm 소매 63.2cm</div>
+											<div class="text-primary-secondary mb-1" style="font-size: 0.6em;">L 총장 119cm 어깨 55cm 가슴 65cm 소매 64.5cm</div>
+											<div class="text-primary-secondary" style="font-size: 0.6em;">Model Size 187cm 67kg Fitting L</div>									
+										</div>
+									</div>
+									
+									<div class="row mt-5">
+										<div class="col me-0 pe-0">
+											<button type="button" style="font-size: 0.8em; width: 80%; height: 50px; padding: 5px; border: none; background-color: black; color: white;">
+											ADD TO CART
+											</button>
+										</div>
+										<div class="col ms-0 ps-0">
+											<button onclick="location.href='./purchaseGoods?goodsId=${map.goodsDto.id}&customerId=${sessionCustomerInfo.id}'" class="fw-bold" type="button" style="font-size: 0.8em; width: 80%; height: 50px; padding: 5px; border-color: black; background-color: white; color: black;">
+											ORDER
+											</button>
+										</div>
+									</div>
+								</div>								
 							</div>
 						</div>
 						<!-- 임시 하단 여백 -->
 						<div class="row mb-5 pb-5"></div>
 					</div>
-					<div class="col-3"></div>
 				</div>
 			</div>
 			<div class="col-1"></div>
 		</div>
 		
-		</form>
 		
 		
 		
