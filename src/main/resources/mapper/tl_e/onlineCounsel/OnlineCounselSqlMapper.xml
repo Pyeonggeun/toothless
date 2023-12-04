@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mkfactory.toothless.e.onlinecounsel.mapper.OnlineCouselSqlMapper">
+<mapper namespace="com.mkfactory.toothless.e.onlinecounsel.mapper.OnlineCounselSqlMapper">
 
+	<insert id="insertOnlineCounsel">
+		INSERT INTO cp_online_counsel_board VALUES(
+			cp_online_counsel_board_seq.nextval,
+			#{student_id},
+			#{type_category_id},
+			#{text},
+			#{title},
+			SYSDATE
+		)
+	</insert>
+
+	<select id="takeAllCategory" resultType="com.mkfactory.toothless.e.dto.TypeCategoryDto">
+		SELECT * FROM cp_type_category
+	</select>
+
+
+	<select id="selectAllCounselListByStudentPk" resultType="com.mkfactory.toothless.e.dto.OnlineCounselBoardDto">
+		SELECT * FROM cp_online_counsel_board WHERE student_id = #{student_id}
+	</select>
+	
+	<select id="selectCategoryDto" resultType="com.mkfactory.toothless.e.dto.TypeCategoryDto">
+		SELECT * FROM cp_type_category WHERE id = #{id}
+	</select>
+
+	<select id="getStudentInfo" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM tl_jic_student_info WHERE student_pk = #{student_pk}
+	</select>
+	
+	<select id="selectCounsel" resultType="com.mkfactory.toothless.e.dto.OnlineCounselBoardDto">
+		SELECT * FROM cp_online_counsel_board WHERE id = #{id}
+	</select>
 
 </mapper>

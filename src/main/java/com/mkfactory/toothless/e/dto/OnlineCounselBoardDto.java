@@ -2,7 +2,7 @@ package com.mkfactory.toothless.e.dto;
 
 import java.sql.Date;
 
-public class OnlineCouselBoardDto {
+public class OnlineCounselBoardDto {
 
 	private int id;
 	private int student_id;
@@ -10,10 +10,10 @@ public class OnlineCouselBoardDto {
 	private String text;
 	private String title;
 	private Date created_at;
-	public OnlineCouselBoardDto() {
+	public OnlineCounselBoardDto() {
 		super();
 	}
-	public OnlineCouselBoardDto(int id, int student_id, int type_category_id, String text, String title,
+	public OnlineCounselBoardDto(int id, int student_id, int type_category_id, String text, String title,
 			Date created_at) {
 		super();
 		this.id = id;
@@ -59,7 +59,6 @@ public class OnlineCouselBoardDto {
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
 	}
-	
 	
 	
 	
