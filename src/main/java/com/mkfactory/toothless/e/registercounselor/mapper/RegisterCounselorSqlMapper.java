@@ -1,6 +1,7 @@
 package com.mkfactory.toothless.e.registercounselor.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
@@ -21,10 +22,15 @@ public interface RegisterCounselorSqlMapper {
 	// 상담원 등록
 	public void insertCounselor(CounselorDto counselorDto);
 	
+	// 상담원 전체 리스팅
+	public List<Map<String, Object>> selectAllCounselor();
+	
 	// 상담종류 카테고리 리스팅
 	public List<TypeCategoryDto> selectAllTypeCategory();
 	
 	// 상담원별 담당 카테고리 인서트
 	public void insertCounselorType(CounselorTypeDto counselorTypeDto);
+	
+	
 
 }
