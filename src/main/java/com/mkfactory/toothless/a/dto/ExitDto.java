@@ -2,12 +2,16 @@ package com.mkfactory.toothless.a.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class ExitDto {
 	
 	private int exit_pk;
 	private int dorm_student_pk;
 	private String reason;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date exit_date;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date apply_create_at;
 	
 	

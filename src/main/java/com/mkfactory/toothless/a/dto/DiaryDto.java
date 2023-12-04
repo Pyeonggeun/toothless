@@ -2,11 +2,14 @@ package com.mkfactory.toothless.a.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class DiaryDto {
 
 	private int diary_pk;
 	private int executive_pk;
 	private String content;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date created_at;
 	
 	public DiaryDto() {

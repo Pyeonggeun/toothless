@@ -2,6 +2,8 @@ package com.mkfactory.toothless.a.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class JoinDormApplicationDto {
 
 	private int dorm_application_pk;
