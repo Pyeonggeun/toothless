@@ -79,7 +79,7 @@
 						
 						<div class="row mt-5">
 							<div class="col-auto">
-								<a href="../commons/staffCounselMainPage" role="button" class="btn btn-success">
+								<a href="../commons/counselCenterStaffMainPage" role="button" class="btn btn-success">
 									메인페이지로
 								</a>
 							</div>

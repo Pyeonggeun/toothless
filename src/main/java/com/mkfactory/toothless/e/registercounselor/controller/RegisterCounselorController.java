@@ -1,11 +1,17 @@
 package com.mkfactory.toothless.e.registercounselor.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
+import com.mkfactory.toothless.e.dto.CounselorTypeDto;
+import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 import com.mkfactory.toothless.e.registercounselor.service.RegisterCounselorServiceImpl;
 
 @Controller
@@ -16,31 +22,31 @@ public class RegisterCounselorController {
 	RegisterCounselorServiceImpl registerCounselorService;
 	
 	@RequestMapping("registerPage")
-	public String registerPage() {
+	public String registerPage(Model model) {
 		System.out.println("[ RegisterCounselorController] => [ registerPage ] 실행됨");
 		System.out.println("---------------------------------------------------------");
+		
+		List<TypeCategoryDto> typeCategoryList = registerCounselorService.getAllTypeCategoryList();
+		
+		model.addAttribute("typeCategoryList", typeCategoryList);
+		
 		return "./tl_e/registerCounselor/registerPage";
 	}
 	
 	@RequestMapping("registerProcess")
-	public String registerProcess(ExternalInfoDto externalInfoDto, CounselorDto counselorDto ) {
+	public String registerProcess(
+			ExternalInfoDto externalInfoDto,
+			CounselorDto counselorDto,
+			@RequestParam(name="type_category_id") int[] counselorTypeList) {
+		
 		System.out.println("[ RegisterCounselorController] => [ registerProcess ] 실행됨");
 		System.out.println("---------------------------------------------------------");
 			
-		System.out.println(externalInfoDto.getExternal_id());
-		System.out.println(externalInfoDto.getPassword());
-		System.out.println(externalInfoDto.getExternal_category());
+		for(int type_category_id : counselorTypeList) {			
+			System.out.println(type_category_id);
+		}
 		
-		System.out.println(counselorDto.getName());
-		System.out.println(counselorDto.getAge());
-		System.out.println(counselorDto.getGender());
-		System.out.println(counselorDto.getPhonenumber());
-		System.out.println(counselorDto.getEmail());
-		System.out.println(counselorDto.getAddress());			
-		System.out.println(counselorDto.getCareer());
-		System.out.println(counselorDto.getProfileImage());
-		
-		registerCounselorService.registerCounselor(externalInfoDto, counselorDto);
+		registerCounselorService.registerCounselor(externalInfoDto, counselorDto, counselorTypeList);
 		
 		return "./tl_e/registerCounselor/registerSuccess";
 	}
