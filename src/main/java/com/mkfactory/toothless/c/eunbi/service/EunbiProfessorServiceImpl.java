@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
 import com.mkfactory.toothless.c.eunbi.mapper.EunbiProfessorSqlMapper;
 import com.mkfactory.toothless.c.eunbi.mapper.EunbiStudentSqlMapper;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
+@Service
 public class EunbiProfessorServiceImpl {
 
 	@Autowired
