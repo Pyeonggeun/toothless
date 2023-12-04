@@ -34,5 +34,15 @@ public class CompanyController {
 			
 			return"/tl_d/gw_company/registerCompanyComplete";
 		}
+		
+	//기업관리 페이지
+		
+		@RequestMapping("companyManagementPage")
+		public String companyManagementPage(Model model) {
+			
+			model.addAttribute("companyList", companyService.getCompanyList());
+			
+			return "/tl_d/gw_company/companyManagementPage";
+		}
 
 }

@@ -13,7 +13,7 @@
 			#{com_name},
 			#{com_bossname},
 			#{com_address},
-			'X',
+			'N',
 			SYSDATE
 		)
 	</insert>
@@ -55,5 +55,41 @@
 		ORDER BY com_scale_category_pk ASC
 	</select>
 	
+	<select id="selectCompanyAll" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
+		SELECT * FROM tl_d_company
+	</select>
+	
+	<select id="selectCompanyManagerAll" resultType="com.mkfactory.toothless.d.dto.CompanyManagerDto">
+		SELECT * FROM tl_d_company_manager
+	</select>
+	
+	<select id="companySelectById" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
+		SELECT * FROM tl_d_company WHERE com_pk=#{com_pk}
+	</select>
+	
+	<select id="companyManagerSelectById" resultType="com.mkfactory.toothless.d.dto.CompanyManagerDto">
+		SELECT * FROM tl_d_company_manager WHERE com_manager_pk=#{com_manager_pk}
+	</select>
+	<!-- 
+	<update id="updateCompany">
+		UPDATE tl_d_company
+		SET com_scale_category_pk=#{com_scale_category_pk},
+			com_name=#{com_name},
+			com_bossname=#{com_bossname},
+			com_address=#{com_address}
+		WHERE com_pk=#{com_pk}
+	</update>
+	
+	<update id="updateCompanyManager">
+		UPDATE tl_d_company_manager
+		SET com_manager_name=#{com_manager_name},
+			com_manager_email=#{com_manager_email},
+			com_manager_department=#{com_manager_department},
+			com_manager_position=#{com_manager_position},
+			com_direct_number=#{com_direct_number},
+			com_manager_phone=#{com_manager_phone}
+		WHERE com_manager_pk=#{com_manager_pk}
+	</update>
+	 -->
 
 </mapper>
