@@ -42,7 +42,7 @@
 					    <a class="nav-link active text-black" href="#">호실 배정</a>
 					  </li>
 					  <li class="nav-item">
-					    <a class="nav-link text-black" href="#">배정 현황</a>
+					    <a class="nav-link text-black" href="./dm_readRoomAssignment">배정 현황</a>
 					  </li>
 					</ul>
 				</div>
@@ -122,7 +122,7 @@
 					<!-- 세부내용 -->
 					<div class="row mt-2">
 						<div class="col">
-							너의 꿈을 펼치는 곳
+							
 						</div>
 					</div>
 				</div>

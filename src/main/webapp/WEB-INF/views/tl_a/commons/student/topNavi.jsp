@@ -1,14 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    </head>
-    <body>
+
         <div class="row">
             <div class="col">
                 <nav class="navbar navbar-expand-lg" style="background-color: #ffffff">
@@ -34,9 +27,9 @@
                                                 <ul class="dropdown-menu">
                                                     <li><a class="dropdown-item disabled">기숙사 소개</a></li>
                                                     <li><hr class="dropdown-divider"></li>  
-                                                    <li><a class="dropdown-item" href="#">인삿말</a></li>
-                                                  <li><a class="dropdown-item" href="#">조직 및 전화번호</a></li>
-                                                  <li><a class="dropdown-item" href="#">찾아오시는 길</a></li>
+                                                    <li><a class="dropdown-item" href="./dm_dormIntroduction">인삿말</a></li>
+                                                  <li><a class="dropdown-item" href="./dm_dormOrganizationChart">조직 및 전화번호</a></li>
+                                                  <li><a class="dropdown-item" href="./dm_dormSearchMap">찾아오시는 길</a></li>
                                                 </ul>
                                               </li>
                                             <li class="nav-item dropdown ps-3">
@@ -46,8 +39,8 @@
                                                 <ul class="dropdown-menu">
                                                     <li><a class="dropdown-item disabled">기숙시설</a></li>
                                                     <li><hr class="dropdown-divider"></li>
-                                                  <li><a class="dropdown-item" href="#">수용인원 현황</a></li>
-                                                  <li><a class="dropdown-item" href="#">건물 현황</a></li>
+                                                  <li><a class="dropdown-item" href="./dm_dormCapacity">수용인원 현황</a></li>
+                                                  <li><a class="dropdown-item" href="./dm_dormBulidingStatus">건물 현황</a></li>
                                                 </ul>
                                               </li>
                                             <li class="nav-item dropdown ps-3">
@@ -57,11 +50,11 @@
                                                 <ul class="dropdown-menu">
                                                     <li><a class="dropdown-item disabled">모집안내</a></li>
                                                     <li><hr class="dropdown-divider"></li>
-                                                  <li><a class="dropdown-item" href="#">선발안내</a></li>
-                                                  <li><a class="dropdown-item" href="#">납부금 안내</a></li>
-                                                  <li><a class="dropdown-item" href="#">입사 신청</a></li>
-                                                  <li><a class="dropdown-item" href="#">합격 안내</a></li>
-                                                  <li><a class="dropdown-item" href="#">대관신청 안내</a></li>
+                                                  <li><a class="dropdown-item" href="./dm_dormSelectionGuide">선발안내</a></li>
+                                                  <li><a class="dropdown-item" href="./dm_streetDistribution">거리배점표</a></li>
+                                                  <li><a class="dropdown-item" href="./dm_paymentMoney">납부금안내</a></li>
+                                                  <li><a class="dropdown-item" href="#">입사신청</a></li>
+                                                  <li><a class="dropdown-item" href="#">합격안내</a></li>
                                                   
                                                 </ul>
                                               </li>
@@ -120,7 +113,3 @@
             </div>
             
         </div>
-        
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    </body>
-</html>
