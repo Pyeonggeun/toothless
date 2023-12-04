@@ -18,6 +18,7 @@ public class DormStaffControllerMj {
 	@Autowired
 	DormStaffServiceImpl staffService;
 	
+	/// 수정
 	
 	// 사감 메인페이지
 	@RequestMapping("mj_mainPage")

@@ -47,7 +47,7 @@
 			<div class="col ms-4">
 				<div class="row pt-5">
 					<div class="col fw-bold fs-3">
-						<a href="../commons/staffCounselMainPage" role="button" class="btn btn-white">
+						<a href="../commons/counselCenterStaffMainPage" role="button" class="btn btn-white">
 							<span class="fw-bold fs-3">MENU</span>
 						</a>
 					</div>
