@@ -35,13 +35,105 @@
 				</div>
 			</div>
 			
+			<!-- 상품 주요 정보 -->
+			<div class="row mb-3">
+				<div class="col fs-5 fw-bold">
+					검색조건
+				</div>
+			</div>
+			<div class="row">
+				<div class="col border rounded-0 mx-2" style="background-color: #eeeeee;">
+					<div class="row border-bottom py-2">
+						<div class="col-2 text-center align-self-center fw-bold">
+							기준일
+						</div>
+						<div class="col align-self-center">
+							<!-- 버튼들 -->
+			            	<div class="row">
+			            		<div class="col-2 text-end">
+									<select class="border-secondary-subtle form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
+									  <option selected>학년도</option>
+									  <option value="1">학기</option>
+									</select>
+								</div>
+			            		<div class="col-2 align-self-center">
+			            			<input type="date" class="border border-secondary-subtle form-control rounded-0 py-1" style="font-size: 0.9rem; color: #aaaaaa">
+			            		</div> ~ 
+			            		<div class="col-2 align-self-center">
+			            			<input type="date" class="border-secondary-subtle form-control rounded-0 py-1" style="font-size: 0.9rem; color: #aaaaaa">
+			            		</div>
+			            	</div>
+						</div>
+					</div>
+					<div class="row border-bottom py-2">
+						<div class="col-2 text-center align-self-center fw-bold">
+							진행 상태
+						</div>
+						<div class="col ms-2">
+							<div class="row">
+								 <div class="col text-start">
+			                        <div class="form-check form-check-inline">
+			                            <input class="form-check-input" type="radio" name="1" value="" checked>
+			                            <label class="form-check-label" for="inlineRadio1">전체</label>
+			                        </div>                                
+			                    </div>
+			                    <div class="col text-start">
+			                        <div class="form-check form-check-inline">
+			                            <input class="form-check-input" type="radio" name="1" value="">
+			                            <label class="form-check-label" for="inlineRadio2">현재</label>
+			                        </div>
+			                    </div>
+			                    <div class="col text-start">
+			                        <div class="form-check form-check-inline">
+			                            <input class="form-check-input" type="radio" name="1" value="" >
+			                            <label class="form-check-label" for="inlineRadio3">이전</label>
+			                        </div>
+			                    </div>
+			                    <div class="col-7"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row py-2 justify-content-center">
+	            		<div class="col-3 d-grid px-3">
+	            			<button type="button" class="border-secondary-subtle rounded-0 px-0 fw-bold btn btn-sm btn-primary">
+	            				<i class="bi bi-search"></i> 조회하기
+	            			</button>
+	            		</div>
+	            		<div class="col-3 d-grid px-3">
+	            			<button type="button" class="border-secondary-subtle rounded-0 px-0 fw-bold btn btn-sm btn-light">
+	            				<i class="bi bi-arrow-clockwise"></i> 초기화
+	            			</button>
+	            		</div>
+					</div>			
+				</div>
+			</div>
+			
+			<!-- 상품목록 -->
+			<div class="row mt-4 py-3 justify-content-between">
+				<div class="col-6">
+					검색결과 (총 ${countYearList }개)
+					<button type="button" class="ms-5 px-3 border-secondary-subtle rounded-0 px-0 fw-bold btn btn-sm btn-light">
+           				<i class="bi bi-download"></i>
+           				학년도/학기 내역 다운로드
+           			</button>
+				</div>
+				<div class="col-2 me-1 justify-content-end">
+					<select class="form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
+					  <option selected>내림차순</option>
+					  <option value="1">오름차순</option>
+					</select>
+				</div>
+			</div>
+			
 			<!-- 표 -->
 			<table class="table table-bordered p-0 text-center align-middle">
 			  <thead>
 			    <tr class="align-middle border-bottom border-2">
-			      <th scope="col" class="text-bg-light">학년도</th>
-			      <th scope="col" class="text-bg-light">학기</th>
-			      <th scope="col" class="text-bg-light">진행상태</th>
+			      <th scope="col" class="col-1 text-bg-light"></th>
+			      <th scope="col" class="col-3 text-bg-light">학년도</th>
+			      <th scope="col" class="col-3 text-bg-light">학기</th>
+			      <th scope="col" class="col-2 text-bg-light">진행상태</th>
 			      <th scope="col" class="text-bg-light">수정</th>
 			      <th scope="col" class="text-bg-light">삭제</th>
 			    </tr>
@@ -49,11 +141,18 @@
 			  <c:forEach items="${yearList }" var="item">
 			  <tbody>
 			    <tr>
+			      <td class="p-0 pt-1 text-center">
+				    <div class="form-check m-0 p-0 d-inline-block">
+				        <input class="form-check-input m-0 p-0" type="checkbox" value="" id="flexCheckDefault">
+				        <label class="form-check-label" for="flexCheckDefault">
+				        </label>
+				    </div>
+				  </td>
 				  <td>${item.semester_year }</td>
 				  <td>${item.semester }</td>
 				  <td>${item.progress_state }</td>
-				  <td>수정버튼</td>
-				  <td>삭제버튼</td>
+				  <td>언젠가수정버튼</td>
+				  <td>언젠가삭제버튼</td>
 			    </tr>		    
 			  </tbody>
 			  </c:forEach>
