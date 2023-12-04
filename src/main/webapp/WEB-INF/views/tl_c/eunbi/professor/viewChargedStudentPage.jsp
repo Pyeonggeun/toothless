@@ -47,31 +47,94 @@
 
 	<div class="row">
 		<div class="col">
-			
+			<jsp:include page="../../common/ajdksHighestMenubarForProfessor.jsp"></jsp:include>
 		</div>
 	</div>
 	<div class="row">
 		
-		
-		
+		<!-- 좌측메뉴바 -->
+		<jsp:include page="../../common/ajdksSideMenubarForProfessor.jsp"></jsp:include>
 		
 		<!-- 본문 :  자유롭게 이용하세요 화이팅 -->
 		<div class="col">
-			<!-- 안내문구 -->
-			<div class="row py-2" style="box-shadow: 1.5px 1.5px 1.5px gray;">
-				<div class="col ms-2" style="font-size: 0.9em;">
-					<span>&#035;&nbsp;${sessionProfessorInfo.name} 님 환영합니다</span>
-				</div>	
-			</div>
 			<div class="row">
-				<div class="col ms-4 me-4">
+				<div class="col ms-5 me-5">
 					
-					<div class="row mt-4 pb-3 border-bottom border-dark border-3">
-						<div class="col fw-semibold fs-5">담당 학과생 조회</div>
+					<div class="row mt-5">
+						<div class="col fw-semibold" style="font-size:1.3em">
+							<span class="text-secondary fs-3">&gt;</span>
+							담당 학과생 조회
+						</div>
 					</div>
-					<div class="row">
+					
+					<div class="row mt-3">
 						<div class="col">
-							
+							<div class="row">
+								<div class="col bg-body-secondary border border-secondary border-start-0 border-end-0 border-1 mx-2 px-3 py-4">
+									검색창
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="col px-2">
+									<table class="table table-bordered text-center align-middle">
+										<thead class="table-light">
+											<tr>
+												<th scope="col">학번</th>
+												<th scope="col">이름</th>
+												<th scope="col">학과</th>
+												<th scope="col">성별</th>
+												<th scope="col">연락처</th>
+												<th scope="col">입학년도</th>
+												<th scope="col">현장실습 신청/진행 상태</th>
+												<th scope="col">상세</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${studentsInfo}" var="studentInfo">
+											<tr>
+												<th scope="row">${studentInfo.studenInfoDto.student_pk}</th>
+												<td>${studentInfo.studenInfoDto.name}</td>
+												<td>${studentInfo.departmentDto.name}</td>
+												<td>
+													<c:choose>
+														<c:when test="${studentInfo.studenInfoDto.gender eq 'M'}">
+															남성
+														</c:when>
+														<c:when test="${studentInfo.studenInfoDto.gender eq 'F'}">
+															여성
+														</c:when>
+													</c:choose>
+												</td>
+												<td>${studentInfo.studenInfoDto.phone}</td>
+												<td>
+													<fmt:formatDate value="${studentInfo.studenInfoDto.entered_at}" pattern="yyyy.MM"/>
+												</td>
+												<td>
+													<c:choose>
+														<c:when test="${studentInfo.studentApplyingPk == 0}">
+															없음
+														</c:when>
+														<c:when test="${studentInfo.studentApplyingPk != 0}">
+															${studentInfo.latestStudentApplyingDto.status}
+														</c:when>
+													</c:choose>
+												</td>
+												<td>
+													<c:choose>
+														<c:when test="${studentInfo.studentApplyingPk == 0}">
+															-
+														</c:when>
+														<c:when test="${studentInfo.studentApplyingPk != 0}">
+															<button type="button" class="btn btn-secondary rounded-1" style="font-size:0.8em">상세보기</button>
+														</c:when>
+													</c:choose>
+												</td>
+											</tr>
+											</c:forEach>
+										</tbody>
+										</table>
+								</div>
+							</div>
 						</div>
 					</div>
 					
