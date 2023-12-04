@@ -59,15 +59,15 @@
 	<div class="col">
 		<!-- 안내문구 -->
 		<div class="row py-2" style="box-shadow: 2px 2px 2px gray;">
-			<div class="col" style="font-size: 0.9em;">
+			<div class="col ms-2" style="font-size: 0.9em;">
 				<span>&#035;&nbsp;${sessionProfessorInfo.name} 님 환영합니다</span>
 			</div>	
 		</div>
 		<div class="row">
-			<div class="col ms-5">
+			<div class="col ms-4">
 				
 				<div class="row mt-5">
-					<div class="col fw-semibold">담당 학과생 조회</div>
+					<div class="col fw-semibold fs-5">담당 학과생 조회</div>
 				</div>
 				
 			</div>
