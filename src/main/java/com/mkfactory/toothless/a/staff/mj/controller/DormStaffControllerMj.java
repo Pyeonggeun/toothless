@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
 import com.mkfactory.toothless.a.dto.SemesterDto;
 import com.mkfactory.toothless.a.staff.mj.service.DormStaffServiceImpl;
 
@@ -24,21 +25,6 @@ public class DormStaffControllerMj {
 		
 		return "/tl_a/staff/mj_mainPage";
 	}
-	
-	// 공고관리 페이지
-	@RequestMapping("mj_readRegisterJoinInfoPage")
-	public String mj_readRegisterJoinInfoPage() {
-		
-		return "/tl_a/staff/mj_readRegisterJoinInfoPage";
-	}
-	
-	// 공고등록 페이지
-	@RequestMapping("mj_registerJoinInfoPage")
-	public String mj_registerJoinInfoPage() {
-			
-		return "/tl_a/staff/mj_registerJoinInfoPage";
-	}
-	
 	
 	// 학년도/학기 관리 페이지
 	@RequestMapping("mj_manageYearPage")
@@ -78,6 +64,32 @@ public class DormStaffControllerMj {
 			
 		
 		return "redirect:../staff/mj_changeProgressProcess";
+	}
+	
+	// 공고관리 페이지
+	@RequestMapping("mj_readRegisterJoinInfoPage")
+	public String mj_readRegisterJoinInfoPage() {
+		
+		return "/tl_a/staff/mj_readRegisterJoinInfoPage";
+	}
+	
+	// 공고등록 페이지
+	@RequestMapping("mj_registerJoinInfoPage")
+	public String mj_registerJoinInfoPage() {
+
+		return "/tl_a/staff/mj_registerJoinInfoPage";
+	}
+	
+	// 공고등록 프로세스
+	@RequestMapping("mj_registerInfoProcess")
+	public String mj_registerInfoProcess(JoinDormInfoDto params) {
+		
+		SemesterDto thisSemesterDto = staffService.getThisSemester();
+		params.setSemester_pk(thisSemesterDto.getSemester_pk());
+	
+		staffService.registerInfo(params);
+		
+		return "redirect:../staff/mj_readRegisterJoinInfoPage";
 	}
 
 	

@@ -35,7 +35,7 @@
 				</div>
 			</div>
 			
-			<form action="./registerItemProcess" method="post" enctype="multipart/form-data">
+			<form action="./mj_registerInfoProcess" method="post">
              	<input type="hidden" name="seller_id" value="${sessionSeller.id }">
 			
 			<!-- 기숙사명 -->
