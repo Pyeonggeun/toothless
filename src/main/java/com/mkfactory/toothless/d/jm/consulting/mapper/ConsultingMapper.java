@@ -31,6 +31,18 @@ public interface ConsultingMapper {
 	public void insertOnlineConsulting(OnlineConsultingDto par);
 	//학생 온라인상담 최근 구직희망 신청서 출력
 	public HopeJobDto getLastHopejob(int student_pk);
+	//학생 최근 온라인상담 3건 뽑아오기(추후건수 변경가능)
+	public List<OnlineConsultingDto> getOnlineConsultingList3 (int hope_job_pk);
+	
+	
+	
+	
+	//학생 온라인상담 자세히보기용 페이지 출력
+	public OnlineConsultingDto getOnlineConsultingByPk(int ON_CONSULTING_PK);
+	public OnlineConsultingReplyDto getOnConsultingReplyByOnPk(int ON_CONSULTING_PK);
+	
+		
+
 	
 	
 	

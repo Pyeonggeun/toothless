@@ -1,5 +1,6 @@
 package com.mkfactory.toothless.d.jm.consulting.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,11 @@ public class ConsultingService {
 	private ConsultingMapper consultingMapper ;
 	
 	
+	//학생 pk로 학생정보뽑기
+	public StudentInfoDto getStudentInfoByPk(int student_pk) {
+		return consultingMapper.getStudentInfoByPk(student_pk);
+	}
+	
 	//학생 구직희망신청 중복 확인
 	public boolean checkOverlapHopeJobApply(int student_pk) {
 		
@@ -30,6 +36,7 @@ public class ConsultingService {
 		boolean isboolean = true;
 		if (checkOverlap==0) {
 			isboolean = false;
+			//false가 진행 가능
 		}
 		else if(checkOverlap==1) {
 			isboolean = true;
@@ -59,7 +66,7 @@ public class ConsultingService {
 		
 		//아직 온라인 신청0번이면 가능
 		if(onlineConsultingDto == null) {
-
+			
 			return true;
 		}
 		
@@ -90,6 +97,63 @@ public class ConsultingService {
 		consultingMapper.insertOnlineConsulting(par);
 	}
 	
+	//학생 최근 온라인상담 3건 뽑아오기
+	public List<Map<String, Object>> getOnlineConsultingList3(int student_pk){
+		
+		//
+		List<Map<String, Object>> list = new ArrayList<>();
+		//
+		
+		//학생정보 뽑기
+		StudentInfoDto studentInfoDto = consultingMapper.getStudentInfoByPk(student_pk);
+		
+		//가장 최근 구직 희망 정보
+		HopeJobDto hopeJobDto = consultingMapper.getLastHopejob(student_pk);
+		int hopeJobPk = hopeJobDto.getHope_job_pk();
+		
+		//최근 온라인상담건 3개 		
+		List<OnlineConsultingDto> onlineConsultingList = consultingMapper.getOnlineConsultingList3(hopeJobPk);
+		
+		for(OnlineConsultingDto e: onlineConsultingList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			int on_consulting_pk = e.getHope_job_pk();
+			OnlineConsultingReplyDto onlineConsultingReplyDto = consultingMapper.checkOnConsultingReply(on_consulting_pk);
+			
+			if(onlineConsultingReplyDto==null) {
+				map.put("onlineConsultingReplyDto", false);
+			}
+			else {
+				map.put("onlineConsultingReplyDto", onlineConsultingReplyDto);
+			}
+			
+			
+			map.put("onlineConsultingDto", e);
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("hopeJobDto", hopeJobDto);
+			list.add(map);
+		}
+		
+		
+		
+		return list;
+	}
+	
+	
+	//학생 온라인 상담 내역 자세히보기 페이지
+	public Map<String, Object> getOnlineConsultingByPk(int ON_CONSULTING_PK){
+		
+		OnlineConsultingDto onlineConsultingDto = consultingMapper.getOnlineConsultingByPk(ON_CONSULTING_PK);
+		OnlineConsultingReplyDto onlineConsultingReplyDto = consultingMapper.getOnConsultingReplyByOnPk(ON_CONSULTING_PK);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("onlineConsultingDto", onlineConsultingDto);
+		map.put("onlineConsultingReplyDto", onlineConsultingReplyDto);
+		
+		
+		
+		return map;
+	}
 	
 	
 	
