@@ -19,10 +19,7 @@ public class CounselCommonController {
 	}
 	
 	@RequestMapping("counselCenterStaffMainPage")
-	public String counselCenterStaffMainPage(HttpSession session, Model model) {
-		
-		StaffInfoDto sessionStaff = (StaffInfoDto)session.getAttribute("staffInfoDto");
-		model.addAttribute("sessionStaffInfo", sessionStaff);
+	public String counselCenterStaffMainPage() {
 		
 		return "tl_e/commons/counselCenterStaffMainPage";
 	}
