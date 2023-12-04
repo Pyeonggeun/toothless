@@ -30,7 +30,7 @@
 			<!-- 카테고리명 -->
 			<div class="row my-3">
 				<div class="col fs-4 fw-bold">
-					사생 관리
+					상벌 코드
 				</div>
 			</div>
 			
@@ -38,73 +38,44 @@
 			<div class="row mt-2">
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
-					  <li class="nav-item">
-					    <a class="nav-link text-black" href="./jw_exitSituation">외출/외박 현황</a>
-					  </li>
-					  <li class="nav-item">
-					    <a class="nav-link active text-black" href="./jw_callAttendSituation">점호 참석 현황</a>
-					  </li>
+						<li class="nav-item">
+							<a class="nav-link text-black" href="./jw_pointCodePage">상벌 코드</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active text-black" href="./jw_pointManagementPage">상벌 관리</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-black" href="#">학생 상벌 현황</a>
+						</li>
 					</ul>
 				</div>
 			</div>
 			
-			<!-- 미니맵 -->
-			<div class="row">
-				<div class="col border py-4 mx-2 rounded border-dark btn text-start" onclick="location.href='#'">
-					<div class="row">
-						<div class="col ms-2">
-								A동
-						</div>
-					</div>
-					
-					<div class="row mt-2">
-						<div class="col ms-2">
-							<span class="fs-5 fw-bold text-black">
-								x
-							</span>건
-						</div>
-					</div>
-				</div>
-				<div class="col border py-4 mx-2 rounded border-dark">
-					<div class="row">
-						<div class="col ms-2">
-							<a href="#" class="text-black" style="text-decoration: none;">
-							B동
-							</a>
-						</div>
-					</div>
-					<div class="row mt-2">
-						<div class="col ms-2">
-							<span class="fs-5 fw-bold text-black">
-								x
-							</span>건
-						</div>
-					</div>
-				</div>					
-				<div class="col-8"></div>
-			</div>
 
 			<!-- 세부내용 시작 -->			
 			<div class="row">
 				<div class="col">
 					<!-- 목록 -->
-					<div class="row mt-3 py-3">
-						<div class="col">
-							<input type="date">
-							<input type="submit" value="선택">
+					<div class="row py-3 justify-content-between">
+						<div class="col-1">
+						</div>
+						<div class="col-2 me-1">
+							<select class="form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
+								<option selected>전체</option>
+								<option value="1">상점</option>
+								<option value="2">벌점</option>
+							</select>
 						</div>
 					</div>
 					
 					<!-- 세부내용 -->
-					<div class="row mt-2">
+					<div class="row py-3">
 						<div class="col">
 							<table class="table table-bordered text-center align-middle">
 								<thead>
 									<tr class="align-middle border-bottom border-2">
-										<th scope="col" class="col-2 text-bg-light">이름</th>
-										<th scope="col" class="col-2 text-bg-light">기숙사명</th>
-										<th scope="col" class="col-2 text-bg-light">호</th>
-										<th scope="col" class="col-6 text-bg-light">불참석 현황</th>
+										<th scope="col" class="col-6 text-bg-light">내용</th>
+										<th scope="col" class="col-2 text-bg-light">점수</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -112,15 +83,11 @@
 									<tr>
 										<td>홍길동</td>
 										<td>A동</td>
-										<td>101호</td>
-										<td>불참석</td>
 									</tr>
 									<tr>
 										<td>신짱구</td>
 										<td>B동</td>
-										<td>204호</td>
-										<td>불참석</td>
-									</tr>	
+									</tr>
 								</tbody>
 							</table>
 						</div>
