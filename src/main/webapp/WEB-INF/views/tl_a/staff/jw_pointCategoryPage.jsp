@@ -39,10 +39,10 @@
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 						<li class="nav-item">
-							<a class="nav-link text-black" href="./jw_pointCategoryPage">상벌 코드</a>
+							<a class="nav-link active text-black" href="./jw_pointCategoryPage">상벌 코드</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active text-black" href="./jw_pointManagementPage">상벌 관리</a>
+							<a class="nav-link text-black" href="./jw_pointManagementPage">상벌 관리</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-black" href="./jw_pointSituationPage">학생 상벌 현황</a>
@@ -74,51 +74,19 @@
 							<table class="table table-bordered text-center align-middle">
 								<thead>
 									<tr class="align-middle border-bottom border-2">
-										<th scope="col" class="col-2 text-bg-light">이름</th>
-										<th scope="col" class="col-1 text-bg-light">기숙사명</th>
-										<th scope="col" class="col-1 text-bg-light">호</th>
-										<th scope="col" class="col-1 text-bg-light">상벌</th>
-										<th scope="col" class="col-6 text-bg-light">사유</th>
-										<th scope="col" class="col-1 text-bg-light">부여</th>
+										<th scope="col" class="col-6 text-bg-light">내용</th>
+										<th scope="col" class="col-2 text-bg-light">점수</th>
 									</tr>
 								</thead>
 								<tbody>
 									<!-- 값 반복 예정 -->
 									<tr>
-										<td>홍길동</td>
-										<td>A동</td>
-										<td>101호</td>
-										<td>
-											<select class="border-secondary-subtle form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
-												<option selected>선택</option>
-												<option value="1">상점</option>
-												<option value="2">벌점</option>
-											</select>
-										</td>
-										<td><input type="text" class="form-control"></td>
-										<td>
-											<a href="#" class="d-grid mx-2" style="text-decoration: none;">
-												<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">부여</span></button>
-											</a>
-										</td>
+										<td>기숙사 환경미화에 큰 기여를 함</td>
+										<td>500</td>
 									</tr>
 									<tr>
-										<td>신짱구</td>
-										<td>B동</td>
-										<td>201호</td>
-										<td>
-											<select class="border-secondary-subtle form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
-												<option selected>선택</option>
-												<option value="1">상점</option>
-												<option value="2">벌점</option>
-											</select>
-										</td>
-										<td><input type="text" class="form-control"></td>
-										<td>
-											<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
-												<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">부여</span></button>
-											</a>
-										</td>
+										<td>다른 학우의 물건을 훔치거나 파손을 함</td>
+										<td>-1000</td>
 									</tr>
 								</tbody>
 							</table>
