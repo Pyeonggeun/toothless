@@ -51,10 +51,10 @@
                                                     <li><a class="dropdown-item disabled">모집안내</a></li>
                                                     <li><hr class="dropdown-divider"></li>
                                                   <li><a class="dropdown-item" href="./dm_dormSelectionGuide">선발안내</a></li>
-                                                  <li><a class="dropdown-item" href="#">납부금 안내</a></li>
-                                                  <li><a class="dropdown-item" href="#">입사 신청</a></li>
-                                                  <li><a class="dropdown-item" href="#">합격 안내</a></li>
-                                                  <li><a class="dropdown-item" href="#">대관신청 안내</a></li>
+                                                  <li><a class="dropdown-item" href="./dm_streetDistribution">거리배점표</a></li>
+                                                  <li><a class="dropdown-item" href="./dm_paymentMoney">납부금안내</a></li>
+                                                  <li><a class="dropdown-item" href="#">입사신청</a></li>
+                                                  <li><a class="dropdown-item" href="#">합격안내</a></li>
                                                   
                                                 </ul>
                                               </li>
