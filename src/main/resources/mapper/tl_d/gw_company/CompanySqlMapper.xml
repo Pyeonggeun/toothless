@@ -13,14 +13,14 @@
 			#{com_name},
 			#{com_bossname},
 			#{com_address},
-			#{is_family_company},
+			'X',
 			SYSDATE
 		)
 	</insert>
 
 	<insert id="insertCompanyManager">
 		INSERT INTO tl_d_company_manager VALUES(
-			tl_d_company_manager_seq.nextval,
+			#{com_manager_pk},
 			#{external_pk},
 			#{com_manager_name},
 			#{com_manager_email},
@@ -32,6 +32,28 @@
 		)
 	</insert>
 	
+	<select id="creatCompanyManagerPK" resultType="int">
+		SELECT tl_d_company_manager_seq.nextval FROM dual
+	</select>
+	
+	<select id="creatExternalPK" resultType="int">
+		SELECT tl_jic_external_info_seq.nextval FROM dual
+	</select>
+	
+	<insert id="insertCompanyExternal">
+		INSERT INTO tl_jic_external_info VALUES(
+			#{external_pk},
+			#{external_id},
+			#{password},
+			2,
+			SYSDATE
+		)
+	</insert>
+	
+	<select id="selectComScaleCategoryAll" resultType="com.mkfactory.toothless.d.dto.ComScaleCategoryDto">
+		SELECT * FROM tl_d_com_scale_category
+		ORDER BY com_scale_category_pk ASC
+	</select>
 	
 
 </mapper>

@@ -2,6 +2,7 @@ package com.mkfactory.toothless.a.dto;
 
 import java.util.Date;
 
+
 public class PointDto {
 
 	private int dorm_point_pk;

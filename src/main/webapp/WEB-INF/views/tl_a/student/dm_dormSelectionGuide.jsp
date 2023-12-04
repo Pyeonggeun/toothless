@@ -39,6 +39,11 @@
                         <span class="fw-bold" style="color: white; font-size: x-large;">모집안내</span>
                     </div>
                 </div>
+                <div class="row" style="border-bottom: 0.01em solid #161313;">
+                    <div class="col py-3" style="font-size: large;">
+                        <span style="color: black;">모집공고</span>         
+                    </div>
+                </div>
                 <div class="row" style="border-bottom: 0.2em solid #504528;">
                     <div class="col py-3 fw-bold" style="font-size: large;">
                         <span style="color: #504528;">선발안내</span>       

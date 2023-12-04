@@ -13,6 +13,18 @@ public class DormStaffControllerDm {
 	@Autowired
 	public DormStaffServiceDm dormStaffServiceDm;
 	
+	@RequestMapping("dm_readRoomAssignment")
+	public String dm_readRoomAssignment() {
+		
+		
+		return "/tl_a/staff/dm_readRoomAssignment";
+	}
 	
+	@RequestMapping("dm_roomAssignment")
+	public String dm_roomAssignment() {
+		
+		
+		return "/tl_a/staff/dm_roomAssignment";
+	}
 	
 }

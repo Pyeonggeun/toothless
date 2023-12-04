@@ -69,13 +69,13 @@
                     <div class="col">
                         <div class="row">
                             <div class="col">
-                                <img src="img/02021.jpg" alt="" class="img-fluid">
+                                <img src="../../resources/img/dormitory/dormsub1.jpg" alt="" class="img-fluid">
                             </div>
                             <div class="col">
-                                <img src="img/02022.jpg" alt="" class="img-fluid">
+                                <img src="../../resources/img/dormitory/dormsub2.jpg" alt="" class="img-fluid">
                             </div>
                             <div class="col">
-                                <img src="img/02023.jpg" alt="" class="img-fluid">
+                                <img src="../../resources/img/dormitory/dormsub3.jpg" alt="" class="img-fluid">
                             </div>
                         </div>
                         <div class="row mt-2">

@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,8 +25,8 @@ public class NoticeController {
 	private NoticeServiceImpl noticeService;
 
 	@RequestMapping("noticeMainPage")
-	public String noticeMainPage() {
-		
+	public String noticeMainPage(Model model) {
+		model.addAttribute("list", noticeService.getNoticeList());
 		return "tl_e/notice/noticeMainPage";
 	}
 	
@@ -85,6 +86,12 @@ public class NoticeController {
 		}
 		noticeService.insertNoticeArticle(noticeBoardDto, noticeImageDtoList);
 		
-		return "tl_e/notice/noticeMainPage";
+		return "redirect:./noticeMainPage";
+	}
+	
+	@RequestMapping("readNoticeBoardPage")
+	public String readNoticeBoardPage(Model model, int id) {
+		model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
+		return "tl_e/notice/readNoticeBoardPage";
 	}
 }

@@ -61,5 +61,25 @@ public class DormStudentControllerDm {
 		
 		return "/tl_a/student/dm_dormSelectionGuide";
 	}
+	// 거리배점표
+	@RequestMapping("dm_streetDistribution")
+	public String dm_streetDistribution() {
+		
+		
+		return "/tl_a/student/dm_streetDistribution";
+	}
+	
+	@RequestMapping("dm_paymentMoney")
+	public String dm_paymentMoney() {
+		
+		
+		return "/tl_a/student/dm_paymentMoney";
+	}
+	
+	@RequestMapping("dm_dormPosted")
+	public String dm_dormPosted() {
+		
+		return "/tl_a/student/dm_dormPosted";
+	}
 	
 }

@@ -74,7 +74,7 @@
 	
 	
 		<!-- 상담 등록 화면 -->		
-		<form action="./groupCounselRegisterProcess" method="post">
+		<form action="./groupCounselRegisterProcess" method="post" enctype="multipart/form-data">
 		
 		<div class="row mt-0">
 			<!-- 왼쪽 여백 -->
@@ -171,7 +171,19 @@
 							</div>
 						</div>
 						<!-- 이미지 추가 -->
-						<div class="row"></div>
+						<div class="row">
+							<div class="col border-top border-black border-2">
+								<div class="row my-3">
+									<div class="col-2 text-center">
+										<div class="fw-bold" style="font-size: 1.0em;">이미지 등록</div>
+									</div>
+									<div class="col">
+										<input type="file" name="mainImageFile" class="form-control" accept="image/*">
+									</div>
+
+								</div>
+							</div>						
+						</div>
 						<!-- 상담원 등록?? -->
 						<div class="row"></div>
 						

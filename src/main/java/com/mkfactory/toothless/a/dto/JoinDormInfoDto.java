@@ -2,19 +2,28 @@ package com.mkfactory.toothless.a.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class JoinDormInfoDto {
 
 	private int dorm_info_pk;
 	private int semester_pk;
 	private String title;
 	private String detail_expln;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date apply_start_date;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date apply_end_date;
 	private int selection_amount;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date pass_anncm_date;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date payment_start_date;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date payment_end_date;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date asgnm_anncm_date;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date join_dorm_date;
 	private Date created_at;
 	

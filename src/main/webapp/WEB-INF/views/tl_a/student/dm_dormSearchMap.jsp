@@ -73,7 +73,7 @@
                 </div>
                 <div class="row"><!--여기가 안에 들어갈 내용들-->
                     <div class="col">
-                        <img src="img/searchrail.png" class="img-fluid">
+                        <img src="../../resources/img/dormitory/searchrail.png" class="img-fluid">
                     </div>
                 </div><!-- 여기까지-->
             </div>

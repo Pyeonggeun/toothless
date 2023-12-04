@@ -35,7 +35,7 @@
 				</div>
 			</div>
 			
-			<form action="./registerItemProcess" method="post" enctype="multipart/form-data">
+			<form action="./mj_registerInfoProcess" method="post">
              	<input type="hidden" name="seller_id" value="${sessionSeller.id }">
 			
 			<!-- 기숙사명 -->
@@ -78,15 +78,7 @@
 							기숙사 이미지
 						</div>
 					</div>
-					<!-- 메인이미지링크 -->
-                     <div class="row my-2">
-                     	<div class="col-1 align-self-center">
-                     		대표이미지
-                     	</div>
-                        <div class="col align-self-center">
-                     		<input class="form-control" name="mainImageLinkList" type="file" accept="image/*">
-                     	</div>
-                     </div>
+					
                      <!-- 상세이미지링크 -->
                      <div class="row my-2">
                      	<div class="col-1 align-self-center">

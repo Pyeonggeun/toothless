@@ -39,7 +39,7 @@
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 					  <li class="nav-item">
-					    <a class="nav-link text-black" href="#">호실 배정</a>
+					    <a class="nav-link text-black" href="./dm_roomAssignment">호실 배정</a>
 					  </li>
 					  <li class="nav-item">
 					    <a class="nav-link active text-black" href="#">배정 현황</a>
