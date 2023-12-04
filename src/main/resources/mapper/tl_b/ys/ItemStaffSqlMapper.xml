@@ -3,5 +3,73 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mkfactory.toothless.b.ys.item.mapper.ItemStaffSqlMapper">
+	
+	<!-- 아이템 리스트 -->
+	<select id="selectItemList" resultType="com.mkfactory.toothless.b.dto.ItemDto">
+		SELECT * FROM TL_B_ITEM_INFO 
+	</select>
+	<!-- 카테고리 + 물품 join -->
+	 
+	<select id="selectItemJoinCategoryList" resultType="map">
+		SELECT tbii.ITEM_PK AS ITEM_PK  , TBIC.NAME AS cat_NAME , TBII.NAME AS item_name, tbii.QUANTITY as quantity, tbii.CREATED_AT as created_at  FROM TL_B_ITEM_INFO tbii
+		INNER JOIN TL_B_ITEM_CAT tbic 
+		ON tbii.ITEM_CAT_PK = tbic.ITEM_CAT_PK
+	</select>
+
+	
+	<!-- 카테고리 리스트 -->
+	<select id="selectItemCategoryList" resultType="com.mkfactory.toothless.b.dto.ItemCatDto">
+		SELECT * FROM TL_B_ITEM_cat
+	</select>
+	
+	<!-- 아이템 등록 -->
+	<insert id="insertItem">
+		INSERT INTO TL_B_ITEM_INFO values(
+			TL_B_ITEM_INFO_seq.nextval,
+			#{item_cat_pk},
+			#{name},
+			#{img_link},
+			#{content},
+			#{quantity},
+			sysdate
+		)
+	</insert>
+	
+	<!-- 아이템pk별 아이템 -->
+	<select id="selectItemByItemPk" resultType="com.mkfactory.toothless.b.dto.ItemDto">
+		SELECT * FROM TL_B_ITEM_INFO
+		WHERE ITEM_PK = #{item_pk}
+	</select>
+	
+	<!-- 카테고리pk별 아이템 -->
+	<select id="selectItemByItemCategoryPk" resultType="com.mkfactory.toothless.b.dto.ItemDto">
+		SELECT * FROM TL_B_ITEM_INFO
+		WHERE ITEM_CAT_PK = #{item_cat_pk}
+	</select>
+	
+	<!-- 카테고리PK별 카테고리 -->
+	<select id="selectItemCatByItemCategoryPk" resultType="com.mkfactory.toothless.b.dto.ItemCatDto">
+		SELECT * FROM TL_B_ITEM_cat
+		where Item_cat_pk = #{item_cat_pk}
+	</select>
+	
+	
+	<!-- 아이템pk별 아이템 수정 -->
+	<update id="updateItemByItemPk">
+		UPDATE TL_B_ITEM_INFO
+		SET ITEM_CAT_PK = #{item_cat_pk}, NAME =#{name}, IMG_LINK = #{img_link}, CONTENT = #{content}, quantity = #{quantity}
+		WHERE ITEM_PK = #{item_pk}
+	</update>
+
+	<!-- 아이템pk별 아이템 삭제 -->
+	<delete id="deleteItemByItemPk">
+		DELETE FROM TL_B_ITEM_INFO
+		WHERE ITEM_PK = #{item_pk}
+	</delete>
+
+
+
+
+
 
 </mapper>

@@ -2,6 +2,8 @@ package com.mkfactory.toothless.b.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class ClinicPatientDto {
 
 	private int clinic_patient_pk;
@@ -10,6 +12,8 @@ public class ClinicPatientDto {
 	private int age;
 	private String address;
 	private String phone;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date birth;
 	private Date created_at;
 	
 	public ClinicPatientDto() {
@@ -17,7 +21,7 @@ public class ClinicPatientDto {
 	}
 
 	public ClinicPatientDto(int clinic_patient_pk, String resident_id, String name, int age, String address,
-			String phone, Date created_at) {
+			String phone, Date birth, Date created_at) {
 		super();
 		this.clinic_patient_pk = clinic_patient_pk;
 		this.resident_id = resident_id;
@@ -25,6 +29,7 @@ public class ClinicPatientDto {
 		this.age = age;
 		this.address = address;
 		this.phone = phone;
+		this.birth = birth;
 		this.created_at = created_at;
 	}
 
@@ -74,6 +79,14 @@ public class ClinicPatientDto {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public Date getBirth() {
+		return birth;
+	}
+
+	public void setBirth(Date birth) {
+		this.birth = birth;
 	}
 
 	public Date getCreated_at() {

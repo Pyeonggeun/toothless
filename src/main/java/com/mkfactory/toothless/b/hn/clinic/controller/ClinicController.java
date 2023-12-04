@@ -20,6 +20,7 @@ public class ClinicController {
 		
 		model.addAttribute("allClinicPatientInfoList", clinicService.getAllClinicPatientInfoList());
 		model.addAttribute("clinicPatientLogInfo", clinicService.getClinicPatientInfo(clinic_patient_pk));
+		model.addAttribute("medicineInfoList", clinicService.getMedicineInfoList());
 		
 		return "tl_b/hn/clinicPage";
 	}

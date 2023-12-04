@@ -4,6 +4,21 @@
 
 <mapper namespace="com.mkfactory.toothless.a.staff.mj.mapper.DormStaffSqlMapper">
 
+	<!-- 학년도/학기 등록 -->
+	<insert id="insertYear">
+		INSERT INTO tl_a_semester values(
+			tl_a_semester_seq.nextval,
+			#{semester_year},
+			#{semester},
+			'N'
+		)
+	</insert>
+	
+	<!-- 학년도/학기 조회 -->
+	<select id="selectYearList" resultType="com.mkfactory.toothless.a.dto.SemesterDto">
+		SELECT * FROM tl_a_semester
+		ORDER BY SEMESTER_YEAR desc, SEMESTER_pk desc
+	</select>
 
 
 
