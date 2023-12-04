@@ -54,17 +54,29 @@
 	<jsp:include page="../common/ajdksTemplateForCompany.jsp"></jsp:include>
 	
 	<!-- 본문 :  자유롭게 이용하세요 화이팅 -->
-	<div class="col ms-5">
-		
-		
-		
-		
+	<div class="col">
+		<!-- 안내문구 -->
+		<div class="row py-2" style="box-shadow: 2px 2px 2px gray;">
+			<div class="col ms-2" style="font-size: 0.9em;">
+				<span>&#035;&nbsp;중앙정보기술인재개발원 님 환영합니다</span>
+			</div>	
+		</div>
+		<div class="row">
+			<div class="col ms-4 me-4">
+			
+			<!-- 본문작성공간 -->
+				
+				
+				
+				
+				
+			</div>
+		</div>
 	</div>
 	
 </div>
 
 
-</div><!-- 메인화면 출구 -->
 
 </div><!-- 전체 container 출구 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

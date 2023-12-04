@@ -11,9 +11,9 @@ import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
 public interface EunbiStudentSqlMapper {
 
 	// 학생의 현장실습과정 지원상태 조회
-	public AjdksStudentApplyingDto getStudentApplying(int student_pk);
+	public List<AjdksStudentApplyingDto> getStudentApplying(int student_pk);
 	// 학생의 현장실습과정 참가내역 조회
-	public AjdksStudentInternDto getStudentInternHistory(int student_pk);
+	public List<AjdksStudentInternDto> getStudentInternHistory(int student_pk);
 	
 	// 학생 기업만족도 평가
 	public void insertInternSatisfaction(AjdksInternSatisfactionDto ajdksInternSatisfactionDto);

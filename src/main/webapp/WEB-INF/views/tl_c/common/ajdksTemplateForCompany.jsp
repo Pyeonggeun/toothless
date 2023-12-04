@@ -148,9 +148,4 @@
 </div>
 
 	
-	<!-- 안내문구 -->
-	<div class="row py-2" style="box-shadow: 2px 2px 2px gray;">
-		<div class="col" style="font-size: 0.9em;">
-			<span>&#035;&nbsp;중앙정보기술인재개발원 님 환영합니다</span>
-		</div>	
-	</div>
+	

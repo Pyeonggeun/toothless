@@ -84,6 +84,26 @@ WHERE on_consulting_pk = #{on_consulting_pk}
 </select>
 
 
+<!-- (학생) 최근 온라인 상담 현활 3건보기 -->
+
+
+<select id="getOnlineConsultingList3" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
+SELECT t2.*
+FROM (
+	SELECT t1.*,rownum rnum
+	FROM (
+		SELECT a.*
+		FROM tl_d_online_consulting a
+		WHERE Hope_job_pk = #{hope_job_pk}
+		ORDER BY a.created_at desc
+	)t1
+)t2
+<![CDATA[
+    WHERE rnum <= 3
+]]>
+</select>
+
+
 
 
 
@@ -134,8 +154,6 @@ WHERE STUDENT_PK = #{STUDENT_PK}
 
 
 <!-- 교직원 -->
-<!-- 온라인 상담 답글시 답장안한 상담인지 재확인 -->
-
 <!-- 상담 답글 달기 -->
 <insert id="insertOnlineConsultingReply">
 INSERT INTO tl_d_online_consulting_reply VALUES(
@@ -147,6 +165,22 @@ INSERT INTO tl_d_online_consulting_reply VALUES(
 )
 
 </insert>
+
+
+
+
+
+<!-- 온라인 상담 자세히보기 페이지 출력용-->
+<select id="getOnlineConsultingByPk" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
+SELECT * FROM tl_d_online_consulting a
+WHERE a.ON_CONSULTING_PK = #{ON_CONSULTING_PK}
+</select>
+
+<select id="getOnConsultingReplyByOnPk" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
+SELECT * FROM tl_d_online_consulting_reply
+WHERE ON_CONSULTING_PK = #{ON_CONSULTING_PK}
+</select>
+
 
 
 </mapper>

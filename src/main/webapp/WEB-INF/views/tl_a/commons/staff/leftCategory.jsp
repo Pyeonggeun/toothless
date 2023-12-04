@@ -55,7 +55,7 @@
                             <a class="btn text-start my-1" href="#" role="button">1학기</a>
                             <a class="btn text-start my-1" href="#" role="button">여름학기</a>
                             <a class="btn text-start my-1" href="#" role="button">2학기</a>
-                            <a class="btn text-start my-1" href="#" role="button">겨울학기</a>
+                            <a class="btn text-start my-1" href="./mj_registerJoinInfoPage" role="button">겨울학기</a>
                         </div>
                     </div>
                   </div>

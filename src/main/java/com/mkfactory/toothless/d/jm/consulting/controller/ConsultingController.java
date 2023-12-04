@@ -1,5 +1,6 @@
 package com.mkfactory.toothless.d.jm.consulting.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -73,7 +74,24 @@ public class ConsultingController {
 	
 	//학생 온라인상담 페이지 
 	@RequestMapping("onlineConsultingPage")
-	public String onlineConsultingPage() {
+	public String onlineConsultingPage(HttpSession session, Model model) {
+		
+		
+		//상담가능 불가능 확인
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int student_pk = studentInfoDto.getStudent_pk();		
+		boolean isboolean= consultingService.isOnlineconsulting(student_pk);
+		if(isboolean == true) {
+			model.addAttribute("isOnelineConsulting", true);
+		}
+		//불가능
+		else {
+			model.addAttribute("isOnelineConsulting", false);
+		}		
+		
+		
+		
+		
 		return"tl_d/jm_consulting/onlineConsultingPage";
 	}
 	
@@ -89,7 +107,7 @@ public class ConsultingController {
 		//구직희망 신청번호 뽑아오기
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		int student_pk = studentInfoDto.getStudent_pk();
-		//질문 가능or불가능
+		//신청 가능or불가능
 		boolean isboolean= consultingService.isOnlineconsulting(student_pk);
 		
 		//가능
@@ -98,6 +116,7 @@ public class ConsultingController {
 			HopeJobDto hopeJobDto = consultingService.getLastHopejob(student_pk);
 			onlineConsulting.setHope_job_pk(hopeJobDto.getHope_job_pk());
 			consultingService.insertOnlineConsulting(onlineConsulting);
+			model.addAttribute("isOnelineConsulting", true);
 			return "redirect:./test";
 
 
@@ -120,7 +139,7 @@ public class ConsultingController {
 	
 	
 	//교직원 온라인 상담 답글입력 프로세스
-	@RequestMapping("OnlineConsultingReplyProcess")
+	@RequestMapping("onlineConsultingReplyProcess")
 	public String insertOnlineConsultingReply(OnlineConsultingReplyDto par, HttpSession session) {
 		//jsp페이지에서 on_consulting_pk, on_contents_reply받기
 		//staffpk세팅
@@ -132,6 +151,55 @@ public class ConsultingController {
 		
 		
 		return"";
+	}
+	
+	
+	
+	//학생 구직희망 메인페이지 (갈림길)
+	@RequestMapping("hopeJobMainPage")
+	public String hopeJobMainPage(HttpSession session,Model model) {
+		
+			
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int student_pk = studentInfoDto.getStudent_pk();
+		
+		//중복확인, false면 구직희망 신청페이지로
+		if(consultingService.checkOverlapHopeJobApply(student_pk)==false) {
+			return "tl_d/jm_consulting/applyHopeJobPage";
+		}
+		
+		
+		
+		
+		
+		
+		List<Map<String, Object>> onConsultingList3 = consultingService.getOnlineConsultingList3(student_pk);
+		
+		
+		
+		model.addAttribute("onConsultingList3", onConsultingList3);	
+	
+		
+		
+		return"tl_d/jm_consulting/hopeJobMainPage";
+	}
+	
+	
+	//학생 온라인 상담 자세히보기 페이지
+	@RequestMapping("onlineConsultingViewPage")
+	public String onlineConsultingViewPage(int on_consulting_pk, Model model) {
+		
+		Map<String, Object> onlineConsultingInfo = consultingService.getOnlineConsultingByPk(on_consulting_pk);
+		
+		model.addAttribute("onlineConsultingInfo", onlineConsultingInfo);
+		
+		return"tl_d/jm_consulting/onlineConsultingViewPage";
+	}
+	
+	//더미테스트
+	@RequestMapping("dummy")
+	public String dummy() {
+		return"tl_d/jm_consulting/dummy";
 	}
 	
 	

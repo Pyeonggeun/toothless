@@ -42,8 +42,8 @@
 			</div>
 			<div class="col">
 				<ul class="nav nav-pills">
-				  <li class="nav-item dropdown">
-				    <a class="nav-link text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">공지사항</a>
+				  <li>
+				    <a class="nav-link text-dark" href="../notice/noticeMainPage" role="button" aria-expanded="false">공지사항</a>
 				  </li>
 				</ul>
 			</div>

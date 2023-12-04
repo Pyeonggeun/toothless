@@ -55,5 +55,18 @@ public class StaffboardController {
 		
 		return "redirect:./staffNoticeboardPage";
 	}
-	
+
+	//작성 글 보기
+	@RequestMapping("readTextPage")
+	public String readTextPage(Model model, int staff_noticeboard_pk) {
+		
+		staffboardService.createTextReadCount(staff_noticeboard_pk);
+		
+		Map<String, Object> readText = staffboardService.readContentsDetailInfo(staff_noticeboard_pk);
+		
+		model.addAttribute("readText", readText);
+		
+		
+		return "tl_b/dy/readTextPage";
+	}
 }

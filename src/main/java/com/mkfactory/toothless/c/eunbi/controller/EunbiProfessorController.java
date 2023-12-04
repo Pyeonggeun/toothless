@@ -29,6 +29,7 @@ public class EunbiProfessorController {
 		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
 		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
 		
+		model.addAttribute("sessionProfessorInfo", sessionProfessorInfo);
 		model.addAttribute("studentsInfo", professorServiece.viewStudentsWithApplyingStatus(sessionProfessorPk));
 		
 		return "tl_c/eunbi/professor/viewChargedStudentPage";

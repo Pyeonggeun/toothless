@@ -2,6 +2,8 @@ package com.mkfactory.toothless.e.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class FreeboardDto {
 
 	private int id;
@@ -9,6 +11,7 @@ public class FreeboardDto {
 	private String title;
 	private String text;
 	private String read_count;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date created_at;
 	
 	public FreeboardDto() {

@@ -14,230 +14,44 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <div class="row">
-                        <div class="col px-0">
-                            <img class="img-fluid" src="./img/health/구름.jpg" style="height: 10vh; width: 100%; object-fit: cover; object-position: 50% 43%;">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row bg-secondary" style="height: 4vh;">
-                                <div class="col"></div>
-                                <div class="col"></div>
-                            </div>
-                        </div>
-                    </div>
+                    <jsp:include page="../commonJsp/staffTopBanner.jsp"></jsp:include>
                     <div class="row">
                         <div class="col">
                             <div class="row">
-                                <div class="col col-auto border-end">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="row mt-4">
-                                                        <div class="col text-center" style="font-size: xx-large;">
-                                                            MENU
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col text-center">
-                                                            <i class="bi bi-person-lines-fill" style="font-size: 4em;"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col text-center">
-                                                            보건직원 이름 님
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col">
-                                                    <div class="row">
-                                                        <div class="col text-center" style="font-size: small;">
-                                                            마이페이지&nbsp;&nbsp;|&nbsp;&nbsp;로그아웃
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="col">
-                                            <div class="row mt-2">
-                                                <div class="col">
-                                                    <div class="row">
-                                                        <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-capsule"></i>&nbsp;&nbsp;의약품관리
-                                                                        </div>
-                                                                        <div class="col-1 me-3 text-end pe-0">
-                                                                            &or;
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </p>
-                                                            <div class="collapse" id="collapseExample1">
-                                                                <div class="card card-body rounded-0 py-0 border-0">
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        재고관리
-                                                                    </a>
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        입고관리
-                                                                    </a>
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        코드관리
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-ui-checks"></i>&nbsp;&nbsp;진료관리
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-person-exclamation"></i>&nbsp;&nbsp;요보호학생관리
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-box-seam"></i>&nbsp;&nbsp;물품관리
-                                                                        </div>
-                                                                        <div class="col-1 me-3 text-end pe-0">
-                                                                            &or;
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </p>
-                                                            <div class="collapse" id="collapseExample2">
-                                                                <div class="card card-body rounded-0 py-0 border-0">
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        등록
-                                                                    </a>
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        현황관리
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-highlighter"></i>&nbsp;&nbsp;교육프로그램관리
-                                                                        </div>
-                                                                        <div class="col-1 me-3 text-end pe-0">
-                                                                            &or;
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </p>
-                                                            <div class="collapse" id="collapseExample3">
-                                                                <div class="card card-body rounded-0 py-0 border-0">
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        등록
-                                                                    </a>
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        조회
-                                                                    </a>
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        이수자관리
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-calendar-check"></i>&nbsp;&nbsp;일정관리
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button" onclick="location.href='./staffNoticeboardPage'">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-question-octagon"></i>&nbsp;&nbsp;공지사항
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
                                 <div class="col">
                                     <h1>교직원 게시판</h1>
 	                                    <c:choose>
 	                                    	<c:when test="${!empty sessionStaffInfo}">
-	                                    	${sessionStaffInfo.name} 님 로그인 하셨습니다.
-	                                    	<br>
-	                                   	<!-- <button type="button" onclick="location.href=''"></button>-->
+		                                    	${sessionStaffInfo.name} 님 로그인 하셨습니다.
+		                                    	<br>
+		                                   		<button type="button" onclick="location.href='./logoutProcess'">로그아웃</button>
 	                                    	</c:when>
-	                                    		
+	                                    	<c:otherwise>
+	                                    		<button type="button" onclick="location.href='../../another/staff/loginPage'">로그인</button>
+	                                    	</c:otherwise>
 	                                    </c:choose>
                                     <table border="1">
                                     	<tr>
-                                    		<td>글번호
-											<td>제목
-											<td>작성자
-											<td>조회수
-											<td>작성일
+                                    		<td>글번호</td>
+											<td>제목</td>
+											<td>작성자</td>
+											<td>조회수</td>
+											<td>작성일</td>
                                     	</tr>
                                     	<c:forEach items="${list}" var="map">
 	                                    	<tr>
 	                                    		<td>${map.staffNoticeboardDto.staff_noticeboard_pk}</td>
-	                                    		<td>${map.staffInfoDto.staff_pk}</td>
-	                                    		<td>${map.staffNoticeboardDto.title}</td>
-	                                    		<td>${map.staffNoticeboardDto.content}</td>
-	                                    		<td>${map.staffNoticeboardDto.created_at }</td>
+	                                    		<td><a href="./readTextPage?staff_noticeboard_pk=${map.staffNoticeboardDto.staff_noticeboard_pk}">${map.staffNoticeboardDto.title}</a></td>
+	                                    		<td>${map.staffInfoDto.name}</td>
+	                                    		<td>${map.staffNoticeboardDto.read_count}</td>
+	                                    		<td>${map.staffNoticeboardDto.created_at}</td>
 	                                    	</tr>
                                     	</c:forEach>	
                                     </table>
-                                    <button type="button" onclick="location.href='./writeTextPage'">글쓰기</button>
-                                    
+                                    <c:if test="${!empty sessionStaffInfo}">
+                                    	<button type="button" onclick="location.href='./writeTextPage'">글쓰기</button>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>

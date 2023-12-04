@@ -37,7 +37,7 @@ public class EunbiProfessorServiceImpl {
 			Map<String, Object> studentsInfo = new HashMap<>();
 			
 			studentsInfo.put("studenInfoDto", studenInfoDto);
-			studentsInfo.put("studentApplyingDto", studentSqlMapper.getStudentApplying(studentPk));
+			studentsInfo.put("studentApplyingList", studentSqlMapper.getStudentApplying(studentPk));
 			studentsInfo.put("selfIntroductionDto", studentSqlMapper.getSelfIntroduction(studentPk));
 			studentsInfo.put("certificationList", certificationList);
 			

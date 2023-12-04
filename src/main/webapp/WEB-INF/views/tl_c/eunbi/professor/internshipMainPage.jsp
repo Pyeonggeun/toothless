@@ -57,7 +57,7 @@
 	<div class="col ms-5">
 		
 		<div class="row">
-			<div class="col"></div>
+			
 		</div>
 		
 	</div>

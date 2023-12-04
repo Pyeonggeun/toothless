@@ -42,6 +42,24 @@
 		)	
 	</insert>
 	
+	<!-- 상담원 전체 리스팅 -->
+	<select id="selectAllCounselor" resultType="map">
+		SELECT 
+			cc.id AS id,
+			cct.type_category_id AS typecategory,
+			cc.name AS name,
+			cc.age AS age,
+			cc.GENDER AS gender,
+			cc.PHONENUMBER AS phonenumber,
+			cc.EMAIL AS email,
+			cc.address AS address,
+			cc.CAREER AS career,
+			cc.PROFILEIMAGE AS profileImage
+		FROM CP_COUNSELOR_TYPE cct
+		INNER JOIN CP_COUNSELOR cc ON cc.id = cct.counselor_id
+		ORDER BY type_category_id ASC
+	</select>
+	
 	<!-- 상담카테고리 리스팅 -->
 	<select id="selectAllTypeCategory" resultType="com.mkfactory.toothless.e.dto.TypeCategoryDto">
 		SELECT * FROM cp_type_category
@@ -56,6 +74,8 @@
 			SYSDATE
 		)
 	</insert>
+	
+	
 	
 	
 

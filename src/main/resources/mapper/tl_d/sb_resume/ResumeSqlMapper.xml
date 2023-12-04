@@ -4,12 +4,33 @@
 
 <mapper namespace="com.mkfactory.toothless.d.sb.resume.mapper.ResumeSqlMapper">
 
+	<!-- 이력서 등록 -->
+	<insert id="insertResumeDto">
+		INSERT INTO tl_d_resume values(
+			tl_d_resume_seq.nextval,
+			#{student_pk},
+			#{resume_title},
+			#{cover_letter},
+			#{main_resume},
+			#{is_public},
+			sysdate
+		)	
+	</insert>
 
+	<!-- 학생의 이력서 가져오기 -->
+	<select id="getResumeListByStudentPk" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
+		SELECT * FROM tl_d_resume WHERE student_pk = #{student_pk}	
+	</select>
 
+	<!--메인이력서 설정시 그 외 이력서 메인설정과 공개 여부 설정 변경  -->
+	<update id="changeMainAndPublic">
+		UPDATE tl_d_resume SET main_resume = 'N' ,is_public = 'N' WHERE resume_pk = #{resume_pk}
+	</update>
 
-
-
-
+	<!-- 이력서 상세보기  -->
+	<select id="getThisResumeDtoByResumePk" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
+		SELECT * FROM tl_d_resume WHERE resume_pk = #{resume_pk}	
+	</select>
 
 
 </mapper>
