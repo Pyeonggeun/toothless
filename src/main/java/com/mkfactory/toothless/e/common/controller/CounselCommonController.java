@@ -20,8 +20,8 @@ public class CounselCommonController {
 	
 	@RequestMapping("staffCounselMainPage")
 	public String staffCounselMainPage(HttpSession session, Model model) {
-		StaffInfoDto sessionStaff = (StaffInfoDto)session.getAttribute("staffInfoDto");
 		
+		StaffInfoDto sessionStaff = (StaffInfoDto)session.getAttribute("staffInfoDto");
 		model.addAttribute("sessionStaffInfo", sessionStaff);
 		
 		return "tl_e/commons/staffCounselMainPage";
