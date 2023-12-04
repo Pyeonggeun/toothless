@@ -5,6 +5,5 @@
 
 <mapper namespace="com.mkfactory.toothless.a.student.dm.mapper.DormStudentSqlMapperDm">
 
-
-
+	
 </mapper>

@@ -43,9 +43,9 @@
                         <span class="fw-bold" style="color: white; font-size: x-large;">모집안내</span>
                     </div>
                 </div>
-                <div class="row" style="border-bottom: 0.2em solid #504528;">
-                    <div class="col py-3 fw-bold" style="font-size: large;">
-                        <span style="color: #504528;">모집공고</span>       
+                <div class="row" style="border-bottom: 0.01em solid #161313;">
+                    <div class="col py-3" style="font-size: large;">
+                        <span style="color: black;">모집공고</span>         
                     </div>
                 </div>
                 <div class="row" style="border-bottom: 0.01em solid #161313;">
@@ -63,12 +63,11 @@
                         <span style="color: black;">납부금안내</span>         
                     </div>
                 </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">합격안내</span>         
+                <div class="row" style="border-bottom: 0.2em solid #504528;">
+                    <div class="col py-3 fw-bold" style="font-size: large;">
+                        <span style="color: #504528;">입사신청</span>       
                     </div>
                 </div>
-                
                 <div class="row" style="border-bottom: 0.01em solid #161313;">
                     <div class="col py-3" style="font-size: large;">
                         <span style="color: black;">합격안내</span>         
@@ -83,10 +82,10 @@
                     <div class="col">
                         <div class="row my-3">
                             <div class="col pb-2">
-                                <span class="fw-bold" style="font-size: xx-large;">모집공고</span>
+                                <span class="fw-bold" style="font-size: xx-large;">입사신청</span>
                             </div>
                             <div class="col text-end pt-3">
-                                <span class="bi bi-house-door-fill" style="color: #999897;"></span><span style="color: #7A8082;"> > 모집안내 </span> <span style="color: #999897;"> > </span><span class="fw-bold" style="color: #767575;"> 모집공고</span>
+                                <span class="bi bi-house-door-fill" style="color: #999897;"></span><span style="color: #7A8082;"> > 모집안내 </span> <span style="color: #999897;"> > </span><span class="fw-bold" style="color: #767575;"> 입사신청</span>
                             </div>
                             <span class="border-bottom  border-dark border-4 mt-2"></span>
                         </div>
@@ -95,11 +94,7 @@
                 </div>
                 <div class="row"><!--여기가 안에 들어갈 내용들-->
                     <div class="col">
-                        <div class="row">
-							<div class="col">
-								
-							</div>             
-                        </div>
+                        
                     </div>
                 </div><!-- 여기까지-->
             </div>

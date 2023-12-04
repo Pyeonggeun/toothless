@@ -2,6 +2,8 @@ package com.mkfactory.toothless.a.student.dm.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.a.student.dm.service.DormStudentServiceDm;
@@ -73,13 +75,22 @@ public class DormStudentControllerDm {
 	public String dm_paymentMoney() {
 		
 		
+		
 		return "/tl_a/student/dm_paymentMoney";
 	}
 	
 	@RequestMapping("dm_dormPosted")
-	public String dm_dormPosted() {
+	public String dm_dormPosted(Model model) {
+		
+		
 		
 		return "/tl_a/student/dm_dormPosted";
+	}
+	@RequestMapping("dm_dormApplyStudentPage")
+	public String dm_dormApplyStudentPage() {
+		
+		
+		return "/tl_a/student/dm_dormApplyStudentPage";
 	}
 	
 }
