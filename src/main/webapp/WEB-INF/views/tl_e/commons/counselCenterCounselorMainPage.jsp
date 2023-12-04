@@ -37,7 +37,7 @@
 				</div>
 				<div class="row pt-5">
 					<div class="col fs-5">
-						<a class="navbar-brand" href="#">온라인상담</a>
+						<a class="navbar-brand" href="../onlineCounsel/onlineCounselMainPage">온라인상담</a>
 					</div>
 				</div>
 				<div class="row pt-4">

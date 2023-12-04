@@ -4,7 +4,52 @@
 
 <mapper namespace="com.mkfactory.toothless.a.staff.mj.mapper.DormStaffSqlMapper">
 
-
+	<!-- 학년도/학기 등록 -->
+	<insert id="insertYear">
+		INSERT INTO tl_a_semester values(
+			tl_a_semester_seq.nextval,
+			#{semester_year},
+			#{semester},
+			'N'
+		)
+	</insert>
+	
+	<!-- 학년도/학기 조회 -->
+	<select id="selectYearList" resultType="com.mkfactory.toothless.a.dto.SemesterDto">
+		SELECT * FROM tl_a_semester
+		ORDER BY SEMESTER_YEAR desc, SEMESTER_pk desc
+	</select>
+	
+	<!-- 현재학기 조회 -->
+	<select id="selectThisSemester" resultType="com.mkfactory.toothless.a.dto.SemesterDto">
+		SELECT * FROM tl_a_semester
+		WHERE PROGRESS_STATE = 'Y'
+	</select>
+	
+	<!-- 입주공고 등록 -->
+	<insert id="insertInfo">
+		INSERT INTO tl_a_join_dorm_info values(
+			tl_a_join_dorm_info_seq.nextval,
+			#{semester_pk},
+			#{title},
+			#{detail_expln},
+			#{apply_start_date},
+			#{apply_end_date},
+			#{selection_amount},
+			#{pass_anncm_date},
+			#{payment_start_date},
+			#{payment_end_date},
+			#{asgnm_anncm_date},
+			#{join_dorm_date},
+			sysdate
+		)
+	</insert>
+	
+	<!-- 등록된 공고들 조회 -->
+	<select id="selectAllDormInfoList" resultType="com.mkfactory.toothless.a.dto.JoinDormInfoDto">
+		SELECT * FROM tl_a_join_dorm_info
+	</select>
+	
 
 
 </mapper>

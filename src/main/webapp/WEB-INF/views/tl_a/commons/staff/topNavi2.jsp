@@ -10,7 +10,7 @@
                 <img src="../../resources/img/another/logo_black.png" alt="" class="img-fluid">
             </div>
             <div class="col p-0 align-self-center text-black fw-bold fs-3">
-                MK <span class="fs-4">대학교</span> <span class="fs-6"> | </span> <span class="fs-5">기숙사 관리</span> 
+                MK <span class="fs-4">대학교</span> <span class="fs-6"> | </span> <span class="fs-6"> 기숙사 관리</span> 
             </div>
         </div>
    	</div>
@@ -22,7 +22,7 @@
 					<ul class="nav">
 					  <li class="nav-item mx-1">
 					    <a class="nav-link active fs-5" aria-current="page" style="text-decoration: none; color: black;" 
-					    href="#">공고 관리</a>
+					    href="./mj_registerJoinInfoPage">공고 관리</a>
 					  </li>
 					  <li class="nav-item mx-2">
 					    <a class="nav-link fs-5" style="text-decoration: none; color: black;"

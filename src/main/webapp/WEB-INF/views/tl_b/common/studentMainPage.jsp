@@ -96,18 +96,20 @@
                                             </button>
                                         </div>
                                         <div class="col px-0 d-grid justify-content-center">
-                                            <button class="rounded-circle btn text-white" style="aspect-ratio: 1/1; width: 130%; background-color: #014195;">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <i class="bi bi-prescription2" style="font-size: x-large;"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-1">
-                                                    <div class="col">
-                                                        물품신청
-                                                    </div>
-                                                </div>
-                                            </button>
+                                            <a class="link-underline link-underline-opacity-0" href="../ys/studentItemListPage">
+                                            	<button class="rounded-circle btn text-white" style="aspect-ratio: 1/1; width: 130%; background-color: #014195;">
+	                                                <div class="row">
+	                                                    <div class="col">
+	                                                        <i class="bi bi-prescription2" style="font-size: x-large;"></i>
+	                                                    </div>
+	                                                </div>
+	                                                <div class="row mt-1">
+	                                                    <div class="col">
+	                                                        물품신청
+	                                                    </div>
+	                                                </div>
+	                                            </button>
+                                            </a>
                                         </div>
                                         <div class="col px-0 d-grid justify-content-center">
                                             <button class="rounded-circle btn text-white" style="aspect-ratio: 1/1; width: 130%; background-color: #014195;">
