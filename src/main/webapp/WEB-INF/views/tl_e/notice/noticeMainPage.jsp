@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,134 +12,33 @@
 </head>
 <body>
 	<h1>*공지사항</h1>
-	<a href="./writeNoticeArticlePage">글쓰기</a>
-	
+	<c:if test="${!empty sessionStaffInfo }">
+		<a href="./writeNoticeArticlePage">글쓰기</a>
+	</c:if>
 	<div class="table-responsive small">
 		<table class="table table-striped table-sm">
 			<thead>
 			  <tr>
-			    <th scope="col">#</th>
-			    <th scope="col">Header</th>
-			    <th scope="col">Header</th>
-			    <th scope="col">Header</th>
-			    <th scope="col">Header</th>
+			    <th scope="col">글번호</th>
+			    <th scope="col">제목</th>
+			    <th scope="col">작성자</th>
+			    <th scope="col">조회수</th>
+			    <th scope="col">작성일</th>
 			  </tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1,001</td>
-					<td>random</td>
-					<td>data</td>
-					<td>placeholder</td>
-					<td>text</td>
-				</tr>
-				<tr>
-					<td>1,002</td>
-					<td>placeholder</td>
-					<td>irrelevant</td>
-					<td>visual</td>
-					<td>layout</td>
-				</tr>
-				<tr>
-					<td>1,003</td>
-					<td>data</td>
-					<td>rich</td>
-					<td>dashboard</td>
-					<td>tabular</td>
-				</tr>
-				<tr>
-					<td>1,003</td>
-					<td>information</td>
-					<td>placeholder</td>
-					<td>illustrative</td>
-					<td>data</td>
-				</tr>
-				<tr>
-					<td>1,004</td>
-					<td>text</td>
-					<td>random</td>
-					<td>layout</td>
-					<td>dashboard</td>
-				</tr>
-				<tr>
-					<td>1,005</td>
-					<td>dashboard</td>
-					<td>irrelevant</td>
-					<td>text</td>
-					<td>placeholder</td>
-				</tr>
-				<tr>
-					<td>1,006</td>
-					<td>dashboard</td>
-					<td>illustrative</td>
-					<td>rich</td>
-					<td>data</td>
-				</tr>
-				<tr>
-					<td>1,007</td>
-					<td>placeholder</td>
-					<td>tabular</td>
-					<td>information</td>
-					<td>irrelevant</td>
-				</tr>
-				<tr>
-					<td>1,008</td>
-					<td>random</td>
-					<td>data</td>
-					<td>placeholder</td>
-					<td>text</td>
-				</tr>
-				<tr>
-					<td>1,009</td>
-					<td>placeholder</td>
-					<td>irrelevant</td>
-					<td>visual</td>
-					<td>layout</td>
-				</tr>
-				<tr>
-					<td>1,010</td>
-					<td>data</td>
-					<td>rich</td>
-					<td>dashboard</td>
-					<td>tabular</td>
-				</tr>
-				<tr>
-					<td>1,011</td>
-					<td>information</td>
-					<td>placeholder</td>
-					<td>illustrative</td>
-					<td>data</td>
-				</tr>
-				<tr>
-					<td>1,012</td>
-					<td>text</td>
-					<td>placeholder</td>
-					<td>layout</td>
-					<td>dashboard</td>
-				</tr>
-				<tr>
-					<td>1,013</td>
-					<td>dashboard</td>
-					<td>irrelevant</td>
-					<td>text</td>
-					<td>visual</td>
-				</tr>
-				<tr>
-					<td>1,014</td>
-					<td>dashboard</td>
-					<td>illustrative</td>
-					<td>rich</td>
-					<td>data</td>
-				</tr>
-				<tr>
-					<td>1,015</td>
-					<td>random</td>
-					<td>tabular</td>
-					<td>information</td>
-					<td>text</td>
-				</tr>
+				<c:forEach items="${list }" var="list">
+					<tr>
+						<td>${list.noticeBoardDto.id }</td>
+						<td><a href="./readNoticeBoardPage?id=${list.noticeBoardDto.id }">${list.noticeBoardDto.title }</a></td>
+						<td>${list.staffInfoDto.name }</td>
+						<td>${list.noticeBoardDto.read_count }</td>
+						<td><fmt:formatDate value="${list.noticeBoardDto.created_at }" pattern="yyyy-MM-dd"/></td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
+		
 	</div>
 
 

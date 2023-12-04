@@ -5,9 +5,12 @@ public class DormStudentDto {
 	public int semester_pk;
 	public int student_pk;
 	public int dorm_room_pk;
+	
+	
 	public DormStudentDto() {
 		super();
 	}
+	
 	public DormStudentDto(int dorm_student_pk, int semester_pk, int student_pk, int dorm_room_pk) {
 		super();
 		this.dorm_student_pk = dorm_student_pk;
