@@ -2,10 +2,13 @@ package com.mkfactory.toothless.a.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class CallAbsenceDto {
 	
 	private int call_absence_pk;
 	private int executive_management_pk;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date created_at;
 	
 	

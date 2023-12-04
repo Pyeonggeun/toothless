@@ -1,6 +1,7 @@
 package com.mkfactory.toothless.e.registercounselor.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,5 +51,15 @@ public class RegisterCounselorServiceImpl {
 		
 		List<TypeCategoryDto> typeCategoryList = registerCounselorSqlMapper.selectAllTypeCategory();
 		return typeCategoryList;
+	}
+	
+	// 상담원 전체 리스팅(카테고리 포함)
+	public List<Map<String, Object>> getAllCounselorList() {
+		System.out.println("[ RegisterCounselorServiceImpl] => [ getAllCounselorList ] 실행됨");
+		System.out.println("---------------------------------------------------------");
+		
+		List<Map<String, Object>> counselorList = registerCounselorSqlMapper.selectAllCounselor();
+		return counselorList;
+		
 	}
 }

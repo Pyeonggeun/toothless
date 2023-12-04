@@ -9,7 +9,7 @@
 			cp_group_counsel_seq.nextval,
 			#{title},
 			#{text},
-			'미완성',
+			#{posterImage},
 			#{location},
 			#{amount},
 			#{counsel_date},
@@ -19,6 +19,14 @@
 		)	
 	</insert>
 
-
-
+	<select id="selectGroupCounselList" resultType="com.mkfactory.toothless.e.dto.GroupCounselDto">
+		SELECT * FROM cp_group_counsel
+		ORDER BY id ASC
+	</select>
+	
+	<select id="selectGroupCounselById" resultType="com.mkfactory.toothless.e.dto.GroupCounselDto">
+		SELECT * FROM cp_group_counsel
+		WHERE id=#{id}
+	</select>
+	
 </mapper>

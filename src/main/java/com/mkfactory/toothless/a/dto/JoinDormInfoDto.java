@@ -25,7 +25,6 @@ public class JoinDormInfoDto {
 	private Date asgnm_anncm_date;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date join_dorm_date;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date created_at;
 	
 	

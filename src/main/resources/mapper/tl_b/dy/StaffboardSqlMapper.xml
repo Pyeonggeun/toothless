@@ -23,5 +23,13 @@
 		SELECT * FROM TL_JIC_STAFF_INFO WHERE STAFF_PK = #{staff_pk}
 	</select>
 	
+	<select id="selectContentsDetailInfo" resultType="com.mkfactory.toothless.b.dto.StaffNoticeboardDto">
+		SELECT * FROM tl_b_staff_noticeboard WHERE staff_noticeboard_pk = #{staff_noticeboard_pk}
+	</select>
+	
+	<update id="updateTextReadCount">
+		UPDATE TL_B_STAFF_NOTICEBOARD SET READ_COUNT = READ_COUNT +1 WHERE staff_noticeboard_pk = #{staff_noticeboard_pk}
+	</update>
+	
 </mapper>
 
