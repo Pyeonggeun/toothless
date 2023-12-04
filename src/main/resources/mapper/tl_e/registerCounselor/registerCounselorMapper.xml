@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 아래 코드를 넣음으로 URL로 접속하여 dtd를 다운받고 필요기능들을 가져옴 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mkfactory.toothless.e.registercounselor.mapper.RegisterCounselorSqlMapper">
+
+	<!-- 상담원 PK 생성 -->
+	<select id="createCounselorPk" resultType="int">
+		SELECT cp_counselor_seq.nextval FROM dual
+	</select>
+	
+	<!-- 상담원 신규 등록 -->
+	<insert id="insertCounselor">
+		INSERT INTO CP_COUNSELOR cc VALUES (
+			#{id},
+			#{name},
+			#{age},
+			#{gender},
+			#{phonenumber},
+			#{email},
+			#{address},
+			#{career},
+			#{profileImage},
+			SYSDATE
+		)	
+	</insert>
+
+</mapper>

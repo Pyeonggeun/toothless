@@ -26,4 +26,9 @@ public interface StaffSqlMapper {
 	public void insertProfessor(ProfessorInfoDto professorInfoDto);
 	public void insertStaff(StaffInfoDto staffInfoDto);
 	
+	public int selectExistsCheckStudentId(String stduent_id);
+	public int selectExistsCheckStaffId(String staff_id);
+	public int selectExistsCheckProfessorId(String professor_id);
+	
+	
 }

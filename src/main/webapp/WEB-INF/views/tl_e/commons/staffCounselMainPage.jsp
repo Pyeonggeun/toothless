@@ -16,7 +16,7 @@
 			<div class="col-10"></div>
 			<div class="col py-2 me-0 pe-0 text-center dropdown nav-item">
 			  <a class="nav-link pt-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    <span class="fw-bold">직원아이디</span>님
+			    <span class="fw-bold">${sessionStaffInfo.name}</span>님
 			  </a>
 			  <ul class="dropdown-menu">
 			    <li><a class="dropdown-item" href="#">정보 수정</a></li>
@@ -37,7 +37,7 @@
 				</div>
 				<div class="row pt-5">
 					<div class="col fs-5">
-						<a class="navbar-brand" href="#">상담원 등록</a>
+						<a class="navbar-brand" href="../registerCounselor/registerPage">상담원 등록</a>
 					</div>
 				</div>
 				<div class="row pt-4">

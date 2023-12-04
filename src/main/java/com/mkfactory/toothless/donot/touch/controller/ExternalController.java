@@ -10,7 +10,7 @@ import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.service.ExternalServiceImpl;
 
 @Controller
-@RequestMapping("/external/*")
+@RequestMapping("/another/external/*")
 public class ExternalController {
 	@Autowired
 	private ExternalServiceImpl externalService;
@@ -20,9 +20,9 @@ public class ExternalController {
 		
 		
 		
-		return "external/loginPage";
+		return "another/external/loginPage";
 	}
-	
+		
 	@RequestMapping("loginProcess")
 	public String loginProcess(HttpSession session, ExternalInfoDto params) {
 		
@@ -43,7 +43,7 @@ public class ExternalController {
 			
 		}else if(externalInfoDto.getExternal_category() == 3){
 			
-			return "redirect: ../tl_e/commons/counselorCounselMainPage";
+			return "redirect: ../../tl_e/commons/counselorCounselMainPage";
 			
 		}else {
 			
@@ -51,12 +51,19 @@ public class ExternalController {
 		}
 			
 	}
+	@RequestMapping("logoutProcess")
+	public String logoutProcess(HttpSession session) {
+	
+		session.invalidate();
+		
+		return "redirect: ./loginPage";
+	}
 	
 	@RequestMapping("mainPage")
 	public String mainPage() {
 		
 	
 		
-		return "external/mainPage";
+		return "another/external/mainPage";
 	}
 }

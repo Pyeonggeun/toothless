@@ -1,13 +1,19 @@
 package com.mkfactory.toothless.d.jm.consulting.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.d.dto.HopeJobDto;
+import com.mkfactory.toothless.d.dto.OnlineConsultingDto;
+import com.mkfactory.toothless.d.dto.OnlineConsultingReplyDto;
 import com.mkfactory.toothless.d.jm.consulting.service.ConsultingService;
+import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @Controller
@@ -17,7 +23,13 @@ public class ConsultingController {
 	@Autowired
 	private ConsultingService consultingService;
 	
-
+	//테스트페이지
+	@RequestMapping("test")
+	public String test() {
+		return "tl_d/jm_consulting/test";
+	}
+	
+	
 	
 	//구직희망 신청서 등록 페이지
 	@RequestMapping("applyHopeJobPage")
@@ -28,7 +40,7 @@ public class ConsultingController {
 	
 	//구직희망신청 insert
 	@RequestMapping("hopeJobApplyProcess")
-	public String insertHopeJobApply(HopeJobDto par, HttpSession session) {
+	public String insertHopeJobApply(HopeJobDto par, HttpSession session, Model model) {
 		
 			
 			
@@ -36,14 +48,92 @@ public class ConsultingController {
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		
 		//구직희망 프로그램을 아직 진행중인 학생이라면 등록 거부
+		boolean checkOverlapHopejob = consultingService.checkOverlapHopeJobApply(studentInfoDto.getStudent_pk());
 		
-		
-		
-		//학생정보 pk 입력
-		par.setStudent_pk(studentInfoDto.getStudent_pk());
-		
-		//구직희망신청 insert 실행
-		consultingService.insertHopeJobApply(par);
-		return "redirect:./applyHopeJobPage";
+		//중복x시 정보 입력
+		if(checkOverlapHopejob == false) {
+			//학생정보 pk 입력
+			par.setStudent_pk(studentInfoDto.getStudent_pk());
+			
+			//구직희망신청 insert 실행
+			consultingService.insertHopeJobApply(par);
+			return "redirect:./applyHopeJobPage";
+		}
+		//중복이면 등록거부
+		else {
+			model.addAttribute("checkOverlapHopejob", checkOverlapHopejob);
+			return "tl_d/jm_consulting/applyHopeJobPage";
+		}	
 	}
+	
+	
+	
+	
+	
+	
+	//학생 온라인상담 페이지 
+	@RequestMapping("onlineConsultingPage")
+	public String onlineConsultingPage() {
+		return"tl_d/jm_consulting/onlineConsultingPage";
+	}
+	
+	
+	
+	//학생 온라인상담 정보 입력
+	@RequestMapping("onlineConsultingProcess")
+	public String insertOnlineConsulting(OnlineConsultingDto onlineConsulting, Model model, HttpSession session) {
+		
+		
+
+		
+		//구직희망 신청번호 뽑아오기
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int student_pk = studentInfoDto.getStudent_pk();
+		//질문 가능or불가능
+		boolean isboolean= consultingService.isOnlineconsulting(student_pk);
+		
+		//가능
+		if(isboolean == true) {
+			//학생 온라인상담 정보 입력
+			HopeJobDto hopeJobDto = consultingService.getLastHopejob(student_pk);
+			onlineConsulting.setHope_job_pk(hopeJobDto.getHope_job_pk());
+			consultingService.insertOnlineConsulting(onlineConsulting);
+			return "redirect:./test";
+
+
+		}
+		//불가능
+		else {
+			//jsp에서 true면 이미 상담중인 문의 있다고 출력
+			model.addAttribute("isOnelineConsulting", false);
+			return "";
+		}		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//교직원 온라인 상담 답글입력 프로세스
+	@RequestMapping("OnlineConsultingReplyProcess")
+	public String insertOnlineConsultingReply(OnlineConsultingReplyDto par, HttpSession session) {
+		//jsp페이지에서 on_consulting_pk, on_contents_reply받기
+		//staffpk세팅
+		StaffInfoDto staffInfoDto =(StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		int staffPk = staffInfoDto.getStaff_pk();
+		par.setStaff_pk(staffPk);
+		
+		consultingService.insertOnlineConsultingReply(par);
+		
+		
+		return"";
+	}
+	
+	
+	
 }

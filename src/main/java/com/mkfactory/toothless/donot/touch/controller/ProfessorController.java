@@ -1,16 +1,19 @@
 package com.mkfactory.toothless.donot.touch.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 import com.mkfactory.toothless.donot.touch.service.ProfessorServiceImpl;
 
 @Controller
-@RequestMapping("/professor/*")
+@RequestMapping("/another/professor/*")
 public class ProfessorController {
 	@Autowired
 	private ProfessorServiceImpl professorService;
@@ -19,7 +22,7 @@ public class ProfessorController {
 		
 		
 		
-		return "professor/loginPage";
+		return "another/professor/loginPage";
 	}
 	
 	@RequestMapping("loginProcess")
@@ -37,11 +40,21 @@ public class ProfessorController {
 		
 		
 	}
+	@RequestMapping("logoutProcess")
+	public String logoutProcess(HttpSession session) {
+	
+		session.invalidate();
+		
+		return "redirect: ./loginPage";
+	}
 	
 	@RequestMapping("mainPage")
-	public String mainPage() {
+	public String mainPage(HttpSession session, Model model) {
+		ProfessorInfoDto professorInfoDto = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
+		Map<String, Object> professorInfo = professorService.getProfessorInfo(professorInfoDto.getDepartment_pk());
+		model.addAttribute("professorInfo", professorInfo);
 		
 		
-		return "professor/mainPage";
+		return "another/professor/mainPage";
 	}
 }
