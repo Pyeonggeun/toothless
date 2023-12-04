@@ -64,7 +64,7 @@
                     <a class="navbar-brand" href="./mainpage">취업<i class="bi bi-dot"></i>창업 지원 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="../../tl_e/commons/studentCounselMainPage">상담 센터</a>
+                    <a class="navbar-brand" href="../../tl_e/commons/counselCenterStudentMainPage">상담 센터</a>
                 </div>
                 <div class="col align-self-center">
                     <a class="navbar-brand" href="./mainpage">생활관 관리 센터</a>
