@@ -2,5 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mkfactory.toothless.e.notice.mapper.NoticeSqlMapper">
+	<select id="createNoticePk" resultType="int">
+		SELECT cp_notice_seq.nextval FROM dual
+	</select>
+	<insert id="insertNoticeArticle">
+		INSERT INTO cp_notice values(
+			#{id},
+			#{staff_pk},
+			#{title},
+			#{text},
+			0,
+			SYSDATE
+		)
+	</insert>
+	<insert id="insertNoticeImage">
+		INSERT INTO cp_notice_image values(
+			cp_notice_image_seq.nextval,
+			#{notice_id},
+			#{notice_image_link}
+		)
+	</insert>
+
+
 
 </mapper>
