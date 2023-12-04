@@ -15,11 +15,11 @@
 	    	<div class="col-1 mt-5 pb-2 text-secondary text-end">
 				<%-- mainPage --%>
 				<c:choose>
-					<c:when test="${!empty sessionBuyerInfo}">
+					<c:when test="${!empty sessionStaffInfo}">
 						<li style="list-style-type: none;" class="nav-item dropdown ms-auto"><a
 							class="fw-bold nav-link dropdown-toggle" href="#" role="button"
 							data-bs-toggle="dropdown" aria-expanded="false">
-								${sessionBuyerInfo.nickname} 님</a>
+								${sessionStaffInfo.name} 님</a>
 							<ul class="dropdown-menu">
 								<li><a href="../buyer/buyerLogoutProcess"
 									class="dropdown-item">로그아웃</a></li>
