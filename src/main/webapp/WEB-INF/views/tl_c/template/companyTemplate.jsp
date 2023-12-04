@@ -8,35 +8,35 @@
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<title> AJDKS TEMPLATE FOR PROFESSOR </title>
+<title> AJDKS TEMPLATE FOR COMPANY </title>
 <style>
-	/*교수좌측메뉴바설정*/
-	.professorleftmenubar input {
+	/*산업체좌측메뉴바설정*/
+	.companyleftmenubar input {
 	    display: none;
 	}
 	
-	.professorleftmenubar label {
+	.companyleftmenubar label {
 	    display: block;    
 	    cursor: pointer;
 	    background: #0C2145;
 	    transition: ease .1s;
 	}
 	
-	.professorleftmenubar label:hover {
+	.companyleftmenubar label:hover {
 	    background: #0C2145;
 	    opacity: 50%;
 	}
 	
-	.professorleftmenubar .content {
+	.companyleftmenubar .content {
 	    background: #091933;
    	    transition: ease .5s;    
 	}
 	
-	.professorleftmenubar input + label + .content {
+	.companyleftmenubar input + label + .content {
 	    display: none;
 	}
 	
-	.professorleftmenubar input:checked + label + .content {
+	.companyleftmenubar input:checked + label + .content {
 	    display: block;
 	}	
 
@@ -45,12 +45,23 @@
 <body>
 <div class="container-fluid"><!-- 전체 container 입구 -->
 
-<jsp:include page="../../common/ajdksTemplateForProfessor.jsp"></jsp:include>
-
+<div class="row">
+	<div class="col">
+		<jsp:include page="../common/ajdksHighestMenubar.jsp"></jsp:include>
+	</div>
+</div>
+<div class="row">
+	<jsp:include page="../common/ajdksTemplateForCompany.jsp"></jsp:include>
+	
+	
 	<!-- 본문 :  자유롭게 이용하세요 화이팅 -->
 	<div class="col">
 		
 	</div>
+	
+	
+</div>
+
 
 </div><!-- 메인화면 출구 -->
 
