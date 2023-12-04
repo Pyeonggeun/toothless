@@ -13,4 +13,16 @@
 		]]>
 	</select>
 	
+	<select id="getClinicPatientInfoByClinicPatientPk" resultType="com.mkfactory.toothless.b.dto.ClinicPatientDto">
+		SELECT * FROM tl_b_clinic_patient_info WHERE clinic_patient_pk = #{clinic_patient_pk}
+	</select>
+	
+	<select id="getClinicPatientLogInfoListByClinicPatientPk" resultType="com.mkfactory.toothless.b.dto.ClinicPatientLogDto">
+		SELECT * FROM tl_b_clinic_patient_log WHERE clinic_patient_pk = #{clinic_patient_pk}
+	</select>
+	
+	<select id="getPrescriptionInfoListByClinicPatientLogPk" resultType="com.mkfactory.toothless.b.dto.PrescriptionDto">
+		SELECT * FROM tl_b_prescription_info WHERE clinic_patient_log_pk = #{clinic_patient_log_pk}
+	</select>
+	
 </mapper>
