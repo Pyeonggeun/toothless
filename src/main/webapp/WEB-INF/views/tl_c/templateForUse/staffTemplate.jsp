@@ -8,37 +8,43 @@
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<title> AJDKS TEMPLATE FOR PROFESSOR </title>
+<title> AJDKS TEMPLATE FOR STAFF </title>
 <style>
-	/*교수좌측메뉴바설정*/
-	.professorleftmenubar input {
+	/*교직원좌측메뉴바설정*/
+	.staffleftmenubar input {
 	    display: none;
 	}
 	
-	.professorleftmenubar label {
+	.staffleftmenubar label {
 	    display: block;    
 	    cursor: pointer;
 	    background: #0C2145;
 	    transition: ease .1s;
 	}
 	
-	.professorleftmenubar label:hover {
+	.staffleftmenubar label:hover {
 	    background: #0C2145;
 	    opacity: 50%;
 	}
 	
-	.professorleftmenubar .content {
+	.staffleftmenubar .content {
 	    background: #091933;
    	    transition: ease .5s;    
 	}
 	
-	.professorleftmenubar input + label + .content {
+	.staffleftmenubar input + label + .content {
 	    display: none;
 	}
 	
-	.professorleftmenubar input:checked + label + .content {
+	.staffleftmenubar input:checked + label + .content {
 	    display: block;
 	}	
+	
+	/*a태그기본설정제거*/
+	.nolinenoblue > a {
+		text-decoration: none;
+		color: #000000;
+	}
 
 </style>
 </head>
@@ -47,36 +53,26 @@
 
 <div class="row">
 	<div class="col">
-		<jsp:include page="../common/ajdksHighestMenubar.jsp"></jsp:include>
+		<jsp:include page="../common/ajdksHighestMenubarForStaff.jsp"></jsp:include>
 	</div>
 </div>
 <div class="row">
-	<jsp:include page="../common/ajdksTemplateForProfessor.jsp"></jsp:include>
+
+	<!-- 좌측메뉴바 -->
+	<jsp:include page="../common/ajdksSideMenubarForStaff.jsp"></jsp:include>
 	
-	<!-- 본문 :  자유롭게 이용하세요 화이팅 -->
+	<!-- 본문 : 자유롭게 이용하세요 화이팅 -->
 	<div class="col">
-		<!-- 안내문구 -->
-		<div class="row py-2" style="box-shadow: 2px 2px 2px gray;">
-			<div class="col ms-2" style="font-size: 0.9em;">
-				<span>&#035;&nbsp;중앙정보기술인재개발원 님 환영합니다</span>
-			</div>	
-		</div>
 		<div class="row">
-			<div class="col ms-4 me-4">
+			<div class="col mx-4">
 			
 			<!-- 본문작성공간 -->
-				
-				
-				
-				
 				
 			</div>
 		</div>
 	</div>
 	
 </div>
-
-
 
 </div><!-- 전체 container 출구 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

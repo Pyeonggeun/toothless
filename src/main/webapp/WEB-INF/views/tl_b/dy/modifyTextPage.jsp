@@ -19,21 +19,18 @@
                             <div class="row">
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
                                 <div class="col">
-                                    <h1>작성 글 보기</h1>
-                                    제목 ${readText.noticeboardDto.title }
+                                    <h1>작성 글 수정</h1>
+                                    <form action="./modifyTextProcess" method="post">
+                                    제목 <input name="title" type="text" value="${readText.noticeboardDto.title }">
                                     <br>
-                                    작성자 ${readText.staffInfoDto.name}
-                                    <br>
-                                    조회수 ${readText.noticeboardDto.read_count}
+                                    작성자 ${sessionStaffInfo.name}
                                     <br>
                                     내용 <br>
-                                    ${readText.noticeboardDto.content}
-                                    <br>
-                                    <button type="button" onclick="location.href='./staffNoticeboardPage'">목록으로</button>
-                                    <c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == readText.noticeboardDto.staff_pk}">
-	                                    <button type="button" onclick="location.href='./deleteTextProcess?staff_noticeboard_pk=${readText.noticeboardDto.staff_noticeboard_pk}'">삭제</button>
-	                                    <button type="button" onclick="location.href='./modifyTextPage?staff_noticeboard_pk=${readText.noticeboardDto.staff_noticeboard_pk}'">수정</button>
-									</c:if>
+                                    <textarea name="content" rows='20' cols='60'>${readText.noticeboardDto.content}</textarea>
+                                    <input name="staff_noticeboard_pk" type="hidden" value="${readText.noticeboardDto.staff_noticeboard_pk }">
+                                    <input type="submit" value="수정완료">
+                                    </form>
+                                   <!--  <button type="button" onclick="location.href='./readTextPage?staff_noticeboard_pk=${readText.noticeboardDto.staff_noticeboard_pk }'">취소</button> -->
                                 </div>
                             </div>
                         </div>

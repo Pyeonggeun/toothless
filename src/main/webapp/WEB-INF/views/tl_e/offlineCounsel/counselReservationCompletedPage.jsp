@@ -17,7 +17,7 @@
                 <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
             </div>
             <div class="col-3 ps-0 pt-2 fw-bold fs-3 text-start ">
-                MK University<span class="fs-6"> | </span> <span class="fs-5">학생포털사이트</span> 
+                MK University<span class="fs-6"> | </span> <span class="fs-5">상담센터</span> 
             </div>
             <div class="col-2"></div>
             <div class="col">
@@ -32,7 +32,7 @@
             </div>
 			<div class="col-1 pt-3 me-0 pe-0 text-center dropdown nav-item">
 			  <a class="nav-link pt-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    <span class="fw-bold">학생아이디</span>님
+			    <span class="fw-bold">${sessionStudentInfo.name }</span>님
 			  </a>
 			  <ul class="dropdown-menu">
 			    <li><a class="dropdown-item" href="#">정보 수정</a></li>
@@ -52,7 +52,7 @@
 				    <a class="nav-link dropdown-toggle fw-bold text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">상담신청</a>
 				    <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">온라인 상담신청</a></li>
-                        <li><a class="dropdown-item" href="#">오프라인 상담신청</a></li>
+                        <li><a class="dropdown-item" href="./selectCounselorPage">오프라인 상담신청</a></li>
                         <li><a class="dropdown-item" href="#">집단 상담신청</a></li>
                     </ul>
 				  </li>
@@ -143,13 +143,13 @@
 								<div class="row pt-4 pb-2">
 									<div class="col">
 										<span class="fw-bold">상담주제 : </span>
-										<span>우울/불안</span>&nbsp;문제
+										<span>${map.typeCategoryDto.name }</span>&nbsp;문제
 									</div>
 								</div>
 								<div class="row pt-2 pb-4">
 									<div class="col">
 										<span class="fw-bold">상담원명: </span>
-										<span>김현영</span>&nbsp;상담사
+										<span>${map.counselorDto.name }</span>&nbsp;상담사
 									</div>
 								</div>
 							</div>
@@ -157,7 +157,7 @@
 								<div class="row pt-4 pb-2">
 									<div class="col">
 										<span class="fw-bold">일시 : </span>
-										<span>2023년 12월 6일(수) 14:00</span>
+										<span>${map.offlineReservationDto.counsel_year }년 ${map.offlineReservationDto.counsel_month }월 ${map.offlineReservationDto.counsel_date }일(${map.dayString }) ${map.offlineReservationDto.counsel_hour }:00</span>
 									</div>
 								</div>
 								<div class="row pt-2 pb-4">

@@ -19,24 +19,46 @@
 	</div>
 	<div class="row bg-warning fw-bold py-2 text-center" style="font-size: 1.2em;" >	
 		<div class="col"></div>
-		<div class="col">상담신청</div>
+		<div class="col">
+		
+			<a href="./writeOnlineCounselPage" class="link-dark link-offset-2 link-underline link-underline-opacity-0">상담신청</a>
+		</div>
 		<div class="col">공지사항</div>
 		<div class="col">자유게시판</div>
 		<div class="col">상담원 정보</div>
 		<div class="col">마이페이지</div>
 		<div class="col"></div>
 	</div>
-
+	<div class="container">
+		<div class="row mt-3">
+			<div class="col">
+				<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">No</th>
+				      <th scope="col">작성자</th>
+				      <th scope="col">카테고리</th>
+				      <th scope="col">제목</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				<C:forEach items="${counselList}" var="counselList">
+				    <tr>
+				      <td>${counselList.onlineCounselBoardDto.id }</td>
+				      <td>${counselList.studentDto.name }</td>
+				      <td>${counselList.category.name }</td>
+				      <td><a href="./readCounselPage?counsel_pk=${counselList.onlineCounselBoardDto.id }">${counselList.onlineCounselBoardDto.title }</a></td>
+				    </tr>
+			    </C:forEach>
+				  </tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<i class="bi bi-1-square"></i>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
-<%-- 	<h1>온라인 상담 페이지</h1><br>
-	<C:forEach items="${counselList}" var="counselList">
-		<tr>
-			<td>No. ${counselList.onlineCounselBoardDto.id }<br></td>
-			<td>작성자 : ${counselList.studentDto.name }<br></td>
-			<td>카테고리 : ${counselList.category.name }<br></td>
-			<td>제목 : <a href="./readCounselPage?counsel_pk=${counselList.onlineCounselBoardDto.id }">${counselList.onlineCounselBoardDto.title }</a><br></td>
-		</tr>
-			========================<br>			
-	</C:forEach>
-	<a href="./writeOnlineCounselPage">온라인상담 신청</a> --%>

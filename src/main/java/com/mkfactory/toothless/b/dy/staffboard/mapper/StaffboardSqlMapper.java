@@ -16,4 +16,8 @@ public interface StaffboardSqlMapper {
 	public StaffNoticeboardDto selectContentsDetailInfo(int staff_noticeboard_pk);
 	
 	public void updateTextReadCount(int staff_noticeboard_pk);
+	
+	public void deleteText(int staff_noticeboard_pk);
+	
+	public void updateModifyText(StaffNoticeboardDto staffNoticeboardDto);
 }

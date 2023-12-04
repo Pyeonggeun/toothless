@@ -47,11 +47,11 @@
 
 	<div class="row">
 		<div class="col">
-			<jsp:include page="../../common/ajdksHighestMenubar.jsp"></jsp:include>
+			
 		</div>
 	</div>
 	<div class="row">
-		<jsp:include page="../../common/ajdksTemplateForProfessor.jsp"></jsp:include>
+		
 		
 		
 		
