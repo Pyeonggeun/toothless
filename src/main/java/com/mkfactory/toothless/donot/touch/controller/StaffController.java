@@ -4,21 +4,19 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.donot.touch.service.StaffServiceImpl;
 
 @Controller
-@RequestMapping("/staff/*")
+@RequestMapping("/another/staff/*")
 public class StaffController {
 		@Autowired
 		private StaffServiceImpl staffService;
@@ -28,7 +26,7 @@ public class StaffController {
 			
 			
 			
-			return "staff/loginPage";
+			return "another/staff/loginPage";
 		}
 		
 		@RequestMapping("loginProcess")
@@ -44,15 +42,15 @@ public class StaffController {
 			session.setAttribute("sessionStaffInfo", staffInfoDto);
 			if(staffInfoDto.getCenter_pk() == 1) {
 				
-				return "redirect: ../tl_c/woojae/ajdksSraffMainPage";
+				return "redirect: ../../tl_c/woojae/ajdksStaffMainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 2){
 				
-				return "redirect: ../tl_b/common/studentMainPage";
+				return "redirect: ../../tl_b/common/studentMainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 3){
 				
-				return "redirect: ../tl_e/commons/staffCounselMainPage";
+				return "redirect: ../../tl_e/commons/counselCenterStaffMainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 4){
 				
@@ -67,6 +65,13 @@ public class StaffController {
 			}
 		
 		}
+		@RequestMapping("logoutProcess")
+		public String logoutProcess(HttpSession session) {
+		
+			session.invalidate();
+			
+			return "redirect: ./loginPage";
+		}
 		
 		@RequestMapping("anotherMainPage")
 		public String anotherMainPage(Model model) {
@@ -75,7 +80,7 @@ public class StaffController {
 			
 			model.addAttribute("listMap", listMap);
 			
-			return "staff/anotherMainPage";
+			return "another/staff/anotherMainPage";
 		}
 		@RequestMapping("studentRegisterProcess")
 		public String studentRegisterProcess(StudentInfoDto studentInfoDto,

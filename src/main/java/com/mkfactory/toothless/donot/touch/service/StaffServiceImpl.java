@@ -73,4 +73,35 @@ public class StaffServiceImpl {
 		
 		staffSqlMapper.insertProfessor(professorInfoDto);
 	}
+	
+	public boolean checkStudentId(String student_id) {
+		if(staffSqlMapper.selectExistsCheckStudentId(student_id) == 0) {
+			return false;
+		}else {
+			return true;
+		}
+		
+	}
+	
+	public boolean checkStaffId(String staff_id) {
+		if(staffSqlMapper.selectExistsCheckStaffId(staff_id) == 0) {
+			return false;
+		}else {
+			return true;
+		}
+		
+	}
+	
+	public boolean checkProfessorId(String professor_id) {
+		if(staffSqlMapper.selectExistsCheckProfessorId(professor_id) == 0) {
+			return false;
+		}else {
+			return true;
+		}
+		
+	}
+	
+	
+	
+	
 }
