@@ -13,6 +13,7 @@ public class FreeboardCounselController {
 	@Autowired
 	FreeboardCounselServiceImpl  freeboardCounselService;
 	
+	//작성글이 리스팅 되는 자유게시판 페이지
 	@RequestMapping("freeboardCounselPage")
 	public String freeboardCounsel() {
 		
@@ -21,18 +22,20 @@ public class FreeboardCounselController {
 		return "tl_e/freeboardCounsel/freeboardCounselPage";
 	}
 	
+	//자유게시판 글 작성 페이지
 	@RequestMapping("createFreeboardPostsPage")
 	public String createFreeboardPostsPage() {
 		  
 		return "tl_e/freeboardCounsel/createFreeboardPostsPage";
 	 }
 	
+	//자유게시판 글 작성한 내용 dto에 집어넣는 프로세스 
 	@RequestMapping("createFreeboardPostsProcess")
 	public String createFreeboardPostsProcess() {
 			
 		freeboardCounselService.createFreeboardPostsProcess();
 		
-		return"";
+		return "tl_e/freeboardCounsel/createFreeboardPostsPage";
 	}
 	
 	
