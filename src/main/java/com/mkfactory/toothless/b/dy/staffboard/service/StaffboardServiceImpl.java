@@ -32,7 +32,7 @@ public class StaffboardServiceImpl {
 		List<StaffNoticeboardDto> contentsDtolist = staffboardSqlMapper.selectBoardContentsInfo();
 		
 		for(StaffNoticeboardDto staffNoticeboardDto : contentsDtolist) {
-			int userPk = staffNoticeboardDto.getStaff_noticeboard_pk();
+			int userPk = staffNoticeboardDto.getStaff_pk();
 			StaffInfoDto staffInfoDto = staffboardSqlMapper.selectStaffInfo(userPk);
 			
 			Map<String, Object> map = new HashMap<>();
@@ -42,8 +42,52 @@ public class StaffboardServiceImpl {
 			list.add(map);	
 		}
 		return list;
+	}
+	
+	public Map<String, Object> readContentsDetailInfo(int staff_noticeboard_pk) {
 		
+		Map<String, Object> map = new HashMap<>();
 		
+		StaffNoticeboardDto noticeboardDto = staffboardSqlMapper.selectContentsDetailInfo(staff_noticeboard_pk);
+		int userPk = noticeboardDto.getStaff_pk();
+		StaffInfoDto staffInfoDto = staffboardSqlMapper.selectStaffInfo(userPk);
+		
+		map.put("noticeboardDto", noticeboardDto);
+		map.put("staffInfoDto", staffInfoDto);
+		
+		return map;
+	}
+	
+	public void createTextReadCount(int staff_noticeboard_pk) {
+		staffboardSqlMapper.updateTextReadCount(staff_noticeboard_pk);
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
