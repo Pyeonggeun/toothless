@@ -243,7 +243,7 @@
 	                                                                        </td>
 	                                                                        <td class="py-1">
 	                                                                        	<a href="./clinicPage?clinic_patient_pk=${list.clinicPatientInfo.clinic_patient_pk }" class="link-dark link-underline link-underline-opacity-0">
-	                                                                        		${list.birth }
+	                                                                        		<fmt:formatDate value="${list.clinicPatientInfo.birth }" pattern="yy.MM.dd"/>
 	                                                                        	</a>
 	                                                                        </td>
 	                                                                        <td class="py-1">
@@ -298,10 +298,10 @@
                                                                                     <table class="table" style="font-size: 0.75em;">
                                                                                         <thead>
                                                                                             <tr>
-                                                                                                <th scope="col" style="width: 15%;"></th>
+                                                                                                <th scope="col" style="width: 12%;"></th>
                                                                                                 <th scope="col" style="width: 20%;"></th>
-                                                                                                <th scope="col" style="width: 15%;"></th>
-                                                                                                <th scope="col" style="width: 25%;"></th>
+                                                                                                <th scope="col" style="width: 12%;"></th>
+                                                                                                <th scope="col" style="width: 30%;"></th>
                                                                                                 <th scope="col" style="width: 12%;"></th>
                                                                                                 <th scope="col"></th>
                                                                                             </tr>
@@ -309,19 +309,23 @@
                                                                                         <tbody>
                                                                                             <tr>
                                                                                                 <td>이름</td>
-                                                                                                <td>류하나</td>
+                                                                                                <td>${clinicPatientLogInfo.clinicPatientInfoMap.clinicPatientInfo.name }</td>
                                                                                                 <td>주민번호</td>
-                                                                                                <td>123123 - 1231231</td>
-                                                                                                <td>나이</td>
-                                                                                                <td>25</td>
+                                                                                                <td>${clinicPatientLogInfo.clinicPatientInfoMap.clinicPatientInfo.resident_id }</td>
+                                                                                                <td>생년월일</td>
+                                                                                                <td>
+                                                                                                	<fmt:formatDate value="${clinicPatientLogInfo.clinicPatientInfoMap.clinicPatientInfo.birth }" pattern="yyyy.MM.dd"/>
+                                                                                                </td>
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td>전화번호</td>
-                                                                                                <td colspan="5">010-1234-1234</td>
+                                                                                                <td colspan="3">${clinicPatientLogInfo.clinicPatientInfoMap.clinicPatientInfo.phone }</td>
+                                                                                                <td>나이</td>
+                                                                                                <td>${clinicPatientLogInfo.clinicPatientInfoMap.clinicPatientInfo.age }</td>
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td>주소</td>
-                                                                                                <td colspan="5">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층</td>
+                                                                                                <td colspan="5">${clinicPatientLogInfo.clinicPatientInfoMap.clinicPatientInfo.address }</td>
                                                                                             </tr>
                                                                                         </tbody>
                                                                                     </table>
@@ -346,33 +350,38 @@
                                                                                         <thead>
                                                                                             <tr>
                                                                                                 <th scope="col" style="width: 15%;" class="py-0"></th>
-                                                                                                <th scope="col" class="py-0"></th>
-                                                                                                <th scope="col" style="width: 10%;" class="py-0"></th>
+                                                                                                <th scope="col" style="width: 1%;" class="py-0"></th>
                                                                                             </tr>
                                                                                         </thead>
                                                                                         <tbody>
-                                                                                            <tr>
-                                                                                                <td colspan="3" class="fw-bold">2022-01-04</td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td class="align-middle">진료내용</td>
-                                                                                                <td colspan="2" class="align-middle text-secondary">
-                                                                                                    샬라샬라 블라블라
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr class="border-bottom">
-                                                                                                <td class="align-middle">처방의약품</td>
-                                                                                                <td class="align-middle">
-                                                                                                    <p class="mb-1 text-secondary">아무개 의약품</p>
-                                                                                                    <p class="mb-1 text-secondary">아무개 의약품</p>
-                                                                                                    <p class="mb-1 text-secondary">아무개 의약품</p>
-                                                                                                </td>
-                                                                                                <td class="align-middle">
-                                                                                                    <p class="mb-1">3</p>
-                                                                                                    <p class="mb-1">3</p>
-                                                                                                    <p class="mb-1">3</p>
-                                                                                                </td>
-                                                                                            </tr>
+                                                                                            <c:forEach items="${clinicPatientLogInfo.clinicPatientLogInfoList }" var="list">
+                                                                                            	<tr>
+	                                                                                                <td colspan="2" class="fw-bold pb-0">
+	                                                                                                	<fmt:formatDate value="${list.clinicPatientLogInfo.created_at }" pattern="yyyy-MM-dd"/>
+	                                                                                                </td>
+	                                                                                            </tr>
+	                                                                                            <tr>
+	                                                                                            	<td colspan="2" class="fw-bold pb-0">진료내용</td>
+	                                                                                            </tr>
+	                                                                                            <tr>
+	                                                                                                <td colspan="2" class="text-secondary">
+	                                                                                                    ${list.clinicPatientLogInfo.content }
+	                                                                                                </td>
+	                                                                                            </tr>
+	                                                                                            <tr>
+	                                                                                            	<td colspan="2" class="pb-1 fw-bold">처방의약품</td>
+	                                                                                            </tr>
+	                                                                                            <c:forEach items="${list.prescriptionInfoList }" var="prescriptionList">
+	                                                                                            	<tr>
+		                                                                                                <td class="pb-0">
+		                                                                                                    <p class="mb-0 text-secondary">${prescriptionList.medicineName }</p>
+		                                                                                                </td>
+		                                                                                                <td class="pb-0">
+		                                                                                                    <p class="mb-0">${prescriptionList.prescriptionInfo.quantity }</p>
+		                                                                                                </td>
+		                                                                                            </tr>
+	                                                                                            </c:forEach>
+                                                                                            </c:forEach>
                                                                                         </tbody>
                                                                                     </table>
                                                                                 </div>
@@ -403,48 +412,51 @@
                                                                                             <tr>
                                                                                                 <th scope="col" style="width: 12%;"></th>
                                                                                                 <th scope="col" style="width: 20%;"></th>
-                                                                                                <th scope="col" style="width: 10%;"></th>
+                                                                                                <th scope="col" style="width: 12%;"></th>
                                                                                                 <th scope="col" style="width: 30%;"></th>
-                                                                                                <th scope="col" style="width: 7%;"></th>
+                                                                                                <th scope="col" style="width: 12%;"></th>
                                                                                                 <th scope="col"></th>
                                                                                             </tr>
                                                                                         </thead>
                                                                                         <tbody class="align-middle">
                                                                                             <tr>
-                                                                                                <td>이름</td>
+                                                                                                <td><span class="text-danger">*</span>이름</td>
                                                                                                 <td>
-                                                                                                    <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;">
-                                                                                                </td>
-                                                                                                <td>주민번호</td>
+                                                                                                    <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.clinicPatientInfo.name }">
+                                                                                           </td>
+                                                                                                <td><span class="text-danger">*</span>주민번호</td>
                                                                                                 <td>
                                                                                                     <div class="input-group">
-                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;">
+                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.firstResidentId }">
                                                                                                         <span class="my-auto">&nbsp;-&nbsp;</span>
-                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;">
+                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.secondResidentId }">
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td><span class="text-danger">*</span>생년월일</td>
+                                                                                                <td>
+                                                                                                	<input type="date" class="form-control py-1 rounded-0" style="font-size: 0.9em" value="${clinicPatientLogInfo.clinicPatientInfoMap.birth }">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td><span class="text-danger">*</span>전화번호</td>
+                                                                                                <td colspan="3">
+                                                                                                    <div class="input-group">
+                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.firstPhone }">
+                                                                                                        <span class="my-auto">&nbsp;-&nbsp;</span>
+                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.secondPhone }">
+                                                                                                        <span class="my-auto">&nbsp;-&nbsp;</span>
+                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.thirdPhone }">
                                                                                                     </div>
                                                                                                 </td>
                                                                                                 <td>나이</td>
                                                                                                 <td>
-                                                                                                    <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;">
+                                                                                                    <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.clinicPatientInfo.age }">
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr>
-                                                                                                <td>전화번호</td>
-                                                                                                <td colspan="3">
-                                                                                                    <div class="input-group">
-                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;">
-                                                                                                        <span class="my-auto">&nbsp;-&nbsp;</span>
-                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;">
-                                                                                                        <span class="my-auto">&nbsp;-&nbsp;</span>
-                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;">
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                                <td colspan="2"></td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td>주소</td>
+                                                                                                <td><span class="text-danger">*</span>주소</td>
                                                                                                 <td colspan="5">
-                                                                                                    <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;">
+                                                                                                    <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.clinicPatientInfo.address }">
                                                                                                 </td>
                                                                                             </tr>
                                                                                         </tbody>
@@ -486,6 +498,9 @@
                                                                                 <div class="col">
                                                                                     <select class="form-control rounded-0" style="font-size: 0.8em;">
                                                                                         <option class="active">처방할 의약품을 선택해주세요</option>
+                                                                                        <c:forEach items="${medicineInfoList }" var="list">
+                                                                                        	<option>${list.medicine_code_pk }&nbsp;${list.name }</option>
+                                                                                        </c:forEach>
                                                                                     </select>
                                                                                 </div>
                                                                                 <div class="col-2">
