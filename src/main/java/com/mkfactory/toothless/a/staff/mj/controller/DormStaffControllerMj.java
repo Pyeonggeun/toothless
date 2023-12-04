@@ -71,6 +71,14 @@ public class DormStaffControllerMj {
 		
 		return "redirect:../staff/mj_manageYearPage";
 	}
+	
+	// 학년도/학기 진행상태 변경 프로세스
+	@RequestMapping("mj_changeProgressProcess")
+	public String mj_changeProgressProcess(SemesterDto params) {
+			
+		
+		return "redirect:../staff/mj_changeProgressProcess";
+	}
 
 	
 	

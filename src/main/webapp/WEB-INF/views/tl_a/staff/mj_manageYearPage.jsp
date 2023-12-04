@@ -80,13 +80,13 @@
 			                    <div class="col text-start">
 			                        <div class="form-check form-check-inline">
 			                            <input class="form-check-input" type="radio" name="1" value="">
-			                            <label class="form-check-label" for="inlineRadio2">현재</label>
+			                            <label class="form-check-label" for="inlineRadio2">현재(Y)</label>
 			                        </div>
 			                    </div>
 			                    <div class="col text-start">
 			                        <div class="form-check form-check-inline">
 			                            <input class="form-check-input" type="radio" name="1" value="" >
-			                            <label class="form-check-label" for="inlineRadio3">이전</label>
+			                            <label class="form-check-label" for="inlineRadio3">이전(N)</label>
 			                        </div>
 			                    </div>
 			                    <div class="col-7"></div>
@@ -151,8 +151,16 @@
 				  <td>${item.semester_year }</td>
 				  <td>${item.semester }</td>
 				  <td>${item.progress_state }</td>
-				  <td>언젠가수정버튼</td>
-				  <td>언젠가삭제버튼</td>
+				  <td>
+				  	<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
+			      		<button type="button" class="fw-bold rounded-0 btn btn-secondary btn-sm mb-1">수정</button>
+			      	</a>
+				  </td>
+				  <td>
+				  	<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
+			      		<button type="button" class="fw-bold rounded-0 btn btn-danger btn-sm mb-1">삭제</button>
+			      	</a>
+				  </td>
 			    </tr>		    
 			  </tbody>
 			  </c:forEach>
