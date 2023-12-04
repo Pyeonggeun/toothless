@@ -62,7 +62,7 @@
 			</div>	
 		</div>
 		<div class="row">
-			<div class="col ms-4">
+			<div class="col ms-4 me-4">
 			
 			<!-- 본문작성공간 -->
 				
