@@ -231,10 +231,26 @@
                                                                 <tbody style="font-size: 0.75em;">
                                                                     <c:forEach items="${allClinicPatientInfoList }" var="list">
                                                                     	<tr>
-	                                                                        <th scope="row" class="pt-0 pb-1 align-bottom">${list.clinicPatientInfo.clinic_patient_pk }</th>
-	                                                                        <td class="py-1">${list.clinicPatientInfo.name }</td>
-	                                                                        <td class="py-1">${list.birth }</td>
-	                                                                        <td class="py-1">교직원</td>
+	                                                                        <th scope="row" class="pt-0 pb-1 align-bottom">
+	                                                                        	<a href="./clinicPage?clinic_patient_pk=${list.clinicPatientInfo.clinic_patient_pk }" class="link-dark link-underline link-underline-opacity-0">
+	                                                                        		${list.clinicPatientInfo.clinic_patient_pk }
+	                                                                        	</a>
+	                                                                        </th>
+	                                                                        <td class="py-1">
+	                                                                        	<a href="./clinicPage?clinic_patient_pk=${list.clinicPatientInfo.clinic_patient_pk }" class="link-dark link-underline link-underline-opacity-0">
+	                                                                        		${list.clinicPatientInfo.name }
+	                                                                        	</a>
+	                                                                        </td>
+	                                                                        <td class="py-1">
+	                                                                        	<a href="./clinicPage?clinic_patient_pk=${list.clinicPatientInfo.clinic_patient_pk }" class="link-dark link-underline link-underline-opacity-0">
+	                                                                        		${list.birth }
+	                                                                        	</a>
+	                                                                        </td>
+	                                                                        <td class="py-1">
+	                                                                        	<a href="./clinicPage?clinic_patient_pk=${list.clinicPatientInfo.clinic_patient_pk }" class="link-dark link-underline link-underline-opacity-0">
+	                                                                        		교직원
+	                                                                        	</a>
+	                                                                        </td>
 	                                                                    </tr>
                                                                     </c:forEach>
                                                                 </tbody>
