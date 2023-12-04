@@ -112,5 +112,12 @@
 		WHERE professor_id LIKE #{professor_id}
 	</select>
 	
+	<select id="selectStudnetList" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO
+		ORDER BY STUDENT_PK DESC
+	</select>
+	
+	
+	
 	
 </mapper>

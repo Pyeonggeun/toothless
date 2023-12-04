@@ -82,17 +82,6 @@ public class StaffController {
 			
 			return "another/staff/anotherMainPage";
 		}
-		@RequestMapping("studentRegisterProcess")
-		public String studentRegisterProcess(StudentInfoDto studentInfoDto,
-				int semester_count,
-				@RequestParam(required = false, defaultValue="0")
-				int graduation,
-				double scoreAVG) {
-			
-			staffService.insertStudentInfo(studentInfoDto, semester_count, graduation, scoreAVG);
-			
-			return "redirect:./anotherMainPage";
-		}
 		@RequestMapping("staffRegisterProcess")
 		public String staffRegisterProcess(StaffInfoDto staffInfoDto) {
 			
@@ -107,6 +96,14 @@ public class StaffController {
 			
 			return "redirect:./anotherMainPage";
 		}
-		
+		@RequestMapping("anotherStudentManagerPage")
+		public String anotherStudentManagerPage(Model model) {
+			
+			Map<String, Object> listMap = staffService.getProfessorAndDepqrtmentList();
+			
+			model.addAttribute("listMap", listMap);
+			
+			return "another/staff/anotherStudentManagerPage";
+		}
 		
 }
