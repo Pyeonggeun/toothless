@@ -22,11 +22,26 @@ public class DormStaffControllerMj {
 	}
 	
 	// 공고등록 페이지
-		@RequestMapping("mj_registerJoinInfoPage")
-		public String mj_registerJoinInfoPage() {
+	@RequestMapping("mj_registerJoinInfoPage")
+	public String mj_registerJoinInfoPage() {
 			
-			return "/tl_a/staff/mj_registerJoinInfoPage";
-		}
+		return "/tl_a/staff/mj_registerJoinInfoPage";
+	}
 	
-
+	
+	// 학년도 추가 페이지
+	@RequestMapping("mj_registerYear")
+	public String mj_registerYear() {
+			
+		return "/tl_a/staff/mj_registerYear";
+	}
+	
+	// 학기 추가 페이지
+	@RequestMapping("mj_registerSemester")
+	public String mj_registerSemester() {
+			
+		return "/tl_a/staff/mj_registerSemester";
+	}
+	
+	
 }
