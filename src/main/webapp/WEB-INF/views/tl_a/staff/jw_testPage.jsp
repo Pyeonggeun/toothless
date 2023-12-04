@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	터져라 깃!
+	test
 </body>
 </html>

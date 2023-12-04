@@ -5,6 +5,7 @@ import java.util.Date;
 public class CounselorDto {
 
 	private int id;
+	private int external_pk;
 	private String name;
 	private int age;
 	private String gender;
@@ -19,10 +20,11 @@ public class CounselorDto {
 		super();
 	}
 
-	public CounselorDto(int id, String name, int age, String gender, String phonenumber, String email, String address,
-			String career, String profileImage, Date created_at) {
+	public CounselorDto(int id, int external_pk, String name, int age, String gender, String phonenumber, String email,
+			String address, String career, String profileImage, Date created_at) {
 		super();
 		this.id = id;
+		this.external_pk = external_pk;
 		this.name = name;
 		this.age = age;
 		this.gender = gender;
@@ -40,6 +42,14 @@ public class CounselorDto {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getExternal_pk() {
+		return external_pk;
+	}
+
+	public void setExternal_pk(int external_pk) {
+		this.external_pk = external_pk;
 	}
 
 	public String getName() {
@@ -113,6 +123,6 @@ public class CounselorDto {
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
 	}
-	
+
 	
 }
