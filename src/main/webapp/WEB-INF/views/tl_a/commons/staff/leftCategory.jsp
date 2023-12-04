@@ -69,8 +69,7 @@
                   <div id="flush-3" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body d-grid p-0">
                         <div class="row ps-5 ms-1 my-2">
-                            <a class="btn text-start my-1" href="#" role="button">학년도 추가</a>
-                            <a class="btn text-start my-1" href="#" role="button">학기 추가</a>
+                            <a class="btn text-start my-1" href="./mj_registerYear" role="button">학년도/학기 추가</a>
                         </div>
                     </div>
                   </div>

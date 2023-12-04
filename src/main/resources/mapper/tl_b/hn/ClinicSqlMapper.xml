@@ -25,4 +25,12 @@
 		SELECT * FROM tl_b_prescription_info WHERE clinic_patient_log_pk = #{clinic_patient_log_pk}
 	</select>
 	
+	<select id="getMedicineNameByMedicineCodePk" resultType="String">
+		SELECT name FROM tl_b_medicine_code_info WHERE medicine_code_pk = #{medicine_code_pk}
+	</select>
+	
+	<select id="getMedicineInfoList" resultType="com.mkfactory.toothless.b.dto.MedicineCodeDto">
+		SELECT * FROM tl_b_medicine_code_info
+	</select>
+	
 </mapper>

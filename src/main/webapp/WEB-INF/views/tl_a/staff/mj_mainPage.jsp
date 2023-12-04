@@ -204,7 +204,7 @@
                         </div>
                         <div class="col">
                         	<div class="row">
-                        		<div class="col ps-2 pb-2 pt-2 pe-2">
+                        		<div class="col ps-2 pb-4 pt-2 pe-2">
 		                            <div class="col bg-white rounded-4 border border-light-subtle" style="height: 220px;">
 		                                <div class="row ms-3 mt-3">
 		                                	<div class="col fs-5 fw-bold">
@@ -275,65 +275,7 @@
                         </div>
                     </div>
 
-                    <!-- 하단 -->
-                    <div class="row">
-                        <div class="col">
-							<div class="row ps-5 pb-2 pt-2 pe-2">
-	                            <div class="col bg-white rounded-4 border border-light-subtle" style="height: 200px;">
-	                                <div class="row ms-3 mt-3">
-	                                	<div class="col fs-5 fw-bold">
-	                                		가격관리 <i class="fs-6 bi bi-question-circle"></i>
-	                                	</div>
-	                                </div>
-	                                <div class="row mt-4">
-	                                	<div class="col border-end pe-4">
-	                                		<div class="row mt-5 "></div>
-	                                		<div class="row">
-	                                			<div class="col fs-3 fw-bold text-end">
-	                                				24
-	                                			</div>
-	                                		</div>
-	                                		<div class="row">
-	                                			<div class="col text-end">
-	                                				최저가 달성 가능 상품수
-	                                			</div>
-	                                		</div>
-	                                	</div>
-	                                	<div class="col pe-4">
-	                                		<div class="row mt-5"></div>	                                		
-	                                		<div class="row">
-	                                			<div class="col fs-3 fw-bold text-end">
-	                                				7,142,100 <span class="fs-5">원</span>
-	                                			</div>
-	                                		</div>
-	                                		<div class="row">
-	                                			<div class="col text-end">
-	                                				가격 조정 28일 후 예상 추가 판매금액
-	                                			</div>
-	                                		</div>
-	                                	</div>
-	                                </div>
-	                            </div>
-	                        </div>
-                        </div>
-                        <div class="col">
-							<div class="row ps-2 pb-2 pt-2 pe-5">
-	                            <div class="col bg-white rounded-4 border border-light-subtle" style="height: 200px;">
-	                                <div class="row ms-3 mt-3">
-	                                	<div class="col fs-5 fw-bold">
-	                                		매출/판매 통계
-	                                	</div>
-	                                </div>
-	                                <div class="row">
-	                                	<div class="col">
-	                                		<img src="../resources/img/seller/graph.png" class="img-fluid h-75 w-100">
-	                                	</div>
-	                                </div>
-	                            </div>
-	                        </div>
-                        </div>
-                    </div>
-                </div> 
+                </div>
             </div>
 
             <!-- 최하단 -->

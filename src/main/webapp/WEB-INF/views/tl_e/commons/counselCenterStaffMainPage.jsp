@@ -42,7 +42,7 @@
 				</div>
 				<div class="row pt-4">
 					<div class="col fs-5">
-						<a class="navbar-brand" href="#">공지사항</a>
+						<a class="navbar-brand" href="../notice/noticeMainPage">공지사항</a>
 					</div>
 				</div>
 				<div class="row pt-4">

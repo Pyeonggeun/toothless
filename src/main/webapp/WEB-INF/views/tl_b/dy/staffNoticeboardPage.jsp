@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -209,6 +210,14 @@
                                 </div>
                                 <div class="col">
                                     <h1>교직원 게시판</h1>
+	                                    <c:choose>
+	                                    	<c:when test="${!empty sessionStaffInfo}">
+	                                    	${sessionStaffInfo.name} 님 로그인 하셨습니다.
+	                                    	<br>
+	                                   	<!-- <button type="button" onclick="location.href=''"></button>-->
+	                                    	</c:when>
+	                                    		
+	                                    </c:choose>
                                     <table border="1">
                                     	<tr>
                                     		<td>글번호
@@ -217,20 +226,15 @@
 											<td>조회수
 											<td>작성일
                                     	</tr>
-                                    	<tr>
-                                    		<td>1</td>
-                                    		<td>으응?</td>
-                                    		<td>테스터</td>
-                                    		<td>27</td>
-                                    		<td>23.12.01</td>
-                                    	</tr>
-                                    	<tr>
-                                    		<td>2</td>
-                                    		<td>ㅓ뭐냐?</td>
-                                    		<td>테스터</td>
-                                    		<td>999</td>
-                                    		<td>23.12.01</td>
-                                    	</tr>	
+                                    	<c:forEach items="${list}" var="map">
+	                                    	<tr>
+	                                    		<td>${map.staffNoticeboardDto.staff_noticeboard_pk}</td>
+	                                    		<td>${map.staffInfoDto.staff_pk}</td>
+	                                    		<td>${map.staffNoticeboardDto.title}</td>
+	                                    		<td>${map.staffNoticeboardDto.content}</td>
+	                                    		<td>${map.staffNoticeboardDto.created_at }</td>
+	                                    	</tr>
+                                    	</c:forEach>	
                                     </table>
                                     <button type="button" onclick="location.href='./writeTextPage'">글쓰기</button>
                                     
