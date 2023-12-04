@@ -18,4 +18,8 @@ public interface DormStaffSqlMapper {
 	
 	// 입주공고 등록
 	public void insertInfo(JoinDormInfoDto joinDormInfoDto);
+	
+	// 공고 전체 조회
+	public List<JoinDormInfoDto> selectAllDormInfoList();
+	
 }

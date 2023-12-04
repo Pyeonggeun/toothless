@@ -2,4 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mkfactory.toothless.a.staff.sj.mapper.BuildingSqlMapper">
+	<!-- 건물 등록 -->
+	<insert id="registerDormInfo">
+		INSERT INTO tl_a_dorm_building VALUES (
+			tl_a_dorm_building_seq.nextval,
+			#{name},
+			#{main_img},
+			#{address}
+		)
+	</insert>
+	
+	<!-- 건물 전체 -->
+	<select id="dormBuildings" resultType="com.mkfactory.toothless.a.dto.DormBuildingDto">
+		SELECT * FROM TL_A_DORM_BUILDING
+	</select>
+	
+	<!-- 건물 선택 -->
+	<select id="dormBuildinChoice" resultType="com.mkfactory.toothless.a.dto.DormBuildingDto">
+		SELECT * FROM TL_A_DORM_BUILDING tadb WHERE dorm_pk = #{dorm_pk}
+	</select>
+	
+	<!-- 호실 등록 -->
+	<select id="registerRoomInfo">
+		INSERT INTO tl_a_dorm_room values(
+			tl_a_dorm_room_seq.nextval,
+			#{dorm_pk},
+			#{dorm_amount_pk},
+			#{room_name},
+			#{gender},
+			#{dorm_floor}
+		)
+	</select>
+	
+	<!-- 정원 카테고리 -->
+	<select id="selectDormAmountAllCategory" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
+		SELECT * FROM tl_a_dorm_category
+	</select>
+	
+	<select id="selectDormAmountChoice" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
+		SELECT * FROM TL_A_DORM_CATEGORY tadc WHERE DORM_AMOUNT = ${DORM_AMOUNT}
+	</select>
 </mapper>

@@ -27,6 +27,7 @@ public class DormStaffServiceImpl {
 		
 		return staffSqlMapper.selectYearList();
 	}
+
 	
 	// 현재 학년도/학기 조회
 	public SemesterDto getThisSemester() {
@@ -40,5 +41,10 @@ public class DormStaffServiceImpl {
 		staffSqlMapper.insertInfo(joinDormInfoDto);
 	}
 	
+	// 공고 전체 조회
+	public List<JoinDormInfoDto> getAllDormInfoList() {
+		
+		return staffSqlMapper.selectAllDormInfoList();
+	}
 	
 }

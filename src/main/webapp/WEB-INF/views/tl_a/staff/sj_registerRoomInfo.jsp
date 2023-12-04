@@ -48,7 +48,11 @@
 					</div>
 					<div class="row">
 						<div class="col my-2">
-							앞에서 입력한 기숙사명 radio로 선택하는 곳
+							<select class="form-select" aria-label="기숙사 동을 선택하세요">							
+							  <option value="1">One</option>
+							  <option value="2">Two</option>
+							  <option value="3">Three</option>
+							</select>
 						</div>
 					</div>
 				</div>

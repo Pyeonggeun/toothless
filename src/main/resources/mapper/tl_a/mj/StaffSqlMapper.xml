@@ -44,6 +44,12 @@
 			sysdate
 		)
 	</insert>
+	
+	<!-- 등록된 공고들 조회 -->
+	<select id="selectAllDormInfoList" resultType="com.mkfactory.toothless.a.dto.JoinDormInfoDto">
+		SELECT * FROM tl_a_join_dorm_info
+	</select>
+	
 
 
 </mapper>
