@@ -14,7 +14,7 @@
                 <nav class="navbar navbar-expand-lg" style="background-color: #ffffff">
                     <div class="container-fluid py-1">
                         <a class="navbar-brand ms-3" href="#">
-                            <img src="./img/slog.png" alt="Logo" width="140" height="35" class="d-inline-block align-text-top">
+                            <img src="../../resources/img/dormitory/slog.png" alt="Logo" width="140" height="35" class="d-inline-block align-text-top">
                             <span class="fw-bold" style="color: #190D0F; font-size: large;">기숙사</span>
                         </a>
                       <div class="col-6">
