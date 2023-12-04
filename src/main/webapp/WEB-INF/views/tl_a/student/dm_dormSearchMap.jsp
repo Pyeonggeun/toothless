@@ -26,7 +26,7 @@
     <jsp:include page="../commons/student/topNavi.jsp"></jsp:include>
     <div class="row">
         <div class="col">
-            <img src="../../resources/img/dormitory/studentMainLogo.png">
+            <img src="../../resources/img/dormitory/studentMainLogo.jpg">
         </div>
     </div>
 
