@@ -3,8 +3,24 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mkfactory.toothless.e.freeboardcounsel.mapper.FreeboardCounselSqlMapper">
-
-
-
+	
+	<insert id="insertFreeboardPosts">
+		INSERT INTO cp_student_freeboard VALUES(
+			cp_student_freeboard_seq.nextval,
+			#{student_pk},
+			#{title},
+			#{text},
+			0,
+			SYSDATE
+		)
+	</insert>
+	
+	<select id="selectfreeboardList" resultType="com.mkfactory.toothless.e.dto.FreeboardDto">
+		SELECT * FROM cp_student_freeboard ORDER BY id DESC 
+	</select>
+	
+	<select id="selectStudentInfo" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO WHERE STUDENT_PK = #{STUDENT_PK}
+	</select>
 
 </mapper>
