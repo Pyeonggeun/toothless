@@ -11,8 +11,10 @@
 </head>
 <body>
 
-	<div class="container"> 
-	
+	<div class="container-fluid"> 
+		<div class="row">
+				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>	
+		</div>
 		<div class="row mt-3 mb-2">
 			<div class="col text-center fw-bold">기업등록</div>
 		</div>
@@ -22,7 +24,7 @@
 				<div class="col"></div>
 				<div class="col mt-3 border-top border-bottom border-light-subtle">
 					
-					<div class="row mt-3">
+					<div class="row mt-3"> 
 						<div class="col"> 
 							<div class="row mb-1">기업규모</div>
 							<select class="form-select" name="com_scale_category_pk" >

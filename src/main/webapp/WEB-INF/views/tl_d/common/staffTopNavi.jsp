@@ -8,7 +8,7 @@
 			<div class="col-1 pe-2 text-end">
                 <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
             </div>
-            <div class="col-3 ps-0 fw-bold fs-1 text-start ">
+            <div class="col-4 ps-0 fw-bold fs-1 text-start ">
                 MK University<span class="fs-6"> | </span> <span class="fs-5">취창업지원센터</span> 
             </div>
 	    	<div class="col"></div>
