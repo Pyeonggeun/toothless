@@ -3,5 +3,19 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mkfactory.toothless.b.ys.item.mapper.ItemStudentSqlMapper">
-
+	
+	<!-- 물품 신청 -->
+	<insert id="insertItemApply">
+		INSERT INTO TL_B_ITEM_APPLY values(
+			TL_B_ITEM_APPLY_seq.nextval,
+			#{student_pk},
+			#{item_pk},
+			#{reason},
+			#{status},
+			#{rental_date},
+			#{return_date},
+			#{quantity},
+			sysdate
+		)
+	</insert>
 </mapper>
