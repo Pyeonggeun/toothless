@@ -73,8 +73,7 @@
 					</div>
 				</div>
 				
-				<form action="./registerProcess" class="needs-validation was-validated" method="post" >
-				<input name="external_category" type="hidden" value="3">
+				<form action="./registerProcess" class="needs-validation was-validated" method="post" >				
 				<div class="row mt-5">
 					<div class="col">
 					
