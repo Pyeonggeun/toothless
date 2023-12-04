@@ -531,6 +531,27 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+            	<div class="col">
+            		<div class="row" style="font-size: x-small">
+            			<div class="col">
+            				학번
+            			</div>
+            			<div class="col">
+            				이름
+            			</div>
+            			<div class="col">
+            				학과 
+            			</div>
+            			<div class="col">
+            				학년
+            			</div>
+            			<div class="col">
+            				지도교수 
+            			</div>
+            		</div>
+            	</div>
+            </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>

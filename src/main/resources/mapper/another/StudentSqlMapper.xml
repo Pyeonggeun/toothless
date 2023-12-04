@@ -26,8 +26,17 @@
 		WHERE student_pk = #{student_pk}
 		AND student_pk IN (SELECT student_pk FROM tl_jic_graduation_info)
 	</select>
+		
+	<select id="selectStudnetList" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO
+		ORDER BY STUDENT_PK DESC
+	</select>
 	
-	
+	<select id="selectMyProfessor" resultType="com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto" >
+		SELECT * FROM tl_jic_professor_info
+		where professor_pk = #{professor_pk}
+	</select>
+
 	
 	
 	
