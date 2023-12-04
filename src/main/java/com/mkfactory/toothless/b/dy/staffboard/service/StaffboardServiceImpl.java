@@ -62,6 +62,13 @@ public class StaffboardServiceImpl {
 		staffboardSqlMapper.updateTextReadCount(staff_noticeboard_pk);
 	}
 	
+	public void removeText(int staff_noticeboard_pk) {
+		staffboardSqlMapper.deleteText(staff_noticeboard_pk);
+	}
+	public void modifyTextPage(StaffNoticeboardDto staffNoticeboardDto) {
+		staffboardSqlMapper.updateModifyText(staffNoticeboardDto);
+	}
+	
 }
 
 
