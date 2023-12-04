@@ -3,7 +3,21 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mkfactory.toothless.e.groupcounsel.mapper.GroupCounselStaffSqlMapper">
-
+	
+	<insert id="insertGroupCounsel">
+		INSERT INTO cp_group_counsel VALUES(
+			cp_group_counsel_seq.nextval,
+			#{title},
+			#{text},
+			'미완성',
+			#{location},
+			#{amount},
+			#{counsel_date},
+			#{start_apply_date},
+			#{end_apply_date},
+			SYSDATE
+		)	
+	</insert>
 
 
 
