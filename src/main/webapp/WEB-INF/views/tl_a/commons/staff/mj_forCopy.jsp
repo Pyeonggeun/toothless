@@ -27,6 +27,41 @@
 		
 		<!-- 우측내용 -->
 		<div class="col mx-5">
+			<!-- 카테고리명 -->
+			<div class="row my-3">
+				<div class="col fs-4 fw-bold">
+					공고 관리
+				</div>
+			</div>
+			
+			<!-- 카테고리 -->
+			<div class="row mt-2">
+				<div class="col fw-bold text-center px-2 py-2 mb-3">
+					<ul class="nav nav-tabs">
+					  <li class="nav-item">
+					    <a class="nav-link active text-black" href="#">공고 등록</a>
+					  </li>
+					  <li class="nav-item">
+					    <a class="nav-link text-black" href="#">조회/수정</a>
+					  </li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- 세부내용 시작 -->			
+			<div class="row">
+				<div class="col">
+					<!-- 목록 -->
+					<div class="row py-3">
+						<div class="col">
+							
+						</div>
+					</div>
+					
+					<!-- 세부내용 -->
+					
+				</div>
+			</div>
 			
 		</div> <!-- 우측내용 col 끝 -->
             

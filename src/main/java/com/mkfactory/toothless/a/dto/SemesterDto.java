@@ -1,6 +1,6 @@
 package com.mkfactory.toothless.a.dto;
 
-public class semesterDto {
+public class SemesterDto {
 	
 	private int semester_pk;
 	private String semester_year;
@@ -8,10 +8,10 @@ public class semesterDto {
 	private String progress_state;
 	
 	
-	public semesterDto() {}
+	public SemesterDto() {}
 
 
-	public semesterDto(int semester_pk, String semester_year, String semester, String progress_state) {
+	public SemesterDto(int semester_pk, String semester_year, String semester, String progress_state) {
 		
 		this.semester_pk = semester_pk;
 		this.semester_year = semester_year;
