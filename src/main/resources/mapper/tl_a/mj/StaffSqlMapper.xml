@@ -17,7 +17,7 @@
 	<!-- 학년도/학기 조회 -->
 	<select id="selectYearList" resultType="com.mkfactory.toothless.a.dto.SemesterDto">
 		SELECT * FROM tl_a_semester
-		ORDER BY SEMESTER_PK desc
+		ORDER BY SEMESTER_YEAR desc, SEMESTER_pk desc
 	</select>
 
 

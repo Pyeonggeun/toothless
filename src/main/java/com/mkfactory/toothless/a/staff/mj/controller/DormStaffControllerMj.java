@@ -44,8 +44,13 @@ public class DormStaffControllerMj {
 	@RequestMapping("mj_manageYearPage")
 	public String mj_manageYearPage(Model model) {
 		
+		// 학년도/학기 리스트
 		List<SemesterDto> yearList =  staffService.getYearList();
 		model.addAttribute("yearList", yearList);
+		
+		// 리스트 개수
+		int countYearList = yearList.size();
+		model.addAttribute("countYearList", countYearList);
 		
 		return "/tl_a/staff/mj_manageYearPage";
 	}
@@ -64,7 +69,7 @@ public class DormStaffControllerMj {
 			
 		staffService.registerYear(params);
 		
-		return "/tl_a/staff/mj_registerYearPage";
+		return "redirect:../staff/mj_manageYearPage";
 	}
 
 	
