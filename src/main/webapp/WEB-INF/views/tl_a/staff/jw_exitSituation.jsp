@@ -39,10 +39,10 @@
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 					  <li class="nav-item">
-					    <a class="nav-link active text-black" href="#">외출/외박 현황</a>
+					    <a class="nav-link active text-black" href="./jw_exitSituation">외출/외박 현황</a>
 					  </li>
 					  <li class="nav-item">
-					    <a class="nav-link text-black" href="#">점호 참석 현황</a>
+					    <a class="nav-link text-black" href="./jw_callAttendSituation">점호 참석 현황</a>
 					  </li>
 					</ul>
 				</div>
