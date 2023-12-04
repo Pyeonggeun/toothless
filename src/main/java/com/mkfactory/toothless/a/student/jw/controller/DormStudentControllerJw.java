@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/tl_a/student/*")
-public class DormStudentController {
+public class DormStudentControllerJw {
 
 	@RequestMapping("jw_mainPage")
 	public String jw_mainPage() {
