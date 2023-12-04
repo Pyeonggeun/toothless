@@ -53,7 +53,16 @@
 				</div>
 				<div class="row pt-5">
 					<div class="col fs-5">
-						<a class="navbar-brand" href="./registerPage">상담원 등록</a>
+						<div class="dropend">
+							<button class="btn btn-white dropdown-toggle navbar-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							상담원 관리
+							</button>
+							<ul class="dropdown-menu">
+							    <li><a class="dropdown-item" href="../registerCounselor/registerPage">상담원 등록</a></li>
+						   		<li><a class="dropdown-item" href="../registerCounselor/counselorDetail">상담원 조회</a></li>
+						   		<li><a class="dropdown-item" href="#">상담원 뭐시기</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class="row pt-4">

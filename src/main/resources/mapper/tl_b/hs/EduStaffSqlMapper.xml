@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mkfactory.toothless.b.hs.edu.mapper.EduStaffSqlMapper">
+	
+	<insert id="insert">
+		INSERT INTO TL_B_EDU_INFO VALUES(
+			TL_B_EDU_INFO_seq.nextval,
+			#{edu_cat_pk},
+			#{staff_pk},
+			#{name},
+			#{content},
+			#{img_link},
+			#{apply_start_date},
+			#{apply_end_date},
+			#{edu_date},
+			#{place},
+			#{capacity},
+			SYSDATE
+		)
+	</insert>
+	
+	<select id="selectAll" resultType="com.mkfactory.toothless.b.dto.EduDto">
+		SELECT * FROM TL_B_EDU_INFO ORDER BY edu_pk DESC
+	</select>
+	
+	<select id="selectById" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
+		SELECT * FROM TL_JIC_STAFF_INFO WHERE staff_pk = #{staff_pk}
+	</select>
+	
+	<select id="selectByEdu_pk" resultType="com.mkfactory.toothless.b.dto.EduDto">
+		SELECT * FROM TL_B_EDU_INFO WHERE edu_pk = #{edu_pk}
+	</select>
+	
+	<!-- 교육정보 수정 삭제 -->
+	<update id="update">
+		UPDATE TL_B_EDU_INFO
+		SET name = #{name},
+		CONTENT = #{content}, 
+		IMG_LINK = #{img_link},
+		apply_start_date = #{apply_start_date},
+		apply_end_date = #{apply_end_date},
+		edu_date = #{edu_date},
+		place = #{place},
+		capacity = #{capacity}
+		WHERE edu_pk = #{edu_pk}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM TL_B_EDU_INFO
+		WHERE edu_pk = #{edu_pk}
+	</delete>
+	
+	
+</mapper>
