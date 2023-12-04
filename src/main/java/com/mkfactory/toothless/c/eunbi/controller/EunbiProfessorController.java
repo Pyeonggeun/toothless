@@ -32,6 +32,7 @@ public class EunbiProfessorController {
 		model.addAttribute("sessionProfessorInfo", sessionProfessorInfo);
 		model.addAttribute("studentsInfo", professorServiece.viewStudentsWithApplyingStatus(sessionProfessorPk));
 		
+		
 		return "tl_c/eunbi/professor/viewChargedStudentPage";
 	}
 	
