@@ -76,4 +76,10 @@ public class DormStudentControllerDm {
 		return "/tl_a/student/dm_paymentMoney";
 	}
 	
+	@RequestMapping("dm_dormPosted")
+	public String dm_dormPosted() {
+		
+		return "/tl_a/student/dm_dormPosted";
+	}
+	
 }
