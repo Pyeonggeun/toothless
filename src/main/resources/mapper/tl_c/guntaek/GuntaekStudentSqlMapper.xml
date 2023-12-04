@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.c.guntaek.mapper.GuntaekStudentSqlMapper">
+
+<!-- 이력서 insert -->
+<insert id ="registerSelfIntroduction">
+INSERT INTO tl_c_self_introduction VALUES(
+	tl_c_self_introduction_seq.nextval,
+	#{student_pk},
+	#{answer1},
+	#{answer2},
+	#{answer3},
+	#{answer4}
+)
+</insert>
+
+<!-- 이력서 개수 -->
+<select id = "countSelfIntroduction" resultType ="int">
+	SELECT COUNT(*) FROM tl_c_self_introduction
+	WHERE student_pk =#{student_pk}
+</select>
+
+<!-- 이력서 Dto 가져오기 -->
+<select id ="getSelfIntroductionDto" resultType = "com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto">
+	SELECT * FROM TL_C_SELF_INTRODUCTION
+	WHERE STUDENT_PK = #{student_pk}
+</select>
+
+<update id ="updateSelfIntroductionDto">
+	UPDATE TL_C_SELF_INTRODUCTION
+	SET answer1  = #{answer1}, answer2 = #{answer2}, 
+	answer3 =#{answer3}, answer4 = #{answer4}
+	WHERE student_pk = #{student_pk}
+</update>
+
+</mapper>

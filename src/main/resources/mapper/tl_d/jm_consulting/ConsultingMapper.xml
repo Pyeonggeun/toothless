@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.d.jm.consulting.mapper.ConsultingMapper">
+
+
+<!-- (학생)구직희망신청 정보 입력 -->
+<insert id="insertHopeJobApply">
+	INSERT INTO tl_d_hope_job values(
+	tl_d_hope_job_seq.nextval,
+	#{student_pk},
+	#{hope_salary},
+	#{hope_area},
+	#{requierments},
+	#{is_end_hope_job},
+	sysdate
+	)
+</insert>
+
+
+
+
+<!-- (학생)구직희망신청 중복 확인 -->
+<select id="checkOverlapHopeJobApply" resultType="int">
+SELECT count(*) FROM tl_d_hope_job
+WHERE 1 = 1
+AND student_pk = #{student_pk}
+AND is_end_hope_job = 'N'
+</select>
+
+<!-- (학생)온라인 상담 정보 입력용-->
+<!--  (학생) 가장 최근 구직희망신청 정보 출력  -->
+<select id="getLastHopejob" resultType="com.mkfactory.toothless.d.dto.HopeJobDto">
+SELECT *
+FROM tl_d_hope_job
+WHERE CREATED_AT =
+	(SELECT max(CREATED_AT)
+	 FROM tl_d_hope_job
+	 WHERE STUDENT_PK = #{STUDENT_PK}
+	) 
+</select>
+
+
+
+<!-- (학생)온라인 상담 정보 입력 -->
+<insert id="insertOnlineConsulting">
+INSERT INTO tl_d_online_consulting values(
+	tl_d_online_consulting_seq.nextval,
+	#{hope_job_pk},
+	#{on_consulting_contents},
+	sysdate
+)
+</insert>
+
+<!-- 온라인 상담 가능여부 확인용 -->
+<!-- 특정학생 가장 최근 온라인 상담내역 -->
+<select id="getLastOnConsulting" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
+SELECT *
+FROM tl_d_online_consulting
+WHERE CREATED_AT = (
+		SELECT max(CREATED_AT) 
+		FROM tl_d_online_consulting
+		WHERE HOPE_JOB_PK =
+			(
+			SELECT hope_job_pk
+			FROM tl_d_hope_job
+			WHERE 
+				CREATED_AT = 
+				(
+				SELECT max(CREATED_AT) FROM tl_d_hope_job where student_pk = #{student_pk}
+				)
+			)
+		)
+
+</select>
+
+<!-- 온라인 상담 가능여부 확인용 -->
+<!-- 특정학생 상담 답글 달렸는지 확인용 -->
+<select id="checkOnConsultingReply" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingReplyDto">
+SELECT *
+FROM tl_d_online_consulting_reply
+WHERE on_consulting_pk = #{on_consulting_pk}
+</select>
+
+
+
+
+
+
+
+
+
+
+<!-- 교직원 화면 출력용 -->
+<!-- 미응답 온라인 상담 최근 5개 오래된순으로 꺼내오기 -->
+<select id="getOnConsultingList" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
+SELECT t2.*
+FROM (
+	SELECT t1.*, rownum AS rnum
+	FROM (
+		SELECT a.*
+		FROM tl_d_online_consulting a
+		WHERE a.ON_CONSULTING_PK NOT in
+			(	
+			SELECT b.ON_CONSULTING_PK
+			FROM tl_d_online_consulting_reply b
+			) 
+		ORDER BY a.CREATED_AT asc
+	)t1
+)t2
+<![CDATA[
+    WHERE rnum <= 5
+]]>
+
+</select>
+
+<!-- 교직원 화면 출력용 -->
+<!-- 구직 희망 신청번호로 구직희망 정보 뽑기 -->
+<select id="getHopeJobByPk" resultType="com.mkfactory.toothless.d.dto.HopeJobDto">
+SELECT *
+FROM TL_D_HOPE_JOB
+WHERE HOPE_JOB_PK = #{HOPE_JOB_PK}
+</select>
+
+<!-- 교직원 화면 출력용 -->
+<!--  학생정보 뽑기 -->
+<select id="getStudentInfoByPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+SELECT *
+FROM TL_JIC_STUDENT_INFO
+WHERE STUDENT_PK = #{STUDENT_PK}
+</select>
+
+
+
+<!-- 교직원 -->
+<!-- 온라인 상담 답글시 답장안한 상담인지 재확인 -->
+
+<!-- 상담 답글 달기 -->
+<insert id="insertOnlineConsultingReply">
+INSERT INTO tl_d_online_consulting_reply VALUES(
+	tl_d_on_consulting_reply_seq.nextval,
+	#{on_consulting_pk},
+	#{staff_pk},
+	#{on_contents_reply},
+	sysdate
+)
+
+</insert>
+
+
+</mapper>
