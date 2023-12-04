@@ -46,7 +46,7 @@
                 </div>
                 <div class="row" style="border-bottom: 0.2em solid #504528;">
                     <div class="col py-3 fw-bold" style="font-size: large;">
-                        <span style="color: #504528;">모집공고</span>       
+                        <span style="color: #504528;">공고 및 입주신청</span>       
                     </div>
                 </div>
                 <div class="row" style="border-bottom: 0.01em solid #161313;">
@@ -69,25 +69,16 @@
                         <span style="color: black;">합격안내</span>         
                     </div>
                 </div>
-                
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">합격안내</span>         
-                    </div>
-                </div>
-                
-                
-                
-            </div><!-- ㅋ-->
+              </div><!-- ㅋ-->
             <div class="col">
                 <div class="row">
                     <div class="col">
                         <div class="row my-3">
                             <div class="col pb-2">
-                                <span class="fw-bold" style="font-size: xx-large;">모집공고</span>
+                                <span class="fw-bold" style="font-size: xx-large;">공고 및 입주신청</span>
                             </div>
                             <div class="col text-end pt-3">
-                                <span class="bi bi-house-door-fill" style="color: #999897;"></span><span style="color: #7A8082;"> > 모집안내 </span> <span style="color: #999897;"> > </span><span class="fw-bold" style="color: #767575;"> 모집공고</span>
+                                <span class="bi bi-house-door-fill" style="color: #999897;"></span><span style="color: #7A8082;"> > 모집안내 </span> <span style="color: #999897;"> > </span><span class="fw-bold" style="color: #767575;">공고 및 입주신청</span>
                             </div>
                             <span class="border-bottom  border-dark border-4 mt-2"></span>
                         </div>
