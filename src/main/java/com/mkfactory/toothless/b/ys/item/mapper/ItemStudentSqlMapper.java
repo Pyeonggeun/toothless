@@ -1,5 +1,9 @@
 package com.mkfactory.toothless.b.ys.item.mapper;
 
-public class ItemStudentSqlMapper {
+import com.mkfactory.toothless.b.dto.ItemApplyDto;
 
+public interface ItemStudentSqlMapper {
+
+	
+	public void insertItemApply(ItemApplyDto itemApplyDto);
 }
