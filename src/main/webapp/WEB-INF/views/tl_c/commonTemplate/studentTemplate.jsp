@@ -39,6 +39,12 @@
 	.studentleftmenubar input:checked + label + .content {
 	    display: block;
 	}	
+	
+	/*a태그기본설정제거*/
+	.nolinenoblue > a {
+		text-decoration: none;
+		color: #000000;
+	}
 
 </style>
 </head>
@@ -47,36 +53,26 @@
 
 <div class="row">
 	<div class="col">
-		<jsp:include page="../common/ajdksHighestMenubar.jsp"></jsp:include>
+		<jsp:include page="../common/ajdksHighestMenubarForStudent.jsp"></jsp:include>
 	</div>
 </div>
 <div class="row">
-	<jsp:include page="../common/ajdksTemplateForStudent.jsp"></jsp:include>
+
+	<!-- 좌측메뉴바 -->
+	<jsp:include page="../common/ajdksSideMenubarForStudent.jsp"></jsp:include>
 	
-	<!-- 본문 :  자유롭게 이용하세요 화이팅 -->
+	<!-- 본문 : 자유롭게 이용하세요 화이팅 -->	
 	<div class="col">
-		<!-- 안내문구 -->
-		<div class="row py-2 ms-2" style="box-shadow: 2px 2px 2px gray;">
-			<div class="col" style="font-size: 0.9em;">
-				<span>&#035;&nbsp;중앙정보기술인재개발원 님 환영합니다</span>
-			</div>	
-		</div>
 		<div class="row">
-			<div class="col ms-4 me-4">
+			<div class="col mx-4">
 			
 			<!-- 본문작성공간 -->
-				
-				
-				
-				
 				
 			</div>
 		</div>
 	</div>
 	
 </div>
-
-
 
 </div><!-- 전체 container 출구 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
