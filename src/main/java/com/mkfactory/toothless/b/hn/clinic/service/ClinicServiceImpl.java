@@ -1,6 +1,7 @@
 package com.mkfactory.toothless.b.hn.clinic.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ import com.mkfactory.toothless.b.hn.clinic.mapper.ClinicSqlMapper;
 public class ClinicServiceImpl {
 	
 	@Autowired
-	ClinicSqlMapper clinicSqlMapper;
+	private ClinicSqlMapper clinicSqlMapper;
 	
 	public List<Map<String, Object>> getAllClinicPatientInfoList() {
 		
@@ -22,7 +23,12 @@ public class ClinicServiceImpl {
 		
 		for(ClinicPatientDto clinicPatientDto : clinicSqlMapper.getAllClinicPatientInfoList()) {
 			
-			String birth = clinicPatientDto.getResident_id().substring(0);
+			Map<String, Object> map = new HashMap<>();
+			
+			String birth = clinicPatientDto.getResident_id().substring(0, clinicPatientDto.getResident_id().indexOf("-"));
+			
+			map.put("clinicPatientInfo", clinicPatientDto);
+			map.put("birth", birth);
 			
 		}
 		

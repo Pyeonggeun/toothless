@@ -15,23 +15,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <div class="row">
-                        <div class="col px-0">
-                            <img class="img-fluid" src="../../resources/img/healthRoom/staffTopImg.jpg" style="height: 11vh; width: 100%; object-fit: cover; object-position: 50% 43%;">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row border-bottom">
-                                <div class="col py-2 fw-bold">
-                                    <a href="../common/staffMainPage" class="link-underline link-underline-opacity-0 link-dark">
-                                    	<img class="img-fluid" src="../../resources/img/another/logo_black.png" style="width: 2%;">
-                                    	<span style="font-size: 0.95em; word-spacing: -0.25em">MK University</span>&nbsp;|<span style="font-size: 0.75em"> 보건센터</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <jsp:include page="../commonJsp/staffTopBanner.jsp"></jsp:include>
                     <div class="row">
                         <div class="col">
                             <div class="row">
@@ -247,9 +231,9 @@
                                                                 <tbody style="font-size: 0.75em;">
                                                                     <c:forEach items="${allClinicPatientInfoList }" var="list">
                                                                     	<tr>
-	                                                                        <th scope="row" class="pt-0 pb-1 align-bottom">${list.clinic_patient_pk }</th>
-	                                                                        <td class="py-1">${list.name }</td>
-	                                                                        <td class="py-1"></td>
+	                                                                        <th scope="row" class="pt-0 pb-1 align-bottom">${list.clinicPatientInfo.clinic_patient_pk }</th>
+	                                                                        <td class="py-1">${list.clinicPatientInfo.name }</td>
+	                                                                        <td class="py-1">${list.birth }</td>
 	                                                                        <td class="py-1">교직원</td>
 	                                                                    </tr>
                                                                     </c:forEach>
