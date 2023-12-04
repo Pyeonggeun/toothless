@@ -42,7 +42,7 @@ public class StaffController {
 			session.setAttribute("sessionStaffInfo", staffInfoDto);
 			if(staffInfoDto.getCenter_pk() == 1) {
 				
-				return "redirect: ../../tl_c/woojae/ajdksSraffMainPage";
+				return "redirect: ../../tl_c/woojae/ajdksStaffMainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 2){
 				
@@ -50,7 +50,7 @@ public class StaffController {
 				
 			}else if(staffInfoDto.getCenter_pk() == 3){
 				
-				return "redirect: ../../tl_e/commons/staffCounselMainPage";
+				return "redirect: ../../tl_e/commons/counselCenterStaffMainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 4){
 				
