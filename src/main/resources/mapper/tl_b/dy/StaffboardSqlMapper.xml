@@ -15,10 +15,13 @@
 		)
 	</insert>
 
-	<!-- 쿼리 삽입해야 함... 류하나담당 -->
 	<select id="selectBoardContentsInfo" resultType="com.mkfactory.toothless.b.dto.StaffNoticeboardDto">
-		SELECT * FROM tl_b_staff_noticeboard ORDER BY staff_noticeboard_pk DESC;
+		SELECT * FROM tl_b_staff_noticeboard ORDER BY staff_noticeboard_pk DESC
 	</select>
 
+	<select id="selectStaffInfo" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
+		SELECT * FROM TL_JIC_STAFF_INFO WHERE STAFF_PK = #{staff_pk}
+	</select>
+	
 </mapper>
 

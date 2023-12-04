@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/tl_a/staff/*")
-public class DormStaffController {
+public class DormStaffControllerJw {
 
 	@RequestMapping("jw_callAttendSituation")
 	public String jw_callAttendSituation() {
