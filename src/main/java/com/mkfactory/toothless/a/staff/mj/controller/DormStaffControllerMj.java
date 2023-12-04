@@ -14,5 +14,19 @@ public class DormStaffControllerMj {
 		return "/tl_a/staff/mj_mainPage";
 	}
 	
+	// 공고관리 페이지
+	@RequestMapping("mj_readRegisterJoinInfoPage")
+	public String mj_readRegisterJoinInfoPage() {
+		
+		return "/tl_a/staff/mj_readRegisterJoinInfoPage";
+	}
+	
+	// 공고등록 페이지
+		@RequestMapping("mj_registerJoinInfoPage")
+		public String mj_registerJoinInfoPage() {
+			
+			return "/tl_a/staff/mj_registerJoinInfoPage";
+		}
+	
 
 }
