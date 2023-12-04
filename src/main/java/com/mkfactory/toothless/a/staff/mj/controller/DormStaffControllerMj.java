@@ -18,14 +18,13 @@ public class DormStaffControllerMj {
 	@Autowired
 	DormStaffServiceImpl staffService;
 	
-	/// 수정
-	
 	// 사감 메인페이지
 	@RequestMapping("mj_mainPage")
 	public String mj_mainPage() {
 		
 		return "/tl_a/staff/mj_mainPage";
 	}
+	
 	
 	// 학년도/학기 관리 페이지
 	@RequestMapping("mj_manageYearPage")
@@ -101,6 +100,8 @@ public class DormStaffControllerMj {
 		
 		return "/tl_a/staff/mj_readRegisterJoinInfoPage";
 	}
+	
+
 	
 
 	
