@@ -12,7 +12,7 @@ import com.mkfactory.toothless.b.hn.clinic.service.ClinicServiceImpl;
 public class ClinicController {
 	
 	@Autowired
-	ClinicServiceImpl clinicService;
+	private ClinicServiceImpl clinicService;
 	
 	@RequestMapping("clinicPage")
 	public String clinicPage(Model model) {
