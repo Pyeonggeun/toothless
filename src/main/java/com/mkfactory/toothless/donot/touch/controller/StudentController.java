@@ -13,7 +13,7 @@ import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.donot.touch.service.StudentServiceImpl;
 
 @Controller
-@RequestMapping("/student/*")
+@RequestMapping("/another/student/*")
 public class StudentController {
 	@Autowired
 	private StudentServiceImpl studentService;
@@ -23,7 +23,7 @@ public class StudentController {
 		
 		
 		
-		return "student/loginPage";
+		return "another/student/loginPage";
 	}
 	
 	@RequestMapping("loginProcess")
@@ -39,6 +39,16 @@ public class StudentController {
 		return "redirect:./mainPage";
 		
 	}
+	@RequestMapping("logoutProcess")
+	public String logoutProcess(HttpSession session) {
+	
+		session.invalidate();
+		
+		return "redirect: ./loginPage";
+	}
+	
+	
+	
 	
 	@RequestMapping("mainPage")
 	public String mainPage(HttpSession session, Model model) {
@@ -47,8 +57,9 @@ public class StudentController {
 		
 		 model.addAttribute("studentOtherInfo", studentOtherInfo);
 		 
-		return "student/mainPage";
+		return "another/student/mainPage";
 	}
+	
 
 	
 }

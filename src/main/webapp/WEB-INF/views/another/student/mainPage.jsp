@@ -9,13 +9,11 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <style>
              @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;800&family=Roboto+Mono:wght@700&display=swap');
-            .font{
+            .body{
                 font-family: 'Noto Sans KR', sans-serif;
                 font-family: 'Roboto Mono', monospace;
             }
-            .bg-main{
-                background-color: #133369;
-            }
+
             .text-main{
                 color: rgb(0, 0, 255);
             }
@@ -42,17 +40,17 @@
                     <div class="row text-center">
                         <div class="col-4"></div>
                         <div class="col-1 pe-2 text-end">
-                            <img src="../imgForAcademy/logo_black.png" alt="" style="height: 4em;">
+                            <img src="../resources/img/another/logo_black.png" alt="" style="height: 4em;">
                         </div>
                         <div class="col-3 ps-0 fw-bold fs-1 text-start ">
                             MK University<span class="fs-6"> | </span> <span class="fs-5">학생포털사이트</span> 
                         </div>
                         <div class="col-2"></div>
-                        <div class="col-1 border-end border-secondary text-end text-secondary mt-5"style="font-size: small">
+                        <div class="col-1 border-end border-secondary text-end text-secondary mt-5" style="font-size: small">
                             포털이용안내
                         </div>
-                        <div class="col-1 text-start text-secondary mt-5" style="font-size: small">
-                            로그아웃
+                        <div class="col-1 text-start text-secondary mt-5 "style="font-size: small">
+                            <a class="navbar-brand" href="./logoutProcess">로그아웃</a>
                         </div>
                     </div>
                 </div>
@@ -60,19 +58,19 @@
             <div class="row text-center py-1 fw-bold text-light" style="background-color: #133369">
                 <div class="col-2"></div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">현장실습 지도 관리</a>
+                    <a class="navbar-brand" href="./mainpage">현장실습 지원 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">산학협력 연구</a>
+                    <a class="navbar-brand" href="./mainpage">취업<i class="bi bi-dot"></i>창업 지원 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">보건 센터</a>
+                    <a class="navbar-brand" href="../../tl_e/commons/studentCounselMainPage">상담 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">지도학생 관리</a>
+                    <a class="navbar-brand" href="./mainpage">생활관 관리 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">학과 홈페이지</a>
+                    <a class="navbar-brand" href="../../tl_b/common/studentMainPage">보건 센터</a>
                 </div>
                 <div class="col-3">    
                     <form class="d-flex ps-5" role="search">
@@ -88,11 +86,27 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col">
-                                    이름 : ${sessionProfessorInfo.name } 교수
+                                    이름 : ${sessionStudentInfo.name }
                                 </div>
                                 <div class="col">
-                                    학과:
+                                    ${studentOtherInfo.departmentName } <c:if test="${studentOtherInfo.graduationInfo == 0 }">${studentOtherInfo.studentYear } 학년</c:if> 
                                 </div>
+                            </div>
+                            <div class="row">
+                            <c:choose>
+                            	<c:when test="${studentOtherInfo.graduationInfo != 0 }">
+                            		<div class="col">
+                                 		 현재 상태: 졸업생
+                                	</div>
+                            	</c:when>
+                            	<c:otherwise>
+                            		<div class="col">
+                                  		현재 상태: 재학생  
+                                	</div>
+                            	</c:otherwise>
+                            
+                            </c:choose>
+                                
                             </div>
                         </div>
                     </div>
@@ -100,29 +114,29 @@
                 <div class="col">
                     <div class="row">
                         <div class="col text-end">
-                            <img src="../resources/img/another/iu1.png" alt="" style="height: 8em;">
+                            <img src="../../resources/img/another/iu1.png" alt="" style="height: 8em;">
                         </div>
                         <div class="col text-center fs-1 fw-bold">
                             서울민규 대학교 총장님 말씀
                         </div>
                         <div class="col text-start">
-                            <img src="../resources/img/another/iu2.png" alt=""style="height: 8em;">
+                            <img src="../../resources/img/another/iu2.png" alt=""style="height: 8em;">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col text-center">
-                            <img src="../resources/img/another/minkue.png" alt="" style="height: 30em;">
+                            <img src="../../resources/img/another/minkue.png" alt="" style="height: 30em;">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col text-end">
-                            <img src="../resources/img/another/iu3.png" alt="" style="height: 8em;">
+                            <img src="../../resources/img/another/iu3.png" alt="" style="height: 8em;">
                         </div>
                         <div class="col text-center fs-2 mt-5">
                             2차 프로젝트 화이팅~! &gt; _ &lt;
                         </div>
                         <div class="col text-start">
-                            <img src="../resources/img/another/iu4.png" alt="" style="height: 8em;">
+                            <img src="../../resources/img/another/iu4.png" alt="" style="height: 8em;">
                         </div>
                     </div>
                 </div>

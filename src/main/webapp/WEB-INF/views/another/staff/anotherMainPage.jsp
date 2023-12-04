@@ -7,6 +7,83 @@
         <meta charset="utf-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <script>
+        	function checkStudentId(){
+        		
+        		const inputStudentIdValue = document.querySelector("#inputStudentId").value;
+        		const url = "./existsStudentId?student_id="+inputStudentIdValue;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then((response) => {
+        			
+        			if(response.data == true){
+        				const studentIdResultBox = document.getElementById("studentIdResultBox");
+        				studentIdResultBox.innerText = "이미 존재하는 아이디입니다.";
+        				studentIdResultBox.style.color = "red";
+        				
+        			}else{
+        				const studentIdResultBox = document.getElementById("studentIdResultBox");
+        				studentIdResultBox.innerText = "사용가능한 아이디입니다.";
+        				studentIdResultBox.style.color = "green";
+        			}
+        		});
+        	
+        	}
+			function checkStaffId(){
+        		
+        		const inputStaffIdValue = document.querySelector("#inputStaffId").value;
+        		const url = "./existsStaffId?staff_id="+inputStaffIdValue;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then((response) => {
+        			
+        			if(response.data == true){
+        				const staffIdResultBox = document.getElementById("staffIdResultBox");
+        				staffIdResultBox.innerText = "이미 존재하는 아이디입니다.";
+        				staffIdResultBox.style.color = "red";
+        				
+        			}else{
+        				const staffIdResultBox = document.getElementById("staffIdResultBox");
+        				staffIdResultBox.innerText = "사용가능한 아이디입니다.";
+        				staffIdResultBox.style.color = "green";
+        			}
+        		});
+        	
+        	}
+			
+			function checkProfessorId(){
+        		
+        		const inputProfessorIdValue = document.querySelector("#inputProfessorId").value;
+        		const url = "./existsProfessorId?professor_id="+inputProfessorIdValue;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then((response) => {
+        			
+        			if(response.data == true){
+        				const professorIdResultBox = document.getElementById("professorIdResultBox");
+        				professorIdResultBox.innerText = "이미 존재하는 아이디입니다.";
+        				professorIdResultBox.style.color = "red";
+        				
+        			}else{
+        				const professorIdResultBox = document.getElementById("professorIdResultBox");
+        				professorIdResultBox.innerText = "사용가능한 아이디입니다.";
+        				professorIdResultBox.style.color = "green";
+        			}
+        		});
+        	
+        	}
+        
+        
+        
+        
+        </script>
+        
+        
+        
+        
         <style>
              @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;800&family=Roboto+Mono:wght@700&display=swap');
             .body{
@@ -42,7 +119,7 @@
                     <div class="row text-center">
                         <div class="col-4"></div>
                         <div class="col-1 pe-2 text-end">
-                            <img src="../resources/img/another/logo_black.png" alt="" style="height: 4em;">
+                            <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
                         </div>
                         <div class="col-3 ps-0 fw-bold fs-1 text-start ">
                             MK University<span class="fs-6"> | </span> <span class="fs-5">학생포털사이트</span> 
@@ -52,7 +129,7 @@
                             포털이용안내
                         </div>
                         <div class="col-1 text-start text-secondary mt-5 "style="font-size: small">
-                            로그아웃
+                            <a class="navbar-brand" href="./logoutProcess">로그아웃</a>
                         </div>
                     </div>
                 </div>
@@ -66,13 +143,13 @@
                     <a class="navbar-brand" href="./mainpage">취업<i class="bi bi-dot"></i>창업 지원 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="../tl_e/commons/staffCounselMainPage">상담 센터</a>
+                    <a class="navbar-brand" href="../../tl_e/commons/staffCounselMainPage">상담 센터</a>
                 </div>
                 <div class="col align-self-center">
                     <a class="navbar-brand" href="./mainpage">생활관 관리 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="../tl_b_views/common/studentMainPage">보건 센터</a>
+                    <a class="navbar-brand" href="../../tl_b_views/common/studentMainPage">보건 센터</a>
                 </div>
                 <div class="col-3">    
                     <form class="d-flex ps-5" role="search">
@@ -85,7 +162,7 @@
              <div class="row mt-5">
                 <div class="col ms-5">
                     <div class="row">
-                        <form action="./studentRegisterProcess" method="get" >
+                        <form action="./studentRegisterProcess" method="post" >
                             <div class="col border border-2 align-self-center py-3 px-3 text-end">
                                 <div class="row">
                                     <div class="col fs-3 fw-bold text-center">
@@ -93,7 +170,7 @@
                                     </div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-3 fw-bold ">
+                                    <div class="col-3 fw-bold">
                                         학과명:
                                     </div>
                                     <div class="col">
@@ -123,8 +200,11 @@
                                         ID(학번): 
                                     </div>
                                     <div class="col">
-                                        <input class="form-control border-black py-0" name="student_id" type="text" > 
+                                        <input id="inputStudentId" onblur="checkStudentId()" class="form-control border-black py-0" name="student_id" type="text" > 
                                     </div>
+                                </div>
+                                <div class="row" >
+                                	<div id="studentIdResultBox" class="col"></div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-3 fw-bold">
@@ -230,7 +310,7 @@
                 </div>
                 <div class="col">
                     <div class="row">
-                        <form action="./staffRegisterProcess">
+                        <form action="./staffRegisterProcess" method="post">
                             <div class="col border border-2 align-self-center py-3 px-3 text-end">
                                 <div class="row">
                                     <div class="col fs-3 fw-bold text-center">
@@ -255,8 +335,11 @@
                                         ID(사번): 
                                     </div>
                                     <div class="col">
-                                        <input class="form-control border-black py-0" name="staff_id" type="text" > 
+                                        <input id="inputStaffId" onblur="checkStaffId()" class="form-control border-black py-0" name="staff_id" type="text" > 
                                     </div>
+                                </div>
+                                <div class="row">
+                                	<div id="staffIdResultBox" class="col"></div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-3 fw-bold">
@@ -338,7 +421,7 @@
                 </div>
                 <div class="col me-5">
                     <div class="row">
-                        <form action="./professorRegisterProcess">
+                        <form action="./professorRegisterProcess" method="post">
                             <div class="col border border-2 align-self-center py-3 px-3 text-end">
                                 <div class="row">
                                     <div class="col fs-3 fw-bold text-center">
@@ -363,8 +446,11 @@
                                         ID(사번): 
                                     </div>
                                     <div class="col">
-                                        <input class="form-control border-black py-0" name="professor_id" type="text" > 
+                                        <input id="inputProfessorId" onblur="checkProfessorId()" class="form-control border-black py-0" name="professor_id" type="text"> 
                                     </div>
+                                </div>
+                                <div class="row">
+                                	<div id="professorIdResultBox" class="col"></div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-3 fw-bold">

@@ -97,5 +97,20 @@
 		)
 	</insert>
 	
+	<select id="selectExistsCheckStudentId" resultType="int">
+		SELECT count(*) FROM TL_JIC_STUDENT_INFO
+		WHERE student_id LIKE #{student_id}
+	</select>
+	
+	<select id="selectExistsCheckStaffId" resultType="int">
+		SELECT count(*) FROM tl_jic_staff_info
+		WHERE staff_id LIKE #{staff_id}
+	</select>
+	
+	<select id="selectExistsCheckProfessorId" resultType="int">
+		SELECT count(*) FROM tl_jic_professor_info
+		WHERE professor_id LIKE #{professor_id}
+	</select>
+	
 	
 </mapper>
