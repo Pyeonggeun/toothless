@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -212,11 +213,59 @@
                                     <div class="row mx-3 my-5">
                                         <div class="col">
                                             <div class="container">
-                                                <div class="row">
+                                                <div class="row mb-3">
                                                     <div class="col">
                                                         <div class="fw-bold">재고 변경 관리</div>
                                                     </div>
                                                 </div>
+                                                
+                                                <form action="" method="get">
+                                                <div class="row ">
+                                                    <div class="col">
+                                                    	<div class="btn-group">
+														  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+														    의약품명
+														  </button>
+														  <ul class="dropdown-menu">
+														  <c:forEach items="${medicineList}" var="e">
+														    <li><a class="dropdown-item" href="./medicineInventory?medicine_code_pk=${e.medicine_code_pk}">${e.name }</a></li>
+														    <input name="medicine_code_pk" type="hidden" value="${e.medicine_code_pk}">
+	                                                      </c:forEach>
+														  </ul>
+														</div>
+                                                    </div>
+                                                    <div class="col">
+                                                    	<div class="input-group mb-3">
+														  <span class="input-group-text" id="basic-addon1">코드번호</span>
+														  <input type="text" class="form-control" placeholder="코드번호" aria-label="Username" aria-describedby="basic-addon1" value="${medicine_code_pk}">
+														</div>
+                                                    </div>
+                                                    <div class="col">
+                                                    	<div class="input-group mb-3">
+														  <span class="input-group-text" id="basic-addon1">변경수량</span>
+														  <input name="quantity" type="number" class="form-control" placeholder="변경수량" aria-label="Username" aria-describedby="basic-addon1" min="-5" max="5">
+														</div>
+                                                    </div>
+                                                    <div class="col">
+                                                    <select name="medicine_mgmt_cat_pk" class="form-select" aria-label="Default select example">
+													<option selected>재고 관리</option>
+														<c:forEach items="${MedicineMgmtCatDtoList}" var="e">
+															<option value="${e.medicine_mgmt_cat_pk}">${e.name}</option>
+														</c:forEach>
+													</select>
+                                                    </div>
+                                                    <div class="col">
+                                                    	<div class="input-group mb-3">
+														  <span class="input-group-text" id="basic-addon1">비고</span>
+														  <input name="reason" type="text" class="form-control" placeholder="비고" aria-label="Username" aria-describedby="basic-addon1" value="">
+														</div>
+                                                    </div>
+                                                    <div class="col">
+                                                    	<button type="submit" class="btn btn-secondary">수정하기</button>
+                                                    </div>
+                                                </div>
+                                                </form>
+                                                
                                                 <div class="row">
                                                     <div class="col-11"></div>
                                                     <div class="col-1 text-end">
@@ -242,86 +291,33 @@
                                                         <table class="table table-hover">
                                                             <thead>
                                                               <tr>
-                                                                <th scope="col">코드번호</th>
+                                                                <th scope="col">약품코드</th>
                                                                 <th scope="col">의약품명</th>
-                                                                <th scope="col">수량</th>
-                                                                <th scope="col">폐기</th>
-                                                                <th scope="col">망실</th>
-                                                                <th scope="col">조정</th>
-                                                                <th scope="col">사유</th>
-                                                                <th scope="col">입고자</th>
+                                                                <th scope="col">변동수량</th>
+                                                                <th scope="col">현재수량</th>
+                                                                <th scope="col">변경사유</th>
+                                                                <th scope="col">비고</th>
+                                                                <th scope="col">재고관리자</th>
+                                                                <th scope="col">재고 변경일</th>
                                                               </tr>
                                                             </thead>
                                                             <tbody>
+                                                            
+                                                            <c:forEach items="${inventoryList}" var="e">
                                                               <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>AB2202</td>
                                                                 <td>안연고</td>
-                                                                <td>1(조정버튼)</td>
+                                                                <td>1개(변경)</td>
                                                                 <td>폐기</td>
                                                                 <td>망실</td>
                                                                 <td>조정</td>
                                                                 <td>사유</td>
-                                                                <td>입고자</td>
-                                                                <td>변경일(등록일)</td>
+                                                                <td>재고관리자</td>
+                                                                <td>최근 변경일</td>
                                                               </tr>
-                                                              <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>Jacob</td>
-                                                                <td>Thornton</td>
-                                                                <td>@fat</td>
-                                                              </tr>
-                                                              <tr>
-                                                                <th scope="row">3</th>
-                                                                <td colspan="2">Larry the Bird</td>
-                                                                <td>@twitter</td>
-                                                              </tr>
+                                                             </c:forEach>
+                                                              
                                                             </tbody>
                                                           </table>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-8">
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="fw-bold text-center">의약품 목록</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row mt-3">
-                                                            <div class="col">
-                                                                <div class="dropdown-center d-grid">
-                                                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                      목록
-                                                                    </button>
-                                                                    <ul class="dropdown-menu">
-                                                                      <li><a class="dropdown-item" href="#">ActionActionActionActionAction</a></li>
-                                                                      <li><a class="dropdown-item" href="#">Action two</a></li>
-                                                                      <li><a class="dropdown-item" href="#">Action three</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="row mb-3">
-                                                                    <div class="col">
-                                                                        재고 등록 여부
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-5 d-grid">
-                                                                        <div class="btn btn-success">check</div>
-                                                                    </div>
-                                                                    <div class="col-5 d-grid">
-                                                                        <div class="btn btn-secondary">재고등록</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            
-                                                        </div>
-
                                                     </div>
                                                 </div>
                                             </div>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        
     </head>
     <body>
 
@@ -47,7 +49,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col text-center">
-                                                            보건직원 ${list}이름 님
+                                                            보건직원 이름 님
                                                         </div>
                                                     </div>
                                                 </div>
@@ -255,61 +257,64 @@
                                                               </tr>
                                                             </thead>
                                                             <tbody>
+                                                            <c:forEach items="${MedicineList}" var="e">
                                                               <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>Mark</td>
-                                                                <td>Otto</td>
-                                                                <td>@mdo</td>
+                                                                <td>${e.medicineInfo.medicine_code_pk}</td>
+                                                                <td>${e.medicineInfo.name}</td>
+                                                                <td>${e.medicineCatInfo.name}</td>
+                                                                <td>${e.medicineInfo.company}</td>
+                                                                <td>${e.medicineInfo.efficacy}</td>
+                                                                <td>${e.medicineInfo.precaution}</td>
+                                                                <td><fmt:formatDate value="${e.medicineInfo.created_at}" pattern="yyyy-MM-dd"/></td>
+                                                                <td>
+																	<a href="./codeDeleteProcess?medicine_code_pk=${e.medicineInfo.medicine_code_pk }"><i class="bi bi-x-square text-danger"></i></a>
+                                                                </td>
+                                                                
                                                               </tr>
-                                                              <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>Jacob</td>
-                                                                <td>Thornton</td>
-                                                                <td>@fat</td>
-                                                              </tr>
-                                                              <tr>
-                                                                <th scope="row">3</th>
-                                                                <td colspan="2">Larry the Bird</td>
-                                                                <td>@twitter</td>
-                                                              </tr>
+                                                            </c:forEach>
                                                             </tbody>
                                                           </table>
                                                     </div>
                                                 </div>
+                                                
+                                                <%-- 약품등록 라인 --%>
+                                                
                                                 <div class="row">
+                                                	<form action="./codeRegistProcess" method="get">
                                                     <div class="col">
                                                         <div class="row">
                                                             <div class="col-4">
                                                                 <div class="input-group mb-3">
                                                                     <span class="input-group-text" id="basic-addon1">코드번호</span>
-                                                                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
-                                                                  </div>
+                                                                    <input name="medicine_code_pk" type="text" class="form-control">
+                                                                 </div>
                                                             </div>
                                                             <div class="col-4">
                                                                 <div class="input-group mb-3">
                                                                     <span class="input-group-text" id="basic-addon1">의약품명</span>
-                                                                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                                                                    <input name="name" type="text" class="form-control">
                                                                   </div>
                                                             </div>
                                                             <div class="col-4 d-grid">
-                                                                <div class="btn btn-secondary">등록하기</div>
+                                                                <button class="btn btn-secondary" type="submit">등록하기</button>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-4">
-                                                                <select class="form-select" aria-label="Default select example">
+                                                                <select name="medicine_cat_pk" class="form-select" aria-label="Default select example">
+                                                                	<%-- 이부분은 임시.. 귀찮아서 일단 번호로 해버림 --%>
                                                                     <option selected>약품 카테고리</option>
                                                                     <option value="1">알러지</option>
                                                                     <option value="2">외상</option>
                                                                     <option value="3">소화기</option>
-                                                                    <option value="3">호흡기</option>
-                                                                    <option value="3">일반</option>
+                                                                    <option value="4">호흡기</option>
+                                                                    <option value="5">일반</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-4">
                                                                 <div class="input-group mb-3">
                                                                     <span class="input-group-text" id="basic-addon1">회사</span>
-                                                                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                                                                    <input name="company" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
                                                                   </div>
                                                             </div>
                                                         </div>
@@ -317,18 +322,22 @@
                                                             <div class="col-4">
                                                                 <div class="input-group mb-3">
                                                                     <span class="input-group-text" id="basic-addon1">효능</span>
-                                                                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                                                                    <input name="efficacy" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
                                                                   </div>
                                                             </div>
                                                             <div class="col-4">
                                                                 <div class="input-group mb-3">
                                                                     <span class="input-group-text" id="basic-addon1">주의사항</span>
-                                                                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                                                                    <input name="precaution" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
                                                                   </div>
                                                             </div>
                                                         </div>
+                                                    
                                                     </div>
+                                                	</form>    
                                                 </div>
+                                                
+                                                <%-- 약품  --%>
                                             </div>
 
                                     <!-- 내가 쓸꺼!!-->
@@ -362,5 +371,9 @@
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script>
+	        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+	        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+        </script>
     </body>
 </html>
