@@ -270,7 +270,7 @@
 						<div class="col">
 							<div class="row my-3">
 								<div class="col">
-									<button class="px-0 border-1 border-end-0 border-secondary-subtle" style="height:12rem; width:13rem; background-color:white">
+									<button class="px-0 border-1 border-end-0 border-secondary-subtle" style="height:12rem; width:12rem; background-color:white">
 										<span class="fw-bold fs-6 ">
 											위치안내 
 										</span>
