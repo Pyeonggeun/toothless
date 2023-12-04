@@ -16,5 +16,11 @@
 		${registedCompanyList.phone}
 		<br>
 	</c:forEach>
+	
+	<%--
+	<c:if test="${!empty sessionStaffInfo}">
+	
+	</c:if>
+	 --%>
 </body>
 </html>

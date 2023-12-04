@@ -5,9 +5,9 @@
 	<div class="col"></div>
 </div>
 <div class="row">
-<%--	<c:if test="${!empty sessionSellerInfo}">
-		</c:if> --%>
-	<div class="col ps-5 mt-2">교직원 <span class="fs-5 fw-bold">&nbsp;님</span></div>	
+	<c:if test="${!empty sessionStaffInfo}">
+		<div class="col ps-5 mt-2">${sessionStaffInfo.name} <span class="fs-5 fw-bold">&nbsp;님</span></div>	
+	</c:if> 
 </div>
 <div class="row">
 	<div class="col mt-3"></div>

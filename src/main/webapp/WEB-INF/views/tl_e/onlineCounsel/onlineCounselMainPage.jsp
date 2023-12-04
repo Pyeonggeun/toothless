@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	터져라 깃!
+	<h1>온라인 상담 페이지</h1><br>
+	<a href="./writeOnlineCounselPage">온라인상담 신청</a>
 </body>
 </html>

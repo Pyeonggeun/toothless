@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.d.ny.posting.mapper.PostingSqlMapper">
+
+<!-- 	<insert id="insertJobPostingInfo">
+		INSERT INTO TL_D_JOB_POSTING VALUES(
+			tl_d_job_posting_seq.nextval,
+			#{com_pk},
+			#{staff_pk},
+			#{job_field_category_pk},
+			#{posting_name},
+			#{job_position},
+			#{posting_mainimage},
+			#{posting_contents},
+			#{preference},
+			#{hire_number},
+			#{posting_deadline},
+			SYSDATE
+		)
+	</insert>
+ -->
+
+
+
+</mapper>

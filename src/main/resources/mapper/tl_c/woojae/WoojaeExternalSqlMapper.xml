@@ -5,7 +5,12 @@
 
 
 <mapper namespace="com.mkfactory.toothless.c.woojae.mapper.WoojaeExternalSqlMapper">
-
+	
+	<!-- 외부사용자 PK -->
+	<select id="createExternalPk" resultType="int">
+		SELECT tl_jic_external_info_seq.nextval FROM dual
+	</select>
+	
 	<!-- 업종 카테고리 -->
 	<select id="selectCompanyCategoryList" resultType="com.mkfactory.toothless.c.dto.AjdksCompanyCategoryDto">
 		SELECT * FROM tl_c_company_category ORDER BY company_category_pk ASC
@@ -27,8 +32,20 @@
 		)
 	</insert>
 	
+	<!-- 외부사용자 등록 -->
+	<insert id="insertExternalInfo">
+		INSERT INTO tl_jic_external_info VALUES(
+			#{external_pk},
+			#{external_id},
+			#{password},
+			1,
+			SYSDATE
+		)
+	</insert>
+	
 	<!-- 등록된 산업체 리스트 -->
 	<select id="selectRegisteredCompanyList" resultType="com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto">
 		SELECT * FROM tl_c_company_info ORDER BY company_pk DESC
 	</select>
+	
 </mapper>

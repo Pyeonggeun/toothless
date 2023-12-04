@@ -4,6 +4,22 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mkfactory.toothless.e.registercounselor.mapper.RegisterCounselorSqlMapper">
 
+	<!-- 외부사용자 PK생성 -->
+	<select id="createExternalPk" resultType="int">
+		SELECT tl_jic_external_info_seq.nextval FROM dual
+	</select>
+	
+	<!-- 공통 외부사용자 테이블 insert-->
+	<insert id="insertExternalInfo">
+		INSERT INTO tl_jic_external_info VALUES(
+			#{external_pk},
+			#{external_id},
+			#{password},
+			3,
+			SYSDATE
+		)
+	</insert>
+	
 	<!-- 상담원 PK 생성 -->
 	<select id="createCounselorPk" resultType="int">
 		SELECT cp_counselor_seq.nextval FROM dual
@@ -13,6 +29,7 @@
 	<insert id="insertCounselor">
 		INSERT INTO CP_COUNSELOR cc VALUES (
 			#{id},
+			#{external_pk},
 			#{name},
 			#{age},
 			#{gender},
@@ -24,5 +41,22 @@
 			SYSDATE
 		)	
 	</insert>
+	
+	<!-- 상담카테고리 리스팅 -->
+	<select id="selectAllTypeCategory" resultType="com.mkfactory.toothless.e.dto.TypeCategoryDto">
+		SELECT * FROM cp_type_category
+	</select>
+	
+	<!-- 상담원별 담당카테고리 정보 인서트 -->
+	<insert id="insertCounselorType">
+		INSERT INTO cp_counselor_type VALUES (
+			cp_counselor_type_seq.nextval,
+			#{counselor_id},
+			#{type_category_id},
+			SYSDATE
+		)
+	</insert>
+	
+	
 
 </mapper>
