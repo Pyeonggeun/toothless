@@ -55,7 +55,7 @@
 	
 	
 	<!-- 본문 :  자유롭게 이용하세요 화이팅 -->
-	<div class="col">
+	<div class="col ms-5">
 		
 	</div>
 	
