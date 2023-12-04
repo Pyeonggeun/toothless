@@ -4,8 +4,14 @@
 
 <mapper namespace="com.mkfactory.toothless.c.eunbi.mapper.EunbiStudentSqlMapper">
 
+	<select id="getStudentApplying" resultType="com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto">
+		SELECT * FROM TL_C_STUDENT_APPLYING
+		WHERE student_pk = #{student_pk}
+	</select>
 
-
+	<select id="">
+		
+	</select>
 
 
 
