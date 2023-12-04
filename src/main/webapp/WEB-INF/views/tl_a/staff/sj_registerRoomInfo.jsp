@@ -48,10 +48,10 @@
 					</div>
 					<div class="row">
 						<div class="col my-2">
-							<select class="form-select" aria-label="기숙사 동을 선택하세요">							
-							  <option value="1">One</option>
-							  <option value="2">Two</option>
-							  <option value="3">Three</option>
+							<select class="form-select" aria-label="기숙사 동을 선택하세요">
+								<c:forEach items="${dormBuilding }" var="dorm">						
+							  		<option value="1">${dorm.name }</option>
+							  	</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -78,15 +78,19 @@
 			<div class="row mt-3 border rounded p-3">
 				<div class="col">
 					<div class="row">
-						<div class="col fs-5 fw-bold">
-							정원
+						<div class="col">
+							<span class="fs-5 fw-bold my-1">정원</span>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col my-2">
-							정원카테고리에서 고르도록
+						<div class="col fs-6 fw-bold">
+							<c:forEach items="${dormAmount }" var="da">
+								<input type="radio" name="dorm_amount_pk" value="${da.dorm_amount_pk }">${da.dorm_amount }인실
+								<br>
+							</c:forEach>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 			
@@ -100,9 +104,30 @@
 					</div>
 					<div class="row">
 						<div class="col my-2">
-							radio -> gender
+							<input type="radio" name="gender" value="M">남
+							<input type="radio" name="gender" value="F">여
 						</div>
 					</div>
+				</div>
+			</div>
+			<!-- 상세이미지링크 -->
+            <div class="row mt-3 border rounded p-3">
+				<div class="col">
+					<div class="row">
+						<div class="col fs-5 fw-bold">
+							기숙사 이미지
+						</div>
+					</div>
+					
+                     <!-- 상세이미지링크 -->
+                     <div class="row my-2">
+                     	<div class="col-1 align-self-center">
+                     		상세이미지
+                     	</div>
+                        <div class="col align-self-center">
+                     		<input class="form-control" name="roomImgs" type="file" accept="image/*" multiple>
+                     	</div>
+                     </div>
 				</div>
 			</div>
 	

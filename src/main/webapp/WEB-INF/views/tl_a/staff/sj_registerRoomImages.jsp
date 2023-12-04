@@ -35,59 +35,49 @@
 				</div>
 			</div>
 			
-			<form action="./registerDormProcess" method="post" enctype="multipart/form-data">
+			<form action="./registeRoomImagesProcess" method="post" enctype="multipart/form-data">
              	<!-- <input type="hidden" name="staff_pk" value="${sessionStaffInfo.staff_pk }"> -->
 			
-			<!-- 기숙사명 -->
-			<div class="row border rounded p-3">
-				<div class="col">
-					<div class="row">
-						<div class="col fs-5 fw-bold">
-							기숙사명
-						</div>
-					</div>
-					<div class="row">
-						<div class="col my-2">
-							<input class="form-control" name="name" type="text" placeholder="기숙사명을 입력해주세요.">
-						</div>
-					</div>
-				</div>
-			</div>
 			
-			<!-- 주소 -->
+			<!-- 정원 -->
 			<div class="row mt-3 border rounded p-3">
 				<div class="col">
 					<div class="row">
-						<div class="col fs-5 fw-bold">
-							주소
+						<div class="col">
+							<span class="fs-5 fw-bold my-1">정원</span>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col my-2">
-							<input class="form-control" name="address" type="text" placeholder="주소를 입력해주세요.">
+						<div class="col fs-6 fw-bold my-1">
+							<c:forEach items="${dormAmount }" var="da">
+								<input type="radio" name="dorm_amount_pk" value="${da.dorm_amount_pk }">${da.dorm_amount }인실
+
+							</c:forEach>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 			
-			<!-- 이미지 -->
-			<div class="row mt-3 border rounded p-3">
+			
+			<!-- 상세이미지링크 -->
+            <div class="row mt-3 border rounded p-3">
 				<div class="col">
 					<div class="row">
 						<div class="col fs-5 fw-bold">
 							기숙사 이미지
 						</div>
 					</div>
-					<!-- 메인이미지링크 -->
+					
+                     <!-- 상세이미지링크 -->
                      <div class="row my-2">
                      	<div class="col-1 align-self-center">
-                     		대표이미지
+                     		상세이미지
                      	</div>
                         <div class="col align-self-center">
-                     		<input class="form-control" name="mainImage" type="file" accept="image/*">
+                     		<input class="form-control" name="roomImgs" type="file" accept="image/*" multiple>
                      	</div>
                      </div>
-                     
 				</div>
 			</div>
 			
