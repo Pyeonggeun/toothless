@@ -4,7 +4,19 @@
 
 <mapper namespace="com.mkfactory.toothless.c.eunbi.mapper.EunbiExternalSqlMapper">
 
-
+	<!-- 산업체 학생평가 입력 -->
+	<insert id="insertCompanyEvaluation">
+		INSERT INTO tl_c_company_evaluation VALUES(
+			tl_c_company_evaluation_seq.nextval,
+			#{student_intern_pk},
+			#{diligence_score},
+			#{responsibility_score},
+			#{coorporation_score},
+			#{achievement_score},
+			#{review},
+			SYSDATE
+		)
+	</insert>
 
 
 

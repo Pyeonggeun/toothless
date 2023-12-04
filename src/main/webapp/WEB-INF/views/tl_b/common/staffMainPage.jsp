@@ -143,7 +143,7 @@
                                                             </p>
                                                             <div class="collapse" id="collapseExample2">
                                                                 <div class="card card-body rounded-0 py-0 border-0">
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
+                                                                    <a class="btn btn-transparent text-start" href="../ys/itemListAndRegistPage" style="font-size: small;">
                                                                         등록
                                                                     </a>
                                                                     <a class="btn btn-transparent text-start" href="#" style="font-size: small;">

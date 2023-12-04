@@ -4,16 +4,38 @@
 
 <mapper namespace="com.mkfactory.toothless.c.eunbi.mapper.EunbiStudentSqlMapper">
 
+	<!-- 학생Pk로 신청상태 조회 -->
 	<select id="getStudentApplying" resultType="com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto">
 		SELECT * FROM TL_C_STUDENT_APPLYING
 		WHERE student_pk = #{student_pk}
 	</select>
 
-	<select id="">
-		
+	<!-- 학생Pk로 인턴쉽 과정 진행중인 학생목록 조회 -->
+	<select id="getStudentInternHistory" resultType="com.mkfactory.toothless.c.dto.AjdksStudentInternDto">
+		SELECT * FROM TL_C_STUDENT_INTERN
+		WHERE student_pk = #{student_pk}
 	</select>
+	
+	<insert id="insertInternSatisfaction">
+		INSERT INTO tl_c_intern_satisfaction VALUES(
+			tl_c_intern_satisfaction_seq.nextval,
+			#{student_intern_pk},
+			#{rating},
+			#{review},
+			SYSDATE
+		)
+	</insert>
 
-
+	<!-- 학생의 이력서 조회 -->
+	<select id="getSelfIntroduction" resultType="com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto">
+		SELECT * FROM tl_c_self_introduction
+		WHERE student_pk = #{student_pk}
+	</select>
+	
+	<select id="getCertifications" resultType="com.mkfactory.toothless.c.dto.AjdksCertificationDto">
+		SELECT * FROM tl_c_certification
+		WHERE student_pk = #{student_pk}
+	</select>
 
 
 

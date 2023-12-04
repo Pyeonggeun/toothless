@@ -65,25 +65,25 @@
 							<div class="row border rounded-3 px-1 py-2 mx-1">
 			                    <div class="col text-center">
 			                        <div class="form-check form-check-inline">
-			                            <input class="form-check-input" type="radio" name="semester" value="1">
+			                            <input class="form-check-input" type="radio" name="semester" value="1학기">
 			                            <label class="form-check-label" for="inlineRadio1">1학기</label>
 			                        </div>                                
 			                    </div>
 			                    <div class="col text-center">
 			                        <div class="form-check form-check-inline">
-			                            <input class="form-check-input" type="radio" name="semester" value="2">
+			                            <input class="form-check-input" type="radio" name="semester" value="여름학기">
 			                            <label class="form-check-label" for="inlineRadio2">여름학기</label>
 			                        </div>
 			                    </div>
 			                    <div class="col text-center">
 			                        <div class="form-check form-check-inline">
-			                            <input class="form-check-input" type="radio" name="semester" value="3">
+			                            <input class="form-check-input" type="radio" name="semester" value="2학기">
 			                            <label class="form-check-label" for="inlineRadio3">2학기</label>
 			                        </div>
 			                    </div>
 			                    <div class="col text-center">
 			                        <div class="form-check form-check-inline">
-			                            <input class="form-check-input" type="radio" name="semester" value="4">
+			                            <input class="form-check-input" type="radio" name="semester" value="겨울학기">
 			                            <label class="form-check-label" for="inlineRadio4">겨울학기</label>
 			                        </div>
 			                    </div>                       
