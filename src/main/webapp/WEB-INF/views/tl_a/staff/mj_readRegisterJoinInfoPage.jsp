@@ -18,7 +18,7 @@
 	<jsp:include page="../commons/staff/topNavi.jsp"></jsp:include>
 	
 	<!-- 기숙사관리 탭 페이지 -->
-	<jsp:include page="../commons/staff/topNavi2.jsp"></jsp:include>
+<jsp:include page="../commons/staff/topNavi2.jsp"></jsp:include>
 	
 	
 	<!-- 내용시작 -->

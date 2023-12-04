@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,9 +96,90 @@
                 </div>
                 <div class="row"><!--여기가 안에 들어갈 내용들-->
                     <div class="col">
-                        <div class="row">
-							<div class="col">
+                    	<div class="row mt-2">
+                    		<div class="col py-3 text-center fw-bold" style="font-size: 1.5em;">
+                    			${joinDormInfoBySemesterPk.semesterDto.semester_year }년도 ${joinDormInfoBySemesterPk.semesterDto.semester } 기숙사 입사 신청 안내
+                    		</div>
+                    	</div>
+                        <div class="row mt-5">
+							<div class="col fw-bold" style="font-size: 1.2em;">
+								제목
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								${joinDormInfoBySemesterPk.joinDormInfoDto.title }
+							</div>             
+                        </div>
+                        <div class="row mt-3">
+							<div class="col fw-bold" style="font-size: 1.2em;">
+								입사내용
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								${joinDormInfoBySemesterPk.joinDormInfoDto.detail_expln }
+							</div>             
+                        </div>
+                        <div class="row mt-3">
+							<div class="col fw-bold" style="font-size: 1.2em">
+								신청일 
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.apply_start_date }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.apply_end_date }" pattern="yyyy-MM-dd"/>
+							</div>             
+                        </div>
+                        <div class="row mt-3">
+							<div class="col fw-bold" style="font-size: 1.2em;">
+								선발인원
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								${joinDormInfoBySemesterPk.joinDormInfoDto.selection_amount }
+							</div>             
+                        </div>
+                        <div class="row mt-3">
+							<div class="col fw-bold" style="font-size: 1.2em;">
+								합격자발표일
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.pass_anncm_date }" pattern="yyyy-MM-dd"/>
+							</div>             
+                        </div>
+                        <div class="row mt-3">
+							<div class="col fw-bold" style="font-size: 1.2em;">
 								
+								관비납부일
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.payment_start_date }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.payment_end_date }" pattern="yyyy-MM-dd"/>
+							</div>             
+                        </div>
+                        <div class="row mt-3">
+							<div class="col fw-bold" style="font-size: 1.2em;">
+								배정통보일
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.asgnm_anncm_date }" pattern="yyyy-MM-dd"/>
+							</div>             
+                        </div>
+                        <div class="row mt-3">
+							<div class="col fw-bold" style="font-size: 1.2em;">
+								입주일 
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.join_dorm_date }" pattern="yyyy-MM-dd"/>
 							</div>             
                         </div>
                     </div>

@@ -5,5 +5,14 @@
 
 <mapper namespace="com.mkfactory.toothless.a.student.dm.mapper.DormStudentSqlMapperDm">
 
+	<select id="semesterByProgressState" resultType="com.mkfactory.toothless.a.dto.SemesterDto">
+		
+		SELECT * FROM TL_A_SEMESTER WHERE PROGRESS_STATE = 'Y'
+		
+	</select>
+	
+	<select id="joinDormInfoBySemesterPk" resultType="com.mkfactory.toothless.a.dto.JoinDormInfoDto">
+		SELECT * FROM TL_A_JOIN_DORM_INFO WHERE SEMESTER_PK = #{semester_pk}
+	</select>
 	
 </mapper>
