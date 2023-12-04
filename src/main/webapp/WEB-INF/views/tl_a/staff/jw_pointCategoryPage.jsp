@@ -30,7 +30,7 @@
 			<!-- 카테고리명 -->
 			<div class="row my-3">
 				<div class="col fs-4 fw-bold">
-					배정 현황
+					상벌점 관리
 				</div>
 			</div>
 			
@@ -38,72 +38,58 @@
 			<div class="row mt-2">
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
-					  <li class="nav-item">
-					    <a class="nav-link text-black" href="./dm_roomAssignment">호실 배정</a>
-					  </li>
-					  <li class="nav-item">
-					    <a class="nav-link active text-black" href="#">배정 현황</a>
-					  </li>
+						<li class="nav-item">
+							<a class="nav-link active text-black" href="./jw_pointCategoryPage">상벌 코드</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-black" href="./jw_pointManagementPage">상벌 관리</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-black" href="./jw_pointSituationPage">학생 상벌 현황</a>
+						</li>
 					</ul>
 				</div>
 			</div>
 			
-			<!-- 미니맵 -->
-			<div class="row">
-				<div class="col border py-4 mx-2 rounded">
-					<div class="row">
-						<div class="col ms-2">
-							<a href="./orderManagePage" class="text-black" style="text-decoration: none;">
-							A동
-							</a>
-						</div>
-					</div>
-					
-					<div class="row mt-2">
-						<div class="col ms-2">
-							<a href="./orderManagePage" class="text-black" style="text-decoration: none;">
-							<span class="fs-5 fw-bold">
-								x
-							</span>건
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="col border py-4 mx-2 rounded">
-					<div class="row">
-						<div class="col ms-2">
-							<a href="./deliveryManagePageStateB" class="text-black" style="text-decoration: none;">
-							B동
-							</a>
-						</div>
-					</div>
-					<div class="row mt-2">
-						<div class="col ms-2">
-							<a href="./deliveryManagePageStateB" class="text-black" style="text-decoration: none;">
-							<span class="fs-5 fw-bold">
-								x
-							</span>건
-							</a>
-						</div>
-					</div>
-				</div>					
-				<div class="col-8"></div>
-			</div>
 
 			<!-- 세부내용 시작 -->			
 			<div class="row">
 				<div class="col">
 					<!-- 목록 -->
-					<div class="row py-3">
-						<div class="col">
-							~~목록 (총 x개) -> 필요시사용
+					<div class="row py-3 justify-content-between">
+						<div class="col-1">
+						</div>
+						<div class="col-2 me-1">
+							<select class="form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
+								<option selected>전체</option>
+								<option value="1">상점</option>
+								<option value="2">벌점</option>
+							</select>
 						</div>
 					</div>
 					
 					<!-- 세부내용 -->
-					<div class="row mt-2">
+					<div class="row py-3">
 						<div class="col">
-							너의 꿈을 펼치는 곳
+							<table class="table table-bordered text-center align-middle">
+								<thead>
+									<tr class="align-middle border-bottom border-2">
+										<th scope="col" class="col-6 text-bg-light">내용</th>
+										<th scope="col" class="col-2 text-bg-light">점수</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- 값 반복 예정 -->
+									<tr>
+										<td>기숙사 환경미화에 큰 기여를 함</td>
+										<td>500</td>
+									</tr>
+									<tr>
+										<td>다른 학우의 물건을 훔치거나 파손을 함</td>
+										<td>-1000</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>

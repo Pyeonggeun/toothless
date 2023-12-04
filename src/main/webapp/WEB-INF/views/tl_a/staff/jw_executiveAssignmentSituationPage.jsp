@@ -30,7 +30,7 @@
 			<!-- 카테고리명 -->
 			<div class="row my-3">
 				<div class="col fs-4 fw-bold">
-					배정 현황
+					임원 관리
 				</div>
 			</div>
 			
@@ -38,78 +38,97 @@
 			<div class="row mt-2">
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
-					  <li class="nav-item">
-					    <a class="nav-link text-black" href="./dm_roomAssignment">호실 배정</a>
-					  </li>
-					  <li class="nav-item">
-					    <a class="nav-link active text-black" href="#">배정 현황</a>
-					  </li>
+						<li class="nav-item">
+							<a class="nav-link text-black" href="./jw_executiveAssignmentPage">임원 배정</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-black" href="./jw_executiveRoomAssignmentPage">임원별 호실 배정</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active text-black" href="./jw_executiveAssignmentSituationPage">임원 배정 현황</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-black" href="./jw_diaryManagementPage">일지 관리</a>
+						</li>
 					</ul>
 				</div>
 			</div>
 			
-			<!-- 미니맵 -->
 			<div class="row">
-				<div class="col border py-4 mx-2 rounded">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-start" onclick="location.href='#'">
 					<div class="row">
 						<div class="col ms-2">
-							<a href="./orderManagePage" class="text-black" style="text-decoration: none;">
-							A동
-							</a>
+								A동
 						</div>
 					</div>
 					
 					<div class="row mt-2">
 						<div class="col ms-2">
-							<a href="./orderManagePage" class="text-black" style="text-decoration: none;">
-							<span class="fs-5 fw-bold">
+							<span class="fs-5 fw-bold text-black">
 								x
 							</span>건
-							</a>
 						</div>
 					</div>
 				</div>
-				<div class="col border py-4 mx-2 rounded">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-start" onclick="location.href='#'">
 					<div class="row">
 						<div class="col ms-2">
-							<a href="./deliveryManagePageStateB" class="text-black" style="text-decoration: none;">
-							B동
-							</a>
+								B동
 						</div>
 					</div>
+					
 					<div class="row mt-2">
 						<div class="col ms-2">
-							<a href="./deliveryManagePageStateB" class="text-black" style="text-decoration: none;">
-							<span class="fs-5 fw-bold">
+							<span class="fs-5 fw-bold text-black">
 								x
 							</span>건
-							</a>
 						</div>
 					</div>
-				</div>					
+				</div>
 				<div class="col-8"></div>
 			</div>
 
-			<!-- 세부내용 시작 -->			
-			<div class="row">
+			<!-- 세부내용 시작 -->
+			<div class="row my-3 py-3">
 				<div class="col">
-					<!-- 목록 -->
-					<div class="row py-3">
-						<div class="col">
-							~~목록 (총 x개) -> 필요시사용
-						</div>
-					</div>
-					
-					<!-- 세부내용 -->
-					<div class="row mt-2">
-						<div class="col">
-							너의 꿈을 펼치는 곳
-						</div>
-					</div>
+					<table class="table table-bordered text-center align-middle">
+						<thead>
+							<tr class="align-middle border-bottom border-2">
+								<th scope="col" class="col-2 text-bg-light">임원 이름</th>
+								<th scope="col" class="col-2 text-bg-light">기숙사명</th>
+								<th scope="col" class="col-2 text-bg-light">층</th>
+								<th scope="col" class="col-2 text-bg-light">호</th>
+								<th scope="col" class="col text-bg-light">배정 리스트</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- 값 반복 예정 -->
+							<tr>
+								<td>홍길동</td>
+								<td>A동</td>
+								<td>1층</td>
+								<td>101호</td>
+								<td>
+									<span>101호</span>
+									<span>102호</span>
+								</td>
+							</tr>
+							<tr>
+								<td>신짱구</td>
+								<td>B동</td>
+								<td>2층</td>
+								<td>201호</td>
+								<td>
+									<span>201호</span>
+									<span>202호</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 			
-		</div> <!-- 우측내용 col 끝 -->
+		</div> <!-- 우측내용 끝 -->
             
         
 	</div> <!-- main row 끝 -->

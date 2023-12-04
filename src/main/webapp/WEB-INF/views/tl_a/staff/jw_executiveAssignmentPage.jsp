@@ -30,7 +30,7 @@
 			<!-- 카테고리명 -->
 			<div class="row my-3">
 				<div class="col fs-4 fw-bold">
-					상벌점 관리
+					임원 관리
 				</div>
 			</div>
 			
@@ -39,47 +39,67 @@
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 						<li class="nav-item">
-							<a class="nav-link text-black" href="./jw_pointCategoryPage">상벌 코드</a>
+							<a class="nav-link active text-black" href="./jw_executiveAssignmentPage">임원 배정</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active text-black" href="./jw_pointManagementPage">상벌 관리</a>
+							<a class="nav-link text-black" href="./jw_executiveRoomAssignmentPage">임원별 호실 배정</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-black" href="./jw_pointSituationPage">학생 상벌 현황</a>
+							<a class="nav-link text-black" href="./jw_executiveAssignmentSituationPage">임원 배정 현황</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-black" href="./jw_diaryManagementPage">일지 관리</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 			
-
-			<!-- 세부내용 시작 -->			
 			<div class="row">
-				<div class="col">
-					<!-- 목록 -->
-					<div class="row py-3 justify-content-between">
-						<div class="col-1">
-						</div>
-						<div class="col-2 me-1">
-							<select class="form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
-								<option selected>전체</option>
-								<option value="1">상점</option>
-								<option value="2">벌점</option>
-							</select>
+				<div class="col border py-4 mx-2 rounded border-dark btn text-start" onclick="location.href='#'">
+					<div class="row">
+						<div class="col ms-2">
+								A동
 						</div>
 					</div>
 					
+					<div class="row mt-2">
+						<div class="col ms-2">
+							<span class="fs-5 fw-bold text-black">
+								x
+							</span>건
+						</div>
+					</div>
+				</div>
+				<div class="col border py-4 mx-2 rounded border-dark btn text-start" onclick="location.href='#'">
+					<div class="row">
+						<div class="col ms-2">
+								B동
+						</div>
+					</div>
+					
+					<div class="row mt-2">
+						<div class="col ms-2">
+							<span class="fs-5 fw-bold text-black">
+								x
+							</span>건
+						</div>
+					</div>
+				</div>
+				<div class="col-8"></div>
+			</div>
+
+			<!-- 세부내용 시작 -->			
+			<div class="row my-3 py-3">
+				<div class="col">
 					<!-- 세부내용 -->
-					<div class="row py-3">
-						<div class="col">
 							<table class="table table-bordered text-center align-middle">
 								<thead>
 									<tr class="align-middle border-bottom border-2">
 										<th scope="col" class="col-2 text-bg-light">이름</th>
-										<th scope="col" class="col-1 text-bg-light">기숙사명</th>
-										<th scope="col" class="col-1 text-bg-light">호</th>
-										<th scope="col" class="col-1 text-bg-light">상벌</th>
-										<th scope="col" class="col-6 text-bg-light">사유</th>
-										<th scope="col" class="col-1 text-bg-light">부여</th>
+										<th scope="col" class="col-2 text-bg-light">기숙사명</th>
+										<th scope="col" class="col-2 text-bg-light">층</th>
+										<th scope="col" class="col-2 text-bg-light">호</th>
+										<th scope="col" class="col-1 text-bg-light">배정</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -87,36 +107,22 @@
 									<tr>
 										<td>홍길동</td>
 										<td>A동</td>
+										<td>1층</td>
 										<td>101호</td>
 										<td>
-											<select class="border-secondary-subtle form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
-												<option selected>선택</option>
-												<option value="1">상점</option>
-												<option value="2">벌점</option>
-											</select>
-										</td>
-										<td><input type="text" class="form-control"></td>
-										<td>
 											<a href="#" class="d-grid mx-2" style="text-decoration: none;">
-												<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">부여</span></button>
+												<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">배정</span></button>
 											</a>
 										</td>
 									</tr>
 									<tr>
 										<td>신짱구</td>
 										<td>B동</td>
+										<td>2층</td>
 										<td>201호</td>
 										<td>
-											<select class="border-secondary-subtle form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
-												<option selected>선택</option>
-												<option value="1">상점</option>
-												<option value="2">벌점</option>
-											</select>
-										</td>
-										<td><input type="text" class="form-control"></td>
-										<td>
 											<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
-												<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">부여</span></button>
+												<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">배정</span></button>
 											</a>
 										</td>
 									</tr>

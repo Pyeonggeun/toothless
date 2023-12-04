@@ -39,10 +39,10 @@
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 					  <li class="nav-item">
-					    <a class="nav-link active text-black" href="./jw_exitSituation">외출/외박 현황</a>
+					    <a class="nav-link active text-black" href="./jw_exitSituationPage">외출/외박 현황</a>
 					  </li>
 					  <li class="nav-item">
-					    <a class="nav-link text-black" href="./jw_callAttendSituation">점호 참석 현황</a>
+					    <a class="nav-link text-black" href="./jw_callAttendSituationPage">점호 참석 현황</a>
 					  </li>
 					</ul>
 				</div>
@@ -65,14 +65,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="col border py-4 mx-2 rounded border-dark">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-start" onclick="location.href='#'">
 					<div class="row">
 						<div class="col ms-2">
-							<a href="#" class="text-black" style="text-decoration: none;">
-							B동
-							</a>
+								B동
 						</div>
 					</div>
+					
 					<div class="row mt-2">
 						<div class="col ms-2">
 							<span class="fs-5 fw-bold text-black">
@@ -80,7 +79,7 @@
 							</span>건
 						</div>
 					</div>
-				</div>					
+				</div>
 				<div class="col-8"></div>
 			</div>
 

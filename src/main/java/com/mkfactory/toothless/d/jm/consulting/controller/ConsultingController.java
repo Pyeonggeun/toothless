@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.d.dto.HopeJobDto;
+import com.mkfactory.toothless.d.dto.HopeJobFeedbackDto;
 import com.mkfactory.toothless.d.dto.OnlineConsultingDto;
 import com.mkfactory.toothless.d.dto.OnlineConsultingReplyDto;
 import com.mkfactory.toothless.d.jm.consulting.service.ConsultingService;
@@ -173,11 +174,11 @@ public class ConsultingController {
 		
 		
 		
-		List<Map<String, Object>> onConsultingList3 = consultingService.getOnlineConsultingList3(student_pk);
+		Map<String, Object> lastOnlineConsulting = consultingService.lastOnlineConsulting(student_pk);
 		
 		
 		
-		model.addAttribute("onConsultingList3", onConsultingList3);	
+		model.addAttribute("lastOnlineConsulting", lastOnlineConsulting);	
 	
 		
 		
@@ -196,11 +197,36 @@ public class ConsultingController {
 		return"tl_d/jm_consulting/onlineConsultingViewPage";
 	}
 	
-	//더미테스트
-	@RequestMapping("dummy")
-	public String dummy() {
-		return"tl_d/jm_consulting/dummy";
+	
+	
+	//학생 온라인 상담 전체보기(실제론 10건)보기
+	//나중에 페이징처리로 쿼리 변경하자
+	@RequestMapping("onlineConsultingListPage")
+	public String viewOnlineConsultingList(HttpSession session, Model model) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int student_pk = studentInfoDto.getStudent_pk();
+		
+		List<Map<String, Object>> list = consultingService.getOnlineConsultingList(student_pk);
+		model.addAttribute("list", list);
+		
+		return"tl_d/jm_consulting/onlineConsultingListPage";
+		
 	}
+	
+	
+	//만족도조사 값 입력
+	
+	public String asas(HopeJobFeedbackDto par) {
+		
+		
+		consultingService.insertHopeJobFeedback(par);
+		
+		return"";
+	}
+	
+	
+
 	
 	
 	
