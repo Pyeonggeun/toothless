@@ -1,5 +1,5 @@
 package com.mkfactory.toothless.c.eunbi.mapper;
 
-public interface EunbiExternalMapper {
+public interface EunbiStudentSqlMapper {
 
 }
