@@ -46,8 +46,16 @@ public class OfflineCounselController {
 			System.out.println("------");
 		}
 		
-		return "";
+		return "tl_e/offlineCounsel/counselReservationCompletedPage";
 	}
+	
+	@RequestMapping("counselReservationCompletedPage")
+	public String counselReservationCompletedPage() {
+		
+		return "tl_e/offlineCounsel/counselReservationCompletedPage";
+	}
+	
+	
 	
 	
 	

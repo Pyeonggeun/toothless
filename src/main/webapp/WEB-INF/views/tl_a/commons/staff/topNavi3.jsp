@@ -10,7 +10,7 @@
                 <img src="../../resources/img/another/logo_black.png" alt="" class="img-fluid">
             </div>
             <div class="col p-0 align-self-center text-black fw-bold fs-3">
-                MK <span class="fs-4">대학교</span> <span class="fs-6"> | </span> <span class="fs-5">기숙사 관리</span> 
+                MK <span class="fs-4">대학교</span> <span class="fs-6"> | </span> <span class="fs-6"> 기숙사 관리</span> 
             </div>
         </div>
    	</div>
