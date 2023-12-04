@@ -53,12 +53,12 @@
 <div class="row">
 	<jsp:include page="../common/ajdksTemplateForStaff.jsp"></jsp:include>
 	
-	
 	<!-- 본문 :  자유롭게 이용하세요 화이팅 -->
 	<div class="col ms-5">
 		
+		
+		
 	</div>
-	
 	
 </div>
 
