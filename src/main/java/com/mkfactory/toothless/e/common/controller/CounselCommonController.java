@@ -12,25 +12,25 @@ import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 @RequestMapping("/tl_e/commons/*")
 public class CounselCommonController {
 	
-	@RequestMapping("studentCounselMainPage")
-	public String studentCounselMainPage() {
+	@RequestMapping("counselCenterStudentMainPage")
+	public String counselCenterStudentMainPage() {
 		
-		return "tl_e/commons/studentCounselMainPage";
+		return "tl_e/commons/counselCenterStudentMainPage";
 	}
 	
-	@RequestMapping("staffCounselMainPage")
-	public String staffCounselMainPage(HttpSession session, Model model) {
-		StaffInfoDto sessionStaff = (StaffInfoDto)session.getAttribute("staffInfoDto");
+	@RequestMapping("counselCenterStaffMainPage")
+	public String counselCenterStaffMainPage(HttpSession session, Model model) {
 		
+		StaffInfoDto sessionStaff = (StaffInfoDto)session.getAttribute("staffInfoDto");
 		model.addAttribute("sessionStaffInfo", sessionStaff);
 		
-		return "tl_e/commons/staffCounselMainPage";
+		return "tl_e/commons/counselCenterStaffMainPage";
 	}
 	
-	@RequestMapping("counselorCounselMainPage")
-	public String counselorCounselMainPage() {
+	@RequestMapping("counselCenterCounselorMainPage")
+	public String counselCenterCounselorMainPage() {
 		
-		return "tl_e/commons/counselorCounselMainPage";
+		return "tl_e/commons/counselCenterCounselorMainPage";
 	}
 	
 }
