@@ -44,12 +44,22 @@
 						<input class="form-control form-control-sm border-black" name="business_number" type="text" placeholder="000-00-00000">
 					</div>
 				</div>
+				<div class="row">
+					<div class="col text-danger">
+						사업자 번호를 잘 못 입력했습니다. 다시 입력해주세요
+					</div>
+				</div>
 				<!-- 채용분야 -->
 				<div class="row mt-3">
 					<div class="col">
-						<c:forEach items="${jobFieldCategory}" var="jobField">
-							<input name="job_field_category_pk" type="radio" value="${jobField.job_field_category_pk}">&nbsp;${jobField.job_field_category_name}
-						</c:forEach>
+						<input name="job_field_category_pk" type="radio" value="1">&nbsp;개발
+						<input name="job_field_category_pk" type="radio" value="2">&nbsp;마케팅
+						<input name="job_field_category_pk" type="radio" value="3">&nbsp;판매
+						<input name="job_field_category_pk" type="radio" value="4">&nbsp;인사
+						<input name="job_field_category_pk" type="radio" value="5">&nbsp;금융
+						<input name="job_field_category_pk" type="radio" value="6">&nbsp;디자인
+						<input name="job_field_category_pk" type="radio" value="7">&nbsp;의료
+						<input name="job_field_category_pk" type="radio" value="8">&nbsp;제조
 					</div>
 				</div>
 				<!-- 구인직무 -->

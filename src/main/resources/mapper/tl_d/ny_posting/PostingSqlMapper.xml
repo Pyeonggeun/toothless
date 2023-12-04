@@ -4,7 +4,8 @@
 
 <mapper namespace="com.mkfactory.toothless.d.ny.posting.mapper.PostingSqlMapper">
 
-<!-- 	<insert id="insertJobPostingInfo">
+	<!-- 채용공고등록 -->
+	<insert id="insertJobPostingInfo">
 		INSERT INTO TL_D_JOB_POSTING VALUES(
 			tl_d_job_posting_seq.nextval,
 			#{com_pk},
@@ -20,8 +21,60 @@
 			SYSDATE
 		)
 	</insert>
- -->
-
-
+	
+	<!-- 채용분야 카테고리 출력 -->
+	<select id="selectJobFieldCategoryList" resultType="com.mkfactory.toothless.d.dto.JobFieldCategoryDto">
+		SELECT * FROM TL_D_JOB_FIELD_CATEGORY tdjfc
+		ORDER BY tdjfc.JOB_FIELD_CATEGORY_PK ASC
+	</select>
+	
+	<!-- 사업자번호 조회 -->
+	<select id="selectComPkByBusinessNumber" resultType="int">
+		SELECT tdc.COM_PK FROM TL_D_COMPANY tdc 
+		WHERE tdc.BUSINESS_NUMBER LIKE #{BUSINESS_NUMBER}
+	</select>
+	
+	<!-- 사업자번호 확인용 기업리스트 출력 -->
+	<select id="selectCompanyList" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
+		SELECT * FROM TL_D_COMPANY
+	</select>
+	
+	<!-- 총 공고 수 출력 -->
+	<select id="selectPostingCount" resultType="int" parameterType="java.util.Map">
+		SELECT count(*) FROM tl_d_job_posting tdjp
+	</select>
+	
+	<!-- 공고 리스트 출력  -->
+	<select id="selectPostingList" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
+		SELECT * FROM TL_D_JOB_POSTING tdjp
+		ORDER BY tdjp.CREATED_AT DESC
+	</select>
+	
+	<!-- 기업 + 채용공고  -->
+	<select id="selectByCompanyPk" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
+		SELECT * FROM TL_D_COMPANY tdc 
+		WHERE tdc.COM_PK = #{com_pk}
+	</select>
+	
+	<!-- 채용분야 + 채용공고  -->
+	<select id="selectByJobFieldCategoryPk" resultType="com.mkfactory.toothless.d.dto.JobFieldCategoryDto">
+		SELECT * FROM TL_D_JOB_FIELD_CATEGORY tdjfc 
+		WHERE tdjfc.JOB_FIELD_CATEGORY_PK = #{job_field_category_pk}
+	</select>
+	
+	<!-- 마감임박 채용공고 -->
+	<select id="selectPostingDeadline" resultType="int">
+		SELECT tdjp.JOB_POSTING_PK FROM TL_D_JOB_POSTING tdjp 
+		WHERE tdjp.POSTING_DEADLINE BETWEEN (SYSDATE) AND (SYSDATE + (72/24))
+	</select>
+	
+	<!-- 기업별 채용공고 -->
+	<select id="selectPostingListByComPk" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
+		SELECT * FROM TL_D_JOB_POSTING tdjp
+		WHERE tdjp.com_pk = #{com_pk}
+	</select>
+	
+	
+	
 
 </mapper>
