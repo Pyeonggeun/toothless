@@ -44,7 +44,7 @@
                 width: 100%;
                 height: 100vh;
                 content: "";
-                background: url("../resources/img/another/backgroundimg.png");
+                background: url("../../resources/img/another/backgroundimg.png");
                 background-size: cover;
                 display: grid;
                 position: absolute;
@@ -91,7 +91,7 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col-1 p-0">
-                                    <img src="../resources/img/another/logo_black.png" alt="" class="img-fluid">
+                                    <img src="../../resources/img/another/logo_black.png" alt="" class="img-fluid">
                                 </div>
                                 <div class="col p-0 align-self-center text-black fw-bold fs-3">
                                     MK University<span class="fs-6"> | </span> <span class="fs-5">포털사이트</span> 
@@ -139,10 +139,10 @@
                                                 		<a class="navbar-brand border border-2 bg-white" href="../student/loginPage">학생</a>
                                             		</div>
                                             		<div class="col-3 d-grid px-0">
-                                                		<a class="navbar-brand border border-2 bg-white" href="../staff/loginPage">교직원</a>
+                                                		<a class="navbar-brand bg-main text-white" href="../staff/loginPage">교직원</a>
                                             		</div>
 		                                            <div class="col-3 d-grid px-0">
-		                                                <a class="navbar-brand bg-main text-white" href="../professor/loginPage">교수</a>
+		                                                <a class="navbar-brand border border-2 bg-white" href="../professor/loginPage">교수</a>
 		                                            </div>
 		                                            <div class="col-3 d-grid px-0">
 		                                                <a class="navbar-brand border border-2 bg-white" href="../external/loginPage">외부인</a>
@@ -157,7 +157,7 @@
                                                         <i class="bi bi-person fs-2" style="color: #133369;"></i>
                                                     </div>
                                                     <div class="col align-self-center">
-                                                        <input class="py-2 border-0 bg-transparent" type="text" name="professor_id" placeholder="아이디">
+                                                        <input class="py-2 border-0 bg-transparent" type="text" name="staff_id" placeholder="아이디">
                                                     </div>
                                                 </div>
                                             </div>                                        

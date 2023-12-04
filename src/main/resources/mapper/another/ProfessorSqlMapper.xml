@@ -10,6 +10,10 @@
 		AND password = #{password}
 	</select>
 	
+	<select id="selectProfessorDepartmentName" resultType="String">
+		SELECT name FROM tl_jic_department_category
+		WHERE department_pk = #{department_pk}
+	</select>
 	
 	
 	
