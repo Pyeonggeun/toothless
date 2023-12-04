@@ -47,10 +47,10 @@
 
 <jsp:include page="../../common/ajdksTemplateForProfessor.jsp"></jsp:include>
 
-<!-- 본문 :  자유롭게 이용하세요 화이팅 -->
-<div class="col">
-	
-</div>
+	<!-- 본문 :  자유롭게 이용하세요 화이팅 -->
+	<div class="col">
+		
+	</div>
 
 </div><!-- 메인화면 출구 -->
 
