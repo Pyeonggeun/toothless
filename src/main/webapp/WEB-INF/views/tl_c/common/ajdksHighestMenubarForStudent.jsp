@@ -2,15 +2,15 @@
     pageEncoding="UTF-8"%>
     
 <!-- 최상단정보바 : 사이트 및 session 정보 -->
-<div class="row py-1">
+<div class="row py-1" style="font-size: 0.9em;">
 	<div class="col text-start">
 		MKU
 	</div>
 	<div class="col text-center">
 		MK UNIVERSITY 사이트 로고
 	</div>
-	<div class="col text-end">
-		${sessionStaffInfo.name } 님 환영합니다 | <a href="./ajdksStaffLogoutProcess">로그아웃</a>
+	<div class="col text-end nolinenoblue">
+		${sessionStudentInfo.name } 님 환영합니다 | <a href="./ajdksStudentLogoutProcess">로그아웃</a>
 	</div>
 </div>
 
@@ -22,6 +22,6 @@
 		<span class="mx-4" style="cursor: pointer;">보건센터</span>
 		<span class="mx-4" style="cursor: pointer;">지도학생관리</span>
 		<span class="mx-4" style="cursor: pointer;">학과홈페이지</span>
-		<span class="mx-4" style="cursor: pointer;">알잘딱깔센하게</span>
+		<span class="mx-4" style="cursor: pointer;">알잘딱깔센터</span>
 	</div>
 </div>

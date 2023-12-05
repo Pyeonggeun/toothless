@@ -30,7 +30,7 @@
 			<!-- 카테고리명 -->
 			<div class="row my-3">
 				<div class="col fs-4 fw-bold">
-					배정 관리
+					배정 현황
 				</div>
 			</div>
 			

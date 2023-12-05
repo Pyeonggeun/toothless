@@ -30,6 +30,10 @@
                                     ${readText.noticeboardDto.content}
                                     <br>
                                     <button type="button" onclick="location.href='./staffNoticeboardPage'">목록으로</button>
+                                    <c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == readText.noticeboardDto.staff_pk}">
+	                                    <button type="button" onclick="location.href='./deleteTextProcess?staff_noticeboard_pk=${readText.noticeboardDto.staff_noticeboard_pk}'">삭제</button>
+	                                    <button type="button" onclick="location.href='./modifyTextPage?staff_noticeboard_pk=${readText.noticeboardDto.staff_noticeboard_pk}'">수정</button>
+									</c:if>
                                 </div>
                             </div>
                         </div>

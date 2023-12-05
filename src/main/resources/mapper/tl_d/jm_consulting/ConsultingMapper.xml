@@ -84,10 +84,10 @@ WHERE on_consulting_pk = #{on_consulting_pk}
 </select>
 
 
-<!-- (학생) 최근 온라인 상담 현활 3건보기 -->
+<!-- (학생) 최근 온라인 상담 현활 10건보기 -->
 
 
-<select id="getOnlineConsultingList3" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
+<select id="getOnlineConsultingList" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
 SELECT t2.*
 FROM (
 	SELECT t1.*,rownum rnum
@@ -99,7 +99,7 @@ FROM (
 	)t1
 )t2
 <![CDATA[
-    WHERE rnum <= 3
+    WHERE rnum <= 10
 ]]>
 </select>
 
@@ -180,6 +180,31 @@ WHERE a.ON_CONSULTING_PK = #{ON_CONSULTING_PK}
 SELECT * FROM tl_d_online_consulting_reply
 WHERE ON_CONSULTING_PK = #{ON_CONSULTING_PK}
 </select>
+
+
+<!--  스태프 pk로 스태프 정보추출 -->
+<select id="getStaffInfoByPk" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
+SELECT * FROM tl_jic_staff_info 
+WHERE STAFF_PK = #{STAFF_PK}
+</select>
+
+
+
+
+
+<!-- 만족도조사 값 입력-->
+<insert id="insertHopeJobFeedback">
+INSERT INTO tl_d_hope_job_feedback values(
+	tl_d_hope_job_feedback_seq.nextval,
+	#{hope_job_pk},
+	#{hjf_score},
+	#{hjf_comment},
+	sysdate
+)
+
+</insert>
+
+
 
 
 
