@@ -57,8 +57,8 @@ public class NotificationDto {
 	public String getCheckNotify() {
 		return checkNotify;
 	}
-	public void setCheckNotify(String checkNotif) {
-		this.checkNotify = checkNotif;
+	public void setCheckNotify(String checkNotify) {
+		this.checkNotify = checkNotify;
 	}
 	public Date getCreated_at() {
 		return created_at;
