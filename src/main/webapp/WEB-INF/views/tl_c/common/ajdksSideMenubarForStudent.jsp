@@ -85,7 +85,7 @@
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;일일업무보고 작성</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../taeho/student/writeInternReportPage'">&gt;&nbsp;일일업무보고 작성</span>
 					</div>
 				</div>
 			</div>

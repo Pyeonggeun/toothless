@@ -38,7 +38,7 @@ public class OfflineCounselController {
 		model.addAttribute("counselorDto", counselorDto);
 		model.addAttribute("type_category_id", type_category_id);
 		
-		List<Map<String, Object>> sevenDaysList = offlineCounselService.sevenDaysDateExtraction();
+		List<Map<String, Object>> sevenDaysList = offlineCounselService.sevenDaysDateExtraction(counselor_id);
 		model.addAttribute("sevenDaysList", sevenDaysList);
 		
 		return "tl_e/offlineCounsel/counselReservationPage";

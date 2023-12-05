@@ -41,8 +41,17 @@ public class BuildingServieImpl {
 		return buildingSqlMapper.dormCategory();
 	}
 	
-	public void insertRegisterCategory(DormCategoryDto dormCateogory) {
+	public void insertRegisterCategory(DormCategoryDto dormCateogory, List<DormCategoryDto> categoryList) {
 		
-		buildingSqlMapper.insertRegisterCategory(dormCateogory);
+		int ctPk = dormCateogory.getDorm_amount_pk();
+		System.out.println(ctPk);
+		dormCateogory.setDorm_amount_pk(ctPk);
+		
+		for(DormCategoryDto dcd :categoryList) {
+			dcd.setDorm_amount_pk(ctPk);
+			buildingSqlMapper.updateCategory(dcd);
+			System.out.println(dcd.getDorm_imgs());
+		}
+		
 	}
 }

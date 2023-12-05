@@ -19,9 +19,16 @@ public class CounselCommonController {
 	}
 	
 	@RequestMapping("counselCenterStaffMainPage")
-	public String counselCenterStaffMainPage() {
+	public String counselCenterStaffMainPage(HttpSession session) {
 		
-		return "tl_e/commons/counselCenterStaffMainPage";
+		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(sessionStaffInfo == null) {
+			return "tl_e/commons/loginRequired";
+		}else {
+			return "tl_e/commons/counselCenterStaffMainPage";
+		}
+		
 	}
 	
 	@RequestMapping("counselCenterCounselorMainPage")

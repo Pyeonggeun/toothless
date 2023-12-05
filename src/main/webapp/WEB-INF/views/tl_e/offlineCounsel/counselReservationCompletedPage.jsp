@@ -143,7 +143,7 @@
 								<div class="row pt-4 pb-2">
 									<div class="col">
 										<span class="fw-bold">상담주제 : </span>
-										<span>${map.typeCategoryDto.name }</span>&nbsp;문제
+										<span>${map.typeCategoryDto.name }</span>
 									</div>
 								</div>
 								<div class="row pt-2 pb-4">

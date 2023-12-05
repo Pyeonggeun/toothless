@@ -94,10 +94,7 @@ public class BuildingController {
 	        dormbuildingDto.setMain_img(todayPath+fileName);
 	    }
 		
-		
-		
-		
-		
+	
 		buildingService.registerBuilding(dormbuildingDto);
 		return "redirect:./sj_registerDormInfo";
 	}
@@ -111,7 +108,7 @@ public class BuildingController {
 	@RequestMapping("registeRoomImagesProcess")
 	public String registerRoomImageProcess(DormCategoryDto dormCategory, MultipartFile[] roomImgs, DormBuildingDto dormBuild) {
 		// 상세 이미지 렛츠고
-	    List<DormCategoryDto> CategoryList = new ArrayList<>();
+	    List<DormCategoryDto> categoryList = new ArrayList<>();
 
 		// ㄱㄱ
 		if(roomImgs != null) {
@@ -154,11 +151,11 @@ public class BuildingController {
 				dcd.setDorm_amount_pk(RoomCategoryPk);
 				dcd.setDorm_imgs(todayPath+fileName);
 				
-				CategoryList.add(dormCategory);		
+				categoryList.add(dcd);
 				
 			}
 		}
-		buildingService.insertRegisterCategory(dormCategory);
+		buildingService.insertRegisterCategory(dormCategory, categoryList);
 		return "redirect:./sj_registerRoomImages";
 	}
 	

@@ -26,7 +26,8 @@ public class FreeboardCounselController {
 		
 		List<Map<String, Object>> combinedFreeboardList = freeboardCounselService.getfreeboardList();
 		model.addAttribute("combinedFreeboardList", combinedFreeboardList);
-	
+			System.out.println("상담게시판 메인페이지 리스팅 완료 ");
+			
 		
 		return "tl_e/freeboardCounsel/freeboardCounselPage";
 	}
@@ -41,13 +42,50 @@ public class FreeboardCounselController {
 	//자유게시판 글 작성한 내용 dto에 집어넣는 프로세스 
 	@RequestMapping("createFreeboardPostsProcess")
 	public String createFreeboardPostsProcess(FreeboardDto paraFreeboardDto) {
-			
+			System.out.println("createFreeboardPostsProcess 시작");
 		freeboardCounselService.createFreeboardPostsProcess (paraFreeboardDto);
-		
+			System.out.println("createFreeboardPostsProcess 완료");
 		return "tl_e/freeboardCounsel/createFreeboardPostsComplete";
 	}
 	
+	//자유게시판 상세 글보기 페이지
+	@RequestMapping("readFreeboardPostPage")
+	public String readFreeboardPostPage(Model model, int id) {
+		
+		//조회수 카운트
+		freeboardCounselService.readCount(id);
+		
+		Map<String, Object> pickpostMap = freeboardCounselService.pickPost(id);
+		model.addAttribute("pickpostMap", pickpostMap);
+
+		return "tl_e/freeboardCounsel/readFreeboardPostPage";
+	}
+	
+	
+	
 	//자유게시판 글 수정 페이지
+	@RequestMapping("updateFreeboardPostPage")
+	public String updateFreeboardPostPage(Model model, int id) {
+		
+		model.addAttribute("pickpostMap",freeboardCounselService.pickPost(id));
+		
+		return "./tl_e/freeboardCounsel/updateFreeboardPostPage";
+	}
+	
 	//자유게시판 글 수정 프로세스
+	@RequestMapping("updateFreeboardPostProcess")
+	public String updateFreeboardPostProcess(FreeboardDto paraFreeboardDto) {
+			
+		freeboardCounselService.updateFreeboardPost(paraFreeboardDto);
+			
+		return "redirect: ./readFreeboardPostPage?id=" + paraFreeboardDto.getId();
+	}
 	//자유게시판 글 삭제 프로세스
+	@RequestMapping("deleteFreeboardPostProcess")
+	public String deleteFreeboardPostProcess(int id) {
+		
+		freeboardCounselService.deleteFreeboardPost(id);
+		
+		return "redirect:./freeboardCounselPage";
+	}
 }

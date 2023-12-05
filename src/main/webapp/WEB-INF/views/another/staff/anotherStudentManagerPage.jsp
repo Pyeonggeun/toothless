@@ -75,12 +75,11 @@
         		});
         	
         	}
-
+			
+			
             function reloadStudentList(){
-                const url = "./getStudentInfoList";
-				
-                
-                
+            	
+                const url = "./getStudentInfoList?pageNum="+pageNum;
                 fetch(url)
                 .then(response => response.json())
                 .then((response) => {
@@ -104,18 +103,30 @@
                         const student_professorName = studentListWrapper.querySelector(".student_professorName");
                         student_professorName.innerText = e.professorInfoDto.name;
 						
-                       
-                        
-                       	
-                       	
                         studentListBox.appendChild(studentListWrapper);
 
                     }
-                    
-                	const loaded = document.querySelector("#loaded");
-                    loaded.remove();	
+                    const loaded = document.querySelector("#loaded");
+                    if(loaded != null){
+                    	loaded.remove();	
+                    }
+                	
+                    	
                 });
             }
+          
+          
+          
+            window.onscroll = () => {
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                    pageNumb += 1;
+                    console.log(pageNumb);
+                    reloadStudentList();
+                }
+            };
+            
+            
+            
             function showStudentInsertModal() {
             	
             	const modal = bootstrap.Modal.getOrCreateInstance("#insertStudentModal");
@@ -162,10 +173,11 @@
             	})
                 .then(response => response.json())
                 .then((response) =>{
-                	
+                	//이전 html 초기화
                 	const studentListBox = document.getElementById("studentListBox");
                     studentListBox.innerHTML = "";
                     reloadStudentList();
+                    //모달 창 초기화
                     inputDepartmentPk.value="";
                     inputProfessorPk.value="";
                     inputStudentId.value="";
@@ -197,6 +209,10 @@
                     obj[i].checked = false;
                 }
             }
+            
+            
+            
+            
 
 
             window.addEventListener("DOMContentLoaded", () =>{
@@ -322,12 +338,32 @@
            </div>
            <div class="row">
            		<div class="col-2"></div>
-           		<div class="col text-end">
+           		<div id="loading"class="col text-end">
            			<input onclick="showStudentInsertModal()" type="button" class="btn btn-primary" value ="등록하기">
            		</div>
            		<div class="col-2"></div>
            		
            </div>
+ 				<pre>
+      
+           	
+           	
+           	
+           	
+           	
+           	
+           	
+           	
+           	
+           	
+           	
+           	
+           	
+           	
+           	
+           	
+           	
+           	</pre>
         </div>
 
         <div id="templete" class="d-none">
@@ -354,6 +390,7 @@
                 </div>
                 <div class="col-2"></div>
             </div>
+           
         </div>
         
         <div id="insertStudentModal" class="modal" tabindex="-1">

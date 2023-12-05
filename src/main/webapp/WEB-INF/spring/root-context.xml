@@ -19,6 +19,10 @@
 		<property name="url" value="jdbc:oracle:thin:@oracle11.s001lec.com:1521:xe"></property>
 		<property name="username" value="toothless"></property>
 		<property name="password" value="toothless1234"></property>
+				
+		 <!-- default 설정 -->
+  		<property name="initialSize" value="1"></property>
+  		<property name="maxActive" value="3"></property>
 	</bean>	
 	
 	<bean id="sqlSessionFactory" 

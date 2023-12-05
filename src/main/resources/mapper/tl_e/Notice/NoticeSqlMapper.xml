@@ -6,7 +6,7 @@
 	<select id="createNoticePk" resultType="int">
 		SELECT cp_notice_seq.nextval FROM dual
 	</select>
-	
+	<!-- 공지사항 추가 -->
 	<insert id="insertNoticeArticle">
 		INSERT INTO cp_notice values(
 			#{id},
@@ -17,7 +17,7 @@
 			SYSDATE
 		)
 	</insert>
-	
+	<!-- 공지사항 이미지 추가 -->
 	<insert id="insertNoticeImage">
 		INSERT INTO cp_notice_image values(
 			cp_notice_image_seq.nextval,
@@ -25,23 +25,44 @@
 			#{notice_image_link}
 		)
 	</insert>
-	
+	<!-- 공지사항 출력 -->
 	<select id="selectNoticeList" resultType="com.mkfactory.toothless.e.dto.NoticeBoardDto">
 		SELECT * FROM cp_notice ORDER BY id desc
 	</select>		
-
+	<!-- 교직원정보 검색 -->
 	<select id="selectStaffInfoByStaff_Pk" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
 		SELECT * FROM tl_jic_staff_info 
 		WHERE staff_pk = #{staff_pk}
 	</select>
-	
+	<!-- 글 번호별 이미지 출력 -->
 	<select id="selectNoticeImageByNotice_Id" resultType="com.mkfactory.toothless.e.dto.NoticeImageDto">
 		SELECT * FROM cp_notice_image 
 		WHERE notice_id = #{notice_id}
 	</select>
-	
+	<!-- 글 번호별 공지사항 출력 -->
 	<select id="selectNoticeBoardById" resultType="com.mkfactory.toothless.e.dto.NoticeBoardDto">
 		SELECT * FROM cp_notice WHERE id = #{id}
 	</select>
+	<!-- 공지사항 조회수 증가 -->
+	<update id="increaseReadCount">
+		UPDATE cp_notice 
+		SET read_count = read_count + 1
+		WHERE id = #{id}
+	</update>
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNoticeArticle">
+		DELETE FROM cp_notice
+		WHERE id = #{id}
+	</delete>
+	<!-- 공지사항 텍스트 수정 -->
+	<update id="updateNoticeArticle">
+		UPDATE cp_notice 
+		SET title = #{title}, text = #{text}
+		WHERE id = #{id}
+	</update>
+	
+	
+	
+	
 	
 </mapper>
