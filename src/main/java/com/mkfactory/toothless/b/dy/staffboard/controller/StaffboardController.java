@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mkfactory.toothless.b.dto.StaffNoticeboardDto;
+import com.mkfactory.toothless.b.dto.StaffboardDto;
 import com.mkfactory.toothless.b.dy.staffboard.service.StaffboardServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 
@@ -41,7 +41,7 @@ public class StaffboardController {
 	}
 	//글 작성 프로세스
 	@RequestMapping("writeTextProcess")
-	public String writeTextProcess(HttpSession session, StaffNoticeboardDto params) {
+	public String writeTextProcess(HttpSession session, StaffboardDto params) {
 		
 		System.out.println(params.getTitle());
 		
@@ -89,11 +89,11 @@ public class StaffboardController {
 	}
 	// 작성 글 수정 프로세스
 	@RequestMapping("modifyTextProcess")
-	public String modifyTextProcess(StaffNoticeboardDto params) {
+	public String modifyTextProcess(StaffboardDto params) {
 		
 		staffboardService.modifyTextPage(params);
 		
-		return "redirect:./readTextPage?staff_noticeboard_pk="+params.getStaff_noticeboard_pk();
+		return "redirect:./readTextPage?staff_noticeboard_pk="+params.getStaffboard_pk();
 	}
 	
 	

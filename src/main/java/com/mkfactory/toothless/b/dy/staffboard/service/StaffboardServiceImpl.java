@@ -8,10 +8,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mkfactory.toothless.b.dto.StaffNoticeboardDto;
+
+import com.mkfactory.toothless.b.dto.StaffboardDto;
 import com.mkfactory.toothless.b.dy.staffboard.mapper.StaffboardSqlMapper;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
-import com.mkfactory.toothless.donot.touch.mapper.StaffSqlMapper;
 
 
 @Service
@@ -20,23 +20,23 @@ public class StaffboardServiceImpl {
 	@Autowired
 	private StaffboardSqlMapper staffboardSqlMapper;
 	
-	public void StaffboardText(StaffNoticeboardDto staffNoticeboardDto) {
+	public void StaffboardText(StaffboardDto staffboardDto) {
 		
-		staffboardSqlMapper.insertStaffboardText(staffNoticeboardDto);
+		staffboardSqlMapper.insertStaffboardText(staffboardDto);
 	}
 	
 	public List<Map<String, Object>> getBoardContentsInfo() {
 		
 		List<Map<String, Object>> list = new ArrayList<>();
 		
-		List<StaffNoticeboardDto> contentsDtolist = staffboardSqlMapper.selectBoardContentsInfo();
+		List<StaffboardDto> contentsDtolist = staffboardSqlMapper.selectBoardContentsInfo();
 		
-		for(StaffNoticeboardDto staffNoticeboardDto : contentsDtolist) {
-			int userPk = staffNoticeboardDto.getStaff_pk();
+		for(StaffboardDto staffboardDto : contentsDtolist) {
+			int userPk = staffboardDto.getStaff_pk();
 			StaffInfoDto staffInfoDto = staffboardSqlMapper.selectStaffInfo(userPk);
 			
 			Map<String, Object> map = new HashMap<>();
-			map.put("staffNoticeboardDto", staffNoticeboardDto);
+			map.put("staffNoticeboardDto", staffboardDto);
 			map.put("staffInfoDto", staffInfoDto);
 			
 			list.add(map);	
@@ -44,11 +44,11 @@ public class StaffboardServiceImpl {
 		return list;
 	}
 	
-	public Map<String, Object> readContentsDetailInfo(int staff_noticeboard_pk) {
+	public Map<String, Object> readContentsDetailInfo(int staffboard_pk) {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		StaffNoticeboardDto noticeboardDto = staffboardSqlMapper.selectContentsDetailInfo(staff_noticeboard_pk);
+		StaffboardDto noticeboardDto = staffboardSqlMapper.selectContentsDetailInfo(staffboard_pk);
 		int userPk = noticeboardDto.getStaff_pk();
 		StaffInfoDto staffInfoDto = staffboardSqlMapper.selectStaffInfo(userPk);
 		
@@ -58,15 +58,15 @@ public class StaffboardServiceImpl {
 		return map;
 	}
 	
-	public void createTextReadCount(int staff_noticeboard_pk) {
-		staffboardSqlMapper.updateTextReadCount(staff_noticeboard_pk);
+	public void createTextReadCount(int staffboard_pk) {
+		staffboardSqlMapper.updateTextReadCount(staffboard_pk);
 	}
 	
-	public void removeText(int staff_noticeboard_pk) {
-		staffboardSqlMapper.deleteText(staff_noticeboard_pk);
+	public void removeText(int staffboard_pk) {
+		staffboardSqlMapper.deleteText(staffboard_pk);
 	}
-	public void modifyTextPage(StaffNoticeboardDto staffNoticeboardDto) {
-		staffboardSqlMapper.updateModifyText(staffNoticeboardDto);
+	public void modifyTextPage(StaffboardDto staffboardDto) {
+		staffboardSqlMapper.updateModifyText(staffboardDto);
 	}
 	
 }
