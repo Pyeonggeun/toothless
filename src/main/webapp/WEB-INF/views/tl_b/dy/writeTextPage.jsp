@@ -31,7 +31,7 @@
                                     <br>
                                     <input type="submit" value="작성완료">
                                     </form>
-                                    <button type="button" onclick="location.href='./staffNoticeboardPage'">취소</button>
+                                    <button type="button" onclick="location.href='./staffboardPage'">취소</button>
                                     
                                 </div>
                             </div>

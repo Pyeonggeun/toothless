@@ -7,7 +7,7 @@ import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 
 public interface StaffboardSqlMapper {
 
-	public void insertStaffboardText(StaffboardDto staffNoticeboardDto);
+	public void insertStaffboardText(StaffboardDto staffboardDto);
 	
 	public List<StaffboardDto> selectBoardContentsInfo();
 

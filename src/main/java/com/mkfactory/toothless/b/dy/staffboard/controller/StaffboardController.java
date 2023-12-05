@@ -22,14 +22,14 @@ public class StaffboardController {
 	private StaffboardServiceImpl staffboardService;
 	
 	//교직원용 게시판 페이지
-	@RequestMapping("staffNoticeboardPage")
-	public String staffNoticeboardPage(Model model) {
+	@RequestMapping("staffboardPage")
+	public String staffboardPage(Model model) {
 		
 		List<Map<String, Object>> staffboardList = staffboardService.getBoardContentsInfo();
 		
 		model.addAttribute("list", staffboardList);
 		
-		return "tl_b/dy/staffNoticeboardPage";
+		return "tl_b/dy/staffboardPage";
 	}
 	
 	//글쓰기
@@ -53,16 +53,16 @@ public class StaffboardController {
 		
 		staffboardService.StaffboardText(params);
 		
-		return "redirect:./staffNoticeboardPage";
+		return "redirect:./staffboardPage";
 	}
 
 	//작성 글 보기
 	@RequestMapping("readTextPage")
-	public String readTextPage(Model model, int staff_noticeboard_pk) {
+	public String readTextPage(Model model, int staffboard_pk) {
 		
-		staffboardService.createTextReadCount(staff_noticeboard_pk);
+		staffboardService.createTextReadCount(staffboard_pk);
 		
-		Map<String, Object> readText = staffboardService.readContentsDetailInfo(staff_noticeboard_pk);
+		Map<String, Object> readText = staffboardService.readContentsDetailInfo(staffboard_pk);
 		
 		model.addAttribute("readText", readText);
 		
@@ -71,17 +71,17 @@ public class StaffboardController {
 	}
 	// 작성 글 삭제
 	@RequestMapping("deleteTextProcess")
-	public String deleteTextProcess(int staff_noticeboard_pk) {
+	public String deleteTextProcess(int staffboard_pk) {
 		
-		staffboardService.removeText(staff_noticeboard_pk);
+		staffboardService.removeText(staffboard_pk);
 		
-		return "redirect:./staffNoticeboardPage";
+		return "redirect:./staffboardPage";
 	}
 	// 작성 글 수정하기
 	@RequestMapping("modifyTextPage")
-	public String modifyTextPage(Model model, int staff_noticeboard_pk) {
+	public String modifyTextPage(Model model, int staffboard_pk) {
 		
-		Map<String, Object> readText = staffboardService.readContentsDetailInfo(staff_noticeboard_pk);
+		Map<String, Object> readText = staffboardService.readContentsDetailInfo(staffboard_pk);
 		
 		model.addAttribute("readText", readText);
 		
@@ -93,7 +93,7 @@ public class StaffboardController {
 		
 		staffboardService.modifyTextPage(params);
 		
-		return "redirect:./readTextPage?staff_noticeboard_pk="+params.getStaffboard_pk();
+		return "redirect:./readTextPage?staffboard_pk="+params.getStaffboard_pk();
 	}
 	
 	
