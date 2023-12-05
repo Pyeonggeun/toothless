@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -69,7 +70,8 @@
                         <span style="color: black;">합격안내</span>         
                     </div>
                 </div>
-              </div><!-- ㅋ-->
+            </div>
+            <!-- 왼쪽 목차 끝 -->
             <div class="col">
                 <div class="row">
                     <div class="col">
@@ -89,7 +91,7 @@
                     <div class="col">
                     	<div class="row mt-2">
                     		<div class="col py-3 text-center fw-bold" style="font-size: 1.5em;">
-                    			${joinDormInfoBySemesterPk.semesterDto.semester_year }년도 ${joinDormInfoBySemesterPk.semesterDto.semester } 기숙사 입사 신청 안내
+                    			${thisSemesterJoinDormInfo.thisSemesterDto.semester_year }년도 ${thisSemesterJoinDormInfo.thisSemesterDto.semester } 기숙사 입사 신청 안내
                     		</div>
                     	</div>
                         <div class="row mt-5">
@@ -99,17 +101,17 @@
                         </div>
                         <div class="row mt-1">
 							<div class="col" style="font-size: 1.1em;">
-								${joinDormInfoBySemesterPk.joinDormInfoDto.title }
+								${thisSemesterJoinDormInfo.joinDormInfoDto.title }
 							</div>             
                         </div>
                         <div class="row mt-3">
 							<div class="col fw-bold" style="font-size: 1.2em;">
-								입사내용
+								상세 내용
 							</div>             
                         </div>
                         <div class="row mt-1">
 							<div class="col" style="font-size: 1.1em;">
-								${joinDormInfoBySemesterPk.joinDormInfoDto.detail_expln }
+								${thisSemesterJoinDormInfo.joinDormInfoDto.detail_expln }
 							</div>             
                         </div>
                         <div class="row mt-3">
@@ -119,7 +121,7 @@
                         </div>
                         <div class="row mt-1">
 							<div class="col" style="font-size: 1.1em;">
-								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.apply_start_date }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.apply_end_date }" pattern="yyyy-MM-dd"/>
+								<fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.apply_start_date }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.apply_end_date }" pattern="yyyy-MM-dd"/>
 							</div>             
                         </div>
                         <div class="row mt-3">
@@ -129,7 +131,7 @@
                         </div>
                         <div class="row mt-1">
 							<div class="col" style="font-size: 1.1em;">
-								${joinDormInfoBySemesterPk.joinDormInfoDto.selection_amount }
+								${thisSemesterJoinDormInfo.joinDormInfoDto.selection_amount }
 							</div>             
                         </div>
                         <div class="row mt-3">
@@ -139,18 +141,17 @@
                         </div>
                         <div class="row mt-1">
 							<div class="col" style="font-size: 1.1em;">
-								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.pass_anncm_date }" pattern="yyyy-MM-dd"/>
+								<fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.pass_anncm_date }" pattern="yyyy-MM-dd"/>
 							</div>             
                         </div>
                         <div class="row mt-3">
 							<div class="col fw-bold" style="font-size: 1.2em;">
-								
 								관비납부일
 							</div>             
                         </div>
                         <div class="row mt-1">
 							<div class="col" style="font-size: 1.1em;">
-								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.payment_start_date }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.payment_end_date }" pattern="yyyy-MM-dd"/>
+								<fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.payment_start_date }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.payment_end_date }" pattern="yyyy-MM-dd"/>
 							</div>             
                         </div>
                         <div class="row mt-3">
@@ -160,7 +161,7 @@
                         </div>
                         <div class="row mt-1">
 							<div class="col" style="font-size: 1.1em;">
-								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.asgnm_anncm_date }" pattern="yyyy-MM-dd"/>
+								<fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.asgnm_anncm_date }" pattern="yyyy-MM-dd"/>
 							</div>             
                         </div>
                         <div class="row mt-3">
@@ -170,29 +171,38 @@
                         </div>
                         <div class="row mt-1">
 							<div class="col" style="font-size: 1.1em;">
-								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.join_dorm_date }" pattern="yyyy-MM-dd"/>
+								<fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.join_dorm_date }" pattern="yyyy-MM-dd"/>
 							</div>             
                         </div>
+                        
+                        <!-- 입사신청 버튼 -->
+			            <div class="row my-5 pb-5">	
+			                <div class="col px-0 text-end">
+			                	<c:choose>
+			                		<c:when test="${!empty sessionStudentInfo }">
+			                			<a href="./mj_applyDormByInfoPage">
+					                    <button type="button" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">입사 신청</button>
+					                	</a>
+			                		</c:when>
+			                		<c:otherwise>
+			                			<a href="./loginPage">
+					                    <button type="button" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">입사 신청</button>
+					                	</a>
+			                		</c:otherwise>
+			                	</c:choose>
+			                	
+			                </div>                    
+			            </div>
+                        
                     </div>
-                </div><!-- 여기까지-->
+            	</div>
+              </div>
+                <!-- 공고 끝 -->
+                
             </div>
-            </div>
+            
         </div>
-        <div class="row my-5">
-            <div class="col">
-
-            </div>
-        </div>
-        <div class="row my-5">
-            <div class="col">
-
-            </div>
-        </div>
-        <div class="row my-5">
-            <div class="col">
-
-            </div>
-        </div>
+        
         <!-- footer 부분-->
         <div class="row" style="background-color: #181C23;">
             <div class="col-2 pt-4">

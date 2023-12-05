@@ -11,7 +11,7 @@
 	<!-- 카테고리 + 물품 join -->
 	 
 	<select id="selectItemJoinCategoryList" resultType="map">
-		SELECT tbii.ITEM_PK AS ITEM_PK  , TBIC.NAME AS cat_NAME , TBII.NAME AS item_name, tbii.QUANTITY as quantity, tbii.CREATED_AT as created_at  FROM TL_B_ITEM_INFO tbii
+		SELECT tbii.ITEM_PK AS ITEM_PK  , TBIC.NAME AS cat_NAME , TBII.NAME AS item_name, tbii.CREATED_AT as created_at  FROM TL_B_ITEM_INFO tbii
 		INNER JOIN TL_B_ITEM_CAT tbic 
 		ON tbii.ITEM_CAT_PK = tbic.ITEM_CAT_PK
 	</select>
@@ -30,7 +30,6 @@
 			#{name},
 			#{img_link},
 			#{content},
-			#{quantity},
 			sysdate
 		)
 	</insert>
@@ -57,7 +56,7 @@
 	<!-- 아이템pk별 아이템 수정 -->
 	<update id="updateItemByItemPk">
 		UPDATE TL_B_ITEM_INFO
-		SET ITEM_CAT_PK = #{item_cat_pk}, NAME =#{name}, IMG_LINK = #{img_link}, CONTENT = #{content}, quantity = #{quantity}
+		SET ITEM_CAT_PK = #{item_cat_pk}, NAME =#{name}, IMG_LINK = #{img_link}, CONTENT = #{content}
 		WHERE ITEM_PK = #{item_pk}
 	</update>
 
@@ -67,9 +66,44 @@
 		WHERE ITEM_PK = #{item_pk}
 	</delete>
 
+	
+	<!-- 신청 내역 리스트 쿼리 -->
+	<select id="selectItemApplyList" resultType="map">
+		SELECT TJSI.STUDENT_ID AS STUDENT_ID,
+			   tbii.ITEM_PK AS ITEM_PK, 
+			   tbic.NAME AS CAT_NAME, 
+			   tbii.NAME AS ITEM_NAME, 
+			   tbia.REASON AS REASON, 
+			   tbia.RENTAL_DATE AS RENTAL_DATE,
+			   tbia.RETURN_DATE AS RETURN_DATE,
+			   tbia.STATUS AS STATUS,
+			   tbia.ITEM_APPLY_PK AS ITEM_APPLY_PK
+		FROM TL_B_ITEM_INFO tbii
+		INNER JOIN TL_B_ITEM_CAT tbic 
+		ON tbii.ITEM_CAT_PK = tbic.ITEM_CAT_PK 
+		INNER JOIN TL_B_ITEM_APPLY tbia 
+		ON tbii.ITEM_PK = tbia.ITEM_PK 
+		INNER JOIN TL_JIC_STUDENT_INFO tjsi 
+		ON TBIA.STUDENT_PK = TJSI.STUDENT_PK
+	</select>
 
-
-
-
-
+	<!-- 물품 대여했을 때,신청 테이블 status 업데이트 -->
+	<update id="updateRentalStatus">
+		UPDATE TL_B_ITEM_APPLY 
+		SET STATUS = 'Y'
+		WHERE ITEM_APPLY_PK = #{item_apply_pk}
+	</update>
+	
+	<!-- 물품 반납했을 때,신청 테이블 status 업데이트 -->
+	<update id="updateReturnStatus">
+		UPDATE TL_B_ITEM_APPLY 
+		SET STATUS = 'N'
+		WHERE ITEM_APPLY_PK = #{item_apply_pk}
+	</update>
+	
+	<delete id="deleteItemApply">
+		DELETE FROM TL_B_ITEM_APPLY 
+		WHERE ITEM_APPLY_PK = #{item_apply_pk}
+	</delete>
+	
 </mapper>

@@ -1,6 +1,5 @@
 package com.mkfactory.toothless.donot.touch.mapper;
 
-import java.util.List;
 
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;

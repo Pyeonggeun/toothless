@@ -24,7 +24,7 @@
 </head>
 <body>
 	
-	<div class="container-fluid">
+	<div class="container">
 	
 		<div class="row border-bottom">
 			<div class="col-10"></div>
@@ -59,7 +59,7 @@
 							</button>
 							<ul class="dropdown-menu">
 							    <li><a class="dropdown-item" href="../registerCounselor/registerPage">상담원 등록</a></li>
-						   		<li><a class="dropdown-item" href="../registerCounselor/counselorDetail">상담원 조회</a></li>
+						   		<li><a class="dropdown-item" href="../registerCounselor/counselorInfo">상담원 조회</a></li>
 						   		<li><a class="dropdown-item" href="#">상담원 뭐시기</a></li>
 							</ul>
 						</div>
@@ -83,7 +83,7 @@
 					</div>
 				</div>
 				
-				<form action="./registerProcess" class="needs-validation was-validated" method="post" >				
+				<form action="./registerProcess" class="needs-validation was-validated" method="post" enctype="multipart/form-data">				
 				<div class="row mt-5">
 					<div class="col">
 					
@@ -128,7 +128,9 @@
 									</div>
 								</div>								
 							</div>
-							
+						</div>
+						
+						<div class="row mt-3">	
 							<!-- 상담원카테고리 -->
 							<div class="col-auto">
 								<div class="row">
@@ -152,9 +154,7 @@
 									    </div>	
 									</div>
 								</div>								
-							</div>
-							
-							
+							</div>							
 						</div>	
 						
 						<!-- 상담사 이름/나이/성별 -->
@@ -206,12 +206,12 @@
 										<label for="gender" class="form-label">성별</label>
 									</div>
 								</div>
-								<div class="row">
+								<div class="row ">
 									<div class="col">
-										<input name="gender" type="radio" id="Male" class="form-check-input" value="M" checked>
-										<label class="form-check-label" for="Male">남</label>
-										<input name="gender" type="radio" id="Female" class="form-check-input" value="F">
-										<label class="form-check-label" for="Female">여</label>
+										<input name="gender" type="radio" id="Male" class="form-check-input align-middle" value="M" checked>
+										<label class="form-check-label align-middle" for="Male">남</label>
+										<input name="gender" type="radio" id="Female" class="form-check-input align-middle" value="F">
+										<label class="form-check-label align-middle" for="Female">여</label>
 									</div>
 								</div>								
 							</div>
@@ -311,12 +311,12 @@
 							<div class="col">
 								<div class="row">
 									<div class="col">
-										<label for="profileImage" class="form-label">증명사진</label>
+										<label for="profile_Image" class="form-label">증명사진</label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-auto">
-										<input name="profileImage" type="file" id="profileImage" class="form-control">
+										<input name="profile_Image" type="file" id="profile_Image" class="form-control">
 									</div>
 									<!-- <div class="valid-feedback">
 								    	Check!
@@ -324,6 +324,22 @@
 								    <div class="invalid-feedback">
 								    	경력사항은 필수 입력 항목입니다.
 								    </div> -->									
+								</div>
+							</div>
+						</div>
+						
+						<!-- 자격증 -->
+						<div class="row mt-3">
+							<div class="col">
+								<div class="row">
+									<div class="col">
+										<label for="license" class="form-label">자격증</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-auto">
+										<input name="license" accept="image/*" type="file" id="license" class="form-control" multiple>
+									</div>																	
 								</div>
 							</div>
 						</div>
@@ -344,6 +360,6 @@
 		</div>
 	</div>
 
-	
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>	
 </body>
 </html>

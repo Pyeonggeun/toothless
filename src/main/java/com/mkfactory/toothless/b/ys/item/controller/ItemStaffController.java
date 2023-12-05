@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mkfactory.toothless.b.dto.ItemApplyDto;
 import com.mkfactory.toothless.b.dto.ItemCatDto;
 import com.mkfactory.toothless.b.dto.ItemDto;
 import com.mkfactory.toothless.b.ys.item.service.ItemStaffServiceImpl;
@@ -164,6 +165,33 @@ public class ItemStaffController {
 		itemStaffService.deleteItem(item_pk);
 		
 		return "redirect:./itemListAndRegistPage";
+	}
+	
+	@RequestMapping("staffItemApplyListPage")
+	public String staffItemApplyListPage(Model model) {
+		
+		model.addAttribute("itemApplyList",itemStaffService.getItemApplyList());
+		
+		return "tl_b/ys/staffItemApplyListPage";
+	}
+	
+	@RequestMapping("rentalProcess")
+	public String rentalProcess(int item_apply_pk) {
+		
+		
+		itemStaffService.updateItemRentalStatus(item_apply_pk);
+		
+		
+		return "redirect:./staffItemApplyListPage";
+	}
+	
+	@RequestMapping("returnProcess")
+	public String returnProcess(int item_apply_pk) {
+		
+		itemStaffService.updateItemReturnStatus(item_apply_pk);
+		itemStaffService.deleteItemApply(item_apply_pk);
+		
+		return "redirect:./staffItemApplyListPage";
 	}
 }
 

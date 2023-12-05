@@ -22,5 +22,30 @@
 	<select id="selectStudentInfo" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
 		SELECT * FROM TL_JIC_STUDENT_INFO WHERE STUDENT_PK = #{STUDENT_PK}
 	</select>
+	
+	<select id = "selectPostById" resultType="com.mkfactory.toothless.e.dto.FreeboardDto">
+		SELECT * FROM cp_student_freeboard WHERE id = #{id}
+	</select>
+	
+	<update id="readCount">
+		UPDATE cp_student_freeboard
+		SET read_count = read_count +1
+		WHERE id = #{id}
+	</update>
+	
+	<select id="selectByStudentId" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO
+		WHERE student_pk = #{student_pk}
+	</select>
+
+	<delete id="deleteFreeboardPost">
+		DELETE FROM cp_student_freeboard WHERE id= #{id}
+	</delete>
+	
+	<update id="updateFreeboardPost">
+		UPDATE cp_student_freeboard 
+		SET title= #{title}, text= #{text}
+		WHERE id= #{id}
+	</update>
 
 </mapper>

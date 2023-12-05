@@ -14,6 +14,14 @@ public interface FreeboardCounselSqlMapper {
 	
 	public StudentInfoDto selectStudentInfo(int student_pk);
 	
+	public FreeboardDto selectPostById(int id);
 	
+	public void readCount(int id);
+	
+	public StudentInfoDto selectByStudentId(int student_pk);
+	
+	public void deleteFreeboardPost(int id);
+	
+	public void updateFreeboardPost(FreeboardDto paraFreeboardDto);
 	
 }

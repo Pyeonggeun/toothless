@@ -113,9 +113,19 @@
 	</select>
 	
 	<select id="selectStudnetList" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
-		SELECT * FROM TL_JIC_STUDENT_INFO
-		ORDER BY STUDENT_PK DESC
+		SELECT tjsi3.* FROM TL_JIC_STUDENT_INFO tjsi3 
+		WHERE STUDENT_PK  IN (SELECT tjsi2.student_pk FROM (SELECT tjsi.*, rownum rnum FROM TL_JIC_STUDENT_INFO tjsi
+		ORDER BY STUDENT_PK DESC) tjsi2
+		<![CDATA[
+		WHERE tjsi2.Rnum >= (#{pageNum}-1)*10+1 AND tjsi2.rnum <= #{pageNum}*10)
+		]]>
 	</select>
+	<select id="totalPageCount" resultType="int">
+		SELECT CEIL(count(*)/10) FROM TL_JIC_STUDENT_INFO
+	</select>
+	
+	
+		
 	
 	
 	

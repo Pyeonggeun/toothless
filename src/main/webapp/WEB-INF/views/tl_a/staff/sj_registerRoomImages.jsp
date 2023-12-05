@@ -31,7 +31,7 @@
 			<!-- 카테고리명 -->
 			<div class="row my-3">
 				<div class="col fs-4 fw-bold">
-					동 정보 등록 - 양식만 복붙해서 넣어놨오. 필요한거 수정/추가하면될듯여 ㅎㅎ 감사함니다
+					호실별 이미지 등록 - 양식만 복붙해서 넣어놨오. 필요한거 수정/추가하면될듯여 ㅎㅎ 감사함니다
 				</div>
 			</div>
 			
@@ -49,10 +49,8 @@
 					</div>
 					<div class="row">
 						<div class="col fs-6 fw-bold my-1">
-							<c:forEach items="${dormAmount }" var="da">
-								<input type="radio" name="dorm_amount_pk" value="${da.dorm_amount_pk }">${da.dorm_amount }인실
-
-							</c:forEach>
+							<input type="radio" name="dorm_amount" value="2">2인실
+							<input type="radio" name="dorm_amount" value="4">4인실
 						</div>
 					</div>
 					

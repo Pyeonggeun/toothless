@@ -34,6 +34,13 @@
 		WHERE student_pk = #{student_pk}
 	</select>
 	
+	<!-- 인턴쉽 코스 Pk로 인턴쉽 과정 진행중인 학생목록 조회 -->
+	<select id="getStudentInternByCoursePk" resultType="com.mkfactory.toothless.c.dto.AjdksStudentInternDto">
+		SELECT * FROM TL_C_STUDENT_INTERN
+		WHERE internship_course_pk = #{internship_course_pk}
+	</select>
+	
+	<!-- 학생 만족도 조사 -->
 	<insert id="insertInternSatisfaction">
 		INSERT INTO tl_c_intern_satisfaction VALUES(
 			tl_c_intern_satisfaction_seq.nextval,
@@ -60,6 +67,31 @@
 		SELECT * FROM TL_JIC_DEPARTMENT_CATEGORY
 		WHERE department_pk = #{department_pk}
 	</select>
+
+	<!-- 해당 실습과정에 참여중인 학생-->
+	<!-- 몇명인지 -->
+	<select id="countInternBycoursePk" resultType="int">
+		SELECT COUNT(*) FROM tl_c_student_intern
+		WHERE internship_course_pk = #{internship_course_pk}
+	</select>
+
+
+
+
+
+
+	<!-- 여러 학기 출력 -->
+	<select id="forSelectSemester" resultType="com.mkfactory.toothless.donot.touch.dto.SemesterInfoDto">
+		SELECT * FROM TL_JIC_SEMESTER_INFO
+	</select>
+
+	<!-- 전체 과 출력 -->
+	<select id="forSelectDepartment" resultType="com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto">
+		SELECT * FROM TL_JIC_DEPARTMENT_CATEGORY
+	</select>
+
+
+
 
 
 

@@ -1,11 +1,14 @@
 package com.mkfactory.toothless.c.guntaek.controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
 import com.mkfactory.toothless.c.guntaek.service.GuntaekStudentServiceImpl;
@@ -18,26 +21,39 @@ public class GuntaekStudentController {
 	private GuntaekStudentServiceImpl guntaekStudentService;
 	
 	
-	// 이력서 포워딩 
+	@RequestMapping("ajdksGuntaekStudentMainPage")
+	public String ajdksGuntaekStudentMainPage() {
+		return "tl_c/guntaek/ajdksGuntaekStudentMainPage";
+	}
+	
+	// 이력서 포워딩 (내용이 안채워져 있는)
 	@RequestMapping("ajdksRegisterSelfIntroduction")
-	public String ajdksRegisterSelfIntroduction(HttpSession session, Model model){
+	public String ajdksRegisterSelfIntroduction(HttpSession session, Model model, AjdksSelfIntroductionDto ajdksSelfIntroductionDto
 		
+			){
+	
 		StudentInfoDto loginUser = (StudentInfoDto) session.getAttribute("sessionStudentInfo");
 		// 현재 로그인 되어있는 학생 Dto
-
-		int introductionCount = guntaekStudentService.
-				countSelfIntroduction(loginUser.getStudent_pk());
+		int introductionCount = guntaekStudentService.countSelfIntroduction(loginUser.getStudent_pk());
 		// 현재 로그인 한 학생의 이력서 개수 가져오기
-
 		
-	
+		// 특정 학생키로 SelfIntroductiondto 가져오긴
+		guntaekStudentService.getselfIntroductionDto(loginUser.getStudent_pk());
+		
+		model.addAttribute("student_pk",loginUser.getStudent_pk());
+		// 현재 학생이 작성한 이력서 Dto 가져온 후 model에 넣어줬다.
 		model.addAttribute("selfIntroductionDto",
 				guntaekStudentService.getselfIntroductionDto(loginUser.getStudent_pk()));
-		// 현재 학생이 작성한 이력서 Dto 가져온 후 model에 넣어줬다.
-		
-		
-		
 		model.addAttribute("introductionCount", introductionCount);
+		
+		
+		// 현재 로그인 한 학생의 DTO를 JSP에 넣어줬다.
+		// 이제 JSP에서 다시 값을 가져오고
+
+		AjdksSelfIntroductionDto studentIntroductionDto = guntaekStudentService.getselfIntroductionDto(ajdksSelfIntroductionDto.getStudent_pk());
+		
+		
+		model.addAttribute("studentIntroductionDto", studentIntroductionDto);
 		
 		return "tl_c/guntaek/ajdksRegisterSelfIntroduction";
 	}

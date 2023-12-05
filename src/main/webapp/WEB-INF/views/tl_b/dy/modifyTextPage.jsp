@@ -21,16 +21,16 @@
                                 <div class="col">
                                     <h1>작성 글 수정</h1>
                                     <form action="./modifyTextProcess" method="post">
-                                    제목 <input name="title" type="text" value="${readText.noticeboardDto.title }">
+                                    제목 <input name="title" type="text" value="${readText.staffboardDto.title }">
                                     <br>
                                     작성자 ${sessionStaffInfo.name}
                                     <br>
                                     내용 <br>
-                                    <textarea name="content" rows='20' cols='60'>${readText.noticeboardDto.content}</textarea>
-                                    <input name="staff_noticeboard_pk" type="hidden" value="${readText.noticeboardDto.staff_noticeboard_pk }">
+                                    <textarea name="content" rows='20' cols='60'>${readText.staffboardDto.content}</textarea>
+                                    <input name="staffboard_pk" type="hidden" value="${readText.staffboardDto.staffboard_pk }">
                                     <input type="submit" value="수정완료">
                                     </form>
-                                   <!--  <button type="button" onclick="location.href='./readTextPage?staff_noticeboard_pk=${readText.noticeboardDto.staff_noticeboard_pk }'">취소</button> -->
+                                   <!--  <button type="button" onclick="location.href='./readTextPage?staffboard_pk=${readText.staffboardDto.staffboard_pk }'">취소</button> -->
                                 </div>
                             </div>
                         </div>
