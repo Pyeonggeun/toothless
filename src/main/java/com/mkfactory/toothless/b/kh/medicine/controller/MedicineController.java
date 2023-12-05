@@ -1,9 +1,11 @@
 package com.mkfactory.toothless.b.kh.medicine.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,7 +82,28 @@ public class MedicineController {
 	@RequestMapping("medicineAddProcess")
 	public String medicineAddProcess(MedicineAddDto medicineAddDto) {
 		
+		//add pk select로 seq올리는 코드 필요
+		
 		medicineService.InsertMedicineAdd(medicineAddDto);
+		
+		
+		//입고후 계산을 위해서 재고관리에도 넣어줌
+//		MedicineInventoryDto medicineInventoryDto = new MedicineInventoryDto();
+//		
+//		medicineInventoryDto.setMedicine_code_pk(medicineAddDto.getMedicine_code_pk());
+//		medicineInventoryDto.setStaff_pk(medicineAddDto.getStaff_pk());
+//		//입고된 약품전체 수량
+//		int addTotalQuantity = medicineService.checkTotalAddQuantity(medicineAddDto.getMedicine_code_pk());
+//		//입고후 약품재고 수량
+//		MedicineInventoryDto justQuantity = medicineService.getInventoryInfoByMedicinePk(medicineAddDto.getMedicine_code_pk());
+//		int inventoryQuantity =	justQuantity.getQuantity();
+//		int result = addTotalQuantity + inventoryQuantity;
+//		medicineInventoryDto.setQuantity(result);
+//		
+//		//mgmt, reason은 null로 들어가나?
+//		if(medicineInventoryDto.getReason() == null) {
+//			medicineInventoryDto.setReason("입고");
+//		}
 		
 		return "redirect:./medicineAdd";
 	}
@@ -91,6 +114,7 @@ public class MedicineController {
 			@RequestParam(required = false, defaultValue = "0")int medicine_code_pk,
 			Model model) {
 		
+		//의약품 목록 + 자동으로 코드 작성용
 		List<MedicineCodeDto> medicineList = medicineService.getAllMedicineInfo();
 		model.addAttribute("medicineList",medicineList);
 		
@@ -100,13 +124,80 @@ public class MedicineController {
 		}else {
 			model.addAttribute("medicine_code_pk", medicine_code_pk);
 		}
-		
-		List<MedicineInventoryDto> inventoryList = medicineService.getAllInventoryInfo();
-		model.addAttribute("inventoryList",inventoryList);
+		//재고 정보 모두 보내기
+		List<Map<String, Object>> allInventoryInfo = medicineService.getAllInventoryInfo();
+		model.addAttribute("allInventoryInfo", allInventoryInfo);
 		
 		//약 카테고리 가져오기
 		List<MedicineMgmtCatDto> MedicineMgmtCatDtoList = medicineService.getAllMedicineMgmtCat();
 		model.addAttribute("MedicineMgmtCatDtoList",MedicineMgmtCatDtoList);
+		
+		//현재수량 계산
+		
+		List<Map<String, Object>> inventoryStatisticsList = medicineService.inventoryStatistics();
+		
+		model.addAttribute("inventoryStatisticsList", inventoryStatisticsList);
+		
+		List<Map<String, Object>> inventoryMedicineStatisticsList = medicineService.inventoryMedicineStatistics(medicine_code_pk);
+		
+//		//여기 첫번째만 합계 구할꺼임
+//		
+//		e.put("nowSum", nowSum);
+		
+		Integer sum = 0;
+		
+		for( int i = 0; i < inventoryMedicineStatisticsList.size(); i++ ) {
+			
+			Map<String, Object> map =  inventoryMedicineStatisticsList.get(i);
+			map.get("QUANTITY");
+//			System.out.println(map.get("QUANTITY"));
+			Integer quantity = Integer.valueOf(String.valueOf(map.get("QUANTITY")));
+			if("처방".equals(map.get("M_TYPE"))){
+				sum -= quantity;
+			}else {
+				sum += quantity;
+			}
+			map.put("sum", sum);
+			
+		}
+		
+		model.addAttribute("inventoryMedicineStatisticsList",inventoryMedicineStatisticsList);
+		
+//		for(Map<String, Object> e : inventoryStatisticsList) {
+//			
+//			Integer mdPk = Integer.valueOf(String.valueOf(e.get("MEDICINE_CODE_PK")));
+//			
+//			List<Map<String, Object>> inventoryMedicineStatisticsList = medicineService.inventoryMedicineStatistics(mdPk);
+//			//여기 첫번째만 합계 구할꺼임
+//			
+////			e.put("nowSum", nowSum);
+//			
+//			Integer sum = 0;
+//			
+//			for( int i = 0; i < inventoryMedicineStatisticsList.size() ; i++ ) {
+//				
+//				Map<String, Object> map =  inventoryMedicineStatisticsList.get(i);
+//				map.get("QUANTITY");
+////				System.out.println(map.get("QUANTITY"));
+//				Integer quantity = Integer.valueOf(String.valueOf(map.get("QUANTITY")));
+//				if("처방".equals(map.get("M_TYPE"))){
+//					sum -= quantity;
+//				}else {
+//					sum += quantity;
+//				}
+//				System.out.println(sum);
+//				
+//			}
+//
+//		}
+		
+//		 모든 엔트리 출력
+//	      Map<String, Object> testMap = inventoryStatisticsList.get(0);
+//	      for (Map.Entry<String, Object> entry : testMap.entrySet()) {
+//	          String key = entry.getKey();
+//	          Object value = entry.getValue();
+//	          System.out.println("Key: " + key + ", Value: " + value);
+//	      }
 		
 		return "tl_b/kh/medicineInventory";
 	}
@@ -114,7 +205,7 @@ public class MedicineController {
 	@RequestMapping("inventoryModifyProcess")
 	public String inventoryModify(MedicineInventoryDto medicineInventoryDto) { 
 		
-		
+		medicineService.insertModifiedInventory(medicineInventoryDto);
 		
 		return "redirect:./medicineInventory";
 	}

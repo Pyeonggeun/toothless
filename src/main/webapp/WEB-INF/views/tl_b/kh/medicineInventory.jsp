@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -219,7 +220,7 @@
                                                     </div>
                                                 </div>
                                                 
-                                                <form action="" method="get">
+                                                <form action="./inventoryModifyProcess" method="get">
                                                 <div class="row ">
                                                     <div class="col">
                                                     	<div class="btn-group">
@@ -293,29 +294,65 @@
                                                               <tr>
                                                                 <th scope="col">약품코드</th>
                                                                 <th scope="col">의약품명</th>
+                                                                <th scope="col">변동사유</th>
                                                                 <th scope="col">변동수량</th>
-                                                                <th scope="col">현재수량</th>
-                                                                <th scope="col">변경사유</th>
-                                                                <th scope="col">비고</th>
+																
+																<c:choose>                                                                
+                                                                <c:when test="${medicine_code_pk == null }">
+                                                            	</c:when>
+                                                            	<c:otherwise>
+                                                            		<th scope="col">현재수량</th>
+                                                            	</c:otherwise>
+                                                            	</c:choose>
                                                                 <th scope="col">재고관리자</th>
                                                                 <th scope="col">재고 변경일</th>
                                                               </tr>
                                                             </thead>
                                                             <tbody>
+                                                            <c:choose>
+                                                            	<c:when test="${medicine_code_pk == null }">
+                                                            		<c:forEach items="${inventoryStatisticsList}" var="e">
+		                                                              <tr>
+		                                                                <td>${e.MEDICINE_CODE_PK}</td>
+		                                                                <td>${e.MEDI_NAME}</td>
+		                                                                <td>${e.M_TYPE}</td>
+		                                                                <c:choose>
+		                                                                	<c:when test="${e.M_TYPE eq '처방'}">
+		                                                        	            <td>${-e.QUANTITY}</td>
+		                                                                	</c:when>
+		                                                                	<c:otherwise>
+		                                                                		<td>${e.QUANTITY}</td>
+		                                                                	</c:otherwise>
+		                                                                </c:choose>
+		                                                                <td>${e.M_NAME}</td>
+		                                                                <td><fmt:formatDate value="${e.DATE}"/> </td>
+		                                                              </tr>
+		                                                             </c:forEach>
+                                                            	</c:when>
+	                                                            <c:otherwise>
+    																<c:forEach items="${inventoryMedicineStatisticsList}" var="e">
+		                                                              <tr>
+		                                                                <td>${e.MEDICINE_CODE_PK}</td>
+		                                                                <td>${e.MEDI_NAME}</td>
+		                                                                <td>${e.M_TYPE}</td>
+		                                                                <c:choose>
+		                                                                	<c:when test="${e.M_TYPE eq '처방'}">
+		                                                        	            <td>${-e.QUANTITY}</td>
+		                                                                	</c:when>
+		                                                                	<c:otherwise>
+		                                                                		<td>${e.QUANTITY}</td>
+		                                                                	</c:otherwise>
+		                                                                </c:choose>
+		                                                                <td>${e.sum }</td>
+		                                                                <td>${e.M_NAME}</td>
+		                                                                <td><fmt:formatDate value="${e.DATE}"/> </td>
+		                                                              </tr>
+		                                                             </c:forEach>
+    	                                                        </c:otherwise>
+	                                                            
+                                                            </c:choose>
                                                             
-                                                            <c:forEach items="${inventoryList}" var="e">
-                                                              <tr>
-                                                                <td>안연고</td>
-                                                                <td>1개(변경)</td>
-                                                                <td>폐기</td>
-                                                                <td>망실</td>
-                                                                <td>조정</td>
-                                                                <td>사유</td>
-                                                                <td>재고관리자</td>
-                                                                <td>최근 변경일</td>
-                                                              </tr>
-                                                             </c:forEach>
-                                                              
+                                                             
                                                             </tbody>
                                                           </table>
                                                     </div>

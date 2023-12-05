@@ -96,19 +96,87 @@ public class MedicineServiceImpl {
 		
 	}
 	
-	//재고정보가져오기
-	public List<MedicineInventoryDto> getAllInventoryInfo(){
+	//재고정보가져오기 -> 수정시 
+	public List<Map<String, Object>> getAllInventoryInfo(){
 		
-		return medicineSqlMapper.selectAllInventoryInfo();
+		List<Map<String, Object>> allInventoryInfo = new ArrayList<Map<String,Object>>();
+		
+		//스태프 정보
+		List<MedicineInventoryDto> inventoryList = medicineSqlMapper.selectAllInventoryInfo();
+		
+		for (MedicineInventoryDto e : inventoryList) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			// 약품 정보 
+			map.put("medicineInfo", medicineSqlMapper.selectedMedicineInfoByMedicineCodePk(e.getMedicine_code_pk())); 
+			//관리 카테고리 정보
+			map.put("medicineMgmtCatInfo", medicineSqlMapper.selectedMedicineMgmtCatInfoByPk(e.getMedicine_mgmt_cat_pk())); 
+			//스태프 정보
+			map.put("staffInfo", medicineSqlMapper.selectedStaffInfoByStaffPk(e.getStaff_pk()));
+			//재고 정보
+			map.put("inventoryInfo", e);
+			
+			allInventoryInfo.add(map);
+			
+		}
+		
+		return allInventoryInfo;
 	}
 	//재고 관리 카테고리? 가져오기
 	public List<MedicineMgmtCatDto> getAllMedicineMgmtCat(){
 		
 		return medicineSqlMapper.selectAllMedicineMgmtCat();
+		
 	}
+	//재고 수정사항 넣기
+	public void insertModifiedInventory(MedicineInventoryDto medicineInventoryDto) {
+		
+		medicineSqlMapper.insertModifiedInventory(medicineInventoryDto);
+	}
+	//약품pk로 선택된 재고 Info
+	public MedicineInventoryDto getInventoryInfoByMedicinePk(int medicine_code_pk) {
+		
+		return medicineSqlMapper.selectedInventoryInfoByMedicinePk(medicine_code_pk);
+	}
+	
+	//현재수량계산
+	public int currentQuantityCalculate(int pk) {
+		
+		medicineSqlMapper.selectAllMedicineAddInfo();
+		//처방할때 -, 입고할때 + ,   (폐기,망실 - , 조정 + or -)
+		return 1;
+	}
+	//입고 수량 계산
+	public int checkTotalAddQuantity(int medicine_code_pk) {
+		
+		return medicineSqlMapper.checkTotalAddQuantity(medicine_code_pk);
+	}
+	
+	//재고 통계
+	public List<Map<String, Object>> inventoryStatistics(){
+		
+		return medicineSqlMapper.inventoryStatistics();
+	}
+	//특정 약품 재고 통계
+	public List<Map<String, Object>> inventoryMedicineStatistics(int medicine_code_pk){
+		
+		return medicineSqlMapper.inventoryMedicineStatistics(medicine_code_pk);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//재고체크용이였는데 안씀
 	public int checkInventoryInfo(int medicine_code_pk) {
 		
 		return medicineSqlMapper.countInventoryInfo(medicine_code_pk);
 	}
+	
+	
 }
