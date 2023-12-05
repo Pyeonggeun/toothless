@@ -32,6 +32,19 @@
 				${list.noticeBoardDto.text }
 			</div>
 		</div>
+		<div class="row">
+			<div class="col">
+				<a href="./noticeMainPage">목록으로..</a>
+			</div>
+		</div>
+		<div class="row">
+			<c:if test="${!empty sessionStaffInfo&&sessionStaffInfo.staff_pk==list.noticeBoardDto.staff_pk}">
+				<div class="col">
+					<a href="./deleteNoticeArticleProcess?id=${list.noticeBoardDto.id }">삭제</a>
+					<a href="./updateNoticeArticlePage?id=${list.noticeBoardDto.id }">수정</a>
+				</div>
+			</c:if>
+		</div>
 	</div>
 	
 	
