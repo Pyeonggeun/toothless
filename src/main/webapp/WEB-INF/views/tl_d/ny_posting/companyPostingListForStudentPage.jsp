@@ -30,11 +30,11 @@
 			<div class="col">
 				<!-- 채용공고 -->
 				<div class="row">
-					<div class="col fs-4 fw-bold mt-5 text-center">채용공고리스트</div>
+					<div class="col fs-4 fw-bold mt-5 text-center">기업별 공고리스트</div>
 				</div>
 				<div class="row mt-5 pb-3 border-bottom">
 					<div class="col-9 pt-1">
-						총 <span class="fw-bold">${postingCount}</span>건
+						총 <span class="fw-bold">${companyPostingCount}</span>건
 					</div>
 					<div class="col">
 						<select class="form-select form-select-sm">
@@ -45,58 +45,58 @@
 						</select>
 					</div>
 				</div>
-				<c:forEach items="${jobPostingList}" var="jobPosting">
+					<c:forEach items="${companyPostingListForStudent}" var="companyPostingForStudent">
 					<div class="row mt-3">
 						<!-- 기업명 -->
 						<div class="col-2 pe-0">
-							<a class="navbar-brand" href="./companyPostingListPage?com_pk=${jobPosting.companyDto.com_pk}">${jobPosting.companyDto.com_name}</a>
+							${companyPostingForStudent.companyDto.com_name}
+							<i class="text-danger bi bi-suit-heart"></i>
 						</div>
 						<!-- 공고제목 -->
-						<div class="col-7 ps-0 pt-1">
-							<!-- 링크 더 좋은 방법 생각해보기 -->
-							<a class="navbar-brand" href="./jobPostingDetailPage?id=${jobPosting.jobPostingDto.job_posting_pk}">
-									${jobPosting.jobPostingDto.posting_name}
+						<div class="col-9 ps-0 pt-1">
+							<a class="text-dark navbar-brand" href="./jobPostingDetailPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
+								${companyPostingForStudent.jobPostingDto.posting_name}
 							</a>
 						</div>
+						<!-- 별 크기 생각해보기 -->
+						<div class="col-1"><i class="fs-5 text-warning bi bi-star"></i></div>
 					</div>
-					<div class="row mt-1 pb-2 border-bottom">
+					<div class="row mt-1 pb-3 border-bottom">
 						<!-- 가족기업여부 -->
 						<div class="col-2  ms-1">
-							<c:if test="${jobPosting.companyDto.is_family_company ne null and jobPosting.companyDto.is_family_company eq 'Y'}">
+							<c:if test="${companyPostingForStudent.companyDto.is_family_company ne null and companyPostingForStudent.companyDto.is_family_company eq 'Y'}">
 								<span class="badge text-bg-info text-white">Family</span>
 							</c:if>						
 						</div>
 						<!-- 분야/지역/기간 태그  -->
 						<div class="col-7 ps-0">
-							<a class="navbar-brand" href="./jobPostingDetailPage?id=${jobPosting.jobPostingDto.job_posting_pk}">
-							<span class="text-secondary">#&nbsp;${jobPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${jobPosting.jobPostingDto.job_position}
-							#&nbsp;${jobPosting.companyDto.com_address} #&nbsp;<fmt:formatDate value="${jobPosting.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
-							<c:forEach items="${jobPosting.postingDeadlineList}" var="deadline">
-								<c:if test="${deadline == jobPosting.jobPostingDto.job_posting_pk}"> 
-									<span class="badge text-bg-danger">마감임박!</span>
-								</c:if>
-							</c:forEach>
-							<c:forEach items="${jobPosting.endPostingList}" var="endPosting">
-								<c:if test="${endPosting == jobPosting.jobPostingDto.job_posting_pk}">
-									<span class="badge text-bg-secondary">채용마감</span>
-								</c:if>
-							</c:forEach>
+							<a class="text-dark navbar-brand" href="./jobPostingDetailPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
+								<span class="text-secondary">#&nbsp;${companyPostingForStudent.jobFieldCategoryDto.job_field_category_name} #&nbsp;${companyPostingForStudent.jobPostingDto.job_position}
+								#&nbsp;${companyPostingForStudent.companyDto.com_address} #&nbsp;<fmt:formatDate value="${companyPostingForStudent.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
+								<c:forEach items="${companyPostingForStudent.postingDeadlineList}" var="deadline">
+									<c:if test="${deadline == companyPostingForStudent.jobPostingDto.job_posting_pk}">
+										<span class="badge text-bg-danger">마감임박!</span>
+									</c:if>
+								</c:forEach>
+								<c:forEach items="${companyPostingForStudent.endPostingList}" var="endPosting">
+									<c:if test="${endPosting == companyPostingForStudent.jobPostingDto.job_posting_pk}">
+										<span class="badge text-bg-secondary">채용마감</span>
+									</c:if>
+								</c:forEach>
 							</a>
 						</div>
 						<div class="col me-3 text-end">
 							<c:choose>
-								<c:when test="${empty sessionStaffInfo}">
-									<button class="btn btn-outline-dark" disabled>수정</button>
-									<button class="btn btn-dark" disabled>삭제</button>
+								<c:when test="${empty sessionStudentInfo}">
+									<button class="btn btn-dark btn-sm" disabled>지원하기</button>
 								</c:when>
 								<c:otherwise>
-									<a class="btn btn-outline-dark" href="./modifyJobPostingPage?id=${jobPosting.jobPostingDto.job_posting_pk}">수정</a>
-									<a class="btn btn-dark" href="./removeJobPostingProcess?id=${jobPosting.jobPostingDto.job_posting_pk}">삭제</a>
+									<button class="btn btn-dark btn-sm">지원하기</button>
 								</c:otherwise>
 							</c:choose>
 						</div>
 					</div>
-				</c:forEach>
+					</c:forEach> 
 			</div>
 			<%-- 오른쪽 --%>	
 			<div class="col-2"></div>	

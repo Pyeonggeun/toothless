@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,42 +28,43 @@
 			<div class="col-1 border-start"></div>
 			<%-- 채용공고 등록 양식 --%>
 			<div class="col">
-				<form action="./registerJobPostingProcess" method="post" enctype="multipart/form-data">
+				<form action="./modifyJobPostingProcess" method="post" enctype="multipart/form-data">
+				<input name="job_posting_pk" type="hidden" value="${modifyJobPosting.jobPostingDto.job_posting_pk}">
 				<!-- 채용공고 -->
 				<div class="row">
-					<div class="col fs-4 fw-bold mt-5 text-center">채용공고</div>
+					<div class="col fs-4 fw-bold mt-5 text-center">채용공고수정</div>
 				</div>
 				<!-- 공고 제목 -->
 				<div class="row mt-3">
 					<div class="col">
-						<input class="form-control form-control-sm border-black" name="posting_name" type="text" placeholder="공고제목">
-					</div>
-				</div>
-				<!-- 사업자번호 -->
-				<div class="row mt-3">
-					<div class="col">
-						<input class="form-control form-control-sm border-black" name="business_number" type="text" placeholder="000-00-00000">
+						<input class="form-control form-control-sm border-black" name="posting_name" type="text" value="${modifyJobPosting.jobPostingDto.posting_name}">
 					</div>
 				</div>
 				<!-- 채용분야 -->
 				<div class="row mt-3">
 					<div class="col">
 						<c:forEach items="${jobFieldCategory}" var="jobField">
-							<input name="job_field_category_pk" type="radio" value="${jobField.job_field_category_pk}">&nbsp;${jobField.job_field_category_name}
+							<input name="job_field_category_pk" type="radio" value="${jobField.job_field_category_pk}" 
+								${jobField.job_field_category_pk eq modifyJobPosting.jobFieldCategoryDto.job_field_category_pk ? 'checked' : ''}>&nbsp;${jobField.job_field_category_name}
 						</c:forEach>
 					</div>
 				</div>
 				<!-- 구인직무 -->
 				<div class="row mt-3">
 					<div class="col">
-						<input class="form-control form-control-sm border-black" name="job_position" type="text" placeholder="구인직무">
+						<input class="form-control form-control-sm border-black" name="job_position" type="text" value="${modifyJobPosting.jobPostingDto.job_position}">
 					</div>
 				</div>
 				<!-- 메인이미지 -->
 				<div class="row my-4">
 					<div class="col">
-						<input class="form-control border-dark" name="imageFile" type="file" accept="image/*">
+						<input class="form-control border-dark" name="modifyimage" type="file" accept="image/*">
 					</div>
+				</div>
+				<div class="row mt-2">
+					<div class="col">
+						<img src="/uploadMainFile/${modifyJobPosting.jobPostingDto.posting_mainimage}">
+					</div>				
 				</div>
 				<!-- 채용내용 -->
 				<div class="row mt-3">
@@ -72,7 +74,7 @@
 				</div>
 				<div class="row mt-2">
 					<div class="col d-grid">
-						<textarea class="form-control border-dark" name="posting_contents" rows="10"></textarea>						
+						<textarea class="form-control border-dark" name="posting_contents" rows="10">${modifyJobPosting.jobPostingDto.posting_contents}</textarea>						
 					</div>
 				</div>
 				<!-- 우대사항 -->
@@ -83,7 +85,7 @@
 				</div>
 				<div class="row mt-2">
 					<div class="col d-grid">
-						<textarea class="form-control border-dark" name="preference" rows="10"></textarea>						
+						<textarea class="form-control border-dark" name="preference" rows="10">${modifyJobPosting.jobPostingDto.preference}</textarea>						
 					</div>
 				</div>
 				<!-- 채용인원 -->
@@ -94,25 +96,31 @@
 				</div>
 				<div class="row mt-2">
 					<div class="col">
-						<input class="form-control border-black" name="hire_number" type="text">
+						<input class="form-control border-black" name="hire_number" type="text" value="${modifyJobPosting.jobPostingDto.hire_number}">
 					</div>
 					<div class="col-8"></div>
 				</div>
-				<!-- 채용마감일 -->
-				<div class="row mt-4">
+				<!-- 채용 마감일 -->
+				<div class="row mt-3">
 					<div class="col">
-						<input class="form-control form-control-sm border-black" name="posting_deadline" type="date">
+						<span class="fw-bold">기존 채용마감일</span> &nbsp;&nbsp;<fmt:formatDate value="${modifyJobPosting.jobPostingDto.posting_deadline}" pattern="yyyy-MM-dd"/>
+					</div>
+				</div> 
+				<!-- 채용마감일 -->
+				<div class="row mt-3">
+					<div class="col">
+						<input class="form-control form-control-sm border-black" name="posting_deadline" type="date" value="<fmt:formatDate value="${modifyJobPosting.jobPostingDto.posting_deadline}" pattern="yyyy-MM-dd"/>">
 					</div>
 				</div>
 				<div class="row mt-3">
 					<div class="col-10"></div>
-					<div class="col">
+					<div class="col ms-4 ps-3">
 						<c:choose>
 							<c:when test="${empty sessionStaffInfo}">
-								<input class="btn btn-dark d-grid" type="submit" value="공고등록" disabled>
+								<input class="btn btn-dark d-grid" type="submit" value="공고수정" disabled>
 							</c:when>
 							<c:otherwise>
-								<input class="btn btn-dark d-grid" type="submit" value="공고등록">
+								<input class="btn btn-dark d-grid" type="submit" value="공고수정">
 							</c:otherwise>
 						</c:choose>
 					</div>

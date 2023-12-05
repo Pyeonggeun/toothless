@@ -45,39 +45,42 @@
 						</select>
 					</div>
 				</div>
-				<c:forEach items="${jobPostingList}" var="jobPosting">
+				<c:forEach items="${jopPostingForStudent}" var="jobPostingForStudent">
 					<div class="row mt-3">
 						<!-- 기업명 -->
 						<div class="col-2 pe-0">
-							<a class="navbar-brand" href="./companyPostingListPage?com_pk=${jobPosting.companyDto.com_pk}">${jobPosting.companyDto.com_name}</a>
+							<a class="navbar-brand" href="./companyPostingListForStudentPage?com_pk=${jobPostingForStudent.companyDto.com_pk}">${jobPostingForStudent.companyDto.com_name}</a>
+							<i class="text-danger bi bi-suit-heart"></i>
 						</div>
 						<!-- 공고제목 -->
-						<div class="col-7 ps-0 pt-1">
+						<div class="col-9 ps-0 pt-1">
 							<!-- 링크 더 좋은 방법 생각해보기 -->
-							<a class="navbar-brand" href="./jobPostingDetailPage?id=${jobPosting.jobPostingDto.job_posting_pk}">
-									${jobPosting.jobPostingDto.posting_name}
+							<a class="navbar-brand" href="./jobPostingDetailPage?id=${jobPostingForStudent.jobPostingDto.job_posting_pk}">
+									${jobPostingForStudent.jobPostingDto.posting_name}
 							</a>
 						</div>
+						<!-- 별 크기 생각해보기 -->
+						<div class="col-1"><i class="fs-5 text-warning bi bi-star"></i></div>
 					</div>
-					<div class="row mt-1 pb-2 border-bottom">
+					<div class="row mt-1 pb-3 border-bottom">
 						<!-- 가족기업여부 -->
 						<div class="col-2  ms-1">
-							<c:if test="${jobPosting.companyDto.is_family_company ne null and jobPosting.companyDto.is_family_company eq 'Y'}">
+							<c:if test="${jobPostingForStudent.companyDto.is_family_company ne null and jobPostingForStudent.companyDto.is_family_company eq 'Y'}">
 								<span class="badge text-bg-info text-white">Family</span>
 							</c:if>						
 						</div>
 						<!-- 분야/지역/기간 태그  -->
 						<div class="col-7 ps-0">
-							<a class="navbar-brand" href="./jobPostingDetailPage?id=${jobPosting.jobPostingDto.job_posting_pk}">
-							<span class="text-secondary">#&nbsp;${jobPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${jobPosting.jobPostingDto.job_position}
-							#&nbsp;${jobPosting.companyDto.com_address} #&nbsp;<fmt:formatDate value="${jobPosting.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
-							<c:forEach items="${jobPosting.postingDeadlineList}" var="deadline">
-								<c:if test="${deadline == jobPosting.jobPostingDto.job_posting_pk}"> 
+							<a class="navbar-brand" href="./jobPostingDetailPage?id=${jobPostingForStudent.jobPostingDto.job_posting_pk}">
+							<span class="text-secondary">#&nbsp;${jobPostingForStudent.jobFieldCategoryDto.job_field_category_name} #&nbsp;${jobPosting.jobPostingDto.job_position}
+							#&nbsp;${jobPostingForStudent.companyDto.com_address} #&nbsp;<fmt:formatDate value="${jobPostingForStudent.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
+							<c:forEach items="${jobPostingForStudent.postingDeadlineList}" var="deadline">
+								<c:if test="${deadline == jobPostingForStudent.jobPostingDto.job_posting_pk}"> 
 									<span class="badge text-bg-danger">마감임박!</span>
 								</c:if>
 							</c:forEach>
-							<c:forEach items="${jobPosting.endPostingList}" var="endPosting">
-								<c:if test="${endPosting == jobPosting.jobPostingDto.job_posting_pk}">
+							<c:forEach items="${jobPostingForStudent.endPostingList}" var="endPosting">
+								<c:if test="${endPosting == jobPostingForStudent.jobPostingDto.job_posting_pk}">
 									<span class="badge text-bg-secondary">채용마감</span>
 								</c:if>
 							</c:forEach>
@@ -85,13 +88,11 @@
 						</div>
 						<div class="col me-3 text-end">
 							<c:choose>
-								<c:when test="${empty sessionStaffInfo}">
-									<button class="btn btn-outline-dark" disabled>수정</button>
-									<button class="btn btn-dark" disabled>삭제</button>
+								<c:when test="${empty sessionStudentInfo}">
+									<button class="btn btn-dark btn-sm" disabled>지원하기</button>
 								</c:when>
 								<c:otherwise>
-									<a class="btn btn-outline-dark" href="./modifyJobPostingPage?id=${jobPosting.jobPostingDto.job_posting_pk}">수정</a>
-									<a class="btn btn-dark" href="./removeJobPostingProcess?id=${jobPosting.jobPostingDto.job_posting_pk}">삭제</a>
+									<button class="btn btn-dark btn-sm">지원하기</button>
 								</c:otherwise>
 							</c:choose>
 						</div>
