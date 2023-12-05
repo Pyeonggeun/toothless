@@ -56,7 +56,7 @@ public class StaffController {
 				
 			}else if(staffInfoDto.getCenter_pk() == 5){
 				
-				return "redirect: ./mainPage";
+				return "redirect: ../../tl_b/common/staffMainPage";
 				
 			}else{
 				return "redirect: ./anotherMainPage";
