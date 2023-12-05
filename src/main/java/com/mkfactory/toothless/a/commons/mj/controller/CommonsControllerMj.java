@@ -23,7 +23,7 @@ public class CommonsControllerMj {
     public String leftCategory(Model model) {
     	List<Map<String, Object>> thisYearAllSemester = commonsService.getThisYearAllSemester();
         model.addAttribute("thisYearAllSemester", thisYearAllSemester);
-        return "/tl_a/commons/staff/leftCategory";
+        return "tl_a/commons/staff/leftCategory";
     }
     
 }

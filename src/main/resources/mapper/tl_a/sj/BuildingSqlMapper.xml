@@ -43,10 +43,19 @@
 		SELECT * FROM tl_a_dorm_category
 	</select>
 	
+	<!-- 정원 카테고리 -->
+	<insert id="insertCategoryImgs">
+		INSERT INTO tl_a_dorm_category VALUES (
+		tl_a_dorm_category_seq.nextval,
+		#{dorm_amount},
+		#{dorm_imgs}
+	)
+	</insert>
+	
 	<!-- 정원 카테고리 img update -->
 	<update id="updateCategory">
 		UPDATE TL_A_DORM_CATEGORY 
-		SET DORM_IMGS =#{dorm_imgs} 
+		SET DORM_IMGS =#{dorm_imgs}
 		WHERE DORM_AMOUNT_PK = #{dorm_amount_pk}
 	</update>
 	

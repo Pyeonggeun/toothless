@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class StudentboardDto {
 
-	private int studenteboard_pk;
+	private int studentboard_pk;
 	private int staff_pk;
 	private String title;
 	private String content;
@@ -15,11 +15,11 @@ public class StudentboardDto {
 	public StudentboardDto() {
 		super();
 	}
-
-	public StudentboardDto(int studenteboard_pk, int staff_pk, String title, String content, int read_count,
+	
+	public StudentboardDto(int studentboard_pk, int staff_pk, String title, String content, int read_count,
 			String img_link, Date created_at) {
 		super();
-		this.studenteboard_pk = studenteboard_pk;
+		this.studentboard_pk = studentboard_pk;
 		this.staff_pk = staff_pk;
 		this.title = title;
 		this.content = content;
@@ -28,12 +28,12 @@ public class StudentboardDto {
 		this.created_at = created_at;
 	}
 
-	public int getStudenteboard_pk() {
-		return studenteboard_pk;
+	public int getStudentboard_pk() {
+		return studentboard_pk;
 	}
 
-	public void setStudenteboard_pk(int studenteboard_pk) {
-		this.studenteboard_pk = studenteboard_pk;
+	public void setStudentboard_pk(int studentboard_pk) {
+		this.studentboard_pk = studentboard_pk;
 	}
 
 	public int getStaff_pk() {

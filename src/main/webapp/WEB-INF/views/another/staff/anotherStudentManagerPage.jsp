@@ -75,17 +75,31 @@
         		});
         	
         	}
-			
-			
+			function showLoading(){
+				const studentListBox = document.getElementById("studentListBox");
+            	const loaded = document.querySelector("#loadedtemplete #loaded").cloneNode(true);	
+            	studentListBox.appendChild(loaded);
+			}
+			function hideLoading(){
+				const studentListBox = document.getElementById("studentListBox");
+            	const loaded = document.querySelector("#loaded");
+            	loaded.remove();
+			}
+			let pageNum = 0;
             function reloadStudentList(){
-            	
+            	/* showLoading(); */
+            	pageNum +=1;
+            	const loaded = document.getElementById("loaded");
+            	loaded.classList.remove("d-none");
                 const url = "./getStudentInfoList?pageNum="+pageNum;
                 fetch(url)
                 .then(response => response.json())
                 .then((response) => {
+                	
                     for(e of response.data){
-                        const studentListBox = document.getElementById("studentListBox");
 
+                   		const studentListBox = document.getElementById("studentListBox");
+                   		
                         const studentListWrapper = document.querySelector("#templete .studentListWrapper").cloneNode(true);
                     
                         const student_id = studentListWrapper.querySelector(".student_id");
@@ -103,27 +117,18 @@
                         const student_professorName = studentListWrapper.querySelector(".student_professorName");
                         student_professorName.innerText = e.professorInfoDto.name;
 						
+                        
                         studentListBox.appendChild(studentListWrapper);
-
-                    }
-                    const loaded = document.querySelector("#loaded");
-                    if(loaded != null){
-                    	loaded.remove();	
-                    }
-                	
-                    	
-                });
+                        if(e.totalPageNum == pageNum){
+                        	window.removeEventListener('scroll', {});
+                        }
+                	}
+                    loaded.classList.add("d-none");
+                   /*  hideLoading(); */
+                });    
             }
-          
-          
-          
-            window.onscroll = () => {
-                if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-                    pageNumb += 1;
-                    console.log(pageNumb);
-                    reloadStudentList();
-                }
-            };
+           
+            
             
             
             
@@ -212,7 +217,12 @@
             
             
             
-            
+            window.addEventListener('scroll', () => {
+            	let isScroll = false;
+            	if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight-10) {
+            		reloadStudentList();
+            	}
+            });
 
 
             window.addEventListener("DOMContentLoaded", () =>{
@@ -331,7 +341,12 @@
             </div>
            <div class="row mt-3">
                 <div id="studentListBox" class="col text-center">
-					<div id="loaded"class="spinner-border text-primary" role="status">
+					
+                </div>
+           </div>
+           <div class="row">
+           		<div class="col text-center">
+                	<div id="loaded"class="spinner-border text-primary" role="status">
  						 <span class="visually-hidden">Loading...</span>
 					</div>
                 </div>
@@ -344,28 +359,34 @@
            		<div class="col-2"></div>
            		
            </div>
- 				<pre>
-      
-           	
-           	
-           	
-           	
-           	
-           	
-           	
-           	
-           	
-           	
-           	
-           	
-           	
-           	
-           	
-           	
-           	
-           	</pre>
+ 			<pre>
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			
+ 			</pre>
         </div>
-
+        <div id="loadedtemplete"class="col d-none">
+        	<div id="loaded"class="spinner-border text-primary" role="status">
+ 					<span class="visually-hidden">Loading...</span>
+			</div>
+        </div>
+		
         <div id="templete" class="d-none">
             <div class="row studentListWrapper">
                 <div class="col-2"></div>

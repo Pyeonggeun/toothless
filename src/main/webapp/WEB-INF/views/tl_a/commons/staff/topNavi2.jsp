@@ -26,7 +26,7 @@
 					  </li>
 					  <li class="nav-item mx-2">
 					    <a class="nav-link fs-5" style="text-decoration: none; color: black;"
-					    href="#">선발 관리</a>
+					    href="./mj_readApplyDormInfoPage">선발 관리</a>
 					  </li>
 					  <li class="nav-item mx-2">
 					    <a class="nav-link fs-5" style="text-decoration: none; color: black;"
