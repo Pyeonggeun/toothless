@@ -46,7 +46,7 @@
 			<div class="col ms-4">
 				<div class="row pt-5">
 					<div class="col fw-bold fs-3">
-						<a href="../commons/staffCounselMainPage" role="button" class="btn btn-white">
+						<a href="../commons/counselCenterStaffMainPage" role="button" class="btn btn-white">
 							<span class="fw-bold fs-3">MENU</span>
 						</a>
 					</div>
@@ -177,6 +177,42 @@
 						<div class="row mt-3">
 							<div class="col border rounded">
 								<span>${counselorDto.career}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row mt-5">
+					<div class="col">
+						<div class="row">
+							<div class="col">
+								<span class="fw-bold fs-5">상담원 자격정보</span>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col">
+								<c:forEach items="${licenseList}" var="licenseList">
+								<div class="row">
+									<div class="col">
+										<img src="../../resources/img/counselorImage/license/${licenseList.license}" class="img-fluid">
+									</div>
+								</div>
+								</c:forEach>								
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row mt-5">
+					<div class="col">
+						<div class="row">
+							<div class="col">
+								<span class="fw-bold fs-5">상담이력</span>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col border rounded">
+								<span>온라인, 오프라인, 집단상담 완료 이력 로그 출력</span>
 							</div>
 						</div>
 					</div>
