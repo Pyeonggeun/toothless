@@ -46,8 +46,9 @@ public class DormStaffControllerDm {
 	}
 	
 	@RequestMapping("dm_roomAssignmentY")
-	public String dm_roomAssignmentY() {
+	public String dm_roomAssignmentY(Model model) {
 		
+		model.addAttribute("dormList", dormStaffServiceDm.allDormStudent());
 		
 		return "/tl_a/staff/dm_roomAssignmentY";
 	}
@@ -59,6 +60,13 @@ public class DormStaffControllerDm {
 		return "/tl_a/staff/dm_roomAssignmentN";
 	}
 	
+	@RequestMapping("assignmentDeleteProcess")
+	public String assignmentDeleteProcess() {
+		
+		
+		
+		return "redirect:./dm_roomAssignmentY";
+	}
 	
 	
 }

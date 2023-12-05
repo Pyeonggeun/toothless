@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
+import com.mkfactory.toothless.e.dto.CounselDocumentDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
 import com.mkfactory.toothless.e.dto.OfflineReservationDto;
@@ -185,6 +187,65 @@ public class OfflineCounselServiceImpl {
 		
 		return map;
 	}
+	
+	public List<Map<String, Object>> getReservationListByCounselorId(int external_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfoByExternalPk(external_pk);
+		int counselor_pk = counselorDto.getId();
+		
+		List<OfflineReservationDto> reservationList = offlineCounselMapper.selectReservationListByCounselorId(counselor_pk);
+		
+		for(OfflineReservationDto offlineReservationDto : reservationList) {
+			
+			int reservationPk = offlineReservationDto.getId();
+			CounselDocumentDto counselDocumentDto = offlineCounselMapper.selectCounselDocumentInfoByReservationId(reservationPk);
+			
+			int studentPk = offlineReservationDto.getStudent_pk();
+			StudentInfoDto studentInfoDto = offlineCounselMapper.selectStudentInfoByStudentPk(studentPk);
+			
+			int categoryPk = offlineReservationDto.getType_category_id();
+			TypeCategoryDto typeCategoryDto = offlineCounselMapper.selectTypeCategoryDtoById(categoryPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("offlineReservationDto", offlineReservationDto);
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("typeCategoryDto", typeCategoryDto);
+			map.put("counselDocumentDto", counselDocumentDto);
+			
+			list.add(map);
+		}
+		return list;
+	}
+	
+	public Map<String, Object> createReportInfo(int reservationPk, int studentPk, int categoryPk){
+		
+		OfflineReservationDto offlineReservationDto = offlineCounselMapper.selectOfflineReservationCompletedInfo(reservationPk);
+		StudentInfoDto studentInfoDto = offlineCounselMapper.selectStudentInfoByStudentPk(studentPk);
+		TypeCategoryDto typeCategoryDto = offlineCounselMapper.selectTypeCategoryDtoById(categoryPk);
+		
+		CounselDocumentDto counselDocumentDto = offlineCounselMapper.selectCounselDocumentInfoByReservationId(reservationPk);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("offlineReservationDto", offlineReservationDto);
+		map.put("studentInfoDto", studentInfoDto);
+		map.put("typeCategoryDto", typeCategoryDto);
+		map.put("counselDocumentDto", counselDocumentDto);
+		
+		return map;
+	}
+	
+	public void updateCounselReservationState(int id, String state) {
+		
+		offlineCounselMapper.updateCounselReservationState(id, state);
+	}
+	
+	public void insertCounselDocumentInfo(int id, String text) {
+		
+		offlineCounselMapper.insertCounselDocument(id, text);
+	}
+	
 	
 	
 }
