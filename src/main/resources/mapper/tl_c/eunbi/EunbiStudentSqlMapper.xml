@@ -65,4 +65,25 @@
 
 
 
+
+
+
+
+	<!-- 여러 학기 출력 -->
+	<select id="forSelectSemester" resultType="com.mkfactory.toothless.donot.touch.dto.SemesterInfoDto">
+		SELECT * FROM TL_JIC_SEMESTER_INFO
+	</select>
+
+	<!-- 전체 과 출력 -->
+	<select id="forSelectDepartment" resultType="com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto">
+		SELECT * FROM TL_JIC_DEPARTMENT_CATEGORY
+	</select>
+
+
+
+
+
+
+
+
 </mapper>
