@@ -137,6 +137,22 @@ public class OfflineCounselController {
 		return "redirect:./checkOfflineCounselReservationStudentPage";
 	}
 	
+	@RequestMapping("counselCancelPage")
+	public String counselCancelPage(Model model, int reservation_id) {
+		
+		Map<String, Object> map = offlineCounselService.getOfflineReservationCancelPageInfo(reservation_id);
+		model.addAttribute("map", map);
+		
+		return "tl_e/offlineCounsel/counselCancelPage";
+	}
+	
+	@RequestMapping("reservationCancelProcess")
+	public String reservationCancelProcess(int reservation_id) {
+		
+		offlineCounselService.updateReservationStateToCancel(reservation_id);
+		
+		return "redirect:./checkOfflineCounselReservationStudentPage";
+	}
 	
 	
 	

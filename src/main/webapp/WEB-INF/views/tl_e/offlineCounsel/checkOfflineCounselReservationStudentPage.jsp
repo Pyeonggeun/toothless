@@ -17,7 +17,7 @@
 	
 		<div class="row pt-2 pb-3 border-bottom">
             <div class="col-4 ps-5 text-start">
-                <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
+                <a href="../commons/counselCenterStudentMainPage"><img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;"></a>
                 <span class="fw-bold fs-3 text-start align-middle">MK University</span><span class="fs-6t align-middle">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class="fs-5 fw-bold align-middle">상담센터</span> 
             </div>
             <div class="col-2"></div>
@@ -33,7 +33,7 @@
             </div>
 			<div class="col-1 pt-3 me-0 pe-0 text-center dropdown nav-item">
 			  <a class="nav-link pt-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    <span class="fw-bold">${sessionExternalInfo.external_id }</span>님
+			    <span class="fw-bold">${sessionStudentInfo.student_id }</span>님
 			  </a>
 			  <ul class="dropdown-menu">
 			    <li><a class="dropdown-item" href="#">정보 수정</a></li>
@@ -188,20 +188,23 @@
 					<div class="col-1">
 						No.
 					</div>
-					<div class="col">
+					<div class="col-2">
 						상담종류
 					</div>
-					<div class="col">
+					<div class="col-1">
 						상담사명
 					</div>
 					<div class="col-2">
 						신청일
 					</div>
-					<div class="col">
+					<div class="col-1">
 						상담상태
 					</div>
 					<div class="col-2">
 						상담일자
+					</div>
+					<div class="col">
+						예약취소
 					</div>
 					<div class="col">
 						리뷰
@@ -209,28 +212,44 @@
 				</div>
 				<!-- 이 row 한 개 반복문으로 돌려서 출력 -->
 				<c:forEach items="${list }" var="map" varStatus="vs">
-					<form action="./counselReviewPage" method="get">
-						<div class="row pt-3 pb-3 border-bottom text-center">
-							<div class="col-1 pt-2">
-								${fn:length(list) - vs.index}
-							</div>
-							<div class="col pt-2">
-								${map.typeCategoryDto.name }
-							</div>
-							<div class="col pt-2">
-								${map.counselorDto.name }
-							</div>
-							<div class="col-2 pt-2">
-								<fmt:formatDate value="${map.offlineReservationDto.created_at }" pattern="yyyy-MM-dd"/>
-							</div>
-							<div class="col pt-2">
-								${map.offlineReservationDto.state }
-							</div>
-							<div class="col-2 pt-2">
-								${map.offlineReservationDto.counsel_year }-${map.offlineReservationDto.counsel_month }-${map.offlineReservationDto.counsel_date }&nbsp;
-								${map.offlineReservationDto.counsel_hour }<span>:00</span>
-							</div>
-							<div class="col mx-2 d-grid">
+					<div class="row pt-3 pb-3 border-bottom text-center">
+						<div class="col-1 pt-2">
+							${fn:length(list) - vs.index}
+						</div>
+						<div class="col-2 pt-2">
+							${map.typeCategoryDto.name }
+						</div>
+						<div class="col-1 pt-2">
+							${map.counselorDto.name }
+						</div>
+						<div class="col-2 pt-2">
+							<fmt:formatDate value="${map.offlineReservationDto.created_at }" pattern="yyyy-MM-dd"/>
+						</div>
+						<div class="col-1 pt-2">
+							${map.offlineReservationDto.state }
+						</div>
+						<div class="col-2 pt-2">
+							${map.offlineReservationDto.counsel_year }-${map.offlineReservationDto.counsel_month }-${map.offlineReservationDto.counsel_date }&nbsp;
+							${map.offlineReservationDto.counsel_hour }<span>:00</span>
+						</div>
+						<div class="col d-grid">
+							<form action="./counselCancelPage" method="get">
+								<c:choose>
+									<c:when test="${map.offlineReservationDto.state == '신청' }">
+										<input class="btn btn-outline-danger" type="submit" value="예약취소">
+									</c:when>
+									<c:when test="${map.offlineReservationDto.state == '완료' }">
+										<input class="btn btn-danger" type="submit" value="예약취소" disabled="disabled">
+									</c:when>
+									<c:otherwise>
+										<input class="btn btn-danger" type="submit" value="취소완료" disabled="disabled">
+									</c:otherwise>
+								</c:choose>
+								<input name="reservation_id" type="hidden" value="${map.offlineReservationDto.id }">
+							</form>
+						</div>
+						<div class="col d-grid">
+							<form action="./counselReviewPage" method="get">
 								<c:choose>
 									<c:when test="${!empty map.offlineSurveyDto.id }">
 										<input class="btn btn-dark" type="submit" value="리뷰확인">
@@ -239,10 +258,10 @@
 										<input class="btn btn-outline-dark" type="submit" value="리뷰작성">
 									</c:otherwise>
 								</c:choose>
-							</div>
+								<input name="reservation_id" type="hidden" value="${map.offlineReservationDto.id }">
+							</form>
 						</div>
-						<input name="reservation_id" type="hidden" value="${map.offlineReservationDto.id }">
-					</form>
+					</div>
 				</c:forEach>
 			</div>
 			<div class="col-1"></div>

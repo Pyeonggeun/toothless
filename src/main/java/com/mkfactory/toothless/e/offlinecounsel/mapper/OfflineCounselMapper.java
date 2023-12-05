@@ -65,4 +65,15 @@ public interface OfflineCounselMapper {
 	// 예약Pk별 리뷰Dto
 	public OfflineSurveyDto selectOfflineSurveryInfo(int reservation_id);
 	
+	// 예약 취소상태 변경
+	public void updateReservationStateToCancel(int id);
+	
+	// 예약 취소여부 출력
+	public String selectReservationState(
+			@Param("counselor_id") int counselor_id, 
+			@Param("counsel_year") int year, 
+			@Param("counsel_month") int month, 
+			@Param("counsel_date") int date, 
+			@Param("counsel_hour") int hour);
+	
 }

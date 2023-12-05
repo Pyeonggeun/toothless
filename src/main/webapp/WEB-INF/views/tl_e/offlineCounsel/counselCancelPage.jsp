@@ -102,10 +102,10 @@
 			</div>
 			<div class="col-1"></div>
 			<div class="col-6 mt-5">
-				<form action="./counselReviewProcess" method="get">
+				<form action="./reservationCancelProcess" method="get">
 					<div class="row pt-3">
 						<div class="col fs-3 fw-bold text-center">
-							상담 만족도 조사
+							예약 취소
 						</div>
 					</div>
 					<div class="row pt-4">
@@ -145,33 +145,13 @@
 								<div class="col-2 border-end border-dark py-3 fw-bold" style="background-color: rgb(244, 244, 241);">
 									<div class="row">
 										<div class="col pt-2">
-											점수
-										</div>
-									</div>
-								</div>
-								<div class="col py-3 border-end border-dark">
-									<div class="row">
-										<div class="col">
-											<select name="score" class="form-select" style="color: #ffc107;">
-											  <option class="text-warning" value="5" ${map.offlineSurveyDto.score == '5' ? 'selected' : '' }>★★★★★</option>
-											  <option class="text-warning" value="4" ${map.offlineSurveyDto.score == '4' ? 'selected' : '' }>★★★★</option>
-											  <option class="text-warning" value="3" ${map.offlineSurveyDto.score == '3' ? 'selected' : '' }>★★★</option>
-											  <option class="text-warning" value="2" ${map.offlineSurveyDto.score == '2' ? 'selected' : '' }>★★</option>
-											  <option class="text-warning" value="1" ${map.offlineSurveyDto.score == '1' ? 'selected' : '' }>★</option>
-											</select>								
-										</div>
-									</div>
-								</div>
-								<div class="col-2 border-end border-dark py-3 fw-bold" style="background-color: rgb(244, 244, 241);">
-									<div class="row">
-										<div class="col pt-2">
 											상담주제
 										</div>
 									</div>
 								</div>
 								<div class="col py-3">
 									<div class="row">
-										<div class="col pt-2">
+										<div class="col pt-1">
 											${map.typeCategoryDto.name }								
 										</div>
 									</div>
@@ -182,7 +162,7 @@
 									<div class="row">
 										<div class="col pb-3">
 											<br><br><br>
-											리뷰내용
+											취소사유
 											<br><br><br>
 										</div>
 									</div>
@@ -190,7 +170,7 @@
 								<div class="col py-3">
 									<div class="row">
 										<div class="col">
-											<textarea name="text" class="form-control" rows="6">${map.offlineSurveyDto.text }</textarea>
+											<textarea class="form-control" rows="6"></textarea>
 										</div>
 									</div>
 								</div>
@@ -202,14 +182,7 @@
 							<div class="row">
 								<div class="col"></div>
 								<div class="col-3 d-grid pe-0">
-									<c:choose>
-										<c:when test="${!empty map.offlineSurveyDto.id }">
-											<input class="btn btn-dark" type="submit" value="리뷰하기" disabled="disabled">
-										</c:when>
-										<c:otherwise>
-											<input class="btn btn-dark" type="submit" value="리뷰하기">
-										</c:otherwise>
-									</c:choose>
+									<input class="btn btn-dark" type="submit" value="취소하기">
 								</div>
 							</div>
 						</div>

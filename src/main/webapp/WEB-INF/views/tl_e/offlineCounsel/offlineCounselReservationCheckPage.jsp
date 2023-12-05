@@ -239,6 +239,9 @@
 							</div>
 							<div class="col-2 pt-2">
 								<fmt:formatDate value="${map.offlineReservationDto.created_at }" pattern="yyyy-MM-dd"/>
+								<c:if test="${map.offlineReservationDto.state == '취소' && map.counselDocumentDto.id == null }">
+									<span class="badge text-bg-danger">취소</span>
+								</c:if>
 							</div>
 							<div class="col pt-2">
 								${map.offlineReservationDto.state }
