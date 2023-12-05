@@ -140,7 +140,7 @@
 					<div class="col-3 border-end border-dark">
 						<div class="row">
 							<div class="col pt-4 px-4">
-								<img class="img-fluid" src="../../resources/img/offlineCounsel/profileImg.png">
+								<img class="img-fluid" src="../../resources/img/counselorImage/${counselorDto.profileImage }">
 							</div>
 						</div>
 						<div class="row pt-4 pb-3">
@@ -219,11 +219,24 @@
 												</c:when>
 												<c:otherwise>
 													<c:forEach items="${dayMap.timeList }" var="time">
-														<c:if test="${time != 12 }">
+														<c:if test="${time.hour != 12 }">
 															<div class="row pt-3">
 																<div class="col text-center form-check ps-5">
-																	<input class="form-check-input border-dark" name="reservationDate" type="radio" value="${dayMap.year }.${dayMap.month }.${dayMap.date }.${time }.${dayMap.day}">
-																	<label class="form-check-label">${time}시 - ${time + 1 }시</label>
+																	<c:set var="vs" value="0"/>
+																	<c:forEach items="${time.reservationDateInfoList }" var="dateInfo">
+																		<c:if test="${time.dateString == dateInfo }">
+																			<c:set var="vs" value="${vs + 1 }"/>
+																		</c:if>
+																	</c:forEach>
+																	<c:choose>
+																		<c:when test="${vs >= 1 }">
+																			<input class="form-check-input border-dark" name="reservationDate" type="radio" value="${dayMap.year }.${dayMap.month }.${dayMap.date }.${time.hour }.${dayMap.day}" disabled>
+																		</c:when>
+																		<c:otherwise>
+																			<input class="form-check-input border-dark" name="reservationDate" type="radio" value="${dayMap.year }.${dayMap.month }.${dayMap.date }.${time.hour }.${dayMap.day}">
+																		</c:otherwise>
+																	</c:choose>
+																	<label class="form-check-label">${time.hour}시 - ${time.hour + 1 }시</label>
 																</div>
 															</div>
 														</c:if>
@@ -256,6 +269,9 @@
 				<div class="row">
 					<div class="col">
 						<textarea name="text" class="rounded" rows="5" cols="150"></textarea>
+					</div>
+					<div class="col">
+						<input class="form-check-input border-dark" type="radio" value="1" disabled>
 					</div>
 				</div>
 			</div>

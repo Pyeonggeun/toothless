@@ -40,9 +40,18 @@
 						<a class="navbar-brand" href="../onlineCounsel/onlineCounselMainPage">온라인상담</a>
 					</div>
 				</div>
-				<div class="row pt-4">
-					<div class="col fs-5">
-						<a class="navbar-brand" href="#">오프라인상담</a>
+				<div class="row pt-5">
+					<div class="col fs-5">						
+						<div class="dropend">
+							<button class="btn btn-white dropdown-toggle navbar-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							오프라인상담
+							</button>
+							<ul class="dropdown-menu">
+							    <li><a class="dropdown-item" href="../offlineCounsel/offlineCounselReservationCheckPage">예약 조회</a></li>
+						   		<li><a class="dropdown-item" href="../offlineCounsel/offlineCounselHistoryCheckPage">상담 이력 조회</a></li>
+						   		<li><a class="dropdown-item" href="#">일정 변경</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class="row pt-4">
