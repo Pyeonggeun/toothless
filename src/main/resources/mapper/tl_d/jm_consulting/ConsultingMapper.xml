@@ -290,5 +290,18 @@ SELECT * FROM TL_D_ONLINE_CONSULTING tdoc
 ORDER BY CREATED_AT ASC  
 </select>
 
+<!-- 교직원용 -->
+<!-- 구직희망pk로 학생정보 뽑기 -->
+<select id="getStudentInfoByHopeJobPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+SELECT * FROM TL_JIC_STUDENT_INFO a 
+WHERE a.STUDENT_PK =
+( 
+	SELECT b.STUDENT_PK 
+	FROM TL_D_HOPE_JOB b 
+	WHERE b.HOPE_JOB_PK = #{HOPE_JOB_PK}
+)
+</select>
+
+
 
 </mapper>

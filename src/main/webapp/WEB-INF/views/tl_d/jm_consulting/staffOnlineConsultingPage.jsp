@@ -34,11 +34,70 @@
 				<div class="col-9">
 					<div class="row mt-5">
 						<div class="col">
-							임시니까...
+							상담 목록
+						</div>
+						
+						<div class="row mt-4">
+							<div class="col">
+								
+								<form action="" method="post">
+								<div class="row" style="font-size:0.6em;">
+									<div class="col">
+										<input type="radio" name="isAnswer" value="">전체
+									</div>
+									<div class="col">
+										<input type="radio" name="isAnswer" value="">답변완료
+									</div>
+									<div class="col">
+										<input type="radio" name="isAnswer"  value="">미응답
+									</div>
+									<div class="col">
+										<button type="submit" style="border:none; background:none; cursor:pointer;"><i class="bi bi-search"></i>
+										</button>
+									</div>										
+									<div class="col-7">
+
+									</div>																												
+								</div>
+								</form>
+							</div>
 						</div>
 					</div>
 					
-					<div class="row">
+					<div class="row mt-3">
+						<div class="col">
+							<form action="" method="post">	
+							<div class="row border" style="align-items:center;">
+							
+													
+								<div class="col-3">
+									<select name="searchCategory" class="ps-0 form-select" aria-label="Default select example" style="border:none; outline:none; font-size:0.7em;">
+									 <%-- <option selected>전체</option> --%>									 
+									  <option value="all">전체</option>
+									  <option value="studentName">학생 이름</option>
+									  <option value="onConsultingPk">신청번호</option>
+									</select>							
+								</div>
+								<div class="col-9">
+									<div class="row">
+										<div class="col-11">
+											<input type="text" placeholder="뭐입력하실?" style="border:none; outline:none; width:100%; font-size:0.7em;">
+										</div>								
+										<div class="col-1">
+											<button type="submit" style="border:none; background:none; cursor:pointer;"><i class="bi bi-search"></i>
+											</button>
+										</div>
+
+									</div>									
+								</div>										
+
+													
+							</div>
+							</form>
+						</div>
+					</div>
+					
+					<div class="row border border-bottom-0 pt-4">
 						<div class="col">
 							<div class="row">
 								<div class="col">
@@ -50,9 +109,32 @@
 								<div class="col">
 									상담 날짜
 								</div>
+								<div class="col-3"></div>
 							</div>
 						</div>
 					</div>
+					
+					
+					<div class="row pt-4 border border-top-0">
+						<div class="col">
+							
+								<c:forEach items="${list }" var="e">
+								<div class="row py-2 border-top">
+										<div class="col">
+											${e.onlineConsultingDto.on_consulting_pk }
+										</div>
+										<div class="col">
+											${e.studentInfoDto.name }
+										</div>
+										<div class="col">
+											<fmt:formatDate value="${e.onlineConsultingDto.created_at }" pattern="yyyy-MM-dd"/>
+										</div>
+										<div class="col-3"></div>	
+								</div>																													
+								</c:forEach>
+								
+						</div>
+					</div>					
 					
 					
 					
