@@ -35,4 +35,7 @@ INSERT INTO tl_c_self_introduction VALUES(
 	WHERE student_pk = #{student_pk}
 </update>
 
+
+
+
 </mapper>
