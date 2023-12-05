@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mkfactory.toothless.e.dto.NoticeBoardDto;
+import com.mkfactory.toothless.e.dto.NoticeCommentDto;
 import com.mkfactory.toothless.e.dto.NoticeImageDto;
 import com.mkfactory.toothless.e.notice.service.NoticeServiceImpl;
 
@@ -92,8 +93,9 @@ public class NoticeController {
 	@RequestMapping("readNoticeBoardPage")
 	public String readNoticeBoardPage(Model model, int id) {
 		noticeService.increaseReadCount(id);
-		
+
 		model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
+		model.addAttribute("cList", noticeService.selectCommentByNotice_Id(id));
 		return "tl_e/notice/readNoticeBoardPage";
 	}
 	// 공지사항 삭제
@@ -113,5 +115,17 @@ public class NoticeController {
 	public String updateNoticeArticleProcess(NoticeBoardDto noticeBoardDto) {
 		noticeService.updateNoticeArticle(noticeBoardDto);
 		return "redirect:./readNoticeBoardPage?id=" + noticeBoardDto.getId();
+	}
+	// 공지사항 댓글 작성
+	@RequestMapping("writeNoticeCommentProcess")
+	public String writeNoticeCommentProcess(NoticeCommentDto noticeCommentDto) {
+		noticeService.insertNoticeComment(noticeCommentDto);
+		return "redirect:./readNoticeBoardPage?id=" + noticeCommentDto.getNotice_id();
+	}
+	// 공지사항 댓글 삭제
+	@RequestMapping("deleteNoticeArticleCommentProcess")
+	public String deleteNoticeArticleCommentProcess(NoticeCommentDto noticeCommentDto) {
+		noticeService.deleteNoticeComment(noticeCommentDto.getId());
+		return "redirect:./readNoticeBoardPage?id=" + noticeCommentDto.getNotice_id(); 
 	}
 }
