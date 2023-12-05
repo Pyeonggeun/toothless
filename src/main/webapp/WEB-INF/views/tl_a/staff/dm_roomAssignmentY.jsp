@@ -50,23 +50,23 @@
 			
 			<!-- 미니맵 -->
 			<div class="row">
-				<div class="col border py-4 mx-2 rounded btn text-center" onclick="location.href='./dm_roomAssignment'" style="background-color: black;">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='./dm_roomAssignment'">
 					<div class="row">
-						<div class="col ms-2 fw-bold" style="color: white;">
+						<div class="col ms-2 fw-bold">
 							전체
 						</div>
 					</div>
 				</div>
-				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='./dm_roomAssignmentN'">
+                <div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='./dm_roomAssignmentN'">
 					<div class="row">
 						<div class="col ms-2 fw-bold">
 							미배정
 						</div>
 					</div>
 				</div>
-                <div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='./dm_roomAssignmentY'">
+                <div class="col border py-4 mx-2 rounded btn text-center" onclick="location.href='./dm_roomAssignmentY'" style="background-color: black;">
 					<div class="row">
-						<div class="col ms-2 fw-bold">
+						<div class="col ms-2 fw-bold" style="color: white;">
 							배정완료
 						</div>
 					</div>
@@ -88,27 +88,14 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>배진우</td><!-- 테이블 엮어서 반복문 -->
+								<td></td><!-- 테이블 엮어서 반복문 -->
 								<td>
-                                    <select id="1" name="dorm" class="form-select">
-                                        <!-- 동 리스트 반복문 -->
-                                        <option>A</option>
-                                        <option>B</option>
-                                    </select>
+                                    
                                 </td><!-- 여기도 반복문-->
                                 <td>
-                                    <select class="form-select"> <!-- 이거 a동 선택할때랑 b동 선택할때랑 달라서... -->
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                    </select>
-                                    <select class="form-select">
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                    </select>
+                                    
                                 </td>
-								<td><h6 class="btn btn-primary">배정</h6></td>
+								<td><h6 class="btn btn-danger">배정취소</h6></td>
 							</tr><!--  -->
 						</tbody>
 					</table>

@@ -30,7 +30,7 @@
 			<!-- 카테고리명 -->
 			<div class="row my-3">
 				<div class="col fs-4 fw-bold">
-					배정 관리
+					배정 현황
 				</div>
 			</div>
 			
@@ -39,77 +39,54 @@
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 					  <li class="nav-item">
-					    <a class="nav-link active text-black" href="./dm_roomAssignment">호실 배정</a>
+					    <a class="nav-link text-black" href="./dm_roomAssignment">호실 배정</a>
 					  </li>
 					  <li class="nav-item">
-					    <a class="nav-link text-black" href="./dm_readRoomAssignment">배정 현황</a>
+					    <a class="nav-link active text-black" href="./dm_readRoomAssignment">배정 현황</a>
 					  </li>
 					</ul>
 				</div>
 			</div>
 			
-			<!-- 미니맵 -->
+			
 			<div class="row">
-				<div class="col border py-4 mx-2 rounded btn text-center" onclick="location.href='./dm_roomAssignment'" style="background-color: black;">
+				<div class="col border py-4 mx-2 rounded border-dark text-center">
+					<div class="row">
+                        <a href="./dm_readRoomAssignmentA" role="button" style="text-decoration: none; color: black;">
+						<div class="col ms-2 fw-bold">
+							A동
+						</div>
+                        </a>
+					</div>
+				</div>
+				<div class="col border py-4 mx-2 rounded btn text-center" style="background-color: black;">
 					<div class="row">
 						<div class="col ms-2 fw-bold" style="color: white;">
-							전체
+							B동
 						</div>
 					</div>
-				</div>
-				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='./dm_roomAssignmentN'">
-					<div class="row">
-						<div class="col ms-2 fw-bold">
-							미배정
-						</div>
-					</div>
-				</div>
-                <div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='./dm_roomAssignmentY'">
-					<div class="row">
-						<div class="col ms-2 fw-bold">
-							배정완료
-						</div>
-					</div>
+					
 				</div>
 				<div class="col-8"></div>
 			</div>
 
-			<!-- 세부내용 시작 -->			
+			
 			<div class="row my-3 py-3">
 				<div class="col">
 					<table class="table table-bordered text-center align-middle">
 						<thead>
 							<tr class="border-bottom border-2">
-								<th scope="col" class="col-2 text-bg-light">이름</th>
 								<th scope="col" class="col-2 text-bg-light">동</th>
 								<th scope="col" class="col-2 text-bg-light">호수</th>
-                                <th scope="col" class="col-1 text-bg-light">배정/배정취소</th>
+								<th scope="col" class="col-2 text-bg-light">이름</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>배진우</td><!-- 테이블 엮어서 반복문 -->
-								<td>
-                                    <select id="1" name="dorm" class="form-select">
-                                        <!-- 동 리스트 반복문 -->
-                                        <option>A</option>
-                                        <option>B</option>
-                                    </select>
-                                </td><!-- 여기도 반복문-->
-                                <td>
-                                    <select class="form-select"> <!-- 이거 a동 선택할때랑 b동 선택할때랑 달라서... -->
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                    </select>
-                                    <select class="form-select">
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                    </select>
-                                </td>
-								<td><h6 class="btn btn-primary">배정</h6></td>
-							</tr><!--  -->
+								<td>A동</td><!-- 테이블 엮어서 반복문 -->
+								<td>101호</td><!-- 여기도 반복문-->
+								<td>배진우</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

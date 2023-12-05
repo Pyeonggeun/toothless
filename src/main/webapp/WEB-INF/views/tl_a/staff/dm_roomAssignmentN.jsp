@@ -50,16 +50,16 @@
 			
 			<!-- 미니맵 -->
 			<div class="row">
-				<div class="col border py-4 mx-2 rounded btn text-center" onclick="location.href='./dm_roomAssignment'" style="background-color: black;">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='./dm_roomAssignment'">
 					<div class="row">
-						<div class="col ms-2 fw-bold" style="color: white;">
+						<div class="col ms-2 fw-bold">
 							전체
 						</div>
 					</div>
 				</div>
-				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='./dm_roomAssignmentN'">
+                <div class="col border py-4 mx-2 rounded btn text-center" onclick="location.href='./dm_roomAssignmentN'" style="background-color: black;">
 					<div class="row">
-						<div class="col ms-2 fw-bold">
+						<div class="col ms-2 fw-bold" style="color: white;">
 							미배정
 						</div>
 					</div>
