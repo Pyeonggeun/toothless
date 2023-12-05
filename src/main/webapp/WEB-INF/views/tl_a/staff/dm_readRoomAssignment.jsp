@@ -47,8 +47,6 @@
 					</ul>
 				</div>
 			</div>
-			
-			
 			<div class="row">
 				<div class="col border py-4 mx-2 rounded border-dark btn text-center">
 					<div class="row">
