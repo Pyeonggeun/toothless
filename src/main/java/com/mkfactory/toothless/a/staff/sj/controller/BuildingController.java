@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mkfactory.toothless.a.dto.DormBuildingDto;
@@ -94,10 +95,7 @@ public class BuildingController {
 	        dormbuildingDto.setMain_img(todayPath+fileName);
 	    }
 		
-		
-		
-		
-		
+	
 		buildingService.registerBuilding(dormbuildingDto);
 		return "redirect:./sj_registerDormInfo";
 	}
@@ -109,9 +107,9 @@ public class BuildingController {
 	}
 	
 	@RequestMapping("registeRoomImagesProcess")
-	public String registerRoomImageProcess(DormCategoryDto dormCategory, MultipartFile[] roomImgs, DormBuildingDto dormBuild) {
+	public String registerRoomImageProcess(@RequestParam("dorm_amount") int dormAmount, DormCategoryDto dormCategory, MultipartFile[] roomImgs, DormBuildingDto dormBuild) {
 		// 상세 이미지 렛츠고
-	    List<DormCategoryDto> CategoryList = new ArrayList<>();
+	    List<DormCategoryDto> categoryList = new ArrayList<>();
 
 		// ㄱㄱ
 		if(roomImgs != null) {
@@ -151,19 +149,24 @@ public class BuildingController {
 				
 				int RoomCategoryPk = dormCategory.getDorm_amount_pk();
 				DormCategoryDto dcd =  new DormCategoryDto();
+				
 				dcd.setDorm_amount_pk(RoomCategoryPk);
 				dcd.setDorm_imgs(todayPath+fileName);
 				
-				CategoryList.add(dormCategory);		
+				categoryList.add(dcd);
 				
 			}
 		}
-		buildingService.insertRegisterCategory(dormCategory);
+		buildingService.insertRegisterCategory(dormCategory, categoryList);
 		return "redirect:./sj_registerRoomImages";
 	}
 	
 	@RequestMapping("registerRoomProcess")
-	public String registerRoomInfoProcess() {
+	public String registerRoomInfoProcess(DormRoomDto roomDto) {
+		
+		buildingService.registerRoom(roomDto);
+		 System.out.println("dorm_amount_pk: " + roomDto.getDorm_amount_pk());
+		 System.out.println("dorm_pk: " + roomDto.getDorm_pk());
 		return "redirect:./sj_registerRoomInfo";
 	}
 	

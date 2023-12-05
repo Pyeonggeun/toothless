@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.c.huyeoung.mapper.HuyeoungInternshipSqlMapper">
+	
+	<!-- 현장실습등록 쿼리 -->
+	<insert id="insertInternshipRegister">
+		INSERT INTO tl_tl_c_internship_course VALUES(
+			tl_c_internship_course_seq.nextval, 
+			#{company_pk},
+			#{professor_pk},
+			#{department_pk},
+			#{course_title},
+			#{internship_total_member},
+			#{semester_qualification},
+			#{applying_start_date},
+			#{applying_end_date},
+			#{internship_start_date},
+			#{internship_end_date},
+			#{announcement_date},
+			SYSDATE
+		)
+	</insert>
+
+	<!-- 현장실습 수정-->
+	<update id="updateInternship" >
+		UPDATE tl_c_internship_course
+		   SET course_title = #{course_title}            
+		     , internship_total_member = #{internship_total_member}
+		     , semester_qualification = #{semester_qualification}
+		     , applying_start_date = #{applying_start_date}
+		     , applying_end_date = #{applying_end_date}
+		     , internship_start_date = #{internship_start_date}
+		     , internship_end_date = #{internship_end_date}
+		WHERE internship_course_pk = #{internship_course_pk}
+		  AND company_pk    = #{company_pk}
+		  AND professor_pk  = #{professor_pk}
+		  AND department_pk = #{department_pk} 
+	</update>
+
+	<!-- 현장실습 일괄조회 쿼리-->
+	<select id="selectInternshipAll" 
+		resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
+		SELECT * FROM tl_c_internship_course
+	</select>
+
+	<!-- 현장실습등록 회사아이디 조회-->	
+	<select id="selectInternshipCompanyId" 
+		resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
+		SELECT * FROM tl_c_internship_course 
+		WHERE company_pk = #{company_pk}
+	</select>
+	
+	<!-- 현장실습등록 교수아이디 조회-->	
+	<select id="selectInternshipProfessorId" 
+		resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
+		SELECT * FROM tl_c_internship_course
+		WHERE professor_pk = #{professor_pk}
+	</select>
+
+	<!-- 현장실습 상세조회 쿼리-->
+	<select id="selectInternshipDtil" 
+		resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
+		SELECT * FROM tl_c_internship_course
+		WHERE internship_course_pk = #{internship_course_pk}
+		  AND company_pk    = #{company_pk}
+		  AND professor_pk  = #{professor_pk}
+		  AND department_pk = #{department_pk}
+	</select>
+
+</mapper>

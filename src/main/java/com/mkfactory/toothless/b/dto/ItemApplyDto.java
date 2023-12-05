@@ -15,7 +15,6 @@ public class ItemApplyDto {
 	private Date rental_date;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date return_date;
-	private int quantity;
 	private Date created_at;
 	
 	public ItemApplyDto() {
@@ -23,7 +22,7 @@ public class ItemApplyDto {
 	}
 
 	public ItemApplyDto(int item_apply_pk, int student_pk, int item_pk, String reason, String status, Date rental_date,
-			Date return_date, int quantity, Date created_at) {
+			Date return_date, Date created_at) {
 		super();
 		this.item_apply_pk = item_apply_pk;
 		this.student_pk = student_pk;
@@ -32,7 +31,6 @@ public class ItemApplyDto {
 		this.status = status;
 		this.rental_date = rental_date;
 		this.return_date = return_date;
-		this.quantity = quantity;
 		this.created_at = created_at;
 	}
 
@@ -90,14 +88,6 @@ public class ItemApplyDto {
 
 	public void setReturn_date(Date return_date) {
 		this.return_date = return_date;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
 	}
 
 	public Date getCreated_at() {

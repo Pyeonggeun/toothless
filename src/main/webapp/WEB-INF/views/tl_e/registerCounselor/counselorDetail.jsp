@@ -19,13 +19,12 @@
 	font-family: 'Gowun Dodum', sans-serif;
 	/* font-family: 'Quicksand', sans-serif; */
 }
-
 </style>
-<title>상담원 등록 페이지</title>
+<title>상담원 상세정보</title>
 </head>
 <body>
 	
-	<div class="container-fluid">
+	<div class="container">
 	
 		<div class="row border-bottom">
 			<div class="col-10"></div>
@@ -60,7 +59,7 @@
 							</button>
 							<ul class="dropdown-menu">
 							    <li><a class="dropdown-item" href="../registerCounselor/registerPage">상담원 등록</a></li>
-						   		<li><a class="dropdown-item" href="../registerCounselor/counselorDetail">상담원 조회</a></li>
+						   		<li><a class="dropdown-item" href="../registerCounselor/counselorInfo">상담원 조회</a></li>
 						   		<li><a class="dropdown-item" href="#">상담원 뭐시기</a></li>
 							</ul>
 						</div>
@@ -82,237 +81,164 @@
 			<div class="col-10">
 				<div class="row mt-5">
 					<div class="col">
-						<span class="fw-bold fs-2">상담원 조회</span>
+						<span class="fw-bold fs-2">상담원 상세정보</span>
+					</div>
+				</div>
+				
+				<div class="row mt-5">
+					<div class="col-auto">
+						<img src="../../resources/img/counselorImage/${counselorDto.profileImage}" class="img-fluid">
+					</div>
+					
+					<div class="col">
+						<div class="row align-items-center">
+							<div class="col-2">
+								<span class="fw-bold fs-5">이름</span>	
+							</div>
+							<div class="col">
+								<span class="fw-bold fs-3">${counselorDto.name}</span> 상담사	
+							</div>
+						</div>
+						<div class="row align-items-center mt-3">
+							<div class="col-2">
+								<span class="fw-bold fs-5">상담원번호</span>	
+							</div>
+							<div class="col">
+								<span class="">${counselorDto.id}</span>	
+							</div>
+						</div>
+						<div class="row align-items-center mt-3">
+							<div class="col-2">
+								<span class="fw-bold fs-5">나이</span>	
+							</div>						
+							<div class="col">
+								<span class="">${counselorDto.age}</span>	
+							</div>
+						</div>
+						<div class="row align-items-center mt-3">
+							<div class="col-2">
+								<span class="fw-bold fs-5">성별</span>	
+							</div>
+							<div class="col">
+								<c:choose>
+								<c:when test="${counselorDto.gender == 'M'}">
+									<span class="">남</span>
+								</c:when>
+								<c:otherwise>
+									<span class="">여</span>
+								</c:otherwise>
+								</c:choose>									
+							</div>
+						</div>
+						<div class="row align-items-center mt-3">
+							<div class="col-2">
+								<span class="fw-bold fs-5">전화번호</span>	
+							</div>						
+							<div class="col">
+								<span class="">${counselorDto.phonenumber}</span>	
+							</div>
+						</div>
+						<div class="row align-items-center mt-3">
+							<div class="col-2">
+								<span class="fw-bold fs-5">이메일</span>	
+							</div>						
+							<div class="col">
+								<span class="">${counselorDto.email}</span>	
+							</div>
+						</div>
+						<div class="row align-items-center mt-3">
+							<div class="col-2">
+								<span class="fw-bold fs-5">주소</span>	
+							</div>						
+							<div class="col">
+								<span class="">${counselorDto.address}</span>	
+							</div>
+						</div>
+						<div class="row align-items-center mt-3">
+							<div class="col-2">
+								<span class="fw-bold fs-5">상담분야</span>	
+							</div>						
+							<c:forEach items="${counselorTypeList}" var="counselorTypeList">
+								<div class="col-auto">
+									<span class="">${counselorTypeList.CATEGORYNAME}</span>	
+								</div>
+							</c:forEach>							
+						</div>						
 					</div>
 				</div>
 				
 				<div class="row mt-5">
 					<div class="col">
-						<div class="row border-bottom">
-							<div class="col text-start">
-								<span class="fw-bold fs-4">성격문제</span>
+						<div class="row">
+							<div class="col">
+								<span class="fw-bold fs-5">경력사항</span>
 							</div>
 						</div>
-						<div class="row">							
-							<c:forEach items="${counselorList}" var="counselorList">
-							<c:if test="${counselorList.TYPECATEGORY == 1}">							
-							<div class="col-3">
-								<div class="row mt-2">
-									<c:choose>
-									<c:when test="${!empty counselorList.PROFILEIMAGE}">
-									<div class="col">
-										<img src="../../resources/img/counselorImage/${counselorList.PROFILEIMAGE}" class="img-fluid img-thumbnail">
+						<div class="row mt-3">
+							<div class="col">
+								<div class="row justify-content-center">
+									<div class="col-10 border rounded">
+										<div class="row mt-3 mb-3">
+											<div class="col">
+												<span class="">${counselorDto.career}</span>
+											</div>
+										</div>										
 									</div>
-									</c:when>
-									<c:otherwise>
-									<div class="col">
-										<img src="../../resources/img/counselorImage/no_image.jpg" class="img-fluid img-thumbnail">
-									</div>
-									</c:otherwise>
-									</c:choose>									
 								</div>
-								<div class="row mt-2">
-									<div class="col text-center">
-										<span class="fw-bold">${counselorList.NAME}</span> 상담사
-									</div>
-								</div>								
 							</div>
-							</c:if>
-							</c:forEach>							
-						</div>
-					</div>
-				</div>
-				
-				<div class="row mt-5">
-					<div class="col">
-						<div class="row border-bottom">
-							<div class="col text-start">
-								<span class="fw-bold fs-4">대인/가족관계</span>
-							</div>
-						</div>
-						<div class="row">							
-							<c:forEach items="${counselorList}" var="counselorList">
-							<c:if test="${counselorList.TYPECATEGORY == 2}">							
-							<div class="col-3">
-								<div class="row mt-2">
-									<c:choose>
-									<c:when test="${!empty counselorList.PROFILEIMAGE}">
-									<div class="col">
-										<img src="../../resources/img/counselorImage/${counselorList.PROFILEIMAGE}" class="img-fluid img-thumbnail">
-									</div>
-									</c:when>
-									<c:otherwise>
-									<div class="col">
-										<img src="../../resources/img/counselorImage/no_image.jpg" class="img-fluid img-thumbnail">
-									</div>
-									</c:otherwise>
-									</c:choose>									
-								</div>
-								<div class="row mt-2">
-									<div class="col text-center">
-										<span class="fw-bold">${counselorList.NAME}</span> 상담사
-									</div>
-								</div>								
-							</div>
-							</c:if>
-							</c:forEach>							
-						</div>
-					</div>
-				</div>
-				
-				<div class="row mt-5">
-					<div class="col">
-						<div class="row border-bottom">
-							<div class="col text-start">
-								<span class="fw-bold fs-4">이성문제</span>
-							</div>
-						</div>
-						<div class="row">							
-							<c:forEach items="${counselorList}" var="counselorList">
-							<c:if test="${counselorList.TYPECATEGORY == 3}">							
-							<div class="col-3">
-								<div class="row mt-2">
-									<c:choose>
-									<c:when test="${!empty counselorList.PROFILEIMAGE}">
-									<div class="col">
-										<img src="../../resources/img/counselorImage/${counselorList.PROFILEIMAGE}" class="img-fluid img-thumbnail">
-									</div>
-									</c:when>
-									<c:otherwise>
-									<div class="col">
-										<img src="../../resources/img/counselorImage/no_image.jpg" class="img-fluid img-thumbnail">
-									</div>
-									</c:otherwise>
-									</c:choose>									
-								</div>
-								<div class="row mt-2">
-									<div class="col text-center">
-										<span class="fw-bold">${counselorList.NAME}</span> 상담사
-									</div>
-								</div>								
-							</div>
-							</c:if>
-							</c:forEach>							
-						</div>
-					</div>
-				</div>
-				
-				<div class="row mt-5">
-					<div class="col">
-						<div class="row border-bottom">
-							<div class="col text-start">
-								<span class="fw-bold fs-4">우울/불안문제</span>
-							</div>
-						</div>
-						<div class="row">							
-							<c:forEach items="${counselorList}" var="counselorList">
-							<c:if test="${counselorList.TYPECATEGORY == 4}">							
-							<div class="col-3">
-								<div class="row mt-2">
-									<c:choose>
-									<c:when test="${!empty counselorList.PROFILEIMAGE}">
-									<div class="col">
-										<img src="../../resources/img/counselorImage/${counselorList.PROFILEIMAGE}" class="img-fluid img-thumbnail">
-									</div>
-									</c:when>
-									<c:otherwise>
-									<div class="col">
-										<img src="../../resources/img/counselorImage/no_image.jpg" class="img-fluid img-thumbnail">
-									</div>
-									</c:otherwise>
-									</c:choose>									
-								</div>
-								<div class="row mt-2">
-									<div class="col text-center">
-										<span class="fw-bold">${counselorList.NAME}</span> 상담사
-									</div>
-								</div>								
-							</div>
-							</c:if>
-							</c:forEach>							
+							
 						</div>
 					</div>
 				</div>
 				
 				<div class="row mt-5">
 					<div class="col">
-						<div class="row border-bottom">
-							<div class="col text-start">
-								<span class="fw-bold fs-4">진로문제</span>
+						<div class="row">
+							<div class="col">
+								<span class="fw-bold fs-5">상담원 자격정보</span>
 							</div>
 						</div>
-						<div class="row">							
-							<c:forEach items="${counselorList}" var="counselorList">
-							<c:if test="${counselorList.TYPECATEGORY == 5}">							
-							<div class="col-3">
-								<div class="row mt-2">
-									<c:choose>
-									<c:when test="${!empty counselorList.PROFILEIMAGE}">
+						<div class="row mt-3">
+							<div class="col">								
+								<div class="row">
 									<div class="col">
-										<img src="../../resources/img/counselorImage/${counselorList.PROFILEIMAGE}" class="img-fluid img-thumbnail">
-									</div>
-									</c:when>
-									<c:otherwise>
-									<div class="col">
-										<img src="../../resources/img/counselorImage/no_image.jpg" class="img-fluid img-thumbnail">
-									</div>
-									</c:otherwise>
-									</c:choose>									
-								</div>
-								<div class="row mt-2">
-									<div class="col text-center">
-										<span class="fw-bold">${counselorList.NAME}</span> 상담사
-									</div>
-								</div>								
+										<c:forEach items="${licenseList}" var="licenseList">
+										<div class="row mt-2 justify-content-center">
+											<div class="col-10 border rounded text-center">
+												<div class="row mt-2 mb-2">
+													<div class="col">
+														<img src="../../resources/img/counselorImage/license/${licenseList.license}" class="img-fluid">	
+													</div>
+												</div>
+											</div>	
+										</div>
+										</c:forEach>
+									</div>									
+								</div>																
 							</div>
-							</c:if>
-							</c:forEach>							
 						</div>
 					</div>
 				</div>
 				
 				<div class="row mt-5">
 					<div class="col">
-						<div class="row border-bottom">
-							<div class="col text-start">
-								<span class="fw-bold fs-4">학업문제</span>
+						<div class="row">
+							<div class="col">
+								<span class="fw-bold fs-5">상담이력</span>
 							</div>
 						</div>
-						<div class="row">							
-							<c:forEach items="${counselorList}" var="counselorList">
-							<c:if test="${counselorList.TYPECATEGORY == 6}">							
-							<div class="col-3">
-								<div class="row mt-2">
-									<c:choose>
-									<c:when test="${!empty counselorList.PROFILEIMAGE}">
-									<div class="col">
-										<img src="../../resources/img/counselorImage/${counselorList.PROFILEIMAGE}" class="img-fluid img-thumbnail">
-									</div>
-									</c:when>
-									<c:otherwise>
-									<div class="col">
-										<img src="../../resources/img/counselorImage/no_image.jpg" class="img-fluid img-thumbnail">
-									</div>
-									</c:otherwise>
-									</c:choose>									
-								</div>
-								<div class="row mt-2">
-									<div class="col text-center">
-										<span class="fw-bold">${counselorList.NAME}</span> 상담사
-									</div>
-								</div>								
+						<div class="row mt-3">
+							<div class="col border rounded">
+								<span>온라인, 오프라인, 집단상담 완료 이력 로그 출력</span>
 							</div>
-							</c:if>
-							</c:forEach>							
 						</div>
 					</div>
 				</div>
 				
 			</div>
-			<div class="col-1"></div>
 		</div>
 	</div>
 
-	
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>	
 </body>
 </html>

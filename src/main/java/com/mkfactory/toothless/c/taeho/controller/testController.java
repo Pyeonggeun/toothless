@@ -4,27 +4,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/tl_c/common/*")
+@RequestMapping("/tl_c/templateForUse/*")
 public class testController {
 
-	@RequestMapping("ajdksTemplateForStudent")
-	public String ajdksTemplateForStudent() {
-		return "tl_c/common/ajdksTemplateForStudent";
+	@RequestMapping("staffTemplate")
+	public String staffTemplate() {
+		return "tl_c/templateForUse/staffTemplate";
 	}
 	
-	@RequestMapping("ajdksTemplateForStaff")
-	public String ajdksTemplateForStaff() {
-		return "tl_c/common/ajdksTemplateForStaff";
+	@RequestMapping("studentTemplate")
+	public String studentTemplate() {
+		return "tl_c/templateForUse/studentTemplate";
 	}
 	
-	@RequestMapping("ajdksTemplateForProfessor")
-	public String ajdksTemplateForProfessor() {
-		return "tl_c/common/ajdksTemplateForProfessor";
+	@RequestMapping("professorTemplate")
+	public String professorTemplate() {
+		return "tl_c/templateForUse/professorTemplate";
 	}
 	
-	@RequestMapping("ajdksTemplateForCompany")
-	public String ajdksTemplateForCompany() {
-		return "tl_c/common/ajdksTemplateForCompany";
-	}	
+	@RequestMapping("companyTemplate")
+	public String companyTemplate() {
+		return "tl_c/templateForUse/companyTemplate";
+	}
 	
 }

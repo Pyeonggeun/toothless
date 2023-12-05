@@ -1,6 +1,5 @@
 package com.mkfactory.toothless.donot.touch.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.NotificationDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.donot.touch.mapper.StudentSqlMapper;
 
@@ -39,6 +38,15 @@ public class StudentServiceImpl {
 		
 		return map;
 	}
-	
+	public List<NotificationDto> reloadMyNotifyList(int student_pk){
+		
+		List<NotificationDto> NewNotifyList= studentSqlMapper.reloadMyNotification(student_pk);
+		
+		return NewNotifyList;
+		
+	}
+	public int reloadMyNotifyCount(int student_pk) {
+		return studentSqlMapper.selectMyNotifyCount(student_pk);
+	}
 	
 }

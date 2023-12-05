@@ -7,13 +7,20 @@ import com.mkfactory.toothless.c.dto.AjdksInternSatisfactionDto;
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
+import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
+import com.mkfactory.toothless.donot.touch.dto.SemesterInfoDto;
 
 public interface EunbiStudentSqlMapper {
 
 	// 학생의 현장실습과정 지원상태 조회
 	public List<AjdksStudentApplyingDto> getStudentApplying(int student_pk);
+	public Integer getLatestStudentApplyingPk(int student_pk);
+	public AjdksStudentApplyingDto getLatestStudentApplyingDto(int student_applying_pk);
+	
 	// 학생의 현장실습과정 참가내역 조회
 	public List<AjdksStudentInternDto> getStudentInternHistory(int student_pk);
+	
+	public List<AjdksStudentInternDto> getStudentInternByCoursePk(int internship_course_pk);
 	
 	// 학생 기업만족도 평가
 	public void insertInternSatisfaction(AjdksInternSatisfactionDto ajdksInternSatisfactionDto);
@@ -21,6 +28,27 @@ public interface EunbiStudentSqlMapper {
 	// 학생 이력서 조회
 	public AjdksSelfIntroductionDto getSelfIntroduction(int student_pk);
 	public List<AjdksCertificationDto> getCertifications(int student_pk);
+	
+	// 학생 과 이름 조회
+	public DepartmentCategoryDto getDepartmentByDepartmentPk(int department_pk);
+	
+	// 해당 실습과정의 학생 조회
+	public int countInternBycoursePk(int internship_course_pk);
+	
+	
+	
+	
+	
+	
+	// 검색필터 입학 년도 ,학기 걸기 위한 코드
+	public List<SemesterInfoDto> forSelectSemester();	
+	// 검색필터 전공
+	public List<DepartmentCategoryDto> forSelectDepartment();
+	
+	
+	
+	
+	
 	
 	
 	

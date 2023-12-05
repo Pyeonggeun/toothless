@@ -5,8 +5,8 @@
 <mapper namespace="com.mkfactory.toothless.b.dy.staffboard.mapper.StaffboardSqlMapper">
 					
 	<insert id="insertStaffboardText">
-		INSERT INTO TL_B_STAFF_NOTICEBOARD values(
-			TL_B_STAFF_NOTICEBOARD_seq.nextval,
+		INSERT INTO TL_B_STAFFBOARD values(
+			TL_B_STAFFBOARD_seq.nextval,
 			#{staff_pk},
 			#{title},
 			#{content},
@@ -15,20 +15,28 @@
 		)
 	</insert>
 
-	<select id="selectBoardContentsInfo" resultType="com.mkfactory.toothless.b.dto.StaffNoticeboardDto">
-		SELECT * FROM tl_b_staff_noticeboard ORDER BY staff_noticeboard_pk DESC
+	<select id="selectBoardContentsInfo" resultType="com.mkfactory.toothless.b.dto.StaffboardDto">
+		SELECT * FROM tl_b_staffboard ORDER BY staffboard_pk DESC
 	</select>
 
 	<select id="selectStaffInfo" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
 		SELECT * FROM TL_JIC_STAFF_INFO WHERE STAFF_PK = #{staff_pk}
 	</select>
 	
-	<select id="selectContentsDetailInfo" resultType="com.mkfactory.toothless.b.dto.StaffNoticeboardDto">
-		SELECT * FROM tl_b_staff_noticeboard WHERE staff_noticeboard_pk = #{staff_noticeboard_pk}
+	<select id="selectContentsDetailInfo" resultType="com.mkfactory.toothless.b.dto.StaffboardDto">
+		SELECT * FROM tl_b_staffboard WHERE staffboard_pk = #{staffboard_pk}
 	</select>
 	
 	<update id="updateTextReadCount">
-		UPDATE TL_B_STAFF_NOTICEBOARD SET READ_COUNT = READ_COUNT +1 WHERE staff_noticeboard_pk = #{staff_noticeboard_pk}
+		UPDATE TL_B_STAFFBOARD SET READ_COUNT = READ_COUNT +1 WHERE staffboard_pk = #{staffboard_pk}
+	</update>
+	
+	<delete id="deleteText">
+		DELETE FROM TL_B_STAFFBOARD WHERE staffboard_pk = #{staff_board_pk}
+	</delete>
+	
+	<update id="updateModifyText">
+		UPDATE TL_B_STAFFBOARD SET title = #{title}, content = #{content} WHERE staffboard_pk = #{staffboard_pk}
 	</update>
 	
 </mapper>

@@ -209,7 +209,7 @@
                                     <div class="row mt-2 ms-2 me-1 border-1" style="background-color: #DEF4F5; border-style: solid; border-color: #454545;">
                                         <div class="col">
                                             <div class="row mt-4 me-0">
-                                                <div class="col-1"></div>  
+                                                <div class="col-3"></div>  
                                                 <div class="col-1 ps-1 pe-0 fw-bold">물품카테고리</div>
                                                 <div class="col-2 ps-4">
                                                     <select name="item_cat_pk" class="form-select form-select-sm d-grid rounded-0" aria-label="Small select example" style="border-color: black;">
@@ -219,26 +219,24 @@
                                                         </c:forEach>
                                                     </select> 
                                                 </div>
+
                                                 <div class="col-1 ps-3 fw-bold"><span>물품명</span></div>
                                                 <div class="col-2 ps-4">
                                                     <input name="name" type="text">
                                                 </div>
-                                                <div class="col-1 ps-4 fw-bold"><span>수량</span></div>
-                                                <div class="col-1 pe-0">
-                                                    <input name="quantity" type="number" min="0">
-                                                </div>
                                                 <div class="col-2"></div> 
                                             </div>
-                                            <div class="row mt-3 mb-3">
-                                                <div class="col-1"></div>
-                                                <div class="col-1 ps-1 pe-0 fw-bold">
+                                            <div class="row mt-3 mb-3 me-0">
+                                                <div class="col-3"></div>
+                                                <div class="col-1 ps-1 fw-bold">
                                                     <span>물품설명서</span>
                                                 </div>
                                                 <div class="col-2 ps-4 pe-5">
                                                     <textarea name="content"></textarea>
                                                 </div>
-                                                <div class="col-1  fw-bold">
-                                                    <span>물품이미지</span>
+                                                
+                                                <div class="col-1 ps-2 fw-bold">
+                                                    물품이미지
                                                 </div>
                                                 <div class="col-2 ps-4">
                                                     <input type="file" name="mainImage" accept="image/*">
@@ -263,17 +261,14 @@
                                     <div class="row mt-3">
                                         <div class="col">
                                             <div class="row ">
-                                                <div class="col-2 fw-bold" style="text-align: center;">
+                                                <div class="col-3 fw-bold" style="text-align: center;">
                                                     <span>물품번호</span>
                                                 </div>
                                                 <div class="col-3 fw-bold" style="text-align: center;">
                                                     <span>물품카테고리</span>
                                                 </div>
-                                                <div class="col-2 fw-bold" style="text-align: center;">
+                                                <div class="col-3 fw-bold" style="text-align: center;">
                                                     <span>물품명</span>
-                                                </div>
-                                                <div class="col-2 fw-bold" style="text-align: center;">
-                                                    <span>수량</span>
                                                 </div>
                                                 <div class="col-3 fw-bold" style="text-align: center;">
                                                     <span>등록일</span>
@@ -286,17 +281,14 @@
                                             </div>
                                             <c:forEach items="${itemAndCategoryList }" var="e">
                                             <div class="row">
-                                                <div class="col-2" style="text-align: center;">
+                                                <div class="col-3" style="text-align: center;">
                                                     <span>${e.ITEM_PK }</span>
                                                 </div>
                                                 <div class="col-3" style="text-align: center;">
                                                     <span>${e.CAT_NAME }</span>
                                                 </div>
-                                                <div class="col-2" style="text-align: center;">
+                                                <div class="col-3" style="text-align: center;">
                                                     <a href="./itemUpdateAndDeleteDetailPage?item_pk=${e.ITEM_PK }" style="text-decoration-line: none; color: #212529;"><span>${e.ITEM_NAME }</span></a>
-                                                </div>
-                                                <div class="col-2" style="text-align: center;">
-                                                    <span>${e.QUANTITY }</span>
                                                 </div>
                                                 <div class="col-3" style="text-align: center;">
                                                     <span><fmt:formatDate value="${e.CREATED_AT }" pattern="yyyy-MM-dd"/></span>

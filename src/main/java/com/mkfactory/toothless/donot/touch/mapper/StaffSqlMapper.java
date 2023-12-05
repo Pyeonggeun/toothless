@@ -30,6 +30,8 @@ public interface StaffSqlMapper {
 	public int selectExistsCheckStaffId(String staff_id);
 	public int selectExistsCheckProfessorId(String professor_id);
 	
-	public List<StudentInfoDto> selectStudnetList();
+	public List<StudentInfoDto> selectStudnetList(int pageNum);
+	
+	public int totalPageCount();
 	
 }

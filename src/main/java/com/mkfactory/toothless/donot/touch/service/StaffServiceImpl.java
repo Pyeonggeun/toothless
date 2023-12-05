@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.donot.touch.dto.CenterCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
-import com.mkfactory.toothless.donot.touch.dto.GraduationInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
@@ -104,20 +103,22 @@ public class StaffServiceImpl {
 		
 	}
 	
-	public List<Map<String, Object>> getStudentList(){
+	public List<Map<String, Object>> getStudentList(int pageNum){
 		List<Map<String, Object>> listMap = new ArrayList<>();
-		List<StudentInfoDto> studentInfoDtoList = staffSqlMapper.selectStudnetList();
+		List<StudentInfoDto> studentInfoDtoList = staffSqlMapper.selectStudnetList(pageNum);
 		
 		for(StudentInfoDto studentInfoDto : studentInfoDtoList) {
 			int student_pk = studentInfoDto.getStudent_pk();
 			
 			int graduationInfo =  studentSqlMapper.selectGraduationInfo(student_pk);
 			int studentYear = studentSqlMapper.selectStudentYear(student_pk);
+			int totalPageNum = staffSqlMapper.totalPageCount();
 			String departmentName = studentSqlMapper.selectStudnetDepartmentName(studentInfoDto.getDepartment_pk());
 			ProfessorInfoDto professorInfoDto = studentSqlMapper.selectMyProfessor(studentInfoDto.getProfessor_pk());
 			
 			Map<String, Object> map = new HashMap<>();
 			
+			map.put("totalPageNum", totalPageNum);
 			map.put("graduationInfo", graduationInfo);
 			map.put("studentYear", studentYear);
 			map.put("departmentName", departmentName);
@@ -130,7 +131,6 @@ public class StaffServiceImpl {
 		
 		return listMap;
 	}
-	
 	
 	
 }

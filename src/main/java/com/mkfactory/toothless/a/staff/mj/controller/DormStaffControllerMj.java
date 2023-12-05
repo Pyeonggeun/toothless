@@ -2,6 +2,8 @@ package com.mkfactory.toothless.a.staff.mj.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
 import com.mkfactory.toothless.a.dto.SemesterDto;
 import com.mkfactory.toothless.a.staff.mj.service.DormStaffServiceImpl;
+import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
+import com.mkfactory.toothless.donot.touch.service.StaffServiceImpl;
+import com.mkfactory.toothless.donot.touch.service.StudentServiceImpl;
 
 @Controller
 @RequestMapping("/tl_a/staff/*")
@@ -18,12 +24,79 @@ public class DormStaffControllerMj {
 	@Autowired
 	DormStaffServiceImpl staffService;
 	
+	@Autowired
+	StudentServiceImpl commonStudentService;
+	
+	/*
+	@Autowired
+	StaffServiceImpl commonStaffService;
+	
+	// 사감 로그인 페이지로
+	@RequestMapping("loginPage")
+	public String loginPage() {
+		
+		return "another/staff/loginPage";
+	}
+	
+	// 사감 로그인
+	@RequestMapping("loginProcess")
+	public String loginProcess(HttpSession session, StaffInfoDto params) {
+		
+		StaffInfoDto staffInfoDto = staffService.loginByStaffIdAndPassword(params);
+	
+		if(staffInfoDto == null) {
+			return "redirect: ./loginPage";
+		}
+		
+		
+		session.setAttribute("sessionStaffInfo", staffInfoDto);
+		if(staffInfoDto.getCenter_pk() == 1) {
+			
+			return "redirect: ../../tl_c/woojae/staff/ajdksStaffMainPage";
+			
+		}else if(staffInfoDto.getCenter_pk() == 2){
+			
+			return "redirect: ../../tl_b/common/studentMainPage";
+			
+		}else if(staffInfoDto.getCenter_pk() == 3){
+			
+			return "redirect: ../../tl_e/commons/counselCenterStaffMainPage";
+			
+		}else if(staffInfoDto.getCenter_pk() == 4){
+			
+			return "redirect: ../../tl_a/staff/mj_mainPage";
+			
+		}else if(staffInfoDto.getCenter_pk() == 5){
+			
+			return "redirect: ../../tl_b/common/staffMainPage";
+			
+		}else{
+			return "redirect: ./anotherMainPage";
+		}
+	
+	}
+	
+	// 사감 로그아웃
+	@RequestMapping("logoutProcess")
+	public String logoutProcess(HttpSession session) {
+	
+		session.invalidate();
+		
+		return "redirect: ./loginPage";
+	}
+	
+	
+	*/
+	
+	
 	// 사감 메인페이지
 	@RequestMapping("mj_mainPage")
 	public String mj_mainPage() {
 		
-		return "/tl_a/staff/mj_mainPage";
+		return "tl_a/staff/mj_mainPage";
 	}
+	
+	
 	
 	
 	// 학년도/학기 관리 페이지
@@ -38,7 +111,7 @@ public class DormStaffControllerMj {
 		int countYearList = yearList.size();
 		model.addAttribute("countYearList", countYearList);
 		
-		return "/tl_a/staff/mj_manageYearPage";
+		return "tl_a/staff/mj_manageYearPage";
 	}
 	
 	
@@ -46,7 +119,7 @@ public class DormStaffControllerMj {
 	@RequestMapping("mj_registerYearPage")
 	public String mj_registerYearPage() {
 			
-		return "/tl_a/staff/mj_registerYearPage";
+		return "tl_a/staff/mj_registerYearPage";
 	}
 	
 	// 학년도/학기 추가 프로세스
@@ -62,7 +135,6 @@ public class DormStaffControllerMj {
 	@RequestMapping("mj_changeProgressProcess")
 	public String mj_changeProgressProcess(SemesterDto params) {
 			
-		
 		return "redirect:../staff/mj_changeProgressProcess";
 	}
 
@@ -70,7 +142,7 @@ public class DormStaffControllerMj {
 	@RequestMapping("mj_registerJoinInfoPage")
 	public String mj_registerJoinInfoPage() {
 
-		return "/tl_a/staff/mj_registerJoinInfoPage";
+		return "tl_a/staff/mj_registerJoinInfoPage";
 	}
 	
 	// 공고등록 프로세스
@@ -98,10 +170,15 @@ public class DormStaffControllerMj {
 		int countInfoList = infoList.size();
 		model.addAttribute("countInfoList", countInfoList);
 		
-		return "/tl_a/staff/mj_readRegisterJoinInfoPage";
+		return "tl_a/staff/mj_readRegisterJoinInfoPage";
 	}
 	
+	// 입사신청 목록 관리 페이지 (= 선발관리)
+	@RequestMapping("mj_readApplyDormInfoPage")
+	public String mj_readApplyDormInfoPage() {
 
+		return "tl_a/staff/mj_readApplyDormInfoPage";
+	}
 	
 
 	

@@ -30,7 +30,7 @@
 			<!-- 카테고리명 -->
 			<div class="row my-3">
 				<div class="col fs-4 fw-bold">
-					배정 관리
+					배정 현황
 				</div>
 			</div>
 			
@@ -42,70 +42,57 @@
 					    <a class="nav-link text-black" href="./dm_roomAssignment">호실 배정</a>
 					  </li>
 					  <li class="nav-item">
-					    <a class="nav-link active text-black" href="#">배정 현황</a>
+					    <a class="nav-link active text-black" href="./dm_readRoomAssignment">배정 현황</a>
 					  </li>
 					</ul>
 				</div>
 			</div>
-			
-			<!-- 미니맵 -->
 			<div class="row">
-				<div class="col border py-4 mx-2 rounded">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-center">
 					<div class="row">
-						<div class="col ms-2">
-							<a href="./orderManagePage" class="text-black" style="text-decoration: none;">
+						<a href="./dm_readRoomAssignmentA" role="button" style="text-decoration: none; color: black;">
+							<div class="col ms-2 fw-bold">
 							A동
-							</a>
-						</div>
-					</div>
-					
-					<div class="row mt-2">
-						<div class="col ms-2">
-							<a href="./orderManagePage" class="text-black" style="text-decoration: none;">
-							<span class="fs-5 fw-bold">
-								x
-							</span>건
-							</a>
-						</div>
+							</div>
+						</a>
 					</div>
 				</div>
-				<div class="col border py-4 mx-2 rounded">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-center">
 					<div class="row">
-						<div class="col ms-2">
-							<a href="./deliveryManagePageStateB" class="text-black" style="text-decoration: none;">
+						<a href="./dm_readRoomAssignmentB" role="button" style="text-decoration: none; color: black;">
+							<div class="col ms-2 fw-bold">
 							B동
-							</a>
-						</div>
+							</div>
+						</a>
 					</div>
-					<div class="row mt-2">
-						<div class="col ms-2">
-							<a href="./deliveryManagePageStateB" class="text-black" style="text-decoration: none;">
-							<span class="fs-5 fw-bold">
-								x
-							</span>건
-							</a>
-						</div>
-					</div>
-				</div>					
+					
+				</div>
 				<div class="col-8"></div>
 			</div>
 
-			<!-- 세부내용 시작 -->			
-			<div class="row">
+			
+			<div class="row my-3 py-3">
 				<div class="col">
-					<!-- 목록 -->
-					<div class="row py-3">
-						<div class="col">
-							~~목록 (총 x개) -> 필요시사용
-						</div>
-					</div>
-					
-					<!-- 세부내용 -->
-					<div class="row mt-2">
-						<div class="col">
-							너의 꿈을 펼치는 곳
-						</div>
-					</div>
+					<table class="table table-bordered text-center align-middle">
+						<thead>
+							<tr class="border-bottom border-2">
+								<th scope="col" class="col-2 text-bg-light">동</th>
+								<th scope="col" class="col-2 text-bg-light">호수</th>
+								<th scope="col" class="col-2 text-bg-light">이름</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:if test="${!empty dormList}">
+							<c:forEach items="${dormList }" var="dormList">
+							<tr>
+								<td>${dormList.dormBuildingDto.name }</td>
+								<td>${dormList.dormRoomDto.room_name }</td>
+								<td>${dormList.studentInfoDto.name }</td>
+							</tr>
+							</c:forEach>
+							</c:if>
+						</tbody>
+					</table>
 				</div>
 			</div>
 			

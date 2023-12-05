@@ -28,20 +28,26 @@
 		<div class="row mt-4 mb-5" style="margin-left: 16%; margin-right: 16%;">
 			<c:forEach items="${itemList }" var="e">
 				<div class="col-3 pt-5 ps-3">
-					<img class="img-fluid" src="/uploadFiles/mainImage/${e.itemDto.img_link}">	
+					<img class="img-fluid" src="/uploadFiles/mainImage/${e.IMG_LINK}">	
 					<div class="row mt-1">
 						<div class="col fw-bold"> 
-							카테고리명: ${e.itemCatDto.name }
+							카테고리명: ${e.CAT_NAME }
 							<div class="row mt-1">
 								<div class="col fw-bold">
-									물품명: ${e.itemDto.name }
+									물품명: ${e.ITEM_NAME }
 									<div class="row mt-1">
 										<div class="col fw-bold">
-										수량:	${e.itemDto.quantity }
 										<div class="row mt-5">
 											<div class="col-6"></div>
 											<div class="col">
-												<a href="./studentItemApplyPage?item_pk=${e.itemDto.item_pk }" class="btn text-white" style="background-color: #014195">신청하기</a>
+												<c:choose>
+													<c:when test="${e.STATUS eq 'N' }">
+														<a href="./studentItemApplyPage?item_pk=${e.ITEM_PK }" class="btn text-white" style="background-color: #014195">신청하기</a>
+													</c:when>
+													<c:when test="${e.STATUS eq 'Y' }">
+														<button disabled="disabled" class="btn text-white" style="background-color: #014195">대여중</button>
+													</c:when>
+												</c:choose>
 											</div>
 										</div>
 										</div>

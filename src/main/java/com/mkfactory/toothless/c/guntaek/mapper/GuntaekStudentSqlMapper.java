@@ -1,10 +1,13 @@
 package com.mkfactory.toothless.c.guntaek.mapper;
 
+import java.util.List;
+
+import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
 
 public interface GuntaekStudentSqlMapper {
 
-	// 이력서 insert
+	// 이력서 Dto insert
 	public void registerSelfIntroduction(AjdksSelfIntroductionDto selfIntroductionDto);
 	
 	// 특정 학생키에 따른 이력서 개수
@@ -15,4 +18,10 @@ public interface GuntaekStudentSqlMapper {
 	
 	// 특정 학생키로 이력서 답변 수정
 	public void updateSelfIntroductionDto(AjdksSelfIntroductionDto selfIntroductionDto);
+
+	// 자격증 Dto insert
+	public void registerCertification(AjdksCertificationDto certificationDto);
+	
+	// 특정 학생 자격증 Dto 리스트 가져오기
+	public List<AjdksCertificationDto> getCertificationByStudentPk (int student_pk);
 }

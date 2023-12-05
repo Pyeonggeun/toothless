@@ -18,7 +18,13 @@ public class EunbiProfessorController {
 	private EunbiProfessorServiceImpl professorServiece;
 	
 	@RequestMapping("internshipMainPage")
-	public String internshipMainPage() {
+	public String internshipMainPage(HttpSession session, Model model) {
+		
+		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
+		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
+		
+		model.addAttribute("chargedInternshipCourse", professorServiece.viewChargedInternshipCourse(sessionProfessorPk));
+		
 		
 		return "tl_c/eunbi/professor/internshipMainPage";
 	}
@@ -31,9 +37,26 @@ public class EunbiProfessorController {
 		
 		model.addAttribute("sessionProfessorInfo", sessionProfessorInfo);
 		model.addAttribute("studentsInfo", professorServiece.viewStudentsWithApplyingStatus(sessionProfessorPk));
+		model.addAttribute("studentSearchFilters", professorServiece.studentSearchFilter());
 		
 		return "tl_c/eunbi/professor/viewChargedStudentPage";
 	}
+	
+	@RequestMapping("viewInternshipCourseDetailPage")
+	public String viewInternshipCourseDetailPage(HttpSession session, Model model) {
+		
+		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
+		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
+		
+		
+		
+		return "tl_c/eunbi/professor/viewInternshipCourseDetailPage";
+		
+	}
+	
+	
+	
+	
 	
 	
 	

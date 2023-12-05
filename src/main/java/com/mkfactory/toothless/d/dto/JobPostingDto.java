@@ -2,6 +2,8 @@ package com.mkfactory.toothless.d.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class JobPostingDto {
 	
 	public int job_posting_pk;
@@ -14,6 +16,7 @@ public class JobPostingDto {
 	public String posting_contents;
 	public String preference;
 	public int hire_number;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public Date posting_deadline;
 	public Date created_at;
 	

@@ -20,16 +20,20 @@
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
                                 <div class="col">
                                     <h1>작성 글 보기</h1>
-                                    제목 ${readText.noticeboardDto.title }
+                                    제목 ${readText.staffboardDto.title }
                                     <br>
                                     작성자 ${readText.staffInfoDto.name}
                                     <br>
-                                    조회수 ${readText.noticeboardDto.read_count}
+                                    조회수 ${readText.staffboardDto.read_count}
                                     <br>
                                     내용 <br>
-                                    ${readText.noticeboardDto.content}
+                                    ${readText.staffboardDto.content}
                                     <br>
-                                    <button type="button" onclick="location.href='./staffNoticeboardPage'">목록으로</button>
+                                    <button type="button" onclick="location.href='./staffboardPage'">목록으로</button>
+                                    <c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == readText.staffboardDto.staff_pk}">
+	                                    <button type="button" onclick="location.href='./deleteTextProcess?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">삭제</button>
+	                                    <button type="button" onclick="location.href='./modifyTextPage?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">수정</button>
+									</c:if>
                                 </div>
                             </div>
                         </div>

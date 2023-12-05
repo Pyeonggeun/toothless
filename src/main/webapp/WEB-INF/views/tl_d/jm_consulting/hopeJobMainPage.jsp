@@ -27,7 +27,7 @@
 		<div class="col border mx-2 my-2" >
 			<div class="row py-3">
 				<div class="col">
-					내 온라인 상담 목록
+					내 최근 온라인 상담
 				</div>
 			</div>
 			<div class="row pb-3">
@@ -35,37 +35,33 @@
 					<div class="row">
 						<div class="col">
 							<c:choose>
-								<c:when test="${onConsultingList3==null}">
+								<c:when test="${lastOnlineConsulting==null}">
 									상담 내역이 없습니다.
 								</c:when>
 								<c:otherwise>
-									<c:forEach items="${onConsultingList3}" var="e">
 										<div class="row">
 											<div class="col">
 
-												<a href="./onlineConsultingViewPage?on_consulting_pk="${e.onlineConsultingDto.on_consulting_pk}>이름 : ${e.studentInfoDto.name}</a>
+												<a href="./onlineConsultingViewPage?on_consulting_pk=${lastOnlineConsulting.onlineConsultingDto.on_consulting_pk}">이름 : ${lastOnlineConsulting.studentInfoDto.name}</a>
 																																	
 											</div>
 										</div>
 										<div class="row">
 											<div class="col">
-												<a href="./onlineConsultingViewPage?on_consulting_pk="${e.onlineConsultingDto.on_consulting_pk}>
-													문의 날짜 : <fmt:formatDate value="${e.onlineConsultingDto.created_at}" pattern="yyyy-MM-dd"/>
+												<a href="./onlineConsultingViewPage?on_consulting_pk=${lastOnlineConsulting.onlineConsultingDto.on_consulting_pk}">
+													문의 날짜 : <fmt:formatDate value="${lastOnlineConsulting.onlineConsultingDto.created_at}" pattern="yyyy-MM-dd"/>
 													<c:choose>
-														<c:when test="${not e.onlineConsultingReplyDto}">
+														<c:when test="${not lastOnlineConsulting.onlineConsultingReplyDto}">
 															<span class="badge text-bg-primary ms-2"> 미답변</span>
 					
 														</c:when>
 														<c:otherwise>
-															<span class="badge text-bg-primary">답변</span>
-					
+															<span class="badge text-bg-primary">답변</span>					
 														</c:otherwise>
 													</c:choose>	
 												</a>																								
 											</div>
-										</div>
-
-									</c:forEach>
+										</div>		
 								</c:otherwise>
 							
 							</c:choose>							
@@ -74,9 +70,10 @@
 
 				</div>
 			</div>
-			<div class="row">
-				<div class="col" style="font-size:0.6em;">
-					전체보기 >
+			
+			<div class="row pt-5 pb-0">
+				<div class="col pb-0" style="font-size:0.6em;">
+					<a href="./onlineConsultingListPage">전체보기 ></a>
 				</div>
 			</div>			
 		</div>
@@ -87,6 +84,11 @@
 					만족도 조사
 				</div>
 			</div>
+			<div class="row">
+				<div class="col pt-2 pb-3">
+					<a href="./unAnsweredHJFListPage">미응답 만족도 조사 : ${countUnAnsweredHJF}건</a>
+				</div>
+			</div>			
 			<div class="row">
 				<div class="col pt-5 pb-1" style="font-size:0.6em;">
 					바로가기 >
@@ -102,12 +104,12 @@
 		<div class="col border mx-2 my-2">
 			<div class="row">
 				<div class="col py-3" style="font-size:1em;">
-					구직관심 분야 등록
+					내 구직관심 분야 관리
 				</div>
 			</div>
 			<div class="row">
 				<div class="col px-3" style="font-size:0.6em;">
-					바로가기 >
+					<a href="./insertHJCPage">등록하기 ></a>
 				</div>
 			</div>
 		</div>
