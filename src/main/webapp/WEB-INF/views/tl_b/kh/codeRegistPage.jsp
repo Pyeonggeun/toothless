@@ -16,19 +16,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <div class="row">
-                        <div class="col px-0">
-                            <img class="img-fluid" src="./img/health/구름.jpg" style="height: 10vh; width: 100%; object-fit: cover; object-position: 50% 43%;">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row bg-secondary" style="height: 4vh;">
-                                <div class="col"></div>
-                                <div class="col"></div>
-                            </div>
-                        </div>
-                    </div>
+                    <jsp:include page="../commonJsp/staffTopBanner.jsp"></jsp:include>
                     <div class="row">
                         <div class="col">
                             <div class="row">
