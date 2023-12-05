@@ -40,7 +40,17 @@
 					
 					<div class="row">
 						<div class="col">
-							<a href="">온라인상담 전체보기</a>
+							<div class="row">
+								<div class="col">
+									온라인 상담 번호
+								</div>
+								<div class="col">
+									학생 이름
+								</div>
+								<div class="col">
+									상담 날짜
+								</div>
+							</div>
 						</div>
 					</div>
 					
