@@ -1,6 +1,9 @@
 package com.mkfactory.toothless.c.woojae.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,8 +43,46 @@ public class WoojaeExternalServiceImpl {
 	}
 	
 	// 등록된 산업체 리스트
-	public List<AjdksCompanyInfoDto> registedCompanyList(){
+	public List<Map<String, Object>> registedCompanyList(){
 		
-		return woojaeExternalSqlMapper.selectRegisteredCompanyList();
+		List<Map<String, Object>> registedCompanyList = new ArrayList<>();
+		
+		List<AjdksCompanyInfoDto> list = woojaeExternalSqlMapper.selectRegisteredCompanyList();
+		
+		for(AjdksCompanyInfoDto ajdksCompanyInfoDto : list) {
+			
+			int companyCategoryPk = ajdksCompanyInfoDto.getCompany_category_pk();
+			AjdksCompanyCategoryDto ajdksCompanyCategoryDto = woojaeExternalSqlMapper.selectBycompany_category_pk(companyCategoryPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			map.put("ajdksCompanyCategoryDto", ajdksCompanyCategoryDto);
+			map.put("ajdksCompanyInfoDto", ajdksCompanyInfoDto);
+			registedCompanyList.add(map);
+		}
+		
+		return registedCompanyList;
 	}
+	
+	// 카테고리별 산업체 리스트
+	public List<Map<String, Object>> getCompanyListByCategoryPk(int company_category_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<AjdksCompanyInfoDto> CompanyListByCategoryPk = woojaeExternalSqlMapper.selectCompanyListByCategoryPk(company_category_pk);
+		
+		for(AjdksCompanyInfoDto ajdksCompanyInfoDto : CompanyListByCategoryPk) {
+			
+			AjdksCompanyCategoryDto ajdksCompanyCategoryDto = woojaeExternalSqlMapper.selectBycompany_category_pk(company_category_pk);
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			map.put("ajdksCompanyCategoryDto", ajdksCompanyCategoryDto);
+			map.put("ajdksCompanyInfoDto", ajdksCompanyInfoDto);
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
 }
