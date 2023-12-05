@@ -4,6 +4,7 @@
 
 <mapper namespace="com.mkfactory.toothless.d.gw.company.mapper.CompanySqlMapper">
 
+	<!-- 회사 인서트 -->
 	<insert id="insertCompany">
 		INSERT INTO tl_d_company VALUES(
 			tl_d_company_seq.nextval,
@@ -18,6 +19,7 @@
 		)
 	</insert>
 
+	<!-- 회사담당자 인서트 -->
 	<insert id="insertCompanyManager">
 		INSERT INTO tl_d_company_manager VALUES(
 			#{com_manager_pk},
@@ -32,14 +34,17 @@
 		)
 	</insert>
 	
+	<!-- 회사담당자 id 생성 -->
 	<select id="creatCompanyManagerPK" resultType="int">
 		SELECT tl_d_company_manager_seq.nextval FROM dual
 	</select>
 	
+	<!-- 외부인 id 생성 -->
 	<select id="creatExternalPK" resultType="int">
 		SELECT tl_jic_external_info_seq.nextval FROM dual
 	</select>
 	
+	<!-- 외부인 계정 인서트 -->
 	<insert id="insertCompanyExternal">
 		INSERT INTO tl_jic_external_info VALUES(
 			#{external_pk},
@@ -50,27 +55,39 @@
 		)
 	</insert>
 	
+	<!-- 카테고리 보이기 -->
 	<select id="selectComScaleCategoryAll" resultType="com.mkfactory.toothless.d.dto.ComScaleCategoryDto">
 		SELECT * FROM tl_d_com_scale_category
 		ORDER BY com_scale_category_pk ASC
 	</select>
 	
+	<!-- 회사 전부 보이기 -->
 	<select id="selectCompanyAll" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
 		SELECT * FROM tl_d_company
 	</select>
 	
+	<!-- 회사 담당자 전부 보이기 -->
 	<select id="selectCompanyManagerAll" resultType="com.mkfactory.toothless.d.dto.CompanyManagerDto">
 		SELECT * FROM tl_d_company_manager
 	</select>
 	
+	<!-- 회사 하나씩만 뽑아오는거 -->
 	<select id="companySelectById" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
 		SELECT * FROM tl_d_company WHERE com_pk=#{com_pk}
 	</select>
 	
+	<!-- 회사담당자 하나씩만 뽑아오는거 -->
 	<select id="companyManagerSelectById" resultType="com.mkfactory.toothless.d.dto.CompanyManagerDto">
 		SELECT * FROM tl_d_company_manager WHERE com_manager_pk=#{com_manager_pk}
 	</select>
-	<!-- 
+	
+	<!-- 회사규모 카테고리 하나씩 뽑아오는거 -->
+	<select id="comScaleCategorySelectById" resultType="com.mkfactory.toothless.d.dto.ComScaleCategoryDto">
+		SELECT * FROM tl_d_com_scale_category
+		WHERE com_scale_category_pk=#{com_scale_category_pk}
+	</select>
+	
+	<!--회사 정보 업데이트
 	<update id="updateCompany">
 		UPDATE tl_d_company
 		SET com_scale_category_pk=#{com_scale_category_pk},
@@ -78,8 +95,8 @@
 			com_bossname=#{com_bossname},
 			com_address=#{com_address}
 		WHERE com_pk=#{com_pk}
-	</update>
-	
+	</update>-->
+	<!--회사 담당자 정보 업데이트
 	<update id="updateCompanyManager">
 		UPDATE tl_d_company_manager
 		SET com_manager_name=#{com_manager_name},
@@ -89,7 +106,7 @@
 			com_direct_number=#{com_direct_number},
 			com_manager_phone=#{com_manager_phone}
 		WHERE com_manager_pk=#{com_manager_pk}
-	</update>
-	 -->
+	</update> -->
+	
 
 </mapper>

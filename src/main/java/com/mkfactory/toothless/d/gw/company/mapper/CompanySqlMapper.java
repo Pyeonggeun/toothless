@@ -28,13 +28,15 @@ public interface CompanySqlMapper {
 	public void insertCompanyExternal(ExternalInfoDto externalInfoDto);
 
 	//회사랑 회사 담당자 pk 뽑아내는거
-	public CompanyDto companySelectById(int id);
+	public CompanyDto companySelectById(int companyPK);
 	public CompanyManagerDto companyManagerSelectById(int id);
+	public ComScaleCategoryDto comScaleCategorySelectById(int id);
 	
 	//등록된 회사, 회사 담당자 전체 리스트
 	public List<CompanyDto> selectCompanyAll();
 	
 	public List<CompanyManagerDto> selectCompanyManagerAll();
+	
 	
 	
 	

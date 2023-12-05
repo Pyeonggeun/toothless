@@ -43,15 +43,17 @@ public class CompanyServiceIpml {
 		return companySqlMapper.selectComScaleCategoryAll();
 	}
 	
-	public Map<String, Object> getCompany(int companyPK, int companyManagerPK){
+	public Map<String, Object> getCompany(int companyPK){
 		
 		Map<String, Object> companyMap=new HashMap<>();
 		
 		CompanyDto companyDto=companySqlMapper.companySelectById(companyPK);
-		CompanyManagerDto companyManagerDto=companySqlMapper.companyManagerSelectById(companyManagerPK);
+		CompanyManagerDto companyManagerDto=companySqlMapper.companyManagerSelectById(companyDto.getCom_manager_pk());
+		ComScaleCategoryDto comScaleCategoryDto=companySqlMapper.comScaleCategorySelectById(companyDto.getCom_scale_category_pk());
 		
 		companyMap.put("companyDto", companyDto);
 		companyMap.put("companyManagerDto", companyManagerDto);
+		companyMap.put("comScaleCategoryDto", comScaleCategoryDto);
 		
 		return companyMap;
 	}

@@ -1,5 +1,7 @@
 package com.mkfactory.toothless.d.gw.company.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +45,17 @@ public class CompanyController {
 			model.addAttribute("companyList", companyService.getCompanyList());
 			
 			return "/tl_d/gw_company/companyManagementPage";
+		}
+		
+	//기업 상세정보 페이지
+		@RequestMapping("companyViewDetailsPage")
+		public String companyViewDetailsPage(Model model, int companyPK) {
+			
+			Map<String, Object> companyMap=companyService.getCompany(companyPK);
+			
+			model.addAttribute("companyMap",companyMap);
+			
+			return "/tl_d/gw_company/companyViewDetailsPage";
 		}
 
 }

@@ -35,21 +35,21 @@
 							<table class="table m-2">
 							  <thead>
 							    <tr>
-							      <th scope="col">기업번호</th>
-							      <th scope="col">기업명</th>
-							      <th scope="col">담당자명</th>
-							      <th scope="col">가족기업 여부</th>
+							      <th scope="col" class="col-1  text-center">기업번호</th>
+							      <th scope="col" class="col text-center">기업명</th>
+							      <th scope="col" class="col-3 text-center">담당자명</th>
+							      <th scope="col" class="col-2 text-center">가족기업 여부</th>
 							    </tr>
 							  </thead>
 							  <tbody class="table-group-divider">
 							  	<c:forEach items="${companyList}" var="list">
 								  	<tr>
-									     <th scope="row">${list.companyDto.com_pk}</th>
-									     <td><a class="btn" href="#">${list.companyDto.com_name}</a></td>
-									     <td>${list.companyManagerDto.com_manager_name}</td>
-									     <td>${list.companyDto.is_family_company}</td>
+									     <th scope="col" class="col-1 text-center mt-2">${list.companyDto.com_pk}</th>
+									     <td><a class="btn ms-4" href="./companyViewDetailsPage?companyPK=${list.companyDto.com_pk}">${list.companyDto.com_name}</a></td>
+									     <td class="text-center mt-2">${list.companyManagerDto.com_manager_name}</td>
+									     <td class="text-center mt-2">${list.companyDto.is_family_company}</td>
 								   </tr>
-							  	</c:forEach>
+							  	</c:forEach> 
 							   
 							  </tbody>
 							</table>
