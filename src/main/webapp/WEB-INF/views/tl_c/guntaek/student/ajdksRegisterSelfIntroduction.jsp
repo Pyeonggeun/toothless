@@ -53,13 +53,13 @@
 
 <div class="row">
 	<div class="col">
-		<jsp:include page="../common/ajdksHighestMenubarForStudent.jsp"></jsp:include>
+		<jsp:include page="../../common/ajdksHighestMenubarForStudent.jsp"></jsp:include>
 	</div>
 </div>
 <div class="row">
 
 	<!-- 좌측메뉴바 -->
-	<jsp:include page="../common/ajdksSideMenubarForStudent.jsp"></jsp:include>
+	<jsp:include page="../../common/ajdksSideMenubarForStudent.jsp"></jsp:include>
 	
 	<!-- 본문 : 자유롭게 이용하세요 화이팅 -->	
 	<div class="col">
@@ -89,50 +89,42 @@
 									        자소서 입력하기
 									      </button>
 									    </h2>
-									    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+									    <div id="flush-collapseOne" class="accordion-collapse collapse">
 									      <div class="accordion-body">
 																
 											<div class ="row mt-1 ms-2">
-											<div class="col-3 row align-items-center text-center" style="background-color: #B0C4DE; height: 125px; border: 1px solid black; ">
+											<div class="col-3 row align-items-center px-5" style="background-color: #B0C4DE; height: 125px; border: 1px solid black; ">
 														지원동기
 											</div>
 											<div class ="col-9">
-													   	    <textarea name="answer1" cols= "155" rows="5">
-															  	  
-														</textarea>
+													   	    <textarea name="answer1" cols= "155" rows="5"></textarea>
 											</div>
 											</div>
 													
 											<div class ="row ms-2">
-											<div class="col-3 row align-items-center text-center" style="background-color: #B0C4DE; height: 127px; border: 1px solid black; ">
+											<div class="col-3 row align-items-center px-5" style="background-color: #B0C4DE; height: 127px; border: 1px solid black; ">
 														전공 및 기술 능력
 											</div>
 											<div class ="col-9">
-													    <textarea name="answer2" cols= "155" rows="5">
-															  	  
-														</textarea>
+													    <textarea name="answer2" cols= "155" rows="5"></textarea>
 											</div>
 											</div>
 											
 											<div class ="row ms-2">
-											<div class="col-3 row align-items-center text-center" style="background-color: #B0C4DE; height: 127px; border: 1px solid black; ">
+											<div class="col-3 row align-items-center px-5" style="background-color: #B0C4DE; height: 127px; border: 1px solid black; ">
 														주요경력 및 자격사항
 											</div>
 											<div class ="col-9">
-													    <textarea name="answer3" cols="155" rows="5">
-															  	  
-														</textarea>
+													    <textarea name="answer3" cols="155" rows="5"></textarea>
 											</div>
 											</div>
 											
 											<div class ="row ms-2">
-											<div class="col-3 row align-items-center text-center" style="background-color: #B0C4DE; height: 127px; border: 1px solid black; ">
+											<div class="col-3 row align-items-center px-5" style="background-color: #B0C4DE; height: 127px; border: 1px solid black; ">
 														성격 및 장단점
 											</div>
 											<div class ="col-9 ">
-													    <textarea name="answer4" cols="155" rows="5">
-															  	  
-														</textarea>
+													    <textarea name="answer4" cols="155" rows="5"></textarea>
 											</div>
 											</div>
 														
@@ -177,7 +169,7 @@
 					        자소서 입력하기
 					      </button>
 					    </h2>
-					    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+					    <div id="flush-collapseOne" class="accordion-collapse collapse">
 					      <div class="accordion-body">
 												
 							<div class ="row mt-1 ms-2">
@@ -185,9 +177,7 @@
 										지원동기
 							</div>
 							<div class ="col-9">
-									    <textarea name="answer1" cols="155" rows="5">
-											  	  ${studentIntroductionDto.answer1}
-										</textarea>
+									    <textarea name="answer1" cols="155" rows="5">${studentIntroductionDto.answer1}</textarea>
 										
 							</div>
 							</div>
@@ -197,9 +187,7 @@
 										전공 및 기술 능력
 							</div>
 							<div class ="col-9">
-									    <textarea name="answer2" cols="155" rows="5">
-											  	  ${studentIntroductionDto.answer2}
-										</textarea>
+									    <textarea name="answer2" cols="155" rows="5">${studentIntroductionDto.answer2}</textarea>
 							</div>
 							</div>
 							
@@ -208,9 +196,7 @@
 										주요경력 및 자격사항
 							</div>
 							<div class ="col-9">
-									    <textarea name="answer3" cols="155" rows="5">
-											  	  ${studentIntroductionDto.answer3}
-										</textarea>
+									    <textarea name="answer3" cols="155" rows="5">${studentIntroductionDto.answer3}</textarea>
 							</div>
 							</div>
 							
@@ -219,9 +205,7 @@
 										성격 및 장단점
 							</div>
 							<div class ="col-9 ">
-									    <textarea name="answer4" cols="155" rows="5">
-												${studentIntroductionDto.answer4}
-										</textarea>
+									    <textarea name="answer4" cols="155" rows="5">${studentIntroductionDto.answer4}</textarea>
 							</div>
 							</div>
 										
@@ -229,7 +213,7 @@
 								<div class = "col-4"></div>			
 						 		<div class ="col-4"></div>
 						 			<div class ="col-4 text-end">
-												<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+												<button type="button" class="btn btn-dark" data-bs-toggle="   " data-bs-target="#exampleModal">
 														이력서 불러오기
 												</button>
 												<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -263,6 +247,48 @@
  			</c:when>
  		</c:choose>
 	   
+<div class="accordion accordion-flush" id="accordionFlushExample4"> 	
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Certification1" aria-expanded="false" aria-controls="flush-collapseThree">
+        			자격증 등록
+      </button>
+    </h2>
+    <div id="Certification1" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+      	
+      	<form action="./ajdksRegisterCertification" method ="post" enctype="multipart/form-data" >
+     			<div class ="row">
+     			
+     				<div class="col-3" style="background-color: #B0C4DE; height: 127px; border: 1px solid black;">
+     				 자격증 이미지를 등록해주세요<input name="imageLink" type="file" accept="image/*" > 	 	</div>
+     			
+     			
+     				<div class ="col-9" style="background-color: #B0C4DE; height: 127px; border: 1px solid black; "> 
+     					<div class="row"><span>학생명 : 로그인한 유저 이름</span></div>
+     					
+     					<div class="row"><span> 자격증 이름: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     					<input type ="text" name ="certification_name"></span></div>
+     						
+     					<div class="row"><span> 자격증 취득일:&nbsp;&nbsp;&nbsp;
+     					<input type ="text" name ="certification_acquisition_date"></span></div>	
+     				</div>
+      			</div>
+
+      			<div class ="row mt-3 text-end">
+      				
+      				<div class="col-9" ></div>
+					<div class ="col-3">
+						<input type ="submit" value = "자격증 추가+" class ="btn btn-dark">
+	      			</div>      				
+	      			
+	      					
+      			</div>
+      	</form>
+    </div>
+  </div>
+</div>
+	   
 	   
 	   
 	   
@@ -273,6 +299,7 @@
 	
 </div>
 
+</div>
 </div><!-- 전체 container 출구 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

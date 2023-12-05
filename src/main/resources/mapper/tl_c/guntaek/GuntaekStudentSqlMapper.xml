@@ -35,6 +35,20 @@ INSERT INTO tl_c_self_introduction VALUES(
 	WHERE student_pk = #{student_pk}
 </update>
 
+<insert id = "registerCertification">
+INSERT INTO tl_c_certification VALUES(
+	tl_c_certification_seq.nextval,
+	#{student_pk},
+	#{certification_name},
+	#{certification_acquisition_date},
+	#{certification_file}
+)
+</insert>
+
+<select id = "getCertificationByStudentPk" resultType ="com.mkfactory.toothless.c.dto.AjdksCertificationDto">
+	SELECT * FROM tl_c_certification
+	WHERE STUDENT_PK = #{student_pk}
+</select>
 
 
 
