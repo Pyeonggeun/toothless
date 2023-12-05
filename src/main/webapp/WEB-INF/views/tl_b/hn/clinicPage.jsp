@@ -18,7 +18,7 @@
 				
         		const prescriptionWrapper = document.querySelector("#templete .prescriptionWrapper").cloneNode(true);
         		prescriptionCount++;
-        		document.getElemetById("prescriptionCount").setAttribute("value", prescription);
+        		document.getElementById("prescriptionCount").setAttribute("value", prescriptionCount);
         		document.getElementById("prescriptionListBox").appendChild(prescriptionWrapper);
         		
 			}

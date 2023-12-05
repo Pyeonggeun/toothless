@@ -33,7 +33,7 @@ public class ClinicController {
 	
 	@RequestMapping("ClinicInfoRegisterProcess")
 	public String ClinicInfoRegisterProcess(String firstResidentId, String secondResidentId, String firstPhone, String secondPhone, String thirdPhone,
-			ClinicPatientDto clinicPatientDto, ClinicPatientLogDto clinicPatientLogDto, int[] medicineCodePkList, int[] quantityList) {
+			ClinicPatientDto clinicPatientDto, ClinicPatientLogDto clinicPatientLogDto, int[] medicineCodePkList, int[] quantityList, int prescriptionCount) {
 		
 		String resident_id = firstResidentId + "-" + secondResidentId;
 		String phone = firstPhone + "-" + secondPhone + "-" + thirdPhone;
@@ -42,7 +42,7 @@ public class ClinicController {
 		
 		List<PrescriptionDto> list = new ArrayList<>();
 		
-		for(int x = 0 ; x < 3 ; x++) {
+		for(int x = 0 ; x < prescriptionCount ; x++) {
 			PrescriptionDto prescriptionDto = new PrescriptionDto();
 			prescriptionDto.setMedicine_code_pk(medicineCodePkList[x]);
 			prescriptionDto.setQuantity(quantityList[x]);
