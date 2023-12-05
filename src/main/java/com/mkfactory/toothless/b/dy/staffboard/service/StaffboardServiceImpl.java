@@ -36,7 +36,7 @@ public class StaffboardServiceImpl {
 			StaffInfoDto staffInfoDto = staffboardSqlMapper.selectStaffInfo(userPk);
 			
 			Map<String, Object> map = new HashMap<>();
-			map.put("staffNoticeboardDto", staffboardDto);
+			map.put("staffboardDto", staffboardDto);
 			map.put("staffInfoDto", staffInfoDto);
 			
 			list.add(map);	
@@ -48,11 +48,11 @@ public class StaffboardServiceImpl {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		StaffboardDto noticeboardDto = staffboardSqlMapper.selectContentsDetailInfo(staffboard_pk);
-		int userPk = noticeboardDto.getStaff_pk();
+		StaffboardDto staffboardDto = staffboardSqlMapper.selectContentsDetailInfo(staffboard_pk);
+		int userPk = staffboardDto.getStaff_pk();
 		StaffInfoDto staffInfoDto = staffboardSqlMapper.selectStaffInfo(userPk);
 		
-		map.put("noticeboardDto", noticeboardDto);
+		map.put("staffboardDto", staffboardDto);
 		map.put("staffInfoDto", staffInfoDto);
 		
 		return map;

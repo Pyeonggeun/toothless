@@ -41,11 +41,11 @@
                                     	</tr>
                                     	<c:forEach items="${list}" var="map">
 	                                    	<tr>
-	                                    		<td>${map.staffNoticeboardDto.staff_noticeboard_pk}</td>
-	                                    		<td><a href="./readTextPage?staff_noticeboard_pk=${map.staffNoticeboardDto.staff_noticeboard_pk}">${map.staffNoticeboardDto.title}</a></td>
+	                                    		<td>${map.staffboardDto.staffboard_pk}</td>
+	                                    		<td><a href="./readTextPage?staffboard_pk=${map.staffboardDto.staffboard_pk}">${map.staffboardDto.title}</a></td>
 	                                    		<td>${map.staffInfoDto.name}</td>
-	                                    		<td>${map.staffNoticeboardDto.read_count}</td>
-	                                    		<td>${map.staffNoticeboardDto.created_at}</td>
+	                                    		<td>${map.staffboardDto.read_count}</td>
+	                                    		<td>${map.staffboardDto.created_at}</td>
 	                                    	</tr>
                                     	</c:forEach>	
                                     </table>
