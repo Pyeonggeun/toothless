@@ -31,7 +31,7 @@ public class OfflineCounselServiceImpl {
 		return offlineCounselMapper.createOfflineReservationPk();
 	}
 	
-	public List<Map<String, Object>> sevenDaysDateExtraction() {
+	public List<Map<String, Object>> sevenDaysDateExtraction(int counselor_id) {
 		
 		List<Map<String, Object>> list = new ArrayList<>();
 		
@@ -45,10 +45,21 @@ public class OfflineCounselServiceImpl {
 			DayOfWeek dayOfWeek = today.getDayOfWeek();
 			int day = dayOfWeek.getValue();
 			
-			List<Integer> timeList = new ArrayList<>();
+			List<String> reservationDateInfoList = offlineCounselMapper.selectReservationDateInfoByCounselorId(counselor_id);
+			
+			List<Map<String, Object>> timeList = new ArrayList<>();
 			
 			for(int j = 9; j < 18; j++) {
-				timeList.add(j);
+				
+				String dateString = year + "." + month + "." + date + "." + j;
+				int hour = j;
+				
+				Map<String, Object> dateTimeMap = new HashMap<>();
+				dateTimeMap.put("dateString", dateString);
+				dateTimeMap.put("hour", hour);
+				dateTimeMap.put("reservationDateInfoList", reservationDateInfoList);
+				
+				timeList.add(dateTimeMap);
 			}
 			
 			Map<String, Object> map = new HashMap<>();

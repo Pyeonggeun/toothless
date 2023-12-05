@@ -29,5 +29,8 @@ public interface OfflineCounselMapper {
 	
 	// 카테고리Dto 추출
 	public TypeCategoryDto selectTypeCategoryDtoById(int id);
+	
+	// 상담원별 예약된 날짜 리스트
+	public List<String> selectReservationDateInfoByCounselorId(int counselor_id);
 
 }
