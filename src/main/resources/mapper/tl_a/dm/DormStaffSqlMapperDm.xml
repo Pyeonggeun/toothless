@@ -12,7 +12,7 @@
 	</select>
 	
 	<select id="dormRoomInfoByDormRoomPk" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
-	
+		
 		SELECT * FROM TL_A_DORM_ROOM WHERE dorm_room_pk = #{dorm_room_pk}
 	
 	</select>
