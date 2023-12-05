@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mkfactory.toothless.d.dto.HopeJobCategoryDto;
 import com.mkfactory.toothless.d.dto.HopeJobDto;
 import com.mkfactory.toothless.d.dto.HopeJobFeedbackDto;
+import com.mkfactory.toothless.d.dto.JobFieldCategoryDto;
 import com.mkfactory.toothless.d.dto.OnlineConsultingDto;
 import com.mkfactory.toothless.d.dto.OnlineConsultingReplyDto;
 import com.mkfactory.toothless.d.jm.consulting.service.ConsultingService;
@@ -173,13 +175,16 @@ public class ConsultingController {
 		
 		
 		
-		
+		//마지막 상담정보 리스트
 		Map<String, Object> lastOnlineConsulting = consultingService.lastOnlineConsulting(student_pk);
+		//미응답 만족도 조사 갯수
+		int countUnAnsweredHJF = consultingService.countUnAnsweredHJF(student_pk);
 		
 		
 		
+		//모델
 		model.addAttribute("lastOnlineConsulting", lastOnlineConsulting);	
-	
+		model.addAttribute("countUnAnsweredHJF", countUnAnsweredHJF);
 		
 		
 		return"tl_d/jm_consulting/hopeJobMainPage";
@@ -215,18 +220,98 @@ public class ConsultingController {
 	}
 	
 	
-	//만족도조사 값 입력
-	
-	public String asas(HopeJobFeedbackDto par) {
+	//만족도조사 하는 페이지	
+	@RequestMapping("insertHJFPage")
+	public String insertHJFPage(int hope_job_pk, Model model) {
 		
 		
-		consultingService.insertHopeJobFeedback(par);
-		
-		return"";
+		model.addAttribute("hope_job_pk", hope_job_pk);
+		return"tl_d/jm_consulting/insertHJFPage";
 	}
 	
 	
-
+	//만족도조사 값 입력
+	@RequestMapping("insertHJFProcess")
+	public String insertHJFProcess(HopeJobFeedbackDto par) {
+				
+		consultingService.insertHopeJobFeedback(par);
+		
+		return"redirect:./unAnsweredHJFListPage";
+	}
+	
+	
+	//미응답 만족도조사 보는 페이지
+	@RequestMapping("unAnsweredHJFListPage")
+	public String viewUnAnsweredHJFList(HttpSession session, Model model) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int student_pk = studentInfoDto.getStudent_pk();
+		
+		List<HopeJobDto> hopeJobDtoList = consultingService.getUnAnsweredHJF(student_pk);
+		
+		if(hopeJobDtoList.size() == 0) {
+			model.addAttribute("hopeJobDtoList", false);
+		}
+		else {
+			model.addAttribute("hopeJobDtoList", hopeJobDtoList);
+		}
+		
+		
+		return"tl_d/jm_consulting/unAnsweredHJFListPage";
+	}
+	
+	//구직관심 분야 등록페이지
+	@RequestMapping("insertHJCPage")
+	public String insertHJCPage(HttpSession session, Model model) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int student_pk = studentInfoDto.getStudent_pk();
+		
+		//진행중인 구직희망 정보
+		HopeJobDto hopeJobDto = consultingService.getProgressHopejob(student_pk);
+		int hopeJobPk = hopeJobDto.getHope_job_pk();
+		
+		HopeJobCategoryDto hopeJobCategoryDto = new HopeJobCategoryDto();
+		hopeJobCategoryDto.setHope_job_pk(hopeJobPk);
+		
+		//채용분야 리스트
+		List<Map<String, Object>> jobFieldCategoryDtoList = consultingService.selectJobFieldCategoryList(hopeJobCategoryDto);
+		//구직희망의 관심분야 리스트
+		List<Map<String, Object>> getHopeJobCategoryList = consultingService.getHopeJobCategoryList(hopeJobPk);
+		model.addAttribute("jobFieldCategoryDtoList", jobFieldCategoryDtoList);
+		model.addAttribute("hopeJobPk", hopeJobPk);
+		model.addAttribute("getHopeJobCategoryList", getHopeJobCategoryList);
+		
+		return"tl_d/jm_consulting/insertHJCPage";
+	}
+	
+	//구직관심분야 등록
+	@RequestMapping("insertHopeJobCategory")
+	public String insertHopeJobCategoryProcesss(int[] job_field_category_pk, HttpSession session) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		HopeJobDto hopeJobDto = consultingService.getLastHopejob(studentInfoDto.getStudent_pk());
+		int hopeJobPk = hopeJobDto.getHope_job_pk();
+		
+		consultingService.insertHopeJobCategory(hopeJobPk, job_field_category_pk);
+		return"redirect:./insertHJCPage";
+	}
+	
+	//구직관심분야 삭제
+	@RequestMapping("deleteHopeJobCategory")
+	public String deleteHopeJobCategoryProcess(int[] deleteHopeJobCategoryList) {
+		
+		consultingService.deleteHopeJobCategory(deleteHopeJobCategoryList);
+		return"redirect:./insertHJCPage";
+	}
+	
+	
+	//임시 스태프 메인페이지
+	@RequestMapping("jmTempStaffMainPage")
+	public String jmTempStaffMainPage() {
+		
+		return"tl_d/jm_consulting/jmTempStaffMainPage";
+	}
 	
 	
 	

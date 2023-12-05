@@ -9,11 +9,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mkfactory.toothless.d.dto.HopeJobCategoryDto;
 import com.mkfactory.toothless.d.dto.HopeJobDto;
 import com.mkfactory.toothless.d.dto.HopeJobFeedbackDto;
+import com.mkfactory.toothless.d.dto.JobFieldCategoryDto;
 import com.mkfactory.toothless.d.dto.OnlineConsultingDto;
 import com.mkfactory.toothless.d.dto.OnlineConsultingReplyDto;
 import com.mkfactory.toothless.d.jm.consulting.mapper.ConsultingMapper;
+import com.mkfactory.toothless.d.ny.posting.mapper.PostingSqlMapper;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -22,6 +25,8 @@ public class ConsultingService {
 	
 	@Autowired
 	private ConsultingMapper consultingMapper ;
+	@Autowired
+	private PostingSqlMapper postingSqlMapper ;
 	
 	
 	//학생 pk로 학생정보뽑기
@@ -99,7 +104,9 @@ public class ConsultingService {
 		consultingMapper.insertOnlineConsulting(par);
 	}
 	
-	//학생 최근 온라인상담 뽑아오기 (구직희망 메인페이지 출력용)
+	
+	// (구직희망 메인페이지 출력용)
+	//학생 최근 온라인상담 뽑아오기
 	public Map<String, Object> lastOnlineConsulting(int student_pk){
 		
 		
@@ -123,6 +130,19 @@ public class ConsultingService {
 		
 		return map;
 	}
+	// (구직희망 메인페이지 출력용)
+	// 미응답 만족도조사 갯수
+	public int countUnAnsweredHJF(int student_Pk) {
+		return consultingMapper.countUnAnsweredHJF(student_Pk);
+	}
+	// 학생 진행중인 구직희망 정보
+	public HopeJobDto getProgressHopejob(int student_pk) {
+		return consultingMapper.getProgressHopejob(student_pk);
+	}
+	
+	
+	
+	
 	
 	
 	//학생 온라인 상담 내역 자세히보기 페이지
@@ -200,6 +220,14 @@ public class ConsultingService {
 	public void insertHopeJobFeedback(HopeJobFeedbackDto par) {
 		consultingMapper.insertHopeJobFeedback(par);
 	}
+	//미응답 만족도조사 리스트 출력
+	public List<HopeJobDto> getUnAnsweredHJF(int STUDENT_PK){
+		
+		List<HopeJobDto> hopeJobDtoList = consultingMapper.getUnAnsweredHJF(STUDENT_PK);
+
+		
+		return hopeJobDtoList ;
+	}
 	
 	
 	
@@ -254,8 +282,94 @@ public class ConsultingService {
 	public void insertOnlineConsultingReply(OnlineConsultingReplyDto par) {
 		
 	}
+	//구직관심 등록 및 등록 페이지 관련
+	//채용분야 카테고리 출력
+	public List<Map<String, Object>> selectJobFieldCategoryList(HopeJobCategoryDto par){
+		
+		//
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		//전체카테고리
+		List<JobFieldCategoryDto> jobFieldCategoryDtoList = postingSqlMapper.selectJobFieldCategoryList();
+		
+		//전체카테고리로 내 구직관심목록에 해당 분야 있는지 확인
+		for(JobFieldCategoryDto jobFieldCategoryDto : jobFieldCategoryDtoList) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			int jopFieldCategoryPk = jobFieldCategoryDto.getJob_field_category_pk();
+			par.setJob_field_category_pk(jopFieldCategoryPk);
+			
+			int hope_job_pk = par.getHope_job_pk();
+			
+			//테이블에 해당 분야 있는지 확인
+			HopeJobCategoryDto hopeJobCategoryDto = consultingMapper.getHopeJobCategory(par);
+			
+			//없으면 false값
+			if(hopeJobCategoryDto==null) {
+				map.put("jobFieldCategoryDto", jobFieldCategoryDto);
+				map.put("isBoolean", false);
+			}
+			
+			else {
+				map.put("jobFieldCategoryDto", jobFieldCategoryDto);
+				map.put("isBoolean", true);
+			}
+			
+			list.add(map);
+		}
+		
+		
+		return list;
+	}
+	//현재 구직pk의 구직관심분야 리스트 출력
+	public List<Map<String, Object>> getHopeJobCategoryList(int HOPE_JOB_PK){
+		
+		
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		List<HopeJobCategoryDto> hopeJobCategoryDtoList = consultingMapper.getHopeJobCategoryList(HOPE_JOB_PK);
+		if(hopeJobCategoryDtoList.size()==0) {
+			return list;
+		}
+		
+		for(HopeJobCategoryDto hopeJobCategoryDto : hopeJobCategoryDtoList) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			int jobFieldCategoryPk = hopeJobCategoryDto.getJob_field_category_pk();			
+			JobFieldCategoryDto jobFieldCategoryDto = consultingMapper.getJobFieldCategoryByPk(jobFieldCategoryPk);
+			
+			map.put("hopeJobCategoryDto", hopeJobCategoryDto);
+			map.put("jobFieldCategoryDto", jobFieldCategoryDto);
+			
+			list.add(map);
+			
+			
+			
+		}
+		
+		return list;
+	}
 	
-
+	//구직관심분야 등록
+	public void insertHopeJobCategory(int hopeJobPk, int[] job_field_category_pk) {
+		
+		for(int e : job_field_category_pk) {
+			HopeJobCategoryDto hopeJobCategoryDto = new HopeJobCategoryDto();
+			hopeJobCategoryDto.setJob_field_category_pk(e);
+			hopeJobCategoryDto.setHope_job_pk(hopeJobPk);
+			consultingMapper.insertHopeJobCategory(hopeJobCategoryDto);
+		}		
+	}
+	//구직관심분야 삭제
+	public void deleteHopeJobCategory(int[] HOPE_JOB_CATEGORY_PK) {
+		
+		for(int e : HOPE_JOB_CATEGORY_PK) {
+			consultingMapper.deleteHopeJobCategory(e);	
+		}		
+	}
 	
 	
 }
