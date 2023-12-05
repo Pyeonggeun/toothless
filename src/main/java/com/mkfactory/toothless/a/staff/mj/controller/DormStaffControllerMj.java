@@ -100,7 +100,12 @@ public class DormStaffControllerMj {
 		return "tl_a/staff/mj_readRegisterJoinInfoPage";
 	}
 	
+	// 입사신청 목록 관리 페이지 (= 선발관리)
+	@RequestMapping("mj_readApplyDormInfoPage")
+	public String mj_readApplyDormInfoPage() {
 
+		return "tl_a/staff/mj_readApplyDormInfoPage";
+	}
 	
 
 	
