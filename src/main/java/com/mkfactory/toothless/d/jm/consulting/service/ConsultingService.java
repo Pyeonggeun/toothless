@@ -372,4 +372,15 @@ public class ConsultingService {
 	}
 	
 	
+	
+	
+	//교직원쪽
+	//온라인상담 오래된순 싹 출력
+	public List<OnlineConsultingDto> getHopeJobListAll(){
+		return consultingMapper.getHopeJobListAll();
+	}
+	
+	
+	
+	
 }

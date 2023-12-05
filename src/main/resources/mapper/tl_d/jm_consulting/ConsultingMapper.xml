@@ -55,6 +55,9 @@ WHERE CREATED_AT =
 
 
 
+
+
+
 <!-- (학생)온라인 상담 정보 입력 -->
 <insert id="insertOnlineConsulting">
 INSERT INTO tl_d_online_consulting values(
@@ -281,6 +284,11 @@ DELETE FROM TL_D_HOPE_JOB_CATEGORY
 WHERE HOPE_JOB_CATEGORY_PK = #{HOPE_JOB_CATEGORY_PK}
 </delete>
 
+<!-- 오래된순 구직희망 전체 꺼내오기 -->
+<select id="getHopeJobListAll" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
+SELECT * FROM TL_D_ONLINE_CONSULTING tdoc  
+ORDER BY CREATED_AT ASC  
+</select>
 
 
 </mapper>
