@@ -29,6 +29,14 @@ public class WoojaeExternalController {
 		return"tl_c/woojae/ajdksStaffMainPage";
 	}
 	
+	// 교직원 로그아웃
+	@RequestMapping("ajdksStaffLogoutProcess")
+	public String ajdksStaffLogoutProcess(HttpSession session) {
+		
+		session.invalidate();
+		
+		return"redirect:../../another/staff/loginPage";
+	}
 	// 산업체 등록 페이지
 	@RequestMapping("ajdksRegisterCompanyPage")
 	public String ajdksRegisterCompanyPage(HttpSession session, Model model) {
@@ -58,6 +66,6 @@ public class WoojaeExternalController {
 		
 		woojaeExternalService.registerCompanyInfo(ajdksCompanyInfoDto, externalInfoDto);
 		
-		return "redirect:./ajdksRegistedCompanyPage";
+		return"redirect:./ajdksRegistedCompanyPage";
 	}
 }
