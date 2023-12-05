@@ -53,20 +53,20 @@
 
 <div class="row">
 	<div class="col">
-		<jsp:include page="../common/ajdksHighestMenubarForStudent.jsp"></jsp:include>
+		<jsp:include page="../../common/ajdksHighestMenubarForStudent.jsp"></jsp:include>
 	</div>
 </div>
 <div class="row">
 
 	<!-- 좌측메뉴바 -->
-	<jsp:include page="../common/ajdksSideMenubarForStudent.jsp"></jsp:include>
+	<jsp:include page="../../common/ajdksSideMenubarForStudent.jsp"></jsp:include>
 	
 	<!-- 본문 : 자유롭게 이용하세요 화이팅 -->	
 	<div class="col">
 		<div class="row">
 			<div class="col mx-5">
 			
-			<!-- 본문작성공간 -->
+일일업무보고작성페이지
 				
 			</div>
 		</div>
