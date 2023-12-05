@@ -30,27 +30,39 @@
 	
 					<!-- 교직원정보 -->
 					<div class="col-6 fs-5 me-4 text-start align-self-center nav-item dropdown ms-auto">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					    <c:choose>
-					    	<c:when test="${!empty sessionSeller }">
-					    		${sessionSeller.sellerid } 
-					    	</c:when>
-					    	<c:otherwise>
-					    		GUEST
-					    	</c:otherwise>
-					    </c:choose>					    
-					    <span class="fs-6" style="font-size: 0.8em">님</span></a>
-					
-					  <ul class="dropdown-menu">
-					    <li class="dropdown-item">교번 MJ19980704</li>
-					    <li><hr class="dropdown-divider"></li>
-					    <li><a class="dropdown-item" href="./myPage">마이페이지</a></li>
-					    <li><a class="dropdown-item" href="#">어떠한</a></li>
-					    <li><a class="dropdown-item" href="#">기능들?</a></li>
-					    <li><hr class="dropdown-divider"></li>
-						<li><a href="./logoutProcess" class="dropdown-item">로그아웃</a></li>
-					  </ul>
+						<!-- 로그인/회원가입 -->
+	                   <div class="col text-end">
+	                       <c:choose>
+	                           <c:when test="${!empty sessionStaffInfo }">
+	                           <a class="fw-bold nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			                   ${sessionStaffInfo.name }</a>
+	                           	 
+	                           	<span class="fs-6" style="font-size: 0.8em">님</span>
+	                           	<ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="#">마이페이지</a></li>
+                                  <li><a class="dropdown-item" href="#">뭘 넣을까</a></li>
+                                  <li><hr class="dropdown-divider"></li>
+                                  <li><a href="./logoutProcess" class="dropdown-item">로그아웃</a></li>
+                                </ul>
+	                           	
+	                           </c:when>
+	                           <c:otherwise>
+		                           <a class="fw-bold nav-link dropdown-toggle" href="./loginPage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				                   GUEST</a>
+		                           	 
+		                           	<span class="fs-6" style="font-size: 0.8em">님</span>
+		                           	<ul class="dropdown-menu">
+	                                  <li><a class="dropdown-item" href="#">마이페이지</a></li>
+	                                  <li><a class="dropdown-item" href="#">뭘 넣을까</a></li>
+	                                  <li><hr class="dropdown-divider"></li>
+	                                  <li><a href="./logoutProcess" class="dropdown-item">로그아웃</a></li>
+	                                </ul>
+	                           </c:otherwise>
+	                       </c:choose>
+			
 					</div>
+					
+					
                     <div class="col-1"></div>
                           								
 				</div>

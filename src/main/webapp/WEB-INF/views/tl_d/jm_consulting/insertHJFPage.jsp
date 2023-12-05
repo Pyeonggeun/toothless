@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>      
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,10 +15,9 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
-			
 			<div class="row">
 				<div class="col">
-					설문 가능한 만족도 조사
+					만족도 조사
 				</div>
 			</div>
 			
@@ -26,36 +25,31 @@
 				<div class="col">
 					<div class="row">
 						<div class="col">
-						
-							<c:choose>
-								<c:when test="${hopeJobDtoList == false}">
-									미응답 만족도 조사가 음서용
-								</c:when>
 							
-								<c:otherwise>
-									<table class="table">
-									  <thead>
-									    <tr>
-									      <th scope="col">신청번호</th>
-									      <th scope="col">구직희망신청일</th>
-									      <th scope="col"> </th>
-									    </tr>
-									  </thead>
-									  <tbody>
-									  	<c:forEach items="${hopeJobDtoList}" var="e">
-										    <tr>
-										      <th scope="row">${e.hope_job_pk}</th>
-										      <td>${e.created_at}</td>
-										      <td><a href="./insertHJFPage?hope_job_pk=${e.hope_job_pk}">바로가기 ></a></td>
-										    </tr>							  		
-									  	</c:forEach>
-		
-									  </tbody>
-									</table>								
-								</c:otherwise>
-							
-							</c:choose>					
-																				
+							<form action="./insertHJFProcess" method="post">
+								<div class="row">
+									<div class="col">
+										0~5점까지 구직희망 프로그램에 대해 평가 해주세요
+									</div>
+								</div>							
+								<div class="row">
+									<div class="col">
+										<input type="number" min="0" max="5" name="hjf_score">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col">
+										기타 의견이나 불만사항이 있으면 가감없이 적어주세요
+									</div>
+								</div>
+								<div class="row">
+									<div class="col">
+										<textarea name="hjf_comment" rows="4" cols="50"></textarea>
+										<input type="hidden" name="hope_job_pk" value="${hope_job_pk}"> 
+									</div>
+								</div>	
+							</form>	
+																		
 						</div>
 					</div>
 				</div>
@@ -64,11 +58,6 @@
 		</div>
 	</div>
 </div>
-
-
-
-
-
 
 
 
