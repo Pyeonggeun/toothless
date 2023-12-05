@@ -9,6 +9,7 @@ import com.mkfactory.toothless.e.dto.CounselDocumentDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
 import com.mkfactory.toothless.e.dto.OfflineReservationDto;
+import com.mkfactory.toothless.e.dto.OfflineSurveyDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 
 public interface OfflineCounselMapper {
@@ -54,5 +55,14 @@ public interface OfflineCounselMapper {
 	
 	// 상담일지Dto 출력
 	public CounselDocumentDto selectCounselDocumentInfoByReservationId(int reservation_id);
+	
+	// 학생별 예약 리스트
+	public List<OfflineReservationDto> selectCounselReservationList(int student_pk);
+	
+	// 만족도조사 insert
+	public void insertOfflineSurvey(OfflineSurveyDto offlineSurveyDto);
+	
+	// 예약Pk별 리뷰Dto
+	public OfflineSurveyDto selectOfflineSurveryInfo(int reservation_id);
 	
 }

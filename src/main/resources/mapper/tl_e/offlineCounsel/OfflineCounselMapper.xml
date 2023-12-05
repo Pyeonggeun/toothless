@@ -105,6 +105,28 @@
 		SELECT * FROM CP_COUNSEL_DOCUMENT
 		WHERE reservation_id = #{reservation_id}
 	</select>
-
+	
+	<!-- 학생별 예약 리스트 -->
+	<select id="selectCounselReservationList" resultType="com.mkfactory.toothless.e.dto.OfflineReservationDto">
+		SELECT * FROM CP_OFFLINE_RESERVATION
+		WHERE STUDENT_PK = #{student_pk}
+	</select>
+	
+	<!-- 만족도조사 insert -->
+	<insert id="insertOfflineSurvey">
+		INSERT INTO cp_offline_survey VALUES (
+			cp_offline_survey_seq.nextval,
+			#{reservation_id},
+			#{score},
+			#{text},
+			SYSDATE
+		)
+	</insert>
+	
+	<!-- 예약Pk별 리뷰Dto -->
+	<select id="selectOfflineSurveryInfo" resultType="com.mkfactory.toothless.e.dto.OfflineSurveyDto">
+		SELECT * FROM cp_offline_survey
+		WHERE reservation_id = #{reservation_id}
+	</select>
 
 </mapper>

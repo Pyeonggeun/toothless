@@ -59,11 +59,11 @@
 							온라인상담
 							</button>
 							<ul class="dropdown-menu">
-							    <li><a class="dropdown-item" href="../onlineCounsel/onlineCounselMainPage">온라인상담</a></li>
+							    <li><a class="dropdown-item" href="#">emptyPage1</a></li>
 							    <li><hr class="dropdown-divider"></li>
-						   		<li><a class="dropdown-item" href="#">emptyPage1</a></li>
-						   		<li><hr class="dropdown-divider"></li>
 						   		<li><a class="dropdown-item" href="#">emptyPage2</a></li>
+						   		<li><hr class="dropdown-divider"></li>
+						   		<li><a class="dropdown-item" href="#">emptyPage3</a></li>
 							</ul>
 						</div>
 					</div>
@@ -75,10 +75,8 @@
 							오프라인상담
 							</button>
 							<ul class="dropdown-menu">
-							    <li><a class="dropdown-item" href="../offlineCounsel/offlineCounselReservationCheckPage">예약 조회</a></li>
+							    <li><a class="dropdown-item" href="../offlineCounsel/checkOfflineCounselReservationStudentPage">예약 조회</a></li>
 							    <li><hr class="dropdown-divider"></li>
-						   		<li><a class="dropdown-item" href="../offlineCounsel/offlineCounselHistoryCheckPage">상담 이력 조회</a></li>
-						   		<li><hr class="dropdown-divider"></li>
 						   		<li><a class="dropdown-item" href="#">일정 변경</a></li>
 							</ul>
 						</div>
@@ -113,17 +111,24 @@
 							<div class="col">
 								<div class="row py-3 align-items-center border-bottom">
 									<div class="col-1 fw-bold">
-										이름
+										상담사명
 									</div>
 									<div class="col-3">
 										<input class="form-control" type="text">
 									</div>
 									<div class="col-1"></div>
 									<div class="col-1 fw-bold">
-										학번
+										일자
 									</div>
-									<div class="col-3">
-										<input class="form-control" type="text">
+									<div class="col-2">
+										<select class="form-select">
+										  <option selected>일자</option>
+										  <option value="1">상담신청일</option>
+										  <option value="2">상담예약일</option>
+										</select>								
+									</div>
+									<div class="col-3 ps-5">
+										<input class="form-control" type="date">
 									</div>
 								</div>
 								<div class="row pt-3 pb-3 align-items-center border-bottom">
@@ -151,23 +156,7 @@
 										  <option value="2">신청</option>
 										  <option value="3">완료</option>
 										  <option value="4">취소</option>
-										  <option value="5">노쇼</option>
 										</select>								
-									</div>
-								</div>
-								<div class="row pt-3 pb-3 border-bottom">
-									<div class="col-1 fw-bold pt-1">
-										일자
-									</div>
-									<div class="col-2">
-										<select class="form-select">
-										  <option selected>일자</option>
-										  <option value="1">상담신청일</option>
-										  <option value="2">상담예약일</option>
-										</select>								
-									</div>
-									<div class="col-3 ps-5">
-										<input class="form-control" type="date">
 									</div>
 								</div>
 								<div class="row py-3">
@@ -203,10 +192,7 @@
 						상담종류
 					</div>
 					<div class="col">
-						이름
-					</div>
-					<div class="col">
-						학번
+						상담사명
 					</div>
 					<div class="col-2">
 						신청일
@@ -218,12 +204,12 @@
 						상담일자
 					</div>
 					<div class="col">
-						상담일지
+						리뷰
 					</div>
 				</div>
 				<!-- 이 row 한 개 반복문으로 돌려서 출력 -->
 				<c:forEach items="${list }" var="map" varStatus="vs">
-					<form action="./createCounselReportPage" method="get">
+					<form action="./counselReviewPage" method="get">
 						<div class="row pt-3 pb-3 border-bottom text-center">
 							<div class="col-1 pt-2">
 								${fn:length(list) - vs.index}
@@ -232,10 +218,7 @@
 								${map.typeCategoryDto.name }
 							</div>
 							<div class="col pt-2">
-								${map.studentInfoDto.name }
-							</div>
-							<div class="col pt-2">
-								${map.studentInfoDto.student_id }
+								${map.counselorDto.name }
 							</div>
 							<div class="col-2 pt-2">
 								<fmt:formatDate value="${map.offlineReservationDto.created_at }" pattern="yyyy-MM-dd"/>
@@ -247,20 +230,18 @@
 								${map.offlineReservationDto.counsel_year }-${map.offlineReservationDto.counsel_month }-${map.offlineReservationDto.counsel_date }&nbsp;
 								${map.offlineReservationDto.counsel_hour }<span>:00</span>
 							</div>
-							<div class="col d-grid">
+							<div class="col mx-2 d-grid">
 								<c:choose>
-									<c:when test="${!empty map.counselDocumentDto.id }">
-										<input class="btn btn-dark" type="submit" value="일지확인">
+									<c:when test="${!empty map.offlineSurveyDto.id }">
+										<input class="btn btn-dark" type="submit" value="리뷰확인">
 									</c:when>
 									<c:otherwise>
-										<input class="btn btn-outline-dark" type="submit" value="일지작성">
+										<input class="btn btn-outline-dark" type="submit" value="리뷰작성">
 									</c:otherwise>
 								</c:choose>
 							</div>
 						</div>
-						<input name="reservationPk" type="hidden" value="${map.offlineReservationDto.id }">
-						<input name="studentPk" type="hidden" value="${map.studentInfoDto.student_pk }">
-						<input name="categoryPk" type="hidden" value="${map.typeCategoryDto.id }">
+						<input name="reservation_id" type="hidden" value="${map.offlineReservationDto.id }">
 					</form>
 				</c:forEach>
 			</div>

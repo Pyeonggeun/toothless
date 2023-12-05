@@ -102,10 +102,10 @@
 			</div>
 			<div class="col-1"></div>
 			<div class="col-6 mt-5">
-				<form action="./counselReportRegisterProcess" method="get">
+				<form action="./counselReviewProcess" method="get">
 					<div class="row pt-3">
 						<div class="col fs-3 fw-bold text-center">
-							개인 상담 일지
+							상담 만족도 조사
 						</div>
 					</div>
 					<div class="row pt-4">
@@ -129,14 +129,14 @@
 								<div class="col-2 border-end border-dark py-3 fw-bold" style="background-color: rgb(244, 244, 241);">
 									<div class="row">
 										<div class="col">
-											성명									
+											상담사명									
 										</div>
 									</div>
 								</div>
 								<div class="col py-3">
 									<div class="row">
 										<div class="col">
-											${map.studentInfoDto.name }								
+											${map.counselorDto.name }								
 										</div>
 									</div>
 								</div>
@@ -145,124 +145,39 @@
 								<div class="col-2 border-end border-dark py-3 fw-bold" style="background-color: rgb(244, 244, 241);">
 									<div class="row">
 										<div class="col pt-2">
-											상담상태
+											점수
 										</div>
 									</div>
 								</div>
-								<div class="col border-end border-dark py-3">
+								<div class="col py-3">
 									<div class="row">
 										<div class="col">
-											<select name="state" class="form-select">
-											  <option value="신청" ${map.offlineReservationDto.state == '신청' ? 'selected' : '' }>신청</option>
-											  <option value="완료" ${map.offlineReservationDto.state == '완료' ? 'selected' : '' }>완료</option>
-											  <option value="취소" ${map.offlineReservationDto.state == '취소' ? 'selected' : '' }>취소</option>
-											  <option value="노쇼" ${map.offlineReservationDto.state == '노쇼' ? 'selected' : '' }>노쇼</option>
+											<select name="score" class="form-select" style="color: #ffc107;">
+											  <option class="text-warning" value="5" ${map.offlineSurveyDto.score == '5' ? 'selected' : '' }>★★★★★</option>
+											  <option class="text-warning" value="4" ${map.offlineSurveyDto.score == '4' ? 'selected' : '' }>★★★★</option>
+											  <option class="text-warning" value="3" ${map.offlineSurveyDto.score == '3' ? 'selected' : '' }>★★★</option>
+											  <option class="text-warning" value="2" ${map.offlineSurveyDto.score == '2' ? 'selected' : '' }>★★</option>
+											  <option class="text-warning" value="1" ${map.offlineSurveyDto.score == '1' ? 'selected' : '' }>★</option>
 											</select>								
 										</div>
-									</div>
-								</div>
-								<div class="col-2 border-end border-dark py-3 fw-bold" style="background-color: rgb(244, 244, 241);">
-									<div class="row">
-										<div class="col pt-2">
-											성별									
-										</div>
-									</div>
-								</div>
-								<div class="col py-3">
-									<div class="row">
-										<div class="col pt-2">
-											<c:choose>
-												<c:when test="${map.studentInfoDto.gender == 'M' }">
-													남
-												</c:when>
-												<c:otherwise>
-													여
-												</c:otherwise>
-											</c:choose>								
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row text-center border-bottom border-dark">
-								<div class="col-2 border-end border-dark py-3 fw-bold" style="background-color: rgb(244, 244, 241);">
-									<div class="row">
-										<div class="col">
-											상담주제
-										</div>
-									</div>
-								</div>
-								<div class="col border-end border-dark py-3">
-									<div class="row">
-										<div class="col">
-											${map.typeCategoryDto.name }
-										</div>
-									</div>
-								</div>
-								<div class="col-2 border-end border-dark py-3 fw-bold" style="background-color: rgb(244, 244, 241);">
-									<div class="row">
-										<div class="col">
-											연락처								
-										</div>
-									</div>
-								</div>
-								<div class="col py-3">
-									<div class="row">
-										<div class="col">
-											${map.studentInfoDto.phone }									
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row text-center border-bottom border-dark align-items-center">
-								<div class="col-2 py-3 fw-bold border-end border-dark" style="background-color: rgb(244, 244, 241);">
-									<div class="row">
-										<div class="col">
-											신청자<br>
-											코멘트
-										</div>
-									</div>
-								</div>
-								<div class="col py-3">
-									<div class="row">
-										<div class="col text-start">
-											${map.offlineReservationDto.text }
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row text-center border-bottom border-dark align-items-center">
-								<div class="col-2 py-2 fw-bold" style="background-color: rgb(244, 244, 241);">
-									<div class="row">
-										<div class="col">
-											<br><br><br>
-											상담내용
-											<br><br><br>
-										</div>
-									</div>
-								</div>
-								<div class="col">
-									<div class="row">
-										<div class="col text-start py-3 d-grid border-start border-dark">
-											<textarea class="form-control" rows="5"></textarea>
-										</div>
+										<div class="col-7"></div>
 									</div>
 								</div>
 							</div>
 							<div class="row text-center align-items-center">
-								<div class="col-2 py-5 fw-bold" style="background-color: rgb(244, 244, 241);">
+								<div class="col-2 border-end border-dark py-3 fw-bold" style="background-color: rgb(244, 244, 241);">
 									<div class="row">
-										<div class="col">
-											<br>
-											상담자의<br>
-											평가
-											<br>
+										<div class="col pb-3">
+											<br><br><br>
+											리뷰내용
+											<br><br><br>
 										</div>
 									</div>
 								</div>
-								<div class="col">
+								<div class="col py-3">
 									<div class="row">
-										<div class="col text-start py-3 d-grid border-start border-dark">
-											<textarea name="text" class="form-control" rows="5">${map.counselDocumentDto.text }</textarea>
+										<div class="col">
+											<textarea name="text" class="form-control" rows="6">${map.offlineSurveyDto.text }</textarea>
 										</div>
 									</div>
 								</div>
@@ -271,25 +186,22 @@
 					</div>
 					<div class="row pt-4">
 						<div class="col">
-							* 상담자 본인은 상담일지 내용에 거짓이 없음을 확인합니다.<br>
-							* 작성한 상담일지는 학생생활상담센터 제출 이외 용도로 이용하거나 제 3자에게 제공하지 않습니다.
+							<div class="row">
+								<div class="col"></div>
+								<div class="col-3 d-grid pe-0">
+									<c:choose>
+										<c:when test="${!empty map.offlineSurveyDto.id }">
+											<input class="btn btn-dark" type="submit" value="리뷰하기" disabled="disabled">
+										</c:when>
+										<c:otherwise>
+											<input class="btn btn-dark" type="submit" value="리뷰하기">
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="row pt-5">
-						<div class="col-4"></div>
-						<div class="col d-grid">
-							<c:choose>
-								<c:when test="${!empty map.counselDocumentDto.id }">
-									<input class="btn btn-dark" type="submit" value="작성완료" disabled="disabled">
-								</c:when>
-								<c:otherwise>
-									<input class="btn btn-dark" type="submit" value="작성완료">
-								</c:otherwise>
-							</c:choose>
-						</div>
-						<div class="col-4"></div>
-					</div>
-					<input name="id" type="hidden" value="${map.offlineReservationDto.id }">
+					<input name="reservation_id" type="hidden" value="${map.offlineReservationDto.id }">
 				</form>
 			</div>
 			<div class="col-3"></div>
