@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mkfactory.toothless.a.staff.sj.mapper.BuildingSqlMapper">
+		
+
+
+	
 	<!-- 건물 등록 -->
 	<insert id="registerDormInfo">
 		INSERT INTO tl_a_dorm_building VALUES (
@@ -39,16 +43,15 @@
 		SELECT * FROM tl_a_dorm_category
 	</select>
 	
-	<!-- 정원 카테고리 insert -->
-	<insert id="insertRegisterCategory">
-		INSERT INTO tl_a_dorm_category VALUES (
-		tl_a_dorm_category_seq.nextval,
-		#{dorm_amount},
-		#{dorm_imgs},
-	)
-	</insert>
+	<!-- 정원 카테고리 img update -->
+	<update id="updateCategory">
+		UPDATE TL_A_DORM_CATEGORY 
+		SET DORM_IMGS =#{dorm_imgs} 
+		WHERE DORM_AMOUNT_PK = #{dorm_amount_pk}
+	</update>
 	
-	<select id="selectDormAmountChoice" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
-		SELECT * FROM TL_A_DORM_CATEGORY tadc WHERE DORM_AMOUNT = ${DORM_AMOUNT}
+	<select id="selectDormCategoryPk" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
+		SELECT * FROM TL_A_DORM_CATEGORY tadc WHERE DORM_AMOUNT_PK =#{dorm_amount_pk}
 	</select>
+	
 </mapper>
