@@ -70,8 +70,9 @@
 
 				</div>
 			</div>
-			<div class="row">
-				<div class="col" style="font-size:0.6em;">
+			
+			<div class="row pt-5 pb-0">
+				<div class="col pb-0" style="font-size:0.6em;">
 					<a href="./onlineConsultingListPage">전체보기 ></a>
 				</div>
 			</div>			
@@ -83,6 +84,11 @@
 					만족도 조사
 				</div>
 			</div>
+			<div class="row">
+				<div class="col pt-2 pb-3">
+					<a href="./unAnsweredHJFListPage">미응답 만족도 조사 : ${countUnAnsweredHJF}건</a>
+				</div>
+			</div>			
 			<div class="row">
 				<div class="col pt-5 pb-1" style="font-size:0.6em;">
 					바로가기 >
@@ -98,12 +104,12 @@
 		<div class="col border mx-2 my-2">
 			<div class="row">
 				<div class="col py-3" style="font-size:1em;">
-					구직관심 분야 등록
+					내 구직관심 분야 관리
 				</div>
 			</div>
 			<div class="row">
 				<div class="col px-3" style="font-size:0.6em;">
-					바로가기 >
+					<a href="./insertHJCPage">등록하기 ></a>
 				</div>
 			</div>
 		</div>
