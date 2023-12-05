@@ -82,11 +82,15 @@
 							</tr>
 						</thead>
 						<tbody>
+							<c:if test="${!empty dormList}">
+							<c:forEach items="${dormList }" var="dormList">
 							<tr>
-								<td>A동</td><!-- 테이블 엮어서 반복문 -->
-								<td>101호</td><!-- 여기도 반복문-->
-								<td>배진우</td>
+								<td>${dormList.dormBuildingDto.name }</td>
+								<td>${dormList.dormRoomDto.room_name }</td>
+								<td>${dormList.studentInfoDto.name }</td>
 							</tr>
+							</c:forEach>
+							</c:if>
 						</tbody>
 					</table>
 				</div>

@@ -13,11 +13,8 @@
 </head>
 <body>
 <!-- 상단 common Navi -->
-<div class="row my-4">
-	<div class="col mx-3">
-		MK University
-	</div>
-</div>
+<jsp:include page="../commons/student/topNavi.jsp"></jsp:include>
+
 <!-- 캐러셀 이미지 -->
 <div class="row">
 	<div class="col">

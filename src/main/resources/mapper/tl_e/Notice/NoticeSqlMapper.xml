@@ -60,8 +60,30 @@
 		SET title = #{title}, text = #{text}
 		WHERE id = #{id}
 	</update>
-	
-	
+	<!-- 공지사항 댓글 추가 -->
+	<insert id="insertNoticeComment">
+		INSERT INTO cp_notice_comment values(
+			cp_notice_comment_seq.nextval,
+			#{notice_id},
+			#{student_pk},
+			#{text},
+			SYSDATE
+		)
+	</insert>
+	<!-- 공지사항 댓글 출력 -->
+	<select id="selectCommentByNotice_Id" resultType="com.mkfactory.toothless.e.dto.NoticeCommentDto">
+		SELECT * FROM cp_notice_comment
+		WHERE notice_id = #{notice_id}
+	</select>
+	<select id="selectStudentInfoByStudent_Pk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM tl_jic_student_info
+		WHERE student_pk = #{student_pk}
+	</select>
+	<!-- 공지사항 댓글 삭제 -->
+	<delete id="deleteNoticeComment">
+		DELETE FROM cp_notice_comment
+		WHERE id = #{id}
+	</delete>
 	
 	
 	
