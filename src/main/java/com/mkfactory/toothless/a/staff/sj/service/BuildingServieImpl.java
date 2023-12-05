@@ -20,13 +20,11 @@ public class BuildingServieImpl {
 		buildingSqlMapper.registerDormInfo(dormBuildingDto);
 	}
 	
-	public void registerRoom(DormRoomDto dormRoomDto,DormBuildingDto dormBuildingDto, 
-							 List<DormCategoryDto> dormCateogory) {
+	public void registerRoom(DormRoomDto dormRoomDto) {
 		
-		int dormBuildPk = dormBuildingDto.getDorm_pk();
-		dormRoomDto.setDorm_pk(dormBuildPk);
+		int dormPk = dormRoomDto.getDorm_pk();
+		dormRoomDto.setDorm_pk(dormPk);
 		
-		buildingSqlMapper.dormBuildinChoice(dormBuildPk);
 		buildingSqlMapper.registerRoomInfo(dormRoomDto);
 		
 	}
@@ -44,13 +42,15 @@ public class BuildingServieImpl {
 	public void insertRegisterCategory(DormCategoryDto dormCateogory, List<DormCategoryDto> categoryList) {
 		
 		int ctPk = dormCateogory.getDorm_amount_pk();
-		System.out.println(ctPk);
+		int ctAmount = dormCateogory.getDorm_amount();
+		
 		dormCateogory.setDorm_amount_pk(ctPk);
+		dormCateogory.setDorm_amount(ctAmount);
 		
 		for(DormCategoryDto dcd :categoryList) {
 			dcd.setDorm_amount_pk(ctPk);
-			buildingSqlMapper.updateCategory(dcd);
-			System.out.println(dcd.getDorm_imgs());
+			dcd.setDorm_amount(ctAmount);
+			buildingSqlMapper.insertCategoryImgs(dcd);
 		}
 		
 	}

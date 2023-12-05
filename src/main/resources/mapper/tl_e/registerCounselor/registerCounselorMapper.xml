@@ -90,6 +90,21 @@
 		WHERE COUNSELOR_ID = #{id}
 	</select>
 	
+	<!-- 상담원 자격증 이미지 등록 -->
+	<insert id="insertLicenseImage">
+		INSERT INTO cp_license_image VALUES(
+			cp_license_image_seq.nextval,
+			#{counselor_id},
+			#{license}
+		)
+	</insert>
+	
+	<!-- 상담원PK로 상담원 자격증 이미지 리스팅 -->
+	<select id="selectLicenseImgByCounselorId" resultType="com.mkfactory.toothless.e.dto.LicenseImageDto">
+		SELECT * FROM cp_license_image
+		WHERE counselor_id = #{counselor_id} 
+	</select>
+	
 	
 
 </mapper>

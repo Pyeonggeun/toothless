@@ -16,6 +16,10 @@ public interface EunbiProfessorSqlMapper {
 	// 교수 학생평가 입력
 	public void insertProfessorEvaluation(AjdksProfessorEvaluationDto professorEvaluationDto);
 	
+	// 학생평가 했는지 안했는지 (쿼리 다시 짜야함..)
+	public int isExistProfessorEvaluation(int student_intern_pk);
+	
+	
 	
 	
 	

@@ -31,6 +31,54 @@
 	<select id="getThisResumeDtoByResumePk" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
 		SELECT * FROM tl_d_resume WHERE resume_pk = #{resume_pk}	
 	</select>
+	
+	<!-- 경력 카테고리 가져오기  -->
+	<select id="getCareerCategoryList" resultType="com.mkfactory.toothless.d.dto.CareerCategoryDto">
+		SELECT * FROM tl_d_career_category
+	</select>
+	
+	<!-- 경력 추가 -->
+	<insert id="insertCareerContents">
+		INSERT INTO tl_d_career values(
+			tl_d_career_seq.nextval,
+			#{resume_pk},
+			#{career_category_pk},
+			#{career_contents},
+			sysdate
+		)	
+	</insert>
+	
+	<!-- 해당 이력서의 경력 가져오기 -->
+	<select id="getCareerByResumePk" resultType="com.mkfactory.toothless.d.dto.CareerDto">
+		SELECT * FROM tl_d_career WHERE resume_pk = #{resume_pk} ORDER BY career_pk	
+	</select>
+	
+	<!-- 해당 카테고리 번호의 카테고리명 가져오기 -->
+	<select id="getCareerCategoryNameByCategoryPk" resultType="com.mkfactory.toothless.d.dto.CareerCategoryDto">
+		SELECT career_category_name FROM tl_d_career_category WHERE career_category_pk = #{career_category_pk}
+	</select>
+	
+	<!-- 경력 삭제 -->
+	<delete id="deleteCareerByCareerPk">
+		DELETE FROM tl_d_career WHERE career_pk = #{career_pk}
+	</delete>
+	
+	<!-- 경력 수정 -->
+	<update id="updateCareerByCareerPk">
+		UPDATE tl_d_career SET 
+			career_category_pk = #{career_category_pk}, 
+			career_contents = #{career_contents}
+		WHERE career_pk = #{career_pk}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 </mapper>

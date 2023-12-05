@@ -1,8 +1,11 @@
 package com.mkfactory.toothless.c.guntaek.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
 import com.mkfactory.toothless.c.guntaek.mapper.GuntaekStudentSqlMapper;
 
@@ -31,5 +34,12 @@ public class GuntaekStudentServiceImpl {
 	public void updateSelfIntroductionDto(AjdksSelfIntroductionDto selfIntroductionDto) {
 		guntaekstudentSqlMapper.updateSelfIntroductionDto(selfIntroductionDto);
 	}
+		
+	public void registerCertification(AjdksCertificationDto certificationDto) {
+		guntaekstudentSqlMapper.registerCertification(certificationDto);
+	}
 	
+	public List<AjdksCertificationDto> getCertificationByStudentPk(int student_pk){
+		return guntaekstudentSqlMapper.getCertificationByStudentPk(student_pk);
+	}
 }

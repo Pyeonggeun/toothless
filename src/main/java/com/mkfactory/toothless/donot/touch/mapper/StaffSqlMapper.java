@@ -32,4 +32,6 @@ public interface StaffSqlMapper {
 	
 	public List<StudentInfoDto> selectStudnetList(int pageNum);
 	
+	public int totalPageCount();
+	
 }

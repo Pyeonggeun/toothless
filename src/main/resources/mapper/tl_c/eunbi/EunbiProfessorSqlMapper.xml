@@ -31,6 +31,15 @@
 			SYSDATE
 		)
 	</insert>
+	
+	<!-- 학생 최종평가 입력 전? 후? -->
+	<select id="isExistProfessorEvaluation" resultType="com.mkfactory.toothless.c.dto.AjdksProfessorEvaluationDto">
+		SELECT COUNT(*) FROM tl_c_professor_evaluation
+		WHERE student_intern_pk = #{student_intern_pk}
+	</select>
+
+
+
 
 
 

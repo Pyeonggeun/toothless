@@ -6,6 +6,7 @@ import java.util.Map;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
+import com.mkfactory.toothless.e.dto.LicenseImageDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 
 public interface RegisterCounselorSqlMapper {
@@ -36,6 +37,12 @@ public interface RegisterCounselorSqlMapper {
 	
 	// 상담원PK로 담당카테고리 조회
 	public List<Map<String, Object>> selectCounselorTypeByCounselorId(int id);
+	
+	// 상담원 자격증 이미지 주소 인서트
+	public void insertLicenseImage(LicenseImageDto licenseImageDto);
+	
+	// 상담원PK로 상담원 자격증이미지 조회
+	public List<LicenseImageDto> selectLicenseImgByCounselorId(int counselor_id);
 	
 	
 

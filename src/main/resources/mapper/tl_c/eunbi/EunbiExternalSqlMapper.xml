@@ -18,6 +18,11 @@
 		)
 	</insert>
 
+	<!-- 현장실습 과정에서 산업체 정보 출력 -->
+	<select id="getCompanyInfo" resultType="com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto">
+		SELECT * FROM tl_c_company_info
+		WHERE company_pk = #{company_pk}
+	</select>
 
 
 

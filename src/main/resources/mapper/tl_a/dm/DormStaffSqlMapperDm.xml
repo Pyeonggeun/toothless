@@ -3,5 +3,32 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mkfactory.toothless.a.staff.dm.mapper.DormStaffSqlMapperDm">
-
+	
+	<select id="allDormStudent" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+	
+		SELECT * FROM tl_a_dorm_student
+		ORDER BY dorm_student_pk ASC
+		
+	</select>
+	
+	<select id="dormRoomInfoByDormRoomPk" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
+	
+		SELECT * FROM TL_A_DORM_ROOM WHERE dorm_room_pk = #{dorm_room_pk}
+	
+	</select>
+	
+	<select id="dormBuildingInfoByDormPk" resultType="com.mkfactory.toothless.a.dto.DormBuildingDto">
+	
+		SELECT * FROM TL_A_DORM_BUILDING WHERE dorm_pk = #{dorm_pk}
+	
+	</select>
+	
+	<select id="studentInfoByStudentPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+	
+		SELECT * FROM TL_JIC_STUDENT_INFO WHERE student_pk = #{student_pk}
+	
+	</select>
+	
+	
+	
 </mapper>
