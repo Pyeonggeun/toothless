@@ -3,8 +3,10 @@ package com.mkfactory.toothless.d.jm.consulting.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.mkfactory.toothless.d.dto.HopeJobCategoryDto;
 import com.mkfactory.toothless.d.dto.HopeJobDto;
 import com.mkfactory.toothless.d.dto.HopeJobFeedbackDto;
+import com.mkfactory.toothless.d.dto.JobFieldCategoryDto;
 import com.mkfactory.toothless.d.dto.OnlineConsultingDto;
 import com.mkfactory.toothless.d.dto.OnlineConsultingReplyDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
@@ -25,6 +27,7 @@ public interface ConsultingMapper {
 	//학생 온라인상담 중복 확인용
 	//학생 가장 최근 온라인 상담 내역 추출
 	public OnlineConsultingDto getLastOnConsulting(int student_pk);
+
 	//특정 온라인 상담 답글 확인 
 	public OnlineConsultingReplyDto checkOnConsultingReply(int on_consulting_pk);
 	
@@ -33,6 +36,8 @@ public interface ConsultingMapper {
 	public void insertOnlineConsulting(OnlineConsultingDto par);
 	//학생 온라인상담 최근 구직희망 신청서 출력
 	public HopeJobDto getLastHopejob(int student_pk);
+	//학생 진행중 구직희망 프로그램 출력
+	public HopeJobDto getProgressHopejob(int student_pk);	
 	//학생 최근 온라인상담 10건 뽑아오기(추후건수 변경가능)
 	public List<OnlineConsultingDto> getOnlineConsultingList (int hope_job_pk);
 	
@@ -52,10 +57,26 @@ public interface ConsultingMapper {
 	
 	//만족도조사 값입력
 	public void insertHopeJobFeedback(HopeJobFeedbackDto par);
-	
-	
-	
+	//특정학생의 미응답 만족도조사 갯수
+	public int countUnAnsweredHJF(int STUDENT_PK);
+	//특정학생 만족도조사 미응답의 구직희망정보 리스트
+	public List<HopeJobDto> getUnAnsweredHJF(int STUDENT_PK);
+	public JobFieldCategoryDto getJobFieldCategoryByPk(int JOB_FIELD_CATEGORY_PK);
 
+	
+	
+	
+	//구직관심분야 신청
+	//구직희망신청의 페이지 출력용
+	public List<HopeJobCategoryDto> getHopeJobCategoryList(int HOPE_JOB_PK);
+	//구직관심분야 등록
+	public void insertHopeJobCategory(HopeJobCategoryDto par);
+	//구직관심 분야키로 뽑기
+	public HopeJobCategoryDto getHopeJobCategory(HopeJobCategoryDto par);
+	//구직관심 삭제
+	public void deleteHopeJobCategory(int HOPE_JOB_CATEGORY_PK);
+	
+	
 	
 	
 	
@@ -70,5 +91,14 @@ public interface ConsultingMapper {
 	
 	//교직원 온라인상담 답글입력
 	public void insertOnlineConsultingReply(OnlineConsultingReplyDto par);
+	
+	//온라인상담 오래된순 전체출력
+	public List<OnlineConsultingDto> getHopeJobListAll();
+	
+	
+	
+	
+	
+	
 
 }

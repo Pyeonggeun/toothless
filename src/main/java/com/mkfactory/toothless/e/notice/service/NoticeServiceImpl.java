@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.NoticeBoardDto;
+import com.mkfactory.toothless.e.dto.NoticeCommentDto;
 import com.mkfactory.toothless.e.dto.NoticeImageDto;
 import com.mkfactory.toothless.e.notice.mapper.NoticeSqlMapper;
 
@@ -72,5 +74,30 @@ public class NoticeServiceImpl {
 	// 공지사항 수정
 	public void updateNoticeArticle(NoticeBoardDto noticeBoardDto) {
 		noticeSqlMapper.updateNoticeArticle(noticeBoardDto);
+	}
+	// 공지사항 댓글 등록
+	public void insertNoticeComment(NoticeCommentDto noticeCommentDto) {
+		noticeSqlMapper.insertNoticeComment(noticeCommentDto);
+	}
+	// 공지사항 댓글 출력
+	public List<Map<String, Object>> selectCommentByNotice_Id(int notice_id) {
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<NoticeCommentDto> noticeCommentList = noticeSqlMapper.selectCommentByNotice_Id(notice_id);
+		for(NoticeCommentDto noticeCommentDto : noticeCommentList) {
+			int studentPk = noticeCommentDto.getStudent_pk();
+			StudentInfoDto studentInfoDto = noticeSqlMapper.selectStudentInfoByStudent_Pk(studentPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("noticeCommentDto", noticeCommentDto);
+			map.put("studentInfoDto", studentInfoDto);
+			
+			list.add(map);
+		}
+		return list;
+	}
+	// 공지사항 댓글 삭제
+	public void deleteNoticeComment(int id) {
+		noticeSqlMapper.deleteNoticeComment(id);
 	}
 }

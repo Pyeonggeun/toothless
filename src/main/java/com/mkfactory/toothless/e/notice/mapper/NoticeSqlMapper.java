@@ -3,7 +3,9 @@ package com.mkfactory.toothless.e.notice.mapper;
 import java.util.List;
 
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.NoticeBoardDto;
+import com.mkfactory.toothless.e.dto.NoticeCommentDto;
 import com.mkfactory.toothless.e.dto.NoticeImageDto;
 
 public interface NoticeSqlMapper {
@@ -27,5 +29,11 @@ public interface NoticeSqlMapper {
 	public void deleteNoticeArticle(int id);
 	// 공지사항 수정
 	public void updateNoticeArticle(NoticeBoardDto noticeBoardDto);
-
+	// 공지사항 댓글 등록
+	public void insertNoticeComment(NoticeCommentDto noticeCommentDto);
+	// 공지사항 댓글 출력
+	public List<NoticeCommentDto> selectCommentByNotice_Id(int notice_id);
+	public StudentInfoDto selectStudentInfoByStudent_Pk(int student_pk);
+	// 공지사항 댓글 삭제
+	public void deleteNoticeComment(int id);
 }

@@ -7,6 +7,21 @@
         <meta charset="utf-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        
+        <script>
+        	function reloadNotifyCount(){
+        		let url = "./reloadMyNotifyCount?student_pk="+${sessionStudentInfo.student_pk}
+        		fetch(url)
+        		.then(response => response.json())
+        		.then((response)=>{
+        			const 
+        			
+        		});
+        	}
+        
+        
+        </script>
+        
         <style>
              @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;800&family=Roboto+Mono:wght@700&display=swap');
             .body{
@@ -29,7 +44,6 @@
             .border-main{
                 border-color: #133369;
             }
-
         </style>
 
     </head>
@@ -56,7 +70,13 @@
                 </div>
             </div>
             <div class="row text-center py-1 fw-bold text-light" style="background-color: #133369">
-                <div class="col-2"></div>
+                <div class="col-1"></div>
+                <div class="col-1">
+                	<i class="bi bi-bell-fill fs-3">
+                	<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger fs-6">
+    							99+</span>
+    				<span class="visually-hidden">unread messages</span></i>
+                </div>
                 <div class="col align-self-center">
                     <a class="navbar-brand" href="./mainpage">현장실습 지원 센터</a>
                 </div>
@@ -76,7 +96,7 @@
                     <form class="d-flex ps-5" role="search">
                         <input class="form-control me-2 py-0" type="search" placeholder="검색어 입력" aria-label="Search">
                         <button class="btn btn-outline-light py-0" type="submit">Search</button>
-                    </form>    
+                    </form>
                 </div>
                 <div class="col-1"></div>
             </div>

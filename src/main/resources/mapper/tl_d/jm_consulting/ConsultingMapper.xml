@@ -41,6 +41,21 @@ WHERE CREATED_AT =
 	) 
 </select>
 
+<!-- 학생 진행중인 구직희망 뽑아오기 -->
+<select id="getProgressHopejob" resultType="com.mkfactory.toothless.d.dto.HopeJobDto">
+SELECT *
+FROM tl_d_hope_job
+WHERE CREATED_AT =
+	(SELECT max(CREATED_AT)
+	 FROM tl_d_hope_job
+	 WHERE STUDENT_PK = #{STUDENT_PK}
+	 AND is_end_hope_job = 'N'
+	) 
+</select>
+
+
+
+
 
 
 <!-- (학생)온라인 상담 정보 입력 -->
@@ -204,8 +219,76 @@ INSERT INTO tl_d_hope_job_feedback values(
 
 </insert>
 
+<!-- 특정학생 미응답 만족도조사 갯수 -->
+<select id="countUnAnsweredHJF" resultType="int">
+SELECT count(*)
+FROM tl_d_hope_job_feedback a
+WHERE a.hope_job_pk NOT in
+	(
+	SELECT b.HOPE_JOB_PK  FROM tl_d_hope_job b
+	WHERE STUDENT_PK = #{STUDENT_PK}
+	AND is_end_hope_job = 'Y'
+	)
+</select>
 
 
+<!-- 특정학생 만족도 조사 안한 구직희망 프로그램 정보 -->
+<select id="getUnAnsweredHJF" resultType="com.mkfactory.toothless.d.dto.HopeJobDto">
+SELECT *
+FROM tl_d_hope_job a
+WHERE a.IS_END_HOPE_JOB = 'Y'
+AND 
+	a.HOPE_JOB_PK NOT in 
+	(
+	SELECT b.hope_job_pk
+	FROM TL_D_HOPE_JOB_FEEDBACK b
+	WHERE student_pk = #{STUDENT_PK}
+	)
+</select>
+
+
+<!-- 구직관심 등록 관련 -->
+<!-- 특정구직희망신청으로 구직관심분야 뽑아오기 -->
+<select id="getHopeJobCategoryList" resultType="com.mkfactory.toothless.d.dto.HopeJobCategoryDto">
+SELECT * FROM TL_D_HOPE_JOB_CATEGORY 
+WHERE HOPE_JOB_PK =#{HOPE_JOB_PK} 
+</select>
+
+<!-- 채용 분야 카테고리pk로 채용 카테고리 꺼내오기 -->
+<select id="getJobFieldCategoryByPk" resultType="com.mkfactory.toothless.d.dto.JobFieldCategoryDto">
+SELECT * FROM TL_D_JOB_FIELD_CATEGORY
+WHERE JOB_FIELD_CATEGORY_PK = #{JOB_FIELD_CATEGORY_PK}
+</select>
+
+
+<!-- 구직관심분야 등록 -->
+<insert id="insertHopeJobCategory">
+INSERT INTO TL_D_HOPE_JOB_CATEGORY values(
+	TL_D_HOPE_JOB_CATEGORY_seq.nextval,
+	#{hope_job_pk},
+	#{job_field_category_pk}
+)
+</insert>
+
+<!-- 특정 구직관심 select -->
+<select id="getHopeJobCategory" resultType="com.mkfactory.toothless.d.dto.HopeJobCategoryDto">
+SELECT *
+FROM TL_D_HOPE_JOB_CATEGORY
+WHERE JOB_FIELD_CATEGORY_PK  = #{job_field_category_pk}
+AND HOPE_JOB_PK  = #{hope_job_pk}
+</select>
+
+<!-- 특정 관심구직 삭제 -->
+<delete id="deleteHopeJobCategory">
+DELETE FROM TL_D_HOPE_JOB_CATEGORY
+WHERE HOPE_JOB_CATEGORY_PK = #{HOPE_JOB_CATEGORY_PK}
+</delete>
+
+<!-- 오래된순 구직희망 전체 꺼내오기 -->
+<select id="getHopeJobListAll" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
+SELECT * FROM TL_D_ONLINE_CONSULTING tdoc  
+ORDER BY CREATED_AT ASC  
+</select>
 
 
 </mapper>

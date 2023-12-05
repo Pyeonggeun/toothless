@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -177,9 +178,19 @@
                         <!-- 입사신청 버튼 -->
 			            <div class="row my-5 pb-5">	
 			                <div class="col px-0 text-end">
-			                	<a href="./mj_applyDormByInfoPage?student_pk=1">
-			                    <button type="button" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">입사 신청</button>
-			                	</a>
+			                	<c:choose>
+			                		<c:when test="${!empty sessionStudentInfo }">
+			                			<a href="./mj_applyDormByInfoPage">
+					                    <button type="button" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">입사 신청</button>
+					                	</a>
+			                		</c:when>
+			                		<c:otherwise>
+			                			<a href="./loginPage">
+					                    <button type="button" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">입사 신청</button>
+					                	</a>
+			                		</c:otherwise>
+			                	</c:choose>
+			                	
 			                </div>                    
 			            </div>
                         

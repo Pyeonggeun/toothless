@@ -66,8 +66,9 @@
 				  <li class="nav-item dropdown">
 				    <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a>
 				    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">예약 조회</a></li>
-                        <li><a class="dropdown-item" href="#">상담이력 조회</a></li>
+                        <li><a class="dropdown-item" href="#">집단상담 예약 조회</a></li>
+                        <li><a class="dropdown-item" href="#">온라인상담 예약 조회</a></li>
+                        <li><a class="dropdown-item" href="../offlineCounsel/checkOfflineCounselReservationStudentPage">오프라인상담 예약 조회</a></li>
                     </ul>
 				  </li>
 				</ul>
