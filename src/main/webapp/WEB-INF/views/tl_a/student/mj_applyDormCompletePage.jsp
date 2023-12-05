@@ -158,12 +158,12 @@
 								                        <div class="row my-3">
 								                            <div class="col text-end">
 								                            	<a href="#">
-								                                <button type="button" class="p-2 border rounded-0 btn btn-secondary text-white"> 모집공고 확인하기 </button>
+								                                <button type="button" class="p-2 me-2 border rounded-0 btn btn-secondary text-white"> 모집공고 확인하기 </button>
 								                                </a>
 								                            </div>
 								                            <div class="col text-start">
 								                            	<a href="#">
-								                                <button type="button" class="p-2 border rounded-0 btn btn-secondary text-white"> 선발안내 확인하기 </button>
+								                                <button type="button" class="p-2 ms-2 border rounded-0 btn btn-secondary text-white"> 선발안내 확인하기 </button>
 								                                </a>
 								                            </div>
 								                        </div>
@@ -171,12 +171,12 @@
 								                        <div class="row my-4 text-center">
 								                        	<div class="col"></div>
 								                            <div class="col">
-								                            	<a href="#" class="text-black" style="text-decoration: none;">
+								                            	<a href="#" class=" text-secondary" style="text-decoration: none; font-size: 0.9em;">
 								                                기숙사 Main 바로가기 >
 								                                </a>
 								                            </div>
 								                            <div class="col">
-								                            	<a href="#" class="text-black" style="text-decoration: none;">
+								                            	<a href="#" class=" text-secondary" style="text-decoration: none; font-size: 0.9em;">
 								                                문의하기 >
 								                                </a>			                           			                               
 								                            </div>
