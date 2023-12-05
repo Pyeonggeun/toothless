@@ -27,4 +27,34 @@ public class DormStaffControllerDm {
 		return "/tl_a/staff/dm_roomAssignment";
 	}
 	
+	@RequestMapping("dm_readRoomAssignmentA")
+	public String dm_readRoomAssignmentA() {
+		
+		
+		return "/tl_a/staff/dm_readRoomAssignmentA";
+	}
+	
+	@RequestMapping("dm_readRoomAssignmentB")
+	public String dm_readRoomAssignmentB() {
+		
+		
+		return "/tl_a/staff/dm_readRoomAssignmentB";
+	}
+	
+	@RequestMapping("dm_roomAssignmentY")
+	public String dm_roomAssignmentY() {
+		
+		
+		return "/tl_a/staff/dm_roomAssignmentY";
+	}
+	
+	@RequestMapping("dm_roomAssignmentN")
+	public String dm_roomAssignmentN() {
+		
+		
+		return "/tl_a/staff/dm_roomAssignmentN";
+	}
+	
+	
+	
 }

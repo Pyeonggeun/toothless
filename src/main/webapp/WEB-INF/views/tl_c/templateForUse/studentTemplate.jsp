@@ -64,7 +64,7 @@
 	<!-- 본문 : 자유롭게 이용하세요 화이팅 -->	
 	<div class="col">
 		<div class="row">
-			<div class="col mx-4">
+			<div class="col mx-5">
 			
 			<!-- 본문작성공간 -->
 				

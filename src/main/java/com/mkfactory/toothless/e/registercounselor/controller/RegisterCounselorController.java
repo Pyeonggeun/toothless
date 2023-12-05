@@ -86,14 +86,28 @@ public class RegisterCounselorController {
 		return "./tl_e/registerCounselor/registerSuccess";
 	}
 	
-	@RequestMapping("counselorDetail")
-	public String counselorDetail(Model model) {
-		System.out.println("[ RegisterCounselorController] => [ counselorDetail ] 실행됨");
+	@RequestMapping("counselorInfo")
+	public String counselorInfo(Model model) {
+		System.out.println("[ RegisterCounselorController] => [ counselorInfo ] 실행됨");
 		System.out.println("---------------------------------------------------------");
 		
 		List<Map<String, Object>> counselorList = registerCounselorService.getAllCounselorList();
 		
 		model.addAttribute("counselorList", counselorList);
+		
+		return "./tl_e/registerCounselor/counselorInfo";
+	}
+	
+	@RequestMapping("counselorDetail")
+	public String counselorDetail(int id, Model model) {
+		System.out.println("[ RegisterCounselorController] => [ counselorDetail ] 실행됨");
+		System.out.println("---------------------------------------------------------");
+		
+		CounselorDto counselorDto = registerCounselorService.getCounselorInfo(id);
+		List<Map<String, Object>> counselorTypeList = registerCounselorService.getCounselorTypeByCounselorId(id);
+		
+		model.addAttribute("counselorDto", counselorDto);
+		model.addAttribute("counselorTypeList", counselorTypeList);		
 		
 		return "./tl_e/registerCounselor/counselorDetail";
 	}

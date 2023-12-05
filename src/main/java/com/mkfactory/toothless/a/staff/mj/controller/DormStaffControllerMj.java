@@ -22,7 +22,7 @@ public class DormStaffControllerMj {
 	@RequestMapping("mj_mainPage")
 	public String mj_mainPage() {
 		
-		return "/tl_a/staff/mj_mainPage";
+		return "tl_a/staff/mj_mainPage";
 	}
 	
 	
@@ -38,7 +38,7 @@ public class DormStaffControllerMj {
 		int countYearList = yearList.size();
 		model.addAttribute("countYearList", countYearList);
 		
-		return "/tl_a/staff/mj_manageYearPage";
+		return "tl_a/staff/mj_manageYearPage";
 	}
 	
 	
@@ -46,7 +46,7 @@ public class DormStaffControllerMj {
 	@RequestMapping("mj_registerYearPage")
 	public String mj_registerYearPage() {
 			
-		return "/tl_a/staff/mj_registerYearPage";
+		return "tl_a/staff/mj_registerYearPage";
 	}
 	
 	// 학년도/학기 추가 프로세스
@@ -62,7 +62,6 @@ public class DormStaffControllerMj {
 	@RequestMapping("mj_changeProgressProcess")
 	public String mj_changeProgressProcess(SemesterDto params) {
 			
-		
 		return "redirect:../staff/mj_changeProgressProcess";
 	}
 
@@ -70,7 +69,7 @@ public class DormStaffControllerMj {
 	@RequestMapping("mj_registerJoinInfoPage")
 	public String mj_registerJoinInfoPage() {
 
-		return "/tl_a/staff/mj_registerJoinInfoPage";
+		return "tl_a/staff/mj_registerJoinInfoPage";
 	}
 	
 	// 공고등록 프로세스
@@ -98,7 +97,7 @@ public class DormStaffControllerMj {
 		int countInfoList = infoList.size();
 		model.addAttribute("countInfoList", countInfoList);
 		
-		return "/tl_a/staff/mj_readRegisterJoinInfoPage";
+		return "tl_a/staff/mj_readRegisterJoinInfoPage";
 	}
 	
 

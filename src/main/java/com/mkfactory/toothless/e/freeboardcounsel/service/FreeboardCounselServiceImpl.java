@@ -43,4 +43,33 @@ public class FreeboardCounselServiceImpl {
 		}
 		return combinedFreeboardList;
 	}
+	
+	//상세 글보기
+	public Map<String, Object> pickPost(int id){
+
+		Map<String, Object> combinedMap = new HashMap<>();
+
+		FreeboardDto freeboardPost =  freeboardCounselSqlMapper.selectPostById(id);
+		int student_pk =freeboardPost.getStudent_pk();
+		StudentInfoDto studentInfo = freeboardCounselSqlMapper.selectByStudentId(student_pk);
+
+		combinedMap.put("freeboardPost",freeboardPost);
+		combinedMap.put("studentInfo", studentInfo);
+		return combinedMap;
+		}
+	
+	//조회수
+	public void readCount(int id) {
+		freeboardCounselSqlMapper.readCount(id);
+	}
+	
+	//글 삭제
+	public void deleteFreeboardPost(int id) {
+		freeboardCounselSqlMapper.deleteFreeboardPost(id);
+	}
+	
+	//글 수정
+	public void updateFreeboardPost(FreeboardDto paraFreeboardDto) {		
+		freeboardCounselSqlMapper.updateFreeboardPost( paraFreeboardDto);	
+	}
 }
