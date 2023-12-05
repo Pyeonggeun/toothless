@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,10 +23,8 @@
 </style>
 <title>상담원 등록 페이지</title>
 </head>
-<body>
-	
-	<div class="container-fluid">
-	
+<body>	
+	<div class="container">	
 		<div class="row border-bottom">
 			<div class="col-10"></div>
 			<div class="col py-2 me-0 pe-0 text-center dropdown nav-item">
@@ -96,7 +94,7 @@
 						<div class="row">							
 							<c:forEach items="${counselorList}" var="counselorList">
 							<c:if test="${counselorList.TYPECATEGORY == 1}">							
-							<div class="col-3">
+							<div class="col-2">
 								<div class="row mt-2">
 									<c:choose>
 									<c:when test="${!empty counselorList.PROFILEIMAGE}">
@@ -133,7 +131,7 @@
 						<div class="row">							
 							<c:forEach items="${counselorList}" var="counselorList">
 							<c:if test="${counselorList.TYPECATEGORY == 2}">							
-							<div class="col-3">
+							<div class="col-2">
 								<div class="row mt-2">
 									<c:choose>
 									<c:when test="${!empty counselorList.PROFILEIMAGE}">
@@ -170,7 +168,7 @@
 						<div class="row">							
 							<c:forEach items="${counselorList}" var="counselorList">
 							<c:if test="${counselorList.TYPECATEGORY == 3}">							
-							<div class="col-3">
+							<div class="col-2">
 								<div class="row mt-2">
 									<c:choose>
 									<c:when test="${!empty counselorList.PROFILEIMAGE}">
@@ -207,7 +205,7 @@
 						<div class="row">							
 							<c:forEach items="${counselorList}" var="counselorList">
 							<c:if test="${counselorList.TYPECATEGORY == 4}">							
-							<div class="col-3">
+							<div class="col-2">
 								<div class="row mt-2">
 									<c:choose>
 									<c:when test="${!empty counselorList.PROFILEIMAGE}">
@@ -244,7 +242,7 @@
 						<div class="row">							
 							<c:forEach items="${counselorList}" var="counselorList">
 							<c:if test="${counselorList.TYPECATEGORY == 5}">							
-							<div class="col-3">
+							<div class="col-2">
 								<div class="row mt-2">
 									<c:choose>
 									<c:when test="${!empty counselorList.PROFILEIMAGE}">
@@ -281,7 +279,7 @@
 						<div class="row">							
 							<c:forEach items="${counselorList}" var="counselorList">
 							<c:if test="${counselorList.TYPECATEGORY == 6}">							
-							<div class="col-3">
+							<div class="col-2">
 								<div class="row mt-2">
 									<c:choose>
 									<c:when test="${!empty counselorList.PROFILEIMAGE}">
@@ -306,8 +304,7 @@
 							</c:forEach>							
 						</div>
 					</div>
-				</div>
-				
+				</div>				
 			</div>
 			<div class="col-1"></div>
 		</div>

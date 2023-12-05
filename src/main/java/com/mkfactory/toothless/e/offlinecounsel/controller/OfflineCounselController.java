@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mkfactory.toothless.e.dto.CounselorDto;
+import com.mkfactory.toothless.e.dto.OfflineReservationDto;
 import com.mkfactory.toothless.e.offlinecounsel.service.OfflineCounselServiceImpl;
 
 @Controller
@@ -15,45 +18,51 @@ import com.mkfactory.toothless.e.offlinecounsel.service.OfflineCounselServiceImp
 public class OfflineCounselController {
 	
 	@Autowired
-	OfflineCounselServiceImpl OfflineCounselService; 
+	OfflineCounselServiceImpl offlineCounselService; 
 	
 	@RequestMapping("selectCounselorPage")
-	public String selectCounselorPage() {
+	public String selectCounselorPage(Model model) {
+		
+		List<Map<String, Object>> list = offlineCounselService.getCounselorListByTypeCategory();
+		model.addAttribute("list", list);
 		
 		return "tl_e/offlineCounsel/selectCounselorPage";
 	}
 	
 	@RequestMapping("counselReservationPage")
-	public String counselReservationPage(Model model) {
+	public String counselReservationPage(Model model,
+ 			@RequestParam(value = "type_category_id") int type_category_id, 
+			@RequestParam(value = "counselor_id") int counselor_id) {
 		
-		List<Map<String, Object>> sevenDaysList = OfflineCounselService.sevenDaysDateExtraction();
+		CounselorDto counselorDto = offlineCounselService.getCounselorInfo(counselor_id);
+		model.addAttribute("counselorDto", counselorDto);
+		model.addAttribute("type_category_id", type_category_id);
+		
+		List<Map<String, Object>> sevenDaysList = offlineCounselService.sevenDaysDateExtraction(counselor_id);
 		model.addAttribute("sevenDaysList", sevenDaysList);
 		
 		return "tl_e/offlineCounsel/counselReservationPage";
 	}
 	
 	@RequestMapping("counselReservationProcess")
-	public String counselReservationProcess(String counsel_hour) {
+	public String counselReservationProcess(
+			Model model,
+			OfflineReservationDto params, 
+			String reservationDate) {
 		
-		// 밑에 로직 추후 sevice단에서 구현하고 예약dto에 년,월,일,시 각각 set해주면 됨... 
-		System.out.println(counsel_hour);
-		String str[] = counsel_hour.split("\\.");
-		int[] dayInfo = new int[4];
-		
-		for(int i = 0; i < str.length; i++) {
-			dayInfo[i] = Integer.parseInt(str[i]);
-			System.out.println(dayInfo[i]);
-			System.out.println("------");
-		}
+		int offlineReservationPk = offlineCounselService.getOfflineReservationPk();
+		params.setId(offlineReservationPk);
+		Map<String, Object> map = offlineCounselService.insertOfflineReservationInfo(params, reservationDate);
+		model.addAttribute("map", map);
 		
 		return "tl_e/offlineCounsel/counselReservationCompletedPage";
 	}
 	
-	@RequestMapping("counselReservationCompletedPage")
-	public String counselReservationCompletedPage() {
-		
-		return "tl_e/offlineCounsel/counselReservationCompletedPage";
-	}
+//	@RequestMapping("counselReservationCompletedPage")
+//	public String counselReservationCompletedPage() {
+//		
+//		return "tl_e/offlineCounsel/counselReservationCompletedPage";
+//	}
 	
 	
 	

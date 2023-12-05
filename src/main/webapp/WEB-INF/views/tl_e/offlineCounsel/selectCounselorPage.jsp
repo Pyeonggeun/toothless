@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +18,7 @@
                 <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
             </div>
             <div class="col-3 ps-0 pt-2 fw-bold fs-3 text-start ">
-                MK University<span class="fs-6"> | </span> <span class="fs-5">학생포털사이트</span> 
+                MK University<span class="fs-6"> | </span> <span class="fs-5">상담센터</span> 
             </div>
             <div class="col-2"></div>
             <div class="col">
@@ -32,7 +33,7 @@
             </div>
 			<div class="col-1 pt-3 me-0 pe-0 text-center dropdown nav-item">
 			  <a class="nav-link pt-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    <span class="fw-bold">학생아이디</span>님
+			    <span class="fw-bold">${sessionStudentInfo.name }</span>님
 			  </a>
 			  <ul class="dropdown-menu">
 			    <li><a class="dropdown-item" href="#">정보 수정</a></li>
@@ -52,7 +53,7 @@
 				    <a class="nav-link dropdown-toggle fw-bold text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">상담신청</a>
 				    <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">온라인 상담신청</a></li>
-                        <li><a class="dropdown-item" href="#">오프라인 상담신청</a></li>
+                        <li><a class="dropdown-item" href="./selectCounselorPage">오프라인 상담신청</a></li>
                         <li><a class="dropdown-item" href="#">집단 상담신청</a></li>
                     </ul>
 				  </li>
@@ -98,7 +99,7 @@
 				<img class="img-fluid" src="../../resources/img/offlineCounsel/offlineCounselBanner5.jpg">
 			</div>
 		</div>
-	
+		
 		<!-- 본문 -->
 		<div class="row">
 			<div class="col-2"></div>
@@ -129,247 +130,57 @@
 		<div class="row pt-3">
 			<div class="col-2"></div>
 			<div class="col">
-				<div class="row">
-					<!-- 여기서 col 한 개를 반복문 돌려서 출력하면 됨 -->
-					<div class="col-4">
-						<div class="row">
-							<div class="col border border-dark m-2 shadow-sm rounded" style="min-height: 19em;">
-								<div class="row border-bottom">
-									<!-- 나중에 카테고리 리스트 반복문으로 돌릴 때 choose,when으로 ${category_pk == 1} 조건으로 이미지 변경 -->
-									<div class="col-3 py-2">
-										<img class="img-fluid" src="../../resources/img/offlineCounsel/personality.png">
-									</div>
-									<div class="col pt-4 fw-bold fs-4">
-										성격 문제
-									</div>
-								</div>
-								<div class="row fs-5">
-									<div class="col ps-4">
-										<!-- 반복문: 상담원 리스트 -->
-										<div class="row pt-4">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;
-												<span><a class="navbar-brand" href="#">김현영 상담사</a></span>
-											</div>
+				<div class="row" style="display: flex;">
+					<c:forEach items="${list }" var="map">
+						<!-- 여기서 col 한 개를 반복문 돌려서 출력하면 됨 -->
+						<div class="col-4">
+							<div class="row">
+								<div class="col border border-dark m-2 shadow-sm rounded" style="min-height: 23em;">
+									<div class="row border-bottom">
+										<!-- 나중에 카테고리 리스트 반복문으로 돌릴 때 choose,when으로 ${category_pk == 1} 조건으로 이미지 변경 -->
+										<div class="col-3 py-2">
+											<c:choose>
+												<c:when test="${map.typeCategoryDto.id == 1 }">
+													<img class="img-fluid" src="../../resources/img/offlineCounsel/personality.png">
+												</c:when>
+												<c:when test="${map.typeCategoryDto.id == 2 }">
+													<img class="img-fluid" src="../../resources/img/offlineCounsel/relationship.png">
+												</c:when>
+												<c:when test="${map.typeCategoryDto.id == 3 }">
+													<img class="img-fluid" src="../../resources/img/offlineCounsel/oppositeGender.png">
+												</c:when>
+												<c:when test="${map.typeCategoryDto.id == 4 }">
+													<img class="img-fluid" src="../../resources/img/offlineCounsel/depression.png">
+												</c:when>
+												<c:when test="${map.typeCategoryDto.id == 5 }">
+													<img class="img-fluid" src="../../resources/img/offlineCounsel/career.png">
+												</c:when>
+												<c:when test="${map.typeCategoryDto.id == 6 }">
+													<img class="img-fluid" src="../../resources/img/offlineCounsel/academic.png">
+												</c:when>
+											</c:choose>										
 										</div>
-										<div class="row pt-3">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;
-												<span><a class="navbar-brand" href="#">김현영 상담사</a></span>
-											</div>
-										</div>
-										<div class="row pt-3">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;
-												<span><a class="navbar-brand" href="#">김현영 상담사</a></span>
-											</div>
+										<div class="col pt-4 fw-bold fs-4">
+											${map.typeCategoryDto.name }
 										</div>
 									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 여기서 col 한 개를 반복문 돌려서 출력하면 됨 -->
-					<div class="col-4">
-						<div class="row">
-							<div class="col border border-dark m-2 shadow-sm rounded" style="min-height: 19em;">
-								<div class="row border-bottom">
-									<div class="col-3 py-2">
-										<img class="img-fluid" src="../../resources/img/offlineCounsel/relationship.png">
-									</div>
-									<div class="col pt-4 fw-bold fs-4">
-										대인/가족관계
-									</div>
-								</div>
-								<div class="row fs-5">
-									<div class="col ps-4">
-										<!-- 반복문: 상담원 리스트 -->
-										<div class="row pt-4">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3 pb-4">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
+									<div class="row fs-5">
+										<div class="col ps-4">
+											<!-- 반복문: 상담원 리스트 -->
+											<c:forEach items="${map.counselorByCategoryList }" var="map2">
+												<div class="row pt-3 pb-2">
+													<div class="col">
+														<i class="bi bi-person-circle"></i>&nbsp;&nbsp;
+														<span><a class="navbar-brand" href="./counselReservationPage?type_category_id=${map2.counselorTypeDto.type_category_id }&counselor_id=${map2.counselorDto.id }">${map2.counselorDto.name } 상담사</a></span>
+													</div>
+												</div>
+											</c:forEach>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<!-- 여기서 col 한 개를 반복문 돌려서 출력하면 됨 -->
-					<div class="col-4">
-						<div class="row">
-							<div class="col border border-dark m-2 shadow-sm rounded" style="min-height: 19em;">
-								<div class="row border-bottom">
-									<div class="col-3 py-2">
-										<img class="img-fluid" src="../../resources/img/offlineCounsel/oppositeGender.png">
-									</div>
-									<div class="col pt-4 fw-bold fs-4">
-										이성 문제
-									</div>
-								</div>
-								<div class="row fs-5">
-									<div class="col ps-4">
-										<!-- 반복문: 상담원 리스트 -->
-										<div class="row pt-4">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3 pb-4">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>								
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 여기서 col 한 개를 반복문 돌려서 출력하면 됨 -->
-					<div class="col-4">
-						<div class="row">
-							<div class="col border border-dark m-2 shadow-sm rounded" style="min-height: 19em;">
-								<div class="row border-bottom">
-									<div class="col-3 py-2">
-										<img class="img-fluid" src="../../resources/img/offlineCounsel/depression.png">
-									</div>
-									<div class="col pt-4 fw-bold fs-4">
-										우울/불안 문제
-									</div>
-								</div>
-								<div class="row fs-5">
-									<div class="col ps-4">
-										<!-- 반복문: 상담원 리스트 -->
-										<div class="row pt-4">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3 pb-4">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>								
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 여기서 col 한 개를 반복문 돌려서 출력하면 됨 -->
-					<div class="col-4">
-						<div class="row">
-							<div class="col border border-dark m-2 shadow-sm rounded" style="min-height: 19em;">
-								<div class="row border-bottom">
-									<div class="col-3 py-2">
-										<img class="img-fluid" src="../../resources/img/offlineCounsel/career.png">
-									</div>
-									<div class="col pt-4 fw-bold fs-4">
-										진로 문제
-									</div>
-								</div>
-								<div class="row fs-5">
-									<div class="col ps-4">
-										<!-- 반복문: 상담원 리스트 -->
-										<div class="row pt-4">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3 pb-4">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>								
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 여기서 col 한 개를 반복문 돌려서 출력하면 됨 -->
-					<div class="col-4">
-						<div class="row">
-							<div class="col border border-dark m-2 shadow-sm rounded" style="min-height: 19em;">
-								<div class="row border-bottom">
-									<div class="col-3 py-2">
-										<img class="img-fluid" src="../../resources/img/offlineCounsel/academic.png">
-									</div>
-									<div class="col pt-4 fw-bold fs-4">
-										학업 문제
-									</div>
-								</div>
-								<div class="row fs-5">
-									<div class="col ps-4">
-										<!-- 반복문: 상담원 리스트 -->
-										<div class="row pt-4">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>
-										<div class="row pt-3 pb-4">
-											<div class="col">
-												<i class="bi bi-person-circle"></i>&nbsp;&nbsp;김현영 상담사
-											</div>
-										</div>								
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 이 위까지 지우고 반복문으로 변경 -->
+					</c:forEach>
 				</div>
 			</div>
 			<div class="col-2"></div>

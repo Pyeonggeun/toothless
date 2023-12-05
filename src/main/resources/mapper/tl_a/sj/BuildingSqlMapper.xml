@@ -35,9 +35,18 @@
 	</select>
 	
 	<!-- 정원 카테고리 -->
-	<select id="selectDormAmountAllCategory" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
+	<select id="dormCategory" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
 		SELECT * FROM tl_a_dorm_category
 	</select>
+	
+	<!-- 정원 카테고리 insert -->
+	<insert id="insertRegisterCategory">
+		INSERT INTO tl_a_dorm_category VALUES (
+		tl_a_dorm_category_seq.nextval,
+		#{dorm_amount},
+		#{dorm_imgs},
+	)
+	</insert>
 	
 	<select id="selectDormAmountChoice" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
 		SELECT * FROM TL_A_DORM_CATEGORY tadc WHERE DORM_AMOUNT = ${DORM_AMOUNT}

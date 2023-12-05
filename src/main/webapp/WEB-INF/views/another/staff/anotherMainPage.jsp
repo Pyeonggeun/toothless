@@ -75,7 +75,53 @@
         		});
         	
         	}
-        
+
+            function reloadStudentList(){
+                const url = "./getStudentInfoList";
+				
+                
+                
+                fetch(url)
+                .then(response => response.json())
+                .then((response) => {
+                    for(e of response.data){
+                        const studentListBox = document.getElementById("studentListBox");
+
+                        const studentListWrapper = document.querySelector("#templete .studentListWrapper").cloneNode(true);
+                    
+                        const student_id = studentListWrapper.querySelector(".student_id");
+                        student_id.innerText = e.studentInfoDto.student_id;
+
+                        const student_name = studentListWrapper.querySelector(".student_name");
+                        student_name.innerText = e.studentInfoDto.name;
+
+                        const student_department = studentListWrapper.querySelector(".student_department");
+                        student_department.innerText = e.departmentName;
+
+                        const student_studentYear = studentListWrapper.querySelector(".student_studentYear");
+                        student_studentYear.innerText = e.studentYear;
+
+                        const student_professorName = studentListWrapper.querySelector(".student_professorName");
+                        student_professorName.innerText = e.professorInfoDto.name;
+
+                        studentListBox.appendChild(studentListWrapper);
+
+                    }
+                    
+
+                });
+            }
+            function studentInsertFormSubmit() {
+				
+			}
+         
+
+
+            window.addEventListener("DOMContentLoaded", () =>{
+                reloadStudentList();
+            });
+
+            
         
         
         
@@ -137,19 +183,16 @@
             <div class="row text-center py-1 fw-bold text-light" style="background-color: #133369">
                 <div class="col-2"></div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">현장실습 지원 센터</a>
+                    <a class="navbar-brand" href="./anotherStudentManagerPage">학생 정보 관리</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">취업<i class="bi bi-dot"></i>창업 지원 센터</a>
+                    <a class="navbar-brand" href="./anotherMainPage">교직원 정보 관리</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="../../tl_e/commons/staffCounselMainPage">상담 센터</a>
+                    <a class="navbar-brand" href="./anotherMainPage">교수 정보 관리</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">생활관 관리 센터</a>
-                </div>
-                <div class="col align-self-center">
-                    <a class="navbar-brand" href="../../tl_b_views/common/studentMainPage">보건 센터</a>
+                    <a class="navbar-brand" href="./anotherMainPage">외부 사용자 등록 현황</a>
                 </div>
                 <div class="col-3">    
                     <form class="d-flex ps-5" role="search">
@@ -162,7 +205,7 @@
              <div class="row mt-5">
                 <div class="col ms-5">
                     <div class="row">
-                        <form action="./studentRegisterProcess" method="post" >
+                        <form id="studentInsertFrm" action="./studentRegisterProcess" method="post" >
                             <div class="col border border-2 align-self-center py-3 px-3 text-end">
                                 <div class="row">
                                     <div class="col fs-3 fw-bold text-center">
@@ -300,7 +343,7 @@
                                 <div class="row mt-3">
                                     <div class="col-2"></div>
                                     <div class="col">
-                                        <button class="btn btn-primary form-control">등록</button>
+                                        <button onclick="studentInsertFormSubmit()" class="btn btn-primary form-control">등록</button>
                                     </div>
                                     <div class="col-2"></div>
                                 </div>
@@ -531,9 +574,15 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-5 fs-3 text-center fw-bold">
+                <div class="col">
+                    학생 정보
+                </div>
+            </div>
+            <div class="row mt-3 ">
+                <div class="col-2"></div>
             	<div class="col">
-            		<div class="row" style="font-size: x-small">
+            		<div class="row fw-bold border-bottom border-black">
             			<div class="col">
             				학번
             			</div>
@@ -551,6 +600,38 @@
             			</div>
             		</div>
             	</div>
+                <div class="col-2"></div>
+            </div>
+           <div class="row">
+                <div id="studentListBox" class="col">
+
+                </div>
+           </div>
+        </div>
+
+        <div id="templete" class="d-none">
+            <div class="row studentListWrapper">
+                <div class="col-2"></div>
+                <div class="col">
+                    <div class="row mt-2">
+                        <div  class="col student_id">
+                            학번
+                        </div>
+                        <div class="col student_name">
+                            이름
+                        </div>
+                        <div class="col student_department">
+                            학과 
+                        </div>
+                        <div class="col student_studentYear">
+                            학년
+                        </div>
+                        <div class="col student_professorName">
+                            지도교수 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2"></div>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

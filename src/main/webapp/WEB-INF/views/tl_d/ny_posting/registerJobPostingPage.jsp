@@ -28,7 +28,6 @@
 			<%-- 채용공고 등록 양식 --%>
 			<div class="col">
 				<form action="./registerJobPostingProcess" method="post" enctype="multipart/form-data">
-				<input name="com_pk" type="hidden" value="">
 				<!-- 채용공고 -->
 				<div class="row">
 					<div class="col fs-4 fw-bold mt-5 text-center">채용공고</div>
@@ -39,11 +38,18 @@
 						<input class="form-control form-control-sm border-black" name="posting_name" type="text" placeholder="공고제목">
 					</div>
 				</div>
+				<!-- 사업자번호 -->
+				<div class="row mt-3">
+					<div class="col">
+						<input class="form-control form-control-sm border-black" name="business_number" type="text" placeholder="000-00-00000">
+					</div>
+				</div>
 				<!-- 채용분야 -->
 				<div class="row mt-3">
 					<div class="col">
-						<!-- forEach예정  -->
-						<input name="job_field_category_pk" type="checkbox" value="">
+						<c:forEach items="${jobFieldCategory}" var="jobField">
+							<input name="job_field_category_pk" type="radio" value="${jobField.job_field_category_pk}">&nbsp;${jobField.job_field_category_name}
+						</c:forEach>
 					</div>
 				</div>
 				<!-- 구인직무 -->
@@ -61,11 +67,21 @@
 				<!-- 채용내용 -->
 				<div class="row mt-3">
 					<div class="col">
+						채용내용
+					</div>
+				</div>
+				<div class="row mt-2">
+					<div class="col">
 						<textarea name="posting_contents" rows="10" cols="80" style="resize: both;"></textarea>						
 					</div>
 				</div>
 				<!-- 우대사항 -->
 				<div class="row mt-3">
+					<div class="col">
+						우대사항
+					</div>
+				</div>
+				<div class="row mt-2">
 					<div class="col">
 						<textarea name="preference" rows="10" cols="80" style="resize: both;"></textarea>						
 					</div>
@@ -85,7 +101,7 @@
 				<div class="row mt-3">
 					<div class="col-10"></div>
 					<div class="col">
-						<!-- <input class="btn btn-primary" type="submit" value="공고등록"> -->
+						<input class="btn btn-primary" type="submit" value="공고등록">
 					</div>
 				</div>
 				</form>

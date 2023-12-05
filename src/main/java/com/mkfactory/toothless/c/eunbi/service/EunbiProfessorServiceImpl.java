@@ -31,21 +31,35 @@ public class EunbiProfessorServiceImpl {
 		for(StudentInfoDto studenInfoDto : studentList) {
 			
 			int studentPk = studenInfoDto.getStudent_pk();
-			
-			List<AjdksCertificationDto> certificationList = studentSqlMapper.getCertifications(studentPk);
+			int departmentPk = studenInfoDto.getDepartment_pk();
 			
 			Map<String, Object> studentsInfo = new HashMap<>();
 			
+			if(studentSqlMapper.getLatestStudentApplyingPk(studentPk) != null) {
+				studentsInfo.put("studentApplyingPk", studentSqlMapper.getLatestStudentApplyingPk(studentPk));
+				studentsInfo.put("latestStudentApplyingDto"
+								, studentSqlMapper.getLatestStudentApplyingDto(studentSqlMapper.getLatestStudentApplyingPk(studentPk)));
+			}else if(studentSqlMapper.getLatestStudentApplyingPk(studentPk) == null) {
+				studentsInfo.put("studentApplyingPk", 0);
+			}
+			
 			studentsInfo.put("studenInfoDto", studenInfoDto);
-			studentsInfo.put("studentApplyingList", studentSqlMapper.getStudentApplying(studentPk));
-			studentsInfo.put("selfIntroductionDto", studentSqlMapper.getSelfIntroduction(studentPk));
-			studentsInfo.put("certificationList", certificationList);
+			studentsInfo.put("departmentDto", studentSqlMapper.getDepartmentByDepartmentPk(departmentPk));
 			
 			studentsInfoList.add(studentsInfo);
 		}
 		
 		return studentsInfoList;
 	}
+	
+//	public Map<String, Object> viewStudentDetails(int studentPk) {
+//		
+//		List<AjdksCertificationDto> certificationList = studentSqlMapper.getCertifications(studentPk);
+//		
+//		studentsInfo.put("selfIntroductionDto", studentSqlMapper.getSelfIntroduction(studentPk));
+//		studentsInfo.put("certificationList", certificationList);
+//		
+//	}
 	
 	
 	

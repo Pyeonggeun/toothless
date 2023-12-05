@@ -19,7 +19,7 @@
                 <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
             </div>
             <div class="col-3 ps-0 pt-2 fw-bold fs-3 text-start ">
-                MK University<span class="fs-6"> | </span> <span class="fs-5">학생포털사이트</span> 
+                MK University<span class="fs-6"> | </span> <span class="fs-5">상담센터</span> 
             </div>
             <div class="col-2"></div>
             <div class="col">
@@ -34,7 +34,7 @@
             </div>
 			<div class="col-1 pt-3 me-0 pe-0 text-center dropdown nav-item">
 			  <a class="nav-link pt-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    <span class="fw-bold">학생아이디</span>님
+			    <span class="fw-bold">${sessionStudentInfo.name }</span>님
 			  </a>
 			  <ul class="dropdown-menu">
 			    <li><a class="dropdown-item" href="#">정보 수정</a></li>
@@ -54,7 +54,7 @@
 				    <a class="nav-link dropdown-toggle fw-bold text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">상담신청</a>
 				    <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">온라인 상담신청</a></li>
-                        <li><a class="dropdown-item" href="#">오프라인 상담신청</a></li>
+                        <li><a class="dropdown-item" href="./selectCounselorPage">오프라인 상담신청</a></li>
                         <li><a class="dropdown-item" href="#">집단 상담신청</a></li>
                     </ul>
 				  </li>
@@ -96,8 +96,12 @@
 		
 		<!-- 상단 배너 -->
 		<div class="row">
-			<div class="col d-grid px-0">
-				<img class="d-block w-100 img-fluid" src="../../resources/img/offlineCounsel/offlineCounselBanner5.jpg">
+			<div class="col d-grid px-0" style="background-image: url('../../resources/img/offlineCounsel/offlineCounselBanner5.jpg'); height: 27em">
+				<div class="row">
+					<div class="col-3">
+						<span class="fs-1 fw-bold" style="font-size: xx-large;">학생 상담</span>
+					</div>
+				</div>
 			</div>
 		</div>
 	
@@ -136,27 +140,17 @@
 					<div class="col-3 border-end border-dark">
 						<div class="row">
 							<div class="col pt-4 px-4">
-								<img class="img-fluid" src="../../resources/img/offlineCounsel/profileImg.png">
+								<img class="img-fluid" src="../../resources/img/counselorImage/${counselorDto.profileImage }">
 							</div>
 						</div>
 						<div class="row pt-4 pb-3">
 							<div class="col text-center fs-4">
-								김현영
+								${counselorDto.name }
 							</div>
 						</div>
 					</div>
 					<div class="col-9 pt-4 ps-4">
-						가천대학교 대학일자리플러스 센터 취업지원관<br>
-						협성대학교 대학일자리센터 취업지원관<br>
-						한세대학교 대학일자리본부 현장실습지원 담당<br>
-						사회적협동조합 내일로<br>
-						- 국민취업지원제도 컨설턴트<br>
-						- 청년내일채움공제 컨설턴트<br>
-						직업상담사 2급<br>
-						진로지도사 1급<br>
-						진로 및 취업상담<br>
-						이력서/자기소개서컨설팅<br>
-						면접컨설팅
+						${counselorDto.career }
 					</div>
 				</div>
 			</div>
@@ -172,7 +166,7 @@
 			<div class="col-2"></div>
 		</div>
 		
-		<form action="./counselReservationProcess">
+		<form action="./counselReservationProcess" method="get">
 		<!-- 일정(7일) -->
 		<div class="row pt-3">
 			<div class="col-2"></div>
@@ -225,11 +219,24 @@
 												</c:when>
 												<c:otherwise>
 													<c:forEach items="${dayMap.timeList }" var="time">
-														<c:if test="${time != 12 }">
+														<c:if test="${time.hour != 12 }">
 															<div class="row pt-3">
 																<div class="col text-center form-check ps-5">
-																	<input class="form-check-input border-dark" name="counsel_hour" type="radio" value="${dayMap.year }.${dayMap.month }.${dayMap.date }.${time }">
-																	<label class="form-check-label">${time}시 - ${time + 1 }시</label>
+																	<c:set var="vs" value="0"/>
+																	<c:forEach items="${time.reservationDateInfoList }" var="dateInfo">
+																		<c:if test="${time.dateString == dateInfo }">
+																			<c:set var="vs" value="${vs + 1 }"/>
+																		</c:if>
+																	</c:forEach>
+																	<c:choose>
+																		<c:when test="${vs >= 1 }">
+																			<input class="form-check-input border-dark" name="reservationDate" type="radio" value="${dayMap.year }.${dayMap.month }.${dayMap.date }.${time.hour }.${dayMap.day}" disabled>
+																		</c:when>
+																		<c:otherwise>
+																			<input class="form-check-input border-dark" name="reservationDate" type="radio" value="${dayMap.year }.${dayMap.month }.${dayMap.date }.${time.hour }.${dayMap.day}">
+																		</c:otherwise>
+																	</c:choose>
+																	<label class="form-check-label">${time.hour}시 - ${time.hour + 1 }시</label>
 																</div>
 															</div>
 														</c:if>
@@ -261,7 +268,10 @@
 			<div class="col">
 				<div class="row">
 					<div class="col">
-						<textarea class="rounded" rows="5" cols="150"></textarea>
+						<textarea name="text" class="rounded" rows="5" cols="150"></textarea>
+					</div>
+					<div class="col">
+						<input class="form-check-input border-dark" type="radio" value="1" disabled>
 					</div>
 				</div>
 			</div>
@@ -271,6 +281,9 @@
 			<div class="col-2"></div>
 			<div class="col-3"></div>
 			<div class="col d-grid">
+				<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk }">
+				<input name="type_category_id" type="hidden" value="${type_category_id }">
+				<input name="counselor_id" type="hidden" value="${counselorDto.id }">
 				<input class="btn btn-dark btn-lg" type="submit" value="신청하기">
 			</div>
 			<div class="col-3"></div>

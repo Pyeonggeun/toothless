@@ -31,5 +31,13 @@
 		UPDATE TL_B_STAFF_NOTICEBOARD SET READ_COUNT = READ_COUNT +1 WHERE staff_noticeboard_pk = #{staff_noticeboard_pk}
 	</update>
 	
+	<delete id="deleteText">
+		DELETE FROM TL_B_STAFF_NOTICEBOARD WHERE staff_noticeboard_pk = #{staff_noticeboard_pk}
+	</delete>
+	
+	<update id="updateModifyText">
+		UPDATE TL_B_STAFF_NOTICEBOARD SET title = #{title}, content = #{content} WHERE staff_noticeboard_pk = #{staff_noticeboard_pk}
+	</update>
+	
 </mapper>
 

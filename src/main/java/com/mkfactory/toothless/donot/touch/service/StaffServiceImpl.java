@@ -1,5 +1,6 @@
 package com.mkfactory.toothless.donot.touch.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +16,14 @@ import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentSemesterDto;
 import com.mkfactory.toothless.donot.touch.mapper.StaffSqlMapper;
+import com.mkfactory.toothless.donot.touch.mapper.StudentSqlMapper;
 
 @Service
 public class StaffServiceImpl {
 	@Autowired
 	private StaffSqlMapper staffSqlMapper;
-	
+	@Autowired
+	private StudentSqlMapper studentSqlMapper;
 	
 	public StaffInfoDto loginByStaffIdAndPassword(StaffInfoDto staffInfoDto){
 		
@@ -28,7 +31,7 @@ public class StaffServiceImpl {
 		
 	}
 	
-	public void insertStudentInfo(StudentInfoDto studentInfoDto, int semester_count, int graduation, double scoreAVG ) {
+	public void insertStudentInfo(StudentInfoDto studentInfoDto, int semester_count, boolean graduation, double scoreAVG ) {
 		
 		int studetn_pk = staffSqlMapper.getStudentPk();
 		studentInfoDto.setStudent_pk(studetn_pk);
@@ -44,7 +47,7 @@ public class StaffServiceImpl {
 			staffSqlMapper.insertSemesterInfo(studentSemesterDto);
 		}
 		
-		if(graduation == 1) {
+		if(graduation == true) {
 			staffSqlMapper.insertGraduationInfo(studetn_pk);
 		}
 	}
@@ -101,6 +104,32 @@ public class StaffServiceImpl {
 		
 	}
 	
+	public List<Map<String, Object>> getStudentList(int pageNum){
+		List<Map<String, Object>> listMap = new ArrayList<>();
+		List<StudentInfoDto> studentInfoDtoList = staffSqlMapper.selectStudnetList(pageNum);
+		
+		for(StudentInfoDto studentInfoDto : studentInfoDtoList) {
+			int student_pk = studentInfoDto.getStudent_pk();
+			
+			int graduationInfo =  studentSqlMapper.selectGraduationInfo(student_pk);
+			int studentYear = studentSqlMapper.selectStudentYear(student_pk);
+			String departmentName = studentSqlMapper.selectStudnetDepartmentName(studentInfoDto.getDepartment_pk());
+			ProfessorInfoDto professorInfoDto = studentSqlMapper.selectMyProfessor(studentInfoDto.getProfessor_pk());
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			map.put("graduationInfo", graduationInfo);
+			map.put("studentYear", studentYear);
+			map.put("departmentName", departmentName);
+			map.put("professorInfoDto", professorInfoDto);
+			map.put("studentInfoDto", studentInfoDto);
+			
+			listMap.add(map);
+		}
+		
+		
+		return listMap;
+	}
 	
 	
 	

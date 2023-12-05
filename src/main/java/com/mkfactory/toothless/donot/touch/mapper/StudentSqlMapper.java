@@ -15,7 +15,7 @@ public interface StudentSqlMapper {
 	
 	public int selectGraduationInfo(int student_pk);
 	
-	public List<StudentInfoDto> selectStudnetList();
+	
 	
 	public ProfessorInfoDto selectMyProfessor(int professor_pk);
 }

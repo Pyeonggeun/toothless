@@ -1,10 +1,15 @@
 package com.mkfactory.toothless.donot.touch.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mkfactory.toothless.donot.touch.dto.RestResponseDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.donot.touch.service.StaffServiceImpl;
 
 @RestController
@@ -42,4 +47,33 @@ public class RestStaffController {
 		return responseDto;
 		
 	}
+	
+	@RequestMapping("getStudentInfoList")
+	public RestResponseDto getStudentInfoList(int pageNum) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> studentInfoList = staffService.getStudentList(pageNum);
+		
+		responseDto.setResult("success");
+		responseDto.setData(studentInfoList);
+		
+		return responseDto;
+		
+	}
+	@RequestMapping("studentRegisterProcess")
+	public RestResponseDto studentRegisterProcess(StudentInfoDto studentInfoDto,
+			int semester_count,
+			@RequestParam(required = false, defaultValue="0")
+			boolean graduation,
+			double scoreAVG) {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		staffService.insertStudentInfo(studentInfoDto, semester_count, graduation, scoreAVG);
+		
+		responseDto.setResult("success");
+		
+		return responseDto;
+	}
+	
+	
 }
