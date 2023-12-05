@@ -50,47 +50,26 @@
 			
 			<!-- 미니맵 -->
 			<div class="row">
-				<div class="col border py-4 mx-2 rounded border-dark btn text-start" onclick="location.href='#'">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
 					<div class="row">
-						<div class="col ms-2">
-								A동
-						</div>
-					</div>
-					
-					<div class="row mt-2">
-						<div class="col ms-2">
-							<span class="fs-5 fw-bold text-black">
-								x
-							</span>건
+						<div class="col ms-2 fw-bold">
+							A동
 						</div>
 					</div>
 				</div>
-				<div class="col border py-4 mx-2 rounded border-dark btn text-start" onclick="location.href='#'">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
 					<div class="row">
-						<div class="col ms-2">
-								B동
+						<div class="col ms-2 fw-bold">
+							B동
 						</div>
 					</div>
 					
-					<div class="row mt-2">
-						<div class="col ms-2">
-							<span class="fs-5 fw-bold text-black">
-								x
-							</span>건
-						</div>
-					</div>
 				</div>
 				<div class="col-8"></div>
 			</div>
 
 			<!-- 세부내용 시작 -->
-			<div class="row mt-3 py-3">
-				<div class="col">
-					<input type="date">
-					<input type="submit" value="선택">
-				</div>
-			</div>
-			<div class="row mt-2">
+			<div class="row my-3 py-3">
 				<div class="col">
 					<table class="table table-bordered text-center align-middle">
 						<thead>
