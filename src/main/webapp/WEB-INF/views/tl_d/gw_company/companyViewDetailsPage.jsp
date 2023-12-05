@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,9 +28,14 @@
 		
 		<div class="col">
 			<div class="row border-bottom border-3 border-bs-border mt-5 mb-3 pb-3 fs-4 fw-bold">
-				<div class="col-2">기업 상세정보</div>
+				<div class="col-3">기업 상세정보</div>
 				<div class="col text-end">
-					<a class="btn btn-primary" href="#" role="button">가족기업으로 변환하기</a>
+					<c:if test="${companyMap.companyDto.is_family_company=='N'}">
+						<a class="btn btn-primary" href="./changeFamilyCompanyProcess?companyPK=${companyMap.companyDto.com_pk}" role="button">가족기업으로 변환하기</a>
+					</c:if>
+					<c:if test="${companyMap.companyDto.is_family_company=='Y'}">
+						<a class="btn btn-primary" href="./changeGeneralCompanyProcess?companyPK=${companyMap.companyDto.com_pk}" role="button">일반기업으로 변환하기</a>
+					</c:if>
 				</div>
 			</div> 
 			<div class="row fs-5 mt-5 mb-3 fw-bold">회사 상세 정보</div>
@@ -37,25 +43,25 @@
 				<div class="col"> 
 					<div class="row border-top border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">회사명</div>
-						<div class="col p-1 ps-2">${companyMap.companyDto.com_name}</div>
+						<div class="col p-1 ps-4">${companyMap.companyDto.com_name}</div>
 					</div>
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">사업자등록번호</div>
-						<div class="col p-1 ps-2">${companyMap.companyDto.business_number}</div>
+						<div class="col p-1 ps-4">${companyMap.companyDto.business_number}</div>
 					</div>
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">기업규모</div>
-						<div class="col p-1 ps-2">${companyMap.comScaleCategoryDto.com_scale_category_name}</div>
+						<div class="col p-1 ps-4">${companyMap.comScaleCategoryDto.com_scale_category_name}</div>
 						<div class="col-2 border-start border-end border-bs-border p-1 ps-2 fw-bold">대표자 명</div>
-						<div class="col p-1 ps-2">${companyMap.companyDto.com_bossname}</div>
+						<div class="col p-1 ps-4">${companyMap.companyDto.com_bossname}</div>
 					</div>
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">기업 주소</div>
-						<div class="col p-1 ps-2">${companyMap.companyDto.com_address}</div>
+						<div class="col p-1 ps-4">${companyMap.companyDto.com_address}</div>
 					</div>
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">가족기업여부</div>
-						<div class="col p-1 ps-2">${companyMap.companyDto.is_family_company}</div>
+						<div class="col p-1 ps-4">${companyMap.companyDto.is_family_company}</div>
 					</div>
 				</div>
 			</div>
@@ -64,27 +70,27 @@
 				<div class="col">
 					<div class="row border-top border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">담당자 명</div>
-						<div class="col p-1 ps-2">${companyMap.companyManagerDto.com_manager_name}</div>
+						<div class="col p-1 ps-4">${companyMap.companyManagerDto.com_manager_name}</div>
 					</div>
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">이메일</div>
-						<div class="col p-1 ps-2">${companyMap.companyManagerDto.com_manager_email}</div>
+						<div class="col p-1 ps-4">${companyMap.companyManagerDto.com_manager_email}</div>
 					</div>
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">부서</div>
-						<div class="col p-1 ps-2">${companyMap.companyManagerDto.com_manager_department}</div>
+						<div class="col p-1 ps-4">${companyMap.companyManagerDto.com_manager_department}</div>
 					</div>
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">직위</div>
-						<div class="col p-1 ps-2">${companyMap.companyManagerDto.com_manager_position}</div>
+						<div class="col p-1 ps-4">${companyMap.companyManagerDto.com_manager_position}</div>
 					</div>
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">회사 번호</div>
-						<div class="col p-1 ps-2">${companyMap.companyManagerDto.com_direct_number}</div>
+						<div class="col p-1 ps-4">${companyMap.companyManagerDto.com_direct_number}</div>
 					</div>
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">담당자 번호</div>
-						<div class="col p-1 ps-2">${companyMap.companyManagerDto.com_manager_phone}</div>
+						<div class="col p-1 ps-4">${companyMap.companyManagerDto.com_manager_phone}</div>
 					</div>
 				</div>
 			</div>
@@ -92,16 +98,18 @@
 			<!-- 버튼들 여따 -->
 			
 			<div class="row mt-4 mb-5"> 
+				
+				<div class="col-2 mx-0 text-start">
+					<a class="btn btn-primary" href="./updateCompanyInfo?companyPK=${companyMap.companyDto.com_pk}" role="button">기업 정보 수정</a>
+				</div>
+				<div class="col-2 mx-0 text-start">
+					<a class="btn btn-outline-primary" href="./deleteCompanyInfoProcess?com_pk=${companyMap.companyDto.com_pk}&com_manager_pk=${companyMap.companyManagerDto.com_manager_pk}&external_pk=${companyMap.companyManagerDto.external_pk}" role="button">기업 정보 삭제</a>
+				</div> 
 				<!-- 여백용 -->
 				<div class="col"></div>
-				<div class="col"></div>
-				<div class="col-2 mx-0 text-end">
-					<a class="btn btn-primary" href="#" role="button">기업 정보 수정</a>
+				<div class="col text-end">
+					<a class="btn btn-primary" href="./companyManagementPage" role="button">기업 목록으로</a>
 				</div>
-				<div class="col-2 mx-0 text-end">
-					<a class="btn btn-outline-primary" href="#" role="button">기업 정보 삭제</a>
-				</div> 
-				
 			</div>
 			
 		</div>

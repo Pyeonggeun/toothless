@@ -87,16 +87,32 @@
 		WHERE com_scale_category_pk=#{com_scale_category_pk}
 	</select>
 	
-	<!--회사 정보 업데이트
+	<!-- 회사 가족기업으로 변환 -->
+	<update id="changeFamilyCompany">
+		UPDATE tl_d_company
+		SET is_family_company='Y'
+		WHERE com_pk=#{com_pk}
+	</update>
+	
+	<!-- 회사 일반기업으로 변환 -->
+	<update id="changeGeneralCompany">
+		UPDATE tl_d_company
+		SET is_family_company='N'
+		WHERE com_pk=#{com_pk}
+	</update>
+	
+	<!--회사 정보 업데이트-->
 	<update id="updateCompany">
 		UPDATE tl_d_company
 		SET com_scale_category_pk=#{com_scale_category_pk},
 			com_name=#{com_name},
+			business_number=#{business_number},
 			com_bossname=#{com_bossname},
 			com_address=#{com_address}
 		WHERE com_pk=#{com_pk}
-	</update>-->
-	<!--회사 담당자 정보 업데이트
+	</update>
+	
+	<!--회사 담당자 정보 업데이트 -->
 	<update id="updateCompanyManager">
 		UPDATE tl_d_company_manager
 		SET com_manager_name=#{com_manager_name},
@@ -106,7 +122,18 @@
 			com_direct_number=#{com_direct_number},
 			com_manager_phone=#{com_manager_phone}
 		WHERE com_manager_pk=#{com_manager_pk}
-	</update> -->
+	</update>
+	
+	<!-- 기업 삭제 -->
+	<delete id="deleteCompany">
+		DELETE FROM tl_d_company WHERE com_pk=#{com_pk}
+	</delete>
+	<delete id="deleteCompanyManager">
+		DELETE FROM tl_d_company_manager WHERE com_manager_pk=#{com_manager_pk}
+	</delete>
+	<delete id="deleteExternal">
+		DELETE FROM tl_jic_external_info WHERE external_pk=#{external_pk}
+	</delete>
 	
 
 </mapper>

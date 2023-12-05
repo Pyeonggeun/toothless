@@ -57,5 +57,51 @@ public class CompanyController {
 			
 			return "/tl_d/gw_company/companyViewDetailsPage";
 		}
+		
+	//가족기업으로 변환
+		@RequestMapping("changeFamilyCompanyProcess")
+		public String changeFamilyCompanyProcess(int companyPK) {
+			
+			companyService.changeFamilyCompany(companyPK);
+			
+			return "redirect:./companyViewDetailsPage?companyPK="+companyPK;
+		}
+		
+	//가족기업을 일반기업으로 변환
+		@RequestMapping("changeGeneralCompanyProcess")
+		public String changeGeneralCompanyProcess(int companyPK) {
+			
+			companyService.changeGeneralCompany(companyPK);
+			
+			return "redirect:./companyViewDetailsPage?companyPK="+companyPK;
+		}
+		
+	//기업, 담당자 정보 수정
+		@RequestMapping("updateCompanyInfo")
+		public String updateCompanyInfo(Model model,int companyPK) {
+			
+			model.addAttribute("companyMap",companyService.getCompany(companyPK));
+			model.addAttribute("comScaleList",companyService.getComScaleList());
+			
+			return "/tl_d/gw_company/updateCompanyInfo";
+		}
+		
+		@RequestMapping("updateCompanyInfoProcess")
+		public String updateCompanyInfoProcess(CompanyDto companyDto, CompanyManagerDto companyManagerDto) {
+			
+			companyService.updateCompanyInfo(companyDto, companyManagerDto);
+			
+			return "redirect:./companyViewDetailsPage?companyPK="+companyDto.getCom_pk();
+			
+		}
+		
+		//기업정보 삭제
+		@RequestMapping("deleteCompanyInfoProcess")
+		public String deleteCompanyInfoProcess(int com_pk, int com_manager_pk, int external_pk) {
+			
+			companyService.deleteCompanyInfo(com_pk, com_manager_pk, external_pk);
+			
+			return "redirect:./companyManagementPage";
+		}
 
 }

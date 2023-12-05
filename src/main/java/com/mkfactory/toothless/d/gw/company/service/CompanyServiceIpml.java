@@ -76,4 +76,28 @@ public class CompanyServiceIpml {
 		
 		return companyList;
 	}
+	
+	//가족기업으로 변환
+	public void changeFamilyCompany(int companyPK) {
+		companySqlMapper.changeFamilyCompany(companyPK);
+	}
+	
+	//가족기업 일반기업으로 변환
+	public void changeGeneralCompany(int companyPK) {
+		companySqlMapper.changeGeneralCompany(companyPK);
+	}
+	
+	//기업정보 수정
+	
+	public void updateCompanyInfo(CompanyDto companyDto, CompanyManagerDto companyManagerDto) {
+		companySqlMapper.updateCompany(companyDto);
+		companySqlMapper.updateCompanyManager(companyManagerDto);
+	}
+	
+	//기업정보 삭제
+	public void deleteCompanyInfo(int com_pk, int com_manager_pk, int external_pk) {
+		companySqlMapper.deleteCompany(com_pk);
+		companySqlMapper.deleteCompanyManager(com_manager_pk);
+		companySqlMapper.deleteExternal(external_pk);
+	}
 }

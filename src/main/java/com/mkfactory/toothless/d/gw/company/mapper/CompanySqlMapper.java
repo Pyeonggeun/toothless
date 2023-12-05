@@ -38,6 +38,20 @@ public interface CompanySqlMapper {
 	public List<CompanyManagerDto> selectCompanyManagerAll();
 	
 	
+	//가족기업으로 업데이트
+	public void changeFamilyCompany(int com_pk);
+	
+	//가족기업 일반기업으로 업데이트
+	public void changeGeneralCompany(int com_pk);
+	
+	//기업정보 수정
+	public void updateCompany(CompanyDto companyDto);
+	public void updateCompanyManager(CompanyManagerDto companyManagerDto);
+	
+	//기업 정보 삭제
+	public void deleteCompany(int com_pk);
+	public void deleteCompanyManager(int com_manager_pk);
+	public void deleteExternal(int external_pk);
 	
 	
 	

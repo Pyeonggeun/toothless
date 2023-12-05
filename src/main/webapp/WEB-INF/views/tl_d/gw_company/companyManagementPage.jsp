@@ -30,7 +30,7 @@
 				<div class="row">
 					<div class="col-1"></div>
 					<div class="col">
-						<div class="row m-2 mt-3 fw-bold fs-4">기업 관리</div>
+						<div class="row mb-2 mt-4 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">기업 관리</div>
 						<div class="row">
 							<table class="table m-2">
 							  <thead>
@@ -44,10 +44,10 @@
 							  <tbody class="table-group-divider">
 							  	<c:forEach items="${companyList}" var="list">
 								  	<tr>
-									     <th scope="col" class="col-1 text-center mt-2">${list.companyDto.com_pk}</th>
+									     <th scope="col" class="col-1 text-center pt-3">${list.companyDto.com_pk}</th>
 									     <td><a class="btn ms-4" href="./companyViewDetailsPage?companyPK=${list.companyDto.com_pk}">${list.companyDto.com_name}</a></td>
-									     <td class="text-center mt-2">${list.companyManagerDto.com_manager_name}</td>
-									     <td class="text-center mt-2">${list.companyDto.is_family_company}</td>
+									     <td class="text-center pt-3">${list.companyManagerDto.com_manager_name}</td>
+									     <td class="text-center pt-3">${list.companyDto.is_family_company}</td>
 								   </tr>
 							  	</c:forEach> 
 							   
