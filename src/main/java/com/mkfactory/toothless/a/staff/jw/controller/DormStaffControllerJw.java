@@ -2,6 +2,7 @@ package com.mkfactory.toothless.a.staff.jw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.a.staff.jw.service.DormStaffServiceJw;
@@ -14,7 +15,9 @@ public class DormStaffControllerJw {
 	private DormStaffServiceJw dormStaffServiceJw;
 	
 	@RequestMapping("jw_exitSituationPage")
-	public String jw_exitSituationPage() {
+	public String jw_exitSituationPage(Model model) {
+		
+		model.addAttribute("exitListMap", dormStaffServiceJw.getAllExitSituation());
 		
 		return "/tl_a/staff/jw_exitSituationPage";
 	}
