@@ -9,6 +9,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        
+        <script>
+        	
+        	let prescriptionCount = 0;
+        
+        	function clonePrescription() {
+				
+        		const prescriptionWrapper = document.querySelector("#templete .prescriptionWrapper").cloneNode(true);
+        		prescriptionCount++;
+        		document.getElemetById("prescriptionCount").setAttribute("value", prescription);
+        		document.getElementById("prescriptionListBox").appendChild(prescriptionWrapper);
+        		
+			}
+        
+        </script>
+        
     </head>
     <body>
 
@@ -201,7 +217,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="row">
-                                                <div class="col-2 pt-4 px-4 border-end">
+                                                <div class="col-2 pt-4 px-3 border-end">
                                                     <div class="row">
                                                         <div class="col text-center fw-bold" style="font-size: 1.1em;">
                                                             진료환자 리스트
@@ -222,7 +238,7 @@
                                                             <table class="table table-borderless table-hover text-center">
                                                                 <thead style="font-size: 0.75em;">
                                                                     <tr>
-                                                                        <th scope="col" class="pb-2" style="width: 20%;">번호</th>
+                                                                        <th scope="col" class="pb-2" style="width: 18%;">번호</th>
                                                                         <th scope="col" class="pb-2">이름</th>
                                                                         <th scope="col" class="pb-2" style="width: 34%;">생년월일</th>
                                                                         <th scope="col" class="pb-2">등급</th>
@@ -248,7 +264,7 @@
 	                                                                        </td>
 	                                                                        <td class="py-1">
 	                                                                        	<a href="./clinicPage?clinic_patient_pk=${list.clinicPatientInfo.clinic_patient_pk }" class="link-dark link-underline link-underline-opacity-0">
-	                                                                        		교직원
+	                                                                        		${list.classify }
 	                                                                        	</a>
 	                                                                        </td>
 	                                                                    </tr>
@@ -396,150 +412,125 @@
                                                 <div class="col py-4 px-4">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="row">
-                                                                <div class="col">
-                                                                    <div class="row">
-                                                                        <div class="col fw-bold" style="font-size: 1.1em;">
-                                                                            학생정보
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col">
-                                                                            <div class="row">
-                                                                                <div class="col">
-                                                                                    <table class="table" style="font-size: 0.75em;">
-                                                                                        <thead>
-                                                                                            <tr>
-                                                                                                <th scope="col" style="width: 12%;"></th>
-                                                                                                <th scope="col" style="width: 20%;"></th>
-                                                                                                <th scope="col" style="width: 12%;"></th>
-                                                                                                <th scope="col" style="width: 30%;"></th>
-                                                                                                <th scope="col" style="width: 12%;"></th>
-                                                                                                <th scope="col"></th>
-                                                                                            </tr>
-                                                                                        </thead>
-                                                                                        <tbody class="align-middle">
-                                                                                            <tr>
-                                                                                                <td><span class="text-danger">*</span>이름</td>
-                                                                                                <td>
-                                                                                                    <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.clinicPatientInfo.name }">
-                                                                                           </td>
-                                                                                                <td><span class="text-danger">*</span>주민번호</td>
-                                                                                                <td>
-                                                                                                    <div class="input-group">
-                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.firstResidentId }">
-                                                                                                        <span class="my-auto">&nbsp;-&nbsp;</span>
-                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.secondResidentId }">
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                                <td><span class="text-danger">*</span>생년월일</td>
-                                                                                                <td>
-                                                                                                	<input type="date" class="form-control py-1 rounded-0" style="font-size: 0.9em" value="${clinicPatientLogInfo.clinicPatientInfoMap.birth }">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td><span class="text-danger">*</span>전화번호</td>
-                                                                                                <td colspan="3">
-                                                                                                    <div class="input-group">
-                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.firstPhone }">
-                                                                                                        <span class="my-auto">&nbsp;-&nbsp;</span>
-                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.secondPhone }">
-                                                                                                        <span class="my-auto">&nbsp;-&nbsp;</span>
-                                                                                                        <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.thirdPhone }">
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                                <td>나이</td>
-                                                                                                <td>
-                                                                                                    <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.clinicPatientInfo.age }">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td><span class="text-danger">*</span>주소</td>
-                                                                                                <td colspan="5">
-                                                                                                    <input type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.clinicPatientInfo.address }">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        </tbody>
-                                                                                    </table>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mt-2">
-                                                                <div class="col">
-                                                                    <div class="row">
-                                                                        <div class="col fw-bold" style="font-size: 1.1em;">
-                                                                            진료내용
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row mt-3">
-                                                                        <div class="col">
-                                                                            <div class="row">
-                                                                                <div class="col">
-                                                                                    <textarea class="form-control rounded-0" rows="10" style="font-size: 0.9em;"></textarea>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mt-4">
-                                                                <div class="col">
-                                                                    <div class="row">
-                                                                        <div class="col fw-bold" style="font-size: 1.1em;">
-                                                                            처방의약품
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row mt-3">
-                                                                        <div class="col">
-                                                                            <div class="row">
-                                                                                <div class="col">
-                                                                                    <select class="form-control rounded-0" style="font-size: 0.8em;">
-                                                                                        <option class="active">처방할 의약품을 선택해주세요</option>
-                                                                                        <c:forEach items="${medicineInfoList }" var="list">
-                                                                                        	<option>${list.medicine_code_pk }&nbsp;${list.name }</option>
-                                                                                        </c:forEach>
-                                                                                    </select>
-                                                                                </div>
-                                                                                <div class="col-2">
-                                                                                    <input type="number" class="form-control rounded-0" style="font-size: 0.8em;" value="1" min="1">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row mt-2">
-                                                                                <div class="col">
-                                                                                    <select class="form-control rounded-0" style="font-size: 0.8em;">
-                                                                                        <option class="active">처방할 의약품을 선택해주세요</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                                <div class="col-2">
-                                                                                    <input type="number" class="form-control rounded-0" style="font-size: 0.8em;" value="1" min="1">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row mt-2">
-                                                                                <div class="col">
-                                                                                    <select class="form-control rounded-0" style="font-size: 0.8em;">
-                                                                                        <option class="active">처방할 의약품을 선택해주세요</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                                <div class="col-2">
-                                                                                    <input type="number" class="form-control rounded-0" style="font-size: 0.8em;" value="1" min="1">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mt-4">
-                                                                <div class="col">
-                                                                    <div class="row">
-                                                                        <div class="col d-grid">
-                                                                            <button class="btn text-white rounded-0 fw-bold" style="font-size: 0.8em; background-color: #014195;">저장하기</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                            <form action="./ClinicInfoRegisterProcess">
+                                                            	<div class="row">
+	                                                                <div class="col">
+	                                                                    <div class="row">
+	                                                                        <div class="col fw-bold" style="font-size: 1.1em;">
+	                                                                            환자정보
+	                                                                        </div>
+	                                                                    </div>
+	                                                                    <div class="row">
+	                                                                    	<div class="col text-danger" style="font-size: 0.7em">
+	                                                                    		외부인 신규환자인 경우 *표시를 모두 채워주세요
+	                                                                    	</div>
+	                                                                    </div>
+	                                                                    <div class="row">
+	                                                                        <div class="col">
+	                                                                            <div class="row">
+	                                                                                <div class="col">
+	                                                                                    <table class="table" style="font-size: 0.75em;">
+	                                                                                        <thead>
+	                                                                                            <tr>
+	                                                                                                <th scope="col" style="width: 12%;" class="py-0"></th>
+	                                                                                                <th scope="col" style="width: 20%;" class="py-0"></th>
+	                                                                                                <th scope="col" style="width: 12%;" class="py-0"></th>
+	                                                                                                <th scope="col" style="width: 30%;" class="py-0"></th>
+	                                                                                                <th scope="col" style="width: 12%;" class="py-0"></th>
+	                                                                                                <th scope="col" class="py-0"></th>
+	                                                                                            </tr>
+	                                                                                        </thead>
+	                                                                                        <tbody class="align-middle">
+	                                                                                            <tr>
+	                                                                                                <td><span class="text-danger">*</span>이름</td>
+	                                                                                                <td>
+	                                                                                                    <input name="name" type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.clinicPatientInfo.name }">
+	                                                                                           </td>
+	                                                                                                <td><span class="text-danger">*</span>주민번호</td>
+	                                                                                                <td>
+	                                                                                                    <div class="input-group">
+	                                                                                                        <input name="firstResidentId" type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.firstResidentId }">
+	                                                                                                        <span class="my-auto">&nbsp;-&nbsp;</span>
+	                                                                                                        <input name="secondResidentId" type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.secondResidentId }">
+	                                                                                                    </div>
+	                                                                                                </td>
+	                                                                                                <td><span class="text-danger">*</span>생년월일</td>
+	                                                                                                <td>
+	                                                                                                	<input name="birth" type="date" class="form-control py-1 rounded-0" style="font-size: 0.9em" value="${clinicPatientLogInfo.clinicPatientInfoMap.birth }">
+	                                                                                                </td>
+	                                                                                            </tr>
+	                                                                                            <tr>
+	                                                                                                <td><span class="text-danger">*</span>전화번호</td>
+	                                                                                                <td colspan="5">
+	                                                                                                    <div class="input-group">
+	                                                                                                        <input name="firstPhone" type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.firstPhone }">
+	                                                                                                        <span class="my-auto">&nbsp;-&nbsp;</span>
+	                                                                                                        <input name="secondPhone" type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.secondPhone }">
+	                                                                                                        <span class="my-auto">&nbsp;-&nbsp;</span>
+	                                                                                                        <input name="thirdPhone" type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.thirdPhone }">
+	                                                                                                    </div>
+	                                                                                                </td>
+	                                                                                            </tr>
+	                                                                                            <tr>
+	                                                                                                <td><span class="text-danger">*</span>주소</td>
+	                                                                                                <td colspan="5">
+	                                                                                                    <input name="address" type="text" class="form-control py-1 rounded-0" style="font-size: 0.9em;" value="${clinicPatientLogInfo.clinicPatientInfoMap.clinicPatientInfo.address }">
+	                                                                                                </td>
+	                                                                                            </tr>
+	                                                                                        </tbody>
+	                                                                                    </table>
+	                                                                                </div>
+	                                                                            </div>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                            <div class="row mt-2">
+	                                                                <div class="col">
+	                                                                    <div class="row">
+	                                                                        <div class="col fw-bold" style="font-size: 1.1em;">
+	                                                                            진료내용
+	                                                                        </div>
+	                                                                    </div>
+	                                                                    <div class="row mt-3">
+	                                                                        <div class="col">
+	                                                                            <div class="row">
+	                                                                                <div class="col">
+	                                                                                    <textarea name="content" class="form-control rounded-0" rows="10" style="font-size: 0.9em;"></textarea>
+	                                                                                </div>
+	                                                                            </div>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                            <div class="row mt-4">
+	                                                                <div class="col">
+	                                                                    <div class="row">
+	                                                                        <div class="col fw-bold" style="font-size: 1.1em;">
+	                                                                            처방의약품
+	                                                                        </div>
+	                                                                        <div class="col d-grid justify-content-end">
+	                                                                        	<button onclick="clonePrescription()" type="button" class="text-danger btn btn-transparent py-0" style="font-size: 1.1em;">+</button>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                    <div class="row mt-2">
+	                                                                        <div id="prescriptionListBox" class="col">
+	                                                                            
+	                                                                        </div>
+	                                                                        <input name="prescriptionCount" id="prescriptionCount" type="hidden">
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+	                                                            <div class="row mt-4">
+	                                                                <div class="col">
+	                                                                    <div class="row">
+	                                                                        <div class="col d-grid">
+	                                                                            <button type="submit" class="btn text-white rounded-0 fw-bold" style="font-size: 0.8em; background-color: #014195;">저장하기</button>
+	                                                                        </div>
+	                                                                    </div>
+	                                                                </div>
+	                                                            </div>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -576,6 +567,22 @@
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <div id="templete" class="d-none">
+        	<div class="prescriptionWrapper row mt-1">
+		        <div class="col">
+		            <select name="medicineCodePkList" class="form-control rounded-0" style="font-size: 0.8em;">
+		                <option class="active">처방할 의약품을 선택해주세요</option>
+		                <c:forEach items="${medicineInfoList }" var="list">
+		                	<option value="${list.medicine_code_pk }">${list.medicine_code_pk }&nbsp;${list.name }</option>
+		                </c:forEach>
+		            </select>
+		        </div>
+		        <div class="col-2">
+		            <input name="quantityList" type="number" class="form-control rounded-0" style="font-size: 0.8em;" value="1" min="1">
+		        </div>
+		    </div>
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

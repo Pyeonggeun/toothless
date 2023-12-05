@@ -2,38 +2,36 @@ package com.mkfactory.toothless.b.dto;
 
 import java.util.Date;
 
-public class StudentNoticeboardDto {
-	
-	private int student_noticeboard_pk;
+public class StaffboardDto {
+
+	private int staffboard_pk;
 	private int staff_pk;
 	private String title;
 	private String content;
 	private int read_count;
-	private String img_link;
 	private Date created_at;
 	
-	public StudentNoticeboardDto() {
+	public StaffboardDto() {
 		super();
 	}
 
-	public StudentNoticeboardDto(int student_noticeboard_pk, int staff_pk, String title, String content, int read_count,
-			String img_link, Date created_at) {
+	public StaffboardDto(int staffboard_pk, int staff_pk, String title, String content, int read_count,
+			Date created_at) {
 		super();
-		this.student_noticeboard_pk = student_noticeboard_pk;
+		this.staffboard_pk = staffboard_pk;
 		this.staff_pk = staff_pk;
 		this.title = title;
 		this.content = content;
 		this.read_count = read_count;
-		this.img_link = img_link;
 		this.created_at = created_at;
 	}
 
-	public int getStudent_noticeboard_pk() {
-		return student_noticeboard_pk;
+	public int getStaffboard_pk() {
+		return staffboard_pk;
 	}
 
-	public void setStudent_noticeboard_pk(int student_noticeboard_pk) {
-		this.student_noticeboard_pk = student_noticeboard_pk;
+	public void setStaffboard_pk(int staffboard_pk) {
+		this.staffboard_pk = staffboard_pk;
 	}
 
 	public int getStaff_pk() {
@@ -66,14 +64,6 @@ public class StudentNoticeboardDto {
 
 	public void setRead_count(int read_count) {
 		this.read_count = read_count;
-	}
-
-	public String getImg_link() {
-		return img_link;
-	}
-
-	public void setImg_link(String img_link) {
-		this.img_link = img_link;
 	}
 
 	public Date getCreated_at() {
