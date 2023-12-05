@@ -21,9 +21,22 @@ public class GroupCounselStudentController {
 	public String groupCounselListPage(Model model) {
 		
 		List<GroupCounselDto> groupCounselList = groupCounselStudentService.readGroupCounselList();
-		model.addAttribute(groupCounselList);
+		model.addAttribute("groupCounselList", groupCounselList);
 		
 		return "tl_e/groupcounsel/student/groupCounselListPage";
 	}
+	
+	@RequestMapping("groupCounselReservationPage")
+	public String groupCounselReservationPage(Model model, int id) {
+		
+		GroupCounselDto groupCounselDto = groupCounselStudentService.readGroupCounselDetail(id);
+		model.addAttribute("groupCounselDto", groupCounselDto);
+		
+		return "tl_e/groupcounsel/student/groupCounselReservationPage";
+	}
+	
+	
+	
+	
 	
 }

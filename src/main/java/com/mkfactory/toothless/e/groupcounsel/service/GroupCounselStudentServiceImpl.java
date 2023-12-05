@@ -14,10 +14,18 @@ public class GroupCounselStudentServiceImpl {
 	@Autowired
 	GroupCounselStaffSqlMapper groupCounselStaffMapper;
 	
+	
+	//집단상담 리스트 가져오기
 	public List<GroupCounselDto> readGroupCounselList() {
 		 
 		return groupCounselStaffMapper.selectGroupCounselList();
-		
 	}
+
+	
+	public GroupCounselDto readGroupCounselDetail(int id) {
+		
+		return groupCounselStaffMapper.selectGroupCounselById(id);
+	}
+	
 	
 }

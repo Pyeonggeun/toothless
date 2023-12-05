@@ -36,7 +36,7 @@
 	</div>
 	<div class="row mb-0 pb-0">
 		<div class="col-2 border-end border-dark-subtle"></div>
-		<div class="col ps-5 pt-4 pb-5">
+		<div class="col ps-5 pt-4 pb-5 mb-3">
 			<div class="row pt-5Zx"></div>
 			<div class="row">
 				<div class="col">
@@ -55,61 +55,60 @@
 		<!-- 메뉴바 ?? -->
 		<div class="col-2 border-end border-dark-subtle"></div>
 		<!-- 상담 리스트 -->
-		<div class="col">
-			<!-- 반복문 -->
-			<div class="row row-cols-4 pt-5 ps-5 ms-5">
+		<div class="col ps-5">
 			
-				<c:forEach items="${groupCounselList}" var="list">
-				<div class="col mb-5 pb-5">
+			<div class="row">
+				<div class="col-5">
+					<img class="img-fluid" style="width: 100%;" src="/uploadFiles/${groupCounselDto.posterImage }">
+				</div>
+				<div class="col-5">
 					<div class="row">
-						<div class="col text-center">
-							<img class="img-fluid" style="width: 90%;" src="/uploadFiles/${list.posterImage }">
-						</div>
-					</div>
-					<div class="row mb-2 mt-3">
 						<div class="col-1"></div>
-						<div class="col border-top border-black"></div>
-						<div class="col-2"></div>
-					</div>
-					<div class="row pt-1">
-						<div class="col ps-4">
-							<div class="fw-bold" style="font-size: 0.9em;"><a style="color:black;" href="./groupCounselReservationPage?id=${list.id }">[${list.title }]</a></div>
+						<div class="col">
+							<div class="row">
+								<div class="col">
+									<div class="fw-bold" style="font-size: 1.4em;">[<fmt:formatDate value="${groupCounselDto.start_apply_date }" pattern="yy.MM.dd"/>] ${groupCounselDto.title}</div>
+								</div>
+							</div>
+							<div class="row pt-2">
+								<div class="col">
+									<div class="text-secondary fw-bold" style="font-size: 0.9em;">${groupCounselDto.text}</div>
+								</div>
+							</div>
+							<div class="row py-5">
+							<div class="row pt-3">
+								<div class="col">
+									<div class="fw-bold" style="1.1em;">신청인원 : ${groupCounselDto.amount }</div>
+								</div>
+							</div>
+							<div class="row pt-3">
+								<div class="col">
+									<div class="fw-bold" style="1.1em;">신청 일자 : <fmt:formatDate value="${groupCounselDto.start_apply_date }" pattern="yy.MM.dd"/>~<fmt:formatDate value="${groupCounselDto.end_apply_date }" pattern="yy.MM.dd"/></div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<div><fmt:formatDate value="${groupCounselDto.counsel_date }" pattern="yy.MM.dd"/></div>
+								</div>
+							</div>
+							<div class="row"></div>
 						</div>
-					</div>
-					<div class="row pt-1">
-						<div class="col-4 ps-4 pe-0 me-0">
-							<div class="fw-bold" style="font-size:0.7em; color:red;">신청인원</div>
-						</div>
-						<div class="col ms-0 ps-0">
-							<div style="font-size:0.7em;">16/${list.amount }</div>
-						</div>
-					</div>
-					<div class="row pt-1">
-						<div class="col-4 ps-4 pe-0 me-0">
-							<div class="fw-bold" style="font-size:0.7em; color:red;">신청일자</div>
-						</div>
-						<div class="col ms-0 ps-0">
-							<div style="font-size:0.7em;"><fmt:formatDate value="${list.start_apply_date }" pattern="yy.MM.dd"/>~<fmt:formatDate value="${list.end_apply_date }" pattern="yy.MM.dd"/></div>
-						</div>
-					</div>
-					<div class="row mt-3">
-						<div class="col-1"></div>
-						<div class="col-5 border-bottom border-black"></div>
-						<div class="col-4"></div>
-						<div class="col-2"></div>
 					</div>
 				</div>
-				</c:forEach>
-				
+				<div class="col-2"></div>
 			</div>
+			
 		</div>
 		<div class="col-1"></div>	
 	</div>
-
-
-
-
+	
+	<div class="row" style="height:10em;"></div>
+	
+	
 </div>
+
+
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
