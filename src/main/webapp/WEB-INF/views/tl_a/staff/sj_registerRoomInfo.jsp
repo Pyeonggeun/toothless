@@ -35,7 +35,7 @@
 				</div>
 			</div>
 			
-			<form action="./registerItemProcess" method="post" enctype="multipart/form-data">
+			<form action="./registerRoomProcess" method="post" enctype="multipart/form-data">
              	<input type="hidden" name="seller_id" value="${sessionSeller.id }">
 			
 			<!-- 기숙사명 -->
@@ -47,16 +47,18 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col my-2">
-							<select class="form-select" aria-label="기숙사 동을 선택하세요">
-								<c:forEach items="${dormBuilding }" var="dorm">						
-							  		<option value="1">${dorm.name }</option>
-							  	</c:forEach>
-							</select>
-						</div>
-					</div>
+                		<div class="col my-2">
+                    		<select class="form-select" name="dorm_pk" aria-label="기숙사 동을 선택하세요">
+                        		<c:forEach items="${dormBuilding}" var="dorm">						
+                            		<option value="${dorm.dorm_pk}">${dorm.name}</option>
+                        		</c:forEach>
+                    		</select>
+                		</div>
+            		</div>
 				</div>
 			</div>
+			
+			 
 			
 			<!-- 호실명 -->
 			<div class="row mt-3 border rounded p-3">
@@ -68,7 +70,7 @@
 					</div>
 					<div class="row">
 						<div class="col my-2">
-							<input class="form-control" name="itemName" type="text" placeholder="호실명을 입력해주세요.">
+							<input class="form-control" name="room_name" type="text" placeholder="호실명을 입력해주세요.">
 						</div>
 					</div>
 				</div>
@@ -83,14 +85,29 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col fs-6 fw-bold">
-							<c:forEach items="${dormAmount }" var="da">
-								<input type="radio" name="dorm_amount_pk" value="${da.dorm_amount_pk }">${da.dorm_amount }인실
-								<br>
-							</c:forEach>
+						<div class="col fs-6 fw-bold my-1">
+							<input type="radio" name="dorm_amount_pk" value="2">2인실
+							<input type="radio" name="dorm_amount_pk" value="4">4인실
 						</div>
 					</div>
 					
+					
+				</div>
+			</div>
+			
+			<!-- 호실명 -->
+			<div class="row mt-3 border rounded p-3">
+				<div class="col">
+					<div class="row">
+						<div class="col fs-5 fw-bold">
+							층수
+						</div>
+					</div>
+					<div class="row">
+						<div class="col my-2">
+							<input class="form-control" name="dorm_floor" type="number" placeholder="몇 층인지 입력해주세요." min="1" max="10">
+						</div>
+					</div>
 				</div>
 			</div>
 			
@@ -110,26 +127,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- 상세이미지링크 -->
-            <div class="row mt-3 border rounded p-3">
-				<div class="col">
-					<div class="row">
-						<div class="col fs-5 fw-bold">
-							기숙사 이미지
-						</div>
-					</div>
-					
-                     <!-- 상세이미지링크 -->
-                     <div class="row my-2">
-                     	<div class="col-1 align-self-center">
-                     		상세이미지
-                     	</div>
-                        <div class="col align-self-center">
-                     		<input class="form-control" name="roomImgs" type="file" accept="image/*" multiple>
-                     	</div>
-                     </div>
-				</div>
-			</div>
+			
 	
 			<div class="row mt-3">
 				<div class="col px-0">

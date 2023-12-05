@@ -162,7 +162,11 @@ public class BuildingController {
 	}
 	
 	@RequestMapping("registerRoomProcess")
-	public String registerRoomInfoProcess() {
+	public String registerRoomInfoProcess(DormRoomDto roomDto) {
+		
+		buildingService.registerRoom(roomDto);
+		 System.out.println("dorm_amount_pk: " + roomDto.getDorm_amount_pk());
+		 System.out.println("dorm_pk: " + roomDto.getDorm_pk());
 		return "redirect:./sj_registerRoomInfo";
 	}
 	
