@@ -49,10 +49,10 @@ public class RestStaffController {
 	}
 	
 	@RequestMapping("getStudentInfoList")
-	public RestResponseDto getStudentInfoList() {
+	public RestResponseDto getStudentInfoList(int pageNum) {
 		RestResponseDto responseDto = new RestResponseDto();
 		
-		List<Map<String, Object>> studentInfoList = staffService.getStudentList();
+		List<Map<String, Object>> studentInfoList = staffService.getStudentList(pageNum);
 		
 		responseDto.setResult("success");
 		responseDto.setData(studentInfoList);

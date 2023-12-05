@@ -104,9 +104,9 @@ public class StaffServiceImpl {
 		
 	}
 	
-	public List<Map<String, Object>> getStudentList(){
+	public List<Map<String, Object>> getStudentList(int pageNum){
 		List<Map<String, Object>> listMap = new ArrayList<>();
-		List<StudentInfoDto> studentInfoDtoList = staffSqlMapper.selectStudnetList();
+		List<StudentInfoDto> studentInfoDtoList = staffSqlMapper.selectStudnetList(pageNum);
 		
 		for(StudentInfoDto studentInfoDto : studentInfoDtoList) {
 			int student_pk = studentInfoDto.getStudent_pk();
