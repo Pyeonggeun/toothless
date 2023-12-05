@@ -11,11 +11,26 @@
 			#{student_pk},
 			#{item_pk},
 			#{reason},
-			#{status},
+			'N',
 			#{rental_date},
 			#{return_date},
-			#{quantity},
 			sysdate
 		)
 	</insert>
+	
+	<!-- 신청 물품 리스트 -->
+	<select id="studentApplyItemList" resultType="map">
+		SELECT tbii.ITEM_PK AS ITEM_PK,
+		tbii.IMG_LINK AS IMG_LINK,
+		tbic.NAME AS CAT_NAME, 
+		tbii.NAME AS ITEM_NAME, 
+		tbia.STATUS AS STATUS
+		FROM TL_B_ITEM_INFO tbii
+		INNER JOIN TL_B_ITEM_CAT tbic 
+		ON tbii.ITEM_CAT_PK = tbic.ITEM_CAT_PK 
+		INNER JOIN TL_B_ITEM_APPLY tbia 
+		ON tbii.ITEM_PK = tbia.ITEM_PK 
+		INNER JOIN TL_JIC_STUDENT_INFO tjsi 
+		ON TBIA.STUDENT_PK = TJSI.STUDENT_PK
+	</select>
 </mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.a.student.mj.mapper.DormStudnetSqlMapper">
+	
+	<!-- 진행중 = Y인 학기 정보 -->
+	<select id="thisSemesterByY" resultType="com.mkfactory.toothless.a.dto.SemesterDto">
+		SELECT * FROM TL_A_SEMESTER WHERE PROGRESS_STATE = 'Y'
+	</select>
+	
+	<!-- 특정 학기 pk로 입주공고가져오기 -->
+	<select id="joinDormInfoBySemesterPk" resultType="com.mkfactory.toothless.a.dto.JoinDormInfoDto">
+		SELECT * FROM TL_A_JOIN_DORM_INFO WHERE SEMESTER_PK = #{semester_pk}
+	</select>
+	
+	<!-- 학생 pk로 특정 학생정보 들고오기 -->
+	<select id="selectStudentInfoByStudentPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO si
+		WHERE STUDENT_PK = #{student_pk}
+	</select>
+	
+	<!-- 학과정보 -->
+	<select id="selectDeparmentInfoByPk" resultType="com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto">
+		SELECT * FROM TL_JIC_DEPARTMENT_CATEGORY dc
+		WHERE DEPARTMENT_PK = #{department_pk}
+	</select>
+	
+	<!-- 입주신청 정보등록 -->
+	<insert id="insertStudentInfo">
+		INSERT INTO tl_a_join_dorm_application values(
+			tl_a_join_dorm_application_seq.nextval,
+			#{student_pk},
+			#{dorm_info_pk},
+			sysdate,
+			#{priority_select},
+			'N',
+			'N'
+		)
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

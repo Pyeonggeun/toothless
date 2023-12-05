@@ -18,7 +18,7 @@ public class NoticeServiceImpl {
 	
 	@Autowired
 	private NoticeSqlMapper noticeSqlMapper;
-
+	// 공지사항 입력
 	public void insertNoticeArticle(NoticeBoardDto noticeBoardDto, List<NoticeImageDto> noticeImageDtoList) {
 		int noticePk = noticeSqlMapper.createNoticePk();
 		noticeBoardDto.setId(noticePk);
@@ -30,7 +30,7 @@ public class NoticeServiceImpl {
 			noticeSqlMapper.insertNoticeImage(noticeImageDto);
 		}
 	}
-	
+	// 공지사항 출력
 	public List<Map<String, Object>> getNoticeList() {
 		
 		List<Map<String, Object>> list = new ArrayList<>();
@@ -50,7 +50,7 @@ public class NoticeServiceImpl {
 		}
 		return list;
 	}
-	
+	// 공지사항 상세글 보기
 	public Map<String, Object> getNoticeBoardDetaiilById(int id) {
 		NoticeBoardDto noticeBoardDto = noticeSqlMapper.selectNoticeBoardById(id);
 		List<NoticeImageDto> noticeImageList = noticeSqlMapper.selectNoticeImageByNotice_Id(id);
@@ -60,5 +60,17 @@ public class NoticeServiceImpl {
 		map.put("noticeImageList", noticeImageList);
 		
 		return map;
+	}
+	// 공지사항 조회수 증가
+	public void increaseReadCount(int id) {
+		noticeSqlMapper.increaseReadCount(id);
+	}
+	// 공지사항 삭제
+	public void deleteNoticeArticle(int id) {
+		noticeSqlMapper.deleteNoticeArticle(id);
+	}
+	// 공지사항 수정
+	public void updateNoticeArticle(NoticeBoardDto noticeBoardDto) {
+		noticeSqlMapper.updateNoticeArticle(noticeBoardDto);
 	}
 }

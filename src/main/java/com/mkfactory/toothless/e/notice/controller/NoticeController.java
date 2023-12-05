@@ -23,19 +23,19 @@ public class NoticeController {
 	
 	@Autowired
 	private NoticeServiceImpl noticeService;
-
+	// 공지사항 메인페이지
 	@RequestMapping("noticeMainPage")
 	public String noticeMainPage(Model model) {
 		model.addAttribute("list", noticeService.getNoticeList());
 		return "tl_e/notice/noticeMainPage";
 	}
-	
+	// 공지사항 글쓰기 페이지
 	@RequestMapping("writeNoticeArticlePage")
 	public String writeNoticeArticlePage() {
 		
 		return "tl_e/notice/writeNoticeArticlePage";
 	}
-	
+	// 공지사항 업로드 프로세스
 	@RequestMapping("writeNoticeArticleProcess")
 	public String writeNoticeArticleProcess(NoticeBoardDto noticeBoardDto, MultipartFile[] imageFiles) {
 		
@@ -88,10 +88,30 @@ public class NoticeController {
 		
 		return "redirect:./noticeMainPage";
 	}
-	
+	// 공지사항 상세글보기
 	@RequestMapping("readNoticeBoardPage")
 	public String readNoticeBoardPage(Model model, int id) {
+		noticeService.increaseReadCount(id);
+		
 		model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
 		return "tl_e/notice/readNoticeBoardPage";
+	}
+	// 공지사항 삭제
+	@RequestMapping("deleteNoticeArticleProcess")
+	public String deleteNoticeArticleProcess(int id) {
+		noticeService.deleteNoticeArticle(id);
+		return "redirect:./noticeMainPage";
+	}
+	// 공지사항 수정
+	@RequestMapping("updateNoticeArticlePage")
+	public String updateNoticeArticlePage(Model model, int id) {
+		model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
+		return "tl_e/notice/updateNoticeArticlePage";
+	}
+	// 공지사항 수정 프로세스
+	@RequestMapping("updateNoticeArticleProcess")
+	public String updateNoticeArticleProcess(NoticeBoardDto noticeBoardDto) {
+		noticeService.updateNoticeArticle(noticeBoardDto);
+		return "redirect:./readNoticeBoardPage?id=" + noticeBoardDto.getId();
 	}
 }

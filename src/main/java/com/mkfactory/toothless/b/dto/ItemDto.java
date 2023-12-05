@@ -9,22 +9,19 @@ public class ItemDto {
 	private String name;
 	private String img_link;
 	private String content;
-	private int quantity;
 	private Date created_at;
 	
 	public ItemDto() {
 		super();
 	}
-
-	public ItemDto(int item_pk, int item_cat_pk, String name, String img_link, String content, int quantity,
-			Date created_at) {
+	
+	public ItemDto(int item_pk, int item_cat_pk, String name, String img_link, String content, Date created_at) {
 		super();
 		this.item_pk = item_pk;
 		this.item_cat_pk = item_cat_pk;
 		this.name = name;
 		this.img_link = img_link;
 		this.content = content;
-		this.quantity = quantity;
 		this.created_at = created_at;
 	}
 
@@ -67,15 +64,7 @@ public class ItemDto {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
+	
 	public Date getCreated_at() {
 		return created_at;
 	}

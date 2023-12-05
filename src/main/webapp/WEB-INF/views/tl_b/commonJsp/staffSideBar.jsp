@@ -113,7 +113,7 @@
                                     <a class="btn btn-transparent text-start" href="../ys/itemListAndRegistPage" style="font-size: small;">
                                         등록
                                     </a>
-                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
+                                    <a class="btn btn-transparent text-start" href="../ys/staffItemApplyListPage" style="font-size: small;">
                                         현황관리
                                     </a>
                                 </div>

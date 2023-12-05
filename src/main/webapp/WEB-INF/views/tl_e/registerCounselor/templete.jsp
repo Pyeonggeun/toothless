@@ -23,7 +23,7 @@
 </head>
 <body>
 	
-	<div class="container-fluid">
+	<div class="container">
 	
 		<div class="row border-bottom">
 			<div class="col-10"></div>
@@ -58,7 +58,7 @@
 							</button>
 							<ul class="dropdown-menu">
 							    <li><a class="dropdown-item" href="../registerCounselor/registerPage">상담원 등록</a></li>
-						   		<li><a class="dropdown-item" href="../registerCounselor/counselorDetail">상담원 조회</a></li>
+						   		<li><a class="dropdown-item" href="../registerCounselor/counselorInfo">상담원 조회</a></li>
 						   		<li><a class="dropdown-item" href="#">상담원 뭐시기</a></li>
 							</ul>
 						</div>
@@ -78,11 +78,15 @@
 			
 			<!-- 여기부터 레이아웃 -->
 			<div class="col-10">
-				
+				<div class="row mt-5">
+					<div class="col">
+						<span class="fw-bold fs-2">페이지제목</span>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>	
 </body>
 </html>

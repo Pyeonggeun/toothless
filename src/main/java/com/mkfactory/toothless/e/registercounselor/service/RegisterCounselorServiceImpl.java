@@ -3,6 +3,7 @@ package com.mkfactory.toothless.e.registercounselor.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,5 +62,31 @@ public class RegisterCounselorServiceImpl {
 		List<Map<String, Object>> counselorList = registerCounselorSqlMapper.selectAllCounselor();
 		return counselorList;
 		
+	}
+	
+	// 상담원PK로 상담원정보 조회
+	public CounselorDto getCounselorInfo(int id){
+		System.out.println("[ RegisterCounselorServiceImpl] => [ getCounselorInfo ] 실행됨");
+		System.out.println("---------------------------------------------------------");
+		
+		CounselorDto counselorDto = registerCounselorSqlMapper.selectCounselorDetailByCounselorId(id);
+		String career = counselorDto.getCareer();
+		career = StringEscapeUtils.escapeHtml4(career);
+		career.replaceAll("\n", "<br>");
+		career.replaceAll("<", "&lt;");
+		career.replaceAll(">", "&gt;");
+		counselorDto.setCareer(career);
+		
+		return counselorDto;
+	}
+	
+	// 상담원PK로 상담원담당카테고리 조회
+	public List<Map<String, Object>> getCounselorTypeByCounselorId(int id){
+		System.out.println("[ RegisterCounselorServiceImpl] => [ getCounselorTypeByCounselorId ] 실행됨");
+		System.out.println("---------------------------------------------------------");
+		
+		List<Map<String, Object>> counselorTypeList = registerCounselorSqlMapper.selectCounselorTypeByCounselorId(id);
+		
+		return counselorTypeList;
 	}
 }

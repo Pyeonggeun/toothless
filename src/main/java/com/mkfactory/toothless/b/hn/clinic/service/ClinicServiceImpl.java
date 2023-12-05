@@ -1,8 +1,8 @@
 package com.mkfactory.toothless.b.hn.clinic.service;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +30,13 @@ public class ClinicServiceImpl {
 			
 			Map<String, Object> map = new HashMap<>();
 			
+			String classify = clinicSqlMapper.getClinicPatientClassifyByResidentId(clinicPatientDto.getResident_id());
+			if(classify == null) {
+				classify = "외부인";
+			}
+			
 			map.put("clinicPatientInfo", clinicPatientDto);
+			map.put("classify", classify);
 			
 			list.add(map);
 		}
@@ -98,6 +104,40 @@ public class ClinicServiceImpl {
 	public List<MedicineCodeDto> getMedicineInfoList() {
 		
 		return clinicSqlMapper.getMedicineInfoList();
+	}
+	
+	public void insertClinicPatientInfo(ClinicPatientDto clinicPatientDto, ClinicPatientLogDto clinicPatientLogDto, List<PrescriptionDto> list) {
+		
+		if(clinicSqlMapper.isClinicPatientInfoExsit(clinicPatientDto.getResident_id()) == 0) {
+			
+			ClinicPatientDto clinicPatientDto2 = clinicSqlMapper.getClinicPatientInfoByResidentId(clinicPatientDto.getResident_id());
+			if(clinicPatientDto2 == null) {
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+				int age = Integer.parseInt(sdf.format(new Date())) - Integer.parseInt(sdf.format(clinicPatientDto.getBirth())) + 1;
+				clinicPatientDto.setAge(age);
+				
+				clinicSqlMapper.insertClinicPatientInfo(clinicPatientDto);
+				
+			}else {
+				
+				clinicSqlMapper.insertClinicPatientInfo(clinicPatientDto2);
+				
+			}
+			
+		}
+		
+		int clinicPatientLogPk = clinicSqlMapper.getClinicPatientLogPk();
+		
+		clinicPatientLogDto.setClinic_patient_pk(clinicSqlMapper.getClinicPatientPkByResidentId(clinicPatientDto.getResident_id()));
+		clinicPatientLogDto.setClinic_patient_log_pk(clinicPatientLogPk);
+		clinicSqlMapper.insertClinicPatientLogInfo(clinicPatientLogDto);
+		
+		for(PrescriptionDto prescriptionDto : list) {
+			prescriptionDto.setClinic_patient_log_pk(clinicPatientLogPk);
+			clinicSqlMapper.insertPrescriptionInfo(prescriptionDto);
+		}
+		
 	}
 
 }

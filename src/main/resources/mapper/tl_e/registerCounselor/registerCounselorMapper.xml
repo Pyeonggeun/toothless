@@ -60,6 +60,11 @@
 		ORDER BY type_category_id ASC
 	</select>
 	
+	<!-- 상담원 PK로 상담원정보 조회 -->
+	<select id="selectCounselorDetailByCounselorId" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
+		SELECT * FROM CP_COUNSELOR WHERE id = #{id}
+	</select>
+	
 	<!-- 상담카테고리 리스팅 -->
 	<select id="selectAllTypeCategory" resultType="com.mkfactory.toothless.e.dto.TypeCategoryDto">
 		SELECT * FROM cp_type_category
@@ -75,7 +80,15 @@
 		)
 	</insert>
 	
-	
+	<!-- 상담원PK로 담당카테고리 정보 셀렉트 -->
+	<select id="selectCounselorTypeByCounselorId" resultType="map">
+		SELECT 
+			cct.TYPE_CATEGORY_ID AS id,
+			ctc.NAME AS categoryname
+		FROM CP_COUNSELOR_TYPE cct
+		INNER JOIN CP_TYPE_CATEGORY ctc ON ctc.id = cct.TYPE_CATEGORY_ID  
+		WHERE COUNSELOR_ID = #{id}
+	</select>
 	
 	
 

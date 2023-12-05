@@ -274,14 +274,6 @@
                                             </div>
                                             <div class="row mt-2">
                                                 <div class="col-3 fw-bold">
-                                                    수량
-                                                </div>
-                                                <div class="col d-grid">
-                                                    <input name="quantity" type="number" value="${getItem.quantity }" min="0">
-                                                </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-3 fw-bold">
                                                     물품이미지
                                                 </div>
                                                 <div class="col d-grid">
