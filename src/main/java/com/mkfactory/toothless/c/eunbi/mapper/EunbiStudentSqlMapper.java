@@ -20,6 +20,8 @@ public interface EunbiStudentSqlMapper {
 	// 학생의 현장실습과정 참가내역 조회
 	public List<AjdksStudentInternDto> getStudentInternHistory(int student_pk);
 	
+	public List<AjdksStudentInternDto> getStudentInternByCoursePk(int internship_course_pk);
+	
 	// 학생 기업만족도 평가
 	public void insertInternSatisfaction(AjdksInternSatisfactionDto ajdksInternSatisfactionDto);
 	
@@ -30,7 +32,8 @@ public interface EunbiStudentSqlMapper {
 	// 학생 과 이름 조회
 	public DepartmentCategoryDto getDepartmentByDepartmentPk(int department_pk);
 	
-	
+	// 해당 실습과정의 학생 조회
+	public int countInternBycoursePk(int internship_course_pk);
 	
 	
 	

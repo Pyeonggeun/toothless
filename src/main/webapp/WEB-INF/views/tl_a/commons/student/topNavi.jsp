@@ -6,7 +6,7 @@
             <div class="col">
                 <nav class="navbar navbar-expand-lg" style="background-color: #ffffff">
                     <div class="container-fluid py-1">
-                        <a class="navbar-brand ms-3" href="#">
+                        <a class="navbar-brand ms-3" href="./jw_mainPage">
                             <img src="../../resources/img/dormitory/slog.png" alt="Logo" width="140" height="35" class="d-inline-block align-text-top">
                             <span class="fw-bold" style="color: #190D0F; font-size: large;">기숙사</span>
                         </a>
@@ -96,18 +96,61 @@
                             </div>
                         </div>
                       </div>
-                      <div class="col-1">
-                        <div class="row">
-                            <div class="col-5 pe-0 text-center" style="font-size: xx-large;"><a href="#" role="button" class="bi bi-person" style="color: black;"></a></div>
-                            <div class="col ps-0" style="font-size: xx-large; text-align: center;"><a href="#" role="button" class="btn-fluid bi bi-hospital" style="color: black;"></a></div>
-                            <div class="col-1"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-5 pe-0 text-center" style="font-size: small;">로그인</div>
-                            <div class="col ps-0" style="font-size: small; text-align: center;">학사</div>
-                            <div class="col-1"></div>
-                        </div>
-                      </div>
+                      
+                      <!-- 로그인/로그아웃 -->
+                      <!-- 장바구니/로그인/회원가입/입점신청 -->
+			           <div class="col-3">
+			               <div class="row">
+			                   <!-- 로그인/회원가입 -->
+			                   <div class="col text-end">
+			                       <c:choose>
+			                           <c:when test="${!empty sessionStudentInfo }">
+			                           		<div class="row justify-content-end">
+		                           				<div class="col-6 align-self-center nav-item dropdown ms-auto">
+			                                       <a class="fw-bold nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			                                       ${sessionStudentInfo.name }</a>
+			                                   
+			                                     <ul class="dropdown-menu">
+			                                       <li><a class="dropdown-item" href="#">마이페이지</a></li>
+			                                       <li><a class="dropdown-item" href="#">뭘 넣을까</a></li>
+			                                       <li><hr class="dropdown-divider"></li>
+			                                       <li><a href="./logoutProcess" class="dropdown-item">로그아웃</a></li>
+			                                     </ul>
+			                                   </div>
+			                           			<div class="col-2 me-3">
+			                           				<div class="row">
+			                           					 <div class="col text-center" style="font-size: xx-large; text-align: center;"><a href="#" role="button" class="btn-fluid bi bi-hospital" style="color: black;"></a></div>
+			                           				</div>
+			                           				<div class="row">
+			                           					<div class="col text-center" style="font-size: small; text-align: center;">학사</div>
+			                           				</div>
+			                           			</div>
+			                           		</div>
+			                           </c:when>
+			                           <c:otherwise>
+			                           		<div class="row justify-content-end">
+			                           			<div class="col-2">
+			                           				<div class="row">
+			                           					 <div class="col text-center" style="font-size: xx-large;"><a href="./loginPage" role="button" class="bi bi-person" style="color: black;"></a></div>
+			                           				</div>
+			                           				<div class="row">
+			                           					<div class="col text-center" style="font-size: small;">로그인</div>
+			                           				</div>
+			                           			</div>
+			                           			<div class="col-2 me-3">
+			                           				<div class="row">
+			                           					 <div class="col text-center" style="font-size: xx-large; text-align: center;"><a href="#" role="button" class="btn-fluid bi bi-hospital" style="color: black;"></a></div>
+			                           				</div>
+			                           				<div class="row">
+			                           					<div class="col text-center" style="font-size: small; text-align: center;">학사</div>
+			                           				</div>
+			                           			</div>
+			                           		</div>
+			                           </c:otherwise>
+			                       </c:choose>
+			                   </div>						
+			               </div>                     
+			           </div>	
                     </div>
                   </nav>
             </div>
