@@ -49,8 +49,8 @@
 			</div>
 			<div class="col">
 				<ul class="nav nav-pills">
-				  <li class="nav-item dropdown">
-				    <a class="nav-link text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">자유게시판</a>
+				  <li>
+				    <a class="nav-link text-dark" href="../freeboardCounsel/freeboardCounselPage" role="button" aria-expanded="false">자유게시판</a>
 				  </li>
 				</ul>
 			</div>
