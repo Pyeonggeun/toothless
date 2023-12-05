@@ -8,11 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
-import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.donot.touch.service.StaffServiceImpl;
 
 @Controller
@@ -42,7 +40,7 @@ public class StaffController {
 			session.setAttribute("sessionStaffInfo", staffInfoDto);
 			if(staffInfoDto.getCenter_pk() == 1) {
 				
-				return "redirect: ../../tl_c/woojae/ajdksStaffMainPage";
+				return "redirect: ../../tl_c/woojae/staff/ajdksStaffMainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 2){
 				
@@ -54,7 +52,7 @@ public class StaffController {
 				
 			}else if(staffInfoDto.getCenter_pk() == 4){
 				
-				return "redirect: ./mainPage";
+				return "redirect: ../../tl_a/staff/mj_mainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 5){
 				

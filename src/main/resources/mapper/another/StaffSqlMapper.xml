@@ -120,6 +120,9 @@
 		WHERE tjsi2.Rnum >= (#{pageNum}-1)*10+1 AND tjsi2.rnum <= #{pageNum}*10)
 		]]>
 	</select>
+	<select id="totalPageCount" resultType="int">
+		SELECT CEIL(count(*)/10) FROM TL_JIC_STUDENT_INFO
+	</select>
 	
 	
 		
