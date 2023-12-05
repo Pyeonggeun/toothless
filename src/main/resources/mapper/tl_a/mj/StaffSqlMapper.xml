@@ -50,6 +50,15 @@
 		SELECT * FROM tl_a_join_dorm_info
 	</select>
 	
+	<!-- 현재 학년도 전체 조회 -->
+	<select id="selectAllThisYearList" resultType="com.mkfactory.toothless.a.dto.SemesterDto">
+		SELECT * FROM tl_a_semester
+		WHERE SEMESTER_YEAR = (
+			SELECT SEMESTER_YEAR FROM tl_a_semester
+			WHERE PROGRESS_STATE = 'Y'
+		)
+		ORDER BY SEMESTER_pk asc
+	</select>
 
 
 </mapper>

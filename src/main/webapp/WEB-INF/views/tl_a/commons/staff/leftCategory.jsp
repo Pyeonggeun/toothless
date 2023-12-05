@@ -1,7 +1,7 @@
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
-
 
     <div class="col-2 p-0 border-end">
             <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -52,6 +52,12 @@
                   <div id="flush-2" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body d-grid p-0">
                         <div class="row ps-5 ms-1 my-2">
+                        	<%-- <c:forEach items="${thisYearAllSemester}" var="item">
+							    <a class="btn text-start my-1" href="#" role="button">
+							        ${item.SEME} 왜안나와. 서렌
+							    </a>
+							</c:forEach> --%>
+                        
                             <a class="btn text-start my-1" href="#" role="button">1학기</a>
                             <a class="btn text-start my-1" href="#" role="button">여름학기</a>
                             <a class="btn text-start my-1" href="#" role="button">2학기</a>

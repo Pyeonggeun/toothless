@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,6 +9,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+       	<style>
+		    .custom-popover {
+		        white-space: pre-line;
+		    }
+		</style>
     </head>
     <body>
 
@@ -221,8 +228,10 @@
                                                     <div class="col-7">
                                                         <div class="row">
                                                             <div class="col text-end">
-                                                                <input name="order" type="radio" value="">최신순&nbsp;
-                                                                <input name="order" type="radio" value="">오래된순
+                                                            
+                                                                <a href="" class="btn-sm btn ">최신순</a>
+                                                                <a href="" class="btn-sm btn ">오래된순</a>
+                                                                
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -232,61 +241,66 @@
                                                                     <th scope="col">입고번호</th>
                                                                     <th scope="col">의약품이름</th>
                                                                     <th scope="col">수량</th>
+                                                                    <th scope="col">입고자</th>
                                                                     <th scope="col">입고일</th>
-                                                                    <th scope="col">제품상세</th>
+                                                                    <th scope="col"></th>
                                                                   </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                <c:forEach items="${addInfoAndMedicineInfoList }" var="e">
                                                                   <tr>
-                                                                    <th scope="row">1</th>
-                                                                    <td>Mark</td>
-                                                                    <td>Otto</td>
-                                                                    <td>@mdo</td>
+                                                                    <td>${e.addInfo.medicine_add_pk }</td>
+                                                                    <td>${e.medicineInfo.name }</td>
+                                                                    <td>${e.addInfo.quantity }</td>
+                                                                    <td>${e.staffInfo.name }</td>
+                                                                    <td><fmt:formatDate value="${e.addInfo.add_at }" pattern="yyyy-MM-dd"/></td>
+                                                                    <td><button type="button" class="btn btn-outline-info btn-sm"
+																	    data-bs-toggle="popover" data-bs-placement="right"
+																	    data-bs-custom-class="text-center custom-popover"
+																	    data-bs-title="제품 정보"
+																	    data-bs-content="약품명 : ${e.medicineInfo.name }
+																	    				약품효능 : ${e.medicineInfo.efficacy}
+																	    				제조사 : ${e.medicineInfo.company }
+																	    				주의사항 : ${e.medicineInfo.precaution }">
+																	    상세보기
+																	    </button>
+																	</td>
                                                                   </tr>
-                                                                  <tr>
-                                                                    <th scope="row">2</th>
-                                                                    <td>Jacob</td>
-                                                                    <td>Thornton</td>
-                                                                    <td>@fat</td>
-                                                                  </tr>
-                                                                  <tr>
-                                                                    <th scope="row">3</th>
-                                                                    <td colspan="2">Larry the Bird</td>
-                                                                    <td>@twitter</td>
-                                                                  </tr>
+                                                                </c:forEach>  
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
                                                     <div class="col-1"></div>
+                                                    
                                                     <div class="col-4">
+                                                    	<form action="./medicineAddProcess" method="get">
                                                         <div class="row mt-5">
                                                             <div class="col">
-                                                                <select class="form-select" aria-label="Default select example">
-                                                                    <option selected>약품선택</option>
-                                                                    <option value="1">1</option>
-                                                                    <option value="2">2</option>
-                                                                    <option value="3">3</option>
-                                                                    <option value="3">4</option>
-                                                                    <option value="3">5</option>
+                                                                <select name="medicine_code_pk" class="form-select" aria-label="Default select example">
+                                                                    <option selected>의약품선택</option>
+                                                                    <c:forEach items="${medicineInfo }" var="e">
+                                                                    	<option value="${e.medicine_code_pk }">${e.name}</option>
+                                                                    </c:forEach>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="row mt-3">
                                                             <div class="col">
-                                                                수량 : <input type="number" min="1" max="5">
+                                                                수량 : <input name="quantity" type="number" min="1" max="5">
                                                             </div>
                                                         </div>
                                                         <div class="row mt-3">
                                                             <div class="col">
-                                                                입고일 : <input name="birth" type="date">
+                                                                입고일 : <input name="add_at" type="date">
                                                             </div>
                                                         </div>
                                                         <div class="row mt-3">
-                                                            <div class="col">
-                                                                <div class="btn btn-secondary d-grid">입고하기</div>
+                                                            <div class="col d-grid">
+                                                            	<button class="btn btn-secondary " type="submit">입고하기</button>
                                                             </div>
                                                         </div>
+                                                   		</form>
                                                     </div>
                                                 </div>
                                                 <div class="row my-3">
@@ -327,5 +341,9 @@
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script>
+	    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+	    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+	    </script>
     </body>
 </html>

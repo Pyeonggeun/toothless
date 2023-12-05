@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +46,7 @@
                 </div>
                 <div class="row" style="border-bottom: 0.2em solid #504528;">
                     <div class="col py-3 fw-bold" style="font-size: large;">
-                        <span style="color: #504528;">모집공고</span>       
+                        <span style="color: #504528;">공고 및 입주신청</span>       
                     </div>
                 </div>
                 <div class="row" style="border-bottom: 0.01em solid #161313;">
@@ -68,25 +69,16 @@
                         <span style="color: black;">합격안내</span>         
                     </div>
                 </div>
-                
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">합격안내</span>         
-                    </div>
-                </div>
-                
-                
-                
-            </div><!-- ㅋ-->
+              </div><!-- ㅋ-->
             <div class="col">
                 <div class="row">
                     <div class="col">
                         <div class="row my-3">
                             <div class="col pb-2">
-                                <span class="fw-bold" style="font-size: xx-large;">모집공고</span>
+                                <span class="fw-bold" style="font-size: xx-large;">공고 및 입주신청</span>
                             </div>
                             <div class="col text-end pt-3">
-                                <span class="bi bi-house-door-fill" style="color: #999897;"></span><span style="color: #7A8082;"> > 모집안내 </span> <span style="color: #999897;"> > </span><span class="fw-bold" style="color: #767575;"> 모집공고</span>
+                                <span class="bi bi-house-door-fill" style="color: #999897;"></span><span style="color: #7A8082;"> > 모집안내 </span> <span style="color: #999897;"> > </span><span class="fw-bold" style="color: #767575;">공고 및 입주신청</span>
                             </div>
                             <span class="border-bottom  border-dark border-4 mt-2"></span>
                         </div>
@@ -95,9 +87,90 @@
                 </div>
                 <div class="row"><!--여기가 안에 들어갈 내용들-->
                     <div class="col">
-                        <div class="row">
-							<div class="col">
+                    	<div class="row mt-2">
+                    		<div class="col py-3 text-center fw-bold" style="font-size: 1.5em;">
+                    			${joinDormInfoBySemesterPk.semesterDto.semester_year }년도 ${joinDormInfoBySemesterPk.semesterDto.semester } 기숙사 입사 신청 안내
+                    		</div>
+                    	</div>
+                        <div class="row mt-5">
+							<div class="col fw-bold" style="font-size: 1.2em;">
+								제목
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								${joinDormInfoBySemesterPk.joinDormInfoDto.title }
+							</div>             
+                        </div>
+                        <div class="row mt-3">
+							<div class="col fw-bold" style="font-size: 1.2em;">
+								입사내용
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								${joinDormInfoBySemesterPk.joinDormInfoDto.detail_expln }
+							</div>             
+                        </div>
+                        <div class="row mt-3">
+							<div class="col fw-bold" style="font-size: 1.2em">
+								신청일 
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.apply_start_date }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.apply_end_date }" pattern="yyyy-MM-dd"/>
+							</div>             
+                        </div>
+                        <div class="row mt-3">
+							<div class="col fw-bold" style="font-size: 1.2em;">
+								선발인원
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								${joinDormInfoBySemesterPk.joinDormInfoDto.selection_amount }
+							</div>             
+                        </div>
+                        <div class="row mt-3">
+							<div class="col fw-bold" style="font-size: 1.2em;">
+								합격자발표일
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.pass_anncm_date }" pattern="yyyy-MM-dd"/>
+							</div>             
+                        </div>
+                        <div class="row mt-3">
+							<div class="col fw-bold" style="font-size: 1.2em;">
 								
+								관비납부일
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.payment_start_date }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.payment_end_date }" pattern="yyyy-MM-dd"/>
+							</div>             
+                        </div>
+                        <div class="row mt-3">
+							<div class="col fw-bold" style="font-size: 1.2em;">
+								배정통보일
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.asgnm_anncm_date }" pattern="yyyy-MM-dd"/>
+							</div>             
+                        </div>
+                        <div class="row mt-3">
+							<div class="col fw-bold" style="font-size: 1.2em;">
+								입주일 
+							</div>             
+                        </div>
+                        <div class="row mt-1">
+							<div class="col" style="font-size: 1.1em;">
+								<fmt:formatDate value="${joinDormInfoBySemesterPk.joinDormInfoDto.join_dorm_date }" pattern="yyyy-MM-dd"/>
 							</div>             
                         </div>
                     </div>

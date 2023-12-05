@@ -69,4 +69,52 @@ public class StaffboardController {
 		
 		return "tl_b/dy/readTextPage";
 	}
+	// 작성 글 삭제
+	@RequestMapping("deleteTextProcess")
+	public String deleteTextProcess(int staff_noticeboard_pk) {
+		
+		staffboardService.removeText(staff_noticeboard_pk);
+		
+		return "redirect:./staffNoticeboardPage";
+	}
+	// 작성 글 수정하기
+	@RequestMapping("modifyTextPage")
+	public String modifyTextPage(Model model, int staff_noticeboard_pk) {
+		
+		Map<String, Object> readText = staffboardService.readContentsDetailInfo(staff_noticeboard_pk);
+		
+		model.addAttribute("readText", readText);
+		
+		return "tl_b/dy/modifyTextPage";
+	}
+	// 작성 글 수정 프로세스
+	@RequestMapping("modifyTextProcess")
+	public String modifyTextProcess(StaffNoticeboardDto params) {
+		
+		staffboardService.modifyTextPage(params);
+		
+		return "redirect:./readTextPage?staff_noticeboard_pk="+params.getStaff_noticeboard_pk();
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

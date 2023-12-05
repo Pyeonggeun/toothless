@@ -82,7 +82,7 @@ public class DormStudentControllerDm {
 	@RequestMapping("dm_dormPosted")
 	public String dm_dormPosted(Model model) {
 		
-		
+		model.addAttribute("joinDormInfoBySemesterPk", dormStudentServiceDm.semesterByProgressState());
 		
 		return "/tl_a/student/dm_dormPosted";
 	}

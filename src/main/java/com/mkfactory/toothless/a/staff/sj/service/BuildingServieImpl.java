@@ -20,22 +20,29 @@ public class BuildingServieImpl {
 		buildingSqlMapper.registerDormInfo(dormBuildingDto);
 	}
 	
-//	public void registerRoom(DormRoomDto dormRoomDto,DormBuildingDto dormBuildingDto, 
-//							 List<DormCategoryDto> dormCateogory) {
-//		
-//		int dormBuildPk = dormBuildingDto.getDorm_pk();
-//		dormRoomDto.setDorm_pk(dormBuildPk);
-//		
-//		buildingSqlMapper.dormBuildinChoice(dormBuildPk);
-//		buildingSqlMapper.registerRoomInfo(dormRoomDto);
-//		
-//	}
-//	
-//	public List<DormCategoryDto> dormCategoryList(){
-//		return buildingSqlMapper.dormCategory();
-//	}
-//	
-//	public List<DormBuildingDto> dormBuildNames(){
-//		return buildingSqlMapper.dormBuildings();
-//	}
+	public void registerRoom(DormRoomDto dormRoomDto,DormBuildingDto dormBuildingDto, 
+							 List<DormCategoryDto> dormCateogory) {
+		
+		int dormBuildPk = dormBuildingDto.getDorm_pk();
+		dormRoomDto.setDorm_pk(dormBuildPk);
+		
+		buildingSqlMapper.dormBuildinChoice(dormBuildPk);
+		buildingSqlMapper.registerRoomInfo(dormRoomDto);
+		
+	}
+	
+
+	
+	public List<DormBuildingDto> dormBuildNames(){
+		return buildingSqlMapper.dormBuildings();
+	}
+	
+	public List<DormCategoryDto> dormCategoryList(){
+		return buildingSqlMapper.dormCategory();
+	}
+	
+	public void insertRegisterCategory(DormCategoryDto dormCateogory) {
+		
+		buildingSqlMapper.insertRegisterCategory(dormCateogory);
+	}
 }

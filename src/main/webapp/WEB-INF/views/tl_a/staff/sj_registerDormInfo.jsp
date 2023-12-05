@@ -31,12 +31,12 @@
 			<!-- 카테고리명 -->
 			<div class="row my-3">
 				<div class="col fs-4 fw-bold">
-					동 정보 등록 - 양식만 복붙해서 넣어놨오. 필요한거 수정/추가하면될듯여 ㅎㅎ
+					동 정보 등록 - 양식만 복붙해서 넣어놨오. 필요한거 수정/추가하면될듯여 ㅎㅎ 감사함니다
 				</div>
 			</div>
 			
-			<form action="./mj_registerInfoProcess" method="post">
-             	<input type="hidden" name="seller_id" value="${sessionSeller.id }">
+			<form action="./registerDormProcess" method="post" enctype="multipart/form-data">
+             	<!-- <input type="hidden" name="staff_pk" value="${sessionStaffInfo.staff_pk }"> -->
 			
 			<!-- 기숙사명 -->
 			<div class="row border rounded p-3">
@@ -48,7 +48,7 @@
 					</div>
 					<div class="row">
 						<div class="col my-2">
-							<input class="form-control" name="itemName" type="text" placeholder="기숙사명을 입력해주세요. 여기에 A동 B동 들어가는군">
+							<input class="form-control" name="name" type="text" placeholder="기숙사명을 입력해주세요.">
 						</div>
 					</div>
 				</div>
@@ -64,7 +64,7 @@
 					</div>
 					<div class="row">
 						<div class="col my-2">
-							<input class="form-control" name="itemName" type="text" placeholder="주소를 입력해주세요.">
+							<input class="form-control" name="address" type="text" placeholder="주소를 입력해주세요.">
 						</div>
 					</div>
 				</div>
@@ -78,16 +78,16 @@
 							기숙사 이미지
 						</div>
 					</div>
-					
-                     <!-- 상세이미지링크 -->
+					<!-- 메인이미지링크 -->
                      <div class="row my-2">
                      	<div class="col-1 align-self-center">
-                     		상세이미지
+                     		대표이미지
                      	</div>
                         <div class="col align-self-center">
-                     		<input class="form-control" name="detailImageLinkList" type="file" accept="image/*" multiple>
+                     		<input class="form-control" name="mainImage" type="file" accept="image/*">
                      	</div>
                      </div>
+                     
 				</div>
 			</div>
 			

@@ -9,8 +9,83 @@
 		SELECT * 
 		FROM TL_B_MEDICINE_CODE_INFO
 	</select>
+	<!-- 의약품 카테고리 정보를 모두 가져오는 쿼리 -->
+	<select id="selectAllMedicineCat" resultType="com.mkfactory.toothless.b.dto.MedicineCatDto">
+		SELECT * 
+		FROM TL_B_MEDICINE_CAT
+	</select>
+	<!-- 카테고리 번호에 의서 선택된 카테고리 정보 -->
+	<select id="selectedMedicineCatByMedicinePk" resultType="com.mkfactory.toothless.b.dto.MedicineCatDto">
+		SELECT *
+		FROM TL_B_MEDICINE_CAT
+		WHERE medicine_cat_pk = #{medicine_code_pk}
+	</select>
+	<!-- 의약품 정보 인서트 -->
+	<insert id="insertMedicineInfo">
+		INSERT INTO TL_B_MEDICINE_CODE_INFO values(
+			#{medicine_code_pk},
+			#{medicine_cat_pk},
+			#{name},
+			#{company},
+			#{efficacy},
+			#{precaution},
+			sysdate
+		)
+	</insert>
+	<!-- 의약품 삭제 -->
+	<delete id="deleteMedicineInfo">
+		DELETE FROM TL_B_MEDICINE_CODE_INFO
+		WHERE MEDICINE_CODE_PK = #{medicine_code_pk}
+	</delete>
 	
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 입고관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
 	
-
-
+	<insert id="InsertMedicineAdd">
+		INSERT INTO TL_B_MEDICINE_ADD tbma values(
+		TL_B_MEDICINE_ADD_seq.nextval,
+		#{medicine_code_pk},
+		101,
+		#{quantity},
+		#{add_at},
+		sysdate
+	)
+	</insert>
+	
+	<!-- 입고정보 전부 불러오기 -->
+	<select id="selectAllMedicineAddInfo" resultType="com.mkfactory.toothless.b.dto.MedicineAddDto">
+		SELECT * FROM TL_B_MEDICINE_ADD
+	</select>
+	
+	<select id="selectedMedicineInfoByMedicineCodePk" resultType="com.mkfactory.toothless.b.dto.MedicineCodeDto">
+		SELECT * 
+		FROM TL_B_MEDICINE_CODE_INFO
+		WHERE MEDICINE_CODE_PK = #{medicine_code_pk}
+	</select>
+	
+	<!-- 재고관리  -->
+	<!-- 약품pk로 선택된 재고 정보(count로 재고등록여부체크) -->
+	<select id="countInventoryInfo" resultType="int">
+		SELECT count(*)
+		FROM TL_B_MEDICINE_INVENTORY
+		WHERE MEDICINE_CODE_PK = #{medicine_code_pk}
+	</select>
+	
+	<!-- 재고 정보 전부 가져오기 -->
+	
+	<select id="selectAllInventoryInfo" resultType="com.mkfactory.toothless.b.dto.MedicineInventoryDto">
+		SELECT * FROM TL_B_MEDICINE_INVENTORY
+	</select>
+	
+	<!-- 재고 카테고리 정보 전부 가져오기 -->
+	<select id="selectAllMedicineMgmtCat" resultType="com.mkfactory.toothless.b.dto.MedicineMgmtCatDto">
+		SELECT * FROM TL_B_MEDICINE_MGMT_CAT 
+	</select>
+	
+	<!-- staff인포 가져오기 -->
+	<select id="selectedStaffInfoByStaffPk" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
+		SELECT * 
+		FROM TL_JIC_STAFF_INFO
+		WHERE staff_pk = #{staff_pk}
+	</select>
 </mapper>
+

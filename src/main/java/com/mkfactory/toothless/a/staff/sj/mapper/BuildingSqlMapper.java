@@ -20,4 +20,9 @@ public interface BuildingSqlMapper {
 	//정원 카테고리 
 	public List<DormCategoryDto> dormCategory();
 	
+	//정원 카테고리 insert
+	public void insertRegisterCategory(DormCategoryDto dormCategory);
+	
+	
+	
 }
