@@ -45,12 +45,26 @@ public class EunbiProfessorServiceImpl {
 			
 			studentsInfo.put("studenInfoDto", studenInfoDto);
 			studentsInfo.put("departmentDto", studentSqlMapper.getDepartmentByDepartmentPk(departmentPk));
+			studentsInfo.put("selectSemester", studentSqlMapper.forSelectSemester());
+			studentsInfo.put("selectDepartment", studentSqlMapper.forSelectDepartment());
 			
 			studentsInfoList.add(studentsInfo);
 		}
 		
 		return studentsInfoList;
 	}
+	
+	// 학생 검색 필터
+	public Map<String, Object> studentSearchFilter(){
+		
+		Map<String, Object> studentSearchFilters = new HashMap<>();
+		
+		studentSearchFilters.put("selectSemester", studentSqlMapper.forSelectSemester());
+		studentSearchFilters.put("selectDepartment", studentSqlMapper.forSelectDepartment());
+		
+		return studentSearchFilters;
+	}
+	
 	
 //	public Map<String, Object> viewStudentDetails(int studentPk) {
 //		

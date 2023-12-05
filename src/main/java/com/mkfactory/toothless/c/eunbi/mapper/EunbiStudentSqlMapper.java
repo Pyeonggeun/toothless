@@ -8,6 +8,7 @@ import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
 import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
+import com.mkfactory.toothless.donot.touch.dto.SemesterInfoDto;
 
 public interface EunbiStudentSqlMapper {
 
@@ -28,6 +29,25 @@ public interface EunbiStudentSqlMapper {
 	
 	// 학생 과 이름 조회
 	public DepartmentCategoryDto getDepartmentByDepartmentPk(int department_pk);
+	
+	
+	
+	
+	
+	
+	
+	
+	// 검색필터 입학 년도 ,학기 걸기 위한 코드
+	public List<SemesterInfoDto> forSelectSemester();	
+	// 검색필터 전공
+	public List<DepartmentCategoryDto> forSelectDepartment();
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

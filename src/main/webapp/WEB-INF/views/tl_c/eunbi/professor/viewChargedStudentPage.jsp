@@ -58,7 +58,7 @@
 		<!-- 본문 :  자유롭게 이용하세요 화이팅 -->
 		<div class="col">
 			<div class="row">
-				<div class="col ms-5 me-5">
+				<div class="col mx-5">
 					
 					<div class="row mt-5">
 						<div class="col fw-semibold" style="font-size:1.3em">
@@ -71,7 +71,32 @@
 						<div class="col">
 							<div class="row">
 								<div class="col bg-body-secondary border border-secondary border-start-0 border-end-0 border-1 mx-2 px-3 py-4">
-									검색창
+									<div class="row">
+										<div class="col-3">
+											<select class="form-select rounded-1" aria-label="selectSemester">
+												<option selected>입학년도</option>
+												<c:forEach items="${studentSearchFilters.selectSemester}" var="semester">
+													<option>${semester.semester_year}년 ${semester.semester}학기</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="col-3 mx-5">
+											<select class="form-select rounded-1" aria-label="selectDepartment">
+												<option selected>학과</option>
+												<c:forEach items="${studentSearchFilters.selectDepartment}" var="department">
+													<option>${department.name}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="col-3">
+											<select class="form-select rounded-1" aria-label="selectStatus">
+												<option selected>현장실습 진행상태</option>
+													<option value="신청완료">신청완료</option>
+													<option value="합격">합격</option>
+													<option value="불합격">불합격</option>
+											</select>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="row mt-3">
