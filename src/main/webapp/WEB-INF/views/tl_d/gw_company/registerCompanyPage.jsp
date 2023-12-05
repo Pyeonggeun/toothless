@@ -31,7 +31,7 @@
 						<div class="col"> 
 							<div class="row mb-1">기업규모</div>
 							<select class="form-select" name="com_scale_category_pk" >
-							  <option selected>대상아님</option>
+							  <option disabled selected>기업규모를 선택해주세요</option>
 							  <c:forEach items="${comScaleList}" var="scale">
 							  	<option value="${scale.com_scale_category_pk}">${scale.com_scale_category_name}</option>
 							  </c:forEach>
