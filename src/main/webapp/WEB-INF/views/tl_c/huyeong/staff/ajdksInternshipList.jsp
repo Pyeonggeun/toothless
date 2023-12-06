@@ -150,7 +150,7 @@ body {
 									<p class="card-text"> <!-- 내용 있어야함 --></p>
 								</div>
 								<div class="card-footer labelcolor border">
-									${map.AjdksInternshipCourseDto.company_name}
+									${map.company_name}
 								</div>
 							</div>
 
@@ -173,7 +173,7 @@ body {
 					<form class="row row-cols-lg-auto g-3 align-items-center">
 
 						<div class="col">
-							<a href="./ajdksInternshipList" class="btn labelcolor"><i
+							<a href="./ajdksInternshipRegForm" class="btn labelcolor"><i
 								class="bi bi-pencil-square"></i> 등록</a>
 						</div>
 
