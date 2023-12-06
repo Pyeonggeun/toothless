@@ -11,4 +11,6 @@ public interface ItemStudentSqlMapper {
 	public void insertItemApply(ItemApplyDto itemApplyDto);
 	
 	public List<Map<String,Object>> studentApplyItemList();
+	
+	public String ItemApplyStatus(int item_pk);
 }
