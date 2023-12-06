@@ -223,7 +223,7 @@ public class PostingController {
 	@RequestMapping("companyPostingListForStudentPage")
 	public String companyPostingListForStudentPage(Model model, int com_pk) {
 		model.addAttribute("companyPostingCount", postingService.getCompanyPostingCount(com_pk));
-		model.addAttribute("companyPostingListForStudent", postingService.getCompanyPostingListForStudent(com_pk));
+		model.addAttribute("companyPostingListForStudent", postingService.getCompanyPostingList(com_pk));
 		return "tl_d/ny_posting/companyPostingListForStudentPage";
 	}
 	
@@ -231,7 +231,7 @@ public class PostingController {
 	@RequestMapping("jobPostingDetailForStudentPage")
 	public String jobPostingDetailForStudentPage(HttpSession session, Model model, int id, InterestPostingDto params) {
 
-		model.addAttribute("jobPostingDetailForStudent", postingService.getJobPostingDetailForStudent(id));
+		model.addAttribute("jobPostingDetailForStudent", postingService.getJobPostingDetailForStudentAndCompany(id));
 		
 		params.setJob_posting_pk(id);
 		
@@ -294,7 +294,7 @@ public class PostingController {
 	@RequestMapping("jobPostingDetailForCompanyPage")
 	public String jobPostingDetailForCompanyPage(Model model, int id) {
 		
-		model.addAttribute("jobPostingDetailForCompany", postingService.getJobPostingDetail(id));
+		model.addAttribute("jobPostingDetailForCompany", postingService.getJobPostingDetailForStudentAndCompany(id));
 		
 		return "tl_d/ny_posting/jobPostingDetailForCompanyPage";
 	}
