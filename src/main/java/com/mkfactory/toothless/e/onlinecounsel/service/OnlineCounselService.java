@@ -18,6 +18,23 @@ public class OnlineCounselService {
 	@Autowired
 	private OnlineCounselSqlMapper onlineCounselSqlMapper;
 	
+	
+	//		****	공용		****
+	
+	public List<TypeCategoryDto> getAllCategory() {
+		
+		
+		return onlineCounselSqlMapper.takeAllCategory();
+		
+	}
+	
+	
+	
+	
+	
+	//		**		학생 관련 		**
+	
+	//		**	상담 등록 **
 	public void writeOnlineCounsel(OnlineCounselBoardDto onlineCounselBoardDto) {
 		
 		onlineCounselSqlMapper.insertOnlineCounsel(onlineCounselBoardDto);
@@ -25,12 +42,7 @@ public class OnlineCounselService {
 	}
 	
 	
-	public List<TypeCategoryDto> getAllCategory() {
-		
-		
-		return onlineCounselSqlMapper.takeAllCategory();
-
-	}
+	
 	
 	
 	public List<Map<String, Object>> getAllCounselListByStudentPk(int studentPk){
@@ -67,6 +79,34 @@ public class OnlineCounselService {
 		
 	}
 	
+	
+	//		**	상담원 관련	**
 
+	
+	public List<Map<String, Object>> getCounselDtoByCounselorPk(int counselorPk){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<OnlineCounselBoardDto> onlineCounselBoardDtos = onlineCounselSqlMapper.selecAllCounselDtoByCounselorPk(counselorPk);
+		
+		for(OnlineCounselBoardDto onlineCounselBoardDto : onlineCounselBoardDtos) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			map.put("studentDto", onlineCounselSqlMapper.getStudentInfo(onlineCounselBoardDto.getStudent_id()));
+			map.put("category", onlineCounselSqlMapper.selectCategoryDto(onlineCounselBoardDto.getType_category_id()));
+			map.put("onlineCounselBoardDto", onlineCounselBoardDto);
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
+	
+	
+	
+	
+	
 	
 }

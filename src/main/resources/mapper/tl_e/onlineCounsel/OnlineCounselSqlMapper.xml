@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mkfactory.toothless.e.onlinecounsel.mapper.OnlineCounselSqlMapper">
 
+
+	<!-- 공용  -->
+	<select id="takeAllCategory" resultType="com.mkfactory.toothless.e.dto.TypeCategoryDto">
+		SELECT * FROM cp_type_category
+	</select>
+
+	<select id="selectCategoryDto" resultType="com.mkfactory.toothless.e.dto.TypeCategoryDto">
+		SELECT * FROM cp_type_category WHERE id = #{id}
+	</select>
+
+
+
+
+
+
+	<!-- 학생 관련 -->
 	<insert id="insertOnlineCounsel">
 		INSERT INTO cp_online_counsel_board VALUES(
 			cp_online_counsel_board_seq.nextval,
@@ -13,17 +29,8 @@
 		)
 	</insert>
 
-	<select id="takeAllCategory" resultType="com.mkfactory.toothless.e.dto.TypeCategoryDto">
-		SELECT * FROM cp_type_category
-	</select>
-
-
 	<select id="selectAllCounselListByStudentPk" resultType="com.mkfactory.toothless.e.dto.OnlineCounselBoardDto">
 		SELECT * FROM cp_online_counsel_board WHERE student_id = #{student_id}
-	</select>
-	
-	<select id="selectCategoryDto" resultType="com.mkfactory.toothless.e.dto.TypeCategoryDto">
-		SELECT * FROM cp_type_category WHERE id = #{id}
 	</select>
 
 	<select id="getStudentInfo" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
@@ -33,5 +40,12 @@
 	<select id="selectCounsel" resultType="com.mkfactory.toothless.e.dto.OnlineCounselBoardDto">
 		SELECT * FROM cp_online_counsel_board WHERE id = #{id}
 	</select>
-
+	
+	
+	
+	
+	<!--	상담원 관련 	-->
+	<select id="selecAllCounselDtoByCounselorPk" resultType="com.mkfactory.toothless.e.dto.OnlineCounselBoardDto">
+		SELECT * FROM cp_online_counsel_board WHERE id = #{id}
+	</select>
 </mapper>

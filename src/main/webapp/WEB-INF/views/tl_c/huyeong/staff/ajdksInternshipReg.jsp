@@ -18,6 +18,35 @@
 
 <style>
 /*교직원좌측메뉴바설정*/
+body {
+	font-family: "Noto Sans CJK KR";
+}
+
+.jb-700 {
+	font-weight: 700;
+}
+
+.jb-bolder {
+	font-weight: bolder;
+}
+
+.jb-x-small {
+	font-size: x-small;
+}
+
+.jb-small {
+	font-size: small;
+}
+
+.labelcolor {
+	color: white;
+	background: #2B3D77;
+}
+
+.fontcolor {
+	color: #2B3D77;
+}
+
 .staffleftmenubar input {
 	display: none;
 }
@@ -85,9 +114,9 @@
 						<div class="row">
 							<div class="col">
 
-
-								<h3>
-									<i class="bi bi-box-arrow-in-down-right"></i> 현장 실습 등록
+								<!-- 상단 텍스트 -->
+								<h3 class="jb-700 fontcolor">
+									<i class="bi bi-box-arrow-in-down-right "></i> 관리자 현장실습 등록
 								</h3>
 
 
@@ -99,22 +128,25 @@
 				<!-- 본문 작성 공간 -->
 				<form class="row g-3">
 
+					<!-- 고도화 진행 시 담당자 이름 삽입 -->
 					<div class="col-12">
 						<label class="visually-hidden" for="inlineFormInputGroupUsername"></label>
 						<div class="input-group">
-							<div class="input-group-text">담당자 입력</div>
+							<div class="input-group-text jb-700">담당자 입력</div>
 							<input type="text" class="form-control"
 								id="inlineFormInputGroupUsername"
 								placeholder="담당자 명의를 작성해주시기 바랍니다.">
 						</div>
 					</div>
-					<div class="col-md-8">
-						<label for="inputCity" class="form-label"> 글 제목</label> <input
-							type="text" class="form-control" id="inputCity"
-							placeholder="50자 내외의 글 제목을 작성해주시기 바랍니다.">
+
+					<div class="col-md-7">
+						<label for="inputCity" class="form-label jb-700"> 글 제목 </label> <input
+							name="course_title" type="text" class="form-control"
+							id="inputCity" placeholder="50자 내외의 글 제목을 작성해주시기 바랍니다.">
 					</div>
-					<div class="col-md-4">
-						<label for="inputState" class="form-label"> 인원 수 </label> <select
+
+					<div class="col-md-5">
+						<label for="inputState" class="form-label jb-700"> 인원 수 </label> <select
 							id="inputState" class="form-select">
 							<option selected>1</option>
 							<option selected>2</option>
@@ -135,48 +167,69 @@
 
 				</div>
 
+
+				<!-- 고도화 진행 시 글내용 삽입 -->
 				<div class="mb-3">
-					<label for="exampleFormControlTextarea1" class="form-label">글
+					<label for="exampleFormControlTextarea1" class="form-label jb-700">글
 						내용</label>
 					<textarea class="form-control" id="exampleFormControlTextarea1"
-						rows="8" placeholder="공고 모집사항 및 자격 조건을 작성해주시기 바랍니다."></textarea>
+						rows="7"
+						placeholder="공고 모집사항 및 자격 조건을 작성해주시기 바랍니다. 아직 글 넣으면 안 되므로 유의하기."></textarea>
 				</div>
 
-
-
-
-				<form class="row g-3">
+				<form class="row g-3" action="./ajdksInternshipList" method="post">
 
 					<table class="table">
 
 						<thead class="table table-sm">
 							<tr>
-								<th scope="col"></th>
+								<th scope="col"><i class="bi bi-calendar-check"></i> 필수 날짜
+									입력 항목</th>
 								<th scope="col"></th>
 
 							</tr>
 						</thead>
 
 
-							<!-- 기능 고도화 시 사용될 항목 -->
-						<tbody class="table-group-divide table-sm">
+						<!-- 기능 고도화 시 사용될 항목 -->
+						<tbody class="table table-sm">
 							<tr>
-								<td scope="row">마감일</td>
-								<td scope="row"><input type="text" class="form-control"
-									id="inputCity"></td>
+								<td scope="row">- 등록일자</td>
+								<td scope="row">
+									<input name="created_at" type="date"
+									class="form-control" id="form-control"> <label
+									class="fontcolor jb-small">오늘 날짜를 정확히 입력해주세요.</label></td>
 							</tr>
 							<tr>
-								<td scope="row">직무</td>
-								<td scope="row"><input type="text" class="form-control"
-									id="inputCity"></td>
+								<td scope="row">- 모집기간시작</td>
+								<td scope="row"><input name="applying_start_date"
+									type="date" class="form-control" id="inputCity"></td>
+							</tr>
+							<tr>
+								<td scope="row">- 모집기간종료</td>
+								<td scope="row"><input name="applying_end_date" type="date"
+									class="form-control" id="inputCity"></td>
 
 							</tr>
 							<tr>
-								<td scope="row">고용형태</td>
-								<td scope="row"><input type="text" class="form-control"
-									id="inputCity"></td>
+								<td scope="row">- 실습기간시작</td>
+								<td scope="row"><input name="internship_start_date"
+									type="date" class="form-control" id="inputCity"></td>
 
 							</tr>
+							<tr>
+								<td scope="row">- 실습기간종료</td>
+								<td scope="row"><input name="internship_end_date"
+									type="date" class="form-control" id="inputCity"></td>
+
+							</tr>
+							<tr>
+								<td scope="row">- 선발결과발표일</td>
+								<td scope="row"><input name="announcement_date" type="date"
+									class="form-control" id="inputCity"></td>
+
+							</tr>
+
 						</tbody>
 					</table>
 
@@ -192,21 +245,26 @@
 
 
 				<!-- 하단 -->
-
 				<div class="col-12 d-flex justify-content-end">
 
 					<form class="row row-cols-lg-auto g-3 align-items-center">
 
 						<div class="col">
-							<button type="submit" class="btn btn-dark">등록</button>
+							<a href="./ajdksInternshipList" class="btn labelcolor"><i
+								class="bi bi-pencil-square"></i> 등록</a>
 						</div>
 
 						<div class="col">
-							<button type="submit" class="btn btn-dark">목록으로</button>
+							<a href="./ajdksInternshipList" class="btn labelcolor"><i
+								class="bi bi-list-ul"></i> 목록으로</a>
 						</div>
 
+						<!-- 고도화 진행시 사용 -->
+
 						<div class="col">
-							<button type="submit" class="btn btn-dark">임시저장</button>
+							<a href="" class="btn labelcolor"> <i
+								class="bi bi-file-earmark-arrow-down"></i> 임시저장
+							</a>
 						</div>
 
 					</form>
@@ -216,11 +274,7 @@
 			</div>
 		</div>
 	</div>
-	</div>
 
-	</div>
-
-	</div>
 	<!-- 전체 container 출구 -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

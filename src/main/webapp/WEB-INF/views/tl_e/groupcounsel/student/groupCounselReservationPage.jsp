@@ -59,7 +59,6 @@
 	</div>
 	
 	
-	<c:forEach items="${groupCounselList}" var="list">
 	
 	<div class="row my-0">
 		<div class="col-2 my-0 py-5 border-end border-dark-subtle"></div>
@@ -77,7 +76,7 @@
 				<div class="col-2"></div>
 				<div class="col-8">
 					<div class="row">
-						<div class="col pt-2 mx-0 px-5 border-top border-black"></div>
+						<div class="col pt-5 mx-0 px-5 border-top border-black"></div>
 					</div>
 				</div>
 				<div class="col-2"></div>
@@ -91,12 +90,12 @@
 						<div class="col">
 							<div class="row">
 								<div class="col">
-									<div class="fw-bold" style="font-size: 1.4em;">[<fmt:formatDate value="${list.groupCounselDto.start_apply_date }" pattern="yy.MM.dd"/>] ${list.groupCounselDto.title}</div>
+									<div class="fw-bold" style="font-size: 1.4em;">[<fmt:formatDate value="${groupCounselDto.start_apply_date }" pattern="yy.MM.dd"/>] ${groupCounselDto.title}</div>
 								</div>
 							</div>
 							<div class="row pt-3">
 								<div class="col" style="height:3.5em;">
-									<div class="text-secondary fw-bold" style="font-size: 0.9em;">${list.groupCounselDto.text}</div>
+									<div class="text-secondary fw-bold" style="font-size: 0.9em;">${groupCounselDto.text}</div>
 								</div>
 							</div>
 							<div class="row py-5"></div>
@@ -105,7 +104,7 @@
 									<div class="fw-bold text-black" style="font-size:1.2em; text-decoration: underline;">신청 인원</div>
 								</div>
 								<div class="col">
-									<div class="fw-bold text-secondary" style="font-size:1.1em;">${list.groupCounselDto.amount }</div>
+									<div class="fw-bold text-secondary" style="font-size:1.1em;">${groupCounselDto.amount }</div>
 								</div>
 							</div>
 							<div class="row pt-3">
@@ -113,7 +112,7 @@
 									<div class="fw-bold text-black" style="font-size:1.2em; text-decoration: underline;">신청 일자</div>
 								</div>
 								<div class="col">
-									<div class="fw-bold text-secondary" style="font-size:1.1em;"><fmt:formatDate value="${list.groupCounselDto.start_apply_date }" pattern="yy.MM.dd"/>~<fmt:formatDate value="${list.groupCounselDto.end_apply_date }" pattern="yy.MM.dd"/></div>
+									<div class="fw-bold text-secondary" style="font-size:1.1em;"><fmt:formatDate value="${groupCounselDto.start_apply_date }" pattern="yy.MM.dd"/>~<fmt:formatDate value="${groupCounselDto.end_apply_date }" pattern="yy.MM.dd"/></div>
 								</div>
 							</div>
 							<div class="row pt-3">
@@ -122,28 +121,23 @@
 								</div>
 								<div class="col-1"></div>
 								<div class="col">
-									<div class="fw-bold text-secondary" style="font-size:1.1em;">${list.groupCounselDto.location }</div>
+									<div class="fw-bold text-secondary" style="font-size:1.1em;">${groupCounselDto.location }</div>
 								</div>
 								<div class="col-2 text-end">
-									<c:if test="${list.count==0}">
-										<input class="btn btn-secondary" type="button" value="신청" onClick="location.href='./groupCounselReservationProcess?group_counsel_id=${list.groupCounselDto.id }&student_pk=${sessionStudentInfo.student_pk}'">
-									</c:if>
-									<c:if test="${list.count==1}">
-										<input class="btn btn-secondary" type="button" value="마감" onClick="location.href='./groupCounselReservationProcess?group_counsel_id=${list.groupCounselDto.id }&student_pk=${sessionStudentInfo.student_pk}'">
-									</c:if>
-									
+									<input class="btn btn-secondary" type="button" value="신청" onClick="location.href='./groupCounselReservationProcess?group_counsel_id=${groupCounselDto.id }&student_pk=${sessionStudentInfo.student_pk}'">
 								</div>
 							</div>
-							<div class="row pt-4">
+							<div class="row pt-5">
 								<div class="col-10"></div>
 								<div class="col text-center">
 								</div>
 							</div>
 						</div>
+						<div class="col-1"></div>
 					</div>
 				</div>
 				<div class="col-3 text-end">
-					<img class="img-fluid" style="width: 80%;" src="/uploadFiles/${list.groupCounselDto.posterImage }">
+					<img class="img-fluid" style="width: 80%;" src="/uploadFiles/${groupCounselDto.posterImage }">
 				</div>
 				<div class="col-2"></div>
 			</div>
@@ -152,7 +146,7 @@
 				<div class="col-2"></div>
 				<div class="col-8">
 					<div class="row">
-						<div class="col mx-0 px-5 border-top border-black"></div>
+						<div class="col pt-3 mx-0 px-5 border-bottom border-black"></div>
 						<div class="col-4 mx-0 px-0"></div>
 					</div>
 				</div>
@@ -163,7 +157,6 @@
 	</div>
 	
 	
-	</c:forEach>
 	
 	
 	<div class="row" style="height:10em;"></div>
