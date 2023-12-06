@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 import com.mkfactory.toothless.c.huyeoung.mapper.HuyeoungInternshipSqlMapper;
 
@@ -43,7 +44,15 @@ public class HuyeoungInternshipServiceImpl {
 			Map<String, Object> map = new HashMap<>();
 			map.put("AjdksInternshipCourseDto", aDto);
 			
+			ajdksInternshipCourseDto.setCompany_pk(aDto.company_pk);
+			
 			//System.out.println("company_pk ["+aDto.company_pk+"]");
+			// 사업체명 조회
+			AjdksCompanyInfoDto bdto =  huyeoungInternshipSqlMapper.selectInternshipCompanyId(ajdksInternshipCourseDto);
+			
+			map.put("company_name", bdto.company_name);
+			
+			//System.out.println("company_name ["+bdto.company_name+"]");
 			//System.out.println("course_title ["+aDto.course_title+"]");
 			list.add(map);
 		}

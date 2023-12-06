@@ -197,47 +197,35 @@ body {
 						<!-- 기능 고도화 시 사용될 항목 -->
 						<tbody class="table table-sm align-middle">
 							<tr>
-								<td scope="row" style="font-size: 0.9em;">- 등록일자</td>
-								<td scope="row">
-									<input name="created_at1" type="date" class="form-control" id="form-control" style="font-size: 0.9em;"> 
-									<label class="jb-small text-secondary">오늘 날짜를 정확히 입력해주세요.</label>
-								</td>
-							</tr>
-							<tr>
 								<td scope="row" style="font-size: 0.9em;">- 모집기간시작</td>
-								<td scope="row"><input name="applying_start_date"
-									type="date" class="form-control" id="inputCity"
-									style="font-size: 0.9em;"></td>
+								<td scope="row"><input name="applying_start_date" type="date" class="form-control" style="font-size: 0.9em;"></td>
 							</tr>
 							<tr>
 								<td scope="row" style="font-size: 0.9em;">- 모집기간종료</td>
-								<td scope="row"><input name="applying_end_date" type="date"
-									class="form-control" id="inputCity" style="font-size: 0.9em;"></td>
+								<td scope="row"><input name="applying_end_date" type="date" class="form-control"  style="font-size: 0.9em;"></td>
 
 							</tr>
 							<tr>
 								<td scope="row" style="font-size: 0.9em;">- 실습기간시작</td>
-								<td scope="row"><input name="internship_start_date"
-									type="date" class="form-control" id="inputCity"
-									style="font-size: 0.9em;"></td>
-
+								<td scope="row"><input name="internship_start_date" type="date" class="form-control" style="font-size: 0.9em;"></td>
 							</tr>
 							<tr>
 								<td scope="row" style="font-size: 0.9em;">- 실습기간종료</td>
-								<td scope="row"><input name="internship_end_date"
-									type="date" class="form-control" id="inputCity"
-									style="font-size: 0.9em;"></td>
+								<td scope="row"><input name="internship_end_date" type="date" class="form-control" style="font-size: 0.9em;"></td>
 
 							</tr>
 							<tr>
 								<td scope="row" style="font-size: 0.9em;">- 선발결과발표일</td>
-								<td scope="row"><input name="announcement_date" type="date"
-									class="form-control" id="inputCity" style="font-size: 0.9em;"></td>
-
+								<td scope="row"><input name="announcement_date" type="date" class="form-control" style="font-size: 0.9em;"></td>
 							</tr>
 
 						</tbody>
 					</table>
+					<!--  팝업이 완성되면 아래 것들 지우고 다시 정리 -->
+					<input type="hidden" name="company_pk" value="2">
+					<input type="hidden" name="professor_pk" value="1">
+				    <input type="hidden" name="department_pk" value="1">				
+					
 				</form>
 
 
@@ -309,6 +297,39 @@ body {
  	<script>
  	function fn_reg() {
 		const frm = document.getElementById("frm");
+		
+		if(frm.course_title.value == "") {
+			alert("제목을 입력하여 주십시오.");
+			frm.course_title.focus();
+			return;
+		}
+		
+		if(frm.applying_start_date.value == "") {
+			alert("모집기간 시작 일자를 입력하여 주십시오.");
+			frm.applying_start_date.focus();
+			return;
+		}
+		if(frm.applying_end_date.value == "") {
+			alert("모집기간종료 일자를 입력하여 주십시오.");
+			frm.applying_end_date.focus();
+			return;
+		}
+		if(frm.internship_start_date.value == "") {
+			alert("실습기간시작 일자를 입력하여 주십시오.");
+			frm.internship_start_date.focus();
+			return;
+		}
+		if(frm.internship_end_date.value == "") {
+			alert("실습기간종료 일자를 입력하여 주십시오.");
+			frm.internship_end_date.focus();
+			return;
+		}
+		if(frm.announcement_date.value == "") {
+			alert("선발결과발표일 일자를 입력하여 주십시오.");
+			frm.announcement_date.focus();
+			return;
+		}
+		
 		frm.submit();
  	}
  	
