@@ -41,7 +41,7 @@
 						<c:forEach items="${companyList}" var="list">
 							<div class="row border-bottom border-bs-border pb-3 mb-3">
 								<div class="col-1 text-center fw-bold pt-1">${list.companyDto.com_pk}</div>
-								<div class="col"><a class="btn ms-4" href="./companyViewDetailsPage?companyPK=${list.companyDto.com_pk}">${list.companyDto.com_name}</a></div>
+								<div class="col"><a class="btn ms-4" href="./companyViewDetailsPage?com_pk=${list.companyDto.com_pk}">${list.companyDto.com_name}</a></div>
 								<div class="col-3 text-center pt-1">${list.companyManagerDto.com_manager_name}</div>
 								<div class="col-3 text-center pt-1">${list.companyDto.is_family_company}</div>
 							</div>

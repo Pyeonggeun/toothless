@@ -31,10 +31,10 @@
 				<div class="col-3">기업 상세정보</div>
 				<div class="col text-end">
 					<c:if test="${companyMap.companyDto.is_family_company=='N'}">
-						<a class="btn btn-primary" href="./changeFamilyCompanyProcess?companyPK=${companyMap.companyDto.com_pk}" role="button">가족기업으로 변환하기</a>
+						<a class="btn btn-primary" href="./changeFamilyCompanyProcess?com_pk=${companyMap.companyDto.com_pk}" role="button">가족기업으로 변환하기</a>
 					</c:if>
 					<c:if test="${companyMap.companyDto.is_family_company=='Y'}">
-						<a class="btn btn-primary" href="./changeGeneralCompanyProcess?companyPK=${companyMap.companyDto.com_pk}" role="button">일반기업으로 변환하기</a>
+						<a class="btn btn-primary" href="./changeGeneralCompanyProcess?com_pk=${companyMap.companyDto.com_pk}" role="button">일반기업으로 변환하기</a>
 					</c:if>
 				</div>
 			</div> 
@@ -50,10 +50,10 @@
 						<div class="col p-1 ps-4">${companyMap.companyDto.business_number}</div>
 					</div>
 					<div class="row border-bottom py-3">
-						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">기업규모</div>
-						<div class="col p-1 ps-4">${companyMap.comScaleCategoryDto.com_scale_category_name}</div>
-						<div class="col-2 border-start border-end border-bs-border p-1 ps-2 fw-bold">대표자 명</div>
+						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">대표자 명</div>
 						<div class="col p-1 ps-4">${companyMap.companyDto.com_bossname}</div>
+						<div class="col-2 border-start border-end border-bs-border p-1 ps-2 fw-bold">기업규모</div>
+						<div class="col p-1 ps-4">${companyMap.comScaleCategoryDto.com_scale_category_name}</div>
 					</div>
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">기업 주소</div>
@@ -100,7 +100,7 @@
 			<div class="row mt-4 mb-5"> 
 				
 				<div class="col-2 mx-0 text-start">
-					<a class="btn btn-primary" href="./updateCompanyInfo?companyPK=${companyMap.companyDto.com_pk}" role="button">기업 정보 수정</a>
+					<a class="btn btn-primary" href="./updateCompanyInfo?com_pk=${companyMap.companyDto.com_pk}" role="button">기업 정보 수정</a>
 				</div>
 				<div class="col-2 mx-0 text-start">
 					<a class="btn btn-outline-primary" href="./deleteCompanyInfoProcess?com_pk=${companyMap.companyDto.com_pk}&com_manager_pk=${companyMap.companyManagerDto.com_manager_pk}&external_pk=${companyMap.companyManagerDto.external_pk}" role="button">기업 정보 삭제</a>

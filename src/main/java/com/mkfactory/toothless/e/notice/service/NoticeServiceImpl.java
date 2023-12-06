@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.NoticeBoardDto;
+import com.mkfactory.toothless.e.dto.NoticeBoardLikeDto;
 import com.mkfactory.toothless.e.dto.NoticeCommentDto;
 import com.mkfactory.toothless.e.dto.NoticeImageDto;
 import com.mkfactory.toothless.e.notice.mapper.NoticeSqlMapper;
@@ -100,4 +101,20 @@ public class NoticeServiceImpl {
 	public void deleteNoticeComment(int id) {
 		noticeSqlMapper.deleteNoticeComment(id);
 	}
+	// 공지사항 추천 여부
+	public int noticeLikeCheck(NoticeBoardLikeDto noticeBoardLikeDto) {
+		return noticeSqlMapper.noticeLikeCheck(noticeBoardLikeDto);
+	}
+	public int noticeUpThumbCheck(NoticeBoardLikeDto noticeBoardLikeDto) {
+		return noticeSqlMapper.noticeUpThumbCheck(noticeBoardLikeDto);
+	}
+	public int noticeDownThumbCheck(NoticeBoardLikeDto noticeBoardLikeDto) {
+		return noticeSqlMapper.noticeDownThumbCheck(noticeBoardLikeDto);
+	}
+	// 공지사항 추천 추가
+	public void insertThumb(NoticeBoardLikeDto noticeBoardLikeDto) {
+		noticeSqlMapper.insertThumb(noticeBoardLikeDto);
+	}
+
+
 }

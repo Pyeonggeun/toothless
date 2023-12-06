@@ -52,22 +52,23 @@
 							</div>
 						</div>
 						<div class="row border-bottom py-3">
-							<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">기업규모</div>
+							<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">대표자 명</div>
+								<div class="col p-1 ps-4">
+								<input type="text" name="com_bossname" value="${companyMap.companyDto.com_bossname}">
+							</div>
+							<div class="col-2 border-start border-end border-bs-border p-1 ps-2 fw-bold">기업규모</div>
 							<div class="col p-1 ps-4">
 								<!-- 기업 규모 입력 -->
-								<div class="row mt-3"> 
+								<div class="row "> 
 									<select class="form-select" name="com_scale_category_pk" >
-									  <option selected>${companyMap.comScaleCategoryDto.com_scale_category_name}</option>
+									  <option selected value="${companyMap.companyDto.com_scale_category_pk}">${companyMap.comScaleCategoryDto.com_scale_category_name}</option>
 									  <c:forEach items="${comScaleList}" var="scale">
 									  	<option value="${scale.com_scale_category_pk}">${scale.com_scale_category_name}</option>
 									  </c:forEach>
 									</select>
 								</div>
 							</div>
-							<div class="col-2 border-start border-end border-bs-border p-1 ps-2 fw-bold">대표자 명</div>
-							<div class="col p-1 ps-4">
-								<input type="text" name="com_bossname" value="${companyMap.companyDto.com_bossname}">
-							</div>
+							
 						</div>
 						<div class="row border-bottom py-3">
 							<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">기업 주소</div>

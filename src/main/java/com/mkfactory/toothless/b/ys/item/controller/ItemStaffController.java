@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mkfactory.toothless.b.dto.ItemApplyDto;
@@ -167,12 +168,24 @@ public class ItemStaffController {
 		return "redirect:./itemListAndRegistPage";
 	}
 	
+	
+//	@RequestMapping("staffItemApplyListPage")
+//	public String staffItemApplyListPage(Model model) {
+//		
+//		model.addAttribute("itemApplyList",itemStaffService.getItemApplyList());
+//		
+//		return "tl_b/ys/staffItemApplyListPage";
+//	}
+	
+	//REST API
+	@ResponseBody
 	@RequestMapping("staffItemApplyListPage")
-	public String staffItemApplyListPage(Model model) {
+	public List<Map<String,Object>> staffItemApplyListPage(Model model) {
 		
-		model.addAttribute("itemApplyList",itemStaffService.getItemApplyList());
+		List<Map<String,Object>> itemApplyList = itemStaffService.getItemApplyList();
 		
-		return "tl_b/ys/staffItemApplyListPage";
+		return itemApplyList;
+
 	}
 	
 	@RequestMapping("rentalProcess")

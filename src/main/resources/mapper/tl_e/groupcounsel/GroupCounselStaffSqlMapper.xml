@@ -24,6 +24,24 @@
 		ORDER BY id ASC
 	</select>
 	
+	<select id="selectGroupCounselReservationCount" resultType="int">
+		SELECT COUNT(*) FROM cp_group_reservation
+		WHERE group_counsel_id=#{group_counsel_id}
+	</select>
+	
+	<select id="selectGroupCounselReservationList" resultType="com.mkfactory.toothless.e.dto.GroupCounselReservationDto">
+		SELECT * FROM cp_group_reservation
+		WHERE group_counsel_id=#{group_counsel_id}
+	</select>
+	
+	<select id="selectGroupCounselReservationByStudent" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO
+		WHERE student_pk = #{student_pk}	
+	</select>
+	
+	
+	
+	
 	<select id="selectGroupCounselById" resultType="com.mkfactory.toothless.e.dto.GroupCounselDto">
 		SELECT * FROM cp_group_counsel
 		WHERE id=#{id}

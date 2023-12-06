@@ -55,4 +55,5 @@
 	<select id="selectCompanyListByCategoryPk" resultType="com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto">
 		SELECT * FROM tl_c_company_info WHERE COMPANY_CATEGORY_PK = #{company_category_pk}
 	</select>
+	
 </mapper>

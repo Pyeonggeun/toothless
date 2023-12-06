@@ -126,7 +126,7 @@ public class PostingServiceImpl {
 			return companypostingList;
 	}
 	
-	// 상세리스트
+	// 교직원용 공고 상세리스트
 	public Map<String, Object> getJobPostingDetail(int job_posting_pk){
 		
 		
@@ -145,15 +145,20 @@ public class PostingServiceImpl {
 			companyDto.setCom_address(str.substring(0, 2));
 		} 
 		
-		
-		// 채용마감 디데이
-		int deadlineDDay = postingSqlMapper.selectPostingDeadlineDDay(job_posting_pk);
-	
 		// 채용마감
 		List<Integer> endPostingList = postingSqlMapper.selectEndPosting();
+		
 		// 마감임박
 		List<Integer> postingDeadlineList = postingSqlMapper.selectPostingDeadline();
 		
+		
+		// 채용마감 디데이
+		if (postingDeadlineList.contains(job_posting_pk) && ! endPostingList.contains(job_posting_pk)) {
+		    int deadlineDDay = postingSqlMapper.selectPostingDeadlineDDay(job_posting_pk);
+		    
+		    	jobPostingMap.put("deadlineDDay", deadlineDDay);
+		}
+	
 		
 		jobPostingMap.put("companyDto", companyDto);
 		jobPostingMap.put("jobFieldCategoryDto", jobFieldCategoryDto);
@@ -162,7 +167,6 @@ public class PostingServiceImpl {
 		jobPostingMap.put("comScaleCategoryDto", comScaleCategoryDto);
 		jobPostingMap.put("postingDeadlineList", postingDeadlineList);
 		jobPostingMap.put("endPostingList", endPostingList);
-		jobPostingMap.put("deadlineDDay", deadlineDDay);
 		
 			
 		return jobPostingMap;
@@ -261,5 +265,53 @@ public class PostingServiceImpl {
 		
 		return companypostingList;
 	}
+	
+	// 학생용 공고 상세 페이지(관심공고 이하 생략)
+	public Map<String, Object> getJobPostingDetailForStudent(int job_posting_pk){
+		
+		
+		JobPostingDto jobPostingDto = postingSqlMapper.selectPostingDetailByJobPostingPk(job_posting_pk);
+		
+		CompanyDto companyDto = postingSqlMapper.selectByCompanyPk(jobPostingDto.getCom_pk());
+		JobFieldCategoryDto jobFieldCategoryDto = postingSqlMapper.selectByJobFieldCategoryPk(jobPostingDto.getJob_field_category_pk());
+		CompanyManagerDto companyManagerDto = postingSqlMapper.selectByComManagerPk(companyDto.getCom_manager_pk());
+		ComScaleCategoryDto comScaleCategoryDto = postingSqlMapper.selectByComScaleCategoryPk(companyDto.getCom_scale_category_pk());
+				
+		
+		Map<String, Object> jobPostingMap = new HashMap<>();
+		
+		String str = companyDto.getCom_address();
+		if (str.length() >= 2) {
+			companyDto.setCom_address(str.substring(0, 2));
+		} 
+		
+		// 채용마감
+		List<Integer> endPostingList = postingSqlMapper.selectEndPosting();
+		
+		// 마감임박
+		List<Integer> postingDeadlineList = postingSqlMapper.selectPostingDeadline();
+		
+		// 채용마감 디데이
+		if (postingDeadlineList.contains(job_posting_pk) && ! endPostingList.contains(job_posting_pk)) {
+		    int deadlineDDay = postingSqlMapper.selectPostingDeadlineDDay(job_posting_pk);
+		    
+		    	jobPostingMap.put("deadlineDDay", deadlineDDay);
+		}
+			
+	
+		
+		jobPostingMap.put("companyDto", companyDto);
+		jobPostingMap.put("jobFieldCategoryDto", jobFieldCategoryDto);
+		jobPostingMap.put("jobPostingDto",jobPostingDto);
+		jobPostingMap.put("companyManagerDto", companyManagerDto);
+		jobPostingMap.put("comScaleCategoryDto", comScaleCategoryDto);
+		jobPostingMap.put("postingDeadlineList", postingDeadlineList);
+		jobPostingMap.put("endPostingList", endPostingList);
+		
+			
+		return jobPostingMap;
+	}
+	
+	
 	
 }

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 
 import com.mkfactory.toothless.b.dto.StaffboardDto;
+import com.mkfactory.toothless.b.dto.StaffboardLikeDto;
+import com.mkfactory.toothless.b.dto.StaffboardReplyDto;
 import com.mkfactory.toothless.b.dy.staffboard.mapper.StaffboardSqlMapper;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 
@@ -65,10 +67,42 @@ public class StaffboardServiceImpl {
 	public void removeText(int staffboard_pk) {
 		staffboardSqlMapper.deleteText(staffboard_pk);
 	}
-	public void modifyTextPage(StaffboardDto staffboardDto) {
+	public void modifyText(StaffboardDto staffboardDto) {
 		staffboardSqlMapper.updateModifyText(staffboardDto);
 	}
 	
+	public void writeReply(StaffboardReplyDto staffboardReplyDto){
+		staffboardSqlMapper.insertWriteReply(staffboardReplyDto);
+	}
+	
+	public List<Map<String, Object>> getContentReplyInfo(int staffboard_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<StaffboardReplyDto> boardReplyDtoList = staffboardSqlMapper.selectContentReplyInfo(staffboard_pk);
+		
+		//댓글쓴유저의 정보와 직원 정보를 묶는다.
+		for(StaffboardReplyDto staffboardReplyDto : boardReplyDtoList) {
+			int replyUserPk = staffboardReplyDto.getStaff_pk();
+			StaffInfoDto staffInfoDto = staffboardSqlMapper.selectStaffInfo(replyUserPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("staffboardReplyDto", staffboardReplyDto);
+			map.put("staffInfo", staffInfoDto);
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
+	public void removeReply(StaffboardReplyDto staffboardReplyDto) {
+		staffboardSqlMapper.deleteReply(staffboardReplyDto);
+	}
+	
+	public void modifyReply(StaffboardReplyDto staffboardReplyDto) {
+		staffboardSqlMapper.updateReply(staffboardReplyDto);
+	}
 }
 
 

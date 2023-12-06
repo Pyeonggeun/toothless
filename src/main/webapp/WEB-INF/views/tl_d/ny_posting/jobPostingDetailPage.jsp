@@ -62,16 +62,14 @@
 								#&nbsp;<fmt:formatDate value="${jobPostingDetail.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/>
 							</div>
 							<div class="col">
-								<c:forEach items="${jobPostingDetail.postingDeadlineList}" var="deadline">
-									<c:if test="${deadline == jobPostingDetail.jobPostingDto.job_posting_pk}"> 
+								<c:choose>
+									<c:when test="${jobPostingDetail.postingDeadlineList.contains(jobPostingDetail.jobPostingDto.job_posting_pk)}">
 										<span class="badge text-bg-danger">마감임박!</span>
-									</c:if>
-								</c:forEach>
-								<c:forEach items="${jobPostingDetail.endPostingList}" var="endPosting">
-									<c:if test="${endPosting == jobPostingDetail.jobPostingDto.job_posting_pk}">
+									</c:when>
+									<c:when test="${jobPostingDetail.endPostingList.contains(jobPostingDetail.jobPostingDto.job_posting_pk)}">
 										<span class="badge text-bg-secondary">채용마감</span>
-									</c:if>
-								</c:forEach>
+									</c:when>
+								</c:choose>
 							</div>
 						</div>
 					</div>
@@ -95,7 +93,7 @@
 						<!-- 채용담당자 -->
 						<div class="row">
 							<div class="col mt-1">
-								<span class="text-secondary">대표명</span>&nbsp;${jobPostingDetail.companyDto.com_bossname}
+								<span class="text-secondary">대표자</span>&nbsp;${jobPostingDetail.companyDto.com_bossname}
 							</div>
 						</div>
 					</div>
@@ -141,17 +139,15 @@
 				<!-- 채용마감일 까지 -->
 				<div class="row mt-3">
 					<div class="col fs-4 fw-bold text-center">
-						<c:forEach items="${jobPostingDetail.postingDeadlineList}" var="deadline">
-							<c:if test="${deadline == jobPostingDetail.jobPostingDto.job_posting_pk}"> 
-								채용마감까지 <span class="text-danger">${jobPostingDetail.deadlineDDay}</span>일 
-							</c:if>
-						</c:forEach>
-						<c:forEach items="${jobPostingDetail.endPostingList}" var="endPosting">
-							<c:if test="${endPosting == jobPostingDetail.jobPostingDto.job_posting_pk}">
-								채용 마감되었습니다
-							</c:if>
-						</c:forEach>	
-					</div>
+						<c:choose>
+					        <c:when test="${!empty jobPostingDetail.deadlineDDay and jobPostingDetail.deadlineDDay > 0}">
+					            채용마감까지 <span class="text-danger">${jobPostingDetail.deadlineDDay}</span>일 
+					        </c:when>
+					        <c:when test="${jobPostingDetail.endPostingList.contains(jobPostingDetail.jobPostingDto.job_posting_pk)}">
+					            채용 마감되었습니다
+					        </c:when>
+					    </c:choose>
+				    </div>
 				</div>
 				<div class="row mt-3">
 					<div class="col text-end">

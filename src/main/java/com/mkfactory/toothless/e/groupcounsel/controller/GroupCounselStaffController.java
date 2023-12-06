@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +80,7 @@ public class GroupCounselStaffController {
 	@RequestMapping("groupCounselListPage")
 	public String groupCounselListPage(Model model) {
 		                                     
-		List<GroupCounselDto> groupCounselList = groupCounselStaffService.readGroupCounselList();
+		List<Map<String, Object>> groupCounselList = groupCounselStaffService.readGroupCounselList();
 		
 		model.addAttribute("groupCounselList", groupCounselList);
 		
@@ -97,7 +98,7 @@ public class GroupCounselStaffController {
 	}
 	
 	
-	
+
 	
 	
 }

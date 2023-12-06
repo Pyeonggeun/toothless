@@ -54,7 +54,7 @@
 						</div>
 						<!-- 공고제목 -->
 						<div class="col-9 ps-0 pt-1">
-							<a class="text-dark navbar-brand" href="./jobPostingDetailPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
+							<a class="text-dark navbar-brand" href="./jobPostingDetailForStudentPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
 								${companyPostingForStudent.jobPostingDto.posting_name}
 							</a>
 						</div>
@@ -73,20 +73,21 @@
 							<a class="text-dark navbar-brand" href="./jobPostingDetailPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
 								<span class="text-secondary">#&nbsp;${companyPostingForStudent.jobFieldCategoryDto.job_field_category_name} #&nbsp;${companyPostingForStudent.jobPostingDto.job_position}
 								#&nbsp;${companyPostingForStudent.companyDto.com_address} #&nbsp;<fmt:formatDate value="${companyPostingForStudent.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
-								<c:forEach items="${companyPostingForStudent.postingDeadlineList}" var="deadline">
-									<c:if test="${deadline == companyPostingForStudent.jobPostingDto.job_posting_pk}">
+								<c:choose>
+									<c:when test="${companyPostingForStudent.postingDeadlineList.contains(companyPostingForStudent.jobPostingDto.job_posting_pk)}">
 										<span class="badge text-bg-danger">마감임박!</span>
-									</c:if>
-								</c:forEach>
-								<c:forEach items="${companyPostingForStudent.endPostingList}" var="endPosting">
-									<c:if test="${endPosting == companyPostingForStudent.jobPostingDto.job_posting_pk}">
+									</c:when>
+									<c:when test="${companyPostingForStudent.endPostingList.contains(companyPostingForStudent.jobPostingDto.job_posting_pk)}">
 										<span class="badge text-bg-secondary">채용마감</span>
-									</c:if>
-								</c:forEach>
+									</c:when>
+								</c:choose>
 							</a>
 						</div>
 						<div class="col me-3 text-end">
 							<c:choose>
+								<c:when test="${companyPostingForStudent.endPostingList.contains(companyPostingForStudent.jobPostingDto.job_posting_pk)}">
+									<button class="btn btn-dark btn-sm" disabled>채용마감</button>
+								</c:when>
 								<c:when test="${empty sessionStudentInfo}">
 									<button class="btn btn-dark btn-sm" disabled>지원하기</button>
 								</c:when>

@@ -47,10 +47,14 @@
 				<!-- 채용분야 -->
 				<div class="row mt-3">
 					<div class="col">
-						<c:forEach items="${jobFieldCategory}" var="jobField">
-							<input name="job_field_category_pk" type="radio" value="${jobField.job_field_category_pk}">&nbsp;${jobField.job_field_category_name}
-						</c:forEach>
+						<select class="form-select form-control form-control-sm border-dark" name="job_field_category_pk">
+							<option selected>채용분야</option>
+						    <c:forEach items="${jobFieldCategory}" var="jobField">
+						        <option value="${jobField.job_field_category_pk}">${jobField.job_field_category_name}</option>
+						    </c:forEach>
+						</select>
 					</div>
+					<div class="col-5"></div>
 				</div>
 				<!-- 구인직무 -->
 				<div class="row mt-3">
@@ -94,7 +98,12 @@
 				</div>
 				<div class="row mt-2">
 					<div class="col">
-						<input class="form-control border-black" name="hire_number" type="text">
+						<div class="row">
+							<div class="col-11">
+								<input class="form-control border-black" name="hire_number" type="text">
+							</div>
+							<div class="col">명</div>
+						</div>
 					</div>
 					<div class="col-8"></div>
 				</div>

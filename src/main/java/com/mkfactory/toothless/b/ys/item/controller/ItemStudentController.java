@@ -24,8 +24,9 @@ public class ItemStudentController {
 	
 	@RequestMapping("studentItemListPage")
 	public String studentItemListPage(Model model) {
-		
-		model.addAttribute("itemList",itemStudentService.getStudentApplyItemList()); 
+	
+		//model.addAttribute("itemList",itemStaffService.getItemList()); 
+		model.addAttribute("itemList",itemStudentService.getItemAndItemApplyList());
 		
 		return "tl_b/ys/studentItemListPage";
 	}

@@ -145,6 +145,10 @@ public class DormStaffControllerMj {
 		int countInfoList = infoList.size();
 		model.addAttribute("countInfoList", countInfoList);
 		
+		// 현재학기정보 + 입주공고 정보
+		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
+		model.addAttribute("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
+		
 		return "tl_a/staff/mj_readRegisterJoinInfoPage";
 	}
 	
