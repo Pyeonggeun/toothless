@@ -3,7 +3,7 @@ package com.mkfactory.toothless.c.dto;
 import java.util.Date;
 
 public class AjdksInternshipCourseDto {
-	
+
 	public int internship_course_pk;
 	public int company_pk;
 	public int professor_pk;
@@ -17,7 +17,7 @@ public class AjdksInternshipCourseDto {
 	public Date internship_end_date;
 	public Date announcement_date;
 	public Date created_at;
-	
+
 	public AjdksInternshipCourseDto() {
 		super();
 	}
@@ -145,5 +145,5 @@ public class AjdksInternshipCourseDto {
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
 	}
-	
+
 }

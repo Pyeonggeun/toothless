@@ -36,7 +36,7 @@ public class WoojaeExternalController {
 		
 		session.invalidate();
 		
-		return"redirect:../../another/staff/loginPage";
+		return"redirect:../../../another/staff/loginPage";
 	}
 	// 산업체 등록 페이지
 	@RequestMapping("ajdksRegisterCompanyPage")
@@ -76,6 +76,8 @@ public class WoojaeExternalController {
 		
 		woojaeExternalService.registerCompanyInfo(ajdksCompanyInfoDto, externalInfoDto);
 		
-		return"redirect:./ajdksRegistedCompanyPage";
+		return"redirect:./ajdksStaffMainPage";
 	}
+	
+
 }

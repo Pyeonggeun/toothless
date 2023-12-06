@@ -60,7 +60,7 @@
 			<div class="row fw-bold py-2 fs-5" style= "background-color: #133369;">
 				<div class="col text-center text-light">상담신청</div>
 				<div class="col text-center text-light">공지사항</div>
-				<div class="col text-center text-light">자유게시판</div>
+				<div class="col text-center text-light" >자유게시판</div>
 				<div class="col text-center text-light">상담원정보</div>
 				<div class="col text-center text-light">마이페이지</div>
 			<!-- 안쪽 두번째로우 끝-->
@@ -136,7 +136,7 @@
 			<div class="row"> 
 				<div class="col-2">빈공간 </div> 
 				<div class="col-8">페이징 예정 공간</div> 
-				<div class="col-2 "> <a class="btn  text-white text-center fw-bold" role="button"  href="./createFreeboardPostsPage" style="background-color:#133369;">글 작성 하기</a> </div> 
+				<div class="col-2 text-end"> <a class="btn  text-white text-center fw-bold" role="button"  href="./createFreeboardPostsPage" style="background-color:#133369;">글 작성 하기</a> </div> 
 			</div>
 	
 	

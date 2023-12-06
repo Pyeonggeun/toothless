@@ -8,6 +8,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.e.dto.CounselorTypeDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 import com.mkfactory.toothless.e.onlinecounsel.mapper.OnlineCounselSqlMapper;
@@ -18,6 +20,23 @@ public class OnlineCounselService {
 	@Autowired
 	private OnlineCounselSqlMapper onlineCounselSqlMapper;
 	
+	
+	//		****	공용		****
+	
+	public List<TypeCategoryDto> getAllCategory() {
+		
+		
+		return onlineCounselSqlMapper.takeAllCategory();
+		
+	}
+	
+	
+	
+	
+	
+	//		**		학생 관련 		**
+	
+	//		**	상담 등록 **
 	public void writeOnlineCounsel(OnlineCounselBoardDto onlineCounselBoardDto) {
 		
 		onlineCounselSqlMapper.insertOnlineCounsel(onlineCounselBoardDto);
@@ -25,12 +44,7 @@ public class OnlineCounselService {
 	}
 	
 	
-	public List<TypeCategoryDto> getAllCategory() {
-		
-		
-		return onlineCounselSqlMapper.takeAllCategory();
-
-	}
+	
 	
 	
 	public List<Map<String, Object>> getAllCounselListByStudentPk(int studentPk){
@@ -67,6 +81,13 @@ public class OnlineCounselService {
 		
 	}
 	
+	
+	//		**	상담원 관련	**
 
+
+
+	
+	
+	
 	
 }

@@ -17,14 +17,15 @@ public class HuyeoungInternshipController {
 
 	@Autowired
 	private HuyeoungInternshipServiceImpl huyeoungInternshipServiceImpl;
-	
-	
+
 	// 현장실습관리목록조회
 	@RequestMapping("ajdksInternshipList")
 	public String ajdksInternshipList(Model model, AjdksInternshipCourseDto param) {
 
-		System.out.println("1차 여긴호출");
 		List<Map<String, Object>> list = huyeoungInternshipServiceImpl.selectInternshipAll(param);
+		
+		System.out.println("List 사이즈["+list.size()+"]");
+		
 		model.addAttribute("list", list);
 		return "/tl_c/huyeong/staff/ajdksInternshipList";
 	}

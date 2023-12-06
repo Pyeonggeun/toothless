@@ -42,7 +42,11 @@
 	<!-- 현장실습 일괄조회 쿼리-->
 	<select id="selectInternshipAll" 
 		resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
-		SELECT * FROM tl_c_internship_course
+		SELECT a.*
+		     , b.company_name
+		  FROM tl_c_internship_course a
+		     , tl_c_company_info b
+		 WHERE a.company_pk = b.company_pk 
 	</select>
 
 	<!-- 현장실습등록 회사아이디 조회-->	

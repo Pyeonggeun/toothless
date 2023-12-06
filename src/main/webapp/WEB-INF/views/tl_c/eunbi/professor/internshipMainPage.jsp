@@ -93,10 +93,10 @@
 														<c:when test="${internshipCourse.internshipCourseDto.applying_start_date < now && internshipCourse.internshipCourseDto.applying_end_date > now}">
 															<span class="badge rounded-pill text-bg-success">모집중</span>
 														</c:when>
-														<c:when test="${internshipCourse.internshipCourseDto.applying_end_date < now && internshipCourse.internshipCourseDto.announcement_date >= now}">
+														<c:when test="${internshipCourse.internshipCourseDto.applying_end_date < now && internshipCourse.internshipCourseDto.announcement_date > now}">
 															<span class="badge rounded-pill text-bg-warning">결과발표 대기중</span>
 														</c:when>
-														<c:when test="${internshipCourse.internshipCourseDto.announcement_date < now && internshipCourse.internshipCourseDto.internship_start_date > now}">
+														<c:when test="${internshipCourse.internshipCourseDto.announcement_date <= now && internshipCourse.internshipCourseDto.internship_start_date > now}">
 															<span class="badge rounded-pill text-bg-info">결과발표 완료</span>
 														</c:when>
 														<c:when test="${internshipCourse.internshipCourseDto.internship_start_date < now && internshipCourse.internshipCourseDto.internship_end_date > now}">

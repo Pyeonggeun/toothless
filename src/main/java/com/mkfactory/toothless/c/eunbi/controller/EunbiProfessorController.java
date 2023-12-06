@@ -43,12 +43,12 @@ public class EunbiProfessorController {
 	}
 	
 	@RequestMapping("viewInternshipCourseDetailPage")
-	public String viewInternshipCourseDetailPage(HttpSession session, Model model) {
+	public String viewInternshipCourseDetailPage(HttpSession session, Model model, int internship_course_pk) {
 		
 		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
 		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
 		
-		
+		model.addAttribute("internshipCourseDetail", professorServiece.viewInternshipCourseDetail(internship_course_pk));
 		
 		return "tl_c/eunbi/professor/viewInternshipCourseDetailPage";
 		

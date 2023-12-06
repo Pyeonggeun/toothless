@@ -36,8 +36,15 @@ public class BuildingServieImpl {
 		return buildingSqlMapper.dormBuildings();
 	}
 	
+	//새로 리스트 만들어서 int값 가져오기 pk. 
+	
+	
 	public List<DormCategoryDto> dormCategoryList(){
 		return buildingSqlMapper.dormCategory();
+	}
+	
+	public List<DormRoomDto> dormRoomList(){
+		return buildingSqlMapper.selectRooms();
 	}
 	
 	public void insertRegisterCategory(DormCategoryDto dormCateogory, List<DormCategoryDto> categoryList) {
@@ -56,27 +63,72 @@ public class BuildingServieImpl {
 		
 	}
 	
-//	public List<Map<String, Object>> printDormList(){
-//		List<Map<String, Object>> bList= new ArrayList<>();
+	public List<Map<String, Object>> dormList(){
+		List<Map<String, Object>> forDorm = new ArrayList<>();
+		
+		List<DormRoomDto> roomsDto = buildingSqlMapper.selectRooms();
+		
+		for(DormRoomDto rDto:roomsDto) {
+			
+			int dormPkk = rDto.getDorm_pk();
+			DormBuildingDto buildingDto = buildingSqlMapper.dormBuildinChoice(dormPkk);
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			map.put("roomsDto", rDto);
+			map.put("buildingDto", buildingDto);
+			//map.put("dormPk", dormPk);
+			
+			forDorm.add(map);
+		}
+		return forDorm;
+	}
+	
+	public List<Map<String, Object>> roomList(){
+		List<Map<String, Object>> roomL = new ArrayList<>();
+		
+		List<DormRoomDto> dormRoomDto = buildingSqlMapper.selectRooms();
+		
+		for(DormRoomDto rooms : dormRoomDto) {
+			int amountPk = rooms.getDorm_amount_pk();
+			DormCategoryDto categoryDto = buildingSqlMapper.selectDormCategoryPk(amountPk);
+			
+			int dormPk = rooms.getDorm_pk();
+			DormBuildingDto dormBuildingDto = buildingSqlMapper.dormBuildinChoice(dormPk);
+			
+			Map<String, Object> roomMap = new HashMap<>();
+			
+			roomMap.put("dormRoomDto", rooms);
+			roomMap.put("categoryDto", categoryDto);
+			roomMap.put("dormBuildingDto", dormBuildingDto);
+			
+			roomL.add(roomMap);
+		}
+		
+		return roomL;
+	}
+	
+//	public Map<String, Object> roomMaps(int pk){
+//		Map<String, Object> justRoomMap = new HashMap<>();
+//				
+//		DormCategoryDto categoryDto = buildingSqlMapper.selectDormCategoryPk(pk);
+//		int categoryPk = categoryDto.getDorm_amount_pk();
+//		DormRoomDto roomDto = buildingSqlMapper.selectRoomByPk(categoryPk);
 //		
-//		List<DormBuildingDto> dormL = buildingSqlMapper.dormBuildings();
+//		justRoomMap.put("roomDto", roomDto);
+//		justRoomMap.put("categoryDto", categoryDto);
 //		
-//		for(DormBuildingDto db : dormL) {
-//			int dormPk = db.getDorm_pk();
-//			db.setDorm_pk(dormPk);
-//			
-//			Map<String, Object> dMap = new HashMap<>();
-//			dMap.put("db", db);
-//			
-//			bList.add(dMap);
-//		}
-//		return bList;
+//		return justRoomMap;
 //	}
 	
 	public void deleteForDormInfoProcess(int dorm_pk) {
 		
 		buildingSqlMapper.deleteForDormInfo(dorm_pk);
 		
+	}
+	
+	public void deleteForRoomProcess(int room_pk) {
+		buildingSqlMapper.deleteRoom(room_pk);
 	}
 	
 	

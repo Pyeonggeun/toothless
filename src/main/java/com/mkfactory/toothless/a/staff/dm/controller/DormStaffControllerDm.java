@@ -75,6 +75,15 @@ public class DormStaffControllerDm {
 		return "redirect:./dm_roomAssignmentY";
 	}
 	
+	@RequestMapping("assignmentDeleteProcessS")
+	public String assignmentDeleteProcessS(int dorm_student_pk) {
+		
+		dormStaffServiceDm.assignmentDeleteByDormStudentPk(dorm_student_pk);
+		
+		return "redirect:./dm_roomAssignment";
+	}
+	
+	
 	@RequestMapping("assignmentAddProcess")
 	public String assignmentAddProcess() {
 		

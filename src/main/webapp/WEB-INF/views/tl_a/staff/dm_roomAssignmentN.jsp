@@ -94,7 +94,7 @@
 								<td>
                                     <select id="1" name="dorm" class="form-select">
                                         <!-- 동 리스트 반복문 -->
-                                        <option></option>
+                                        <option>A동</option>
                                         <option>B동</option>
                                     </select>
                                 </td><!-- 여기도 반복문-->
@@ -103,11 +103,6 @@
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
-                                    </select>
-                                    <select class="form-select">
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
                                     </select>
                                 </td>
 								<td><h6 class="btn btn-primary">&nbsp;&nbsp;&nbsp;배정&nbsp;&nbsp;&nbsp;</h6></td>

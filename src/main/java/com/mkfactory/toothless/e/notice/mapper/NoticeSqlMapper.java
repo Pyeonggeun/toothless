@@ -5,6 +5,7 @@ import java.util.List;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.NoticeBoardDto;
+import com.mkfactory.toothless.e.dto.NoticeBoardLikeDto;
 import com.mkfactory.toothless.e.dto.NoticeCommentDto;
 import com.mkfactory.toothless.e.dto.NoticeImageDto;
 
@@ -36,4 +37,10 @@ public interface NoticeSqlMapper {
 	public StudentInfoDto selectStudentInfoByStudent_Pk(int student_pk);
 	// 공지사항 댓글 삭제
 	public void deleteNoticeComment(int id);
+	// 공지사항 추천 여부
+	public int noticeLikeCheck(NoticeBoardLikeDto noticeBoardLikeDto);
+	public int noticeUpThumbCheck(NoticeBoardLikeDto noticeBoardLikeDto);
+	public int noticeDownThumbCheck(NoticeBoardLikeDto noticeBoardLikeDto);
+	// 공지사항 추천 추가
+	public void insertThumb(NoticeBoardLikeDto noticeBoardLikeDto);
 }

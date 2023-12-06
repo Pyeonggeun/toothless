@@ -69,6 +69,15 @@
                         		</a>	
 							</div>
                         </div>
+                        <div class="row ps-5 ms-1">
+                        	<div class="col">
+							    <a href="./sj_manageRoomInfo"  style="text-decoration: none;" class="text-black">
+	                        	<button type="button" class="btn text-start">
+	                        		호실별 이미지 정보
+								</button>
+                        		</a>	
+							</div>
+                        </div>
                     </div>
                   </div>
                 </div>

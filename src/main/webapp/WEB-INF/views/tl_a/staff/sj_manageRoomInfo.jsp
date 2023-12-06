@@ -37,21 +37,83 @@
 			<!-- 카테고리 -->
 			<div class="row mt-2">
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
+					
 					<ul class="nav nav-tabs">
-					  <li class="nav-item">
-					    <a class="nav-link active text-black" href="#">&nbsp; A동 &nbsp;</a>
+					<li class="nav-item ta">
+					    <a class="nav-link active text-black" href="./sj_manageRoomInfo">전체보기</a>
 					  </li>
-					  <li class="nav-item">
-					    <a class="nav-link text-black" href="#">&nbsp; B동 &nbsp;</a>
+					<c:forEach items="${dormBuilding }" var="dorm">
+					  <li class="nav-item ">
+					    <a class="nav-link text-secondary" href="./sj_manageRoomInfoReadPage?dorm_pk=${dorm.dorm_pk }">${dorm.name }</a>
 					  </li>
+					  </c:forEach>
+					  
 					</ul>
 				</div>
 			</div>
 			
-			<!-- 세부내용 시작 -->			
+			<!-- 세부내용 시작 -->
 			<div class="row">
+				<div class="col text-center fs-5 fw-bold my-4">
+					전체 호실 정보
+				</div>
+			</div>			
+			<div class="row border rounded p-3">
 				<div class="col">
-					너의 꿈을 펼치는 곳			
+					<div class="row text-center fw-bold my-3 fs-5">
+						<div class="col">
+							동
+						</div>
+						<div class="col">
+							층
+						</div>
+						<div class="col">
+							호실
+						</div>
+						<div class="col">
+							정원
+						</div>
+						<div class="col">
+							성별
+						</div>
+						<div class="col">수정</div>
+						<div class="col">삭제</div>
+					</div>
+					
+					<c:forEach items="${rooms}" var="roomMap">
+					    <div class="row text-center">
+					        <div class="col my-2">
+					        	<input type="hidden" value=${roomMap.dormRoomDto.dorm_room_pk }>
+					            <div class="row">
+					            	<div class="col">
+					                    ${roomMap.dormBuildingDto.name }
+					                </div>
+					                <div class="col">
+					                    ${roomMap.dormRoomDto.dorm_floor } 층
+					                </div>
+					                <div class="col">
+					                    ${roomMap.dormRoomDto.room_name }
+					                </div>
+					                <div class="col">
+					                    ${roomMap.categoryDto.dorm_amount }인실
+					                </div>
+					                <div class="col">
+					                    ${roomMap.dormRoomDto.gender }
+					                </div>
+					                <div class="col">
+					                    <a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+					                        수정
+					                    </a>
+					                </div>
+					                <div class="col">
+					                    <a href="./deleteForRoomProcess?dorm_room_pk=${roomMap.dormRoomDto.dorm_room_pk }" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+					                        삭제
+					                    </a>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					</c:forEach>
 				</div>
 			</div>
 			
