@@ -17,7 +17,6 @@ public class AjdksInternshipCourseDto {
 	public Date internship_end_date;
 	public Date announcement_date;
 	public Date created_at;
-	public String company_name;
 
 	public AjdksInternshipCourseDto() {
 		super();
@@ -147,11 +146,4 @@ public class AjdksInternshipCourseDto {
 		this.created_at = created_at;
 	}
 
-	public String getCompany_name() {
-		return company_name;
-	}
-
-	public void setCompany_name(String company_name) {
-		this.company_name = company_name;
-	}
 }
