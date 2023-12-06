@@ -125,45 +125,85 @@
 				
 				<!-- 제목 -->
 				<div class="row border-top border-3 border-black py-3 mt-4 "> 
+				
+					<div class="col-2">
+						<i class="bi bi-list"></i> ${pickpostMap.freeboardPost.id}
+					</div>
+				
 					<div class="col text-center fs-3 ">
 					 	${pickpostMap.freeboardPost.title}
 					</div> 
-				</div>
+					
+					
+						<div class="col-2 text-end">
+							<c:if test="${pickpostMap.freeboardPost.student_pk == sessionStudentInfo.student_pk}">
+								<a class="btn btn-sm text-white" role="button"  href="./updateFreeboardPostPage?id=${pickpostMap.freeboardPost.id}" style="background-color: #133369;">글 수정</a>
+								<a class="btn btn-sm btn-outline-warning" role="button" href="./deleteFreeboardPostProcess?id=${pickpostMap.freeboardPost.id}" >글 삭제</a>
+							</c:if>
+						</div>
+					</div>
+					
+				
 				<!-- 글쓴이 -->
 				<div class="row border border-start-0 border-end-0 border-2 border-black "> 
 					<div class="col-2 fs-5 text-center">
-					 	<i class="bi bi-pen-fill"></i> ${pickpostMap.studentInfo.name}
+					 	<i class="bi bi-person-vcard"></i> ${pickpostMap.studentInfo.name}
 					</div> 
 					
 					<div class="col"></div>
 					 
 					<div class="col-4 fs-5">
-					 	<i class="bi bi-person-vcard"></i>${pickpostMap.freeboardPost.read_count}
+					 	<i class="bi bi-eye"></i>${pickpostMap.freeboardPost.read_count}
 					 	<i class="bi bi-clock"></i> ${pickpostMap.freeboardPost.created_at}
 					</div> 
-					
-					
-					
 				</div>
 				
 			<!--내용을 제외한 주요 정보들 끝-->	
 				</div>	
 			</div>
+			
+			<!-- 글 내용 -->
+			<div class="row py-3">
+				${pickpostMap.freeboardPost.text }
+			</div>
+			
+			<div class="row text-center py-1">
+				<div class="col"></div>
+				<div class="col"></div> 
+			</div>
+			
+			<!-- 글수정 삭제 글목록 돌아가기 버튼 -->
+			<div class="row py-2 border-top border-secondary">
+				
+				<div class="col-1 border border-secondary rounded text-center"> 공감 추가 예정</div>
+				
+				<div class="col"></div>
+				
+				<div class="col-2 text-end">
+					<a role="button" class="btn text-white" style="background-color: #133369;" type="button" href="./freeboardCounselPage"> 글 목록 </a>
+				</div>
+				
+			
+			<!-- 글수정 삭제 글목록 돌아가기 버튼 끝 -->	
+			</div>
+			
+			<div class="row text-center">
+				향후 댓글 추가 예정
+			</div>
+			
+			<div class="row">
+			
+			</div>
+			
 				
 				
 				
 				
 		
 				
-					내용 <br>
-					${pickpostMap.freeboardPost.text }<br> 
-					<br>
-					<a href="./freeboardCounselPage">글 목록으로 돌아가기</a>
-					
-					<c:if test="${pickpostMap.freeboardPost.student_pk == sessionStudentInfo.student_pk}">
-						<a href="./updateFreeboardPostPage?id=${pickpostMap.freeboardPost.id}">현재 글 수정하기</a>
-						<a href="./deleteFreeboardPostProcess?id=${pickpostMap.freeboardPost.id}">현재 글 삭제하기</a>
-					</c:if>
+		
+				
+				
 				</div> 
 			</div>
 			
