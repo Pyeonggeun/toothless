@@ -34,6 +34,30 @@
 	                                    <button type="button" onclick="location.href='./deleteTextProcess?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">삭제</button>
 	                                    <button type="button" onclick="location.href='./modifyTextPage?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">수정</button>
 									</c:if>
+									<br>
+									<h3>댓글</h3>
+									<table>
+                                    	<c:forEach items="${replyList}" var="map">
+	                                    	<tr>
+                                                <td>${map.staffboardReplyDto.content}</td>
+	                                    		<td>${map.staffInfo.name}</td>
+                                                <td>
+                                                    <c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == map.staffboardReplyDto.staff_pk}">
+                                                        <button type="button" onclick="location.href='./deleteReplyProcess?staffboard_reply_pk=${map.staffboardReplyDto.staffboard_reply_pk}&staffboard_pk=${map.staffboardReplyDto.staffboard_pk}&staff_pk=${sessionStaffInfo.staff_pk}'">삭제</button>
+                                                    </c:if>
+                                                </td>
+	                                    		<td>${map.staffboardReplyDto.created_at}</td>
+	                                    	</tr>
+                                    	</c:forEach>
+                                    </table>
+									<c:if test="${!empty sessionStaffInfo}">
+									<form action="./writeReplyProcess?staffboard_pk=${readText.staffboardDto.staffboard_pk}" method="post">
+									댓글자 ${sessionStaffInfo.name}
+									<br>
+									<textarea name="content" rows='3' cols='60'></textarea>
+									<input type="submit" value="댓글등록">
+									</form>
+									</c:if>
                                 </div>
                             </div>
                         </div>
