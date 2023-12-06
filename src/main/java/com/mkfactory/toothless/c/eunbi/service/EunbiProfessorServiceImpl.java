@@ -113,6 +113,54 @@ public class EunbiProfessorServiceImpl {
 		return chargedInternshipInfo;
 	}
 	
+	public Map<String, Object> viewInternshipCourseDetail(int internshipCoursePk) {
+		
+		Map<String, Object> internshipCourseDetail = new HashMap<>();
+		
+		AjdksInternshipCourseDto internshipCourseDto = externalSqlMapper.getInternshipCourseDetail(internshipCoursePk);
+		int companyPk = internshipCourseDto.getCompany_pk();
+		int departmentPk = internshipCourseDto.getDepartment_pk();
+		
+		// 지원학생 infoList
+		List<Map<String, Object>> applyingStudentInfoList = new ArrayList<>();
+		List<AjdksStudentApplyingDto> studentApplyingList = studentSqlMapper.getApplyingListByCoursePk(internshipCoursePk);
+		
+		for(AjdksStudentApplyingDto studentApplyingDto : studentApplyingList) {
+			int studentPk = studentApplyingDto.getStudent_pk();
+			
+			StudentInfoDto studentInfoDto = studentSqlMapper.getStudentInfoByStudentPk(studentPk);
+			int studentDepartmentPk = studentInfoDto.getDepartment_pk();
+			int studentProfessorPk = studentInfoDto.getProfessor_pk();
+			
+			Map<String, Object> studentInfo = new HashMap<>();
+			
+			studentInfo.put("studentInfoDto", studentInfoDto);
+			studentInfo.put("studentApplyingDto", studentApplyingDto);
+			studentInfo.put("studentDepartment", studentSqlMapper.getDepartmentByDepartmentPk(studentDepartmentPk));
+			studentInfo.put("studentProfessorInfo", professorSqlMapper.getProfessorInfo(studentProfessorPk));
+			studentInfo.put("countSemester", studentSqlMapper.countSemester(studentPk));
+			
+			applyingStudentInfoList.add(studentInfo);
+		}
+		
+		
+		internshipCourseDetail.put("internshipCourseDto", internshipCourseDto);
+		internshipCourseDetail.put("companyInfoDto", externalSqlMapper.getCompanyInfo(companyPk));
+		internshipCourseDetail.put("departmentDto", studentSqlMapper.getDepartmentByDepartmentPk(departmentPk));
+		internshipCourseDetail.put("countInternBycoursePk", studentSqlMapper.countInternBycoursePk(internshipCoursePk));
+		internshipCourseDetail.put("applyingStudentInfoList", applyingStudentInfoList);
+		internshipCourseDetail.put("countStudentIntern", studentSqlMapper.countInternBycoursePk(internshipCoursePk));
+		
+		
+		if(studentSqlMapper.getStudentInternByCoursePk(internshipCoursePk) != null) {
+			internshipCourseDetail.put("studentInternList", studentSqlMapper.getStudentInternByCoursePk(internshipCoursePk));
+		}else if(studentSqlMapper.getStudentInternByCoursePk(internshipCoursePk) == null) {
+			internshipCourseDetail.put("studentInternList", "null");
+		}
+		
+		
+		return internshipCourseDetail;
+	}
 	
 	
 	

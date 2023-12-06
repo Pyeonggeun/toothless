@@ -41,8 +41,11 @@
 		GROUP BY internship_course_pk
 	</select>
 
-
-
+	<!-- 학생의 담당교수 출력 -->
+	<select id="getProfessorInfo" resultType="com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto">
+		SELECT * FROM TL_JIC_PROFESSOR_INFO
+		WHERE professor_pk = #{professor_pk}
+	</select>
 
 
 

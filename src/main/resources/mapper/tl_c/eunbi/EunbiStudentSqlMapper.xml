@@ -75,6 +75,31 @@
 		WHERE internship_course_pk = #{internship_course_pk}
 	</select>
 
+	<!-- 과정Pk로 신청 학생 조회 -->
+	<select id="getApplyingListByCoursePk" resultType="com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto">
+		SELECT * FROM tl_c_student_applying
+		WHERE internship_course_pk = #{internship_course_pk}
+		ORDER BY student_pk ASC
+	</select>
+	
+	<!-- 학생키로 학생 info 불러오기 -->
+	<select id="getStudentInfoByStudentPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO
+		WHERE student_pk = #{student_pk}
+	</select>
+	
+	<!-- 해당 학생의 학기 계산 -->
+	<select id="countSemester" resultType="int">
+		SELECT COUNT(*)-1 FROM TL_JIC_STUDENT_SEMESTER
+		WHERE student_pk = #{student_pk}
+	</select>
+
+
+
+
+
+
+
 
 
 
