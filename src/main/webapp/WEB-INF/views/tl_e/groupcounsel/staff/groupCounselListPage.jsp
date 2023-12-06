@@ -1,164 +1,151 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-	<title>집단 상담 현황</title>
+<meta charset="UTF-8">
+<title>집단 상담 목록</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
 
+<div class="container-fluid">
 
-	<div class="container-fluid">
-		
-		<!-- 상단 메뉴 -->
-		<div class="row border-bottom">
-			<!-- 좌측 여백 -->
-			<div class="col-1"></div>
-			<div class="col-2 py-4">
-				<div class="fw-bold" style="font-size: 1.3em;"><img class="img-fluid" style="width: 50px; height: 50px" src="../../../resources/img/groupCounsel/logo_black.png"> Mk University</div>
-			</div>
-			<div class="col"></div>
-			<!-- 우측 여백 -->
-			<div class="col-1"></div>
+	<div class="row pt-2 pb-3 border-bottom border-dark-subtle">
+		<div class="col-2 pt-3">
+			<div class="fw-bold" style="font-size: 1.5em;"><img class="img-fluid" style="width: 60px; height: 60px; color:blue;" src="../../../resources/img/groupCounsel/logo_black.png"> Mk University</div>
 		</div>
-		
-		
-		<div class="row border-bottom" style="background-color: #C0C0C0">
-			
-			<!-- 좌측 여백 -->
-			<div class="col-1"></div>
-			
-			<!-- 나중에 카테고리 형식으로 디자인 -->
-			<div class="col-2">
-				<div class="row" style="height: 100%;">
-					<div class="col-1"></div>
-					<div class="col">
-						<div class="row" style="height: 30%;"></div>
-						<div class="row" style="height: 70%;">
-							<div class="col" style="background-color: MediumBlue; opacity: 0.6;">
-								<div class="fw-bold text-white pt-4 ps-2" style="font-size: 1.5em;">집단 상담</div>
-							</div>
+		<div class="col">
+			<div class="row">
+				<div class="col"></div>
+				<div class="col-2">
+					<div class="row" style="height: 1.4em;"></div>
+					<div class="row">
+						<div class="col-6 pt-2 text-center">
+							<div class="fw-bold" style="font-size: 1.2em;">[${sessionStudentInfo.name}]님</div>
 						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-			</div>
-			
-			<!-- 집단상담/상담 등록, 이미지 -->
-			<div class="col-4 pt-5 pb-4">
-				<div class="row">
-					<div class="col">
-						<div class="row pb-4"></div>
-						<div class="row py-2">
-							<div class="col">
-								<div class="fw-bold" style="font-size: 1.9em;">상담 등록</div>						
-							</div>
-						</div>
-						<div class="row pb-0 mb-0">
-							<div class="col">
-								<div class="text-secondary" style="font-size: 0.8"><i class="bi bi-house-door-fill"></i> / 집단 상담 / 상담 등록</div>
-							</div>
+						<div class="col-6 pt-1	">
+							<i class="bi bi-box-arrow-right" style="font-size:1.6em;"></i>						
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- 이미지?? 가능하면 -->
-			<div class="col py-0">
-				<img class="img-fluid" style="opacity: 0.5; width: 80%; height: 200px;" src="../../../resources/img/groupCounsel/groupCounselLogo.png">
-			</div>
-		
-			<!-- 우측 여백 -->
-			<div class="col-1"></div>
-		</div>
-		
-	
-	
-		<!-- 상담 등록 화면 -->		
-		<form action="./groupCounselRegisterProcess" method="post" enctype="multipart/form-data">
-		
-		<div class="row mt-0">
-			<!-- 왼쪽 여백 -->
-			<div class="col-1"></div>
-			<!-- 카테고리 -->
-			<div class="col-2">
-				<div class="row">
-					<div class="col-1"></div>
-					<div class="col">
-						<div class="row" style="background-color: MediumBlue; opacity: 0.6;">
-							<div class="col-1"></div>
-							<div class="col py-4 border-bottom border-white">
-								<div class="text-white" style="font-size: 1.1em;">상담 등록</div>
-							</div>
-							<div class="col-1"></div>
-						</div>
-						<div class="row" style="background-color: MediumBlue; opacity: 0.6;">
-							<div class="col-1"></div>
-							<div class="col py-4">
-								<div class="text-white" style="font-size: 1.1em;">등록 현황</div>
-							</div>
-							<div class="col-1"></div>
-						</div>					
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<div class="row"></div>
-			</div>
-			
-			<div class="col">
-				<div class="row mt-5">
-					<div class="col-1"></div>
-					<div class="col">
-						<table width="100%">
-							<tr class="mb-3">
-								<th style="border-bottom:solid 1px #000;border-collapse:collapse; padding-bottom:20px;"><div class="text-body-secondary" style="font-size: 0.7em;">제목</div></th>
-								<th style="border-bottom:solid 1px #000;border-collapse:collapse; padding-bottom:20px;"><div class="text-body-secondary" style="font-size: 0.7em;">인원</div></th>
-								<th style="border-bottom:solid 1px #000;border-collapse:collapse; padding-bottom:20px;"><div class="text-body-secondary" style="font-size: 0.7em;">상담일자</div></th>
-								<th style="border-bottom:solid 1px #000;border-collapse:collapse; padding-bottom:20px;"><div class="text-body-secondary" style="font-size: 0.7em;">신청일자</div></th>
-							</tr>
-							<c:forEach items="${groupCounselList}" var="list">
-							<tr>
-								<td style="width: 160px; border-bottom:solid 1px #000;border-collapse:collapse; padding-bottom:25px; padding-top:25px;"><div class="text-body-secondary" style="font-size: 0.7em;"><a href="./groupCounselDetailPage?id=${list.id}">${list.title}</a></div></td>
-								<td style="width: 40px; border-bottom:solid 1px #000;border-collapse:collapse; padding-bottom:25px; padding-top:25px;"><div class="text-body-secondary" style="font-size: 0.7em;">${list.amount}</div></td>
-								<td style="width: 30px; border-bottom:solid 1px #000;border-collapse:collapse; padding-bottom:25px; padding-top:25px;"><div class="text-body-secondary" style="font-size: 0.7em;"><fmt:formatDate value="${list.counsel_date}" pattern="yy.MM.dd"/></div></td>
-								<td style="width: 60px; border-bottom:solid 1px #000;border-collapse:collapse; padding-bottom:25px; padding-top:25px;"><div class="text-body-secondary" style="font-size: 0.7em;"><fmt:formatDate value="${list.start_apply_date}" pattern="yy.MM.dd"/>~<fmt:formatDate value="${list.end_apply_date}" pattern="yy.MM.dd"/></div></td>
-							</tr>										
-							</c:forEach>
-						</table>
-					</div>	
-					<div class="col-2"></div>				
-				</div>
-			</div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			<div class="col-1"></div>
-		</div>
-		
-		</form>
-		
-	
+		</div>	
 	</div>
 	
+	
+	
+	<div class="row mb-0 pb-0">
+		<div class="col-2 border-end border-dark-subtle"></div>
+		<div class="col ps-0 ms-0 pt-4 pb-5 mb-3">
+			<div class="row pt-5"></div>
+			<div class="row ms-0 ps-0">
+				<div class="col ms-0 ps-3 pt-5" style="background-color:#07355e; opacity: 0.8;">
+					<div class="fw-bold" style="font-size: 3.5em; color:white;">집단 상담</div>
+				</div>
+				<div class="col-9"></div>
+			</div>
+			<div class="row ms-0 ps-0">
+				<div class="col ms-0 ps-3 pt-2 pb-2" style="background-color:#07355e; opacity: 0.8;">
+					<div class="fw-bold" style="font-size: 0.8em; color:white;">&nbsp;&nbsp;<i class="bi bi-house-door-fill"></i> / 집단 상담 / 상담 관리</div>
+				</div>
+				<div class="col-9"></div>
+			</div>
+			<div class="row pb-4"></div>
+		</div>	
+	</div>
+	
+	
+	
+	<div class="row my-0">
+		<div class="col-2 my-0 py-5 border-end border-dark-subtle"></div>
+		<div class="col"></div>
+	</div>
+	
+	
+	<div class="row mt-0 pt-0">
+		<div class="col-2 border-end border-dark-subtle"></div>
+			
+		<div class="col">
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col">
+				
+					<div class="row py-3 border-top border-bottom border-2 border-black">
+						<div class="col-3">
+							<div class="fw-bold text-center" style="font-size:1.1em;">상담 제목</div>
+						</div>
+						<div class="col-2">
+							<div class="fw-bold text-center" style="font-size:1.1em;">신청 인원</div>
+						</div>
+						<div class="col-2">
+							<div class="fw-bold text-center" style="font-size:1.1em;">장소</div>
+						</div>						
+						<div class="col-2">
+							<div class="fw-bold text-center" style="font-size:1.1em;">상담 일자</div>	
+						</div>
+						<div class="col-2">
+							<div class="fw-bold text-center" style="font-size:1.1em;">신청 기간</div>
+						</div>
+						<div class="col-1">
+							<div class="fw-bold text-center" style="font-size:1.1em;">상담 관리</div>
+						</div>
+					</div>
+				
+					<div class="row py-3 border-bottom border-1">
+						<div class="col-3">
+							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">금연 상담 프로그램</div>
+						</div>
+						<div class="col-2">
+							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">16/20</div>
+						</div>
+						<div class="col-2">
+							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">강남역 2번 출구</div>
+						</div>						
+						<div class="col-2">
+							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">2023.03.02</div>	
+						</div>
+						<div class="col-2">
+							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">2023.03.02~2023.03.02</div>
+						</div>
+						<div class="col-1">
+							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">상담 관리</div>
+						</div>
+					</div>				
+				
+				
+				
+				</div>
+				<div class="col-1"></div>
+			</div>
+			
+			
+			
+		</div>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="row" style="height:10em;"></div>
+</div>
 
 
 
 
 
-
-
-
-
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

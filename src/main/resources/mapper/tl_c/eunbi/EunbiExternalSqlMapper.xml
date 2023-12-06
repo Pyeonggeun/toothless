@@ -24,7 +24,10 @@
 		WHERE company_pk = #{company_pk}
 	</select>
 
-
+	<select id="getInternshipCourseDetail" resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
+		SELECT * FROM tl_c_internship_course
+		WHERE internship_course_pk = #{internship_course_pk}
+	</select>
 
 
 

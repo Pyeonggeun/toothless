@@ -40,11 +40,20 @@
 		WHERE si.internship_course_pk = #{internship_course_pk}
 		GROUP BY internship_course_pk
 	</select>
+	
+	<!-- 실습생 개개인 평가 했는지 안했는지 -->
+	<select id="didEvaluateIntern" resultType="int">
+		SELECT COUNT(*) FROM tl_c_professor_evaluation
+		WHERE student_intern_pk = #{student_intern_pk}
+	</select>
 
+	<!-- 학생의 담당교수 출력 -->
+	<select id="getProfessorInfo" resultType="com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto">
+		SELECT * FROM TL_JIC_PROFESSOR_INFO
+		WHERE professor_pk = #{professor_pk}
+	</select>
 
-
-
-
+	
 
 
 

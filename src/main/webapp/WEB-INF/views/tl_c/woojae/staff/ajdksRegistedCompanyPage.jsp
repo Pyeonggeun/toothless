@@ -150,45 +150,6 @@
 </html>
 
 <%--
-	
-		<div class="col ms-5">
-		<div class="container">
-			<div class="row mt-5">
-				<div class="col fw-bold text-center">
-					산업체 조회 내역
-				</div>
-			</div>
-			<div class="row mt-5">
-				<div class="col fw-bold text-center">
-					<table class="table table-bordered border-primary">
-						<thead>
-						    <tr>
-						      <th scope="col">#</th>
-						      <th scope="col">업체명</th>
-						      <th scope="col">대표명</th>
-						      <th scope="col">주소</th>
-						      <th scope="col">전화번호</th>
-						    </tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${list}" var="registedCompanyList">
-							  	<tr>
-							  		<td>#</td>
-							  		<td>${registedCompanyList.company_name}</td>
-							  		<td>${registedCompanyList.ceo_name}</td>
-									<td>${registedCompanyList.address}</td>
-									<td>${registedCompanyList.phone}</td>
-							  	</tr>
-							</c:forEach>
-
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	
 	<c:if test="${!empty sessionStaffInfo}">
 	
 	</c:if>

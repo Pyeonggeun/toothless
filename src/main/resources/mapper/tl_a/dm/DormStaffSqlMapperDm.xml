@@ -60,5 +60,11 @@
 	
 	</select>
 	
+	<select id="">
+	
+		SELECT * FROM 
+	
+	</select>
+	
 	
 </mapper>

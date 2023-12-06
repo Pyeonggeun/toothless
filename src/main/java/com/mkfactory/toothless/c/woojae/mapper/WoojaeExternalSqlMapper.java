@@ -26,4 +26,5 @@ public interface WoojaeExternalSqlMapper {
 	
 	//카테고리별 산업체 리스트
 	public List<AjdksCompanyInfoDto> selectCompanyListByCategoryPk(int company_category_pk);
+	
 }

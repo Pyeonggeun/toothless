@@ -39,5 +39,43 @@
 		UPDATE TL_B_STAFFBOARD SET title = #{title}, content = #{content} WHERE staffboard_pk = #{staffboard_pk}
 	</update>
 	
+	<insert id="insertWriteReply">
+		INSERT INTO TL_B_STAFFBOARD_REPLY values(
+			TL_B_STAFFBOARD_REPLY_seq.nextval,
+			#{staff_pk},
+			#{staffboard_pk},
+			#{content},
+			sysdate
+		)	
+	</insert>
+	
+	<select id="selectContentReplyInfo" resultType="com.mkfactory.toothless.b.dto.StaffboardReplyDto">
+		SELECT * FROM TL_B_STAFFBOARD_REPLY WHERE STAFFBOARD_PK = #{staffboard_pk} ORDER BY STAFFBOARD_REPLY_PK DESC
+	</select>
+	
+	<delete id="deleteReply">
+		DELETE FROM TL_B_STAFFBOARD_REPLY WHERE staff_pk= #{staff_pk} and STAFFBOARD_REPLY_PK = #{staffboard_reply_pk}
+	</delete>
+	
+	<update id="updateReply">
+		UPDATE TL_B_STAFFBOARD_REPLY SET content = #{content} WHERE STAFFBOARD_REPLY_PK = #{staffboard_reply_pk}
+	</update>
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
