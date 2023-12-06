@@ -44,7 +44,7 @@
 					  </li>
 					<c:forEach items="${dormBuilding }" var="dorm">
 					  <li class="nav-item ">
-					    <a class="nav-link text-secondary" href="./sj_manageRoomInfoReadPage?dorm_pk=${dorm.dorm_pk }">${dorm.name }</a>
+					    <a class="nav-link active text-black" href="./sj_manageRoomInfoReadPage?dorm_pk=${dorm.dorm_pk }">${dorm.name }</a>
 					  </li>
 					  </c:forEach>
 					  

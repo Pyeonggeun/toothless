@@ -40,11 +40,11 @@
 					
 					<ul class="nav nav-tabs">
 					<li class="nav-item ta">
-					    <a class="nav-link active text-black" href="./sj_manageRoomInfo">전체보기</a>
+					    <a class="nav-link text-secondary" href="./sj_manageRoomInfo">전체보기</a>
 					  </li>
 					<c:forEach items="${dormBuilding }" var="dorm">
 					  <li class="nav-item ">
-					    <a class="nav-link text-secondary" href="./sj_manageRoomInfoReadPage?dorm_pk=${dorm.dorm_pk }">${dorm.name }</a>
+					    <a class="nav-link text-black" href="./sj_manageRoomInfoReadPage2?dorm_pk=${dorm.dorm_pk }">${dorm.name }</a>
 					  </li>
 					  </c:forEach>
 					  
@@ -54,10 +54,10 @@
 			
 			<!-- 세부내용 시작 -->
 			<div class="row">
-				<div class="col text-center fs-5 fw-bold my-4">
-					전체 호실 정보
+				<div class="col text-center fw-bold fs-5 my-3">
+					A동
 				</div>
-			</div>			
+			</div>
 			<div class="row border rounded p-3">
 				<div class="col">
 					<div class="row text-center fw-bold my-3 fs-5">
@@ -80,10 +80,13 @@
 						<div class="col">삭제</div>
 					</div>
 					
+					<!-- 메모 : 숫자로도 비교할수잇댕..! 안해봣다..! ㅇ0ㅇ) 문자열도 된대 대박
+					${roomMap.dormRoomDto.dorm_pk == 1}  -->
 					<c:forEach items="${rooms}" var="roomMap">
+					<c:if test="${roomMap.dormRoomDto.dorm_pk == forDorm.}">
 					    <div class="row text-center">
 					        <div class="col my-2">
-					        	<input type="hidden" value=${roomMap.dormRoomDto.dorm_room_pk }>
+					        	<%--<input type="hidden" value=${roomMap.dormRoomDto.dorm_room_pk }> --%>
 					            <div class="row">
 					            	<div class="col">
 					                    ${roomMap.dormBuildingDto.name }
@@ -113,7 +116,9 @@
 					            </div>
 					        </div>
 					    </div>
+					    </c:if>
 					</c:forEach>
+					
 				</div>
 			</div>
 			
