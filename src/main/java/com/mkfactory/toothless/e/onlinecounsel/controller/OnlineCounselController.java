@@ -46,6 +46,13 @@ public class OnlineCounselController {
 	
 	
 	
+	@RequestMapping("counselorOnlineCounselMainPage")
+	public String counselorOnlineCounselMainPage() {
+		
+		
+		return "tl_e/onlineCounsel/counselorOnlineCounselMainPage";
+	}
+	
 	
 	
 	
