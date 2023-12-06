@@ -23,6 +23,9 @@ public class HuyeoungInternshipController {
 	public String ajdksInternshipList(Model model, AjdksInternshipCourseDto param) {
 
 		List<Map<String, Object>> list = huyeoungInternshipServiceImpl.selectInternshipAll(param);
+		
+		System.out.println("List 사이즈["+list.size()+"]");
+		
 		model.addAttribute("list", list);
 		return "/tl_c/huyeong/staff/ajdksInternshipList";
 	}

@@ -42,6 +42,10 @@ public class HuyeoungInternshipServiceImpl {
 		for (AjdksInternshipCourseDto aDto : AjdksInternshipArray) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("AjdksInternshipCourseDto", aDto);
+			
+			System.out.println("company_pk ["+aDto.company_pk+"]");
+			System.out.println("course_title ["+aDto.course_title+"]");
+			list.add(map);
 		}
 		return list;
 	}

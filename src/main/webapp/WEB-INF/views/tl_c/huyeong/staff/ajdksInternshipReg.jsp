@@ -38,12 +38,18 @@ body {
 	font-size: small;
 }
 
+.jb-medium { font-size: medium; }
+
 .labelcolor {
 	color: white;
 	background: #2B3D77;
 }
 
 .fontcolor {
+	color: $blue-800;
+}
+
+.fontcolor2 {
 	color: #2B3D77;
 }
 
@@ -115,10 +121,9 @@ body {
 							<div class="col">
 
 								<!-- 상단 텍스트 -->
-								<h3 class="jb-700 fontcolor">
+								<h3 class="jb-700 fontcolor2">
 									<i class="bi bi-box-arrow-in-down-right "></i> 관리자 현장실습 등록
 								</h3>
-
 
 							</div>
 						</div>
@@ -129,19 +134,19 @@ body {
 				<form class="row g-3">
 
 					<!-- 고도화 진행 시 담당자 이름 삽입 -->
-					<div class="col-12">
+					<!--<div class="col-12">
 						<label class="visually-hidden" for="inlineFormInputGroupUsername"></label>
 						<div class="input-group">
 							<div class="input-group-text jb-700">담당자 입력</div>
 							<input type="text" class="form-control"
 								id="inlineFormInputGroupUsername"
-								placeholder="담당자 명의를 작성해주시기 바랍니다.">
+								placeholder="담당자 명의를 작성해주시기 바랍니다. 아직 글 넣으면 안 되므로 유의하기.">
 						</div>
-					</div>
+					</div>-->
 
 					<div class="col-md-7">
 						<label for="inputCity" class="form-label jb-700"> 글 제목 </label> <input
-							name="course_title" type="text" class="form-control"
+							name="course_title" type="text" class="form-control" style="font-size: 0.9em;"
 							id="inputCity" placeholder="50자 내외의 글 제목을 작성해주시기 바랍니다.">
 					</div>
 
@@ -173,7 +178,7 @@ body {
 					<label for="exampleFormControlTextarea1" class="form-label jb-700">글
 						내용</label>
 					<textarea class="form-control" id="exampleFormControlTextarea1"
-						rows="7"
+						rows="7" style="font-size: 0.9em;"
 						placeholder="공고 모집사항 및 자격 조건을 작성해주시기 바랍니다. 아직 글 넣으면 안 되므로 유의하기."></textarea>
 				</div>
 
@@ -181,52 +186,51 @@ body {
 
 					<table class="table">
 
-						<thead class="table table-sm">
+						<thead class="table table-sm ">
 							<tr>
-								<th scope="col"><i class="bi bi-calendar-check"></i> 필수 날짜
+								<th scope="col"><i class="bi bi-check-circle-fill"></i> 필수 날짜
 									입력 항목</th>
-								<th scope="col"></th>
+								<th scope="col"><i class="bi bi-calendar3"></i> 날짜 입력 </th>
 
 							</tr>
 						</thead>
 
 
 						<!-- 기능 고도화 시 사용될 항목 -->
-						<tbody class="table table-sm">
+						<tbody class="table table-sm align-middle">
 							<tr>
-								<td scope="row">- 등록일자</td>
-								<td scope="row">
-									<input name="created_at" type="date"
-									class="form-control" id="form-control"> <label
-									class="fontcolor jb-small">오늘 날짜를 정확히 입력해주세요.</label></td>
+								<td scope="row" style="font-size: 0.9em;">- 등록일자</td>
+								<td scope="row"><input name="created_at" type="date"
+									class="form-control" id="form-control" style="font-size: 0.9em;"> <label
+									class="jb-small text-secondary">오늘 날짜를 정확히 입력해주세요.</label></td>
 							</tr>
 							<tr>
-								<td scope="row">- 모집기간시작</td>
+								<td scope="row" style="font-size: 0.9em;">- 모집기간시작</td>
 								<td scope="row"><input name="applying_start_date"
-									type="date" class="form-control" id="inputCity"></td>
+									type="date" class="form-control" id="inputCity" style="font-size: 0.9em;"></td>
 							</tr>
 							<tr>
-								<td scope="row">- 모집기간종료</td>
+								<td scope="row" style="font-size: 0.9em;">- 모집기간종료</td>
 								<td scope="row"><input name="applying_end_date" type="date"
-									class="form-control" id="inputCity"></td>
+									class="form-control" id="inputCity" style="font-size: 0.9em;"></td>
 
 							</tr>
 							<tr>
-								<td scope="row">- 실습기간시작</td>
+								<td scope="row" style="font-size: 0.9em;">- 실습기간시작</td>
 								<td scope="row"><input name="internship_start_date"
-									type="date" class="form-control" id="inputCity"></td>
+									type="date" class="form-control" id="inputCity" style="font-size: 0.9em;"></td>
 
 							</tr>
 							<tr>
-								<td scope="row">- 실습기간종료</td>
+								<td scope="row" style="font-size: 0.9em;">- 실습기간종료</td>
 								<td scope="row"><input name="internship_end_date"
-									type="date" class="form-control" id="inputCity"></td>
+									type="date" class="form-control" id="inputCity" style="font-size: 0.9em;"></td>
 
 							</tr>
 							<tr>
-								<td scope="row">- 선발결과발표일</td>
+								<td scope="row" style="font-size: 0.9em;">- 선발결과발표일</td>
 								<td scope="row"><input name="announcement_date" type="date"
-									class="form-control" id="inputCity"></td>
+									class="form-control" id="inputCity" style="font-size: 0.9em;"></td>
 
 							</tr>
 
@@ -244,7 +248,7 @@ body {
 				</div>
 
 
-				<!-- 하단 -->
+				<!-- 하단 버튼 -->
 				<div class="col-12 d-flex justify-content-end">
 
 					<form class="row row-cols-lg-auto g-3 align-items-center">
@@ -260,11 +264,31 @@ body {
 						</div>
 
 						<!-- 고도화 진행시 사용 -->
-
+						
 						<div class="col">
-							<a href="" class="btn labelcolor"> <i
-								class="bi bi-file-earmark-arrow-down"></i> 임시저장
+						<a href="" type="button" class="btn labelcolor" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							  <i
+								class="bi bi-file-earmark-arrow-down"></i> 임시저장 
 							</a>
+							
+							<!-- Modal test -->
+							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel"> 현장실습 안내 페이지 저장 완료</h1>
+							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							      </div>
+							      <div class="modal-body jb-small">
+							        임시 저장이 완료되었습니다. 연속 저장할 경우 기존 임시 저장 내역으로부터 덮어 씌워지므로 유의해주시기 바랍니다.
+							      </div>
+							      <div class="modal-footer">
+							        <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</a>
+							        <a href="" type="button" class="btn labelcolor">저장 완료</a>
+							      </div>
+							    </div>
+							  </div>
+							</div>
 						</div>
 
 					</form>
