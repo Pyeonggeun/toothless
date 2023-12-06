@@ -40,10 +40,10 @@
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 					  <li class="nav-item">
-					    <a class="nav-link active text-black" href="./mj_readApplyDormInfoPage">신청 현황</a>
+					    <a class="nav-link text-black" href="./mj_readApplyDormInfoPage">신청 현황</a>
 					  </li>
 					  <li class="nav-item">
-					    <a class="nav-link text-black" href="./mj_readSelectedDormStudentPage">선발 현황</a>
+					    <a class="nav-link active text-black" href="./mj_readSelectedDormStudentPage">선발 현황</a>
 					  </li>
 					</ul>
 				</div>
@@ -158,7 +158,7 @@
 					<!-- 상품목록 -->
 					<div class="row mt-4 py-3 justify-content-between">
 						<div class="col-6">
-							검색결과 (총 ${countApplyList }개)
+							검색결과 (총 ${countDormSelectedList }개)
 							<button type="button" class="ms-5 px-3 border-secondary-subtle rounded-0 px-0 fw-bold btn btn-sm btn-light">
 		           				<i class="bi bi-download"></i>
 		           				신청 목록 다운로드
@@ -187,7 +187,7 @@
 					      <th scope="col" class="text-bg-light">선발여부</th>
 					    </tr>
 					  </thead>
-					  <c:forEach items="${applyList }" var="item">
+					  <c:forEach items="${dormSelectedList }" var="item">
 					  <tbody>
 					    <tr>
 					      <td class="p-0 pt-1 text-center">
@@ -206,13 +206,20 @@
 						  <td>${item.studentInfo.student_id }</td>
 						  <td>${item.departmentInfo.name }</td>
 						  <td>${item.studentInfo.address }</td>
-						  <td>${item.applyInfo.priority_select}</td>
+						  <td>${item.selectedDto.priority_select}</td>
 						  <td>
 						  	<c:choose>
-						  		<c:when test="${item.applyInfo.selection_status == 'N'}">
-						  			<a href="./mj_selectDormStudentProcess?selection_status=Y&dorm_application_pk=${item.applyInfo.dorm_application_pk}" class="text-black d-grid mx-2" style="text-decoration: none;">
-							      		<button type="button" class="fw-bold rounded-0 btn btn-primary btn-sm mb-1">선발하기</button>
-							      	</a>
+						  		<c:when test="${item.selectedDto.selection_status == 'Y'}">
+						  			<c:if test="${item.selectedDto.payment_status == 'N'}">
+						  				<a href="./mj_selectDormStudentProcess?selection_status=N&dorm_application_pk=${item.selectedDto.dorm_application_pk}" class="text-black d-grid mx-2" style="text-decoration: none;">
+							      		<button type="button" class="fw-bold rounded-0 btn btn-danger btn-sm mb-1">선발취소</button>
+							      		</a>
+						  			</c:if>
+						  			<c:if test="${item.selectedDto.payment_status == 'Y'}">
+						  				<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
+							      		<button disabled type="button" class="fw-bold rounded-0 btn btn-secondary btn-sm mb-1">취소불가</button>
+							      		</a>
+						  			</c:if>
 						  		</c:when>
 						  		<c:otherwise>
 						  			<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
