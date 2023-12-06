@@ -22,7 +22,7 @@
 		<div class="row">
 			<div class="col-1"></div>
 			<!-- 취업팀 메뉴 바 -->
-			<div class="col-1 me-5 border-right mt-4 pb-0">
+			<div class="col-2 border-end pb-0">
 				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 			</div>
 			
@@ -30,32 +30,25 @@
 				<div class="row">
 					<div class="col-1"></div>
 					<div class="col">
-						<div class="row mb-2 mt-4 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">기업 관리</div>
-						<div class="row">
-							<table class="table m-2">
-							  <thead>
-							    <tr>
-							      <th scope="col" class="col-1  text-center">기업번호</th>
-							      <th scope="col" class="col text-center">기업명</th>
-							      <th scope="col" class="col-3 text-center">담당자명</th>
-							      <th scope="col" class="col-2 text-center">가족기업 여부</th>
-							    </tr>
-							  </thead>
-							  <tbody class="table-group-divider">
-							  	<c:forEach items="${companyList}" var="list">
-								  	<tr>
-									     <th scope="col" class="col-1 text-center pt-3">${list.companyDto.com_pk}</th>
-									     <td><a class="btn ms-4" href="./companyViewDetailsPage?companyPK=${list.companyDto.com_pk}">${list.companyDto.com_name}</a></td>
-									     <td class="text-center pt-3">${list.companyManagerDto.com_manager_name}</td>
-									     <td class="text-center pt-3">${list.companyDto.is_family_company}</td>
-								   </tr>
-							  	</c:forEach> 
-							   
-							  </tbody>
-							</table>
+						<div class="row mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">기업 관리</div>
+						<div class="row border-bottom border-2 border-black pb-3 mb-3 mt-5">
+							      <div class="col-1 text-center fw-bold">기업번호</div>
+							      <div class="col text-center fw-bold">기업명</div>
+							      <div class="col-3 text-center fw-bold">담당자명</div>
+							      <div class="col-2 text-center fw-bold">가족기업 여부</div>
 						</div>
+						
+						<c:forEach items="${companyList}" var="list">
+							<div class="row border-bottom border-bs-border pb-3 mb-3">
+								<div class="col-1 text-center fw-bold pt-1">${list.companyDto.com_pk}</div>
+								<div class="col"><a class="btn ms-4" href="./companyViewDetailsPage?companyPK=${list.companyDto.com_pk}">${list.companyDto.com_name}</a></div>
+								<div class="col-3 text-center pt-1">${list.companyManagerDto.com_manager_name}</div>
+								<div class="col-3 text-center pt-1">${list.companyDto.is_family_company}</div>
+							</div>
+						</c:forEach> 
+						
 					</div>
-					<div class="col-1"></div>
+					<div class="col-2"></div>
 				</div>
 			</div>
 		</div>
