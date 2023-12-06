@@ -41,20 +41,20 @@
 				<!-- 사업자번호 -->
 				<div class="row mt-3">
 					<div class="col">
-						<input class="form-control form-control-sm border-black" name="business_number" type="text" placeholder="000-00-00000">
+						<input class="form-control form-control-sm border-black" name="business_number" type="text" placeholder="사업자번호 000-00-00000">
 					</div>
 				</div>
 				<!-- 채용분야 -->
 				<div class="row mt-3">
 					<div class="col">
-						<select class="form-select form-control form-control-sm border-dark" name="job_field_category_pk">
+						<select class="form-select py-0 border-dark" name="job_field_category_pk">
 							<option selected>채용분야</option>
 						    <c:forEach items="${jobFieldCategory}" var="jobField">
 						        <option value="${jobField.job_field_category_pk}">${jobField.job_field_category_name}</option>
 						    </c:forEach>
 						</select>
 					</div>
-					<div class="col-5"></div>
+					<div class="col-7"></div>
 				</div>
 				<!-- 구인직무 -->
 				<div class="row mt-3">
@@ -99,16 +99,21 @@
 				<div class="row mt-2">
 					<div class="col">
 						<div class="row">
-							<div class="col-11">
-								<input class="form-control border-black" name="hire_number" type="text">
+							<div class="col-9 pe-0">
+								<input class="form-control form-control-sm border-black" name="hire_number" type="text">
 							</div>
-							<div class="col">명</div>
+							<div class="col pt-1">명</div>
 						</div>
 					</div>
 					<div class="col-8"></div>
 				</div>
 				<!-- 채용마감일 -->
-				<div class="row mt-4">
+				<div class="row mt-3">
+					<div class="col fw-bold">
+						채용마감일
+					</div>
+				</div>
+				<div class="row mt-2">
 					<div class="col">
 						<input class="form-control form-control-sm border-black" name="posting_deadline" type="date">
 					</div>

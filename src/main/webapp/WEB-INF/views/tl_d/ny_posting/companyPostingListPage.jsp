@@ -70,16 +70,14 @@
 							<a class="text-dark navbar-brand" href="./jobPostingDetailPage?id=${companyPosting.jobPostingDto.job_posting_pk}">
 								<span class="text-secondary">#&nbsp;${companyPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${companyPosting.jobPostingDto.job_position}
 								#&nbsp;${companyPosting.companyDto.com_address} #&nbsp;<fmt:formatDate value="${companyPosting.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
-								<c:forEach items="${companyPosting.postingDeadlineList}" var="deadline">
-									<c:if test="${deadline == companyPosting.jobPostingDto.job_posting_pk}">
+								<c:choose>
+									<c:when test="${companyPosting.postingDeadlineList.contains(companyPosting.jobPostingDto.job_posting_pk)}">
 										<span class="badge text-bg-danger">마감임박!</span>
-									</c:if>
-								</c:forEach>
-								<c:forEach items="${companyPosting.endPostingList}" var="endPosting">
-									<c:if test="${endPosting == companyPosting.jobPostingDto.job_posting_pk}">
+									</c:when>
+									<c:when test="${companyPosting.endPostingList.contains(companyPosting.jobPostingDto.job_posting_pk)}">
 										<span class="badge text-bg-secondary">채용마감</span>
-									</c:if>
-								</c:forEach>
+									</c:when>
+								</c:choose>
 							</a>
 						</div>
 						<div class="col me-3 text-end">

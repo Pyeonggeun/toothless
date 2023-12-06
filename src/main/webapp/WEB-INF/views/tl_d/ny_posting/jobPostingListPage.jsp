@@ -55,7 +55,7 @@
 						<div class="col-7 ps-0 pt-1">
 							<!-- 링크 더 좋은 방법 생각해보기 -->
 							<a class="navbar-brand" href="./jobPostingDetailPage?id=${jobPosting.jobPostingDto.job_posting_pk}">
-									${jobPosting.jobPostingDto.posting_name}
+								${jobPosting.jobPostingDto.posting_name}
 							</a>
 						</div>
 					</div>
@@ -71,16 +71,14 @@
 							<a class="navbar-brand" href="./jobPostingDetailPage?id=${jobPosting.jobPostingDto.job_posting_pk}">
 							<span class="text-secondary">#&nbsp;${jobPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${jobPosting.jobPostingDto.job_position}
 							#&nbsp;${jobPosting.companyDto.com_address} #&nbsp;<fmt:formatDate value="${jobPosting.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
-							<c:forEach items="${jobPosting.postingDeadlineList}" var="deadline">
-								<c:if test="${deadline == jobPosting.jobPostingDto.job_posting_pk}"> 
+							<c:choose>
+								<c:when test="${jobPosting.postingDeadlineList.contains(jobPosting.jobPostingDto.job_posting_pk)}">
 									<span class="badge text-bg-danger">마감임박!</span>
-								</c:if>
-							</c:forEach>
-							<c:forEach items="${jobPosting.endPostingList}" var="endPosting">
-								<c:if test="${endPosting == jobPosting.jobPostingDto.job_posting_pk}">
+								</c:when>
+								<c:when test="${jobPosting.endPostingList.contains(jobPosting.jobPostingDto.job_posting_pk)}">
 									<span class="badge text-bg-secondary">채용마감</span>
-								</c:if>
-							</c:forEach>
+								</c:when>
+							</c:choose>
 							</a>
 						</div>
 						<div class="col me-3 text-end">

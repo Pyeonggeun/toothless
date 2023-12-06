@@ -6,11 +6,17 @@ import java.util.Map;
 import com.mkfactory.toothless.d.dto.ComScaleCategoryDto;
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.CompanyManagerDto;
+import com.mkfactory.toothless.d.dto.InterestPostingDto;
 import com.mkfactory.toothless.d.dto.JobFieldCategoryDto;
 import com.mkfactory.toothless.d.dto.JobPostingDto;
 
 public interface PostingSqlMapper {
+	
+	// 교직원
 
+	// 채용공고 시퀀스
+	public int createJobPostingPk();
+	
 	// 채용공고 등록용 분야 카테고리 출력
 	public List<JobFieldCategoryDto> selectJobFieldCategoryList();
 	
@@ -65,4 +71,21 @@ public interface PostingSqlMapper {
 	// 채용공고 수정
 	public void updateJobPostingInfo(JobPostingDto jobPostingDto);
 	
+	
+	// 기업
+	
+	// 기업 + 외부인
+	public CompanyDto selectByExternalPk(int external_pk);
+	
+	// 공고찜 추가
+	public void insertInterestPosting(InterestPostingDto interestPostingDto);
+	
+	// 공고찜 삭제
+	public void deleteInterestPosting(InterestPostingDto interestPostingDto);
+	
+	// 공고찜 했던가..?
+	public int selectMyPostingInterestCount(InterestPostingDto interestPostingDto);
+	
+	// 총 공고찜
+	public int selectAllInterestPosting(int job_posting_pk);
 }

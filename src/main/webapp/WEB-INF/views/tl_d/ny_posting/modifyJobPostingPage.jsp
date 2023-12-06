@@ -43,11 +43,15 @@
 				<!-- 채용분야 -->
 				<div class="row mt-3">
 					<div class="col">
-						<c:forEach items="${jobFieldCategory}" var="jobField">
-							<input name="job_field_category_pk" type="radio" value="${jobField.job_field_category_pk}" 
-								${jobField.job_field_category_pk eq modifyJobPosting.jobFieldCategoryDto.job_field_category_pk ? 'checked' : ''}>&nbsp;${jobField.job_field_category_name}
-						</c:forEach>
+						<select class="form-select py-0 border-dark" name="job_field_category_pk">
+						    <c:forEach items="${jobFieldCategory}" var="jobField">
+						        <option value="${jobField.job_field_category_pk}" ${jobField.job_field_category_pk eq modifyJobPosting.jobFieldCategoryDto.job_field_category_pk ? 'selected' : ''}>
+						            ${jobField.job_field_category_name}
+						        </option>
+						    </c:forEach>
+						</select>
 					</div>
+					<div class="col-9"></div>
 				</div>
 				<!-- 구인직무 -->
 				<div class="row mt-3">
@@ -96,9 +100,14 @@
 				</div>
 				<div class="row mt-2">
 					<div class="col">
-						<input class="form-control border-black" name="hire_number" type="text" value="${modifyJobPosting.jobPostingDto.hire_number}">
+						<div class="row">
+							<div class="col-9 pe-0">
+								<input class="form-control form-control-sm border-black" name="hire_number" type="text" value="${modifyJobPosting.jobPostingDto.hire_number}">
+							</div>
+							<div class="col pt-1">명</div>
+						</div>
 					</div>
-					<div class="col-8"></div>
+					<div class="col-9"></div>
 				</div>
 				<!-- 채용 마감일 -->
 				<div class="row mt-3">

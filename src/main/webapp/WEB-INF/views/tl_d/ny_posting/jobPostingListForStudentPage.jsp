@@ -60,7 +60,17 @@
 							</a>
 						</div>
 						<!-- 별 크기 생각해보기 -->
-						<div class="col-1"><i class="fs-5 text-warning bi bi-star"></i></div>
+						<div class="col-1">
+							<c:choose>
+								<c:when test="${jobPostingForStudent.allPostingInterest == 0}">
+									<i class="text-warning bi bi-star"></i>
+								</c:when>
+								<c:otherwise>
+									<i class="text-warning bi bi-star-fill"></i>
+								</c:otherwise>
+							</c:choose>
+							<span>${jobPostingForStudent.allPostingInterest}</span>	
+						</div>
 					</div>
 					<div class="row mt-1 pb-3 border-bottom">
 						<!-- 가족기업여부 -->
