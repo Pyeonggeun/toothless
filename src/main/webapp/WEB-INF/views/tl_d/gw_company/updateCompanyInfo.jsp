@@ -61,7 +61,7 @@
 								<!-- 기업 규모 입력 -->
 								<div class="row "> 
 									<select class="form-select" name="com_scale_category_pk" >
-									  <option selected>${companyMap.comScaleCategoryDto.com_scale_category_name}</option>
+									  <option selected value="${companyMap.companyDto.com_scale_category_pk}">${companyMap.comScaleCategoryDto.com_scale_category_name}</option>
 									  <c:forEach items="${comScaleList}" var="scale">
 									  	<option value="${scale.com_scale_category_pk}">${scale.com_scale_category_name}</option>
 									  </c:forEach>

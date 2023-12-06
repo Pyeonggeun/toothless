@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.CompanyManagerDto;
 import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
+import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 
 @Controller
@@ -18,6 +19,9 @@ public class CompanyController {
 	
 	@Autowired
 	private CompanyServiceIpml companyService;
+	
+	@Autowired
+	private PostingServiceImpl postingService;
 	
 	// 기업 등록 페이지
 		@RequestMapping("registerCompanyPage")
@@ -49,9 +53,9 @@ public class CompanyController {
 		
 	//기업 상세정보 페이지
 		@RequestMapping("companyViewDetailsPage")
-		public String companyViewDetailsPage(Model model, int companyPK) {
+		public String companyViewDetailsPage(Model model, int com_pk) {
 			
-			Map<String, Object> companyMap=companyService.getCompany(companyPK);
+			Map<String, Object> companyMap=companyService.getCompany(com_pk);
 			
 			model.addAttribute("companyMap",companyMap);
 			
@@ -60,27 +64,27 @@ public class CompanyController {
 		
 	//가족기업으로 변환
 		@RequestMapping("changeFamilyCompanyProcess")
-		public String changeFamilyCompanyProcess(int companyPK) {
+		public String changeFamilyCompanyProcess(int com_pk) {
 			
-			companyService.changeFamilyCompany(companyPK);
+			companyService.changeFamilyCompany(com_pk);
 			
-			return "redirect:./companyViewDetailsPage?companyPK="+companyPK;
+			return "redirect:./companyViewDetailsPage?com_pk="+com_pk;
 		}
 		
 	//가족기업을 일반기업으로 변환
 		@RequestMapping("changeGeneralCompanyProcess")
-		public String changeGeneralCompanyProcess(int companyPK) {
+		public String changeGeneralCompanyProcess(int com_pk) {
 			
-			companyService.changeGeneralCompany(companyPK);
+			companyService.changeGeneralCompany(com_pk);
 			
-			return "redirect:./companyViewDetailsPage?companyPK="+companyPK;
+			return "redirect:./companyViewDetailsPage?com_pk="+com_pk;
 		}
 		
 	//기업, 담당자 정보 수정
 		@RequestMapping("updateCompanyInfo")
-		public String updateCompanyInfo(Model model,int companyPK) {
+		public String updateCompanyInfo(Model model,int com_pk) {
 			
-			model.addAttribute("companyMap",companyService.getCompany(companyPK));
+			model.addAttribute("companyMap",companyService.getCompany(com_pk));
 			model.addAttribute("comScaleList",companyService.getComScaleList());
 			
 			return "/tl_d/gw_company/updateCompanyInfo";
@@ -91,7 +95,7 @@ public class CompanyController {
 			
 			companyService.updateCompanyInfo(companyDto, companyManagerDto);
 			
-			return "redirect:./companyViewDetailsPage?companyPK="+companyDto.getCom_pk();
+			return "redirect:./companyViewDetailsPage?com_pk="+companyDto.getCom_pk();
 			
 		}
 		
@@ -104,4 +108,19 @@ public class CompanyController {
 			return "redirect:./companyManagementPage";
 		}
 
+		
+		//학생이 보는 기업상세정보
+		@RequestMapping("studentViewDetailCompanyPage")
+		public String studentViewDetailCompanyPage(Model model, int com_pk) {
+			
+			model.addAttribute("companyMap",companyService.getCompany(com_pk));
+			model.addAttribute("companyPostingCount", postingService.getCompanyPostingCount(com_pk));
+			model.addAttribute("companyPostingListForStudent", postingService.getCompanyPostingList(com_pk));
+			
+			
+			return "/tl_d/gw_company/studentViewDetailCompanyPage";
+		}
+		
+		//학생의 기업찜!!
+		
 }
