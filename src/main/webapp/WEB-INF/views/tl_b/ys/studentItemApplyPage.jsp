@@ -9,6 +9,21 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <title>Insert title here</title>
+		<script>
+			function formSubmit(){
+				const frm = document.getElementById("frm");
+				const inputReason = document.getElementById("inputReason");
+				
+				if(inputReason.value == ''){
+					alert("대여사유를 입력해주셔야 합니다.");
+					inputReason.focus();
+					return ;
+				}
+				
+				frm.submit();
+			}
+		
+		</script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -34,7 +49,7 @@
 			<div class="col">
 				<div class="row mt-2">
 					<div class="col">
-						<form action="./studentItemApplyProcess" method="get">
+						<form id="frm" action="./studentItemApplyProcess" method="post">
 						<div class="row mt-2 ms-2 me-1 border-1" style="background-color: #DEF4F5; border-style: solid; border-color: #454545;">
 				            <input type="hidden" name="student_pk" value=${sessionStudentInfo.student_pk }>
 				            <input type="hidden" name="item_pk" value=${getItem.item_pk }>
@@ -43,7 +58,7 @@
 				                    <div class="col-2"></div>  
 				                    <div class="col-1 ps-1 pe-0 fw-bold">대여사유</div>
 				                    <div class="col-4 ps-4">
-				                        <input name="reason" type="text">
+				                        <input id="inputReason" name="reason" type="text">
 				                    </div>
 				                    <div class="col-2"></div>
 				                </div>
@@ -63,7 +78,7 @@
 				        <div class="row mt-2">
 						     <div class="col-11"></div>
 						     <div class="col ps-4">
-						         <input type="submit" value="등록">
+						         <input type="button" onclick="formSubmit()" value="등록">
 						     </div>
 						 </div>
 				        </form>

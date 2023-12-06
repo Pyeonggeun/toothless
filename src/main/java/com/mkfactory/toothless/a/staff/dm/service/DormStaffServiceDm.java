@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.mkfactory.toothless.a.dto.DormBuildingDto;
 import com.mkfactory.toothless.a.dto.DormRoomDto;
 import com.mkfactory.toothless.a.dto.DormStudentDto;
+import com.mkfactory.toothless.a.dto.JoinDormApplicationDto;
+import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
 import com.mkfactory.toothless.a.staff.dm.mapper.DormStaffSqlMapperDm;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -109,6 +111,55 @@ public class DormStaffServiceDm {
 		}
 		
 		return list;
+	}
+	
+	public void assignmentDeleteByDormStudentPk(int dorm_student_pk) {
+		
+		dormStaffSqlMapperDm.assignmentDeleteByDormStudentPk(dorm_student_pk);
+		
+	}
+	
+	public List<Map<String, Object>> studentInfoAllList() {
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		List<StudentInfoDto> studentInfoDto = dormStaffSqlMapperDm.studentInfoAllList();
+		
+		for(StudentInfoDto e : studentInfoDto) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			int student_pk = e.getStudent_pk();
+			JoinDormApplicationDto joinDormApplicationDto = dormStaffSqlMapperDm.joinDormAppliByStudentPK(student_pk);
+			DormStudentDto dormStudentDto = dormStaffSqlMapperDm.dormStudentInfoByStudentPk(student_pk);
+			
+			
+			if(joinDormApplicationDto == null) {
+				continue;
+			}
+			
+			if(joinDormApplicationDto.getPayment_status().equals("Y") && joinDormApplicationDto.getSelection_status()
+					.equals("Y")) {
+				
+				if(dormStudentDto == null) {
+					map.put("studentInfoDto", e);
+					map.put("joinDormApplicationDto", joinDormApplicationDto);
+						
+					list.add(map);
+				}
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		return list;
+		
 	}
 	
 	

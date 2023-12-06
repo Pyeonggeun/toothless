@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,27 +36,36 @@ public class BuildingController {
 	
 
 	@RequestMapping("sj_manageDormInfo")
-	public String buildingPage() {
+	public String buildingPage(Model model) {
+		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
+		model.addAttribute("dormAmount", buildingService.dormCategoryList());
+		
 		return "tl_a/staff/sj_manageDormInfo";
 	}
 	
 	@RequestMapping("sj_manageRoomInfo")
-	public String roomInfo() {
+	public String roomInfo(Model model) {
+		
+		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
+		model.addAttribute("dormAmount", buildingService.dormCategoryList());
+		
 		return "tl_a/staff/sj_manageRoomInfo";
 	}
 	
 	@RequestMapping("sj_registerDormInfo")
 	public String dormInfo() {
+		
 		return "tl_a/staff/sj_registerDormInfo";
 	}
 	
 	@RequestMapping("sj_registerRoomInfo")
 	public String registerRoomInfoPage(Model model) {
+		
 		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
 		model.addAttribute("dormAmount", buildingService.dormCategoryList());
 		return "tl_a/staff/sj_registerRoomInfo";
 	}
-	
+
 	
 	@RequestMapping("registerDormProcess")
 	public String registerDormInfoProcess(/*StaffInfoDto params,*/ DormBuildingDto dormbuildingDto, DormRoomDto dormRoomDto,MultipartFile mainImage) {
@@ -168,6 +178,13 @@ public class BuildingController {
 		 System.out.println("dorm_amount_pk: " + roomDto.getDorm_amount_pk());
 		 System.out.println("dorm_pk: " + roomDto.getDorm_pk());
 		return "redirect:./sj_registerRoomInfo";
+	}
+	
+	@RequestMapping("deleteForDormInfoProcess")
+	public String manageDorm(int dorm_pk) {
+		buildingService.deleteForDormInfoProcess(dorm_pk);
+		return "redirect:./sj_manageDormInfo";
+		
 	}
 	
 	
