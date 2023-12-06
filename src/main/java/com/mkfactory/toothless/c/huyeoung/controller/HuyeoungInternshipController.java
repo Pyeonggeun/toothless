@@ -49,6 +49,8 @@ public class HuyeoungInternshipController {
 	// 현장실습관리등록
 	@RequestMapping("ajdksInternshipReg")
 	public String ajdksInternshipReg(Model model, AjdksInternshipCourseDto param) {
+		
+		System.out.println("### param["+param.getCourse_title()+"]");
 
 		huyeoungInternshipServiceImpl.insertInternshipRegister(param);
 

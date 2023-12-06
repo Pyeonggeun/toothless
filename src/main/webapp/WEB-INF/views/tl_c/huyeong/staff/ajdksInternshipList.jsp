@@ -128,7 +128,7 @@ body {
 
 								<!-- 상단 텍스트 -->
 								<h3 class="jb-700 fontcolor2">
-									<i class="bi bi-box-arrow-in-down-right "></i> 현장실습 목록
+									<i class="bi bi-box-arrow-in-down-right "></i> 현장실습 기업목록
 								</h3>
 
 							</div>
@@ -145,11 +145,12 @@ body {
 
 							<div class="card border-black shadow mb-3">
 								<div class="card-body text">
-									<h5 class="card-title fw-bold">${map.AjdksInternshipCourseDto.course_title}</h5>
+									<h5 class="card-title fw-bold"><a href="ajdksInternshipDtl?internship_course_pk=${map.AjdksInternshipCourseDto.internship_course_pk}
+									&company_pk=${map.AjdksInternshipCourseDto.company_pk}&professor_pk=${map.AjdksInternshipCourseDto.professor_pk}&department_pk=${map.AjdksInternshipCourseDto.department_pk}">${map.AjdksInternshipCourseDto.course_title}</a></h5>
 									<p class="card-text"> <!-- 내용 있어야함 --></p>
 								</div>
 								<div class="card-footer labelcolor border">
-									${map.AjdksInternshipCourseDto.company_pk}
+									${map.AjdksInternshipCourseDto.company_name}
 								</div>
 							</div>
 
@@ -158,25 +159,7 @@ body {
 				
 				</form>
 
-
-					<!-- 임시 카드 -->
-						<div class="col-3 m-2">
-
-							<div class="card border-black shadow mb-3">
-								<div class="card-body text">
-									<h5 class="card-title fw-bold">부산광역시 산학연계 현장실습 지원사업</h5>
-									<p class="card-text">부산광역시와 (재)부산테크노파크(TP)는 지자체-기업-대학 간 협력을
-										통해 기업 실무형 인재양성과 우수인재 발굴·채용 등 학생-기업 간 선순환 채용 환경을 조성하고자‘2022년
-										2학기 산학연계 현장실습 지원사업을 시행합니다.</p>
-								</div>
-								<div class="card-footer labelcolor border">부산광역시 산학연계
-									사업원</div>
-							</div>
-
-						</div>
-				
-
-				<!-- 여백용도 -->
+				<!-- 여백 -->
 				<div class="row mt-2 mb-2 ">
 					<div class="col">
 						<div class="row"></div>
@@ -207,7 +190,7 @@ body {
 								class="bi bi-file-earmark-arrow-down"></i> 임시저장
 							</a>
 
-							<!-- Modal test -->
+							<!-- 임시저장 Modal -->
 							<div class="modal fade" id="exampleModal" tabindex="-1"
 								aria-labelledby="exampleModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
