@@ -14,97 +14,152 @@
 
 <div class="container-fluid">
 
-	<div class="row pt-2 pb-2 border-bottom border-dark-subtle">
-		<div class="col-2">
-			<div class="fw-bold" style="font-size: 1.1em;"><img class="img-fluid" style="width: 50px; height: 50px; color:blue;" src="../../../resources/img/groupCounsel/logo_black.png"> Mk University</div>
+	<div class="row pt-2 pb-3 border-bottom border-dark-subtle">
+		<div class="col-2 pt-3">
+			<div class="fw-bold" style="font-size: 1.5em;"><img class="img-fluid" style="width: 60px; height: 60px; color:blue;" src="../../../resources/img/groupCounsel/logo_black.png"> Mk University</div>
 		</div>
 		<div class="col">
 			<div class="row">
 				<div class="col"></div>
 				<div class="col-2">
+					<div class="row" style="height: 1.4em;"></div>
 					<div class="row">
 						<div class="col-6 pt-2 text-center">
-							<div class="fw-bold" style="font-size: 1.0em;">[${sessionStudentInfo.name}]님</div>
+							<div class="fw-bold" style="font-size: 1.2em;">[${sessionStudentInfo.name}]님</div>
 						</div>
 						<div class="col-6 pt-1	">
-							<i class="bi bi-box-arrow-right" style="font-size:1.4em;"></i>						
+							<i class="bi bi-box-arrow-right" style="font-size:1.6em;"></i>						
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>	
 	</div>
+	
+	
+	
 	<div class="row mb-0 pb-0">
 		<div class="col-2 border-end border-dark-subtle"></div>
-		<div class="col ps-5 pt-4 pb-5 mb-3">
-			<div class="row pt-5Zx"></div>
-			<div class="row">
-				<div class="col">
-					<div class="fw-bold" style="font-size: 3.5em;">집단 상담</div>
+		<div class="col ps-0 ms-0 pt-4 pb-5 mb-3">
+			<div class="row pt-5"></div>
+			<div class="row ms-0 ps-0">
+				<div class="col ms-0 ps-3 pt-5" style="background-color:#07355e; opacity: 0.8;">
+					<div class="fw-bold" style="font-size: 3.5em; color:white;">집단 상담</div>
 				</div>
+				<div class="col-9"></div>
 			</div>
-			<div class="row">
-				<div class="col pt-2">
-					<div class="text-secondary fw-bold" style="font-size: 0.8em;">&nbsp;&nbsp;<i class="bi bi-house-door-fill"></i> / 집단 상담 / 상담 신청</div>
+			<div class="row ms-0 ps-0">
+				<div class="col ms-0 ps-3 pt-2 pb-2" style="background-color:#07355e; opacity: 0.8;">
+					<div class="fw-bold" style="font-size: 0.8em; color:white;">&nbsp;&nbsp;<i class="bi bi-house-door-fill"></i> / 집단 상담 / 상담 신청</div>
 				</div>
+				<div class="col-9"></div>
 			</div>
 			<div class="row pb-4"></div>
 		</div>	
 	</div>
+	
+	
+	
+	<div class="row my-0">
+		<div class="col-2 my-0 py-5 border-end border-dark-subtle"></div>
+		<div class="col"></div>
+	</div>
+	
+	
 	<div class="row mt-0 pt-0">
 		<!-- 메뉴바 ?? -->
 		<div class="col-2 border-end border-dark-subtle"></div>
 		<!-- 상담 리스트 -->
 		<div class="col ps-5">
+		
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-8">
+					<div class="row">
+						<div class="col pt-5 mx-0 px-5 border-top border-black"></div>
+					</div>
+				</div>
+				<div class="col-2"></div>
+			</div>
 			
 			<div class="row">
-				<div class="col-5">
-					<img class="img-fluid" style="width: 100%;" src="/uploadFiles/${groupCounselDto.posterImage }">
-				</div>
+				<div class="col-2"></div>
 				<div class="col-5">
 					<div class="row">
-						<div class="col-1"></div>
+						
 						<div class="col">
 							<div class="row">
 								<div class="col">
 									<div class="fw-bold" style="font-size: 1.4em;">[<fmt:formatDate value="${groupCounselDto.start_apply_date }" pattern="yy.MM.dd"/>] ${groupCounselDto.title}</div>
 								</div>
 							</div>
-							<div class="row pt-2">
-								<div class="col">
+							<div class="row pt-3">
+								<div class="col" style="height:3.5em;">
 									<div class="text-secondary fw-bold" style="font-size: 0.9em;">${groupCounselDto.text}</div>
 								</div>
 							</div>
-							<div class="row py-5">
+							<div class="row py-5"></div>
 							<div class="row pt-3">
+								<div class="col-3">
+									<div class="fw-bold text-black" style="font-size:1.2em; text-decoration: underline;">신청 인원</div>
+								</div>
 								<div class="col">
-									<div class="fw-bold" style="1.1em;">신청인원 : ${groupCounselDto.amount }</div>
+									<div class="fw-bold text-secondary" style="font-size:1.1em;">${groupCounselDto.amount }</div>
 								</div>
 							</div>
 							<div class="row pt-3">
+								<div class="col-3">
+									<div class="fw-bold text-black" style="font-size:1.2em; text-decoration: underline;">신청 일자</div>
+								</div>
 								<div class="col">
-									<div class="fw-bold" style="1.1em;">신청 일자 : <fmt:formatDate value="${groupCounselDto.start_apply_date }" pattern="yy.MM.dd"/>~<fmt:formatDate value="${groupCounselDto.end_apply_date }" pattern="yy.MM.dd"/></div>
+									<div class="fw-bold text-secondary" style="font-size:1.1em;"><fmt:formatDate value="${groupCounselDto.start_apply_date }" pattern="yy.MM.dd"/>~<fmt:formatDate value="${groupCounselDto.end_apply_date }" pattern="yy.MM.dd"/></div>
 								</div>
 							</div>
-							<div class="row">
+							<div class="row pt-3">
+								<div class="col-2">
+									<div class="fw-bold text-black" style="font-size:1.2em; text-decoration: underline;"> 장소</div>
+								</div>
+								<div class="col-1"></div>
 								<div class="col">
-									<div><fmt:formatDate value="${groupCounselDto.counsel_date }" pattern="yy.MM.dd"/></div>
+									<div class="fw-bold text-secondary" style="font-size:1.1em;">${groupCounselDto.location }</div>
+								</div>
+								<div class="col-2 text-end">
+									<input class="btn btn-secondary" type="button" value="신청" onClick="location.href='./groupCounselReservationProcess?group_counsel_id=${groupCounselDto.id }&student_pk=${sessionStudentInfo.student_pk}'">
 								</div>
 							</div>
-							<div class="row"></div>
+							<div class="row pt-5">
+								<div class="col-10"></div>
+								<div class="col text-center">
+								</div>
+							</div>
 						</div>
+						<div class="col-1"></div>
 					</div>
+				</div>
+				<div class="col-3 text-end">
+					<img class="img-fluid" style="width: 80%;" src="/uploadFiles/${groupCounselDto.posterImage }">
 				</div>
 				<div class="col-2"></div>
 			</div>
 			
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-8">
+					<div class="row">
+						<div class="col pt-3 mx-0 px-5 border-bottom border-black"></div>
+						<div class="col-4 mx-0 px-0"></div>
+					</div>
+				</div>
+				<div class="col-2"></div>
+			</div>			
+			
 		</div>
-		<div class="col-1"></div>	
 	</div>
 	
+	
+	
+	
 	<div class="row" style="height:10em;"></div>
-	
-	
 </div>
 
 

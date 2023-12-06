@@ -35,7 +35,7 @@
 				    <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="../onlineCounsel/onlineCounselMainPage">온라인 상담신청</a></li>
                         <li><a class="dropdown-item" href="../offlineCounsel/selectCounselorPage">오프라인 상담신청</a></li>
-                        <li><a class="dropdown-item" href="#">집단 상담신청</a></li>
+                        <li><a class="dropdown-item" href="../groupcounsel/student/groupCounselListPage">집단 상담신청</a></li>
                     </ul>
 				  </li>
 				</ul>
