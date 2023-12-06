@@ -45,12 +45,22 @@ public class GuntaekStudentController {
 		// 이력서 불러오기 사용되는 쿼리 스트링 이용하여 얻어오는 DTO
 		AjdksSelfIntroductionDto studentIntroductionDto = guntaekStudentService.getselfIntroductionDto(ajdksSelfIntroductionDto.getStudent_pk());
 		
+		
+		
+		List<AjdksSelfIntroductionDto> ajdksSelfIntroductionDtoList = guntaekStudentService.getSelfIntroductionDtoList();
+		
+		
+		model.addAttribute("ajdksSelfIntroductionDtoList",ajdksSelfIntroductionDtoList);
+		
+		
 		// 자격증 기능 스타트
 		
 		// 로그인한 학생키를 이용하여 그 로그인 한 학생이 작성한 자격증 DTO 리스트 가져오기 
 		List<AjdksCertificationDto> certificationList = 
 		guntaekStudentService.getCertificationByStudentPk(loginUser.getStudent_pk());
 
+		
+		
 		
 		
 		
@@ -65,7 +75,7 @@ public class GuntaekStudentController {
 		model.addAttribute("studentIntroductionDto", studentIntroductionDto);
 		
 		
-		// 자격증 model 전달
+		//  자격증 model 전달
 		
 		model.addAttribute("certificationList", certificationList);
 		
