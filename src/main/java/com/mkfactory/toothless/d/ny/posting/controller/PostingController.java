@@ -115,9 +115,108 @@ public class PostingController {
 	// 기업별 채용공고 리스트 페이지
 	@RequestMapping("companyPostingListPage")
 	public String companyPostingListPage(Model model, int com_pk) {
-		// model.addAttribute("companyPostingCount", postingService.getCompanyPostingCount(com_pk));
+		model.addAttribute("companyPostingCount", postingService.getCompanyPostingCount(com_pk));
+		model.addAttribute("companyPostingList", postingService.getCompanyPostingList(com_pk));
 		return "/tl_d/ny_posting/companyPostingListPage";
 	}	
+	// 공고 상세 페이지
+	@RequestMapping("jobPostingDetailPage")
+	public String jobPostingDetailPage(Model model, int id) {
+		model.addAttribute("jobPostingDetail", postingService.getJobPostingDetail(id));
+		return "/tl_d/ny_posting/jobPostingDetailPage";
+	}
 	
-
+	// 채용공고 삭제
+	@RequestMapping("removeJobPostingProcess")
+	public String removeJobPostingProcess(int id) {
+		postingService.removeJobPosting(id);
+		return "redirect:./jobPostingListPage";
+	}
+	@RequestMapping("removeJobPostingProcessForCompany")
+	public String removeJobPostingProcessForCompany(int id) {
+		postingService.removeJobPosting(id);
+		return "redirect:./companyPostingListPage";
+	}
+	
+	// 채용공고 수정
+	@RequestMapping("modifyJobPostingPage")
+	public String modifyJobPostingPage(Model model, int id) {
+		
+		model.addAttribute("modifyJobPosting", postingService.getJobPostingDetail(id));
+		model.addAttribute("jobFieldCategory", postingService.getJobFieldCategoryList());
+		
+		
+		
+		return "/tl_d/ny_posting/modifyJobPostingPage";
+	}
+	@RequestMapping("modifyJobPostingProcess")
+	public String modifyJobPostingProcess(HttpSession session, JobPostingDto params, MultipartFile modifyimage) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+		
+		if(modifyimage != null && !modifyimage.isEmpty()) {
+			
+			String imageRootPath = "C:/uploadMainFile/";
+			String imageTodayPath = sdf.format(new Date());
+			
+			File todayFolderForCreate = new File(imageRootPath + imageTodayPath);
+			
+			if(!todayFolderForCreate.exists()) {
+				todayFolderForCreate.mkdirs();
+			}
+			
+			String originalFileName = modifyimage.getOriginalFilename();
+			String uuid = UUID.randomUUID().toString();
+			long currentTime = System.currentTimeMillis();
+			
+			String fileName = uuid + "_" + currentTime;
+			
+			String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+			fileName += ext;
+			
+			try {
+				modifyimage.transferTo(new File(imageRootPath + imageTodayPath + fileName));
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			params.setPosting_mainimage(imageTodayPath + fileName);
+					
+		}
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(staffInfoDto != null) {
+			int staffPk = staffInfoDto.getStaff_pk();
+			params.setStaff_pk(staffPk);
+		}
+		postingService.modifyJobPosting(params);
+		
+		return "redirect:./jobPostingDetailPage?id=" + params.getJob_posting_pk();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	// 학생용 채용공고 리스트
+	@RequestMapping("jobPostingListForStudentPage")
+	public String jobPostingListForStudentPage(Model model) {
+		model.addAttribute("jopPostingForStudent", postingService.getPostingListForStudent());
+		model.addAttribute("postingCount", postingService.getPostingCount());
+		return "/tl_d/ny_posting/jobPostingListForStudentPage";
+	}
+	
+	// 학생용 기업별 공고리스트
+	@RequestMapping("companyPostingListForStudentPage")
+	public String companyPostingListForStudentPage(Model model, int com_pk) {
+		model.addAttribute("companyPostingCount", postingService.getCompanyPostingCount(com_pk));
+		model.addAttribute("companyPostingListForStudent", postingService.getCompanyPostingList(com_pk));
+		return "/tl_d/ny_posting/companyPostingListForStudentPage";
+	}
+	
+	
+	
+	
 }

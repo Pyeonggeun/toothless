@@ -42,7 +42,7 @@ public class DormStudentControllerMj {
 		StudentInfoDto studentInfoDto = commonStudentService.loginByStudentIdAndPassword(params);
 		
 		if( studentInfoDto == null ) {
-			return "redirect:../another/student/loginPage";
+			return "redirect:../../tl_a/student/loginPage";
 		}
 		
 		session.setAttribute("sessionStudentInfo", studentInfoDto);
@@ -60,13 +60,28 @@ public class DormStudentControllerMj {
 	}
 	
 	
-	
 	// 현재학기 입주공고 정보
 	@RequestMapping("mj_dormPosted")
-	public String mj_dormPosted(Model model) {
+	public String mj_dormPosted(Model model, HttpSession session) {
 		
+		// 공고 정부
 		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
 		model.addAttribute("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
+		
+		// 학생정보
+		StudentInfoDto sessionStudentDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if (sessionStudentDto != null) {
+			
+			JoinDormApplicationDto isApplyThisSemester = studentService.getIsApplyThisSemesterInfo(sessionStudentDto.getStudent_pk());
+			
+			if (isApplyThisSemester != null) {	// 이미 입사신청 함
+				model.addAttribute("isApply", 1);
+			}else {								// 아직안함
+				model.addAttribute("isApply", 2);
+			}
+			
+		} 
 		
 		return "tl_a/student/mj_dormPosted";
 	}
@@ -108,7 +123,51 @@ public class DormStudentControllerMj {
 		return "tl_a/student/mj_applyDormCompletePage";
 	}
 
-	
+	// 합격안내 페이지로
+	@RequestMapping("mj_announcePassPage")
+	public String mj_announcePassPage(Model model, HttpSession session) {
+		
+		StudentInfoDto sessionStudentDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		// 입사신청정보(합격여부도 여기있음)
+		if (sessionStudentDto != null) {
+			
+			JoinDormApplicationDto isApplyThisSemester = studentService.getIsApplyThisSemesterInfo(sessionStudentDto.getStudent_pk());
+			if (isApplyThisSemester != null) {
+				
+				if (isApplyThisSemester.getSelection_status().equals("Y")) {	
+					model.addAttribute("isPass", 1);	// 합격
+					
+					if(isApplyThisSemester.getPayment_status().equals("Y")) {	
+						model.addAttribute("isPay", 1);	// 납부완료
+					}else {
+						model.addAttribute("isPay", 2);	// 미납
+					}
+					
+				}else {															
+					model.addAttribute("isPass", 2);	// 불합격
+				}
+				
+			}else {
+				model.addAttribute("isPass", 3);	// 신청안했음
+			}
+			
+		}else {
+			return "redirect:../student/loginPage";
+		}
+		
+		
+		// 로그인된 학생키로 정보가져오기
+		Map<String, Object> studentInfoAll = studentService.getStudentInfo(sessionStudentDto.getStudent_pk());
+		model.addAttribute("studentInfoAll", studentInfoAll);
+		
+		// 현재학기정보 + 입주공고 정보
+		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
+		model.addAttribute("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
+		
+		
+		return "tl_a/student/mj_announcePassPage";
+	}
 	
 
 	

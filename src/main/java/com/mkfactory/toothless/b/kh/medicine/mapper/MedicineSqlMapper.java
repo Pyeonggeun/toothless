@@ -34,8 +34,20 @@ public interface MedicineSqlMapper {
 	
 	public List<MedicineMgmtCatDto> selectAllMedicineMgmtCat();
 	
+	public MedicineMgmtCatDto selectedMedicineMgmtCatInfoByPk (int medicine_mgmt_cat_pk);
+	
+	public int checkTotalAddQuantity (int medicine_code_pk);
+	
+	public MedicineInventoryDto selectedInventoryInfoByMedicinePk (int medicine_code_pk);
+	
+	public List<Map<String, Object>> inventoryStatistics ();
+	
+	public List<Map<String, Object>> inventoryMedicineStatistics(int medicine_code_pk);
+	
 	//staff정보 가져오기
 	
 	public StaffInfoDto selectedStaffInfoByStaffPk(int staff_pk);
+	
+	public void insertModifiedInventory(MedicineInventoryDto medicineInventoryDto);
 	
 }

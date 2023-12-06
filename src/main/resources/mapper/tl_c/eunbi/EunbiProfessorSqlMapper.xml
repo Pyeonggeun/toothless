@@ -33,9 +33,12 @@
 	</insert>
 	
 	<!-- 학생 최종평가 입력 전? 후? -->
-	<select id="isExistProfessorEvaluation" resultType="com.mkfactory.toothless.c.dto.AjdksProfessorEvaluationDto">
-		SELECT COUNT(*) FROM tl_c_professor_evaluation
-		WHERE student_intern_pk = #{student_intern_pk}
+	<select id="isExistProfessorEvaluation" resultType="Integer">
+		SELECT COUNT(*) FROM tl_c_student_intern si
+		INNER JOIN tl_c_professor_evaluation pe
+		ON si.student_intern_pk = pe.student_intern_pk
+		WHERE si.internship_course_pk = #{internship_course_pk}
+		GROUP BY internship_course_pk
 	</select>
 
 

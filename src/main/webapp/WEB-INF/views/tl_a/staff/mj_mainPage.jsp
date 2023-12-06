@@ -16,19 +16,14 @@
 <body>
 <div class="container-fluid">
 	<!-- 최상단 -->
-	<jsp:include page="../commons/staff/topNavi.jsp"></jsp:include>
-	
-	<!-- 두번째 상단 -->
-	<jsp:include page="../commons/staff/topNavi3.jsp"></jsp:include>
-	
+	<jsp:include page="../commons/staff/mainPageTopNavi.jsp"></jsp:include>
+
 	<!-- 내용시작 -->
 	<div class="row">
 		
 		<!-- 우측내용 -->
 		<div class="col" style="background-color: aliceblue;">
             <!-- 메인페이지 -->
-            
-            
             <div class="row">
                 <div class="col">
                     <!-- 상단 -->

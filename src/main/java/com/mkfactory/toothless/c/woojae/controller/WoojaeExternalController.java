@@ -1,6 +1,7 @@
 package com.mkfactory.toothless.c.woojae.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +17,7 @@ import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 
 @Controller
-@RequestMapping("/tl_c/woojae/*")
+@RequestMapping("/tl_c/woojae/staff/*")
 public class WoojaeExternalController {
 	
 	@Autowired
@@ -26,7 +27,7 @@ public class WoojaeExternalController {
 	@RequestMapping("ajdksStaffMainPage")
 	public String ajdksStaffMainPage() {
 		
-		return"tl_c/woojae/ajdksStaffMainPage";
+		return"tl_c/woojae/staff/ajdksStaffMainPage";
 	}
 	
 	// 교직원 로그아웃
@@ -47,17 +48,26 @@ public class WoojaeExternalController {
 		List<AjdksCompanyCategoryDto> list = woojaeExternalService.companyCategoryList();
 		model.addAttribute("list", list);
 		
-		return"tl_c/woojae/ajdksRegisterCompanyPage";
+		return"tl_c/woojae/staff/ajdksRegisterCompanyPage";
 	}
 	
 	// 산업체 등록내역
 	@RequestMapping("ajdksRegistedCompanyPage")
-	public String ajdksRegistedCompanyPage(Model model) {
+	public String ajdksRegistedCompanyPage(Model model, int company_category_pk) {
 		
-		List<AjdksCompanyInfoDto> list = woojaeExternalService.registedCompanyList();
-		model.addAttribute("list", list);
+		// 카테고리 리스트
+		List<AjdksCompanyCategoryDto> list = woojaeExternalService.companyCategoryList();
+		model.addAttribute("categoryList", list);
 		
-		return"tl_c/woojae/ajdksRegistedCompanyPage";
+		// 전체 리스트
+		List<Map<String,Object>> registedCompanyList = woojaeExternalService.registedCompanyList();
+		model.addAttribute("registedCompanyList", registedCompanyList);
+		
+		// 카테고리별 리스트
+		List<Map<String, Object>> companyListByCategoryPk = woojaeExternalService.getCompanyListByCategoryPk(company_category_pk);
+		model.addAttribute("getCompanyListByCategoryPk", companyListByCategoryPk);
+		
+		return"tl_c/woojae/staff/ajdksRegistedCompanyPage";
 	}
 		
 	// 산업체 등록

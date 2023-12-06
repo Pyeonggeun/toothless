@@ -65,11 +65,6 @@
                 </div>
                 <div class="row" style="border-bottom: 0.01em solid #161313;">
                     <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">입사신청</span>         
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
                         <span style="color: black;">합격안내</span>         
                     </div>
                 </div>

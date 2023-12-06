@@ -81,11 +81,140 @@
 		SELECT * FROM TL_B_MEDICINE_MGMT_CAT 
 	</select>
 	
+	<!-- 재고 카테고리 선택된 정보만 가져오기 -->
+	<select id="selectedMedicineMgmtCatInfoByPk" resultType="com.mkfactory.toothless.b.dto.MedicineMgmtCatDto">
+		SELECT * 
+		FROM TL_B_MEDICINE_MGMT_CAT
+		where medicine_mgmt_cat_pk = #{medicine_mgmt_cat_pk} 
+	</select>
+	
 	<!-- staff인포 가져오기 -->
 	<select id="selectedStaffInfoByStaffPk" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
 		SELECT * 
 		FROM TL_JIC_STAFF_INFO
 		WHERE staff_pk = #{staff_pk}
+	</select>
+	
+	<!-- 재고 변경사항 등록 -->
+	<insert id="insertModifiedInventory">
+		INSERT INTO TL_B_MEDICINE_INVENTORY values(
+		TL_B_MEDICINE_INVENTORY_seq.nextval,
+		#{medicine_code_pk},
+		#{medicine_mgmt_cat_pk},
+		101,
+		#{quantity},
+		#{reason},
+		sysdate
+	)
+	</insert>
+	
+	<!-- 재고관리 개수 확인 -->
+	
+	<select id="checkTotalAddQuantity" resultType="int">
+		SELECT sum(QUANTITY)
+		FROM TL_B_MEDICINE_ADD
+		WHERE MEDICINE_CODE_PK = #{medicine_code_pk}
+	</select>
+	
+	<!-- 의약품pk로 선택된 재고 -->
+	<select id="selectedInventoryInfoByMedicinePk" resultType="com.mkfactory.toothless.b.dto.MedicineInventoryDto">
+		SELECT *
+		FROM TL_B_MEDICINE_INVENTORY
+		WHERE MEDICINE_CODE_PK = #{medicine_code_pk}
+	</select>
+	
+	<!-- 재고현황관리 -->
+	<select id="inventoryStatistics" resultType="map">
+		SELECT t1.* 
+		FROM
+			(SELECT a.MEDICINE_CODE_PK,
+					(SELECT tbmci.NAME 
+					FROM TL_B_MEDICINE_CODE_INFO tbmci
+					WHERE tbmci.MEDICINE_CODE_PK = a.MEDICINE_CODE_PK) AS medi_name,
+					a.QUANTITY, a.add_at AS "DATE", a.staff_pk AS who, 
+					(SELECT tjsi.NAME 
+					FROM TL_JIC_STAFF_INFO tjsi
+					WHERE tjsi.STAFF_PK = a.staff_pk) AS m_name,
+			'입고' AS m_type FROM TL_B_MEDICINE_ADD a
+			UNION
+			SELECT 	b.MEDICINE_CODE_PK,
+					(SELECT tbmci.NAME 
+					FROM TL_B_MEDICINE_CODE_INFO tbmci
+					WHERE tbmci.MEDICINE_CODE_PK = b.MEDICINE_CODE_PK) AS medi_name,
+					b.QUANTITY, b.CREATED_AT AS "DATE", b.staff_pk AS who, 
+					(SELECT tjsi.NAME 
+					FROM TL_JIC_STAFF_INFO tjsi
+					WHERE tjsi.STAFF_PK = b.staff_pk) AS m_name,
+			'재고변경' AS m_type FROM TL_B_MEDICINE_INVENTORY b
+			UNION
+			SELECT 	c.MEDICINE_CODE_PK,
+					(SELECT TBMCI2.NAME 
+					FROM TL_B_MEDICINE_CODE_INFO tbmci2
+					WHERE TBMCI2.MEDICINE_CODE_PK = c.MEDICINE_CODE_PK) AS medi_name,
+					c.QUANTITY, c.CREATED_AT AS "DATE", 
+					(SELECT TBCPL.STAFF_PK  
+					FROM TL_B_CLINIC_PATIENT_LOG tbcpl 
+					WHERE tbcpl.CLINIC_PATIENT_LOG_PK = c.CLINIC_PATIENT_LOG_PK  
+					) AS who,
+					(SELECT TJSI.NAME
+					FROM TL_JIC_STAFF_INFO tjsi 
+					WHERE 
+					tjsi.STAFF_PK = (	SELECT TBCPL.STAFF_PK  
+										FROM TL_B_CLINIC_PATIENT_LOG tbcpl 
+										WHERE tbcpl.CLINIC_PATIENT_LOG_PK = c.CLINIC_PATIENT_LOG_PK	)
+										)AS m_name,
+					'처방' AS m_type 
+					FROM TL_B_PRESCRIPTION_INFO c
+					) t1
+		ORDER BY t1."DATE" DESC
+	</select>
+	
+	<!-- 재고에서 특정 의약품 pk로 선택 -->
+	
+	<select id="inventoryMedicineStatistics" resultType="map">
+		SELECT t1.*
+		FROM
+			(SELECT a.MEDICINE_CODE_PK,
+					(SELECT tbmci.NAME 
+					FROM TL_B_MEDICINE_CODE_INFO tbmci
+					WHERE tbmci.MEDICINE_CODE_PK = a.MEDICINE_CODE_PK) AS medi_name,
+					a.QUANTITY, a.add_at AS "DATE", a.staff_pk AS who, 
+					(SELECT tjsi.NAME 
+					FROM TL_JIC_STAFF_INFO tjsi
+					WHERE tjsi.STAFF_PK = a.staff_pk) AS m_name,
+			'입고' AS m_type FROM TL_B_MEDICINE_ADD a
+			UNION
+			SELECT 	b.MEDICINE_CODE_PK,
+					(SELECT tbmci.NAME 
+					FROM TL_B_MEDICINE_CODE_INFO tbmci
+					WHERE tbmci.MEDICINE_CODE_PK = b.MEDICINE_CODE_PK) AS medi_name,
+					b.QUANTITY, b.CREATED_AT AS "DATE", b.staff_pk AS who, 
+					(SELECT tjsi.NAME 
+					FROM TL_JIC_STAFF_INFO tjsi
+					WHERE tjsi.STAFF_PK = b.staff_pk) AS m_name,
+			'재고변경' AS m_type FROM TL_B_MEDICINE_INVENTORY b
+			UNION
+			SELECT 	c.MEDICINE_CODE_PK,
+					(SELECT TBMCI2.NAME 
+					FROM TL_B_MEDICINE_CODE_INFO tbmci2
+					WHERE TBMCI2.MEDICINE_CODE_PK = c.MEDICINE_CODE_PK) AS medi_name,
+					c.QUANTITY, c.CREATED_AT AS "DATE", 
+					(SELECT TBCPL.STAFF_PK  
+					FROM TL_B_CLINIC_PATIENT_LOG tbcpl 
+					WHERE tbcpl.CLINIC_PATIENT_LOG_PK = c.CLINIC_PATIENT_LOG_PK  
+					) AS who,
+					(SELECT TJSI.NAME
+					FROM TL_JIC_STAFF_INFO tjsi 
+					WHERE 
+					tjsi.STAFF_PK = (	SELECT TBCPL.STAFF_PK  
+										FROM TL_B_CLINIC_PATIENT_LOG tbcpl 
+										WHERE tbcpl.CLINIC_PATIENT_LOG_PK = c.CLINIC_PATIENT_LOG_PK	)
+										)AS m_name,
+					'처방' AS m_type 
+					FROM TL_B_PRESCRIPTION_INFO c
+					) t1
+		WHERE t1.MEDICINE_CODE_PK = #{medicine_code_pk}
+		ORDER BY t1."DATE" asc
 	</select>
 </mapper>
 

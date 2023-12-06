@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
+import com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
 import com.mkfactory.toothless.c.eunbi.mapper.EunbiExternalSqlMapper;
 import com.mkfactory.toothless.c.eunbi.mapper.EunbiProfessorSqlMapper;
@@ -94,18 +95,23 @@ public class EunbiProfessorServiceImpl {
 			int companyPk = internshipCourseDto.getCompany_pk();
 			
 			Map<String, Object> chargedInternship = new HashMap<>();
+			
+			if(professorSqlMapper.isExistProfessorEvaluation(internshipCoursePk) == null) {
+				chargedInternship.put("isExistProfessorEvaluation", 0);
+			}else if(professorSqlMapper.isExistProfessorEvaluation(internshipCoursePk) != null) {
+				chargedInternship.put("isExistProfessorEvaluation", professorSqlMapper.isExistProfessorEvaluation(internshipCoursePk));
+			}
 
 			chargedInternship.put("internshipCourseDto", internshipCourseDto);
 			chargedInternship.put("countInternBycoursePk", studentSqlMapper.countInternBycoursePk(internshipCoursePk));
-			chargedInternship.put("conpanyInfoDto", externalSqlMapper.getCompanyInfo(companyPk));
-		
+			chargedInternship.put("companyInfoDto", externalSqlMapper.getCompanyInfo(companyPk));
+			
 			
 			chargedInternshipInfo.add(chargedInternship);
 		}
 		
 		return chargedInternshipInfo;
 	}
-	
 	
 	
 	

@@ -45,22 +45,21 @@
                                               </li>
                                             <li class="nav-item dropdown ps-3">
                                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <span style="color: #190D0F; font-size: large;">모집안내</span>
+                                                    <span style="color: #190D0F; font-size: large;">모집 안내</span>
                                                 </a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item disabled">모집안내</a></li>
+                                                    <li><a class="dropdown-item disabled">모집 안내</a></li>
                                                     <li><hr class="dropdown-divider"></li>
                                                   <li><a class="dropdown-item" href="./mj_dormPosted">공고 및 입주신청</a></li>
-                                                  <li><a class="dropdown-item" href="./dm_dormSelectionGuide">선발안내</a></li>
-                                                  <li><a class="dropdown-item" href="./dm_streetDistribution">거리배점표</a></li>
-                                                  <li><a class="dropdown-item" href="./dm_paymentMoney">납부금안내</a></li>
-                                                  <li><a class="dropdown-item" href="#">합격안내</a></li>
-                                                  
+                                                  <li><a class="dropdown-item" href="./dm_dormSelectionGuide">선발 안내</a></li>
+                                                  <li><a class="dropdown-item" href="./dm_streetDistribution">거리 배점표</a></li>
+                                                  <li><a class="dropdown-item" href="./dm_paymentMoney">납부금 안내</a></li>
+                                                  <li><a class="dropdown-item" href="./mj_announcePassPage">합격 조회</a></li>
                                                 </ul>
                                               </li>
                                           <li class="nav-item dropdown ps-3">
                                             <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <span style="color: #190D0F; font-size: large;">기숙안내</span>
+                                                <span style="color: #190D0F; font-size: large;">기숙 안내</span>
                                             </a>
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item disabled">기숙 안내</a></li>
@@ -81,7 +80,7 @@
                                                 <li><a class="dropdown-item disabled">기숙사 커뮤니티</a></li>
                                                     <li><hr class="dropdown-divider"></li>
                                               <li><a class="dropdown-item" href="#">공지사항</a></li>
-                                              <li><a class="dropdown-item" href="#">서식자료실</a></li>
+                                              <li><a class="dropdown-item" href="#">서식 자료실</a></li>
                                               <li><a class="dropdown-item" href="#">외박 및 외출신청</a></li>
                                               <li><a class="dropdown-item" href="#">상벌점 확인</a></li>
                                               <li><a class="dropdown-item" href="#">고장수리요청</a></li>

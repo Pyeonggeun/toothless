@@ -42,6 +42,22 @@ public class EunbiProfessorController {
 		return "tl_c/eunbi/professor/viewChargedStudentPage";
 	}
 	
+	@RequestMapping("viewInternshipCourseDetailPage")
+	public String viewInternshipCourseDetailPage(HttpSession session, Model model) {
+		
+		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
+		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
+		
+		
+		
+		return "tl_c/eunbi/professor/viewInternshipCourseDetailPage";
+		
+	}
+	
+	
+	
+	
+	
 	
 	
 }

@@ -40,10 +40,10 @@
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 					  <li class="nav-item">
-					    <a class="nav-link text-black" href="./mj_registerJoinInfoPage">공고 등록</a>
+					    <a class="nav-link active text-black" href="./mj_readApplyDormInfoPage">신청 현황</a>
 					  </li>
 					  <li class="nav-item">
-					    <a class="nav-link active text-black" href="./mj_readRegisterJoinInfoPage">조회/수정</a>
+					    <a class="nav-link text-black" href="./mj_readSelectedDormStudentPage">선발 현황</a>
 					  </li>
 					</ul>
 				</div>
@@ -104,7 +104,35 @@
 					                    <div class="col text-start">
 					                        <div class="form-check form-check-inline">
 					                            <input class="form-check-input" type="radio" name="1" value="" >
-					                            <label class="form-check-label" for="inlineRadio3">종료</label>
+					                            <label class="form-check-label" for="inlineRadio3">선발 완료</label>
+					                        </div>
+					                    </div>
+					                    <div class="col-7"></div>
+									</div>
+								</div>
+							</div>
+							<div class="row border-bottom py-2">
+								<div class="col-2 text-center align-self-center fw-bold">
+									우선선발 여부
+								</div>
+								<div class="col ms-2">
+									<div class="row">
+										 <div class="col text-start">
+					                        <div class="form-check form-check-inline">
+					                            <input class="form-check-input" type="radio" name="2" value="" checked>
+					                            <label class="form-check-label" for="inlineRadio1">전체</label>
+					                        </div>                                
+					                    </div>
+					                    <div class="col text-start">
+					                        <div class="form-check form-check-inline">
+					                            <input class="form-check-input" type="radio" name="2" value="">
+					                            <label class="form-check-label" for="inlineRadio2">Y</label>
+					                        </div>
+					                    </div>
+					                    <div class="col text-start">
+					                        <div class="form-check form-check-inline">
+					                            <input class="form-check-input" type="radio" name="2" value="" >
+					                            <label class="form-check-label" for="inlineRadio3">N</label>
 					                        </div>
 					                    </div>
 					                    <div class="col-7"></div>
@@ -130,10 +158,10 @@
 					<!-- 상품목록 -->
 					<div class="row mt-4 py-3 justify-content-between">
 						<div class="col-6">
-							검색결과 (총 ${countInfoList }개)
+							검색결과 (총 ${countApplyList }개)
 							<button type="button" class="ms-5 px-3 border-secondary-subtle rounded-0 px-0 fw-bold btn btn-sm btn-light">
 		           				<i class="bi bi-download"></i>
-		           				공고 목록 다운로드
+		           				신청 목록 다운로드
 		           			</button>
 						</div>
 						<div class="col-2 me-1 justify-content-end">
@@ -150,18 +178,16 @@
 					    <tr class="align-middle border-bottom border-2">
 					      <th scope="col" class="col text-bg-light"></th>
 					      <th scope="col" class="col text-bg-light">학년도/학기</th>
-					      <th scope="col" class="col text-bg-light">제목</th>
-					      <th scope="col" class="col text-bg-light">신청 종료일</th>
-					      <th scope="col" class="col text-bg-light">선발 인원</th>
-					      <th scope="col" class="col text-bg-light">합격자 발표일</th>
-					      <th scope="col" class="col text-bg-light">관비 납부 종료일</th>
-					      <th scope="col" class="col text-bg-light">배정 통보일</th>
-					      <th scope="col" class="col text-bg-light">입주일</th>
-					      <th scope="col" class="text-bg-light">수정</th>
-					      <th scope="col" class="text-bg-light">삭제</th>
+					      <th scope="col" class="col text-bg-light">이름</th>
+					      <th scope="col" class="col text-bg-light">학년</th>
+					      <th scope="col" class="col text-bg-light">학번</th>
+					      <th scope="col" class="col text-bg-light">학과</th>
+					      <th scope="col" class="col text-bg-light">주소</th>
+					      <th scope="col" class="col text-bg-light">우선선발</th>
+					      <th scope="col" class="text-bg-light">선발여부</th>
 					    </tr>
 					  </thead>
-					  <c:forEach items="${infoList }" var="item">
+					  <c:forEach items="${applyList }" var="item">
 					  <tbody>
 					    <tr>
 					      <td class="p-0 pt-1 text-center">
@@ -171,33 +197,31 @@
 						        </label>
 						    </div>
 						  </td>
-						  <td>학년도학기</td>
-						  <td>${item.title }</td>
+						  <td>${thisSemesterJoinDormInfo.thisSemesterDto.semester_year }년도 
+						  ${thisSemesterJoinDormInfo.thisSemesterDto.semester }</td>
+						  <td>${item.studentInfo.name }</td>
 						  <td>
-						  	<fmt:formatDate value="${item.apply_end_date }" pattern="yy-MM-dd" />
+						  	${item.studentYear }학년
 						  </td>
-						  <td>${item.selection_amount }명</td>
+						  <td>${item.studentInfo.student_id }</td>
+						  <td>${item.departmentInfo.name }</td>
+						  <td>${item.studentInfo.address }</td>
+						  <td>${item.applyInfo.priority_select}</td>
 						  <td>
-						  	<fmt:formatDate value="${item.pass_anncm_date }" pattern="yy-MM-dd" />
-						  </td>
-						  <td>
-						  	<fmt:formatDate value="${item.payment_end_date }" pattern="yy-MM-dd" />
-						  </td>
-						  <td>
-						  	<fmt:formatDate value="${item.asgnm_anncm_date }" pattern="yy-MM-dd" />
-						  </td>
-						  <td>
-						  	<fmt:formatDate value="${item.join_dorm_date }" pattern="yy-MM-dd" />
-						  </td>
-						  <td>
-						  	<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
-					      		<button type="button" class="fw-bold rounded-0 btn btn-secondary btn-sm mb-1">수정</button>
-					      	</a>
-						  </td>
-						  <td>
-						  	<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
-					      		<button type="button" class="fw-bold rounded-0 btn btn-danger btn-sm mb-1">삭제</button>
-					      	</a>
+						  	<c:choose>
+						  		<c:when test="${item.applyInfo.selection_status == 'N'}">
+						  			<a href="./mj_selectDormStudentProcess?selection_status=Y&dorm_application_pk=${item.applyInfo.dorm_application_pk}" class="text-black d-grid mx-2" style="text-decoration: none;">
+							      		<button type="button" class="fw-bold rounded-0 btn btn-primary btn-sm mb-1">선발하기</button>
+							      	</a>
+						  		</c:when>
+						  		<c:otherwise>
+						  			<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
+							      		<button disabled type="button" class="fw-bold rounded-0 btn btn-secondary btn-sm mb-1">선발완료</button>
+							      	</a>
+						  		</c:otherwise>
+						  	</c:choose>
+						  
+						  	
 						  </td>
 					    </tr>		    
 					  </tbody>
