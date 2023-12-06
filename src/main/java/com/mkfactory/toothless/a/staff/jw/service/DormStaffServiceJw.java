@@ -47,14 +47,9 @@ public class DormStaffServiceJw {
 			StudentInfoDto studentInfoDto = dormStaffMapperJw.selectStudentInfoByDormStudentPk(dormStudentPk);
 			DormRoomDto dormRoomDto = dormStaffMapperJw.selectDormRoomByDormStudentPk(dormStudentPk);
 			
-			System.out.println("dormStudentPk 출력");
-			System.out.println(dormStudentPk);
-			System.out.println("=============");
 			int dormPk = dormRoomDto.getDorm_pk();
 			DormBuildingDto dormBuildingDto = dormStaffMapperJw.selectDormByDormPk(dormPk);
-			System.out.println("dormPk 출력");
-			System.out.println(dormPk);
-			System.out.println("=============");
+			
 			Map<String, Object> map = new HashMap<>();
 			map.put("exitDto", exitDto);
 			map.put("studentInfoDto", studentInfoDto);
