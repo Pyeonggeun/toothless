@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.mkfactory.toothless.a.dto.ExitDto;
 import com.mkfactory.toothless.a.dto.JoinDormApplicationDto;
 import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
+import com.mkfactory.toothless.a.dto.PointCategory;
 import com.mkfactory.toothless.a.dto.SemesterDto;
 import com.mkfactory.toothless.a.staff.mj.mapper.DormStaffSqlMapper;
 import com.mkfactory.toothless.a.student.mj.mapper.DormStudnetSqlMapper;
@@ -184,7 +185,17 @@ public class DormStaffServiceImpl {
 		return list;
 	}
 	
+	// 상벌 코드 등록
+	public void registerPointCategory(PointCategory pointCategory) {
+		
+		staffSqlMapper.insertPointCategory(pointCategory);
+	}
 	
+	// 상벌 코드 목록 - 전체
+	public List<PointCategory> getPointCategory(){
+		
+		return staffSqlMapper.selectPointCategoryAll();
+	}
 	
 	
 	

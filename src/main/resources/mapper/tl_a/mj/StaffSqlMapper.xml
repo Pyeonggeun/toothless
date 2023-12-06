@@ -103,6 +103,26 @@
 		ORDER BY DORM_APPLICATION_PK desc
 	</select>
 	
+	<!-- 상벌코드 등록 -->
+	<insert id="insertPointCategory">
+		INSERT INTO tl_a_point_category VALUES(
+		   tl_a_point_category_seq.nextval,
+		   #{content},
+		   #{point}
+		)
+	</insert>
+	
+	<!-- 상벌코드 목록 - 전체 -->
+	<select id="selectPointCategoryAll" resultType="com.mkfactory.toothless.a.dto.PointCategory">
+		SELECT * FROM tl_a_point_category
+		ORDER BY POINT desc
+	</select>
+	
+	
+	
+	
+	
+	
 	
 	
 
