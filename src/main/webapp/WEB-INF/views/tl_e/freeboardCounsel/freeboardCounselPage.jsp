@@ -24,23 +24,32 @@
 				<div class="col-3">
 					<div class="fw-bold py-3 fs-5" ><img class="img-fluid" style="width: 50px; height: 50px" src="../../resources/img/groupCounsel/logo_black.png"> Mk University</div>
 				</div>
+				<!-- 중간 공란 -->	
 				<div class="col"></div>
 				
-				<div class="col-4 my-auto"> 
+				<!-- 안쪽에서 오른쪽 정보 -->	
+				<div class="col-3 my-auto"> 
 					<div class="row">
-						<div class="col-10">
+						
+						<!-- 학생이름 -->
+						<div class="col">	
 							<div class="fw-bold text-end" >${sessionStudentInfo.name}님 로그인 상태입니다.</div> 
 						</div>
-						<div class="col-2">	
+						
+						<!-- 나중에 링크 연결할 아이콘들 -->
+						<div class="col-3">	
 							<div class="row">
 								<div class="col p-0 "> <i class="bi bi-bell"></i> </div>
 								<div class="col p-0 "> <i class="bi bi-door-open"></i> </div>
 								<div class="col ps-0 pd-1 "> <i class="bi bi-gear-fill"></i> </div>
 							</div>
-						</div>		
-								
-					</div>
+						</div>
+					
+				<!-- 안쪽에서 오른쪽 정보 -->
+					</div>				
 				</div>
+			<!-- 안쪽 첫번째 로우 - 왼 학교로고 오른쪽 로그인 정보 끝 -->
+			</div>
 				
 				
 			

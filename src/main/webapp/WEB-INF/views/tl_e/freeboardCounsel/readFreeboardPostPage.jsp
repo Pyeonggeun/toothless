@@ -24,10 +24,33 @@
 				<div class="col-3">
 					<div class="fw-bold py-3 fs-5" ><img class="img-fluid" style="width: 50px; height: 50px" src="../../resources/img/groupCounsel/logo_black.png"> Mk University</div>
 				</div>
+				<!-- 중간 공란 -->	
 				<div class="col"></div>
+				
+				<!-- 안쪽에서 오른쪽 정보 -->	
 				<div class="col-3 my-auto"> 
-					<div class="fw-bold text-end" >${sessionStudentInfo.name}님 로그인 상태입니다.</div> 
+					<div class="row">
+						
+						<!-- 학생이름 -->
+						<div class="col">	
+							<div class="fw-bold text-end" >${sessionStudentInfo.name}님 로그인 상태입니다.</div> 
+						</div>
+						
+						<!-- 나중에 링크 연결할 아이콘들 -->
+						<div class="col-3">	
+							<div class="row">
+								<div class="col p-0 "> <i class="bi bi-bell"></i> </div>
+								<div class="col p-0 "> <i class="bi bi-door-open"></i> </div>
+								<div class="col ps-0 pd-1 "> <i class="bi bi-gear-fill"></i> </div>
+							</div>
+						</div>
+					
+				<!-- 안쪽에서 오른쪽 정보 -->
+					</div>				
 				</div>
+			<!-- 안쪽 첫번째 로우 - 왼 학교로고 오른쪽 로그인 정보 끝 -->
+			</div>
+				
 			
 			<!-- 안쪽 첫번째 로우 끝  -->
 			</div>
@@ -55,7 +78,7 @@
 		<!-- 왼쪽 공간 주는 col -->
 		<div class="col-2">왼쪽</div>
 		
-		
+		<!-- 중요 내용 들어가는 핵심 col -->
 		<div class="col">
 		
 			<div class="row"> 
@@ -64,11 +87,74 @@
 				</div> 
 			</div>
 			
+			<div class="row"><div class="col">빈공간</div></div>	
+			
+			<!-- 안내문 -->
+			<div class="row">
+			
+				<div class="col-1"></div>
+			
+				<!-- 중간 안내문 -->
+				
+					<div class="col">
+						<div class="row border border-2 border-black py-4">
+			
+							<div class="col-1 fs-1 text-center">
+								<i class="bi bi-exclamation-circle"></i>
+							</div>	
+						
+							<div class="col">
+							자유게시판은 학생들의 글과 의견을 자유롭게 제시할 수 있는 게시판입니다.<br>
+							상업성광고, 정치적 목적 게시물, 특정단체나 개인의 명예훼손 게시물, 음란물 등 미풍양속에 어긋나는 게시물 게시자는 <br>
+							<span class="fw-bold text-danger">학사 징계</span>와 함게 <span class="fw-bold text-danger">민형사상 불이익</span>을 받을 수 있으니 게시판 성격에 맞는 내용만 게시하시기 바랍니다.
+							</div>
+				
+						</div>
+					</div>
+				
+				<div class="col-1"></div>
+			</div>
+			
 			<div class="row"> 
 				<div class="col">
-					제목  ${pickpostMap.freeboardPost.title}<br>
-					작성자 이름 ${pickpostMap.studentInfo.name}<br>
-					조회수  ${pickpostMap.freeboardPost.read_count}<br>
+				
+				
+			<!--내용을 제외한 주요 정보들 -->
+			<div class="row">
+				<div class="col">
+				
+				<!-- 제목 -->
+				<div class="row border-top border-3 border-black py-3 mt-4 "> 
+					<div class="col text-center fs-3 ">
+					 	${pickpostMap.freeboardPost.title}
+					</div> 
+				</div>
+				<!-- 글쓴이 -->
+				<div class="row border border-start-0 border-end-0 border-2 border-black "> 
+					<div class="col-2 fs-5 text-center">
+					 	<i class="bi bi-pen-fill"></i> ${pickpostMap.studentInfo.name}
+					</div> 
+					
+					<div class="col"></div>
+					 
+					<div class="col-4 fs-5">
+					 	<i class="bi bi-person-vcard"></i>${pickpostMap.freeboardPost.read_count}
+					 	<i class="bi bi-clock"></i> ${pickpostMap.freeboardPost.created_at}
+					</div> 
+					
+					
+					
+				</div>
+				
+			<!--내용을 제외한 주요 정보들 끝-->	
+				</div>	
+			</div>
+				
+				
+				
+				
+		
+				
 					내용 <br>
 					${pickpostMap.freeboardPost.text }<br> 
 					<br>
@@ -84,7 +170,7 @@
 			<div class="row"> <div class="col"></div> </div>
 			
 			
-		
+		<!-- 중요 내용 들어가는 핵심 col 끝-->
 		</div>
 		
 		
