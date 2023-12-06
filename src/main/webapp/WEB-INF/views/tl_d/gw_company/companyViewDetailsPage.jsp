@@ -50,10 +50,10 @@
 						<div class="col p-1 ps-4">${companyMap.companyDto.business_number}</div>
 					</div>
 					<div class="row border-bottom py-3">
-						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">기업규모</div>
-						<div class="col p-1 ps-4">${companyMap.comScaleCategoryDto.com_scale_category_name}</div>
-						<div class="col-2 border-start border-end border-bs-border p-1 ps-2 fw-bold">대표자 명</div>
+						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">대표자 명</div>
 						<div class="col p-1 ps-4">${companyMap.companyDto.com_bossname}</div>
+						<div class="col-2 border-start border-end border-bs-border p-1 ps-2 fw-bold">기업규모</div>
+						<div class="col p-1 ps-4">${companyMap.comScaleCategoryDto.com_scale_category_name}</div>
 					</div>
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">기업 주소</div>
