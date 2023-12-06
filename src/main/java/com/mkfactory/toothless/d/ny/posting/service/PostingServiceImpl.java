@@ -135,7 +135,7 @@ public class PostingServiceImpl {
 				List<Integer> postingDeadlineList = postingSqlMapper.selectPostingDeadline();
 				List<Integer> endPostingList = postingSqlMapper.selectEndPosting();
 				
-				// 기업용 총 공고찜 수(공고별)
+				// 총 공고찜 수(공고별)
 				int allPostingInterest = postingSqlMapper.selectAllInterestPosting(jobPostingDto.getJob_posting_pk());
 				
 				jobPostingMap.put("companyDto", companyDto);
@@ -152,7 +152,7 @@ public class PostingServiceImpl {
 			return companypostingList;
 	}
 	
-	// 교직원용 공고 상세리스트(기업용으로도 사용)
+	// 교직원용 공고 상세리스트
 	public Map<String, Object> getJobPostingDetail(int job_posting_pk){
 		
 		
@@ -184,8 +184,6 @@ public class PostingServiceImpl {
 		    
 		    	jobPostingMap.put("deadlineDDay", deadlineDDay);
 		}
-		// 기업용 총 공고찜 수(공고별)
-		int allPostingInterest = postingSqlMapper.selectAllInterestPosting(jobPostingDto.getJob_posting_pk());
 		
 		jobPostingMap.put("companyDto", companyDto);
 		jobPostingMap.put("jobFieldCategoryDto", jobFieldCategoryDto);
@@ -194,7 +192,6 @@ public class PostingServiceImpl {
 		jobPostingMap.put("comScaleCategoryDto", comScaleCategoryDto);
 		jobPostingMap.put("postingDeadlineList", postingDeadlineList);
 		jobPostingMap.put("endPostingList", endPostingList);
-		jobPostingMap.put("allPostingInterest", allPostingInterest);
 		
 			
 		return jobPostingMap;
@@ -231,7 +228,7 @@ public class PostingServiceImpl {
 	
 	// 학생
 	
-	// 학생용 채용공고 리스트(관심공고 대비해서 따로 만듦)
+	// 학생용 채용공고 리스트(관심공고 정보 추가)
 	public List<Map<String, Object>> getPostingListForStudent(){
 		
 		List<Map<String, Object>> postingList = new ArrayList<>();
@@ -273,50 +270,9 @@ public class PostingServiceImpl {
 		return postingList;
 	}
 	
-	// 학생용 기업별 공고 리스트(관심공고 대비 이하 생략)
-	public List<Map<String, Object>> getCompanyPostingListForStudent(int com_pk){
-		
-		List<Map<String, Object>> companypostingList = new ArrayList<>();
-		
-		List<JobPostingDto> companyPostingDtoList = postingSqlMapper.selectPostingListByComPk(com_pk);
-		
-		for(JobPostingDto jobPostingDto : companyPostingDtoList) {
-			
-
-			CompanyDto companyDto = postingSqlMapper.selectByCompanyPk(jobPostingDto.getCom_pk());
-			JobFieldCategoryDto jobFieldCategoryDto = postingSqlMapper.selectByJobFieldCategoryPk(jobPostingDto.getJob_field_category_pk());
-			
-			Map<String, Object> jobPostingMap = new HashMap<>();
-			
-			String str = companyDto.getCom_address();
-			
-			if (str.length() >= 2) {
-				companyDto.setCom_address(str.substring(0, 2));
-			} else {
-				
-			}
-			
-			List<Integer> postingDeadlineList = postingSqlMapper.selectPostingDeadline();
-			List<Integer> endPostingList = postingSqlMapper.selectEndPosting();
-			
-			int allPostingInterest = postingSqlMapper.selectAllInterestPosting(jobPostingDto.getJob_posting_pk());
-			
-			jobPostingMap.put("companyDto", companyDto);
-			jobPostingMap.put("jobFieldCategoryDto", jobFieldCategoryDto);
-			jobPostingMap.put("jobPostingDto",jobPostingDto);
-			jobPostingMap.put("postingDeadlineList", postingDeadlineList);
-			jobPostingMap.put("endPostingList", endPostingList);
-			jobPostingMap.put("allPostingInterest", allPostingInterest);
-			
-			companypostingList.add(jobPostingMap);
-			
-		}
-		
-		return companypostingList;
-	}
 	
-	// 학생용 공고 상세 페이지(관심공고 이하 생략)
-	public Map<String, Object> getJobPostingDetailForStudent(int job_posting_pk){
+	// 학생용 공고 상세 페이지(기업용 공고 상세 페이지)
+	public Map<String, Object> getJobPostingDetailForStudentAndCompany(int job_posting_pk){
 		
 		
 		JobPostingDto jobPostingDto = postingSqlMapper.selectPostingDetailByJobPostingPk(job_posting_pk);
