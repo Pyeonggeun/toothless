@@ -29,6 +29,36 @@
 	
 	</select>
 	
+	<delete id="assignmentDeleteByDormStudentPk">
+	
+		DELETE FROM TL_A_DORM_STUDENT WHERE dorm_student_pk = #{dorm_student_pk}
+	
+	</delete>
+	
+	<select id="studentInfoAllList" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+	
+		SELECT * FROM TL_JIC_STUDENT_INFO
+		ORDER BY student_pk ASC
+	
+	</select>
+	
+	<select id="joinDormAppliByStudentPK" resultType="com.mkfactory.toothless.a.dto.JoinDormApplicationDto">
+	
+		SELECT * FROM tl_a_join_dorm_application WHERE student_pk = #{student_pk}
+	
+	</select>
+	
+	<select id="dormStudentInfoByStudentPk" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+	
+		SELECT * FROM tl_a_dorm_student WHERE student_pk = #{student_pk}
+	
+	</select>
+	
+	<select id="dormCategoryInfoByDormAmountPk" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
+	
+		SELECT * FROM TL_A_DORM_CATEGORY WHERE dorm_amount_pk = #{dorm_amount_pk}
+	
+	</select>
 	
 	
 </mapper>

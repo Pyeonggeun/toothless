@@ -23,8 +23,10 @@ public class DormStaffControllerDm {
 	}
 	
 	@RequestMapping("dm_roomAssignment")
-	public String dm_roomAssignment() {
+	public String dm_roomAssignment(Model model) {
 		
+		model.addAttribute("dormList", dormStaffServiceDm.allDormStudent());
+		model.addAttribute("studentAssignmentList", dormStaffServiceDm.studentInfoAllList());
 		
 		return "/tl_a/staff/dm_roomAssignment";
 	}
@@ -54,18 +56,31 @@ public class DormStaffControllerDm {
 	}
 	
 	@RequestMapping("dm_roomAssignmentN")
-	public String dm_roomAssignmentN() {
+	public String dm_roomAssignmentN(Model model) {
+		
+		//여기서는 선발여부 Y 납부여부 Y인 학생들을 끌어올거임 
+		//★★★ 조건이 하나 더생김 미배정 이니까 배정된 애들이 셀렉트 되면 안됨 ★★★
+		model.addAttribute("studentAssignmentList", dormStaffServiceDm.studentInfoAllList());
+		
 		
 		
 		return "/tl_a/staff/dm_roomAssignmentN";
 	}
 	
 	@RequestMapping("assignmentDeleteProcess")
-	public String assignmentDeleteProcess() {
+	public String assignmentDeleteProcess(int dorm_student_pk) {
 		
-		
+		dormStaffServiceDm.assignmentDeleteByDormStudentPk(dorm_student_pk);
 		
 		return "redirect:./dm_roomAssignmentY";
+	}
+	
+	@RequestMapping("assignmentAddProcess")
+	public String assignmentAddProcess() {
+		
+		
+		
+		return "redirect:./dm_roomAssignmentN";
 	}
 	
 	

@@ -90,10 +90,11 @@
 						<c:if test="${!empty dormList}">
 							<c:forEach items="${dormList }" var="dormList">
 							<tr>
+								<td>${dormList.studentInfoDto.name }</td>
 								<td>${dormList.dormBuildingDto.name }</td>
 								<td>${dormList.dormRoomDto.room_name }</td>
-								<td>${dormList.studentInfoDto.name }</td>
-								<td><a href="./assignmentDeleteProcess" class="btn btn-danger" role="button">배정취소</a></td>
+								
+								<td><a href="./assignmentDeleteProcess?dorm_student_pk=${dormList.dormStudentDto.dorm_student_pk }" class="btn btn-danger" role="button">배정취소</a></td>
 							</tr><!--  -->
 							</c:forEach>
 						</c:if>

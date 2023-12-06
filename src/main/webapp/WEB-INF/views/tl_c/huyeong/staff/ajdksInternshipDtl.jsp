@@ -53,13 +53,13 @@
 
 <div class="row">
 	<div class="col">
-		<jsp:include page="../common/ajdksHighestMenubarForStaff.jsp"></jsp:include>
+		<jsp:include page="../../common/ajdksHighestMenubarForStaff.jsp"></jsp:include>
 	</div>
 </div>
 <div class="row">
 
 	<!-- 좌측메뉴바 -->
-	<jsp:include page="../common/ajdksSideMenubarForStaff.jsp"></jsp:include>
+	<jsp:include page="../../common/ajdksSideMenubarForStaff.jsp"></jsp:include>
 	
 	<!-- 본문 : 자유롭게 이용하세요 화이팅 -->
 	<div class="col">

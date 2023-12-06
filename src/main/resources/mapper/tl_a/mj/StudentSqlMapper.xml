@@ -20,6 +20,17 @@
 		WHERE STUDENT_PK = #{student_pk}
 	</select>
 	
+	<!-- 학생 pk로 진행중인 학기의 입주신청 여부/정보 가져오기 -->
+	<select id="selectIsApplyThisSemesterInfo" resultType="com.mkfactory.toothless.a.dto.JoinDormApplicationDto">
+		SELECT * FROM TL_A_JOIN_DORM_APPLICATION jda
+		WHERE jda.STUDENT_PK = #{student_pk}
+		AND jda.DORM_INFO_PK = (
+			SELECT jdi.DORM_INFO_PK FROM tl_a_semester seme
+			INNER JOIN TL_A_JOIN_DORM_INFO jdi ON jdi.SEMESTER_PK  = seme.SEMESTER_PK
+			WHERE seme.PROGRESS_STATE = 'Y'
+		)
+	</select>
+	
 	<!-- 학과정보 -->
 	<select id="selectDeparmentInfoByPk" resultType="com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto">
 		SELECT * FROM TL_JIC_DEPARTMENT_CATEGORY dc

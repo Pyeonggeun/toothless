@@ -52,22 +52,22 @@
                 </div>
                 <div class="row" style="border-bottom: 0.01em solid #161313;">
                     <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">선발안내</span>         
+                        <span style="color: black;">선발 안내</span>         
                     </div>
                 </div>
                 <div class="row" style="border-bottom: 0.01em solid #161313;">
                     <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">거리배점표</span>         
+                        <span style="color: black;">거리 배점표</span>         
                     </div>
                 </div>
                 <div class="row" style="border-bottom: 0.01em solid #161313;">
                     <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">납부금안내</span>         
+                        <span style="color: black;">납부금 안내</span>         
                     </div>
                 </div>
                 <div class="row" style="border-bottom: 0.01em solid #161313;">
                     <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">합격안내</span>         
+                        <span style="color: black;">합격 조회</span>         
                     </div>
                 </div>
             </div>
@@ -180,9 +180,14 @@
 			                <div class="col px-0 text-end">
 			                	<c:choose>
 			                		<c:when test="${!empty sessionStudentInfo }">
-			                			<a href="./mj_applyDormByInfoPage">
-					                    <button type="button" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">입사 신청</button>
-					                	</a>
+			                			<c:if test="${isApply == 1 }">
+						                    <button disabled type="button" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">신청 완료</button>
+			                			</c:if>
+			                			<c:if test="${isApply == 2 }">
+			                				<a href="./mj_applyDormByInfoPage">
+						                    <button type="button" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">입사 신청</button>
+						                	</a>
+			                			</c:if>
 			                		</c:when>
 			                		<c:otherwise>
 			                			<a href="./loginPage">

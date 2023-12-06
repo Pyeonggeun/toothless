@@ -30,12 +30,12 @@
 			<!-- 카테고리명 -->
 			<div class="row my-3">
 				<div class="col fs-4 fw-bold">
-					동 정보 관리 - A동/B동 관리자가 입력한거 가져와도되는데, 사실상 그냥써도 아무도 모를듯
+					동 정보 관리
 				</div>
 			</div>
 			
-			<!-- 카테고리 -->
-			<div class="row mt-2">
+			<!-- 카테고리 
+			<div class="row mt-2 text-center">
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 					  <li class="nav-item">
@@ -47,26 +47,94 @@
 					</ul>
 				</div>
 			</div>
+			-->
 			
-			<!-- 세부내용 시작 -->			
-			<div class="row">
+			
+			<!-- 세부내용 시작 -->
+			
+			<!-- 기숙사명 -->
+			<div class="row border rounded p-3">
 				<div class="col">
-					너의 꿈을 펼치는 곳
+					<div class="row">
+						<div class="col">
+					<div class="row mb-4">
+						<div class="col text-center fw-bold fs-5">
+							기숙사명
+						</div>
+					</div>
+					
 				</div>
+				<div class="col">
+					<div class="row mb-4">
+						<div class="col text-center fw-bold fs-5">
+							주소
+						</div>
+					</div>
+					
+				</div>
+				<div class="col">
+					<div class="row mb-4">
+						<div class="col text-center fw-bold fs-5">
+							기숙사 대표 이미지
+						</div>
+					</div>
+					
+				</div>
+				<div class="col">
+					<div class="row mb-4">
+						<div class="col text-center">
+							
+						</div>
+					</div>
+				</div>
+					</div>
+					<c:forEach items="${dormBuilding }" var="dorm">
+						<input type="hidden" value="${dorm.dorm_pk }">
+						<div class="row my-4 border rounded">
+							<div class="col">
+								<div class="row">
+									<div class="col text-center py-5 my-5">
+										${dorm.name }
+									</div>
+								</div>
+							</div>
+							<div class="col">
+								<div class="row">
+									<div class="col text-center py-5 my-5">
+										${dorm.address }
+									</div>
+								</div>
+							</div>
+							<div class="col">
+								<div class="row">
+									<div class="col my-3">
+										<img src="/uploadDormMainImg/${dorm.main_img }" class="d-grid img-fluid">
+									</div>
+								</div>
+							</div>
+							<div class="col">
+								<div class="row">
+									<div class="col d-grid py-5 my-3">
+										<button type="button" class="btn btn-outline-secondary py-4">
+											<a href="./deleteForDormInfoProcess?dorm_pk=${dorm.dorm_pk }" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+											삭제
+											</a>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+				
+				
 			</div>
+			
 			
 		</div> <!-- 우측내용 col 끝 -->
 		
 		<!-- 수정/삭제-->
-		<div class="row mt-3">
-            <div class="col px-0 text-end">
-				<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary">수정</button>
-                <button type="submit" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary ms-1">삭제</button>
-            </div>
-            <div class="col-1">
-            	
-            </div>               
-        </div>
+		
             
         
 	</div> <!-- main row 끝 -->

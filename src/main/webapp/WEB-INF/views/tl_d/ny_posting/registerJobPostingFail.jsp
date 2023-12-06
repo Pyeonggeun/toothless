@@ -69,41 +69,47 @@
 					</div>
 				</div>
 				<!-- 메인이미지 -->
-				<div class="row mt-3">
+				<div class="row my-4">
 					<div class="col">
-						<input name="imageFile" type="file" accept="image/*">
+						<input class="form-control border-dark" name="imageFile" type="file" accept="image/*">
 					</div>
 				</div>
 				<!-- 채용내용 -->
 				<div class="row mt-3">
-					<div class="col">
+					<div class="col fw-bold">
 						채용내용
 					</div>
 				</div>
 				<div class="row mt-2">
-					<div class="col">
-						<textarea name="posting_contents" rows="10" cols="80" style="resize: both;"></textarea>						
+					<div class="col d-grid">
+						<textarea class="form-control border-dark" name="posting_contents" rows="10"></textarea>						
 					</div>
 				</div>
 				<!-- 우대사항 -->
 				<div class="row mt-3">
-					<div class="col">
+					<div class="col fw-bold">
 						우대사항
 					</div>
 				</div>
 				<div class="row mt-2">
-					<div class="col">
-						<textarea name="preference" rows="10" cols="80" style="resize: both;"></textarea>						
+					<div class="col d-grid">
+						<textarea class="form-control border-dark" name="preference" rows="10"></textarea>						
 					</div>
 				</div>
 				<!-- 채용인원 -->
 				<div class="row mt-3">
-					<div class="col">
-						<input class="form-sm border-black" name="hire_number" type="text">명
+					<div class="col fw-bold">
+						채용인원
 					</div>
 				</div>
+				<div class="row mt-2">
+					<div class="col">
+						<input class="form-control border-black" name="hire_number" type="text">
+					</div>
+					<div class="col-8"></div>
+				</div>
 				<!-- 채용마감일 -->
-				<div class="row mt-3">
+				<div class="row mt-4">
 					<div class="col">
 						<input class="form-control form-control-sm border-black" name="posting_deadline" type="date">
 					</div>
@@ -113,6 +119,9 @@
 					<div class="col">
 						<input class="btn btn-primary" type="submit" value="공고등록">
 					</div>
+				</div>
+				<div class="row mt-5">
+					<div class="col"></div>
 				</div>
 				</form>
 			</div>

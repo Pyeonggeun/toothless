@@ -21,6 +21,7 @@ public interface ItemStaffSqlMapper {
 	
 	public ItemDto selectItemByItemPk(int item_pk);
 	
+	
 	public void updateItemByItemPk(ItemDto itemDto);
 	
 	public void deleteItemByItemPk(int item_pk);

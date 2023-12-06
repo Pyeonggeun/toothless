@@ -53,13 +53,13 @@
                             </p>
                             <div class="collapse" id="collapseExample1">
                                 <div class="card card-body rounded-0 py-0 border-0">
-                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
+                                    <a class="btn btn-transparent text-start" href="../kh/medicineInventory" style="font-size: small;">
                                         재고관리
                                     </a>
-                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
+                                    <a class="btn btn-transparent text-start" href="../kh/medicineAdd" style="font-size: small;">
                                         입고관리
                                     </a>
-                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
+                                    <a class="btn btn-transparent text-start" href="../kh/codeRegistPage" style="font-size: small;">
                                         코드관리
                                     </a>
                                 </div>

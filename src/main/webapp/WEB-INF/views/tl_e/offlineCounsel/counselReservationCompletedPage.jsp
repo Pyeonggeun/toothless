@@ -84,7 +84,7 @@
 				  <li class="nav-item dropdown">
 				    <a class="nav-link dropdown-toggle fw-bold text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a>
 				    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">예약 조회</a></li>
+                        <li><a class="dropdown-item" href="./checkOfflineCounselReservationStudentPage">예약 조회</a></li>
                         <li><a class="dropdown-item" href="#">상담이력 조회</a></li>
                     </ul>
 				  </li>

@@ -128,7 +128,6 @@
 				</div>
 			</div>
 			
-	
 			<div class="row mt-3">
 				<div class="col px-0">
 					<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary me-1"> &nbsp;&nbsp; 취소 &nbsp;&nbsp;</button>

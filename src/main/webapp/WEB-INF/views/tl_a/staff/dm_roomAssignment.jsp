@@ -87,17 +87,17 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>배진우</td><!-- 테이블 엮어서 반복문 -->
+							<c:forEach items="${studentAssignmentList}" var="studentAssignmentList">
+								<tr>
+								<td>${studentAssignmentList.studentInfoDto.name }</td>
 								<td>
                                     <select id="1" name="dorm" class="form-select">
-                                        <!-- 동 리스트 반복문 -->
                                         <option>A</option>
                                         <option>B</option>
                                     </select>
-                                </td><!-- 여기도 반복문-->
+                                </td>
                                 <td>
-                                    <select class="form-select"> <!-- 이거 a동 선택할때랑 b동 선택할때랑 달라서... -->
+                                    <select class="form-select"> 
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -108,8 +108,27 @@
                                         <option>6</option>
                                     </select>
                                 </td>
-								<td><h6 class="btn btn-primary">배정</h6></td>
-							</tr><!--  -->
+								<td><h6 class="btn btn-primary">&nbsp;&nbsp;&nbsp;배정&nbsp;&nbsp;&nbsp;</h6></td>
+							</tr>
+							</c:forEach>
+							<c:forEach items="${dormList }" var="dormList">
+							<tr>
+								<td>${dormList.studentInfoDto.name }</td>
+								<td>
+                                    <select id="1" name="dorm" class="form-select">
+                                        <option>${dormList.dormBuildingDto.name }</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select"> 
+                                        <option>101</option>
+                                        <option>102</option>
+                                        <option>103</option>
+                                    </select>
+                                </td>
+								<td><a href="./assignmentDeleteProcess?dorm_student_pk=${dormList.dormStudentDto.dorm_student_pk }" class="btn btn-danger" role="button">배정취소</a></td>
+							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>

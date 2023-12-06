@@ -1,6 +1,9 @@
 package com.mkfactory.toothless.d.gw.company.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +41,63 @@ public class CompanyServiceIpml {
 	
 	public List<ComScaleCategoryDto> getComScaleList(){
 		return companySqlMapper.selectComScaleCategoryAll();
+	}
+	
+	public Map<String, Object> getCompany(int companyPK){
+		
+		Map<String, Object> companyMap=new HashMap<>();
+		
+		CompanyDto companyDto=companySqlMapper.companySelectById(companyPK);
+		CompanyManagerDto companyManagerDto=companySqlMapper.companyManagerSelectById(companyDto.getCom_manager_pk());
+		ComScaleCategoryDto comScaleCategoryDto=companySqlMapper.comScaleCategorySelectById(companyDto.getCom_scale_category_pk());
+		
+		companyMap.put("companyDto", companyDto);
+		companyMap.put("companyManagerDto", companyManagerDto);
+		companyMap.put("comScaleCategoryDto", comScaleCategoryDto);
+		
+		return companyMap;
+	}
+	
+	public List<Map<String, Object>> getCompanyList(){
+		
+		List<Map<String, Object>> companyList=new ArrayList<>();
+		
+		List<CompanyDto> companyDtoList=companySqlMapper.selectCompanyAll();
+		
+		for(CompanyDto companyDto:companyDtoList) {
+			CompanyManagerDto companyManagerDto=companySqlMapper.companyManagerSelectById(companyDto.getCom_manager_pk());
+			
+			Map<String, Object> map=new HashMap<>();
+			map.put("companyDto", companyDto);
+			map.put("companyManagerDto", companyManagerDto);
+			
+			companyList.add(map);
+		}
+		
+		return companyList;
+	}
+	
+	//가족기업으로 변환
+	public void changeFamilyCompany(int companyPK) {
+		companySqlMapper.changeFamilyCompany(companyPK);
+	}
+	
+	//가족기업 일반기업으로 변환
+	public void changeGeneralCompany(int companyPK) {
+		companySqlMapper.changeGeneralCompany(companyPK);
+	}
+	
+	//기업정보 수정
+	
+	public void updateCompanyInfo(CompanyDto companyDto, CompanyManagerDto companyManagerDto) {
+		companySqlMapper.updateCompany(companyDto);
+		companySqlMapper.updateCompanyManager(companyManagerDto);
+	}
+	
+	//기업정보 삭제
+	public void deleteCompanyInfo(int com_pk, int com_manager_pk, int external_pk) {
+		companySqlMapper.deleteCompany(com_pk);
+		companySqlMapper.deleteCompanyManager(com_manager_pk);
+		companySqlMapper.deleteExternal(external_pk);
 	}
 }

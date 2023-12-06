@@ -68,12 +68,75 @@
 		WHERE tdjp.POSTING_DEADLINE BETWEEN (SYSDATE) AND (SYSDATE + (72/24))
 	</select>
 	
+	<!-- 마감종료 채용공고 -->
+	<select id="selectEndPosting" resultType="int">
+		SELECT tdjp.JOB_POSTING_PK FROM TL_D_JOB_POSTING tdjp
+		<![CDATA[  
+		WHERE tdjp.POSTING_DEADLINE <= (SYSDATE)
+		]]>
+	</select>
+	
+	<!-- 기업별 공고 수 -->
+	<select id="selectCompanyPostingCount" resultType="int">
+		SELECT count(*) FROM TL_D_JOB_POSTING tdjp 
+		WHERE tdjp.COM_PK = #{com_pk}
+	</select>
+	
 	<!-- 기업별 채용공고 -->
 	<select id="selectPostingListByComPk" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
 		SELECT * FROM TL_D_JOB_POSTING tdjp
 		WHERE tdjp.com_pk = #{com_pk}
+		ORDER BY tdjp.CREATED_AT DESC 
 	</select>
 	
+	<!-- 채용공고 상세리스트 -->
+	<select id="selectPostingDetailByJobPostingPk" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
+		SELECT * FROM TL_D_JOB_POSTING tdjp 
+		WHERE tdjp.JOB_POSTING_PK = #{job_posting_pk}
+	</select>
+	
+	<!-- 기업담당자 + 기업 -->
+	<select id="selectByComManagerPk" resultType="com.mkfactory.toothless.d.dto.CompanyManagerDto">
+		SELECT * FROM TL_D_COMPANY_MANAGER tdcm 
+		WHERE tdcm.COM_MANAGER_PK = #{com_manager_pk}
+	</select>	
+	
+	<!-- 기업규모 + 기업 -->
+	<select id="selectByComScaleCategoryPk" resultType="com.mkfactory.toothless.d.dto.ComScaleCategoryDto">
+		SELECT * FROM TL_D_COM_SCALE_CATEGORY tdcsc 
+		WHERE tdcsc.COM_SCALE_CATEGORY_PK = #{com_scale_category_pk}
+	</select>
+	
+	<!-- 디데이 -->
+	<select id="selectPostingDeadlineDDay" resultType="int">
+		SELECT CEIL((tdjp.POSTING_DEADLINE - SYSDATE)) FROM TL_D_JOB_POSTING tdjp 
+		WHERE 1 = 1 
+		AND tdjp.POSTING_DEADLINE BETWEEN (SYSDATE) AND (SYSDATE + (72/24))
+		AND tdjp.JOB_POSTING_PK = #{job_posting_pk}
+	</select>
+	
+	<!-- 채용공고 삭제 -->
+	<delete id="deleteJobPostingByJobPostingPk">
+		DELETE FROM TL_D_JOB_POSTING tdjp 
+		WHERE tdjp.JOB_POSTING_PK = #{job_posting_pk}	
+	</delete>
+	
+	<!-- 채용공고 수정 -->
+	<update id="updateJobPostingInfo">
+		UPDATE TL_D_JOB_POSTING 
+		SET 
+		STAFF_PK = #{staff_pk}, 
+		JOB_FIELD_CATEGORY_PK = #{job_field_category_pk}, 
+		POSTING_NAME = #{posting_name}, 
+		JOB_POSITION = #{job_position},
+		POSTING_MAINIMAGE = #{posting_mainimage}, 
+		POSTING_CONTENTS = #{posting_contents}, 
+		PREFERENCE = #{preference},
+		HIRE_NUMBER = #{hire_number}, 
+		POSTING_DEADLINE = #{posting_deadline},
+		CREATED_AT = SYSDATE 
+		WHERE job_posting_pk = #{job_posting_pk}
+	</update>
 	
 	
 
