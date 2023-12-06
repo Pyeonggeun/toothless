@@ -43,7 +43,11 @@ public interface EunbiStudentSqlMapper {
 	// 해당 실습과정의 신청학생 조회
 	public List<AjdksStudentApplyingDto> getApplyingListByCoursePk(int internship_course_pk);
 	
-	
+	// 실습생의 출결 조회
+	public int countAttendance(int student_intern_pk);
+	public int countLate(int student_intern_pk);
+	public int countEarlyleave(int student_intern_pk);
+	public int countAbsent(int student_intern_pk);
 	
 	
 	

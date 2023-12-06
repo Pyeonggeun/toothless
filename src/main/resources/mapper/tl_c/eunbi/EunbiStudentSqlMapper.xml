@@ -94,6 +94,30 @@
 		WHERE student_pk = #{student_pk}
 	</select>
 
+	<!-- 실습생의 출결통계 -->
+	<select id="countAttendance" resultType="int">
+		SELECT COUNT(*) FROM tl_c_company_timecard
+		WHERE student_intern_pk = #{student_intern_pk}
+		AND timecard_category_pk = 1
+	</select>
+
+	<select id="countLate" resultType="int">
+		SELECT COUNT(*) FROM tl_c_company_timecard
+		WHERE student_intern_pk = #{student_intern_pk}
+		AND timecard_category_pk = 2
+	</select>
+	
+	<select id="countEarlyleave" resultType="int">
+		SELECT COUNT(*) FROM tl_c_company_timecard
+		WHERE student_intern_pk = #{student_intern_pk}
+		AND timecard_category_pk = 3
+	</select>
+
+	<select id="countAbsent" resultType="int">
+		SELECT COUNT(*) FROM tl_c_company_timecard
+		WHERE student_intern_pk = #{student_intern_pk}
+		AND timecard_category_pk = 4
+	</select>
 
 
 
