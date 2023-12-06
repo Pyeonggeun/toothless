@@ -1,6 +1,7 @@
 package com.mkfactory.toothless.e.offlinecounsel.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -8,6 +9,7 @@ import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.CounselDocumentDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
+import com.mkfactory.toothless.e.dto.ImpossibleDateDto;
 import com.mkfactory.toothless.e.dto.OfflineReservationDto;
 import com.mkfactory.toothless.e.dto.OfflineSurveyDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
@@ -74,6 +76,17 @@ public interface OfflineCounselMapper {
 			@Param("counsel_year") int year, 
 			@Param("counsel_month") int month, 
 			@Param("counsel_date") int date, 
-			@Param("counsel_hour") int hour);
+			@Param("counsel_hour") int hour
+			);
+	
+	// 상담원 불가 일정 insert
+	public void insertImpossibleDateInfo(ImpossibleDateDto impossibleDateDto);
+	
+	// 상담원별 불가일정 리스트 출력
+	public List<ImpossibleDateDto> selectImpossibleDateListByCounselorId(int counselor_id);
+	
+	// 상담원별 불가일정 날짜형식으로 포맷
+	public List<Map<String, Object>> selectImpossibleDateMap(int counselor_id);
+	
 	
 }

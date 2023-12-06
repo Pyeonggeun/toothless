@@ -18,6 +18,7 @@ import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.CounselDocumentDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
+import com.mkfactory.toothless.e.dto.ImpossibleDateDto;
 import com.mkfactory.toothless.e.dto.OfflineReservationDto;
 import com.mkfactory.toothless.e.dto.OfflineSurveyDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
@@ -34,6 +35,15 @@ public class OfflineCounselServiceImpl {
 		return offlineCounselMapper.createOfflineReservationPk();
 	}
 	
+	// externalPk로 상담원키 출력
+	public CounselorDto getCounselorPk(int external_pk) {
+		
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfoByExternalPk(external_pk);
+		
+		return counselorDto;
+	}
+
+	
 	public List<Map<String, Object>> sevenDaysDateExtraction(int counselor_id) {
 		
 		List<Map<String, Object>> list = new ArrayList<>();
@@ -48,6 +58,8 @@ public class OfflineCounselServiceImpl {
 			DayOfWeek dayOfWeek = today.getDayOfWeek();
 			int day = dayOfWeek.getValue();
 			
+			String onlyDate = "" + year + month + date;
+			
 			List<String> reservationDateInfoList = offlineCounselMapper.selectReservationDateInfoByCounselorId(counselor_id);
 			
 			List<Map<String, Object>> timeList = new ArrayList<>();
@@ -59,14 +71,24 @@ public class OfflineCounselServiceImpl {
 				
 				String state = offlineCounselMapper.selectReservationState(counselor_id, year, month, date, hour);
 				
+//				List<ImpossibleDateDto> impossibleDateList = offlineCounselMapper.selectImpossibleDateListByCounselorId(counselor_id);
+//				List<String> impossibleList = new ArrayList<>();
+//				
+//				for(ImpossibleDateDto impossibleDateDto : impossibleDateList) {
+//					
+//					impossibleList.add("" + impossibleDateDto.getStart_year()  + impossibleDateDto.getStart_month() + impossibleDateDto.getEnd_date());
+//				}
+				
 				Map<String, Object> dateTimeMap = new HashMap<>();
 				dateTimeMap.put("dateString", dateString);
 				dateTimeMap.put("hour", hour);
 				dateTimeMap.put("reservationDateInfoList", reservationDateInfoList);
 				dateTimeMap.put("state", state);
+//				dateTimeMap.put("impossibleList", impossibleList);
 				
 				timeList.add(dateTimeMap);
 			}
+			
 			
 			Map<String, Object> map = new HashMap<>();
 			map.put("year", year);
@@ -74,6 +96,7 @@ public class OfflineCounselServiceImpl {
 			map.put("date", date);
 			map.put("day", day); // jsp에서 choose,when,otherwise로 요일 이름 변경
 			map.put("timeList", timeList);
+//			map.put("onlyDate", onlyDate);
 			
 			list.add(map);
 			
@@ -198,6 +221,7 @@ public class OfflineCounselServiceImpl {
 		
 		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfoByExternalPk(external_pk);
 		int counselor_pk = counselorDto.getId();
+		System.out.println(counselor_pk);
 		
 		List<OfflineReservationDto> reservationList = offlineCounselMapper.selectReservationListByCounselorId(counselor_pk);
 		
@@ -222,6 +246,7 @@ public class OfflineCounselServiceImpl {
 		}
 		return list;
 	}
+	
 	
 	public Map<String, Object> createReportInfo(int reservationPk, int studentPk, int categoryPk){
 		
@@ -328,6 +353,21 @@ public class OfflineCounselServiceImpl {
 		
 		offlineCounselMapper.updateReservationStateToCancel(reservation_id);
 		
+	}
+	
+	public void insertImpossibleDateInfo(ImpossibleDateDto impossibleDateDto) {
+		
+		offlineCounselMapper.insertImpossibleDateInfo(impossibleDateDto);
+	}
+	
+	public List<ImpossibleDateDto> getImpossibleDateByExternalId(int external_pk){
+		
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfoByExternalPk(external_pk);
+		int counselorPk = counselorDto.getId();
+		
+		List<ImpossibleDateDto> impossibleDateList = offlineCounselMapper.selectImpossibleDateListByCounselorId(counselorPk);
+		
+		return impossibleDateList;
 	}
 	
 	
