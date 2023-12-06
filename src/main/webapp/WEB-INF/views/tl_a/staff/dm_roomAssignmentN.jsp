@@ -94,8 +94,8 @@
 								<td>
                                     <select id="1" name="dorm" class="form-select">
                                         <!-- 동 리스트 반복문 -->
-                                        <option>A</option>
-                                        <option>B</option>
+                                        <option></option>
+                                        <option>B동</option>
                                     </select>
                                 </td><!-- 여기도 반복문-->
                                 <td>
@@ -110,7 +110,7 @@
                                         <option>6</option>
                                     </select>
                                 </td>
-								<td><h6 class="btn btn-primary">배정</h6></td>
+								<td><h6 class="btn btn-primary">&nbsp;&nbsp;&nbsp;배정&nbsp;&nbsp;&nbsp;</h6></td>
 							</tr><!--  -->
 							</c:forEach>
 							</c:if>

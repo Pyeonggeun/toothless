@@ -62,6 +62,8 @@ public class DormStaffControllerDm {
 		//★★★ 조건이 하나 더생김 미배정 이니까 배정된 애들이 셀렉트 되면 안됨 ★★★
 		model.addAttribute("studentAssignmentList", dormStaffServiceDm.studentInfoAllList());
 		
+		
+		
 		return "/tl_a/staff/dm_roomAssignmentN";
 	}
 	

@@ -108,7 +108,7 @@
                                         <option>6</option>
                                     </select>
                                 </td>
-								<td><h6 class="btn btn-primary">배정</h6></td>
+								<td><h6 class="btn btn-primary">&nbsp;&nbsp;&nbsp;배정&nbsp;&nbsp;&nbsp;</h6></td>
 							</tr>
 							</c:forEach>
 							<c:forEach items="${dormList }" var="dormList">
@@ -116,20 +116,14 @@
 								<td>${dormList.studentInfoDto.name }</td>
 								<td>
                                     <select id="1" name="dorm" class="form-select">
-                                        <option>A</option>
-                                        <option>B</option>
+                                        <option>${dormList.dormBuildingDto.name }</option>
                                     </select>
                                 </td>
                                 <td>
                                     <select class="form-select"> 
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                    </select>
-                                    <select class="form-select">
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
+                                        <option>101</option>
+                                        <option>102</option>
+                                        <option>103</option>
                                     </select>
                                 </td>
 								<td><a href="./assignmentDeleteProcess?dorm_student_pk=${dormList.dormStudentDto.dorm_student_pk }" class="btn btn-danger" role="button">배정취소</a></td>

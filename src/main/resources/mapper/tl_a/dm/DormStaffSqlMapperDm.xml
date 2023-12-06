@@ -54,5 +54,11 @@
 	
 	</select>
 	
+	<select id="dormCategoryInfoByDormAmountPk" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
+	
+		SELECT * FROM TL_A_DORM_CATEGORY WHERE dorm_amount_pk = #{dorm_amount_pk}
+	
+	</select>
+	
 	
 </mapper>
