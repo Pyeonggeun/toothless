@@ -86,7 +86,7 @@
 				  <li class="nav-item dropdown">
 				    <a class="nav-link dropdown-toggle fw-bold text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a>
 				    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">예약 조회</a></li>
+                        <li><a class="dropdown-item" href="./checkOfflineCounselReservationStudentPage">예약 조회</a></li>
                         <li><a class="dropdown-item" href="#">상담이력 조회</a></li>
                     </ul>
 				  </li>
@@ -229,7 +229,7 @@
 																		</c:if>
 																	</c:forEach>
 																	<c:choose>
-																		<c:when test="${vs >= 1 }">
+																		<c:when test="${(vs >= 1 && time.state != '취소') || time.state == '완료' || time.state == '노쇼' || time.state == '신청' }">
 																			<input class="form-check-input border-dark" name="reservationDate" type="radio" value="${dayMap.year }.${dayMap.month }.${dayMap.date }.${time.hour }.${dayMap.day}" disabled>
 																		</c:when>
 																		<c:otherwise>

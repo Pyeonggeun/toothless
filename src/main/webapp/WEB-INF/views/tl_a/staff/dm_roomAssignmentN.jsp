@@ -87,8 +87,10 @@
 							</tr>
 						</thead>
 						<tbody>
+							<c:if test="${!empty studentAssignmentList }">
+							<c:forEach items="${studentAssignmentList }" var="studentAssignmentList">
 							<tr>
-								<td>배진우</td><!-- 테이블 엮어서 반복문 -->
+								<td>${studentAssignmentList.studentInfoDto.name} ${studentAssignmentList.joinDormApplicationDto.payment_status } ${studentAssignmentList.joinDormApplicationDto.selection_status }</td><!-- 테이블 엮어서 반복문 -->
 								<td>
                                     <select id="1" name="dorm" class="form-select">
                                         <!-- 동 리스트 반복문 -->
@@ -110,6 +112,8 @@
                                 </td>
 								<td><h6 class="btn btn-primary">배정</h6></td>
 							</tr><!--  -->
+							</c:forEach>
+							</c:if>
 						</tbody>
 					</table>
 				</div>

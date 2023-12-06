@@ -1,8 +1,11 @@
 package com.mkfactory.toothless.d.ny.posting.mapper;
 
 import java.util.List;
+import java.util.Map;
 
+import com.mkfactory.toothless.d.dto.ComScaleCategoryDto;
 import com.mkfactory.toothless.d.dto.CompanyDto;
+import com.mkfactory.toothless.d.dto.CompanyManagerDto;
 import com.mkfactory.toothless.d.dto.JobFieldCategoryDto;
 import com.mkfactory.toothless.d.dto.JobPostingDto;
 
@@ -35,10 +38,31 @@ public interface PostingSqlMapper {
 	// 마감임박 채용공고
 	public List<Integer> selectPostingDeadline();
 	
+	// 마감종료 채용공고
+	public List<Integer> selectEndPosting();
+	
+	// 기업별 공고 수
+	public int selectCompanyPostingCount(int com_pk);
+	
 	// 기업별 공고 리스트
 	public List<JobPostingDto> selectPostingListByComPk(int com_pk);
 	
-//	// 기업별 공고 수
-//	public int selectPostingCount(int com_pk);
+	// 공고 상세 리스트
+	public JobPostingDto selectPostingDetailByJobPostingPk(int job_posting_pk);
+	
+	// 기업담당자 + 기업
+	public CompanyManagerDto selectByComManagerPk(int com_manager_pk);
+	
+	// 기업규모 + 기업
+	public ComScaleCategoryDto selectByComScaleCategoryPk(int com_scale_category_pk);
+	
+	// 디데이
+	public int selectPostingDeadlineDDay(int job_posting_pk);
+	
+	// 채용공고 삭제
+	public void deleteJobPostingByJobPostingPk(int job_posting_pk);
+	
+	// 채용공고 수정
+	public void updateJobPostingInfo(JobPostingDto jobPostingDto);
 	
 }

@@ -111,7 +111,7 @@
 					<div class="row pt-4">
 						<div class="col border border-dark">
 							<div class="row text-center border-bottom border-dark">
-								<div class="col-2 border-end border-dark py-3 fw-bold">
+								<div class="col-2 border-end border-dark py-3 fw-bold" style="background-color: rgb(244, 244, 241);">
 									<div class="row">
 										<div class="col">
 											상담일자
@@ -126,7 +126,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-2 border-end border-dark py-3 fw-bold">
+								<div class="col-2 border-end border-dark py-3 fw-bold" style="background-color: rgb(244, 244, 241);">
 									<div class="row">
 										<div class="col">
 											성명									
@@ -142,7 +142,7 @@
 								</div>
 							</div>
 							<div class="row text-center border-bottom border-dark">
-								<div class="col-2 border-end border-dark py-3 fw-bold">
+								<div class="col-2 border-end border-dark py-3 fw-bold" style="background-color: rgb(244, 244, 241);">
 									<div class="row">
 										<div class="col pt-2">
 											상담상태
@@ -161,7 +161,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-2 border-end border-dark py-3 fw-bold">
+								<div class="col-2 border-end border-dark py-3 fw-bold" style="background-color: rgb(244, 244, 241);">
 									<div class="row">
 										<div class="col pt-2">
 											성별									
@@ -184,7 +184,7 @@
 								</div>
 							</div>
 							<div class="row text-center border-bottom border-dark">
-								<div class="col-2 border-end border-dark py-3 fw-bold">
+								<div class="col-2 border-end border-dark py-3 fw-bold" style="background-color: rgb(244, 244, 241);">
 									<div class="row">
 										<div class="col">
 											상담주제
@@ -198,7 +198,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-2 border-end border-dark py-3 fw-bold">
+								<div class="col-2 border-end border-dark py-3 fw-bold" style="background-color: rgb(244, 244, 241);">
 									<div class="row">
 										<div class="col">
 											연락처								
@@ -214,7 +214,7 @@
 								</div>
 							</div>
 							<div class="row text-center border-bottom border-dark align-items-center">
-								<div class="col-2 py-3 fw-bold border-end border-dark">
+								<div class="col-2 py-3 fw-bold border-end border-dark" style="background-color: rgb(244, 244, 241);">
 									<div class="row">
 										<div class="col">
 											신청자<br>
@@ -231,14 +231,12 @@
 								</div>
 							</div>
 							<div class="row text-center border-bottom border-dark align-items-center">
-								<div class="col-2 pt-1 pb-4 fw-bold">
+								<div class="col-2 py-2 fw-bold" style="background-color: rgb(244, 244, 241);">
 									<div class="row">
 										<div class="col">
-											<br>
-											<br>
+											<br><br><br>
 											상담내용
-											<br>
-											<br>
+											<br><br><br>
 										</div>
 									</div>
 								</div>
@@ -251,11 +249,13 @@
 								</div>
 							</div>
 							<div class="row text-center align-items-center">
-								<div class="col-2 py-3 fw-bold">
+								<div class="col-2 py-5 fw-bold" style="background-color: rgb(244, 244, 241);">
 									<div class="row">
 										<div class="col">
+											<br>
 											상담자의<br>
 											평가
+											<br>
 										</div>
 									</div>
 								</div>

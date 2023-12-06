@@ -1,6 +1,9 @@
 package com.mkfactory.toothless.a.staff.sj.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +32,6 @@ public class BuildingServieImpl {
 		
 	}
 	
-
-	
 	public List<DormBuildingDto> dormBuildNames(){
 		return buildingSqlMapper.dormBuildings();
 	}
@@ -54,4 +55,30 @@ public class BuildingServieImpl {
 		}
 		
 	}
+	
+//	public List<Map<String, Object>> printDormList(){
+//		List<Map<String, Object>> bList= new ArrayList<>();
+//		
+//		List<DormBuildingDto> dormL = buildingSqlMapper.dormBuildings();
+//		
+//		for(DormBuildingDto db : dormL) {
+//			int dormPk = db.getDorm_pk();
+//			db.setDorm_pk(dormPk);
+//			
+//			Map<String, Object> dMap = new HashMap<>();
+//			dMap.put("db", db);
+//			
+//			bList.add(dMap);
+//		}
+//		return bList;
+//	}
+	
+	public void deleteForDormInfoProcess(int dorm_pk) {
+		
+		buildingSqlMapper.deleteForDormInfo(dorm_pk);
+		
+	}
+	
+	
+	
 }

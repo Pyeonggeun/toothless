@@ -28,23 +28,23 @@
 		<div class="row mt-4 mb-5" style="margin-left: 16%; margin-right: 16%;">
 			<c:forEach items="${itemList }" var="e">
 				<div class="col-3 pt-5 ps-3">
-					<img class="img-fluid" src="/uploadFiles/mainImage/${e.IMG_LINK}">	
+					<img class="img-fluid" src="/uploadFiles/mainImage/${e.itemDto.img_link}">	
 					<div class="row mt-1">
 						<div class="col fw-bold"> 
-							카테고리명: ${e.CAT_NAME }
+							카테고리명: ${e.itemCatDto.name }
 							<div class="row mt-1">
 								<div class="col fw-bold">
-									물품명: ${e.ITEM_NAME }
+									물품명: ${e.itemDto.name }
 									<div class="row mt-1">
 										<div class="col fw-bold">
 										<div class="row mt-5">
 											<div class="col-6"></div>
 											<div class="col">
 												<c:choose>
-													<c:when test="${e.STATUS eq 'N' }">
-														<a href="./studentItemApplyPage?item_pk=${e.ITEM_PK }" class="btn text-white" style="background-color: #014195">신청하기</a>
+													<c:when test="${e.status eq 'N' or empty e.status  }">
+														<a href="./studentItemApplyPage?item_pk=${e.itemDto.item_pk }" class="btn text-white" style="background-color: #014195">신청하기</a>
 													</c:when>
-													<c:when test="${e.STATUS eq 'Y' }">
+													<c:when test="${e.status eq 'Y' }">
 														<button disabled="disabled" class="btn text-white" style="background-color: #014195">대여중</button>
 													</c:when>
 												</c:choose>

@@ -19,6 +19,9 @@ public interface DormStudnetSqlMapper {
 	// 학생 pk로 특정학생 정보 가져오기
 	public StudentInfoDto selectStudentInfoByStudentPk(int student_pk);
 	
+	// 학생 pk로 진행중인 학기의 입주신청 여부/정보 가져오기
+	public JoinDormApplicationDto selectIsApplyThisSemesterInfo(int student_pk);
+	
 	// 학과 pk로 특정학과 정보 가져오기
 	public DepartmentCategoryDto selectDeparmentInfoByPk(int department_pk);
 	

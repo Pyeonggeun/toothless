@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.OfflineReservationDto;
+import com.mkfactory.toothless.e.dto.OfflineSurveyDto;
 import com.mkfactory.toothless.e.offlinecounsel.service.OfflineCounselServiceImpl;
 
 @Controller
@@ -107,11 +109,50 @@ public class OfflineCounselController {
 	
 	
 	@RequestMapping("checkOfflineCounselReservationStudentPage")
-	public String checkOfflineCounselReservationStudentPage() {
+	public String checkOfflineCounselReservationStudentPage(HttpSession session, Model model) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int student_pk = studentInfoDto.getStudent_pk();
+		
+		List<Map<String, Object>> list = offlineCounselService.getCounselReservationList(student_pk);
+		model.addAttribute("list", list);
 		
 		return "tl_e/offlineCounsel/checkOfflineCounselReservationStudentPage";
 	}
 	
+	@RequestMapping("counselReviewPage")
+	public String counselReviewPage(Model model, int reservation_id) {
+		
+		Map<String, Object> map = offlineCounselService.getOfflineSurveyPageInfo(reservation_id);
+		model.addAttribute("map", map);
+		
+		return "tl_e/offlineCounsel/counselReviewPage";
+	}
+	
+	@RequestMapping("counselReviewProcess")
+	public String counselReviewProcess(OfflineSurveyDto params) {
+		
+		offlineCounselService.insertOfflineSurveyInfo(params);
+		
+		return "redirect:./checkOfflineCounselReservationStudentPage";
+	}
+	
+	@RequestMapping("counselCancelPage")
+	public String counselCancelPage(Model model, int reservation_id) {
+		
+		Map<String, Object> map = offlineCounselService.getOfflineReservationCancelPageInfo(reservation_id);
+		model.addAttribute("map", map);
+		
+		return "tl_e/offlineCounsel/counselCancelPage";
+	}
+	
+	@RequestMapping("reservationCancelProcess")
+	public String reservationCancelProcess(int reservation_id) {
+		
+		offlineCounselService.updateReservationStateToCancel(reservation_id);
+		
+		return "redirect:./checkOfflineCounselReservationStudentPage";
+	}
 	
 	
 	

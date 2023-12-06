@@ -23,21 +23,21 @@
     		</div>
     		<div class="col-4 text-center align-self-center">
 				<div class="row text-center align-self-center">
-					<div class="col text-center px-0 ms-4">
+					<div class="col text-center px-0">
 						<!-- 가능하면 알림 기능 -->
 						<i class="fs-5 bi bi-bell"></i>
 					</div>
 	
 					<!-- 교직원정보 -->
-					<div class="col-6 fs-5 me-4 text-start align-self-center nav-item dropdown ms-auto">
+					<div class="col-6 fs-5 me-4 px-0 text-start align-self-center nav-item dropdown ms-auto">
 						<!-- 로그인/회원가입 -->
 	                   <div class="col text-end">
 	                       <c:choose>
 	                           <c:when test="${!empty sessionStaffInfo }">
-	                           <a class="fw-bold nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-			                   ${sessionStaffInfo.name }</a>
+	                           <a class="fw-bold nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			                   ${sessionStaffInfo.name }<span class="fs-6" style="font-size: 0.8em">님</span></a>
 	                           	 
-	                           	<span class="fs-6" style="font-size: 0.8em">님</span>
+	                           	
 	                           	<ul class="dropdown-menu">
                                   <li><a class="dropdown-item" href="#">마이페이지</a></li>
                                   <li><a class="dropdown-item" href="#">뭘 넣을까</a></li>
@@ -47,27 +47,16 @@
 	                           	
 	                           </c:when>
 	                           <c:otherwise>
-		                           <a class="fw-bold nav-link dropdown-toggle" href="./loginPage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				                   GUEST</a>
-		                           	 
-		                           	<span class="fs-6" style="font-size: 0.8em">님</span>
-		                           	<ul class="dropdown-menu">
-	                                  <li><a class="dropdown-item" href="#">마이페이지</a></li>
-	                                  <li><a class="dropdown-item" href="#">뭘 넣을까</a></li>
-	                                  <li><hr class="dropdown-divider"></li>
-	                                  <li><a href="./logoutProcess" class="dropdown-item">로그아웃</a></li>
-	                                </ul>
+		                           <a class="fw-bold text-black dropdown-toggle" role="button" href="./loginPage" style="text-decoration: none;">
+				                   GUEST<span class="fs-6" style="font-size: 0.8em">님</span></a>
 	                           </c:otherwise>
 	                       </c:choose>
-			
+						</div>
 					</div>
-					
-					
                     <div class="col-1"></div>
-                          								
-				</div>
 			<!-- 원래 choose공간 -->
     		</div> 	
    		</div>
    	</div>
+  </div>
 </div>

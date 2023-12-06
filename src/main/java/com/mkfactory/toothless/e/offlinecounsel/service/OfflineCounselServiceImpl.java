@@ -19,6 +19,7 @@ import com.mkfactory.toothless.e.dto.CounselDocumentDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
 import com.mkfactory.toothless.e.dto.OfflineReservationDto;
+import com.mkfactory.toothless.e.dto.OfflineSurveyDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 import com.mkfactory.toothless.e.offlinecounsel.mapper.OfflineCounselMapper;
 
@@ -56,10 +57,13 @@ public class OfflineCounselServiceImpl {
 				String dateString = year + "." + month + "." + date + "." + j;
 				int hour = j;
 				
+				String state = offlineCounselMapper.selectReservationState(counselor_id, year, month, date, hour);
+				
 				Map<String, Object> dateTimeMap = new HashMap<>();
 				dateTimeMap.put("dateString", dateString);
 				dateTimeMap.put("hour", hour);
 				dateTimeMap.put("reservationDateInfoList", reservationDateInfoList);
+				dateTimeMap.put("state", state);
 				
 				timeList.add(dateTimeMap);
 			}
@@ -244,6 +248,86 @@ public class OfflineCounselServiceImpl {
 	public void insertCounselDocumentInfo(int id, String text) {
 		
 		offlineCounselMapper.insertCounselDocument(id, text);
+	}
+	
+	public List<Map<String, Object>> getCounselReservationList(int student_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<OfflineReservationDto> reservationList = offlineCounselMapper.selectCounselReservationList(student_pk);
+		
+		for(OfflineReservationDto offlineReservationDto : reservationList) {
+			
+			int counselorPk = offlineReservationDto.getCounselor_id();
+			CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfo(counselorPk);
+			
+			int categoryPk = offlineReservationDto.getType_category_id();
+			TypeCategoryDto typeCategoryDto = offlineCounselMapper.selectTypeCategoryDtoById(categoryPk);
+			
+			OfflineSurveyDto offlineSurveyDto = offlineCounselMapper.selectOfflineSurveryInfo(offlineReservationDto.getId());
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("offlineReservationDto", offlineReservationDto);
+			map.put("counselorDto", counselorDto);
+			map.put("typeCategoryDto", typeCategoryDto);
+			map.put("offlineSurveyDto", offlineSurveyDto);
+			
+			list.add(map);
+		}
+		return list;
+		
+	}
+	
+	public void insertOfflineSurveyInfo(OfflineSurveyDto offlineSurveyDto) {
+		
+		offlineCounselMapper.insertOfflineSurvey(offlineSurveyDto);
+	}
+	
+	public Map<String, Object> getOfflineSurveyPageInfo(int reservation_id){
+		
+		OfflineReservationDto offlineReservationDto = offlineCounselMapper.selectOfflineReservationCompletedInfo(reservation_id);
+		
+		int categoryPk = offlineReservationDto.getType_category_id();
+		TypeCategoryDto typeCategoryDto = offlineCounselMapper.selectTypeCategoryDtoById(categoryPk);
+		
+		int counselorPk = offlineReservationDto.getCounselor_id();
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfo(counselorPk);
+		
+		OfflineSurveyDto offlineSurveyDto = offlineCounselMapper.selectOfflineSurveryInfo(offlineReservationDto.getId());
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("offlineReservationDto", offlineReservationDto);
+		map.put("typeCategoryDto", typeCategoryDto);
+		map.put("counselorDto", counselorDto);
+		map.put("offlineSurveyDto", offlineSurveyDto);
+		
+		return map;
+		
+	}
+	
+	public Map<String, Object> getOfflineReservationCancelPageInfo(int reservation_id){
+		
+		OfflineReservationDto offlineReservationDto = offlineCounselMapper.selectOfflineReservationCompletedInfo(reservation_id);
+		
+		int categoryPk = offlineReservationDto.getType_category_id();
+		TypeCategoryDto typeCategoryDto = offlineCounselMapper.selectTypeCategoryDtoById(categoryPk);
+		
+		int counselorPk = offlineReservationDto.getCounselor_id();
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfo(counselorPk);
+		
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("offlineReservationDto", offlineReservationDto);
+		map.put("typeCategoryDto", typeCategoryDto);
+		map.put("counselorDto", counselorDto);
+		
+		return map;
+	}
+	
+	public void updateReservationStateToCancel(int reservation_id) {
+		
+		offlineCounselMapper.updateReservationStateToCancel(reservation_id);
+		
 	}
 	
 	
