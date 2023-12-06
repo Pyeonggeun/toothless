@@ -30,7 +30,7 @@
 					  </li>
 					  <li class="nav-item mx-2">
 					    <a class="nav-link fs-5" style="text-decoration: none; color: black;"
-					    href="#">납부 관리</a>
+					    href="./mj_managePaymentPage">납부 관리</a>
 					  </li>
 					  <li class="nav-item mx-2">
 					    <a class="nav-link fs-5" style="text-decoration: none; color: black;"
@@ -38,15 +38,15 @@
 					  </li> 
 					  <li class="nav-item mx-2">
 					    <a class="nav-link fs-5" style="text-decoration: none; color: black;"
-					    href="#">사생 관리</a>
+					    href="./jw_exitSituationPage">사생 관리</a>
 					  </li>
 					  <li class="nav-item mx-2">
 					    <a class="nav-link fs-5" style="text-decoration: none; color: black;"
-					    href="#">상벌점 관리</a>
+					    href="./jw_pointCategoryPage">상벌점 관리</a>
 					  </li>
 					  <li class="nav-item mx-2">
 					    <a class="nav-link fs-5" style="text-decoration: none; color: black;"
-					    href="#">임원 관리</a>
+					    href="./jw_executiveAssignmentPage">임원 관리</a>
 					  </li>
 					</ul>
 				</div>

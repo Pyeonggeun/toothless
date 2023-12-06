@@ -59,6 +59,52 @@
 		)
 		ORDER BY SEMESTER_pk asc
 	</select>
+	
+	<!-- 입사신청 리스트 -->
+	<select id="selectAllDormApplyList" resultType="com.mkfactory.toothless.a.dto.JoinDormApplicationDto">
+		SELECT * FROM TL_A_JOIN_DORM_APPLICATION
+		ORDER BY DORM_APPLICATION_PK desc
+	</select>
+	
+	<!-- 선발상태 업데이트 -->
+	<update id="updateSelectionStatus">
+		UPDATE TL_A_JOIN_DORM_APPLICATION
+		SET SELECTION_STATUS = #{selection_status}
+		WHERE DORM_APPLICATION_PK = #{dorm_application_pk}
+	</update>
+	
+	<!-- 선발된 정보 리스트 -->
+	<select id="selectAllDormSelectedList" resultType="com.mkfactory.toothless.a.dto.JoinDormApplicationDto">
+		SELECT * FROM TL_A_JOIN_DORM_APPLICATION
+		WHERE SELECTION_STATUS = 'Y'
+		ORDER BY DORM_APPLICATION_PK desc
+	</select>
+	
+	<!-- 납부상태 업데이트 -->
+	<update id="updatePaymentStatus">
+		UPDATE TL_A_JOIN_DORM_APPLICATION
+		SET PAYMENT_STATUS = #{payment_status}
+		WHERE DORM_APPLICATION_PK = #{dorm_application_pk}
+	</update>
+	
+	<!-- 선발인원 중 납부완료 리스트 -->
+	<select id="selectPaymentYesList" resultType="com.mkfactory.toothless.a.dto.JoinDormApplicationDto">
+		SELECT * FROM TL_A_JOIN_DORM_APPLICATION
+		WHERE SELECTION_STATUS = 'Y'
+		AND PAYMENT_STATUS = 'Y'
+		ORDER BY DORM_APPLICATION_PK desc
+	</select>
+	
+	<!-- 선발인원 중 미납 리스트 -->
+	<select id="selectPaymentNoList" resultType="com.mkfactory.toothless.a.dto.JoinDormApplicationDto">
+		SELECT * FROM TL_A_JOIN_DORM_APPLICATION
+		WHERE SELECTION_STATUS = 'Y'
+		AND PAYMENT_STATUS = 'N'
+		ORDER BY DORM_APPLICATION_PK desc
+	</select>
+	
+	
+	
 
 
 </mapper>

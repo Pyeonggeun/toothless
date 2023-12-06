@@ -3,12 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
 <div class="row py-1 d-flex justify-content-between align-self-center" style="background-color:white">
-	<div class="col-2">
+	<div class="col-2 align-self-center">
 		<div class="row">
-			<div class="col-10">
-				
-			</div>
-		</div>
+            <div class="col-2 p-0">
+                <img src="../../resources/img/another/logo_black.png" alt="" class="img-fluid">
+            </div>
+            <div class="col p-0 align-self-center text-black fw-bold fs-3">
+                MK <span class="fs-4">대학교</span> <span class="fs-6"> | </span> <span class="fs-6"> 기숙사 관리</span> 
+            </div>
+        </div>
    	</div>
    	<div class="col-4 align-self-center">
    		<div class="row">
