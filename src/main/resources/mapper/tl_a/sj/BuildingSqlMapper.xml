@@ -16,6 +16,11 @@
 		)
 	</insert>
 	
+	<!-- 건물 삭제 -->
+	<delete id="deleteForDormInfo">
+		DELETE FROM TL_A_DORM_BUILDING tadb WHERE DORM_PK = #{dorm_pk}
+	</delete>
+	
 	<!-- 건물 전체 -->
 	<select id="dormBuildings" resultType="com.mkfactory.toothless.a.dto.DormBuildingDto">
 		SELECT * FROM TL_A_DORM_BUILDING

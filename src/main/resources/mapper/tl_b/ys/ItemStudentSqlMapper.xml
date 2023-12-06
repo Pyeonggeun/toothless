@@ -33,4 +33,12 @@
 		INNER JOIN TL_JIC_STUDENT_INFO tjsi 
 		ON TBIA.STUDENT_PK = TJSI.STUDENT_PK
 	</select>
+	
+	<!-- 물품,물품 신청 JOIN 해서 STATUS값 가져오기 -->
+	<select id="ItemApplyStatus" resultType="String">
+		SELECT tbia.STATUS AS STATUS FROM TL_B_ITEM_INFO tbii 
+		INNER JOIN TL_B_ITEM_APPLY tbia
+		ON tbii.ITEM_PK = tbia.ITEM_PK
+		WHERE tbii.ITEM_PK = #{item_pk}
+	</select>
 </mapper>

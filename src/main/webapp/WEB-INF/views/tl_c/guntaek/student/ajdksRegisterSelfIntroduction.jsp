@@ -64,6 +64,10 @@
 	<!-- 본문 : 자유롭게 이용하세요 화이팅 -->	
 	<div class="col">
 		<div class="row">
+				
+				
+				
+				
 				<div class="col mx-4">
 					<!-- 자소서를 하나도 등록하지 않았을때 이력서를 등록해준다.-->
 				 	<c:choose>
@@ -71,16 +75,17 @@
 				 			<form action="ajdksRegisterSelfIntroductionProcess" method="post">
 								<div class ="row mt-5 ms-1">
 									<div class ="col-4">
-										<i class="bi bi-person-circle" style="font-size: 2em;"></i> <span style = "font-size: 20pt">&nbsp;자기소개서 작성</span>
+										<i class="bi bi-play-circle" style="font-size: 2em;"></i> <span style = "font-size: 20pt">&nbsp;자기소개서 작성</span>
 									</div>
 								</div>
 								
 								
-								<div class ="row mt-2 ms-2" style="background-color: #DCDCDC;">
+								<div class ="row mt-2" style="background-color: #DCDCDC;">
 									<span style ="color:red; font-weight: bold"> <i class="bi bi-info-circle"></i> NOTICE </span> <br>
 									<span class ="ms-4">최소 250자 이상 작성해주세요. (띄어쓰기 포함)</span>
 								</div>
 								
+							
 							
 								<div class="accordion accordion-flush" id="accordionFlushExample">
 									<div class="accordion-item">
@@ -134,7 +139,7 @@
 										 	 	
 												<div class ="col-4	 text-end">
 														<input type="submit" value="이력서 등록" class="btn btn-dark bi bi-person">
-												</div>
+												</div>	
 										 	</div>
 										 </div>
 										</div>
@@ -161,7 +166,7 @@
 					<span class ="ms-4">최소 250자 이상 작성해주세요. (띄어쓰기 포함)</span>
 				</div>
 				
-			
+				<div class="row mt-2 ms-2">
 				<div class="accordion accordion-flush" id="accordionFlushExample">
 					<div class="accordion-item">
 					    <h2 class="accordion-header">
@@ -213,7 +218,7 @@
 								<div class = "col-4"></div>			
 						 		<div class ="col-4"></div>
 						 			<div class ="col-4 text-end">
-												<button type="button" class="btn btn-dark" data-bs-toggle="   " data-bs-target="#exampleModal">
+												<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
 														이력서 불러오기
 												</button>
 												<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -242,65 +247,120 @@
 						</div>
 					</div>
 				</div>
-
+				
+				</div>
 			</form>
  			</c:when>
  		</c:choose>
 	   
-<div class="accordion accordion-flush" id="accordionFlushExample4"> 	
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Certification1" aria-expanded="false" aria-controls="flush-collapseThree">
-        			자격증 등록
-      </button>
-    </h2>
-    <div id="Certification1" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-      <div class="accordion-body">
-      	
-      	<form action="./ajdksRegisterCertification" method ="post" enctype="multipart/form-data" >
-     			<div class ="row">
-     			
-     				<div class="col-3" style="background-color: #B0C4DE; height: 127px; border: 1px solid black;">
-     				 자격증 이미지를 등록해주세요<input name="imageLink" type="file" accept="image/*" > 	 	</div>
-     			
-     			
-     				<div class ="col-9" style="background-color: #B0C4DE; height: 127px; border: 1px solid black; "> 
-     					<div class="row"><span>학생명 : 로그인한 유저 이름</span></div>
-     					
-     					<div class="row"><span> 자격증 이름: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     					<input type ="text" name ="certification_name"></span></div>
-     						
-     					<div class="row"><span> 자격증 취득일:&nbsp;&nbsp;&nbsp;
-     					<input type ="text" name ="certification_acquisition_date"></span></div>	
-     				</div>
-      			</div>
-
-      			<div class ="row mt-3 text-end">
-      				
-      				<div class="col-9" ></div>
-					<div class ="col-3">
-						<input type ="submit" value = "자격증 추가+" class ="btn btn-dark">
-	      			</div>      				
-	      			
-	      					
-      			</div>
-      	</form>
-    </div>
-  </div>
-</div>
 	   
 	   
-	   
-	   
-	   
-</div>
+<div class = "row mt-2 ms-2">	   
+	<div class="accordion accordion-flush" id="accordionFlushExample4">
+	  	<div class="accordion-item">
+	    		<h2 class="accordion-header">
+	      			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Certification1" aria-expanded="false" aria-controls="flush-collapseThree">
+	        			자격증 등록
+	      			</button>
+	    		</h2>
+	    	<div id="Certification1" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+	      	
+	    <div class="accordion-body">
+	     				     			
+							      	<div class ="row"  >
+							      	
+							      		<div class="col-1 text-left" ><i class="bi bi-play-circle" style="color:red; font-size:2.5em;"></i>
+							      			<span style ="padding-bottom: 2em;">자격증</span>
+							      		</div> 
+							      		<div class="col-10"></div>
+							      		
+							      	</div>
+							    		      	
+	
+							      	<div class="row mt-2" > 
+							      		<div class = "col-3 text-center" style = "background-color: #B0C4DE;  border: 1px solid black;"></div> 
+							      		<div class = "col-5 text-center" style="background-color: #B0C4DE;  border: 1px solid black;" > 자격증명</div>
+							      		<div class = "col-2 text-center" style="background-color: #B0C4DE;  border: 1px solid black;" > 취득일자</div>
+							      		<div class ="col-2 text-center"  style="background-color: #B0C4DE;  border: 1px solid black;"> 파일첨부(여부)</div>
+							      	</div>
+							      	
+							      	
+							     <c:forEach var="certificationList" items="${certificationList}">
+							        	<div class="row"> 
+							      		<div class = "col-3 text-center" style ="border: 1px solid black;"> <i class="bi bi-x-square" style ="font-size:2.5em;"></i>
+							  
+							      		</div> 
+							      		<div class = "col-5 text-center" style="border: 1px solid black;" >${certificationList.certification_name}</div>
+							      		<div class = "col-2 text-center" style="border: 1px solid black;" >${certificationList.certification_acquisition_date}</div>
+							      		<div class ="col-2 text-center "  style="border: 1px solid black;">
+							      		
+								      	<c:if test="${not empty certificationList.certification_file}">
+										    	<strong>YES</strong>
+										</c:if>
+										
+										<c:if test="${empty certificationList.certification_file}">
+										    	<strong>NO</strong>
+										</c:if>
+										
+											
+							      		</div>
+							      		
+							      		
+							      	</div>
+								 </c:forEach>
+						      	
+						      		
+						      		<div class ="row mt-3 text-end">
+												<!-- Button trigger modal -->
+												<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+														자격증 등록 +
+												</button>
+												
+												<!-- Modal -->
+												<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+												  <div class="modal-dialog">
+												    <div class="modal-content">
+												      <div class="modal-header">
+												        <h1 class="modal-title fs-5" id="staticBackdropLabel">자격증 등록</h1>
+												        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												      </div>
+												      <div class="modal-body">
+												        자격증을 등록해주세요.
+												      </div>
+												      <div class="modal-footer">
+												        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+												        <button type="button" class="btn btn-primary">Understood</button>
+												      </div>
+												    </div>
+												  </div>
+												</div>
+												
+							      	</div>
+						    
+						    
+						    </div>
+						  
+						  
+						  </div>
+					</div>
+				</div>
+				
+			
+		
 		</div>
+		
 	</div>
 	
+		
+		
+		
+		</div>
+	</div>
+<!--  row 끝 -->
+</div>
+<!-- 본문 끝 -->
 </div>
 
-</div>
-</div><!-- 전체 container 출구 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
