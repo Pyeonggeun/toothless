@@ -45,7 +45,6 @@
 	
 	
 	<!--	상담원 관련 	-->
-	<select id="selecAllCounselDtoByCounselorPk" resultType="com.mkfactory.toothless.e.dto.OnlineCounselBoardDto">
-		SELECT * FROM cp_online_counsel_board WHERE id = #{id}
-	</select>
+	
+	
 </mapper>
