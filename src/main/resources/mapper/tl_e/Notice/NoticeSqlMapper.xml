@@ -84,7 +84,37 @@
 		DELETE FROM cp_notice_comment
 		WHERE id = #{id}
 	</delete>
-	
+	<!-- 공지사항 추천 판별 -->
+	<select id="noticeLikeCheck" resultType="int">
+		SELECT COUNT(*) FROM cp_notice_like 
+		WHERE notice_id = #{notice_id} 
+		AND student_pk = #{student_pk}
+	</select>
+	<!-- 공지사항 추천 판별 좋아요! -->
+	<select id="noticeUpThumbCheck" resultType="int">
+		SELECT count(*) FROM cp_notice_like
+		WHERE notice_id = #{notice_id} 
+		AND student_pk = #{student_pk} 
+		AND notice_like = 1
+	</select>
+	<!-- 공지사항 추천 판별 싫어요! -->
+	<select id="noticeDownThumbCheck" resultType="int">
+		SELECT count(*) FROM cp_notice_like
+		WHERE notice_id = #{notice_id} 
+		AND student_pk = #{student_pk} 
+		AND notice_dislike = 1
+	</select>
+	<!-- 공지사항 추천 추가 -->
+	<insert id="insertThumb">
+		INSERT INTO cp_notice_like values(
+			cp_notice_like_seq.nextval,
+			#{notice_id},
+			#{student_pk},
+			#{notice_like},
+			#{notice_dislike}
+		)
+	</insert>
+
 	
 	
 </mapper>

@@ -7,13 +7,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.NoticeBoardDto;
+import com.mkfactory.toothless.e.dto.NoticeBoardLikeDto;
 import com.mkfactory.toothless.e.dto.NoticeCommentDto;
 import com.mkfactory.toothless.e.dto.NoticeImageDto;
 import com.mkfactory.toothless.e.notice.service.NoticeServiceImpl;
@@ -91,10 +95,20 @@ public class NoticeController {
 	}
 	// 공지사항 상세글보기
 	@RequestMapping("readNoticeBoardPage")
-	public String readNoticeBoardPage(Model model, int id) {
+	public String readNoticeBoardPage(HttpSession session, Model model, int id) {
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int studentPk = studentInfoDto.getStudent_pk();
+		
+		NoticeBoardLikeDto noticeBoardLikeDto = new NoticeBoardLikeDto();
+		noticeBoardLikeDto.setStudent_pk(studentPk);
+		noticeBoardLikeDto.setNotice_id(id);
+		
 		noticeService.increaseReadCount(id);
-
+		
 		model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
+		model.addAttribute("likeCheck", noticeService.noticeLikeCheck(noticeBoardLikeDto));
+		model.addAttribute("upThumbCheck", noticeService.noticeUpThumbCheck(noticeBoardLikeDto));
+		model.addAttribute("downThumbCheck", noticeService.noticeDownThumbCheck(noticeBoardLikeDto));
 		model.addAttribute("cList", noticeService.selectCommentByNotice_Id(id));
 		return "tl_e/notice/readNoticeBoardPage";
 	}
@@ -127,5 +141,11 @@ public class NoticeController {
 	public String deleteNoticeArticleCommentProcess(NoticeCommentDto noticeCommentDto) {
 		noticeService.deleteNoticeComment(noticeCommentDto.getId());
 		return "redirect:./readNoticeBoardPage?id=" + noticeCommentDto.getNotice_id(); 
+	}
+	// 공지사항 추천 추가
+	@RequestMapping("insertNoticeLike")
+	public String insertNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto) {
+		noticeService.insertThumb(noticeBoardLikeDto);
+		return "redirect:./readNoticeBoardPage?id=" + noticeBoardLikeDto.getNotice_id();
 	}
 }
