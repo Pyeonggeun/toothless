@@ -164,14 +164,15 @@
 					  <c:forEach items="${infoList }" var="item">
 					  <tbody>
 					    <tr>
-					      <td class="p-0 pt-1 text-center">
+					      <td class="p-0 px-1 pt-1 text-center">
 						    <div class="form-check m-0 p-0 d-inline-block">
 						        <input class="form-check-input m-0 p-0" type="checkbox" value="" id="flexCheckDefault">
 						        <label class="form-check-label" for="flexCheckDefault">
 						        </label>
 						    </div>
 						  </td>
-						  <td>학년도학기</td>
+						  <td>${thisSemesterJoinDormInfo.thisSemesterDto.semester_year }년도 
+						  ${thisSemesterJoinDormInfo.thisSemesterDto.semester }</td>
 						  <td>${item.title }</td>
 						  <td>
 						  	<fmt:formatDate value="${item.apply_end_date }" pattern="yy-MM-dd" />
