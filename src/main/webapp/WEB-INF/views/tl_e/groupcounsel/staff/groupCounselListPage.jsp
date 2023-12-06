@@ -25,7 +25,7 @@
 					<div class="row" style="height: 1.4em;"></div>
 					<div class="row">
 						<div class="col-6 pt-2 text-center">
-							<div class="fw-bold" style="font-size: 1.2em;">[${sessionStudentInfo.name}]님</div>
+							<div class="fw-bold" style="font-size: 1.2em;">[${sessionStaffInfo.name}]님</div>
 						</div>
 						<div class="col-6 pt-1	">
 							<i class="bi bi-box-arrow-right" style="font-size:1.6em;"></i>						
@@ -70,7 +70,12 @@
 		<div class="col-2 border-end border-dark-subtle"></div>
 			
 		<div class="col">
-			<div class="row">
+			<div class="row mb-5">
+				<div class="col-1"></div>
+				<div class="col rounded-4" style="width:100%; height: 25em; background-color: gray; opacity: 0.1;"></div>
+				<div class="col-1"></div>
+			</div>
+			<div class="row pt-5">
 				<div class="col-1"></div>
 				<div class="col">
 				
@@ -94,28 +99,29 @@
 							<div class="fw-bold text-center" style="font-size:1.1em;">상담 관리</div>
 						</div>
 					</div>
-				
+					
+					<c:forEach items="${groupCounselList}" var="list">
 					<div class="row py-3 border-bottom border-1">
 						<div class="col-3">
-							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">금연 상담 프로그램</div>
+							<div class="fw-bold text-black text-center" style="font-size:1.0em;"><a href="./groupCounselDetailPage?id=${list.groupCounselDto.id}">${list.groupCounselDto.title}</a></div>
 						</div>
 						<div class="col-2">
-							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">16/20</div>
+							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">${list.count} / ${list.groupCounselDto.amount}</div>
 						</div>
 						<div class="col-2">
-							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">강남역 2번 출구</div>
+							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">${list.groupCounselDto.location}</div>
 						</div>						
 						<div class="col-2">
-							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">2023.03.02</div>	
+							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;"><fmt:formatDate value="${list.groupCounselDto.counsel_date}" pattern="yy.MM.dd"/></div>	
 						</div>
 						<div class="col-2">
-							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">2023.03.02~2023.03.02</div>
+							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;"><fmt:formatDate value="${list.groupCounselDto.start_apply_date }" pattern="yy.MM.dd"/>~<fmt:formatDate value="${list.groupCounselDto.end_apply_date }" pattern="yy.MM.dd"/></div>
 						</div>
 						<div class="col-1">
 							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">상담 관리</div>
 						</div>
 					</div>				
-				
+					</c:forEach>
 				
 				
 				</div>
