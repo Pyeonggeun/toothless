@@ -31,10 +31,6 @@ public interface EunbiStudentSqlMapper {
 	// 학생 기업만족도 평가
 	public void insertInternSatisfaction(AjdksInternSatisfactionDto ajdksInternSatisfactionDto);
 	
-	// 학생 이력서 조회
-	public AjdksSelfIntroductionDto getSelfIntroduction(int student_pk);
-	public List<AjdksCertificationDto> getCertifications(int student_pk);
-	
 	// 학생 과 이름 조회
 	public DepartmentCategoryDto getDepartmentByDepartmentPk(int department_pk);
 	
@@ -49,6 +45,11 @@ public interface EunbiStudentSqlMapper {
 	public int countEarlyleave(int student_intern_pk);
 	public int countAbsent(int student_intern_pk);
 	
+	// 학생 이력서 출력
+	public AjdksSelfIntroductionDto getSelfIntroductionByStudentPk(int student_pk);
+	public List<AjdksCertificationDto> getCertificationsByStudentPk(int student_pk);
+	
+	
 	
 	
 	
@@ -59,13 +60,6 @@ public interface EunbiStudentSqlMapper {
 	// 검색필터 전공
 	public List<DepartmentCategoryDto> forSelectDepartment();
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 }

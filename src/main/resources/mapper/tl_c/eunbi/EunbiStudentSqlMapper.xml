@@ -51,17 +51,6 @@
 		)
 	</insert>
 
-	<!-- 학생의 이력서 조회 -->
-	<select id="getSelfIntroduction" resultType="com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto">
-		SELECT * FROM tl_c_self_introduction
-		WHERE student_pk = #{student_pk}
-	</select>
-	
-	<select id="getCertifications" resultType="com.mkfactory.toothless.c.dto.AjdksCertificationDto">
-		SELECT * FROM tl_c_certification
-		WHERE student_pk = #{student_pk}
-	</select>
-
 	<!-- 학생 과이름 출력 -->
 	<select id="getDepartmentByDepartmentPk" resultType="com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto">
 		SELECT * FROM TL_JIC_DEPARTMENT_CATEGORY
@@ -119,6 +108,15 @@
 		AND timecard_category_pk = 4
 	</select>
 
+	<select id="getSelfIntroductionByStudentPk" resultType="com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto">
+		SELECT * FROM tl_c_self_introduction
+		WHERE student_pk = #{student_pk}
+	</select>
+	
+	<select id="getCertificationsByStudentPk" resultType="com.mkfactory.toothless.c.dto.AjdksCertificationDto">
+		SELECT * FROM tl_c_certification
+		WHERE student_pk = #{student_pk}
+	</select>
 
 
 

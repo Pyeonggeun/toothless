@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
+import com.mkfactory.toothless.c.dto.AjdksProfessorEvaluationDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
 import com.mkfactory.toothless.c.eunbi.mapper.EunbiExternalSqlMapper;
@@ -144,41 +145,35 @@ public class EunbiProfessorServiceImpl {
 			applyingStudentInfoList.add(studentInfo);
 		}
 		
-		// 실습학생
-		//if(studentSqlMapper.getStudentInternByCoursePk(internshipCoursePk) != null) {
-			
-			List<Map<String, Object>> studentInternList = new ArrayList<>();
-			
-			List<AjdksStudentInternDto> studentInternDtoList = studentSqlMapper.getStudentInternByCoursePk(internshipCoursePk);
-			
-			for(AjdksStudentInternDto studentInternDto : studentInternDtoList) {
-				int studentPk = studentInternDto.getStudent_pk();
-				int internPk = studentInternDto.getStudent_intern_pk();
-				
-				StudentInfoDto studentInfoDto = studentSqlMapper.getStudentInfoByStudentPk(studentPk);
-				int studentDepartmentPk = studentInfoDto.getDepartment_pk();
-				int studentProfessorPk = studentInfoDto.getProfessor_pk();
-				
-				Map<String, Object> internInfo = new HashMap<>();
-				
-				internInfo.put("studentInfoDto", studentInfoDto);
-				internInfo.put("studentInternDto", studentInternDto);
-				internInfo.put("studentDepartment", studentSqlMapper.getDepartmentByDepartmentPk(studentDepartmentPk));
-				internInfo.put("studentProfessorInfo", professorSqlMapper.getProfessorInfo(studentProfessorPk));
-				internInfo.put("didEvaluateIntern", professorSqlMapper.didEvaluateIntern(internPk));
-				
-				// 출결관리
-				internInfo.put("countAttendance", studentSqlMapper.countAttendance(internPk));
-				internInfo.put("countLate", studentSqlMapper.countLate(internPk));
-				internInfo.put("countEarlyleave", studentSqlMapper.countEarlyleave(internPk));
-				internInfo.put("countAbsent", studentSqlMapper.countAbsent(internPk));
-				
-				studentInternList.add(internInfo);
-			}
-			
-			internshipCourseDetail.put("studentInternList", studentInternList);
-		//}
+		// 실습학생	
+		List<Map<String, Object>> studentInternList = new ArrayList<>();
 		
+		List<AjdksStudentInternDto> studentInternDtoList = studentSqlMapper.getStudentInternByCoursePk(internshipCoursePk);
+		
+		for(AjdksStudentInternDto studentInternDto : studentInternDtoList) {
+			int studentPk = studentInternDto.getStudent_pk();
+			int internPk = studentInternDto.getStudent_intern_pk();
+			
+			StudentInfoDto studentInfoDto = studentSqlMapper.getStudentInfoByStudentPk(studentPk);
+			int studentDepartmentPk = studentInfoDto.getDepartment_pk();
+			int studentProfessorPk = studentInfoDto.getProfessor_pk();
+			
+			Map<String, Object> internInfo = new HashMap<>();
+			
+			internInfo.put("studentInfoDto", studentInfoDto);
+			internInfo.put("studentInternDto", studentInternDto);
+			internInfo.put("studentDepartment", studentSqlMapper.getDepartmentByDepartmentPk(studentDepartmentPk));
+			internInfo.put("studentProfessorInfo", professorSqlMapper.getProfessorInfo(studentProfessorPk));
+			internInfo.put("didEvaluateIntern", professorSqlMapper.didEvaluateIntern(internPk));
+			
+			// 출결관리
+			internInfo.put("countAttendance", studentSqlMapper.countAttendance(internPk));
+			internInfo.put("countLate", studentSqlMapper.countLate(internPk));
+			internInfo.put("countEarlyleave", studentSqlMapper.countEarlyleave(internPk));
+			internInfo.put("countAbsent", studentSqlMapper.countAbsent(internPk));
+			
+			studentInternList.add(internInfo);
+		}
 		
 		internshipCourseDetail.put("internshipCourseDto", internshipCourseDto);
 		internshipCourseDetail.put("companyInfoDto", externalSqlMapper.getCompanyInfo(companyPk));
@@ -187,14 +182,49 @@ public class EunbiProfessorServiceImpl {
 		internshipCourseDetail.put("countStudentIntern", studentSqlMapper.countInternBycoursePk(internshipCoursePk));
 		
 		internshipCourseDetail.put("applyingStudentInfoList", applyingStudentInfoList);
-		
-		
-		
-		
+		internshipCourseDetail.put("studentInternList", studentInternList);
 		
 		return internshipCourseDetail;
 	
 	}
+	
+	// 교수평가 입력
+	public void insertProfessorEvaluation(AjdksProfessorEvaluationDto professorEvaluationDto) {
+		professorSqlMapper.insertProfessorEvaluation(professorEvaluationDto);
+	}
+	
+	// 학생 상세 출력
+	public Map<String, Object> viewStudentDetail(int studentPk) {
+		
+		Map<String, Object> studentDetail = new HashMap<>();
+		
+		StudentInfoDto studentInfoDto = studentSqlMapper.getStudentInfoByStudentPk(studentPk);
+		int departmentPk = studentInfoDto.getDepartment_pk();
+		int studentProfessorPk = studentInfoDto.getProfessor_pk();
+		
+		studentDetail.put("studentInfoDto", studentInfoDto);
+		studentDetail.put("studentDepartment", studentSqlMapper.getDepartmentByDepartmentPk(departmentPk));
+		studentDetail.put("studentProfessorInfo", professorSqlMapper.getProfessorInfo(studentProfessorPk));
+		studentDetail.put("countSemester", studentSqlMapper.countSemester(studentPk));
+		studentDetail.put("selfIntroduction", studentSqlMapper.getSelfIntroductionByStudentPk(studentPk));
+		
+		
+		studentDetail.put("certificationList", studentSqlMapper.getCertificationsByStudentPk(studentPk));
+		
+		return studentDetail;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

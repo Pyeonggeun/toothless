@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mkfactory.toothless.c.dto.AjdksProfessorEvaluationDto;
 import com.mkfactory.toothless.c.eunbi.service.EunbiProfessorServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 
@@ -54,6 +55,26 @@ public class EunbiProfessorController {
 		
 	}
 	
+	@RequestMapping("internEvaluationProgress")
+	public String internEvaluationProgress(HttpSession session, AjdksProfessorEvaluationDto params, int internship_course_pk) {
+		
+		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
+		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
+		
+		params.setProfessor_pk(sessionProfessorPk);
+		
+		professorServiece.insertProfessorEvaluation(params);
+		
+		return "redirect:./viewInternshipCourseDetailPage?internship_course_pk=" + internship_course_pk;
+	}
+	
+	@RequestMapping("viewStudentDetailPage")
+	public String viewStudentDetailPage(HttpSession session, Model model, int student_pk) {
+		
+		model.addAttribute("studentDetails", professorServiece.viewStudentDetail(student_pk));
+		
+		return"tl_c/eunbi/professor/viewStudentDetailPage";
+	}
 	
 	
 	
