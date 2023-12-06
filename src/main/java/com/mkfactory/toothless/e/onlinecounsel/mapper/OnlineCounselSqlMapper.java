@@ -8,15 +8,28 @@ import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 
 public interface OnlineCounselSqlMapper {
 
-	public void insertOnlineCounsel(OnlineCounselBoardDto onlineCounselBoardDto);
+	//		**		공용		**
 	
 	public List<TypeCategoryDto> takeAllCategory();
 	
-	public List<OnlineCounselBoardDto> selectAllCounselListByStudentPk(int student_id);
-	
 	public TypeCategoryDto selectCategoryDto(int category_id);
+
+
+	
+	//		**	학생관련	**
+	
+	public void insertOnlineCounsel(OnlineCounselBoardDto onlineCounselBoardDto);
+	
+	public List<OnlineCounselBoardDto> selectAllCounselListByStudentPk(int student_id);
 	
 	public StudentInfoDto getStudentInfo(int student_id);
 	
 	public OnlineCounselBoardDto selectCounsel(int counsel_pk);
+	
+	
+	
+	//		**** 상담원 관련 ****
+	
+	public List<OnlineCounselBoardDto> selecAllCounselDtoByCounselorPk(int counselorPk);
+	
 }
