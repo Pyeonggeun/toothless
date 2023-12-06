@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
+import com.mkfactory.toothless.e.dto.CounselorTypeDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 import com.mkfactory.toothless.e.onlinecounsel.service.OnlineCounselService;
@@ -88,19 +89,16 @@ public class OnlineCounselController {
 	
 	
 	
-	
 	//	********	상담원 메인페이지	********
 	
+	
 	@RequestMapping("counselorOnlineCounselMainPage")
-	public String counselorOnlineCounselMainPage(HttpSession session, Model model) {
+	public String counselorOnlineCounselMainPage(HttpSession session) {
 		
-		ExternalInfoDto externalInfoDto = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
-		int counselorPk = externalInfoDto.getExternal_pk();
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
 		
-		model.addAttribute("counselDto", onlineCounselService.getCounselDtoByCounselorPk(counselorPk));
-		
+
 		return "tl_e/onlineCounsel/counselorOnlineCounselMainPage";
-		
 		
 	}
 	

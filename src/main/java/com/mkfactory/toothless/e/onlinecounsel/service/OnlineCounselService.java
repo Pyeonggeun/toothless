@@ -8,6 +8,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.e.dto.CounselorTypeDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 import com.mkfactory.toothless.e.onlinecounsel.mapper.OnlineCounselSqlMapper;
@@ -82,29 +84,8 @@ public class OnlineCounselService {
 	
 	//		**	상담원 관련	**
 
-	
-	public List<Map<String, Object>> getCounselDtoByCounselorPk(int counselorPk){
-		
-		List<Map<String, Object>> list = new ArrayList<>();
-		
-		List<OnlineCounselBoardDto> onlineCounselBoardDtos = onlineCounselSqlMapper.selecAllCounselDtoByCounselorPk(counselorPk);
-		
-		for(OnlineCounselBoardDto onlineCounselBoardDto : onlineCounselBoardDtos) {
-			
-			Map<String, Object> map = new HashMap<>();
-			
-			map.put("studentDto", onlineCounselSqlMapper.getStudentInfo(onlineCounselBoardDto.getStudent_id()));
-			map.put("category", onlineCounselSqlMapper.selectCategoryDto(onlineCounselBoardDto.getType_category_id()));
-			map.put("onlineCounselBoardDto", onlineCounselBoardDto);
-			
-			list.add(map);
-		}
-		
-		return list;
-	}
-	
-	
-	
+
+
 	
 	
 	

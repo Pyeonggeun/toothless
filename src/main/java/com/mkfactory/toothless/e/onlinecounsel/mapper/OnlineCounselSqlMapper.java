@@ -3,6 +3,7 @@ package com.mkfactory.toothless.e.onlinecounsel.mapper;
 import java.util.List;
 
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
+import com.mkfactory.toothless.e.dto.CounselorTypeDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 
@@ -28,8 +29,7 @@ public interface OnlineCounselSqlMapper {
 	
 	
 	
-	//		**** 상담원 관련 ****
 	
-	public List<OnlineCounselBoardDto> selecAllCounselDtoByCounselorPk(int counselorPk);
-	
+	//		***		상담원 관련	***
+
 }
