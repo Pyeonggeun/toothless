@@ -148,13 +148,11 @@ public class DormStaffServiceDm {
 				}
 				
 				if(joinDormApplicationDto.getPayment_status().equals("Y") && joinDormApplicationDto.getSelection_status().equals("Y")) {
-					System.out.println(joinDormApplicationDto.getSelection_status());
 					map.put("studentInfoDto", e); //학생 이름
 					
 					list.add(map);
 				}
 				
-			
 			}
 		
 			return list;
