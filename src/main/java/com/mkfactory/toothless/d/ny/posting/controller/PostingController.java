@@ -216,6 +216,12 @@ public class PostingController {
 		return "/tl_d/ny_posting/companyPostingListForStudentPage";
 	}
 	
+	// 학생용 공고 상세 페이지
+	@RequestMapping("jobPostingDetailForStudentPage")
+	public String jobPostingDetailForStudentPage(Model model, int id) {
+		model.addAttribute("jobPostingDetailForStudent", postingService.getJobPostingDetail(id));
+		return "/tl_d/ny_posting/jobPostingDetailForStudentPage";
+	}
 	
 	
 	

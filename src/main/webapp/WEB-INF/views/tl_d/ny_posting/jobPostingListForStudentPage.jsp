@@ -13,7 +13,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col">
-				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>
+				<jsp:include page="../common/studentTopNavi.jsp"></jsp:include>
 			</div>
 		</div>
 	 	<%-- 전체 크기 --%>
@@ -22,7 +22,7 @@
 			<div class="col-1"></div>
 			<%-- 취업팀 메뉴 바 --%>
 			<div class="col-1 me-5">
-				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
+				<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 			</div>
 			<%-- 가운데 여백--%>	
 			<div class="col-1 border-start"></div>
@@ -55,7 +55,7 @@
 						<!-- 공고제목 -->
 						<div class="col-9 ps-0 pt-1">
 							<!-- 링크 더 좋은 방법 생각해보기 -->
-							<a class="navbar-brand" href="./jobPostingDetailPage?id=${jobPostingForStudent.jobPostingDto.job_posting_pk}">
+							<a class="navbar-brand" href="./jobPostingDetailForStudentPage?id=${jobPostingForStudent.jobPostingDto.job_posting_pk}">
 									${jobPostingForStudent.jobPostingDto.posting_name}
 							</a>
 						</div>
@@ -74,20 +74,21 @@
 							<a class="navbar-brand" href="./jobPostingDetailPage?id=${jobPostingForStudent.jobPostingDto.job_posting_pk}">
 							<span class="text-secondary">#&nbsp;${jobPostingForStudent.jobFieldCategoryDto.job_field_category_name} #&nbsp;${jobPosting.jobPostingDto.job_position}
 							#&nbsp;${jobPostingForStudent.companyDto.com_address} #&nbsp;<fmt:formatDate value="${jobPostingForStudent.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
-							<c:forEach items="${jobPostingForStudent.postingDeadlineList}" var="deadline">
-								<c:if test="${deadline == jobPostingForStudent.jobPostingDto.job_posting_pk}"> 
+							<c:choose>
+								<c:when test="${jobPostingForStudent.postingDeadlineList.contains(jobPostingForStudent.jobPostingDto.job_posting_pk)}">
 									<span class="badge text-bg-danger">마감임박!</span>
-								</c:if>
-							</c:forEach>
-							<c:forEach items="${jobPostingForStudent.endPostingList}" var="endPosting">
-								<c:if test="${endPosting == jobPostingForStudent.jobPostingDto.job_posting_pk}">
+								</c:when>
+								<c:when test="${jobPostingForStudent.endPostingList.contains(jobPostingForStudent.jobPostingDto.job_posting_pk)}">
 									<span class="badge text-bg-secondary">채용마감</span>
-								</c:if>
-							</c:forEach>
+								</c:when>
+							</c:choose>
 							</a>
 						</div>
 						<div class="col me-3 text-end">
 							<c:choose>
+								<c:when test="${jobPostingForStudent.endPostingList.contains(jobPostingForStudent.jobPostingDto.job_posting_pk)}">
+									<button class="btn btn-dark btn-sm" disabled>채용마감</button>
+								</c:when>
 								<c:when test="${empty sessionStudentInfo}">
 									<button class="btn btn-dark btn-sm" disabled>지원하기</button>
 								</c:when>
