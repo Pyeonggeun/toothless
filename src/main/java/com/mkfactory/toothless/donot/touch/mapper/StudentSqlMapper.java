@@ -3,6 +3,7 @@ package com.mkfactory.toothless.donot.touch.mapper;
 
 import java.util.List;
 
+import com.mkfactory.toothless.donot.touch.dto.CenterCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.NotificationDto;
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
@@ -27,6 +28,8 @@ public interface StudentSqlMapper {
 	
 	public List<NotificationDto> reloadMyNotification(int student_pk);
 	public void updateMyNewNotifyStatus(int student_pk);
+	
+	public CenterCategoryDto selectCenterByNotify(int center_pk);
 	
 	
 	

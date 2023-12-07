@@ -20,9 +20,6 @@
         	        	reloadNotifyCount.innerText = "";
         	        	reloadNotifyCount.innerText = response.data;
         	        	
-        	        	console.log(response.data);
-        	        	
-        	        	
         	        }else if(response.data == 0){
         	        	reloadNotifyCount.classList.add("d-none");
         	        }
@@ -59,9 +56,9 @@
         			}else if(response.data.length == 1){
         				alertBox.classList.remove("d-none");
         				sender.innerText = "";
-        				sender.innerText = "[알림]";
+        				sender.innerText = response.data[0].centerCategoryDto.position;
         				message.innerText = "";
-        				message.innerText = response.data[0].message;
+        				message.innerText = response.data[0].notificationDto.message;
         				
 						updateMyCheckNotifyStatus();
 						
@@ -111,46 +108,42 @@
         			readNotify.classList.remove("fw-bold", "border-bottom", "border-black", "border-2");
         			readNotify.classList.add("text-secondary");
         			
-        			const xbutton = document.getElementById("xbutton");
-        			xbutton.classList.remove("border-bottom", "border-black", "border-2");
-        			
 
         			if(response.data.length == 0){
         				unreadNotifyListBox.classList.add("text-center","text-secondary");
         				
         				unreadNotifyListBox.innerText = "신규 알림이 없습니다.";
-        			}
-        			for(e of response.data){
-        				
-        				
-        				const unreadNotifyWrapper = document.querySelector("#notifyTemplete .unreadNotifyWrapper").cloneNode(true);
-        				console.log("실행");	
-        				//const link = unreadNotifyWrapper.querySelector(".link");
-        				const sender = unreadNotifyWrapper.querySelector(".sender");
-        				sender.innerText = "";
-        				sender.innerText = "[취업 창업]";
-        				
-        				const created_at = unreadNotifyWrapper.querySelector(".created_at");
-        				created_at.innerText = "";
-        	    		const date = new Date(e.created_at);
-        	    		const currentDate = new Date();
-        	    		
-        	    		if (date.getFullYear() +"."+ (date.getMonth()+1) + "."+ date.getDate() == 
-        	    			currentDate.getFullYear() +"."+ (currentDate.getMonth()+1) + "."+ currentDate.getDate()){
-        	    			if((currentDate.getHours() - date.getHours()) == 0){
-        	    				created_at.innerText = (currentDate.getMinutes() - date.getMinutes())+ "분전";
-        	    			}else{
-        	    				created_at.innerText = (currentDate.getHours() - date.getHours())+ "시간전";
-        	    			}
-        	    		}else{
-        	    			created_at.innerText = date.getFullYear() +"."+ (date.getMonth()+1) + "."+ date.getDate();
-        	    		}
-        	    		const message = unreadNotifyWrapper.querySelector(".message");
-        	    		message.innerText = "";
-        	    		message.innerText = e.message;
-        				
-        				unreadNotifyListBox.appendChild(unreadNotifyWrapper);
-        				updateReadNotifyStatus();
+        			}else{
+        				for(e of response.data){
+	        				const unreadNotifyWrapper = document.querySelector("#notifyTemplete .unreadNotifyWrapper").cloneNode(true);
+	        				console.log("실행");	
+	        				//const link = unreadNotifyWrapper.querySelector(".link");
+	        				const sender = unreadNotifyWrapper.querySelector(".sender");
+	        				sender.innerText = "";
+	        				sender.innerText = "["+e.centerCategoryDto.position+"]";
+	        				
+	        				const created_at = unreadNotifyWrapper.querySelector(".created_at");
+	        				created_at.innerText = "";
+	        	    		const date = new Date(e.notificationDto.created_at);
+	        	    		const currentDate = new Date();
+	        	    		
+	        	    		if (date.getFullYear() +"."+ (date.getMonth()+1) + "."+ date.getDate() == 
+	        	    			currentDate.getFullYear() +"."+ (currentDate.getMonth()+1) + "."+ currentDate.getDate()){
+	        	    			if((currentDate.getHours() - date.getHours()) == 0){
+	        	    				created_at.innerText = (currentDate.getMinutes() - date.getMinutes())+ "분전";
+	        	    			}else{
+	        	    				created_at.innerText = (currentDate.getHours() - date.getHours())+ "시간전";
+	        	    			}
+	        	    		}else{
+	        	    			created_at.innerText = date.getFullYear() +"."+ (date.getMonth()+1) + "."+ date.getDate();
+	        	    		}
+	        	    		const message = unreadNotifyWrapper.querySelector(".message");
+	        	    		message.innerText = "";
+	        	    		message.innerText = e.notificationDto.message;
+	        				
+	        				unreadNotifyListBox.appendChild(unreadNotifyWrapper);
+	        				updateReadNotifyStatus();
+	        			}
         			}
         		});
 			}
@@ -175,9 +168,7 @@
         			const readNotify = document.getElementById("readNotify");
         			readNotify.classList.add("fw-bold", "border-bottom", "border-black", "border-2");
         			readNotify.classList.remove("text-secondary");
-        			
-        			const xbutton = document.getElementById("xbutton");
-        			xbutton.classList.add("border-bottom", "border-black", "border-2");
+        			        		
         			
         			if(response.data.length == 0){
         				unreadNotifyListBox.classList.add("text-center","text-secondary");
@@ -190,16 +181,16 @@
         				//const link = unreadNotifyWrapper.querySelector(".link");
         				const sender = unreadNotifyWrapper.querySelector(".sender");
         				sender.innerText = "";
-        				sender.innerText = "[취업 창업]";
+        				sender.innerText = "["+e.centerCategoryDto.position+"]";;
         				
         				const created_at = unreadNotifyWrapper.querySelector(".created_at");
         				created_at.innerText = "";
-        	    		const date = new Date(e.created_at);
+        	    		const date = new Date(e.notificationDto.created_at);
         	    		created_at.innerText = date.getFullYear() +"."+ (date.getMonth()+1) + "."+ date.getDate();
         	    		
         	    		const message = unreadNotifyWrapper.querySelector(".message");
         	    		message.innerText = "";
-        	    		message.innerText = e.message;
+        	    		message.innerText = e.notificationDto.message;
         				
         				unreadNotifyListBox.appendChild(unreadNotifyWrapper);
         			}
@@ -377,15 +368,15 @@
               <div class="modal-content" >
                 <div class="row">
                         <div class="col"></div> 
-                        <div id="newNotify"class="col-5 px-0  mt-4 fs-5 text-center ">
+                        <div id="newNotify"class="col-4 px-0  mt-4 fs-5 text-center ">
                             <a class="nav-link n" href="#"  onclick="loadUnreadNotifyList()">신규 알림</a>
                         </div>
                         <div class="col"></div>
                         <div id="readNotify"class="col-4 mt-4 fs-5 text-center">
                             <a class="nav-link" href="#" onclick="checkReadNotifyList()">이전 알림</a>
                         </div>
-                        <div class="col-1 ps-0" style="font-size: small;">
-                            <button id="xbutton" type="button" class="btn-close mt-2" data-bs-dismiss="modal"></button>
+                        <div  class="col-1 ps-0" style="font-size: small;">
+                            <button  type="button" class="btn-close mt-2 border border-2 border-black" data-bs-dismiss="modal"></button>
                        </div>
                 </div>
                 <div class="modal-body">
