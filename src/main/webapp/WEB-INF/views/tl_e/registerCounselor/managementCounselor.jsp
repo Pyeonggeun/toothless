@@ -20,8 +20,8 @@
 }
 </style>
 <script>
-	let loginStaffInfo = null;
-	const counselorDetail = 
+	let loginStaffInfo = null;	 
+	
 	
 	function getStaffInfo(){		
 		fetch("./restGetStaffInfo")
@@ -29,11 +29,11 @@
 		.then(response => {
 			console.log("AJAX 리스폰 성공 진입함")
 			
-			loginStaffInfo = response.data;
+			sessionStaffInfo = response.data;
 			
 			const staffInfoBox = document.getElementById("staffInfoBox");
 			
-			staffInfoBox.innerText = loginStaffInfo.name;
+			staffInfoBox.innerText = sessionStaffInfo.name;
 		});		
 	}
 	
@@ -42,29 +42,30 @@
 		.then(response => response.json())
 		.then(response =>{
 			
-			counselorList = response.data;
+			const counselorList = [...response.data];
 			
-			const counselorList = document.querySelector("#counselorList");
-			counselorList.innerHTML = "";
 			
-			for(e of counselorList){
+			const counselorListBox = document.querySelector("#counselorList");
+			counselorListBox.innerHTML = "";
+			
+			for(const e of counselorList){
 				
 				const counselorboxWrapper = document.querySelector("#templete .counselorInfoBox").cloneNode(true);
 				const counselorImageLink = counselorboxWrapper.querySelector(".counselorImage .counselorImageLink");
 				
 				if(e.PROFILEIMAGE != null){
 					counselorImageLink.src = "../../resources/img/counselorImage/" + e.PROFILEIMAGE;
-					counselorImageLink.setAttribute("onclick", "getCounselorDetail(e.ID)");	
+					counselorImageLink.setAttribute("onclick", "getCounselorDetail(" + e.ID + ")");	
 				}
 				else{
 					counselorImageLink.src = "../../resources/img/counselorImage/no_image.jpg";
-					counselorImageLink.setAttribute("onclick", "getCounselorDetail(e.ID)");
+					counselorImageLink.setAttribute("onclick", "getCounselorDetail(" + e.ID + ")");
 				}
 				
 				const counselorName = counselorboxWrapper.querySelector(".counselorName");
-				counselorName.InnerText = e.NAME;
+				counselorName.innerText = e.NAME;
 				
-				counselorList.appendChild(counselorboxWrapper);
+				counselorListBox.appendChild(counselorboxWrapper);
 				
 			}
 		
@@ -72,13 +73,13 @@
 		});
 	}
 	
-	function getCounselorDetail(int id){
-		fetch("./counselorDetail?id=" + id)
+	/* function getCounselorDetail(int counselor_id){
+		fetch("./counselorDetail?id=" + counselor_id)
 		.then(response => response.json())
 		.then(response =>{
 			
 		});
-	}
+	} */
 	
 	
 	
