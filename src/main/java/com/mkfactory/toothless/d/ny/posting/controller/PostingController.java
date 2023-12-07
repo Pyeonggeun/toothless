@@ -54,11 +54,11 @@ public class PostingController {
 		}
 		
 		// 이미지 입력
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd/");
 		
 		if(imageFile != null && !imageFile.isEmpty()) {
 			
-			String imageRootPath = "C:/uploadMainFile/";
+			String imageRootPath = "C:/Workspace/GitWorkspace/toothless/src/main/webapp/resources/img/employment/";
 			String imageTodayPath = sdf.format(new Date());
 			
 			File todayFolderForCreate = new File(imageRootPath + imageTodayPath);
@@ -158,11 +158,11 @@ public class PostingController {
 	@RequestMapping("modifyJobPostingProcess")
 	public String modifyJobPostingProcess(HttpSession session, JobPostingDto params, MultipartFile modifyimage) {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd/");
 		
 		if(modifyimage != null && !modifyimage.isEmpty()) {
 			
-			String imageRootPath = "C:/uploadMainFile/";
+			String imageRootPath = "C:/Workspace/GitWorkspace/toothless/src/main/webapp/resources/img/employment/";
 			String imageTodayPath = sdf.format(new Date());
 			
 			File todayFolderForCreate = new File(imageRootPath + imageTodayPath);
@@ -248,7 +248,7 @@ public class PostingController {
 		return "tl_d/ny_posting/jobPostingDetailForStudentPage";
 	}
 	
-	// 공고찜 프로세스
+	// 공고스크랩 프로세스
 	@RequestMapping("interestingProcess")
 	public String interestingProcess(InterestPostingDto params) {
 		
@@ -295,6 +295,8 @@ public class PostingController {
 	public String jobPostingDetailForCompanyPage(Model model, int id) {
 		
 		model.addAttribute("jobPostingDetailForCompany", postingService.getJobPostingDetailForStudentAndCompany(id));
+		model.addAttribute("interestStudentList", postingService.getStudentListByPostingInterest(id));
+		
 		
 		return "tl_d/ny_posting/jobPostingDetailForCompanyPage";
 	}
