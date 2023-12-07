@@ -1,5 +1,6 @@
 package com.mkfactory.toothless.e.groupcounsel.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
@@ -50,4 +51,11 @@ public interface GroupCounselStaffSqlMapper {
 	
 	// pk별 집단 상담
 	public GroupCounselDto selectGroupCounselById(int id);
+	
+	
+	// sysdate 가져오기
+	public Date selectSysdate();
+	
+	
+	
 }

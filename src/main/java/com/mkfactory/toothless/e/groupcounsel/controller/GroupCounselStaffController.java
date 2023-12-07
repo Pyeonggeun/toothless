@@ -27,7 +27,7 @@ public class GroupCounselStaffController {
 	
 	@RequestMapping("groupCounselRegisterPage")
 	public String groupCounselRegisterPage() {
-		
+
 		return "/tl_e/groupcounsel/staff/groupCounselRegisterPage";
 	}
 	
@@ -83,8 +83,10 @@ public class GroupCounselStaffController {
 	public String groupCounselListPage(Model model) {
 		                                     
 		List<Map<String, Object>> groupCounselList = groupCounselStaffService.readGroupCounselList();
+		Date today = groupCounselStaffService.getSysdate();
 		
 		model.addAttribute("groupCounselList", groupCounselList);
+		model.addAttribute("today", today);
 		
 		return "/tl_e/groupcounsel/staff/groupCounselListPage";
 	}

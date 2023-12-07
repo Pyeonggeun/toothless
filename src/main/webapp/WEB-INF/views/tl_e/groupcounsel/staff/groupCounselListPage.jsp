@@ -9,12 +9,25 @@
 <title>집단 상담 목록</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gowun+Dodum&family=Quicksand:wght@300&display=swap" rel="stylesheet">
+	<style>
+		*{
+			font-family: 'Gowun Dodum', sans-serif;
+		}
+		
+	</style>
+
+
 </head>
 <body>
 
 <div class="container-fluid">
 
-	<div class="row pt-2 pb-3 border-bottom border-dark-subtle">
+
+	<div class="row pb-3 border-bottom border-dark-subtle">
 		<div class="col-2 pt-3">
 			<div class="fw-bold" style="font-size: 1.5em;"><img class="img-fluid" style="width: 60px; height: 60px; color:blue;" src="../../../resources/img/groupCounsel/logo_black.png"> Mk University</div>
 		</div>
@@ -35,107 +48,250 @@
 			</div>
 		</div>	
 	</div>
+
+
 	
-	
-	
-	<div class="row mb-0 pb-0">
-		<div class="col-2 border-end border-dark-subtle"></div>
-		<div class="col ps-0 ms-0 pt-4 pb-5 mb-3">
-			<div class="row pt-5"></div>
-			<div class="row ms-0 ps-0">
-				<div class="col ms-0 ps-3 pt-5" style="background-color:#07355e; opacity: 0.8;">
-					<div class="fw-bold" style="font-size: 3.5em; color:white;">집단 상담</div>
-				</div>
-				<div class="col-9"></div>
-			</div>
-			<div class="row ms-0 ps-0">
-				<div class="col ms-0 ps-3 pt-2 pb-2" style="background-color:#07355e; opacity: 0.8;">
-					<div class="fw-bold" style="font-size: 0.8em; color:white;">&nbsp;&nbsp;<i class="bi bi-house-door-fill"></i> / 집단 상담 / 상담 관리</div>
-				</div>
-				<div class="col-9"></div>
-			</div>
-			<div class="row pb-4"></div>
-		</div>	
-	</div>
-	
-	
-	
-	<div class="row my-0">
-		<div class="col-2 my-0 py-5 border-end border-dark-subtle"></div>
-		<div class="col"></div>
-	</div>
-	
-	
-	<div class="row mt-0 pt-0">
-		<div class="col-2 border-end border-dark-subtle"></div>
-			
-		<div class="col">
-			<div class="row mb-5">
+	<div class="row">
+		
+		<!-- 카테고리 -->
+		<div class="col-2 border-end border-dark-subtle">
+			<div class="row">
 				<div class="col-1"></div>
-				<div class="col rounded-4" style="width:100%; height: 25em; background-color: gray; opacity: 0.1;"></div>
-				<div class="col-1"></div>
-			</div>
-			<div class="row pt-5">
-				<div class="col-1"></div>
-				<div class="col">
-				
-					<div class="row py-3 border-top border-bottom border-2 border-black">
-						<div class="col-3">
-							<div class="fw-bold text-center" style="font-size:1.1em;">상담 제목</div>
-						</div>
-						<div class="col-2">
-							<div class="fw-bold text-center" style="font-size:1.1em;">신청 인원</div>
-						</div>
-						<div class="col-2">
-							<div class="fw-bold text-center" style="font-size:1.1em;">장소</div>
-						</div>						
-						<div class="col-2">
-							<div class="fw-bold text-center" style="font-size:1.1em;">상담 일자</div>	
-						</div>
-						<div class="col-2">
-							<div class="fw-bold text-center" style="font-size:1.1em;">신청 기간</div>
-						</div>
-						<div class="col-1">
-							<div class="fw-bold text-center" style="font-size:1.1em;">상담 관리</div>
+				<div class="col border-bottom border-0 border-secondary-subtle">
+					<div class="row">
+						<div class="col pt-4 pb-3">
+							<div class="fw-bold text-black" style="font-size:2em;">상담 관리</div>
 						</div>
 					</div>
-					
-					<c:forEach items="${groupCounselList}" var="list">
-					<div class="row py-3 border-bottom border-1">
-						<div class="col-3">
-							<div class="fw-bold text-black text-center" style="font-size:1.0em;"><a href="./groupCounselDetailPage?id=${list.groupCounselDto.id}">${list.groupCounselDto.title}</a></div>
+					<div class="row">
+						<div class="col pb-3">
+							<div class="text-secondary fw-bold" style="font-size:1em;">온라인 상담</div>
 						</div>
-						<div class="col-2">
-							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">${list.count} / ${list.groupCounselDto.amount}</div>
+					</div>
+					<div class="row">
+						<div class="col pb-3">
+							<div class="text-secondary fw-bold" style="font-size:1em;">오프라인 상담</div>
 						</div>
-						<div class="col-2">
-							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">${list.groupCounselDto.location}</div>
-						</div>						
-						<div class="col-2">
-							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;"><fmt:formatDate value="${list.groupCounselDto.counsel_date}" pattern="yy.MM.dd"/></div>	
+					</div>
+					<div class="row">
+						<div class="col pb-4">
+							<a href="./groupCounselListPage" style="text-decoration: none;"><div class="text-secondary fw-bold" style="font-size:1em;">집단 상담</div></a>
 						</div>
-						<div class="col-2">
-							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;"><fmt:formatDate value="${list.groupCounselDto.start_apply_date }" pattern="yy.MM.dd"/>~<fmt:formatDate value="${list.groupCounselDto.end_apply_date }" pattern="yy.MM.dd"/></div>
+					</div>
+				</div>
+				<div class="col-1"></div>
+			</div>
+
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col border-bottom border-0 border-secondary-subtle">
+					<div class="row">
+						<div class="col pt-4 pb-3">
+							<div class="fw-bold text-black" style="font-size:2em;">상담원 관리</div>
 						</div>
-						<div class="col-1">
-							<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">상담 관리</div>
+					</div>
+					<div class="row">
+						<div class="col pb-3">
+							<div class="text-secondary fw-bold" style="font-size:1em;">상담원 등록</div>
 						</div>
-					</div>				
-					</c:forEach>
-				
-				
+					</div>
+					<div class="row">
+						<div class="col pb-4">
+							<div class="text-secondary fw-bold" style="font-size:1em;">상담원 조회</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-1"></div>
+			</div>
+
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col border-bottom border-0 border-secondary-subtle">
+					<div class="row">
+						<div class="col pt-4 pb-3">
+							<div class="text-secondary fw-bold" style="font-size:1em;">공지사항</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col pb-3">
+							<div class="text-secondary fw-bold" style="font-size:1em;">문의사항</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col text-center pt-2 pb-0">
+							<div class="fw-bold text-black" style="font-size:1.5em;">
+								1544-7942
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col text-center pb-4">
+							<div class=" text-secondary" style="font-size:0.8em;">
+								평일 9~18시(점심 12~13시)
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="col-1"></div>
 			</div>
 			
-			
-			
-		</div>
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col">
+					<div class="row">
+						<div class="col pt-5 mt-2 text-center">
+							<div class="text-secondary" style="font-size:0.8em;">농협 302-1054-7722-11</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col text-center">
+							<div class="text-secondary" style="font-size:0.8em;">(주)중앙정보처리학원</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col text-center">
+							<div class="text-secondary" style="font-size:0.8em;">rjal3054@naver.com</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col pb-4 text-center">
+							<div class="text-secondary" style="font-size:0.8em;">TEL) 010-4097-3054</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-1"></div>
+			</div>
+		</div>		
 		
+		
+		<!-- 내용 -->
+		<div class="col">
+		
+				
+			<div class="row mb-0 pb-0">
+				<div class="col ps-0 ms-0 pb-0 mb-1">
+					<div class="row pt-3 ms-0 ps-0">
+						<div class="col">
+							<div class="row">
+								<div class="col-11"></div>
+								<div class="col"></div>
+							</div>
+						</div>
+						<div class="col-10"></div>
+					</div>				
+					<div class="row ms-0 ps-0">
+						<div class="col ms-0 ps-3 pt-2">
+							<div class="fw-bold" style="font-size: 3.5em; color:#07355e;">집단 상담</div>
+						</div>
+						<div class="col-9"></div>
+					</div>
+					<div class="row ms-0 ps-0">
+						<div class="col ms-0 ps-3 pt-2 pb-2">
+							<div class="fw-bold" style="font-size: 0.8em; color:#07355e;">&nbsp;&nbsp;<i class="bi bi-house-door-fill"></i> / 집단 상담 / 상담 관리</div>
+						</div>
+						<div class="col-10"></div>
+					</div>
+					<div class="row pb-4 ms-4 ps-0">
+						<div class="col">
+							<div class="row">
+								<div class="col border-top border-4 border-secondary"></div>
+							</div>
+						</div>
+						<div class="col-10"></div>					
+					</div>
+				</div>	
+			</div>					
+		
+				
+			<div class="row my-0">
+				<div class="col my-0 py-4"></div>
+			</div>
+			
+			
+			<div class="row mt-0 pt-0">
+					
+				<div class="col">
+					<div class="row mb-5">
+						<div class="col-1"></div>
+						<div class="col rounded-4" style="width:100%; height: 25em; background-color: gray; opacity: 0.1;"></div>
+						<div class="col-1"></div>
+					</div>
+					<div class="row pt-5">
+						<div class="col-1"></div>
+						<div class="col">
+							<div class="row border-top border-2 border-black text-bg-light">
+								<div class="col"></div>
+							</div>
+						
+							<div class="row py-3 border-bottom border-1 text-bg-light">
+								<div class="col-3">
+									<div class="fw-bold text-center" style="font-size:1.2em;">상담 제목</div>
+								</div>
+								<div class="col-2">
+									<div class="fw-bold text-center" style="font-size:1.2em;">신청 인원</div>
+								</div>
+								<div class="col-2">
+									<div class="fw-bold text-center" style="font-size:1.2em;">장소</div>
+								</div>						
+								<div class="col-2">
+									<div class="fw-bold text-center" style="font-size:1.2em;">상담 일자</div>	
+								</div>
+								<div class="col-2">
+									<div class="fw-bold text-center" style="font-size:1.2em;">신청 기간</div>
+								</div>
+								<div class="col-1">
+									<div class="fw-bold text-center" style="font-size:1.2em;">상담 현황</div>
+								</div>
+							</div>
+							
+							<c:forEach items="${groupCounselList}" var="list">
+							<div class="row pt-3 pb-2 border-bottom border-1">
+								<div class="col-3">
+									<div class="fw-bold text-black text-center" style="font-size:1.0em;"><a href="./groupCounselDetailPage?id=${list.groupCounselDto.id}" style="color:black;">${list.groupCounselDto.title}</a></div>
+								</div>
+								<div class="col-2">
+									<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">${list.count} / ${list.groupCounselDto.amount}</div>
+								</div>
+								<div class="col-2">
+									<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">${list.groupCounselDto.location}</div>
+								</div>						
+								<div class="col-2">
+									<div class="fw-bold text-secondary text-center" style="font-size:0.9em;"><fmt:formatDate value="${list.groupCounselDto.counsel_date}" pattern="yy.MM.dd"/></div>	
+								</div>
+								<div class="col-2">
+									<div class="fw-bold text-secondary text-center" style="font-size:0.9em;"><fmt:formatDate value="${list.groupCounselDto.start_apply_date }" pattern="yy.MM.dd"/>~<fmt:formatDate value="${list.groupCounselDto.end_apply_date }" pattern="yy.MM.dd"/></div>
+								</div>
+								<div class="col-1">
+									<c:if test="${today > list.groupCounselDto.counsel_date}">
+										<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">상담 완료</div>									
+									</c:if>
+									<c:if test="${today >= list.groupCounselDto.start_apply_date && today <= list.groupCounselDto.end_apply_date}">
+										<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">모집 중</div>									
+									</c:if>
+									<c:if test="${today <= list.groupCounselDto.counsel_date && today > list.groupCounselDto.end_apply_date}">
+										<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">모집 마감</div>									
+									</c:if>
+									<c:if test="${today < list.groupCounselDto.start_apply_date}">
+										<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">모집 대기</div>									
+									</c:if>																											
+								</div>
+							</div>				
+							</c:forEach>
+							
+							<div class="row pt-3">
+								<div class="col"></div>
+								<div class="col-2 text-end">
+									<a href="./groupCounselRegisterPage"><i class="bi bi-plus-square" style="font-size:1.6em; color:black;"></i></a>
+								</div>
+							</div>
+						
+						</div>
+						<div class="col-1"></div>
+					</div>
+				</div>
+			</div>		
+		</div>
 	</div>
-	
-	
-	
 	
 	
 	

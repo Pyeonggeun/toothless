@@ -90,5 +90,9 @@
 		WHERE id=#{id}
 	</select>
 	
+	<select id="selectSysdate" resultType="Date">
+		SELECT sysdate FROM dual	
+	</select>
+	
 	
 </mapper>

@@ -1,6 +1,7 @@
 package com.mkfactory.toothless.e.groupcounsel.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class GroupCounselStaffServiceImpl {
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			int count = groupCounselStaffMapper.selectGroupCounselReservationCount(groupCounselDto.getId());
-			
+
 			map.put("count", count);
 			map.put("groupCounselDto", groupCounselDto);
 			
@@ -133,8 +134,11 @@ public class GroupCounselStaffServiceImpl {
 	}
 		
 	
-	
-	
+	//sysdate 가져오기
+	public Date getSysdate() {
+		
+		return groupCounselStaffMapper.selectSysdate();
+	}
 	
 	
 	

@@ -40,9 +40,12 @@ public class GroupCounselStudentServiceImpl {
 			
 			
 			int count = groupCounselStudentMapper.countGroupCounselReservationByStudentId(groupCounselReservationDto);
+			int reservationCount = groupCounselStaffMapper.selectGroupCounselReservationCount(groupCounselDto.getId());
+			
 			
 			map.put("groupCounselDto", groupCounselDto);
 			map.put("count", count);
+			map.put("reservationCount", reservationCount);
 			
 			list.add(map);
 		}
