@@ -72,17 +72,17 @@
 	</select>
 	
 	<!-- 회사 하나씩만 뽑아오는거 -->
-	<select id="companySelectById" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
+	<select id="companySelectByPk" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
 		SELECT * FROM tl_d_company WHERE com_pk=#{com_pk}
 	</select>
 	
 	<!-- 회사담당자 하나씩만 뽑아오는거 -->
-	<select id="companyManagerSelectById" resultType="com.mkfactory.toothless.d.dto.CompanyManagerDto">
+	<select id="companyManagerSelectByPk" resultType="com.mkfactory.toothless.d.dto.CompanyManagerDto">
 		SELECT * FROM tl_d_company_manager WHERE com_manager_pk=#{com_manager_pk}
 	</select>
 	
 	<!-- 회사규모 카테고리 하나씩 뽑아오는거 -->
-	<select id="comScaleCategorySelectById" resultType="com.mkfactory.toothless.d.dto.ComScaleCategoryDto">
+	<select id="comScaleCategorySelectByPk" resultType="com.mkfactory.toothless.d.dto.ComScaleCategoryDto">
 		SELECT * FROM tl_d_com_scale_category
 		WHERE com_scale_category_pk=#{com_scale_category_pk}
 	</select>
@@ -163,6 +163,29 @@
 	<select id="companyInterestCount" resultType="int">
 		SELECT COUNT(*) FROM tl_d_interest_company
 		WHERE com_pk=#{com_pk}
+	</select>
+	
+	<!-- 학생 pk로 정보뽑아오는거 -->
+	<select id="studentSelectByPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO
+		WHERE student_pk=#{student_pk}
+	</select>
+	
+	<!-- 기업이 찜 당한거 목록 -->
+	<select id="interestCompanySelectByPk" resultType="com.mkfactory.toothless.d.dto.InterestCompanyDto">
+		SELECT * FROM tl_d_interest_company
+		WHERE com_pk=#{com_pk}
+	</select>
+	
+	<!-- 전체 관심기업 내역 -->
+	<select id="interestCompanySelectAll" resultType="com.mkfactory.toothless.d.dto.InterestCompanyDto">
+		SELECT * FROM tl_d_interest_company
+	</select>
+	
+	<!-- 학생 졸업여부 -->
+	<select id="studentGraduationInfoSelectByPk" resultType="com.mkfactory.toothless.donot.touch.dto.GraduationInfoDto">
+		SELECT * FROM TL_JIC_GRADUATION_INFO
+		WHERE student_pk=#{student_pk}
 	</select>
 	
 

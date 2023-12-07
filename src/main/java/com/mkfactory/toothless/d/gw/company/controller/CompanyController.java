@@ -157,4 +157,15 @@ public class CompanyController {
 			return "redirect:./studentViewDetailCompanyPage?com_pk="+interestCompanyDto.getCom_pk();
 		}
 		
+		
+		//기업에서 누가 자기네 회사 찜했나 볼 수 있게!!
+		@RequestMapping("companyViewStudentInterestPage")
+		public String companyViewStudentInterestPage(Model model, int com_pk) {
+			
+			model.addAttribute("company", companyService.getCompany(com_pk));
+			model.addAttribute("studentInterestCompanyList", companyService.studentCompanyInterestList());
+			
+			return "/tl_d/gw_company/companyViewStudentInterestPage";
+		}
+		
 }
