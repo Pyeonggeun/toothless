@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mkfactory.toothless.d.dto.ConsultingDto;
 import com.mkfactory.toothless.d.dto.HopeJobCategoryDto;
 import com.mkfactory.toothless.d.dto.HopeJobDto;
 import com.mkfactory.toothless.d.dto.HopeJobFeedbackDto;
@@ -117,13 +118,20 @@ public class ConsultingService {
 		//가장 최근 온라인상담 정보
 		OnlineConsultingDto onlineConsultingDto = consultingMapper.getLastOnConsulting(student_pk);
 		
-		//일단은 구직희망신청 안했으면 페이지 접근조차 못하므로 if문 안검
-		int consulting_pk = onlineConsultingDto.getOn_consulting_pk();
-		OnlineConsultingReplyDto onlineConsultingReplyDto = consultingMapper.getOnConsultingReplyByOnPk(consulting_pk);
+		if(onlineConsultingDto == null) {
+			map.put("onlineConsultingReplyDto", null);
+		}
+		else {
+			int consulting_pk = onlineConsultingDto.getOn_consulting_pk();
+			OnlineConsultingReplyDto onlineConsultingReplyDto = consultingMapper.getOnConsultingReplyByOnPk(consulting_pk);
+			map.put("onlineConsultingReplyDto", onlineConsultingReplyDto);			
+		}
+		
+
 		
 		map.put("studentInfoDto", studentInfoDto);
 		map.put("onlineConsultingDto", onlineConsultingDto);
-		map.put("onlineConsultingReplyDto", onlineConsultingReplyDto);
+		
 		
 		
 		
@@ -146,16 +154,19 @@ public class ConsultingService {
 	
 	
 	//학생 온라인 상담 내역 자세히보기 페이지
+	//교직원도 가능
 	public Map<String, Object> getOnlineConsultingByPk(int ON_CONSULTING_PK){
 		
+		StudentInfoDto studentInfoDto = consultingMapper.getStudentInfoByOnPk(ON_CONSULTING_PK);
 		OnlineConsultingDto onlineConsultingDto = consultingMapper.getOnlineConsultingByPk(ON_CONSULTING_PK);
 		OnlineConsultingReplyDto onlineConsultingReplyDto = consultingMapper.getOnConsultingReplyByOnPk(ON_CONSULTING_PK);
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		if(onlineConsultingReplyDto == null) {
 			map.put("onlineConsultingDto", onlineConsultingDto);
 			map.put("onlineConsultingReplyDto", onlineConsultingReplyDto);
+			map.put("staffInfoDto", onlineConsultingReplyDto);
+			map.put("studentInfoDto", studentInfoDto);
 
 		}
 		
@@ -165,6 +176,7 @@ public class ConsultingService {
 			map.put("staffInfoDto", staffInfoDto);
 			map.put("onlineConsultingDto", onlineConsultingDto);
 			map.put("onlineConsultingReplyDto", onlineConsultingReplyDto);
+			map.put("studentInfoDto", studentInfoDto);
 			
 		}
 			
@@ -174,14 +186,13 @@ public class ConsultingService {
 	
 	//학생 최근 상담 10건 꺼내오기(나중에 페이징 처리하자)
 	//이 쿼리의 한계 <- 하나의 구직희망신청에서만 온라인 상담 내역 출력가능...
-	public List<Map<String, Object>> getOnlineConsultingList (int student_pk){
+	public List<Map<String, Object>> getOnlineConsultingList (int student_pk, String isReply){
 		
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
 		HopeJobDto hopeJobDto = consultingMapper.getLastHopejob(student_pk);		
-		
-		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getOnlineConsultingList(hopeJobDto.getHope_job_pk());	
+		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getOnlineConsultingList(hopeJobDto.getHope_job_pk(), isReply);
 		for(OnlineConsultingDto onlineConsultingDto : onlineConsultingDtoList) {
 			int on_consulting_pk = onlineConsultingDto.getOn_consulting_pk();
 			OnlineConsultingReplyDto onlineConsultingReplyDto = consultingMapper.getOnConsultingReplyByOnPk(on_consulting_pk);
@@ -191,8 +202,8 @@ public class ConsultingService {
 			//상담 답글 안달렸을때에
 			if(onlineConsultingReplyDto==null) {
 				map.put("onlineConsultingDto", onlineConsultingDto);
-				map.put("onlineConsultingReplyDto", false);
-				map.put("staffInfoDto", false);
+				map.put("onlineConsultingReplyDto", onlineConsultingReplyDto);
+				map.put("staffInfoDto", null);
 			}
 			else {
 				int staff_pk = onlineConsultingReplyDto.getStaff_pk();
@@ -221,9 +232,9 @@ public class ConsultingService {
 		consultingMapper.insertHopeJobFeedback(par);
 	}
 	//미응답 만족도조사 리스트 출력
-	public List<HopeJobDto> getUnAnsweredHJF(int STUDENT_PK){
+	public List<HopeJobDto> getUnAnsweredHJFList(int STUDENT_PK){
 		
-		List<HopeJobDto> hopeJobDtoList = consultingMapper.getUnAnsweredHJF(STUDENT_PK);
+		List<HopeJobDto> hopeJobDtoList = consultingMapper.getUnAnsweredHJFList(STUDENT_PK);
 
 		
 		return hopeJobDtoList ;
@@ -280,7 +291,7 @@ public class ConsultingService {
 	
 	//교직원 온라인상담 답글입력
 	public void insertOnlineConsultingReply(OnlineConsultingReplyDto par) {
-		
+		consultingMapper.insertOnlineConsultingReply(par);
 	}
 	//구직관심 등록 및 등록 페이지 관련
 	//채용분야 카테고리 출력
@@ -375,23 +386,38 @@ public class ConsultingService {
 	
 	
 	//교직원쪽
-	//온라인상담 오래된순 싹 출력
+	//온라인상담 오래된순 싹 출력 + 검색 및 정렬 추가
 	//교직원 페이지에서 온라인상담 관련 정보 보기위함
-	public List<Map<String, Object>> getHopeJobListAll(){
+	public List<Map<String, Object>> getOnlineConsultingListAll(String isReply){
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
-		//온라인상담 내역 싹 다
-		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getHopeJobListAll();
+		//온라인상담 내역 싹 다 + 검색 및 정렬 추가
+		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getOnlineConsultingListAll(isReply);
 		
 		
 		for(OnlineConsultingDto onlineConsultingDto : onlineConsultingDtoList) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
 			
 			int hopeJobPk = onlineConsultingDto.getHope_job_pk();
 			//구직희망pk로 뽑은 학생정보
 			StudentInfoDto studentInfoDto = consultingMapper.getStudentInfoByHopeJobPk(hopeJobPk);
 			
-			Map<String, Object> map = new HashMap<String, Object>();
+			//응답/미응답 확인
+			int student_pk = studentInfoDto.getStudent_pk();
+			OnlineConsultingReplyDto dto = consultingMapper.checkOnConsultingReply(student_pk);
+			if(dto==null) {
+				map.put("isReply", false);
+				
+			}
+			
+			else {
+				map.put("isReply", true);
+			}
+			
+			
+			
 			
 			map.put("onlineConsultingDto", onlineConsultingDto);
 			map.put("studentInfoDto", studentInfoDto);
@@ -402,9 +428,154 @@ public class ConsultingService {
 		
 		return list;
 	}
+	
+	
+	//교직원 입장에서 온라인상담 미응답/응답 출력
+	public boolean checkOnConsultingReplyForStaff (int student_pk) {
+		
+		OnlineConsultingReplyDto dto = consultingMapper.checkOnConsultingReply(student_pk);
+		
+		if(dto==null) {
+			return false;
+		}
+		
+		else {
+			return true;
+		}
+	}
+	
+	
+	//교직원입장에서 구직희망 진행중인 학생 리스트 보기
+	//구직희망 - 학생엮음, 구직희망pk당 학생 정보
+	public List<Map<String, Object>> getHopeJobInfoList(){		
+		//진행중 구직희망 리스트
+		List<HopeJobDto> hopeJobDtoList = consultingMapper.getOngoingHopeJobList();
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		for(HopeJobDto hopeJobDto : hopeJobDtoList) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			//학생정보
+			int student_pk=hopeJobDto.getStudent_pk();
+			int unAnsweredHJF = consultingMapper.countUnAnsweredHJF(student_pk);
+			StudentInfoDto studentInfoDto = consultingMapper.getStudentInfoByPk(student_pk);
+			
+			//미응답 만족도 조사 갯수
+			
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("hopeJobDto", hopeJobDto);
+			map.put("unAnsweredHJF", unAnsweredHJF);
+			
+			
+			list.add(map);
+		}
+		return list;
+	}
+	
+	
+	//교직원 페이지 학생 자세히보기 관련 정보
+	public Map<String, Object> viewStudentDetailPageInfo(int HOPE_JOB_PK){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		//구직희망정보
+		HopeJobDto hopeJobDto = consultingMapper.getHopeJobByPk(HOPE_JOB_PK);
+		int student_pk = hopeJobDto.getStudent_pk();
+		//학생정보
+		StudentInfoDto studentInfoDto = consultingMapper.getStudentInfoByHopeJobPk(HOPE_JOB_PK);
+		
+		//취업상담 내역(갯수)
+		int countConsultingByHopeJobPk = consultingMapper.countConsultingByHopeJobPk(HOPE_JOB_PK);
+		int countOnConsultingByHopeJobPk = consultingMapper.countOnConsultingByHopeJobPk(HOPE_JOB_PK);
+		int countUnAnsweredFeedback = consultingMapper.countUnAnsweredHJF(student_pk);
+		
+		map.put("countConsultingByHopeJobPk", countConsultingByHopeJobPk);
+		map.put("countOnConsultingByHopeJobPk", countOnConsultingByHopeJobPk);
+		map.put("hopeJobDto", hopeJobDto);
+		map.put("studentInfoDto", studentInfoDto);
+		map.put("countUnAnsweredFeedback", countUnAnsweredFeedback);
 
+		
+		return map;
+	}
 	
 	
+	//취업상담 정보입력
+	public void insertConsultingInfo(ConsultingDto par) {
+		consultingMapper.insertConsultingInfo(par);
+	}
+	
+	//학생정보/구직희망정보 담은 만족도 리스트 전체
+	public List<Map<String, Object>> getHopeJobFeedbackListAll(String sortHJFScore){
+		
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		List<HopeJobFeedbackDto> hopeJobFeedbackDtoList = consultingMapper.getHopeJobFeedbackListAll(sortHJFScore);
+		
+		for(HopeJobFeedbackDto hopeJobFeedbackDto : hopeJobFeedbackDtoList) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			int hope_job_pk = hopeJobFeedbackDto.getHope_job_pk();
+			HopeJobDto hopeJobDto = consultingMapper.getHopeJobByPk(hope_job_pk);
+			int studetn_pk = hopeJobDto.getStudent_pk();
+			StudentInfoDto studentInfoDto = consultingMapper.getStudentInfoByPk(studetn_pk);
+			
+			map.put("hopeJobFeedbackDto", hopeJobFeedbackDto);
+			map.put("hopeJobDto", hopeJobDto);
+			map.put("studentInfoDto", studentInfoDto);
+			list.add(map);
+		}
+		return list;
+	}
+	//만족도조사 평균평점
+	public Integer avgHopeJobFeedbackScore() {
+		
+		Integer vaule = consultingMapper.avgHopeJobFeedbackScore();
+		return vaule; 
+				
+	}
+	
+	//만족도조사 디테일페이지
+	public Map<String, Object> HopeJobFeedbackDetailInfo(int hope_job_feedback_pk){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		HopeJobFeedbackDto hopeJobFeedbackDto = consultingMapper.getHopeJobFeedbackByPk(hope_job_feedback_pk);
+		int hope_job_pk = hopeJobFeedbackDto.getHope_job_pk();
+		
+		StudentInfoDto studentInfoDto = consultingMapper.getStudentInfoByHopeJobPk(hope_job_pk);
+		
+		map.put("hopeJobFeedbackDto", hopeJobFeedbackDto);
+		map.put("studentInfoDto", studentInfoDto);
+		
+		return map;
+	}
+	
+	//특정 학생pk로 구직희망정보와 학생정보 뽑아오기
+	public Map<String, Object> studentAndHopeJobInfoByStudentPk(int student_pk){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		StudentInfoDto studentInfoDto = consultingMapper.getStudentInfoByPk(student_pk);
+		HopeJobDto hopeJobDto = consultingMapper.getProgressHopejob(student_pk);
+		
+		map.put("hopeJobDto", hopeJobDto);
+		map.put("studentInfoDto", studentInfoDto);
+		
+		return map;
+		
+	}
+	
+	//구직희망수정
+	public void updateHopeJobProcess(HopeJobDto par) {
+		consultingMapper.updateHopeJobProcess(par);
+	}
+	//구직희망종료
+	public void endHopeJobProcess(int hope_jop_pk) {
+		consultingMapper.endHopeJobProcess(hope_jop_pk);
+	}
 	
 	
 }

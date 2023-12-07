@@ -13,78 +13,100 @@
 <body>
 
 <div class="container">
-	<div class="row text-center" style="align-itesm:center;">
-		<div class="col">
-			<div class="row mt-5">
-				<div class="col">구직 희망 신청서</div>
-			</div>
-			<c:if test="${checkOverlapHopejob}">
-				<div class="row mt-5">
-					<div class="col" style="color:red">
-						이미 구직희망 프로그램을 신청 하셨습니다!
-					</div>
-				</div>
-			</c:if>
-			
-			
-			
-			
-			
-			<form action="hopeJobApplyProcess" method="post">
-			<div class="row mt-5 border">
-				<div class="col">
-					
-					
-					<div class="row border py-2">
-						<%--작성자(학생) 이름표기 --%>
-						<div class="col-3 border-end">
-							작성자
-						</div>
-						<div class="col-9">
-							${sessionStudentInfo.name}
-						</div>						
-					</div>
-					<%-- 희망연봉 입력칸 --%>
-					<div class="row">
-						<div class="col-3 py-5 border-end">
-							희망 연봉
-						</div>
-						<div class="col-9">
-							<input type="number" name="hope_salary" style="width:100%; height:100%; border:none;" class="px-0 py-0">
-						</div>						
-					</div>
-					<div class="row border-top">
-						<div class="col-3 py-5 border-end">
-							희망 지역
-						</div>
-						<div class="col-9">
-							<input type="text" name="hope_area" style="width:100%; height:100%; border:none;" class="px-0 py-0">
-						</div>						
-					</div>
-					<div class="row border-top">
-						<div class="col-3 py-5 border-end">
-							요구사항
-						</div>
-						<div class="col-9">
-							<input type="text" name="requierments"  style="width:100%; height:100%; border:none;" class="px-0 py-0">
-							<input type="hidden" name="is_end_hope_job" value="N">
-						</div>						
-					</div>				
-																							
 
-				</div>
-			</div>
-			<div class="row mt-3 text-center">
-				<div class="col">
-					<input type="submit" value="제출">
-				</div>
-			</div>
-			</form>	
-		</div>
+
+	<div class="row">
+		<jsp:include page="../common/studentTopNavi.jsp"></jsp:include>
 	</div>
 
 
-
+	<div class="row">
+		<div class="col-3">
+			<jsp:include page="../common/studentMenu.jsp"></jsp:include>			
+		</div>
+		
+		<div class="col">		
+				<div class="row text-center" style="align-itesm:center;">
+					<div class="col">
+						<div class="row mt-5">
+							<div class="col fw-bold">구직 희망 신청서</div>
+						</div>
+						<c:if test="${checkOverlapHopejob}">
+							<div class="row mt-5">
+								<div class="col" style="color:red">
+									이미 구직희망 프로그램을 신청 하셨습니다!
+								</div>
+							</div>
+						</c:if>
+						
+						<c:if test="${guide != null}">
+							<div class="row mt-5">
+								<div class="col" style="color:red">
+									구직희망 프로그램 신청을 먼저 해주세요!
+								</div>
+							</div>
+						</c:if>			
+						
+						
+						
+						
+						
+						<form action="./hopeJobApplyProcess" method="post">
+						<div class="row mt-5 border">
+							<div class="col">
+								
+								
+								<div class="row border py-2">
+									<%--작성자(학생) 이름표기 --%>
+									<div class="col-3 border-end">
+										작성자
+									</div>
+									<div class="col-9">
+										${sessionStudentInfo.name}
+									</div>						
+								</div>
+								<%-- 희망연봉 입력칸 --%>
+								<div class="row">
+									<div class="col-3 py-5 border-end">
+										희망 연봉
+									</div>
+									<div class="col-9">
+										<input type="number" name="hope_salary" style="width:100%; height:100%; border:none;" class="px-0 py-0">
+									</div>						
+								</div>
+								<div class="row border-top">
+									<div class="col-3 py-5 border-end">
+										희망 지역
+									</div>
+									<div class="col-9">
+										<input type="text" name="hope_area" style="width:100%; height:100%; border:none;" class="px-0 py-0">
+									</div>						
+								</div>
+								<div class="row border-top">
+									<div class="col-3 py-5 border-end">
+										요구사항
+									</div>
+									<div class="col-9">
+										<input type="text" name="requierments"  style="width:100%; height:100%; border:none;" class="px-0 py-0">
+									</div>						
+								</div>				
+																										
+			
+							</div>
+						</div>
+						<div class="row mt-3" style="align-items:right;">
+							<div class="col">
+								<button type="submit" class="btn btn-primary">제출</button>
+							</div>
+						</div>
+						</form>	
+					</div>
+				</div>
+		</div>
+		
+		
+		
+	</div>
 </div>
 
 

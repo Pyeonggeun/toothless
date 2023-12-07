@@ -13,39 +13,44 @@
 <body>
 
 <div class="container">
+
 	<div class="row">
 		<div class="col">
-			
-			<div class="row">
-				<div class="col">
-					설문 가능한 만족도 조사
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col">
-					<div class="row">
-						<div class="col">
+			<jsp:include page="../common/studentTopNavi.jsp"></jsp:include>
+		</div>
+	</div>
+
+	<div class="row">
+	
+		<div class="col-3">
+			<jsp:include page="../common/studentMenu.jsp"></jsp:include>
+		</div>
+	
+		<div class="col-9">
+				
+
+					<div class="row mt-5">
+
 						
 							<c:choose>
-								<c:when test="${hopeJobDtoList == false}">
-									미응답 만족도 조사가 음서용
+								<c:when test="${hopeJobDtoList == null}">
+									미응답 만족도 조사가 음서용^^
 								</c:when>
 							
 								<c:otherwise>
 									<table class="table">
-									  <thead>
+									  <thead class="mt-3">
 									    <tr>
 									      <th scope="col">신청번호</th>
 									      <th scope="col">구직희망신청일</th>
-									      <th scope="col"> </th>
+									      <th scope="col">상세 보기</th>
 									    </tr>
 									  </thead>
 									  <tbody>
 									  	<c:forEach items="${hopeJobDtoList}" var="e">
 										    <tr>
 										      <th scope="row">${e.hope_job_pk}</th>
-										      <td>${e.created_at}</td>
+										      <td><fmt:formatDate value="${e.created_at}" pattern="yyyy-MM-dd"/></td>
 										      <td><a href="./insertHJFPage?hope_job_pk=${e.hope_job_pk}">바로가기 ></a></td>
 										    </tr>							  		
 									  	</c:forEach>
@@ -56,10 +61,8 @@
 							
 							</c:choose>					
 																				
-						</div>
+						
 					</div>
-				</div>
-			</div>
 			
 		</div>
 	</div>

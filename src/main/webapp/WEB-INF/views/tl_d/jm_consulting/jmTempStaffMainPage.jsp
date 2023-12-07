@@ -40,8 +40,14 @@
 					
 					<div class="row">
 						<div class="col">
-							<a href="">온라인상담 전체보기</a>
+							<a href="./viewStudentListPage">학생 리스트보기</a>
 						</div>
+						<div class="col">
+							<a href="./staffViewOnlineConsultingPage">온라인상담 관리</a>
+						</div>	
+						<div class="col">
+							<a href="./FeedbackListPage">피드백목록</a>
+						</div>												
 					</div>
 					
 					
