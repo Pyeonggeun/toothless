@@ -105,6 +105,44 @@
 		WHERE counselor_id = #{counselor_id} 
 	</select>
 	
+	<!-- 상담사PK로 상담사 오프라인 평점현황 조회 -->
+	<select id="selectOfflineSurveyScoreByCounselorId" resultType="map">
+		SELECT 
+			cor.COUNSELOR_ID AS counselor,
+			count(CASE WHEN coss.SCORE = 1 THEN 1 end) AS score1,
+			count(CASE WHEN coss.SCORE = 2 THEN 1 end) AS score2,
+			count(CASE WHEN coss.SCORE = 3 THEN 1 end) AS score3,
+			count(CASE WHEN coss.SCORE = 4 THEN 1 end) AS score4,
+			count(CASE WHEN coss.SCORE = 5 THEN 1 end) AS score5
+		FROM CP_OFFLINE_RESERVATION cor
+		INNER JOIN CP_OFFLINE_SURVEY coss ON coss.RESERVATION_ID = cor.id
+		GROUP BY cor.COUNSELOR_ID HAVING cor.COUNSELOR_ID = #{counserlor_id}
+	</select>
+	
+	<!-- 상담사PK로 오프라인상담 완료현황 조회 -->
+	<select id="selectCompleteOfflineCounselListByCounselorId" resultType="map">
+		SELECT 
+			cor.id AS ID,
+			ctc.name AS category,
+			cor.COUNSEL_YEAR AS cYEAR,
+			cor.COUNSEL_MONTH AS cMONTH,
+			cor.COUNSEL_DATE AS cdate
+		FROM CP_OFFLINE_RESERVATION cor
+		INNER JOIN CP_TYPE_CATEGORY ctc ON ctc.ID = cor.TYPE_CATEGORY_ID 
+		WHERE 1=1
+		AND STATE = '완료'
+		AND COUNSELOR_ID = #{counselor_id}
+		ORDER BY id ASC
+	</select>
+	
+	<!-- 상담사PK로 오프라인상담 평점 조회 -->
+	<select id="selectOfflineCounselScoreAvg" resultType="double">
+		SELECT avg(coss.score) AS scoreAvg
+		FROM CP_OFFLINE_RESERVATION cor
+		INNER JOIN CP_OFFLINE_SURVEY coss ON coss.RESERVATION_ID = cor.id
+		WHERE cor.COUNSELOR_ID = #{counselor_id}
+	</select>
+	
 	
 
 </mapper>

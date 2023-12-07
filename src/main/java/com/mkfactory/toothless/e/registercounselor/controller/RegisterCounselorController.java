@@ -29,6 +29,11 @@ public class RegisterCounselorController {
 	@Autowired
 	RegisterCounselorServiceImpl registerCounselorService;
 	
+	@RequestMapping("managementCounselor")
+	public String managementCounselor() {
+		return "./tl_e/registerCounselor/managementCounselor";
+	}
+	
 	@RequestMapping("registerPage")
 	public String registerPage(Model model) {
 		System.out.println("[ RegisterCounselorController] => [ registerPage ] 실행됨");
@@ -153,9 +158,19 @@ public class RegisterCounselorController {
 		
 		List<LicenseImageDto> licenseList = registerCounselorService.getLicenseImgByCounselorId(id);
 		
+		Map<String, Map<String, Object>> surveyScore = registerCounselorService.getSurveyScore(id);
+		
+		Map<String, List<Map<String, Object>>> completeCounselList = 
+				registerCounselorService.getCompleteCounselList(id);
+		
+		Map<String, Object> scoreAvg = registerCounselorService.getCounselorScoreAvg(id);
+		
 		model.addAttribute("counselorDto", counselorDto);
 		model.addAttribute("counselorTypeList", counselorTypeList);		
 		model.addAttribute("licenseList", licenseList);
+		model.addAttribute("surveyScore", surveyScore);
+		model.addAttribute("completeCounselList", completeCounselList);
+		model.addAttribute("scoreAvg", scoreAvg);
 		
 		return "./tl_e/registerCounselor/counselorDetail";
 	}

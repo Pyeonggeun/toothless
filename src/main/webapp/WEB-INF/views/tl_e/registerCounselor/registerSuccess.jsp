@@ -59,7 +59,7 @@
 							<ul class="dropdown-menu">
 							    <li><a class="dropdown-item" href="../registerCounselor/registerPage">상담원 등록</a></li>
 						   		<li><a class="dropdown-item" href="../registerCounselor/counselorInfo">상담원 조회</a></li>
-						   		<li><a class="dropdown-item" href="#">상담원 뭐시기</a></li>
+						   		<li><a class="dropdown-item" href="../registerCounselor/managementCounselor">상담원 관리(JS)</a></li>
 							</ul>
 						</div>
 					</div>

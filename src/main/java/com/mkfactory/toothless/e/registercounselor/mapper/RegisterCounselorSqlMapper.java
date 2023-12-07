@@ -44,6 +44,15 @@ public interface RegisterCounselorSqlMapper {
 	// 상담원PK로 상담원 자격증이미지 조회
 	public List<LicenseImageDto> selectLicenseImgByCounselorId(int counselor_id);
 	
+	// 상담원PK로 상담원 오프라인 평점조회
+	public Map<String, Object> selectOfflineSurveyScoreByCounselorId(int counselor_id);
+	
+	// 상담원PK로 오프라인상담완료 내역 조회
+	public List<Map<String, Object>> selectCompleteOfflineCounselListByCounselorId(int counselor_id);
+	
+	// 상담원PK로 오프라인상담 평점 조회
+	public double selectOfflineCounselScoreAvg(int counselor_id);
+	
 	
 
 }

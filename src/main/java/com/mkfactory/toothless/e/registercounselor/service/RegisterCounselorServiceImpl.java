@@ -1,5 +1,6 @@
 package com.mkfactory.toothless.e.registercounselor.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -111,5 +112,50 @@ public class RegisterCounselorServiceImpl {
 		List<LicenseImageDto> licenseList = registerCounselorSqlMapper.selectLicenseImgByCounselorId(counselor_id);
 		
 		return licenseList;
+	}
+	
+	// 상담원PK로 상담원 평점 조회(현재는 오프라인만, 추후에 추가해서 맵에 추가할것, 전체평점도 추가할것)
+	public Map<String, Map<String, Object>> getSurveyScore(int counselor_id){
+		System.out.println("[ RegisterCounselorServiceImpl] => [ getSurveyScore ] 실행됨");
+		System.out.println("---------------------------------------------------------");		
+		
+		Map<String, Map<String, Object>> surveyScore = new HashMap<String, Map<String,Object>>();
+		
+		Map<String, Object> offlineSurveyScore = 
+				registerCounselorSqlMapper.selectOfflineSurveyScoreByCounselorId(counselor_id);
+		
+		surveyScore.put("offlineSurveyScore", offlineSurveyScore);
+		
+		
+		return surveyScore;
+	}
+	
+	// 상담원PK로 상담분류별 상담완료 리스트 조회(현재는 오프라인만)
+	public Map<String, List<Map<String, Object>>> getCompleteCounselList(int counselor_id){
+		System.out.println("[ RegisterCounselorServiceImpl] => [ getCompleteCounselList ] 실행됨");
+		System.out.println("---------------------------------------------------------");	
+		
+		Map<String, List<Map<String, Object>>> completeCounselList = new HashMap<String, List<Map<String,Object>>>();
+		
+		List<Map<String, Object>> offlineList = registerCounselorSqlMapper.selectCompleteOfflineCounselListByCounselorId(counselor_id);
+		
+		completeCounselList.put("offlineList", offlineList);
+		
+		
+		return completeCounselList;
+	}
+	
+	// 상담원PK로 상담평점 조회(현재는 오프라인만)
+	public Map<String, Object> getCounselorScoreAvg(int counselor_id){
+		System.out.println("[ RegisterCounselorServiceImpl] => [ getCounselorScoreAvg ] 실행됨");
+		System.out.println("---------------------------------------------------------");	
+		
+		Map<String, Object> scoreAvg = new HashMap<String, Object>();
+		
+		Double offlineScoreAvg = registerCounselorSqlMapper.selectOfflineCounselScoreAvg(counselor_id);
+		
+		scoreAvg.put("offlineScoreAvg", offlineScoreAvg);
+		
+		return scoreAvg;
 	}
 }
