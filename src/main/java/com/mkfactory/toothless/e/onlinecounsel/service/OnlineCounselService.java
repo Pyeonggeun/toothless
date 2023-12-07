@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
+import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
@@ -83,11 +85,80 @@ public class OnlineCounselService {
 	
 	
 	//		**	상담원 관련	**
-
-
-
+	
+	public List<List<Map<String, Object>>> getCounselInfoList(int externalPk) {
+		
+		CounselorDto counselorDto = onlineCounselSqlMapper.selectCounselorDto(externalPk);
+		int counselorId = counselorDto.getId();
+		List<List<Map<String, Object>>> list = new ArrayList<>();
+		
+		List<CounselorTypeDto> counselorTypeList = onlineCounselSqlMapper.selectCounselTypeDto(counselorId);
+		for(CounselorTypeDto counselorTypeDto : counselorTypeList) {
+			int typeCategoryId = counselorTypeDto.getType_category_id();
+			List<OnlineCounselBoardDto> counselDtoList = onlineCounselSqlMapper.selectCounselList(typeCategoryId);
+			
+			
+			List<Map<String, Object>> mapList = new ArrayList<>();
+			for(OnlineCounselBoardDto onlineCounselBoardDto : counselDtoList) {
+				int studentPk = onlineCounselBoardDto.getStudent_id();				
+				TypeCategoryDto typeCategoryDto = onlineCounselSqlMapper.selectCategoryDto(onlineCounselBoardDto.getType_category_id());
+				StudentInfoDto studentInfoDto = onlineCounselSqlMapper.getStudentInfo(studentPk);
+				
+				
+				
+				Map<String, Object> map = new HashMap<>();
+				map.put("typeCategoryDto", typeCategoryDto);
+				map.put("studentInfoDto", studentInfoDto);
+				map.put("onlineCounselBoardDto", onlineCounselBoardDto);
+				
+				mapList.add(map);
+			}
+			
+			list.add(mapList);
+		}
+		return list;
+	}
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//
+//	
+//
+//	public CounselorDto getCounselorInfo(int externalPk) {
+//		
+//		return onlineCounselSqlMapper.selectCounselorInfo(externalPk);
+//		
+//		
+//	}
+//	
+//	public List<CounselorTypeDto> getCounselorTypeInfo (int id){
+//		
+//		return onlineCounselSqlMapper.selectCounselorTypeInfo(id);
+//		
+//	}
+//	
+//	
+//	public List<OnlineCounselBoardDto> getCounselBoardInfo(int typeCategoryId){
+//		
+//		
+//		return onlineCounselSqlMapper.selectCounselBoardInfo(typeCategoryId);
+//	}
+//	
+//	public StudentInfoDto getStudentInfo(int studentPk){
+//		
+//		return onlineCounselSqlMapper.getStudentInfo(studentPk);
+//		
+//	}
 	
 }

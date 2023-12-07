@@ -41,10 +41,32 @@
 		SELECT * FROM cp_online_counsel_board WHERE id = #{id}
 	</select>
 	
+	<select id="selectCounselorDto" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
+		SELECT * FROM cp_counselor WHERE external_pk = #{external_pk}
+	</select>
 	
+	<select id="selectCounselTypeDto" resultType="com.mkfactory.toothless.e.dto.CounselorTypeDto">
+		SELECT * FROM cp_counselor_type WHERE counselor_id = #{counselor_id}
+	</select>
 	
+	<select id="selectCounselList" resultType="com.mkfactory.toothless.e.dto.OnlineCounselBoardDto">
+		SELECT * FROM cp_online_counsel_board WHERE type_category_id = #{type_category_id}
+	</select>
 	
 	<!--	상담원 관련 	-->
+	
+<!-- 	<select id="selectCounselorInfo" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
+		SELECT * FROM cp_counselor WHERE EXTERNAL_PK  = #{external_pk}
+	</select>
+	
+	<select id="selectCounselorTypeInfo" resultType="com.mkfactory.toothless.e.dto.CounselorTypeDto">
+		SELECT * FROM cp_counselor_type WHERE COUNSELOR_ID = #{counselor_id}
+	</select>
+	
+	<select id="selectCounselBoardInfo" resultType="com.mkfactory.toothless.e.dto.OnlineCounselBoardDto">
+		SELECT * FROM CP_ONLINE_COUNSEL_BOARD cocb WHERE TYPE_CATEGORY_ID = #{ TYPE_CATEGORY_ID}
+	</select> -->
+	
 	
 	
 </mapper>

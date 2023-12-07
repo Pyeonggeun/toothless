@@ -1,5 +1,7 @@
 package com.mkfactory.toothless.e.onlinecounsel.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
+import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
@@ -88,20 +91,82 @@ public class OnlineCounselController {
 	
 	
 	
-	
 	//	********	상담원 메인페이지	********
-	
-	
+
 	@RequestMapping("counselorOnlineCounselMainPage")
-	public String counselorOnlineCounselMainPage(HttpSession session) {
+	public String counselorOnlineCounselMainPage(HttpSession session, Model model) {
 		
 		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		int externalPk = externalInfoDto.getExternal_pk();
 		
-
+		
+		model.addAttribute("counselList", onlineCounselService.getCounselInfoList(externalPk));
+		
 		return "tl_e/onlineCounsel/counselorOnlineCounselMainPage";
-		
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+//	@RequestMapping("counselorOnlineCounselMainPage")
+//	public String counselorOnlineCounselMainPage(HttpSession session, Model model) {
+//		
+//		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+//		int externalPk = externalInfoDto.getExternal_pk();  // 302
+//		
+//		CounselorDto counselorDto = onlineCounselService.getCounselorInfo(externalPk);
+//
+//		int id = counselorDto.getId(); //82
+//		
+//		List<CounselorTypeDto> counselorTypeDtoList = onlineCounselService.getCounselorTypeInfo(id);
+//		List<List<Map<String, Object>>> counselList = new ArrayList<>();
+////		System.out.println(counselorTypeDtoList);
+////		counselList.aList.studentDto.name
+//		
+//		for(CounselorTypeDto counselorTypeDto : counselorTypeDtoList) {
+//			int typeCategoryId = counselorTypeDto.getType_category_id();  //3 , 4
+//			List<Map<String, Object>> aList = new ArrayList<>();
+//			List<OnlineCounselBoardDto> onlineCounselBoardDtoList = onlineCounselService.getCounselBoardInfo(typeCategoryId);
+//			
+//			for(OnlineCounselBoardDto onlineCounselBoardDto : onlineCounselBoardDtoList) {
+//				int studentPk = onlineCounselBoardDto.getStudent_id();
+//				StudentInfoDto studentInfoDto = onlineCounselService.getStudentInfo(studentPk);
+//				Map<String, Object> map = new HashMap<>();
+//				map.put("studentInfoDto", studentInfoDto);
+//				map.put("onlineCounselBoardDto", onlineCounselBoardDto);
+//				aList.add(map);	
+//				
+//			}	
+//			counselList.add(aList);
+//		}
+//		
+//		
+//		model.addAttribute("counselList", counselList);
+//		
+//		return "tl_e/onlineCounsel/counselorOnlineCounselMainPage";
+//		
+//		
+//		
+//		
+//	}
+	
+	
+	
+	
+	
+
 }
 
 

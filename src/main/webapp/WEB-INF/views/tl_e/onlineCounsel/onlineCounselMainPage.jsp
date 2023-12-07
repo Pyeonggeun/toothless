@@ -20,7 +20,6 @@
 	<div class="row bg-warning fw-bold py-2 text-center" style="font-size: 1.2em;" >	
 		<div class="col"></div>
 		<div class="col">
-		
 			<a href="./writeOnlineCounselPage" class="link-dark link-offset-2 link-underline link-underline-opacity-0">상담신청</a>
 		</div>
 		<div class="col">공지사항</div>
@@ -56,7 +55,9 @@
 		</div>
 		<div class="row">
 			<div class="col">
-				<i class="bi bi-1-square"></i>
+				<form action="./writeOnlineCounselPage">
+					<input type="submit" value="글 작">
+				</form>
 			</div>
 		</div>
 	</div>
