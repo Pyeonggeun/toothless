@@ -21,6 +21,7 @@
 </style>
 <script>
 	let loginStaffInfo = null;
+	const counselorDetail = 
 	
 	function getStaffInfo(){		
 		fetch("./restGetStaffInfo")
@@ -43,12 +44,27 @@
 			
 			counselorList = response.data;
 			
+			const counselorList = document.querySelector("#counselorList");
+			counselorList.innerHTML = "";
+			
 			for(e of counselorList){
 				
 				const counselorboxWrapper = document.querySelector("#templete .counselorInfoBox").cloneNode(true);
 				const counselorImageLink = counselorboxWrapper.querySelector(".counselorImage .counselorImageLink");
-				counselorImageLink.src = "../../resources/img/counselorImage/" + e.PROFILEIMAGE;
-				counselorImageLink.setAttribute("onclick", "");
+				
+				if(e.PROFILEIMAGE != null){
+					counselorImageLink.src = "../../resources/img/counselorImage/" + e.PROFILEIMAGE;
+					counselorImageLink.setAttribute("onclick", "getCounselorDetail(e.ID)");	
+				}
+				else{
+					counselorImageLink.src = "../../resources/img/counselorImage/no_image.jpg";
+					counselorImageLink.setAttribute("onclick", "getCounselorDetail(e.ID)");
+				}
+				
+				const counselorName = counselorboxWrapper.querySelector(".counselorName");
+				counselorName.InnerText = e.NAME;
+				
+				counselorList.appendChild(counselorboxWrapper);
 				
 			}
 		
@@ -56,10 +72,19 @@
 		});
 	}
 	
+	function getCounselorDetail(int id){
+		fetch("./counselorDetail?id=" + id)
+		.then(response => response.json())
+		.then(response =>{
+			
+		});
+	}
+	
 	
 	
 	window.addEventListener("DOMContentLoaded", ()=>{
 		getStaffInfo()
+		reloadCounselorList()
 	});
 	
 </script>
@@ -156,22 +181,14 @@
 		
 		<div class="counselorInfoBox col-2">
 			<div class="row mt-2">				
-				<div class="counselorImage col">
-					<a href="./counselorDetail?id=${counselorList.ID}">
-						<img src="" class="counselorImageLink img-fluid img-thumbnail">
-					</a>
-				</div>
-				
-				<div class="col">
-					<a href="./counselorDetail?id=${counselorList.ID}">
-						<img src="../../resources/img/counselorImage/no_image.jpg" class="img-fluid img-thumbnail">
-					</a>
-				</div>											
+				<div class="counselorImage col">					
+					<img src="" class="counselorImageLink img-fluid img-thumbnail">					
+				</div>													
 			</div>
 			<div class="row mt-2">
 				<div class="col text-center">
 					<a href="./counselorDetail?id=${counselorList.ID}" role="button" class="btn btn-white">
-						<span class="fw-bold">${counselorList.NAME}</span> 상담사
+						<span class="counselorName fw-bold"></span> 상담사
 					</a>
 				</div>
 			</div>								
