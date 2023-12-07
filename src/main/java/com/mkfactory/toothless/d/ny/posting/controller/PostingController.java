@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.InterestPostingDto;
 import com.mkfactory.toothless.d.dto.JobPostingDto;
+import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
@@ -28,6 +29,9 @@ public class PostingController {
 	
 	@Autowired
 	private PostingServiceImpl postingService;
+	
+//	@Autowired
+//	private CompanyServiceIpml companyService;
 	
 	
 	// 교직원
@@ -213,7 +217,7 @@ public class PostingController {
 		
 		model.addAttribute("jopPostingForStudent", postingService.getPostingListForStudent());
 		model.addAttribute("postingCount", postingService.getPostingCount());
-		
+
 		// 여기서도 찜하는 방법 생각해보기
 		
 		return "tl_d/ny_posting/jobPostingListForStudentPage";
@@ -259,6 +263,22 @@ public class PostingController {
 		}
 		return "redirect:./jobPostingDetailForStudentPage?id=" + params.getJob_posting_pk();
 		
+	}
+	
+	// 관심공고 총 리스트 페이지
+	@RequestMapping("interestPostingListForStudentPage")
+	public String interestPostingListForStudentPage(HttpSession session, Model model) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(studentInfoDto != null) {
+			
+			int studentPk = studentInfoDto.getStudent_pk();
+			model.addAttribute("totalInterestPostingList", postingService.getInterestPostingTotalList(studentPk));
+			model.addAttribute("totalInterestPostingCount", postingService.getTotalInterestPostingCount(studentPk));
+		}
+		
+		return "tl_d/ny_posting/interestPostingListForStudentPage";
 	}
 	
 	

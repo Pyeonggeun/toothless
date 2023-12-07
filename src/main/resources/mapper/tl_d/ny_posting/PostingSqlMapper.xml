@@ -146,6 +146,48 @@
 	</update>
 	
 	
+	<!-- 학생 -->
+	
+	<!-- 학생 마이페이지용 관심공고 목록(4개 컷 + 채용마감일순) -->
+	<select id="selectInterestPostingListForMyPage" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
+		SELECT * 
+		FROM (
+			SELECT tdjp.* 
+			FROM TL_D_JOB_POSTING tdjp 
+			WHERE tdjp.JOB_POSTING_PK IN (
+				SELECT JOB_POSTING_PK 
+				FROM TL_D_INTEREST_POSTING 
+				WHERE student_pk = #{student_pk}
+			)
+			ORDER BY POSTING_DEADLINE ASC 
+		)
+		<![CDATA[
+		WHERE rownum <= 4
+		]]>
+	</select>
+	
+	<!-- 학생 마이페이지 총 관심공고 리스트 -->
+	<select id="selectTotalInterestPostingList" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
+		SELECT tdjp.* 
+		FROM TL_D_JOB_POSTING tdjp 
+		WHERE tdjp.JOB_POSTING_PK IN (
+			SELECT tdip.JOB_POSTING_PK 
+			FROM TL_D_INTEREST_POSTING tdip 
+			WHERE tdip.STUDENT_PK = #{student_pk}
+		)
+		ORDER BY tdjp.POSTING_DEADLINE ASC 
+	</select>
+	
+	<!-- 학생단 관심공고 수 -->
+	<select id="selectTotalInterestPostingCount" resultType="int">
+		SELECT count(*) FROM TL_D_INTEREST_POSTING tdip  
+		WHERE tdip.STUDENT_PK = #{student_pk}
+	</select>
+
+	
+	
+	
+	
 	<!-- 기업 -->
 	
 	<!-- 기업 + 외부인 -->

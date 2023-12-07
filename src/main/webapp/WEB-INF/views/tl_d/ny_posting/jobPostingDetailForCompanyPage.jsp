@@ -195,7 +195,8 @@
 				</pre>
 				<div class="row border-bottom border-2 border-dark">
 					<div class="col fs-5 fw-bold mt-5">스크랩한 학생</div>
-					<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
+					<!-- 추가 페이지 -->
+					<!-- <div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div> -->
 				</div>
 				<!-- 목록명 -->
 				<div class="row mt-3 mb-1 text-secondary border-bottom">

@@ -25,6 +25,7 @@ public class PostingServiceImpl {
 	@Autowired
 	private PostingSqlMapper postingSqlMapper;
 	
+	
 	//교직원
 	
 	// 채용공고 등록용 카테고리 
@@ -320,7 +321,88 @@ public class PostingServiceImpl {
 		return jobPostingMap;
 	}
 	
+	// 마이페이지 메인용 관심공고 리스트(채용마감순 4개 컷)
+	public List<Map<String, Object>> getInterestPostingListForMyPage(int student_pk){
+		
+		List<Map<String, Object>> postingList = new ArrayList<>();
+		
+		List<JobPostingDto> jobPostingDtoList = postingSqlMapper.selectInterestPostingListForMyPage(student_pk);
+		
+		for(JobPostingDto jobPostingDto : jobPostingDtoList) {
+			
+			CompanyDto companyDto = postingSqlMapper.selectByCompanyPk(jobPostingDto.getCom_pk());
+			JobFieldCategoryDto jobFieldCategoryDto = postingSqlMapper.selectByJobFieldCategoryPk(jobPostingDto.getJob_field_category_pk());
+			
+			Map<String, Object> jobPostingMap = new HashMap<>();
+			
+			String str = companyDto.getCom_address();
+			
+			if (str.length() >= 2) {
+				companyDto.setCom_address(str.substring(0, 2));
+			} else {
+				
+			}
+			
+			List<Integer> postingDeadlineList = postingSqlMapper.selectPostingDeadline();
+			List<Integer> endPostingList = postingSqlMapper.selectEndPosting();
+			
+			jobPostingMap.put("companyDto", companyDto);
+			jobPostingMap.put("jobFieldCategoryDto", jobFieldCategoryDto);
+			jobPostingMap.put("jobPostingDto",jobPostingDto);
+			jobPostingMap.put("postingDeadlineList", postingDeadlineList);
+			jobPostingMap.put("endPostingList", endPostingList);
+			
+			postingList.add(jobPostingMap);
+			
+		}
+		
+		return postingList;
+	} 
+
+	// 학생 관심공고 총 리스트(관심공고 수 포함)
+	public List<Map<String, Object>> getInterestPostingTotalList(int student_pk){
+		
+		List<Map<String, Object>> postingList = new ArrayList<>();
+		
+		List<JobPostingDto> jobPostingDtoList = postingSqlMapper.selectTotalInterestPostingList(student_pk);
+		
+		for(JobPostingDto jobPostingDto : jobPostingDtoList) {
+			
+			CompanyDto companyDto = postingSqlMapper.selectByCompanyPk(jobPostingDto.getCom_pk());
+			JobFieldCategoryDto jobFieldCategoryDto = postingSqlMapper.selectByJobFieldCategoryPk(jobPostingDto.getJob_field_category_pk());
+			
+			Map<String, Object> jobPostingMap = new HashMap<>();
+			
+			String str = companyDto.getCom_address();
+			
+			if (str.length() >= 2) {
+				companyDto.setCom_address(str.substring(0, 2));
+			} else {
+				
+			}
+			
+			List<Integer> postingDeadlineList = postingSqlMapper.selectPostingDeadline();
+			List<Integer> endPostingList = postingSqlMapper.selectEndPosting();
+			
+			
+			jobPostingMap.put("companyDto", companyDto);
+			jobPostingMap.put("jobFieldCategoryDto", jobFieldCategoryDto);
+			jobPostingMap.put("jobPostingDto",jobPostingDto);
+			jobPostingMap.put("postingDeadlineList", postingDeadlineList);
+			jobPostingMap.put("endPostingList", endPostingList);
+			
+			
+			postingList.add(jobPostingMap);
+			
+		}
+		
+		return postingList;
+	} 
 	
+	// 총 관심공고 수(List안에 넣는 방법 생각해보기)
+	public int getTotalInterestPostingCount(int student_pk) {
+		return postingSqlMapper.selectTotalInterestPostingCount(student_pk);
+	}
 	
 	// 기업
 	

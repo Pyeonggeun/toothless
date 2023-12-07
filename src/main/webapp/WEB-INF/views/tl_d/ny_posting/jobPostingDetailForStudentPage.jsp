@@ -195,7 +195,8 @@
 								<button class="btn btn-dark" disabled>지원하기</button>
 							</c:when>
 							<c:otherwise>
-								<button class="btn btn-dark">지원하기</button>
+								<a class="btn btn-dark"
+									href="../sb_resume/applyJobPostingPage?job_posting_pk=${jobPostingDetailForStudent.jobPostingDto.job_posting_pk}">지원하기</a>
 							</c:otherwise>
 						</c:choose>
 					</div>

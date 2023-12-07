@@ -74,6 +74,19 @@ public interface PostingSqlMapper {
 	public void updateJobPostingInfo(JobPostingDto jobPostingDto);
 	
 	
+	// 학생
+	
+	// 학생 마이페이지용 관심공고(4개 컷 + 채용마감일순)
+	public List<JobPostingDto> selectInterestPostingListForMyPage(int student_pk);
+	
+	// 학생 마이페이지 관심공고 총 리스트
+	public List<JobPostingDto> selectTotalInterestPostingList(int student_pk);
+	
+	// 총 관심공고 수
+	public int selectTotalInterestPostingCount(int student_pk);
+	
+	
+	
 	// 기업
 	
 	// 기업 + 외부인
@@ -100,4 +113,5 @@ public interface PostingSqlMapper {
 	// 기업 메인페이지용 공고 목록 4개(마감임박 + 스크랩 많은 순 -> 나중에 지원자 많은 순으로 변경)
 	public List<JobPostingDto> selectPostingListForCompanyMainPage(int com_pk);
 	
+		
 }
