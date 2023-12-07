@@ -24,6 +24,7 @@ public interface BuildingSqlMapper {
 	public List<DormRoomDto> selectRooms();
 	public DormRoomDto selectRoomByPk(int dorm_room_pk);
 	public void deleteRoom(int dorm_room_pk);
+	public void updateRoom(DormRoomDto dorRoomDto);
 	
 	//정원 카테고리 
 	public List<DormCategoryDto> dormCategory();

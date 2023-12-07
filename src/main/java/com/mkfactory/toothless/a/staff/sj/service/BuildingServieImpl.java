@@ -108,18 +108,29 @@ public class BuildingServieImpl {
 		return roomL;
 	}
 	
-//	public Map<String, Object> roomMaps(int pk){
-//		Map<String, Object> justRoomMap = new HashMap<>();
-//				
-//		DormCategoryDto categoryDto = buildingSqlMapper.selectDormCategoryPk(pk);
-//		int categoryPk = categoryDto.getDorm_amount_pk();
-//		DormRoomDto roomDto = buildingSqlMapper.selectRoomByPk(categoryPk);
-//		
-//		justRoomMap.put("roomDto", roomDto);
-//		justRoomMap.put("categoryDto", categoryDto);
-//		
-//		return justRoomMap;
-//	}
+	public Map<String, Object> printRooms(int dorm_room_pk){
+		Map<String, Object> justRoomMap = new HashMap<>();
+	
+		DormRoomDto roomDto = buildingSqlMapper.selectRoomByPk(dorm_room_pk);
+		int dormPk = roomDto.getDorm_pk();
+		DormBuildingDto dormDto = buildingSqlMapper.dormBuildinChoice(dormPk);
+		
+		int categoryPk = roomDto.getDorm_amount_pk();
+		DormCategoryDto categoryDto = buildingSqlMapper.selectDormCategoryPk(categoryPk);
+		
+//		System.out.println("-------------------");
+//		System.out.println("dormPk : "+dormDto.getDorm_pk());
+//		System.out.println("roomPk : "+roomDto.getDorm_room_pk());
+//		System.out.println("categoryAmount : "+categoryDto.getDorm_amount());
+//		아니 ㅅㅂ 로그 확인되는데?
+		
+		justRoomMap.put("categoryDto", categoryDto);
+		justRoomMap.put("roomDto", roomDto);
+		justRoomMap.put("dormDto", dormDto);
+		
+		
+		return justRoomMap;
+	}
 	
 	public void deleteForDormInfoProcess(int dorm_pk) {
 		
@@ -131,6 +142,17 @@ public class BuildingServieImpl {
 		buildingSqlMapper.deleteRoom(room_pk);
 	}
 	
-	
+	public void updateForRoom(DormRoomDto roomDto) {
+//		로그확인용
+//		System.out.println("--------------------------");
+//	    System.out.println("Updating room with the following values:");
+//	    System.out.println("DORM_PK: " + roomDto.getDorm_pk());
+//	    System.out.println("roomPk : "+roomDto.getDorm_room_pk());
+//	    System.out.println("DORM_AMOUNT_PK: " + roomDto.getDorm_amount_pk());
+//	    System.out.println("ROOM_NAME: " + roomDto.getRoom_name());
+//	    System.out.println("GENDER: " + roomDto.getGender());
+//	    System.out.println("DORM_FLOOR: " + roomDto.getDorm_floor());
+		buildingSqlMapper.updateRoom(roomDto);
+	}
 	
 }
