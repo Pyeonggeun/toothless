@@ -22,13 +22,21 @@ public class FreeboardCounselController {
 	
 	//작성글이 리스팅 되야하는 자유게시판 페이지
 	@RequestMapping("freeboardCounselPage")
-	public String freeboardCounsel(Model model) {
+	public String freeboardCounsel(Model model, FreeboardDto paraFreeboardDto) {
 		
 		List<Map<String, Object>> combinedFreeboardList = freeboardCounselService.getfreeboardList();
+		//게시글 목록
 		model.addAttribute("combinedFreeboardList", combinedFreeboardList);
 			System.out.println("상담게시판 메인페이지 리스팅 완료 ");
 			
+		//조회수 기준 베스트 글 목록
+		List<Map<String, Object>> bestFreeboardPostList = freeboardCounselService.getBestFreeboardPost();
+		model.addAttribute("bestFreeboardPostList",bestFreeboardPostList);
 		
+		//총게시물 수 뽑아오기 
+		int countedPost = freeboardCounselService. selectFreeboardCount(paraFreeboardDto);
+		model.addAttribute("countedPost", countedPost);	
+			
 		return "tl_e/freeboardCounsel/freeboardCounselPage";
 	}
 	
@@ -88,4 +96,13 @@ public class FreeboardCounselController {
 		
 		return "redirect:./freeboardCounselPage";
 	}
+	
+	//자유게시판에서 학생계정 로그아웃 하기
+		@RequestMapping("logoutProcess")
+		public String logoutProcess(HttpSession session) {
+			session.invalidate();
+			return "redirect:../../another/student/loginPage";
+		}
+	
+
 }
