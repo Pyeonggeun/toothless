@@ -60,11 +60,16 @@ public class DormStudentServiceImpl {
 		return map;
 	}
 	
+	// 입주신청 과정
 	public void applyDormByStudentInfo(JoinDormApplicationDto joinDormApplicationDto) {
 		
 		studentSqlMapper.insertStudentInfo(joinDormApplicationDto);
 	}
 	
+	// 학생 pk로 진행중인 학기의 입주신청 여부/정보 가져오기
+	public JoinDormApplicationDto getIsApplyThisSemesterInfo(int student_pk) {
+		return studentSqlMapper.selectIsApplyThisSemesterInfo(student_pk);
+	}
 
 	
 }

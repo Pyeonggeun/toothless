@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 import com.mkfactory.toothless.c.dto.AjdksProfessorEvaluationDto;
+import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 public interface EunbiProfessorSqlMapper {
@@ -16,10 +17,12 @@ public interface EunbiProfessorSqlMapper {
 	// 교수 학생평가 입력
 	public void insertProfessorEvaluation(AjdksProfessorEvaluationDto professorEvaluationDto);
 	
-	// 학생평가 했는지 안했는지 (쿼리 다시 짜야함..)
-	public int isExistProfessorEvaluation(int student_intern_pk);
+	// 학생평가 했는지 안했는지
+	public Integer isExistProfessorEvaluation(int internship_course_pk);
+	public int didEvaluateIntern(int student_intern_pk);
 	
-	
+	// 교수info
+	public ProfessorInfoDto getProfessorInfo(int professor_pk);
 	
 	
 	

@@ -12,7 +12,7 @@ import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 import com.mkfactory.toothless.c.huyeoung.service.HuyeoungInternshipServiceImpl;
 
 @Controller
-@RequestMapping("/tl_c/huyeoung/*")
+@RequestMapping("/tl_c/huyeong/staff/*")
 public class HuyeoungInternshipController {
 
 	@Autowired
@@ -23,8 +23,11 @@ public class HuyeoungInternshipController {
 	public String ajdksInternshipList(Model model, AjdksInternshipCourseDto param) {
 
 		List<Map<String, Object>> list = huyeoungInternshipServiceImpl.selectInternshipAll(param);
+		
+		System.out.println("List 사이즈["+list.size()+"]");
+		
 		model.addAttribute("list", list);
-		return "/tl_c/huyeoung/ajdksInternshipList";
+		return "/tl_c/huyeong/staff/ajdksInternshipList";
 	}
 
 	// 현장실습관리상세조회
@@ -33,19 +36,21 @@ public class HuyeoungInternshipController {
 
 		Map<String, Object> map = huyeoungInternshipServiceImpl.selectInternshipDtil(param);
 		model.addAttribute("AjdksInternshipCourseDto", map);
-		return "/tl_c/huyeoung/ajdksInternshipDtl";
+		return "/tl_c/huyeong/staff/ajdksInternshipDtl";
 	}
 
 	// 현장실습관리등록화면이동
 	@RequestMapping("ajdksInternshipRegForm")
 	public String ajdksInternshipRegForm() {
 
-		return "/tl_c/huyeoung/ajdksInternshipReg";
+		return "/tl_c/huyeong/staff/ajdksInternshipReg";
 	}
 
 	// 현장실습관리등록
 	@RequestMapping("ajdksInternshipReg")
 	public String ajdksInternshipReg(Model model, AjdksInternshipCourseDto param) {
+		
+		System.out.println("### param["+param.getCourse_title()+"]");
 
 		huyeoungInternshipServiceImpl.insertInternshipRegister(param);
 

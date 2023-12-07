@@ -12,11 +12,13 @@
 </head>
 <body>
 	<div class="container">
+		<!-- 공지사항 제목 -->
 		<div class="row">
 			<div class="col mt-2 mb-3">
 				${list.noticeBoardDto.title }
 			</div>
 		</div>
+		<!-- 공지사항 사진 -->
 		<div class="row">
 			<c:forEach items="${list.noticeImageList }" var="list">
 				<div class="col-3"></div>
@@ -28,14 +30,48 @@
 				<div class="col-3"></div>
 			</c:forEach>
 		</div>	
+		<!-- 공지사항 내용 -->
 		<div class="row">
 			<div class="col">
 				${list.noticeBoardDto.text }
 			</div>
 		</div>
+		<!-- 공지사항에 사진이 없다면 공백 -->
 		<c:if test="${empty list.noticeImageList }">
 			<div class="row" style="height: 500px"></div>
 		</c:if>
+		<!-- 추천 비추천 -->
+		<div class="row">
+			<div class="col"></div>
+			<div class="col"></div>
+			<c:if test="${likeCheck == 0 }">
+				<div class="col">
+					<a href="./insertNoticeLike?notice_id=${list.noticeBoardDto.id }&student_pk=${sessionStudentInfo.student_pk }&notice_like=1&notice_dislike=0"><i class="bi bi-hand-thumbs-up fs-1" style="color: black"></i></a>
+				</div>
+				<div class="col">
+					<a href="./insertNoticeLike?notice_id=${list.noticeBoardDto.id }&student_pk=${sessionStudentInfo.student_pk }&notice_like=0&notice_dislike=1"><i class="bi bi-hand-thumbs-down fs-1" style="color: black"></i></a>
+				</div>
+			</c:if>
+			<c:if test="${upThumbCheck == 1 }">
+				<div class="col">
+					<i class="bi bi-hand-thumbs-up-fill fs-1" style="color: black"></i>
+				</div>
+				<div class="col">
+					<i class="bi bi-hand-thumbs-down fs-1" style="color: black"></i>
+				</div>
+			</c:if>
+			<c:if test="${downThumbCheck == 1 }">
+				<div class="col">
+					<i class="bi bi-hand-thumbs-up fs-1" style="color: black"></i>
+				</div>
+				<div class="col">
+					<i class="bi bi-hand-thumbs-down-fill fs-1" style="color: black"></i>
+				</div>
+			</c:if>
+
+			<div class="col"></div>
+			<div class="col"></div>
+		</div>
 		<div class="row">
 			<div class="col">
 				<a href="./noticeMainPage">목록으로..</a>
@@ -50,6 +86,7 @@
 			</c:if>
 		</div>
 	</div>
+	<!-- 댓글 -->
 	<div class="container">
 		<div class="row border">
 			<div class="col">댓글번호</div>
@@ -82,13 +119,8 @@
 				</div>
 			</form>
 		</c:if>
-		<div class="row"></div>
-		<div class="row"></div>
-		<div class="row"></div>
 	</div>
-	
-	
-	
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

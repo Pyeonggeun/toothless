@@ -15,7 +15,6 @@
 		<input name="title" type="text"><br>
 		<textarea name="text" rows="10" cols="60"></textarea><br>
 		<input name="imageFiles" type="file" accept="image/*" multiple="multiple">
-		
 		<input type="submit" value="글 등록">
 	</form>
 </body>

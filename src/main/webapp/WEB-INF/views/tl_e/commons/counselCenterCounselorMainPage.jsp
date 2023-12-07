@@ -37,7 +37,7 @@
 				</div>
 				<div class="row pt-5">
 					<div class="col fs-5">
-						<a class="navbar-brand" href="../onlineCounsel/onlineCounselMainPage">온라인상담</a>
+						<a class="navbar-brand" href="../onlineCounsel/counselorOnlineCounselMainPage">온라인상담</a>
 					</div>
 				</div>
 				<div class="row pt-5">
@@ -49,7 +49,7 @@
 							<ul class="dropdown-menu">
 							    <li><a class="dropdown-item" href="../offlineCounsel/offlineCounselReservationCheckPage">예약 조회</a></li>
 						   		<li><a class="dropdown-item" href="../offlineCounsel/offlineCounselHistoryCheckPage">상담 이력 조회</a></li>
-						   		<li><a class="dropdown-item" href="#">일정 변경</a></li>
+						   		<li><a class="dropdown-item" href="../offlineCounsel/scheduleManagePage">일정 관리</a></li>
 							</ul>
 						</div>
 					</div>

@@ -81,55 +81,66 @@
 					
 						<div class="row row-cols-3 mt-3">
 						<c:forEach items="${chargedInternshipCourse}" var="internshipCourse">
-							<div class="col-3 border px-3 py-3 mx-2 mt-3">
+							<div class="col px-4 py-2">
 								<div class="row">
-									<div class="col">
-									<jsp:useBean id="now" class="java.util.Date" />
-									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
-										<c:choose>
-											<c:when test="${internshipCourse.internshipCourseDto.applying_start_date < now && internshipCourse.internshipCourseDto.applying_end_date > now}">
-												<span class="badge rounded-pill text-bg-success">모집중</span>
-											</c:when>
-											<c:when test="${internshipCourse.internshipCourseDto.applying_end_date < now && internshipCourse.internshipCourseDto.announcement_date >= now}">
-												<span class="badge rounded-pill text-bg-warning">결과발표 대기중</span>
-											</c:when>
-											<c:when test="${internshipCourse.internshipCourseDto.announcement_date < now && internshipCourse.internshipCourseDto.internship_start_date > now}">
-												<span class="badge rounded-pill text-bg-danger">결과발표 완료</span>
-											</c:when>
-											<c:when test="${internshipCourse.internshipCourseDto.internship_start_date < now && internshipCourse.internshipCourseDto.internship_end_date > now}">
-												<span class="badge rounded-pill text-bg-primary">실습과정 진행중</span>
-											</c:when>
-											
-										</c:choose>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col fw-semibold" style="font-size:1.1em">
-										${internshipCourse.internshipCourseDto.course_title}
-									</div>
-								</div>
-								<div class="row">
-									<div class="col">
-										${internshipCourse.countInternBycoursePk}명 진행
-									</div>
-								</div>
-								<div class="row">
-									<div class="col">
-										${internshipCourse.companyDto.company_name}
-									</div>
-								</div>
-								<div class="row">
-									<div class="col">
-										모집기간 : 
-										<fmt:formatDate value="${internshipCourse.internshipCourseDto.applying_start_date}" pattern="yyyy.MM.dd"/>
-										 ~ <fmt:formatDate value="${internshipCourse.internshipCourseDto.applying_end_date}" pattern="yyyy.MM.dd"/>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col">
-										현장실습 진행기간 : 
-										<fmt:formatDate value="${internshipCourse.internshipCourseDto.internship_start_date}" pattern="yyyy.MM.dd"/>
-										 ~ <fmt:formatDate value="${internshipCourse.internshipCourseDto.internship_end_date}" pattern="yyyy.MM.dd"/>
+									<div class="col border px-2 py-2 d-grid">
+										<a class="btn btn-light rounded-0 border py-3" href="./viewInternshipCourseDetailPage?internship_course_pk=${internshipCourse.internshipCourseDto.internship_course_pk}">
+											<div class="row">
+												<div class="col">
+												<jsp:useBean id="now" class="java.util.Date"/>
+												<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+													<c:choose>
+														<c:when test="${internshipCourse.internshipCourseDto.applying_start_date < now && internshipCourse.internshipCourseDto.applying_end_date > now}">
+															<span class="badge rounded-pill text-bg-success">모집중</span>
+														</c:when>
+														<c:when test="${internshipCourse.internshipCourseDto.applying_end_date < now && internshipCourse.internshipCourseDto.announcement_date > now}">
+															<span class="badge rounded-pill text-bg-warning">결과발표 대기중</span>
+														</c:when>
+														<c:when test="${internshipCourse.internshipCourseDto.announcement_date <= now && internshipCourse.internshipCourseDto.internship_start_date > now}">
+															<span class="badge rounded-pill text-bg-info">결과발표 완료</span>
+														</c:when>
+														<c:when test="${internshipCourse.internshipCourseDto.internship_start_date < now && internshipCourse.internshipCourseDto.internship_end_date > now}">
+															<span class="badge rounded-pill text-bg-primary">실습과정 진행중</span>
+														</c:when>
+														<c:when test="${internshipCourse.internshipCourseDto.internship_end_date < now && internshipCourse.isExistProfessorEvaluation < internshipCourse.countInternBycoursePk}">
+															<span class="badge rounded-pill text-bg-danger">평가 미완료</span>
+														</c:when>
+														<c:when test="${internshipCourse.internshipCourseDto.internship_end_date < now && internshipCourse.isExistProfessorEvaluation == internshipCourse.countInternBycoursePk}">
+															<span class="badge rounded-pill text-bg-secondary">평가 완료</span>
+														</c:when>
+													</c:choose>
+												</div>
+											</div>
+											<div class="row mt-2">
+												<div class="col fw-semibold" style="font-size:1.1em">
+													${internshipCourse.internshipCourseDto.course_title}
+												</div>
+											</div>
+											<div class="row">
+												<div class="col fw-semibold" style="font-size:0.8em">
+													${internshipCourse.companyInfoDto.company_name}
+												</div>
+											</div>
+											<div class="row mt-3">
+												<div class="col">
+													<span class="fw-semibold">${internshipCourse.countInternBycoursePk}</span>명 진행
+												</div>
+											</div>
+											<div class="row mt-2">
+												<div class="col text-secondary fw-semibold" style="font-size:0.9em">
+													모집기간 : 
+													<fmt:formatDate value="${internshipCourse.internshipCourseDto.applying_start_date}" pattern="yyyy.MM.dd"/>
+													 - <fmt:formatDate value="${internshipCourse.internshipCourseDto.applying_end_date}" pattern="yyyy.MM.dd"/>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col text-secondary fw-semibold" style="font-size:0.9em">
+													현장실습 진행기간 : 
+													<fmt:formatDate value="${internshipCourse.internshipCourseDto.internship_start_date}" pattern="yyyy.MM.dd"/>
+													 - <fmt:formatDate value="${internshipCourse.internshipCourseDto.internship_end_date}" pattern="yyyy.MM.dd"/>
+												</div>
+											</div>
+										</a>
 									</div>
 								</div>
 							</div>

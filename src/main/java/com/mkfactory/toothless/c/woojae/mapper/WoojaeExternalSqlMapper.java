@@ -22,4 +22,9 @@ public interface WoojaeExternalSqlMapper {
 	
 	// 등록된 산업체 리스트
 	public List<AjdksCompanyInfoDto> selectRegisteredCompanyList();
+	public AjdksCompanyCategoryDto selectBycompany_category_pk(int company_category_pk);
+	
+	//카테고리별 산업체 리스트
+	public List<AjdksCompanyInfoDto> selectCompanyListByCategoryPk(int company_category_pk);
+	
 }

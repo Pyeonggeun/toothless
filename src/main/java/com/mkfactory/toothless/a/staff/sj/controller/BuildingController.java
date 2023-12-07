@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,30 +34,69 @@ public class BuildingController {
 	@Autowired
 	private StaffServiceImpl staffService;
 	
-
+	//관리페이지
 	@RequestMapping("sj_manageDormInfo")
-	public String buildingPage() {
+	public String buildingPage(Model model) {
+		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
+		model.addAttribute("dormAmount", buildingService.dormCategoryList());
+		
 		return "tl_a/staff/sj_manageDormInfo";
 	}
 	
 	@RequestMapping("sj_manageRoomInfo")
-	public String roomInfo() {
+	public String roomInfo(Model model ) {
+		
+		List<Map<String, Object>> rooms2 = buildingService.roomList();
+		model.addAttribute("rooms", rooms2);
+		
+
+		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
+//		model.addAttribute("dormAmount", buildingService.dormCategoryList());
+		
+		
+		
 		return "tl_a/staff/sj_manageRoomInfo";
 	}
 	
+	@RequestMapping("sj_manageRoomInfoReadPage")
+	public String roomInfoReadPage(Model model, int dorm_pk) {
+		
+		List<Map<String, Object>> rooms2 = buildingService.roomList();
+		model.addAttribute("rooms", rooms2);
+		
+		List<Map<String, Object>> dorm = buildingService.dormList();
+		model.addAttribute("forDorm", dorm);
+		
+		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
+		
+		return "tl_a/staff/sj_manageRoomInfoReadPage";
+	}
+	
+	@RequestMapping("sj_manageRoomImages")
+	public String roomImgInfo(Model model) {
+		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
+		model.addAttribute("dormAmount", buildingService.dormCategoryList());
+		return "tl_a/staff/sj_manageRoomImages";
+	}
+	
+	
+	//등록페이지
 	@RequestMapping("sj_registerDormInfo")
 	public String dormInfo() {
+		
 		return "tl_a/staff/sj_registerDormInfo";
 	}
 	
 	@RequestMapping("sj_registerRoomInfo")
 	public String registerRoomInfoPage(Model model) {
+		
 		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
 		model.addAttribute("dormAmount", buildingService.dormCategoryList());
 		return "tl_a/staff/sj_registerRoomInfo";
 	}
+
 	
-	
+	//기숙사 동 등록
 	@RequestMapping("registerDormProcess")
 	public String registerDormInfoProcess(/*StaffInfoDto params,*/ DormBuildingDto dormbuildingDto, DormRoomDto dormRoomDto,MultipartFile mainImage) {
 		//StaffInfoDto staffInfoDto = staffService.loginByStaffIdAndPassword(params);
@@ -100,6 +140,7 @@ public class BuildingController {
 		return "redirect:./sj_registerDormInfo";
 	}
 	
+	//기숙사 호실 이미지 등록!
 	@RequestMapping("sj_registerRoomImages")
 	public String registerRoomImagesPage(Model model) {
 		model.addAttribute("dormAmount", buildingService.dormCategoryList());
@@ -161,13 +202,28 @@ public class BuildingController {
 		return "redirect:./sj_registerRoomImages";
 	}
 	
+	//기숙사 호실 등록
 	@RequestMapping("registerRoomProcess")
 	public String registerRoomInfoProcess(DormRoomDto roomDto) {
 		
 		buildingService.registerRoom(roomDto);
 		 System.out.println("dorm_amount_pk: " + roomDto.getDorm_amount_pk());
 		 System.out.println("dorm_pk: " + roomDto.getDorm_pk());
-		return "redirect:./sj_registerRoomInfo";
+		return "redirect:./sj_manageRoomImages";
+	}
+	
+	//기숙사 동 삭제
+	@RequestMapping("deleteForDormInfoProcess")
+	public String manageDorm(int dorm_pk) {
+		buildingService.deleteForDormInfoProcess(dorm_pk);
+		return "redirect:./sj_manageDormInfo";
+		
+	}
+	
+	@RequestMapping("deleteForRoomProcess")
+	public String manageRoom(int dorm_room_pk) {
+		buildingService.deleteForRoomProcess(dorm_room_pk);
+		return "redirect:./sj_manageRoomInfo";
 	}
 	
 	

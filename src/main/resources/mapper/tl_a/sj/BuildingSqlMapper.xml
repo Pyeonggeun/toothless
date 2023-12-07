@@ -16,18 +16,23 @@
 		)
 	</insert>
 	
+	<!-- 건물 삭제 -->
+	<delete id="deleteForDormInfo">
+		DELETE FROM TL_A_DORM_BUILDING tadb WHERE DORM_PK = #{dorm_pk}
+	</delete>
+	
 	<!-- 건물 전체 -->
 	<select id="dormBuildings" resultType="com.mkfactory.toothless.a.dto.DormBuildingDto">
-		SELECT * FROM TL_A_DORM_BUILDING
+		SELECT * FROM tl_a_dorm_building ORDER BY DORM_PK asc
 	</select>
 	
 	<!-- 건물 선택 -->
 	<select id="dormBuildinChoice" resultType="com.mkfactory.toothless.a.dto.DormBuildingDto">
-		SELECT * FROM TL_A_DORM_BUILDING tadb WHERE dorm_pk = #{dorm_pk}
+		SELECT * FROM TL_A_DORM_BUILDING  WHERE dorm_pk = #{dorm_pk}
 	</select>
 	
 	<!-- 호실 등록 -->
-	<select id="registerRoomInfo">
+	<insert id="registerRoomInfo">
 		INSERT INTO tl_a_dorm_room values(
 			tl_a_dorm_room_seq.nextval,
 			#{dorm_pk},
@@ -36,6 +41,20 @@
 			#{gender},
 			#{dorm_floor}
 		)
+	</insert>
+	
+	<!-- 호실 조회 -->
+	<select id="selectRooms" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
+		SELECT * FROM tl_a_dorm_room ORDER BY DORM_ROOM_PK asc
+	</select>
+	
+	<!-- 호실 삭제 -->
+	<delete id = "deleteRoom">
+		DELETE FROM TL_A_DORM_ROOM tadr WHERE DORM_ROOM_PK =#{dorm_room_pk}
+	</delete>
+	
+	<select id="selectRoomByPk" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
+		SELECT * FROM TL_A_DORM_ROOM tadr WHERE DORM_ROOM_PK =#{dorm_room_pk}
 	</select>
 	
 	<!-- 정원 카테고리 -->

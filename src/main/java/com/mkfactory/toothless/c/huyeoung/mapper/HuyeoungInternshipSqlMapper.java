@@ -2,6 +2,7 @@ package com.mkfactory.toothless.c.huyeoung.mapper;
 
 import java.util.List;
 
+import com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 
 public interface HuyeoungInternshipSqlMapper {
@@ -17,5 +18,8 @@ public interface HuyeoungInternshipSqlMapper {
 
 	// 현장관리 상세조회
 	public AjdksInternshipCourseDto selectInternshipDtil(AjdksInternshipCourseDto ajdksInternshipCourseDto);
+
+	// 사업체명 조회
+	public AjdksCompanyInfoDto selectInternshipCompanyId(AjdksInternshipCourseDto ajdksInternshipCourseDto);
 
 }

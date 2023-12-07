@@ -18,6 +18,5 @@
 		<input type="submit" value="글 등록">
 	</form>
 	
-	
 </body>
 </html>

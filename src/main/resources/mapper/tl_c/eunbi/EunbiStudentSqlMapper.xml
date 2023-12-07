@@ -51,17 +51,6 @@
 		)
 	</insert>
 
-	<!-- 학생의 이력서 조회 -->
-	<select id="getSelfIntroduction" resultType="com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto">
-		SELECT * FROM tl_c_self_introduction
-		WHERE student_pk = #{student_pk}
-	</select>
-	
-	<select id="getCertifications" resultType="com.mkfactory.toothless.c.dto.AjdksCertificationDto">
-		SELECT * FROM tl_c_certification
-		WHERE student_pk = #{student_pk}
-	</select>
-
 	<!-- 학생 과이름 출력 -->
 	<select id="getDepartmentByDepartmentPk" resultType="com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto">
 		SELECT * FROM TL_JIC_DEPARTMENT_CATEGORY
@@ -74,6 +63,64 @@
 		SELECT COUNT(*) FROM tl_c_student_intern
 		WHERE internship_course_pk = #{internship_course_pk}
 	</select>
+
+	<!-- 과정Pk로 신청 학생 조회 -->
+	<select id="getApplyingListByCoursePk" resultType="com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto">
+		SELECT * FROM tl_c_student_applying
+		WHERE internship_course_pk = #{internship_course_pk}
+		ORDER BY student_pk ASC
+	</select>
+	
+	<!-- 학생키로 학생 info 불러오기 -->
+	<select id="getStudentInfoByStudentPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO
+		WHERE student_pk = #{student_pk}
+	</select>
+	
+	<!-- 해당 학생의 학기 계산 -->
+	<select id="countSemester" resultType="int">
+		SELECT COUNT(*)-1 FROM TL_JIC_STUDENT_SEMESTER
+		WHERE student_pk = #{student_pk}
+	</select>
+
+	<!-- 실습생의 출결통계 -->
+	<select id="countAttendance" resultType="int">
+		SELECT COUNT(*) FROM tl_c_company_timecard
+		WHERE student_intern_pk = #{student_intern_pk}
+		AND timecard_category_pk = 1
+	</select>
+
+	<select id="countLate" resultType="int">
+		SELECT COUNT(*) FROM tl_c_company_timecard
+		WHERE student_intern_pk = #{student_intern_pk}
+		AND timecard_category_pk = 2
+	</select>
+	
+	<select id="countEarlyleave" resultType="int">
+		SELECT COUNT(*) FROM tl_c_company_timecard
+		WHERE student_intern_pk = #{student_intern_pk}
+		AND timecard_category_pk = 3
+	</select>
+
+	<select id="countAbsent" resultType="int">
+		SELECT COUNT(*) FROM tl_c_company_timecard
+		WHERE student_intern_pk = #{student_intern_pk}
+		AND timecard_category_pk = 4
+	</select>
+
+	<select id="getSelfIntroductionByStudentPk" resultType="com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto">
+		SELECT * FROM tl_c_self_introduction
+		WHERE student_pk = #{student_pk}
+	</select>
+	
+	<select id="getCertificationsByStudentPk" resultType="com.mkfactory.toothless.c.dto.AjdksCertificationDto">
+		SELECT * FROM tl_c_certification
+		WHERE student_pk = #{student_pk}
+	</select>
+
+
+
+
 
 
 

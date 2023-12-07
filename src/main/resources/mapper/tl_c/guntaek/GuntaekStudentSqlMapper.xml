@@ -22,12 +22,13 @@ INSERT INTO tl_c_self_introduction VALUES(
 	WHERE student_pk =#{student_pk}
 </select>
 
-<!-- 이력서 Dto 가져오기 -->
+<!-- 특정 학생이력서 Dto 가져오기 -->
 <select id ="getSelfIntroductionDto" resultType = "com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto">
 	SELECT * FROM TL_C_SELF_INTRODUCTION
 	WHERE STUDENT_PK = #{student_pk}
 </select>
 
+<!-- 이력서 수정 -->
 <update id ="updateSelfIntroductionDto">
 	UPDATE TL_C_SELF_INTRODUCTION
 	SET answer1  = #{answer1}, answer2 = #{answer2}, 
@@ -35,7 +36,32 @@ INSERT INTO tl_c_self_introduction VALUES(
 	WHERE student_pk = #{student_pk}
 </update>
 
+<!-- 이력서 insert -->
+<insert id = "registerCertification">
+INSERT INTO tl_c_certification VALUES(
+	tl_c_certification_seq.nextval,
+	#{student_pk},
+	#{certification_name},
+	#{certification_acquisition_date},
+	#{certification_file}
+)
+</insert>
 
+<!-- 모든 학생 Dto 리스트 가져오기 -->
+<select id = "getSelfIntroductionDtoList" resultType = "com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto">
+	SELECT * FROM tl_c_self_introduction
+</select>
+
+<!-- 특정 학생키의 이력서 DTO 가져오기 -->
+<select id = "getCertificationByStudentPk" resultType ="com.mkfactory.toothless.c.dto.AjdksCertificationDto">
+	SELECT * FROM tl_c_certification
+	WHERE STUDENT_PK = #{student_pk}
+</select>
+
+<delete id ="deleteCertificationByFile">
+	DELETE FROM TL_C_CERTIFICATION
+	WHERE certification_file = #{FileName}
+</delete>
 
 
 </mapper>

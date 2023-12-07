@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.a.dto.DormBuildingDto;
+import com.mkfactory.toothless.a.dto.DormCategoryDto;
 import com.mkfactory.toothless.a.dto.DormRoomDto;
 import com.mkfactory.toothless.a.dto.DormStudentDto;
+import com.mkfactory.toothless.a.dto.JoinDormApplicationDto;
+import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
 import com.mkfactory.toothless.a.staff.dm.mapper.DormStaffSqlMapperDm;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -42,6 +45,8 @@ public class DormStaffServiceDm {
 			map.put("dormRoomDto", dormRoomDto);
 			map.put("dormBuildingDto", dormBuildingDto);
 			map.put("studentInfoDto", studentInfoDto);
+			
+			
 			
 			list.add(map);
 		}
@@ -110,6 +115,49 @@ public class DormStaffServiceDm {
 		
 		return list;
 	}
+	
+	public void assignmentDeleteByDormStudentPk(int dorm_student_pk) {
+		
+		dormStaffSqlMapperDm.assignmentDeleteByDormStudentPk(dorm_student_pk);
+		
+	}
+	
+	public List<Map<String, Object>> studentInfoAllList() {
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		List<StudentInfoDto> studentInfoDto = dormStaffSqlMapperDm.studentInfoAllList();
+		
+			for(StudentInfoDto e : studentInfoDto) {
+			
+				Map<String, Object> map = new HashMap<String, Object>();
+				
+				int student_pk = e.getStudent_pk();
+				// 수납완료 Y 선발완료 Y 검증
+				JoinDormApplicationDto joinDormApplicationDto = dormStaffSqlMapperDm.joinDormAppliByStudentPK(student_pk);
+				// dormStudentDto 사생정보 없을때 배정리스트가 뽑히게 하기위한 확인용
+				DormStudentDto dormStudentDto = dormStaffSqlMapperDm.dormStudentInfoByStudentPk(student_pk);
+				
+				
+				if(joinDormApplicationDto == null) {
+					continue;
+				}
+				
+				if(dormStudentDto != null) {
+					continue;
+				}
+				
+				if(joinDormApplicationDto.getPayment_status().equals("Y") && joinDormApplicationDto.getSelection_status().equals("Y")) {
+					map.put("studentInfoDto", e); //학생 이름
+					
+					list.add(map);
+				}
+				
+			}
+		
+			return list;
+		
+		}
 	
 	
 	

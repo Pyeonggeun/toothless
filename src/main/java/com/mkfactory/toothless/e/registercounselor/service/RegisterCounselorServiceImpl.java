@@ -85,7 +85,7 @@ public class RegisterCounselorServiceImpl {
 		
 		
 		String career = StringEscapeUtils.escapeHtml4(counselorDto.getCareer());
-		career.replaceAll("\n", "<br>");
+		career = career.replaceAll("\n", "<br>");
 		
 		counselorDto.setCareer(career);
 		

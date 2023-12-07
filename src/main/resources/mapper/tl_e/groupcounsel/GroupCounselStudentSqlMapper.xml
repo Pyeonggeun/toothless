@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+
+<mapper namespace="com.mkfactory.toothless.e.groupcounsel.mapper.GroupCounselStudentSqlMapper">
+
+	<insert id="insertGroupCounselReservation">
+		INSERT INTO cp_group_reservation VALUES(
+			cp_group_reservation_seq.nextval,
+			#{student_pk},
+			#{group_counsel_id},
+			'y',
+			SYSDATE
+		)
+	</insert>
+
+	
+	<select id="countGroupCounselReservationByStudentId" resultType="int">
+		SELECT count(*) FROM cp_group_reservation
+		WHERE STUDENT_PK=#{student_pk}
+		AND group_counsel_id=#{group_counsel_id}
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

@@ -175,9 +175,18 @@
 							</div>
 						</div>
 						<div class="row mt-3">
-							<div class="col border rounded">
-								<span>${counselorDto.career}</span>
+							<div class="col">
+								<div class="row justify-content-center">
+									<div class="col-10 border rounded">
+										<div class="row mt-3 mb-3">
+											<div class="col">
+												<span class="">${counselorDto.career}</span>
+											</div>
+										</div>										
+									</div>
+								</div>
 							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -190,14 +199,22 @@
 							</div>
 						</div>
 						<div class="row mt-3">
-							<div class="col">
-								<c:forEach items="${licenseList}" var="licenseList">
+							<div class="col">								
 								<div class="row">
 									<div class="col">
-										<img src="../../resources/img/counselorImage/license/${licenseList.license}" class="img-fluid">
-									</div>
-								</div>
-								</c:forEach>								
+										<c:forEach items="${licenseList}" var="licenseList">
+										<div class="row mt-2 justify-content-center">
+											<div class="col-10 border rounded text-center">
+												<div class="row mt-2 mb-2">
+													<div class="col">
+														<img src="../../resources/img/counselorImage/license/${licenseList.license}" class="img-fluid">	
+													</div>
+												</div>
+											</div>	
+										</div>
+										</c:forEach>
+									</div>									
+								</div>																
 							</div>
 						</div>
 					</div>

@@ -1,8 +1,11 @@
 package com.mkfactory.toothless.c.guntaek.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
 import com.mkfactory.toothless.c.guntaek.mapper.GuntaekStudentSqlMapper;
 
@@ -31,5 +34,31 @@ public class GuntaekStudentServiceImpl {
 	public void updateSelfIntroductionDto(AjdksSelfIntroductionDto selfIntroductionDto) {
 		guntaekstudentSqlMapper.updateSelfIntroductionDto(selfIntroductionDto);
 	}
+		
 	
+	// 모든 학생의 이력서 DTO 리스트 가져오기
+	
+	
+	public List<AjdksSelfIntroductionDto> getSelfIntroductionDtoList(){
+		return guntaekstudentSqlMapper.getSelfIntroductionDtoList();
+	}
+	
+	
+	
+	// 자격증 기능 시작 
+	public void registerCertification(AjdksCertificationDto certificationDto) {
+		guntaekstudentSqlMapper.registerCertification(certificationDto);
+	}
+	
+	public List<AjdksCertificationDto> getCertificationByStudentPk(int student_pk){
+		return guntaekstudentSqlMapper.getCertificationByStudentPk(student_pk);
+	}
+	
+	
+
+
+	// 특정 파일명으로 자격증Dto 삭제
+	public void deleteCertificationByFile(String FileName) {
+		guntaekstudentSqlMapper.deleteCertificationByFile(FileName);
+	}
 }

@@ -91,5 +91,15 @@ public interface ConsultingMapper {
 	
 	//교직원 온라인상담 답글입력
 	public void insertOnlineConsultingReply(OnlineConsultingReplyDto par);
+	
+	//온라인상담 오래된순 전체출력
+	public List<OnlineConsultingDto> getHopeJobListAll();
+	
+	//구직희망pk로 학생정보 뽑기
+	public StudentInfoDto getStudentInfoByHopeJobPk(int HOPE_JOB_PK);
+	
+	
+	
+	
 
 }

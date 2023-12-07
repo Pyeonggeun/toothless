@@ -10,8 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
+import com.mkfactory.toothless.e.dto.CounselorTypeDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
+import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 import com.mkfactory.toothless.e.onlinecounsel.service.OnlineCounselService;
 
 @Controller
@@ -22,8 +25,9 @@ public class OnlineCounselController {
 	private OnlineCounselService onlineCounselService;
 	
 	
-	//		**** 메인페이지 ****
 	
+	
+	//	****	학생 메인페이지		****
 	@RequestMapping("onlineCounselMainPage")
 	public String onlineCounselMainPage(HttpSession session, Model model) {
 		
@@ -46,10 +50,7 @@ public class OnlineCounselController {
 	
 	
 	
-	
-	
-	
-	//		**** 상담 등록 ****
+	//		******** 상담 등록 ********
 	
 	@RequestMapping("writeOnlineCounselPage")
 	public String writeOnlineCounselPage(Model model) {
@@ -70,11 +71,7 @@ public class OnlineCounselController {
 	
 	
 
-	
-	
-	
-	
-	//		**** Read CounselPage ****
+	//		**** 학생 - 본인이 작성한 상담 읽기 ****
 	
 	@RequestMapping("readCounselPage")
 	public String readCounselPage(int counsel_pk, Model model) {
@@ -84,5 +81,32 @@ public class OnlineCounselController {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	//	********	상담원 메인페이지	********
+	
+	
+	@RequestMapping("counselorOnlineCounselMainPage")
+	public String counselorOnlineCounselMainPage(HttpSession session) {
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		
+
+		return "tl_e/onlineCounsel/counselorOnlineCounselMainPage";
+		
+	}
+	
 }
+
+
+
+
+
+
 

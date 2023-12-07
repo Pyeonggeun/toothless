@@ -314,5 +314,19 @@ public class ConsultingController {
 	}
 	
 	
+	//온라인상담 리스트 페이지
+	@RequestMapping("staffOnlineConsultingPage")
+	public String staffOnlineConsultingPage(Model model) {
+		
+		List<Map<String, Object>> list = consultingService.getHopeJobListAll();
+		model.addAttribute("list", list);
+		
+		return"tl_d/jm_consulting/staffOnlineConsultingPage";
+	}
+	
+	
+	
+	
+	
 	
 }

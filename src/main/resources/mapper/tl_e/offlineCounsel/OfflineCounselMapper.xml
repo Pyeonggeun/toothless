@@ -63,5 +63,121 @@
 		SELECT (cor.COUNSEL_YEAR||'.'||cor.COUNSEL_MONTH||'.'||cor.COUNSEL_DATE||'.'||cor.COUNSEL_HOUR) AS addDate FROM CP_OFFLINE_RESERVATION cor
 		WHERE cor.COUNSELOR_ID = #{counselor_id}
 	</select>
+	
+	<!-- 상담원별 예약 리스트 -->
+	<select id="selectReservationListByCounselorId" resultType="com.mkfactory.toothless.e.dto.OfflineReservationDto">
+		SELECT * FROM CP_OFFLINE_RESERVATION
+		WHERE COUNSELOR_ID = #{counselor_id}
+		ORDER BY id DESC
+	</select>
+	
+	<!-- 학생Dto 출력 -->
+	<select id="selectStudentInfoByStudentPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO
+		WHERE STUDENT_PK  = #{student_pk}
+	</select>
+	
+	<!-- 상담원Dto 출력(by.외부사용자키) -->
+	<select id="selectCounselorInfoByExternalPk" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
+		SELECT * FROM CP_COUNSELOR cc
+		WHERE EXTERNAL_PK = #{external_pk}
+	</select>
+	
+	<!-- 상담일지 insert -->
+	<select id="insertCounselDocument" resultType="com.mkfactory.toothless.e.dto.CounselDocumentDto">
+		INSERT INTO cp_counsel_document VALUES (
+			cp_counsel_document_seq.nextval,
+			#{reservation_id},
+			#{text},
+			SYSDATE
+		)
+	</select>
+	
+	<!-- 예약 테이블 상태 update -->
+	<update id="updateCounselReservationState">
+		UPDATE CP_OFFLINE_RESERVATION
+		SET state = #{state}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 상담일지Dto 조회 -->
+	<select id="selectCounselDocumentInfoByReservationId" resultType="com.mkfactory.toothless.e.dto.CounselDocumentDto">
+		SELECT * FROM CP_COUNSEL_DOCUMENT
+		WHERE reservation_id = #{reservation_id}
+	</select>
+	
+	<!-- 학생별 예약 리스트 -->
+	<select id="selectCounselReservationList" resultType="com.mkfactory.toothless.e.dto.OfflineReservationDto">
+		SELECT * FROM CP_OFFLINE_RESERVATION
+		WHERE STUDENT_PK = #{student_pk}
+	</select>
+	
+	<!-- 만족도조사 insert -->
+	<insert id="insertOfflineSurvey">
+		INSERT INTO cp_offline_survey VALUES (
+			cp_offline_survey_seq.nextval,
+			#{reservation_id},
+			#{score},
+			#{text},
+			SYSDATE
+		)
+	</insert>
+	
+	<!-- 예약Pk별 리뷰Dto -->
+	<select id="selectOfflineSurveryInfo" resultType="com.mkfactory.toothless.e.dto.OfflineSurveyDto">
+		SELECT * FROM cp_offline_survey
+		WHERE reservation_id = #{reservation_id}
+	</select>
+	
+	<!-- 예약 취소상태 update -->
+	<update id="updateReservationStateToCancel">
+		UPDATE CP_OFFLINE_RESERVATION
+		SET state = '취소'
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 예약 상태 출력 -->
+	<select id="selectReservationState" resultType="string">
+		SELECT STATE FROM CP_OFFLINE_RESERVATION
+		WHERE COUNSELOR_ID = #{counselor_id}
+		AND COUNSEL_YEAR = #{counsel_year}
+		AND COUNSEL_MONTH = #{counsel_month} 
+		AND COUNSEL_DATE = #{counsel_date}
+		AND COUNSEL_HOUR = #{counsel_hour}
+	</select>
+	
+	<!-- 상담원 불가일정 insert -->
+	<insert id="insertImpossibleDateInfo">
+		INSERT INTO cp_impossible_date VALUES (
+			cp_impossible_date_seq.nextval,
+			#{counselor_id},
+			#{start_year},
+			#{start_month},
+			#{start_date},
+			#{start_hour},
+			#{end_year},
+			#{end_month},
+			#{end_date},
+			#{end_hour},
+			#{reason},
+			SYSDATE
+		)
+	</insert>
+	
+	<!-- 상담원별 불가 일정 리스트 출력 -->
+	<select id="selectImpossibleDateListByCounselorId" resultType="com.mkfactory.toothless.e.dto.ImpossibleDateDto">
+		SELECT * FROM cp_impossible_date
+		WHERE counselor_id = #{counselor_id}
+	</select>
+	
+	<!-- 상담원별 불가 일정 날짜형식으로 포맷한 리스트 -->
+	<select id="selectImpossibleDateMap" resultType="map">
+		SELECT 
+		    TO_DATE(start_year || '-' || start_month || '-' || start_date || ' ' || start_hour, 'YYYY-MM-DD HH24') AS START_DATE,
+		    TO_DATE(end_year || '-' || end_month || '-' || end_date || ' ' || end_hour, 'YYYY-MM-DD HH24') AS END_DATE
+		FROM cp_impossible_date
+		WHERE counselor_id = #{counselor_id}
+	</select>
+	
 
 </mapper>

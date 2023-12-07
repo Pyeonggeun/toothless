@@ -372,4 +372,39 @@ public class ConsultingService {
 	}
 	
 	
+	
+	
+	//교직원쪽
+	//온라인상담 오래된순 싹 출력
+	//교직원 페이지에서 온라인상담 관련 정보 보기위함
+	public List<Map<String, Object>> getHopeJobListAll(){
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		//온라인상담 내역 싹 다
+		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getHopeJobListAll();
+		
+		
+		for(OnlineConsultingDto onlineConsultingDto : onlineConsultingDtoList) {
+			
+			int hopeJobPk = onlineConsultingDto.getHope_job_pk();
+			//구직희망pk로 뽑은 학생정보
+			StudentInfoDto studentInfoDto = consultingMapper.getStudentInfoByHopeJobPk(hopeJobPk);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("onlineConsultingDto", onlineConsultingDto);
+			map.put("studentInfoDto", studentInfoDto);
+			
+			list.add(map);
+		}
+		
+		
+		return list;
+	}
+
+	
+	
+	
+	
 }

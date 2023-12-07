@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.mkfactory.toothless.c.seoyoung.mapper.SeoyoungCompanyMapper">
+	
+	<!-- 산업체의 현장실습 전체 목록 -->
+	<select id="selectCompanyList" resultType="Map">
+		SELECT * FROM TL_JIC_EXTERNAL_INFO
+		JOIN TL_C_COMPANY_INFO ON TL_JIC_EXTERNAL_INFO.EXTERNAL_PK = TL_C_COMPANY_INFO.EXTERNAL_PK
+		WHERE tl_c_company_info.EXTERNAL_PK = #{COMPANY_PK}
+	</select>
+	
+	
+</mapper>

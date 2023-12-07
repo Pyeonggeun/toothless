@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.mkfactory.toothless.c.seoyoung.mapper.SeoyoungApplyingSqlMapper">
+	
+	<!-- 등록된 산업체 리스트 -->
+	<select id="selectRegisteredCompanyList" resultType="com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto">
+		SELECT * FROM tl_c_company_info ORDER BY company_pk DESC
+	</select>
+	
+	<!-- 현재 진행중인 산업체 리스트 -->
+	<select id="selectApplyCompanyList" resultType="Map">
+		SELECT * 
+		FROM TL_C_INTERNSHIP_COURSE
+		JOIN tl_c_company_info ON TL_C_INTERNSHIP_COURSE.COMPANY_PK = tl_c_company_info.COMPANY_PK
+		JOIN tl_c_company_category ON tl_c_company_category.COMPANY_CATEGORY_PK = tl_c_company_info.COMPANY_CATEGORY_PK
+		WHERE TL_C_INTERNSHIP_COURSE.COMPANY_PK IN (
+		    SELECT COMPANY_PK
+		    FROM TL_C_INTERNSHIP_COURSE
+		    WHERE TO_DATE(SYSDATE, 'YYYY-MM-DD') BETWEEN TO_DATE(APPLYING_START_DATE, 'YYYY-MM-DD') AND TO_DATE(APPLYING_END_DATE, 'YYYY-MM-DD')
+		)
+	</select>
+	
+	<!-- 지원 신청 -->
+	<insert id="insert">
+	INSERT INTO tl_c_student_applying VALUES(
+		tl_c_student_applying_seq.nextval,
+		#{internship_course_pk},
+		#{student_pk},
+		'신청완료',
+		SYSDATE
+	)
+	</insert>
+	
+	<!-- 현재 진행 리스트 -->
+	<select id="selectApplyNewList" resultType="Map">
+		<![CDATA[
+		SELECT * 
+		FROM (
+		    SELECT * 
+		    FROM TL_C_INTERNSHIP_COURSE a
+		    JOIN tl_c_company_info b ON a.COMPANY_PK = b.COMPANY_PK
+		    JOIN tl_c_student_applying c ON c.INTERNSHIP_COURSE_PK = a.INTERNSHIP_COURSE_PK
+		    WHERE STUDENT_PK = #{student_pk}
+		    ORDER BY c.created_at DESC
+		) WHERE ROWNUM <= 1
+		]]>
+	</select>
+	
+	<!-- 이전 진행 리스트 -->
+	<select id="selectApplyOldList" resultType="Map">
+		SELECT * 
+		FROM TL_C_INTERNSHIP_COURSE
+		JOIN tl_c_company_info ON TL_C_INTERNSHIP_COURSE.COMPANY_PK = tl_c_company_info.COMPANY_PK
+		JOIN tl_c_student_applying ON tl_c_student_applying.INTERNSHIP_COURSE_PK = TL_C_INTERNSHIP_COURSE.INTERNSHIP_COURSE_PK
+		WHERE STUDENT_PK = #{student_pk} AND TL_C_INTERNSHIP_COURSE.COMPANY_PK = tl_c_company_info.COMPANY_PK
+		AND tl_c_student_applying.STATUS != '신청완료'
+	</select>
+	
+	<!-- 이미 신청 했는지 여부  -->
+	<select id="selectTFApply" resultType="String">
+	<![CDATA[
+	SELECT CASE WHEN STATUS !='신청완료' THEN 'yes' ELSE 'no' END AS record_exists
+	FROM (
+	    SELECT * 
+	    FROM tl_c_student_applying c
+	    WHERE STUDENT_PK = #{student_pk}
+	    ORDER BY c.created_at DESC
+	)WHERE ROWNUM <= 1
+	]]>
+	</select>
+	
+	<!-- 카테고리+산업체 조인 -->
+	<select id="searchCompanyCategori" resultType="Map">
+	SELECT * 
+	FROM tl_c_company_info
+	JOIN tl_c_company_category ON tl_c_company_category.COMPANY_CATEGORY_PK = tl_c_company_info.COMPANY_CATEGORY_PK
+	</select>
+</mapper>

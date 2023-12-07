@@ -82,18 +82,14 @@
 						</thead>
 						<tbody>
 							<!-- 값 반복 예정 -->
+							<c:forEach items="${exitListMap}" var="exitListMap">
 							<tr>
-								<td>홍길동</td>
-								<td>A동</td>
-								<td>101호</td>
-								<td>배고픔</td>
+								<td>${exitListMap.studentInfoDto.name}</td>
+								<td>${exitListMap.dormBuildingDto.name}</td>
+								<td>${exitListMap.dormRoomDto.room_name}</td>
+								<td>${exitListMap.exitDto.reason}</td>
 							</tr>
-							<tr>
-								<td>신짱구</td>
-								<td>B동</td>
-								<td>204호</td>
-								<td>놀러감</td>
-							</tr>	
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>

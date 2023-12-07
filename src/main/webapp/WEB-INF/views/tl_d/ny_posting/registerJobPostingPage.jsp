@@ -41,16 +41,20 @@
 				<!-- 사업자번호 -->
 				<div class="row mt-3">
 					<div class="col">
-						<input class="form-control form-control-sm border-black" name="business_number" type="text" placeholder="000-00-00000">
+						<input class="form-control form-control-sm border-black" name="business_number" type="text" placeholder="사업자번호 000-00-00000">
 					</div>
 				</div>
 				<!-- 채용분야 -->
 				<div class="row mt-3">
 					<div class="col">
-						<c:forEach items="${jobFieldCategory}" var="jobField">
-							<input name="job_field_category_pk" type="radio" value="${jobField.job_field_category_pk}">&nbsp;${jobField.job_field_category_name}
-						</c:forEach>
+						<select class="form-select py-0 border-dark" name="job_field_category_pk">
+							<option selected>채용분야</option>
+						    <c:forEach items="${jobFieldCategory}" var="jobField">
+						        <option value="${jobField.job_field_category_pk}">${jobField.job_field_category_name}</option>
+						    </c:forEach>
+						</select>
 					</div>
+					<div class="col-7"></div>
 				</div>
 				<!-- 구인직무 -->
 				<div class="row mt-3">
@@ -59,41 +63,57 @@
 					</div>
 				</div>
 				<!-- 메인이미지 -->
-				<div class="row mt-3">
+				<div class="row my-4">
 					<div class="col">
-						<input name="imageFile" type="file" accept="image/*">
+						<input class="form-control border-dark" name="imageFile" type="file" accept="image/*">
 					</div>
 				</div>
 				<!-- 채용내용 -->
 				<div class="row mt-3">
-					<div class="col">
+					<div class="col fw-bold">
 						채용내용
 					</div>
 				</div>
 				<div class="row mt-2">
-					<div class="col">
-						<textarea name="posting_contents" rows="10" cols="80" style="resize: both;"></textarea>						
+					<div class="col d-grid">
+						<textarea class="form-control border-dark" name="posting_contents" rows="10"></textarea>						
 					</div>
 				</div>
 				<!-- 우대사항 -->
 				<div class="row mt-3">
-					<div class="col">
+					<div class="col fw-bold">
 						우대사항
 					</div>
 				</div>
 				<div class="row mt-2">
-					<div class="col">
-						<textarea name="preference" rows="10" cols="80" style="resize: both;"></textarea>						
+					<div class="col d-grid">
+						<textarea class="form-control border-dark" name="preference" rows="10"></textarea>						
 					</div>
 				</div>
 				<!-- 채용인원 -->
 				<div class="row mt-3">
-					<div class="col">
-						<input class="form-sm border-black" name="hire_number" type="text">명
+					<div class="col fw-bold">
+						채용인원
 					</div>
+				</div>
+				<div class="row mt-2">
+					<div class="col">
+						<div class="row">
+							<div class="col-9 pe-0">
+								<input class="form-control form-control-sm border-black" name="hire_number" type="text">
+							</div>
+							<div class="col pt-1">명</div>
+						</div>
+					</div>
+					<div class="col-8"></div>
 				</div>
 				<!-- 채용마감일 -->
 				<div class="row mt-3">
+					<div class="col fw-bold">
+						채용마감일
+					</div>
+				</div>
+				<div class="row mt-2">
 					<div class="col">
 						<input class="form-control form-control-sm border-black" name="posting_deadline" type="date">
 					</div>
@@ -101,8 +121,18 @@
 				<div class="row mt-3">
 					<div class="col-10"></div>
 					<div class="col">
-						<input class="btn btn-primary" type="submit" value="공고등록">
+						<c:choose>
+							<c:when test="${empty sessionStaffInfo}">
+								<input class="btn btn-dark d-grid" type="submit" value="공고등록" disabled>
+							</c:when>
+							<c:otherwise>
+								<input class="btn btn-dark d-grid" type="submit" value="공고등록">
+							</c:otherwise>
+						</c:choose>
 					</div>
+				</div>
+				<div class="row mt-5">
+					<div class="col"></div>
 				</div>
 				</form>
 			</div>

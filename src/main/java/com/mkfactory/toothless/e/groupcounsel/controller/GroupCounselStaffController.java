@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mkfactory.toothless.e.dto.CounselorDto;
+import com.mkfactory.toothless.e.dto.GroupCounselCounselorDto;
 import com.mkfactory.toothless.e.dto.GroupCounselDto;
 import com.mkfactory.toothless.e.groupcounsel.service.GroupCounselStaffServiceImpl;
 
@@ -79,7 +82,7 @@ public class GroupCounselStaffController {
 	@RequestMapping("groupCounselListPage")
 	public String groupCounselListPage(Model model) {
 		                                     
-		List<GroupCounselDto> groupCounselList = groupCounselStaffService.readGroupCounselList();
+		List<Map<String, Object>> groupCounselList = groupCounselStaffService.readGroupCounselList();
 		
 		model.addAttribute("groupCounselList", groupCounselList);
 		
@@ -89,12 +92,30 @@ public class GroupCounselStaffController {
 	@RequestMapping("groupCounselDetailPage")
 	public String groupCounselDetailPage(Model model, int id) {
 		
-		GroupCounselDto groupCounselDto = groupCounselStaffService.readGroupCounselDetail(id);
+		Map<String, Object> map = groupCounselStaffService.readGroupCounselDetail(id);
 		
-		model.addAttribute("groupCounselDto", groupCounselDto);
+		model.addAttribute("groupCounselDetail", map);
 		
 		return "/tl_e/groupcounsel/staff/groupCounselDetailPage";
 	}
+	
+	@RequestMapping("counselorAddPage")
+	public String counselorAddPage(Model model, int group_counsel_id) {
+		
+		
+		model.addAttribute("counselorList", groupCounselStaffService.readGrouopCounselCounselorList());
+		model.addAttribute("group_counsel_id", group_counsel_id);
+		
+		return "/tl_e/groupcounsel/staff/counselorAddPage";
+	}
+	
+	@RequestMapping("counselorAddProcess")
+	public String counselorAddProcess(GroupCounselCounselorDto groupCounselCounselorDto) {
+		groupCounselStaffService.insertGroupCounselCounselor(groupCounselCounselorDto);
+		
+		return "redirect: ./groupCounselDetailPage?id=" + groupCounselCounselorDto.getGroup_counsel_id();
+	}
+	
 	
 	
 	

@@ -87,16 +87,17 @@
 							</tr>
 						</thead>
 						<tbody>
+						<c:if test="${!empty dormList}">
+							<c:forEach items="${dormList }" var="dormList">
 							<tr>
-								<td></td><!-- 테이블 엮어서 반복문 -->
-								<td>
-                                    
-                                </td><!-- 여기도 반복문-->
-                                <td>
-                                    
-                                </td>
-								<td><h6 class="btn btn-danger">배정취소</h6></td>
+								<td>${dormList.studentInfoDto.name }</td>
+								<td>${dormList.dormBuildingDto.name }</td>
+								<td>${dormList.dormRoomDto.room_name }</td>
+								
+								<td><a href="./assignmentDeleteProcess?dorm_student_pk=${dormList.dormStudentDto.dorm_student_pk }" class="btn btn-danger" role="button">배정취소</a></td>
 							</tr><!--  -->
+							</c:forEach>
+						</c:if>
 						</tbody>
 					</table>
 				</div>

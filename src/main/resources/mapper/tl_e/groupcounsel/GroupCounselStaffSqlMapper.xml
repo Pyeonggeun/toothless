@@ -24,6 +24,50 @@
 		ORDER BY id ASC
 	</select>
 	
+	<select id="selectGroupCounselReservationCount" resultType="int">
+		SELECT COUNT(*) FROM cp_group_reservation
+		WHERE group_counsel_id=#{group_counsel_id}
+	</select>
+	
+	<select id="selectGroupCounselReservationList" resultType="com.mkfactory.toothless.e.dto.GroupCounselReservationDto">
+		SELECT * FROM cp_group_reservation
+		WHERE group_counsel_id=#{group_counsel_id}
+	</select>
+	
+	<select id="selectStudentInfoById" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO
+		WHERE student_pk = #{student_pk}	
+	</select>
+	
+	
+	<select id="selectGroupCounselByCounselor" resultType="com.mkfactory.toothless.e.dto.GroupCounselCounselorDto">
+		SELECT * FROM cp_group_counselor
+		WHERE group_counsel_id=#{group_counsel_id}
+	</select>
+	
+	<select id="selectCounselorById" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
+		SELECT * FROM CP_COUNSELOR
+		WHERE id=#{counselor_id}
+	</select>
+	
+	<select id="selectDepartmentCatecoryByStudentId" resultType="com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto">
+		SELECT * FROM TL_JIC_DEPARTMENT_CATEGORY
+		WHERE DEPARTMENT_PK = #{department_Pk}	
+	</select>
+	
+	<insert id="insertGroupCounselCounselor">
+		INSERT INTO cp_group_counselor VALUES(
+			cp_group_counselor_seq.nextval,
+			#{group_counsel_id},
+			#{counselor_id}
+		)	
+	</insert>
+	
+	<select id="selectCounselorList" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
+		SELECT * FROM cp_counselor
+	</select>
+	
+	
 	<select id="selectGroupCounselById" resultType="com.mkfactory.toothless.e.dto.GroupCounselDto">
 		SELECT * FROM cp_group_counsel
 		WHERE id=#{id}

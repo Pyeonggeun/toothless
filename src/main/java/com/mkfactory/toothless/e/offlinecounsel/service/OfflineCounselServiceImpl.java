@@ -14,9 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
+import com.mkfactory.toothless.e.dto.CounselDocumentDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
+import com.mkfactory.toothless.e.dto.ImpossibleDateDto;
 import com.mkfactory.toothless.e.dto.OfflineReservationDto;
+import com.mkfactory.toothless.e.dto.OfflineSurveyDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 import com.mkfactory.toothless.e.offlinecounsel.mapper.OfflineCounselMapper;
 
@@ -30,6 +34,15 @@ public class OfflineCounselServiceImpl {
 		
 		return offlineCounselMapper.createOfflineReservationPk();
 	}
+	
+	// externalPk로 상담원키 출력
+	public CounselorDto getCounselorPk(int external_pk) {
+		
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfoByExternalPk(external_pk);
+		
+		return counselorDto;
+	}
+
 	
 	public List<Map<String, Object>> sevenDaysDateExtraction(int counselor_id) {
 		
@@ -45,6 +58,8 @@ public class OfflineCounselServiceImpl {
 			DayOfWeek dayOfWeek = today.getDayOfWeek();
 			int day = dayOfWeek.getValue();
 			
+			String onlyDate = "" + year + month + date;
+			
 			List<String> reservationDateInfoList = offlineCounselMapper.selectReservationDateInfoByCounselorId(counselor_id);
 			
 			List<Map<String, Object>> timeList = new ArrayList<>();
@@ -54,13 +69,26 @@ public class OfflineCounselServiceImpl {
 				String dateString = year + "." + month + "." + date + "." + j;
 				int hour = j;
 				
+				String state = offlineCounselMapper.selectReservationState(counselor_id, year, month, date, hour);
+				
+//				List<ImpossibleDateDto> impossibleDateList = offlineCounselMapper.selectImpossibleDateListByCounselorId(counselor_id);
+//				List<String> impossibleList = new ArrayList<>();
+//				
+//				for(ImpossibleDateDto impossibleDateDto : impossibleDateList) {
+//					
+//					impossibleList.add("" + impossibleDateDto.getStart_year()  + impossibleDateDto.getStart_month() + impossibleDateDto.getEnd_date());
+//				}
+				
 				Map<String, Object> dateTimeMap = new HashMap<>();
 				dateTimeMap.put("dateString", dateString);
 				dateTimeMap.put("hour", hour);
 				dateTimeMap.put("reservationDateInfoList", reservationDateInfoList);
+				dateTimeMap.put("state", state);
+//				dateTimeMap.put("impossibleList", impossibleList);
 				
 				timeList.add(dateTimeMap);
 			}
+			
 			
 			Map<String, Object> map = new HashMap<>();
 			map.put("year", year);
@@ -68,6 +96,7 @@ public class OfflineCounselServiceImpl {
 			map.put("date", date);
 			map.put("day", day); // jsp에서 choose,when,otherwise로 요일 이름 변경
 			map.put("timeList", timeList);
+//			map.put("onlyDate", onlyDate);
 			
 			list.add(map);
 			
@@ -185,6 +214,162 @@ public class OfflineCounselServiceImpl {
 		
 		return map;
 	}
+	
+	public List<Map<String, Object>> getReservationListByCounselorId(int external_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfoByExternalPk(external_pk);
+		int counselor_pk = counselorDto.getId();
+		System.out.println(counselor_pk);
+		
+		List<OfflineReservationDto> reservationList = offlineCounselMapper.selectReservationListByCounselorId(counselor_pk);
+		
+		for(OfflineReservationDto offlineReservationDto : reservationList) {
+			
+			int reservationPk = offlineReservationDto.getId();
+			CounselDocumentDto counselDocumentDto = offlineCounselMapper.selectCounselDocumentInfoByReservationId(reservationPk);
+			
+			int studentPk = offlineReservationDto.getStudent_pk();
+			StudentInfoDto studentInfoDto = offlineCounselMapper.selectStudentInfoByStudentPk(studentPk);
+			
+			int categoryPk = offlineReservationDto.getType_category_id();
+			TypeCategoryDto typeCategoryDto = offlineCounselMapper.selectTypeCategoryDtoById(categoryPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("offlineReservationDto", offlineReservationDto);
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("typeCategoryDto", typeCategoryDto);
+			map.put("counselDocumentDto", counselDocumentDto);
+			
+			list.add(map);
+		}
+		return list;
+	}
+	
+	
+	public Map<String, Object> createReportInfo(int reservationPk, int studentPk, int categoryPk){
+		
+		OfflineReservationDto offlineReservationDto = offlineCounselMapper.selectOfflineReservationCompletedInfo(reservationPk);
+		StudentInfoDto studentInfoDto = offlineCounselMapper.selectStudentInfoByStudentPk(studentPk);
+		TypeCategoryDto typeCategoryDto = offlineCounselMapper.selectTypeCategoryDtoById(categoryPk);
+		
+		CounselDocumentDto counselDocumentDto = offlineCounselMapper.selectCounselDocumentInfoByReservationId(reservationPk);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("offlineReservationDto", offlineReservationDto);
+		map.put("studentInfoDto", studentInfoDto);
+		map.put("typeCategoryDto", typeCategoryDto);
+		map.put("counselDocumentDto", counselDocumentDto);
+		
+		return map;
+	}
+	
+	public void updateCounselReservationState(int id, String state) {
+		
+		offlineCounselMapper.updateCounselReservationState(id, state);
+	}
+	
+	public void insertCounselDocumentInfo(int id, String text) {
+		
+		offlineCounselMapper.insertCounselDocument(id, text);
+	}
+	
+	public List<Map<String, Object>> getCounselReservationList(int student_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<OfflineReservationDto> reservationList = offlineCounselMapper.selectCounselReservationList(student_pk);
+		
+		for(OfflineReservationDto offlineReservationDto : reservationList) {
+			
+			int counselorPk = offlineReservationDto.getCounselor_id();
+			CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfo(counselorPk);
+			
+			int categoryPk = offlineReservationDto.getType_category_id();
+			TypeCategoryDto typeCategoryDto = offlineCounselMapper.selectTypeCategoryDtoById(categoryPk);
+			
+			OfflineSurveyDto offlineSurveyDto = offlineCounselMapper.selectOfflineSurveryInfo(offlineReservationDto.getId());
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("offlineReservationDto", offlineReservationDto);
+			map.put("counselorDto", counselorDto);
+			map.put("typeCategoryDto", typeCategoryDto);
+			map.put("offlineSurveyDto", offlineSurveyDto);
+			
+			list.add(map);
+		}
+		return list;
+		
+	}
+	
+	public void insertOfflineSurveyInfo(OfflineSurveyDto offlineSurveyDto) {
+		
+		offlineCounselMapper.insertOfflineSurvey(offlineSurveyDto);
+	}
+	
+	public Map<String, Object> getOfflineSurveyPageInfo(int reservation_id){
+		
+		OfflineReservationDto offlineReservationDto = offlineCounselMapper.selectOfflineReservationCompletedInfo(reservation_id);
+		
+		int categoryPk = offlineReservationDto.getType_category_id();
+		TypeCategoryDto typeCategoryDto = offlineCounselMapper.selectTypeCategoryDtoById(categoryPk);
+		
+		int counselorPk = offlineReservationDto.getCounselor_id();
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfo(counselorPk);
+		
+		OfflineSurveyDto offlineSurveyDto = offlineCounselMapper.selectOfflineSurveryInfo(offlineReservationDto.getId());
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("offlineReservationDto", offlineReservationDto);
+		map.put("typeCategoryDto", typeCategoryDto);
+		map.put("counselorDto", counselorDto);
+		map.put("offlineSurveyDto", offlineSurveyDto);
+		
+		return map;
+		
+	}
+	
+	public Map<String, Object> getOfflineReservationCancelPageInfo(int reservation_id){
+		
+		OfflineReservationDto offlineReservationDto = offlineCounselMapper.selectOfflineReservationCompletedInfo(reservation_id);
+		
+		int categoryPk = offlineReservationDto.getType_category_id();
+		TypeCategoryDto typeCategoryDto = offlineCounselMapper.selectTypeCategoryDtoById(categoryPk);
+		
+		int counselorPk = offlineReservationDto.getCounselor_id();
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfo(counselorPk);
+		
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("offlineReservationDto", offlineReservationDto);
+		map.put("typeCategoryDto", typeCategoryDto);
+		map.put("counselorDto", counselorDto);
+		
+		return map;
+	}
+	
+	public void updateReservationStateToCancel(int reservation_id) {
+		
+		offlineCounselMapper.updateReservationStateToCancel(reservation_id);
+		
+	}
+	
+	public void insertImpossibleDateInfo(ImpossibleDateDto impossibleDateDto) {
+		
+		offlineCounselMapper.insertImpossibleDateInfo(impossibleDateDto);
+	}
+	
+	public List<ImpossibleDateDto> getImpossibleDateByExternalId(int external_pk){
+		
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfoByExternalPk(external_pk);
+		int counselorPk = counselorDto.getId();
+		
+		List<ImpossibleDateDto> impossibleDateList = offlineCounselMapper.selectImpossibleDateListByCounselorId(counselorPk);
+		
+		return impossibleDateList;
+	}
+	
 	
 	
 }
