@@ -13,19 +13,19 @@
 	<div class="container-fluid">
 	
 		<div class="row">
-				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>	
+				<jsp:include page="../common/companyTopNavi.jsp"></jsp:include>	
 		</div>
 		
 		<div class="row">
 			<div class="col"></div>
 			<div class="col">
 				기업등록이 완료되었습니다.
-				<a href="./registerCompanyPage">기업 메인페이지로 이동</a>
+				<!-- 임시로 교직원 기업목록으로 통하게 했습니다. 수정 예정 -->
+				<a href="./companyManagementPage">기업 메인페이지로 이동</a>
 			</div>
 			<div class="col"></div>
 		</div>
-		기업등록이 완료되었습니다.
-		<a href="./registerCompanyPage">기업 메인페이지로 이동</a>
+		
 	</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>	
 </body>

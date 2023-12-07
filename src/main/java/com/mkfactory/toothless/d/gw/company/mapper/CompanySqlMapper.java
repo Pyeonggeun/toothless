@@ -5,7 +5,10 @@ import java.util.List;
 import com.mkfactory.toothless.d.dto.ComScaleCategoryDto;
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.CompanyManagerDto;
+import com.mkfactory.toothless.d.dto.InterestCompanyDto;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.GraduationInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 public interface CompanySqlMapper {
 
@@ -28,9 +31,9 @@ public interface CompanySqlMapper {
 	public void insertCompanyExternal(ExternalInfoDto externalInfoDto);
 
 	//회사랑 회사 담당자 pk 뽑아내는거
-	public CompanyDto companySelectById(int companyPK);
-	public CompanyManagerDto companyManagerSelectById(int id);
-	public ComScaleCategoryDto comScaleCategorySelectById(int id);
+	public CompanyDto companySelectByPk(int com_pk);
+	public CompanyManagerDto companyManagerSelectByPk(int id);
+	public ComScaleCategoryDto comScaleCategorySelectByPk(int id);
 	
 	//등록된 회사, 회사 담당자 전체 리스트
 	public List<CompanyDto> selectCompanyAll();
@@ -53,6 +56,28 @@ public interface CompanySqlMapper {
 	public void deleteCompanyManager(int com_manager_pk);
 	public void deleteExternal(int external_pk);
 	
+	//기업 찜
+	public void insertInterestCompany(InterestCompanyDto interestCompanyDto);
+	
+	//기업 찜 취소
+	public void deleteInterestCompany(InterestCompanyDto interestCompanyDto);
+
+	//학생이 기업 찜했나 카운트
+	public int studentInterestCount(InterestCompanyDto interestCompanyDto);
+
+	//기업 총 찜 카운트
+	public int companyInterestCount(int com_pk);
 	
 	
+	//학생 pk로 정보 하나씩만 뽑아오기
+	public StudentInfoDto studentSelectByPk(int student_pk);
+
+	//기업이 찜당한거
+	public InterestCompanyDto interestCompanySelectByPk(int com_pk);
+	
+	//전체 관심기업 내역 리스트
+	public List<InterestCompanyDto> interestCompanySelectAll();
+	
+	//학생 졸업여부
+	public GraduationInfoDto studentGraduationInfoSelectByPk(int student_pk);
 }

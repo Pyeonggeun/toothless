@@ -36,7 +36,7 @@
 				<div class="row border-bottom border-dark"></div>
 				<div class="row border border-top">
 					<!-- 간략한 채용정보 -->
-					<div class="col p-3 ms-2">
+					<div class="col p-4 ms-2 mt-2">
 						<div class="row">
 							<div class="col">
 								<!-- 기업명 + 가족기업 여부 -->
@@ -48,11 +48,11 @@
 									<i class="text-danger bi bi-suit-heart"></i></div>
 								</div>
 								<!-- 공고제목 -->
-								<div class="row">
+								<div class="row mt-1">
 									<div class="col fs-4">${jobPostingDetailForStudent.jobPostingDto.posting_name}</div>
 								</div>
 								<!-- 분야 / 지역  -->
-								<div class="row">
+								<div class="row mt-1">
 									<div class="col">
 										<span class="text-secondary">#&nbsp;${jobPostingDetailForStudent.jobFieldCategoryDto.job_field_category_name} 
 										#&nbsp;${jobPostingDetailForStudent.jobPostingDto.job_position}
@@ -60,7 +60,7 @@
 									</div>
 								</div>
 								<!-- 마감일 -->
-								<div class="row">
+								<div class="row mt-1">
 									<div class="col-1 me-5 text-secondary">
 										#&nbsp;<fmt:formatDate value="${jobPostingDetailForStudent.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/>
 									</div>
@@ -76,7 +76,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-1 px-0 fs-5">
+							<div class="col-1 px-0 pe-2">
 								<c:if test="${empty sessionStudentInfo}">
 									<i class="ps-3 text-warning bi bi-star"></i>
 								</c:if>
@@ -140,7 +140,7 @@
 					<div class="col">
 						<div class="row border-top border-dark">
 							<div class="col-2 px-5 pt-5">
-								<img src="/uploadMainFile/${jobPostingDetailForStudent.jobPostingDto.posting_mainimage}">
+								<img src="../../resources/img/employment/${jobPostingDetailForStudent.jobPostingDto.posting_mainimage}">
 							</div>
 						</div>
 						<div class="row">
@@ -183,8 +183,9 @@
 					    </c:choose>	
 					</div>
 				</div>
-				<div class="row mt-3">
-					<div class="col-10"></div>
+				<div class="row mt-2">
+					<div class="col"><a class="btn btn-secondary" href="./jobPostingListForStudentPage">목록으로</a></div>
+					<div class="col-7"></div>
 					<div class="col-2 d-grid">
 						<c:choose>
 							<c:when test="${jobPostingDetailForStudent.endPostingList.contains(jobPostingDetailForStudent.jobPostingDto.job_posting_pk)}">
@@ -199,12 +200,7 @@
 						</c:choose>
 					</div>
 				</div>
-				<pre>
-				
-				
-				
-				
-				</pre>
+				<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
 			</div>
 			<%-- 오른쪽 --%>	
 			<div class="col-2"></div>	

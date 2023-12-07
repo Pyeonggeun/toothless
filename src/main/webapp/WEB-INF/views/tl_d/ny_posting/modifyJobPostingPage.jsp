@@ -67,7 +67,7 @@
 				</div>
 				<div class="row mt-2">
 					<div class="col">
-						<img src="/uploadMainFile/${modifyJobPosting.jobPostingDto.posting_mainimage}">
+						<img src="../../resources/img/employment/${modifyJobPosting.jobPostingDto.posting_mainimage}">
 					</div>				
 				</div>
 				<!-- 채용내용 -->
@@ -122,8 +122,9 @@
 					</div>
 				</div>
 				<div class="row mt-3">
-					<div class="col-10"></div>
-					<div class="col ms-4 ps-3">
+					<div class="col"><a class="btn btn-secondary" href="./jobPostingListPage">목록으로</a></div>
+					<div class="col-9"></div>
+					<div class="col pe-0">
 						<c:choose>
 							<c:when test="${empty sessionStaffInfo}">
 								<input class="btn btn-dark d-grid" type="submit" value="공고수정" disabled>

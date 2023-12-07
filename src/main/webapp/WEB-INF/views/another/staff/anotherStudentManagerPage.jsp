@@ -136,8 +136,6 @@
             	
             	const modal = bootstrap.Modal.getOrCreateInstance("#insertStudentModal");
             	
-            	
-            	
             	modal.show();	
 			}
             function hideStudentInsertModal() {

@@ -11,6 +11,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
         <script>
+			
+        	function reloadClinicPatientList() {
+        		
+        	}
             
             function showAddClinicPatientModal() {
                 const modal = bootstrap.Modal.getOrCreateInstance("#addNewClinicPatient");
@@ -26,6 +30,12 @@
                 const modal = bootstrap.Modal.getOrCreateInstance("#detailClinicPatientLog");
                 modal.show();
             }
+            
+            window.addEventListener("DOMContentLoaded", () => {
+            	
+            	reloadClinicPatientList();
+            	
+            });
 
         </script>
 
@@ -260,7 +270,7 @@
                                                             </div>
 
                                                             <div class="row">
-                                                            	<div class="col">
+                                                            	<div id="clinicPatientListBox" class="col">
                                                             		<!-- 환자리스트 clinicPatientWrapper -->
                                                             	</div>
                                                             </div>
@@ -270,6 +280,9 @@
                                                     <div class="row mt-1">
                                                         <div class="col">
                                                             <div class="row">
+                                                                <div class="col d-grid justify-content-start ps-2">
+                                                                    <button class="btn rounded-0 py-1" style="border-color: #014195; font-size: 0.7em;">초기화</button>
+                                                                </div>
                                                                 <div class="col d-grid justify-content-end">
                                                                     <button class="btn text-white rounded-0 py-1" style="background-color: #014195; font-size: 0.7em;">대기 추가</button>
                                                                 </div>
@@ -278,25 +291,19 @@
                                                     </div>
                                                     <div class="row mt-2">
                                                         <div class="col d-grid justify-content-center">
-                                                            <nav aria-label="Page navigation example">
-                                                                <ul class="pagination mb-0">
-                                                                    <li class="page-item">
-                                                                        <a class="page-link border-0 text-black" href="#" aria-label="Previous">
-                                                                            <span aria-hidden="true">&laquo;</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="page-item my-auto"><a class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
-                                                                    <li class="page-item my-auto"><a class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">2</a></li>
-                                                                    <li class="page-item my-auto"><a class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">3</a></li>
-                                                                    <li class="page-item my-auto"><a class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">4</a></li>
-                                                                    <li class="page-item my-auto"><a class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">5</a></li>
-                                                                    <li class="page-item">
-                                                                        <a class="page-link border-0 text-black" href="#" aria-label="Next">
-                                                                            <span aria-hidden="true">&raquo;</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </nav>
+													        <ul class="pagination mb-0">
+													            <li class="page-item">
+													                <a class="page-link border-0 text-black" href="#" aria-label="Previous">
+													                    <span aria-hidden="true">&laquo;</span>
+													                </a>
+													            </li>
+													            <li class="page-item my-auto"><a class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
+													            <li class="page-item">
+													                <a class="page-link border-0 text-black" href="#" aria-label="Next">
+													                    <span aria-hidden="true">&raquo;</span>
+													                </a>
+													            </li>
+													        </ul>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -339,7 +346,7 @@
                                                             </div>
 
                                                             <div class="row">
-                                                            	<div class="col">
+                                                            	<div id="waitingClinicPatientListBox" class="col">
                                                             		<!-- 대기자리스트 waitingClinicPatientWrapper -->
                                                             	</div>
                                                             </div>
@@ -347,26 +354,20 @@
                                                         </div>
                                                     </div>
                                                     <div class="row mt-3">
-                                                        <div class="col d-grid justify-content-center">
-                                                            <nav aria-label="Page navigation example">
-                                                                <ul class="pagination mb-0">
-                                                                    <li class="page-item">
-                                                                        <a class="page-link border-0 text-black" href="#" aria-label="Previous">
-                                                                            <span aria-hidden="true">&laquo;</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="page-item my-auto"><a class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
-                                                                    <li class="page-item my-auto"><a class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">2</a></li>
-                                                                    <li class="page-item my-auto"><a class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">3</a></li>
-                                                                    <li class="page-item my-auto"><a class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">4</a></li>
-                                                                    <li class="page-item my-auto"><a class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">5</a></li>
-                                                                    <li class="page-item">
-                                                                        <a class="page-link border-0 text-black" href="#" aria-label="Next">
-                                                                            <span aria-hidden="true">&raquo;</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </nav>
+                                                        <div id="" class="col d-grid justify-content-center">
+													        <ul class="pagination mb-0">
+													            <li class="page-item">
+													                <a class="page-link border-0 text-black" href="#" aria-label="Previous">
+													                    <span aria-hidden="true">&laquo;</span>
+													                </a>
+													            </li>
+													            <li class="page-item my-auto"><a class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
+													            <li class="page-item">
+													                <a class="page-link border-0 text-black" href="#" aria-label="Next">
+													                    <span aria-hidden="true">&raquo;</span>
+													                </a>
+													            </li>
+													        </ul>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -448,7 +449,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="row mb-4 mt-2">
-                                                                        <div class="col overflow-auto" style="height: 33em; background-image: url(./img/health/cutebaduck.gi); background-repeat: no-repeat; background-size: contain; background-position: center;">
+                                                                        <div id="clinicPatientLogListBox" class="col overflow-auto" style="height: 34em; background-image: url(./img/health/cutebaduck.gi); background-repeat: no-repeat; background-size: contain; background-position: center;">
                                                                             
                                                                             <!-- 진료내역 clinicPatientLogWrapper -->
 
@@ -502,16 +503,16 @@
 	                    <input class="form-check-input rounded-0" type="checkbox" value="" style="font-size: 0.7em;">
 	                </div>
 	            </div>
-	            <div class="col-2 mx-auto px-0 text-center" style="font-size: 0.7em;">
+	            <div class="clinicPatientPk col-2 mx-auto px-0 text-center" style="font-size: 0.7em;">
 	                123
 	            </div>
-	            <div class="col mx-auto px-0 text-center" style="font-size: 0.7em;">
+	            <div class="clinicPatientName col mx-auto px-0 text-center" style="font-size: 0.7em;">
 	                김수한무
 	            </div>
-	            <div class="col mx-auto px-0 text-center" style="font-size: 0.7em;">
+	            <div class="clinicPatientBirth col mx-auto px-0 text-center" style="font-size: 0.7em;">
 	                01.02.04
 	            </div>
-	            <div class="col mx-auto px-0 text-center" style="font-size: 0.7em;">
+	            <div class="clinicPatientClassify col mx-auto px-0 text-center" style="font-size: 0.7em;">
 	                외부인
 	            </div>
 	        </div>
@@ -652,8 +653,8 @@
                                         
                                         <div class="row mt-2">
                                             <div class="col">
-                                                <input class="form-control rounded-0" list="datalistOptions" id="exampleDataList" placeholder="질병사유를 입력해주세요" style="font-size: 0.7em;">
-                                                <datalist id="datalistOptions">
+                                                <input class="form-control rounded-0" id="exampleDataList" placeholder="질병사유를 입력해주세요" style="font-size: 0.7em;">
+                                                <datalist>
                                                     <option value="10000 알레르기"></option>
                                                     <option value="10001 복통약"></option>
                                                     <option value="10005 냥"></option>
@@ -692,8 +693,8 @@
                                         
                                         <div class="row mt-2">
                                             <div class="col">
-                                                <input class="form-control rounded-0" list="datalistOptions" id="exampleDataList" placeholder="처방할 의약품을 입력해주세요" style="font-size: 0.7em;">
-                                                <datalist id="datalistOptions">
+                                                <input class="form-control rounded-0" list="datalistOptions" placeholder="처방할 의약품을 입력해주세요" style="font-size: 0.7em;">
+                                                <datalist>
                                                     <option value="10000 알레르기"></option>
                                                     <option value="10001 복통약"></option>
                                                     <option value="10005 냥"></option>

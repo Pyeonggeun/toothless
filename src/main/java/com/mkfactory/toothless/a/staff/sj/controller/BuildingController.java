@@ -226,5 +226,32 @@ public class BuildingController {
 		return "redirect:./sj_manageRoomInfo";
 	}
 	
+	@RequestMapping("sj_editRoomInfo")
+	public String editRoomPage(Model model, int dorm_room_pk) {
+		
+		model.addAttribute("editRooms", buildingService.printRooms(dorm_room_pk));
+		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
+
+		return "tl_a/staff/sj_editRoomInfo";
+	}
+	
+	@RequestMapping("editRoomProcess")
+	public String editRoomProcess(DormRoomDto roomDto) {
+		
+//		로그확인용
+//		System.out.println("------controller--------");
+//	    System.out.println("DORM_PK: " + roomDto.getDorm_pk());
+//	    System.out.println("roompk : "+roomDto.getDorm_room_pk());
+//	    System.out.println("DORM_AMOUNT_PK: " + roomDto.getDorm_amount_pk());
+//	    System.out.println("ROOM_NAME: " + roomDto.getRoom_name());
+//	    System.out.println("GENDER: " + roomDto.getGender());
+//	    System.out.println("DORM_FLOOR: " + roomDto.getDorm_floor());
+
+		buildingService.updateForRoom(roomDto);
+	
+		
+		return "redirect:./sj_manageRoomInfoReadPage?dorm_pk="+roomDto.getDorm_pk();
+	}
+	
 	
 }

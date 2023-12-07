@@ -5,6 +5,7 @@ import java.util.Date;
 public class NotificationDto {
 	private int notification_pk;
 	private int student_pk;
+	private int center_pk;
 	private String message;
 	private String pageLink;
 	private String checkRead;
@@ -13,11 +14,12 @@ public class NotificationDto {
 	public NotificationDto() {
 		super();
 	}
-	public NotificationDto(int notification_pk, int student_pk, String message, String pageLink, String checkRead,
+	public NotificationDto(int notification_pk, int student_pk,int center_pk, String message, String pageLink, String checkRead,
 			String checkNotify, Date created_at) {
 		super();
 		this.notification_pk = notification_pk;
 		this.student_pk = student_pk;
+		this.center_pk = center_pk;
 		this.message = message;
 		this.pageLink = pageLink;
 		this.checkRead = checkRead;
@@ -26,6 +28,12 @@ public class NotificationDto {
 	}
 	public int getNotification_pk() {
 		return notification_pk;
+	}
+	public int getCenter_pk() {
+		return center_pk;
+	}
+	public void setCenter_pk(int center_pk) {
+		this.center_pk = center_pk;
 	}
 	public void setNotification_pk(int notification_pk) {
 		this.notification_pk = notification_pk;

@@ -48,4 +48,15 @@
 		WHERE id= #{id}
 	</update>
 
+	<select id="selectFreeboardCount" resultType="int">
+	SELECT Count(*) FROM cp_student_freeboard
+	ORDER BY read_count
+	</select>
+	
+	<select id="bestFreeboardPost" resultType="com.mkfactory.toothless.e.dto.FreeboardDto">
+		SELECT * FROM(
+		SELECT * FROM cp_student_freeboard ORDER BY read_count DESC) 
+		WHERE ROWNUM &lt;=2
+	</select>
+
 </mapper>

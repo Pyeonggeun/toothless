@@ -52,10 +52,22 @@
 	<delete id = "deleteRoom">
 		DELETE FROM TL_A_DORM_ROOM tadr WHERE DORM_ROOM_PK =#{dorm_room_pk}
 	</delete>
-	
+	<!-- 호실 pk 뽑기-->
 	<select id="selectRoomByPk" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
 		SELECT * FROM TL_A_DORM_ROOM tadr WHERE DORM_ROOM_PK =#{dorm_room_pk}
 	</select>
+	
+	<!-- 호실 수정 -->
+	<update id="updateRoom">
+		UPDATE TL_A_DORM_ROOM 
+		SET DORM_PK = #{dorm_pk}, 
+			DORM_AMOUNT_PK = #{dorm_amount_pk}, 
+			ROOM_NAME = #{room_name}, 
+			GENDER =#{gender}, 
+			DORM_FLOOR = #{dorm_floor}
+		WHERE DORM_ROOM_PK = #{dorm_room_pk}
+	</update>
+
 	
 	<!-- 정원 카테고리 -->
 	<select id="dormCategory" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">

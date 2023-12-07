@@ -22,15 +22,35 @@
 		SELECT * FROM tl_d_resume WHERE student_pk = #{student_pk}	
 	</select>
 
-	<!--메인이력서 설정시 그 외 이력서 메인설정과 공개 여부 설정 변경  -->
+	<!--메인이력서로 등록시 그 외 이력서 메인설정과 공개 여부 설정 변경  -->
 	<update id="changeMainAndPublic">
 		UPDATE tl_d_resume SET main_resume = 'N' ,is_public = 'N' WHERE resume_pk = #{resume_pk}
+	</update>
+
+	<!-- 기본이력서를 메인이력서로 선택시 -->
+	<update id="changeMainResume">
+		UPDATE tl_d_resume SET main_resume = 'Y' ,is_public = 'N' WHERE resume_pk = #{resume_pk}
+	</update>
+	
+	<!-- 이력서 공개 -->
+	<update id="changePublicResume">
+		UPDATE tl_d_resume SET is_public = 'Y' WHERE resume_pk = #{resume_pk}
+	</update>
+	
+	<!-- 이력서 비공개 -->
+	<update id="changePrivateResume">
+		UPDATE tl_d_resume SET is_public = 'N' WHERE resume_pk = #{resume_pk}
 	</update>
 
 	<!-- 이력서 상세보기  -->
 	<select id="getThisResumeDtoByResumePk" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
 		SELECT * FROM tl_d_resume WHERE resume_pk = #{resume_pk}	
 	</select>
+	
+	<!-- 자소서 수정 -->
+	<update id="updateResumeDtoByResumePk">
+		UPDATE tl_d_resume SET resume_title = #{resume_title} , cover_letter = #{cover_letter} WHERE resume_pk = #{resume_pk}
+	</update>
 	
 	<!-- 경력 카테고리 가져오기  -->
 	<select id="getCareerCategoryList" resultType="com.mkfactory.toothless.d.dto.CareerCategoryDto">
@@ -50,7 +70,7 @@
 	
 	<!-- 해당 이력서의 경력 가져오기 -->
 	<select id="getCareerByResumePk" resultType="com.mkfactory.toothless.d.dto.CareerDto">
-		SELECT * FROM tl_d_career WHERE resume_pk = #{resume_pk} ORDER BY career_pk	
+		SELECT * FROM tl_d_career WHERE resume_pk = #{resume_pk} ORDER BY career_category_pk , created_at ASC	
 	</select>
 	
 	<!-- 해당 카테고리 번호의 카테고리명 가져오기 -->
@@ -70,6 +90,63 @@
 			career_contents = #{career_contents}
 		WHERE career_pk = #{career_pk}
 	</update>
+	
+	<!-- 자격증 추가 -->
+	<insert id="insertLicenseContents">
+		INSERT INTO tl_d_license values(
+			tl_d_license_seq.nextval,
+			#{resume_pk},
+			#{lic_name},
+			#{lic_gain_year},
+			#{lic_gain_month},
+			#{lic_center},
+			sysdate
+		)
+	</insert>
+	
+	<!-- 해당이력서의 자격증 목록 가져오기 -->
+	<select id="getLicenseDtoListByResumePk" resultType="com.mkfactory.toothless.d.dto.LicenseDto">
+		SELECT * FROM tl_d_license WHERE resume_pk = #{resume_pk} ORDER BY license_pk asc	
+	</select>
+	
+	<!-- 해당 자격증 삭제 -->
+	<delete id="deleteLicenseByLicensePk">
+		DELETE FROM tl_d_license WHERE license_pk = #{license_pk}
+	</delete>
+
+	<!-- 해당 자격증 수정 -->
+	<update id="updateLicenseByLicensePk">
+		UPDATE tl_d_license SET lic_name = #{lic_name}, lic_gain_year = #{lic_gain_year} ,lic_gain_month = #{lic_gain_month}, lic_center = #{lic_center} WHERE license_pk = #{license_pk}
+	</update>
+
+	
+	<!-- 지원하려는 공고 정보 가져오기 -->
+	<select id="getJobPostingByJobPostingPk" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
+		SELECT * FROM tl_d_job_posting WHERE job_posting_pk = #{job_posting_pk}
+	</select>
+	
+	<!-- 공고 지원하기 -->
+	<insert id="insertFromJobPostingToVolunteer">
+		INSERT INTO tl_d_volunteer values(
+			tl_d_volunteer_seq.nextval,
+			#{job_posting_pk},
+			#{resume_pk},
+			#{vol_phone},
+			#{vol_email},
+			sysdate
+			
+		)	
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

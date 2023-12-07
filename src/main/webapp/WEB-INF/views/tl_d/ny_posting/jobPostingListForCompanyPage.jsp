@@ -14,7 +14,7 @@
 		<div class="row">
 			<!-- 가족기업 뱃지 달기 -->
 			<div class="col">
-				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>
+				<jsp:include page="../common/companyTopNavi.jsp"></jsp:include>
 			</div>
 		</div>
 	 	<%-- 전체 크기 --%>
@@ -73,7 +73,7 @@
 							<div class="row pt-0 pb-2" >
 								<!-- 분야/지역/기간 태그  -->
 								<div class="col-8 ps-0">
-									<a class="navbar-brand" href="./jobPostingDetailPage?id=${companyPosting.jobPostingDto.job_posting_pk}">
+									<a class="navbar-brand" href="./jobPostingDetailForCompanyPage?id=${companyPosting.jobPostingDto.job_posting_pk}">
 									<span class="text-secondary">#&nbsp;${companyPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${companyPosting.jobPostingDto.job_position}
 									#&nbsp;${companyPosting.companyDto.com_address}</span>
 									</a>

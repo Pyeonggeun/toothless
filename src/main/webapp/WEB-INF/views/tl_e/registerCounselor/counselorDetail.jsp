@@ -60,7 +60,7 @@
 							<ul class="dropdown-menu">
 							    <li><a class="dropdown-item" href="../registerCounselor/registerPage">상담원 등록</a></li>
 						   		<li><a class="dropdown-item" href="../registerCounselor/counselorInfo">상담원 조회</a></li>
-						   		<li><a class="dropdown-item" href="#">상담원 뭐시기</a></li>
+						   		<li><a class="dropdown-item" href="../registerCounselor/managementCounselor">상담원 관리(JS)</a></li>
 							</ul>
 						</div>
 					</div>
@@ -221,15 +221,147 @@
 				</div>
 				
 				<div class="row mt-5">
-					<div class="col">
-						<div class="row">
+					<div class="col">						
+						<div class="row mt-4">
+							<div class="col">
+								<span class="fw-bold fs-5">상담원평가</span>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col border rounded">
+								<div class="row">
+									<div class="col-2">
+										<span class="fw-bold fs-6">평균 만족도</span>
+									</div>
+									<div class="col">
+										<span class="fw-bold fs-6">${scoreAvg.offlineScoreAvg}</span>
+									</div>
+								</div>
+								<div class="row mt-2">
+									<div class="col-2">
+										<span class="fw-bold fs-6">만족도 현황</span>
+									</div>
+									<div class="col">
+										<div class="row">
+											<div class="col">
+												<span class="text-warning">
+													<i class="bi bi-star-fill"></i>													
+												</span>
+												<span>(${surveyScore.offlineSurveyScore.SCORE1})</span>
+											</div>
+											<div class="col">
+												<span class="text-warning">
+													<i class="bi bi-star-fill"></i>
+													<i class="bi bi-star-fill"></i>													
+												</span>
+												<span>(${surveyScore.offlineSurveyScore.SCORE2})</span>
+											</div>
+											<div class="col">
+												<span class="text-warning">
+													<i class="bi bi-star-fill"></i>
+													<i class="bi bi-star-fill"></i>
+													<i class="bi bi-star-fill"></i>													
+												</span>
+												<span>(${surveyScore.offlineSurveyScore.SCORE3})</span>
+											</div>
+											<div class="col">
+												<span class="text-warning">
+													<i class="bi bi-star-fill"></i>
+													<i class="bi bi-star-fill"></i>
+													<i class="bi bi-star-fill"></i>
+													<i class="bi bi-star-fill"></i>																										
+												</span>
+												<span>(${surveyScore.offlineSurveyScore.SCORE4})</span>
+											</div>
+											<div class="col">
+												<span class="text-warning">
+													<i class="bi bi-star-fill"></i>
+													<i class="bi bi-star-fill"></i>
+													<i class="bi bi-star-fill"></i>
+													<i class="bi bi-star-fill"></i>
+													<i class="bi bi-star-fill"></i>													
+												</span>
+												<span>(${surveyScore.offlineSurveyScore.SCORE5})</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row mt-4">
 							<div class="col">
 								<span class="fw-bold fs-5">상담이력</span>
 							</div>
 						</div>
 						<div class="row mt-3">
 							<div class="col border rounded">
-								<span>온라인, 오프라인, 집단상담 완료 이력 로그 출력</span>
+								<div class="row">
+									<div class="col">
+										<span class="fw-bold">오프라인상담</span>
+									</div>
+								</div>
+								<div class="row mt-2">
+									<div class="col">
+										<div class="row">
+											<div class="col-auto">
+												<div class="row">
+													<div class="col">
+														<span>번호</span>	
+													</div>
+												</div>
+												<c:forEach items="${completeCounselList.offlineList}" var="offlineList">
+												<div class="row mt-2">
+													<div class="col">
+														<span>${offlineList.ID}</span>
+													</div>
+												</div>
+												</c:forEach>
+											</div>
+											<div class="col">
+												<div class="row">
+													<div class="col">
+														<span>상담종류</span>	
+													</div>
+												</div>
+												<c:forEach items="${completeCounselList.offlineList}" var="offlineList">
+												<div class="row mt-2">
+													<div class="col">
+														<span>${offlineList.CATEGORY}</span>
+													</div>
+												</div>
+												</c:forEach>
+											</div>
+											<div class="col">
+												<div class="row">
+													<div class="col">
+														<span>상담일시</span>	
+													</div>
+												</div>
+												<c:forEach items="${completeCounselList.offlineList}" var="offlineList">
+												<div class="row mt-2">
+													<div class="col">
+														<span>${offlineList.CYEAR}-${offlineList.CMONTH}-${offlineList.CDATE}</span>
+													</div>
+												</div>
+												</c:forEach>
+											</div>											
+										</div>																				
+									</div>
+								</div>
+							</div>
+							<div class="col border rounded">
+								<div class="row">
+									<div class="col">
+										<span>온라인상담</span>
+									</div>
+								</div>
+							</div>
+							<div class="col border rounded">
+								<div class="row">
+									<div class="col">
+										<span>집단상담</span>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

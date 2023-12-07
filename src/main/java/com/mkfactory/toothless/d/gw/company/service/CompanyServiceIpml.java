@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 import com.mkfactory.toothless.d.dto.ComScaleCategoryDto;
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.CompanyManagerDto;
+import com.mkfactory.toothless.d.dto.InterestCompanyDto;
 import com.mkfactory.toothless.d.gw.company.mapper.CompanySqlMapper;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.GraduationInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @Service
 public class CompanyServiceIpml {
@@ -34,7 +37,6 @@ public class CompanyServiceIpml {
 		
 		companySqlMapper.insertCompanyManager(companyManagerDto);
 		
-		
 		companySqlMapper.insertCompany(companyDto);
 		
 	}
@@ -43,17 +45,18 @@ public class CompanyServiceIpml {
 		return companySqlMapper.selectComScaleCategoryAll();
 	}
 	
-	public Map<String, Object> getCompany(int companyPK){
+	public Map<String, Object> getCompany(int com_pk){
 		
 		Map<String, Object> companyMap=new HashMap<>();
 		
-		CompanyDto companyDto=companySqlMapper.companySelectById(companyPK);
-		CompanyManagerDto companyManagerDto=companySqlMapper.companyManagerSelectById(companyDto.getCom_manager_pk());
-		ComScaleCategoryDto comScaleCategoryDto=companySqlMapper.comScaleCategorySelectById(companyDto.getCom_scale_category_pk());
+		CompanyDto companyDto=companySqlMapper.companySelectByPk(com_pk);
+		CompanyManagerDto companyManagerDto=companySqlMapper.companyManagerSelectByPk(companyDto.getCom_manager_pk());
+		ComScaleCategoryDto comScaleCategoryDto=companySqlMapper.comScaleCategorySelectByPk(companyDto.getCom_scale_category_pk());
 		
 		companyMap.put("companyDto", companyDto);
 		companyMap.put("companyManagerDto", companyManagerDto);
 		companyMap.put("comScaleCategoryDto", comScaleCategoryDto);
+		companyMap.put("interestCompany", companySqlMapper.companyInterestCount(companyDto.getCom_pk()));
 		
 		return companyMap;
 	}
@@ -65,7 +68,7 @@ public class CompanyServiceIpml {
 		List<CompanyDto> companyDtoList=companySqlMapper.selectCompanyAll();
 		
 		for(CompanyDto companyDto:companyDtoList) {
-			CompanyManagerDto companyManagerDto=companySqlMapper.companyManagerSelectById(companyDto.getCom_manager_pk());
+			CompanyManagerDto companyManagerDto=companySqlMapper.companyManagerSelectByPk(companyDto.getCom_manager_pk());
 			
 			Map<String, Object> map=new HashMap<>();
 			map.put("companyDto", companyDto);
@@ -99,5 +102,48 @@ public class CompanyServiceIpml {
 		companySqlMapper.deleteCompany(com_pk);
 		companySqlMapper.deleteCompanyManager(com_manager_pk);
 		companySqlMapper.deleteExternal(external_pk);
+	}
+	
+	//기업 찜하기
+	public void insertInterestCompany(InterestCompanyDto interestCompanyDto) {
+		companySqlMapper.insertInterestCompany(interestCompanyDto);
+	}
+	
+	//기업 찜 취소
+	public void deleteInterestCompany(InterestCompanyDto interestCompanyDto) {
+		companySqlMapper.deleteInterestCompany(interestCompanyDto);
+	}
+	
+	//내가 기업 좋아요 했나 카운트
+	public int studentInterestCompany(InterestCompanyDto interestCompanyDto) {
+		return companySqlMapper.studentInterestCount(interestCompanyDto);
+	}
+	
+	//기업 총합 좋아요
+	public int companyTotalInterest(int com_pk) {
+		return companySqlMapper.companyInterestCount(com_pk);
+	}
+	
+	//기업을 좋아요한 학생 목록
+	public List<Map<String, Object>> studentCompanyInterestList(){
+		
+		List<Map<String, Object>> studentList=new ArrayList<>();
+		
+		List<InterestCompanyDto> interestCompanyDtoList=companySqlMapper.interestCompanySelectAll();
+		
+		for(InterestCompanyDto interestCompanyDto:interestCompanyDtoList) {
+			CompanyDto companyDto=companySqlMapper.companySelectByPk(interestCompanyDto.getCom_pk());
+			StudentInfoDto studentInfoDto=companySqlMapper.studentSelectByPk(interestCompanyDto.getStudent_pk());
+			GraduationInfoDto graduationInfoDto=companySqlMapper.studentGraduationInfoSelectByPk(interestCompanyDto.getStudent_pk());
+			
+			Map<String, Object> interestCompanyMap=new HashMap<>();
+			interestCompanyMap.put("interestCompanyDto", interestCompanyDto);
+			interestCompanyMap.put("companyDto", companyDto);
+			interestCompanyMap.put("studentInfoDto", studentInfoDto);
+			interestCompanyMap.put("graduationInfoDto", graduationInfoDto);
+			
+			studentList.add(interestCompanyMap);
+		}
+		return studentList;
 	}
 }

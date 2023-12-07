@@ -2,6 +2,8 @@ package com.mkfactory.toothless.d.gw.company.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.CompanyManagerDto;
+import com.mkfactory.toothless.d.dto.InterestCompanyDto;
 import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @Controller
 @RequestMapping("/tl_d/gw_company/*")
@@ -36,7 +40,6 @@ public class CompanyController {
 		public String registerCompanyProcess(CompanyDto companyDto, CompanyManagerDto companyManagerDto, ExternalInfoDto externalInfoDto) {
 			companyService.companyRegister(companyDto, companyManagerDto, externalInfoDto);
 			
-			System.out.println("입력완료");
 			
 			return"/tl_d/gw_company/registerCompanyComplete";
 		}
@@ -111,16 +114,58 @@ public class CompanyController {
 		
 		//학생이 보는 기업상세정보
 		@RequestMapping("studentViewDetailCompanyPage")
-		public String studentViewDetailCompanyPage(Model model, int com_pk) {
+		public String studentViewDetailCompanyPage(HttpSession session,Model model, int com_pk) {
 			
 			model.addAttribute("companyMap",companyService.getCompany(com_pk));
 			model.addAttribute("companyPostingCount", postingService.getCompanyPostingCount(com_pk));
 			model.addAttribute("companyPostingListForStudent", postingService.getCompanyPostingList(com_pk));
 			
+			model.addAttribute("companyTotalInterest", companyService.companyTotalInterest(com_pk));
+			
+			StudentInfoDto studentInfoDto=(StudentInfoDto)session.getAttribute("sessionStudentInfo");
+			
+			if(studentInfoDto !=null) {
+				
+				InterestCompanyDto interestCompanyDto=new InterestCompanyDto();
+				
+				interestCompanyDto.setCom_pk(com_pk);
+				interestCompanyDto.setStudent_pk(studentInfoDto.getStudent_pk());
+				
+				int myInterestCompany=companyService.studentInterestCompany(interestCompanyDto);
+				
+				model.addAttribute("myInterestCompany",myInterestCompany);
+				
+			}
 			
 			return "/tl_d/gw_company/studentViewDetailCompanyPage";
 		}
 		
+		
 		//학생의 기업찜!!
+		@RequestMapping("interestCompanyProcess")
+		public String interestCompanyProcess(InterestCompanyDto interestCompanyDto) {
+			companyService.insertInterestCompany(interestCompanyDto);
+			
+			return "redirect:./studentViewDetailCompanyPage?com_pk="+interestCompanyDto.getCom_pk();
+		}
+		
+		//학생의 기업 찜 취소!!
+		@RequestMapping("deleteInterestCompanyProcess")
+		public String deleteInterestCompanyProcess(InterestCompanyDto interestCompanyDto) {
+			companyService.deleteInterestCompany(interestCompanyDto);
+			
+			return "redirect:./studentViewDetailCompanyPage?com_pk="+interestCompanyDto.getCom_pk();
+		}
+		
+		
+		//기업에서 누가 자기네 회사 찜했나 볼 수 있게!!
+		@RequestMapping("companyViewStudentInterestPage")
+		public String companyViewStudentInterestPage(Model model, int com_pk) {
+			
+			model.addAttribute("company", companyService.getCompany(com_pk));
+			model.addAttribute("studentInterestCompanyList", companyService.studentCompanyInterestList());
+			
+			return "/tl_d/gw_company/companyViewStudentInterestPage";
+		}
 		
 }
