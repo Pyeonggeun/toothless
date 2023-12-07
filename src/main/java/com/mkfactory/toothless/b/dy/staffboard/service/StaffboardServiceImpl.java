@@ -100,6 +100,20 @@ public class StaffboardServiceImpl {
 		staffboardSqlMapper.deleteReply(staffboardReplyDto);
 	}
 	
+	public Map<String, Object> getReply(int staffboard_reply_pk){
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		StaffboardReplyDto staffboardReplyDto = staffboardSqlMapper.selectReply(staffboard_reply_pk);
+		int replyUserPk = staffboardReplyDto.getStaff_pk();
+		StaffInfoDto staffInfoDto = staffboardSqlMapper.selectStaffInfo(replyUserPk);
+		
+		map.put("staffboardReplyDto", staffboardReplyDto);
+		map.put("staffInfo", staffInfoDto);
+		
+		return map;
+	}
+	
 	public void modifyReply(StaffboardReplyDto staffboardReplyDto) {
 		staffboardSqlMapper.updateReply(staffboardReplyDto);
 	}

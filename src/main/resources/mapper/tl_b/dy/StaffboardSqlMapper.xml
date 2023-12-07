@@ -57,7 +57,11 @@
 		DELETE FROM TL_B_STAFFBOARD_REPLY WHERE staff_pk= #{staff_pk} and STAFFBOARD_REPLY_PK = #{staffboard_reply_pk}
 	</delete>
 	
-	<update id="updateReply">
+	<select id="selectReply" resultType="com.mkfactory.toothless.b.dto.StaffboardReplyDto">
+		SELECT * FROM TL_B_STAFFBOARD_REPLY WHERE STAFFBOARD_REPLY_PK = #{staffboard_reply_pk}
+	</select>
+	
+	 <update id="updateReply">
 		UPDATE TL_B_STAFFBOARD_REPLY SET content = #{content} WHERE STAFFBOARD_REPLY_PK = #{staffboard_reply_pk}
 	</update>
 	

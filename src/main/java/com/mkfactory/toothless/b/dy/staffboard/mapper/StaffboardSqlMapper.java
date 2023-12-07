@@ -29,6 +29,8 @@ public interface StaffboardSqlMapper {
 
 	public void deleteReply(StaffboardReplyDto staffboardReplyDto);
 	
+	public StaffboardReplyDto selectReply(int staffboard_reply_pk);
+	
 	public void updateReply(StaffboardReplyDto staffboardReplyDto);
 	
 }

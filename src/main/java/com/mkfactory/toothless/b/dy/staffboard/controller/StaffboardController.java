@@ -119,10 +119,10 @@ public class StaffboardController {
 		
 		System.out.println(params.getStaffboard_reply_pk());
 		
-		return"redirect:./readTextPage?staffboard_pk="+params.getStaffboard_pk();
+		return "redirect:./readTextPage?staffboard_pk="+params.getStaffboard_pk();
 	}
 	
-	// 댓삭튀
+	// 댓글 삭제
 	@RequestMapping("deleteReplyProcess")
 	public String deleteReplyProcess(StaffboardReplyDto params, int staffboard_pk) {
 		
@@ -130,16 +130,29 @@ public class StaffboardController {
 		
 		return"redirect:./readTextPage?staffboard_pk="+ staffboard_pk;
 	}
-	//댓 수정
-	@RequestMapping("modifyReplyProcess")
-	public String modifyReplyProcess() {
+	//댓글 수정 페이지
+	@RequestMapping("modifyReplyPage")
+	public String modifyReplyPage(Model model, int staffboard_reply_pk) {
 	
+		Map<String, Object> replyInfo = staffboardService.getReply(staffboard_reply_pk);
 		
-		
-		return "";
+		model.addAttribute("replyInfo", replyInfo);
+				
+		return "tl_b/dy/modifyReplyPage";
 	}
 	
-	
+	//댓글 수정 프로세스(컴플릿)
+	@RequestMapping("modifyReplyProcess")
+	public String modifyReplyProcess(StaffboardReplyDto params) {
+		System.out.println(params.getStaffboard_pk());
+		
+				
+		staffboardService.modifyReply(params);
+		
+		
+		
+		return "redirect:./readTextPage?staffboard_pk="+ params.getStaffboard_pk();
+	}
 	
 }
 

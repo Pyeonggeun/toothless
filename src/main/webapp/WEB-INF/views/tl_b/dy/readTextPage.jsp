@@ -30,6 +30,8 @@
                                     ${readText.staffboardDto.content}
                                     <br>
                                     <button type="button" onclick="location.href='./staffboardPage'">목록으로</button>
+
+                                    <i class="bi bi-suit-heart text-danger"></i><span>5</span>
                                     <c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == readText.staffboardDto.staff_pk}">
 	                                    <button type="button" onclick="location.href='./deleteTextProcess?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">삭제</button>
 	                                    <button type="button" onclick="location.href='./modifyTextPage?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">수정</button>
@@ -41,12 +43,13 @@
 	                                    	<tr>
                                                 <td>${map.staffboardReplyDto.content}</td>
 	                                    		<td>${map.staffInfo.name}</td>
+	                                    		<td>${map.staffboardReplyDto.created_at}</td>
                                                 <td>
                                                     <c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == map.staffboardReplyDto.staff_pk}">
+                                                        <button type="button" onclick="location.href='./modifyReplyPage?staffboard_reply_pk=${map.staffboardReplyDto.staffboard_reply_pk}'">수정</button>
                                                         <button type="button" onclick="location.href='./deleteReplyProcess?staffboard_reply_pk=${map.staffboardReplyDto.staffboard_reply_pk}&staffboard_pk=${map.staffboardReplyDto.staffboard_pk}&staff_pk=${sessionStaffInfo.staff_pk}'">삭제</button>
                                                     </c:if>
                                                 </td>
-	                                    		<td>${map.staffboardReplyDto.created_at}</td>
 	                                    	</tr>
                                     	</c:forEach>
                                     </table>
