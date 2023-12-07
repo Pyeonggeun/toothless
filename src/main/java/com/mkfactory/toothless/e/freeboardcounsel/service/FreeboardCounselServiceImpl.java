@@ -38,12 +38,43 @@ public class FreeboardCounselServiceImpl {
 			freeboardMap.put("studentInfo", studentInfo);
 			freeboardMap.put("elementFreeboardDto", elementFreeboardDto);
 			
+			
 			System.out.println("combinedFreeboardList.add 실행 ");
 			combinedFreeboardList.add(freeboardMap);
 		}
 		return combinedFreeboardList;
 	}
 	
+	
+	public List<Map<String, Object>> getBestFreeboardPost(){
+		
+		List<Map<String, Object>> bestFreeboardPostList= new ArrayList<>();
+		List<FreeboardDto> bestfreeboardpost = freeboardCounselSqlMapper.bestFreeboardPost();
+		
+		for(FreeboardDto elementFreeboardPost : bestfreeboardpost) {
+			int student_pk = elementFreeboardPost.getStudent_pk();
+			StudentInfoDto studentInfo  = freeboardCounselSqlMapper.selectStudentInfo(student_pk);
+			Map<String, Object> bestpostMap = new HashMap<>();
+			bestpostMap.put("studentInfo", studentInfo);
+			bestpostMap.put("elementFreeboardPost",elementFreeboardPost);
+			
+			bestFreeboardPostList.add(bestpostMap);
+		}
+		return bestFreeboardPostList;
+	}
+	
+	//게시물 카운트해서 위에서 보여주려고 함...
+	public int selectFreeboardCount(FreeboardDto paraFreeboardDto){
+		int CountedPost = freeboardCounselSqlMapper.selectFreeboardCount(paraFreeboardDto);
+	return CountedPost;
+	}
+	
+
+	
+	
+	
+	
+	//-----------------------------------------------------------------------------//
 	//상세 글보기
 	public Map<String, Object> pickPost(int id){
 

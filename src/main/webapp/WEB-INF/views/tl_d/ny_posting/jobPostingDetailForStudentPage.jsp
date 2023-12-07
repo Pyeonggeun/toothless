@@ -183,8 +183,9 @@
 					    </c:choose>	
 					</div>
 				</div>
-				<div class="row mt-3">
-					<div class="col-10"></div>
+				<div class="row mt-2">
+					<div class="col"><a class="btn btn-secondary" href="./jobPostingListForStudentPage">목록으로</a></div>
+					<div class="col-7"></div>
 					<div class="col-2 d-grid">
 						<c:choose>
 							<c:when test="${jobPostingDetailForStudent.endPostingList.contains(jobPostingDetailForStudent.jobPostingDto.job_posting_pk)}">
@@ -199,12 +200,7 @@
 						</c:choose>
 					</div>
 				</div>
-				<pre>
-				
-				
-				
-				
-				</pre>
+				<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
 			</div>
 			<%-- 오른쪽 --%>	
 			<div class="col-2"></div>	

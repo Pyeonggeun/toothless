@@ -20,6 +20,16 @@ public class EmploymentCommonController {
 	private PostingServiceImpl postingService;
 
 	
+	// 학생용 마이페이지
+	@RequestMapping("studentMyPage")
+	public String studentMyPage() {
+		
+		return "tl_d/common/studentMyPage";
+	}
+	
+	
+	
+	
 	// 기업용 메인 페이지
 	@RequestMapping("companyMainPage")
 	public String companyMainPage(HttpSession session, Model model) {
@@ -36,4 +46,11 @@ public class EmploymentCommonController {
 		return "tl_d/common/companyMainPage";
 	}
 	
+	
+	//교직원 메인페이지
+	@RequestMapping("staffMainPage")
+	public String staffMainPage() {
+		return "tl_d/common/staffMainPage";
+	}
+
 }

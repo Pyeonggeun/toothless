@@ -4,6 +4,37 @@
 
 <mapper namespace="com.mkfactory.toothless.b.hn.clinic.mapper.ClinicSqlMapper">
 
+	<select id="getClinicPatientInfoList" resultType="com.mkfactory.toothless.b.dto.ClinicPatientDto">
+		SELECT t1.* FROM (
+			SELECT cpi.*, rownum rnum FROM tl_b_clinic_patient_info cpi
+			<if test="searchWord != null">
+				WHERE cpi.name LIKE '%'||#{searchWord}||'%'
+				OR TO_CHAR(cpi.birth, 'yyMMdd') LIKE '%'||#{searchWord}||'%'
+			</if>
+			ORDER BY cpi.name ASC
+		)t1
+		<![CDATA[
+			WHERE t1.rnum >= (#{pageNumber}-1)*20 + 1 AND t1.rnum <= #{pageNumber}*20
+		]]>
+	</select>
 	
+	<select id="getClinicPatientClassifyByResidentId" resultType="String">
+		SELECT classify FROM (
+			SELECT resident_id, '학생' AS classify FROM tl_jic_student_info
+			UNION
+			SELECT resident_id, '교직원' AS classify FROM tl_jic_staff_info
+			UNION
+			SELECT resident_id, '교수' AS classify FROM tl_jic_professor_info
+		)
+		WHERE resident_id = #{resident_id}
+	</select>
+	
+	<select id="getClinicPatientTotalPageNumber" resultType="int">
+		SELECT COUNT(*) FROM tl_b_clinic_patient_info
+		<if test="value != null">
+			WHERE name LIKE '%'||#{searchWord}||'%'
+			OR TO_CHAR(birth, 'yyMMdd') LIKE '%'||#{searchWord}||'%'
+		</if>
+	</select>
 	
 </mapper>

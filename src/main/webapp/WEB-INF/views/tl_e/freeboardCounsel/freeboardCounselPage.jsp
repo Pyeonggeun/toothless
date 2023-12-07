@@ -40,7 +40,7 @@
 						<div class="col-3">	
 							<div class="row">
 								<div class="col p-0 "> <i class="bi bi-bell"></i> </div>
-								<div class="col p-0 "> <i class="bi bi-door-open"></i> </div>
+								<div class="col p-0 "> <a href="./logoutProcess"> <i class="bi bi-box-arrow-right"></i> </a></div>
 								<div class="col ps-0 pd-1 "> <i class="bi bi-gear-fill"></i> </div>
 							</div>
 						</div>
@@ -87,13 +87,67 @@
 		<!-- 중간에 중요한 내용이 들어가는 로우와 콜 시작 > 상시 변동 가능 -->
 		<div class="col">
 	
-			<div class="row"> <div class="col fs-3"> 상담센터 <span class="fs-4  fw-bold" > > 자유게시판 </span> </div> </div>
-			<div class="row"> <div class="col">추후 조회수 또는 좋아요 베스트 글 추가 예정</div> </div>
-			<div class="row"> <div class="col">빈공간</div> </div>
-			<div class="row"> <div class="col">추후 검색 기능 추가 예정</div> </div>
-			<div class="row"> <div class="col">빈공간</div> </div>
-			<div class="row"> <div class="col"></div> </div>
-			<div class="row"> <div class="col">총 게시물 페이지당 목록 리스팅형태</div> </div>
+			<div class="row border-bottom pb-2 my-2"> <div class="col fs-4"> 상담센터 <span class="fs-3  fw-bold" > > 자유게시판 </span> </div> </div>
+			
+		<!-- 상단 조회수 기준 베스트 게시물 -->
+		<div class="row">
+			<div class="col">
+			
+				<div class="row my-2"> <div class="col"> 학생들이 많이 본 게시물</div></div>
+				
+					<div class="row  text-white text-center my-1 px-1 p-1 rounded-1  border-2 border-bottom" style= "background-color: #133369;">
+								<div class="col-1 fw-bold">글번호</div>
+								<div class="col-2 fw-bold ">글제목</div>
+								<div class="col-4">내용</div>
+								<div class="col-1">조회수</div>
+								<div class="col-2 fw-bold">작성자</div>
+								<div class="col-2">작성일</div>
+					</div>
+					
+					<c:forEach items="${bestFreeboardPostList}" var="best">
+						<div class="row text-center my-1 px-1 p-1 rounded-1  border-2 border-bottom"> 
+							<div class="col-1">${best.elementFreeboardPost.id}</div>
+							<div class="col-2"><a href="./readFreeboardPostPage?id=${best.elementFreeboardPost.id}">${best.elementFreeboardPost.title}</a></div>
+							<div class="col-4">${best.elementFreeboardPost.text}</div>
+							<div class="col-1">${best.elementFreeboardPost.read_count}</div>
+							<div class="col-2">${best.studentInfo.name}</div>
+							<div class="col-2">${best.elementFreeboardPost.created_at}</div>
+						</div>
+						</c:forEach>
+				</div>
+			<!-- 상단 조회수 기준 베스트 게시물 끝-->
+			</div>
+			
+		
+			<div class="row my-2 py-2"> 
+					<form class="d-flex" role="search">
+						<div class="col-3  text-end me-2">
+							<div class="dropdown">
+								  <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> 검색기준 선택 </button>
+								  <ul class="dropdown-menu">
+								    <li><a class="dropdown-item" href="#">글번호</a></li>
+								    <li><a class="dropdown-item" href="#">글제목</a></li>
+								    <li><a class="dropdown-item" href="#">글내용</a></li>
+								    <li><a class="dropdown-item" href="#">작성자</a></li>
+								  </ul>
+								</div>
+						
+						</div>
+						<div class="col-6"><input class="form-control" type="search" placeholder="추후 기능 추가  예정) 검색" aria-laber="Search"></div>
+						<div class="col-2 ms-2 btn text-white" type="submit" style="background-color:#133369;">Search</div>
+					</form>
+			</div>
+			
+			
+			
+			
+			
+			<div class="row my-2 border-bottom "> <div class="col fw-semibold"> 전체게시물</div> </div>
+			<div class="row"> 
+				<div class="col-3"><i class="bi bi-list-ul"></i> 총 게시물 수 ${countedPost}</div> 
+				<div class="col"></div> 
+				<div class="col">향후 리스팅 형태 추가 예정</div> 
+			</div>
 			
 			<!-- 글 목록이 리스팅 되는 로우 시작 -->
 			<div class="row"> 
@@ -101,12 +155,12 @@
 				<div class="col">
 				
 					<!-- 글번호부터 작성일까지 목차 -->
-					<div class="row  text-white text-center fw-bold my-1 px-1 p-1 rounded-1  border-2 border-bottom" style= "background-color: #133369;">
-						<div class="col-1">글번호</div>
-						<div class="col-2">글제목</div>
+					<div class="row  text-white text-center my-1 px-1 p-1 rounded-1  border-2 border-bottom" style= "background-color: #133369;">
+						<div class="col-1 fw-bold">글번호</div>
+						<div class="col-2 fw-bold ">글제목</div>
 						<div class="col-4">내용</div>
 						<div class="col-1">조회수</div>
-						<div class="col-2">작성자</div>
+						<div class="col-2 fw-bold">작성자</div>
 						<div class="col-2">작성일</div>
 					</div>
 				<!-- 글 목록이 리스팅 되는 콜 끝 -->
@@ -114,12 +168,12 @@
 			
 					<!-- 목차에 맞춘 진짜 글 리스팅 되는 로우 시작 -->
 					<c:forEach items="${combinedFreeboardList}" var="List">
-						<div class="row text-center my-1 mx-1 p-1 fw-bold border-bottom border-dark-subtle">
-							<div class="col-1">${List.elementFreeboardDto.id}</div>
-							<div class="col-2"><a href="./readFreeboardPostPage?id=${List.elementFreeboardDto.id}">${List.elementFreeboardDto.title}</a></div>
+						<div class="row text-center my-1 mx-1 p-1  border-bottom border-dark-subtle">
+							<div class="col-1 fw-bold">${List.elementFreeboardDto.id}</div>
+							<div class="col-2 fw-bold"><a href="./readFreeboardPostPage?id=${List.elementFreeboardDto.id}">${List.elementFreeboardDto.title}</a></div>
 							<div class="col-4">${List.elementFreeboardDto.text}</div>
 							<div class="col-1">${List.elementFreeboardDto.read_count}</div>
-							<div class="col-2">${List.studentInfo.name}</div>
+							<div class="col-2 fw-bold">${List.studentInfo.name}</div>
 							<div class="col-2">${List.elementFreeboardDto.created_at}</div>
 						
 						<!-- 목차에 맞춘 진짜 글 리스팅 되는 로우 끝 -->
@@ -155,10 +209,6 @@
 		
 		<!-- 중요한 내용이 들어가는 로우와 콜 끝 > 상시 변동 가능 -->
 	</div>
-
-
-
-
 
 
 

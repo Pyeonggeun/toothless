@@ -24,4 +24,8 @@ public interface FreeboardCounselSqlMapper {
 	
 	public void updateFreeboardPost(FreeboardDto paraFreeboardDto);
 	
+	public int selectFreeboardCount(FreeboardDto paraFreeboardDto);
+	
+	public List<FreeboardDto> bestFreeboardPost();
+	
 }

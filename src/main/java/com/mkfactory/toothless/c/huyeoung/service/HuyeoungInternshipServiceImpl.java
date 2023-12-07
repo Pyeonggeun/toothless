@@ -51,9 +51,7 @@ public class HuyeoungInternshipServiceImpl {
 			AjdksCompanyInfoDto bdto =  huyeoungInternshipSqlMapper.selectInternshipCompanyId(ajdksInternshipCourseDto);
 			
 			map.put("company_name", bdto.company_name);
-			
-			//System.out.println("company_name ["+bdto.company_name+"]");
-			//System.out.println("course_title ["+aDto.course_title+"]");
+
 			list.add(map);
 		}
 		return list;
@@ -63,13 +61,9 @@ public class HuyeoungInternshipServiceImpl {
 	public Map<String, Object> selectInternshipDtil(AjdksInternshipCourseDto ajdksInternshipCourseDto) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
-
-		//System.out.println("상세조회 internship_course_pk["+ajdksInternshipCourseDto.internship_course_pk+"]");
-		
+	
 		AjdksInternshipCourseDto AjdksInternshipDtl = huyeoungInternshipSqlMapper
 				.selectInternshipDtil(ajdksInternshipCourseDto);
-		
-		//System.out.println("상세조회 AjdksInternshipDtl internship_course_pk["+AjdksInternshipDtl.internship_course_pk+"]");
 		
 		map.put("AjdksInternshipDtl", AjdksInternshipDtl);
 

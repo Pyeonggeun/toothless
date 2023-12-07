@@ -13,13 +13,21 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col">
-				<jsp:include page="./companyTopNavi.jsp"></jsp:include>
+				<jsp:include page="./studentTopNavi.jsp"></jsp:include>
 			</div>
 		</div>
-	 	<%-- (예정) 기업이 올린 공고목록 + 우리 기업 지원자목록 --%>
+		<!-- 전체크기 -->
 		<div class="row">
-			<%-- 기업이 올린 공고 목록 시작 --%>
-			<div class="col-5 px-5 mx-5">
+			<!-- 왼쪽 여백 -->
+			<div class="col-1"></div>
+			<%-- 학생 메뉴 바 --%>
+			<div class="col-1 me-5">
+				<jsp:include page="./studentMenu.jsp"></jsp:include>
+			</div>
+			<!-- 가운데 여백 -->
+			<div class="col-1 border-start"></div>
+			<%-- 학생 정보 --%>
+			<div class="col-3">
 				<!-- 채용공고 -->
 				<div class="row mt-3 border-bottom border-2 border-dark">
 					<div class="col fs-5 fw-bold mt-5">채용공고</div>
@@ -93,17 +101,6 @@
 			</div>
 			<!-- (예정) 우리기업 지원자 목록 끝 -->
 		</div>
-		<!-- (예정)가족기업일 경우 이력서 공개 학생의 이력서 목록 -->
-		<div class="row">
-			<div class="col px-5 mx-5 mt-3 border-top">
-				<!-- 공고 지원한 학생목록 -->
-				<div class="row border-bottom border-2 border-dark">
-					<div class="col fs-5 fw-bold mt-5">(예정)이력서 공개 학생의 이력서 목록</div>
-					<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
-				</div>
-			</div>
-		</div>
-		<!-- (예정)가족기업일 경우 이력서 공개 학생의 이력서 목록 끝-->
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

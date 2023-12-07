@@ -40,7 +40,7 @@
 						<div class="col-3">	
 							<div class="row">
 								<div class="col p-0 "> <i class="bi bi-bell"></i> </div>
-								<div class="col p-0 "> <i class="bi bi-door-open"></i> </div>
+								<div class="col p-0 "> <a href="./logoutProcess"> <i class="bi bi-box-arrow-right"></i> </a></div>
 								<div class="col ps-0 pd-1 "> <i class="bi bi-gear-fill"></i> </div>
 							</div>
 						</div>
@@ -83,7 +83,7 @@
 		
 			<div class="row"> 
 				<div class="col fs-4">
-					상담센터 <span class="fs-4"> > 자유게시판 </span>  <span class="fs-5 fw-bold"> > 게시물 상세 </span>
+					상담센터 <span class="fs-4"> > 자유게시판 </span>  <span class="fs-3 fw-bold"> > 게시물 상세 </span>
 				</div> 
 			</div>
 			

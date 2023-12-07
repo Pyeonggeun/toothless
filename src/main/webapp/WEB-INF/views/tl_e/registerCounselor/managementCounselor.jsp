@@ -19,6 +19,50 @@
 	/* font-family: 'Quicksand', sans-serif; */
 }
 </style>
+<script>
+	let loginStaffInfo = null;
+	
+	function getStaffInfo(){		
+		fetch("./restGetStaffInfo")
+		.then(response => response.json())
+		.then(response => {
+			console.log("AJAX 리스폰 성공 진입함")
+			
+			loginStaffInfo = response.data;
+			
+			const staffInfoBox = document.getElementById("staffInfoBox");
+			
+			staffInfoBox.innerText = loginStaffInfo.name;
+		});		
+	}
+	
+	function reloadCounselorList(){
+		fetch("./restGetCounselorInfo")
+		.then(response => response.json())
+		.then(response =>{
+			
+			counselorList = response.data;
+			
+			for(e of counselorList){
+				
+				const counselorboxWrapper = document.querySelector("#templete .counselorInfoBox").cloneNode(true);
+				const counselorImageLink = counselorboxWrapper.querySelector(".counselorImage .counselorImageLink");
+				counselorImageLink.src = "../../resources/img/counselorImage/" + e.PROFILEIMAGE;
+				counselorImageLink.setAttribute("onclick", "");
+				
+			}
+		
+		
+		});
+	}
+	
+	
+	
+	window.addEventListener("DOMContentLoaded", ()=>{
+		getStaffInfo()
+	});
+	
+</script>
 <title>상담원 등록 페이지</title>
 </head>
 <body>
@@ -29,7 +73,7 @@
 			<div class="col-10"></div>
 			<div class="col py-2 me-0 pe-0 text-center dropdown nav-item">
 			  <a class="nav-link pt-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    <span class="fw-bold">${sessionStaffInfo.name}</span>님
+			    <span id="staffInfoBox" class="fw-bold"></span>님
 			  </a>
 			  <ul class="dropdown-menu">
 			    <li><a class="dropdown-item" href="#">정보 수정</a></li>
@@ -45,7 +89,7 @@
 			<div class="col ms-4">
 				<div class="row pt-5">
 					<div class="col fw-bold fs-3">
-						<a href="../commons/staffCounselMainPage" role="button" class="btn btn-white">
+						<a href="../commons/counselCenterStaffMainPage" role="button" class="btn btn-white">
 							<span class="fw-bold fs-3">MENU</span>
 						</a>
 					</div>
@@ -78,20 +122,63 @@
 			
 			<!-- 여기부터 레이아웃 -->
 			<div class="col-10">
-				<div class="row">
-					<div class="col text-center">
-						<span>상담원 사진은 필수로 업로드 하셔야 합니다.!</span>
+				<div class="row mt-5">
+					<div class="col">
+						<span class="fw-bold fs-2">상담원 관리 페이지</span>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col text-center">
-						<a href="./registerPage">등록 페이지로</a>
+				<div class="row mt-5">
+					<div class="col">
+						<span class="fw-bold fs-2">검색 기능 구현 부분</span>
+					</div>
+				</div>
+				<div class="row mt-5">
+					<div class="col">
+						<div class="row">
+							<div class="col border-bottom">
+								<span class="fw-bold fs-2">상담원 목록</span>	
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div id="counselorList" class="row">
+									
+								</div>	
+							</div>
+						</div>							
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	
+	<div id="templete" class="d-none">
+		
+		<div class="counselorInfoBox col-2">
+			<div class="row mt-2">				
+				<div class="counselorImage col">
+					<a href="./counselorDetail?id=${counselorList.ID}">
+						<img src="" class="counselorImageLink img-fluid img-thumbnail">
+					</a>
+				</div>
+				
+				<div class="col">
+					<a href="./counselorDetail?id=${counselorList.ID}">
+						<img src="../../resources/img/counselorImage/no_image.jpg" class="img-fluid img-thumbnail">
+					</a>
+				</div>											
+			</div>
+			<div class="row mt-2">
+				<div class="col text-center">
+					<a href="./counselorDetail?id=${counselorList.ID}" role="button" class="btn btn-white">
+						<span class="fw-bold">${counselorList.NAME}</span> 상담사
+					</a>
+				</div>
+			</div>								
+		</div>
+		
+	</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>	
 </body>
 </html>
