@@ -116,8 +116,25 @@
         			}else{
         				for(e of response.data){
 	        				const unreadNotifyWrapper = document.querySelector("#notifyTemplete .unreadNotifyWrapper").cloneNode(true);
-	        				console.log("실행");	
+
 	        				//const link = unreadNotifyWrapper.querySelector(".link");
+	        				
+	        				const centerIcon = unreadNotifyWrapper.querySelector(".centerIcon");
+	        				if(e.centerCategoryDto.center_pk == 1){
+	        					centerIcon.classList.add("bi","bi-person-workspace");
+	        				}else if(e.centerCategoryDto.center_pk == 2){
+	        					centerIcon.classList.add("bi","bi-gear");
+	        				}else if(e.centerCategoryDto.center_pk == 3){
+	        					centerIcon.classList.add("bi","bi-headset");
+	        				}else if(e.centerCategoryDto.center_pk == 4){
+	        					centerIcon.classList.add("bi","bi-buildings");
+	        				}else if(e.centerCategoryDto.center_pk == 5){
+	        					centerIcon.classList.add("bi","bi-capsule");
+	        				}else{
+	        					centerIcon.classList.add("bi","bi-gear");
+	        				}
+	        				
+	        				
 	        				const sender = unreadNotifyWrapper.querySelector(".sender");
 	        				sender.innerText = "";
 	        				sender.innerText = "["+e.centerCategoryDto.position+"]";
@@ -179,6 +196,23 @@
         				
         				const unreadNotifyWrapper = document.querySelector("#notifyTemplete .unreadNotifyWrapper").cloneNode(true);
         				//const link = unreadNotifyWrapper.querySelector(".link");
+        				const centerIcon = unreadNotifyWrapper.querySelector(".centerIcon");
+        				if(e.centerCategoryDto.center_pk == 1){
+        					centerIcon.classList.add("bi","bi-person-workspace");
+        				}else if(e.centerCategoryDto.center_pk == 2){
+        					centerIcon.classList.add("bi","bi-gear");
+        				}else if(e.centerCategoryDto.center_pk == 3){
+        					centerIcon.classList.add("bi","bi-headset");
+        				}else if(e.centerCategoryDto.center_pk == 4){
+        					centerIcon.classList.add("bi","bi-buildings");
+        				}else if(e.centerCategoryDto.center_pk == 5){
+        					centerIcon.classList.add("bi","bi-capsule");
+        				}else{
+        					centerIcon.classList.add("bi","bi-gear");
+        				}
+        				
+        				
+        				
         				const sender = unreadNotifyWrapper.querySelector(".sender");
         				sender.innerText = "";
         				sender.innerText = "["+e.centerCategoryDto.position+"]";;
@@ -393,12 +427,12 @@
         </div>
         <div ></div>
         <div id="notifyTemplete" class="d-none">
-	        <div class="row my-3 unreadNotifyWrapper">
+	        <div class="row my-3 unreadNotifyWrapper" style="background-color: rgb(230, 230, 230);">
 	        	<div class="col">
 	        		<a class="navbar-brand link" href="#">
 	             	<div class="row py-2 border rounded">
-	                 	<div class="col-2 fs-4 text-center mt-1 ms-3">
-	                    	 <i class="bi bi-megaphone" style="color: #133369;"></i>
+	                 	<div class="col-2 fs-1 rounded-circle text-center mt-1 ms-3 bg-white" >
+	                    	 <i class="centerIcon" style="color: #133369;"></i>
 	                 	</div>
 	                	 <div class="col">
 	                     	<div class="row pt-1">
@@ -420,6 +454,7 @@
 	        	</div>	
 	        </div>
         </div>
+        
         
         
         
