@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @Controller
 @RequestMapping("/tl_d/common/*")
@@ -22,7 +23,15 @@ public class EmploymentCommonController {
 	
 	// 학생용 마이페이지
 	@RequestMapping("studentMyPage")
-	public String studentMyPage() {
+	public String studentMyPage(HttpSession session, Model model) {
+			
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(studentInfoDto != null) {
+			int studentPk = studentInfoDto.getStudent_pk();
+			model.addAttribute("interestpostingForMyPage", postingService.getInterestPostingListForMyPage(studentPk));
+		}
+		
 		
 		return "tl_d/common/studentMyPage";
 	}

@@ -13,54 +13,66 @@
 	<div class="col mt-3"></div>
 </div>
 <div class="row">
-	<a class="col fs-5 fw-bold ps-3 mt-3 text-dark link-offset-2 link-underline link-underline-opacity-0"
-		href="#">공지사항</a>
+	<a class="col fs-5 fw-bold ps-3 mt-3 navbar-brand" 
+		href="#">구직희망학생관리</a>
 </div>
 <div class="row">
-	<a class="col fs-5 fw-bold ps-3 mt-3 text-dark link-offset-2 link-underline link-underline-opacity-0" 
-		href="#">구직희망학생</a>
-</div>
-<div class="row">
-	<a class="col ps-4 mt-2 text-dark link-offset-2 link-underline link-underline-opacity-0" 
+	<a class="col ps-4 mt-2 navbar-brand" 
 		href="#">학생목록</a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 text-dark link-offset-2 link-underline link-underline-opacity-0" 
+	<a class="col ps-4 mt-2 navbar-brand" 
+		href="#">온라인상담</a>
+</div>
+<div class="row">
+	<a class="col ps-4 mt-2 navbar-brand" 
 		href="#">만족도조사</a>
 </div>
 <div class="row">
-	<a class="col ps-3 mt-3 fs-5 fw-bold text-dark link-offset-2 link-underline link-underline-opacity-0" 
+	<a class="col ps-3 mt-3 fs-5 fw-bold navbar-brand" 
 		href="#">기업관리</a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 text-dark link-offset-2 link-underline link-underline-opacity-0" 
+	<a class="col ps-4 mt-2 navbar-brand" 
 		href="#">기업목록</a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 text-dark link-offset-2 link-underline link-underline-opacity-0" 
-		href="#">채용공고등록</a>
+	<a class="col ps-4 mt-2 navbar-brand" 
+		href="../ny_posting/registerJobPostingPage">채용공고등록</a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 text-dark link-offset-2 link-underline link-underline-opacity-0" 
-		href="#">채용공고목록</a>
+	<a class="col ps-4 mt-2 navbar-brand" 
+		href="../ny_posting/jobPostingListPage">채용공고목록</a>
 </div>
 <div class="row">
-	<a class="col ps-3 mt-3 fs-5 fw-bold text-dark link-offset-2 link-underline link-underline-opacity-0"
-		href="#">프로그램</a>
+	<a class="col ps-3 mt-3 fs-5 fw-bold navbar-brand"
+		href="#">프로그램관리</a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 text-dark link-offset-2 link-underline link-underline-opacity-0" 
+	<a class="col ps-4 mt-2 navbar-brand" 
 		href="#">프로그램등록</a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 text-dark link-offset-2 link-underline link-underline-opacity-0" 
+	<a class="col ps-4 mt-2 navbar-brand" 
 		href="#">프로그램목록</a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 text-dark link-offset-2 link-underline link-underline-opacity-0" 
+	<a class="col ps-4 mt-2 navbar-brand" 
 		href="#">신청학생목록</a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 text-dark link-offset-2 link-underline link-underline-opacity-0" 
+	<a class="col ps-4 mt-2 navbar-brand" 
 		href="#">만족도조사</a>
+</div>
+<div class="row">
+	<a class="col fs-5 fw-bold ps-3 mt-3 navbar-brand"
+		href="#">게시판관리</a>
+</div>
+<div class="row">
+	<a class="col ps-4 mt-2 navbar-brand" 
+		href="#">공지사항</a>
+</div>
+<div class="row">
+	<a class="col ps-4 mt-2 navbar-brand" 
+		href="#">QnA게시판</a>
 </div>

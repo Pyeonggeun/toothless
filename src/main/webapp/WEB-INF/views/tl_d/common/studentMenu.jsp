@@ -26,7 +26,11 @@
 </div>
 <div class="row">
 	<a class="col ps-4 mt-2 navbar-brand" 
-		href="#">관심공고/기업</a>
+		href="">관심기업</a>
+</div>
+<div class="row">
+	<a class="col ps-4 mt-2 navbar-brand" 
+		href="../ny_posting/interestPostingListForStudentPage">관심공고</a>
 </div>
 <div class="row">
 	<a class="col ps-4 mt-2 navbar-brand" 

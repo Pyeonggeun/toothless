@@ -42,9 +42,11 @@
 						<div class="col-8 ps-4">
 							<div class="row">
 								<!-- 공고제목 -->
-								<div class="col ps-0 pt-2">
+								<div class="col-7 ps-0 pt-2">
 									<a class="navbar-brand" href="../ny_posting/jobPostingDetailForCompanyPage?id=${mainPagePosting.jobPostingDto.job_posting_pk}">
- 										${mainPagePosting.jobPostingDto.posting_name}
+ 										<span class="d-inline-block text-truncate" style="max-width: 500px;">
+ 											${mainPagePosting.jobPostingDto.posting_name}
+ 										</span>
 									</a>
 								</div>
 							</div>
