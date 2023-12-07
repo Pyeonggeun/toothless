@@ -20,11 +20,15 @@ public interface StudentSqlMapper {
 	public ProfessorInfoDto selectMyProfessor(int professor_pk);
 
 	public int selectMyNotifyCount(int student_pk);
+	public List<NotificationDto> selectUnreadNotification(int student_pk);
+	public void updateMyReadNotifyStatus(int student_pk);
+	public List<NotificationDto> selectReadNotification(int student_pk);
 	
-	public int selectMyNewNotifyCount(int student_pk);
-	public void updateMyNewNotifyStatus(int student_pk);
-	
-	public List<NotificationDto> selectNotReadNotification(int student_pk);
 	
 	public List<NotificationDto> reloadMyNotification(int student_pk);
+	public void updateMyNewNotifyStatus(int student_pk);
+	
+	
+	
+	
 }
