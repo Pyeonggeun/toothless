@@ -74,7 +74,7 @@
         	
         	function updateReadNotifyStatus(){
         		const url = "./updateReadNotifyStatus?student_pk="+${sessionStudentInfo.student_pk};
-        		fetch(url)
+        		fetch(url);
         		
         	}
         	
@@ -82,7 +82,7 @@
         	
         	function updateMyCheckNotifyStatus(){
         		const url = "./updateNewNotifyStatus?student_pk="+${sessionStudentInfo.student_pk};
-        		fetch(url)
+        		fetch(url);
 
         	}
         	
