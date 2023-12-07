@@ -68,6 +68,7 @@ public class GroupCounselStaffServiceImpl {
 			int department_pk = studentInfoDto.getDepartment_pk();
 			DepartmentCategoryDto departmentCategoryDto = groupCounselStaffMapper.selectDepartmentCatecoryByStudentId(department_pk);
 			
+			map.put("groupCounselReservationDto", groupCounselReservationDto);
 			map.put("studentInfoDto", studentInfoDto);
 			map.put("departmentCategoryDto", departmentCategoryDto);
 			
@@ -79,7 +80,7 @@ public class GroupCounselStaffServiceImpl {
 		
 		for(GroupCounselCounselorDto groupCounselCounselorDto : groupCounselCounselorList) {
 			
-			//집단 상담 신청한 학생들 정보
+			//집단 상담 등록된 상담원
 			Map<String, Object> map = new HashMap<String, Object>();
 			int counselor_id = groupCounselCounselorDto.getCounselor_id();
 			CounselorDto counselorDto = groupCounselStaffMapper.selectCounselorById(counselor_id);
@@ -111,5 +112,38 @@ public class GroupCounselStaffServiceImpl {
 		groupCounselStaffMapper.insertGroupCounselCounselor(groupCounselCounselorDto);
 		
 	}
+	
+	//학생 출석체크
+	public void studentIsAttendCheck(int id) {
+		
+		GroupCounselReservationDto groupCounselReservationDto = groupCounselStaffMapper.selectGroupCounselReservationById(id);
+		
+		if(groupCounselReservationDto.getIsAttend().equals("Y")) {
+			groupCounselStaffMapper.studentIsAttendSetN(id);
+			System.out.println("yyy");
+			
+			
+		}else if(groupCounselReservationDto.getIsAttend().equals("N")) {
+			groupCounselStaffMapper.studentIsAttendSetY(id);
+			System.out.println("nnn");
+	
+		
+		
+		}
+	}
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

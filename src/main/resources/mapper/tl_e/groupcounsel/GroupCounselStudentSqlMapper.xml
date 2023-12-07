@@ -12,7 +12,7 @@
 			cp_group_reservation_seq.nextval,
 			#{student_pk},
 			#{group_counsel_id},
-			'y',
+			'N',
 			SYSDATE
 		)
 	</insert>

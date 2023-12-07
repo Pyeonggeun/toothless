@@ -171,7 +171,14 @@
 							<div class="fw-bold" style="font-size:1.0em;">성별</div>
 						</div>
 						<div class="col-4 text-center">
-							<div class="fw-bold" style="font-size:1.0em;">전화번호</div>
+							<div class="row">
+								<div class="col-9">
+									<div class="fw-bold" style="font-size:1.0em;">전화번호</div>
+								</div>
+								<div class="col px-0">
+									<div class="fw-bold" style="font-size:1.0em; color: red;">출석</div>
+								</div>
+							</div>
 						</div>
 					</div>							
 					
@@ -188,7 +195,19 @@
 							<div style="font-size:0.9em;">${list.studentInfoDto.gender }</div>
 						</div>
 						<div class="col-4 text-center">
-							<div style="font-size:0.9em;">${list.studentInfoDto.phone }</div>
+							<div class="row">
+								<div class="col-9">
+									<div style="font-size:0.9em;">${list.studentInfoDto.phone }</div>
+								</div>
+								<div class="col px-0">
+									<c:if test="${list.groupCounselReservationDto.isAttend=='N'}">
+										<a href="./studentIsAttendCheckProcess?id=${list.groupCounselReservationDto.id}&group_counsel_id=${groupCounselDetail.groupCounselDto.id}"><i class="bi bi-check-square" style="color:black;"></i></a>
+									</c:if>
+									<c:if test="${list.groupCounselReservationDto.isAttend=='Y'}">
+										<a href="./studentIsAttendCheckProcess?id=${list.groupCounselReservationDto.id}&group_counsel_id=${groupCounselDetail.groupCounselDto.id}"><i class="bi bi-check-square-fill" style="color:red;"></i></a>
+									</c:if>
+								</div>
+							</div>
 						</div>
 					</div>					
 				
@@ -196,7 +215,7 @@
 				</div>
 				<div class="col-1"></div>
 			</div>
-			
+			y
 			<div class="row mt-5">
 				<div class="col-7"></div>
 				<div class="col-4 ms-5">

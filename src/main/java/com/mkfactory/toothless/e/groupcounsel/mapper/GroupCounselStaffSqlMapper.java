@@ -41,6 +41,12 @@ public interface GroupCounselStaffSqlMapper {
 	//상담원 리스트
 	public List<CounselorDto> selectCounselorList();
 	
+	// 학생 출석체크
+	public void studentIsAttendSetN(int id);
+	
+	public void studentIsAttendSetY(int id);
+	
+	public GroupCounselReservationDto selectGroupCounselReservationById(int id);
 	
 	// pk별 집단 상담
 	public GroupCounselDto selectGroupCounselById(int id);

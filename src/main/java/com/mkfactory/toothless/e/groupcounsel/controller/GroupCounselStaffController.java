@@ -116,6 +116,12 @@ public class GroupCounselStaffController {
 		return "redirect: ./groupCounselDetailPage?id=" + groupCounselCounselorDto.getGroup_counsel_id();
 	}
 	
+	@RequestMapping("studentIsAttendCheckProcess")
+	public String studentIsAttendCheckProcess(int id, int group_counsel_id) {
+		groupCounselStaffService.studentIsAttendCheck(id);
+		
+		return "redirect: ./groupCounselDetailPage?id=" + group_counsel_id;
+	}
 	
 	
 	
