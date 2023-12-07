@@ -9,6 +9,8 @@ import com.mkfactory.toothless.d.dto.CompanyManagerDto;
 import com.mkfactory.toothless.d.dto.InterestPostingDto;
 import com.mkfactory.toothless.d.dto.JobFieldCategoryDto;
 import com.mkfactory.toothless.d.dto.JobPostingDto;
+import com.mkfactory.toothless.donot.touch.dto.GraduationInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 public interface PostingSqlMapper {
 	
@@ -77,15 +79,25 @@ public interface PostingSqlMapper {
 	// 기업 + 외부인
 	public CompanyDto selectByExternalPk(int external_pk);
 	
-	// 공고찜 추가
+	// 공고스크랩 추가
 	public void insertInterestPosting(InterestPostingDto interestPostingDto);
 	
-	// 공고찜 삭제
+	// 공고스크랩 삭제
 	public void deleteInterestPosting(InterestPostingDto interestPostingDto);
 	
-	// 공고찜 했던가..?
+	// 공고스크랩 했던가..?
 	public int selectMyPostingInterestCount(InterestPostingDto interestPostingDto);
 	
-	// 총 공고찜
+	// 총 공고스크랩
 	public int selectAllInterestPosting(int job_posting_pk);
+	
+	// 공고별 스크랩한 학생 목록
+	public List<StudentInfoDto> selectStudentInterestList(int job_posting_pk);
+	
+	// 졸업여부
+	public List<Integer> selectGraduationList();
+	
+	// 기업 메인페이지용 공고 목록 4개(마감임박 + 스크랩 많은 순 -> 나중에 지원자 많은 순으로 변경)
+	public List<JobPostingDto> selectPostingListForCompanyMainPage(int com_pk);
+	
 }

@@ -73,4 +73,22 @@
 		WHERE id=#{id}
 	</select>
 	
+	<update id="studentIsAttendSetN">
+		UPDATE cp_group_reservation
+		SET isAttend='N'
+		WHERE id=#{id}
+	</update>
+	
+	<update id="studentIsAttendSetY">
+		UPDATE cp_group_reservation
+		SET isAttend='Y'
+		WHERE id=#{id}
+	</update>
+	
+	<select id="selectGroupCounselReservationById" resultType="com.mkfactory.toothless.e.dto.GroupCounselReservationDto">
+		SELECT * FROM cp_group_reservation
+		WHERE id=#{id}
+	</select>
+	
+	
 </mapper>

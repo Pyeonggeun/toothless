@@ -13,12 +13,11 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col">
-				<jsp:include page="../common/studentTopNavi.jsp"></jsp:include>
+				<jsp:include page="../common/companyTopNavi.jsp"></jsp:include>
 			</div>
 		</div>
 	 	<%-- 전체 크기 --%>
 		<div class="row">
-			<%-- 왼쪽 여백--%>
 			<%-- 공고상세 --%>
 			<div class="col-7 px-5 mx-5">
 				<!-- 채용정보 -->
@@ -29,9 +28,9 @@
 				<div class="row border-bottom border-dark"></div>
 				<div class="row border border-top">
 					<!-- 간략한 채용정보 -->
-					<div class="col p-3 ms-2">
+					<div class="col p-4 ms-2">
 						<div class="row">
-							<div class="col">
+							<div class="col mt-2">
 								<!-- 기업명 + 가족기업 여부 -->
 								<div class="row">
 									<c:if test="${jobPostingDetailForCompany.companyDto.is_family_company ne null and jobPostingDetailForCompany.companyDto.is_family_company eq 'Y'}">
@@ -40,7 +39,7 @@
 									<div class="col ps-2">${jobPostingDetailForCompany.companyDto.com_name}</div>
 								</div>
 								<!-- 공고제목 -->
-								<div class="row">
+								<div class="row mt-1">
 									<div class="col fs-4">${jobPostingDetailForCompany.jobPostingDto.posting_name}</div>
 								</div>
 								<!-- 분야 / 지역  -->
@@ -68,7 +67,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-1">
+							<div class="col-1 mt-2">
 								<c:choose>
 									<c:when test="${jobPostingForStudent.allPostingInterest == 0}">
 										<i class="text-warning bi bi-star"></i>
@@ -125,7 +124,7 @@
 					<div class="col">
 						<div class="row border-top border-dark">
 							<div class="col-2 px-5 pt-5">
-								<img src="/uploadMainFile/${jobPostingDetailForCompany.jobPostingDto.posting_mainimage}">
+								<img src="../../resources/img/employment/${jobPostingDetailForCompany.jobPostingDto.posting_mainimage}">
 							</div>
 						</div>
 						<div class="row">
@@ -195,6 +194,40 @@
 					<div class="col fs-5 fw-bold mt-5">스크랩한 학생</div>
 					<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
 				</div>
+				<!-- 목록명 -->
+				<div class="row mt-3 mb-1 text-secondary border-bottom">
+					<!-- 이름 -->
+					<div class="col ms-4 px-0">이름</div>
+					<!-- 생년월일 -->
+					<div class="col ms-4 px-0">생년월일</div>
+					<!-- 성별 -->
+					<div class="col px-0">성별</div>
+					<!-- 이메일 -->
+					<div class="col px-0">이메일</div>
+					<!-- 졸업여부 -->
+					<div class="col px-0">졸업여부</div>
+				</div>
+				<c:forEach items="${interestStudentList}" var="interestStudent">
+					<!-- 목록 -->
+					<div class="row my-2 border-bottom">
+						<div class="col-2 ms-3">${interestStudent.studentInfoDto.name}</div>
+						<div class="col ps-5">
+						<fmt:formatDate value="${interestStudent.studentInfoDto.birth}" pattern="yyMMdd"/> </div>
+						<div class="col-1 ps-5">${interestStudent.studentInfoDto.gender}</div>
+						<div class="col-4 ps-5 pe-0">${interestStudent.studentInfoDto.email}</div>
+						<div class="col ps-0 pe-5">
+							<c:choose>
+								<c:when test="${! interestStudent.graduationInfoDtoList.contains(interestStudent.studentInfoDto.student_pk)}">
+									재학생
+								</c:when>
+								<c:otherwise>
+									졸업생
+								</c:otherwise>
+							</c:choose>
+							
+						</div>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

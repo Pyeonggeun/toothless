@@ -56,7 +56,7 @@
 				</div>
 				<div class="row pt-4">
 					<div class="col fs-5">
-						<a class="navbar-brand" href="#">집단상담</a>
+						<a class="navbar-brand" href="../groupcounsel/staff/groupCounselListPage">집단상담</a>
 					</div>
 				</div>
 			</div>

@@ -128,7 +128,7 @@ body {
 
 								<!-- 상단 텍스트 -->
 								<h3 class="jb-700 fontcolor2">
-									<i class="bi bi-box-arrow-in-down-right "></i> 현장실습 기업목록
+									<i class="bi bi-box-arrow-in-down-right"></i> 현장실습 기업목록
 								</h3>
 
 							</div>
@@ -136,90 +136,57 @@ body {
 					</div>
 				</div>
 
+				<!-- 선 -->
+				<div class="row mt-3">
+					<div class="col-10 border border-secondary-subtle"></div>
+				</div>
+
 				<!-- 본문 작성 공간 -->
-				<form class="row">
-				
-				<!-- 반복문 -->
-				<c:forEach items="${list }" var="map">
-					<div class="col-3 m-2">
+				<form class="row mt-4 mb-4">
+
+					<!-- 반복문 -->
+					<c:forEach items="${list }" var="map">
+						<div class="col-3 m-3">
 
 							<div class="card border-black shadow mb-3">
 								<div class="card-body text">
-									<h5 class="card-title fw-bold"><a href="ajdksInternshipDtl?internship_course_pk=${map.AjdksInternshipCourseDto.internship_course_pk}
-									&company_pk=${map.AjdksInternshipCourseDto.company_pk}&professor_pk=${map.AjdksInternshipCourseDto.professor_pk}&department_pk=${map.AjdksInternshipCourseDto.department_pk}">${map.AjdksInternshipCourseDto.course_title}</a></h5>
-									<p class="card-text"> <!-- 내용 있어야함 --></p>
+									<h5 class="card-title fw-bold">
+										<a
+											href="ajdksInternshipDtl?internship_course_pk=${map.AjdksInternshipCourseDto.internship_course_pk}
+									&company_pk=${map.AjdksInternshipCourseDto.company_pk}
+									&professor_pk=${map.AjdksInternshipCourseDto.professor_pk}
+									&department_pk=${map.AjdksInternshipCourseDto.department_pk}">
+													${map.AjdksInternshipCourseDto.course_title}</a>
+									</h5>
+									<p class="card-text" style="font-size: 0.9em;">
+										${map.company_name}</p>
 								</div>
-								<div class="card-footer labelcolor border">
-									${map.company_name}
-								</div>
+								<div class="card-footer labelcolor jb-700"
+									style="font-size: 0.9em;">${map.company_name}</div>
 							</div>
 
 						</div>
-				</c:forEach>
-				
+					</c:forEach>
+
 				</form>
 
-				<!-- 여백 -->
-				<div class="row mt-2 mb-2 ">
-					<div class="col">
-						<div class="row"></div>
-					</div>
-				</div>
-
-
 				<!-- 하단 버튼 -->
-				<div class="col-12 d-flex justify-content-end">
 
-					<form class="row row-cols-lg-auto g-3 align-items-center">
-
-						<div class="col">
-							<a href="./ajdksInternshipRegForm" class="btn labelcolor"><i
-								class="bi bi-pencil-square"></i> 등록</a>
-						</div>
-
-						<div class="col">
-							<a href="./ajdksInternshipList" class="btn labelcolor"><i
-								class="bi bi-list-ul"></i> 목록으로</a>
-						</div>
-
-						<!-- 고도화 진행시 사용 -->
-
-						<div class="col">
-							<a href="" type="button" class="btn labelcolor"
-								data-bs-toggle="modal" data-bs-target="#exampleModal"> <i
-								class="bi bi-file-earmark-arrow-down"></i> 임시저장
-							</a>
-
-							<!-- 임시저장 Modal -->
-							<div class="modal fade" id="exampleModal" tabindex="-1"
-								aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">
-												현장실습 안내 페이지 저장 완료</h1>
-											<button type="button" class="btn-close"
-												data-bs-dismiss="modal" aria-label="Close"></button>
-										</div>
-										<div class="modal-body jb-small">임시 저장이 완료되었습니다. 연속 저장할
-											경우 기존 임시 저장 내역으로부터 덮어 씌워지므로 유의해주시기 바랍니다.</div>
-										<div class="modal-footer">
-											<a type="button" class="btn btn-secondary"
-												data-bs-dismiss="modal">닫기</a> <a href="" type="button"
-												class="btn labelcolor">저장 완료</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</form>
-
+				<div class="btn-group m-3 border shadow" role="group"
+					aria-label="Default button group">
+					<button type="button" onclick="javascript:fn_reg();"
+						class="btn labelcolor">
+						<i class="bi bi-pencil-square"></i> 등록
+					</button>
+					<a href="./ajdksInternshipList" class="btn labelcolor"><i
+						class="bi bi-list-ul"></i> 목록으로</a>
 				</div>
+
 
 			</div>
 		</div>
 	</div>
+
 
 	<!-- 전체 container 출구 -->
 	<script

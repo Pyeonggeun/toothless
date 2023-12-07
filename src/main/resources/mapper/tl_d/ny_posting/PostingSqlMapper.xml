@@ -159,7 +159,7 @@
 		)
 	</select>
 	
-	<!-- 공고찜 추가 -->
+	<!-- 공고스크랩 추가 -->
 	<insert id="insertInterestPosting">
 		INSERT INTO TL_D_INTEREST_POSTING VALUES(
 			tl_d_interest_posting_seq.nextval,
@@ -168,24 +168,63 @@
 		)
 	</insert>
 	
-	<!-- 공고찜 삭제 -->
+	<!-- 공고스크랩 삭제 -->
 	<delete id="deleteInterestPosting">
 		DELETE FROM TL_D_INTEREST_POSTING 
 		WHERE student_pk = #{student_pk}
 		AND job_posting_pk = #{job_posting_pk}
 	</delete>
 	
-	<!-- 공고찜 했던가? -->
+	<!-- 공고스크랩 했던가? -->
 	<select id="selectMyPostingInterestCount" resultType="int">
 		SELECT count(*) FROM TL_D_INTEREST_POSTING 
 		WHERE student_pk = #{student_pk}
 		AND job_posting_pk = #{job_posting_pk}
 	</select>
 	
-	<!-- 총 공고찜 -->
+	<!-- 총 공고스크랩 -->
 	<select id="selectAllInterestPosting" resultType="int">
 		SELECT count(*) FROM TL_D_INTEREST_POSTING 
 		WHERE job_posting_pk = #{job_posting_pk}
+	</select>
+	
+	<!-- 공고별 스크랩한 학생 목록 -->
+	<select id="selectStudentInterestList" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT tjsi.* 
+		FROM TL_JIC_STUDENT_INFO tjsi 
+		WHERE tjsi.STUDENT_PK IN (
+			SELECT STUDENT_PK 
+			FROM TL_D_INTEREST_POSTING 
+			WHERE job_posting_pk = #{job_posting_pk}
+		)
+	</select>
+	
+	<!-- 졸업여부 리스트 -->
+	<select id="selectGraduationList" resultType="int">
+		SELECT STUDENT_PK FROM TL_JIC_GRADUATION_INFO
+	</select>
+	
+	<!-- 기업 메인페이지용 공고 목록 4개(마감임박 + 스크랩 많은 순 / 나중에 지원자 많은 순으로 변경) -->
+	<select id="selectPostingListForCompanyMainPage" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
+		SELECT tdjp.* 
+		FROM TL_D_JOB_POSTING tdjp 
+		WHERE tdjp.COM_PK = #{com_pk}
+		AND tdjp.JOB_POSTING_PK IN (
+			SELECT t2.JOB_POSTING_PK 
+			FROM(
+				SELECT t1.JOB_POSTING_PK 
+				FROM (
+					SELECT job_posting_pk 
+					FROM TL_D_INTEREST_POSTING 
+					GROUP BY JOB_POSTING_PK 
+					ORDER BY count(*) DESC  
+				)t1
+				<![CDATA[
+				WHERE ROWNUM <= 4
+				]]>
+			)t2
+		)
+		ORDER BY tdjp.POSTING_DEADLINE ASC
 	</select>
 
 </mapper>

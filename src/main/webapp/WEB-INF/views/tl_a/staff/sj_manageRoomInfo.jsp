@@ -101,7 +101,7 @@
 					                    ${roomMap.dormRoomDto.gender }
 					                </div>
 					                <div class="col">
-					                    <a href="#" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+					                    <a href="./sj_editRoomInfo?dorm_room_pk=${roomMap.dormRoomDto.dorm_room_pk }" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
 					                        수정
 					                    </a>
 					                </div>

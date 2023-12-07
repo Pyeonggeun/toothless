@@ -67,25 +67,25 @@
 	</div>
 	
 	
-	<div class="row mt-0 pt-0">
+	<div class="row my-0 py-0">
 		<!-- 메뉴바 ?? -->
 		<div class="col-2 border-end border-dark-subtle"></div>
 		<!-- 상담 리스트 -->
 		<div class="col ps-5">
 		
 			<div class="row">
-				<div class="col-2"></div>
-				<div class="col-8">
+				<div class="col-1"></div>
+				<div class="col-10">
 					<div class="row">
-						<div class="col pt-2 mx-0 px-5 border-top border-black"></div>
+						<div class="col mx-0 px-5 border-top border-black border-3"></div>
 					</div>
 				</div>
-				<div class="col-2"></div>
+				<div class="col-1"></div>
 			</div>
 			
 			<div class="row">
-				<div class="col-2"></div>
-				<div class="col-5">
+				<div class="col-1"></div>
+				<div class="col-5 pt-2">
 					<div class="row">
 						
 						<div class="col">
@@ -142,21 +142,22 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-3 text-end">
+				<div class="col-3 text-end pt-2">
 					<img class="img-fluid" style="width: 80%;" src="/uploadFiles/${list.groupCounselDto.posterImage }">
 				</div>
-				<div class="col-2"></div>
+				<div class="col-2 border-start border-end border-secondary border-1 pt-2">
+				
+				</div>
 			</div>
 			
 			<div class="row">
-				<div class="col-2"></div>
-				<div class="col-8">
+				<div class="col-1"></div>
+				<div class="col-10">
 					<div class="row">
-						<div class="col mx-0 px-5 border-top border-black"></div>
-						<div class="col-4 mx-0 px-0"></div>
+						<div class="col mx-0 px-5 border-top border-secondary border-1"></div>					
 					</div>
 				</div>
-				<div class="col-2"></div>
+				<div class="col-1"></div>
 			</div>			
 			
 		</div>

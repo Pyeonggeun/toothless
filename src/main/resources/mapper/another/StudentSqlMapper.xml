@@ -66,7 +66,10 @@
 		WHERE student_pk = #{student_pk}
 		AND checkNotify LIKE 'N'
 	</select>
-	
+	<select id="selectCenterByNotify" resultType="com.mkfactory.toothless.donot.touch.dto.CenterCategoryDto">
+		SELECT * FROM TL_JIC_CENTER_CATEGORY
+		WHERE center_pk = #{center_pk}
+	</select>
 	
 </mapper>
 

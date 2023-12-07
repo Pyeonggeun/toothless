@@ -1,14 +1,13 @@
 package com.mkfactory.toothless.donot.touch.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mkfactory.toothless.donot.touch.dto.NotificationDto;
 import com.mkfactory.toothless.donot.touch.dto.RestResponseDto;
-import com.mkfactory.toothless.donot.touch.mapper.StudentSqlMapper;
 import com.mkfactory.toothless.donot.touch.service.StudentServiceImpl;
 
 @RestController
@@ -31,7 +30,7 @@ public class RestStudentController {
 	@RequestMapping("loadUnreadNotifyList")
 	public RestResponseDto loadUnreadNotifyList(int student_pk) {
 		RestResponseDto responseDto = new RestResponseDto();
-		List<NotificationDto> list = studentService.getUnreadMyNotifyList(student_pk);
+		List<Map<String, Object>> list = studentService.getUnreadMyNotifyList(student_pk);
 		
 		responseDto.setData(list);
 		responseDto.setResult("success");
@@ -45,7 +44,7 @@ public class RestStudentController {
 	@RequestMapping("loadReadNotifyList")
 	public RestResponseDto loadReadNotifyList(int student_pk) {
 		RestResponseDto responseDto = new RestResponseDto();
-		List<NotificationDto> list = studentService.getReadMyNotifyList(student_pk);
+		List<Map<String, Object>> list = studentService.getReadMyNotifyList(student_pk);
 		
 		responseDto.setData(list);
 		responseDto.setResult("success");
@@ -56,7 +55,7 @@ public class RestStudentController {
 	@RequestMapping("reloadMyNewNotifyList")
 	public RestResponseDto reloadMyNewNotifyList(int student_pk) {
 		RestResponseDto responseDto = new RestResponseDto();
-		List<NotificationDto> list = studentService.getNewNotifyList(student_pk);
+		List<Map<String, Object>> list = studentService.getNewNotifyList(student_pk);
 		
 		responseDto.setData(list);
 		responseDto.setResult("success");
