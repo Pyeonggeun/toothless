@@ -167,6 +167,9 @@
 					    </c:choose>	
 					</div>
 				</div>
+				<div class="row mt-2">
+					<div class="col"><a class="btn btn-secondary" href="./jobPostingListForCompanyPage">목록으로</a></div>
+				</div>
 				<div class="row mb-5 pb-5">
 					<div class="col mb-5 pb-5"></div>
 				</div>

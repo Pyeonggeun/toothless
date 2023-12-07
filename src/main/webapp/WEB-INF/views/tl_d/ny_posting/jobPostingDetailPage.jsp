@@ -36,7 +36,7 @@
 				<div class="row border-bottom border-dark"></div>
 				<div class="row border border-top">
 					<!-- 간략한 채용정보 -->
-					<div class="col p-3 ms-2">
+					<div class="col p-4 ms-2">
 						<!-- 기업명 + 가족기업 여부 -->
 						<div class="row">
 							<c:if test="${jobPostingDetail.companyDto.is_family_company ne null and jobPostingDetail.companyDto.is_family_company eq 'Y'}">
@@ -149,7 +149,8 @@
 					    </c:choose>
 				    </div>
 				</div>
-				<div class="row mt-3">
+				<div class="row mt-2">
+					<div class="col"><a class="btn btn-secondary" href="./jobPostingListPage">목록으로</a></div>
 					<div class="col text-end">
 						<c:choose>
 							<c:when test="${empty sessionStaffInfo}">
@@ -163,12 +164,7 @@
 						</c:choose>
 					</div>
 				</div>
-				<pre>
-				
-				
-				
-				
-				</pre>
+				<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
 			</div>
 			<%-- 오른쪽 --%>	
 			<div class="col-2"></div>	
