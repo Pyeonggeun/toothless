@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.d.dto.CareerCategoryDto;
 import com.mkfactory.toothless.d.dto.CareerDto;
+import com.mkfactory.toothless.d.dto.LicenseDto;
 import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.sb.resume.mapper.ResumeSqlMapper;
 
@@ -27,9 +28,7 @@ public class ResumeServiceImpl {
 			List<ResumeDto> resumeList = resumeSqlMapper.getResumeListByStudentPk(resumeDto);
 			for(ResumeDto resumeDto2 : resumeList) {
 				if(resumeDto2.getMain_resume().equals("Y") || resumeDto2.getIs_public().equals("Y") ) {
-					int resume_pk = resumeDto2.getResume_pk();
-					resumeDto.setResume_pk(resume_pk);
-					resumeSqlMapper.changeMainAndPublic(resumeDto);
+					resumeSqlMapper.changeMainAndPublic(resumeDto2);
 				}
 				
 			}
@@ -48,6 +47,41 @@ public class ResumeServiceImpl {
 		return resumeList;
 	}
 	
+	// 메인 이력서 변경
+	public void changeMainResume(ResumeDto resumeDto) {
+		
+		if(resumeDto.getMain_resume().equals("N")) {	
+			List<ResumeDto> resumeList = resumeSqlMapper.getResumeListByStudentPk(resumeDto);
+			for(ResumeDto resumeDto2 : resumeList) {
+				if(resumeDto2.getMain_resume().equals("Y") || resumeDto2.getIs_public().equals("Y") ) {
+					
+					resumeSqlMapper.changeMainAndPublic(resumeDto2);
+				}
+				
+			}
+		}	
+		resumeSqlMapper.changeMainResume(resumeDto);
+		
+	}
+	
+	// 이력서 공개
+	public void changeResumeStatus(ResumeDto resumeDto) {
+		
+		if(resumeDto.getIs_public().equals("N")) {
+			resumeSqlMapper.changePublicResume(resumeDto);
+		
+		}else {
+			resumeSqlMapper.changePrivateResume(resumeDto);
+		}
+		
+		
+		
+		
+	}
+	
+	
+	
+	
 	
 	// 이력서 상세보기
 	public ResumeDto getResume(ResumeDto resumeDto) {
@@ -56,6 +90,13 @@ public class ResumeServiceImpl {
 		
 		return dto;
 	}
+	
+	// 이력서 내용 수정
+	public void updateResume(ResumeDto resumeDto) {
+		
+		resumeSqlMapper.updateResumeDtoByResumePk(resumeDto);
+	}
+	
 	
 	// 경력 카테고리 가져오기
 	public List<CareerCategoryDto> getCareerCategory(){
@@ -106,7 +147,11 @@ public class ResumeServiceImpl {
 	}
 	
 	
-	
+	// 자격증 추가
+	public void insertLicense(LicenseDto licenseDto) {
+		
+		resumeSqlMapper.insertLicenseContents(licenseDto);
+	}
 	
 	
 	
