@@ -106,7 +106,7 @@
 					<div class="col">
 						<div class="row border-top border-dark">
 							<div class="col-2 px-5 pt-5">
-								<img src="/uploadMainFile/${jobPostingDetail.jobPostingDto.posting_mainimage}">
+								<img src="../../resources/img/employment/${jobPostingDetail.jobPostingDto.posting_mainimage}">
 							</div>
 						</div>
 						<div class="row">

@@ -67,7 +67,7 @@
 				</div>
 				<div class="row mt-2">
 					<div class="col">
-						<img src="/uploadMainFile/${modifyJobPosting.jobPostingDto.posting_mainimage}">
+						<img src="../../resources/img/employment/${modifyJobPosting.jobPostingDto.posting_mainimage}">
 					</div>				
 				</div>
 				<!-- 채용내용 -->
@@ -122,7 +122,7 @@
 					</div>
 				</div>
 				<div class="row mt-3">
-					<div class="col-10"></div>
+					<div class="col-9"></div>
 					<div class="col ms-4 ps-3">
 						<c:choose>
 							<c:when test="${empty sessionStaffInfo}">
