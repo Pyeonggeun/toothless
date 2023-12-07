@@ -56,7 +56,14 @@
 									</div>
 									<div class="row mt-2">
 										<div class="col">
-										<textarea name="cover_letter" rows="10" cols="110"> ${resumeDto.cover_letter }</textarea>
+										<textarea name="cover_letter" rows="10" cols="100"> ${resumeDto.cover_letter }</textarea>
+										</div>
+									</div>
+									<div class="row mt-2">
+										<div class="col"></div>
+										<div class="col-2">
+											<button type="submit" class="btn btn-primary">수정완료</button>
+											
 										</div>
 									</div>
 								</div>
@@ -64,14 +71,19 @@
 							
 						</div>
 					</div>
+					</form>
+					
 					<div class="row mt-2">
 						<div class="col"></div>
 						<div class="col-2">
-							<button type="submit" class="btn btn-secondary">수정완료</button>
+							<form action="./resumeDetailPage" method="post">
+								<input type="hidden" name="resume_pk" value="${resumeDto.resume_pk}">
+								<button type="submit" class="btn btn-secondary">돌아가기</button>
+							</form>
 						</div>
 					</div>
 				
-				</form>
+				
 			</div>
 			
 			<div class="col-2"></div>

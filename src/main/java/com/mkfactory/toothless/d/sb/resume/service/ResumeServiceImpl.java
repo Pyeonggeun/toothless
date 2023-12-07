@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.d.dto.CareerCategoryDto;
 import com.mkfactory.toothless.d.dto.CareerDto;
+import com.mkfactory.toothless.d.dto.JobPostingDto;
 import com.mkfactory.toothless.d.dto.LicenseDto;
 import com.mkfactory.toothless.d.dto.ResumeDto;
+import com.mkfactory.toothless.d.dto.VolunteerDto;
 import com.mkfactory.toothless.d.sb.resume.mapper.ResumeSqlMapper;
 
 @Service
@@ -149,9 +151,48 @@ public class ResumeServiceImpl {
 	
 	// 자격증 추가
 	public void insertLicense(LicenseDto licenseDto) {
-		
 		resumeSqlMapper.insertLicenseContents(licenseDto);
 	}
+	
+	// 이력서에 해당되는 자격증 목록 가져오기
+	public List<LicenseDto> getLicenseDtoList(LicenseDto licenseDto){
+		
+		List<LicenseDto> list = resumeSqlMapper.getLicenseDtoListByResumePk(licenseDto);
+		
+		return list;
+	}
+	
+	
+	// 해당 자격증 삭제
+	public void deleteLicenseDto(LicenseDto licenseDto) {
+		resumeSqlMapper.deleteLicenseByLicensePk(licenseDto);
+	}
+	
+	// 자격증 수정
+	public void updateLicenseDto(LicenseDto licenseDto) {
+		resumeSqlMapper.updateLicenseByLicensePk(licenseDto);
+	}
+	
+	// 지원하려는 공고 정보 가져오기
+	public JobPostingDto getJobPostingDto(VolunteerDto volunteerDto ) {
+		JobPostingDto jobPostingDto = resumeSqlMapper.getJobPostingByJobPostingPk(volunteerDto);
+		
+		return jobPostingDto;
+	}
+	
+	
+	// 공고 지원하기
+	public void applyJobPosting(VolunteerDto volunteerDto) {
+		resumeSqlMapper.insertFromJobPostingToVolunteer(volunteerDto);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

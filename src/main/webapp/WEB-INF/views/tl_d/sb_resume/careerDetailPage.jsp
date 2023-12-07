@@ -34,15 +34,15 @@
 				<div class="row border border-top">
 					<div class="col">
 						<div class="row  border-bottom">
-							<div class="col fs-5">카테고리</div>
+							<div class="col fs-5 text-center">카테고리</div>
 							<div class="col-8  border-start fs-5 text-center">내용</div>
 							<div class="col-2"></div>
 						</div>
 						
 						<c:forEach items="${careerList }" var="list">
-							<div class="row">
-								<div class="col">${list.careerName.career_category_name }</div>
-								<div class="col-8 border-start">${list.careerDto.career_contents }</div>
+							<div class="row border-bottom border-gray">
+								<div class="col text-center my-2">${list.careerName.career_category_name }</div>
+								<div class="col-8 m-2 border-start">${list.careerDto.career_contents }</div>
 								<div class="col-2">
 									<div class="row p-1">
 										<div class="col border-start">

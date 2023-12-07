@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.mkfactory.toothless.d.dto.CareerCategoryDto;
 import com.mkfactory.toothless.d.dto.CareerDto;
+import com.mkfactory.toothless.d.dto.JobPostingDto;
 import com.mkfactory.toothless.d.dto.LicenseDto;
 import com.mkfactory.toothless.d.dto.ResumeDto;
+import com.mkfactory.toothless.d.dto.VolunteerDto;
 
 public interface ResumeSqlMapper {
 
@@ -55,8 +57,20 @@ public interface ResumeSqlMapper {
 	// 자격증 추가
 	public void insertLicenseContents(LicenseDto licenseDto);
 	
+	// 이력서에 작성한 자격증 목록 가져오기
+	public List<LicenseDto> getLicenseDtoListByResumePk(LicenseDto licenseDto);
 	
+	// 해당 자격증 삭제
+	public void deleteLicenseByLicensePk(LicenseDto licenseDto);
 	
+	// 자격증 수정
+	public void updateLicenseByLicensePk(LicenseDto licenseDto);
+	
+	// 지원하려는 공고 정보 가져오기
+	public JobPostingDto getJobPostingByJobPostingPk(VolunteerDto volunteerDto);
+	
+	// 공고 지원하기
+	public void insertFromJobPostingToVolunteer(VolunteerDto volunteerDto);
 	
 	
 	

@@ -104,6 +104,53 @@
 		)
 	</insert>
 	
+	<!-- 해당이력서의 자격증 목록 가져오기 -->
+	<select id="getLicenseDtoListByResumePk" resultType="com.mkfactory.toothless.d.dto.LicenseDto">
+		SELECT * FROM tl_d_license WHERE resume_pk = #{resume_pk} ORDER BY license_pk asc	
+	</select>
+	
+	<!-- 해당 자격증 삭제 -->
+	<delete id="deleteLicenseByLicensePk">
+		DELETE FROM tl_d_license WHERE license_pk = #{license_pk}
+	</delete>
+
+	<!-- 해당 자격증 수정 -->
+	<update id="updateLicenseByLicensePk">
+		UPDATE tl_d_license SET lic_name = #{lic_name}, lic_gain_year = #{lic_gain_year} ,lic_gain_month = #{lic_gain_month}, lic_center = #{lic_center} WHERE license_pk = #{license_pk}
+	</update>
+
+	
+	<!-- 지원하려는 공고 정보 가져오기 -->
+	<select id="getJobPostingByJobPostingPk" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
+		SELECT * FROM tl_d_job_posting WHERE job_posting_pk = #{job_posting_pk}
+	</select>
+	
+	<!-- 공고 지원하기 -->
+	<insert id="insertFromJobPostingToVolunteer">
+		INSERT INTO tl_d_volunteer values(
+			tl_d_volunteer_seq.nextval,
+			#{job_posting_pk},
+			#{resume_pk},
+			#{vol_phone},
+			#{vol_email},
+			sysdate
+			
+		)	
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
