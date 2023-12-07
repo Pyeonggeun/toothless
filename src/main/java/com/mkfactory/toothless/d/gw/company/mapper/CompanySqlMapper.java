@@ -5,6 +5,7 @@ import java.util.List;
 import com.mkfactory.toothless.d.dto.ComScaleCategoryDto;
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.CompanyManagerDto;
+import com.mkfactory.toothless.d.dto.InterestCompanyDto;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 
 public interface CompanySqlMapper {
@@ -28,7 +29,7 @@ public interface CompanySqlMapper {
 	public void insertCompanyExternal(ExternalInfoDto externalInfoDto);
 
 	//회사랑 회사 담당자 pk 뽑아내는거
-	public CompanyDto companySelectById(int companyPK);
+	public CompanyDto companySelectById(int com_pk);
 	public CompanyManagerDto companyManagerSelectById(int id);
 	public ComScaleCategoryDto comScaleCategorySelectById(int id);
 	
@@ -53,6 +54,16 @@ public interface CompanySqlMapper {
 	public void deleteCompanyManager(int com_manager_pk);
 	public void deleteExternal(int external_pk);
 	
+	//기업 찜
+	public void insertInterestCompany(InterestCompanyDto interestCompanyDto);
 	
-	
+	//기업 찜 취소
+	public void deleteInterestCompany(InterestCompanyDto interestCompanyDto);
+
+	//학생이 기업 찜했나 카운트
+	public int studentInterestCount(InterestCompanyDto interestCompanyDto);
+
+	//기업 총 찜 카운트
+	public int companyInterestCount(int com_pk);
+
 }

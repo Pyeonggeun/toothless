@@ -38,15 +38,38 @@ public class StudentServiceImpl {
 		
 		return map;
 	}
-	public List<NotificationDto> reloadMyNotifyList(int student_pk){
-		
-		List<NotificationDto> NewNotifyList= studentSqlMapper.reloadMyNotification(student_pk);
-		
-		return NewNotifyList;
-		
-	}
-	public int reloadMyNotifyCount(int student_pk) {
+	//상단 알림카운트 
+	public int getMyNotifyCount(int student_pk) {
 		return studentSqlMapper.selectMyNotifyCount(student_pk);
 	}
+	//상단 알림카운트 클릭시 노출되는 리스트
+	public List<NotificationDto> getUnreadMyNotifyList(int student_pk){
+		
+		List<NotificationDto> unreadNotifyList= studentSqlMapper.selectUnreadNotification(student_pk);
+		
+		return unreadNotifyList;
+		
+	}
+	public void updateReadNotifyList(int student_pk) {
+		studentSqlMapper.updateMyReadNotifyStatus(student_pk);
+	}
+	public List<NotificationDto> getReadMyNotifyList(int student_pk){
+		List<NotificationDto> readNotifyList = studentSqlMapper.selectReadNotification(student_pk);
+		
+		return readNotifyList;
+	}
+	
+	
+	// 로그인시, 정기적으로 업데이트 알림 상태 N인  넘기는 리스트
+	public List<NotificationDto> getNewNotifyList(int student_pk){
+		return studentSqlMapper.reloadMyNotification(student_pk);
+	}
+	// 정기적으로 넘기는 리스트 동작시 알림상태 업데이트
+	public void updateNewNotifyStatus(int student_pk) {
+		studentSqlMapper.updateMyNewNotifyStatus(student_pk);
+	}
+	
+	
+	
 	
 }

@@ -10,16 +10,211 @@
         
         <script>
         	function reloadNotifyCount(){
-        		let url = "./reloadMyNotifyCount?student_pk="+${sessionStudentInfo.student_pk}
+        		const url = "./reloadMyNotifyCount?student_pk="+${sessionStudentInfo.student_pk};
         		fetch(url)
         		.then(response => response.json())
-        		.then((response)=>{
-        			const 
+        		.then((response) => {
+        			const reloadNotifyCount = document.getElementById("reloadNotifyCount");
+        	        if(response.data != 0){
+        	        	reloadNotifyCount.classList.remove("d-none");
+        	        	reloadNotifyCount.innerText = "";
+        	        	reloadNotifyCount.innerText = response.data;
+        	        	
+        	        	console.log(response.data);
+        	        	
+        	        	
+        	        }else if(response.data == 0){
+        	        	reloadNotifyCount.classList.add("d-none");
+        	        }
+        	        
+        		});
+        	}
+        	setInterval(reloadNotifyCount, 5000);
+        	
+        	function loadMyNewNotifyCount(){
+        		const url = "./reloadMyNewNotifyList?student_pk="+${sessionStudentInfo.student_pk};
+        		fetch(url)
+        		.then(response => response.json())
+        		.then((response) => {
+        			
+        			const alertBox = document.getElementById("alertBox");
+        			const sender = document.getElementById("sender");
+        			const message = document.getElementById("message");
+        			const link = document.getElementById("link");
+        			if(response.data.length >= 2){
+        				
+        				alertBox.classList.remove("d-none");
+        				sender.innerText = "";
+        				sender.innerText = "[알림]";
+        				message.innerText = "";
+        				message.innerText = "총 "+response.data.length+"개의 새로운 알림이 있습니다.";
+        				
+        				//commentUpdate.setAttribute("href", "./mainPage");
+        				updateMyCheckNotifyStatus();
+        				
+        				setTimeout(() => 
+        					alertBox.classList.add("d-none"),
+        					5000);
+        				
+        			}else if(response.data.length == 1){
+        				alertBox.classList.remove("d-none");
+        				sender.innerText = "";
+        				sender.innerText = "[알림]";
+        				message.innerText = "";
+        				message.innerText = response.data[0].message;
+        				
+						updateMyCheckNotifyStatus();
+						
+        				setTimeout(() => 
+        					alertBox.classList.add("d-none"),
+        					5000);
+        			}
+        					
         			
         		});
         	}
+        	setInterval(loadMyNewNotifyCount, 5000);
+        	
+        	function updateReadNotifyStatus(){
+        		const url = "./updateReadNotifyStatus?student_pk="+${sessionStudentInfo.student_pk};
+        		fetch(url)
+        		
+        	}
+        	
+        	
+        	
+        	function updateMyCheckNotifyStatus(){
+        		const url = "./updateNewNotifyStatus?student_pk="+${sessionStudentInfo.student_pk};
+        		fetch(url)
+
+        	}
+        	
+        	function showNotifyModal(){
+                const modal = bootstrap.Modal.getOrCreateInstance("#showMyNotifyListModal");
+                loadUnreadNotifyList();
+                modal.show();
+            }
+        	
+        	function loadUnreadNotifyList() {
+				const url = "./loadUnreadNotifyList?student_pk="+${sessionStudentInfo.student_pk};
+				fetch(url)
+        		.then(response => response.json())
+        		.then((response) => {
+        			cleanNotifyList();
+        			const unreadNotifyListBox =document.querySelector("#unreadNotifyListBox");
+        			
+        			const newNotify = document.getElementById("newNotify");
+        			newNotify.classList.remove("text-secondary");
+        			newNotify.classList.add("fw-bold", "border-bottom", "border-black", "border-2");
+        			
+        			const readNotify = document.getElementById("readNotify");
+        			readNotify.classList.remove("fw-bold", "border-bottom", "border-black", "border-2");
+        			readNotify.classList.add("text-secondary");
+        			
+        			const xbutton = document.getElementById("xbutton");
+        			xbutton.classList.remove("border-bottom", "border-black", "border-2");
+        			
+
+        			if(response.data.length == 0){
+        				unreadNotifyListBox.classList.add("text-center","text-secondary");
+        				
+        				unreadNotifyListBox.innerText = "신규 알림이 없습니다.";
+        			}
+        			for(e of response.data){
+        				
+        				
+        				const unreadNotifyWrapper = document.querySelector("#notifyTemplete .unreadNotifyWrapper").cloneNode(true);
+        				console.log("실행");	
+        				//const link = unreadNotifyWrapper.querySelector(".link");
+        				const sender = unreadNotifyWrapper.querySelector(".sender");
+        				sender.innerText = "";
+        				sender.innerText = "[취업 창업]";
+        				
+        				const created_at = unreadNotifyWrapper.querySelector(".created_at");
+        				created_at.innerText = "";
+        	    		const date = new Date(e.created_at);
+        	    		const currentDate = new Date();
+        	    		
+        	    		if (date.getFullYear() +"."+ (date.getMonth()+1) + "."+ date.getDate() == 
+        	    			currentDate.getFullYear() +"."+ (currentDate.getMonth()+1) + "."+ currentDate.getDate()){
+        	    			if((currentDate.getHours() - date.getHours()) == 0){
+        	    				created_at.innerText = (currentDate.getMinutes() - date.getMinutes())+ "분전";
+        	    			}else{
+        	    				created_at.innerText = (currentDate.getHours() - date.getHours())+ "시간전";
+        	    			}
+        	    		}else{
+        	    			created_at.innerText = date.getFullYear() +"."+ (date.getMonth()+1) + "."+ date.getDate();
+        	    		}
+        	    		const message = unreadNotifyWrapper.querySelector(".message");
+        	    		message.innerText = "";
+        	    		message.innerText = e.message;
+        				
+        				unreadNotifyListBox.appendChild(unreadNotifyWrapper);
+        				updateReadNotifyStatus();
+        			}
+        		});
+			}
+        	function cleanNotifyList(){
+        		const unreadNotifyListBox =document.querySelector("#unreadNotifyListBox");
+        		unreadNotifyListBox.innerText = "";
+        		unreadNotifyListBox.classList.remove("text-center","text-secondary");
+        		
+        	}
+        	function checkReadNotifyList(){
+        		const url = "./loadReadNotifyList?student_pk="+${sessionStudentInfo.student_pk};
+				fetch(url)
+        		.then(response => response.json())
+        		.then((response) => {
+        			cleanNotifyList();
+        			const unreadNotifyListBox =document.querySelector("#unreadNotifyListBox");
+        			
+        			const newNotify = document.getElementById("newNotify");
+        			newNotify.classList.add("text-secondary");
+        			newNotify.classList.remove("fw-bold", "border-bottom", "border-black", "border-2");
+        			
+        			const readNotify = document.getElementById("readNotify");
+        			readNotify.classList.add("fw-bold", "border-bottom", "border-black", "border-2");
+        			readNotify.classList.remove("text-secondary");
+        			
+        			const xbutton = document.getElementById("xbutton");
+        			xbutton.classList.add("border-bottom", "border-black", "border-2");
+        			
+        			if(response.data.length == 0){
+        				unreadNotifyListBox.classList.add("text-center","text-secondary");
+        				
+        				unreadNotifyListBox.innerText = "이전 알림이 없습니다.";
+        			}
+					for(e of response.data){
+        				
+        				const unreadNotifyWrapper = document.querySelector("#notifyTemplete .unreadNotifyWrapper").cloneNode(true);
+        				//const link = unreadNotifyWrapper.querySelector(".link");
+        				const sender = unreadNotifyWrapper.querySelector(".sender");
+        				sender.innerText = "";
+        				sender.innerText = "[취업 창업]";
+        				
+        				const created_at = unreadNotifyWrapper.querySelector(".created_at");
+        				created_at.innerText = "";
+        	    		const date = new Date(e.created_at);
+        	    		created_at.innerText = date.getFullYear() +"."+ (date.getMonth()+1) + "."+ date.getDate();
+        	    		
+        	    		const message = unreadNotifyWrapper.querySelector(".message");
+        	    		message.innerText = "";
+        	    		message.innerText = e.message;
+        				
+        				unreadNotifyListBox.appendChild(unreadNotifyWrapper);
+        			}
+        		});
+        	}
         
-        
+        	
+        	
+        	
+        	 window.addEventListener("DOMContentLoaded", () =>{
+        		 reloadNotifyCount();
+        		 loadMyNewNotifyCount();
+        		 
+             });
+        	
         </script>
         
         <style>
@@ -54,7 +249,7 @@
                     <div class="row text-center">
                         <div class="col-4"></div>
                         <div class="col-1 pe-2 text-end">
-                            <img src="../resources/img/another/logo_black.png" alt="" style="height: 4em;">
+                            <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
                         </div>
                         <div class="col-3 ps-0 fw-bold fs-1 text-start ">
                             MK University<span class="fs-6"> | </span> <span class="fs-5">학생포털사이트</span> 
@@ -70,13 +265,7 @@
                 </div>
             </div>
             <div class="row text-center py-1 fw-bold text-light" style="background-color: #133369">
-                <div class="col-1"></div>
-                <div class="col-1">
-                	<i class="bi bi-bell-fill fs-3">
-                	<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger fs-6">
-    							99+</span>
-    				<span class="visually-hidden">unread messages</span></i>
-                </div>
+                <div class="col-2"></div>
                 <div class="col align-self-center">
                     <a class="navbar-brand" href="./mainpage">현장실습 지원 센터</a>
                 </div>
@@ -92,13 +281,34 @@
                 <div class="col align-self-center">
                     <a class="navbar-brand" href="../../tl_b/common/studentMainPage">보건 센터</a>
                 </div>
-                <div class="col-3">    
-                    <form class="d-flex ps-5" role="search">
-                        <input class="form-control me-2 py-0" type="search" placeholder="검색어 입력" aria-label="Search">
-                        <button class="btn btn-outline-light py-0" type="submit">Search</button>
-                    </form>
+                <div class="col-1 position-relative pb-0">
+                	<a class="navbar-brand" href="#" onclick="showNotifyModal()"><i class="bi bi-bell-fill pe-1">
+                	<span id="reloadNotifyCount" class="position-absolute top-70 start-50 badge rounded-pill bg-danger d-none px-1 py-0" style="font-size: xx-small;">
+    				</span>
+    				</i></a> 
                 </div>
-                <div class="col-1"></div>
+                <div class="col-2"></div>
+            </div>
+            <div class="row">
+            	<div class="col">
+                    <div id="alertBox" class="alert alert-primary position-fixed bottom-0 end-0 me-5 d-none" role="alert" style="height: 8em; width: 20em;">
+                        <div class="row text-start ">
+                            <div id="sender" class="col fw-bold ">
+                                [취업 창업센터] 
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div id="message" class="col">
+                                알림 내용 블라블라블라블라블라이마ㅓㄹ이마ㅓ 답글이 등록되었습니다.
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-end">
+                                <a id="link" class="alert-link Text-end">바로가기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row mt-3">
                 <div class="col-2">
@@ -124,7 +334,6 @@
                                   		현재 상태: 재학생  
                                 	</div>
                             	</c:otherwise>
-                            
                             </c:choose>
                                 
                             </div>
@@ -160,8 +369,69 @@
                         </div>
                     </div>
                 </div>
+            </div>    
+        </div>
+        
+         <div id="showMyNotifyListModal" class="modal" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-scrollable">
+              <div class="modal-content" >
+                <div class="row">
+                        <div class="col"></div> 
+                        <div id="newNotify"class="col-5 px-0  mt-4 fs-5 text-center ">
+                            <a class="nav-link n" href="#"  onclick="loadUnreadNotifyList()">신규 알림</a>
+                        </div>
+                        <div class="col"></div>
+                        <div id="readNotify"class="col-4 mt-4 fs-5 text-center">
+                            <a class="nav-link" href="#" onclick="checkReadNotifyList()">이전 알림</a>
+                        </div>
+                        <div class="col-1 ps-0" style="font-size: small;">
+                            <button id="xbutton" type="button" class="btn-close mt-2" data-bs-dismiss="modal"></button>
+                       </div>
+                </div>
+                <div class="modal-body">
+                     <div  class="row ">
+                        <div class="col-1"></div>
+                        <div id="unreadNotifyListBox" class="col ">
+                            
+                        </div>
+                        <div class="col-1"></div>
+                     </div>
+                </div>
+              </div>
             </div>
         </div>
+        <div ></div>
+        <div id="notifyTemplete" class="d-none">
+	        <div class="row my-3 unreadNotifyWrapper">
+	        	<div class="col">
+	        		<a class="navbar-brand link" href="#">
+	             	<div class="row py-2 border rounded">
+	                 	<div class="col-2 fs-4 text-center mt-1 ms-3">
+	                    	 <i class="bi bi-megaphone" style="color: #133369;"></i>
+	                 	</div>
+	                	 <div class="col">
+	                     	<div class="row pt-1">
+	                        	 <div class="col fw-bold sender">
+	                            	 [취업창업]
+	                         	</div>
+	                         	<div class="col text-end text-secondary created_at" style="font-size: small;">
+	                            	 2023.12.06.
+	                         	</div>
+	                    	</div>
+	                     	<div class="row mt-2 pb-2">
+	                         	<div class="col message">
+	                            	 ekekkddkdkkddkdkdkdkdkdkdkdkk!!!
+	                         	</div>
+	                     	</div>
+	                 	</div>
+		             </div>
+		             </a>
+	        	</div>	
+	        </div>
+        </div>
+        
+        
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>

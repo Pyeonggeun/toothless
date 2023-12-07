@@ -135,5 +135,35 @@
 		DELETE FROM tl_jic_external_info WHERE external_pk=#{external_pk}
 	</delete>
 	
+	
+	<!-- 기업 찜하기 -->
+	<insert id="insertInterestCompany">
+		INSERT INTO tl_d_interest_company VALUES(
+			tl_d_interest_company_seq.nextval,
+			#{com_pk},
+			#{student_pk}
+		)
+	</insert>
+	
+	<!-- 기업 찜 취소 -->
+	<delete id="deleteInterestCompany">
+		DELETE FROM tl_d_interest_company
+		WHERE STUDENT_PK=#{student_pk}
+		AND com_pk=#{com_pk}
+	</delete>
+	
+	<!-- 학생이 기업 찜한거 카운트 -->
+	<select id="studentInterestCount" resultType="int">
+		SELECT COUNT(*) FROM tl_d_interest_company
+		WHERE STUDENT_PK=#{student_pk}
+		AND com_pk=#{com_pk}
+	</select>
+	
+	<!-- 기업 전체 카운트 -->
+	<select id="companyInterestCount" resultType="int">
+		SELECT COUNT(*) FROM tl_d_interest_company
+		WHERE com_pk=#{com_pk}
+	</select>
+	
 
 </mapper>
