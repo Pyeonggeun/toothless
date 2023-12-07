@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 import com.mkfactory.toothless.c.huyeoung.mapper.HuyeoungInternshipSqlMapper;
 
@@ -42,6 +43,18 @@ public class HuyeoungInternshipServiceImpl {
 		for (AjdksInternshipCourseDto aDto : AjdksInternshipArray) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("AjdksInternshipCourseDto", aDto);
+			
+			ajdksInternshipCourseDto.setCompany_pk(aDto.company_pk);
+			
+			//System.out.println("company_pk ["+aDto.company_pk+"]");
+			// 사업체명 조회
+			AjdksCompanyInfoDto bdto =  huyeoungInternshipSqlMapper.selectInternshipCompanyId(ajdksInternshipCourseDto);
+			
+			map.put("company_name", bdto.company_name);
+			
+			//System.out.println("company_name ["+bdto.company_name+"]");
+			//System.out.println("course_title ["+aDto.course_title+"]");
+			list.add(map);
 		}
 		return list;
 	}
@@ -51,9 +64,13 @@ public class HuyeoungInternshipServiceImpl {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
+		//System.out.println("상세조회 internship_course_pk["+ajdksInternshipCourseDto.internship_course_pk+"]");
+		
 		AjdksInternshipCourseDto AjdksInternshipDtl = huyeoungInternshipSqlMapper
 				.selectInternshipDtil(ajdksInternshipCourseDto);
-
+		
+		//System.out.println("상세조회 AjdksInternshipDtl internship_course_pk["+AjdksInternshipDtl.internship_course_pk+"]");
+		
 		map.put("AjdksInternshipDtl", AjdksInternshipDtl);
 
 		return map;

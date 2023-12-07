@@ -146,6 +146,38 @@
 		AND COUNSEL_HOUR = #{counsel_hour}
 	</select>
 	
+	<!-- 상담원 불가일정 insert -->
+	<insert id="insertImpossibleDateInfo">
+		INSERT INTO cp_impossible_date VALUES (
+			cp_impossible_date_seq.nextval,
+			#{counselor_id},
+			#{start_year},
+			#{start_month},
+			#{start_date},
+			#{start_hour},
+			#{end_year},
+			#{end_month},
+			#{end_date},
+			#{end_hour},
+			#{reason},
+			SYSDATE
+		)
+	</insert>
+	
+	<!-- 상담원별 불가 일정 리스트 출력 -->
+	<select id="selectImpossibleDateListByCounselorId" resultType="com.mkfactory.toothless.e.dto.ImpossibleDateDto">
+		SELECT * FROM cp_impossible_date
+		WHERE counselor_id = #{counselor_id}
+	</select>
+	
+	<!-- 상담원별 불가 일정 날짜형식으로 포맷한 리스트 -->
+	<select id="selectImpossibleDateMap" resultType="map">
+		SELECT 
+		    TO_DATE(start_year || '-' || start_month || '-' || start_date || ' ' || start_hour, 'YYYY-MM-DD HH24') AS START_DATE,
+		    TO_DATE(end_year || '-' || end_month || '-' || end_date || ' ' || end_hour, 'YYYY-MM-DD HH24') AS END_DATE
+		FROM cp_impossible_date
+		WHERE counselor_id = #{counselor_id}
+	</select>
 	
 
 </mapper>

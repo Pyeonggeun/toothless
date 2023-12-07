@@ -8,7 +8,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
+import com.mkfactory.toothless.e.dto.CounselorDto;
+import com.mkfactory.toothless.e.dto.GroupCounselCounselorDto;
 import com.mkfactory.toothless.e.dto.GroupCounselDto;
 import com.mkfactory.toothless.e.dto.GroupCounselReservationDto;
 import com.mkfactory.toothless.e.groupcounsel.mapper.GroupCounselStaffSqlMapper;
@@ -27,50 +30,86 @@ public class GroupCounselStaffServiceImpl {
 	
 	// 집단상담 리스트 가져오기
 	public List<Map<String, Object>> readGroupCounselList() {
+		List<GroupCounselDto> groupCounselList = groupCounselStaffMapper.selectGroupCounselList();
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
-		List<Map<String, Object>> grouopCounselList = new ArrayList<Map<String,Object>>();
-		List<GroupCounselDto> list = groupCounselStaffMapper.selectGroupCounselList();
-		
-		for(GroupCounselDto groupCounselDto : list) {
-			
+		for(GroupCounselDto groupCounselDto : groupCounselList) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			
-			int count = groupCounselStaffMapper.selectGroupCounselReservationCount(groupCounselDto.getId()) - groupCounselDto.getAmount();
-			
-			
-			List<GroupCounselReservationDto> list2 = groupCounselStaffMapper.selectGroupCounselReservationList(groupCounselDto.getId()); 
-			List<Map<String, Object>> groupCounselReservationByStudentList = new ArrayList<Map<String,Object>>();
-			
-			for(GroupCounselReservationDto groupCounselReservationDto : list2) {
-				Map<String, Object> map2 = new HashMap<String, Object>();
-				
-				StudentInfoDto studentInfoDto = groupCounselStaffMapper.selectGroupCounselReservationByStudent(groupCounselReservationDto.getStudent_pk());
-				
-				map2.put("studentInfoDto", studentInfoDto);
-				map2.put("groupCounselReservationDto", groupCounselReservationDto);
-				
-				groupCounselReservationByStudentList.add(map2);
-			}
+			int count = groupCounselStaffMapper.selectGroupCounselReservationCount(groupCounselDto.getId());
 			
 			map.put("count", count);
 			map.put("groupCounselDto", groupCounselDto);
-			map.put("groupCounselReservationByStudentList", groupCounselReservationByStudentList);
 			
-			grouopCounselList.add(map);
+			list.add(map);
 		}
 		
-		return grouopCounselList;
+		return list;
 	}
 
 	
-	// 집단 상담 디테일 가져오기
-	public GroupCounselDto readGroupCounselDetail(int id) {
+	// 집단 상담 상세 정보 가져오기
+	public Map<String, Object> readGroupCounselDetail(int id) {
 		
 		GroupCounselDto groupCounselDto = groupCounselStaffMapper.selectGroupCounselById(id);
+		//인원 - 신청인원 수
+		int count = groupCounselStaffMapper.selectGroupCounselReservationCount(groupCounselDto.getId());
 		
-		return groupCounselDto;
+		List<GroupCounselReservationDto> groupCounselReservationList = groupCounselStaffMapper.selectGroupCounselReservationList(id);
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		for(GroupCounselReservationDto groupCounselReservationDto : groupCounselReservationList) {
+			
+			//집단 상담 신청한 학생들 정보
+			Map<String, Object> map = new HashMap<String, Object>();
+			int student_pk = groupCounselReservationDto.getStudent_pk();
+			StudentInfoDto studentInfoDto = groupCounselStaffMapper.selectStudentInfoById(student_pk);
+			
+			int department_pk = studentInfoDto.getDepartment_pk();
+			DepartmentCategoryDto departmentCategoryDto = groupCounselStaffMapper.selectDepartmentCatecoryByStudentId(department_pk);
+			
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("departmentCategoryDto", departmentCategoryDto);
+			
+			list.add(map);
+		}
+		
+		List<GroupCounselCounselorDto> groupCounselCounselorList = groupCounselStaffMapper.selectGroupCounselByCounselor(id);
+		List<Map<String, Object>> list2 = new ArrayList<Map<String,Object>>();
+		
+		for(GroupCounselCounselorDto groupCounselCounselorDto : groupCounselCounselorList) {
+			
+			//집단 상담 신청한 학생들 정보
+			Map<String, Object> map = new HashMap<String, Object>();
+			int counselor_id = groupCounselCounselorDto.getCounselor_id();
+			CounselorDto counselorDto = groupCounselStaffMapper.selectCounselorById(counselor_id);
+			
+			map.put("counselorDto", counselorDto);
+			
+			list2.add(map);
+		}		
+		
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("counselorList", list2);
+		map.put("studentInfoList", list);
+		map.put("groupCounselDto", groupCounselDto);
+		map.put("count", count);
+		
+		return map;
 	}
 	
 	
+	public List<CounselorDto> readGrouopCounselCounselorList(){
+		
+		return groupCounselStaffMapper.selectCounselorList();
+	}
+	
+	public void insertGroupCounselCounselor(GroupCounselCounselorDto groupCounselCounselorDto) {
+		groupCounselStaffMapper.insertGroupCounselCounselor(groupCounselCounselorDto);
+		
+	}
 	
 }

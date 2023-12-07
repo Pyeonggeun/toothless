@@ -211,7 +211,7 @@
 												${studentApplying.studentApplyingDto.status}
 											</div>
 											<div class="col-2 align-self-center border-end d-grid px-4">
-												<button class="btn btn-secondary btn-sm rounded-1">상세보기</button>
+												<a class="btn btn-secondary btn-sm rounded-1" href="./viewStudentDetailPage?student_pk=${studentApplying.studentInfoDto.student_pk}">상세보기</a>
 											</div>
 											<div class="col-1 align-self-center">
 												<fmt:formatDate value="${studentApplying.studentApplyingDto.created_at}" pattern="yyyy.MM.dd"/>
@@ -288,7 +288,7 @@
 														</c:when>
 													</c:choose>
 													<div class="col-2 align-self-center border-end d-grid px-4">
-														<button class="btn btn-secondary btn-sm rounded-1">상세보기</button>
+														<a class="btn btn-secondary btn-sm rounded-1" href="./viewStudentDetailPage?student_pk=${studentApplying.studentInfoDto.student_pk}">상세보기</a>
 													</div>
 													<div class="col-1 align-self-center">
 														<fmt:formatDate value="${studentApplying.studentApplyingDto.created_at}" pattern="yyyy.MM.dd"/>
@@ -348,7 +348,7 @@
 												${studentIntern.studentProfessorInfo.name}
 											</div>
 											<div class="col-1 align-self-center border-end d-grid px-3">
-												<button class="btn btn-outline-secondary btn-sm rounded-1">상세보기</button>
+												<a class="btn btn-secondary btn-sm rounded-1" href="./viewStudentDetailPage?student_pk=${studentIntern.studentInfoDto.student_pk}">상세보기</a>
 											</div>
 											<div class="col-2 align-self-center border-end" style="font-size:0.9em">
 												출근 ${studentIntern.countAttendance}&nbsp;
@@ -392,7 +392,7 @@
 											<div class="col-2 border-end">
 												출결
 											</div>
-											<div class="col-2">
+											<div class="col-2 border-end">
 												업무일지
 											</div>
 											<div class="col-2">
@@ -414,7 +414,7 @@
 												${studentIntern.studentProfessorInfo.name}
 											</div>
 											<div class="col-1 align-self-center border-end d-grid px-3">
-												<button class="btn btn-outline-secondary btn-sm rounded-1">상세보기</button>
+												<a class="btn btn-secondary btn-sm rounded-1" href="./viewStudentDetailPage?student_pk=${studentIntern.studentInfoDto.student_pk}">상세보기</a>
 											</div>
 											<div class="col-2 align-self-center border-end" style="font-size:0.9em">
 												출근 ${studentIntern.countAttendance}&nbsp;
@@ -437,64 +437,88 @@
 																		<span class="modal-title fw-semibold fs-5" id="insertProfessorEvaluation">학생 평가 입력</span>
 																		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 																	</div>
+																	
+																	<form action="./internEvaluationProgress?student_intern_pk=${studentIntern.studentInternDto.student_intern_pk}" method="post">
 																	<div class="modal-body text-start">
-																		<div class="row">
+																		<div class="row mt-2">
+																			<div class="col fw-semibold" style="font-size:1.05em">
+																				성실성
+																			</div>
+																		</div>
+																		<div class="row mt-2">
+																			<div class="col" style="font-size:0.9em">
+																				 <input class="form-check-input" type="radio" name="diligence_score" value="5"> 매우 높음
+																				 <input class="form-check-input ms-3" type="radio" name="diligence_score" value="4"> 높음
+																				 <input class="form-check-input ms-3" type="radio" name="diligence_score" value="3"> 중간
+																				 <input class="form-check-input ms-3" type="radio" name="diligence_score" value="2"> 낮음
+																				 <input class="form-check-input ms-3" type="radio" name="diligence_score" value="1"> 매우 낮음
+																			</div>
+																		</div>
+																		<div class="row mt-4">
+																			<div class="col fw-semibold" style="font-size:1.05em">
+																				책임감
+																			</div>
+																		</div>
+																		<div class="row mt-2">
+																			<div class="col" style="font-size:0.9em">
+																				 <input class="form-check-input" type="radio" name="responsibility_score" value="5"> 매우 높음
+																				 <input class="form-check-input ms-3" type="radio" name="responsibility_score" value="4"> 높음
+																				 <input class="form-check-input ms-3" type="radio" name="responsibility_score" value="3"> 중간
+																				 <input class="form-check-input ms-3" type="radio" name="responsibility_score" value="2"> 낮음
+																				 <input class="form-check-input ms-3" type="radio" name="responsibility_score" value="1"> 매우 낮음
+																			</div>
+																		</div>
+																		<div class="row mt-4">
+																			<div class="col fw-semibold" style="font-size:1.05em">
+																				협조성
+																			</div>
+																		</div>
+																		<div class="row mt-2">
+																			<div class="col" style="font-size:0.9em">
+																				 <input class="form-check-input" type="radio" name="coorporation_score" value="5"> 매우 높음
+																				 <input class="form-check-input ms-3" type="radio" name="coorporation_score" value="4"> 높음
+																				 <input class="form-check-input ms-3" type="radio" name="coorporation_score" value="3"> 중간
+																				 <input class="form-check-input ms-3" type="radio" name="coorporation_score" value="2"> 낮음
+																				 <input class="form-check-input ms-3" type="radio" name="coorporation_score" value="1"> 매우 낮음
+																			</div>
+																		</div>
+																		<div class="row mt-4">
+																			<div class="col fw-semibold" style="font-size:1.05em">
+																				업무달성도
+																			</div>
+																		</div>
+																		<div class="row mt-2">
+																			<div class="col mb-2" style="font-size:0.9em">
+																				 <input class="form-check-input" type="radio" name="achievement_score" value="5"> 매우 높음
+																				 <input class="form-check-input ms-3" type="radio" name="achievement_score" value="4"> 높음
+																				 <input class="form-check-input ms-3" type="radio" name="achievement_score" value="3"> 중간
+																				 <input class="form-check-input ms-3" type="radio" name="achievement_score" value="2"> 낮음
+																				 <input class="form-check-input ms-3" type="radio" name="achievement_score" value="1"> 매우 낮음
+																			</div>
+																		</div>
+																		<div class="row mt-4">
+																			<div class="col fw-semibold" style="font-size:1.05em">
+																				총평가 입력
+																			</div>
+																		</div>
+																		<div class="row mt-2">
 																			<div class="col">
-																				<div class="row">
-																					<div class="col fw-semibold" style="font-size:1.05em">
-																						성실성
-																					</div>
-																				</div>
-																				<div class="row mt-2">
-																					<div class="col" style="font-size:0.9em">
-																						 <input class="form-check-input" type="radio" name="diligence_score" value="5"> 매우 높음
-																						 <input class="form-check-input ms-3" type="radio" name="diligence_score" value="4"> 높음
-																						 <input class="form-check-input ms-3" type="radio" name="diligence_score" value="3"> 중간
-																						 <input class="form-check-input ms-3" type="radio" name="diligence_score" value="2"> 낮음
-																						 <input class="form-check-input ms-3" type="radio" name="diligence_score" value="1"> 매우 낮음
-																					</div>
-																				</div>
-																				<div class="row">
-																					<div class="col fw-semibold" style="font-size:1.05em">
-																						책임감
-																					</div>
-																				</div>
-																				<div class="row mt-2">
-																					<div class="col" style="font-size:0.9em">
-																						 <input class="form-check-input" type="radio" name="responsibility_score" value="5"> 매우 높음
-																						 <input class="form-check-input ms-3" type="radio" name="responsibility_score" value="4"> 높음
-																						 <input class="form-check-input ms-3" type="radio" name="responsibility_score" value="3"> 중간
-																						 <input class="form-check-input ms-3" type="radio" name="responsibility_score" value="2"> 낮음
-																						 <input class="form-check-input ms-3" type="radio" name="responsibility_score" value="1"> 매우 낮음
-																					</div>
-																				</div>
-																				<div class="row">
-																					<div class="col fw-semibold" style="font-size:1.05em">
-																						협조성
-																					</div>
-																				</div>
-																				<div class="row mt-2">
-																					<div class="col" style="font-size:0.9em">
-																						 <input class="form-check-input" type="radio" name="coorporation_score" value="5"> 매우 높음
-																						 <input class="form-check-input ms-3" type="radio" name="coorporation_score" value="4"> 높음
-																						 <input class="form-check-input ms-3" type="radio" name="coorporation_score" value="3"> 중간
-																						 <input class="form-check-input ms-3" type="radio" name="coorporation_score" value="2"> 낮음
-																						 <input class="form-check-input ms-3" type="radio" name="coorporation_score" value="1"> 매우 낮음
-																					</div>
-																				</div>
+																				<textarea class="form-control rounded-0" rows="5" cols="20" name="review"></textarea>
 																			</div>
 																		</div>
 																		
 																	</div>
 																	<div class="modal-footer border-top-0">
-																		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">평가 입력</button>
+																		<input type="hidden" name="internship_course_pk" value="${studentIntern.studentInternDto.internship_course_pk}">
+																		<button type="submit" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">평가 입력</button>
 																	</div>
+																	</form>
 																</div>
 															</div>
 														</div>
 													</c:when>
 													<c:when test="${studentIntern.didEvaluateIntern > 0}">
-														<span class="fw-semibold text-secondary">성적 입력완료</span>
+														<span class="fw-semibold text-secondary" style="font-size:0.9em">성적 입력완료</span>
 													</c:when>
 												</c:choose>
 											</div>

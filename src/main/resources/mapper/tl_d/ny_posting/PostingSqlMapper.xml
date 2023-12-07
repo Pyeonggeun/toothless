@@ -4,10 +4,17 @@
 
 <mapper namespace="com.mkfactory.toothless.d.ny.posting.mapper.PostingSqlMapper">
 
+	<!-- 교직원 -->
+
+	<!-- 채용공고 시퀀스 -->
+	<select id="createJobPostingPk" resultType="int">
+		SELECT tl_d_job_posting_seq.nextval FROM Dual
+	</select>
+
 	<!-- 채용공고등록 -->
 	<insert id="insertJobPostingInfo">
 		INSERT INTO TL_D_JOB_POSTING VALUES(
-			tl_d_job_posting_seq.nextval,
+			#{job_posting_pk},
 			#{com_pk},
 			#{staff_pk},
 			#{job_field_category_pk},
@@ -139,5 +146,46 @@
 	</update>
 	
 	
+	<!-- 기업 -->
+	
+	<!-- 기업 + 외부인 -->
+	<select id="selectByExternalPk" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
+		SELECT tdc.* 
+		FROM TL_D_COMPANY tdc
+		WHERE tdc.COM_MANAGER_PK IN (
+			SELECT tdcm.COM_MANAGER_PK 
+			FROM TL_D_COMPANY_MANAGER tdcm
+			WHERE tdcm.EXTERNAL_PK = #{external_pk}
+		)
+	</select>
+	
+	<!-- 공고찜 추가 -->
+	<insert id="insertInterestPosting">
+		INSERT INTO TL_D_INTEREST_POSTING VALUES(
+			tl_d_interest_posting_seq.nextval,
+			#{job_posting_pk},
+			#{student_pk}
+		)
+	</insert>
+	
+	<!-- 공고찜 삭제 -->
+	<delete id="deleteInterestPosting">
+		DELETE FROM TL_D_INTEREST_POSTING 
+		WHERE student_pk = #{student_pk}
+		AND job_posting_pk = #{job_posting_pk}
+	</delete>
+	
+	<!-- 공고찜 했던가? -->
+	<select id="selectMyPostingInterestCount" resultType="int">
+		SELECT count(*) FROM TL_D_INTEREST_POSTING 
+		WHERE student_pk = #{student_pk}
+		AND job_posting_pk = #{job_posting_pk}
+	</select>
+	
+	<!-- 총 공고찜 -->
+	<select id="selectAllInterestPosting" resultType="int">
+		SELECT count(*) FROM TL_D_INTEREST_POSTING 
+		WHERE job_posting_pk = #{job_posting_pk}
+	</select>
 
 </mapper>

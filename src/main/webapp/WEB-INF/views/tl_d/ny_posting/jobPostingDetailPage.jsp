@@ -124,7 +124,7 @@
 				<!-- 우대사항 -->
 				<div class="row border">
 					<div class="col p-3 ms-3">
-						&nbsp;&nbsp;${jobPostingDetail.jobPostingDto.preference}	
+						${jobPostingDetail.jobPostingDto.preference}	
 					</div>
 				</div>
 				<!-- 채용인원 -->

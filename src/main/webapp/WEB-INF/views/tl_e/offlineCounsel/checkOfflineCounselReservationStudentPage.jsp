@@ -236,13 +236,13 @@
 							<form action="./counselCancelPage" method="get">
 								<c:choose>
 									<c:when test="${map.offlineReservationDto.state == '신청' }">
-										<input class="btn btn-outline-danger" type="submit" value="예약취소">
+										<input class="btn btn-danger" type="submit" value="예약취소">
 									</c:when>
 									<c:when test="${map.offlineReservationDto.state == '완료' }">
-										<input class="btn btn-danger" type="submit" value="예약취소" disabled="disabled">
+										<input class="btn btn-outline-danger" type="submit" value="예약취소" disabled="disabled">
 									</c:when>
 									<c:otherwise>
-										<input class="btn btn-danger" type="submit" value="취소완료" disabled="disabled">
+										<input class="btn btn-outline-danger" type="submit" value="취소완료" disabled="disabled">
 									</c:otherwise>
 								</c:choose>
 								<input name="reservation_id" type="hidden" value="${map.offlineReservationDto.id }">
@@ -254,8 +254,11 @@
 									<c:when test="${!empty map.offlineSurveyDto.id }">
 										<input class="btn btn-dark" type="submit" value="리뷰확인">
 									</c:when>
-									<c:otherwise>
+									<c:when test="${empty map.offlineSurveyDto.id && map.offlineReservationDto.state == '완료' }">
 										<input class="btn btn-outline-dark" type="submit" value="리뷰작성">
+									</c:when>
+									<c:otherwise>
+										<input class="btn btn-outline-dark" type="submit" value="리뷰작성" disabled="disabled">
 									</c:otherwise>
 								</c:choose>
 								<input name="reservation_id" type="hidden" value="${map.offlineReservationDto.id }">

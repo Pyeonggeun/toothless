@@ -18,7 +18,7 @@
 			<!-- 좌측 여백 -->
 			<div class="col-1"></div>
 			<div class="col-2 py-4">
-				<div class="fw-bold" style="font-size: 1.3em;">학사관리시스템</div>
+				<div class="fw-bold" style="font-size: 1.1em;">학사관리시스템</div>
 			</div>
 			<div class="col"></div>
 			<!-- 우측 여백 -->
@@ -26,19 +26,17 @@
 		</div>
 		
 		
-		<div class="row border-bottom bg-success bg-opacity-25">
-			
+		<div class="row border-bottom bg-primary" style="background-image: url('../../../resources/img/groupCounsel/Logo.jpg'); height: 15em">
 			<!-- 좌측 여백 -->
 			<div class="col-1"></div>
 			
 			<!-- 나중에 카테고리 형식으로 디자인 -->
 			<div class="col-2">
 				<div class="row" style="height: 100%;">
-					<div class="col-1"></div>
 					<div class="col">
-						<div class="row" style="height: 30%;"></div>
-						<div class="row" style="height: 70%;">
-							<div class="col" style="background-color: MediumBlue; opacity: 0.6;">
+						<div class="row" style="height: 40%;"></div>
+						<div class="row" style="height: 60%;">
+							<div class="col" style="background-color: gray; opacity: 0.6;">
 								<div class="fw-bold text-white pt-4 ps-2" style="font-size: 1.5em;">집단 상담</div>
 							</div>
 						</div>
@@ -51,14 +49,15 @@
 			<div class="col pt-5 pb-4">
 				<div class="row">
 					<div class="col-4">
-						<div class="row py-2">
+						<div class="row" style="height: 6.2em;"></div>
+						<div class="row">
 							<div class="col">
-								<div class="fw-bold" style="font-size: 1.9em;">상담 등록</div>						
+								<div class="fw-bold" style="font-size: 1.9em; color: white;">상담 등록</div>						
 							</div>
 						</div>
 						<div class="row">
 							<div class="col">
-								<div class="text-secondary" style="font-size: 0.8"><i class="bi bi-house-door-fill"></i> / 집단 상담 / 상담 등록</div>
+								<div class="fw-bold" style="font-size: 0.8; color: white;"><i class="bi bi-house-door-fill"></i> / 집단 상담 / 상담 등록</div>
 							</div>
 						</div>
 					</div>
@@ -82,16 +81,15 @@
 			<!-- 카테고리 -->
 			<div class="col-2">
 				<div class="row">
-					<div class="col-1"></div>
 					<div class="col">
-						<div class="row" style="background-color: MediumBlue; opacity: 0.6;">
+						<div class="row" style="background-color: gray; opacity: 0.6;">
 							<div class="col-1"></div>
 							<div class="col py-4 border-bottom border-white">
 								<div class="text-white" style="font-size: 1.1em;">상담 등록</div>
 							</div>
 							<div class="col-1"></div>
 						</div>
-						<div class="row" style="background-color: MediumBlue; opacity: 0.6;">
+						<div class="row" style="background-color: gray; opacity: 0.6;">
 							<div class="col-1"></div>
 							<div class="col py-4">
 								<div class="text-white" style="font-size: 1.1em;">등록 현황</div>

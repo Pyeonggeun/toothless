@@ -13,7 +13,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col">
-				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>
+				<jsp:include page="../common/studentTopNavi.jsp"></jsp:include>
 			</div>
 		</div>
 	 	<%-- 전체 크기 --%>
@@ -22,7 +22,7 @@
 			<div class="col-1"></div>
 			<%-- 취업팀 메뉴 바 --%>
 			<div class="col-1 me-5">
-				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
+				<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 			</div>
 			<%-- 가운데 여백--%>	
 			<div class="col-1 border-start"></div>
@@ -59,7 +59,17 @@
 							</a>
 						</div>
 						<!-- 별 크기 생각해보기 -->
-						<div class="col-1"><i class="fs-5 text-warning bi bi-star"></i></div>
+						<div class="col-1">
+							<c:choose>
+								<c:when test="${companyPostingForStudent.allPostingInterest == 0}">
+									<i class="text-warning bi bi-star"></i>
+								</c:when>
+								<c:otherwise>
+									<i class="text-warning bi bi-star-fill"></i>
+								</c:otherwise>
+							</c:choose>
+							<span>${companyPostingForStudent.allPostingInterest}</span>	
+						</div>
 					</div>
 					<div class="row mt-1 pb-3 border-bottom">
 						<!-- 가족기업여부 -->

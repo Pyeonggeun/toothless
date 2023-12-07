@@ -38,12 +38,20 @@ body {
 	font-size: small;
 }
 
+.jb-medium {
+	font-size: medium;
+}
+
 .labelcolor {
 	color: white;
 	background: #2B3D77;
 }
 
 .fontcolor {
+	color: $blue-800;
+}
+
+.fontcolor2 {
 	color: #2B3D77;
 }
 
@@ -115,34 +123,35 @@ body {
 							<div class="col">
 
 								<!-- 상단 텍스트 -->
-								<h3 class="jb-700 fontcolor">
+								<h3 class="jb-700 fontcolor2">
 									<i class="bi bi-box-arrow-in-down-right "></i> 관리자 현장실습 등록
 								</h3>
-
 
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<!-- 본문 작성 공간 -->
-				<form class="row g-3">
+				<form name="frm" id="frm" action="./ajdksInternshipReg" method="post">
+
+					<!-- 본문 작성 공간 -->
 
 					<!-- 고도화 진행 시 담당자 이름 삽입 -->
-					<div class="col-12">
+					<!--<div class="col-12">
 						<label class="visually-hidden" for="inlineFormInputGroupUsername"></label>
 						<div class="input-group">
 							<div class="input-group-text jb-700">담당자 입력</div>
 							<input type="text" class="form-control"
 								id="inlineFormInputGroupUsername"
-								placeholder="담당자 명의를 작성해주시기 바랍니다.">
+								placeholder="담당자 명의를 작성해주시기 바랍니다. 아직 글 넣으면 안 되므로 유의하기.">
 						</div>
-					</div>
+					</div>-->
 
 					<div class="col-md-7">
 						<label for="inputCity" class="form-label jb-700"> 글 제목 </label> <input
 							name="course_title" type="text" class="form-control"
-							id="inputCity" placeholder="50자 내외의 글 제목을 작성해주시기 바랍니다.">
+							style="font-size: 0.9em;" id="inputCity"
+							placeholder="50자 내외의 글 제목을 작성해주시기 바랍니다.">
 					</div>
 
 					<div class="col-md-5">
@@ -156,83 +165,67 @@ body {
 						</select>
 					</div>
 
-				</form>
+					<div class="row mt-2 mb-3 ">
 
+						<div class="col">
+							<div class="row"></div>
+						</div>
 
-				<div class="row mt-2 mb-3 ">
-
-					<div class="col">
-						<div class="row"></div>
 					</div>
 
-				</div>
-
-
-				<!-- 고도화 진행 시 글내용 삽입 -->
-				<div class="mb-3">
-					<label for="exampleFormControlTextarea1" class="form-label jb-700">글
-						내용</label>
-					<textarea class="form-control" id="exampleFormControlTextarea1"
-						rows="7"
-						placeholder="공고 모집사항 및 자격 조건을 작성해주시기 바랍니다. 아직 글 넣으면 안 되므로 유의하기."></textarea>
-				</div>
-
-				<form class="row g-3" action="./ajdksInternshipList" method="post">
+					<!-- 고도화 진행 시 글내용 삽입 -->
+					<div class="mb-3">
+						<label for="exampleFormControlTextarea1" class="form-label jb-700">글
+							내용</label>
+						<textarea class="form-control" id="exampleFormControlTextarea1"
+							rows="7" style="font-size: 0.9em;"
+							placeholder="공고 모집사항 및 자격 조건을 작성해주시기 바랍니다. 아직 글 넣으면 안 되므로 유의하기."></textarea>
+					</div>
 
 					<table class="table">
 
-						<thead class="table table-sm">
+						<thead class="table table-sm ">
 							<tr>
-								<th scope="col"><i class="bi bi-calendar-check"></i> 필수 날짜
-									입력 항목</th>
-								<th scope="col"></th>
+								<th scope="col"><i class="bi bi-check-circle-fill"></i> 필수
+									날짜 입력 항목</th>
+								<th scope="col"><i class="bi bi-calendar3"></i> 날짜 입력</th>
 
 							</tr>
 						</thead>
 
 
 						<!-- 기능 고도화 시 사용될 항목 -->
-						<tbody class="table table-sm">
+						<tbody class="table table-sm align-middle">
 							<tr>
-								<td scope="row">- 등록일자</td>
-								<td scope="row">
-									<input name="created_at" type="date"
-									class="form-control" id="form-control"> <label
-									class="fontcolor jb-small">오늘 날짜를 정확히 입력해주세요.</label></td>
+								<td scope="row" style="font-size: 0.9em;">- 모집기간시작</td>
+								<td scope="row"><input name="applying_start_date" type="date" class="form-control" style="font-size: 0.9em;"></td>
 							</tr>
 							<tr>
-								<td scope="row">- 모집기간시작</td>
-								<td scope="row"><input name="applying_start_date"
-									type="date" class="form-control" id="inputCity"></td>
-							</tr>
-							<tr>
-								<td scope="row">- 모집기간종료</td>
-								<td scope="row"><input name="applying_end_date" type="date"
-									class="form-control" id="inputCity"></td>
+								<td scope="row" style="font-size: 0.9em;">- 모집기간종료</td>
+								<td scope="row"><input name="applying_end_date" type="date" class="form-control"  style="font-size: 0.9em;"></td>
 
 							</tr>
 							<tr>
-								<td scope="row">- 실습기간시작</td>
-								<td scope="row"><input name="internship_start_date"
-									type="date" class="form-control" id="inputCity"></td>
+								<td scope="row" style="font-size: 0.9em;">- 실습기간시작</td>
+								<td scope="row"><input name="internship_start_date" type="date" class="form-control" style="font-size: 0.9em;"></td>
+							</tr>
+							<tr>
+								<td scope="row" style="font-size: 0.9em;">- 실습기간종료</td>
+								<td scope="row"><input name="internship_end_date" type="date" class="form-control" style="font-size: 0.9em;"></td>
 
 							</tr>
 							<tr>
-								<td scope="row">- 실습기간종료</td>
-								<td scope="row"><input name="internship_end_date"
-									type="date" class="form-control" id="inputCity"></td>
-
-							</tr>
-							<tr>
-								<td scope="row">- 선발결과발표일</td>
-								<td scope="row"><input name="announcement_date" type="date"
-									class="form-control" id="inputCity"></td>
-
+								<td scope="row" style="font-size: 0.9em;">- 선발결과발표일</td>
+								<td scope="row"><input name="announcement_date" type="date" class="form-control" style="font-size: 0.9em;"></td>
 							</tr>
 
 						</tbody>
 					</table>
-
+					<!--  팝업이 완성되면 아래 것들 지우고 다시 정리 -->
+					<input type="hidden" name="company_pk" value="2">
+					<input type="hidden" name="professor_pk" value="1">
+				    <input type="hidden" name="department_pk" value="1">				
+					
 				</form>
 
 
@@ -244,33 +237,53 @@ body {
 				</div>
 
 
-				<!-- 하단 -->
-				<div class="col-12 d-flex justify-content-end">
+				<!-- 하단 버튼 -->
+				<div class="col-12 justify-content-end">
 
-					<form class="row row-cols-lg-auto g-3 align-items-center">
+					<div class="row">
+					<div class="col">
+						<button onclick="javascript:fn_reg();" class="btn labelcolor"><i
+							class="bi bi-pencil-square"></i> 등록</button>
+					</div>
 
-						<div class="col">
-							<a href="./ajdksInternshipList" class="btn labelcolor"><i
-								class="bi bi-pencil-square"></i> 등록</a>
+					<div class="col">
+						<a href="./ajdksInternshipList" class="btn labelcolor"><i
+							class="bi bi-list-ul"></i> 목록으로</a>
+					</div>
+				</div>
+					<!-- 고도화 진행시 사용 -->
+
+					<div class="col">
+						<a href="" type="button" class="btn labelcolor"
+							data-bs-toggle="modal" data-bs-target="#exampleModal"> <i
+							class="bi bi-file-earmark-arrow-down"></i> 임시저장
+						</a>
+
+						<!-- Modal test -->
+						<div class="modal fade" id="exampleModal" tabindex="-1"
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">
+											현장실습 안내 페이지 저장 완료</h1>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body jb-small">임시 저장이 완료되었습니다. 연속 저장할
+										경우 기존 임시 저장 내역으로부터 덮어 씌워지므로 유의해주시기 바랍니다.</div>
+									<div class="modal-footer">
+										<a type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">닫기</a> <a href="" type="button"
+											class="btn labelcolor">저장 완료</a>
+									</div>
+								</div>
+							</div>
 						</div>
+					</div>
 
-						<div class="col">
-							<a href="./ajdksInternshipList" class="btn labelcolor"><i
-								class="bi bi-list-ul"></i> 목록으로</a>
-						</div>
-
-						<!-- 고도화 진행시 사용 -->
-
-						<div class="col">
-							<a href="" class="btn labelcolor"> <i
-								class="bi bi-file-earmark-arrow-down"></i> 임시저장
-							</a>
-						</div>
-
-					</form>
 
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -280,5 +293,46 @@ body {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 		crossorigin="anonymous"></script>
+		
+ 	<script>
+ 	function fn_reg() {
+		const frm = document.getElementById("frm");
+		
+		if(frm.course_title.value == "") {
+			alert("제목을 입력하여 주십시오.");
+			frm.course_title.focus();
+			return;
+		}
+		
+		if(frm.applying_start_date.value == "") {
+			alert("모집기간 시작 일자를 입력하여 주십시오.");
+			frm.applying_start_date.focus();
+			return;
+		}
+		if(frm.applying_end_date.value == "") {
+			alert("모집기간종료 일자를 입력하여 주십시오.");
+			frm.applying_end_date.focus();
+			return;
+		}
+		if(frm.internship_start_date.value == "") {
+			alert("실습기간시작 일자를 입력하여 주십시오.");
+			frm.internship_start_date.focus();
+			return;
+		}
+		if(frm.internship_end_date.value == "") {
+			alert("실습기간종료 일자를 입력하여 주십시오.");
+			frm.internship_end_date.focus();
+			return;
+		}
+		if(frm.announcement_date.value == "") {
+			alert("선발결과발표일 일자를 입력하여 주십시오.");
+			frm.announcement_date.focus();
+			return;
+		}
+		
+		frm.submit();
+ 	}
+ 	
+ 	</script>
 </body>
 </html>

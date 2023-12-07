@@ -20,6 +20,10 @@ public interface BuildingSqlMapper {
 	//호실 등록(호)
 	public void registerRoomInfo(DormRoomDto dormRoomDto);
 	
+	//호실 
+	public List<DormRoomDto> selectRooms();
+	public DormRoomDto selectRoomByPk(int dorm_room_pk);
+	public void deleteRoom(int dorm_room_pk);
 	
 	//정원 카테고리 
 	public List<DormCategoryDto> dormCategory();
@@ -29,7 +33,6 @@ public interface BuildingSqlMapper {
 	//정원 카테고리 update
 	public void updateCategory(DormCategoryDto dormCategory);
 	
-	//
 	
 	
 }

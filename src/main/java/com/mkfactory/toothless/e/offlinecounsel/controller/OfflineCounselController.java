@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
+import com.mkfactory.toothless.e.dto.ImpossibleDateDto;
 import com.mkfactory.toothless.e.dto.OfflineReservationDto;
 import com.mkfactory.toothless.e.dto.OfflineSurveyDto;
 import com.mkfactory.toothless.e.offlinecounsel.service.OfflineCounselServiceImpl;
@@ -68,6 +69,7 @@ public class OfflineCounselController {
 		
 		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
 		int external_pk = externalInfoDto.getExternal_pk();
+		System.out.println(external_pk);
 		
 		List<Map<String, Object>> list = offlineCounselService.getReservationListByCounselorId(external_pk);
 		model.addAttribute("list", list);
@@ -154,6 +156,35 @@ public class OfflineCounselController {
 		return "redirect:./checkOfflineCounselReservationStudentPage";
 	}
 	
+	@RequestMapping("scheduleManagePage")
+	public String scheduleManagePage(HttpSession session, Model model) {
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		
+		List<ImpossibleDateDto> list = offlineCounselService.getImpossibleDateByExternalId(externalInfoDto.getExternal_pk());
+		model.addAttribute("list", list);
+		
+		return "tl_e/offlineCounsel/scheduleManagePage";
+	}
+	
+	
+	@RequestMapping("vacationRegisterPage")
+	public String vacationRegisterPage(HttpSession session, Model model) {
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		CounselorDto counselorDto = offlineCounselService.getCounselorPk(externalInfoDto.getExternal_pk());
+		model.addAttribute("counselorDto", counselorDto);
+		
+		return "tl_e/offlineCounsel/vacationRegisterPage";
+	}
+	
+	@RequestMapping("vacationRegisterProcess")
+	public String vacationRegisterProcess(ImpossibleDateDto params) {
+		
+		offlineCounselService.insertImpossibleDateInfo(params);
+		
+		return "redirect:./scheduleManagePage";
+	}
 	
 	
 }
