@@ -16,7 +16,7 @@ import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 public class EunbiProfessorController {
 	
 	@Autowired
-	private EunbiProfessorServiceImpl professorServiece;
+	private EunbiProfessorServiceImpl professorService;
 	
 	@RequestMapping("internshipMainPage")
 	public String internshipMainPage(HttpSession session, Model model) {
@@ -24,7 +24,7 @@ public class EunbiProfessorController {
 		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
 		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
 		
-		model.addAttribute("chargedInternshipCourse", professorServiece.viewChargedInternshipCourse(sessionProfessorPk));
+		model.addAttribute("chargedInternshipCourse", professorService.viewChargedInternshipCourse(sessionProfessorPk));
 		
 		
 		return "tl_c/eunbi/professor/internshipMainPage";
@@ -37,8 +37,8 @@ public class EunbiProfessorController {
 		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
 		
 		model.addAttribute("sessionProfessorInfo", sessionProfessorInfo);
-		model.addAttribute("studentsInfo", professorServiece.viewStudentsWithApplyingStatus(sessionProfessorPk));
-		model.addAttribute("studentSearchFilters", professorServiece.studentSearchFilter());
+		model.addAttribute("studentsInfo", professorService.viewStudentsWithApplyingStatus(sessionProfessorPk));
+		model.addAttribute("studentSearchFilters", professorService.studentSearchFilter());
 		
 		return "tl_c/eunbi/professor/viewChargedStudentPage";
 	}
@@ -46,32 +46,32 @@ public class EunbiProfessorController {
 	@RequestMapping("viewInternshipCourseDetailPage")
 	public String viewInternshipCourseDetailPage(HttpSession session, Model model, int internship_course_pk) {
 		
-		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
-		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
-		
-		model.addAttribute("internshipCourseDetail", professorServiece.viewInternshipCourseDetail(internship_course_pk));
+//		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
+//		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
+//		
+		model.addAttribute("internshipCourseDetail", professorService.viewInternshipCourseDetail(internship_course_pk));
 		
 		return "tl_c/eunbi/professor/viewInternshipCourseDetailPage";
 		
 	}
 	
-	@RequestMapping("internEvaluationProgress")
-	public String internEvaluationProgress(HttpSession session, AjdksProfessorEvaluationDto params, int internship_course_pk) {
-		
-		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
-		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
-		
-		params.setProfessor_pk(sessionProfessorPk);
-		
-		professorServiece.insertProfessorEvaluation(params);
-		
-		return "redirect:./viewInternshipCourseDetailPage?internship_course_pk=" + internship_course_pk;
-	}
+//	@RequestMapping("internEvaluationProgress")
+//	public String internEvaluationProgress(HttpSession session, AjdksProfessorEvaluationDto params, int internship_course_pk) {
+//		
+//		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
+//		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
+//		
+//		params.setProfessor_pk(sessionProfessorPk);
+//		
+//		professorService.insertProfessorEvaluation(params);
+//		
+//		return "redirect:./viewInternshipCourseDetailPage?internship_course_pk=" + internship_course_pk;
+//	}
 	
 	@RequestMapping("viewStudentDetailPage")
 	public String viewStudentDetailPage(HttpSession session, Model model, int student_pk) {
 		
-		model.addAttribute("studentDetails", professorServiece.viewStudentDetail(student_pk));
+		model.addAttribute("studentDetails", professorService.viewStudentDetail(student_pk));
 		
 		return"tl_c/eunbi/professor/viewStudentDetailPage";
 	}

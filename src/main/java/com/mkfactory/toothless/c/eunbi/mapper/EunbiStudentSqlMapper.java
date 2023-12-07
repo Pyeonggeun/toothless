@@ -38,6 +38,8 @@ public interface EunbiStudentSqlMapper {
 	public int countInternBycoursePk(int internship_course_pk);
 	// 해당 실습과정의 신청학생 조회
 	public List<AjdksStudentApplyingDto> getApplyingListByCoursePk(int internship_course_pk);
+	// 해당 실습과정 신청 결과난 학생 조회
+	public List<AjdksStudentApplyingDto> getAnnouncedStudentListByCoursePk(int internship_course_pk);
 	
 	// 실습생의 출결 조회
 	public int countAttendance(int student_intern_pk);

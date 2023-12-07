@@ -11,6 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <title> AJDKS TEMPLATE FOR PROFESSOR </title>
+
 <style>
 	/*교수좌측메뉴바설정*/
 	.professorleftmenubar input {
@@ -49,6 +50,135 @@
 	}
 
 </style>
+
+<script>
+
+	let professorPk = null;
+	const internship_course_pk = ${internshipCourseDetail.internshipCourseDto.internship_course_pk};
+	
+	function getProfessorPk(){
+		fetch("./getProfessorPk")
+		.then(response => response.json())
+		.then(response => {
+			professorPk = response.data;
+		});
+	}
+	
+	function reloadApplyStudentList(){
+		fetch("./getApplyingStudentListByCourse?internship_course_pk=" + internship_course_pk)
+		.then(response => response.json())
+		.then(response => {
+			
+			const applyingStudentListBox = document.getElementById("applyingStudentListBox");
+			applyingStudentListBox.innerHTML = "";
+			
+			for(applyingStudent of response.data) {
+				
+				const applyingStudentWrapper = document.querySelector("#applyingStudentListTemplete .applyingStudentWrapper").cloneNode(true);
+				
+				const applyingStudentPk = applyingStudentWrapper.querySelector(".applyingStudentPk");
+				applyingStudentPk.innerText = applyingStudent.studentInfoDto.student_pk;
+				
+				const applyingStudentName = applyingStudentWrapper.querySelector(".applyingStudentName");
+				applyingStudentName.innerText = applyingStudent.studentInfoDto.name;
+				
+				const applyingStudentDepartment = applyingStudentWrapper.querySelector(".applyingStudentDepartment");
+				applyingStudentDepartment.innerText = applyingStudent.studentDepartment.name;
+				
+				const applyingStudentProfessor = applyingStudentWrapper.querySelector(".applyingStudentProfessor");
+				applyingStudentProfessor.innerText = applyingStudent.studentProfessorInfo.name;
+				
+				const applyingStudentSemester = applyingStudentWrapper.querySelector(".applyingStudentSemester");
+				applyingStudentSemester.innerText = applyingStudent.countSemester;
+				
+				const applyingStudentStatus = applyingStudentWrapper.querySelector(".applyingStudentStatus");
+				applyingStudentStatus.innerText = applyingStudent.studentApplyingDto.status;
+				
+				const studentDetailPageBtn = applyingStudentWrapper.querySelector(".studentDetailPageBtn");
+				studentDetailPageBtn.innerText = 상세보기
+				studentDetailPageBtn.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1");
+				studentDetailPageBtn.setAttribute("href", "./viewStudentDetailPage?student_pk="+applyingStudent.studentInfoDto.student_pk+"");
+				
+				const applyingStudentCreatedAt = applyingStudentWrapper.querySelector(".applyingStudentCreatedAt");
+				applyingStudentCreatedAt.innerText = applyingStudent.studentApplyingDto.created_at;
+				
+			}
+			
+		});
+	}
+	
+	function reloadInternList(){
+		
+		fetch("./getStudentInternList?internship_course_pk=" + internship_course_pk)
+		.then(response => response.json())
+		.then(response => {
+			
+			const internListBox = document.getElementById("internListBox");
+			internListBox.innerHTML = "";
+			
+			for(intern of response.data) {
+				
+				const internWrapper = document.querySelector("#internListTemplete .internWrapper").cloneNode(true);
+				
+				const internPk = internWrapper.querySelector(".internPk");
+				internPk.innerText = intern.studentInfoDto.student_pk;
+				
+				const internName = internWrapper.querySelector(".internName");
+				internName.innerText = intern.studentInfoDto.name;
+				
+				const internDepartment = internWrapper.querySelector(".internDepartment");
+				internDepartment.innerText = intern.studentDepartment.name;
+				
+				const internProfessor = internWrapper.querySelector(".internProfessor");
+				internProfessor.innerText = intern.studentProfessorInfo.name;
+				
+				const studentDetailPageBtn = internWrapper.querySelector(".studentDetailPageBtn");
+				studentDetailPageBtn.innerText = 상세보기
+				studentDetailPageBtn.classList.add("btn", "btn-outline-secondary", "btn-sm", "rounded-1");
+				studentDetailPageBtn.setAttribute("href", "./viewStudentDetailPage?student_pk="+intern.studentInfoDto.student_pk+"");
+				
+				const internAttendance = internWrapper.querySelector(".internAttendance");
+				internAttendance.innerText = 
+					"출근" + intern.countAttendance + "&nbsp" +
+					"지각" + intern.countLate&nbsp + "&nbsp" +
+					"조퇴" + intern.countEarlyleave&nbsp + "&nbsp" +
+					"결근" + intern.countAbsent;
+
+				const readInternReport = internWrapper.querySelector(".readInternReport");
+				readInternReport.innerText = 업무일지확인
+				readInternReport.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1");
+				readInternReport.setAttribute("href", "./viewInternReport?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
+				
+				const internEvaluation = internWrapper..querySelector(".internEvaluation");
+				
+				if(intern.didEvaluateIntern == 0){
+					internEvaluation.innerText = 성적입력하기
+					internEvaluation.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1");
+				}else(intern.didEvaluateIntern > 0){
+					internEvaluation.innerText = 성적입력완료
+					internEvaluation.removeAttribute("button")
+				}
+				
+				
+			}
+			
+		});
+	}
+
+
+
+	
+	
+	window.addEventListener("DOMContentLoaded", () => {
+		getProfessorPk();
+		reloadApplyStudentList();
+		reloadInternList();
+		// setInterval(reloadCommentList,1000); // 1초마다 reloadCommentList호출
+	});
+
+</script>
+
+
 </head>
 <body>
 <div class="container-fluid"><!-- 전체 container 입구 -->
@@ -156,7 +286,7 @@
 						<jsp:useBean id="now" class="java.util.Date"/>
 						<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
 						<c:choose>
-							<c:when test="${internshipCourseDetail.internshipCourseDto.applying_start_date < now && internshipCourseDetail.internshipCourseDto.announcement_date > now}">
+							<c:when test="${internshipCourseDetail.internshipCourseDto.applying_start_date < now && internshipCourseDetail.internshipCourseDto.internship_start_date > now}">
 								<div class="row">
 									<div class="col fw-semibold" style="font-size:1.1em">
 										현장실습 신청 내역
@@ -190,115 +320,12 @@
 												날짜
 											</div>
 										</div>
-										<c:forEach items="${internshipCourseDetail.applyingStudentInfoList}" var="studentApplying">
-										<div class="row text-center py-1 border-bottom" style="font-size:0.95em">
-											<div class="col-1 align-self-center fw-semibold border-end">
-												${studentApplying.studentInfoDto.student_pk}
-											</div>
-											<div class="col-2 align-self-center fw-semibold border-end">
-												${studentApplying.studentInfoDto.name}
-											</div>
-											<div class="col-2 align-self-center border-end">
-												${studentApplying.studentDepartment.name}
-											</div>
-											<div class="col-2 align-self-center border-end">
-												${studentApplying.studentProfessorInfo.name}
-											</div>
-											<div class="col-1 align-self-center border-end">
-												${studentApplying.countSemester}
-											</div>
-											<div class="col-1 align-self-center fw-semibold border-end">
-												${studentApplying.studentApplyingDto.status}
-											</div>
-											<div class="col-2 align-self-center border-end d-grid px-4">
-												<a class="btn btn-secondary btn-sm rounded-1" href="./viewStudentDetailPage?student_pk=${studentApplying.studentInfoDto.student_pk}">상세보기</a>
-											</div>
-											<div class="col-1 align-self-center">
-												<fmt:formatDate value="${studentApplying.studentApplyingDto.created_at}" pattern="yyyy.MM.dd"/>
+										<div class="row">
+											<div id="applyingStudentListBox" class="col">
+												
 											</div>
 										</div>
-										</c:forEach>
 									</div>
-								</div>
-							</c:when>
-							
-							<c:when test="${internshipCourseDetail.internshipCourseDto.announcement_date <= now && internshipCourseDetail.internshipCourseDto.internship_start_date > now}">
-								<div class="row">
-									<div class="col fw-semibold" style="font-size:1.1em">
-										현장실습 신청 내역
-									</div>
-								</div>
-								<div class="row mt-2" style="height:20em">
-									<div class="col border-secondary border-top border-bottom overflow-y-scroll">
-										<div class="row text-center bg-body-secondary border-bottom border-secondary py-1 fw-semibold">
-											<div class="col-1 border-end">
-												학번
-											</div>
-											<div class="col-2 border-end">
-												이름
-											</div>
-											<div class="col-2 border-end">
-												학과
-											</div>
-											<div class="col-2 border-end">
-												담당교수
-											</div>
-											<div class="col-1 border-end">
-												수료학기
-											</div>
-											<div class="col-1 border-end">
-												신청상태
-											</div>
-											<div class="col-2 border-end">
-												학생정보
-											</div>
-											<div class="col-1">
-												날짜
-											</div>
-										</div>
-										<c:forEach items="${internshipCourseDetail.applyingStudentInfoList}" var="studentApplying">
-										<c:choose>
-											<c:when test="${studentApplying.studentApplyingDto.status eq '합격' || studentApplying.studentApplyingDto.status eq '불합격'}">
-												<div class="row text-center py-1 border-bottom" style="font-size:0.95em">
-													<div class="col-1 align-self-center fw-semibold border-end">
-														${studentApplying.studentInfoDto.student_pk}
-													</div>
-													<div class="col-2 align-self-center fw-semibold border-end">
-														${studentApplying.studentInfoDto.name}
-													</div>
-													<div class="col-2 align-self-center border-end">
-														${studentApplying.studentDepartment.name}
-													</div>
-													<div class="col-2 align-self-center border-end">
-														${studentApplying.studentProfessorInfo.name}
-													</div>
-													<div class="col-1 align-self-center border-end">
-														${studentApplying.countSemester}
-													</div>
-													<c:choose>
-														<c:when test="${studentApplying.studentApplyingDto.status eq '합격'}">
-															<div class="col-1 align-self-center fw-semibold border-end">
-																${studentApplying.studentApplyingDto.status}
-															</div>
-														</c:when>
-														<c:when test="${studentApplying.studentApplyingDto.status eq '불합격'}">
-															<div class="col-1 align-self-center text-secondary fw-semibold border-end">
-																${studentApplying.studentApplyingDto.status}
-															</div>
-														</c:when>
-													</c:choose>
-													<div class="col-2 align-self-center border-end d-grid px-4">
-														<a class="btn btn-secondary btn-sm rounded-1" href="./viewStudentDetailPage?student_pk=${studentApplying.studentInfoDto.student_pk}">상세보기</a>
-													</div>
-													<div class="col-1 align-self-center">
-														<fmt:formatDate value="${studentApplying.studentApplyingDto.created_at}" pattern="yyyy.MM.dd"/>
-													</div>
-												</div>
-											</c:when>
-										</c:choose>
-										</c:forEach>
-									</div>
-								</div>
 								</div>
 							</c:when>
 							
@@ -333,34 +360,11 @@
 												업무일지
 											</div>
 										</div>
-										<c:forEach items="${internshipCourseDetail.studentInternList}" var="studentIntern">
-										<div class="row text-center py-1 border-bottom" style="font-size:0.95em">
-											<div class="col-1 align-self-center fw-semibold border-end">
-												${studentIntern.studentInfoDto.student_pk}
-											</div>
-											<div class="col-2 align-self-center fw-semibold border-end">
-												${studentIntern.studentInfoDto.name}
-											</div>
-											<div class="col-2 align-self-center border-end">
-												${studentIntern.studentDepartment.name}
-											</div>
-											<div class="col-2 align-self-center border-end">
-												${studentIntern.studentProfessorInfo.name}
-											</div>
-											<div class="col-1 align-self-center border-end d-grid px-3">
-												<a class="btn btn-secondary btn-sm rounded-1" href="./viewStudentDetailPage?student_pk=${studentIntern.studentInfoDto.student_pk}">상세보기</a>
-											</div>
-											<div class="col-2 align-self-center border-end" style="font-size:0.9em">
-												출근 ${studentIntern.countAttendance}&nbsp;
-												지각 ${studentIntern.countLate}&nbsp;
-												조퇴 ${studentIntern.countEarlyleave}&nbsp;
-												결근 ${studentIntern.countAbsent}
-											</div>
-											<div class="col-2 align-self-center d-grid px-4">
-												<button class="btn btn-secondary btn-sm rounded-1">업무일지확인</button>
+										<div class="row">
+											<div id="internListBox" class="col">
+												
 											</div>
 										</div>
-										</c:forEach>
 									</div>
 								</div>
 							</c:when>
@@ -399,131 +403,11 @@
 												성적산출
 											</div>
 										</div>
-										<c:forEach items="${internshipCourseDetail.studentInternList}" var="studentIntern">
-										<div class="row text-center py-1 border-bottom" style="font-size:0.95em">
-											<div class="col-1 align-self-center fw-semibold border-end">
-												${studentIntern.studentInfoDto.student_pk}
-											</div>
-											<div class="col-2 align-self-center fw-semibold border-end">
-												${studentIntern.studentInfoDto.name}
-											</div>
-											<div class="col-1 align-self-center border-end">
-												${studentIntern.studentDepartment.name}
-											</div>
-											<div class="col-1 align-self-center border-end">
-												${studentIntern.studentProfessorInfo.name}
-											</div>
-											<div class="col-1 align-self-center border-end d-grid px-3">
-												<a class="btn btn-secondary btn-sm rounded-1" href="./viewStudentDetailPage?student_pk=${studentIntern.studentInfoDto.student_pk}">상세보기</a>
-											</div>
-											<div class="col-2 align-self-center border-end" style="font-size:0.9em">
-												출근 ${studentIntern.countAttendance}&nbsp;
-												지각 ${studentIntern.countLate}&nbsp;
-												조퇴 ${studentIntern.countEarlyleave}&nbsp;
-												결근 ${studentIntern.countAbsent}
-											</div>
-											<div class="col-2 align-self-center d-grid px-4 border-end">
-												<button class="btn btn-outline-secondary btn-sm rounded-1">업무일지확인</button>
-											</div>
-											<div class="col-2 align-self-center d-grid px-4">
-												<c:choose>
-													<c:when test="${studentIntern.didEvaluateIntern == 0}">
-														<button class="btn btn-secondary btn-sm rounded-1" data-bs-toggle="modal" data-bs-target="#insertProfessorEvaluation">성적 입력하기</button>
-														
-														<div class="modal fade" id="insertProfessorEvaluation" tabindex="-1" aria-labelledby="#insertProfessorEvaluation" aria-hidden="true">
-															<div class="modal-dialog">
-																<div class="modal-content rounded-0 px-3">
-																	<div class="modal-header border-dark pt-4 pb-2">
-																		<span class="modal-title fw-semibold fs-5" id="insertProfessorEvaluation">학생 평가 입력</span>
-																		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-																	</div>
-																	
-																	<form action="./internEvaluationProgress?student_intern_pk=${studentIntern.studentInternDto.student_intern_pk}" method="post">
-																	<div class="modal-body text-start">
-																		<div class="row mt-2">
-																			<div class="col fw-semibold" style="font-size:1.05em">
-																				성실성
-																			</div>
-																		</div>
-																		<div class="row mt-2">
-																			<div class="col" style="font-size:0.9em">
-																				 <input class="form-check-input" type="radio" name="diligence_score" value="5"> 매우 높음
-																				 <input class="form-check-input ms-3" type="radio" name="diligence_score" value="4"> 높음
-																				 <input class="form-check-input ms-3" type="radio" name="diligence_score" value="3"> 중간
-																				 <input class="form-check-input ms-3" type="radio" name="diligence_score" value="2"> 낮음
-																				 <input class="form-check-input ms-3" type="radio" name="diligence_score" value="1"> 매우 낮음
-																			</div>
-																		</div>
-																		<div class="row mt-4">
-																			<div class="col fw-semibold" style="font-size:1.05em">
-																				책임감
-																			</div>
-																		</div>
-																		<div class="row mt-2">
-																			<div class="col" style="font-size:0.9em">
-																				 <input class="form-check-input" type="radio" name="responsibility_score" value="5"> 매우 높음
-																				 <input class="form-check-input ms-3" type="radio" name="responsibility_score" value="4"> 높음
-																				 <input class="form-check-input ms-3" type="radio" name="responsibility_score" value="3"> 중간
-																				 <input class="form-check-input ms-3" type="radio" name="responsibility_score" value="2"> 낮음
-																				 <input class="form-check-input ms-3" type="radio" name="responsibility_score" value="1"> 매우 낮음
-																			</div>
-																		</div>
-																		<div class="row mt-4">
-																			<div class="col fw-semibold" style="font-size:1.05em">
-																				협조성
-																			</div>
-																		</div>
-																		<div class="row mt-2">
-																			<div class="col" style="font-size:0.9em">
-																				 <input class="form-check-input" type="radio" name="coorporation_score" value="5"> 매우 높음
-																				 <input class="form-check-input ms-3" type="radio" name="coorporation_score" value="4"> 높음
-																				 <input class="form-check-input ms-3" type="radio" name="coorporation_score" value="3"> 중간
-																				 <input class="form-check-input ms-3" type="radio" name="coorporation_score" value="2"> 낮음
-																				 <input class="form-check-input ms-3" type="radio" name="coorporation_score" value="1"> 매우 낮음
-																			</div>
-																		</div>
-																		<div class="row mt-4">
-																			<div class="col fw-semibold" style="font-size:1.05em">
-																				업무달성도
-																			</div>
-																		</div>
-																		<div class="row mt-2">
-																			<div class="col mb-2" style="font-size:0.9em">
-																				 <input class="form-check-input" type="radio" name="achievement_score" value="5"> 매우 높음
-																				 <input class="form-check-input ms-3" type="radio" name="achievement_score" value="4"> 높음
-																				 <input class="form-check-input ms-3" type="radio" name="achievement_score" value="3"> 중간
-																				 <input class="form-check-input ms-3" type="radio" name="achievement_score" value="2"> 낮음
-																				 <input class="form-check-input ms-3" type="radio" name="achievement_score" value="1"> 매우 낮음
-																			</div>
-																		</div>
-																		<div class="row mt-4">
-																			<div class="col fw-semibold" style="font-size:1.05em">
-																				총평가 입력
-																			</div>
-																		</div>
-																		<div class="row mt-2">
-																			<div class="col">
-																				<textarea class="form-control rounded-0" rows="5" cols="20" name="review"></textarea>
-																			</div>
-																		</div>
-																		
-																	</div>
-																	<div class="modal-footer border-top-0">
-																		<input type="hidden" name="internship_course_pk" value="${studentIntern.studentInternDto.internship_course_pk}">
-																		<button type="submit" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">평가 입력</button>
-																	</div>
-																	</form>
-																</div>
-															</div>
-														</div>
-													</c:when>
-													<c:when test="${studentIntern.didEvaluateIntern > 0}">
-														<span class="fw-semibold text-secondary" style="font-size:0.9em">성적 입력완료</span>
-													</c:when>
-												</c:choose>
+										<div class="row">
+											<div id="internListBox" class="col">
+												
 											</div>
 										</div>
-										</c:forEach>
 									</div>
 								</div>
 							</c:when>					
@@ -534,6 +418,92 @@
 					
 					
 					
+				</div>
+			</div>
+		</div>
+	</div>
+		
+		
+		
+		
+		<!-- 신청학생리스트 -->
+		<div id="applyingStudentListTemplete" class="d-none">
+			<div class="applyingStudentWrapper row text-center py-1 border-bottom" style="font-size:0.95em">
+				<div class="applyingStudentPk col-1 align-self-center fw-semibold border-end">
+					학번 나오는곳
+				</div>
+				<div class="applyingStudentName col-2 align-self-center fw-semibold border-end">
+					학생 이름 나오는 곳
+				</div>
+				<div class="applyingStudentDepartment col-2 align-self-center border-end">
+					학과명 나오는 곳
+				</div>
+				<div class="applyingStudentProfessor col-2 align-self-center border-end">
+					담당교수이름 나오는 곳
+				</div>
+				<div class="applyingStudentSemester col-1 align-self-center border-end">
+					이수학기 나오는 곳
+				</div>
+				<div class="applyingStudentStatus col-1 align-self-center fw-semibold border-end">
+					지원상태 나오는 곳
+				</div>
+				<div class="col-2 align-self-center border-end d-grid px-4">
+					<a class="studentDetailPageBtn"></a>
+				</div>
+				<div class="applyingStudentCreatedAt col-1 align-self-center">
+					신청날짜 출력되는 곳
+				</div>
+			</div>
+		</div>
+		
+		<!-- 실습생 리스트 -->
+		<div id="internListTemplete" class="d-none">
+			<div class="internWrapper row text-center py-1 border-bottom" style="font-size:0.95em">
+				<div class="internPk col-1 align-self-center fw-semibold border-end">
+					학생 Pk
+				</div>
+				<div class="internName col-2 align-self-center fw-semibold border-end">
+					이름
+				</div>
+				<div class="internDepartment col-2 align-self-center border-end">
+					학과
+				</div>
+				<div class="internProfessor col-2 align-self-center border-end">
+					교수이름
+				</div>
+				<div class="col-1 align-self-center border-end d-grid px-3">
+					<a class="studentDetailPageBtn"></a>
+				</div>
+				<div class="internAttendance col-2 align-self-center border-end" style="font-size:0.9em">
+					출근지각조퇴결근
+				</div>
+				<div class="col-2 align-self-center d-grid px-4">
+					<a class="readInternReport"></a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 실습 끝나고 -->
+		<div id="internListTemplete" class="d-none">
+			<div class="internWrapper row text-center py-1 border-bottom" style="font-size:0.95em">
+				<div class="internPk col-1 align-self-center fw-semibold border-end">
+				</div>
+				<div class="internName col-2 align-self-center fw-semibold border-end">
+				</div>
+				<div class="internDepartment col-1 align-self-center border-end">
+				</div>
+				<div class="internProfessor col-1 align-self-center border-end">
+				</div>
+				<div class="col-1 align-self-center border-end d-grid px-3">
+					<a class="studentDetailPageBtn"></a>
+				</div>
+				<div class="internAttendance col-2 align-self-center border-end" style="font-size:0.9em">
+				</div>
+				<div class="col-2 align-self-center d-grid px-4 border-end">
+					<a class="readInternReport"></a>
+				</div>
+				<div class="col-2 align-self-center d-grid px-4">
+					<span class="internEvaluation"></span>
 				</div>
 			</div>
 		</div>
