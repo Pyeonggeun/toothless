@@ -27,16 +27,34 @@
 		
 		
 		<div class="col">
-			<div class="row border-bottom border-3 border-bs-border mt-5 mb-3 pb-3 fs-4 fw-bold">
+			<div class="row border-bottom border-3 border-black mt-5 mb-2 pb-3 fs-4 fw-bold">
 				<div class="col-3">기업 상세정보</div>
 			</div> 
-			<div class="row fs-5 mt-5 mb-3 fw-bold">회사 상세 정보</div>
-			<div class="row  border-top border-bottom border-bs-border">
+			<div class="row fs-5 mt-5 mb-3 fw-bold">
+				<div class="col-2 pb-3">${companyMap.companyDto.com_name}</div>
+				<div class="col pb-1"> 
+					<c:if test="${empty sessionStudentInfo}">
+						<i class="text-black bi bi-suit-heart"></i> ${companyMap.interestCompany}
+					</c:if>
+					<c:if test="${!empty sessionStudentInfo}">
+						<c:choose>
+							<c:when test="${myInterestCompany==0}">
+								<a href="./interestCompanyProcess?com_pk=${companyMap.companyDto.com_pk}&student_pk=${sessionStudentInfo.student_pk}"><i class="text-black bi bi-suit-heart"></i></a>
+								${companyTotalInterest}
+							</c:when>
+							<c:when test="${myInterestCompany!=0}">
+								<a href="./deleteInterestCompanyProcess?com_pk=${companyMap.companyDto.com_pk}&student_pk=${sessionStudentInfo.student_pk}"><i class="text-danger bi bi-suit-heart-fill"></i></a>
+								${companyTotalInterest}
+							</c:when>
+						</c:choose>	
+					</c:if>
+					
+						
+					
+				</div>
+			</div>
+			<div class="row border-top border-3 border-bottom border-bs-border">
 				<div class="col"> 
-					<div class="row border-top border-bottom py-3">
-						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">회사명</div>
-						<div class="col p-1 ps-4">${companyMap.companyDto.com_name}</div>
-					</div>
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">사업자등록번호</div>
 						<div class="col p-1 ps-4">${companyMap.companyDto.business_number}</div>
@@ -51,7 +69,7 @@
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">기업 주소</div>
 						<div class="col p-1 ps-4">${companyMap.companyDto.com_address}</div>
 					</div>
-					<div class="row border-bottom py-3">
+					<div class="row py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">가족기업여부</div>
 						<div class="col p-1 ps-4">${companyMap.companyDto.is_family_company}</div>
 					</div>
@@ -59,16 +77,15 @@
 			</div>
 			<!-- 기업채용정보 -->
 			
-			<div class="row border-bottom border-3 border-bs-border mt-5 mb-3 pb-3 fs-4 fw-bold">
+			<div class="row border-bottom border-3 border-black mt-5 mb-4 pb-3 fs-4 fw-bold">
 				<div class="col">진행중인 기업 채용정보</div>
 			</div> 
 			
 			<c:forEach items="${companyPostingListForStudent}" var="companyPostingForStudent">
-					<div class="row mt-3">
+					<div class="row mt-4">
 						<!-- 기업명 -->
 						<div class="col-2 pe-0">
 							${companyPostingForStudent.companyDto.com_name}
-							<i class="text-danger bi bi-suit-heart"></i>
 						</div>
 						<!-- 공고제목 -->
 						<div class="col-9 ps-0 pt-1">
