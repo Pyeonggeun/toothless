@@ -45,5 +45,12 @@ public class EmploymentCommonController {
 		
 		return "tl_d/common/companyMainPage";
 	}
+	
+	
+	//교직원 메인페이지
+	@RequestMapping("staffMainPage")
+	public String staffMainPage() {
+		return "tl_d/common/staffMainPage";
+	}
 
 }
