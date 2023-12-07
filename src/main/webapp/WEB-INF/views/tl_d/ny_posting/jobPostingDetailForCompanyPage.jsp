@@ -181,18 +181,41 @@
 					<div class="col fs-5 fw-bold mt-5">지원한 학생</div>
 					<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
 				</div>
-				<pre>
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				</pre>
+				<!-- 목록명 -->
+				<div class="row mt-3 mb-1 text-secondary border-bottom">
+					<!-- 이름 -->
+					<div class="col ms-4 px-0">이름</div>
+					<!-- 생년월일 -->
+					<div class="col ms-4 px-0">생년월일</div>
+					<!-- 성별 -->
+					<div class="col px-0">성별</div>
+					<!-- 이메일 -->
+					<div class="col px-0">이메일</div>
+					<!-- 졸업여부 -->
+					<div class="col px-0">졸업여부</div>
+				</div>
+				<c:forEach items="${applyStudentList}" var="applyStudent">
+					<!-- 목록 -->
+					<div class="row my-2 border-bottom">
+						<div class="col-2 ms-3">${applyStudent.studentInfoDto.name}</div>
+						<div class="col ps-5">
+						<fmt:formatDate value="${applyStudent.studentInfoDto.birth}" pattern="yyMMdd"/> </div>
+						<div class="col-1 ps-5">${applyStudent.studentInfoDto.gender}</div>
+						<div class="col-4 ps-5 pe-0">${applyStudent.studentInfoDto.email}</div>
+						<div class="col ps-0 pe-5">
+							<c:choose>
+								<c:when test="${! applyStudent.graduationInfoDtoList.contains(applyStudent.studentInfoDto.student_pk)}">
+									재학생
+								</c:when>
+								<c:otherwise>
+									졸업생
+								</c:otherwise>
+							</c:choose>
+							
+						</div>
+					</div>
+				</c:forEach>
+				<!-- 스크랩한 학생 목록 -->
 				<div class="row border-bottom border-2 border-dark">
 					<div class="col fs-5 fw-bold mt-5">스크랩한 학생</div>
 					<!-- 추가 페이지 -->

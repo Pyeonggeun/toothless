@@ -314,9 +314,14 @@ public class PostingController {
 	@RequestMapping("jobPostingDetailForCompanyPage")
 	public String jobPostingDetailForCompanyPage(Model model, int id) {
 		
+		// 기업 상세
 		model.addAttribute("jobPostingDetailForCompany", postingService.getJobPostingDetailForStudentAndCompany(id));
+		
+		// 관심공고 학생 리스트
 		model.addAttribute("interestStudentList", postingService.getStudentListByPostingInterest(id));
 		
+		//공고 지원 학생 리스트
+		model.addAttribute("applyStudentList", postingService.getApplyStudentList(id));
 		
 		return "tl_d/ny_posting/jobPostingDetailForCompanyPage";
 	}

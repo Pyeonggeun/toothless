@@ -268,5 +268,38 @@
 		)
 		ORDER BY tdjp.POSTING_DEADLINE ASC
 	</select>
+	
+	<!-- 공고별 지원한 학생 -->
+	<select id="selectApplyStudentList" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * 
+		FROM TL_JIC_STUDENT_INFO tjsi 
+		WHERE tjsi.STUDENT_PK IN (
+			SELECT tdr.STUDENT_PK 
+			FROM TL_D_RESUME tdr 
+			WHERE tdr.RESUME_PK IN (
+				SELECT resume_pk 
+				FROM TL_D_VOLUNTEER u
+				WHERE u.job_posting_pk = #{job_posting_pk}
+			)
+		)
+	</select>
+	
+	<!-- 기업 메인페이지용 지원 학생 -->
+	<select id="selectApplyStudentListForCompany" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT *
+		FROM (
+		    SELECT tjsi.*, 
+		           ROW_NUMBER() OVER (ORDER BY tdjp.POSTING_DEADLINE ASC) AS rnum
+		    FROM TL_JIC_STUDENT_INFO tjsi
+		    JOIN TL_D_RESUME tdr ON tjsi.STUDENT_PK = tdr.STUDENT_PK
+		    JOIN TL_D_VOLUNTEER tdv ON tdr.RESUME_PK = tdv.RESUME_PK
+		    JOIN TL_D_JOB_POSTING tdjp ON tdv.JOB_POSTING_PK = tdjp.JOB_POSTING_PK
+		    JOIN TL_D_COMPANY tdc ON tdjp.COM_PK = tdc.COM_PK
+		    WHERE tdc.COM_PK = 41
+		)
+		<![CDATA[
+		WHERE rnum <= 4
+		]]>
+	</select>
 
 </mapper>

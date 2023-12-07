@@ -113,5 +113,9 @@ public interface PostingSqlMapper {
 	// 기업 메인페이지용 공고 목록 4개(마감임박 + 스크랩 많은 순 -> 나중에 지원자 많은 순으로 변경)
 	public List<JobPostingDto> selectPostingListForCompanyMainPage(int com_pk);
 	
-		
+	// 공고 지원한 학생 출력
+	public List<StudentInfoDto> selectApplyStudentList(int job_posting_pk);
+	
+	// 기업 메인페이지용 지원 학생
+	public List<StudentInfoDto> selectApplyStudentListForCompany(int com_pk);
 }
