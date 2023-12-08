@@ -81,14 +81,15 @@ public class ProgramController {
 		return "redirect:../common/staffMainPage";
 	}
 	
+	//프로그램 목록페이지
 	@RequestMapping("programListPage")
-	public String programListPage() {
+	public String programListPage(Model model) {
 		
+		model.addAttribute("programList", programService.getProgramList());
 		
-		
-		return "/tl_d/gw_program/registerProgramPage";
+		return "/tl_d/gw_program/programListPage";
 	}
 	
-	
+	//프로그램 상세보기 페이지(교직원용)
 
 }

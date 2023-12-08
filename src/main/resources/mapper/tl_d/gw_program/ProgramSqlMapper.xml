@@ -26,4 +26,24 @@
 		)
 	</insert>
 	
+	<select id="programSelectAll" resultType="com.mkfactory.toothless.d.dto.ProgramDto">
+		SELECT * FROM tl_d_program
+		ORDER BY program_pk DESC
+	</select>
+	
+	<select id="programSelectByPk" resultType="com.mkfactory.toothless.d.dto.ProgramDto">
+		SELECT * FROM tl_d_program
+		WHERE program_pk=#{program_pk}
+	</select>
+	
+	<select id="programCategorySelectByPk" resultType="com.mkfactory.toothless.d.dto.ProgramCategoryDto">
+		SELECT * FROM tl_d_program_category
+		WHERE program_category_pk=#{program_category_pk}
+	</select>
+	
+	<select id="staffSelectByPk" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
+		SELECT * FROM TL_JIC_STAFF_INFO
+		WHERE staff_pk=#{staff_pk}
+	</select>
+	
 </mapper>
