@@ -37,9 +37,9 @@ public class EmploymentCommonController {
 	}
 	
 	// 취창업 메인 페이지
-	@RequestMapping("employMainPage")
+	@RequestMapping("employmentMainPage")
 	public String employMainPage() {
-		return "tl_d/common/employMainPage";
+		return "tl_d/common/employmentMainPage";
 	}
 	
 	
