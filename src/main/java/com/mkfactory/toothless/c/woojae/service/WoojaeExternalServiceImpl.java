@@ -85,4 +85,16 @@ public class WoojaeExternalServiceImpl {
 		return list;
 	}
 	
+	// 사업자등록번호 확인
+	public boolean existCompanyId(String company_id) {
+		
+		return woojaeExternalSqlMapper.countByCompanyId(company_id) > 0 ? true : false;
+	}
+	
+	// 산업체 아이디 확인
+	public boolean existByExternalId(String external_id) {
+		
+		return woojaeExternalSqlMapper.countByExternalId(external_id) > 0 ? true : false;
+	}
+	
 }
