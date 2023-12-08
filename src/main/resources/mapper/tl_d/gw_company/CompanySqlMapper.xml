@@ -64,6 +64,7 @@
 	<!-- 회사 전부 보이기 -->
 	<select id="selectCompanyAll" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
 		SELECT * FROM tl_d_company
+		ORDER BY com_pk DESC
 	</select>
 	
 	<!-- 회사 담당자 전부 보이기 -->

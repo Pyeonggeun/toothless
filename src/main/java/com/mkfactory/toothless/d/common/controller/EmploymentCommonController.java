@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.d.dto.CompanyDto;
+import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
@@ -19,6 +20,9 @@ public class EmploymentCommonController {
 	
 	@Autowired
 	private PostingServiceImpl postingService;
+	
+	@Autowired
+	private CompanyServiceIpml companyService;
 
 	
 	// 학생용 마이페이지
@@ -65,7 +69,14 @@ public class EmploymentCommonController {
 	
 	//교직원 메인페이지
 	@RequestMapping("staffMainPage")
-	public String staffMainPage() {
+	public String staffMainPage(Model model) {
+		
+		
+		
+		
+		//기업용
+		model.addAttribute("companyList", companyService.getCompanyList());
+		
 		return "tl_d/common/staffMainPage";
 	}
 
