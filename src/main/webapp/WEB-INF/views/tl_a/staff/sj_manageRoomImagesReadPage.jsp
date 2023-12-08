@@ -35,11 +35,11 @@
 					
 					<ul class="nav nav-tabs">
 					<li class="nav-item ta">
-					    <a class="nav-link active text-black" href="./sj_manageRoomImages">전체보기</a>
+					    <a class="nav-link active text-black" href="./sj_manageRoomInfo">전체보기</a>
 					  </li>
 					<c:forEach items="${dormAmount }" var="da">
 					  <li class="nav-item ">
-					    <a class="nav-link text-secondary" href="./sj_manageRoomImagesReadPage?dorm_amount_pk=${da.dorm_amount_pk }">${da.dorm_amount }인실</a>
+					    <a class="nav-link text-secondary" href="./sj_manageRoomInfoReadPage?dorm_pk=${da.dorm_amount_pk }">${da.dorm }</a>
 					  </li>
 					  </c:forEach>
 					  
@@ -78,7 +78,7 @@
 								<img src="/uploadRoomImgs/${ct.dorm_imgs }" class="img-fluid img-thumbnail">
 							</div>
 							<div class="col">
-								<a href="./deleteForRoomDatailProcess?dorm_amount_pk=${ct.dorm_amount_pk }">삭제</a>
+								삭제
 							</div>
 						</div>
 					</c:forEach>

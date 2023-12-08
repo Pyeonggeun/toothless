@@ -71,10 +71,10 @@
 	
 	<!-- 정원 카테고리 -->
 	<select id="dormCategory" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
-		SELECT * FROM tl_a_dorm_category
+		SELECT * FROM TL_A_DORM_CATEGORY tadc ORDER BY DORM_AMOUNT ASC
 	</select>
 	
-	<!-- 정원 카테고리 -->
+	<!-- 정원 카테고리 호실별 이미지 등록-->
 	<insert id="insertCategoryImgs">
 		INSERT INTO tl_a_dorm_category VALUES (
 		tl_a_dorm_category_seq.nextval,
@@ -83,12 +83,17 @@
 	)
 	</insert>
 	
-	<!-- 정원 카테고리 img update -->
-	<update id="updateCategory">
-		UPDATE TL_A_DORM_CATEGORY 
-		SET DORM_IMGS =#{dorm_imgs}
-		WHERE DORM_AMOUNT_PK = #{dorm_amount_pk}
-	</update>
+	<!--  -->
+
+	<!-- 정원 카테고리 이미지 삭제하기 
+		<delete id="deleteCategoryImg">
+		DELETE FROM TL_A_DORM_CATEGORY tadc WHERE DORM_AMOUNT = #{dorm_amount}
+	</delete>
+	-->
+
+	<delete id="deleteCategoryImg">
+		DELETE FROM TL_A_DORM_CATEGORY tadc WHERE DORM_AMOUNT_PK = #{dorm_amount_pk}
+	</delete>
 	
 	<select id="selectDormCategoryPk" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
 		SELECT * FROM TL_A_DORM_CATEGORY tadc WHERE DORM_AMOUNT_PK =#{dorm_amount_pk}

@@ -31,8 +31,8 @@ public interface BuildingSqlMapper {
 	public DormCategoryDto selectDormCategoryPk(int dorm_amount_pk);
 	public void insertCategoryImgs(DormCategoryDto dormCategory);
 	
-	//정원 카테고리 update
-	public void updateCategory(DormCategoryDto dormCategory);
+	//정원 카테고리 
+//	public void deleteCategoryImg(int dorm_amount);
 	
 	
 	

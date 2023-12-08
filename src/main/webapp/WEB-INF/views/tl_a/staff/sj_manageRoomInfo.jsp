@@ -46,7 +46,7 @@
 					  <li class="nav-item ">
 					    <a class="nav-link text-secondary" href="./sj_manageRoomInfoReadPage?dorm_pk=${dorm.dorm_pk }">${dorm.name }</a>
 					  </li>
-					  </c:forEach>
+					 </c:forEach>
 					  
 					</ul>
 				</div>

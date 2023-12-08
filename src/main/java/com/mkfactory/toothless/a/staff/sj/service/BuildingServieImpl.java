@@ -23,30 +23,32 @@ public class BuildingServieImpl {
 		buildingSqlMapper.registerDormInfo(dormBuildingDto);
 	}
 	
+	//호실 등록
 	public void registerRoom(DormRoomDto dormRoomDto) {
-		
 		int dormPk = dormRoomDto.getDorm_pk();
 		dormRoomDto.setDorm_pk(dormPk);
-		
 		buildingSqlMapper.registerRoomInfo(dormRoomDto);
-		
 	}
 	
+	//기숙사 동 리스트
 	public List<DormBuildingDto> dormBuildNames(){
 		return buildingSqlMapper.dormBuildings();
 	}
 	
-	//새로 리스트 만들어서 int값 가져오기 pk. 
-	
-	
+	//카테고리 리스트
 	public List<DormCategoryDto> dormCategoryList(){
+
 		return buildingSqlMapper.dormCategory();
 	}
+
 	
+	//호실 리스트
 	public List<DormRoomDto> dormRoomList(){
 		return buildingSqlMapper.selectRooms();
+		
 	}
 	
+	//호실 별 이미지 등록
 	public void insertRegisterCategory(DormCategoryDto dormCateogory, List<DormCategoryDto> categoryList) {
 		
 		int ctPk = dormCateogory.getDorm_amount_pk();
@@ -63,6 +65,7 @@ public class BuildingServieImpl {
 		
 	}
 	
+	//기숙사 동 list/map
 	public List<Map<String, Object>> dormList(){
 		List<Map<String, Object>> forDorm = new ArrayList<>();
 		
@@ -84,6 +87,7 @@ public class BuildingServieImpl {
 		return forDorm;
 	}
 	
+	//기숙사 호실 list/map
 	public List<Map<String, Object>> roomList(){
 		List<Map<String, Object>> roomL = new ArrayList<>();
 		
@@ -108,6 +112,7 @@ public class BuildingServieImpl {
 		return roomL;
 	}
 	
+	//호실 수정하려고 만든 맵
 	public Map<String, Object> printRooms(int dorm_room_pk){
 		Map<String, Object> justRoomMap = new HashMap<>();
 	
@@ -132,16 +137,23 @@ public class BuildingServieImpl {
 		return justRoomMap;
 	}
 	
+	//기숙사 동 삭제
 	public void deleteForDormInfoProcess(int dorm_pk) {
-		
 		buildingSqlMapper.deleteForDormInfo(dorm_pk);
-		
 	}
 	
+	//기숙사 호실 삭제
 	public void deleteForRoomProcess(int room_pk) {
 		buildingSqlMapper.deleteRoom(room_pk);
 	}
 	
+//	public void deleteForRoomDetailImg(int dorm_amount) {
+//		
+//		buildingSqlMapper.deleteCategoryImg(dorm_amount);
+//		
+//	}
+
+	//기숙사 호실 수정
 	public void updateForRoom(DormRoomDto roomDto) {
 //		로그확인용
 //		System.out.println("--------------------------");

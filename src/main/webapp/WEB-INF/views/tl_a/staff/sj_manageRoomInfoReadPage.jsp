@@ -56,9 +56,9 @@
  
                 <div class="row">
 				    <div class="col text-center fw-bold fs-5 my-3">
-				        <c:forEach items="${forDorm}" var="map">
-				            <c:if test="${map.buildingDto.dorm_pk == param.dorm_pk }">
-				                ${map.buildingDto.name}
+				        <c:forEach items="${dormBuilding}" var="map">
+				            <c:if test="${map.dorm_pk == param.dorm_pk }">
+				                ${map.name}
 				            </c:if>
 				        </c:forEach>
 				    </div>
