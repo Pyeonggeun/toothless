@@ -9,7 +9,7 @@
 			SELECT cpi.*, rownum rnum FROM tl_b_clinic_patient_info cpi
 			<if test="searchWord != null">
 				WHERE cpi.name LIKE '%'||#{searchWord}||'%'
-				OR TO_CHAR(cpi.birth, 'yyMMdd') LIKE '%'||#{searchWord}||'%'
+				OR TO_CHAR(cpi.birth, 'yyMMdd') LIKE #{searchWord}
 			</if>
 			ORDER BY cpi.name ASC
 		)t1
@@ -33,7 +33,7 @@
 		SELECT COUNT(*) FROM tl_b_clinic_patient_info
 		<if test="value != null">
 			WHERE name LIKE '%'||#{searchWord}||'%'
-			OR TO_CHAR(birth, 'yyMMdd') LIKE '%'||#{searchWord}||'%'
+			OR TO_CHAR(birth, 'yyMMdd') LIKE #{searchWord}
 		</if>
 	</select>
 	

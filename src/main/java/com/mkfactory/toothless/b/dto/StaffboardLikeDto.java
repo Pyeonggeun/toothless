@@ -6,18 +6,18 @@ public class StaffboardLikeDto {
 	
 	private int staffboard_like_pk;
 	private int staff_pk;
-	private int staffeboard_pk;
+	private int staffboard_pk;
 	private Date created_at;
 	
 	public StaffboardLikeDto() {
 		super();
 	}
 
-	public StaffboardLikeDto(int staffboard_like_pk, int staff_pk, int staffeboard_pk, Date created_at) {
+	public StaffboardLikeDto(int staffboard_like_pk, int staff_pk, int staffboard_pk, Date created_at) {
 		super();
 		this.staffboard_like_pk = staffboard_like_pk;
 		this.staff_pk = staff_pk;
-		this.staffeboard_pk = staffeboard_pk;
+		this.staffboard_pk = staffboard_pk;
 		this.created_at = created_at;
 	}
 
@@ -36,13 +36,13 @@ public class StaffboardLikeDto {
 	public void setStaff_pk(int staff_pk) {
 		this.staff_pk = staff_pk;
 	}
-
-	public int getStaffeboard_pk() {
-		return staffeboard_pk;
+	
+	public int getStaffboard_pk() {
+		return staffboard_pk;
 	}
 
-	public void setStaffeboard_pk(int staffeboard_pk) {
-		this.staffeboard_pk = staffeboard_pk;
+	public void setStaffboard_pk(int staffboard_pk) {
+		this.staffboard_pk = staffboard_pk;
 	}
 
 	public Date getCreated_at() {

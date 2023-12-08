@@ -102,20 +102,26 @@ public class NoticeController {
 	// 공지사항 상세글보기
 	@RequestMapping("readNoticeBoardPage")
 	public String readNoticeBoardPage(HttpSession session, Model model, int id) {
-		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
-		int studentPk = studentInfoDto.getStudent_pk();
-		
-		NoticeBoardLikeDto noticeBoardLikeDto = new NoticeBoardLikeDto();
-		noticeBoardLikeDto.setStudent_pk(studentPk);
-		noticeBoardLikeDto.setNotice_id(id);
-		
+		if(session.getAttribute("sessionStudentInfo") != null) {
+			StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+			int studentPk = studentInfoDto.getStudent_pk();
+			
+			NoticeBoardLikeDto noticeBoardLikeDto = new NoticeBoardLikeDto();
+			noticeBoardLikeDto.setStudent_pk(studentPk);
+			noticeBoardLikeDto.setNotice_id(id);
+			
+			model.addAttribute("likeCheck", noticeService.noticeLikeCheck(noticeBoardLikeDto));
+			model.addAttribute("upThumbCheck", noticeService.noticeUpThumbCheck(noticeBoardLikeDto));
+			model.addAttribute("downThumbCheck", noticeService.noticeDownThumbCheck(noticeBoardLikeDto));
+			model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
+			model.addAttribute("cList", noticeService.selectCommentByNotice_Id(id));
+		}else {
+			model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
+			model.addAttribute("cList", noticeService.selectCommentByNotice_Id(id));
+		}
+
 		noticeService.increaseReadCount(id);
 		
-		model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
-		model.addAttribute("likeCheck", noticeService.noticeLikeCheck(noticeBoardLikeDto));
-		model.addAttribute("upThumbCheck", noticeService.noticeUpThumbCheck(noticeBoardLikeDto));
-		model.addAttribute("downThumbCheck", noticeService.noticeDownThumbCheck(noticeBoardLikeDto));
-		model.addAttribute("cList", noticeService.selectCommentByNotice_Id(id));
 		return "tl_e/notice/readNoticeBoardPage";
 	}
 	// 공지사항 삭제

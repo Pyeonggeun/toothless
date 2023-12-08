@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,20 +95,20 @@
 					<table class="table table-bordered text-center align-middle">
 						<thead>
 							<tr class="align-middle border-bottom border-2">
-								<th scope="col" class="col-10 text-bg-light">내용</th>
-								<th scope="col" class="col-2 text-bg-light">입력일</th>
+								<th scope="col" class="col-1 text-bg-light">임원 이름</th>
+								<th scope="col" class="col-8 text-bg-light">내용</th>
+								<th scope="col" class="col-1 text-bg-light">입력일</th>
 							</tr>
 						</thead>
 						<tbody>
 							<!-- 값 반복 예정 -->
+							<c:forEach items="${getAllDiaryList}" var="getAllDiaryList">
 							<tr>
-								<td>청소가 매우 잘되어있음</td>
-								<td>2023.12.05</td>
+								<td>${getAllDiaryList.studentInfoDto.name}</td>
+								<td>${getAllDiaryList.diaryDto.content}</td>
+								<td><fmt:formatDate value="${getAllDiaryList.diaryDto.created_at}" pattern="yyyy-MM-dd"/></td>
 							</tr>
-							<tr>
-								<td>물품 도난 사건 발생</td>
-								<td>2023.12.05</td>
-							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>

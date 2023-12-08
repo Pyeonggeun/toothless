@@ -3,7 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mkfactory.toothless.c.guntaek.mapper.GuntaekStudentSqlMapper">
-
 <!-- 이력서 insert -->
 <insert id ="registerSelfIntroduction">
 INSERT INTO tl_c_self_introduction VALUES(
@@ -28,6 +27,11 @@ INSERT INTO tl_c_self_introduction VALUES(
 	WHERE STUDENT_PK = #{student_pk}
 </select>
 
+<!-- 모든 학생 Dto 리스트 가져오기 -->
+<select id = "getSelfIntroductionDtoList" resultType = "com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto">
+	SELECT * FROM tl_c_self_introduction
+</select>
+
 <!-- 이력서 수정 -->
 <update id ="updateSelfIntroductionDto">
 	UPDATE TL_C_SELF_INTRODUCTION
@@ -36,7 +40,7 @@ INSERT INTO tl_c_self_introduction VALUES(
 	WHERE student_pk = #{student_pk}
 </update>
 
-<!-- 이력서 insert -->
+<!-- 자격증 insert -->
 <insert id = "registerCertification">
 INSERT INTO tl_c_certification VALUES(
 	tl_c_certification_seq.nextval,
@@ -47,21 +51,46 @@ INSERT INTO tl_c_certification VALUES(
 )
 </insert>
 
-<!-- 모든 학생 Dto 리스트 가져오기 -->
-<select id = "getSelfIntroductionDtoList" resultType = "com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto">
-	SELECT * FROM tl_c_self_introduction
-</select>
 
-<!-- 특정 학생키의 이력서 DTO 가져오기 -->
+<!-- 특정 학생키의 자격증 DTO 리스트 가져오기-->
 <select id = "getCertificationByStudentPk" resultType ="com.mkfactory.toothless.c.dto.AjdksCertificationDto">
 	SELECT * FROM tl_c_certification
 	WHERE STUDENT_PK = #{student_pk}
 </select>
 
+<!-- 특정 자격증 삭제 버튼 -->
 <delete id ="deleteCertificationByFile">
 	DELETE FROM TL_C_CERTIFICATION
 	WHERE certification_file = #{FileName}
 </delete>
+
+
+<!-- 아 괜히 만들었다 야발 안쓰고 있음 .. 쓸 이유도 없다 -->
+<select id ="getStudentDto" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+SELECT * FROM TL_JIC_STUDENT_INFO 
+WHERE STUDENT_PK = #{student_pk}
+</select>
+
+<!-- 특정 전공 pk를 통하여 전공이름 select 해오기  -->
+<select id = "getDepartmentName" resultType ="String">
+SELECT NAME FROM TL_JIC_DEPARTMENT_CATEGORY
+WHERE DEPARTMENT_PK = #{department_pk}
+</select>
+
+<!-- 특정 교수 pk를 통하여 교수이름 Select 해오기 -->
+<select id ="getProfessorName" resultType = "String">
+SELECT NAME FROM TL_JIC_PROFESSOR_INFO
+WHERE PROFESSOR_PK = #{PROFESSOR_PK}
+</select>
+
+<!-- 특정  학생이 몇학기인지 Select 해오기 -->
+<select id ="getStudentSemester" resultType ="int">
+SELECT COUNT(SEMESTER_PK) FROM TL_JIC_STUDENT_SEMESTER 
+WHERE student_pk = (
+SELECT student_pk FROM TL_JIC_STUDENT_INFO
+WHERE STUDENT_PK =#{student_pk}
+)
+</select>
 
 
 </mapper>
