@@ -211,7 +211,6 @@
 									졸업생
 								</c:otherwise>
 							</c:choose>
-							
 						</div>
 					</div>
 				</c:forEach>
