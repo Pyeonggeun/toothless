@@ -104,28 +104,28 @@
 								</thead>
 								<tbody>
 									<!-- 값 반복 예정 -->
-									<tr>
-										<td>홍길동</td>
-										<td>A동</td>
-										<td>1층</td>
-										<td>101호</td>
-										<td>
-											<a href="#" class="d-grid mx-2" style="text-decoration: none;">
-												<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">배정</span></button>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>신짱구</td>
-										<td>B동</td>
-										<td>2층</td>
-										<td>201호</td>
-										<td>
-											<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
-												<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">배정</span></button>
-											</a>
-										</td>
-									</tr>
+									<c:forEach items="${dormStudentListMap}" var="dormStudentListMap">
+										<tr>
+											<td>${dormStudentListMap.studentInfoDto.name}</td>
+											<td>${dormStudentListMap.dormBuildingDto.name}</td>
+											<td>${dormStudentListMap.dormRoomDto.dorm_floor}</td>
+											<td>${dormStudentListMap.dormRoomDto.room_name}</td>
+											<td>
+												<c:choose>
+													<c:when test="${dormStudentListMap.isExecutiveCheck == 0}">
+														<a href="./jw_executiveAssignmentProcess?dorm_student_pk=${dormStudentListMap.dormStudentDto.dorm_student_pk}" class="d-grid mx-2" style="text-decoration: none;">
+														<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">배정</span></button>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a href="./jw_deleteExecutiveProcess?dorm_student_pk=${dormStudentListMap.dormStudentDto.dorm_student_pk}" class="d-grid mx-2" style="text-decoration: none;">
+														<button type="button" class="btn btn-outline-danger btn-sm"><span class="text-black">배정 취소</span></button>
+														</a>
+													</c:otherwise>
+												</c:choose>
+											</td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
