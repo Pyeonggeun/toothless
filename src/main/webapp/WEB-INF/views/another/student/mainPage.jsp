@@ -26,29 +26,31 @@
         	        
         		});
         	}
-        	setInterval(reloadNotifyCount, 5000);
+        	//setInterval(reloadNotifyCount, 5000);
         	
         	function loadMyNewNotifyCount(){
         		const url = "./reloadMyNewNotifyList?student_pk="+${sessionStudentInfo.student_pk};
         		fetch(url)
         		.then(response => response.json())
         		.then((response) => {
-        			
         			const alertBox = document.getElementById("alertBox");
         			const sender = document.getElementById("sender");
+        			const notifyIcon = document.getElementById("notifyIcon");
         			const message = document.getElementById("message");
         			const link = document.getElementById("link");
         			if(response.data.length >= 2){
         				
         				alertBox.classList.remove("d-none");
         				sender.innerText = "";
-        				sender.innerText = "[알림]";
+        				sender.innerText = "알림";
+        				notifyIcon.classList.remove("bi-bell-fill","bi-person-workspace","bi-briefcase-fill","bi-headset","bi-buildings","bi-capsule","bi-gear");
+        				notifyIcon.classList.add("bi-bell-fill");
         				message.innerText = "";
         				message.innerText = "총 "+response.data.length+"개의 새로운 알림이 있습니다.";
         				
-        				//commentUpdate.setAttribute("href", "./mainPage");
         				updateMyCheckNotifyStatus();
-        				
+            			reloadNotifyCount();
+        				//commentUpdate.setAttribute("href", "./mainPage");
         				setTimeout(() => 
         					alertBox.classList.add("d-none"),
         					5000);
@@ -57,14 +59,33 @@
         				alertBox.classList.remove("d-none");
         				sender.innerText = "";
         				sender.innerText = response.data[0].centerCategoryDto.position;
+        				if(response.data[0].centerCategoryDto.center_pk == 1){
+        					notifyIcon.classList.remove("bi-bell-fill","bi-bell-fill","bi-briefcase-fill","bi-headset","bi-buildings","bi-capsule","bi-gear");
+        					notifyIcon.classList.add("bi-person-workspace");
+        				}else if(response.data[0].centerCategoryDto.center_pk == 2){
+        					notifyIcon.classList.remove("bi-bell-fill","bi-bell-fill","bi-briefcase-fill","bi-headset","bi-buildings","bi-capsule","bi-gear","bi-person-workspace" );
+        					notifyIcon.classList.add("bi-briefcase-fill");
+        				}else if(response.data[0].centerCategoryDto.center_pk == 3){
+        					notifyIcon.classList.remove("bi-bell-fill","bi-bell-fill","bi-briefcase-fill","bi-headset","bi-buildings","bi-capsule","bi-gear","bi-person-workspace" );
+        					notifyIcon.classList.add("bi-headset");
+        				}else if(response.data[0].centerCategoryDto.center_pk == 4){
+        					notifyIcon.classList.remove("bi-bell-fill","bi-bell-fill","bi-briefcase-fill","bi-headset","bi-buildings","bi-capsule","bi-gear","bi-person-workspace" );
+        					notifyIcon.classList.add("bi-buildings");
+        				}else if(response.data[0].centerCategoryDto.center_pk == 5){
+        					notifyIcon.classList.remove("bi-bell-fill","bi-bell-fill","bi-briefcase-fill","bi-headset","bi-buildings","bi-capsule","bi-gear","bi-person-workspace" );
+        					notifyIcon.classList.add("bi-capsule");
+        				}else{
+        					notifyIcon.classList.remove("bi-bell-fill","bi-bell-fill","bi-briefcase-fill","bi-headset","bi-buildings","bi-capsule","bi-gear","bi-person-workspace" );
+        					notifyIcon.classList.add("bi-gear");
+        				}
         				message.innerText = "";
         				message.innerText = response.data[0].notificationDto.message;
         				
-						updateMyCheckNotifyStatus();
-						
+        				updateMyCheckNotifyStatus();
+            			reloadNotifyCount();
         				setTimeout(() => 
         					alertBox.classList.add("d-none"),
-        					5000);
+        					10000);
         			}
         					
         			
@@ -92,12 +113,19 @@
                 modal.show();
             }
         	
+        	function hideNotify(){
+        		const alertBox = document.getElementById("alertBox");
+        		alertBox.classList.add("d-none");
+        	}
+        	
         	function loadUnreadNotifyList() {
+        		
 				const url = "./loadUnreadNotifyList?student_pk="+${sessionStudentInfo.student_pk};
 				fetch(url)
         		.then(response => response.json())
         		.then((response) => {
-        			cleanNotifyList();
+        			cleanNotifyList();	
+        			hideNotify();
         			const unreadNotifyListBox =document.querySelector("#unreadNotifyListBox");
         			
         			const newNotify = document.getElementById("newNotify");
@@ -123,7 +151,7 @@
 	        				if(e.centerCategoryDto.center_pk == 1){
 	        					centerIcon.classList.add("bi","bi-person-workspace");
 	        				}else if(e.centerCategoryDto.center_pk == 2){
-	        					centerIcon.classList.add("bi","bi-gear");
+	        					centerIcon.classList.add("bi","bi-briefcase-fill");
 	        				}else if(e.centerCategoryDto.center_pk == 3){
 	        					centerIcon.classList.add("bi","bi-headset");
 	        				}else if(e.centerCategoryDto.center_pk == 4){
@@ -147,7 +175,12 @@
 	        	    		if (date.getFullYear() +"."+ (date.getMonth()+1) + "."+ date.getDate() == 
 	        	    			currentDate.getFullYear() +"."+ (currentDate.getMonth()+1) + "."+ currentDate.getDate()){
 	        	    			if((currentDate.getHours() - date.getHours()) == 0){
-	        	    				created_at.innerText = (currentDate.getMinutes() - date.getMinutes())+ "분전";
+	        	    				if((currentDate.getMinutes() - date.getMinutes()) == 0){
+	        	    					created_at.innerText = "방금";
+	        	    				}else{
+	        	    					created_at.innerText = (currentDate.getMinutes() - date.getMinutes())+ "분전";
+	        	    				}
+	        	    			
 	        	    			}else{
 	        	    				created_at.innerText = (currentDate.getHours() - date.getHours())+ "시간전";
 	        	    			}
@@ -160,6 +193,7 @@
 	        				
 	        				unreadNotifyListBox.appendChild(unreadNotifyWrapper);
 	        				updateReadNotifyStatus();
+	        				reloadNotifyCount();
 	        			}
         			}
         		});
@@ -295,7 +329,7 @@
                     <a class="navbar-brand" href="./mainpage">현장실습 지원 센터</a>
                 </div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">취업<i class="bi bi-dot"></i>창업 지원 센터</a>
+                    <a class="navbar-brand" href="../../tl_d/common/employmentMainPage">취업<i class="bi bi-dot"></i>창업 지원 센터</a>
                 </div>
                 <div class="col align-self-center">
                     <a class="navbar-brand" href="../../tl_e/commons/counselCenterStudentMainPage">상담 센터</a>
@@ -316,21 +350,34 @@
             </div>
             <div class="row">
             	<div class="col">
-                    <div id="alertBox" class="alert alert-primary position-fixed bottom-0 end-0 me-5 d-none" role="alert" style="height: 8em; width: 20em;">
-                        <div class="row text-start ">
-                            <div id="sender" class="col fw-bold ">
-                                [취업 창업센터] 
+                      <div id="alertBox" class="alert row border border-black position-fixed bottom-0 end-0 me-4 px-0 py-0 d-none" role="alert" style="height: 9em; width: 20em;">
+                        <div class="col">
+                            <div class="row border-bottom py-0 text-light rounded-top" style="background-color: #133369;">
+                                <div id="sender" class="col-9  ">
+                                    취업 창업센터
+                                </div>
+                                <div class="col text-end " style="font-size: x-small;">
+                                    <button onclick="hideNotify()" class="btn-close btn-close-white btn-close-disabled-opacity mt-1"></button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mt-1">
-                            <div id="message" class="col">
-                                알림 내용 블라블라블라블라블라이마ㅓㄹ이마ㅓ 답글이 등록되었습니다.
+                            
+                            <div class="row bg-white pt-3">
+                                <div class="col-2 ps-3 fs-3">
+                                    <i id ="notifyIcon" class="bi" style="color: #133369;"></i>
+                                </div>
+                                <div id="message" class="col fw-bold" style="font-size: small;">
+                                    알림 내용 블라블라블라블라블ㅓ 답글이 등록되었습니다.
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col text-end">
-                                <a id="link" class="alert-link Text-end">바로가기</a>
-                            </div>
+                            
+                            <div class="row bg-white pb-3 rounded-bottom border-bottom border-black" style="color: #133369;">
+                                <div class="col-6 text-center">
+                                    <button onclick="showNotifyModal()" class="btn border fw-bold mt-3 px-3 py-1" style="font-size: small; border-color: #133369;" >전체 알림확인</button>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <button class="btn border fw-bold mt-3 px-4 py-1" style="font-size: small;">바로 가기</button>
+                                </div>
+                            </div> 
                         </div>
                     </div>
                 </div>
@@ -402,7 +449,7 @@
               <div class="modal-content" >
                 <div class="row">
                         <div class="col"></div> 
-                        <div id="newNotify"class="col-4 px-0  mt-4 fs-5 text-center ">
+                        <div id="newNotify"class="col-4 px-0 fs-5 mt-4 text-center ">
                             <a class="nav-link n" href="#"  onclick="loadUnreadNotifyList()">신규 알림</a>
                         </div>
                         <div class="col"></div>
@@ -431,7 +478,7 @@
 	        	<div class="col">
 	        		<a class="navbar-brand link" href="#">
 	             	<div class="row py-2 border rounded">
-	                 	<div class="col-2 fs-1 rounded-circle text-center mt-1 ms-3 bg-white" >
+	                 	<div class="col-2 fs-1 rounded-circle text-center mt-1 ms-3" >
 	                    	 <i class="centerIcon" style="color: #133369;"></i>
 	                 	</div>
 	                	 <div class="col">
