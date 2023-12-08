@@ -42,8 +42,7 @@
 	<!-- 현장실습 일괄조회 쿼리-->
 	<select id="selectInternshipAll" 
 		resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
-		SELECT a.*
-		     , b.company_name
+		SELECT a.*, b.company_name
 		  FROM tl_c_internship_course a
 		     , tl_c_company_info b
 		 WHERE a.company_pk = b.company_pk 
@@ -61,6 +60,11 @@
 		resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
 		SELECT * FROM tl_jic_professor_info
 		WHERE professor_pk = #{professor_pk}
+	</select>
+	
+	<!-- 담당 교수 출력 -->
+	<select id= "selectProfessorInfoList" resultType="com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto">
+		SELECT * FROM tl_jic_professor_info
 	</select>
 
 	<!-- 현장실습 상세조회 쿼리-->

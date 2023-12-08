@@ -97,7 +97,6 @@ body {
 </head>
 <body>
 
-
 	<div class="container-fluid">
 		<!-- 전체 container 입구 -->
 
@@ -118,7 +117,6 @@ body {
 				<div class="row mt-3 mb-3 ">
 					<div class="col"></div>
 				</div>
-
 
 				<!-- 상단 헤더 -->
 				<div class="row mt-3 mb-3 ">
@@ -152,17 +150,22 @@ body {
 								<div class="card-body text">
 									<h5 class="card-title fw-bold">
 										<a
-											href="ajdksInternshipDtl?internship_course_pk=${map.AjdksInternshipCourseDto.internship_course_pk}
+											href="ajdksInternshipDtl?
+									internship_course_pk=${map.AjdksInternshipCourseDto.internship_course_pk}
 									&company_pk=${map.AjdksInternshipCourseDto.company_pk}
 									&professor_pk=${map.AjdksInternshipCourseDto.professor_pk}
 									&department_pk=${map.AjdksInternshipCourseDto.department_pk}">
-													${map.AjdksInternshipCourseDto.course_title}</a>
+											${map.AjdksInternshipCourseDto.course_title}</a>
 									</h5>
 									<p class="card-text" style="font-size: 0.9em;">
-										${map.company_name}</p>
+										선발결과 발표일 <br>
+										${map.AjdksInternshipCourseDto.announcement_date}
+									</p>
 								</div>
+
 								<div class="card-footer labelcolor jb-700"
 									style="font-size: 0.9em;">${map.company_name}</div>
+
 							</div>
 
 						</div>
@@ -174,19 +177,15 @@ body {
 
 				<div class="btn-group m-3 border shadow" role="group"
 					aria-label="Default button group">
-					<button type="button" onclick="javascript:fn_reg();"
-						class="btn labelcolor">
-						<i class="bi bi-pencil-square"></i> 등록
-					</button>
-					<a href="./ajdksInternshipList" class="btn labelcolor"><i
-						class="bi bi-list-ul"></i> 목록으로</a>
+					<a href="./ajdksInternshipRegForm" class="btn labelcolor"> <i
+						class="bi bi-pencil-square"></i> 등록페이지
+					</a> <a href="./ajdksInternshipList" onclick="javascript:fn_reg();"
+						class="btn labelcolor"><i class="bi bi-list-ul"></i> 목록으로</a>
 				</div>
-
 
 			</div>
 		</div>
 	</div>
-
 
 	<!-- 전체 container 출구 -->
 	<script
