@@ -11,13 +11,17 @@ import org.springframework.stereotype.Service;
 import com.mkfactory.toothless.a.dto.DormBuildingDto;
 import com.mkfactory.toothless.a.dto.DormCategoryDto;
 import com.mkfactory.toothless.a.dto.DormRoomDto;
+import com.mkfactory.toothless.a.dto.DormStudentDto;
 import com.mkfactory.toothless.a.staff.sj.mapper.BuildingSqlMapper;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @Service
 public class BuildingServieImpl {
 	
 	@Autowired
 	private BuildingSqlMapper buildingSqlMapper;
+	
+
 	
 	public void registerBuilding(DormBuildingDto dormBuildingDto) {
 		buildingSqlMapper.registerDormInfo(dormBuildingDto);
@@ -35,12 +39,12 @@ public class BuildingServieImpl {
 		return buildingSqlMapper.dormBuildings();
 	}
 	
+	
 	//카테고리 리스트
 	public List<DormCategoryDto> dormCategoryList(){
 
 		return buildingSqlMapper.dormCategory();
 	}
-
 	
 	//호실 리스트
 	public List<DormRoomDto> dormRoomList(){
@@ -100,6 +104,9 @@ public class BuildingServieImpl {
 			int dormPk = rooms.getDorm_pk();
 			DormBuildingDto dormBuildingDto = buildingSqlMapper.dormBuildinChoice(dormPk);
 			
+			
+			
+			
 			Map<String, Object> roomMap = new HashMap<>();
 			
 			roomMap.put("dormRoomDto", rooms);
@@ -111,6 +118,8 @@ public class BuildingServieImpl {
 		
 		return roomL;
 	}
+	
+	
 	
 	//호실 수정하려고 만든 맵
 	public Map<String, Object> printRooms(int dorm_room_pk){
@@ -136,6 +145,46 @@ public class BuildingServieImpl {
 		
 		return justRoomMap;
 	}
+	
+	//동과 호실에 해당하는 학생의 이름과 학번 뽑기.
+	public List<Map<String, Object>> studentList(){
+		List<Map<String, Object>> stList = new ArrayList<>();
+		
+		List<DormStudentDto> studentDto = buildingSqlMapper.selectStudents();
+		
+		for(DormStudentDto student : studentDto) {
+			
+			int roomPk = student.getDorm_room_pk();
+			DormRoomDto roomDto = buildingSqlMapper.selectRoomByPk(roomPk);
+			
+			int dormPk = roomDto.getDorm_pk();
+			DormBuildingDto dormDto = buildingSqlMapper.dormBuildinChoice(dormPk);
+			
+			int studentPk = student.getStudent_pk();
+			StudentInfoDto stInfo = buildingSqlMapper.forStudentName(studentPk);
+			
+			Map<String, Object> stMap = new HashMap<>();
+			
+			stMap.put("roomDto", roomDto);
+			stMap.put("dormDto", dormDto);
+			stMap.put("student", student);
+			stMap.put("stInfo", stInfo);
+			
+//			로그확인용
+//			System.out.println("-----------------");
+//			System.out.println("fisrt");
+//			System.out.println("기숙사 동 "+dormDto.getDorm_pk());
+//			System.out.println("기숙사 호 "+roomDto.getDorm_room_pk());
+//			System.out.println("학생 학번 "+student.getDorm_student_pk());
+//			System.out.println("학생 이름 "+stInfo.getName());
+			
+			stList.add(stMap);
+		}
+		
+		return stList;
+	}
+	
+
 	
 	//기숙사 동 삭제
 	public void deleteForDormInfoProcess(int dorm_pk) {
@@ -166,5 +215,7 @@ public class BuildingServieImpl {
 //	    System.out.println("DORM_FLOOR: " + roomDto.getDorm_floor());
 		buildingSqlMapper.updateRoom(roomDto);
 	}
+	
+	
 	
 }

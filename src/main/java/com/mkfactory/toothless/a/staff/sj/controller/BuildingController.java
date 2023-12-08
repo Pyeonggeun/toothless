@@ -51,7 +51,10 @@ public class BuildingController {
 		
 		List<Map<String, Object>> rooms2 = buildingService.roomList();
 		model.addAttribute("rooms", rooms2);
-		model.addAttribute("dormBuilding", buildingService.dormBuildNames());		
+		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
+		
+		//stList
+		model.addAttribute("studentList", buildingService.studentList());		
 		return "tl_a/staff/sj_manageRoomInfo";
 	}
 	
@@ -62,9 +65,7 @@ public class BuildingController {
 		List<Map<String, Object>> rooms2 = buildingService.roomList();
 		model.addAttribute("rooms", rooms2);
 		
-		List<Map<String, Object>> dorm = buildingService.dormList();
-		model.addAttribute("forDorm", dorm);
-		
+		model.addAttribute("studentList", buildingService.studentList());
 		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
 		
 		return "tl_a/staff/sj_manageRoomInfoReadPage";

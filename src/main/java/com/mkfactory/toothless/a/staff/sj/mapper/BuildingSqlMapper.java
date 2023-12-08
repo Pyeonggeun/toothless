@@ -1,10 +1,13 @@
 package com.mkfactory.toothless.a.staff.sj.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mkfactory.toothless.a.dto.DormBuildingDto;
 import com.mkfactory.toothless.a.dto.DormCategoryDto;
 import com.mkfactory.toothless.a.dto.DormRoomDto;
+import com.mkfactory.toothless.a.dto.DormStudentDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 public interface BuildingSqlMapper {
 	//건물 등록(동)
@@ -26,6 +29,12 @@ public interface BuildingSqlMapper {
 	public void deleteRoom(int dorm_room_pk);
 	public void updateRoom(DormRoomDto dorRoomDto);
 	
+	//호실에 해당하는 학생들 학번, 이름 뽑기.
+	public List<DormStudentDto> selectStudents();
+	public DormStudentDto selectStudentPk(int student_pk);
+	public StudentInfoDto forStudentName(int student_pk);
+
+	
 	//정원 카테고리 
 	public List<DormCategoryDto> dormCategory();
 	public DormCategoryDto selectDormCategoryPk(int dorm_amount_pk);
@@ -33,6 +42,8 @@ public interface BuildingSqlMapper {
 	
 	//정원 카테고리 
 //	public void deleteCategoryImg(int dorm_amount);
+	
+	
 	
 	
 	

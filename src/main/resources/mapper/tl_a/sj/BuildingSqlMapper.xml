@@ -45,7 +45,7 @@
 	
 	<!-- 호실 조회 -->
 	<select id="selectRooms" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
-		SELECT * FROM tl_a_dorm_room ORDER BY DORM_ROOM_PK asc
+		SELECT * FROM TL_A_DORM_ROOM tadr ORDER BY DORM_PK, ROOM_NAME  asc
 	</select>
 	
 	<!-- 호실 삭제 -->
@@ -97,6 +97,29 @@
 	
 	<select id="selectDormCategoryPk" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
 		SELECT * FROM TL_A_DORM_CATEGORY tadc WHERE DORM_AMOUNT_PK =#{dorm_amount_pk}
+	</select>
+	
+	<!-- 동과 호실에 해당하는 학생 리스트 나오기 ex.A동 101호에 사는 학생이름, 학번 출력 -->
+	<select id="selectStudentNameAndId" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT TJSI.student_pk, tjsi.NAME
+			FROM TL_A_DORM_ROOM tadr 
+			INNER JOIN TL_A_DORM_STUDENT tads 
+			ON tadr.DORM_ROOM_PK = tads.DORM_ROOM_PK 
+			INNER JOIN TL_JIC_STUDENT_INFO tjsi
+			ON tjsi.STUDENT_PK  = tads.STUDENT_PK 
+			WHERE ROOM_NAME = #{room_name} AND DORM_PK = #{dorm_pk}
+	</select>
+	
+	<select id="selectStudentPk" resultType="com.mkfactory.toothless.a.dto.DormStudentDto" >
+		SELECT * FROM TL_A_DORM_STUDENT tads WHERE STUDENT_PK =#{student_ pk}
+	</select>
+	
+	<select id="forStudentName" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO tjsi WHERE STUDENT_PK = #{student_pk}
+	</select>
+	
+	<select id="selectStudents" resultType="com.mkfactory.toothless.a.dto.DormStudentDto" >
+		SELECT * FROM TL_A_DORM_STUDENT tads 
 	</select>
 	
 </mapper>

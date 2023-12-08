@@ -29,7 +29,7 @@
 		<div class="col mx-5">
 			
 			
-			<!-- 카테고리 -->
+			<!-- 카테고리 
 			<div class="row mt-2">
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					
@@ -46,6 +46,8 @@
 					</ul>
 				</div>
 			</div>
+			-->
+			
 			
 			
 			
