@@ -257,7 +257,18 @@ public class EunbiProfessorServiceImpl {
 		return studentDetail;
 	}
 	
-	
+	// 현재 날짜과 현장실습과정 날짜 비교
+	public Map<String, Object> isNow(int internshipCoursePk) {
+		
+		Map<String, Object> isNow = new HashMap<>();
+		
+		externalSqlMapper.isStartApplying(internshipCoursePk);
+		externalSqlMapper.isEndApplying(internshipCoursePk);
+		externalSqlMapper.didAnnouncement(internshipCoursePk);
+		externalSqlMapper.isStartInternship(internshipCoursePk);
+		
+		return isNow;
+	}
 	
 	
 	

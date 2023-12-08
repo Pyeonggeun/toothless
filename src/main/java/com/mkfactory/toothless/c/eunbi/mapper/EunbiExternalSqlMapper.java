@@ -16,4 +16,13 @@ public interface EunbiExternalSqlMapper {
 	public AjdksInternshipCourseDto getInternshipCourseDetail(int internship_course_pk);
 	
 	
+	
+	// 현장실습 과정의 날짜 비교
+	public int isStartApplying(int internship_course_pk);
+	public int isEndApplying(int internship_course_pk);
+	public int didAnnouncement(int internship_course_pk);
+	public int isStartInternship(int internship_course_pk);
+	
+	
+	
 }

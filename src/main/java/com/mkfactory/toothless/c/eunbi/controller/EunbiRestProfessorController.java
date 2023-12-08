@@ -77,7 +77,16 @@ public class EunbiRestProfessorController {
 		return restResponseDto;
 	}
 	
-	
+	public RestResponseDto isNow(int internship_course_pk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(professorService.isNow(internship_course_pk));
+		
+		restResponseDto.setResult("Success");
+		
+		return restResponseDto;
+	}
 	
 	
 	

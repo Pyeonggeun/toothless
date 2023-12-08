@@ -51,6 +51,7 @@ public class EunbiProfessorController {
 //		
 		model.addAttribute("internshipCourseDetail", professorService.viewInternshipCourseDetail(internship_course_pk));
 		
+		
 		return "tl_c/eunbi/professor/viewInternshipCourseDetailPage";
 		
 	}
