@@ -63,7 +63,7 @@
 						<div class="row fw-bold fs-5 pb-1 mb-2 border-bottom border-bd-border border-2">
 							<div class="col">기업</div>
 							<div class="col text-end fw-bold fs-5">
-								<a href="#" class="btn"><i class="bi bi-plus-lg text-primary"></i></a>	
+								<a href="../gw_company/companyManagementPage" class="btn"><i class="bi bi-plus-lg text-primary"></i></a>	
 							</div>
 						</div>
 						
@@ -73,7 +73,7 @@
 									<c:if test="${loop.index < 5}">
 										<div class="row border-bottom border-bs-border pb-2 mb-2">
 											<div class="col-1 text-center fw-bold pt-1">${list.companyDto.com_pk}</div>
-											<div class="col"><a class="btn ms-4" href="./companyViewDetailsPage?com_pk=${list.companyDto.com_pk}">${list.companyDto.com_name}</a></div>
+											<div class="col"><a class="btn ms-4" href="../gw_company/companyViewDetailsPage?com_pk=${list.companyDto.com_pk}">${list.companyDto.com_name}</a></div>
 											<div class="col-3 text-center pt-1">
 												<c:choose>
 													<c:when test="${list.companyDto.is_family_company=='Y'}">
