@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
 import com.mkfactory.toothless.c.guntaek.mapper.GuntaekStudentSqlMapper;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @Service
 public class GuntaekStudentServiceImpl {
@@ -53,12 +54,25 @@ public class GuntaekStudentServiceImpl {
 	public List<AjdksCertificationDto> getCertificationByStudentPk(int student_pk){
 		return guntaekstudentSqlMapper.getCertificationByStudentPk(student_pk);
 	}
-	
-	
-
-
 	// 특정 파일명으로 자격증Dto 삭제
 	public void deleteCertificationByFile(String FileName) {
 		guntaekstudentSqlMapper.deleteCertificationByFile(FileName);
+	}
+	
+	// 특정 학생키로 학생 DTO 가져오기 (괜히 만듬)
+	public StudentInfoDto getStudentDto(int student_pk) {
+		return guntaekstudentSqlMapper.getStudentDto(student_pk);
+	}
+	
+	public String getDepartmentName(int department_pk) {
+		return guntaekstudentSqlMapper.getDepartmentName(department_pk);	
+	}
+	
+	public String getProfessorName(int professor_pk) {
+		return guntaekstudentSqlMapper.getProfessorName(professor_pk);
+	}
+	
+	public int getStudentSemester(int student_pk) {
+		return guntaekstudentSqlMapper.getStudentSemester(student_pk);
 	}
 }
