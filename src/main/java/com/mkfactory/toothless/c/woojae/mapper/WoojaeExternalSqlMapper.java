@@ -27,4 +27,9 @@ public interface WoojaeExternalSqlMapper {
 	//카테고리별 산업체 리스트
 	public List<AjdksCompanyInfoDto> selectCompanyListByCategoryPk(int company_category_pk);
 	
+	//사업자 등록번호 확인
+	public int countByCompanyId(String company_id);
+	
+	// 산업페 아이디 확인
+	public int countByExternalId(String external_id);
 }

@@ -56,4 +56,13 @@
 		SELECT * FROM tl_c_company_info WHERE COMPANY_CATEGORY_PK = #{company_category_pk}
 	</select>
 	
+	<!-- 사업자등록번호 확인 -->
+	<select id="countByCompanyId" resultType="int">
+		SELECT COUNT(*)  FROM tl_c_company_info WHERE COMPANY_ID = #{company_id}
+	</select>
+	
+	<!-- 산업체 아이디 확인 -->
+	<select id="countByExternalId" resultType="int">
+		SELECT COUNT(*) FROM TL_JIC_EXTERNAL_INFO WHERE EXTERNAL_ID = #{external_id}
+	</select>
 </mapper>
