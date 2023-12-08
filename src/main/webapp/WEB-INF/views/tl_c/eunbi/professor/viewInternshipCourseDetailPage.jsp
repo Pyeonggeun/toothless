@@ -54,7 +54,7 @@
 <script>
 
 	let professorPk = null;
-	const internship_course_pk = ${internshipCourseDetail.internshipCourseDto.internship_course_pk};
+	const internship_course_pk = ${internshipCourseDetail.internshipCourseDto.internship_course_pk}
 	
 	function getProfessorPk(){
 		fetch("./getProfessorPk")
@@ -65,6 +65,7 @@
 	}
 	
 	function reloadApplyStudentList(){
+		
 		fetch("./getApplyingStudentListByCourse?internship_course_pk=" + internship_course_pk)
 		.then(response => response.json())
 		.then(response => {
@@ -95,75 +96,25 @@
 				applyingStudentStatus.innerText = applyingStudent.studentApplyingDto.status;
 				
 				const studentDetailPageBtn = applyingStudentWrapper.querySelector(".studentDetailPageBtn");
-				studentDetailPageBtn.innerText = 상세보기
+				studentDetailPageBtn.innerText = "상세보기";
 				studentDetailPageBtn.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1");
 				studentDetailPageBtn.setAttribute("href", "./viewStudentDetailPage?student_pk="+applyingStudent.studentInfoDto.student_pk+"");
 				
 				const applyingStudentCreatedAt = applyingStudentWrapper.querySelector(".applyingStudentCreatedAt");
-				applyingStudentCreatedAt.innerText = applyingStudent.studentApplyingDto.created_at;
+				const date = new Date(applyingStudent.studentApplyingDto.created_at);
+				applyingStudentCreatedAt.innerText = date.getFullYear() + "." + (date.getMonth()+1) + "." + date.getDate();
+
 				
+				
+				
+				applyingStudentListBox.appendChild(applyingStudentWrapper);
 			}
+			
 			
 		});
 	}
 	
-	function reloadInternList(){
-		
-		fetch("./getStudentInternList?internship_course_pk=" + internship_course_pk)
-		.then(response => response.json())
-		.then(response => {
-			
-			const internListBox = document.getElementById("internListBox");
-			internListBox.innerHTML = "";
-			
-			for(intern of response.data) {
-				
-				const internWrapper = document.querySelector("#internListTemplete .internWrapper").cloneNode(true);
-				
-				const internPk = internWrapper.querySelector(".internPk");
-				internPk.innerText = intern.studentInfoDto.student_pk;
-				
-				const internName = internWrapper.querySelector(".internName");
-				internName.innerText = intern.studentInfoDto.name;
-				
-				const internDepartment = internWrapper.querySelector(".internDepartment");
-				internDepartment.innerText = intern.studentDepartment.name;
-				
-				const internProfessor = internWrapper.querySelector(".internProfessor");
-				internProfessor.innerText = intern.studentProfessorInfo.name;
-				
-				const studentDetailPageBtn = internWrapper.querySelector(".studentDetailPageBtn");
-				studentDetailPageBtn.innerText = 상세보기
-				studentDetailPageBtn.classList.add("btn", "btn-outline-secondary", "btn-sm", "rounded-1");
-				studentDetailPageBtn.setAttribute("href", "./viewStudentDetailPage?student_pk="+intern.studentInfoDto.student_pk+"");
-				
-				const internAttendance = internWrapper.querySelector(".internAttendance");
-				internAttendance.innerText = 
-					"출근" + intern.countAttendance + "&nbsp" +
-					"지각" + intern.countLate&nbsp + "&nbsp" +
-					"조퇴" + intern.countEarlyleave&nbsp + "&nbsp" +
-					"결근" + intern.countAbsent;
 
-				const readInternReport = internWrapper.querySelector(".readInternReport");
-				readInternReport.innerText = 업무일지확인
-				readInternReport.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1");
-				readInternReport.setAttribute("href", "./viewInternReport?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
-				
-				const internEvaluation = internWrapper..querySelector(".internEvaluation");
-				
-				if(intern.didEvaluateIntern == 0){
-					internEvaluation.innerText = 성적입력하기
-					internEvaluation.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1");
-				}else(intern.didEvaluateIntern > 0){
-					internEvaluation.innerText = 성적입력완료
-					internEvaluation.removeAttribute("button")
-				}
-				
-				
-			}
-			
-		});
-	}
 
 
 
@@ -172,7 +123,6 @@
 	window.addEventListener("DOMContentLoaded", () => {
 		getProfessorPk();
 		reloadApplyStudentList();
-		reloadInternList();
 		// setInterval(reloadCommentList,1000); // 1초마다 reloadCommentList호출
 	});
 
@@ -284,15 +234,13 @@
 					<div class="row mt-4">
 						<div class="col">
 						<jsp:useBean id="now" class="java.util.Date"/>
-						<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
-						<c:choose>
-							<c:when test="${internshipCourseDetail.internshipCourseDto.applying_start_date < now && internshipCourseDetail.internshipCourseDto.internship_start_date > now}">
+
 								<div class="row">
 									<div class="col fw-semibold" style="font-size:1.1em">
 										현장실습 신청 내역
 									</div>
 								</div>
-								<div class="row mt-2" style="height:20em">
+								<div class="row mt-2" style="height:18em">
 									<div class="col border-secondary border-top border-bottom overflow-y-scroll">
 										<div class="row text-center bg-body-secondary border-bottom border-secondary py-1 fw-semibold">
 											<div class="col-1 border-end">
@@ -327,91 +275,7 @@
 										</div>
 									</div>
 								</div>
-							</c:when>
-							
-							<c:when test="${internshipCourseDetail.internshipCourseDto.internship_start_date < now && internshipCourseDetail.internshipCourseDto.internship_end_date > now}">
-								<div class="row">
-									<div class="col fw-semibold" style="font-size:1.1em">
-										실습생 내역
-									</div>
-								</div>
-								<div class="row mt-2" style="height:20em">
-									<div class="col border-secondary border-top border-bottom overflow-y-scroll">
-										<div class="row text-center bg-body-secondary border-bottom border-secondary py-1 fw-semibold">
-											<div class="col-1 border-end">
-												학번
-											</div>
-											<div class="col-2 border-end">
-												이름
-											</div>
-											<div class="col-2 border-end">
-												학과
-											</div>
-											<div class="col-2 border-end">
-												담당교수
-											</div>
-											<div class="col-1 border-end">
-												학생정보
-											</div>
-											<div class="col-2 border-end">
-												출결
-											</div>
-											<div class="col-2">
-												업무일지
-											</div>
-										</div>
-										<div class="row">
-											<div id="internListBox" class="col">
-												
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:when>
-							
-							<c:when test="${internshipCourseDetail.internshipCourseDto.internship_end_date < now}">
-								<div class="row">
-									<div class="col fw-semibold" style="font-size:1.1em">
-										실습생 내역
-									</div>
-								</div>
-								<div class="row mt-2" style="height:20em">
-									<div class="col border-secondary border-top border-bottom overflow-y-scroll">
-										<div class="row text-center bg-body-secondary border-bottom border-secondary py-1 fw-semibold">
-											<div class="col-1 border-end">
-												학번
-											</div>
-											<div class="col-2 border-end">
-												이름
-											</div>
-											<div class="col-1 border-end">
-												학과
-											</div>
-											<div class="col-1 border-end">
-												담당교수
-											</div>
-											<div class="col-1 border-end">
-												학생정보
-											</div>
-											<div class="col-2 border-end">
-												출결
-											</div>
-											<div class="col-2 border-end">
-												업무일지
-											</div>
-											<div class="col-2">
-												성적산출
-											</div>
-										</div>
-										<div class="row">
-											<div id="internListBox" class="col">
-												
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:when>					
-						</c:choose>	
+
 						</div>
 					</div>
 					
@@ -447,38 +311,11 @@
 				<div class="applyingStudentStatus col-1 align-self-center fw-semibold border-end">
 					지원상태 나오는 곳
 				</div>
-				<div class="col-2 align-self-center border-end d-grid px-4">
+				<div class="col-2 align-self-center border-end d-grid px-5">
 					<a class="studentDetailPageBtn"></a>
 				</div>
 				<div class="applyingStudentCreatedAt col-1 align-self-center">
 					신청날짜 출력되는 곳
-				</div>
-			</div>
-		</div>
-		
-		<!-- 실습생 리스트 -->
-		<div id="internListTemplete" class="d-none">
-			<div class="internWrapper row text-center py-1 border-bottom" style="font-size:0.95em">
-				<div class="internPk col-1 align-self-center fw-semibold border-end">
-					학생 Pk
-				</div>
-				<div class="internName col-2 align-self-center fw-semibold border-end">
-					이름
-				</div>
-				<div class="internDepartment col-2 align-self-center border-end">
-					학과
-				</div>
-				<div class="internProfessor col-2 align-self-center border-end">
-					교수이름
-				</div>
-				<div class="col-1 align-self-center border-end d-grid px-3">
-					<a class="studentDetailPageBtn"></a>
-				</div>
-				<div class="internAttendance col-2 align-self-center border-end" style="font-size:0.9em">
-					출근지각조퇴결근
-				</div>
-				<div class="col-2 align-self-center d-grid px-4">
-					<a class="readInternReport"></a>
 				</div>
 			</div>
 		</div>

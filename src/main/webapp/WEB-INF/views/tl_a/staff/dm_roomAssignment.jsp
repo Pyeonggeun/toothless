@@ -110,16 +110,12 @@
 							<tr>
 								<td>${dormList.studentInfoDto.name }</td>
 								<td>
-                                    <select id="1" name="dorm" class="form-select">
-                                        <option>${dormList.dormBuildingDto.name }</option>
-                                    </select>
+                                    
+                                        ${dormList.dormBuildingDto.name }
+                                    
                                 </td>
                                 <td>
-                                    <select class="form-select"> 
-                                        <option>101</option>
-                                        <option>102</option>
-                                        <option>103</option>
-                                    </select>
+                                    ${dormList.dormRoomDto.room_name }
                                 </td>
 								<td><a href="./assignmentDeleteProcessS?dorm_student_pk=${dormList.dormStudentDto.dorm_student_pk }" class="btn btn-danger" role="button">배정취소</a></td>
 							</tr>
