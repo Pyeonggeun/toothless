@@ -91,7 +91,7 @@
         			
         		});
         	}
-        	setInterval(loadMyNewNotifyCount, 5000);
+        	//setInterval(loadMyNewNotifyCount, 5000);
         	
         	function updateReadNotifyStatus(){
         		const url = "./updateReadNotifyStatus?student_pk="+${sessionStudentInfo.student_pk};
