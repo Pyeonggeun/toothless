@@ -2,13 +2,17 @@ package com.mkfactory.toothless.d.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class ProgramDto {
 
 	private int program_pk;
 	private int staff_pk;
 	private int program_category_pk;
 	private String prg_name;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date prg_schedule;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date prg_apply_deadline;
 	private String prg_main_image;
 	private String prg_contents;
