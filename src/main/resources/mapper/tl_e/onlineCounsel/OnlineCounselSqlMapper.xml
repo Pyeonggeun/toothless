@@ -38,7 +38,7 @@
 	</select>
 	
 	<select id="selectCounsel" resultType="com.mkfactory.toothless.e.dto.OnlineCounselBoardDto">
-		SELECT * FROM cp_online_counsel_board WHERE id = #{id}
+		SELECT * FROM cp_online_counsel_board WHERE id = #{id} ORDER BY id DESC
 	</select>
 	
 	<select id="selectCounselorDto" resultType="com.mkfactory.toothless.e.dto.CounselorDto">

@@ -51,6 +51,13 @@ public class OnlineCounselController {
 		return "tl_e/onlineCounsel/onlineCounselMainPage";
 	}
 	
+	@RequestMapping("logoutProcess")
+	public String logoutProcess(HttpSession session) {
+		session.invalidate();
+		
+		return "redirect:../../another/student/loginPage";
+	}
+	
 	
 	
 	//		******** 상담 등록 ********
@@ -105,12 +112,7 @@ public class OnlineCounselController {
 		return "tl_e/onlineCounsel/counselorOnlineCounselMainPage";
 	}
 	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	

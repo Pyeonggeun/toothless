@@ -54,10 +54,12 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="col-10"></div>
 			<div class="col">
-				<form action="./writeOnlineCounselPage">
-					<input type="submit" value="글 작">
-				</form>
+			<a href="./writeOnlineCounselPage">글 작성</a>
+			</div>
+			<div class="col">
+				<a href="./logoutProcess">로그아웃</a>
 			</div>
 		</div>
 	</div>
