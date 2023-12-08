@@ -60,6 +60,25 @@
 		ORDER BY type_category_id ASC
 	</select>
 	
+	<!-- 상담원 전체 중복제거 리스팅 for AJAX -->
+	<select id="selectAllCounselorForAJAX" resultType="map">
+		SELECT
+		    cc.name AS name,
+		    MAX(cc.id) AS id,
+		    max(cct.type_category_id) AS typecategory,   
+		    MAX(cc.age) AS age,
+		    MAX(cc.GENDER) AS gender,
+		    MAX(cc.PHONENUMBER) AS phonenumber,
+		    MAX(cc.EMAIL) AS email,
+		    MAX(cc.address) AS address,
+		    MAX(cc.CAREER) AS career,
+		    MAX(cc.PROFILEIMAGE) AS profileImage
+		FROM CP_COUNSELOR_TYPE cct
+		INNER JOIN CP_COUNSELOR cc ON cc.id = cct.counselor_id
+		GROUP BY cc.name
+		ORDER BY ID
+	</select>
+	
 	<!-- 상담원 PK로 상담원정보 조회 -->
 	<select id="selectCounselorDetailByCounselorId" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
 		SELECT * FROM CP_COUNSELOR WHERE id = #{id}
@@ -142,6 +161,8 @@
 		INNER JOIN CP_OFFLINE_SURVEY coss ON coss.RESERVATION_ID = cor.id
 		WHERE cor.COUNSELOR_ID = #{counselor_id}
 	</select>
+	
+	
 	
 	
 

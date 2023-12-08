@@ -28,56 +28,68 @@
 		<!-- 우측내용 -->
 		<div class="col mx-5">
 			
-			<!-- 카테고리명 -->
-			<div class="row my-3">
-				<div class="col fs-4 fw-bold">
-					호실별 이미지 등록
-				</div>
-			</div>
 			
-			<form action="./registeRoomImagesProcess" method="post" enctype="multipart/form-data">
-             	<!-- <input type="hidden" name="staff_pk" value="${sessionStaffInfo.staff_pk }"> -->
-			
-			
-			<!-- 정원 -->
-			<div class="row mt-3 border rounded p-3">
-				<div class="col">
-					<div class="row">
-						<div class="col">
-							<span class="fs-5 fw-bold my-1">정원</span>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col fs-6 fw-bold my-1">
-							<input type="radio" name="dorm_amount" value="2">2인실
-							<input type="radio" name="dorm_amount" value="4">4인실
-						</div>
-					</div>
+			<!-- 카테고리 
+			<div class="row mt-2">
+				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					
+					<ul class="nav nav-tabs">
+					<li class="nav-item ta">
+					    <a class="nav-link active text-black" href="./sj_manageRoomImages">전체보기</a>
+					  </li>
+					<c:forEach items="${dormAmount }" var="da">
+					  <li class="nav-item ">
+					    <a class="nav-link text-secondary" href="./sj_manageRoomImagesReadPage?dorm_amount_pk=${da.dorm_amount_pk }">${da.dorm_amount }인실</a>
+					  </li>
+					  </c:forEach>
+					  
+					</ul>
 				</div>
 			</div>
+			-->
+			
+			
 			
 			
 			<!-- 상세이미지링크 -->
-            <div class="row mt-3 border rounded p-3">
+            <div class="row">
+				<div class="col text-center fs-5 fw-bold my-4">
+					인실 별 이미지
+				</div>
+			</div>			
+			<div class="row border rounded py-3">
 				<div class="col">
-					<div class="row">
-						<div class="col fs-5 fw-bold">
-							기숙사 이미지
+					<div class="row text-center fw-bold  fs-5">
+						<div class="col ">
+							인실
 						</div>
+						<div class="col">
+							상세 이미지
+						</div>
+						
+						<div class="col">삭제</div>
 					</div>
 					
-                     <!-- 상세이미지링크 -->
-                     <div class="row my-2">
-                     	<div class="col-1 align-self-center">
-                     		상세이미지
-                     	</div>
-                        <div class="col align-self-center">
-                     		<input class="form-control" name="roomImgs" type="file" accept="image/*" multiple>
-                     	</div>
-                     </div>
+					<c:forEach items="${dormAmount }" var="ct">
+						<div class="row text-center my-5 border-bottom">
+							<div class="col">
+								
+								${ct.dorm_amount }인실
+							</div>
+							<div class="col">
+								<img src="/uploadRoomImgs/${ct.dorm_imgs }" class="img-fluid img-thumbnail">
+							</div>
+							<div class="col">
+								<a href="./deleteForRoomDatailProcess?dorm_amount_pk=${ct.dorm_amount_pk }">삭제</a>
+							</div>
+						</div>
+					</c:forEach>
+				    
+					
 				</div>
 			</div>
+			
+	
 			
 			<div class="row mt-3">
 				<div class="col px-0">
@@ -91,7 +103,7 @@
                     <button type="submit" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
                 </div>                    
              </div>
-        	</form>
+        
 			
 			
 			<pre>

@@ -102,27 +102,21 @@
 							</tr>
 						</thead>
 						<tbody>
-							<!-- 값 반복 예정 -->
-							<tr>
-								<td>홍길동</td>
-								<td>A동</td>
-								<td>1층</td>
-								<td>101호</td>
-								<td>
-									<span>101호</span>
-									<span>102호</span>
-								</td>
-							</tr>
-							<tr>
-								<td>신짱구</td>
-								<td>B동</td>
-								<td>2층</td>
-								<td>201호</td>
-								<td>
-									<span>201호</span>
-									<span>202호</span>
-								</td>
-							</tr>
+							<c:forEach items="${executiveManagemenListMap}" var="executiveManagemenListMap">
+								<tr>
+									<td>${executiveManagemenListMap.studentInfoDto.name}</td>
+									<td>${executiveManagemenListMap.dormBuildingDto.name}</td>
+									<td>${executiveManagemenListMap.dormRoomDto.dorm_floor}</td>
+									<td>${executiveManagemenListMap.dormRoomDto.room_name}</td>
+									<td>
+										<c:forEach items="${executiveManagemenListMap.personalExecutiveRoomList}" var="personalExecutiveRoomList">
+											<span class="text-black">
+												${personalExecutiveRoomList.dorm_floor}층 ${personalExecutiveRoomList.room_name}
+											</span> 
+										</c:forEach>
+									</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>

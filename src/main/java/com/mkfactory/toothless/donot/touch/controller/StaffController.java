@@ -44,7 +44,7 @@ public class StaffController {
 				
 			}else if(staffInfoDto.getCenter_pk() == 2){
 				
-				return "redirect: ../../tl_b/common/studentMainPage";
+				return "redirect: ../../tl_d/common/staffMainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 3){
 				

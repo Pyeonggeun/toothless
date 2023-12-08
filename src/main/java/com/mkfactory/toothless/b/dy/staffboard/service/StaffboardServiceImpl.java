@@ -117,6 +117,24 @@ public class StaffboardServiceImpl {
 	public void modifyReply(StaffboardReplyDto staffboardReplyDto) {
 		staffboardSqlMapper.updateReply(staffboardReplyDto);
 	}
+	
+	public void pressLike(StaffboardLikeDto staffboardLikeDto) {
+		StaffboardLikeDto like = staffboardSqlMapper.selectPressLike(staffboardLikeDto);
+		
+		
+		if(like == null) {
+			staffboardSqlMapper.insertAddLike(staffboardLikeDto);
+		}else {
+			staffboardSqlMapper.deleteCanselLike(staffboardLikeDto);
+		}		
+	}
+	public int checkLike(int count) {
+
+		staffboardSqlMapper.selectCheckLike(count);
+		
+		return ;
+	}
+	
 }
 
 

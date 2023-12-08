@@ -1,5 +1,4 @@
 package com.mkfactory.toothless.b.dy.staffboard.controller;
-
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +59,7 @@ public class StaffboardController {
 
 	//작성 글 보기
 	@RequestMapping("readTextPage")
-	public String readTextPage(Model model, int staffboard_pk) {
+	public String readTextPage(HttpSession session, Model model, int staffboard_pk) {
 		
 		staffboardService.createTextReadCount(staffboard_pk);
 		
@@ -70,6 +69,14 @@ public class StaffboardController {
 		
 		model.addAttribute("readText", readText);
 		model.addAttribute("replyList", replyList);
+		
+		//여기 이어서 작업해야함
+//		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+//		
+//		int staffPk = sessionStaffInfo.getStaff_pk();
+//		
+//		params.setStaff_pk(staffPk);
+		
 		
 		return "tl_b/dy/readTextPage";
 	}
@@ -111,6 +118,7 @@ public class StaffboardController {
 		//staffPk의 정보로 set을 통해 직원유저번호 보냄
 		params.setStaff_pk(staffPk);
 		
+		
 		//set을 통해 글번호 보냄 
 		params.setStaffboard_pk(staffboard_pk);
 		
@@ -146,14 +154,18 @@ public class StaffboardController {
 	public String modifyReplyProcess(StaffboardReplyDto params) {
 		System.out.println(params.getStaffboard_pk());
 		
-				
 		staffboardService.modifyReply(params);
-		
-		
 		
 		return "redirect:./readTextPage?staffboard_pk="+ params.getStaffboard_pk();
 	}
-	
+	// 좋아요 프로세스 입력되면 서비스에서 좋아요 체크/블랭크
+	@RequestMapping("inputLikeProcess")
+	public String inputLikeProcess(StaffboardLikeDto params) {
+		
+		staffboardService.pressLike(params);
+		
+		return "redirect:./readTextPage?staffboard_pk="+ params.getStaffboard_pk();
+	}
 }
 
 

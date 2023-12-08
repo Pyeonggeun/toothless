@@ -65,9 +65,30 @@
 		UPDATE TL_B_STAFFBOARD_REPLY SET content = #{content} WHERE STAFFBOARD_REPLY_PK = #{staffboard_reply_pk}
 	</update>
 	
+
+	<!--좋아요-->
+	<insert id="insertAddLike">
+		INSERT INTO tl_b_staffboard_like values(
+			tl_b_staffboard_like_seq.nextval,
+			#{staff_pk}
+			#{staffboard_pk}
+			sysdate
+		)
+	</insert>
+
+	<select id="selectPressLike" resultType="com.mkfactory.toothless.b.dto.StaffboardLikeDto">
+		SELECT * FROM tl_b_staffboard_like WHERE  STAFF_PK = #{staff_pk} AND staffboard_pk = #{staffboard_pk}
+	</select>
+
+	<delete id="deleteCanselLike">
+		DELETE FROM tl_b_staffboard_like WHERE staff_pk = #{staff_pk} AND staffboard_pk = #{staffboard_pk}
+	</delete>
+	
+	<select id="selectCheckLike" resultType="int">
+		SELECT COUNT(*) FROM tl_b_staffboard_like WHERE staff_pk = #{staff_pk} AND staffboard_pk = #{staffboard_pk}
+	</select>
+
 </mapper>
-
-
 
 
 

@@ -120,6 +120,8 @@ public class DormStaffControllerMj {
 		return "tl_a/staff/mj_registerJoinInfoPage";
 	}
 	
+	
+	/*
 	// 공고등록 프로세스
 	@RequestMapping("mj_registerInfoProcess")
 	public String mj_registerInfoProcess(JoinDormInfoDto params) {
@@ -131,26 +133,8 @@ public class DormStaffControllerMj {
 		
 		return "redirect:../staff/mj_readRegisterJoinInfoPage";
 	}
+	*/
 	
-	
-	// 공고 전체 조회/수정 페이지
-	@RequestMapping("mj_readRegisterJoinInfoPage")
-	public String mj_readRegisterJoinInfoPage(Model model) {
-		
-		// 공고전체 리스트
-		List<JoinDormInfoDto> infoList =  staffService.getAllDormInfoList();
-		model.addAttribute("infoList", infoList);
-		
-		// 리스트 개수
-		int countInfoList = infoList.size();
-		model.addAttribute("countInfoList", countInfoList);
-		
-		// 현재학기정보 + 입주공고 정보
-		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
-		model.addAttribute("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
-		
-		return "tl_a/staff/mj_readRegisterJoinInfoPage";
-	}
 	
 	// 입사신청 목록 관리 페이지 (= 선발관리)
 	@RequestMapping("mj_readApplyDormInfoPage")

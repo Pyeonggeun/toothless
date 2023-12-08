@@ -11,8 +11,77 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
         <script>
-			
+
+    		let searchWord = "";
+        	let clinicPageNumber = 1;
+        	let totalClinicPageNumber = 0;
+        	let startClinicPageNumber = 1;
+        	let endClinicPageNumber = 1;
+        	
+        	function reset() {
+        		
+        		clinicPageNumber = 1;
+        		searchWord = "";
+        		
+        		reloadClinicTotalPageNumber();
+        		reloadClinicPatientList();
+        		
+        	}
+        	
+        	function search() {
+        		
+        		searchWord = document.getElementById("searchWord").value;
+        		
+        		reloadClinicTotalPageNumber();
+        		reloadClinicPatientList();
+        		
+        	}
+        	
+        	function previousClinicPage() {
+        		
+        		clinicPageNumber = startClinicPageNumber - 1;
+        		
+        		reloadClinicPatientList();
+        		
+        	}
+        	
+        	function nextClinicPage() {
+        		
+        		clinicPageNumber = endClinicPageNumber + 1;
+        		
+        		reloadClinicPatientList();
+        		
+        	}
+        	
+        	function moveClinicPage() {
+        		
+        		
+        		
+        	}
+        	
         	function reloadClinicPatientList() {
+        		
+        		const url = "./getClinicPatientInfoList?pageNumber=" + clinicPageNumber + "&searchWord=" + searchWord;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        		});
+        		
+        	}
+        	
+			function reloadClinicTotalPageNumber() {
+        		
+        		const url = "./getClinicPatientTotalPageNumber?searchWord=" + searchWord;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			totalClinicPageNumber = response.data;
+        			
+        		});
         		
         	}
             
@@ -33,6 +102,7 @@
             
             window.addEventListener("DOMContentLoaded", () => {
             	
+            	reloadClinicTotalPageNumber();
             	reloadClinicPatientList();
             	
             });
@@ -240,8 +310,8 @@
                                                     <div class="row mt-2">
                                                         <div class="col">
                                                             <div class="input-group mb-3">
-                                                                <input type="text" class="form-control border-0 border-bottom pb-0" placeholder="이름 / 생년월일을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2" style="font-size: 0.7em;">
-                                                                <button class="btn btn-transparent rounded-0 border-bottom pb-0" type="button" id="button-addon2">
+                                                                <input id="searchWord" type="text" class="form-control border-0 border-bottom pb-0" placeholder="이름 / 생년월일을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2" style="font-size: 0.7em;">
+                                                                <button onclick="search()" class="btn btn-transparent rounded-0 border-bottom pb-0" type="button" id="button-addon2">
                                                                     <i class="bi bi-search" style="font-size: 0.8em;"></i>
                                                                 </button>
                                                             </div>
@@ -281,7 +351,7 @@
                                                         <div class="col">
                                                             <div class="row">
                                                                 <div class="col d-grid justify-content-start ps-2">
-                                                                    <button class="btn rounded-0 py-1" style="border-color: #014195; font-size: 0.7em;">초기화</button>
+                                                                    <button onclick="reset()" class="btn rounded-0 py-1" style="border-color: #014195; font-size: 0.7em;">초기화</button>
                                                                 </div>
                                                                 <div class="col d-grid justify-content-end">
                                                                     <button class="btn text-white rounded-0 py-1" style="background-color: #014195; font-size: 0.7em;">대기 추가</button>
@@ -293,13 +363,17 @@
                                                         <div class="col d-grid justify-content-center">
 													        <ul class="pagination mb-0">
 													            <li class="page-item">
-													                <a class="page-link border-0 text-black" href="#" aria-label="Previous">
+													                <a onclick="previousClinicPage()" class="page-link border-0 text-black" href="#" aria-label="Previous">
 													                    <span aria-hidden="true">&laquo;</span>
 													                </a>
 													            </li>
-													            <li class="page-item my-auto"><a class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
+													            <li class="page-item my-auto"><a onclick="moveClinicPage()" class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
+													            <li class="page-item my-auto"><a onclick="moveClinicPage()" class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
+													            <li class="page-item my-auto"><a onclick="moveClinicPage()" class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
+													            <li class="page-item my-auto"><a onclick="moveClinicPage()" class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
+													            <li class="page-item my-auto"><a onclick="moveClinicPage()" class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
 													            <li class="page-item">
-													                <a class="page-link border-0 text-black" href="#" aria-label="Next">
+													                <a onclick="nextClinicPage()" class="page-link border-0 text-black" href="#" aria-label="Next">
 													                    <span aria-hidden="true">&raquo;</span>
 													                </a>
 													            </li>

@@ -9,6 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <title> AJDKS TEMPLATE FOR STAFF </title>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <style>
 	/*교직원좌측메뉴바설정*/
 	.staffleftmenubar input {
@@ -47,6 +48,118 @@
 	}
 
 </style>
+<script>
+	
+	let staffId = null;
+	
+	function getStaffId(){
+		
+		fetch("./tl_c/woojae/staff/getStaffId")
+		.then(response => response.json)
+		.then((response) => {
+			staffId = response.data;
+		});
+	}
+	
+	function formSubmit(){
+		const form = document.getElementById("form");
+		const InputCompanyId = document.getElementById("InputCompanyId"); // 사업자 등록번호
+		const inputExternalId = document.getElementById("inputExternalId"); // 산업체 아이디
+		
+		form.submit();
+	}
+	
+	// 사업자등록번호 확인
+	let isCheckedCompanyId = false;
+	
+	function checkCompanyIdFetch(){
+		
+		const InputCompanyIdValue = document.getElementById("InputCompanyId").value;
+		
+		const url = "./existCompanyId?company_id=" + InputCompanyIdValue;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then((response) => {
+			
+			if(response.data == true){ // 이미 존재
+				isCheckedCompanyId = false;
+				
+				alert("이미 등록된 번호입니다.");
+				InputCompanyId.value = "";
+				InputCompanyId.focus();
+			}else{
+				isCheckedCompanyId = true;
+			}
+		});
+	}
+	
+	
+	// 산업체 아이디 확인
+	let isCheckedExternalId = false;
+	
+	function checkExternalIdFetch() {
+		
+		const inputExternalIdValue = document.getElementById("inputExternalId").value;
+		
+		const url = "./existByExternalId?external_id=" + inputExternalIdValue;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then((response) => {
+			
+			if(response.data == true){
+				isCheckedExternalId = false;
+				
+				alert("이미 존재하는 아이디입니다.");
+				inputExternalId.value = "";
+				inputExternalId.focus();
+				
+			}else {
+				isCheckedExternalId = true;
+			}
+		});
+		
+	}
+	// 사업자 비밀번호 유효성
+	function checkExternalPassword(){
+		
+		const inputExternalPassword = document.getElementById("inputExternalPassword"); // 사업체 비밀번호
+		const externalPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // 비밀번호 정규표현식
+		const inputExternalPasswordValue =  document.getElementById("inputExternalPassword").value; 
+		
+		const url = "./existByExternalId?external_id=" + inputExternalPasswordValue;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then((response)=> {
+			if(!externalPasswordRegex.test(inputExternalPassword.value)){
+				
+				alert("비밀번호를 다시 입력해주세요.");
+				inputExternalPassword.value = "";
+				return;
+			}
+		});
+		
+	}
+	
+	function registerCompany(){
+		// 로그인 예외처리
+		/* if(staffId == null){
+			if(confirm("로그인 후 다시 이용해주세요. 로그인페이지로 이동하시겠습니까?")){
+				location.href = "../../another/staffLoginPage";
+			}
+			return;
+		} */
+		
+		
+	}
+	
+	// 페이지가 로드 되자마자 아이디 줌.
+	window.addEventListener("DOMContentLoaded", ()=>{
+		getStaffId();
+	});
+</script>
 </head>
 <body>
 <div class="container-fluid"><!-- 전체 container 입구 -->
@@ -67,7 +180,7 @@
 			<div class="col mx-4">
 			
 			<!-- 본문작성공간 -->
-				<form action="./registerCompanyProcess">
+				<form id="form" action="./registerCompanyProcess">
 				<div class="row mt-5">
 					<div class="col fw-bold">
 						산업체 등록
@@ -81,7 +194,7 @@
 						사업자등록번호
 					</div>
 					<div class="col-6 d-grid">
-						<input class="form-control" name="company_id" type="text" placeholder="예시) 1234-587-1122" style="font-size: 0.9em;">
+						<input onblur="checkCompanyIdFetch()" id="InputCompanyId" class="form-control" name="company_id" type="text" placeholder="예시) 1234-587-1122" style="font-size: 0.9em;">
 					</div>
 					<div class="col"></div>
 				</div>
@@ -147,7 +260,7 @@
 						산업체 아이디
 					</div>
 					<div class="col-6 d-grid">
-						<input class="form-control" name="external_id" type="text" placeholder="업체에 부여할 아이디를 입력해주세요. 예시) abc123" style="font-size: 0.9em;">
+						<input onblur="checkExternalIdFetch()" id="inputExternalId" class="form-control" name="external_id" type="text" placeholder="업체에 부여할 아이디를 입력해주세요. 예시) abc123" style="font-size: 0.9em;">
 					</div>
 					<div class="col"></div>
 				</div>
@@ -156,7 +269,7 @@
 						산업체 비밀번호
 					</div>
 					<div class="col-6 d-grid">
-						<input class="form-control" name="password" type="password" placeholder="업체에 부여할 비밀번호를 입력해주세요. 예시) 123456!" style="font-size: 0.9em;">
+						<input onblur="checkExternalPassword()" id="inputExternalPassword" class="form-control" name="password" type="password" placeholder="업체에 부여할 비밀번호를 입력해주세요. 예시) 123456!" style="font-size: 0.9em;">
 					</div>
 					<div class="col"></div>
 				</div>
@@ -164,7 +277,7 @@
 				<div class="row mt-2">
 					<div class="col-8"></div>
 					<div class="col-1 mt-2 me-2 d-flex justify-content-end">
-						<input class="btn btn-secondary" type="submit" value="등록하기" style="font-size: 0.9em;" style="font-size: 0.9em;">
+						<input onclick="formSubmit()" class="btn btn-secondary" type="button" value="등록하기" style="font-size: 0.9em;" style="font-size: 0.9em;">
 					</div>
 					<div class="col"></div>
 				</div>
@@ -179,71 +292,3 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-<%--
-		<form action="./registerCompanyProcess">
-				<div class="row mt-5">
-					<div class="col fw-bold">
-						산업체 등록
-					</div>
-				</div>
-				<div class="row mt-2">
-					<div class="col border-bottom border-3"></div>
-				</div>
-				<div class="row mt-2">
-					<div class="col">
-						<c:forEach items="${list}" var="companyCategoryList">
-							<input name="company_category_pk" type="radio" value="${companyCategoryList.company_category_pk}">
-							${companyCategoryList.company_category_name}
-						</c:forEach>
-					</div>
-				</div>
-				<div class="row mt-2">
-					<div class="col text-center d-grid">
-						<input class="form-control" name="company_id" type="text" placeholder="사업자등록번호를 입력해주세요">
-					</div>
-				</div>
-				<div class="row mt-2">
-					<div class="col text-center d-grid">
-						<input class="form-control" name="company_name" type="text" placeholder="업체명을 입력해주세요">
-					</div>
-				</div>
-				<div class="row mt-2">
-					<div class="col text-center d-grid">
-						<input class="form-control" name="ceo_name" type="text" placeholder="대표명을 입력해주세요">
-					</div>
-				</div>
-				<div class="row mt-2">
-					<div class="col text-center d-grid">
-						<input class="form-control" name="address" type="text" placeholder="주소를 입력해주세요">
-					</div>
-				</div>
-				<div class="row mt-2">
-					<div class="col text-center d-grid">
-						<input class="form-control" name="phone" type="text" placeholder="전화번호를 입력해주세요">
-					</div>
-				</div>
-				<div class="row mt-2">
-					<div class="col text-center d-grid">
-						<input class="form-control" name="url" type="text" placeholder="홈페이지 주소를 입력해주세요">
-					</div>
-				</div>
-				<div class="row mt-2">
-					<div class="col text-center d-grid">
-						<input class="form-control" name="external_id" type="text" placeholder="업체에 부여할 아이디">
-					</div>
-				</div>
-				<div class="row mt-2">
-					<div class="col text-center d-grid">
-						<input class="form-control" name="password" type="text" placeholder="업체에 부여할 비밀번호">
-					</div>
-				</div>
-				<div class="row mt-2">
-					<div class="col text-center d-grid">
-						<input class="btn btn-secondary" type="submit" value="등록하기">
-					</div>
-				</div>
-				<input name="staff_pk" type="hidden" value="${sessionStaffInfo.staff_pk}">
-				</form>
- --%>
