@@ -115,6 +115,13 @@ public class NoticeServiceImpl {
 	public void insertThumb(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeSqlMapper.insertThumb(noticeBoardLikeDto);
 	}
+	// 공지사항 추천 삭제
+	public void deleteNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto) {
+		noticeSqlMapper.deleteNoticeLike(noticeBoardLikeDto);
+	}
+	public void deleteNoticeDisLike(NoticeBoardLikeDto noticeBoardLikeDto) {
+		noticeSqlMapper.deleteNoticeDisLike(noticeBoardLikeDto);
+	}
 
 
 }
