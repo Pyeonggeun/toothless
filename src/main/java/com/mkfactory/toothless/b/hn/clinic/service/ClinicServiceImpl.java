@@ -44,5 +44,39 @@ public class ClinicServiceImpl {
 		
 		return clinicSqlMapper.getClinicPatientTotalPageNumber(searchWord);
 	}
+	
+	public void insertWaitingClinicPatientInfo(int clinic_patient_pk) {
+		
+		clinicSqlMapper.insertWaitingClinicPatientInfo(clinic_patient_pk);
+	}
+	
+	public List<Map<String, Object>> getWaitingClinicPatientInfoList(int pageNumber) {
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<Integer> waitingClinicPatientPkList = clinicSqlMapper.getWaitingClinicPatientPkList(pageNumber);
+		
+		for(int e : waitingClinicPatientPkList) {
+			Map<String, Object> map = new HashMap<>();
+			ClinicPatientDto clinicPatientDto = clinicSqlMapper.getClinicPatientInfoByClinicPatientPk(e);
+			String classify = clinicSqlMapper.getClinicPatientClassifyByResidentId(clinicPatientDto.getResident_id());
+			
+			if(classify == null) {
+				classify = "외부인";
+			}
+			
+			map.put("clinicPatientInfo", clinicPatientDto);
+			map.put("classify", classify);
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
+	public int getWaitingClinicPatientTotalPageNumber() {
+		
+		return clinicSqlMapper.getWaitingClinicPatientTotalPageNumber();
+	}
 
 }

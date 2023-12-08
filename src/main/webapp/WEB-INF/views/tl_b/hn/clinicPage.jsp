@@ -14,14 +14,20 @@
 
     		let searchWord = "";
         	let clinicPageNumber = 1;
-        	let totalClinicPageNumber = 0;
+        	let totalClinicPageNumber = 1;
         	let startClinicPageNumber = 1;
         	let endClinicPageNumber = 1;
+        	
+        	let waitingPageNumber = 1;
+        	let totalWaitingPageNumber = 1;
+        	let startWaitingPageNumber = 1;
+        	let endWaitingPageNumber = 1;
         	
         	function reset() {
         		
         		clinicPageNumber = 1;
         		searchWord = "";
+        		document.getElementById("searchWord").value = "";
         		
         		reloadClinicTotalPageNumber();
         		reloadClinicPatientList();
@@ -45,6 +51,14 @@
         		
         	}
         	
+			function previousWaitingPage() {
+        		
+        		waitingPageNumber = startWaitingPageNumber - 1;
+        		
+        		reloadWaitingClinicPatientList();
+        		
+        	}
+        	
         	function nextClinicPage() {
         		
         		clinicPageNumber = endClinicPageNumber + 1;
@@ -53,9 +67,27 @@
         		
         	}
         	
-        	function moveClinicPage() {
+			function nextWaitingPage() {
         		
+				waitingPageNumber = endWaitingPageNumber + 1;
         		
+        		reloadWaitingClinicPatientList();
+        		
+        	}
+        	
+        	function moveClinicPage(target) {
+        		
+        		clinicPageNumber = Number(target.innerText);
+        		
+        		reloadClinicPatientList();
+        		
+        	}
+        	
+			function moveWaitingPage(target) {
+        		
+        		waitingPageNumber = Number(target.innerText);
+        		
+        		reloadWaitingClinicPatientList();
         		
         	}
         	
@@ -66,6 +98,142 @@
         		fetch(url)
         		.then(response => response.json())
         		.then(response => {
+        			
+        			startClinicPageNumber = (parseInt((clinicPageNumber-1)/5))*5+1;
+         			endClinicPageNumber = ((parseInt(clinicPageNumber-1)/5)+1)*5;
+         			
+         			if(endClinicPageNumber > totalClinicPageNumber) {
+         				endClinicPageNumber = totalClinicPageNumber;
+         			}
+         			
+         			if(startClinicPageNumber <= 1) {
+         				document.getElementById("previousClinic").classList.add("disabled");
+         			}else {
+         				document.getElementById("previousClinic").classList.remove("disabled");
+         			}
+         			
+         			if(endClinicPageNumber >= totalClinicPageNumber) {
+         				document.getElementById("nextClinic").classList.add("disabled");
+         			}else {
+         				document.getElementById("nextClinic").classList.remove("disabled");	
+         			}
+         			
+         			for(let i = 1 ; i <= 5 ; i++) {
+         				document.getElementById("clinicPageNumberBox" + i).innerHTML = "";
+         			}
+         			
+         			for(let i = startClinicPageNumber ; i <= endClinicPageNumber ; i++) {
+         				
+         				const clinicPageNumberLink = document.querySelector("#templete .clinicPageNumberLink").cloneNode(true);
+         				
+         				if(i == clinicPageNumber) {
+         					clinicPageNumberLink.classList.add("active");
+         				}else {
+         					clinicPageNumberLink.classList.add("remove");
+         				}
+         				
+         				clinicPageNumberLink.innerText = i;
+         				
+         				document.getElementById("clinicPageNumberBox" + (i - parseInt((clinicPageNumber-1)/5)*5)).appendChild(clinicPageNumberLink);
+         				
+         			}
+         			
+         			const clinicPatientListBox = document.getElementById("clinicPatientListBox");
+        			clinicPatientListBox.innerHTML = "";
+        			
+        			for(e of response.data) {
+        				
+        				const clinicPatientWrapper = document.querySelector("#templete .clinicPatientWrapper").cloneNode(true);
+        				
+        				const clinicPatientPk = clinicPatientWrapper.querySelector(".clinicPatientPk");
+        				clinicPatientPk.innerText = e.clinicPatientInfo.clinic_patient_pk;
+        				
+        				clinicPatientWrapper.querySelector(".clinicPatientName").innerText = e.clinicPatientInfo.name;
+        				
+        				const birth = new Date(e.clinicPatientInfo.birth);
+        				clinicPatientWrapper.querySelector(".clinicPatientBirth").innerText = 
+        					birth.getFullYear().toString().slice(-2) + "." + ("0" + (birth.getMonth() + 1)).slice(-2) + "." + ("0" + birth.getDate()).slice(-2);
+        				
+        				clinicPatientWrapper.querySelector(".clinicPatientClassify").innerText = e.classify;
+        				
+        				clinicPatientWrapper.querySelector(".checkBox").setAttribute("value", e.clinicPatientInfo.clinic_patient_pk);
+        				
+        				clinicPatientListBox.appendChild(clinicPatientWrapper);	
+        				
+        			}
+        			
+        		});
+        		
+        	}
+        	
+			function reloadWaitingClinicPatientList() {
+        		
+        		const url = "./getWaitingClinicPatientInfoList?pageNumber=" + waitingPageNumber;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			startWaitingPageNumber = (parseInt((waitingPageNumber-1)/5))*5+1;
+         			endWaitingPageNumber = ((parseInt(waitingPageNumber-1)/5)+1)*5;
+         			
+         			if(endWaitingPageNumber > totalWaitingPageNumber) {
+         				endWaitingPageNumber = totalWaitingPageNumber;
+         			}
+         			
+         			if(startWaitingPageNumber <= 1) {
+         				document.getElementById("previousWaiting").classList.add("disabled");
+         			}else {
+         				document.getElementById("previousWaiting").classList.remove("disabled");
+         			}
+         			
+         			if(endWaitingPageNumber >= totalWaitingPageNumber) {
+         				document.getElementById("nextWaiting").classList.add("disabled");
+         			}else {
+         				document.getElementById("nextWaiting").classList.remove("disabled");	
+         			}
+         			
+         			for(let i = 1 ; i <= 5 ; i++) {
+         				document.getElementById("waitingPageNumberBox" + i).innerHTML = "";
+         			}
+         			
+         			for(let i = startWaitingPageNumber ; i <= endWaitingPageNumber ; i++) {
+         				
+         				const waitingPageNumberLink = document.querySelector("#templete .waitingPageNumberLink").cloneNode(true);
+         				
+         				if(i == waitingPageNumber) {
+         					waitingPageNumberLink.classList.add("active");
+         				}else {
+         					waitingPageNumberLink.classList.add("remove");
+         				}
+         				
+         				waitingPageNumberLink.innerText = i;
+         				
+         				document.getElementById("waitingPageNumberBox" + (i - parseInt((waitingPageNumber-1)/5)*5)).appendChild(waitingPageNumberLink);
+         				
+         			}
+         			
+         			const waitingClinicPatientListBox = document.getElementById("waitingClinicPatientListBox");
+         			waitingClinicPatientListBox.innerHTML = "";
+        			
+        			for(e of response.data) {
+        				
+        				const waitingClinicPatientWrapper = document.querySelector("#templete .waitingClinicPatientWrapper").cloneNode(true);
+        				
+        				const waitingClinicPatientPk = waitingClinicPatientWrapper.querySelector(".waitingClinicPatientPk");
+        				waitingClinicPatientPk.innerText = e.clinicPatientInfo.clinic_patient_pk;
+        				
+        				waitingClinicPatientWrapper.querySelector(".waitingClinicPatientName").innerText = e.clinicPatientInfo.name;
+        				
+        				const birth = new Date(e.clinicPatientInfo.birth);
+        				waitingClinicPatientWrapper.querySelector(".waitingClinicPatientBirth").innerText = 
+        					birth.getFullYear().toString().slice(-2) + "." + ("0" + (birth.getMonth() + 1)).slice(-2) + "." + ("0" + birth.getDate()).slice(-2);
+        				
+        				waitingClinicPatientWrapper.querySelector(".waitingClinicPatientClassify").innerText = e.classify;
+        				
+        				waitingClinicPatientListBox.appendChild(waitingClinicPatientWrapper);	
+        				
+        			}
         			
         		});
         		
@@ -84,6 +252,45 @@
         		});
         		
         	}
+			
+			function reloadWaitingClinicTotalPageNumber() {
+        		
+        		const url = "./getWaitingClinicPatientTotalPageNumber";
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			totalWaitingPageNumber = response.data;
+        			
+        		});
+        		
+        	}
+			
+			function addWaiting() {
+				
+				const checkBoxList = document.getElementsByClassName("checkBox");
+				
+				for(let x = 0 ; x < checkBoxList.length ; x++) {
+					if(checkBoxList[x].checked == true) {
+						const url = "./insertWaitingClinicPatientInfo?clinic_patient_pk=" + checkBoxList[x].value;
+						
+						fetch(url)
+						.then(response => response.json())
+						.then(response => {
+							
+							waitingPageNumber = 1;
+							
+							reset();
+							reloadWaitingClinicTotalPageNumber();
+			            	reloadWaitingClinicPatientList();
+							
+						});
+						
+					}
+				}
+				
+			}
             
             function showAddClinicPatientModal() {
                 const modal = bootstrap.Modal.getOrCreateInstance("#addNewClinicPatient");
@@ -104,6 +311,8 @@
             	
             	reloadClinicTotalPageNumber();
             	reloadClinicPatientList();
+            	reloadWaitingClinicTotalPageNumber();
+            	reloadWaitingClinicPatientList();
             	
             });
 
@@ -322,7 +531,7 @@
                                                             <div class="row mb-2">
                                                                 <div class="col-1 d-grid justify-content-center">
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input rounded-0" type="checkbox" value="" style="font-size: 0.7em;">
+                                                                        <input class="form-check-input rounded-0" type="checkbox" value="" style="font-size: 0.7em;" disabled>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-2 fw-bold mx-auto px-0 text-center" style="font-size: 0.7em;">
@@ -354,7 +563,7 @@
                                                                     <button onclick="reset()" class="btn rounded-0 py-1" style="border-color: #014195; font-size: 0.7em;">초기화</button>
                                                                 </div>
                                                                 <div class="col d-grid justify-content-end">
-                                                                    <button class="btn text-white rounded-0 py-1" style="background-color: #014195; font-size: 0.7em;">대기 추가</button>
+                                                                    <button onclick="addWaiting()" class="btn text-white rounded-0 py-1" style="background-color: #014195; font-size: 0.7em;">대기 추가</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -362,17 +571,17 @@
                                                     <div class="row mt-2">
                                                         <div class="col d-grid justify-content-center">
 													        <ul class="pagination mb-0">
-													            <li class="page-item">
+													            <li id="previousClinic" class="page-item">
 													                <a onclick="previousClinicPage()" class="page-link border-0 text-black" href="#" aria-label="Previous">
 													                    <span aria-hidden="true">&laquo;</span>
 													                </a>
 													            </li>
-													            <li class="page-item my-auto"><a onclick="moveClinicPage()" class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
-													            <li class="page-item my-auto"><a onclick="moveClinicPage()" class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
-													            <li class="page-item my-auto"><a onclick="moveClinicPage()" class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
-													            <li class="page-item my-auto"><a onclick="moveClinicPage()" class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
-													            <li class="page-item my-auto"><a onclick="moveClinicPage()" class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
-													            <li class="page-item">
+													            <li id="clinicPageNumberBox1" class="page-item my-auto"></li>
+													            <li id="clinicPageNumberBox2" class="page-item my-auto"></li>
+													            <li id="clinicPageNumberBox3" class="page-item my-auto"></li>
+													            <li id="clinicPageNumberBox4" class="page-item my-auto"></li>
+													            <li id="clinicPageNumberBox5" class="page-item my-auto"></li>
+													            <li id="nextClinic" class="page-item">
 													                <a onclick="nextClinicPage()" class="page-link border-0 text-black" href="#" aria-label="Next">
 													                    <span aria-hidden="true">&raquo;</span>
 													                </a>
@@ -430,14 +639,18 @@
                                                     <div class="row mt-3">
                                                         <div id="" class="col d-grid justify-content-center">
 													        <ul class="pagination mb-0">
-													            <li class="page-item">
-													                <a class="page-link border-0 text-black" href="#" aria-label="Previous">
+													            <li id="previousWaiting" class="page-item">
+													                <a onclick="previousWaitingPage()" class="page-link border-0 text-black" href="#" aria-label="Previous">
 													                    <span aria-hidden="true">&laquo;</span>
 													                </a>
 													            </li>
-													            <li class="page-item my-auto"><a class="page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a></li>
-													            <li class="page-item">
-													                <a class="page-link border-0 text-black" href="#" aria-label="Next">
+													            <li id="waitingPageNumberBox1" class="page-item my-auto"></li>
+													            <li id="waitingPageNumberBox2" class="page-item my-auto"></li>
+													            <li id="waitingPageNumberBox3" class="page-item my-auto"></li>
+													            <li id="waitingPageNumberBox4" class="page-item my-auto"></li>
+													            <li id="waitingPageNumberBox5" class="page-item my-auto"></li>
+													            <li id="nextWaiting" class="page-item">
+													                <a onclick="nextWaitingPage()" class="page-link border-0 text-black" href="#" aria-label="Next">
 													                    <span aria-hidden="true">&raquo;</span>
 													                </a>
 													            </li>
@@ -574,7 +787,7 @@
         	<div class="clinicPatientWrapper row">
 	            <div class="col-1 d-grid justify-content-center">
 	                <div class="form-check">
-	                    <input class="form-check-input rounded-0" type="checkbox" value="" style="font-size: 0.7em;">
+	                    <input class="checkBox form-check-input rounded-0" type="checkbox" value="" style="font-size: 0.7em;">
 	                </div>
 	            </div>
 	            <div class="clinicPatientPk col-2 mx-auto px-0 text-center" style="font-size: 0.7em;">
@@ -592,16 +805,16 @@
 	        </div>
 	        
 	        <div class="waitingClinicPatientWrapper row mt-2">
-	            <div class="col-2 mx-auto px-0 text-center" style="font-size: 0.7em;">
+	            <div class="waitingClinicPatientPk col-2 mx-auto px-0 text-center" style="font-size: 0.7em;">
 	                123
 	            </div>
-	            <div class="col mx-auto px-0 text-center" style="font-size: 0.7em;">
+	            <div class="waitingClinicPatientName col mx-auto px-0 text-center" style="font-size: 0.7em;">
 	                김수한무
 	            </div>
-	            <div class="col mx-auto px-0 text-center" style="font-size: 0.7em;">
+	            <div class="waitingClinicPatientBirth col mx-auto px-0 text-center" style="font-size: 0.7em;">
 	                01.02.04
 	            </div>
-	            <div class="col mx-auto px-0 text-center" style="font-size: 0.7em;">
+	            <div class="waitingClinicPatientClassify col mx-auto px-0 text-center" style="font-size: 0.7em;">
 	                외부인
 	            </div>
 	            <div class="col mx-auto px-0 d-grid justify-content-center">
@@ -630,6 +843,10 @@
 	                </div>
 	            </div>
 	        </div>
+	        
+	        <a onclick="moveClinicPage(this)" class="clinicPageNumberLink page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a>
+	        
+	        <a onclick="moveWaitingPage(this)" class="waitingPageNumberLink page-link border-0 text-black px-2" href="#" style="font-size: 0.8em;">1</a>
 	        
         </div>
         

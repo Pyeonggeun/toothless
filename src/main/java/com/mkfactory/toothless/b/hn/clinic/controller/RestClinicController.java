@@ -37,5 +37,41 @@ public class RestClinicController {
 		
 		return restResponseDto;
 	}
+	
+	@RequestMapping("insertWaitingClinicPatientInfo")
+	public B_RestResponseDto insertWaitingClinicPatientInfo(int clinic_patient_pk) {
+		
+		B_RestResponseDto restResponseDto = new B_RestResponseDto();
+		
+		clinicService.insertWaitingClinicPatientInfo(clinic_patient_pk);
+		
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("getWaitingClinicPatientInfoList")
+	public B_RestResponseDto getWaitingClinicPatientInfoList(int pageNumber) {
+		
+		B_RestResponseDto restResponseDto = new B_RestResponseDto();
+		
+		restResponseDto.setData(clinicService.getWaitingClinicPatientInfoList(pageNumber));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("getWaitingClinicPatientTotalPageNumber")
+	public B_RestResponseDto getWaitingClinicPatientTotalPageNumber() {
+		
+		B_RestResponseDto restResponseDto = new B_RestResponseDto();
+		
+		int totalPageNumber = (int)Math.ceil(clinicService.getWaitingClinicPatientTotalPageNumber()/(double)20);
+		
+		restResponseDto.setData(totalPageNumber);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
 
 }

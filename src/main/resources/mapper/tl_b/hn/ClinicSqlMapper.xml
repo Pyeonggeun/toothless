@@ -4,6 +4,16 @@
 
 <mapper namespace="com.mkfactory.toothless.b.hn.clinic.mapper.ClinicSqlMapper">
 
+	<insert id="insertWaitingClinicPatientInfo">
+		INSERT INTO tl_b_clinic_patient_wait VALUES(
+			tl_b_clinic_patient_wait_seq.nextval,
+			#{clinic_patient_pk},
+			'N',
+			SYSDATE,
+			SYSDATE
+		)
+	</insert>
+
 	<select id="getClinicPatientInfoList" resultType="com.mkfactory.toothless.b.dto.ClinicPatientDto">
 		SELECT t1.* FROM (
 			SELECT cpi.*, rownum rnum FROM tl_b_clinic_patient_info cpi
@@ -35,6 +45,27 @@
 			WHERE name LIKE '%'||#{searchWord}||'%'
 			OR TO_CHAR(birth, 'yyMMdd') LIKE #{searchWord}
 		</if>
+	</select>
+	
+	<select id="getWaitingClinicPatientPkList" resultType="int">
+		SELECT t1.clinic_patient_pk FROM (
+			SELECT cpw.*, rownum rnum FROM tl_b_clinic_patient_wait cpw
+			WHERE cpw.status LIKE 'N'
+		)t1
+		<![CDATA[
+			WHERE t1.rnum >= (#{pageNumber}-1)*20 + 1 AND t1.rnum <= #{pageNumber}*20
+		]]>
+		ORDER BY created_at ASC
+	</select>
+	
+	<select id="getClinicPatientInfoByClinicPatientPk" resultType="com.mkfactory.toothless.b.dto.ClinicPatientDto">
+		SELECT * FROM tl_b_clinic_patient_info
+		WHERE clinic_patient_pk = #{clinic_patient_pk}
+	</select>
+	
+	<select id="getWaitingClinicPatientTotalPageNumber" resultType="int">
+		SELECT COUNT(*) FROM tl_b_clinic_patient_wait
+		WHERE status LIKE 'N'
 	</select>
 	
 </mapper>
