@@ -121,7 +121,7 @@ FROM (
 			<when test="isReply == 'all'">
 				AND 1=1		
 			</when>
-			<when test="isReply == 'reply'">
+			<when test="isReply == 'Reply'">
 		 		AND  t2.hope_job_pk in
 		 		(
 				SELECT HOPE_JOB_PK  FROM TL_D_ONLINE_CONSULTING
@@ -303,6 +303,10 @@ AND HOPE_JOB_PK  = #{hope_job_pk}
 <select id="getOnlineConsultingListAll" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
 SELECT * FROM TL_D_ONLINE_CONSULTING a 		
 	where 1=1
+	and a.hope_job_pk in (
+	SELECT hope_job_pk FROM TL_D_HOPE_JOB
+	WHERE IS_END_HOPE_JOB = 'N'
+	)<!-- 추가부분 -->
 	<if test="isReply != null">
 		<choose>
 			<when test="isReply == 'all'">
@@ -356,7 +360,7 @@ WHERE c.STUDENT_PK =(
 	FROM TL_D_HOPE_JOB a
 	WHERE a.HOPE_JOB_PK =
 		(
-		SELECT b.ON_CONSULTING_PK
+		SELECT b.hope_job_PK
 		FROM TL_D_ONLINE_CONSULTING b
 		WHERE b.ON_CONSULTING_PK = #{ON_CONSULTING_PK}
 		)

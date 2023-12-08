@@ -137,12 +137,7 @@
 							상담 및 내역
 						</div>						
 					</div>
-					<div class="row mt-3 pt-2 border-top">
-						<div class="col-3 fw-bold">
-							<a href="./insertConsultingPage?hope_job_pk=${viewStudentDetailPageStats.hopeJobDto.hope_job_pk}"> 취업상담 내용 등록하기</a>
-						</div>												
-					</div>
-					<div class="row mt-3">
+					<div class="row mt-3 border-top pt-2">
 						<div class="col-3 fw-bold">
 							취업상담내역
 						</div>	
@@ -162,12 +157,23 @@
 						<div class="col-3 fw-bold">
 							미응답 만족도조사 내역
 						</div>	
-						<div class="col-9">
+						<div class="col-3">
 							${viewStudentDetailPageStats.countUnAnsweredFeedback} 건
-						</div>												
+						</div>	
+						<div class="col-6 fw-bold text-right" style="text-align:right; color:blue">
+							<a class="navbar-brand text-right" style="align-itmes:right" href="./insertConsultingPage?hope_job_pk=${viewStudentDetailPageStats.hopeJobDto.hope_job_pk}"> 취업상담 내용 등록하기</a>
+						</div>																	
 					</div>																																		
+				</div>			
+			</div>	
+			
+			<div class="row mt-5">
+				<div class="col fw-bold">
+				<a class="navbar-brand" href="./viewStudentListPage">
+					<button type="button" class="btn btn-primary">목록</button>
+				</a>	
 				</div>
-			</div>			
+			</div>		
 
 			
 		</div>		

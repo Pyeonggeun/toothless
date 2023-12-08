@@ -405,8 +405,8 @@ public class ConsultingService {
 			StudentInfoDto studentInfoDto = consultingMapper.getStudentInfoByHopeJobPk(hopeJobPk);
 			
 			//응답/미응답 확인
-			int student_pk = studentInfoDto.getStudent_pk();
-			OnlineConsultingReplyDto dto = consultingMapper.checkOnConsultingReply(student_pk);
+			int on_consulting_pk = onlineConsultingDto.getOn_consulting_pk();
+			OnlineConsultingReplyDto dto = consultingMapper.checkOnConsultingReply(on_consulting_pk);
 			if(dto==null) {
 				map.put("isReply", false);
 				
@@ -431,20 +431,20 @@ public class ConsultingService {
 	
 	
 	//교직원 입장에서 온라인상담 미응답/응답 출력
-	public boolean checkOnConsultingReplyForStaff (int student_pk) {
-		
-		OnlineConsultingReplyDto dto = consultingMapper.checkOnConsultingReply(student_pk);
-		
-		if(dto==null) {
-			return false;
-		}
-		
-		else {
-			return true;
-		}
-	}
-	
-	
+//	public boolean checkOnConsultingReplyForStaff (int student_pk) {
+//		
+//		OnlineConsultingReplyDto dto = consultingMapper.checkOnConsultingReply(student_pk);
+//		
+//		if(dto==null) {
+//			return false;
+//		}
+//		
+//		else {
+//			return true;
+//		}
+//	}
+//	
+//	
 	//교직원입장에서 구직희망 진행중인 학생 리스트 보기
 	//구직희망 - 학생엮음, 구직희망pk당 학생 정보
 	public List<Map<String, Object>> getHopeJobInfoList(){		

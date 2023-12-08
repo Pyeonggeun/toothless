@@ -124,6 +124,9 @@
 								<div class="col">
 									응답여부
 								</div>
+								<div class="col">
+									링크
+								</div>								
 							</div>
 						</div>
 					</div>
@@ -133,7 +136,7 @@
 						<div class="col">
 							
 								<c:forEach items="${list }" var="e">
-								<div class="row py-2 border-top">
+								<div class="row py-2 border-top" style="align-items:center;">
 										<div class="col">
 											${e.onlineConsultingDto.on_consulting_pk }
 										</div>
@@ -147,29 +150,44 @@
 											
 											<c:choose>
 												<c:when test="${e.isReply}">
-															<span class="badge text-bg-primary">답변완료</span> <a href="./staffManageOnlineConsultingPage?onlineConsultingPk=${e.onlineConsultingDto.on_consulting_pk}">이동</a>								
+															<span class="badge text-bg-primary">답변완료</span>								
 												</c:when>
 											
 												<c:otherwise>
-															<span class="badge text-bg-danger">미답변</span> <a href="./staffManageOnlineConsultingPage?onlineConsultingPk=${e.onlineConsultingDto.on_consulting_pk}">이동</a> 
+															<span class="badge text-bg-danger">미답변</span>  
 												</c:otherwise>										
 												
 											</c:choose>
 											
 										</div>	
+										<div class="col" >
+											 <a href="./staffManageOnlineConsultingPage?onlineConsultingPk=${e.onlineConsultingDto.on_consulting_pk}">
+											 <button type="button" class="btn btn-primary" style="width:50%;"><span style="font-size:0.7em;">이동</span></button>											
+											</a>
+										</div>
 								</div>																													
 								</c:forEach>
 								
 						</div>
 					</div>					
-					
+					<div class="row mt-5 ps-0">
+						<div class="col">
+							<a href="./jmTempStaffMainPage">
+								<button type="button" class="btn btn-primary">목록</button>
+							</a>
+						</div>
+					</div>						
 					
 					
 				</div>
 			</div>
+		
 		</div>
 		<div class="col-1"></div>				
 	</div>
+	
+
+	
 </div>
 
 
