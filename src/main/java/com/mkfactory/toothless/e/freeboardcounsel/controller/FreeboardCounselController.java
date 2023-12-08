@@ -37,6 +37,9 @@ public class FreeboardCounselController {
 		int countedPost = freeboardCounselService. selectFreeboardCount(paraFreeboardDto);
 		model.addAttribute("countedPost", countedPost);	
 			
+		//가장 높은 숫자의 글번호 글을 뽑아와서 new아이콘 붙이기 
+		
+		
 		return "tl_e/freeboardCounsel/freeboardCounselPage";
 	}
 	
@@ -97,12 +100,29 @@ public class FreeboardCounselController {
 		return "redirect:./freeboardCounselPage";
 	}
 	
+	
+	// 로그아웃하거나 링크 이동 하는 
 	//자유게시판에서 학생계정 로그아웃 하기
 		@RequestMapping("logoutProcess")
 		public String logoutProcess(HttpSession session) {
 			session.invalidate();
 			return "redirect:../../another/student/loginPage";
 		}
-	
+		
+	//상담 학생 메인 페이지로 가게 하기 
+	@RequestMapping("goCounselStudentPage")
+	public String goCounselStudentPage() {
+		
+		return "redirect:../commons/counselCenterStudentMainPage";
+	}
 
+	//학사정보시스템 메인으로 이동하게 하기
+	@RequestMapping("goStudentMainPage")
+	public String goStudentMainPage() {
+		
+		return "redirect:../../another/student/mainPage";
+	}
+	
+	
+	
 }

@@ -39,6 +39,8 @@ public class FreeboardCounselServiceImpl {
 			freeboardMap.put("elementFreeboardDto", elementFreeboardDto);
 			
 			
+			
+			
 			System.out.println("combinedFreeboardList.add 실행 ");
 			combinedFreeboardList.add(freeboardMap);
 		}
@@ -68,6 +70,14 @@ public class FreeboardCounselServiceImpl {
 		int CountedPost = freeboardCounselSqlMapper.selectFreeboardCount(paraFreeboardDto);
 	return CountedPost;
 	}
+	
+	
+//	//글번호가 가장 높은 것을 뽑아와서 new를 붙이려고 함...
+//	public FreeboardDto selectNewPost(FreeboardDto paraFreeboardDto) {
+//		
+//		 return freeboardCounselSqlMapper.selectNewPost(paraFreeboardDto);
+//		
+//	}
 	
 
 	

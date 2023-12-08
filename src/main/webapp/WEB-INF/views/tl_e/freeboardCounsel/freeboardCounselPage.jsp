@@ -21,9 +21,10 @@
 		
 			<!-- 안쪽 첫번째 로우 - 왼 학교로고 오른쪽 로그인 정보  -->
 			<div class="row py-1">
-				<div class="col-3">
-					<div class="fw-bold py-3 fs-5" ><img class="img-fluid" style="width: 50px; height: 50px" src="../../resources/img/groupCounsel/logo_black.png"> Mk University</div>
+				<div class="col-4">
+					<div class="fw-bold py-3 fs-3" ><img class="img-fluid" style="width: 60px; height: 60px" src="../../resources/img/groupCounsel/logo_black.png"> <a href="./goStudentMainPage" class="link-dark link-underline link-underline-opacity-0"><span class="text-start py-3 fw-bold fs-4"> Mk University </span></a> <a href="./goCounselStudentPage" class="link-dark link-underline link-underline-opacity-0"><span class="text-start py-3 fw-bold fs-4"> Counseling center </span></a> </div>
 				</div>
+				
 				<!-- 중간 공란 -->	
 				<div class="col"></div>
 				
@@ -95,7 +96,7 @@
 			
 				<div class="row my-2"> <div class="col"> 학생들이 많이 본 게시물</div></div>
 				
-					<div class="row  text-white text-center my-1 px-1 p-1 rounded-1  border-2 border-bottom" style= "background-color: #133369;">
+					<div class="row text-white text-center my-1 px-1 p-1 rounded-1  border-2 border-bottom" style="background-color:#888888;">
 								<div class="col-1 fw-bold">글번호</div>
 								<div class="col-2 fw-bold ">글제목</div>
 								<div class="col-4">내용</div>
@@ -197,7 +198,7 @@
 			
 			<a href="#"> 학사정보시스템 메인으로 복귀 버튼 예정</a>
 			
-			<a href="#"> 상담 학생페이지 메인으로 복귀 버튼 예정</a>
+			<a href=""> 상담 학생페이지 메인으로 복귀 버튼 예정</a>
 		
 		
 		
