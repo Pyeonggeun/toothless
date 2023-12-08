@@ -106,7 +106,7 @@ public class SeoyoungApplyingController {
 			List<Map<String, Object>> map2 = (List<Map<String, Object>>) seoyoungApplyingService.applyOldList(sessionStudentInfo.getStudent_pk());
 			model.addAttribute("list2", map2);
 			
-			return "redirect:./student/ajdksStudentApplyPage";
+			return "redirect:./ajdksStudentApplyPage";
 		}
 		
 }
