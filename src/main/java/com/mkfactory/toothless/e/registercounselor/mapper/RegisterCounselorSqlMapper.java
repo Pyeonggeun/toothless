@@ -26,6 +26,9 @@ public interface RegisterCounselorSqlMapper {
 	// 상담원 전체 리스팅
 	public List<Map<String, Object>> selectAllCounselor();
 	
+	// 상담원 전체 중복제거 리스팅 for AJAX
+	public List<Map<String, Object>> selectAllCounselorForAJAX();
+	
 	// 상담원PK로 상담원 정보 조회
 	public CounselorDto selectCounselorDetailByCounselorId(int id);
 	
@@ -51,7 +54,7 @@ public interface RegisterCounselorSqlMapper {
 	public List<Map<String, Object>> selectCompleteOfflineCounselListByCounselorId(int counselor_id);
 	
 	// 상담원PK로 오프라인상담 평점 조회
-	public double selectOfflineCounselScoreAvg(int counselor_id);
+	public Object selectOfflineCounselScoreAvg(int counselor_id);
 	
 	
 

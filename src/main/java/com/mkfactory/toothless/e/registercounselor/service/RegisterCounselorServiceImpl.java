@@ -77,6 +77,11 @@ public class RegisterCounselorServiceImpl {
 		
 	}
 	
+	// 상담원 전체 중복제거 리스팅 for AJAX
+	public List<Map<String, Object>> getCounselorListForAJAX(){
+		return registerCounselorSqlMapper.selectAllCounselorForAJAX();
+	}
+	
 	// 상담원PK로 상담원정보 조회
 	public CounselorDto getCounselorInfo(int id){
 		System.out.println("[ RegisterCounselorServiceImpl] => [ getCounselorInfo ] 실행됨");
@@ -152,7 +157,7 @@ public class RegisterCounselorServiceImpl {
 		
 		Map<String, Object> scoreAvg = new HashMap<String, Object>();
 		
-		Double offlineScoreAvg = registerCounselorSqlMapper.selectOfflineCounselScoreAvg(counselor_id);
+		Double offlineScoreAvg = (Double)registerCounselorSqlMapper.selectOfflineCounselScoreAvg(counselor_id);
 		
 		scoreAvg.put("offlineScoreAvg", offlineScoreAvg);
 		
