@@ -21,7 +21,7 @@
 							data-bs-toggle="dropdown" aria-expanded="false">
 								${sessionStudentInfo.name} 님</a>
 							<ul class="dropdown-menu">
-								<li><a href="../buyer/buyerLogoutProcess"
+								<li><a href="#"
 									class="dropdown-item">로그아웃</a></li>
 							</ul>
 						</li>

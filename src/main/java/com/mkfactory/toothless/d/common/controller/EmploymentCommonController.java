@@ -36,6 +36,12 @@ public class EmploymentCommonController {
 		return "tl_d/common/studentMyPage";
 	}
 	
+	// 취창업 메인 페이지
+	@RequestMapping("employmentMainPage")
+	public String employMainPage() {
+		return "tl_d/common/employmentMainPage";
+	}
+	
 	
 	
 	
@@ -50,6 +56,7 @@ public class EmploymentCommonController {
 			
 			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalPk);
 			model.addAttribute("jobPostingForCompanyMainPage", postingService.getPostingListForCompanyMainPage(companyDto.getCom_pk()));
+			model.addAttribute("applyListForMainPage", postingService.getApplyListForCompanyMainPage(externalPk));
 		}
 		
 		return "tl_d/common/companyMainPage";

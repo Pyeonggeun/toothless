@@ -10,6 +10,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <title>Insert title here</title>
+
+<script>
+	
+	
+	
+</script>
 </head>
 <body>
 <div class="container-fluid">
@@ -92,7 +98,7 @@
 							<tr>
 								<td>${studentAssignmentList.studentInfoDto.name} ${studentAssignmentList.joinDormApplicationDto.payment_status } ${studentAssignmentList.joinDormApplicationDto.selection_status }</td><!-- 테이블 엮어서 반복문 -->
 								<td>
-                                    <select id="1" name="dorm" class="form-select">
+                                    <select id="aa" name="dorm" class="form-select">
                                         <!-- 동 리스트 반복문 -->
                                         <option>A동</option>
                                         <option>B동</option>
