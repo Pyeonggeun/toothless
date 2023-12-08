@@ -8,6 +8,21 @@
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+<script>
+	function handleClick() {
+
+	}
+</script>
+<style>
+    .icon-button {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        outline: none;
+    }
+</style>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -54,18 +69,22 @@
 			</c:if>
 			<c:if test="${upThumbCheck == 1 }">
 				<div class="col">
-					<i class="bi bi-hand-thumbs-up-fill fs-1" style="color: black"></i>
+					<a href="./deleteNoticeLike?notice_id=${list.noticeBoardDto.id }&student_pk=${sessionStudentInfo.student_pk }"><i class="bi bi-hand-thumbs-up-fill fs-1" style="color: black"></i></a>
 				</div>
 				<div class="col">
-					<i class="bi bi-hand-thumbs-down fs-1" style="color: black"></i>
+					<button class="icon-button" type="button" onclick="handleClick()">
+					    <i class="bi bi-hand-thumbs-down fs-1" style="color: black"></i>
+					</button>
 				</div>
 			</c:if>
 			<c:if test="${downThumbCheck == 1 }">
 				<div class="col">
-					<i class="bi bi-hand-thumbs-up fs-1" style="color: black"></i>
+					<button class="icon-button" type="button" onclick="handleClick()">
+						<i class="bi bi-hand-thumbs-up fs-1" style="color: black"></i>
+					</button>
 				</div>
 				<div class="col">
-					<i class="bi bi-hand-thumbs-down-fill fs-1" style="color: black"></i>
+					<a href="./deleteNoticeDisLike?notice_id=${list.noticeBoardDto.id }&student_pk=${sessionStudentInfo.student_pk }"><i class="bi bi-hand-thumbs-down-fill fs-1" style="color: black"></i></a>
 				</div>
 			</c:if>
 

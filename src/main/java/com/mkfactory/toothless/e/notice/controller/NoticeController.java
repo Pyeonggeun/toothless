@@ -34,6 +34,12 @@ public class NoticeController {
 		model.addAttribute("list", noticeService.getNoticeList());
 		return "tl_e/notice/noticeMainPage";
 	}
+	// 로그아웃
+	@RequestMapping("logoutProcess")
+	public String logoutProcess(HttpSession session) {
+		session.invalidate();
+		return "redirect:../../another/staff/loginPage";
+	}
 	// 공지사항 글쓰기 페이지
 	@RequestMapping("writeNoticeArticlePage")
 	public String writeNoticeArticlePage() {
@@ -146,6 +152,17 @@ public class NoticeController {
 	@RequestMapping("insertNoticeLike")
 	public String insertNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeService.insertThumb(noticeBoardLikeDto);
+		return "redirect:./readNoticeBoardPage?id=" + noticeBoardLikeDto.getNotice_id();
+	}
+	// 공지사항 추천 삭제
+	@RequestMapping("deleteNoticeLike")
+	public String deleteNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto) {
+		noticeService.deleteNoticeLike(noticeBoardLikeDto);
+		return "redirect:./readNoticeBoardPage?id=" + noticeBoardLikeDto.getNotice_id();
+	}
+	@RequestMapping("deleteNoticeDisLike")
+	public String deleteNoticeDisLike(NoticeBoardLikeDto noticeBoardLikeDto) {
+		noticeService.deleteNoticeDisLike(noticeBoardLikeDto);
 		return "redirect:./readNoticeBoardPage?id=" + noticeBoardLikeDto.getNotice_id();
 	}
 }
