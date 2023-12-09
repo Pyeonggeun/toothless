@@ -129,10 +129,8 @@ public class StaffboardServiceImpl {
 		}		
 	}
 	public int checkLike(int count) {
-
-		staffboardSqlMapper.selectCheckLike(count);
 		
-		return ;
+		return staffboardSqlMapper.selectCheckLike(count);
 	}
 	
 }
