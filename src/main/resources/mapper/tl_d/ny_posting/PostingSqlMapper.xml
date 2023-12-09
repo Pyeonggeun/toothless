@@ -178,7 +178,7 @@
 		ORDER BY tdjp.POSTING_DEADLINE ASC 
 	</select>
 	
-	<!-- 학생단 관심공고 수 -->
+	<!-- 학생이 단 관심공고 수 -->
 	<select id="selectTotalInterestPostingCount" resultType="int">
 		SELECT count(*) FROM TL_D_INTEREST_POSTING tdip  
 		WHERE tdip.STUDENT_PK = #{student_pk}
@@ -213,15 +213,15 @@
 	<!-- 공고스크랩 삭제 -->
 	<delete id="deleteInterestPosting">
 		DELETE FROM TL_D_INTEREST_POSTING 
-		WHERE student_pk = #{student_pk}
-		AND job_posting_pk = #{job_posting_pk}
+		WHERE job_posting_pk = #{job_posting_pk}
+		AND student_pk = #{student_pk}
 	</delete>
 	
 	<!-- 공고스크랩 했던가? -->
 	<select id="selectMyPostingInterestCount" resultType="int">
 		SELECT count(*) FROM TL_D_INTEREST_POSTING 
-		WHERE student_pk = #{student_pk}
-		AND job_posting_pk = #{job_posting_pk}
+		WHERE job_posting_pk = #{job_posting_pk}
+		AND student_pk = #{student_pk} 
 	</select>
 	
 	<!-- 총 공고스크랩 -->
