@@ -11,26 +11,42 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="row mt-2">
-		<div class="col-11"></div>
-		<div class="col">
-			<span class="fw-bold" style="font-size: 0.8em;" >학생아이디</span>님
+	<div class="row">
+		<div class="col"></div>
+		<div class="col-9 mt-2" style="text-align: center; font-weight: bold; font-size: 2.2em;" >상담 센터</div>
+		<div class="col mt-4" style="text-align: center; font-size: 1.2em; font-weight: bold">
+				${sessionStudentInfo.name }학생
 		</div>
 	</div>
-	<div class="row bg-warning fw-bold py-2 text-center" style="font-size: 1.2em;" >	
-		<div class="col"></div>
+	<div class="row align-items-center fw-bold" style="font-size: 1.2em; text-align: center; background-color: orange;" >	
+		<div class="col-1"></div>
 		<div class="col">
 			<a href="./writeOnlineCounselPage" class="link-dark link-offset-2 link-underline link-underline-opacity-0">상담신청</a>
 		</div>
 		<div class="col">공지사항</div>
 		<div class="col">자유게시판</div>
 		<div class="col">상담원 정보</div>
-		<div class="col">마이페이지</div>
-		<div class="col"></div>
+		<div class="col">
+			<div class="dropdown">
+				<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+			    	<span style="font-size: 1.3em; font-weight: bold;">내 정보</span>
+				</button>
+				<ul class="dropdown-menu" style="background-color: #333;">
+					<li><a class="dropdown-item" href="#" style="color: orange">답변 완료 상담</a></li>
+					<li><a class="dropdown-item" href="#" style="color: orange">채택 된 상담</a></li>
+					<li><a class="dropdown-item" href="./logoutProcess" style="color: orange" class="link-dark link-offset-2 link-underline link-underline-opacity-0">로그아웃</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-1"></div>
 	</div>
 	<div class="container">
-		<div class="row mt-3">
-			<div class="col">
+		<div class="row mt-5">
+			<div class="col-2" style="font-weight: bold; text-align: center; font-size: 2.2em;">내 상담</div>
+			<div class="col"></div>
+		</div>
+		<div class="row mt-5">
+			<div class="col" style="text-align: center;">
 				<table class="table">
 				  <thead>
 				    <tr>
@@ -38,6 +54,7 @@
 				      <th scope="col">작성자</th>
 				      <th scope="col">카테고리</th>
 				      <th scope="col">제목</th>
+				      <th scope="col">작성시간</th>
 				    </tr>
 				  </thead>
 				  <tbody>
@@ -46,20 +63,18 @@
 				      <td>${counselList.onlineCounselBoardDto.id }</td>
 				      <td>${counselList.studentDto.name }</td>
 				      <td>${counselList.category.name }</td>
-				      <td><a href="./readCounselPage?counsel_pk=${counselList.onlineCounselBoardDto.id }">${counselList.onlineCounselBoardDto.title }</a></td>
+				      <td><a href="./readCounselPage?counsel_pk=${counselList.onlineCounselBoardDto.id }" class="link-dark link-offset-2 link-underline link-underline-opacity-0">${counselList.onlineCounselBoardDto.title }</a></td>
+				      <td>${counselList.onlineCounselBoardDto.created_at }</td>
 				    </tr>
 			    </C:forEach>
 				  </tbody>
 				</table>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row mt-2" style="font-weight: bold; font-size: 1.4em; text-align: center;">
 			<div class="col-10"></div>
 			<div class="col">
-			<a href="./writeOnlineCounselPage">글 작성</a>
-			</div>
-			<div class="col">
-				<a href="./logoutProcess">로그아웃</a>
+				<a class="btn btn-dark" href="./writeOnlineCounselPage" class="link-dark link-offset-2 link-underline link-underline-opacity-0">상담 작성</a>
 			</div>
 		</div>
 	</div>

@@ -14,31 +14,31 @@
 <body>
 	<div class="row">
 		<div class="col-2"></div>
-		<div class="col text-center" style="font-size: 2.5em; color: dark; font-weight: bold">상담 페이지</div>
+		<div class="col text-center" style="font-size: 2.5em; color: dark; font-weight: bold">상담 센터</div>
 		<div class="col-2 mt-3 d-flex justify-content-around">
 			<span class="fw-bold" style="font-size: 1.3em;"> 상담사 ${sessionExternalInfo.external_id }님</span>
 		</div>
 	</div>
-	<div class="row mt-2" style="font-weight: bold; font-size: 1.4em; background-color: orange; text-align: center;"  >
+	<div class="row mt-2 align-items-center" style="font-weight: bold; font-size: 1.4em; background-color: orange; text-align: center;"  >
 		<div class="col-1"></div>		
-		<div class="col mt-2">
+		<div class="col">
 			Home
 		</div>
-		<div class="col mt-2">
+		<div class="col">
 			공지사항
 		</div>
-		<div class="col mt-2">
+		<div class="col">
 			상담
 		</div>
-		<div class="col mt-1">
+		<div class="col">
 			<div class="dropdown">
-				<button class="btn dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 			    	<span style="font-size: 1.4em; font-weight: bold;">내 정보</span>
 				</button>
-				<ul class="dropdown-menu">
-				    <li><a class="dropdown-item" href="#">답변 완료 상담</a></li>
-				    <li><a class="dropdown-item" href="#">채택 된 상담</a></li>
-				    <li><a class="dropdown-item" href="./logoutProcess">로그아웃</a></li>
+				<ul class="dropdown-menu" style="background-color: #333;">
+				    <li><a class="dropdown-item" href="#" style="color: orange">답변 완료 상담</a></li>
+				    <li><a class="dropdown-item" href="#" style="color: orange">채택 된 상담</a></li>
+				    <li><a class="dropdown-item" href="./logoutProcess" style="color: orange">로그아웃</a></li>
 				</ul>
 			</div>
 		</div>
@@ -78,7 +78,7 @@
 			<div class="col" style="color: olive;">작성일</div>
 		</div>
 		<div class="row mt-2">
-			<div class="col border border-primary-emphasis" style="color: black;"></div>
+			<div class="col border border-primary-emphasis"></div>
 		</div>
 		<C:forEach items="${counselList }" var="list">
 			<C:forEach items="${list}" var="mapList">

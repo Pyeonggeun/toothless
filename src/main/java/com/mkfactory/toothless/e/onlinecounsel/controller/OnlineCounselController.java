@@ -20,13 +20,13 @@ import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 import com.mkfactory.toothless.e.onlinecounsel.service.OnlineCounselService;
 
+
 @Controller
 @RequestMapping("/tl_e/onlineCounsel/*")
 public class OnlineCounselController {
 
 	@Autowired
 	private OnlineCounselService onlineCounselService;
-	
 	
 	
 	
@@ -113,12 +113,7 @@ public class OnlineCounselController {
 	}
 	
 
-	
-	
-	
-	
-	
-	
+
 	
 	
 
