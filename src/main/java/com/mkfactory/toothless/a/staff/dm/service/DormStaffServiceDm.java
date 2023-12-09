@@ -14,6 +14,7 @@ import com.mkfactory.toothless.a.dto.DormRoomDto;
 import com.mkfactory.toothless.a.dto.DormStudentDto;
 import com.mkfactory.toothless.a.dto.JoinDormApplicationDto;
 import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
+import com.mkfactory.toothless.a.dto.SemesterDto;
 import com.mkfactory.toothless.a.staff.dm.mapper.DormStaffSqlMapperDm;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -159,7 +160,44 @@ public class DormStaffServiceDm {
 		
 		}
 	
+		public List<Map<String, Object>> dormRoomAllList(){
+			
+			List<Map<String, Object>> list = new ArrayList<>();
+			
+			List<DormRoomDto> dormRoomDto = dormStaffSqlMapperDm.dormRoomAllList();
+			for(DormRoomDto e : dormRoomDto) {
+				
+				Map<String, Object> map = new HashMap<String, Object>();
+				
+				int dorm_pk = e.getDorm_pk();
+				DormBuildingDto dormBuildingDto = dormStaffSqlMapperDm.dormBuildingInfoByDormPk(dorm_pk);
+				
+				map.put("dormRoomDto", e);
+				map.put("dormBuildingDto", dormBuildingDto);
+				
+				list.add(map);
+				
+			}
+			
+			return list;
+		}
 	
+	public List<DormBuildingDto> dormListDong(){
+		
+		
+		return dormStaffSqlMapperDm.dormListDong();
+	}
+	
+	public SemesterDto SemesterCheckY(){
+		
+		return dormStaffSqlMapperDm.SemesterCheckY();
+	}
+	
+	public void dormStudentAssignmentInsert(DormStudentDto dormStudentDto) {
+		
+		dormStaffSqlMapperDm.dormStudentAssignmentInsert(dormStudentDto);
+		
+	}
 	
 	
 }
