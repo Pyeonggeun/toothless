@@ -11,23 +11,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     </head>
     <body>
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <div class="row">
-                        <div class="col px-0">
-                            <img class="img-fluid" src="./img/health/구름.jpg" style="height: 10vh; width: 100%; object-fit: cover; object-position: 50% 43%;">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row bg-secondary" style="height: 4vh;">
-                                <div class="col"></div>
-                                <div class="col"></div>
-                            </div>
-                        </div>
-                    </div>
+               		<jsp:include page="../commonJsp/staffTopBanner.jsp"></jsp:include>
                     <div class="row">
                         <div class="col">
                             <div class="row">
@@ -40,10 +27,10 @@
 										제목: <input name="name" type="text" value="${update.eduDto.name }"><br>
 										내용:<br>
 										<textarea name="content" rows="10" cols="60">${update.eduDto.content }</textarea><br>
-										포스터: <input name="img_link" type="text" value="${update.eduDto.img_link }"><br>
+										포스터: <input name="img_link" type="file" accept="image/*" multiple><br>
 										신청시작일: <input name="apply_start_date" type="date" value="${update.apply_start_date }"><br>
-										신청종료일: <input name="apply_end_date" type="date" value="${update.eduDto.apply_end_date }"><br>
-										교육일시: <input name="edu_date" type="date" value="${update.eduDto.edu_date }"><br>
+										신청종료일: <input name="apply_end_date" type="date" value="${update.apply_end_date }"><br>
+										교육일시: <input name="edu_date" type="date" value="${update.edu_date }"><br>
 										장소: <input name="place" type="text" value="${update.eduDto.place }"><br>
 										수강인원: <input name="capacity" type="number" value="${update.eduDto.capacity }" min="1"><br>
 										<input name="edu_pk" type="hidden" value="${update.eduDto.edu_pk }">

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mkfactory.toothless.b.hs.edu.mapper.EduStudentSqlMapper">
+	
+	<insert id="apply">
+		INSERT INTO TL_B_EDU_APPLY VALUES(
+			TL_B_EDU_APPLY_seq.nextval,
+			#{student_pk},
+			#{edu_pk},
+			'N',
+			SYSDATE
+		)
+	</insert>
+	
+	<select id="selectMyEduList" resultType="com.mkfactory.toothless.b.dto.EduApplyDto">
+		SELECT * FROM TL_B_EDU_APPlY 
+		WHERE  STUDENT_PK = #{student_pk}
+		ORDER BY edu_apply_pk DESC
+	</select>
+	
+</mapper>

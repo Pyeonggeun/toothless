@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <jsp:include page="../commonJsp/staffTopBanner.jsp"></jsp:include>
+					<jsp:include page="../commonJsp/staffTopBanner.jsp"></jsp:include>
                     <div class="row">
                         <div class="col">
                             <div class="row">
@@ -26,14 +26,15 @@
                                 	작성자 ${qwer.staffInfoDto.name }<br>
                                 	제목 ${qwer.eduDto.name }<br>
                                 	내용 ${qwer.eduDto.content }<br>
-                                	포스터이미지링크 ${qwer.eduDto.img_link }<br>
+                                	포스터이미지링크
+                                	<img class="img" src="/uploadFiles/eduImage/${qwer.eduDto.img_link }"><br>
                                 	신청시작일 <fmt:formatDate value="${qwer.eduDto.apply_start_date }"
 										pattern="yy년 MM월 dd일 hh시"/><br>
                                 	신청종료일 <fmt:formatDate value="${qwer.eduDto.apply_end_date }"
 										pattern="yy년 MM월 dd일 hh시"/><br>
                                 	교육일시 <fmt:formatDate value="${qwer.eduDto.edu_date }"
 										pattern="yy년 MM월 dd일 hh시"/><br>
-                                	교육장소 ${qwer.eduDto.place }<br>7
+                                	교육장소 ${qwer.eduDto.place }<br>
                                 	수강인원 ${qwer.eduDto.capacity }<br>
                                 	등록일자 ${qwer.eduDto.created_at } <br>
                                 	<a href="./updateEduProgPage?edu_pk=${qwer.eduDto.edu_pk }">글 수정</a>

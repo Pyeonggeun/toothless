@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>       
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <title>교육 학생 메인</title>
     </head>
     <body>
         <div class="container-fluid">
@@ -21,21 +22,28 @@
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
                                 <div class="col">
                                     <!-- 여기 안에만 사용하면 됨 -->
-                                    여기는 프로그램 등록페이지
-                                    양식 블라블라
-	                                <form action="./eduProgRegisterProcess" method="get">
-										작성자: ${sessionStaffInfo.name}<br>
-										제목: <input name="name" type="text"><br>
-										내용:<br>
-										<textarea name="content" rows="10" cols="60"></textarea><br>
-										포스터: <input name="img_link" type="file" accept="image/*" multiple><br>
-										신청시작일: <input name="apply_start_date" type="date"><br>
-										신청종료일: <input name="apply_end_date" type="date"><br>
-										교육일시: <input name="edu_date" type="date"><br>
-										장소: <input name="place" type="text"><br>
-										수강인원: <input name="capacity" type="number" value="10" min="1"><br>
-										<input type="submit" value="등록 완료">
-									</form>    
+                                    <h1>학생 페이지!!!</h1>
+                                    <a href="./eduMyPageForStudent">마이페이지</a>
+                                	<table border="1">
+										<tr>
+											<td>글번호</td>
+											<td>프로그램명</td>
+											<td>작성자</td>
+											<td>교육일</td>
+											<td>작성일</td>
+										</tr>   
+                                    <c:forEach items="${list }" var="map">
+                                    	<tr>
+											<td>${map.eduDto.edu_pk }</td>
+											<td><a href="./readEduProgPageForStudent?edu_pk=${map.eduDto.edu_pk}">${map.eduDto.name }</a></td>
+											<td>${map.staffInfoDto.name }</td>
+											<td><fmt:formatDate value="${map.eduDto.edu_date }"
+											pattern="yy년 MM월 dd일 hh시"/></td>
+											<td><fmt:formatDate value="${map.eduDto.created_at }"
+											pattern="yy년 MM월 dd일 hh시"/></td>
+										</tr>
+                                    </c:forEach>
+                                    </table>
                                 </div>
                             </div>
                         </div>
