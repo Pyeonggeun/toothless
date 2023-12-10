@@ -50,7 +50,7 @@
 
 <script>
 	
-	//const companyCategoryPk = ${getCompanyListByCategoryPk.ajdksCompanyCategoryDto.company_category_pk};
+	
 	
 	function reloadCompanyList() {
 		const url = "getCompanyListByCategoryPk?company_category_pk=" + companyCategoryPk;
