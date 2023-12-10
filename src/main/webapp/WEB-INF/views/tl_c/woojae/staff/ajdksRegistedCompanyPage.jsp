@@ -47,6 +47,16 @@
 	}
 
 </style>
+
+<script>
+	
+	//const companyCategoryPk = ${getCompanyListByCategoryPk.ajdksCompanyCategoryDto.company_category_pk};
+	
+	function reloadCompanyList() {
+		const url = "getCompanyListByCategoryPk?company_category_pk=" + companyCategoryPk;
+	}
+
+</script>
 </head>
 <body>
 <div class="container-fluid"><!-- 전체 container 입구 -->
@@ -98,7 +108,7 @@
 					<div class="col-2">전화번호</div>
 				</div>
 				<div class="row mt-3">
-					<div class="col border border-secondary-subtle"></div>
+					<div class="companyListBox col border border-secondary-subtle"></div>
 				</div>
 				<c:choose>
 					<c:when test="${empty getCompanyListByCategoryPk}">
@@ -117,7 +127,7 @@
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<c:forEach items="${getCompanyListByCategoryPk}" var="getCompanyListByCategoryPk">
+						<%-- <c:forEach items="${getCompanyListByCategoryPk}" var="getCompanyListByCategoryPk">
 							<div class="row mt-3 text-center" style="font-size: 0.8em;">
 								<div class="col-1">${getCompanyListByCategoryPk.ajdksCompanyInfoDto.company_pk}</div>
 								<div class="col-2">${getCompanyListByCategoryPk.ajdksCompanyCategoryDto.company_category_name}</div>
@@ -129,15 +139,35 @@
 							<div class="row mt-3">
 								<div class="col border border-secondary-subtle"></div>
 							</div>
-						</c:forEach>
+						</c:forEach> --%>
 					</c:otherwise>
 				</c:choose>
 				<div class="row mt-2">
 					<div class="col"></div>
 					<div class="col-1">
-						<a class="btn btn-secondary" href="./ajdksStaffMainPage">메인으로</a>
+						<a class="btn btn-secondary" href="./ajdksStaffMainPage">메인</a>
 					</div>
 				</div>
+				
+				<div id="templete">
+					<div class="companyListWrapper row">
+						<div class="col">
+							<div class="row mt-3 text-center" style="font-size: 0.8em;">
+								<div class="companyPk col-1">${getCompanyListByCategoryPk.ajdksCompanyInfoDto.company_pk}</div>
+								<div class="companyCategoryName col-2">${getCompanyListByCategoryPk.ajdksCompanyCategoryDto.company_category_name}</div>
+								<div class="companyName col-2">${getCompanyListByCategoryPk.ajdksCompanyInfoDto.company_name}</div>
+								<div class="ceoName col-1">${getCompanyListByCategoryPk.ajdksCompanyInfoDto.ceo_name}</div>
+								<div class="compamyAddress col">${getCompanyListByCategoryPk.ajdksCompanyInfoDto.address}</div>
+								<div class="companyPhone col-2">${getCompanyListByCategoryPk.ajdksCompanyInfoDto.phone}</div>
+							</div>
+							<div class="row mt-3">
+								<div class="companyBorder col border border-secondary-subtle"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+		
+				
 			</div>
 		</div>
 	</div>

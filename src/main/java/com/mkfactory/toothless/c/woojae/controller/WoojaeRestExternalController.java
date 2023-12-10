@@ -14,7 +14,7 @@ import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 
 @RestController
 @RequestMapping("/tl_c/woojae/staff/*")
-public class RestExternalController {
+public class WoojaeRestExternalController {
 	
 	@Autowired
 	private WoojaeExternalServiceImpl woojaeExternalService;
@@ -41,14 +41,14 @@ public class RestExternalController {
 		return restResponseDto;
 	}
 	
-	// 업종 카테고리 리스트(산업체 등록)
+	// 업종 카테고리 리스트
 	@RequestMapping("companyCategoryList")
 	public RestResponseDto companyCategoryList() {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
+		restResponseDto.setData(woojaeExternalService.companyCategoryList());
 		
 		restResponseDto.setResult("success");
-		restResponseDto.setData(woojaeExternalService.companyCategoryList());
 		
 		return restResponseDto;
 	}
@@ -59,9 +59,11 @@ public class RestExternalController {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
 		
-		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
-		int staffPk = staffInfoDto.getStaff_pk();
+		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		int staffPk = sessionStaffInfo.getStaff_pk();
 		ajdksCompanyInfoDto.setStaff_pk(staffPk);
+		
+		woojaeExternalService.registerCompanyInfo(ajdksCompanyInfoDto, externalInfoDto);
 		
 		restResponseDto.setResult("success");
 		
@@ -69,6 +71,38 @@ public class RestExternalController {
 		
 	}
 	
+	// 교직원 아이디 주기
+	@RequestMapping("getStaffId")
+	public RestResponseDto getStaffId(HttpSession session) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		restResponseDto.setResult("success");
+		
+		if(sessionStaffInfo != null) {
+			restResponseDto.setData(sessionStaffInfo.getStaff_pk());
+		}
+		
+		return restResponseDto;
+		
+	}
+	// 등록된 산업체 전체 리스트
+	@RequestMapping("getCompanyListByCategoryPk")
+	public RestResponseDto getCompanyListByCategoryPk(int company_category_pk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		restResponseDto.setData(woojaeExternalService.getCompanyListByCategoryPk(company_category_pk));
+		
+		return restResponseDto;
+		
+	}
+	
+
+	
+	// 템플릿
 	@RequestMapping("templete")
 	public RestResponseDto templete() {
 		

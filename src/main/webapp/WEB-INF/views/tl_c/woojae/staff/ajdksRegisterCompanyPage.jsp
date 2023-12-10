@@ -50,33 +50,17 @@
 </style>
 <script>
 	
-	let staffId = null;
-	
-	function getStaffId(){
-		
-		fetch("./tl_c/woojae/staff/getStaffId")
-		.then(response => response.json)
-		.then((response) => {
-			staffId = response.data;
-		});
-	}
-	
-	function formSubmit(){
-		const form = document.getElementById("form");
-		const InputCompanyId = document.getElementById("InputCompanyId"); // 사업자 등록번호
-		const inputExternalId = document.getElementById("inputExternalId"); // 산업체 아이디
-		
-		form.submit();
-	}
+	const categoryName = ${companyCategoryList.company_category_name};
 	
 	// 사업자등록번호 확인
 	let isCheckedCompanyId = false;
 	
 	function checkCompanyIdFetch(){
 		
-		const InputCompanyIdValue = document.getElementById("InputCompanyId").value;
+		const inputCompanyId = document.getElementById("inputCompanyId");
+		const inputCompanyIdValue = document.getElementById("inputCompanyId").value;
 		
-		const url = "./existCompanyId?company_id=" + InputCompanyIdValue;
+		const url = "./existCompanyId?company_id=" + inputCompanyIdValue;
 		
 		fetch(url)
 		.then(response => response.json())
@@ -86,8 +70,8 @@
 				isCheckedCompanyId = false;
 				
 				alert("이미 등록된 번호입니다.");
-				InputCompanyId.value = "";
-				InputCompanyId.focus();
+				inputCompanyId.value = "";
+				inputCompanyId.focus();
 			}else{
 				isCheckedCompanyId = true;
 			}
@@ -143,6 +127,12 @@
 		
 	}
 	
+	// 업종카테고리 리스트
+	function companyCategoryList() {
+		
+	}
+	
+	// 산업체 등록
 	function registerCompany(){
 		// 로그인 예외처리
 		/* if(staffId == null){
@@ -152,13 +142,48 @@
 			return;
 		} */
 		
+		const inputCompanyId = document.getElementById("inputCompanyId"); // 사업자 등록번호
+		const companyIdValue = inputCompanyId.value;
+		const inputCompanyName = document.getElementById("inputCompanyName"); // 사업체명
+		const companyNameValue = inputCompanyName.value;
+		/* const inputCompanyCategoryPk = document.getElementById("inputCompanyCategoryPk"); // 업종카테고리
+		const companyCategoryPkValue = inputCompanyCategoryPk.value; */
+		const inputCeoName = document.getElementById("inputCeoName"); // 대표명
+		const ceoNameValue = inputCeoName.value;
+		const inputAddress = document.getElementById("inputAddress"); // 주소
+		const addressValue = inputAddress.value;
+		const inputPhone = document.getElementById("inputPhone"); // 전화번호
+		const phoneValue = inputPhone.value;
+		const inputUrl = document.getElementById("inputUrl"); // 홈페이지주소
+		const urlValue = inputUrl.value;
+		const inputExternalId = document.getElementById("inputExternalId"); // 산업체 아이디
+		const externalIdValue = inputExternalId.value;
+		const inputExternalPassword = document.getElementById("inputExternalPassword"); // 산업체 비밀번호
+		const externalPasswordValue = inputExternalPassword.value;
+		
+		const url = "./registerCompany";
+		
+		fetch(url,{
+			method:"post",
+			headers: {
+				"Content-Type" : "application/x-www-form-urlencoded"
+			},
+			body:"company_id=" + companyIdValue + "&&" + "company_name=" + companyNameValue + "&&" 
+				+ "ceo_name=" + ceoNameValue + "&&" + "address=" + addressValue + "&&"
+				+ "phone" + phoneValue + "&&" + "url=" + urlValue + "&&" +
+				"external_id=" + externalIdValue + "&&" + "password=" + externalPasswordValue
+		})
+		.then(response => response.json())
+		.then(response =>{
+			
+		});
 		
 	}
 	
 	// 페이지가 로드 되자마자 아이디 줌.
-	window.addEventListener("DOMContentLoaded", ()=>{
+	/* window.addEventListener("DOMContentLoaded", ()=>{
 		getStaffId();
-	});
+	}); */
 </script>
 </head>
 <body>
@@ -180,7 +205,7 @@
 			<div class="col mx-4">
 			
 			<!-- 본문작성공간 -->
-				<form id="form" action="./registerCompanyProcess">
+				<form action="./registerCompanyProcess">
 				<div class="row mt-5">
 					<div class="col fw-bold">
 						산업체 등록
@@ -194,7 +219,7 @@
 						사업자등록번호
 					</div>
 					<div class="col-6 d-grid">
-						<input onblur="checkCompanyIdFetch()" id="InputCompanyId" class="form-control" name="company_id" type="text" placeholder="예시) 1234-587-1122" style="font-size: 0.9em;">
+						<input onblur="checkCompanyIdFetch()" id="inputCompanyId" class="form-control" name="company_id" type="text" placeholder="예시) 1234-587-1122" style="font-size: 0.9em;">
 					</div>
 					<div class="col"></div>
 				</div>
@@ -203,7 +228,7 @@
 						업체명
 					</div>
 					<div class="col-6 d-grid">
-						<input class="form-control" name="company_name" type="text" placeholder="예시) 빵계홍빵집" style="font-size: 0.9em;">
+						<input id="inputCompanyName" class="form-control" name="company_name" type="text" placeholder="예시) 빵계홍빵집" style="font-size: 0.9em;">
 					</div>
 					<div class="col"></div>
 				</div>
@@ -212,10 +237,19 @@
 						업종
 					</div>
 					<div class="col-6 d-flex mt-2" style="font-size: 0.8em;">
-						<c:forEach items="${list}" var="companyCategoryList">
-							<input class="form-check-input"  name="company_category_pk" type="radio" value="${companyCategoryList.company_category_pk}">
-							&nbsp;${companyCategoryList.company_category_name}&nbsp;
-						</c:forEach>
+						<div class="row">
+							<div id="categoryListBox" class="col">
+								<div class="row">
+									<div class="col">
+										<c:forEach items="${list}" var="companyCategoryList">
+											<input class="form-check-input"  name="company_category_pk" type="radio" value="${companyCategoryList.company_category_pk}">
+											&nbsp;${companyCategoryList.company_category_name}&nbsp;
+										</c:forEach>
+									</div>
+								</div>
+							</div>
+						</div>
+						
 					</div>
 					<div class="col"></div>
 				</div>
@@ -224,7 +258,7 @@
 						대표명
 					</div>
 					<div class="col-6 d-grid">
-						<input class="form-control" name="ceo_name" type="text" placeholder="예시) 빵계홍" style="font-size: 0.9em;">
+						<input id="inputCeoName" class="form-control" name="ceo_name" type="text" placeholder="예시) 빵계홍" style="font-size: 0.9em;">
 					</div>
 					<div class="col"></div>
 				</div>
@@ -233,7 +267,7 @@
 						주소
 					</div>
 					<div class="col-6 d-grid">
-						<input class="form-control" name="address" type="text" placeholder="예시) 경기도 안양시" style="font-size: 0.9em;">
+						<input id="inputAddress" class="form-control" name="address" type="text" placeholder="예시) 경기도 안양시" style="font-size: 0.9em;">
 					</div>
 					<div class="col"></div>
 				</div>
@@ -242,7 +276,7 @@
 						전화번호
 					</div>
 					<div class="col-6 d-grid">
-						<input class="form-control" name="phone" type="text" placeholder="예시) 010-0000-0000" style="font-size: 0.9em;">
+						<input id="inputPhone" class="form-control" name="phone" type="text" placeholder="예시) 010-0000-0000" style="font-size: 0.9em;">
 					</div>
 					<div class="col"></div>
 				</div>
@@ -251,7 +285,7 @@
 						홈페이지 주소
 					</div>
 					<div class="col-6 d-grid">
-						<input class="form-control" name="url" type="text" placeholder="예시) www.ddd.com" style="font-size: 0.9em;">
+						<input id="inputUrl" class="form-control" name="url" type="text" placeholder="예시) www.ddd.com" style="font-size: 0.9em;">
 					</div>
 					<div class="col"></div>
 				</div>
@@ -277,7 +311,7 @@
 				<div class="row mt-2">
 					<div class="col-8"></div>
 					<div class="col-1 mt-2 me-2 d-flex justify-content-end">
-						<input onclick="formSubmit()" class="btn btn-secondary" type="button" value="등록하기" style="font-size: 0.9em;" style="font-size: 0.9em;">
+						<button onclick="registerCompany()" class="btn btn-secondary" style="font-size: 0.9em;" style="font-size: 0.9em;">등록</button>
 					</div>
 					<div class="col"></div>
 				</div>
@@ -285,6 +319,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- 업종카테고리 템플릿 -->
 	
 </div>
 
