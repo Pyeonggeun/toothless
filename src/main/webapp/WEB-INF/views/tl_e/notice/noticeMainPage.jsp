@@ -34,45 +34,111 @@
 				<div class="row">
 					<c:choose>
 						<c:when test="${!empty sessionStaffInfo }">
-							<div class="col mt-3 fs-5">${sessionStaffInfo.name }님</div>
+							<div class="col mt-3 fs-6">${sessionStaffInfo.name }님</div>
 						</c:when>
 						<c:otherwise>
-							<div class="col mt-3 fs-5">${sessionStudentInfo.name }님</div>
+							<div class="col mt-3 fs-6">${sessionStudentInfo.name }님</div>
 						</c:otherwise>
 					</c:choose>
-					<div class="col mt-3 fs-5"><a href="./logoutProcess"><i class="bi bi-box-arrow-right"></i></a></div>
+					<c:choose>
+						<c:when test="${!empty sessionStaffInfo }">
+							<div class="col mt-3 fs-6"><a href="./staffReturnToMainPage"><i class="bi bi-chevron-double-left"></i></a></div>
+						</c:when>
+						<c:otherwise>
+							<div class="col mt-3 fs-6"><a href="./studentReturnToMainPage"><i class="bi bi-chevron-double-left"></i></a></div>
+						</c:otherwise>
+					</c:choose>
+					<div class="col mt-3 fs-6"><a href="./logoutProcess"><i class="bi bi-box-arrow-right"></i></a></div>
 					<c:if test="${!empty sessionStaffInfo }">
-						<div class="col mt-3 fs-5">
+						<div class="col mt-3 fs-6">
 							<a href="./writeNoticeArticlePage">글쓰기</a>
 						</div>
 					</c:if>
 				</div>
 			</div>
 		</div>
-		<div class="table-responsive small">
-			<table class="table table-striped table-sm">
-				<thead>
-				  <tr>
-				    <th scope="col">글번호</th>
-				    <th scope="col">제목</th>
-				    <th scope="col">작성자</th>
-				    <th scope="col">조회수</th>
-				    <th scope="col">작성일</th>
-				  </tr>
-				</thead>
-				<tbody>
+		<div class="row">
+			<div class="col-2 border-top">
+				<div class="row mb-2 ms-3">
+					<div class="col" style="font-size: 2em">상담관리</div>
+				</div>
+				<div class="row mb-2 ms-3">
+					<div class="col" style="font-size: 1em">온라인 상담</div>
+				</div>
+				<div class="row mb-2 ms-3">
+					<div class="col" style="font-size: 1em">오프라인 상담</div>
+				</div>
+				<div class="row mb-2 ms-3">
+					<div class="col" style="font-size: 1em">집단 상담</div>
+				</div>
+				<div class="col border-top"></div>
+				<div class="row mb-2 ms-3">
+					<div class="col" style="font-size: 2em">상담원 관리</div>
+				</div>
+				<div class="row mb-2 ms-3">
+					<div class="col" style="font-size: 1em">상담원 등록</div>
+				</div>
+				<div class="row mb-2 ms-3">
+					<div class="col" style="font-size: 1em">상담원 조회</div>
+				</div>
+				<div class="col border-top"></div>
+				<div class="row mb-2 ms-3">
+					<div class="col" style="font-size: 1em">공지사항</div>
+				</div>
+				<div class="row mb-2 ms-3">
+					<div class="col" style="font-size: 1em">문의사항</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="row">
+					<div class="col-2 border">글번호</div>
+					<div class="col-4 border">제목</div>
+					<div class="col-2 border">작성자</div>
+					<div class="col-2 border">조회수</div>
+					<div class="col-2 border">작성일</div>
+				</div>
+				<div class="row">
 					<c:forEach items="${list }" var="list">
-						<tr>
-							<td>${list.noticeBoardDto.id }</td>
-							<td><a href="./readNoticeBoardPage?id=${list.noticeBoardDto.id }">${list.noticeBoardDto.title }</a></td>
-							<td>${list.staffInfoDto.name }</td>
-							<td>${list.noticeBoardDto.read_count }</td>
-							<td><fmt:formatDate value="${list.noticeBoardDto.created_at }" pattern="yyyy-MM-dd"/></td>
-						</tr>
+						<div class="col-2 border">${list.noticeBoardDto.id }</div>
+						<div class="col-4 border">
+							<a href="./readNoticeBoardPage?id=${list.noticeBoardDto.id }">${list.noticeBoardDto.title }</a>
+							<span class="badge text-bg-secondary">${list.commentCount }</span>
+							<span class="badge text-bg-secondary">추천[]</span>
+							<span class="badge text-bg-secondary">비추천[]</span>
+						</div>
+						<div class="col-2 border">${list.staffInfoDto.name }</div>
+						<div class="col-2 border">${list.noticeBoardDto.read_count }</div>
+						<div class="col-2 border"><fmt:formatDate value="${list.noticeBoardDto.created_at }" pattern="yyyy-MM-dd"/></div>
 					</c:forEach>
-				</tbody>
-			</table>	
+				</div>
+				<div class="row">
+					<div class="col">
+						<div>여기엔 뭘 넣을까요</div>
+					</div>
+				</div>	
+				<div class="row">
+					<div class="col">
+						<div>여기엔 뭘 넣을까요</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<div>여기엔 뭘 넣을까요</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<div>여기엔 뭘 넣을까요</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<div>여기엔 뭘 넣을까요</div>
+					</div>
+				</div>			
+			</div>
 		</div>
+		
 	</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

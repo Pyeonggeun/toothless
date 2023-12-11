@@ -127,5 +127,10 @@
 		AND student_pk = #{student_pk}
 		AND notice_dislike = 1
 	</delete>
+	<!-- 공지사항 댓글 갯수 -->
+	<select id="commentCountByNotice_id" resultType="int">
+		SELECT COUNT(*) FROM cp_notice_comment
+		WHERE notice_id = #{notice_id}
+	</select>
 	
 </mapper>
