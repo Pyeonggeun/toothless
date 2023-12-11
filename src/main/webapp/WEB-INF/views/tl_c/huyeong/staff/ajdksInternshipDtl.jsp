@@ -139,12 +139,12 @@ body {
 
 					<div class="row">
 						<div class="col-md-5 mt-2 mb-2">
-							<label for="inputCity" class="form-label jb-700" style="font-size: 0.9em;"> 글 제목 </label> 
+							<label for="inputCity" class="form-label jb-700"> 글 제목 </label> 
 							<input name="course_title" type="text" class="form-control" style="font-size: 0.9em;" id="course_title" value="${AjdksInternshipCourseDto.course_title}" >
 						</div>
 						<input name="internship_course_pk" type="hidden"  value="${AjdksInternshipCourseDto.internship_course_pk}" >
 						<div class="col-md-5 mt-2 mb-2">
-							<label for="inputState" class="form-label jb-700" style="font-size: 0.9em;"> 인원 수 </label>
+							<label for="inputState" class="form-label jb-700"> 인원 수 </label>
 							<select name="internship_total_member" id="internship_total_member" class="form-select" style="font-size: 0.9em;">
 								<c:choose>
 									<c:when test="${AjdksInternshipCourseDto.internship_total_member == 1 }">
@@ -190,7 +190,7 @@ body {
 						</div>
 
 						<div class="col-md-5 mt-2 mb-2">
-							<label for="inputState" class="form-label jb-700" style="font-size: 0.9em;"> 자격요건 </label>
+							<label for="inputState" class="form-label jb-700"> 자격요건 </label>
 							<select name="semester_qualification" id="semester_qualification" class="form-select" style="font-size: 0.9em;">
 								<c:choose>
 									<c:when test="${AjdksInternshipCourseDto.semester_qualification == 1 }">
@@ -303,8 +303,8 @@ body {
 					
 										
 				<!-- 교수 셀렉트 -->
-				<div class="col-2 jb-small mt-4 mb-4 ">
-					<label for="inputState" class="form-label jb-700 jb-small" style="font-size: 0.9em;">교수명</label> 
+				<div class="col-4 mt-4 mb-4 ">
+					<label for="inputState" class="form-label jb-700" >교수명</label> 
 					<select name="professor_pk" id="professor_pk" class="form-select jb-small" style="font-size: 0.9em;">
 						<c:forEach items="${list }" var="map">
 							<c:choose>
@@ -320,7 +320,7 @@ body {
 				</div>
 				
 			    <!-- 사업체 셀렉트 -->
-				<div class="col jb-small mt-4 mb-4">
+				<div class="col-4 mt-4 mb-4">
 				<label for="inputState" class="form-label jb-700 "> 사업체명</label> 
 					<select name="company_pk" id="company_pk" class="form-select" style="font-size: 0.9em;">
 						<c:forEach items="${complist }" var="map">
@@ -337,7 +337,7 @@ body {
 				</div>
 				
 				<!-- 학과 셀렉트 -->
-				<div class="col jb-small mt-4 mb-4">
+				<div class="col-4 mt-4 mb-4">
 				<label for="inputState" class="form-label jb-700 " > 학과명</label> 
 					<select name="department_pk" id="department_pk" class="form-select" style="font-size: 0.9em;">
 						<c:forEach items="${departList }" var="map">
