@@ -53,22 +53,7 @@ public class SeoyoungCompanyController {
 		
 		return "tl_c/seoyoung/company/ajdksStudentinternPage";
 	}
-	
-//	@RequestMapping("testcertificationProcess")
-//	public String testcertificationProcess(Model model,HttpSession session) {
-//		
-//		ExternalInfoDto sessionCompanyInfo = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
-//		model.addAttribute("sessionCompanyInfo", sessionCompanyInfo);
-//		
-//		
-////		
-////		int certification = id.getStudent_pk();
-////		model.addAttribute("CertificationList",seoyoungCompanyService.getCertification(certification));
-//		
-//		return "redirect:../ajdksSelectInternPage";
-//	
-//		
-//	}
+
 	
 	@RequestMapping("ajdksSelectInternPage") 
 	public String ajdksSelectInternPage(Model model,HttpSession session,AjdksStudentInternDto pramse) {
@@ -90,20 +75,49 @@ public class SeoyoungCompanyController {
 		
 
 		// 자기소개서 리스트
-		guntaekStudentService.getselfIntroductionDto(pramse.student_pk);
-		model.addAttribute("selfIntroduction", guntaekStudentService.getselfIntroductionDto(pramse.student_pk));
+		model.addAttribute("selfIntroduction", guntaekStudentService.getselfIntroductionDto(pramse.getStudent_pk()));
 		
 		
 		return "tl_c/seoyoung/company/ajdksSelectInternPage";
 	}
 	
+	//합불합
+	@RequestMapping("updateSelectInternProcess") 
+	public String updateSelectInternProcess(Model model,HttpSession session, AjdksStudentApplyingDto pramse) {
+
+		ExternalInfoDto sessionCompanyInfo = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		model.addAttribute("sessionCompanyInfo", sessionCompanyInfo);
+
+		List<Map<String, Object>> map = (List<Map<String, Object>>) seoyoungCompanyService.companyList(sessionCompanyInfo.getExternal_pk());
+		model.addAttribute("list", map);
+		
+		//업데이트
+		seoyoungCompanyService.updateSelectionArticle(pramse);
+		
+	
+		//신청 학생 정보 확인
+		int internId=pramse.getInternship_course_pk();
+		List<Map<String, Object>> map2 =  (List<Map<String, Object>>)  seoyoungCompanyService.selectionStudent(internId);
+		model.addAttribute("list2", map2);
+		
+		//자격증
+		List<Map<String, Object>> map3 = (List<Map<String, Object>>) seoyoungCompanyService.getCertification(sessionCompanyInfo.getExternal_pk());
+		model.addAttribute("CertificationList", map3);
+		
+		
+		// 자기소개서 리스트
+		model.addAttribute("selfIntroduction", guntaekStudentService.getselfIntroductionDto(pramse.getStudent_pk()));
+		
+		return "redirect:../company/ajdksSelectInternPage?internship_course_pk="+pramse.getInternship_course_pk();
+	}
+	
+	
+	
 	@RequestMapping("certificationProcess")
 	public String certificationProcess(Model model, AjdksCertificationDto id) {
 		
 		int certification = id.getStudent_pk();
-		System.out.println("certificationProcess들어옴1");
 		model.addAttribute("CertificationList",seoyoungCompanyService.getCertification(certification));
-		System.out.println("certificationProcess들어옴2");
 		
 		return "redirect:../ajdksSelectInternPage";
 	

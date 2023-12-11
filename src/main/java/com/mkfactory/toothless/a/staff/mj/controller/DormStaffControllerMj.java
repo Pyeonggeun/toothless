@@ -142,22 +142,10 @@ public class DormStaffControllerMj {
 	@RequestMapping("mj_managePaymentPage")
 	public String mj_managePaymentPage(Model model) {
 		
-		// 선발완료 전체 리스트
-		List<Map<String, Object>> dormSelectedList =  staffService.getAllDormSelectedList();
-		model.addAttribute("dormSelectedList", dormSelectedList);
-		
-		// 선발완료 전체 개수
-		int countDormSelectedList = dormSelectedList.size();
-		model.addAttribute("countDormSelectedList", countDormSelectedList);
-		
-		// 현재학기정보 + 입주공고 정보
-		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
-		model.addAttribute("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
-		
-		
 		return "tl_a/staff/mj_managePaymentPage";
 	}
 	
+	/*
 	// 납부관리 페이지로(납부완료)
 	@RequestMapping("mj_managePaymentYesPage")
 	public String mj_managePaymentPage2(Model model) {
@@ -177,7 +165,9 @@ public class DormStaffControllerMj {
 		
 		return "tl_a/staff/mj_managePaymentYesPage";
 	}
+	*/
 	
+	/*
 	// 납부관리 페이지로(미납부)
 	@RequestMapping("mj_managePaymentNoPage")
 	public String mj_managePaymentPage3(Model model) {
@@ -197,7 +187,9 @@ public class DormStaffControllerMj {
 		
 		return "tl_a/staff/mj_managePaymentNoPage";
 	}
+	*/
 
+	/*
 	// 납부 프로세스
 	@RequestMapping("mj_updatePaymentStatusProcess")
 	public String mj_updatePaymentStatusProcess(int page, String payment_status, int dorm_application_pk) {
@@ -226,6 +218,7 @@ public class DormStaffControllerMj {
 		return "";	
 		
 	}
+	*/
 	
 	// 상벌코드 목록
 	@RequestMapping("mj_pointCategoryPage")

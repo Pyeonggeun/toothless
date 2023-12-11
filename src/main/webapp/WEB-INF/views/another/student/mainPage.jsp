@@ -326,7 +326,7 @@
             <div class="row text-center py-1 fw-bold text-light" style="background-color: #133369">
                 <div class="col-2"></div>
                 <div class="col align-self-center">
-                    <a class="navbar-brand" href="./mainpage">현장실습 지원 센터</a>
+                    <a class="navbar-brand" href="../../tl_c/guntaek/student/ajdksRegisterSelfIntroduction">현장실습 지원 센터</a>
                 </div>
                 <div class="col align-self-center">
                     <a class="navbar-brand" href="../../tl_d/common/employmentMainPage">취업<i class="bi bi-dot"></i>창업 지원 센터</a>

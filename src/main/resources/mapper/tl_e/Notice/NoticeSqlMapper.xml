@@ -27,7 +27,24 @@
 	</insert>
 	<!-- 공지사항 출력 -->
 	<select id="selectNoticeList" resultType="com.mkfactory.toothless.e.dto.NoticeBoardDto">
-		SELECT * FROM cp_notice ORDER BY id desc
+		SELECT * FROM CP_NOTICE cn 
+		INNER JOIN TL_JIC_STAFF_INFO tjsi 
+		ON cn.STAFF_PK = tjsi.STAFF_PK
+		WHERE 1=1
+		<if test="searchType != null">
+			<choose>
+				<when test="searchType == 'title'">
+					AND cn.TITLE LIKE '%' || #{searchWord} || '%'
+				</when>
+				<when test="searchType == 'text'">
+					AND cn.TEXT LIKE '%' || #{searchWord} || '%'
+				</when>
+				<when test="searchType == 'name'">
+					AND tjsi.NAME LIKE '%' || #{searchWord} || '%'
+				</when>
+			</choose>
+		</if>
+		ORDER BY cn.id desc
 	</select>		
 	<!-- 교직원정보 검색 -->
 	<select id="selectStaffInfoByStaff_Pk" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
@@ -132,5 +149,45 @@
 		SELECT COUNT(*) FROM cp_notice_comment
 		WHERE notice_id = #{notice_id}
 	</select>
+	<!-- 공지사항 추천 갯수 -->
+	<select id="likeCountByNotice_id" resultType="int">
+		SELECT COUNT(*) FROM cp_notice_like
+		WHERE NOTICE_ID = #{notice_id} 
+		AND notice_like = 1
+	</select>
+	<!-- 공지사항 비추천 갯수 -->
+	<select id="dislikeCountByNotice_id" resultType="int">
+		SELECT COUNT(*) FROM cp_notice_like
+		WHERE notice_id = #{notice_id} 
+		AND notice_dislike = 1
+	</select>
+	
+	<select id="selectBestNotice" resultType="map">
+		<![CDATA[
+		SELECT * FROM (
+			SELECT 
+			cn.ID AS ID,
+			CN.TITLE AS TITLE,
+			TJSI.NAME AS NAME,
+			CN.READ_COUNT AS READ_COUNT,
+			CN.CREATED_AT AS CREATED_AT,
+			NVL(
+				(SELECT sum(cnl.NOTICE_LIKE) - SUM(cnl.NOTICE_DISLIKE) 
+				FROM CP_NOTICE_LIKE cnl
+				WHERE cnl.NOTICE_ID = cn.id	
+				), 0) AS score
+				FROM CP_NOTICE cn
+				INNER JOIN TL_JIC_STAFF_INFO tjsi ON TJSI.STAFF_PK = CN.STAFF_PK	
+				ORDER BY SCORE DESC
+				)
+		WHERE rownum <= 3
+		]]>
+	</select>
+	
+	
+	
+	
+	
+	
 	
 </mapper>

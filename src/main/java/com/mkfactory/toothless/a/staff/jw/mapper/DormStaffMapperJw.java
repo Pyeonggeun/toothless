@@ -2,6 +2,7 @@ package com.mkfactory.toothless.a.staff.jw.mapper;
 
 import java.util.List;
 
+import com.mkfactory.toothless.a.dto.CallAbsenceDto;
 import com.mkfactory.toothless.a.dto.DiaryDto;
 import com.mkfactory.toothless.a.dto.DormBuildingDto;
 import com.mkfactory.toothless.a.dto.DormRoomDto;
@@ -9,6 +10,8 @@ import com.mkfactory.toothless.a.dto.DormStudentDto;
 import com.mkfactory.toothless.a.dto.ExecutiveDto;
 import com.mkfactory.toothless.a.dto.ExecutiveManagementDto;
 import com.mkfactory.toothless.a.dto.ExitDto;
+import com.mkfactory.toothless.a.dto.PointCategory;
+import com.mkfactory.toothless.a.dto.PointDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 public interface DormStaffMapperJw {
@@ -28,9 +31,10 @@ public interface DormStaffMapperJw {
 	// 전체 사생정보
 	public List<DormStudentDto> selectAllDormStudentList();
 	
-	// 진행중인 사생정보
+	// 진행중인 학기의 사생정보
 	public List<DormStudentDto> selectDormStudentByProgressSemester();
 	public List<DormStudentDto> selectDormStudentByProgressSemesterAndDormRoom(int dorm_room_pk);
+	public List<DormStudentDto> selectDormStudentExceptExecuteByProgressSemester();
 	
 	// 임원
 	public void insertExecutive(int dorm_student_pk);
@@ -51,10 +55,13 @@ public interface DormStaffMapperJw {
 	// 일지 관리
 	public List<DiaryDto> selectAllDiaryList();
 	
+	// 상벌점
+	public void insertPoint(PointDto pointDto);
+	public List<PointCategory> selectAllPointCategory();
+	public Integer sumPointByDormStudentPk(int dorm_student_pk);
 	
-	
-	
-	
-	
+	// 점호 불참
+	public List<CallAbsenceDto> selectAllCallAbsenceList();
+	public List<DormStudentDto> selectCallAbsenceDormStudentList();
 	
 }

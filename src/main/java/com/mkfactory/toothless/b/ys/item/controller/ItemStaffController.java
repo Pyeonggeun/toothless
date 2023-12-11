@@ -169,24 +169,23 @@ public class ItemStaffController {
 	}
 	
 	
-//	@RequestMapping("staffItemApplyListPage")
-//	public String staffItemApplyListPage(Model model) {
-//		
-//		model.addAttribute("itemApplyList",itemStaffService.getItemApplyList());
-//		
-//		return "tl_b/ys/staffItemApplyListPage";
-//	}
+	@RequestMapping("staffItemApplyListPage")
+	public String staffItemApplyListPage(Model model) {
+		
+		model.addAttribute("itemApplyList",itemStaffService.getItemApplyList());
+		
+		return "tl_b/ys/staffItemApplyListPage";
+	}
 	
 	//REST API
-	@ResponseBody
-	@RequestMapping("staffItemApplyListPage")
-	public List<Map<String,Object>> staffItemApplyListPage(Model model) {
-		
-		List<Map<String,Object>> itemApplyList = itemStaffService.getItemApplyList();
-		
-		return itemApplyList;
-
-	}
+//	@RequestMapping("staffItemApplyListPage")
+//	public List<Map<String,Object>> staffItemApplyListPage(Model model) {
+//		
+//		List<Map<String,Object>> itemApplyList = itemStaffService.getItemApplyList();
+//		
+//		return itemApplyList;
+//
+//	}
 	
 	@RequestMapping("rentalProcess")
 	public String rentalProcess(int item_apply_pk) {

@@ -395,9 +395,9 @@
 																			<br>
 																			<div class="row"></div>
 																			<div class="modal-footer">
-																				<button type="button" class="btn btn-secondary"
-																					data-bs-dismiss="modal">불합격</button>
-																				<a class="btn bbtn btn-primary"
+																				<a href="./updateSelectInternProcess?status=불합격&student_pk=${selectionStudent.STUDENT_PK}&internship_course_pk=${selectionStudent.INTERNSHIP_COURSE_PK}" class="btn bbtn btn-secondary"
+																					data-bs-toggle="modal" role="button">불합격</a>													
+																				<a href="./updateSelectInternProcess?status=합격&student_pk=${selectionStudent.STUDENT_PK}&internship_course_pk=${selectionStudent.INTERNSHIP_COURSE_PK}" class="btn bbtn btn-primary"
 																					data-bs-toggle="modal" role="button">합격</a>
 																			</div>
 
@@ -406,6 +406,8 @@
 
 																</div>
 																</div> <a class="btn btn btn-light" data-bs-toggle="modal"
+																
+																	  
 																href="#exampleModalToggle?student_pk=${selectionStudent.STUDENT_PK}"
 																role="button"> ${selectionStudent.NAME}</a>
 															</td>

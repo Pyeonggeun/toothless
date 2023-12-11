@@ -144,6 +144,7 @@ public class RestDormStaffControllerMj {
 	public Mj_RestResponseDto mj_selectDormStudentProcess(
 			@RequestParam String selection_status, 
 			@RequestParam int dorm_application_pk) {
+		
 		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)
 		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
 		
@@ -157,10 +158,74 @@ public class RestDormStaffControllerMj {
 			
 		restResponseDto.setResult("success");
 		return restResponseDto;
-		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)	
-		
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)		
 	}
 	
+	// 납부 프로세스
+	@RequestMapping("mj_updatePaymentStatusProcess")
+	public Mj_RestResponseDto mj_updatePaymentStatusProcess(
+			@RequestParam String payment_status, 
+			@RequestParam int dorm_application_pk) {
+		
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+		
+		staffService.updatePaymentStatus(payment_status, dorm_application_pk);
+		
+		if ("Y".equals(payment_status)) {
+			restResponseDto.addData("paymentStatus", "Y");
+		}else if("N".equals(payment_status)) {
+			restResponseDto.addData("paymentStatus", "N");
+		}
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)		
+	}
+	
+	// 납부현황 페이지로 (납부완료 / 미납부)
+	@RequestMapping("getPaymentList")
+	public Mj_RestResponseDto getPaymentList() {
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+				
+		// 현재학기정보 + 입주공고 정보
+		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
+		restResponseDto.addData("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
+		
+		
+		// (선발완료) 전체 리스트
+		List<Map<String, Object>> dormSelectedList =  staffService.getAllDormSelectedList();
+		restResponseDto.addData("dormSelectedList", dormSelectedList);
+		
+		// 납부완료 리스트
+		List<Map<String, Object>> paymentYesList =  staffService.getPaymentYesList();
+		restResponseDto.addData("paymentYesList", paymentYesList);
+		
+		// 미납부 리스트
+		List<Map<String, Object>> paymentNoList =  staffService.getPaymentNoList();
+		restResponseDto.addData("paymentNoList", paymentNoList);
+		
+	
+		// 선발완료 전체 개수
+		int countDormSelectedList = dormSelectedList.size();
+		restResponseDto.addData("countDormSelectedList", countDormSelectedList);
+
+		// 납부완료 전체 개수
+		int countPaymentYesList = paymentYesList.size();
+		restResponseDto.addData("countPaymentYesList", countPaymentYesList);
+		
+		// 미납부 전체 개수
+		int countPaymentNoList = paymentNoList.size();
+		restResponseDto.addData("countPaymentNoList", countPaymentNoList);
+	
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)	
+	}
+	
+
 	
 	
 	

@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
+import com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto;
+import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
 
 public interface SeoyoungCompanyMapper {
 
@@ -22,5 +24,7 @@ public interface SeoyoungCompanyMapper {
 	public List<Map<String, Object>> selectionGrade(int internship_course_pk);
 
 	public List<Map<String, Object>> selectCertificationProcess(int id);
+
+	public void updateSelectionStudent(AjdksStudentApplyingDto ajdksStudentApplyingDto);
 
 }

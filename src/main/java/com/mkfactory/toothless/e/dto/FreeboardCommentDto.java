@@ -10,7 +10,7 @@ public class FreeboardCommentDto {
 	private int freeboard_id;
 	private int student_pk;
 	private String text; 
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date created_At;
 	
 	public FreeboardCommentDto() {

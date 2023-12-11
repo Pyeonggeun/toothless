@@ -13,4 +13,6 @@ public interface ItemStudentSqlMapper {
 	public List<Map<String,Object>> studentApplyItemList();
 	
 	public String ItemApplyStatus(int item_pk);
+	
+	public int ItemApplyCount(int item_pk);
 }
