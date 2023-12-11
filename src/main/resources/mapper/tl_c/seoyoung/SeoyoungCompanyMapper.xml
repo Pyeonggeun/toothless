@@ -75,6 +75,14 @@
 	</select>
 
 
+	<!-- 신청 학생 정보 수정 -->
+	<update id="updateSelectionStudent">
+		UPDATE tl_c_student_applying
+		SET status = #{status}
+		WHERE student_pk = #{student_pk}
+	</update>
+	
+
 	<!-- 밑에부터잘안씀 -->
 	<select id="selectionGrade" resultType="Map">
 		SELECT *
@@ -95,16 +103,6 @@
 	</select>
 
 
-
-	<!-- 신청 학생 정보 수정 -->
-	<update id="updateSelectionStudent">
-		UPDATE TL_C_SELF_INTRODUCTION
-		SET answer1 =
-		#{answer1}, answer2 = #{answer2},
-		answer3 =#{answer3}, answer4 =
-		#{answer4}
-		WHERE student_pk = #{student_pk}
-	</update>
 
 
 	<!--AjdksStudentApplyingDto -->

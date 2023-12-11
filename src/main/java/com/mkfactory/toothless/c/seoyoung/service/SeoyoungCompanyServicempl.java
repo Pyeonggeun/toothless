@@ -13,6 +13,7 @@ import com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto;
+import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
 import com.mkfactory.toothless.c.seoyoung.mapper.SeoyoungApplyingSqlMapper;
 import com.mkfactory.toothless.c.seoyoung.mapper.SeoyoungCompanyMapper;
 import com.mkfactory.toothless.donot.touch.dto.StudentSemesterDto;
@@ -40,6 +41,11 @@ public class SeoyoungCompanyServicempl {
 	//자격증정보
 	public List<Map<String, Object>> getCertification(int id){
 		return seoyoungCompanyMapper.selectCertificationProcess(id); 
+	}
+	
+	//합격 불합격
+	public void updateSelectionArticle(AjdksStudentApplyingDto ajdksStudentApplyingDto) {
+		seoyoungCompanyMapper.updateSelectionStudent(ajdksStudentApplyingDto);
 	}
 //	
 //	public List<Map<String, Object>> getArticleList(int pageNum, String searchType, String searchWord) {
