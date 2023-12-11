@@ -39,6 +39,7 @@
                                     		</c:otherwise>
                                     	</c:choose>
                                     </c:if>
+									${likeCount}
                                     <br>
                                     <button type="button" onclick="location.href='./staffboardPage'">목록으로</button>
                                     <c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == readText.staffboardDto.staff_pk}">

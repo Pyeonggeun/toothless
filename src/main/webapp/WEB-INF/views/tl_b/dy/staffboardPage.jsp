@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,15 +38,21 @@
 											<td>제목</td>
 											<td>작성자</td>
 											<td>조회수</td>
+											<td>추천</td>
 											<td>작성일</td>
                                     	</tr>
                                     	<c:forEach items="${list}" var="map">
 	                                    	<tr>
 	                                    		<td>${map.staffboardDto.staffboard_pk}</td>
-	                                    		<td><a href="./readTextPage?staffboard_pk=${map.staffboardDto.staffboard_pk}">${map.staffboardDto.title}</a></td>
+	                                    		<td><a href="./readTextPage?staffboard_pk=${map.staffboardDto.staffboard_pk}">${map.staffboardDto.title}
+	                                    		<c:if test="${0 < map.staffboardReplyDto}">
+	                                    		[${map.staffboardReplyDto}]
+	                                    		</c:if>
+	                                    		</a></td>
 	                                    		<td>${map.staffInfoDto.name}</td>
 	                                    		<td>${map.staffboardDto.read_count}</td>
-	                                    		<td>${map.staffboardDto.created_at}</td>
+	                                    		<td>${map.staffboardLikeDto}</td>
+	                                    		<td><fmt:formatDate value="${map.staffboardDto.created_at}" pattern="yyyy.MM.dd(HH:mm:ss)"/> </td>
 	                                    	</tr>
                                     	</c:forEach>	
                                     </table>

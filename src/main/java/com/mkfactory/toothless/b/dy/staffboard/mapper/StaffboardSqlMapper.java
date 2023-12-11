@@ -44,7 +44,10 @@ public interface StaffboardSqlMapper {
 	
 	public int selectCheckLike(StaffboardLikeDto staffboardLikeDto);
 	
+//좋아요 카운트
+	public int selectLikeCount(int staffboard_pk);
 	
-	
+//댓글 카운트
+	public int selectReplyCount(int staffboard_pk);
 	
 }

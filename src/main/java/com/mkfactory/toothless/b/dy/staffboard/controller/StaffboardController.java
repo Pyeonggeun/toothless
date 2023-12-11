@@ -70,7 +70,7 @@ public class StaffboardController {
 		model.addAttribute("readText", readText);
 		model.addAttribute("replyList", replyList);
 		
-		//여기 이어서 작업해야함
+		//좋아요
 		
 		StaffboardLikeDto likeDto = new StaffboardLikeDto();
 		
@@ -85,6 +85,12 @@ public class StaffboardController {
 		int count = staffboardService.checkLike(likeDto);
 		
 		model.addAttribute("count", count);
+		
+		int likeCount = staffboardService.likeCount(staffboard_pk);
+		
+		System.out.println(likeCount);
+		
+		model.addAttribute("likeCount", likeCount);
 		
 		
 		return "tl_b/dy/readTextPage";

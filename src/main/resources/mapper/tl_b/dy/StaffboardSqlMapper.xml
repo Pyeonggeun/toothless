@@ -84,6 +84,14 @@
 		SELECT COUNT(*) FROM tl_b_staffboard_like WHERE staff_pk = #{staff_pk} AND staffboard_pk = #{staffboard_pk}
 	</select>
 
+	<select id="selectLikeCount" resultType="int">
+		SELECT COUNT(*) FROM tl_b_staffboard_like WHERE staffboard_pk = #{staffboard_pk}
+	</select>
+
+	<select id="selectReplyCount" resultType="int">
+		SELECT COUNT(*) FROM TL_B_STAFFBOARD_REPLY WHERE STAFFBOARD_PK = #{staffboard_pk}
+	</select>
+
 </mapper>
 
 
