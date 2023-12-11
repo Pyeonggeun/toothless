@@ -14,26 +14,29 @@
 <script>
 
 //일단 var로 선언, 무조건 "all"로가보자
-var isReply = "all"
+const isReply = "all"
 
 
 
 	function myOnlineConsultingList(){
 		
-		const url = "./reloadMyOnlineConsultingList?isReply="+ isReply;
+		const url = "./reloadMyOnlineConsultingList?isReply=" + isReply;
 		
 		fetch(url)
 		.then(response => response.json())
 		.then(response => {
 			
-			console.log(response);
+			
 			
 			//CSR - 클아이언트 사이드 렌더링
-			
-			for(e of response.data){
-				
 				//복사할곳을 찾아놓음, id명 myOnlineCounsultiList를 위치로잡음 
-				const myOnlineConsultingList = document.getElementById("myOnlineConsultingList");;
+			const myOnlineConsultingList = document.getElementById("myOnlineConsultingList");
+			//for문돌기전 초기화
+			myOnlineConsultingList.innerHTML ="";
+			for(e of response.data){
+			
+				
+
 				
 				
 				//템플릿 복사함 #templete의 listWrapper를 찾음 그리고 복사(cloneNode)
@@ -41,22 +44,43 @@ var isReply = "all"
 				
 				//각각의 값 배치
 				
-				//게시글번호
+				//게시글번호 + 링크
 				const listPk = listWrapper.querySelector(".listPk");
 				listPk.innerText = e.onlineConsultingDto.on_consulting_pk;
+
+				
 				//날짜
 				const listDate = listWrapper.querySelector(".listDate");
-				listDate.innerText = e.onlineConsultingDto.on_consulting_pk;
+				//날짜 추가사항
+				const date = new Date(e.onlineConsultingDto.created_at);
+				listDate.innerText = date.getFullYear() +"." + (date.getMonth() + 1) + "." + date.getDate();
+				
 				//답변여부
 				const listISReply = listWrapper.querySelector(".listISReply");
-				listISReply.innerText = e.onlineConsultingDto.on_consulting_pk;
+				if(e.staffInfoDto==null){
+				listISReply.innerHTML = '<span class="badge text-bg-danger">미답변</span>';	
+				}
+				else{
+				listISReply.innerHTML = '<span class="badge text-bg-primary">답변완료</span>';					
+				}
+				
 				//스태프이름
 				const listStaffName = listWrapper.querySelector(".listStaffName");
-				listStaffName.innerText = e.onlineConsultingDto.on_consulting_pk;
+				if(e.staffInfoDto==null){
+					listStaffName.innerText = "";
+					
+					}
+				else{
+					listStaffName.innerText = e.staffInfoDto.name;				
+					}				
+				
+				
 				
 				
 				//복사한걸 붙임
+				//위에서 선언한 변수 myOnlineConsultingList의 자식에 listWrapper를 박음
 				myOnlineConsultingList.appendChild(listWrapper);
+				
 				<%--
 				<div class="listPk col">
 				게시글번호
@@ -70,14 +94,19 @@ var isReply = "all"
 			<div class="listStaffName col">
 			--%>
 			}
-			
-
-			
-		});
-		
-		
+					
+		}); //리로드 함수끝
+				
 	}
 
+
+//우선실행
+window.addEventListener("DOMContentLoaded", () => {
+	myOnlineConsultingList();
+
+	
+	
+});
 </script>
 
 
@@ -164,20 +193,20 @@ var isReply = "all"
 								
 					</div>
 					
-					<div class="row border-top">
+					<div class="row border">
 						<div class="col">
-							<div class="row">
-								<div class="col">
-								번호
+							<div class="row fw-bold border-bottom border-2">
+								<div class="col py-2 border-end">
+								글번호
 								</div>
-								<div class="col">
-								날짜
+								<div class="col py-2  border-end">
+								문의 날짜
 								</div>
-								<div class="col">
-								답변여부
+								<div class="col py-2  border-end">
+								답변 여부
 								</div>
-								<div class="col">
-								교직원이름
+								<div class="col py-2 ">
+								교직원 이름
 								</div>
 							</div>
 							
@@ -264,8 +293,8 @@ var isReply = "all"
 						</div>
 					</div>
 					
-					<div class="row">
-						<div class="col">
+					<div class="row mt-3 ps-0">
+						<div class="col ps-0">
 							<a href="./hopeJobConsultingPage"><button type="button" class="btn btn-primary">목록으로</button></a>
 						</div>
 					</div>
@@ -284,16 +313,16 @@ var isReply = "all"
 <%-- 리스트용 템플릿 --%>
 <div id ="templete" class="d-none">
 	<div class="listWrapper row">
-		<div class="listPk col">
+		<div class="listPk col py-2 border-end border-bottom">
 			게시글번호
 		</div>
-		<div class="listDate col">
+		<div class="listDate col py-2 border-end border-bottom">
 			날짜값
 		</div>
-		<div class="listISReply col">
+		<div class="listISReply col py-2 border-end border-bottom">
 			답변여부
 		</div>
-		<div class="listStaffName col">
+		<div class="listStaffName col py-2 border-bottom">
 			담당자
 		</div>						
 	</div>
