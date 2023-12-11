@@ -34,6 +34,11 @@ public interface BuildingSqlMapper {
 	//호실에 해당하는 학생들 학번, 이름 뽑기.
 	public List<DormStudentDto> selectStudents();
 	public DormStudentDto selectStudentPk(int student_pk);
+	public DormStudentDto selectPk(int dorm_student_pk);
+	
+	
+	public List<Map<String, Object>> selectStudentPoints(int dorm_student_pk);
+	
 	public StudentInfoDto forStudentName(int student_pk);
 	
 	//정원 카테고리 
@@ -48,6 +53,6 @@ public interface BuildingSqlMapper {
 	
 	//public List<DormStudentDto> selectStudentPoints();
 	
-	public List<PointDto> selectStudentPoints();
+	//public List<PointDto> selectStudentPoints(int dorm_student_pk);
 	
 }

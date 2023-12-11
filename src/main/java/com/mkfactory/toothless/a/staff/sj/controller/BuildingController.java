@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mkfactory.toothless.a.dto.DormBuildingDto;
 import com.mkfactory.toothless.a.dto.DormCategoryDto;
 import com.mkfactory.toothless.a.dto.DormRoomDto;
+import com.mkfactory.toothless.a.dto.DormStudentDto;
 import com.mkfactory.toothless.a.staff.sj.mapper.BuildingSqlMapper;
 import com.mkfactory.toothless.a.staff.sj.service.BuildingServieImpl;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
@@ -44,10 +45,27 @@ public class BuildingController {
 		
 		return "tl_a/staff/sj_manageDormInfo";
 	}
+//	
+//	@RequestMapping("sj_managePoint")
+//	public String managePoint(Model model) {
+//		model.addAttribute("point", buildingService.pointList());
+//		model.addAttribute("studentList", buildingService.studentList());
+//		return "tl_a/staff/sj_managePoint";
+//	}
+	
+	@RequestMapping("sj_managePoint")
+    public String managePoint(Model model, int dorm_student_pk) {
+        model.addAttribute("point", buildingService.pointsL(dorm_student_pk));
+        model.addAttribute("studentList", buildingService.studentList());
+        // Assuming you have a method to get the list of students
+
+
+        return "tl_a/staff/sj_managePoint";
+    }
 	
 	//기숙사 호실 관리 페이지
 	@RequestMapping("sj_manageRoomInfo")
-	public String roomInfo(Model model ) {
+	public String roomInfo(Model model/*,int dorm_student_pk*/ ) {
 		
 		List<Map<String, Object>> rooms2 = buildingService.roomList();
 		model.addAttribute("rooms", rooms2);
@@ -56,7 +74,8 @@ public class BuildingController {
 		//stList
 		model.addAttribute("studentList", buildingService.studentList());
 		//model.addAttribute("point", buildingService.pointList());
-		
+
+       // model.addAttribute("pointList", buildingService.pointsL(dorm_student_pk));
 		return "tl_a/staff/sj_manageRoomInfo";
 	}
 	

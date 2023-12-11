@@ -42,6 +42,7 @@
 					    <a class="nav-link active text-black" href="./sj_manageRoomInfo">전체보기</a>
 					  </li>
 					<c:forEach items="${dormBuilding }" var="dorm">
+					
 					  <li class="nav-item ">
 					    <a class="nav-link text-secondary" href="./sj_manageRoomInfoReadPage?dorm_pk=${dorm.dorm_pk }">${dorm.name }</a>
 					  </li>
@@ -79,6 +80,7 @@
 					</div>
 					
 					<c:forEach items="${rooms}" var="roomMap">
+					
 					    <div class="row text-center">
 					        <div class="col my-2">
 					        	<input type="hidden" value=${roomMap.dormRoomDto.dorm_room_pk }>
@@ -97,20 +99,19 @@
 									            ${roomMap.dormRoomDto.room_name}
 									        </a>
 									
-							        <ul class="dropdown-menu">
-									            <c:forEach items="${studentList}" var="st">
-									            	<c:if test="${st.roomDto.dorm_room_pk == roomMap.dormRoomDto.dorm_room_pk}">
-									                <li><a class="dropdown-item"> 
-									                		<input type="hidden" value="${st.student.dorm_student_pk}" name="dorm_student_pk">
-										                	<span class="fw-bold">이름</span> <span class="mz-2">${st.stInfo.name}</span> 
-										                	<span class="fw-bold">학번</span> <span class="mz-2">${st.student.student_pk}</span>
-										               	
-										               		
-									                	</a></li>
-									                </c:if>
-									            </c:forEach>
-									            
-									        </ul>
+							      <ul class="dropdown-menu">
+								    <c:forEach items="${studentList}" var="st">
+								        <c:if test="${st.roomDto.dorm_room_pk == roomMap.dormRoomDto.dorm_room_pk}">
+								            <li>
+								                <a class="dropdown-item" href="sj_managePoint?dorm_student_pk=${st.student.dorm_student_pk}">
+								                    <span class="fw-bold">이름</span> <span class="mz-2">${st.stInfo.name}</span> 
+								                    <span class="fw-bold">학번</span> <span class="mz-2">${st.student.student_pk}</span>
+								                    
+								                </a>
+								            </li>
+								        </c:if>
+								    </c:forEach>
+									</ul>
 	        
 									    </div>
 									</div>
