@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.HtmlUtils;
 
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
@@ -78,8 +79,39 @@ public class RegisterCounselorServiceImpl {
 	}
 	
 	// 상담원 전체 중복제거 리스팅 for AJAX
-	public List<Map<String, Object>> getCounselorListForAJAX(Map<String, Object> searchOption){
-		return registerCounselorSqlMapper.selectAllCounselorForAJAX(searchOption);
+	public List<Map<String, Object>> getCounselorListForAJAX(
+			String searchCounselorName ,
+			int searchCounselorType ,
+			String searchGenderOption ,
+			String searchScoreOption){
+		System.out.println("[ RegisterCounselorServiceImpl] => [ getCounselorListForAJAX ] 실행됨");
+		System.out.println("---------------------------------------------------------");
+		
+		System.out.println("searchCounselorName : " + searchCounselorName);
+		System.out.println("searchCounselorType : " + searchCounselorType);
+		System.out.println("searchGenderOption : " + searchGenderOption);
+		System.out.println("searchScoreOption : " + searchScoreOption);		
+		
+		if(
+			!(searchCounselorName.equals("default"))||
+			(searchCounselorType!=0)||
+			!(searchGenderOption.equals("default"))||
+			!(searchScoreOption.equals("default"))) {
+			Boolean searchOption = true;
+			System.out.println("searchOption : " + searchOption);
+			return registerCounselorSqlMapper.selectAllCounselorForAJAX(
+					searchCounselorName,searchCounselorType,searchGenderOption,searchScoreOption,searchOption
+					);
+		}
+		else {
+			Boolean searchOption = false;
+			System.out.println("searchOption : " + searchOption);
+			return registerCounselorSqlMapper.selectAllCounselorForAJAX(
+					searchCounselorName,searchCounselorType,searchGenderOption,searchScoreOption,searchOption
+					);
+		}
+		
+		
 	}
 	
 	// 상담원PK로 상담원정보 조회

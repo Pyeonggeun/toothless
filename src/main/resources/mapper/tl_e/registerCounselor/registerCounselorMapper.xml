@@ -62,72 +62,76 @@
 	
 	<!-- 상담원 전체 중복제거 리스팅 for AJAX -->
 	<select id="selectAllCounselorForAJAX" resultType="map">
-		SELECT
-		    cc.name AS name,
-		    MAX(cc.id) AS id,
-		    max(cct.type_category_id) AS typecategory,
-		    max(counselorsb.scoreAvg) AS SCOREAVG,
-		    MAX(cc.age) AS age,
-		    MAX(cc.GENDER) AS gender,
-		    MAX(cc.PHONENUMBER) AS phonenumber,
-		    MAX(cc.EMAIL) AS email,
-		    MAX(cc.address) AS address,
-		    MAX(cc.CAREER) AS career,
-		    MAX(cc.PROFILEIMAGE) AS profileImage
-		FROM CP_COUNSELOR_TYPE cct
-		INNER JOIN CP_COUNSELOR cc ON cc.id = cct.counselor_id
-		INNER JOIN (
-			SELECT
-				counselor_id, avg(score) AS scoreAvg
-			FROM (
-				SELECT
-					groupsb.counselor_id AS counselor_id,
-					groupsb.score AS score FROM	(
-						SELECT cgc2.COUNSELOR_ID AS counselor_id,
-						cgs.SCORE AS score 
-						FROM CP_GROUP_SURVEY cgs
-						INNER JOIN CP_GROUP_RESERVATION cgr ON cgr.ID = cgs.GROUP_RESERVATION_ID
-						INNER JOIN CP_GROUP_COUNSEL cgc ON cgc.id = cgr.GROUP_COUNSEL_ID
-						INNER JOIN CP_GROUP_COUNSELOR cgc2 ON cgc2.GROUP_COUNSEL_ID = cgc.id
-					) groupsb
-				UNION
-				SELECT
-					offsb.counselor_id AS counselor_id,
-					offsb.score AS score FROM (
-						SELECT cor.COUNSELOR_ID AS counselor_id,
-						coss.SCORE AS score
-						FROM CP_OFFLINE_RESERVATION cor
-						INNER JOIN CP_OFFLINE_SURVEY coss ON coss.RESERVATION_ID = cor.id
-					) offsb
-				)
-			GROUP BY counselor_id
-				) counselorsb ON counselorsb.COUNSELOR_ID = cc.id
-		<if test="searchOption != null">
-			WHERE 1=1
-			<choose>
-				<when test="searchOption.searchCounselorName != null">
-					AND cc.name LIKE '%' || #{searchCounselorName} || '%'
-				</when>
-				<when test="searchOption.searchCounselorType != null">
-					AND cct.TYPE_CATEGORY_ID = #{searchCounselorType}
-				</when>
-				<when test="searchOption.searchGenderOption != null and searchOption.searchGenderOption != 'A'">
-					AND cc.gender = #{searchGenderOption}
-				</when>
-			</choose>			
-		</if>		
-		GROUP BY cc.name
-		<if test="searchOption != null">
-			<choose>
-				<when test="searchOption.searchScoreOption == 'scoreDESC'">
-					ORDER BY scoreAVG DESC
-				</when>
-				<when test="searchOption.searchScoreOption == 'scoreASC'">
-					ORDER BY scoreAVG DESC
-				</when>
-			</choose>
-		</if>
-		ORDER BY ID
+		SELECT  
+		    main.id AS id,
+		    main.name AS name,
+		    main.typecategory AS typecategory,
+		    nvl(main.SCOREAVG, 0) AS SCOREAVG,
+		    main.age AS age,
+		    main.gender AS gender,
+		    main.phonenumber AS phonenumber,
+		    main.email AS email,
+		    main.address AS address,
+		    main.career AS career,
+		    main.profileImage AS profileImage
+		FROM (
+		    SELECT  
+		        cc.id AS id,
+		        cc.name AS name,
+		        cct.type_category_id AS typecategory,
+		        AVG(counselorsb.score) AS SCOREAVG,
+		        cc.age AS age,
+		        cc.GENDER AS gender,
+		        cc.PHONENUMBER AS phonenumber,
+		        cc.EMAIL AS email,
+		        cc.address AS address,
+		        cc.CAREER AS career,
+		        cc.PROFILEIMAGE AS profileImage,
+		        ROW_NUMBER() OVER (PARTITION BY cc.name ORDER BY cct.type_category_id DESC) AS rn
+		    FROM CP_COUNSELOR cc
+		    LEFT JOIN CP_COUNSELOR_TYPE cct ON cc.id = cct.counselor_id
+		    INNER JOIN (
+		        SELECT
+		            cgc2.COUNSELOR_ID AS counselor_id,
+		            cgs.SCORE AS score 
+		        FROM CP_GROUP_SURVEY cgs
+		        INNER JOIN CP_GROUP_RESERVATION cgr ON cgr.ID = cgs.GROUP_RESERVATION_ID
+		        INNER JOIN CP_GROUP_COUNSEL cgc ON cgc.id = cgr.GROUP_COUNSEL_ID
+		        INNER JOIN CP_GROUP_COUNSELOR cgc2 ON cgc2.GROUP_COUNSEL_ID = cgc.id
+		        UNION
+		        SELECT
+		            cor.COUNSELOR_ID AS counselor_id,
+		            coss.SCORE AS score
+		        FROM CP_OFFLINE_RESERVATION cor
+		        INNER JOIN CP_OFFLINE_SURVEY coss ON coss.RESERVATION_ID = cor.id
+		    ) counselorsb ON counselorsb.COUNSELOR_ID = cc.id		    
+			GROUP BY cc.id, cc.name, cct.type_category_id, cc.age, cc.GENDER, cc.PHONENUMBER, cc.EMAIL, cc.address, cc.CAREER, cc.PROFILEIMAGE
+			) main			    
+	        <if test="searchOption == true">
+	        WHERE 1=1
+	            <choose>
+	                <when test="searchCounselorName.equals('default')">
+	                    AND main.name LIKE '%' || #{searchCounselorName} || '%'	                    
+	                </when>
+	                <when test="searchCounselorType != 0">
+	                    AND main.typecategory = #{searchCounselorType}
+	                </when>
+	                <when test="!searchGenderOption.equals('default') and !searchGenderOption.equals('A')">
+	                    AND main.gender = #{searchGenderOption}
+	                </when>
+	            </choose>
+	        </if>
+	        AND main.rn = 1	    										
+			<if test="searchOption == true and !searchScoreOption.equals('default')">
+				<choose>
+					<when test="searchScoreOption == 'scoreDESC'">
+						ORDER BY scoreAVG DESC NULLS LAST
+					</when>
+					<when test="searchScoreOption == 'scoreASC'">
+						ORDER BY scoreAVG ASC NULLS LAST
+					</when>
+				</choose>
+			</if>		
 	</select>
 	
 	<!-- 상담원 PK로 상담원정보 조회 -->

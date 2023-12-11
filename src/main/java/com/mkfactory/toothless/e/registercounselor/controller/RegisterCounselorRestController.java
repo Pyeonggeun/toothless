@@ -39,14 +39,34 @@ public class RegisterCounselorRestController {
 	}
 	
 	@RequestMapping("restGetCounselorInfo")	
-	public JinyongRestResponseDto restGetCounselorInfo(@RequestParam Map<String, Object> formData) {
+	public JinyongRestResponseDto restGetCounselorInfo(
+			@RequestParam(name="searchCounselorName" ,defaultValue="default") String searchCounselorName,
+			@RequestParam(name="searchCounselorType",defaultValue="0") int searchCounselorType,
+			@RequestParam(name="searchGenderOption", defaultValue="default") String searchGenderOption,
+			@RequestParam(name="searchScoreOption",defaultValue="default") String searchScoreOption			
+			) {
+		System.out.println("[ RegisterCounselorRestController] => [ restGetCounselorInfo ] 실행됨");
+		System.out.println("---------------------------------------------------------");
 		
-		System.out.println("searchCounselorName : " + formData.get("searchCounselorName"));
-		System.out.println("searchCounselorType : " + formData.get("searchCounselorType"));	
-		System.out.println("searchGenderOption : " + formData.get("searchGenderOption"));
-		System.out.println("searchScoreOption : " + formData.get("searchScoreOption"));
+		if(searchGenderOption.equals("undefined")) {
+			searchGenderOption = "default";
+		}else if(searchGenderOption.equals("male")) {
+			searchGenderOption = "M";
+		}else if(searchGenderOption.equals("female")) {
+			searchGenderOption = "F";
+		}else if(searchGenderOption.equals("all")) {
+			searchGenderOption = "default";
+		}
 		
-		List<Map<String, Object>> counselorList = registerCounselorService.getCounselorListForAJAX(formData);
+		System.out.println("searchCounselorName : " + searchCounselorName);
+		System.out.println("searchCounselorType : " + searchCounselorType);	
+		System.out.println("searchGenderOption : " + searchGenderOption);
+		System.out.println("searchScoreOption : " + searchScoreOption);
+		
+		List<Map<String, Object>> counselorList = 
+				registerCounselorService.getCounselorListForAJAX(
+						searchCounselorName,searchCounselorType,searchGenderOption,searchScoreOption
+						);
 		
 		JinyongRestResponseDto jinyongRestResponseDto = new JinyongRestResponseDto();
 		

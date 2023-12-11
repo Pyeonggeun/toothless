@@ -31,11 +31,11 @@
 		.then(response => {
 			console.log("AJAX 리스폰 성공 진입함")
 			
-			sessionStaffInfo = response.data;
+			loginStaffInfo = response.data;
 			
 			const staffInfoBox = document.getElementById("staffInfoBox");
 			
-			staffInfoBox.innerText = sessionStaffInfo.name;
+			staffInfoBox.innerText = loginStaffInfo.name;
 		});		
 	}
 	
@@ -48,6 +48,7 @@
 			
 			//const counselorList = [...response.data];
 			searchData = response.data;
+			console.log("reloadCounselorList()결과 : " + searchData);
 			searchCounselor();
 			
 		});
@@ -89,9 +90,10 @@
 		console.log("searchCounselor() 실행됨");
 		
 		const searchCounselorName = document.getElementById("searchByCounselorName").value;
-		const searchCounselorType = document.getElementById("searchCategorySelectBox").value;		
+		const searchCounselorType = document.getElementById("searchCategorySelectBox").value;
+		const searchScoreOption = document.getElementById("searchScoreOption").value;		
 		const searchGenderOption = getSelectGender();
-		const searchScoreOption = document.getElementById("searchScoreOption").value;
+		
 		
 		const url = "./restGetCounselorInfo";
 		const searchOption = {
@@ -104,9 +106,10 @@
 		}
 		fetch(url, searchOption)
 		.then(response => response.json())
-		.then(response =>{
+		.then(response =>{			
 			
 			searchData = response.data;
+			console.log("searchCounselor()결과 : " + searchData);
 			processSearchData(searchData);
 			
 		});
@@ -159,7 +162,7 @@
 				break;
 			}
 		}
-		return selectGender;
+		return selectGender || "";
 	}
 	
 	
@@ -264,15 +267,15 @@
 											</div>
 											<div class="col-auto">
 												<div class="form-check form-check-inline align-middle">
-													<input class="form-check-input " type="radio" name="genderOption" id="maleCounselor" value="M">
+													<input class="form-check-input " type="radio" name="genderOption" id="maleCounselor" value="male">
 													<label class="form-check-label " for="maleCounselor">남</label>
 												</div>
 												<div class="form-check form-check-inline align-middle">												
-													<input class="form-check-input" type="radio" name="genderOption" id="femaleCounselor" value="F">
+													<input class="form-check-input" type="radio" name="genderOption" id="femaleCounselor" value="female">
 												 	<label class="form-check-label " for="femaleCounselor">여</label>
 												</div>
 												<div class="form-check form-check-inline align-middle">												
-													<input class="form-check-input" type="radio" name="genderOption" id="allCounselor" value="A">
+													<input class="form-check-input" type="radio" name="genderOption" id="allCounselor" value="all">
 												 	<label class="form-check-label " for="allCounselor">모두</label>
 												</div>
 											</div>
