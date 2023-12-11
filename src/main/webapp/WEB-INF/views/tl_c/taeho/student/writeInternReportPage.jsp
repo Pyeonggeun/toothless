@@ -56,23 +56,141 @@
 		<jsp:include page="../../common/ajdksHighestMenubarForStudent.jsp"></jsp:include>
 	</div>
 </div>
-<div class="row">
 
-	<!-- 좌측메뉴바 -->
-	<jsp:include page="../../common/ajdksSideMenubarForStudent.jsp"></jsp:include>
-	
-	<!-- 본문 : 자유롭게 이용하세요 화이팅 -->	
-	<div class="col">
-		<div class="row">
-			<div class="col mx-5">
+<div class="row"><!-- 전체화면 입구 -->
+
+<!-- 좌측메뉴바 -->
+<jsp:include page="../../common/ajdksSideMenubarForStudent.jsp"></jsp:include>
+
+<!-- 본문 : 자유롭게 이용하세요 화이팅 -->	
+<div class="col">
+
+	<!-- 현재 참가 과정 요약 -->
+	<div class="row py-3" style="box-shadow: 2px 2px 2px gray; font-size: 0.9em;">
+		<div class="col">
 			
-일일업무보고작성페이지
-				
+			<div class="row border-bottom border-white-50 pb-3 mx-1 fw-bold">
+				<div class="col ps-2">
+					<i class="bi bi-caret-right-fill"></i>&nbsp;현재 진행 과정
+				</div>
 			</div>
+		
+			<div class="row pt-3">
+				<div class="col ps-5">
+					<span>과정명&nbsp;:&nbsp;${internshipCourseInfoMap.COURSE_TITLE }</span>
+				</div>
+			</div>
+			<div class="row pt-1">
+				<div class="col ps-5">
+					<span>산업체명&nbsp;:&nbsp;${internshipCourseInfoMap.COMPANY_NAME }</span>
+				
+				</div>
+			</div>
+			<div class="row pt-1">
+				<div class="col ps-5">
+					<span>산업체대표명&nbsp;:&nbsp;${internshipCourseInfoMap.CEO_NAME }</span>
+				
+				</div>
+			</div>
+			<div class="row pt-1">
+				<div class="col ps-5">
+					<span>지도교수명&nbsp;:&nbsp;${internshipCourseInfoMap.NAME }</span>			
+				</div>
+			</div>
+			<div class="row pt-1">
+				<div class="col ps-5">
+					<span>실습기간&nbsp;:&nbsp;<fmt:formatDate value="${internshipCourseInfoMap.INTERNSHIP_START_DATE }" pattern="yyyy.MM.dd"/> ~ <fmt:formatDate value="${internshipCourseInfoMap.INTERNSHIP_END_DATE }" pattern="yyyy.MM.dd"/></span>
+				</div>
+			</div>
+
 		</div>
 	</div>
 	
-</div>
+	<!-- 출결현황 요약 -->
+	<div class="row mt-3">
+		<div class="col fw-bold ps-4">
+			<i class="bi bi-person-walking"></i>&nbsp;<span>나의 출결 현황</span>
+		</div>
+	</div>
+	
+	<div class="row border-top border-bottom mx-3 my-2 text-center">
+		<div class="col">
+			<div class="row border-bottom py-2">
+				<div class="col"><i class="bi bi-check-circle text-success"></i>&nbsp;출근</div>
+				<div class="col"><i class="bi bi-dash-circle text-warning"></i>&nbsp;지각</div>
+				<div class="col"><i class="bi bi-dash-circle text-primary"></i>&nbsp;조퇴</div>
+				<div class="col"><i class="bi bi-x-circle text-danger"></i>&nbsp;결근</div>
+			</div>
+			<div class="row py-3">
+				<c:forEach items="${attendanceCountList }" var="attendanceCountMap">
+					<div class="col ps-4">${attendanceCountMap.ATTENDANCE_COUNT }&nbsp;일</div>
+				</c:forEach>
+			</div>
+		
+		</div>
+	</div>
+
+	<!-- 대망의 일일업무보고 작성하기 1 : 일단 불러오기 -->
+	<div class="row mt-4 px-3">
+		<div class="col fw-bold">
+			<i class="bi bi-pencil-square"></i>&nbsp;나의 일일업무보고
+		</div>
+		<div class="col text-end">
+				<c:set var="today" value="<%=new java.util.Date()%>" />
+				<fmt:formatDate value="${today }" pattern="yyyy년 MM월 dd일"/>의&nbsp;
+				
+				<!-- 모달 버튼 -->
+				<button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">업무보고 작성</button>
+				
+				<!-- 모달 핵심 -->
+				<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered">
+				    <div class="modal-content">
+				      <div class="modal-header py-2">
+						<span class="modal-title fs-6" id="staticBackdropLabel">
+							<c:set var="today" value="<%=new java.util.Date()%>" />
+							<fmt:formatDate value="${today }" pattern="yyyy년 MM월 dd일"/>							
+						</span>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      
+				      <form action="./writeInternReportProcess" method="get">
+					    <div class="modal-body">
+					    <input name="student_intern_pk" type="hidden" value="${internshipCourseInfoMap.STUDENT_INTERN_PK }">
+						<textarea name="report_content" rows="10" cols="59"></textarea>
+					    </div>
+					    <div class="modal-footer">
+					      <button type="submit" class="btn btn-primary btn-sm">제출하기</button>
+					    </div>
+				      </form>
+				      
+				    </div>
+				  </div>
+				</div>
+				
+		</div>
+	</div>
+	
+	<div class="row row-cols-5 px-3">
+		<c:forEach items="${internReportList }" var="internReportMap">
+			<div class="col py-2">
+				<div class="card" style="height: 13em">
+				  <div class="card-header">
+				    <fmt:formatDate value="${internReportMap.REPORT_DATE }" pattern="yyyy-MM-dd"/> 
+				  </div>
+				  <div class="card-body">
+				    <p class="card-text">
+						${internReportMap.REPORT_CONTENT }				    
+				    </p>
+				  </div>
+				</div>
+			</div>
+		</c:forEach>	
+	</div>
+
+</div><!-- 본문 출구 -->
+	
+</div><!-- 전체화면 출구 -->
 
 </div><!-- 전체 container 출구 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

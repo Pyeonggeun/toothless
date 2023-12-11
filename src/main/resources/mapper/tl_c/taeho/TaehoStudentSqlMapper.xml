@@ -4,6 +4,58 @@
 
 <mapper namespace="com.mkfactory.toothless.c.taeho.mapper.TaehoStudentSqlMapper">
 
+	<select id="selectInternshipCourseInfoByStudentPk" resultType="Map">
+		SELECT * FROM TL_C_STUDENT_INTERN tcsi
+		INNER JOIN TL_C_INTERNSHIP_COURSE tcic ON tcsi.INTERNSHIP_COURSE_PK = tcic.INTERNSHIP_COURSE_PK
+		INNER JOIN TL_JIC_PROFESSOR_INFO tjpi ON tcic.professor_pk = tjpi.professor_pk
+		INNER JOIN TL_C_COMPANY_INFO tcci ON tcic.company_pk = tcci.company_pk
+		WHERE tcsi.student_pk = #{student_pk}
+		<![CDATA[
+		AND TO_CHAR(SYSDATE, 'yy/MM/dd') >= TO_CHAR(tcic.INTERNSHIP_START_DATE, 'yy/MM/dd')
+		AND TO_CHAR(SYSDATE, 'yy/MM/dd') <= TO_CHAR(tcic.INTERNSHIP_END_DATE, 'yy/MM/dd')
+		]]>  
+	</select>
+
+	<select id="selectAttendanceCountByStudentPk" resultType="Map">
+		SELECT t1.timecard_category_pk, count(*) AS ATTENDANCE_COUNT FROM (
+			SELECT * FROM TL_C_COMPANY_TIMECARD tcct  
+			INNER JOIN TL_C_STUDENT_INTERN tcsi ON tcct.STUDENT_INTERN_PK = tcsi.STUDENT_INTERN_PK 
+			INNER JOIN TL_JIC_STUDENT_INFO tjsi ON tcsi.STUDENT_PK = tjsi.STUDENT_PK
+			INNER JOIN TL_C_INTERNSHIP_COURSE tcic  ON TCSI.INTERNSHIP_COURSE_PK = tcic.INTERNSHIP_COURSE_PK 
+			WHERE tjsi.STUDENT_PK = #{student_pk}
+			<![CDATA[
+			AND TO_CHAR(SYSDATE, 'yy/MM/dd') >= TO_CHAR(tcic.INTERNSHIP_START_DATE, 'yy/MM/dd')
+			AND TO_CHAR(SYSDATE, 'yy/MM/dd') <= TO_CHAR(tcic.INTERNSHIP_END_DATE, 'yy/MM/dd')
+			]]>  
+		)t1
+		GROUP BY t1.timecard_category_pk
+		ORDER BY t1.timecard_category_pk asc
+	</select>
+	
+	<select id="selectIngInternReportByStudentPk" resultType="Map">
+		SELECT tcir.REPORT_CONTENT , tcir.CREATED_AT AS REPORT_DATE FROM TL_C_INTERN_REPORT tcir 
+		INNER JOIN TL_C_STUDENT_INTERN tcsi ON tcir.STUDENT_INTERN_PK = tcsi.STUDENT_INTERN_PK 
+		INNER JOIN TL_JIC_STUDENT_INFO tjsi ON tcsi.STUDENT_PK = tjsi.STUDENT_PK 
+		INNER JOIN TL_C_INTERNSHIP_COURSE tcic ON tcsi.INTERNSHIP_COURSE_PK = tcic.INTERNSHIP_COURSE_PK 
+		WHERE tjsi.STUDENT_PK = #{student_pk}
+		<![CDATA[
+		AND TO_CHAR(SYSDATE, 'yy/MM/dd') >= TO_CHAR(tcic.INTERNSHIP_START_DATE, 'yy/MM/dd')
+		AND TO_CHAR(SYSDATE, 'yy/MM/dd') <= TO_CHAR(tcic.INTERNSHIP_END_DATE, 'yy/MM/dd')  
+		ORDER BY REPORT_DATE DESC
+		]]>	
+	</select>
+	
+	<insert id="insertInternReport">
+		INSERT INTO tl_c_intern_report VALUES (
+			tl_c_intern_report_seq.nextval,
+			#{student_intern_pk},
+			#{report_content},
+			sysdate
+		)
+	</insert>
+	
+	
+	
 
 
 

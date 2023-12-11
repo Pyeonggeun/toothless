@@ -76,7 +76,7 @@
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;출근부 관리</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='./courseListPageForWriteTimecard'">&gt;&nbsp;출근부 관리</span>
 					</div>
 				</div>
 			</div>

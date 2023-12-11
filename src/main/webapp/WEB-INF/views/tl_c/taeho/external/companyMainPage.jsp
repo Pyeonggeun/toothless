@@ -54,7 +54,7 @@
 <div class="row">
 
 	<!-- 좌측메뉴바 : col-2 -->
-	<jsp:include page="../common/ajdksTemplateForCompany.jsp"></jsp:include>
+	<jsp:include page="../../common/ajdksTemplateForCompany.jsp"></jsp:include>
 	
 	<!-- 메인화면 -->
 	<div class="col">
@@ -73,6 +73,7 @@
 			<div class="col mx-5">
 			
 			<!-- 본문작성공간 -->
+			산업체메인페이지입니다
 				
 			</div>
 		</div>
