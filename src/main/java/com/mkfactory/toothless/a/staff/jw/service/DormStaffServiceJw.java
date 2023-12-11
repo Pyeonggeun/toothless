@@ -15,6 +15,7 @@ import com.mkfactory.toothless.a.dto.DormStudentDto;
 import com.mkfactory.toothless.a.dto.ExecutiveDto;
 import com.mkfactory.toothless.a.dto.ExecutiveManagementDto;
 import com.mkfactory.toothless.a.dto.ExitDto;
+import com.mkfactory.toothless.a.dto.PointDto;
 import com.mkfactory.toothless.a.staff.jw.mapper.DormStaffMapperJw;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -50,6 +51,33 @@ public class DormStaffServiceJw {
 		
 		return list;
 	}
+	
+	public List<Map<String, Object>> getAllCallAbsence(){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		List<DormStudentDto> callAbsenceDormStudentList = dormStaffMapperJw.selectCallAbsenceDormStudentList();
+		
+		for(DormStudentDto dormStudentDto : callAbsenceDormStudentList) {
+			
+			int dormStudentPk = dormStudentDto.getDorm_student_pk();
+			StudentInfoDto studentInfoDto = dormStaffMapperJw.selectStudentInfoByProgressSemesterDormStudentPk(dormStudentPk);
+			DormRoomDto dormRoomDto = dormStaffMapperJw.selectDormRoomByDormStudentPk(dormStudentPk);
+			
+			int dormPk = dormRoomDto.getDorm_pk();
+			DormBuildingDto dormBuildingDto = dormStaffMapperJw.selectDormByDormPk(dormPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("dormStudentDto", dormStudentDto);
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("dormRoomDto", dormRoomDto);
+			map.put("dormBuildingDto", dormBuildingDto);
+			
+			list.add(map);
+		}
+		return list;
+	}
+	
+	
 	
 	public List<Map<String, Object>> getAllDormStudentList(){
 		
@@ -238,8 +266,67 @@ public class DormStaffServiceJw {
 		return list;
 	}
 	
+	public List<Map<String, Object>> getAllPointManagementList(){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<DormStudentDto> dormStudentExceptExecutive = dormStaffMapperJw.selectDormStudentExceptExecuteByProgressSemester();
+		
+		for(DormStudentDto dormStudentDto : dormStudentExceptExecutive) {
+			
+			int dormStudentPk = dormStudentDto.getDorm_student_pk();
+			StudentInfoDto studentInfoDto = dormStaffMapperJw.selectStudentInfoByProgressSemesterDormStudentPk(dormStudentPk);
+			DormRoomDto dormRoomDto = dormStaffMapperJw.selectDormRoomByDormStudentPk(dormStudentPk);
+			
+			int dormPk = dormRoomDto.getDorm_pk();
+			DormBuildingDto dormBuildingDto = dormStaffMapperJw.selectDormByDormPk(dormPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("dormStudentDto", dormStudentDto);
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("dormRoomDto", dormRoomDto);
+			map.put("dormBuildingDto", dormBuildingDto);
+			map.put("pointCategoryDto", dormStaffMapperJw.selectAllPointCategory());
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
 	
+	public void registerPoint(PointDto pointDto) {
+		dormStaffMapperJw.insertPoint(pointDto);
+	}
 	
-	
+public List<Map<String, Object>> getAllPointScoreList(){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<DormStudentDto> dormStudentExceptExecutive = dormStaffMapperJw.selectDormStudentExceptExecuteByProgressSemester();
+		
+		for(DormStudentDto dormStudentDto : dormStudentExceptExecutive) {
+			
+			int dormStudentPk = dormStudentDto.getDorm_student_pk();
+			StudentInfoDto studentInfoDto = dormStaffMapperJw.selectStudentInfoByProgressSemesterDormStudentPk(dormStudentPk);
+			DormRoomDto dormRoomDto = dormStaffMapperJw.selectDormRoomByDormStudentPk(dormStudentPk);
+			Integer sumPointByDormStudentPk = dormStaffMapperJw.sumPointByDormStudentPk(dormStudentPk);
+			
+			int intSumPointValue = (sumPointByDormStudentPk != null) ? sumPointByDormStudentPk : 0;
+			
+			int dormPk = dormRoomDto.getDorm_pk();
+			DormBuildingDto dormBuildingDto = dormStaffMapperJw.selectDormByDormPk(dormPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("dormStudentDto", dormStudentDto);
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("dormRoomDto", dormRoomDto);
+			map.put("dormBuildingDto", dormBuildingDto);
+			map.put("intSumPointValue", intSumPointValue);
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
 	
 }

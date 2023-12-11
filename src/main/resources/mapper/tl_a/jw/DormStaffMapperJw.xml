@@ -9,6 +9,27 @@
 		SELECT * FROM tl_a_exit ORDER BY DORM_STUDENT_PK ASC
 	</select>
 	
+	<!-- 점호 불참 -->
+	<select id="selectAllCallAbsenceList" resultType="com.mkfactory.toothless.a.dto.CallAbsenceDto">
+		SELECT * FROM TL_A_CALL_ABSENCE
+		WHERE TO_CHAR(CREATED_AT, 'YYYYMMDD') = 
+		TO_CHAR(SYSDATE, 'YYYYMMDD')
+	</select>
+	
+	<!-- 금일 점호 불참한 사생정보 List -->
+	<select id="selectCallAbsenceDormStudentList" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT tads.* FROM TL_A_DORM_STUDENT tads 
+		WHERE tads.DORM_STUDENT_PK IN (
+		SELECT taem.DORM_STUDENT_PK FROM TL_A_CALL_ABSENCE taca 
+		JOIN TL_A_EXECUTIVE_MANAGEMENT taem ON taca.EXECUTIVE_MANAGEMENT_PK = taem.EXECUTIVE_MANAGEMENT_PK
+			WHERE taca.CALL_ABSENCE_PK IN (
+				SELECT TL_A_CALL_ABSENCE.CALL_ABSENCE_PK FROM TL_A_CALL_ABSENCE
+				WHERE TO_CHAR(CREATED_AT, 'YYYYMMDD') = 
+				TO_CHAR(SYSDATE, 'YYYYMMDD')
+			)
+		)
+	</select>
+	
 	<select id="selectStudentInfoByProgressSemesterDormStudentPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
 		SELECT tjsi.*
 		FROM TL_JIC_STUDENT_INFO tjsi
@@ -140,9 +161,48 @@
 		SELECT * FROM TL_A_DIARY
 	</select>
 	
+	<!-- 상벌점 -->
+	<insert id="insertPoint">
+		INSERT INTO tl_a_point VALUES(
+		tl_a_point_seq.nextval,
+		#{dorm_student_pk},
+		#{staff_pk},
+		#{point_category_pk},
+		#{reason},
+		sysdate
+	)
+	</insert>
+	
+	<!-- 사생별 상벌점 현황 -->
+	<select id="sumPointByDormStudentPk" resultType="Integer">
+		SELECT SUM(tapc.POINT) FROM TL_A_POINT tap
+		JOIN TL_A_POINT_CATEGORY tapc ON tap.POINT_CATEGORY_PK = tapc.POINT_CATEGORY_PK  
+		JOIN TL_A_DORM_STUDENT tads ON tap.DORM_STUDENT_PK = tads.DORM_STUDENT_PK
+		WHERE tads.DORM_STUDENT_PK = #{DORM_STUDENT_PK}
+	</select>
 	
 	
+	<!-- 현재 진행중인 학기의 임원을 제외한 사생 --> 
+	<select id="selectDormStudentExceptExecuteByProgressSemester" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT tads.*
+		FROM TL_JIC_STUDENT_INFO tjsi
+		JOIN TL_A_DORM_STUDENT tads ON tads.STUDENT_PK = tjsi.STUDENT_PK
+		WHERE tads.DORM_STUDENT_PK IN (
+		    SELECT tads.DORM_STUDENT_PK
+		    FROM TL_A_SEMESTER tas
+		    JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK
+		    WHERE tas.PROGRESS_STATE = 'Y'
+		)
+		AND tads.DORM_STUDENT_PK IN (
+			SELECT tads.DORM_STUDENT_PK FROM TL_A_DORM_STUDENT tads 
+			MINUS
+			SELECT tae.DORM_STUDENT_PK FROM TL_A_EXECUTIVE tae
+		)
+	</select>
 	
+	<select id="selectAllPointCategory" resultType="com.mkfactory.toothless.a.dto.PointCategory">
+		SELECT * FROM TL_A_POINT_CATEGORY
+	</select>
 	
 	
 	
