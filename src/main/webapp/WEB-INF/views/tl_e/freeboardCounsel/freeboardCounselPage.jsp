@@ -59,7 +59,7 @@
 			</div>
 			
 			<!-- 안쪽 두번째로우  - 전체 메뉴창 -->
-			<div class="row fw-bold py-2 fs-5" style= "background-color: #133369;">
+			<div class="row fw-bold py-2 fs-5 m-0" style= "background-color: #133369;">
 				<div class="col text-center text-light">상담신청</div>
 				<div class="col text-center text-light">공지사항</div>
 				<div class="col text-center text-light" >자유게시판</div>
@@ -68,17 +68,22 @@
 			<!-- 안쪽 두번째로우 끝-->
 			</div>
 			
+			
+				<!-- 상단배너 이미지 넣는  로우 시작 -->
+			<div class= "row p-0 m-0">
+				<div class="col d-grid p-0 m-0"> 
+					<img class="img-fluid" src="../../resources/img/offlineCounsel/offlineCounselBanner5.jpg">
+				</div>
+			<!-- 상단배너 이미지 넣는  로우 끝 -->
+			</div>
+			
 			<!-- 첫번째 콜 끝 메뉴창과 학교로고+로그인 상태 창을 포함하는 -->
 		</div>	
 	<!-- 첫번째 로우 끝 메뉴창과 학교로고+로그인 상태 창을 포함하는 -->
 	</div>
 	
 	
-	<!-- 상단배너 이미지 넣는  로우 시작 -->
-	<div class= "row">
-		<div class="col d-grid p-0 m-0"> 추후 이미지 클래스 추가 예정 </div>
-	<!-- 상단배너 이미지 넣는  로우 끝 -->
-	</div>
+
 
 	<!-- 중요한 내용이 들어가는 로우와 콜 시작 > 상시 변동 가능 -->
 	<div class="row">
@@ -145,10 +150,10 @@
 			
 			
 			
-			<div class="row"> 
+			<div class="row me-0 pe-0"> 
 				<div class="col-3"> <span class="fw-bold fs-5">전체게시물</span> <i class="bi bi-list-ul"></i> 총 게시물 수 ${countedPost}</div> 
 				<div class="col"></div> 
-				<div class="col text-end"> <a class="btn  text-white text-center fw-bold" role="button"  href="./createFreeboardPostsPage" style="background-color:#133369;">글 작성 하기</a> </div> 
+				<div class="col pe-0 me-0 text-end"> <a class="btn  text-white text-center fw-bold" role="button"  href="./createFreeboardPostsPage" style="background-color:#133369;">글 작성 하기</a> </div> 
 			</div>
 			
 			<!-- 글 목록이 리스팅 되는 로우 시작 -->
@@ -160,9 +165,9 @@
 					<div class="row  text-white text-center my-1 px-1 p-1 rounded-1  border-2 border-bottom" style= "background-color: #133369;">
 						<div class="col-1 fw-bold">글번호</div>
 						<div class="col-2 fw-bold ">글제목</div>
-						<div class="col-4">내용</div>
+						<div class="col-5">내용</div>
 						<div class="col-1">조회수</div>
-						<div class="col-2 fw-bold">작성자</div>
+						<div class="col-1 fw-bold">작성자</div>
 						<div class="col-2">작성일</div>
 					</div>
 				<!-- 글 목록이 리스팅 되는 콜 끝 -->
@@ -172,10 +177,10 @@
 					<c:forEach items="${combinedFreeboardList}" var="List">
 						
 						<div class="row text-center my-1 mx-1 p-1  border-bottom border-dark-subtle">
-							<div class="col-1 fw-bold">${List.elementFreeboardDto.id}</div>
-							<div class="col-2 fw-bold"><a href="./readFreeboardPostPage?id=${List.elementFreeboardDto.id}">${List.elementFreeboardDto.title}</a></div>
+							<div class="col-1 ">${List.elementFreeboardDto.id}</div>
+							<div class="col-2 fw-bold text-start"><a href="./readFreeboardPostPage?id=${List.elementFreeboardDto.id}">${List.elementFreeboardDto.title}</a></div>
 							<!-- 최근게시물에 아이콘 붙이기 -->
-							<div class="col-4">
+							<div class="col-5 text-start">
 								${List.elementFreeboardDto.text}
 								<c:forEach items="${newPostList}" var="brand">
 									<c:choose>
@@ -186,7 +191,7 @@
 								</c:forEach>
 							</div>
 							<div class="col-1">${List.elementFreeboardDto.read_count}</div>
-							<div class="col-2 fw-bold">${List.studentInfo.name}</div>
+							<div class="col-1 fw-bold">${List.studentInfo.name}</div>
 							<div class="col-2"><fmt:formatDate value="${List.elementFreeboardDto.created_at}" pattern="yyyy-MM-dd hh:mm"/> </div>
 						
 						<!-- 목차에 맞춘 진짜 글 리스팅 되는 로우 끝 -->

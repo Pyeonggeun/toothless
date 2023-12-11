@@ -1,7 +1,11 @@
 package com.mkfactory.toothless.e.freeboardcounsel.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mkfactory.toothless.e.dto.FreeboardCommentDto;
 import com.mkfactory.toothless.e.dto.FreeboardDto;
@@ -55,10 +60,47 @@ public class FreeboardCounselController {
 	
 	//자유게시판 글 작성한 내용 dto에 집어넣는 프로세스 
 	@RequestMapping("createFreeboardPostsProcess")
-	public String createFreeboardPostsProcess(FreeboardDto paraFreeboardDto) {
-			System.out.println("createFreeboardPostsProcess 시작");
-		freeboardCounselService.createFreeboardPostsProcess (paraFreeboardDto);
-			System.out.println("createFreeboardPostsProcess 완료");
+	public String createFreeboardPostsProcess(FreeboardDto paraFreeboardDto, MultipartFile[] imgFiles) {
+				System.out.println("createFreeboardPostsProcess 시작");
+				
+			//파일저장로직
+			if(imgFiles != null) {
+				for(MultipartFile multipartFile: imgFiles) {
+					if(multipartFile.isEmpty()) {
+						continue;
+					}
+					
+				String rootPath = "#";
+				
+				//날짜별 폴더 생성	
+				//simpledateformat은 날짜를 문자로, 문자를 날짜로 바꾸는 api
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+				String todayPath = sdf.format(new Date());
+					
+				String originalFileName = multipartFile.getOriginalFilename();
+				
+				//파일명 충돌 회피 - 랜덤, 시간 조합
+				String uuid = UUID.randomUUID().toString();
+				long currentTime = System.currentTimeMillis();
+				String fileName= uuid + "_" + currentTime;
+				
+				//확장자 추출 - 오리지날네임에서 
+				String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+				fileName += ext;
+				
+				try {
+					multipartFile.transferTo(new File("c://uploadFiles/" + originalFileName));	
+				}catch(Exception e) {
+				e.printStackTrace();
+				}
+				
+				}
+			}
+			
+		
+			freeboardCounselService.createFreeboardPostsProcess (paraFreeboardDto);
+				System.out.println("createFreeboardPostsProcess 완료");
+			
 		return "tl_e/freeboardCounsel/createFreeboardPostsComplete";
 	}
 	
