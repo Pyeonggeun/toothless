@@ -2,16 +2,16 @@ package com.mkfactory.toothless.c.dto;
 
 public class AjdksCompanyInfoDto {
 	
-	public int company_pk;
-	public int company_category_pk;
-	public int staff_pk;
-	public int external_pk;
-	public String company_id;
-	public String company_name;
-	public String ceo_name;
-	public String address;
-	public String phone;
-	public String url;
+	private int company_pk;
+	private int company_category_pk;
+	private int staff_pk;
+	private int external_pk;
+	private String company_id;
+	private String company_name;
+	private String ceo_name;
+	private String address;
+	private String phone;
+	private String url;
 	
 	public AjdksCompanyInfoDto() {
 		super();

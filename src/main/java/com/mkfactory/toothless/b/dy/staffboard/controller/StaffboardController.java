@@ -71,11 +71,20 @@ public class StaffboardController {
 		model.addAttribute("replyList", replyList);
 		
 		//여기 이어서 작업해야함
-//		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
-//		
-//		int staffPk = sessionStaffInfo.getStaff_pk();
-//		
-//		params.setStaff_pk(staffPk);
+		
+		StaffboardLikeDto likeDto = new StaffboardLikeDto();
+		
+		likeDto.setStaffboard_pk(staffboard_pk);
+		
+		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		int staffPk = sessionStaffInfo.getStaff_pk();
+		
+		likeDto.setStaff_pk(staffPk);
+		
+		int count = staffboardService.checkLike(likeDto);
+		
+		model.addAttribute("count", count);
 		
 		
 		return "tl_b/dy/readTextPage";
@@ -159,13 +168,25 @@ public class StaffboardController {
 		return "redirect:./readTextPage?staffboard_pk="+ params.getStaffboard_pk();
 	}
 	// 좋아요 프로세스 입력되면 서비스에서 좋아요 체크/블랭크
-	@RequestMapping("inputLikeProcess")
-	public String inputLikeProcess(StaffboardLikeDto params) {
-		
-		staffboardService.pressLike(params);
+	@RequestMapping("addLikeProcess")
+	public String addLikeProcess(StaffboardLikeDto params) {
+
+		System.out.println(params.getStaff_pk());
+		System.out.println(params.getStaffboard_pk());
+		staffboardService.addLike(params);
+
 		
 		return "redirect:./readTextPage?staffboard_pk="+ params.getStaffboard_pk();
 	}
+	
+	@RequestMapping("canselLikeProcess")
+	public String canselLikeProcess(StaffboardLikeDto params) {
+	
+		staffboardService.canselLike(params);
+
+		return "redirect:./readTextPage?staffboard_pk="+ params.getStaffboard_pk();
+	}
+	
 }
 
 

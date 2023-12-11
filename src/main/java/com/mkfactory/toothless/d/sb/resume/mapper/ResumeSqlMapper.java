@@ -20,6 +20,8 @@ public interface ResumeSqlMapper {
 	// 로그인 학생의 이력서 가져오기
 	public List<ResumeDto> getResumeListByStudentPk(ResumeDto resumeDto);
 	
+	public ResumeDto getResumeDtoByResumePk(String resume_pk);
+	
 	// 메인이력서로 새이력서 등록시 기존이력서 변경
 	public void changeMainAndPublic(ResumeDto resumeDto);
 	
@@ -37,6 +39,10 @@ public interface ResumeSqlMapper {
 	
 	// 이력서 내용 수정
 	public void updateResumeDtoByResumePk(ResumeDto resumeDto);
+	
+	// 이력서 삭제
+	public void deleteResumeByResumePk(ResumeDto resumeDto);
+	
 	
 	
 	// 경력 카테고리가져오기

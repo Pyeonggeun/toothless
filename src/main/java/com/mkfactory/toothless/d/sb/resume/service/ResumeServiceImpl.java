@@ -54,6 +54,13 @@ public class ResumeServiceImpl {
 		return resumeList;
 	}
 	
+	public ResumeDto getResume(String resume_pk) {
+		ResumeDto resumeDto = resumeSqlMapper.getResumeDtoByResumePk(resume_pk);
+		return resumeDto;
+	}
+	
+
+	
 	// 메인 이력서 변경
 	public void changeMainResume(ResumeDto resumeDto) {
 		
@@ -79,15 +86,8 @@ public class ResumeServiceImpl {
 		
 		}else {
 			resumeSqlMapper.changePrivateResume(resumeDto);
-		}
-		
-		
-		
-		
+		}	
 	}
-	
-	
-	
 	
 	
 	// 이력서 상세보기
@@ -103,6 +103,13 @@ public class ResumeServiceImpl {
 		
 		resumeSqlMapper.updateResumeDtoByResumePk(resumeDto);
 	}
+	
+	// 이력서 삭제
+	public void deleteResume(ResumeDto resumeDto) {
+		
+		resumeSqlMapper.deleteResumeByResumePk(resumeDto);
+	}
+	
 	
 	
 	// 경력 카테고리 가져오기

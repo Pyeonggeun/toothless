@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 import com.mkfactory.toothless.c.huyeoung.mapper.HuyeoungInternshipSqlMapper;
+import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 
 @Service
@@ -45,13 +46,17 @@ public class HuyeoungInternshipServiceImpl {
 			Map<String, Object> map = new HashMap<>();
 			map.put("AjdksInternshipCourseDto", aDto);
 
-			ajdksInternshipCourseDto.setCompany_pk(aDto.company_pk);
+			int company_pk = aDto.getCompany_pk();
+			
+			ajdksInternshipCourseDto.setCompany_pk(company_pk);
 
 			// System.out.println("company_pk ["+aDto.company_pk+"]");
 			// 사업체명 조회
 			AjdksCompanyInfoDto bdto = huyeoungInternshipSqlMapper.selectInternshipCompanyId(ajdksInternshipCourseDto);
 
-			map.put("company_name", bdto.company_name);
+			String company_name = bdto.getCompany_name();
+			
+			map.put("company_name", company_name);
 
 			list.add(map);
 		}
@@ -76,6 +81,34 @@ public class HuyeoungInternshipServiceImpl {
 		for (ProfessorInfoDto aDto : professorInfoDtoArr) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("professorInfoDto", aDto);
+			list.add(map);
+		}
+		return list;
+	}
+	
+	// 사업체리스트 조회
+	public List<Map<String, Object>> selectCompanyList() {
+
+		List<Map<String, Object>> list = new ArrayList<>();
+
+		List<AjdksCompanyInfoDto> AjdksCompanyInfoArr = huyeoungInternshipSqlMapper.selectCompanyList();
+		for (AjdksCompanyInfoDto aDto : AjdksCompanyInfoArr) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("AjdksCompanyInfoDto", aDto);
+			list.add(map);
+		}
+		return list;
+	}
+	
+	// 사업체리스트 조회
+	public List<Map<String, Object>> selectDepartmentList() {
+
+		List<Map<String, Object>> list = new ArrayList<>();
+
+		List<DepartmentCategoryDto> DepartmentCategoryDtoArr = huyeoungInternshipSqlMapper.selectDepartmentList();
+		for (DepartmentCategoryDto aDto : DepartmentCategoryDtoArr) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("DepartmentCategoryDto", aDto);
 			list.add(map);
 		}
 		return list;

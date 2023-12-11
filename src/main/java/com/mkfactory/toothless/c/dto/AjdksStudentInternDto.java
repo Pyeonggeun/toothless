@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class AjdksStudentInternDto {
 	
-	public int student_intern_pk;
-	public int internship_course_pk;
-	public int student_pk;
-	public Date created_at;
+	private int student_intern_pk;
+	private int internship_course_pk;
+	private int student_pk;
+	private Date created_at;
 	
 	public AjdksStudentInternDto() {
 		super();

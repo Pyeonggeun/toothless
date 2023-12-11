@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
 import com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
@@ -36,7 +37,10 @@ public class SeoyoungCompanyServicempl {
 		return seoyoungCompanyMapper.selectionStudent(internship_course_pk);
 	}
 	
-	
+	//자격증정보
+	public List<Map<String, Object>> getCertification(int id){
+		return seoyoungCompanyMapper.selectCertificationProcess(id); 
+	}
 //	
 //	public List<Map<String, Object>> getArticleList(int pageNum, String searchType, String searchWord) {
 //

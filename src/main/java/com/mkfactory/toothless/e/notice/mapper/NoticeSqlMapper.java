@@ -46,4 +46,11 @@ public interface NoticeSqlMapper {
 	// 공지사항 추천 삭제
 	public void deleteNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto);
 	public void deleteNoticeDisLike(NoticeBoardLikeDto noticeBoardLikeDto);
+	// 공지사항 댓글 갯수
+	public int commentCountByNotice_id(int notice_id);
+	
+	
+	
+	
+	
 }

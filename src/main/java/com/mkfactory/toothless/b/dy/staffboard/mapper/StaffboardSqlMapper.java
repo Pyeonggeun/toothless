@@ -42,7 +42,7 @@ public interface StaffboardSqlMapper {
 	
 	public void deleteCanselLike(StaffboardLikeDto staffboardLikeDto);
 	
-	public int selectCheckLike(int count);
+	public int selectCheckLike(StaffboardLikeDto staffboardLikeDto);
 	
 	
 	

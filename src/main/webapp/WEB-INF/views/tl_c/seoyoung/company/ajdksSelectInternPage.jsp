@@ -57,6 +57,19 @@
 	color: #000000;
 }
 </style>
+<script>
+	function updateFormAction() {
+		// Get the form element
+		var certificationForm = document.getElementById("certificationForm");
+
+		// Update the action attribute with the student_pk
+		certificationForm.action = "./certificationProcess?student_pk="
+				+ selectionStudent.STUDENT_PK;
+
+		// Optionally, submit the form programmatically
+		// certificationForm.submit();
+	}
+</script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -137,7 +150,8 @@
 																				<button type="button" class="btn-close"
 																					data-bs-dismiss="modal" aria-label="Close"></button>
 																			</div>
-																			<div class="modal-body px-5" 	style="overflow-y: hidden">
+																			<div class="modal-body px-5"
+																				style="overflow-y: hidden">
 																				<br>
 																				<div class="row text-start mb-3">
 																					<h5>
@@ -146,7 +160,7 @@
 																					</h5>
 																				</div>
 
-																				<div class="row mx-3 pe-3" >
+																				<div class="row mx-3 pe-3">
 
 																					<div class="col-2 text-center">
 																						<div class="row border" style="height: 300px;">
@@ -285,26 +299,48 @@
 																				<div class="accordion" id="accordionExample">
 																					<div class="accordion-item">
 																						<h2 class="accordion-header">
-																							<button class="accordion-button collapsed"
-																								type="button" data-bs-toggle="collapse"
-																								data-bs-target="#collapseTwo"
-																								aria-expanded="false"
-																								aria-controls="collapseTwo"
-																								style="background-color: #CFE2FF;">
-																								<i class="bi bi-bookmarks "></i> &nbsp; 자격증
-																							</button>
+																		
+																								<button class="accordion-button collapsed"
+																									type="button" data-bs-toggle="collapse"
+																									data-bs-target="#collapseTwo"
+																									aria-expanded="false"
+																									aria-controls="collapseTwo"
+																									style="background-color: #CFE2FF;"
+																									onclick="certificationForm()">
+																									<i class="bi bi-bookmarks "></i> &nbsp; 자격증
+																								</button>
+																							
 																						</h2>
 																						<div id="collapseTwo"
 																							class="accordion-collapse collapse"
 																							data-bs-parent="#accordionExample">
-																							<div class="accordion-body">자격증 내역</div>
+																							<div class="accordion-body">
+																								<table class="table text-center align-middle ">
+																									<thead class="table-primary">
+																										<tr>
+																											<th scope="col">#</th>
+																											<th scope="col">자격증</th>
+																											<th scope="col">취득일</th>
+																										</tr>																		
+																									</thead>
+																									<tbody>
+																										<c:forEach items="${CertificationList}" var="CertificationList" varStatus="loopStatus">
+																											<tr>
+																												<td class="text-center">${loopStatus.index + 1}</td>
+																												<td class="text-center">${CertificationList.CERTIFICATION_NAME}</td>
+																												<td class="text-center">${CertificationList.CERTIFICATION_ACQUISITION_DATE}</td>
+																											</tr>
+																										</c:forEach>	
+																									</tbody>
+																								</table>
+																							</div>
 																						</div>
 																					</div>
 																				</div>
 
 
 																			</div>
-																			<br><br>
+																			<br> <br>
 																			<div class="row text-center  px-5	">
 																				<div class="accordion" id="accordionExample">
 																					<div class="accordion-item">

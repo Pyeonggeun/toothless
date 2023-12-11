@@ -34,6 +34,17 @@ public class NoticeController {
 		model.addAttribute("list", noticeService.getNoticeList());
 		return "tl_e/notice/noticeMainPage";
 	}
+	// 직원 뒤로가기
+	@RequestMapping("staffReturnToMainPage")
+	public String staffReturnToMainPage() {
+		return "redirect:../commons/counselCenterStaffMainPage";
+	}
+	// 학생 뒤로가기
+	@RequestMapping("studentReturnToMainPage")
+	public String studentReturnToMainPage() {
+		return "redirect:../commons/counselCenterStudentMainPage";
+	}
+	
 	// 로그아웃
 	@RequestMapping("logoutProcess")
 	public String logoutProcess(HttpSession session) {

@@ -2,13 +2,14 @@ package com.mkfactory.toothless.c.dto;
 
 public class AjdksSelfIntroductionDto {
 	
-	public int self_introduction_pk;
-	public int student_pk;
-	public int self_introduction_img_pk;
-	public String answer1;
-	public String answer2;
-	public String answer3;
-	public String answer4;
+	private int self_introduction_pk;
+	private int student_pk;
+	private int self_introduction_img_pk;
+	private String answer1;
+	private String answer2;
+	private String answer3;
+	private String answer4;
+	
 	public AjdksSelfIntroductionDto() {
 		super();
 	}

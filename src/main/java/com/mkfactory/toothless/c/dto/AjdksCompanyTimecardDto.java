@@ -4,18 +4,18 @@ import java.util.Date;
 
 public class AjdksCompanyTimecardDto {
 	
-	public int company_timecard_pk;
-	public int student_intern_pk;
-	public int timecard_category_pk;
-	public int timecard_year;
-	public int timecard_month;
-	public int timecard_date;
-	public int getin_hour;
-	public int getin_minute;
-	public int getoff_hour;
-	public int getoff_minute;
-	public String company_log;
-	public Date created_at;
+	private int company_timecard_pk;
+	private int student_intern_pk;
+	private int timecard_category_pk;
+	private int timecard_year;
+	private int timecard_month;
+	private int timecard_date;
+	private int getin_hour;
+	private int getin_minute;
+	private int getoff_hour;
+	private int getoff_minute;
+	private String company_log;
+	private Date created_at;
 	
 	public AjdksCompanyTimecardDto() {
 		super();

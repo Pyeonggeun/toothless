@@ -118,19 +118,20 @@ public class StaffboardServiceImpl {
 		staffboardSqlMapper.updateReply(staffboardReplyDto);
 	}
 	
-	public void pressLike(StaffboardLikeDto staffboardLikeDto) {
-		StaffboardLikeDto like = staffboardSqlMapper.selectPressLike(staffboardLikeDto);
-		
-		
-		if(like == null) {
-			staffboardSqlMapper.insertAddLike(staffboardLikeDto);
-		}else {
-			staffboardSqlMapper.deleteCanselLike(staffboardLikeDto);
-		}		
+	//좋아요
+	public void addLike(StaffboardLikeDto staffboardLikeDto) {
+		staffboardSqlMapper.insertAddLike(staffboardLikeDto);
 	}
-	public int checkLike(int count) {
+	
+	//좋아요 취소
+	public void canselLike(StaffboardLikeDto staffboardLikeDto) {
+		staffboardSqlMapper.deleteCanselLike(staffboardLikeDto);
+	}
+	
+	//좋아요 카운팅 체크
+	public int checkLike(StaffboardLikeDto staffboardLikeDto) {
 		
-		return staffboardSqlMapper.selectCheckLike(count);
+		return staffboardSqlMapper.selectCheckLike(staffboardLikeDto);
 	}
 	
 }

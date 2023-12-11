@@ -143,11 +143,11 @@
 			
 			
 			
-			<div class="row my-2 border-bottom "> <div class="col fw-semibold"> 전체게시물</div> </div>
+			
 			<div class="row"> 
-				<div class="col-3"><i class="bi bi-list-ul"></i> 총 게시물 수 ${countedPost}</div> 
+				<div class="col-3"> <span class="fw-bold fs-5">전체게시물</span> <i class="bi bi-list-ul"></i> 총 게시물 수 ${countedPost}</div> 
 				<div class="col"></div> 
-				<div class="col">향후 리스팅 형태 추가 예정</div> 
+				<div class="col text-end"> <a class="btn  text-white text-center fw-bold" role="button"  href="./createFreeboardPostsPage" style="background-color:#133369;">글 작성 하기</a> </div> 
 			</div>
 			
 			<!-- 글 목록이 리스팅 되는 로우 시작 -->
@@ -169,40 +169,46 @@
 			
 					<!-- 목차에 맞춘 진짜 글 리스팅 되는 로우 시작 -->
 					<c:forEach items="${combinedFreeboardList}" var="List">
+						
 						<div class="row text-center my-1 mx-1 p-1  border-bottom border-dark-subtle">
 							<div class="col-1 fw-bold">${List.elementFreeboardDto.id}</div>
 							<div class="col-2 fw-bold"><a href="./readFreeboardPostPage?id=${List.elementFreeboardDto.id}">${List.elementFreeboardDto.title}</a></div>
-							<div class="col-4">${List.elementFreeboardDto.text}</div>
+							<!-- 최근게시물에 아이콘 붙이기 -->
+							<div class="col-4">
+								${List.elementFreeboardDto.text}
+								<c:forEach items="${newPostList}" var="brand">
+									<c:choose>
+										<c:when test="${brand.id == List.elementFreeboardDto.id }">
+											<i class="bi bi-check2-square fs-5 text-warning"></i>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+							</div>
 							<div class="col-1">${List.elementFreeboardDto.read_count}</div>
 							<div class="col-2 fw-bold">${List.studentInfo.name}</div>
 							<div class="col-2">${List.elementFreeboardDto.created_at}</div>
 						
 						<!-- 목차에 맞춘 진짜 글 리스팅 되는 로우 끝 -->
 						</div>
+						
 					</c:forEach>
 					
 			
 			<!-- 글 목록이 리스팅 되는 공간 끝 -->
 			</div>
 			
-			<div class="row"> <div class="col">빈 공간</div> </div>
+			<div class="row"> <div class="col text-center">빈 공간</div> </div>
 			
 			<!--주요내용 마지막 페이징과 글작성버튼  -->
-			<div class="row"> 
+			<div class="row mb-3"> 
 				<div class="col-2">빈공간 </div> 
-				<div class="col-8">페이징 예정 공간</div> 
-				<div class="col-2 text-end"> <a class="btn  text-white text-center fw-bold" role="button"  href="./createFreeboardPostsPage" style="background-color:#133369;">글 작성 하기</a> </div> 
+				<div class="col-8 text-center">페이징 예정 공간</div> 
+				<div class="col-2"> 빈공간 </div> 
 			</div>
 	
-	
-			
-			<a href="#"> 학사정보시스템 메인으로 복귀 버튼 예정</a>
-			
-			<a href=""> 상담 학생페이지 메인으로 복귀 버튼 예정</a>
 		
 		
-		
-		<!-- 중간에 중요한 내용이 들어가는 로우와 콜 시작 > 상시 변동 가능 -->
+		<!-- 중간에 중요한 내용이 들어가는 로우와 콜 끝 > 상시 변동 가능 -->
 		</div>
 		
 		<!-- 오른쪽 공간 주는 col -->

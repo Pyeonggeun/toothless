@@ -6,24 +6,24 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class AjdksInternshipCourseDto {
 
-	public int internship_course_pk;
-	public int company_pk;
-	public int professor_pk;
-	public int department_pk;
-	public String course_title;
-	public int internship_total_member;
-	public int semester_qualification;
+	private int internship_course_pk;
+	private int company_pk;
+	private int professor_pk;
+	private int department_pk;
+	private String course_title;
+	private int internship_total_member;
+	private int semester_qualification;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	public Date applying_start_date;
+	private Date applying_start_date;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	public Date applying_end_date;
+	private Date applying_end_date;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	public Date internship_start_date;
+	private Date internship_start_date;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	public Date internship_end_date;
+	private Date internship_end_date;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	public Date announcement_date;
-	public Date created_at;
+	private Date announcement_date;
+	private Date created_at;
 
 	public AjdksInternshipCourseDto() {
 		super();

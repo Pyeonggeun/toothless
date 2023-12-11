@@ -66,7 +66,9 @@
 							<!-- 공고 제목 -->
 							<div class="row">
 								<div class="col">
+									<a class="navbar-brand" href="../ny_posting/jobPostingDetailForStudentPage?id=${list.postDto.job_posting_pk }">
 									${list.postDto.posting_name }
+									</a>
 								</div>
 							</div>
 							<!-- #카테고리 #콘텐츠 #주소 지역 #마감일 -->
@@ -96,6 +98,11 @@
 		</div>
 		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>	
 	</div>
+	
+	<div class="container">
+		<div style="height: 200px;"></div>
+	</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

@@ -2,8 +2,9 @@ package com.mkfactory.toothless.c.dto;
 
 public class AjdksSelfIntroductionImgDto {
 
-	public int self_introduction_img_pk;
-	public String self_introduction_img;
+	private int self_introduction_img_pk;
+	private String self_introduction_img;
+
 	public AjdksSelfIntroductionImgDto() {
 		super();
 	}

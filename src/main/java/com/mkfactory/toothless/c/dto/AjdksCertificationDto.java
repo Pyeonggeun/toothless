@@ -2,11 +2,11 @@ package com.mkfactory.toothless.c.dto;
 
 public class AjdksCertificationDto {
 	
-	public int certification_pk;
-	public int student_pk;
-	public String certification_name;
-	public String certification_acquisition_date;
-	public String certification_file;
+	private int certification_pk;
+	private int student_pk;
+	private String certification_name;
+	private String certification_acquisition_date;
+	private String certification_file;
 	
 	public AjdksCertificationDto() {
 		super();
