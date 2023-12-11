@@ -46,4 +46,22 @@
 		WHERE staff_pk=#{staff_pk}
 	</select>
 	
+	<update id="updateProgram">
+		UPDATE tl_d_program
+		SET program_category_pk =#{program_category_pk},
+			prg_name=#{prg_name},
+			prg_schedule=#{prg_schedule},
+			prg_apply_deadline=#{prg_apply_deadline},
+			prg_main_image=#{prg_main_image},
+			prg_contents=#{prg_contents},
+			prg_location=#{prg_location},
+			prg_apply_number=#{prg_apply_number},
+			prg_is_attend=#{prg_is_attend}
+		WHERE program_pk=#{program_pk}
+	</update>
+	
+	<delete id="deleteProgram">
+		DELETE FROM tl_d_program WHERE program_pk=41
+	</delete>
+	
 </mapper>

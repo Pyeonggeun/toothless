@@ -69,5 +69,13 @@ public class ProgramServiceIpml {
 		return programList;
 		
 	}
+	
+	public void updateProgramInfo(ProgramDto programDto) {
+		programSqlMapper.updateProgram(programDto);
+	}
+	
+	public void deleteProgramInfo(int program_pk) {
+		programSqlMapper.deleteProgram(program_pk);
+	}
 
 }

@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mkfactory.toothless.d.dto.CompanyDto;
+import com.mkfactory.toothless.d.dto.CompanyManagerDto;
 import com.mkfactory.toothless.d.dto.ProgramDto;
 import com.mkfactory.toothless.d.gw.program.service.ProgramServiceIpml;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
@@ -78,7 +80,7 @@ public class ProgramController {
 
 		programService.registerProgramInfo(programDto);
 		
-		return "redirect:../common/staffMainPage";
+		return "redirect:./programListPage";
 	}
 	
 	//프로그램 목록페이지
@@ -91,5 +93,77 @@ public class ProgramController {
 	}
 	
 	//프로그램 상세보기 페이지(교직원용)
+	@RequestMapping("programViewDetailsPage")
+	public String programViewDetailsPage(Model model, int program_pk) {
+		
+		model.addAttribute("program", programService.getProgram(program_pk));
+		
+		return "/tl_d/gw_program/programViewDetailsPage";
+	}
+	
+	//기업, 담당자 정보 수정
+	@RequestMapping("updateProgramInfoPage")
+	public String updateProgramInfo(Model model,int program_pk) {
+		
+		model.addAttribute("program", programService.getProgram(program_pk));
+		model.addAttribute("programCategory", programService.programCategory());
+		
+		return "/tl_d/gw_program/updateProgramInfoPage";
+	}
+	
+	//곧 수정해야함
+	@RequestMapping("updateProgramInfoProcess")
+	public String updateProgramInfoProcess(ProgramDto programDto, MultipartFile updateimageFile) {
+		
+		
+		
+		// 이미지 입력
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd/");
+		
+		
+		
+		if(updateimageFile != null && !updateimageFile.isEmpty()) {
+			
+			String imageRootPath = "C:/Workspace/GitWorkspace/toothless/src/main/webapp/resources/img/employment/";
+			String imageTodayPath = sdf.format(new Date());
+			
+			File todayFolderForCreate = new File(imageRootPath + imageTodayPath);
+			
+			if(!todayFolderForCreate.exists()) {
+				todayFolderForCreate.mkdirs();
+			}
+			
+			String originalFileName = updateimageFile.getOriginalFilename();
+			String uuid = UUID.randomUUID().toString();
+			long currentTime = System.currentTimeMillis();
+			
+			String fileName = uuid + "_" + currentTime;
+			
+			String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+			fileName += ext;
+			
+			try {
+				updateimageFile.transferTo(new File(imageRootPath + imageTodayPath + fileName));
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			programDto.setPrg_main_image(imageTodayPath + fileName);
+					
+		}
+			
+		programService.updateProgramInfo(programDto);
+		return "redirect:./programViewDetailsPage?program_pk="+programDto.getProgram_pk();
+		
+	}
+	
+	//기업정보 삭제
+	@RequestMapping("deleteCompanyInfoProcess")
+	public String deleteCompanyInfoProcess(int program_pk) {
+		
+		programService.deleteProgramInfo(program_pk);
+		
+		return "redirect:./programListPage";
+	}
+
 
 }

@@ -22,6 +22,9 @@ public interface ProgramSqlMapper {
 	public ProgramCategoryDto programCategorySelectByPk(int program_category_pk);
 	public StaffInfoDto staffSelectByPk(int staff_pk);
 	
+	//프로그램 정보 수정
+	public void updateProgram(ProgramDto programDto);
 	
-	
+	//프로그램 정보 삭제
+	public void deleteProgram(int program_pk);
 }

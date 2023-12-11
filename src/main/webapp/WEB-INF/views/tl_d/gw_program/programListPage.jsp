@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 <title>프로그램 목록 페이지</title>
 </head>
 <body>
-
+	<!-- 취업팀용 페이지 -->
 	<div class="container-fluid">
 		<div class="row">
 			<!-- 취업팀 상단 네비 바 -->
@@ -32,7 +33,7 @@
 					<div class="col">
 						<div class="row mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">프로그램 목록</div>
 						<div class="row border-bottom border-2 border-black pb-3 mb-3 mt-5">
-							      <div class="col-1 text-center fw-bold">프로그램 번호</div>
+							      <div class="col-1 text-center fw-bold">No.</div>
 							      <div class="col text-center fw-bold">프로그램명</div>
 							      <div class="col-3 text-center fw-bold">글쓴이</div>
 							      <div class="col-2 text-center fw-bold">프로그램 현황</div>
@@ -41,12 +42,26 @@
 						<c:forEach items="${programList}" var="list">
 							<div class="row border-bottom border-bs-border pb-3 mb-3">
 								<div class="col-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
-								<div class="col"><a class="btn ms-4" href="#">${list.programDto.prg_name}</a></div>
+								<div class="col"><a class="btn ms-4" href="./programViewDetailsPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a></div>
 								<div class="col-3 text-center pt-1">${list.staffInfoDto.name}</div>
-								<div class="col-3 text-center pt-1">${list.programDto.prg_apply_deadline}</div>
+								<div class="col-3 text-center pt-1">
+									 <c:choose>
+						                <c:when test="${list.programDto.prg_apply_deadline lt now}">
+						                	<span class="text-center badge text-bg-primary">모집중</span>
+						                </c:when>
+						                <c:otherwise>
+						                     <span class="text-center badge text-bg-secondary">마감</span>
+						                </c:otherwise>
+						            </c:choose>
+								</div>
 							</div>
 						</c:forEach> 
 						
+						<div class="row">
+							<div class="col text-end"> 
+								<a class="btn btn-primary" href="./registerProgramPage">프로그램 등록</a> 
+							</div>
+						</div>
 					</div>
 					<div class="col-2"></div>
 				</div>
