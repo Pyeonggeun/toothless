@@ -148,15 +148,28 @@ body {
 
 						<div class="col-md-5 mt-2 mb-2">
 							<label for="inputState" class="form-label jb-700"> 인원 수 </label>
-							<select id="inputState" class="form-select">
-								<option selected>1</option>
-								<option selected>2</option>
-								<option selected>3</option>
-								<option selected>4</option>
-								<option selected>5</option>
+							<select name="internship_total_member" id="internship_total_member" class="form-select">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
 							</select>
 						</div>
 
+						<div class="col-md-5 mt-2 mb-2">
+							<label for="inputState" class="form-label jb-700"> 자격요건 </label>
+							<select name="semester_qualification" id="semester_qualification" class="form-select">
+								<option value="1">1학기</option>
+								<option value="2">2학기</option>
+								<option value="3">3학기</option>
+								<option value="4">4학기</option>
+								<option value="5">5학기</option>
+								<option value="6">6학기</option>
+								<option value="7">7학기</option>
+							</select>
+						</div>
+						
 					</div>
 
 					<div class="row mt-2 mb-3 ">
@@ -168,13 +181,13 @@ body {
 					</div>
 
 					<!-- 고도화 진행 시 글내용 삽입 -->
-					<div class="mb-3">
+<!--				<div class="mb-3">
 						<label for="exampleFormControlTextarea1" class="form-label jb-700">글
 							내용</label>
 						<textarea class="form-control" id="exampleFormControlTextarea1"
 							rows="7" style="font-size: 0.9em;"
 							placeholder="공고 모집사항 및 자격 조건을 작성해주시기 바랍니다. 아직 글 넣으면 안 되므로 유의하기."></textarea>
-					</div>
+					</div>   -->	
 
 					<table class="table">
 
@@ -219,13 +232,41 @@ body {
 
 						</tbody>
 					</table>
-					<!--  팝업이 완성되면 아래 것들 지우고 다시 정리 -->
-					<input type="hidden" name="company_pk" value="2"> <input
-						type="hidden" name="professor_pk" value="1"> <input
-						type="hidden" name="department_pk" value="1">
-
+					
+				<!-- 교수 셀렉트 -->
+				<div class="col jb-small mt-4 mb-4">
+				<label for="inputState" class="form-label jb-700 " style="font-size: 0.9em;"> 교수명</label> 
+					<select name="professor_pk" id="professor_pk" class="form-select" style="font-size: 0.9em;">
+						<c:forEach items="${list }" var="map">
+							<option value="${map.professorInfoDto.professor_pk}">
+								${map.professorInfoDto.name}</option>
+						</c:forEach>
+				</select>
+				</div>
+				
+			    <!-- 사업체 셀렉트 -->
+				<div class="col jb-small mt-4 mb-4">
+				<label for="inputState" class="form-label jb-700 "> 사업체명</label> 
+					<select name="company_pk" id="company_pk" class="form-select" style="font-size: 0.9em;">
+						<c:forEach items="${complist }" var="map">
+							<option value="${map.AjdksCompanyInfoDto.company_pk}">
+								${map.AjdksCompanyInfoDto.company_name}</option>
+						</c:forEach>
+				</select>
+				</div>
+				
+				<!-- 학과 셀렉트 -->
+				<div class="col jb-small mt-4 mb-4">
+				<label for="inputState" class="form-label jb-700 "> 학과명</label> 
+					<select name="department_pk" id="department_pk" class="form-select" style="font-size: 0.9em;">
+						<c:forEach items="${departList }" var="map">
+							<option value="${map.DepartmentCategoryDto.department_pk}">
+								${map.DepartmentCategoryDto.name}</option>
+						</c:forEach>
+				</select>
+				</div>
+				
 				</form>
-
 
 				<!-- 여백용도 -->
 				<div class="row mt-2 mb-2">
@@ -250,35 +291,6 @@ body {
 								class="bi bi-list-ul"></i> 목록으로</a>
 						</div>
 
-						<!-- 고도화 진행시 사용 -->
-						<div class="col-2 d-grid mt-2 mb-2">
-							<a href="" type="button" class="btn labelcolor"
-								data-bs-toggle="modal" data-bs-target="#exampleModal"> <i
-								class="bi bi-file-earmark-arrow-down"></i> 임시저장
-							</a>
-						</div>
-
-						<!-- Modal test -->
-						<div class="modal fade" id="exampleModal" tabindex="-1"
-							aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">
-											현장실습 안내 페이지 저장 완료</h1>
-										<button type="button" class="btn-close"
-											data-bs-dismiss="modal" aria-label="Close"></button>
-									</div>
-									<div class="modal-body jb-small">임시 저장이 완료되었습니다. 연속 저장할
-										경우 기존 임시 저장 내역으로부터 덮어 씌워지므로 유의해주시기 바랍니다.</div>
-									<div class="modal-footer">
-										<a type="button" class="btn btn-secondary"
-											data-bs-dismiss="modal">닫기</a> <a href="" type="button"
-											class="btn labelcolor">저장 완료</a>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 
 

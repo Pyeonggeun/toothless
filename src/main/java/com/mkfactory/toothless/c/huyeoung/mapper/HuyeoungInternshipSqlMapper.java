@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
+import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 
 public interface HuyeoungInternshipSqlMapper {
@@ -25,5 +26,11 @@ public interface HuyeoungInternshipSqlMapper {
 
 	// 교수리스트 조회(교수선택용)
 	public List<ProfessorInfoDto> selectProfessorInfoList();
+	
+	// 사업체리스트 조회(사업체선택용)
+	public List<AjdksCompanyInfoDto> selectCompanyList();
+
+	// 학과리스트 조회(학과선택용)
+	public List<DepartmentCategoryDto> selectDepartmentList();
 
 }

@@ -148,7 +148,7 @@ body {
 
 							<div class="card border-black shadow mb-3">
 								<div class="card-body text">
-									<h5 class="card-title fw-bold">
+									<h5 class="card-title fw-bold nolinenoblue">
 										<a
 											href="ajdksInternshipDtl?
 									internship_course_pk=${map.AjdksInternshipCourseDto.internship_course_pk}
@@ -159,7 +159,8 @@ body {
 									</h5>
 									<p class="card-text" style="font-size: 0.9em;">
 										선발결과 발표일 <br>
-										${map.AjdksInternshipCourseDto.announcement_date}
+										<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
+											value="${map.AjdksInternshipCourseDto.announcement_date}"></fmt:formatDate>
 									</p>
 								</div>
 
@@ -174,7 +175,6 @@ body {
 				</form>
 
 				<!-- 하단 버튼 -->
-
 				<div class="btn-group m-3 border shadow" role="group"
 					aria-label="Default button group">
 					<a href="./ajdksInternshipRegForm" class="btn labelcolor"> <i

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 import com.mkfactory.toothless.c.huyeoung.mapper.HuyeoungInternshipSqlMapper;
+import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 
 @Service
@@ -76,6 +77,34 @@ public class HuyeoungInternshipServiceImpl {
 		for (ProfessorInfoDto aDto : professorInfoDtoArr) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("professorInfoDto", aDto);
+			list.add(map);
+		}
+		return list;
+	}
+	
+	// 사업체리스트 조회
+	public List<Map<String, Object>> selectCompanyList() {
+
+		List<Map<String, Object>> list = new ArrayList<>();
+
+		List<AjdksCompanyInfoDto> AjdksCompanyInfoArr = huyeoungInternshipSqlMapper.selectCompanyList();
+		for (AjdksCompanyInfoDto aDto : AjdksCompanyInfoArr) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("AjdksCompanyInfoDto", aDto);
+			list.add(map);
+		}
+		return list;
+	}
+	
+	// 사업체리스트 조회
+	public List<Map<String, Object>> selectDepartmentList() {
+
+		List<Map<String, Object>> list = new ArrayList<>();
+
+		List<DepartmentCategoryDto> DepartmentCategoryDtoArr = huyeoungInternshipSqlMapper.selectDepartmentList();
+		for (DepartmentCategoryDto aDto : DepartmentCategoryDtoArr) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("DepartmentCategoryDto", aDto);
 			list.add(map);
 		}
 		return list;
