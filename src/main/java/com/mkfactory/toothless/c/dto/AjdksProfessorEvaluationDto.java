@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class AjdksProfessorEvaluationDto {
 	
-	public int professor_evaluation_pk;
-	public int student_intern_pk;
-	public int professor_pk;
-	public int diligence_score;
-	public int responsibility_score;
-	public int coorporation_score;
-	public int achievement_score;
-	public String review;
-	public Date created_at;
+	private int professor_evaluation_pk;
+	private int student_intern_pk;
+	private int professor_pk;
+	private int diligence_score;
+	private int responsibility_score;
+	private int coorporation_score;
+	private int achievement_score;
+	private String review;
+	private Date created_at;
 	
 	public AjdksProfessorEvaluationDto() {
 		super();

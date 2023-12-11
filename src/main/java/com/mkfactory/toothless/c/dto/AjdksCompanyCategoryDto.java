@@ -2,8 +2,8 @@ package com.mkfactory.toothless.c.dto;
 
 public class AjdksCompanyCategoryDto {
 	
-	public int company_category_pk;
-	public String company_category_name;
+	private int company_category_pk;
+	private String company_category_name;
 	
 	public AjdksCompanyCategoryDto() {
 		super();
