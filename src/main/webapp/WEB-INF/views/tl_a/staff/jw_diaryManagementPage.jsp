@@ -55,35 +55,20 @@
 			</div>
 			
 			<div class="row">
-				<div class="col border py-4 mx-2 rounded border-dark btn text-start" onclick="location.href='#'">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
 					<div class="row">
-						<div class="col ms-2">
-								A동
-						</div>
-					</div>
-					
-					<div class="row mt-2">
-						<div class="col ms-2">
-							<span class="fs-5 fw-bold text-black">
-								x
-							</span>건
+						<div class="col ms-2 fw-bold">
+							A동
 						</div>
 					</div>
 				</div>
-				<div class="col border py-4 mx-2 rounded border-dark btn text-start" onclick="location.href='#'">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
 					<div class="row">
-						<div class="col ms-2">
-								B동
+						<div class="col ms-2 fw-bold">
+							B동
 						</div>
 					</div>
 					
-					<div class="row mt-2">
-						<div class="col ms-2">
-							<span class="fs-5 fw-bold text-black">
-								x
-							</span>건
-						</div>
-					</div>
 				</div>
 				<div class="col-8"></div>
 			</div>

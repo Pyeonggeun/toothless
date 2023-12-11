@@ -1,12 +1,19 @@
 package com.mkfactory.toothless.a.staff.jw.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mkfactory.toothless.a.dto.PointDto;
 import com.mkfactory.toothless.a.staff.jw.service.DormStaffServiceJw;
+import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 
 @Controller
 @RequestMapping("/tl_a/staff/*")
@@ -24,19 +31,43 @@ public class DormStaffControllerJw {
 	}
 	
 	@RequestMapping("jw_callAttendSituationPage")
-	public String jw_callAttendSituationPage() {
+	public String jw_callAttendSituationPage(Model model) {
+		    
+		LocalDate now = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		String formatedNow = now.format(formatter);
+
+		model.addAttribute("formatedNow",formatedNow);
+		model.addAttribute("callAbsenceListMap", dormStaffServiceJw.getAllCallAbsence());
 		
 		return "/tl_a/staff/jw_callAttendSituationPage";
 	}
 	
 	@RequestMapping("jw_pointManagementPage")
-	public String jw_pointManagementPage() {
+	public String jw_pointManagementPage(Model model) {
+		
+		model.addAttribute("pointManagementListMap", dormStaffServiceJw.getAllPointManagementList());
 		
 		return "/tl_a/staff/jw_pointManagementPage";
 	}
 	
+	@RequestMapping("jw_pointRegisterProcess")
+	public String jw_pointRegisterProcess(HttpSession session, PointDto pointDto) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		int staffPk = staffInfoDto.getStaff_pk();
+		
+		pointDto.setStaff_pk(staffPk);
+		
+		dormStaffServiceJw.registerPoint(pointDto);
+		
+		return "redirect:/tl_a/staff/jw_pointManagementPage";
+	}
+	
 	@RequestMapping("jw_pointSituationPage")
-	public String jw_pointSituationPage() {
+	public String jw_pointSituationPage(Model model) {
+		
+		model.addAttribute("pointListMap", dormStaffServiceJw.getAllPointScoreList());
 		
 		return "/tl_a/staff/jw_pointSituationPage";
 	}
