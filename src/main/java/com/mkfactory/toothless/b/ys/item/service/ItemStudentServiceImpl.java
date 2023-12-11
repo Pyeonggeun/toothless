@@ -42,11 +42,13 @@ public class ItemStudentServiceImpl {
 			int item_cat_pk = e.getItem_cat_pk();
 			ItemCatDto itemCatDto = itemStaffSqlMapper.selectItemCatByItemCategoryPk(item_cat_pk);
 			String status = itemStudentSqlMapper.ItemApplyStatus(itemPk);
+			int itemApplyCount = itemStudentSqlMapper.ItemApplyCount(itemPk);
 			
 			Map<String,Object> map = new HashMap<>();
-			map.put("itemDto", e);
 			map.put("itemCatDto", itemCatDto);
+			map.put("itemDto", e);
 			map.put("status", status);
+			map.put("itemApplyCount", itemApplyCount);
 			list.add(map);
 		}
 		return list;
@@ -63,5 +65,16 @@ public class ItemStudentServiceImpl {
 		return itemStudentSqlMapper.ItemApplyStatus(item_pk);
 	}
 	
+	public boolean getItemApplyCount(int item_pk) {
+		
+		int count = itemStudentSqlMapper.ItemApplyCount(item_pk);
+	
+		if(count > 0) {
+			
+			return true;
+		}else
+			return false;
+		
+	}
 	
 }
