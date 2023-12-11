@@ -30,8 +30,9 @@ public class NoticeController {
 	private NoticeServiceImpl noticeService;
 	// 공지사항 메인페이지
 	@RequestMapping("noticeMainPage")
-	public String noticeMainPage(Model model) {
-		model.addAttribute("list", noticeService.getNoticeList());
+	public String noticeMainPage(Model model, String searchType, String searchWord) {	
+		model.addAttribute("list", noticeService.getNoticeList(searchType, searchWord));
+		model.addAttribute("bList", noticeService.selectBestNotice());
 		return "tl_e/notice/noticeMainPage";
 	}
 	// 직원 뒤로가기

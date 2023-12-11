@@ -34,23 +34,29 @@ public class NoticeServiceImpl {
 		}
 	}
 	// 공지사항 출력
-	public List<Map<String, Object>> getNoticeList() {
+	public List<Map<String, Object>> getNoticeList(String searchType, String searchWord) {
 		
 		List<Map<String, Object>> list = new ArrayList<>();
 		
-		List<NoticeBoardDto> noticeBoardDtoList = noticeSqlMapper.selectNoticeList();
+		List<NoticeBoardDto> noticeBoardDtoList = noticeSqlMapper.selectNoticeList(searchType, searchWord);
 		
 		for(NoticeBoardDto noticeBoardDto : noticeBoardDtoList) {
 			
 			int staffPk = noticeBoardDto.getStaff_pk();
 			int boardPk = noticeBoardDto.getId();
 			StaffInfoDto staffInfoDto = noticeSqlMapper.selectStaffInfoByStaff_Pk(staffPk);
+			System.out.println(staffPk);
+			System.out.println(staffInfoDto.getName());
 			int commentCount = noticeSqlMapper.commentCountByNotice_id(boardPk);
+			int likeCount = noticeSqlMapper.likeCountByNotice_id(boardPk);
+			int disLikeCount = noticeSqlMapper.dislikeCountByNotice_id(boardPk);
 					
 			Map<String, Object> map = new HashMap<>();
 			map.put("noticeBoardDto", noticeBoardDto);
 			map.put("staffInfoDto", staffInfoDto);	
 			map.put("commentCount", commentCount);
+			map.put("likeCount", likeCount);
+			map.put("disLikeCount", disLikeCount);
 			
 			list.add(map);	
 		}
@@ -124,6 +130,9 @@ public class NoticeServiceImpl {
 	}
 	public void deleteNoticeDisLike(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeSqlMapper.deleteNoticeDisLike(noticeBoardLikeDto);
+	}
+	public List<Map<String, Object>> selectBestNotice(){
+		return noticeSqlMapper.selectBestNotice();
 	}
 
 }
