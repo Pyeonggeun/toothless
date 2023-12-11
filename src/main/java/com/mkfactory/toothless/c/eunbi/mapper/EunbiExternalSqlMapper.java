@@ -22,6 +22,7 @@ public interface EunbiExternalSqlMapper {
 	public int isEndApplying(int internship_course_pk);
 	public int didAnnouncement(int internship_course_pk);
 	public int isStartInternship(int internship_course_pk);
+	public int isEndInternship(int internship_course_pk);
 	
 	
 	
