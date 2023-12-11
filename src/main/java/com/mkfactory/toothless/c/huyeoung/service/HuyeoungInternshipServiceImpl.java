@@ -46,13 +46,17 @@ public class HuyeoungInternshipServiceImpl {
 			Map<String, Object> map = new HashMap<>();
 			map.put("AjdksInternshipCourseDto", aDto);
 
-			ajdksInternshipCourseDto.setCompany_pk(aDto.company_pk);
+			int company_pk = aDto.getCompany_pk();
+			
+			ajdksInternshipCourseDto.setCompany_pk(company_pk);
 
 			// System.out.println("company_pk ["+aDto.company_pk+"]");
 			// 사업체명 조회
 			AjdksCompanyInfoDto bdto = huyeoungInternshipSqlMapper.selectInternshipCompanyId(ajdksInternshipCourseDto);
 
-			map.put("company_name", bdto.company_name);
+			String company_name = bdto.getCompany_name();
+			
+			map.put("company_name", company_name);
 
 			list.add(map);
 		}
