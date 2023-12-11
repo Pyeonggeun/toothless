@@ -122,26 +122,11 @@
 			internListBox.innerHTML = "";
 			
 			let now = new Date();
-			nowYear = now.getFullYear();
-			nowMonth = now.getMonth();
-			nowDate = now.getDate();
-			nowHour = now.getHours();
-			nowMinute = now.getMinutes();
-			nowSeconds = now.getSeconds();
-			
 			now = now.getTime();
 			
 			for(intern of response.data) {
 				
 				let internshipEndDate = new Date(intern.internshipCourseDto.internship_end_date);
-			
-				internshipEndDateYear = internshipEndDate.getFullYear();
-				internshipEndDateMonth = internshipEndDate.getMonth();
-				internshipEndDateDate = internshipEndDate.getDate();
-				internshipEndDateHour = internshipEndDate.getHours();
-				internshipEndDateMinute= internshipEndDate.getMinutes();
-				internshipEndDateSeconds = internshipEndDate.getSeconds();
-				
 				internshipEndDate = internshipEndDate.getTime();
 				
 				const internWrapper = document.querySelector("#internListTemplete .internWrapper").cloneNode(true);
@@ -186,14 +171,15 @@
 						const evaluationButton = internWrapper.querySelector(".evaluationButton");
 						evaluationButton.innerText = "평가하기";
 						evaluationButton.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1", "open-Modal");
-						
 						evaluationButton.setAttribute("onclick", "openModal()");
 						
+						const inputStudentInternPk = document.getElementById("inputStudentInternPk");
+						inputStudentInternPk.setAttribute("value",intern.studentInternDto.student_intern_pk);
+							
 					}else if(intern.didEvaluateIntern !== 0){
 						const internEvaluation = internWrapper.querySelector(".internEvaluation");
-						internEvaluation.setAttribute("style", "font-size:0.95em");
 						internEvaluation.classList.add("text-secondary", "fw-bold");
-						internEvaluationBox.innerText = "평가완료";
+						internEvaluation.innerText = "평가완료";
 					}
 				}
 				
@@ -208,8 +194,10 @@
 	function openModal() {
     	
     	const modal = bootstrap.Modal.getOrCreateInstance("#internEvaluationModal");
+    	modal.show();
     	
-    	modal.show();	
+ //   	submitButton.setAttribute("onclick","writeInternEvaluation(studentInternPk)");
+    	
 	}
 	
     function closeModal() {
@@ -226,6 +214,8 @@
 		const inputReview = document.getElementById("inputReview");
 		const inputStudentInternPk = document.getElementById("inputStudentInternPk");
 		
+		console.log(inputStudentInternPk.value);
+		
 		fetch("./writeInternEvaluation", {
 			method: "post",
 			headers: {
@@ -236,7 +226,7 @@
 					"&coorporation_score=" + coorporation_score.value +
 					"&achievement_score=" + achievement_score.value +
 					"&review=" + inputReview.value + 
-					"$student_intern_pk=" + inputStudentInternPk.value
+					"&student_intern_pk=" + inputStudentInternPk.value
 		})
 		.then(response => response.json())
 		.then(response => {
@@ -246,6 +236,7 @@
 			coorporation_score.value = "";
 			achievement_score.value = "";
 			inputReview.value = "";
+			inputStudentInternPk.value="";
 			
 			const internListBox = document.getElementById("internListBox");
 			internListBox.innerHTML = "";
