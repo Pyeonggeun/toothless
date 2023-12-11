@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
+import com.mkfactory.toothless.e.dto.FreeboardCommentDto;
 import com.mkfactory.toothless.e.dto.FreeboardDto;
 
 public interface FreeboardCounselSqlMapper {
@@ -28,6 +29,12 @@ public interface FreeboardCounselSqlMapper {
 	
 	public List<FreeboardDto> bestFreeboardPost();
 	
-	public FreeboardDto selectNewPost(FreeboardDto paraFreeboardDto);
+	public List<FreeboardDto> selectNewPost();
+	
+	public void insertFreeboardComment(FreeboardCommentDto paraFreeboardCommentDto);
+	
+	public List<FreeboardCommentDto> selectFreeboardComment();
+	
+	public StudentInfoDto selectStudentInfoForComment(int student_pk);
 	
 }

@@ -63,7 +63,28 @@
 		SELECT * FROM 
 		(SELECT * FROM cp_student_freeboard
 		ORDER BY CREATED_AT DESC)
-		WHERE ROWNUM &lt;=3;
+		WHERE ROWNUM &lt;=3
 	</select>
+	
+	<insert id="insertFreeboardComment">
+		INSERT INTO cp_freeboard_comment VALUES(
+		cp_freeboard_comment_seq.nextval,
+		#{freeboard_id},
+		#{student_pk},
+		#{text},
+		SYSDATE
+		)
+	</insert>
 
+	<select id="selectFreeboardComment" resultType="com.mkfactory.toothless.e.dto.FreeboardCommentDto">
+		 SELECT * FROM cp_freeboard_comment
+	</select>
+	
+	
+	<select id="selectStudentInfoForComment" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO
+		WHERE student_pk = #{student_pk}
+	</select>
+	
+	
 </mapper>

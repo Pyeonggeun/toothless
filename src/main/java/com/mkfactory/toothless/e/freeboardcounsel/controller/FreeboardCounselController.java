@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mkfactory.toothless.e.dto.FreeboardCommentDto;
 import com.mkfactory.toothless.e.dto.FreeboardDto;
 import com.mkfactory.toothless.e.freeboardcounsel.service.FreeboardCounselServiceImpl;
 
@@ -38,8 +39,10 @@ public class FreeboardCounselController {
 		model.addAttribute("countedPost", countedPost);	
 			
 		//가장 높은 숫자의 글번호 글을 뽑아와서 new아이콘 붙이기 
+		List<FreeboardDto> newPostList = freeboardCounselService.NewPostList();
+		model.addAttribute("newPostList",newPostList);
 		
-		
+
 		return "tl_e/freeboardCounsel/freeboardCounselPage";
 	}
 	
@@ -62,16 +65,33 @@ public class FreeboardCounselController {
 	//자유게시판 상세 글보기 페이지
 	@RequestMapping("readFreeboardPostPage")
 	public String readFreeboardPostPage(Model model, int id) {
+			System.out.println("컨트롤 상세글보기 페이지 시작");
 		
 		//조회수 카운트
 		freeboardCounselService.readCount(id);
+			System.out.println("컨트롤 readCount시작");
 		
 		Map<String, Object> pickpostMap = freeboardCounselService.pickPost(id);
 		model.addAttribute("pickpostMap", pickpostMap);
-
+			System.out.println("컨트롤 상세글 뽑아와서 모델에 넣음");
+		
+		//댓글
+		List<Map<String, Object>> selectFreeboardCommentList= freeboardCounselService.selectFreeboardComment();
+			System.out.println("컨트롤 댓글 뽑아옴");
+		model.addAttribute("selectFreeboardCommentList",selectFreeboardCommentList);
+			System.out.println("컨트롤 댓글 뽑아와서 모델에 넣음");
+		
 		return "tl_e/freeboardCounsel/readFreeboardPostPage";
 	}
 	
+	//댓글 작성하기
+	@RequestMapping("insertFreeboardComment")
+	public String insertFreeboardComment(FreeboardCommentDto paraFreeboardCommentDto) {
+			System.out.println("insertFreeboardComment 시작");
+		freeboardCounselService.insertFreeboardComment(paraFreeboardCommentDto);
+			System.out.println("insertFreeboardComment 완료");
+		return "redirect: ./readFreeboardPostPage?id=" + paraFreeboardCommentDto.getFreeboard_id();
+	}
 	
 	
 	//자유게시판 글 수정 페이지
