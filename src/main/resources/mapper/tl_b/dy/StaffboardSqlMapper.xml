@@ -70,15 +70,11 @@
 	<insert id="insertAddLike">
 		INSERT INTO tl_b_staffboard_like values(
 			tl_b_staffboard_like_seq.nextval,
-			#{staff_pk}
-			#{staffboard_pk}
+			#{staff_pk},
+			#{staffboard_pk},
 			sysdate
 		)
 	</insert>
-
-	<select id="selectPressLike" resultType="com.mkfactory.toothless.b.dto.StaffboardLikeDto">
-		SELECT * FROM tl_b_staffboard_like WHERE  STAFF_PK = #{staff_pk} AND staffboard_pk = #{staffboard_pk}
-	</select>
 
 	<delete id="deleteCanselLike">
 		DELETE FROM tl_b_staffboard_like WHERE staff_pk = #{staff_pk} AND staffboard_pk = #{staffboard_pk}

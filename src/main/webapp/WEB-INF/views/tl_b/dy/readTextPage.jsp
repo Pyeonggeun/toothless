@@ -32,10 +32,10 @@
                                     <c:if test="${!empty sessionStaffInfo }">
                                     	<c:choose>
                                     		<c:when test="${count == 1}">
-                                    			<button type="button" onclick="location.href='./inputLikeProcess?staff_pk=${sessionUserInfo.staff_pk }&staffboard_pk=${readText.staffboardDto.staffboard_pk}'"><i class="bi bi-hand-thumbs-up-fill"></i></button>
-                                    		</c:when>                                    		
+                                    			<button type="button" onclick="location.href='./canselLikeProcess?staff_pk=${sessionStaffInfo.staff_pk }&staffboard_pk=${readText.staffboardDto.staffboard_pk}'"><i class="bi bi-hand-thumbs-up-fill"></i></button>
+                                    		</c:when>
                                     		<c:otherwise>
-                                    			<button type="button" onclick="location.href='./inputLikeProcess?staff_pk=${sessionUserInfo.staff_pk }&staffboard_pk=${readText.staffboardDto.staffboard_pk}'"><i class="bi bi-hand-thumbs-up"></i></button>
+                                    			<button type="button" onclick="location.href='./addLikeProcess?staff_pk=${sessionStaffInfo.staff_pk }&staffboard_pk=${readText.staffboardDto.staffboard_pk}'"><i class="bi bi-hand-thumbs-up"></i></button>
                                     		</c:otherwise>
                                     	</c:choose>
                                     </c:if>
