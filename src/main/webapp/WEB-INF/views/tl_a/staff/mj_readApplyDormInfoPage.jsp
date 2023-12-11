@@ -274,6 +274,15 @@
 	// 선발 프로세스
 	function mj_selectDormStudentProcess(dormApplicationPk, selectionStatus){
 		
+		if(sessionStaffId == null){
+			
+			if(confirm("로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+				
+				location.href = "./loginPage"
+			} 
+			return;	
+		}
+		
 		const url = "./mj_selectDormStudentProcess?selection_status="+ selectionStatus +"&dorm_application_pk=" + dormApplicationPk;
 
 		// fetch를 통해 POST 요청 전송
@@ -500,15 +509,15 @@
 			  <thead>
 			    <tr class="align-middle border-bottom border-2">
 			      <th scope="col" class="col text-bg-light"></th>
-			      <th scope="col" class="col text-bg-light">학년도/학기</th>
-			      <th scope="col" class="col text-bg-light">이름</th>
-			      <th scope="col" class="col text-bg-light">학년</th>
-			      <th scope="col" class="col text-bg-light">학번</th>
-			      <th scope="col" class="col text-bg-light">학과</th>
-			      <th scope="col" class="col text-bg-light">주소</th>
-			      <th scope="col" class="col text-bg-light">우선선발</th>
-			      <th scope="col" class="text-bg-light">선발여부</th>
-			    </tr>
+					      <th scope="col" class="col-2 text-bg-light">학년도/학기</th>
+					      <th scope="col" class="col-1 text-bg-light">이름</th>
+					      <th scope="col" class="col-1 text-bg-light">학년</th>
+					      <th scope="col" class="col-2 text-bg-light">학번</th>
+					      <th scope="col" class="col-1 text-bg-light">학과</th>
+					      <th scope="col" class="col-2 text-bg-light">주소</th>
+					      <th scope="col" class="col-1 text-bg-light">우선선발</th>
+					      <th scope="col" class="col text-bg-light">선발여부</th>
+					    </tr>
 			  </thead>
 			  <tbody id="applyDormInfoListBox">
 			    <!-- template로 옮김 -->	    
@@ -535,7 +544,7 @@
 		  <td class="departmentName"></td>
 		  <td class="address"></td>
 		  <td class="priority_select"></td>
-		  <td class="chooseBox"></td>
+		  <td class="chooseBox d-grid"></td>
 	    </tr>	
 		</table>
 
