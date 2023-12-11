@@ -6,7 +6,9 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
@@ -87,6 +89,77 @@ public class RestDormStaffControllerMj {
 	}
 	
 	
+	// 입사신청 목록 관리 페이지 (= 선발관리)
+	@RequestMapping("getApplyDormInfoList")
+	public Mj_RestResponseDto getApplyDormInfoList() {
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+	
+		// 입사신청 전체 리스트
+		List<Map<String, Object>> applyList =  staffService.getAllDormApplyList();
+		restResponseDto.addData("applyList", applyList);
+		
+		// 입사신청 전체 개수
+		int countApplyList = applyList.size();
+		restResponseDto.addData("countApplyList", countApplyList);
+		
+		// 현재학기정보 + 입주공고 정보
+		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
+		restResponseDto.addData("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
+		
+
+		restResponseDto.setResult("success");
+		return restResponseDto;
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)	
+	}
+	
+	
+	
+	// 선발완료 목록 관리 페이지 (= 선발관리)
+	@RequestMapping("getSelectedDormStudentList")
+	public Mj_RestResponseDto mj_readSelectedDormStudentPage() {
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+			
+		// 선발완료 전체 리스트
+		List<Map<String, Object>> dormSelectedList =  staffService.getAllDormSelectedList();
+		restResponseDto.addData("dormSelectedList", dormSelectedList);
+		
+		// 선발완료 전체 개수
+		int countDormSelectedList = dormSelectedList.size();
+		restResponseDto.addData("countDormSelectedList", countDormSelectedList);
+		
+		// 현재학기정보 + 입주공고 정보
+		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
+		restResponseDto.addData("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
+		
+
+		restResponseDto.setResult("success");
+		return restResponseDto;
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)	
+	}
+	
+	// 선발 프로세스
+	@RequestMapping("mj_selectDormStudentProcess")
+	public Mj_RestResponseDto mj_selectDormStudentProcess(
+			@RequestParam String selection_status, 
+			@RequestParam int dorm_application_pk) {
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+		
+		staffService.updateSelectionStatus(selection_status, dorm_application_pk);
+		
+		if ("Y".equals(selection_status)) {
+			restResponseDto.addData("selectionStatus", "Y");
+		}else if("N".equals(selection_status)) {
+			restResponseDto.addData("selectionStatus", "N");
+		}
+			
+		restResponseDto.setResult("success");
+		return restResponseDto;
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)	
+		
+	}
 	
 	
 	

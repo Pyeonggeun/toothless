@@ -125,6 +125,7 @@
 	// 조회/수정 탭 보여주기
 	function mj_readRegisterJoinInfoPage(){
 		
+		// 이 함수가 실행되고나서 리스트를 가져오게해야 정보 등록 후에 그 정보를 들고 올 수 있을듯~ 
 		readJoinInfoList();
 
 		// 양식
@@ -162,6 +163,10 @@
 
 	}
 	
+	// 숫자를 문자열로 변환하고 한 자리 숫자에 0을 붙임	--> 날짜가 23-08-03 으로 나오게
+	function addLeadingZero(number) {
+	    return number < 10 ? '0' + number : '' + number;
+	}
 	
 	// 공고 목록 가져오기
 	function readJoinInfoList() {
@@ -227,10 +232,7 @@
 		
 	}
 	
-	// 숫자를 문자열로 변환하고 한 자리 숫자에 0을 붙임	--> 23-08-03 으로 나오게
-	function addLeadingZero(number) {
-	    return number < 10 ? '0' + number : '' + number;
-	}
+	
 	
 	
 	
@@ -240,7 +242,6 @@
 	window.addEventListener("DOMContentLoaded", () => {
 		getSessionStaffId();	
 		mj_registerJoinInfoPage();
-		mj_readRegisterJoinInfoPage
 	});
 	
 	

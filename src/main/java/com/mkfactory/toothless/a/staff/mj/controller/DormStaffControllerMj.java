@@ -119,80 +119,23 @@ public class DormStaffControllerMj {
 
 		return "tl_a/staff/mj_registerJoinInfoPage";
 	}
-	
-	
-	/*
-	// 공고등록 프로세스
-	@RequestMapping("mj_registerInfoProcess")
-	public String mj_registerInfoProcess(JoinDormInfoDto params) {
-		
-		SemesterDto thisSemesterDto = staffService.getThisSemester();
-		params.setSemester_pk(thisSemesterDto.getSemester_pk());
-	
-		staffService.registerInfo(params);
-		
-		return "redirect:../staff/mj_readRegisterJoinInfoPage";
-	}
-	*/
-	
-	
+
 	// 입사신청 목록 관리 페이지 (= 선발관리)
 	@RequestMapping("mj_readApplyDormInfoPage")
 	public String mj_readApplyDormInfoPage(Model model) {
 		
-		// 입사신청 전체 리스트
-		List<Map<String, Object>> applyList =  staffService.getAllDormApplyList();
-		model.addAttribute("applyList", applyList);
-		
-		// 입사신청 전체 개수
-		int countApplyList = applyList.size();
-		model.addAttribute("countApplyList", countApplyList);
-		
-		// 현재학기정보 + 입주공고 정보
-		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
-		model.addAttribute("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
-		
-
 		return "tl_a/staff/mj_readApplyDormInfoPage";
 	}
 	
-
-	// 선발 프로세스
-	@RequestMapping("mj_selectDormStudentProcess")
-	public String mj_selectDormStudentProcess(String selection_status, int dorm_application_pk) {
-		
-		staffService.updateSelectionStatus(selection_status, dorm_application_pk);
-		
-		if ("Y".equals(selection_status)) {
-			return "redirect:../staff/mj_readApplyDormInfoPage";
-		}else if("N".equals(selection_status)) {
-			return "redirect:../staff/mj_readSelectedDormStudentPage";
-		}
-		
-		return "";	
-		
-	}
 	
 	
 	// 선발완료 목록 관리 페이지 (= 선발관리)
 	@RequestMapping("mj_readSelectedDormStudentPage")
 	public String mj_readSelectedDormStudentPage(Model model) {
-		
-		// 선발완료 전체 리스트
-		List<Map<String, Object>> dormSelectedList =  staffService.getAllDormSelectedList();
-		model.addAttribute("dormSelectedList", dormSelectedList);
-		
-		// 선발완료 전체 개수
-		int countDormSelectedList = dormSelectedList.size();
-		model.addAttribute("countDormSelectedList", countDormSelectedList);
-		
-		// 현재학기정보 + 입주공고 정보
-		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
-		model.addAttribute("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
-		
 
 		return "tl_a/staff/mj_readSelectedDormStudentPage";
 	}
+	
 	
 	
 	// 납부관리 페이지로(전체)
