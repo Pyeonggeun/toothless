@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,7 +113,7 @@
 							<div class="col-4">${best.elementFreeboardPost.text}</div>
 							<div class="col-1">${best.elementFreeboardPost.read_count}</div>
 							<div class="col-2">${best.studentInfo.name}</div>
-							<div class="col-2">${best.elementFreeboardPost.created_at}</div>
+							<div class="col-2"><fmt:formatDate value="${best.elementFreeboardPost.created_at}" pattern="yyyy-MM-dd hh:mm"/> </div>
 						</div>
 						</c:forEach>
 				</div>
@@ -186,7 +187,7 @@
 							</div>
 							<div class="col-1">${List.elementFreeboardDto.read_count}</div>
 							<div class="col-2 fw-bold">${List.studentInfo.name}</div>
-							<div class="col-2">${List.elementFreeboardDto.created_at}</div>
+							<div class="col-2"><fmt:formatDate value="${List.elementFreeboardDto.created_at}" pattern="yyyy-MM-dd hh:mm"/> </div>
 						
 						<!-- 목차에 맞춘 진짜 글 리스팅 되는 로우 끝 -->
 						</div>

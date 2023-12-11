@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,8 +154,8 @@
 					<div class="col"></div>
 					 
 					<div class="col-4 fs-5">
-					 	<i class="bi bi-eye"></i>${pickpostMap.freeboardPost.read_count}
-					 	<i class="bi bi-clock"></i> ${pickpostMap.freeboardPost.created_at}
+					 	<i class="bi bi-eye"></i> ${pickpostMap.freeboardPost.read_count}
+					 	<i class="bi bi-clock"></i> <fmt:formatDate value="${pickpostMap.freeboardPost.created_at}" pattern="yyyy-MM-dd hh:mm"/>
 					</div> 
 				</div>
 				
@@ -239,7 +240,7 @@
 								
 											<!-- 이름과 생성일 날짜 나오게  -->
 											<div class="row ps-1 text-start pt-1"> 
-												<div class="col-4 ps-1 "> <span class="fs-5"> <i class="bi bi-person-vcard"></i> ${comment.studentInfo.name} </span> <i class="bi bi-clock"></i> ${comment.elementFreeboardCommentDto.created_At}</div>
+												<div class="col-4 ps-1 "> <span class="fs-5"> <i class="bi bi-person-vcard"></i> ${comment.studentInfo.name} </span> <i class="bi bi-clock"></i> <fmt:formatDate value="${comment.elementFreeboardCommentDto.created_At}" pattern="yyyy-MM-dd hh:mm"/></div>
 											
 												<div class="col"></div>
 											</div>
