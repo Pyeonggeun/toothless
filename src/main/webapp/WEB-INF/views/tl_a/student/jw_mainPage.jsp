@@ -265,28 +265,22 @@
 					</div>
 					<div class="row">
 						<div class="col">
-							<div class="row my-3">
-								<div class="col">
-									<button class="px-0 border-1 border-end-0 border-secondary-subtle" style="height:12rem; width:12rem; background-color:white">
-										<span class="fw-bold fs-6 ">
-											위치안내 
-										</span>
-									</button>
-								</div>
-								<div class="col">
-									<button class="px-0 border-1 border-end-0 border-secondary-subtle" style="height:12rem; width:12rem; background-color:white">
-										<span class="fw-bold fs-6 ">
-											시내버스 노선안내 
-										</span>
-									</button>
-								</div>
-								<div class="col">
-									<button class="px-0 border-1 border-secondary-subtle" style="height:12rem; width:12rem; background-color:white">
-										<span class="fw-bold fs-6 ">
-											셔틀버스 노선안내 
-										</span>
-									</button>
-								</div>
+							<div class="row my-3 d-flex">
+								<button class="col px-0 border-1 border-end-0 border-secondary-subtle" style="height:12rem; background-color:white">
+									<span class="fw-bold fs-6 ">
+										위치안내 
+									</span>
+								</button>
+								<button class="col px-0 border-1 border-end-0 border-secondary-subtle" style="height:12rem; background-color:white">
+									<span class="fw-bold fs-6 ">
+										시내버스 노선안내 
+									</span>
+								</button>
+								<button class="col px-0 border-1 border-secondary-subtle" style="height:12rem; background-color:white">
+									<span class="fw-bold fs-6 ">
+										셔틀버스 노선안내 
+									</span>
+								</button>
 							</div>
 						</div>
 					</div>
