@@ -140,7 +140,7 @@ body {
 
 					<div class="row">
 						<div class="col-md-5 mt-2 mb-2">
-							<label for="inputCity" class="form-label jb-700"> 글 제목 </label> <input
+							<label for="inputCity" class="form-label jb-700" > 글 제목 </label> <input
 								name="course_title" type="text" class="form-control"
 								style="font-size: 0.9em;" id="inputCity"
 								placeholder="50자 내외의 글 제목을 작성해주시기 바랍니다.">
@@ -148,7 +148,7 @@ body {
 
 						<div class="col-md-5 mt-2 mb-2">
 							<label for="inputState" class="form-label jb-700"> 인원 수 </label>
-							<select name="internship_total_member" id="internship_total_member" class="form-select">
+							<select name="internship_total_member" style="font-size: 0.9em;" id="internship_total_member" class="form-select">
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
@@ -159,7 +159,7 @@ body {
 
 						<div class="col-md-5 mt-2 mb-2">
 							<label for="inputState" class="form-label jb-700"> 자격요건 </label>
-							<select name="semester_qualification" id="semester_qualification" class="form-select">
+							<select name="semester_qualification" style="font-size: 0.9em;" id="semester_qualification" class="form-select">
 								<option value="1">1학기</option>
 								<option value="2">2학기</option>
 								<option value="3">3학기</option>
@@ -179,15 +179,6 @@ body {
 						</div>
 
 					</div>
-
-					<!-- 고도화 진행 시 글내용 삽입 -->
-<!--				<div class="mb-3">
-						<label for="exampleFormControlTextarea1" class="form-label jb-700">글
-							내용</label>
-						<textarea class="form-control" id="exampleFormControlTextarea1"
-							rows="7" style="font-size: 0.9em;"
-							placeholder="공고 모집사항 및 자격 조건을 작성해주시기 바랍니다. 아직 글 넣으면 안 되므로 유의하기."></textarea>
-					</div>   -->	
 
 					<table class="table">
 
