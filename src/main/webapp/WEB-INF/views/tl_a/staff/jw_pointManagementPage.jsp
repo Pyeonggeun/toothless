@@ -74,11 +74,11 @@
 							<table class="table table-bordered text-center align-middle">
 								<thead>
 									<tr class="align-middle border-bottom border-2">
-										<th scope="col" class="col-2 text-bg-light">이름</th>
+										<th scope="col" class="col-1 text-bg-light">이름</th>
 										<th scope="col" class="col-1 text-bg-light">기숙사명</th>
 										<th scope="col" class="col-1 text-bg-light">호</th>
-										<th scope="col" class="col-1 text-bg-light">상벌</th>
-										<th scope="col" class="col-6 text-bg-light">사유</th>
+										<th scope="col" class="col-4 text-bg-light">상벌</th>
+										<th scope="col" class="col-4 text-bg-light">사유</th>
 										<th scope="col" class="col-1 text-bg-light">부여</th>
 									</tr>
 								</thead>

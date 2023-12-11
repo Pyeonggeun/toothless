@@ -10,6 +10,37 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <title>Insert title here</title>
+
+<script>
+	
+	function selectA(seleteDongVal){
+		
+		// 옵션 id 초기화 먼저
+		const selectHo = document.getElementById("selectHo");
+		console.log(seleteDongVal.value);
+		
+		selectHo.innerHTML = "";
+		console.log(selectHo);
+		
+		// dongHoList가져와서 역직렬화후 품
+		fetch("./dongHoList")
+		.then(response => response.json())
+		.then(response => {
+			
+			// 렌더링 하는곳
+			
+			for(e of response.data){
+				if(e.dormBuildingDto.dorm_pk == seleteDongVal.value){
+					
+					selectHo.innerHTML += "<option value=" + e.dormRoomDto.dorm_room_pk + ">" + e.dormRoomDto.room_name + "</option>";
+					
+				}
+			}
+			
+		});
+	}
+	
+</script>
 </head>
 <body>
 <div class="container-fluid">
@@ -89,24 +120,26 @@
 						<tbody>
 							<c:if test="${!empty studentAssignmentList }">
 							<c:forEach items="${studentAssignmentList }" var="studentAssignmentList">
+							<form action="./assignmentAddProcess" method="post">
 							<tr>
-								<td>${studentAssignmentList.studentInfoDto.name} ${studentAssignmentList.joinDormApplicationDto.payment_status } ${studentAssignmentList.joinDormApplicationDto.selection_status }</td><!-- 테이블 엮어서 반복문 -->
+								<td>${studentAssignmentList.studentInfoDto.name}<input name="student_pk" type="hidden" value="${studentAssignmentList.studentInfoDto.student_pk }"></td><!-- 테이블 엮어서 반복문 -->
 								<td>
-                                    <select id="1" name="dorm" class="form-select">
-                                        <!-- 동 리스트 반복문 -->
-                                        <option>A동</option>
-                                        <option>B동</option>
-                                    </select>
-                                </td><!-- 여기도 반복문-->
-                                <td>
-                                    <select class="form-select"> <!-- 이거 a동 선택할때랑 b동 선택할때랑 달라서... -->
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
+                                    <select id="selectDong" class="form-select" onchange="selectA(this)">
+                                        <c:forEach items="${dormBuildingDtos }" var="dormBuildingDtos">
+                                        <option value="${dormBuildingDtos.dorm_pk }">${dormBuildingDtos.name}</option>
+                                        </c:forEach>
                                     </select>
                                 </td>
-								<td><h6 class="btn btn-primary">&nbsp;&nbsp;&nbsp;배정&nbsp;&nbsp;&nbsp;</h6></td>
-							</tr><!--  -->
+                                <td>
+                                    <select id="selectHo" name="dorm_room_pk" class="form-select"> 
+                                        <c:forEach items="${dormRoomDtos }" var="dormRoomDtos">
+                                        <option value="${dormRoomDtos.dorm_room_pk }">${dormRoomDtos.room_name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </td>
+								<td><input type="submit" class="btn btn-primary" value="&nbsp;&nbsp;&nbsp;배정&nbsp;&nbsp;&nbsp;"></td>
+							</tr>
+							</form>
 							</c:forEach>
 							</c:if>
 						</tbody>

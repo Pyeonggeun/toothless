@@ -38,6 +38,7 @@ public class WoojaeExternalController {
 		
 		return"redirect:../../../another/staff/loginPage";
 	}
+	
 	// 산업체 등록 페이지
 	@RequestMapping("ajdksRegisterCompanyPage")
 	public String ajdksRegisterCompanyPage(HttpSession session, Model model) {

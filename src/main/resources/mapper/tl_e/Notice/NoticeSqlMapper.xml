@@ -114,7 +114,23 @@
 			#{notice_dislike}
 		)
 	</insert>
-
-	
+	<!-- 공지사항 추천 삭제 -->
+	<delete id="deleteNoticeLike">
+		DELETE FROM cp_notice_like
+		WHERE notice_id = #{notice_id} 
+		AND student_pk = #{student_pk}
+		AND notice_like = 1
+	</delete>
+	<delete id="deleteNoticeDisLike">
+		DELETE FROM cp_notice_like
+		WHERE notice_id = #{notice_id} 
+		AND student_pk = #{student_pk}
+		AND notice_dislike = 1
+	</delete>
+	<!-- 공지사항 댓글 갯수 -->
+	<select id="commentCountByNotice_id" resultType="int">
+		SELECT COUNT(*) FROM cp_notice_comment
+		WHERE notice_id = #{notice_id}
+	</select>
 	
 </mapper>

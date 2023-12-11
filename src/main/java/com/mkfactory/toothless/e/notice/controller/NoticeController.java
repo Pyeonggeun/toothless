@@ -34,6 +34,23 @@ public class NoticeController {
 		model.addAttribute("list", noticeService.getNoticeList());
 		return "tl_e/notice/noticeMainPage";
 	}
+	// 직원 뒤로가기
+	@RequestMapping("staffReturnToMainPage")
+	public String staffReturnToMainPage() {
+		return "redirect:../commons/counselCenterStaffMainPage";
+	}
+	// 학생 뒤로가기
+	@RequestMapping("studentReturnToMainPage")
+	public String studentReturnToMainPage() {
+		return "redirect:../commons/counselCenterStudentMainPage";
+	}
+	
+	// 로그아웃
+	@RequestMapping("logoutProcess")
+	public String logoutProcess(HttpSession session) {
+		session.invalidate();
+		return "redirect:../../another/staff/loginPage";
+	}
 	// 공지사항 글쓰기 페이지
 	@RequestMapping("writeNoticeArticlePage")
 	public String writeNoticeArticlePage() {
@@ -96,20 +113,26 @@ public class NoticeController {
 	// 공지사항 상세글보기
 	@RequestMapping("readNoticeBoardPage")
 	public String readNoticeBoardPage(HttpSession session, Model model, int id) {
-		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
-		int studentPk = studentInfoDto.getStudent_pk();
-		
-		NoticeBoardLikeDto noticeBoardLikeDto = new NoticeBoardLikeDto();
-		noticeBoardLikeDto.setStudent_pk(studentPk);
-		noticeBoardLikeDto.setNotice_id(id);
-		
+		if(session.getAttribute("sessionStudentInfo") != null) {
+			StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+			int studentPk = studentInfoDto.getStudent_pk();
+			
+			NoticeBoardLikeDto noticeBoardLikeDto = new NoticeBoardLikeDto();
+			noticeBoardLikeDto.setStudent_pk(studentPk);
+			noticeBoardLikeDto.setNotice_id(id);
+			
+			model.addAttribute("likeCheck", noticeService.noticeLikeCheck(noticeBoardLikeDto));
+			model.addAttribute("upThumbCheck", noticeService.noticeUpThumbCheck(noticeBoardLikeDto));
+			model.addAttribute("downThumbCheck", noticeService.noticeDownThumbCheck(noticeBoardLikeDto));
+			model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
+			model.addAttribute("cList", noticeService.selectCommentByNotice_Id(id));
+		}else {
+			model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
+			model.addAttribute("cList", noticeService.selectCommentByNotice_Id(id));
+		}
+
 		noticeService.increaseReadCount(id);
 		
-		model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
-		model.addAttribute("likeCheck", noticeService.noticeLikeCheck(noticeBoardLikeDto));
-		model.addAttribute("upThumbCheck", noticeService.noticeUpThumbCheck(noticeBoardLikeDto));
-		model.addAttribute("downThumbCheck", noticeService.noticeDownThumbCheck(noticeBoardLikeDto));
-		model.addAttribute("cList", noticeService.selectCommentByNotice_Id(id));
 		return "tl_e/notice/readNoticeBoardPage";
 	}
 	// 공지사항 삭제
@@ -146,6 +169,17 @@ public class NoticeController {
 	@RequestMapping("insertNoticeLike")
 	public String insertNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeService.insertThumb(noticeBoardLikeDto);
+		return "redirect:./readNoticeBoardPage?id=" + noticeBoardLikeDto.getNotice_id();
+	}
+	// 공지사항 추천 삭제
+	@RequestMapping("deleteNoticeLike")
+	public String deleteNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto) {
+		noticeService.deleteNoticeLike(noticeBoardLikeDto);
+		return "redirect:./readNoticeBoardPage?id=" + noticeBoardLikeDto.getNotice_id();
+	}
+	@RequestMapping("deleteNoticeDisLike")
+	public String deleteNoticeDisLike(NoticeBoardLikeDto noticeBoardLikeDto) {
+		noticeService.deleteNoticeDisLike(noticeBoardLikeDto);
 		return "redirect:./readNoticeBoardPage?id=" + noticeBoardLikeDto.getNotice_id();
 	}
 }

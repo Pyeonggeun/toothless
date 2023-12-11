@@ -139,6 +139,85 @@
 	</insert>
 	
 	
+	<!-- 내가 지원한 공고 목록 가져오기 -->
+	<select id="getPostingListByStudentPk" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
+		SELECT * FROM TL_D_JOB_POSTING tdjp 
+		WHERE tdjp.JOB_POSTING_PK IN (
+		   SELECT JOB_POSTING_PK FROM TL_D_VOLUNTEER 
+		   WHERE resume_pk IN (
+		      SELECT RESUME_PK FROM TL_D_RESUME tdr 
+		      WHERE tdr.STUDENT_PK = #{student_pk}
+		      )
+		   )ORDER BY tdjp.COM_PK ASC	
+	</select>
+	
+	<!-- 학생이 지원한 기업 정보 가져오기 -->
+	<select id="getComPanyDtoListByStudentPk" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
+		SELECT * FROM TL_D_COMPANY tdc 
+		WHERE com_pk IN (
+			SELECT com_pk FROM TL_D_JOB_POSTING tdjp 
+			WHERE JOB_POSTING_PK IN (
+				SELECT job_posting_pk FROM TL_D_VOLUNTEER 
+				WHERE resume_pk IN (
+					SELECT resume_pk FROM TL_D_RESUME tdr 
+					WHERE tdr.STUDENT_PK = #{student_pk}
+				)
+			)
+		)	
+	</select>
+	
+	<!-- 학생이 지원한 공고 수 가져오기 -->
+	<select id="getCountForStudentApplyListByStudentPk" resultType="int">
+		SELECT count(*) FROM TL_D_JOB_POSTING tdjp 
+		WHERE tdjp.JOB_POSTING_PK IN (
+			SELECT JOB_POSTING_PK FROM TL_D_VOLUNTEER 
+			WHERE resume_pk IN (
+				SELECT RESUME_PK FROM TL_D_RESUME tdr 
+				WHERE tdr.STUDENT_PK = 84
+			)
+		)	
+	</select>
+	
+	<!-- 공고 지원 취소하기 -->
+	<delete id="cancleApplyForJobPosting">
+		DELETE FROM TL_D_VOLUNTEER
+		WHERE RESUME_PK IN (
+		    SELECT RESUME_PK
+		    FROM TL_D_RESUME tdr 
+		    WHERE STUDENT_PK = #{student_pk}
+		)
+		AND JOB_POSTING_PK = #{job_posting_pk}
+	</delete>
+	
+	
+	<!-- 학생 마이페이지에 내가 지원한 공고 목록 4줄 요약 -->
+	<select id="getApplyListByStudentPkToMyPage" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
+		SELECT * FROM (
+			SELECT * FROM TL_D_JOB_POSTING tdjp 
+			WHERE tdjp.JOB_POSTING_PK IN (
+				SELECT JOB_POSTING_PK FROM TL_D_VOLUNTEER 
+				WHERE resume_pk IN (
+					SELECT RESUME_PK FROM TL_D_RESUME tdr 
+					WHERE tdr.STUDENT_PK = #{student_pk}
+				)
+			)ORDER BY tdjp.COM_PK ASC
+		)
+		<![CDATA[
+		WHERE rownum <= 4
+		]]>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

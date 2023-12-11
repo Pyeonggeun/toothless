@@ -29,9 +29,18 @@
                                     내용 <br>
                                     ${readText.staffboardDto.content}
                                     <br>
+                                    <c:if test="${!empty sessionStaffInfo }">
+                                    	<c:choose>
+                                    		<c:when test="${count == 1}">
+                                    			<button type="button" onclick="location.href='./canselLikeProcess?staff_pk=${sessionStaffInfo.staff_pk }&staffboard_pk=${readText.staffboardDto.staffboard_pk}'"><i class="bi bi-hand-thumbs-up-fill"></i></button>
+                                    		</c:when>
+                                    		<c:otherwise>
+                                    			<button type="button" onclick="location.href='./addLikeProcess?staff_pk=${sessionStaffInfo.staff_pk }&staffboard_pk=${readText.staffboardDto.staffboard_pk}'"><i class="bi bi-hand-thumbs-up"></i></button>
+                                    		</c:otherwise>
+                                    	</c:choose>
+                                    </c:if>
+                                    <br>
                                     <button type="button" onclick="location.href='./staffboardPage'">목록으로</button>
-
-                                    <i class="bi bi-suit-heart text-danger"></i><span>5</span>
                                     <c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == readText.staffboardDto.staff_pk}">
 	                                    <button type="button" onclick="location.href='./deleteTextProcess?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">삭제</button>
 	                                    <button type="button" onclick="location.href='./modifyTextPage?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">수정</button>

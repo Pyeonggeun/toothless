@@ -28,4 +28,6 @@ public interface FreeboardCounselSqlMapper {
 	
 	public List<FreeboardDto> bestFreeboardPost();
 	
+	public FreeboardDto selectNewPost(FreeboardDto paraFreeboardDto);
+	
 }

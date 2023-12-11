@@ -142,7 +142,7 @@ public class EunbiProfessorServiceImpl {
 		
 		Date now = new Date();
 		
-		if((now.after(internshipCourseDto.getApplying_start_date())) && (now.before(internshipCourseDto.getApplying_end_date()))) {
+		if(now.after(internshipCourseDto.getApplying_start_date()) == true && now.before(internshipCourseDto.getApplying_end_date()) == true ) {
 			
 			// 신청완료학생
 			List<AjdksStudentApplyingDto> studentApplyingList = studentSqlMapper.getApplyingListByCoursePk(internshipCoursePk);
@@ -165,8 +165,9 @@ public class EunbiProfessorServiceImpl {
 				applyingStudentInfoList.add(studentInfo);
 			}
 			
-		}else if((now.equals(internshipCourseDto.getAnnouncement_date()) || now.after(internshipCourseDto.getAnnouncement_date())) && 
-				now.before(internshipCourseDto.getInternship_start_date())) {
+		}else if((now.equals(internshipCourseDto.getAnnouncement_date()) == true || 
+				now.after(internshipCourseDto.getAnnouncement_date())) == true && 
+				now.before(internshipCourseDto.getInternship_start_date()) == true) {
 			
 			// 결과발표학생
 			List<AjdksStudentApplyingDto> announcedStudentList =
@@ -256,7 +257,18 @@ public class EunbiProfessorServiceImpl {
 		return studentDetail;
 	}
 	
-	
+	// 현재 날짜과 현장실습과정 날짜 비교
+	public Map<String, Object> isNow(int internshipCoursePk) {
+		
+		Map<String, Object> isNow = new HashMap<>();
+		
+		externalSqlMapper.isStartApplying(internshipCoursePk);
+		externalSqlMapper.isEndApplying(internshipCoursePk);
+		externalSqlMapper.didAnnouncement(internshipCoursePk);
+		externalSqlMapper.isStartInternship(internshipCoursePk);
+		
+		return isNow;
+	}
 	
 	
 	

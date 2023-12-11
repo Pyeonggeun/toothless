@@ -37,7 +37,6 @@
 			<!-- 카테고리 -->
 			<div class="row mt-2">
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
-					
 					<ul class="nav nav-tabs">
 					<li class="nav-item ta">
 					    <a class="nav-link active text-black" href="./sj_manageRoomInfo">전체보기</a>
@@ -46,8 +45,7 @@
 					  <li class="nav-item ">
 					    <a class="nav-link text-secondary" href="./sj_manageRoomInfoReadPage?dorm_pk=${dorm.dorm_pk }">${dorm.name }</a>
 					  </li>
-					  </c:forEach>
-					  
+					 </c:forEach>
 					</ul>
 				</div>
 			</div>
@@ -91,9 +89,24 @@
 					                <div class="col">
 					                    ${roomMap.dormRoomDto.dorm_floor } 층
 					                </div>
+					                
 					                <div class="col">
-					                    ${roomMap.dormRoomDto.room_name }
-					                </div>
+									    <div class="dropdown">
+									        <a class="btn btn-outline-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									            <input type="hidden" value="${roomMap.dormRoomDto.dorm_room_pk}">
+									            ${roomMap.dormRoomDto.room_name}
+									        </a>
+									
+									        <ul class="dropdown-menu">
+									            <c:forEach items="${studentList}" var="st">
+									            	<c:if test="${st.roomDto.dorm_room_pk == roomMap.dormRoomDto.dorm_room_pk}">
+									                <li><a class="dropdown-item"> <span class="fw-bold">이름</span> ${st.stInfo.name} <span class="fw-bold">학번</span> ${st.student.student_pk}</a></li>
+									                </c:if>
+									            </c:forEach>
+									        </ul>
+									    </div>
+									</div>
+									
 					                <div class="col">
 					                    ${roomMap.categoryDto.dorm_amount }인실
 					                </div>

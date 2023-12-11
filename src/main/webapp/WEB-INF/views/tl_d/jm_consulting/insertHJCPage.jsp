@@ -14,14 +14,35 @@
 
 
 <div class="container">
+
 	<div class="row">
 		<div class="col">
 			<div class="row">
-				<div class="col">
-					등록 하고싶은 분야를 선택해 주세요!
+				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>
+			</div>			
+		</div>
+	</div>
+
+	<div class="row">
+	
+		<div class="col-3">
+			<jsp:include page="../common/staffMenu.jsp"></jsp:include>	
+		</div>
+		<div class="col-9 border-end border-start px-2 py-2">
+		
+			<div class="row">
+				<div class="col fw-bold" style="font-size:1.5em;">
+					내 구직 관심 분야 관리
 				</div>
 			</div>
-			<div class="row">
+		
+				
+			<div class="row mt-5">
+				<div class="col fw-bold">
+					추가 관심 분야 등록
+				</div>
+			</div>
+			<div class="row mt-4">
 				<form action="./insertHopeJobCategory" method="post">
 					<div class="col">
 						<div class="row">						 <!--  disabled -->													
@@ -34,24 +55,26 @@
 								</div>								
 							</c:forEach>						
 						</div>
-					</div>
-					<div class="col">
-						<input type="submit" value="제출ㅋㅋ">
+						<div class="row mt-3 mb-3">
+							<div class="col">
+								<input class="btn btn-outline-dark" style="font-size:0.7em;" type="submit" value="등록">
+							</div>
+						</div>
 					</div>
 				</form>
 			</div>
 			
-			<div class="row">
-				<div class="col">
-					내 관심분야에서 삭제 하고싶은 분야를 선택해 주세요!
+			<div class="row border-top">
+				<div class="col fw-bold mt-3">
+					삭제 분야
 				</div>
 			</div>
-			<div class="row">
+			<div class="row mt-3">
 				<div class="col">
 					
 					<c:choose>
 						<c:when test="${getHopeJobCategoryList.size()==0 }">
-							어 돌아가~ 
+							현재 관심 분야가 없습니다. 
 						</c:when>
 					
 						<c:otherwise>
@@ -59,22 +82,31 @@
 								<div class="row">								
 									<div class="col">
 										<c:forEach items="${getHopeJobCategoryList}" var="e">
-											<input type="checkbox" name="deleteHopeJobCategoryList" value="${e.hopeJobCategoryDto.hope_job_category_pk}">${e.jobFieldCategoryDto.job_field_category_name}
+											<input class="pe-2" type="checkbox" name="deleteHopeJobCategoryList" value="${e.hopeJobCategoryDto.hope_job_category_pk}">${e.jobFieldCategoryDto.job_field_category_name}
 										</c:forEach>
 									</div>
-									<div class="col">
-										<input type="submit" value="삭제">
-									</div>
 								</div>
+								<div class="row mt-4">
+									<div class="col">
+										<input style="font-size:0.7em;" class="btn btn-outline-dark" type="submit" value="삭제">
+									</div>
+								</div>								
 							</form>
 						</c:otherwise>
 					
 					</c:choose>
 					
 				</div>
-			</div>					
+			</div>	
+			<div class="row mt-5">
+				<div class="col">
+					<a href="./hopeJobConsultingPage"><button type="button" class="btn btn-primary">목록</button></a>
+				</div>
+			</div>							
 		</div>
 	</div>
+	
+
 </div>
 
 

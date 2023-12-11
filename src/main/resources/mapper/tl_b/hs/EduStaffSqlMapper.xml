@@ -19,17 +19,33 @@
 			SYSDATE
 		)
 	</insert>
-	
+	<!-- 프로그램 목록 가져오기 -->
 	<select id="selectAll" resultType="com.mkfactory.toothless.b.dto.EduDto">
 		SELECT * FROM TL_B_EDU_INFO ORDER BY edu_pk DESC
+	</select>
+	
+	<!-- 프로그램 신청 목록가져오기 -->
+	<select id="selectAllEduApply" resultType="com.mkfactory.toothless.b.dto.EduApplyDto">
+		SELECT * FROM TL_B_EDU_APPlY ORDER BY edu_apply_pk DESC
 	</select>
 	
 	<select id="selectById" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
 		SELECT * FROM TL_JIC_STAFF_INFO WHERE staff_pk = #{staff_pk}
 	</select>
+	<!-- 학생 pk가져오기 -->
+	<select id="selectByIdStudent" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO WHERE student_pk = #{student_pk}
+	</select>
 	
 	<select id="selectByEdu_pk" resultType="com.mkfactory.toothless.b.dto.EduDto">
 		SELECT * FROM TL_B_EDU_INFO WHERE edu_pk = #{edu_pk}
+	</select>
+	
+	<!-- 학생pk +교육pk 가져오기 프로그램 중복신청 막기위해 -->
+	<select id="selectByEdu_pkAndStudent_pk" resultType="int">
+		SELECT COUNT(*) FROM TL_B_EDU_APPLY
+		WHERE STUDENT_PK = #{student_pk}
+		AND EDU_PK = #{edu_pk}
 	</select>
 	
 	<!-- 교육정보 수정 삭제 -->
@@ -45,7 +61,25 @@
 		capacity = #{capacity}
 		WHERE edu_pk = #{edu_pk}
 	</update>
-
+	
+	<!--상태 Y로 바꾸기 교직원이. -->
+	<update id="updateStatusY">
+		UPDATE TL_B_EDU_APPLY SET STATUS = 'Y' 
+		WHERE EDU_APPLY_PK = #{edu_apply_pk}
+	</update>
+	<!--상태 N로 바꾸기 교직원이. -->
+	<update id="updateStatusN">
+		UPDATE TL_B_EDU_APPLY SET STATUS = 'N' 
+		WHERE EDU_APPLY_PK = #{edu_apply_pk}
+	</update>
+	
+	<update id="updateStatusC">
+		UPDATE TL_B_EDU_APPLY SET STATUS = 'C' 
+		WHERE EDU_APPLY_PK = #{edu_apply_pk}
+	</update>
+	
+	
+	<!-- 프로그램 게시글 삭제 -->
 	<delete id="delete">
 		DELETE FROM TL_B_EDU_INFO
 		WHERE edu_pk = #{edu_pk}

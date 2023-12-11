@@ -20,13 +20,13 @@ import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 import com.mkfactory.toothless.e.onlinecounsel.service.OnlineCounselService;
 
+
 @Controller
 @RequestMapping("/tl_e/onlineCounsel/*")
 public class OnlineCounselController {
 
 	@Autowired
 	private OnlineCounselService onlineCounselService;
-	
 	
 	
 	
@@ -49,6 +49,13 @@ public class OnlineCounselController {
 //          System.out.println("Key: " + key + ", Value: " + value);
 //      }
 		return "tl_e/onlineCounsel/onlineCounselMainPage";
+	}
+	
+	@RequestMapping("logoutProcess")
+	public String logoutProcess(HttpSession session) {
+		session.invalidate();
+		
+		return "redirect:../../another/student/loginPage";
 	}
 	
 	
@@ -105,18 +112,8 @@ public class OnlineCounselController {
 		return "tl_e/onlineCounsel/counselorOnlineCounselMainPage";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
 	
 	
 

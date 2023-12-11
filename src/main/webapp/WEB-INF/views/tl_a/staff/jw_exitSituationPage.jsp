@@ -81,7 +81,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<!-- 값 반복 예정 -->
+							<!-- 값 반복 -->
 							<c:forEach items="${exitListMap}" var="exitListMap">
 							<tr>
 								<td>${exitListMap.studentInfoDto.name}</td>

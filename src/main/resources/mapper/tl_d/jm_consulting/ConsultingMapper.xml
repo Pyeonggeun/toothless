@@ -13,7 +13,7 @@
 	#{hope_salary},
 	#{hope_area},
 	#{requierments},
-	#{is_end_hope_job},
+	'N',
 	sysdate
 	)
 </insert>
@@ -100,7 +100,7 @@ WHERE on_consulting_pk = #{on_consulting_pk}
 
 
 <!-- (학생) 최근 온라인 상담 현활 10건보기 -->
-
+<!-- 정확히는 구직희망pk에따른것 -->
 
 <select id="getOnlineConsultingList" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
 SELECT t2.*
@@ -116,6 +116,28 @@ FROM (
 <![CDATA[
     WHERE rnum <= 10
 ]]>
+	<if test="isReply != null">
+		<choose>
+			<when test="isReply == 'all'">
+				AND 1=1		
+			</when>
+			<when test="isReply == 'Reply'">
+		 		AND  t2.hope_job_pk in
+		 		(
+				SELECT HOPE_JOB_PK  FROM TL_D_ONLINE_CONSULTING
+				WHERE HOPE_JOB_PK = #{hope_job_pk}		 		
+		 		)
+		 		
+			</when>
+			<when test="isReply == 'unReply'">
+		 		AND  t2.hope_job_pk not in
+		 		(
+				SELECT HOPE_JOB_PK  FROM TL_D_ONLINE_CONSULTING
+				WHERE HOPE_JOB_PK = #{hope_job_pk}		 		
+		 		)	
+			</when>
+		</choose>
+	</if>
 </select>
 
 
@@ -169,7 +191,7 @@ WHERE STUDENT_PK = #{STUDENT_PK}
 
 
 <!-- 교직원 -->
-<!-- 상담 답글 달기 -->
+<!-- 온라인 상담 답글 달기 -->
 <insert id="insertOnlineConsultingReply">
 INSERT INTO tl_d_online_consulting_reply VALUES(
 	tl_d_on_consulting_reply_seq.nextval,
@@ -191,7 +213,7 @@ SELECT * FROM tl_d_online_consulting a
 WHERE a.ON_CONSULTING_PK = #{ON_CONSULTING_PK}
 </select>
 
-<select id="getOnConsultingReplyByOnPk" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
+<select id="getOnConsultingReplyByOnPk" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingReplyDto">
 SELECT * FROM tl_d_online_consulting_reply
 WHERE ON_CONSULTING_PK = #{ON_CONSULTING_PK}
 </select>
@@ -221,29 +243,28 @@ INSERT INTO tl_d_hope_job_feedback values(
 
 <!-- 특정학생 미응답 만족도조사 갯수 -->
 <select id="countUnAnsweredHJF" resultType="int">
-SELECT count(*)
-FROM tl_d_hope_job_feedback a
-WHERE a.hope_job_pk NOT in
+SELECT count(*) FROM TL_D_HOPE_JOB
+WHERE HOPE_JOB_PK NOT IN 
 	(
-	SELECT b.HOPE_JOB_PK  FROM tl_d_hope_job b
-	WHERE STUDENT_PK = #{STUDENT_PK}
-	AND is_end_hope_job = 'Y'
+	SELECT HOPE_JOB_PK FROM
+	TL_D_HOPE_JOB_FEEDBACK
 	)
+AND STUDENT_PK = #{STUDENT_PK}
+AND IS_END_HOPE_JOB = 'Y'
 </select>
 
 
-<!-- 특정학생 만족도 조사 안한 구직희망 프로그램 정보 -->
-<select id="getUnAnsweredHJF" resultType="com.mkfactory.toothless.d.dto.HopeJobDto">
-SELECT *
-FROM tl_d_hope_job a
-WHERE a.IS_END_HOPE_JOB = 'Y'
-AND 
-	a.HOPE_JOB_PK NOT in 
+<!-- 특정학생 만족도 조사 안한 구직희망 프로그램 정보리스트 -->
+<select id="getUnAnsweredHJFList" resultType="com.mkfactory.toothless.d.dto.HopeJobDto">
+SELECT * FROM TL_D_HOPE_JOB
+WHERE HOPE_JOB_PK NOT IN 
 	(
-	SELECT b.hope_job_pk
-	FROM TL_D_HOPE_JOB_FEEDBACK b
-	WHERE student_pk = #{STUDENT_PK}
+	SELECT HOPE_JOB_PK FROM
+	TL_D_HOPE_JOB_FEEDBACK
 	)
+AND STUDENT_PK = #{STUDENT_PK}
+AND IS_END_HOPE_JOB = 'Y'
+
 </select>
 
 
@@ -278,17 +299,45 @@ WHERE JOB_FIELD_CATEGORY_PK  = #{job_field_category_pk}
 AND HOPE_JOB_PK  = #{hope_job_pk}
 </select>
 
+<!-- 오래된순 온라인상담 전체 꺼내오기 + 검색 및 정렬기능 추가-->
+<select id="getOnlineConsultingListAll" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
+SELECT * FROM TL_D_ONLINE_CONSULTING a 		
+	where 1=1
+	and a.hope_job_pk in (
+	SELECT hope_job_pk FROM TL_D_HOPE_JOB
+	WHERE IS_END_HOPE_JOB = 'N'
+	)<!-- 추가부분 -->
+	<if test="isReply != null">
+		<choose>
+			<when test="isReply == 'all'">
+				AND 1=1		
+			</when>
+			<when test="isReply == 'reply'">
+				AND a.ON_CONSULTING_PK in 
+				(
+					select b.ON_CONSULTING_PK
+					from TL_D_ONLINE_CONSULTING_REPLY b
+				)				 
+			</when>
+			<when test="isReply == 'unReply'">
+				AND a.ON_CONSULTING_PK not in
+				(
+					select c.ON_CONSULTING_PK
+					from TL_D_ONLINE_CONSULTING_REPLY c
+				)		
+			</when>
+		</choose>
+	</if>
+ORDER BY CREATED_AT ASC  
+</select>
+
 <!-- 특정 관심구직 삭제 -->
 <delete id="deleteHopeJobCategory">
 DELETE FROM TL_D_HOPE_JOB_CATEGORY
 WHERE HOPE_JOB_CATEGORY_PK = #{HOPE_JOB_CATEGORY_PK}
 </delete>
 
-<!-- 오래된순 구직희망 전체 꺼내오기 -->
-<select id="getHopeJobListAll" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
-SELECT * FROM TL_D_ONLINE_CONSULTING tdoc  
-ORDER BY CREATED_AT ASC  
-</select>
+
 
 <!-- 교직원용 -->
 <!-- 구직희망pk로 학생정보 뽑기 -->
@@ -302,6 +351,101 @@ WHERE a.STUDENT_PK =
 )
 </select>
 
+<!-- 온라인상담pk로 학생정보 뽑기 -->
+<select id="getStudentInfoByOnPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+SELECT *
+FROM TL_JIC_STUDENT_INFO c
+WHERE c.STUDENT_PK =(
+	SELECT a.STUDENT_PK 
+	FROM TL_D_HOPE_JOB a
+	WHERE a.HOPE_JOB_PK =
+		(
+		SELECT b.hope_job_PK
+		FROM TL_D_ONLINE_CONSULTING b
+		WHERE b.ON_CONSULTING_PK = #{ON_CONSULTING_PK}
+		)
+	)
+
+</select>
+
+
+<!-- 진행중 구직희망 싹 다 -->
+<select id="getOngoingHopeJobList" resultType="com.mkfactory.toothless.d.dto.HopeJobDto">
+SELECT * FROM TL_D_HOPE_JOB 
+WHERE IS_END_HOPE_JOB = 'N' 
+</select>
+
+
+<!-- 구직희망pk에따른 취업상담 테이블 갯수  -->
+<select id="countConsultingByHopeJobPk" resultType="int">
+SELECT count(*) FROM TL_D_CONSULTING
+WHERE HOPE_JOB_PK = #{HOPE_JOB_PK}
+</select>
+
+<!-- 구직희망pk에따른 온라인상담 테이블 갯수  -->
+<select id="countOnConsultingByHopeJobPk" resultType="int">
+SELECT count(*) FROM tl_d_online_consulting
+WHERE HOPE_JOB_PK = #{HOPE_JOB_PK}
+</select>
+
+<insert id="insertConsultingInfo">
+INSERT INTO tl_d_consulting values(
+	tl_d_consulting_seq.nextval,
+	#{hope_job_pk},
+	#{staff_pk},
+	#{consulting_contents},
+	#{consulting_date},
+	sysdate
+)
+
+</insert>
+
+<!-- 만족도조사 전체리스트 -->
+<select id="getHopeJobFeedbackListAll" resultType="com.mkfactory.toothless.d.dto.HopeJobFeedbackDto">
+SELECT * FROM TL_D_HOPE_JOB_FEEDBACK
+where 1=1
+	<if test="sortHJFScore != null">
+		<choose>
+			<when test="sortHJFScore == 'sortLow'">
+				ORDER BY HJF_SCORE ASC 			 
+			</when>
+			<when test="sortHJFScore == 'sortHigh'">
+				ORDER BY HJF_SCORE desc
+			</when>
+			<otherwise>
+				and 1=1
+			</otherwise>
+		</choose>		
+	</if>
+	
+</select>
+
+<!-- 만족도조사 평균평점 -->
+<select id="avgHopeJobFeedbackScore" resultType="Integer">
+SELECT avg(hjf_score) FROM TL_D_HOPE_JOB_FEEDBACK 
+</select>
+
+<select id="getHopeJobFeedbackByPk" resultType="com.mkfactory.toothless.d.dto.HopeJobFeedbackDto">
+SELECT * FROM TL_D_HOPE_JOB_FEEDBACK
+where HOPE_JOB_FEEDBACK_PK =  #{HOPE_JOB_FEEDBACK_PK}
+</select>
+
+<!-- 구직희망정보 업데이트 -->
+<update id="updateHopeJobProcess">
+uPDATE TL_D_HOPE_JOB 
+SET 
+HOPE_SALARY = #{hope_salary},
+hope_area = #{hope_area},
+REQUIERMENTS = #{requierments}
+WHERE HOPE_JOB_PK = #{hope_job_pk}
+</update>
+
+<!-- 구직희망 종료 -->
+<update id="endHopeJobProcess">
+uPDATE TL_D_HOPE_JOB 
+SET IS_END_HOPE_JOB = 'Y'
+WHERE HOPE_JOB_PK = #{hope_job_pk}
+</update>
 
 
 </mapper>

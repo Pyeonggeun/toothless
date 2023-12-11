@@ -3,6 +3,9 @@ package com.mkfactory.toothless.d.jm.consulting.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.mkfactory.toothless.d.dto.ConsultingDto;
 import com.mkfactory.toothless.d.dto.HopeJobCategoryDto;
 import com.mkfactory.toothless.d.dto.HopeJobDto;
 import com.mkfactory.toothless.d.dto.HopeJobFeedbackDto;
@@ -39,16 +42,21 @@ public interface ConsultingMapper {
 	//학생 진행중 구직희망 프로그램 출력
 	public HopeJobDto getProgressHopejob(int student_pk);	
 	//학생 최근 온라인상담 10건 뽑아오기(추후건수 변경가능)
-	public List<OnlineConsultingDto> getOnlineConsultingList (int hope_job_pk);
+	public List<OnlineConsultingDto> getOnlineConsultingList (
+			@Param("hope_job_pk")int hope_job_pk, 
+			@Param("isReply") String isReply);
 	
 	
 	
 	
 	//학생 온라인상담 자세히보기용 페이지 출력
+	//온라인상담pk로 온라인상담정보 뽑아오기
 	public OnlineConsultingDto getOnlineConsultingByPk(int ON_CONSULTING_PK);
 	public OnlineConsultingReplyDto getOnConsultingReplyByOnPk(int ON_CONSULTING_PK);
 	//교직원 pk로 교직원 정보추출
 	public StaffInfoDto getStaffInfoByPk(int STAFF_PK);
+	//온라인상담pk로 학생정보 추출
+	public StudentInfoDto getStudentInfoByOnPk(int ON_CONSULTING_PK);
 		
 
 	
@@ -60,7 +68,7 @@ public interface ConsultingMapper {
 	//특정학생의 미응답 만족도조사 갯수
 	public int countUnAnsweredHJF(int STUDENT_PK);
 	//특정학생 만족도조사 미응답의 구직희망정보 리스트
-	public List<HopeJobDto> getUnAnsweredHJF(int STUDENT_PK);
+	public List<HopeJobDto> getUnAnsweredHJFList(int STUDENT_PK);
 	public JobFieldCategoryDto getJobFieldCategoryByPk(int JOB_FIELD_CATEGORY_PK);
 
 	
@@ -92,14 +100,36 @@ public interface ConsultingMapper {
 	//교직원 온라인상담 답글입력
 	public void insertOnlineConsultingReply(OnlineConsultingReplyDto par);
 	
-	//온라인상담 오래된순 전체출력
-	public List<OnlineConsultingDto> getHopeJobListAll();
+	//온라인상담 오래된순 전체출력 + 검색 및 정렬 기능 추가
+	public List<OnlineConsultingDto> getOnlineConsultingListAll(
+			@Param("isReply") String isReply);
 	
 	//구직희망pk로 학생정보 뽑기
 	public StudentInfoDto getStudentInfoByHopeJobPk(int HOPE_JOB_PK);
 	
+	//진행중 구직희망 리스트 싹 다 뽑기
+	public List<HopeJobDto> getOngoingHopeJobList();
 	
-	
-	
+	//구직희망pk로 취업상담 갯수
+	public int countConsultingByHopeJobPk(int HOPE_JOB_PK);
+	//구직희망pk로 온라인상담 갯수
+	public int countOnConsultingByHopeJobPk(int HOPE_JOB_PK);
 
+	//취업상담 정보 입력
+	public void insertConsultingInfo(ConsultingDto par);
+	
+	//만족도리스트 출력
+	public List<HopeJobFeedbackDto> getHopeJobFeedbackListAll(
+			@Param("sortHJFScore") String sortHJFScore);
+	
+	//만족도조사 전체 평균평점
+	public Integer avgHopeJobFeedbackScore();
+	
+	
+	//만족도 조사 피드백pk로 만족도 조사 정보 출력
+	public HopeJobFeedbackDto getHopeJobFeedbackByPk(int HOPE_JOB_FEEDBACK_PK);
+	//구직희망 정보 업데이트
+	public void updateHopeJobProcess(HopeJobDto par);
+	//구직희망 종료
+	public void endHopeJobProcess(int hope_job_pk);
 }

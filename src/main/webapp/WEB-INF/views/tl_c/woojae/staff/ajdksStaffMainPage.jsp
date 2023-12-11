@@ -47,6 +47,7 @@
 	}
 
 </style>
+
 </head>
 <body>
 <div class="container-fluid"><!-- 전체 container 입구 -->

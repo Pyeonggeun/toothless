@@ -117,6 +117,23 @@ public class StaffboardServiceImpl {
 	public void modifyReply(StaffboardReplyDto staffboardReplyDto) {
 		staffboardSqlMapper.updateReply(staffboardReplyDto);
 	}
+	
+	//좋아요
+	public void addLike(StaffboardLikeDto staffboardLikeDto) {
+		staffboardSqlMapper.insertAddLike(staffboardLikeDto);
+	}
+	
+	//좋아요 취소
+	public void canselLike(StaffboardLikeDto staffboardLikeDto) {
+		staffboardSqlMapper.deleteCanselLike(staffboardLikeDto);
+	}
+	
+	//좋아요 카운팅 체크
+	public int checkLike(StaffboardLikeDto staffboardLikeDto) {
+		
+		return staffboardSqlMapper.selectCheckLike(staffboardLikeDto);
+	}
+	
 }
 
 

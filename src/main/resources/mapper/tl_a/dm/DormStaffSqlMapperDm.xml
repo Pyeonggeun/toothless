@@ -60,11 +60,37 @@
 	
 	</select>
 	
-	<select id="">
+	<select id="dormRoomAllList" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
 	
-		SELECT * FROM 
+		SELECT * FROM TL_A_DORM_ROOM
 	
 	</select>
+	
+	<select id="dormListDong" resultType="com.mkfactory.toothless.a.dto.DormBuildingDto">
+	
+		SELECT * FROM TL_A_DORM_BUILDING
+	
+	</select>
+	
+	<select id="SemesterCheckY" resultType="com.mkfactory.toothless.a.dto.SemesterDto">
+	
+		SELECT * FROM TL_A_SEMESTER WHERE PROGRESS_STATE = 'Y'
+	
+	</select>
+	
+	<insert id="dormStudentAssignmentInsert">
+	
+		INSERT INTO tl_a_dorm_student VALUES(
+		   tl_a_dorm_student_seq.nextval,
+		   #{semester_pk},
+		   #{student_pk},
+		   #{dorm_room_pk}
+		)
+	
+	</insert>
+	
+	
+	
 	
 	
 </mapper>

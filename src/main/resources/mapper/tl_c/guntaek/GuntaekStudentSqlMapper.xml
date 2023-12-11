@@ -3,12 +3,12 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mkfactory.toothless.c.guntaek.mapper.GuntaekStudentSqlMapper">
-
 <!-- 이력서 insert -->
 <insert id ="registerSelfIntroduction">
 INSERT INTO tl_c_self_introduction VALUES(
 	tl_c_self_introduction_seq.nextval,
 	#{student_pk},
+	0,
 	#{answer1},
 	#{answer2},
 	#{answer3},
@@ -28,6 +28,11 @@ INSERT INTO tl_c_self_introduction VALUES(
 	WHERE STUDENT_PK = #{student_pk}
 </select>
 
+<!-- 모든 학생 Dto 리스트 가져오기 -->
+<select id = "getSelfIntroductionDtoList" resultType = "com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto">
+	SELECT * FROM tl_c_self_introduction
+</select>
+
 <!-- 이력서 수정 -->
 <update id ="updateSelfIntroductionDto">
 	UPDATE TL_C_SELF_INTRODUCTION
@@ -36,7 +41,7 @@ INSERT INTO tl_c_self_introduction VALUES(
 	WHERE student_pk = #{student_pk}
 </update>
 
-<!-- 이력서 insert -->
+<!-- 자격증 insert -->
 <insert id = "registerCertification">
 INSERT INTO tl_c_certification VALUES(
 	tl_c_certification_seq.nextval,
@@ -47,21 +52,76 @@ INSERT INTO tl_c_certification VALUES(
 )
 </insert>
 
-<!-- 모든 학생 Dto 리스트 가져오기 -->
-<select id = "getSelfIntroductionDtoList" resultType = "com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto">
-	SELECT * FROM tl_c_self_introduction
-</select>
 
-<!-- 특정 학생키의 이력서 DTO 가져오기 -->
+<!-- 특정 학생키의 자격증 DTO 리스트 가져오기-->
 <select id = "getCertificationByStudentPk" resultType ="com.mkfactory.toothless.c.dto.AjdksCertificationDto">
 	SELECT * FROM tl_c_certification
 	WHERE STUDENT_PK = #{student_pk}
 </select>
 
+<!-- 특정 자격증 삭제 버튼 -->
 <delete id ="deleteCertificationByFile">
 	DELETE FROM TL_C_CERTIFICATION
 	WHERE certification_file = #{FileName}
 </delete>
+
+
+<!-- 인춘이 형거 학생 데이터 얻어오는거임 (굳이 쓸 이유가 없을듯..) -->
+<select id ="getStudentDto" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+SELECT * FROM TL_JIC_STUDENT_INFO 
+WHERE STUDENT_PK = #{student_pk}
+</select>
+
+<!-- 특정 전공 pk를 통하여 전공이름 select 해오기  -->
+<select id = "getDepartmentName" resultType ="String">
+SELECT NAME FROM TL_JIC_DEPARTMENT_CATEGORY
+WHERE DEPARTMENT_PK = #{department_pk}
+</select>
+
+<!-- 특정 교수 pk를 통하여 교수이름 Select 해오기 -->
+<select id ="getProfessorName" resultType = "String">
+SELECT NAME FROM TL_JIC_PROFESSOR_INFO
+WHERE PROFESSOR_PK = #{PROFESSOR_PK}
+</select>
+
+<!-- 특정  학생이 몇학기인지 Select 해오기 -->
+<select id ="getStudentSemester" resultType ="int">
+SELECT COUNT(SEMESTER_PK) FROM TL_JIC_STUDENT_SEMESTER 
+WHERE student_pk = (
+SELECT student_pk FROM TL_JIC_STUDENT_INFO
+WHERE STUDENT_PK =#{student_pk}
+)
+</select>
+<!--  ************************ 이력서 사진에 쓴 쿼리들 .. ******************************** -->
+
+<!-- 이력서 사진 Dto insert.. -->
+<insert id ="registerIntroductionImage">
+INSERT INTO tl_c_self_introduction_img VALUES(
+	#{self_introduction_img_pk},
+	#{self_introduction_img}
+)
+</insert>
+
+<!-- 이력서 사진 Dto insert 될때 서비스에서 pk 얻어오기 -->
+<select id ="getIntroduction_img_pk" resultType ="int">
+	SELECT tl_c_self_intro_img_seq.nextval FROM DUAL
+</select>
+
+<!--  이력서 사진 Dto insert 됨과 동시에  자기소개서의 이력서 사진 코드 UPDATE 하기-->
+<update id ="updateIntroduction">
+	UPDATE TL_C_SELF_INTRODUCTION
+	SET self_introduction_img_pk = #{self_introduction_img_pk}
+	WHERE STUDENT_PK = #{student_pk}
+</update>
+
+
+<!-- 이력서 사진 링크 얻어오기 -->
+<select id = "getSelfIntroductionFile" resultType ="String">
+	SELECT self_introduction_img FROM TL_C_SELF_INTRODUCTION_IMG
+	WHERE self_introduction_img_pk = #{self_introduction_img_pk}
+</select>
+
+<!--  ************************ 이력서 사진에 쓴 쿼리들 .. ******************************** -->
 
 
 </mapper>

@@ -13,33 +13,71 @@
 <body>
 
 <div class="container">
-	<div class="row text-center">
+
+
+	<div class="row">
 		<div class="col">
-			<div class="row">
-				<div class="col">
-					<form action="onlineConsultingProcess" method="post">
-						<input type="text" name="on_consulting_contents">
-						<c:choose>
-							<c:when test="${isOnelineConsulting}">
-								<input type="submit" value="제출">
-							</c:when>
-							<c:otherwise>
-								<input type="submit" value="제출" disabled>
-							</c:otherwise>
-						</c:choose>
-						
-					</form>
-				</div>
-			</div>
-			<div class="row">
+			<jsp:include page="../common/studentTopNavi.jsp"></jsp:include>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	<div class="row">
+		<div class="col-3">
+			<jsp:include page="../common/studentMenu.jsp"></jsp:include>			
+		</div>
+		
+
+		
+		
+		
+		
+		<div class="col-9">
+			<div class="row mt-4">
 				<div class="col">
 					<c:if test="${not isOnelineConsulting}">
-						<span class="text-danger">문의 불가함</span>
+						<span class="text-danger">이미 대기중인 온라인 상담 이 있습니다!</span>
 					</c:if>				
+				</div>
+		   </div>
+			
+			<div class="row mt-5">
+				<div class="col fw-bold" style="font-size:1.5em;">
+					온라인 상담페이지
+				</div>
+			</div>
+			
+			
+			<div class="row mt-5">
+				<div class="col fw-bold">
+					상담내용
+				</div>
+			</div>
+			
+			<div class="row mt-2">
+				<div class="col">
+					<form action="onlineConsultingProcess" method="post">
+					
+					
+						<textarea class="border" name="on_consulting_contents" style="border:none; outline:none; width:100%; height:100%;" rows="4" cols="60"></textarea>
+						<c:choose>
+							<c:when test="${isOnelineConsulting}">
+								<button class="btn btn-primary" type="submit">제출</button>
+							</c:when>
+							<c:otherwise>
+								<button disabled class="btn btn-primary" type="submit">제출</button>
+							</c:otherwise>
+						</c:choose>								
+										
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 
 </div>

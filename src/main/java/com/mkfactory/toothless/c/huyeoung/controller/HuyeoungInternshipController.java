@@ -32,8 +32,14 @@ public class HuyeoungInternshipController {
 	@RequestMapping("ajdksInternshipDtl")
 	public String ajdksInternshipDtl(Model model, AjdksInternshipCourseDto param) {
 
-		Map<String, Object> map = huyeoungInternshipServiceImpl.selectInternshipDtil(param);
-		model.addAttribute("AjdksInternshipCourseDto", map);
+		AjdksInternshipCourseDto aDto = huyeoungInternshipServiceImpl.selectInternshipDtil(param);
+		List<Map<String, Object>> list = huyeoungInternshipServiceImpl.selectProfessorInfoList();
+
+		model.addAttribute("AjdksInternshipCourseDto", aDto);
+
+		// System.out.println("상세조회 결과 controller ["+aDto.course_title+"]");
+
+		model.addAttribute("list", list);
 		return "/tl_c/huyeong/staff/ajdksInternshipDtl";
 	}
 

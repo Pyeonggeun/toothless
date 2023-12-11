@@ -5,14 +5,129 @@
 
 
 
-<mapper namespace="com.mkfactory.toothless.c.seoyoung.mapper.SeoyoungCompanyMapper">
-	
+<mapper
+	namespace="com.mkfactory.toothless.c.seoyoung.mapper.SeoyoungCompanyMapper">
+
 	<!-- 산업체의 현장실습 전체 목록 -->
 	<select id="selectCompanyList" resultType="Map">
-		SELECT * FROM TL_JIC_EXTERNAL_INFO
-		JOIN TL_C_COMPANY_INFO ON TL_JIC_EXTERNAL_INFO.EXTERNAL_PK = TL_C_COMPANY_INFO.EXTERNAL_PK
-		WHERE tl_c_company_info.EXTERNAL_PK = #{COMPANY_PK}
+		SELECT * FROM
+		TL_JIC_EXTERNAL_INFO
+		JOIN TL_C_COMPANY_INFO ON
+		TL_JIC_EXTERNAL_INFO.EXTERNAL_PK = TL_C_COMPANY_INFO.EXTERNAL_PK
+		JOIN
+		tl_c_internship_course ON TL_C_COMPANY_INFO.company_pk =
+		tl_c_internship_course.company_pk
+		WHERE tl_c_company_info.EXTERNAL_PK =
+		#{COMPANY_PK}
 	</select>
-	
-	
+
+	<!-- 산업체의 진행중인지 모집중인지 확인 -->
+	<select id="companyIngTF" resultType="String">
+		SELECT CASE
+		WHEN
+		TO_DATE(SYSDATE, 'YYYY-MM-DD') BETWEEN TO_DATE(APPLYING_START_DATE,
+		'YYYY-MM-DD') AND TO_DATE(APPLYING_END_DATE, 'YYYY-MM-DD') THEN 'yes'
+		ELSE 'no'
+		END
+		FROM TL_C_COMPANY_INFO
+		JOIN TL_JIC_EXTERNAL_INFO ON
+		TL_JIC_EXTERNAL_INFO.EXTERNAL_PK =
+		TL_C_COMPANY_INFO.EXTERNAL_PK
+		JOIN
+		tl_c_internship_course ON TL_C_COMPANY_INFO.company_pk =
+		tl_c_internship_course.company_pk
+		WHERE tl_c_company_info.EXTERNAL_PK =
+		#{COMPANY_PK}
+	</select>
+
+	<!-- 신청 학생 정보 확인 -->
+	<select id="selectionStudent" resultType="Map">
+		SELECT
+		tl_c_student_applying.*,
+		tl_c_internship_course.*,
+		TL_JIC_STUDENT_INFO.*,
+		TL_JIC_STUDENT_SEMESTER.*,
+		TL_JIC_PROFESSOR_INFO.NAME AS PROFFESSORNAME,
+		TL_JIC_DEPARTMENT_CATEGORY.NAME AS DEPARTMENTNAME
+		FROM
+		tl_c_student_applying
+		JOIN
+		tl_c_internship_course ON tl_c_internship_course.INTERNSHIP_COURSE_PK =
+		tl_c_student_applying.INTERNSHIP_COURSE_PK
+		JOIN
+		TL_JIC_STUDENT_INFO ON tl_c_student_applying.STUDENT_PK = TL_JIC_STUDENT_INFO.STUDENT_PK
+		JOIN
+		TL_JIC_STUDENT_SEMESTER ON TL_JIC_STUDENT_SEMESTER.STUDENT_PK =
+		TL_JIC_STUDENT_INFO.STUDENT_PK
+		JOIN
+		TL_JIC_PROFESSOR_INFO ON TL_JIC_PROFESSOR_INFO.PROFESSOR_PK =
+		TL_JIC_STUDENT_INFO.PROFESSOR_PK
+		JOIN
+		TL_JIC_DEPARTMENT_CATEGORY ON TL_JIC_DEPARTMENT_CATEGORY.DEPARTMENT_PK =
+		TL_JIC_PROFESSOR_INFO.DEPARTMENT_PK
+		WHERE
+		tl_c_student_applying.internship_course_pk = #{internship_course_pk}
+		AND TL_JIC_STUDENT_SEMESTER.SEMESTER_PK = (
+		SELECT MAX(SEMESTER_PK) AS max_se
+		FROM TL_JIC_STUDENT_SEMESTER
+		WHERE TL_JIC_STUDENT_SEMESTER.STUDENT_PK = TL_JIC_STUDENT_INFO.STUDENT_PK
+		GROUP BY TL_JIC_STUDENT_SEMESTER.STUDENT_PK
+		)
+	</select>
+
+
+	<!-- 밑에부터잘안씀 -->
+	<select id="selectionGrade" resultType="Map">
+		SELECT *
+		FROM
+		tl_c_student_applying
+		JOIN tl_c_internship_course ON
+		tl_c_internship_course.INTERNSHIP_COURSE_PK
+		=
+		tl_c_student_applying.INTERNSHIP_COURSE_PK
+		JOIN TL_JIC_STUDENT_INFO ON
+		tl_c_student_applying.STUDENT_PK =
+		TL_JIC_STUDENT_INFO.STUDENT_PK
+		JOIN
+		TL_JIC_STUDENT_SEMESTER ON TL_JIC_STUDENT_SEMESTER.STUDENT_PK =
+		TL_JIC_STUDENT_INFO.STUDENT_PK
+		WHERE
+		tl_c_student_applying.internship_course_pk = #{internship_course_pk}
+	</select>
+
+
+
+	<!-- 신청 학생 정보 수정 -->
+	<update id="updateSelectionStudent">
+		UPDATE TL_C_SELF_INTRODUCTION
+		SET answer1 =
+		#{answer1}, answer2 = #{answer2},
+		answer3 =#{answer3}, answer4 =
+		#{answer4}
+		WHERE student_pk = #{student_pk}
+	</update>
+
+
+	<!--AjdksStudentApplyingDto -->
+	<select id="studentApplyingDto"
+		resultType="com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto">
+		SELECT * FROM tl_c_student_applying
+		WHERE
+		INTERNSHIP_COURSE_PK = #{INTERNSHIP_COURSE_PK}
+	</select>
+
+
+	<!--AjdksInternshipCourseDto -->
+	<select id="studentinternshipDto"
+		resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
+		SELECT * FROM TL_C_INTERNSHIP_COURSE
+	</select>
+
+	<!--AjdksSelfIntroductionDto -->
+	<select id="selfIntroductionDto"
+		resultType="com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto">
+		SELECT * FROM tl_c_self_introduction
+		WHERE STUDENT_PK =
+		#{STUDENT_PK}
+	</select>
 </mapper>

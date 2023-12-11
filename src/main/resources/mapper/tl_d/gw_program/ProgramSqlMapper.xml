@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.d.gw.program.mapper.ProgramSqlMapper">
+
+	<select id="selectProgramCategoryAll" resultType="com.mkfactory.toothless.d.dto.ProgramCategoryDto">
+		SELECT * FROM tl_d_program_category
+		ORDER BY program_category_name ASC
+	</select>
+	
+	<insert id="insertProgram">
+		INSERT INTO tl_d_program VALUES(
+			tl_d_program_seq.nextval,
+			#{staff_pk},
+			#{program_category_pk},
+			#{prg_name},
+			#{prg_schedule},
+			#{prg_apply_deadline},
+			#{prg_main_image},
+			#{prg_contents},
+			#{prg_location},
+			#{prg_apply_number},
+			#{prg_is_attend},
+			SYSDATE
+		)
+	</insert>
+	
+	<select id="programSelectAll" resultType="com.mkfactory.toothless.d.dto.ProgramDto">
+		SELECT * FROM tl_d_program
+		ORDER BY program_pk DESC
+	</select>
+	
+	<select id="programSelectByPk" resultType="com.mkfactory.toothless.d.dto.ProgramDto">
+		SELECT * FROM tl_d_program
+		WHERE program_pk=#{program_pk}
+	</select>
+	
+	<select id="programCategorySelectByPk" resultType="com.mkfactory.toothless.d.dto.ProgramCategoryDto">
+		SELECT * FROM tl_d_program_category
+		WHERE program_category_pk=#{program_category_pk}
+	</select>
+	
+	<select id="staffSelectByPk" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
+		SELECT * FROM TL_JIC_STAFF_INFO
+		WHERE staff_pk=#{staff_pk}
+	</select>
+	
+</mapper>

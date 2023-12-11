@@ -100,6 +100,7 @@ public class OnlineCounselService {
 			
 			List<Map<String, Object>> mapList = new ArrayList<>();
 			for(OnlineCounselBoardDto onlineCounselBoardDto : counselDtoList) {
+				
 				int studentPk = onlineCounselBoardDto.getStudent_id();				
 				TypeCategoryDto typeCategoryDto = onlineCounselSqlMapper.selectCategoryDto(onlineCounselBoardDto.getType_category_id());
 				StudentInfoDto studentInfoDto = onlineCounselSqlMapper.getStudentInfo(studentPk);
@@ -116,6 +117,10 @@ public class OnlineCounselService {
 			
 			list.add(mapList);
 		}
+		
+		
+		
+		
 		return list;
 	}
 	

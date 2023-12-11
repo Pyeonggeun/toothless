@@ -43,13 +43,16 @@ public class NoticeServiceImpl {
 		for(NoticeBoardDto noticeBoardDto : noticeBoardDtoList) {
 			
 			int staffPk = noticeBoardDto.getStaff_pk();
+			int boardPk = noticeBoardDto.getId();
 			StaffInfoDto staffInfoDto = noticeSqlMapper.selectStaffInfoByStaff_Pk(staffPk);
+			int commentCount = noticeSqlMapper.commentCountByNotice_id(boardPk);
 					
 			Map<String, Object> map = new HashMap<>();
 			map.put("noticeBoardDto", noticeBoardDto);
-			map.put("staffInfoDto", staffInfoDto);			
+			map.put("staffInfoDto", staffInfoDto);	
+			map.put("commentCount", commentCount);
 			
-			list.add(map);
+			list.add(map);	
 		}
 		return list;
 	}
@@ -115,6 +118,12 @@ public class NoticeServiceImpl {
 	public void insertThumb(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeSqlMapper.insertThumb(noticeBoardLikeDto);
 	}
-
+	// 공지사항 추천 삭제
+	public void deleteNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto) {
+		noticeSqlMapper.deleteNoticeLike(noticeBoardLikeDto);
+	}
+	public void deleteNoticeDisLike(NoticeBoardLikeDto noticeBoardLikeDto) {
+		noticeSqlMapper.deleteNoticeDisLike(noticeBoardLikeDto);
+	}
 
 }
