@@ -12,6 +12,8 @@ import com.mkfactory.toothless.a.dto.DormBuildingDto;
 import com.mkfactory.toothless.a.dto.DormCategoryDto;
 import com.mkfactory.toothless.a.dto.DormRoomDto;
 import com.mkfactory.toothless.a.dto.DormStudentDto;
+import com.mkfactory.toothless.a.dto.PointCategory;
+import com.mkfactory.toothless.a.dto.PointDto;
 import com.mkfactory.toothless.a.staff.sj.mapper.BuildingSqlMapper;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -21,7 +23,6 @@ public class BuildingServieImpl {
 	@Autowired
 	private BuildingSqlMapper buildingSqlMapper;
 	
-
 	
 	public void registerBuilding(DormBuildingDto dormBuildingDto) {
 		buildingSqlMapper.registerDormInfo(dormBuildingDto);
@@ -103,10 +104,7 @@ public class BuildingServieImpl {
 			
 			int dormPk = rooms.getDorm_pk();
 			DormBuildingDto dormBuildingDto = buildingSqlMapper.dormBuildinChoice(dormPk);
-			
-			
-			
-			
+		
 			Map<String, Object> roomMap = new HashMap<>();
 			
 			roomMap.put("dormRoomDto", rooms);
@@ -146,6 +144,20 @@ public class BuildingServieImpl {
 		return justRoomMap;
 	}
 	
+//	public Map<String, Object> printPoints(int dorm_student_pk){
+//		Map<String, Object> pointMap = new HashMap<>();
+//		
+//		PointDto pointDto = buildingSqlMapper.stPk(dorm_student_pk);
+//		int categoryPk = pointDto.getPoint_category_pk();
+//		PointCategory categoryDto =buildingSqlMapper.selectPointCategoryPk(categoryPk);
+//		
+//		pointMap.put("categoryDto", categoryDto);
+//		pointMap.put("pointDto", pointDto);
+//		
+//		return pointMap;
+//		
+//	}
+	
 	//동과 호실에 해당하는 학생의 이름과 학번 뽑기.
 	public List<Map<String, Object>> studentList(){
 		List<Map<String, Object>> stList = new ArrayList<>();
@@ -154,35 +166,109 @@ public class BuildingServieImpl {
 		
 		for(DormStudentDto student : studentDto) {
 			
-			int roomPk = student.getDorm_room_pk();
-			DormRoomDto roomDto = buildingSqlMapper.selectRoomByPk(roomPk);
-			
-			int dormPk = roomDto.getDorm_pk();
-			DormBuildingDto dormDto = buildingSqlMapper.dormBuildinChoice(dormPk);
-			
-			int studentPk = student.getStudent_pk();
-			StudentInfoDto stInfo = buildingSqlMapper.forStudentName(studentPk);
-			
-			Map<String, Object> stMap = new HashMap<>();
+	        int roomPk = student.getDorm_room_pk();
+	        DormRoomDto roomDto = buildingSqlMapper.selectRoomByPk(roomPk);
+
+	        int dormPk = roomDto.getDorm_pk();
+	        DormBuildingDto dormDto = buildingSqlMapper.dormBuildinChoice(dormPk);
+
+	        int studentPk = student.getStudent_pk();
+	        StudentInfoDto stInfo = buildingSqlMapper.forStudentName(studentPk);
+	        
+	
+	        Map<String, Object> stMap = new HashMap<>();
 			
 			stMap.put("roomDto", roomDto);
 			stMap.put("dormDto", dormDto);
 			stMap.put("student", student);
 			stMap.put("stInfo", stInfo);
+
+	
 			
 //			로그확인용
 //			System.out.println("-----------------");
-//			System.out.println("fisrt");
+//			System.out.println("hey read this");
 //			System.out.println("기숙사 동 "+dormDto.getDorm_pk());
 //			System.out.println("기숙사 호 "+roomDto.getDorm_room_pk());
 //			System.out.println("학생 학번 "+student.getDorm_student_pk());
 //			System.out.println("학생 이름 "+stInfo.getName());
-			
+//			
+//			
 			stList.add(stMap);
 		}
 		
 		return stList;
 	}
+	
+	public List<Map<String, Object>> pointList(){
+		List<Map<String, Object>> pointMapList = new ArrayList<>();
+		
+		List<PointDto> point = buildingSqlMapper.selectStudentPoints();
+		
+		for(PointDto pointDto : point) {
+			
+			int categoryPk = pointDto.getPoint_category_pk();
+			PointCategory poinCategory = buildingSqlMapper.selectPointCategoryPk(categoryPk);
+			
+			int studentPk = pointDto.getDorm_student_pk();
+			DormStudentDto student = buildingSqlMapper.selectStudentPk(studentPk);
+			
+			
+			int pointPk = pointDto.getDorm_point_pk();
+			pointDto.setDorm_point_pk(pointPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("pointDto", pointDto);
+			map.put("poinCategory", poinCategory);
+			map.put("student", student);
+			
+			pointMapList.add(map);
+			
+			System.out.println("point Pk : "+pointDto.getDorm_point_pk());
+			System.out.println("student Pk : "+pointDto.getDorm_student_pk());
+		}
+		
+		return pointMapList;
+	}
+	
+//	public List<Map<String, Object>> studentPoint(){
+//		List<Map<String, Object>> stPoinList = new ArrayList<>();
+//		List<DormStudentDto> stDto = buildingSqlMapper.selectStudentPoints();
+//		
+//		for(DormStudentDto st : stDto) {
+//			
+//	        int roomPk = st.getDorm_room_pk();
+//	        DormRoomDto roomDto = buildingSqlMapper.selectRoomByPk(roomPk);
+//
+//	        int dormPk = roomDto.getDorm_pk();
+//	        DormBuildingDto dormDto = buildingSqlMapper.dormBuildinChoice(dormPk);
+//
+//	        int studentPk = st.getStudent_pk();
+//	        StudentInfoDto stInfo = buildingSqlMapper.forStudentName(studentPk);
+//	       
+//	        PointDto pd = buildingSqlMapper.stPk(studentPk);
+//	        int pointPk = pd.getDorm_point_pk();
+//	        pd.setDorm_point_pk(pointPk);
+//	        
+//	        int pcPk = pd.getPoint_category_pk();
+//	        PointCategory pointCategory = buildingSqlMapper.selectPointCategoryPk(pcPk);
+//	        
+//	        Map<String, Object> ptMap = new HashMap<>();
+//	        
+//	        ptMap.put("st", st);
+//	        ptMap.put("roomDto", roomDto);
+//	        ptMap.put("dormDto", dormDto);
+//	        ptMap.put("stInfo", stInfo); //조인춘 학생 디티오
+//	        ptMap.put("pd", pd);
+//	        ptMap.put("pointCategory", pointCategory);
+//	        
+//	        
+//		}
+//		
+//		return stPoinList;
+//		
+//	}
+	
 	
 
 	
@@ -196,11 +282,6 @@ public class BuildingServieImpl {
 		buildingSqlMapper.deleteRoom(room_pk);
 	}
 	
-//	public void deleteForRoomDetailImg(int dorm_amount) {
-//		
-//		buildingSqlMapper.deleteCategoryImg(dorm_amount);
-//		
-//	}
 
 	//기숙사 호실 수정
 	public void updateForRoom(DormRoomDto roomDto) {

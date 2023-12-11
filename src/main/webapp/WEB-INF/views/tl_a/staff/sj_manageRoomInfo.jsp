@@ -97,13 +97,21 @@
 									            ${roomMap.dormRoomDto.room_name}
 									        </a>
 									
-									        <ul class="dropdown-menu">
+							        <ul class="dropdown-menu">
 									            <c:forEach items="${studentList}" var="st">
 									            	<c:if test="${st.roomDto.dorm_room_pk == roomMap.dormRoomDto.dorm_room_pk}">
-									                <li><a class="dropdown-item"> <span class="fw-bold">이름</span> ${st.stInfo.name} <span class="fw-bold">학번</span> ${st.student.student_pk}</a></li>
+									                <li><a class="dropdown-item"> 
+									                		<input type="hidden" value="${st.student.dorm_student_pk}" name="dorm_student_pk">
+										                	<span class="fw-bold">이름</span> <span class="mz-2">${st.stInfo.name}</span> 
+										                	<span class="fw-bold">학번</span> <span class="mz-2">${st.student.student_pk}</span>
+										               	
+										               		
+									                	</a></li>
 									                </c:if>
 									            </c:forEach>
+									            
 									        </ul>
+	        
 									    </div>
 									</div>
 									

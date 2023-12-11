@@ -2,10 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mkfactory.toothless.a.staff.sj.mapper.BuildingSqlMapper">
-		
 
-
-	
 	<!-- 건물 등록 -->
 	<insert id="registerDormInfo">
 		INSERT INTO tl_a_dorm_building VALUES (
@@ -82,15 +79,8 @@
 		#{dorm_imgs}
 	)
 	</insert>
-	
-	<!--  -->
 
-	<!-- 정원 카테고리 이미지 삭제하기 
-		<delete id="deleteCategoryImg">
-		DELETE FROM TL_A_DORM_CATEGORY tadc WHERE DORM_AMOUNT = #{dorm_amount}
-	</delete>
-	-->
-
+	<!-- 정원 카테고리 이미지 삭제하기-->
 	<delete id="deleteCategoryImg">
 		DELETE FROM TL_A_DORM_CATEGORY tadc WHERE DORM_AMOUNT_PK = #{dorm_amount_pk}
 	</delete>
@@ -108,6 +98,25 @@
 			INNER JOIN TL_JIC_STUDENT_INFO tjsi
 			ON tjsi.STUDENT_PK  = tads.STUDENT_PK 
 			WHERE ROOM_NAME = #{room_name} AND DORM_PK = #{dorm_pk}
+	</select>
+	
+	<!-- 동과 호실에 해당하는 학생의 상 벌점 -->
+	<select id="selectStudentPoints" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+	SELECT SUM(tapc.POINT)  AS sum FROM TL_A_POINT tap
+	INNER JOIN TL_A_POINT_CATEGORY tapc ON TAPC.POINT_CATEGORY_PK = tap.POINT_CATEGORY_PK 
+	WHERE tap.DORM_STUDENT_PK = #{dorm_student_pk}
+	</select>
+	
+	<select id="selectPointPk" resultType="com.mkfactory.toothless.a.dto.PointDto">
+		SELECT * FROM TL_A_POINT tap WHERE DORM_POINT_PK = #{dorm_point_pk}
+	</select>
+	
+	<select id="selectPointCategoryPk" resultType="com.mkfactory.toothless.a.dto.PointCategory">
+		SELECT * FROM TL_A_POINT_CATEGORY tapc WHERE POINT_CATEGORY_PK = #{point_category_pk}
+	</select>
+	
+	<select id="stPk" resultType="com.mkfactory.toothless.a.dto.PointDto">
+		SELECT * FROM TL_A_POINT tap WHERE DORM_POINT_PK = #{dorm_point_pk}
 	</select>
 	
 	<select id="selectStudentPk" resultType="com.mkfactory.toothless.a.dto.DormStudentDto" >

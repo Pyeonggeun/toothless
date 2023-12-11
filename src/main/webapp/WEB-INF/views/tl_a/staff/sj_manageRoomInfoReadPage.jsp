@@ -108,7 +108,11 @@
 											        <ul class="dropdown-menu">
 											            <c:forEach items="${studentList}" var="st">
 											            	<c:if test="${st.roomDto.dorm_room_pk == roomMap.dormRoomDto.dorm_room_pk}">
-											                <li><a class="dropdown-item"> <span class="fw-bold">이름</span> ${st.stInfo.name} <span class="fw-bold">학번</span> ${st.student.student_pk}</a></li>
+											                <li><a class="dropdown-item"> 
+											                	<span class="fw-bold">이름</span> ${st.stInfo.name}
+											                	<span class="fw-bold">학번</span> ${st.student.student_pk}
+											                	</a>
+											                </li>
 											                </c:if>
 											            </c:forEach>
 											        </ul>

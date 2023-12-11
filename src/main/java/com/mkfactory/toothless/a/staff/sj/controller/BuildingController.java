@@ -54,7 +54,9 @@ public class BuildingController {
 		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
 		
 		//stList
-		model.addAttribute("studentList", buildingService.studentList());		
+		model.addAttribute("studentList", buildingService.studentList());
+		//model.addAttribute("point", buildingService.pointList());
+		
 		return "tl_a/staff/sj_manageRoomInfo";
 	}
 	
@@ -67,6 +69,7 @@ public class BuildingController {
 		
 		model.addAttribute("studentList", buildingService.studentList());
 		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
+		//model.addAttribute("points", buildingService.pointList());
 		
 		return "tl_a/staff/sj_manageRoomInfoReadPage";
 	}
