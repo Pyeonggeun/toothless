@@ -46,10 +46,31 @@
 										<!-- 기업명 + 가족기업 여부 -->
 										<div class="row">
 											<c:if test="${jobPostingDetailForStudent.companyDto.is_family_company ne null and jobPostingDetailForStudent.companyDto.is_family_company eq 'Y'}">
-												<div class="col-1"><span class="badge text-bg-info text-white">Family</span></div>
+												<div class="col-2">
+													<span class="badge text-bg-info text-white">Family</span>
+												</div>
 											</c:if>
 											<div class="col ps-2">${jobPostingDetailForStudent.companyDto.com_name}
-											<i class="text-danger bi bi-suit-heart"></i></div>
+												<i class="text-danger bi bi-suit-heart"></i>
+											</div>
+											<div class="col-2 px-0 pe-2">
+												<c:if test="${empty sessionStudentInfo}">
+													<i class="ps-3 text-warning bi bi-star"></i>
+												</c:if>
+												<c:if test="${!empty sessionStudentInfo}">
+													<a class="navbar-brand" href="./interestingProcess?job_posting_pk=${jobPostingDetailForStudent.jobPostingDto.job_posting_pk}&student_pk=${sessionStudentInfo.student_pk}">
+													<c:choose>
+														<c:when test="${checkMyInteresting == 0}">
+															<i class="ps-3 text-warning bi bi-star"></i>
+														</c:when>
+														<c:when test="${checkMyInteresting >= 1}">
+															<i class="ps-3 text-warning bi bi-star-fill"></i>
+														</c:when>
+													</c:choose>
+													</a>
+												</c:if>
+												<span>${jobPostingDetailForStudent.allPostingInterest}</span>
+											</div>
 										</div>
 										<!-- 공고제목 -->
 										<div class="row mt-1">
@@ -80,24 +101,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-2 px-0 pe-2">
-										<c:if test="${empty sessionStudentInfo}">
-											<i class="ps-3 text-warning bi bi-star"></i>
-										</c:if>
-										<c:if test="${!empty sessionStudentInfo}">
-											<a class="navbar-brand" href="./interestingProcess?job_posting_pk=${jobPostingDetailForStudent.jobPostingDto.job_posting_pk}&student_pk=${sessionStudentInfo.student_pk}">
-											<c:choose>
-												<c:when test="${checkMyInteresting == 0}">
-													<i class="ps-3 text-warning bi bi-star"></i>
-												</c:when>
-												<c:when test="${checkMyInteresting >= 1}">
-													<i class="ps-3 text-warning bi bi-star-fill"></i>
-												</c:when>
-											</c:choose>
-											</a>
-										</c:if>
-										<span>${jobPostingDetailForStudent.allPostingInterest}</span>
-									</div>
+									
 								</div>
 							</div>
 							<!-- 기업정보 -->
@@ -176,39 +180,102 @@
 					
 					<%-- 이력서 정보 --%>
 					<div class="col">
-						<div class="row border">
+						<div class="row border ms-1">
 							
 							<div class="col p-3 ms-3">
 								<form action="./applyJobPostingProcess" method="post">
-								
-								<c:forEach items="${resumeList }" var="list">
-								
-									<div class="row">
-										<div class="col-1">
-											<input type="radio" name="resume_pk" value="${list.resume_pk }">
-										</div>
-										<div class="col">
-											${list.resume_title }
-										</div>
+									<div class="dropdown">
+										<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+											이력서 선택
+										</button>
+										<ul class="dropdown-menu">
+										    <c:forEach items="${resumeList}" var="list">
+										        <c:choose>
+										            <c:when test="${list.main_resume eq 'Y'}">
+										                <li><a class="dropdown-item" href="./applyJobPostingPage?job_posting_pk=${jobPostingDetailForStudent.jobPostingDto.job_posting_pk }&resume_pk=${list.resume_pk }"><strong>${list.resume_title}</strong></a></li>
+										                <li><hr class="dropdown-divider"></li>
+										            </c:when>
+										            <c:otherwise>
+										                <li><a class="dropdown-item" href="./applyJobPostingPage?job_posting_pk=${jobPostingDetailForStudent.jobPostingDto.job_posting_pk }&resume_pk=${list.resume_pk }">${list.resume_title}</a></li>
+										            </c:otherwise>
+										        </c:choose>
+										    </c:forEach>
+										</ul>
 									</div>
-									
-								</c:forEach>
+								<c:choose>
+									<c:when test="${empty resumeList}">
+										<div class="row mt-3">
+											<div class="col-8 fw-bold">
+												이력서 등록이 필요합니다.
+											</div>
+											<div class="col">
+												<a class="btn btn-primary" href="./resumeRegistrationPage" role="button">이력서 등록</a>
+											</div>
+										</div>
+									</c:when>
+									<c:when test="${resumeDto.main_resume eq 'Y' }">
+										<div class="row mt-3">
+											<div class="col">
+												이력서 제목 
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3">
+												<span class="badge text-bg-success">메인 이력서</span>
+											</div>
+											<div class="col">
+												${resumeDto.resume_title }
+											</div>
+										</div>	
+									</c:when>
+									<c:otherwise>
+										<div class="row mt-3">
+											<div class="col">
+												이력서 제목 
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3"></div>
+											<div class="col">
+												${resumeDto.resume_title }
+											</div>
+										</div>	
+									</c:otherwise>
+								</c:choose>	
+											
+								
 								<div class="row mt-3">
 									<div class="col">
-										전화번호 <input type="text" name="vol_phone" value="${sessionStudentInfo.phone }">
+										전화번호 
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-2"></div>
+									<div class="col">
+										<input type="text" name="vol_phone" value="${sessionStudentInfo.phone }">
 									</div>
 								</div>
 								<div class="row mt-2">
 									<div class="col">
-										이메일  <input type="text" name="vol_email" value="${sessionStudentInfo.email }">
+										이메일
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-2"></div>
+									<div class="col">
+										<input type="text" name="vol_email" value="${sessionStudentInfo.email }">
 									</div>
 								</div>
 								<div class="row mt-2">
 									<div class="col-8"></div>
 									<div class="col">
 										<input type="hidden" name="job_posting_pk" value="${jobPostingDetailForStudent.jobPostingDto.job_posting_pk}">
-										
-										<button type="submit" class="btn btn-success">지원하기</button>
+										<c:if test="${not empty resumeDto.resume_pk }">
+											<button type="submit" class="btn btn-success">지원하기</button>
+										</c:if>
+										<c:if test="${empty resumeDto.resume_pk }">
+											<button type="submit" class="btn btn-gray" disabled>이력서 선택</button>
+										</c:if>
 									</div>
 								</div>
 								</form>	
@@ -244,6 +311,10 @@
 			<div class="col-2"></div>
 		</div>
 			
+	</div>
+	
+	<div class="container">
+		<div style="height: 200px;"></div>
 	</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

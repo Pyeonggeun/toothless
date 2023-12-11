@@ -3,6 +3,7 @@ package com.mkfactory.toothless.c.seoyoung.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 
 public interface SeoyoungCompanyMapper {
@@ -19,5 +20,7 @@ public interface SeoyoungCompanyMapper {
 	public List<AjdksInternshipCourseDto> studentinternshipDto();
 
 	public List<Map<String, Object>> selectionGrade(int internship_course_pk);
+
+	public List<Map<String, Object>> selectCertificationProcess(int id);
 
 }
