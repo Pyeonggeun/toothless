@@ -17,6 +17,8 @@ import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
+import com.mkfactory.toothless.e.dto.OnlineCounselReplyDto;
+import com.mkfactory.toothless.e.dto.OnlineCounselSurveyDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 import com.mkfactory.toothless.e.onlinecounsel.service.OnlineCounselService;
 
@@ -29,6 +31,10 @@ public class OnlineCounselController {
 	private OnlineCounselService onlineCounselService;
 	
 	
+/*	만족도 조사가 완료 된 글 리스팅 될 때 제목 옆에 아이콘 같은거 띄우는거 해보기
+ * 	자신이 만족도 조사한 것을 자기 글에 들어갔을때 본인도 볼 수 있게 하기
+*/
+	
 	
 	//	****	학생 메인페이지		****
 	@RequestMapping("onlineCounselMainPage")
@@ -37,7 +43,6 @@ public class OnlineCounselController {
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		int studentPk = studentInfoDto.getStudent_pk();
-		
 		model.addAttribute("counselList", onlineCounselService.getAllCounselListByStudentPk(studentPk));
 		
 		// 모든 엔트리 출력
@@ -86,7 +91,9 @@ public class OnlineCounselController {
 	@RequestMapping("readCounselPage")
 	public String readCounselPage(int counsel_pk, Model model) {
 		
+		model.addAttribute("replyDtoList", onlineCounselService.getOnlineCounselReplyList(counsel_pk));
 		model.addAttribute("targetCounselDto", onlineCounselService.readCounsel(counsel_pk));
+		
 		return "tl_e/onlineCounsel/readCounselPage";
 	}
 	
@@ -114,8 +121,58 @@ public class OnlineCounselController {
 	
 
 
+
+	@RequestMapping("counselorOnlineCounselReadCounselPage")
+	public String counselorOnlineCounselReadCounselPage(int counsel_pk, Model model) {
+		
+		
+		model.addAttribute("replyDtoList", onlineCounselService.getOnlineCounselReplyList(counsel_pk));
+		model.addAttribute("targetCounselDto", onlineCounselService.readCounsel(counsel_pk));
+		return "tl_e/onlineCounsel/counselorOnlineCounselReadCounselPage";
+	}
 	
 	
+	
+	
+	@RequestMapping("writeOnlineCounselReplyProcess")
+	public String writeOnlineCounselReplyProcess(OnlineCounselReplyDto onlineCounselReplyDto) {
+		
+		onlineCounselService.writeOnlineCounselReply(onlineCounselReplyDto);
+		
+		
+		return "redirect:./counselorOnlineCounselReadCounselPage?counsel_pk=" + onlineCounselReplyDto.getOnline_counsel_board_id();
+	}
+	
+	
+
+	
+	@RequestMapping("writeOnlineCounselSurveyPage")
+	public String writeOnlineCounselSurveyPage(int online_counsel_board_id, Model model) {
+		
+		model.addAttribute("online_counsel_board_id", online_counsel_board_id);
+		return "tl_e/onlineCounsel/writeOnlineCounselSurveyPage";
+	}
+	
+	
+	@RequestMapping("writeOnlineCounselSurveyProcess")
+	public String writeOnlineCounselSurveyProcess(OnlineCounselSurveyDto onlineCounselSurveyDto) {
+		
+		onlineCounselService.writeOnlineCounselSurvey(onlineCounselSurveyDto);
+		return "redirect:./onlineCounselMainPage";
+	}
+	
+	
+	
+	
+	
+	
+}	
+
+
+
+
+
+
 
 //	@RequestMapping("counselorOnlineCounselMainPage")
 //	public String counselorOnlineCounselMainPage(HttpSession session, Model model) {
@@ -158,13 +215,6 @@ public class OnlineCounselController {
 //		
 //		
 //	}
-	
-	
-	
-	
-	
-
-}
 
 
 

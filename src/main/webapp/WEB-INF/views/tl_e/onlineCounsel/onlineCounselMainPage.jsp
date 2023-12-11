@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,15 +14,15 @@
 <body>
 	<div class="row">
 		<div class="col"></div>
-		<div class="col-9 mt-2" style="text-align: center; font-weight: bold; font-size: 2.2em;" >상담 센터</div>
-		<div class="col mt-4" style="text-align: center; font-size: 1.2em; font-weight: bold">
+		<div class="col-9" style="text-align: center; font-weight: bold; font-size: 2.2em;" >상담 센터</div>
+		<div class="col mt-2" style="text-align: center; font-size: 1.2em; font-weight: bold">
 				${sessionStudentInfo.name }학생
 		</div>
 	</div>
-	<div class="row align-items-center fw-bold" style="font-size: 1.2em; text-align: center; background-color: orange;" >	
+	<div class="row align-items-center fw-bold" style="font-size: 1.2em; text-align: center; background-color: blue; color: beige;" >	
 		<div class="col-1"></div>
-		<div class="col">
-			<a href="./writeOnlineCounselPage" class="link-dark link-offset-2 link-underline link-underline-opacity-0">상담신청</a>
+		<div class="col" style="color: beige;">
+			<a href="./writeOnlineCounselPage" class="link-light link-offset-2 link-underline link-underline-opacity-0">상담신청</a>
 		</div>
 		<div class="col">공지사항</div>
 		<div class="col">자유게시판</div>
@@ -29,12 +30,12 @@
 		<div class="col">
 			<div class="dropdown">
 				<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    	<span style="font-size: 1.3em; font-weight: bold;">내 정보</span>
+			    	<span style="font-size: 1.3em; font-weight: bold; color: beige;">내 정보</span>
 				</button>
 				<ul class="dropdown-menu" style="background-color: #333;">
-					<li><a class="dropdown-item" href="#" style="color: orange">답변 완료 상담</a></li>
-					<li><a class="dropdown-item" href="#" style="color: orange">채택 된 상담</a></li>
-					<li><a class="dropdown-item" href="./logoutProcess" style="color: orange" class="link-dark link-offset-2 link-underline link-underline-opacity-0">로그아웃</a></li>
+					<li><a class="dropdown-item" href="#" style="color: beige;">답변 완료 상담</a></li>
+					<li><a class="dropdown-item" href="#" style="color: beige;">채택 된 상담</a></li>
+					<li><a class="dropdown-item" href="./logoutProcess" style="color: beige;" class="link-dark link-offset-2 link-underline link-underline-opacity-0">로그아웃</a></li>
 				</ul>
 			</div>
 		</div>
@@ -45,33 +46,66 @@
 			<div class="col-2" style="font-weight: bold; text-align: center; font-size: 2.2em;">내 상담</div>
 			<div class="col"></div>
 		</div>
-		<div class="row mt-5">
+		<div class="row mt-4">
+			<div class="col border border-primary border-3;"></div>
+		</div>
+		<div class="row">
 			<div class="col" style="text-align: center;">
 				<table class="table">
-				  <thead>
-				    <tr>
-				      <th scope="col">No</th>
-				      <th scope="col">작성자</th>
-				      <th scope="col">카테고리</th>
-				      <th scope="col">제목</th>
-				      <th scope="col">작성시간</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				<C:forEach items="${counselList}" var="counselList">
-				    <tr>
-				      <td>${counselList.onlineCounselBoardDto.id }</td>
-				      <td>${counselList.studentDto.name }</td>
-				      <td>${counselList.category.name }</td>
-				      <td><a href="./readCounselPage?counsel_pk=${counselList.onlineCounselBoardDto.id }" class="link-dark link-offset-2 link-underline link-underline-opacity-0">${counselList.onlineCounselBoardDto.title }</a></td>
-				      <td>${counselList.onlineCounselBoardDto.created_at }</td>
-				    </tr>
-			    </C:forEach>
-				  </tbody>
-				</table>
-			</div>
+				<thead>
+				<tr>
+					<th scope="col">No</th>
+					<th scope="col">작성자</th>
+					<th scope="col">카테고리</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성시간</th>
+				</tr>
+				</thead>
+				<tbody>
+					<C:forEach items="${counselList}" var="counselList">
+					<tr>
+						<td>${counselList.onlineCounselBoardDto.id }</td>
+						<td>${counselList.studentDto.name }</td>
+						<td>${counselList.category.name }</td>
+						<td>
+							<a href="./readCounselPage?counsel_pk=${counselList.onlineCounselBoardDto.id }" class="link-dark link-offset-2 link-underline link-underline-opacity-0">
+					      		${counselList.onlineCounselBoardDto.title }
+								<C:if test="${counselList.replyCount != 0 }">
+									<span style="color: blue;">[${counselList.replyCount }]</span>
+								</C:if>
+					      	</a>
+				      	</td>
+						<td> <fmt:formatDate value="${counselList.onlineCounselBoardDto.created_at }" pattern="yy.MM.dd"/></td>
+					</tr>
+				    </C:forEach>
+				</tbody>
+			</table>
 		</div>
-		<div class="row mt-2" style="font-weight: bold; font-size: 1.4em; text-align: center;">
+		</div>
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col d-flex justify-content-center">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item">
+						<a class="page-link" href="#" aria-label="Next">
+				        	<span aria-hidden="true">&raquo;</span>
+						</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<div class="col-1"></div>
+		</div>
+		<div class="row" style="font-weight: bold; font-size: 1.4em; text-align: center;">
 			<div class="col-10"></div>
 			<div class="col">
 				<a class="btn btn-dark" href="./writeOnlineCounselPage" class="link-dark link-offset-2 link-underline link-underline-opacity-0">상담 작성</a>

@@ -16,7 +16,7 @@
 		<div class="col-2"></div>
 		<div class="col text-center" style="font-size: 2.2em; color: dark; font-weight: bold">상담 센터</div>
 		<div class="col-2 mt-3 d-flex justify-content-around">
-			<span class="fw-bold" style="font-size: 1.3em;">${sessionStudentInfo.name }학생</span>
+			<span class="fw-bold" style="font-size: 1.3em;"> 상담사 ${sessionExternalInfo.external_id }님</span>
 		</div>
 	</div>
 	<div class="row mt-2 align-items-center" style="font-weight: bold; font-size: 1.4em; background-color: blue; color: beige; text-align: center;"  >
@@ -68,7 +68,8 @@
 			<div class="col mt-5" style="font-size: 1.2em; font-weight: bold;" >제목 : ${targetCounselDto.counselDto.title }</div>
 		</div>
 		<div class="row">
-			<div class="col mt-4"> <span style="font-size: 1.2em; font-weight: bold;"> 상담 내용 : </span></div>
+			<div class="col mt-4"> 
+			<span style="font-size: 1.2em; font-weight: bold;"> 상담 내용 : </span></div>
 		</div>
 		<div class="row">
 			<div class="col-1"></div>
@@ -79,9 +80,9 @@
 			</div>
 		</div>
 	</div>
-		<div class="row mt-4">
-			<div class="col border border-warning-emphasis border-1"></div>
-		</div>
+	<div class="row mt-4">
+		<div class="col border border-warning-emphasis border-1"></div>
+	</div>
 	<div class="container">
 		<div class="row mt-4">
 			<div class="col" style="font-size: 1.9em; font-weight: bold; text-align: left ;">답변</div>
@@ -92,7 +93,7 @@
 			<div class="col">작성시간</div>
 		</div>
 		<c:forEach items="${replyDtoList }" var="replyDtoList">
-			<div class="row mt-1" style="text-align: left; font-weight: bold; font-size: 1.1em;">
+			<div class="row" style="text-align: left; font-weight: bold; font-size: 1.1em;">				
 				<div class="col">
 					${replyDtoList.counselorDto.name }
 				</div>
@@ -101,30 +102,68 @@
 				</div>
 				<div class="col">
 					<fmt:formatDate value="${replyDtoList.replyDto.created_at }" pattern="yy.MM.dd"/>
-					
 				</div>
 			</div>
 		</c:forEach>
-		<c:if test="${targetCounselDto.count != 0 }">
-			<div class="row">
-				<div class="col-2"></div>
-				<div class="col mt-5" style="text-align: center;">
-				<form action="./writeOnlineCounselSurveyPage" method="post">
-					<input name="online_counsel_board_id" type="hidden" value=${targetCounselDto.counselDto.id }>
-					<button type="submit" value="만족도 조사" class="text-warning btn btn-dark d-grid gap-2 col-6 mx-auto link-dark link-offset-2 link-underline link-underline-opacity-0">만족도 조사</button>
-				</form>	
+		<c:choose>
+			<c:when test="${targetCounselDto.isSurveyed == 0 }">
+				<form action="./writeOnlineCounselReplyProcess" method="post">
+					<div class="row mt-5">
+						<div class="col">
+							<div class="form-floating">
+								<textarea name="text" class="form-control rounded-4" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+								<label for="floatingTextarea2">답변 작성</label>
+							</div>
+						</div>
+					</div>
+					<div class="row mt-3">
+						<div class="col"></div>
+						<div class="col-10">
+							<button type="submit" value="Done" class="btn btn-dark d-grid gap-2 col-6 mx-auto">Done</button>								
+						</div>
+						<div class="col"></div>
+					</div>
+					<input name="counselor_id" type="hidden" value="${sessionExternalInfo.external_pk }">
+					<input name="online_counsel_board_id" type="hidden" value="${targetCounselDto.counselDto.id }">
+				</form>
+			</c:when>
+			<c:otherwise>
+				<div class="row mt-4">
+					<div class="col-3  mb-3 fw-bold">
+						<div class="form-floating">
+							<textarea class="form-control " placeholder="Leave a comment here" id="floatingTextareaDisabled" disabled></textarea>
+							<label for="floatingTextareaDisabled">
+								상담 평가 점수 <span class="text-danger">1~100</span> : ${targetCounselDto.surveyDto.score }
+							</label>
+						</div>
+					</div>
+					<div class="col mb-3 fw-bold">
+						<div class="form-floating">
+							<textarea class="form-control " placeholder="Leave a comment here" id="floatingTextareaDisabled" disabled></textarea>
+							<label for="floatingTextareaDisabled">
+								상담 평가 내용 : ${targetCounselDto.surveyDto.text }
+							</label>
+						</div>
+					</div>
+
 				</div>
-				<div class="col-2"></div>
-			</div>
-			<div class="row">
-				<div class="col"></div>
-				<div class="col"></div>
-				<div class="col-1">
+				<div class="row">
+					<div class="col-4">
+						<span class="fw-bold" style="font-size: 0.7em;">상담 평가가 <span class="text-danger">완료</span>되어 더 이상 답변을 등록할 수 없습니다.</span>
+					</div>
+					<div class="col"></div>
+				</div>
+			</c:otherwise>
+		</c:choose>
+		<div class="row mt-2">
+			<div class="col"></div>
+			<div class="col"></div>
+			<div class="col-1" style="text-align: right;">
 					<a class="btn btn-dark" href="./counselorOnlineCounselMainPage" class="link-dark link-offset-2 link-underline link-underline-opacity-0">Back</a>
 			</div>
-		</div>		
-		</c:if>
+		</div>
 	</div>
+	
 </body>
 </html>
 

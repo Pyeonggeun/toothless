@@ -13,6 +13,8 @@ import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
+import com.mkfactory.toothless.e.dto.OnlineCounselReplyDto;
+import com.mkfactory.toothless.e.dto.OnlineCounselSurveyDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 import com.mkfactory.toothless.e.onlinecounsel.mapper.OnlineCounselSqlMapper;
 
@@ -60,6 +62,9 @@ public class OnlineCounselService {
 						
 			Map<String, Object> map = new HashMap<>();
 			
+			
+			
+			map.put("replyCount", onlineCounselSqlMapper.getReplyCount(onlineCounselBoardDto.getId()));
 			map.put("studentDto", onlineCounselSqlMapper.getStudentInfo(onlineCounselBoardDto.getStudent_id()));
 			map.put("onlineCounselBoardDto", onlineCounselBoardDto);
 			map.put("category", typeCategoryDto);
@@ -76,9 +81,14 @@ public class OnlineCounselService {
 		Map<String, Object> map = new HashMap<>();
 		
 		OnlineCounselBoardDto onlineCounselBoardDto = onlineCounselSqlMapper.selectCounsel(counsel_pk);
+		
+		map.put("surveyDto", onlineCounselSqlMapper.selectSurvey(counsel_pk));
+		map.put("isSurveyed", onlineCounselSqlMapper.isSurveyed(counsel_pk));
+		map.put("count", onlineCounselSqlMapper.getReplyCount(counsel_pk));
 		map.put("category", onlineCounselSqlMapper.selectCategoryDto(onlineCounselBoardDto.getType_category_id()));
 		map.put("studentInfo", onlineCounselSqlMapper.getStudentInfo(onlineCounselBoardDto.getStudent_id()));
 		map.put("counselDto", onlineCounselBoardDto);
+		
 		return map;
 		
 	}
@@ -108,6 +118,7 @@ public class OnlineCounselService {
 				
 				
 				Map<String, Object> map = new HashMap<>();
+				map.put("replyCount", onlineCounselSqlMapper.getReplyCount( onlineCounselBoardDto.getId()));
 				map.put("typeCategoryDto", typeCategoryDto);
 				map.put("studentInfoDto", studentInfoDto);
 				map.put("onlineCounselBoardDto", onlineCounselBoardDto);
@@ -116,10 +127,8 @@ public class OnlineCounselService {
 			}
 			
 			list.add(mapList);
+			
 		}
-		
-		
-		
 		
 		return list;
 	}
@@ -127,11 +136,38 @@ public class OnlineCounselService {
 	
 	
 	
+	public void writeOnlineCounselReply(OnlineCounselReplyDto onlineCounselReplyDto) {
+		
+		onlineCounselSqlMapper.insertOnlineCounselReply(onlineCounselReplyDto);
+		
+	}
 	
 	
 	
 	
+	public List<Map<String, Object>> getOnlineCounselReplyList(int counsel_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<>();		
+		List<OnlineCounselReplyDto> replies = onlineCounselSqlMapper.selectReplyListByCounselPk(counsel_pk);
+		
+		for(OnlineCounselReplyDto onlineCounselReplyDto : replies) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("counselorDto", onlineCounselSqlMapper.selectCounselorDto(onlineCounselReplyDto.getCounselor_id()));
+			map.put("replyDto", onlineCounselReplyDto);
+			
+			list.add(map);
+		}
+		
+		
+		return list; 
+	}
 	
+	
+	
+	public void writeOnlineCounselSurvey(OnlineCounselSurveyDto onlineCounselSurveyDto) {
+		
+		onlineCounselSqlMapper.insertOnlineCounselSurvey(onlineCounselSurveyDto);
+	}
 	
 	
 	
