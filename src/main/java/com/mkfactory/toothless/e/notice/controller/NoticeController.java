@@ -122,7 +122,7 @@ public class NoticeController {
 			noticeBoardLikeDto.setStudent_pk(studentPk);
 			noticeBoardLikeDto.setNotice_id(id);
 			
-			model.addAttribute("likeCheck", noticeService.noticeLikeCheck(noticeBoardLikeDto));
+			model.addAttribute("likeCheck", noticeService.noticeLikeCheck(noticeBoardLikeDto));				// 추천,비추천 체크여부
 			model.addAttribute("upThumbCheck", noticeService.noticeUpThumbCheck(noticeBoardLikeDto));
 			model.addAttribute("downThumbCheck", noticeService.noticeDownThumbCheck(noticeBoardLikeDto));
 			model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));

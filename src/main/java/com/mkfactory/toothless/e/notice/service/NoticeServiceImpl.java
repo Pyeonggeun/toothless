@@ -45,11 +45,9 @@ public class NoticeServiceImpl {
 			int staffPk = noticeBoardDto.getStaff_pk();
 			int boardPk = noticeBoardDto.getId();
 			StaffInfoDto staffInfoDto = noticeSqlMapper.selectStaffInfoByStaff_Pk(staffPk);
-			System.out.println(staffPk);
-			System.out.println(staffInfoDto.getName());
-			int commentCount = noticeSqlMapper.commentCountByNotice_id(boardPk);
-			int likeCount = noticeSqlMapper.likeCountByNotice_id(boardPk);
-			int disLikeCount = noticeSqlMapper.dislikeCountByNotice_id(boardPk);
+			int commentCount = noticeSqlMapper.commentCountByNotice_id(boardPk);	// 댓글 갯수
+			int likeCount = noticeSqlMapper.likeCountByNotice_id(boardPk);			// 추천 갯수
+			int disLikeCount = noticeSqlMapper.dislikeCountByNotice_id(boardPk);	// 비추천 갯수
 					
 			Map<String, Object> map = new HashMap<>();
 			map.put("noticeBoardDto", noticeBoardDto);
@@ -120,7 +118,7 @@ public class NoticeServiceImpl {
 	public int noticeDownThumbCheck(NoticeBoardLikeDto noticeBoardLikeDto) {
 		return noticeSqlMapper.noticeDownThumbCheck(noticeBoardLikeDto);
 	}
-	// 공지사항 추천 추가
+	// 공지사항 추천,비추천 추가
 	public void insertThumb(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeSqlMapper.insertThumb(noticeBoardLikeDto);
 	}
@@ -128,9 +126,11 @@ public class NoticeServiceImpl {
 	public void deleteNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeSqlMapper.deleteNoticeLike(noticeBoardLikeDto);
 	}
+	// 공지사항 비추천 삭제
 	public void deleteNoticeDisLike(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeSqlMapper.deleteNoticeDisLike(noticeBoardLikeDto);
 	}
+	// 공지사항 베스트글
 	public List<Map<String, Object>> selectBestNotice(){
 		return noticeSqlMapper.selectBestNotice();
 	}

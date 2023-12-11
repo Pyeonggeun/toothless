@@ -27,8 +27,8 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col"></div>
-			<div class="col"></div>
 			<div class="col"><div class="title-font" style="font-size:3em;">공지사항</div></div>
+			<div class="col"></div>
 			<div class="col"></div>
 			<div class="col">
 				<div class="row">
@@ -91,86 +91,88 @@
 			</div>
 			<div class="col">
 				<div class="row">
-					<div class="col-2 border">베스트글</div>
-					<div class="col-4 border">제목</div>
-					<div class="col-2 border">작성자</div>
-					<div class="col-2 border">조회수</div>
-					<div class="col-2 border">작성일</div>
-				</div>
-				<div class="row">
-					<c:forEach items="${bList }" var="bList">
-						<div class="col-2 border">${bList.ID }</div>
-						<div class="col-4 border">${bList.TITLE }</div>
-						<div class="col-2 border">${bList.NAME }</div>
-						<div class="col-2 border">${bList.READ_COUNT }</div>
-						<div class="col-2 border">${bList.CREATED_AT }</div>
-					</c:forEach>
-				</div>
-				<br>
-				<br>
-				<form action="./noticeMainPage" method="get">
-					<div class="row mb-3">
-						<div class="col-2">
-							<select name="searchType" class="form-select">
-								<option value="title" selected>제목</option>
-								<option value="text">내용</option>
-								<option value="name">작성자</option>
-							</select>
+					<div class="col-1"></div>
+					<div class="col">
+						<form action="./noticeMainPage" method="get">
+							<div class="row mb-3">
+								<div class="col-2">
+									<select name="searchType" class="form-select">
+										<option value="title" selected>제목</option>
+										<option value="text">내용</option>
+										<option value="name">작성자</option>
+									</select>
+								</div>
+								<div class="col-8">
+									<input name="searchWord" type="text" class="form-control">
+								</div>
+								<div class="col-2 d-grid">
+									<button class="btn btn-light">검색</button>
+								</div>
+							</div>
+						</form>
+						<div class="row fw-bold" style="background-color: silver;">
+							<div class="col-2 border">글번호</div>
+							<div class="col-4 border">제목</div>
+							<div class="col-2 border">작성자</div>
+							<div class="col-2 border">조회수</div>
+							<div class="col-2 border">작성일</div>
 						</div>
-						<div class="col-8">
-							<input name="searchWord" type="text" class="form-control">
+						<div class="row">
+							<c:forEach items="${bList }" var="bList">
+								<div class="col-2 border">${bList.ID }</div>
+								<div class="col-4 border">
+									<div class="row">
+										<div class="col-1"><i class="bi bi-star" style="color: silver;"></i></div>
+										<div class="col"><a class="link-offset-2 link-underline link-underline-opacity-0" href="./readNoticeBoardPage?id=${bList.ID }" style="color: black">${bList.TITLE }</a></div>
+									</div>
+								</div>
+								<div class="col-2 border">${bList.NAME }</div>
+								<div class="col-2 border">${bList.READ_COUNT }</div>
+								<div class="col-2 border"><fmt:formatDate value="${bList.CREATED_AT }" pattern="yyyy-MM-dd"/></div>
+							</c:forEach>
 						</div>
-						<div class="col-2 d-grid">
-							<button class="btn btn-primary">검색</button>
+						<div class="row">
+							<c:forEach items="${list }" var="list">
+								<div class="col-2 border">${list.noticeBoardDto.id }</div>
+								<div class="col-4 border">
+									<a class="link-offset-2 link-underline link-underline-opacity-0" href="./readNoticeBoardPage?id=${list.noticeBoardDto.id }" style="color: black">${list.noticeBoardDto.title }</a>
+									<span class="badge text-bg-light">${list.commentCount }</span>
+									<span class="badge text-bg-light">추천[${list.likeCount }]</span>
+									<span class="badge text-bg-light">비추[${list.disLikeCount }]</span>
+								</div>
+								<div class="col-2 border">${list.staffInfoDto.name }</div>
+								<div class="col-2 border">${list.noticeBoardDto.read_count }</div>
+								<div class="col-2 border"><fmt:formatDate value="${list.noticeBoardDto.created_at }" pattern="yyyy-MM-dd"/></div>
+							</c:forEach>
 						</div>
-					</div>
-				</form>
-				<div class="row">
-					<div class="col-2 border">글번호</div>
-					<div class="col-4 border">제목</div>
-					<div class="col-2 border">작성자</div>
-					<div class="col-2 border">조회수</div>
-					<div class="col-2 border">작성일</div>
-				</div>
-				<div class="row">
-					<c:forEach items="${list }" var="list">
-						<div class="col-2 border">${list.noticeBoardDto.id }</div>
-						<div class="col-4 border">
-							<a href="./readNoticeBoardPage?id=${list.noticeBoardDto.id }">${list.noticeBoardDto.title }</a>
-							<span class="badge text-bg-secondary">${list.commentCount }</span>
-							<span class="badge text-bg-secondary">추천[${list.likeCount }]</span>
-							<span class="badge text-bg-secondary">비추[${list.disLikeCount }]</span>
+						<div class="row">
+							<div class="col">
+								<div>여기엔 뭘 넣을까요</div>
+							</div>
+						</div>	
+						<div class="row">
+							<div class="col">
+								<div>여기엔 뭘 넣을까요</div>
+							</div>
 						</div>
-						<div class="col-2 border">${list.staffInfoDto.name }</div>
-						<div class="col-2 border">${list.noticeBoardDto.read_count }</div>
-						<div class="col-2 border"><fmt:formatDate value="${list.noticeBoardDto.created_at }" pattern="yyyy-MM-dd"/></div>
-					</c:forEach>
+						<div class="row">
+							<div class="col">
+								<div>여기엔 뭘 넣을까요</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div>여기엔 뭘 넣을까요</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div>여기엔 뭘 넣을까요</div>
+							</div>
+						</div>	
+					</div>	
+					<div class="col-1"></div>	
 				</div>
-				<div class="row">
-					<div class="col">
-						<div>여기엔 뭘 넣을까요</div>
-					</div>
-				</div>	
-				<div class="row">
-					<div class="col">
-						<div>여기엔 뭘 넣을까요</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<div>여기엔 뭘 넣을까요</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<div>여기엔 뭘 넣을까요</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<div>여기엔 뭘 넣을까요</div>
-					</div>
-				</div>			
 			</div>
 		</div>
 		
