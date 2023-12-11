@@ -53,6 +53,19 @@ public class EunbiRestProfessorController {
 		return restResponseDto;
 	}
 	
+	@RequestMapping("getInternshipCourseInfo")
+	public RestResponseDto getInternshipCourseInfo(HttpSession session, int internship_course_pk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(professorService.viewInternshipCourseDetail(internship_course_pk));
+		
+		restResponseDto.setResult("Success");
+		
+		return restResponseDto;
+		
+	}
+	
 	@RequestMapping("getApplyingStudentListByCourse")
 	public RestResponseDto getStudentListByCourse(HttpSession session, int internship_course_pk) {
 		
@@ -77,7 +90,8 @@ public class EunbiRestProfessorController {
 		return restResponseDto;
 	}
 	
-	public RestResponseDto isNow(int internship_course_pk) {
+	@RequestMapping("isNow")
+	public RestResponseDto isNow(HttpSession session, int internship_course_pk) {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
 		

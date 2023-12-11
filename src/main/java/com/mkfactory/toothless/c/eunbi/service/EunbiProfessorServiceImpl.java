@@ -217,6 +217,7 @@ public class EunbiProfessorServiceImpl {
 			internInfo.put("studentInternDto", studentInternDto);
 			internInfo.put("studentDepartment", studentSqlMapper.getDepartmentByDepartmentPk(studentDepartmentPk));
 			internInfo.put("studentProfessorInfo", professorSqlMapper.getProfessorInfo(studentProfessorPk));
+			internInfo.put("internshipCourseDto", externalSqlMapper.getInternshipCourseDetail(internshipCoursePk));
 			
 			internInfo.put("countAttendance", studentSqlMapper.countAttendance(internPk));
 			internInfo.put("countLate", studentSqlMapper.countLate(internPk));
@@ -262,10 +263,11 @@ public class EunbiProfessorServiceImpl {
 		
 		Map<String, Object> isNow = new HashMap<>();
 		
-		externalSqlMapper.isStartApplying(internshipCoursePk);
-		externalSqlMapper.isEndApplying(internshipCoursePk);
-		externalSqlMapper.didAnnouncement(internshipCoursePk);
-		externalSqlMapper.isStartInternship(internshipCoursePk);
+		isNow.put("isStartApplying", externalSqlMapper.isStartApplying(internshipCoursePk));
+		isNow.put("isEndApplying", externalSqlMapper.isEndApplying(internshipCoursePk));
+		isNow.put("didAnnouncement", externalSqlMapper.didAnnouncement(internshipCoursePk));
+		isNow.put("isStartInternship", externalSqlMapper.isStartInternship(internshipCoursePk));
+		isNow.put("isEndInternship", externalSqlMapper.isEndInternship(internshipCoursePk));
 		
 		return isNow;
 	}

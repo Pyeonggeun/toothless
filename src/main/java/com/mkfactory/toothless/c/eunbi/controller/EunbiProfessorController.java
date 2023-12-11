@@ -49,7 +49,8 @@ public class EunbiProfessorController {
 //		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
 //		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
 //		
-		model.addAttribute("internshipCourseDetail", professorService.viewInternshipCourseDetail(internship_course_pk));
+//		model.addAttribute("internshipCourseDetail", professorService.viewInternshipCourseDetail(internship_course_pk));
+		model.addAttribute("internship_course_pk", internship_course_pk);
 		
 		
 		return "tl_c/eunbi/professor/viewInternshipCourseDetailPage";
