@@ -1,5 +1,6 @@
 package com.mkfactory.toothless.e.registercounselor.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,12 +38,21 @@ public class RegisterCounselorRestController {
 		
 	}
 	
-	@RequestMapping("restGetCounselorInfo")
-	public JinyongRestResponseDto restGetCounselorInfo() {
+	@RequestMapping("restGetCounselorInfo")	
+	public JinyongRestResponseDto restGetCounselorInfo(@RequestParam Map<String, Object> formData) {
 		
-		List<Map<String, Object>> counselorList = registerCounselorService.getCounselorListForAJAX();
+		System.out.println("searchCounselorName : " + formData.get("searchCounselorName"));
+		System.out.println("searchCounselorType : " + formData.get("searchCounselorType"));	
+		System.out.println("searchGenderOption : " + formData.get("searchGenderOption"));
+		System.out.println("searchScoreOption : " + formData.get("searchScoreOption"));
+		
+		List<Map<String, Object>> counselorList = registerCounselorService.getCounselorListForAJAX(formData);
 		
 		JinyongRestResponseDto jinyongRestResponseDto = new JinyongRestResponseDto();
+		
+		for(Map<String, Object> map :counselorList) {
+			System.out.println(map.get("NAME"));
+		}
 		
 		jinyongRestResponseDto.setData(counselorList);
 		jinyongRestResponseDto.setResult("success");
@@ -64,24 +74,6 @@ public class RegisterCounselorRestController {
 		return jinyongRestResponseDto;
 		
 	}
-	
-	
-	
-	@PostMapping("searchCounselor")
-	public JinyongRestResponseDto searchCounselor(@RequestParam Map<String, Object> formData) {
-		
-		System.out.println(formData.get("searchCounselorName")); 
-		System.out.println(formData.get("searchCounselorType")); 
-		System.out.println(formData.get("searchGenderOption")); 
-		System.out.println(formData.get("searchScoreOption")); 
-		JinyongRestResponseDto jinyongRestResponseDto = new JinyongRestResponseDto();
-				
-		jinyongRestResponseDto.setResult("success");
-		
-		return jinyongRestResponseDto;
-		
-	}
-	
 	
 	public JinyongRestResponseDto templete() {
 		

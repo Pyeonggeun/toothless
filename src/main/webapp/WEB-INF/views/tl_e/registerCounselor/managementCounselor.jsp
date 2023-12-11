@@ -20,7 +20,9 @@
 }
 </style>
 <script>
-	let loginStaffInfo = null;	 
+	let loginStaffInfo = null;
+	let searchData = null;
+	
 	
 	
 	function getStaffInfo(){		
@@ -42,37 +44,75 @@
 		.then(response => response.json())
 		.then(response =>{
 			
+			console.log("reloadCounselorList() 실행됨");
+			
 			//const counselorList = [...response.data];
+			searchData = response.data;
+			searchCounselor();
 			
-			
-			const counselorListBox = document.querySelector("#counselorList");
-			counselorListBox.innerHTML = "";
-			
-			for(e of response.data){
-				
-				const counselorboxWrapper = document.querySelector("#templete .counselorInfoBox").cloneNode(true);
-				const counselorImageLink = counselorboxWrapper.querySelector(".imageCol .counselorImageLink");
-				const counselorImage = counselorboxWrapper.querySelector(".imageCol .counselorImage");
-				
-				if(e.PROFILEIMAGE != null){
-					counselorImage.src = "../../resources/img/counselorImage/" + e.PROFILEIMAGE;
-					counselorImageLink.setAttribute("href", "./counselorDetail?id=" + e.ID);	
-				}
-				else{
-					counselorImage.src = "../../resources/img/counselorImage/no_image.jpg";
-					counselorImageLink.setAttribute("href", "./counselorDetail?id=" + e.ID);
-				}
-				
-				const counselorName = counselorboxWrapper.querySelector(".counselorName");
-				counselorName.innerText = e.NAME;
-				
-				counselorListBox.appendChild(counselorboxWrapper);
-				
-			}
-		
-		
 		});
 	}
+	
+	function processSearchData(searchData){
+		
+		console.log("processSearchData(searchData) 실행됨");
+		
+		const counselorListBox = document.querySelector("#counselorList");
+		counselorListBox.innerHTML = "";
+		
+		for(e of searchData){
+			
+			const counselorboxWrapper = document.querySelector("#templete .counselorInfoBox").cloneNode(true);
+			const counselorImageLink = counselorboxWrapper.querySelector(".imageCol .counselorImageLink");
+			const counselorImage = counselorboxWrapper.querySelector(".imageCol .counselorImage");
+			
+			if(e.PROFILEIMAGE != null){
+				counselorImage.src = "../../resources/img/counselorImage/" + e.PROFILEIMAGE;
+				counselorImageLink.setAttribute("href", "./counselorDetail?id=" + e.ID);	
+			}
+			else{
+				counselorImage.src = "../../resources/img/counselorImage/no_image.jpg";
+				counselorImageLink.setAttribute("href", "./counselorDetail?id=" + e.ID);
+			}
+			
+			const counselorName = counselorboxWrapper.querySelector(".counselorName");
+			counselorName.innerText = e.NAME;
+			
+			counselorListBox.appendChild(counselorboxWrapper);
+			
+		}
+		
+	}
+	
+	function searchCounselor(){
+		
+		console.log("searchCounselor() 실행됨");
+		
+		const searchCounselorName = document.getElementById("searchByCounselorName").value;
+		const searchCounselorType = document.getElementById("searchCategorySelectBox").value;		
+		const searchGenderOption = getSelectGender();
+		const searchScoreOption = document.getElementById("searchScoreOption").value;
+		
+		const url = "./restGetCounselorInfo";
+		const searchOption = {
+				method : "post",
+				headers : {
+					"Content-Type" : "application/x-www-form-urlencoded"
+				},
+				body : "searchCounselorName=" +  searchCounselorName + "&searchCounselorType=" + searchCounselorType
+						+ "&searchGenderOption=" + searchGenderOption + "&searchScoreOption=" + searchScoreOption
+		}
+		fetch(url, searchOption)
+		.then(response => response.json())
+		.then(response =>{
+			
+			searchData = response.data;
+			processSearchData(searchData);
+			
+		});
+		
+	}
+	
 	
 	function reloadSearchTypeCategory(){
 		fetch("./reloadSearchTypeCategory")
@@ -88,6 +128,7 @@
 			newSelectOption.innerText = "카테고리 선택";
 			newSelectOption.setAttribute("selected", "");
 			newSelectOption.setAttribute("disabled", "");
+			newSelectOption.setAttribute("value", "");
 			
 			searchCategorySelectBox.appendChild(newSelectOption);
 			
@@ -106,39 +147,6 @@
 		});
 	}
 	
-	function searchCounselor(){
-		
-		const searchCounselorName = document.getElementById("searchByCounselorName").value;
-		console.log(searchCounselorName);
-		
-		const searchCounselorType = document.getElementById("searchCategorySelectBox").value;
-		console.log(searchCounselorType);		
-		
-		const searchGenderOption = getSelectGender();	
-		console.log(searchGenderOption);
-		
-		const searchScoreOption = document.getElementById("searchScoreOption").value;
-		console.log(searchScoreOption);
-		
-		const url = "./searchCounselor";
-		const searchOption = {
-				method : "post",
-				headers : {
-					"Content-Type" : "application/x-www-form-urlencoded"
-				},
-				body : "searchCounselorName=" +  searchCounselorName + "&searchCounselorType=" + searchCounselorType
-						+ "&searchGenderOption=" + searchGenderOption + "&searchScoreOption=" + searchScoreOption
-		}
-		fetch(url, searchOption)
-		.then(response => response.json())
-		.then(response =>{
-			
-			console.log(response.data)
-			
-			
-		});
-		
-	}
 	
 	function getSelectGender(){
 		
@@ -291,7 +299,7 @@
 											</div>
 											<div class="col-auto">
 												<select id="searchScoreOption" class="form-select">													
-													<option selected disabled>-선택-</option>
+													<option selected disabled value="">-선택-</option>
 													<option value="scoreDESC">평점 높은순</option>
 													<option value="scoreASC">평점 낮은순</option>
 												</select>

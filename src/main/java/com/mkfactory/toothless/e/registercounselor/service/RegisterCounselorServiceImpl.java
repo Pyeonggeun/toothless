@@ -78,8 +78,8 @@ public class RegisterCounselorServiceImpl {
 	}
 	
 	// 상담원 전체 중복제거 리스팅 for AJAX
-	public List<Map<String, Object>> getCounselorListForAJAX(){
-		return registerCounselorSqlMapper.selectAllCounselorForAJAX();
+	public List<Map<String, Object>> getCounselorListForAJAX(Map<String, Object> searchOption){
+		return registerCounselorSqlMapper.selectAllCounselorForAJAX(searchOption);
 	}
 	
 	// 상담원PK로 상담원정보 조회

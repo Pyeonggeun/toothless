@@ -27,7 +27,7 @@ public interface RegisterCounselorSqlMapper {
 	public List<Map<String, Object>> selectAllCounselor();
 	
 	// 상담원 전체 중복제거 리스팅 for AJAX
-	public List<Map<String, Object>> selectAllCounselorForAJAX();
+	public List<Map<String, Object>> selectAllCounselorForAJAX(Map<String, Object> searchOption);
 	
 	// 상담원PK로 상담원 정보 조회
 	public CounselorDto selectCounselorDetailByCounselorId(int id);
