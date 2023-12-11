@@ -1,10 +1,12 @@
 package com.mkfactory.toothless.e.offlinecounsel.service;
 
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +30,7 @@ import com.mkfactory.toothless.e.offlinecounsel.mapper.OfflineCounselMapper;
 public class OfflineCounselServiceImpl {
 	
 	@Autowired
-	OfflineCounselMapper offlineCounselMapper;
+	private OfflineCounselMapper offlineCounselMapper;
 	
 	public int getOfflineReservationPk() {
 		
@@ -58,7 +60,7 @@ public class OfflineCounselServiceImpl {
 			DayOfWeek dayOfWeek = today.getDayOfWeek();
 			int day = dayOfWeek.getValue();
 			
-			String onlyDate = "" + year + month + date;
+			//String onlyDate = "" + year + month + date;
 			
 			List<String> reservationDateInfoList = offlineCounselMapper.selectReservationDateInfoByCounselorId(counselor_id);
 			
@@ -275,11 +277,29 @@ public class OfflineCounselServiceImpl {
 		offlineCounselMapper.insertCounselDocument(id, text);
 	}
 	
-	public List<Map<String, Object>> getCounselReservationList(int student_pk){
+	public List<Map<String, Object>> getCounselReservationList(int student_pk, int pageNum, 
+			String counselorNameValue, int selectDateType, String datevalueStr, int categoryType, int stateType){
 		
 		List<Map<String, Object>> list = new ArrayList<>();
 		
-		List<OfflineReservationDto> reservationList = offlineCounselMapper.selectCounselReservationList(student_pk);
+//		LocalDateTime datevalue = null;
+//		
+//		if(!"0".equals(datevalueStr) && !datevalueStr.isEmpty()) {
+//			
+//			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+//			datevalue = LocalDateTime.parse(datevalueStr, formatter);
+//			
+//			// 시간이 24:00일 경우 00:00으로 변경
+//			if (datevalue.getHour() == 24) {
+//			    datevalue = datevalue.withHour(0).withMinute(0);
+//			} else {
+//			    // 시간을 1시간 단위로 변경 (ex: 1:00 -> 01:00)
+//			    datevalue = datevalue.withHour(datevalue.getHour()).withMinute(datevalue.getMinute());
+//			}
+//		}
+		
+
+		List<OfflineReservationDto> reservationList = offlineCounselMapper.selectCounselReservationList(student_pk, pageNum, counselorNameValue, selectDateType, datevalueStr, categoryType, stateType);
 		
 		for(OfflineReservationDto offlineReservationDto : reservationList) {
 			
@@ -290,7 +310,7 @@ public class OfflineCounselServiceImpl {
 			TypeCategoryDto typeCategoryDto = offlineCounselMapper.selectTypeCategoryDtoById(categoryPk);
 			
 			OfflineSurveyDto offlineSurveyDto = offlineCounselMapper.selectOfflineSurveryInfo(offlineReservationDto.getId());
-			
+							
 			Map<String, Object> map = new HashMap<>();
 			map.put("offlineReservationDto", offlineReservationDto);
 			map.put("counselorDto", counselorDto);
@@ -317,6 +337,8 @@ public class OfflineCounselServiceImpl {
 		
 		int counselorPk = offlineReservationDto.getCounselor_id();
 		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfo(counselorPk);
+		
+		System.out.println("counPk: "+counselorPk);
 		
 		OfflineSurveyDto offlineSurveyDto = offlineCounselMapper.selectOfflineSurveryInfo(offlineReservationDto.getId());
 		
@@ -370,6 +392,27 @@ public class OfflineCounselServiceImpl {
 		return impossibleDateList;
 	}
 	
+	public int getStudentTotalCounselCount(int student_pk, String counselorNameValue, int selectDateType, String datevalueStr, int categoryType, int stateType) {
+		
+//		LocalDateTime datevalue = null;
+//		
+//		if(!"0".equals(datevalueStr) && !datevalueStr.isEmpty()) {
+//			
+//			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+//			datevalue = LocalDateTime.parse(datevalueStr, formatter);
+//			
+//			// 시간이 24:00일 경우 00:00으로 변경
+//			if (datevalue.getHour() == 24) {
+//			    datevalue = datevalue.withHour(0).withMinute(0);
+//			} else {
+//			    // 시간을 1시간 단위로 변경 (ex: 1:00 -> 01:00)
+//			    datevalue = datevalue.withHour(datevalue.getHour()).withMinute(datevalue.getMinute());
+//			}
+//		}
+		System.out.println("count: "+offlineCounselMapper.selectTotalCounselCount(student_pk, counselorNameValue, selectDateType, datevalueStr, categoryType, stateType));
+		
+		return offlineCounselMapper.selectTotalCounselCount(student_pk, counselorNameValue, selectDateType, datevalueStr, categoryType, stateType);
+	}
 	
 	
 }
