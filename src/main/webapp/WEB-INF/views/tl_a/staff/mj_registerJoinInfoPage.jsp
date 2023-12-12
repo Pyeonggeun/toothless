@@ -43,6 +43,49 @@
 			// 여러 이유로 인해 함수 실행이 종료되어야 할 때는 return;을 사용하는 것이 깔끔한 방법!!		
 		}
 		
+		
+		// 미입력 필드를 담을 배열
+	    const emptyFields = [];
+
+	    // 값이 비어있는지 확인
+	    if (!document.getElementById("title").value.trim()) {
+	        emptyFields.push("제목을 입력해주세요.");
+	    }
+	    if (!document.getElementById("detail_expln").value.trim()) {
+	        emptyFields.push("상세 설명을 입력해주세요.");
+	    }
+	    if (!document.getElementById("apply_start_date").value.trim()) {
+	        emptyFields.push("신청 시작일을 입력해주세요.");
+	    }
+	    if (!document.getElementById("apply_end_date").value.trim()) {
+	        emptyFields.push("신청 종료일을 입력해주세요.");
+	    }
+	    if (!document.getElementById("selection_amount").value.trim()) {
+	        emptyFields.push("선발 인원을 입력해주세요.");
+	    }
+	    if (!document.getElementById("pass_anncm_date").value.trim()) {
+	        emptyFields.push("합격자 발표일을 입력해주세요.");
+	    }
+	    if (!document.getElementById("payment_start_date").value.trim()) {
+	        emptyFields.push("관비 납부 시작일을 입력해주세요.");
+	    }
+	    if (!document.getElementById("payment_end_date").value.trim()) {
+	        emptyFields.push("관비 납부 종료일을 입력해주세요.");
+	    }
+	    if (!document.getElementById("asgnm_anncm_date").value.trim()) {
+	        emptyFields.push("배정 통보일을 입력해주세요.");
+	    }
+	    if (!document.getElementById("join_dorm_date").value.trim()) {
+	        emptyFields.push("입주일을 입력해주세요.");
+	    }
+
+	    // 미입력 필드가 있다면 알림 표시
+	   if (emptyFields.length > 0) {
+		    const missingFieldsMessage = emptyFields[0];
+		    alert(missingFieldsMessage);
+		    return;
+		}
+		
 		// 입력된 값 모으기(body로 간결하게 보내보자) == map이랑 비슷한뎅?
 		const inputJoinInfo = new FormData();
 		
@@ -73,6 +116,21 @@
 		.then(response => response.json())		// 응답받는 방식 : json
 		.then(response => mj_readRegisterJoinInfoPage());		// 서버쪽 갔다와서 해야할 일들
 
+	}
+	
+	function checkNumber(){
+		
+		const checkNumResultBox = document.getElementById("checkNumResultBox");
+		const inputNum = document.getElementById("selection_amount").value;
+		
+		if (!Number.isInteger(parseInt(inputNum))) {
+			checkNumResultBox.innerText = "선발 인원은 정수로 입력해야 합니다.";
+			checkNumResultBox.style.color = "red";
+		}else{
+			checkNumResultBox.innerText = "올바르게 입력되었습니다.";
+			checkNumResultBox.style.color = "green";
+		}
+		
 	}
 	
 
@@ -463,20 +521,13 @@
 				}
 				
 				
-				
-				
-				
 			}
-			
 			
 		});
 		
-		
 	}
 	
-	
-	
-	
+
 	
 	
 	// 페이지의 DOM이 로드되면 실행될 함수 등록!! 
@@ -622,8 +673,9 @@
 			</div>
 			<div class="row">
 				<div class="col my-2">
-					<input class="form-control" id="selection_amount" type="text" placeholder="선발 인원을 정수로 입력해주세요.">
+					<input onblur="checkNumber()" class="form-control" id="selection_amount" type="text" placeholder="선발 인원을 정수로 입력해주세요.">
 				</div>
+				<div id="checkNumResultBox" class="ms-2" style="font-size: 0.8em"></div>
 			</div>
 		</div>
 	</div>
