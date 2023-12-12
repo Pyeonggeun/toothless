@@ -69,7 +69,9 @@ public class RestConsultingController {
 		
 		}	
 	
-	@RequestMapping("reloadIsOnlineconsulting")
+	
+	//온라인상담 가능여부 리로딩
+	@RequestMapping("reloadOnlineConsultingState")
 	public D_RestResponseDto isOnlineconsulting(HttpSession session) {
 		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
 	
