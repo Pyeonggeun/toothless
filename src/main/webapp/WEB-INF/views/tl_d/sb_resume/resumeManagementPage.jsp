@@ -134,7 +134,7 @@
 											<fmt:formatDate value="${list.created_at}" pattern="yyyy-MM-dd"/>
 										</div>
 										<div class="col-2 text-center">
-											<button type="submit" class="btn btn-success">선택</button>
+											<button type="submit" class="btn btn-primary">선택</button>
 										</div>
 										<div class="col text-center">
 											<a class="btn btn-danger" href="./resumeDeleteProcess?resume_pk=${list.resume_pk }" role="button">삭제</a>
