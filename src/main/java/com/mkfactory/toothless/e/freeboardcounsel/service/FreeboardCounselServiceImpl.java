@@ -20,6 +20,7 @@ public class FreeboardCounselServiceImpl {
 	@Autowired
 	FreeboardCounselSqlMapper freeboardCounselSqlMapper;
 	
+	//글 작성
 	public void createFreeboardPostsProcess(FreeboardDto paraFreeboardDto, List<FreeboardImageDto> freeboardImageDtoList) {
 		
 		int freeboardPk = freeboardCounselSqlMapper.createFreeboardPk();
@@ -28,7 +29,7 @@ public class FreeboardCounselServiceImpl {
 		freeboardCounselSqlMapper.insertFreeboardPosts(paraFreeboardDto);
 		
 		for(FreeboardImageDto elementFreeboardImageDto: freeboardImageDtoList) {
-			elementFreeboardImageDto.setFreeboard_id(freeboardPk);;
+			elementFreeboardImageDto.setFreeboard_id(freeboardPk); //외래키 
 			freeboardCounselSqlMapper.insertImage(elementFreeboardImageDto);
 		}
 	}
@@ -138,9 +139,14 @@ public class FreeboardCounselServiceImpl {
 		FreeboardDto freeboardPost =  freeboardCounselSqlMapper.selectPostById(id);
 		int student_pk =freeboardPost.getStudent_pk();
 		StudentInfoDto studentInfo = freeboardCounselSqlMapper.selectByStudentId(student_pk);
-
+		
+		//이미지 뽑아오기
+		List<FreeboardImageDto> freeboardImageDtoList = freeboardCounselSqlMapper.selectFreeboardImageDto(id);
+		
 		combinedMap.put("freeboardPost",freeboardPost);
 		combinedMap.put("studentInfo", studentInfo);
+		combinedMap.put("freeboardImageDtoList ", freeboardImageDtoList);
+		
 		return combinedMap;
 		}
 	

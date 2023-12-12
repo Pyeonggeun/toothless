@@ -164,6 +164,14 @@
 			</div>
 			
 			<!-- 글 내용 -->
+			<div class="row">
+				<div class="col">
+					<c:forEach items="${pickpostMap.freeboardImageDtoList}" var="image">
+						이미지 <img src="/uploadFiles/${freeboardImageDtoList.freeboard_image_link}">
+					</c:forEach>
+				</div>
+			</div>
+			
 			<div class="row py-3 fs-4">
 				${pickpostMap.freeboardPost.text }
 			</div>
