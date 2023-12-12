@@ -81,7 +81,7 @@
 			const info = response.data;
 			
 			const introductionImgSrc = info.selfIntroductionImg.self_introduction_img;
-			introductionImg.setAttribute("src", "/Git_imageFile/" + introductionImgSrc);
+//			introductionImg.setAttribute("src", "/Git_imageFile/" + introductionImgSrc);
 			
 			const birth = new Date(info.studentInfoDto.birth);
 			
@@ -129,21 +129,22 @@
 			const certificationListBox = document.getElementById("certificationListBox");
 			certificationListBox.innerHTML = "";
 			
-			const certificationWrapper = document.querySelector("#certificationListTemplete .certificationWrapper").cloneNode(true);
-			
-			const certificationName = document.querySelector(".certificationName");
-			const acquisitionDate = document.querySelector(".acquisitionDate");
-			const certificationFile = document.querySelector(".certificationFile");
-			
 			for(certification of response.data.certificationList){
+				
+				const certificationWrapper = document.querySelector("#certificationListTemplete .certificationWrapper").cloneNode(true);
+				
+				const certificationName = document.querySelector(".certificationName");
+				const acquisitionDate = document.querySelector(".acquisitionDate");
+				const certificationFile = document.querySelector(".certificationFile");
 				
 				let acquisition_date = new Date(certification.certification_acquisition_date);
 				
+				console.log(certification.certification_name);
+				
 				certificationName.innerText = certification.certification_name;
-				acquisitionDate.innerText = acquisition_date.getFullYear + "." + (acquisition_date.getMonth()+1) + "." + acquisition_date.getDate();
+				acquisitionDate.innerText = acquisition_date.getFullYear() + "." + (acquisition_date.getMonth()+1) + "." + acquisition_date.getDate();
 				certificationFile.innerText = "자격증파일 보기";
-				certificationFile.setAttribute("class", "btn");
-				certificationFile.classList.add("btn-sm", "btn-outline-secondary");
+				certificationFile.classList.add("btn", "btn-sm", "btn-outline-secondary", "rounded-0");
 				certificationFile.setAttribute("onclick", "openModal()");
 				
 				certificationListBox.appendChild(certificationWrapper);
@@ -167,7 +168,6 @@
 		loadSelfIntroduction.classList.add("active");
 		
 		reloadSelfIntroduction();
-		
 	}
 	
 	function showCertificationList(){
@@ -187,31 +187,10 @@
 		reloadCertification();
 	}
 	
-	
-	
-	
-	
 	window.addEventListener("DOMContentLoaded", () => {
 		getProfessorPk();
 		reloadStudentDetails();
 		showSelfIntroduction();
-		function showCertificationList(){
-			
-			const showSelfIntroduction = document.getElementById("showSelfIntroduction");
-			showSelfIntroduction.classList.add("d-none");
-			
-			const loadSelfIntroduction = document.getElementById("loadSelfIntroduction");
-			loadSelfIntroduction.classList.remove("active");
-			
-			const showCertificationList = document.getElementById("showCertificationList");
-			showCertificationList.classList.remove("d-none");
-			
-			const loadCertificationList = document.getElementById("loadCertificationList");
-			loadCertificationList.classList.add("active");
-			
-			reloadCertification();
-		}
-		// setInterval(reloadCommentList,1000); // 1초마다 reloadCommentList호출
 	});
 	
 </script>
@@ -266,13 +245,13 @@
 													이름
 												</div>
 												<div class="studentName col border-start ps-4 border-end fw-semibold">
-													이름넣는 칸
+													
 												</div>
 												<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 													주민번호
 												</div>
 												<div class="studentResidentId col border-start ps-4">
-													주민번호 넣는 칸
+													
 												</div>
 											</div>
 											<div class="row border-bottom py-2">
@@ -280,13 +259,13 @@
 													전공
 												</div>
 												<div class="studentDepartment col border-start ps-4 border-end">
-													전공 넣는 칸
+													
 												</div>
 												<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 													이수학기
 												</div>
 												<div class="studentSemester col border-start ps-4">
-													학기 넣는 칸
+													
 												</div>
 											</div>
 											<div class="row border-bottom py-2">
@@ -294,13 +273,13 @@
 													생년월일
 												</div>
 												<div class="studentBirth col border-start ps-4 border-end">
-													생년월일 넣는 칸
+													
 												</div>
 												<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 													성별
 												</div>
 												<div class="studentgender col border-start ps-4">
-													성별 넣는 칸
+													
 												</div>
 											</div>
 											<div class="row border-bottom py-2">
@@ -308,13 +287,13 @@
 													전화번호
 												</div>
 												<div class="studentPhone col border-start ps-4 border-end">
-													전화번호 넣는 칸
+													
 												</div>
 												<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 													이메일
 												</div>
 												<div class="studentEmail col border-start ps-4">
-													이메일 넣는 칸
+													
 												</div>
 											</div>
 											<div class="row pt-2 pb-1">
@@ -322,7 +301,7 @@
 													주소
 												</div>
 												<div class="studentAdress col border-start ps-4">
-													주소 넣는 칸
+													
 												</div>
 											</div>
 										</div>
@@ -381,7 +360,7 @@
 									<!-- 자격증 출력 -->
 									<div id="showCertificationList" class="row border border-secondary border-top-0 d-none">
 										<div class="col text-center">
-											<div class="row border-bottom py-1 fw-semibold text-dark-emphasis" style="background-color:#f2f5f7;">
+											<div class="row border-bottom py-1 fw-semibold text-dark-emphasisr" style="background-color:#f2f5f7;">
 												<div class="col-5">
 													자격증명
 												</div>
@@ -394,19 +373,7 @@
 											</div>
 											<div class="row">
 												<div class="col" id="certificationListBox">
-												<div id="certificationListTemplete" class="d-none">
-													<div class="certificationWrapper row py-2">
-														<div class="certificationName col-5 fw-semibold">
-															자격증명 입력
-														</div>
-														<div class="acquisitionDate col-4">
-															자격증 취득일 입력
-														</div>
-														<div class="certificationFile col-3">
-															<button>자격증 파일 입력</button>
-														</div>
-													</div>
-												</div>
+													
 												</div>
 											</div>
 										</div>
@@ -425,6 +392,35 @@
 		</div>
 		
 	</div>
+	
+	
+	<!-- 자격증 리스트 -->
+	<div id="certificationListTemplete" class="d-none">
+		<div class="certificationWrapper row py-2 border-bottom">
+			<div class="certificationName col-5 fw-semibold align-self-center border-end">
+				자격증명 입력
+			</div>
+			<div class="acquisitionDate col-4 align-self-center border-end">
+				자격증 취득일 입력
+			</div>
+			<div class="col-3 align-self-center">
+				<button class="certificationFile px-4">자격증 파일 입력</button>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 자격증이 존재하지 않을 때 -->
+	
+
+
+
+
+
+
+
+
+
+
 
 </div><!-- 전체 container 출구 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
