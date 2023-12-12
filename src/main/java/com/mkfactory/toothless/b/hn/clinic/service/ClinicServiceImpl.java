@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.b.dto.ClinicPatientDto;
+import com.mkfactory.toothless.b.dto.ClinicPatientLogDto;
+import com.mkfactory.toothless.b.dto.PrescriptionDto;
 import com.mkfactory.toothless.b.hn.clinic.mapper.ClinicSqlMapper;
 
 @Service
@@ -77,6 +79,79 @@ public class ClinicServiceImpl {
 	public int getWaitingClinicPatientTotalPageNumber() {
 		
 		return clinicSqlMapper.getWaitingClinicPatientTotalPageNumber();
+	}
+	
+	public Map<String, Object> getNewClinicPatientInfo(String resident_id) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		String clasify = clinicSqlMapper.getClinicPatientClassifyByResidentId(resident_id);
+		
+		if(clasify == null) {
+			clasify = "외부인";
+		}
+		
+		map.put("clinicPatientInfo", clinicSqlMapper.getNewClinicPatientInfoByResidentId(resident_id));
+		map.put("classify",clasify);
+		
+		return map;
+	}
+	
+	public void insertNewClinicPatientInfo(ClinicPatientDto clinicPatientDto) {
+		
+		clinicSqlMapper.insertNewClinicPatientInfo(clinicPatientDto);
+		clinicSqlMapper.insertWaitingClinicPatientInfo(clinicSqlMapper.getClinicPatientPkByResidentId(clinicPatientDto.getResident_id()));
+	}
+	
+	public Map<String, Object> getClinicPatientLogInfo(int clinic_patient_pk) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		List<ClinicPatientLogDto> clinicPatientLogList = clinicSqlMapper.getClinicPatientLogInfoListByClinicPatientPk(clinic_patient_pk);
+		
+		for(ClinicPatientLogDto clinicPatientLogDto : clinicPatientLogList) {
+			
+			Map<String, Object> logMap = new HashMap<>();
+			
+			logMap.put("clinicPatientLogInfo", clinicPatientLogDto);
+			logMap.put("staffName", clinicSqlMapper.getStaffNameByStaffPk(clinicPatientLogDto.getStaff_pk()));
+			logMap.put("diseaseName", clinicSqlMapper.getDiseaseNameByDiseaseCodePk(clinicPatientLogDto.getDisease_code_pk()));
+			
+			list.add(logMap);
+			
+		}
+		
+		map.put("clinicPatientInfo", clinicSqlMapper.getClinicPatientInfoByClinicPatientPk(clinic_patient_pk));
+		map.put("clinicPatientLogInfoList", list);
+		
+		return map;
+	}
+	
+	public Map<String, Object> getClinicPatientDetailLogInfo(int clinic_patient_log_pk) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		ClinicPatientLogDto clinicPatientLogDto = clinicSqlMapper.getClinicPatientLogInfoByClinicPatientLogPk(clinic_patient_log_pk);
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		List<PrescriptionDto> prescriptionList = clinicSqlMapper.getPrescriptionInfoListByClinicPatientLogPk(clinic_patient_log_pk);
+		
+		for(PrescriptionDto prescriptionDto : prescriptionList) {
+			
+			Map<String, Object> prescriptionMap = new HashMap<>();			
+			
+			prescriptionMap.put("prescriptionInfo", prescriptionDto);
+			prescriptionMap.put("medicineName", clinicSqlMapper.getMedicineNameByMedicineCodePk(prescriptionDto.getMedicine_code_pk()));
+			
+			list.add(prescriptionMap);
+		}
+		
+		map.put("clinicPatientLogInfo", clinicPatientLogDto);
+		map.put("diseaseName", clinicSqlMapper.getDiseaseNameByDiseaseCodePk(clinicPatientLogDto.getDisease_code_pk()));
+		map.put("prescriptionInfoList", list);
+		
+		return map;
 	}
 
 }

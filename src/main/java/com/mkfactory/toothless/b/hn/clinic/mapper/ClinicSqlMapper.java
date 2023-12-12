@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.mkfactory.toothless.b.dto.ClinicPatientDto;
+import com.mkfactory.toothless.b.dto.ClinicPatientLogDto;
+import com.mkfactory.toothless.b.dto.PrescriptionDto;
 
 public interface ClinicSqlMapper {
 	
@@ -20,4 +22,17 @@ public interface ClinicSqlMapper {
 	public ClinicPatientDto getClinicPatientInfoByClinicPatientPk(int clinic_patient_pk);
 	
 	public int getWaitingClinicPatientTotalPageNumber();
+	
+	public ClinicPatientDto getNewClinicPatientInfoByResidentId(String resident_id);
+	
+	public void insertNewClinicPatientInfo(ClinicPatientDto clinicPatientDto);
+	public int getClinicPatientPkByResidentId(String resident_id);
+	
+	public List<ClinicPatientLogDto> getClinicPatientLogInfoListByClinicPatientPk(int clinic_patient_pk);
+	public String getStaffNameByStaffPk(int staff_pk);
+	public String getDiseaseNameByDiseaseCodePk(int disease_code_pk);
+	
+	public ClinicPatientLogDto getClinicPatientLogInfoByClinicPatientLogPk(int clinic_patient_log_pk);
+	public List<PrescriptionDto> getPrescriptionInfoListByClinicPatientLogPk(int clinic_patient_log_pk);
+	public String getMedicineNameByMedicineCodePk(int medicine_code_pk);
 }
