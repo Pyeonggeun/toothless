@@ -10,6 +10,122 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <title>Insert title here</title>
+<script>
+	function adongClick(callBackFuc){
+
+		//A동 클릭버튼 속성 조작
+		const adongText = document.querySelector("#dongWrapper .adong");
+		adongText.setAttribute("style", "background-color: black;"+"color: white;");
+		
+		const bdongText = document.querySelector("#dongWrapper .bdong");
+		bdongText.setAttribute("style", "background-color: white;"+"color: black;");
+		console.log(adongText);
+		//내용수정
+		callBackFuc();
+		
+	}
+	
+	// 안에 내용 랜더링 콜백함수로 사용
+	function contentUpdate(){
+		// restAPI 사용해서 리스트를 끌어올거임..
+		
+		const templete = document.querySelector("#templete");
+		templete.innerHTML = "";
+		
+		fetch("./AdongList")
+		.then(response => response.json())
+		.then(response => {
+			
+			// 템플릿 양식을 그대로 들고옴
+			for(e of response.data){
+				const tr = document.createElement("tr");
+				const td1 = document.createElement("td");
+				const td2 = document.createElement("td");
+				const td3 = document.createElement("td");
+				
+				//const buildname = templeteDt.querySelector("#buildname");
+				//buildname.innerText = e.dormBuildingDto.name;
+				
+				//const roomname = templeteDt.querySelector("#roomname");
+				//roomname.innerText = e.dormRoomDto.room_name;
+				
+				//const studentname = templeteDt.querySelector("#studentname");
+				//studentname.innerText = e.studentInfoDto.name;
+				
+				td1.innerText = e.dormBuildingDto.name;
+				td2.innerText = e.dormRoomDto.room_name;
+				td3.innerText = e.studentInfoDto.name;
+				
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+				tr.appendChild(td3);
+				
+				templete.appendChild(tr);
+				
+			}
+			
+			
+			
+			
+		});
+			
+		
+	}
+	
+	function bdongClick(callBackFuc){
+
+		//A동 클릭버튼 속성 조작
+		const bdongText = document.querySelector("#dongWrapper .bdong");
+		bdongText.setAttribute("style", "background-color: black;"+"color: white;");
+		
+		const adongText = document.querySelector("#dongWrapper .adong");
+		adongText.setAttribute("style", "background-color: white;"+"color: black;");
+		console.log(bdongText);
+		//내용수정
+		callBackFuc();
+		
+	}
+	// ★★★★★★★★★★★ 여기 내용 수정하는거 Adong 엘리먼트에서 값을받아와서 파라미터로 값넘겨줘서  
+	function contentUpdate2(){
+		// restAPI 사용해서 리스트를 끌어올거임..
+		
+		const templete = document.querySelector("#templete");
+		templete.innerHTML = "";
+		
+		fetch("./BdongList")
+		.then(response => response.json())
+		.then(response => {
+			
+			// 템플릿 양식을 그대로 들고옴
+			for(e of response.data){
+				const tr = document.createElement("tr");
+				const td1 = document.createElement("td");
+				const td2 = document.createElement("td");
+				const td3 = document.createElement("td");
+				
+				td1.innerText = e.dormBuildingDto.name;
+				td2.innerText = e.dormRoomDto.room_name;
+				td3.innerText = e.studentInfoDto.name;
+				
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+				tr.appendChild(td3);
+				
+				templete.appendChild(tr);
+				
+			}
+			
+			
+			
+			
+		});
+			
+		
+	}
+	
+	
+</script>
+
 </head>
 <body>
 <div class="container-fluid">
@@ -47,23 +163,19 @@
 					</ul>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col border py-4 mx-2 rounded border-dark btn text-center">
-					<div class="row">
-						<a href="./dm_readRoomAssignmentA" role="button" style="text-decoration: none; color: black;">
+			<div class="row" id="dongWrapper">
+				<div class="adong col border py-4 mx-2 rounded border-dark btn text-center" onclick="adongClick(contentUpdate)">
+					<div class="row"><!-- 여기를 뜯어내야함 버튼을 눌렀을 때 -->
 							<div class="col ms-2 fw-bold">
-							A동
+								A동
 							</div>
-						</a>
 					</div>
 				</div>
-				<div class="col border py-4 mx-2 rounded border-dark btn text-center">
+				<div class="bdong col border py-4 mx-2 rounded border-dark btn text-center" onclick="bdongClick(contentUpdate2)">
 					<div class="row">
-						<a href="./dm_readRoomAssignmentB" role="button" style="text-decoration: none; color: black;">
 							<div class="col ms-2 fw-bold">
-							B동
+								B동
 							</div>
-						</a>
 					</div>
 					
 				</div>
@@ -81,13 +193,13 @@
 								<th scope="col" class="col-2 text-bg-light">이름</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="templete">
 							<c:if test="${!empty dormList}">
 							<c:forEach items="${dormList }" var="dormList">
-							<tr>
-								<td>${dormList.dormBuildingDto.name }</td>
-								<td>${dormList.dormRoomDto.room_name }</td>
-								<td>${dormList.studentInfoDto.name }</td>
+							<tr class="HoWrapper">
+								<td id="buildname">${dormList.dormBuildingDto.name }</td>
+								<td id="roomname">${dormList.dormRoomDto.room_name }</td>
+								<td id="studentname">${dormList.studentInfoDto.name }</td>
 							</tr>
 							</c:forEach>
 							</c:if>
@@ -100,7 +212,23 @@
             
         
 	</div> <!-- main row 끝 -->
-	
+<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">호실 배정</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>정말로 배정 하시겠습니까?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+          <button onclick="AssignmentComplete()" type="button" class="btn btn-primary">배정하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
