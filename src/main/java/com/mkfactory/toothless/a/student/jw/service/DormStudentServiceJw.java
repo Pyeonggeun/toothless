@@ -50,7 +50,7 @@ public class DormStudentServiceJw {
 		return list;
 	}
 	
-	public int sumTotalPointByStudentPk(int student_pk) {
+	public Integer sumTotalPointByStudentPk(int student_pk) {
 		return dormStudentMapperJw.sumTotalPointByStudentPk(student_pk);
 	}
 	

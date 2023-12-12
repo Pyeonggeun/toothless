@@ -18,6 +18,6 @@ public interface DormStudentMapperJw {
 	// 상/벌점 확인페이지
 	public List<PointDto> selectPointByStudentAndProgressSemester(int student_pk);
 	public PointCategory selectPointCategoryByPointCategoryPk(int point_category_pk);
-	public int sumTotalPointByStudentPk(int student_pk);
+	public Integer sumTotalPointByStudentPk(int student_pk);
 	
 }

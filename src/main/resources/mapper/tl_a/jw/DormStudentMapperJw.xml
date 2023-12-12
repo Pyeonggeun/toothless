@@ -64,7 +64,7 @@
 	</select>
 	
 	<!-- 사생별 상/벌점 총 점수 -->
-	<select id="sumTotalPointByStudentPk" resultType="int">
+	<select id="sumTotalPointByStudentPk" resultType="Integer">
 		SELECT SUM(tapc.POINT) FROM TL_A_POINT tap
 		JOIN TL_A_POINT_CATEGORY tapc ON tap.POINT_CATEGORY_PK = tapc.POINT_CATEGORY_PK  
 		JOIN TL_A_DORM_STUDENT tads ON tap.DORM_STUDENT_PK = tads.DORM_STUDENT_PK

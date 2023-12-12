@@ -28,10 +28,14 @@ public class DormStudentControllerJw {
 	public String jw_exitApplyPage(HttpSession session, Model model) {
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		if(studentInfoDto == null) {
+			return "redirect:/another/student/loginPage";
+		}
 		int studentPk = studentInfoDto.getStudent_pk();
-		if(dormStudentServiceJw.checkDormStudent(studentPk) == 0) {
+		 
+		if(session.getAttribute("sessionStudentInfo") != null && dormStudentServiceJw.checkDormStudent(studentPk) == 0) {
 			// 로그인 한 학생이 사생이 아니면 반환 (사생페이지)
-			return "/another/student/loginPage";
+			return "redirect:/another/student/loginPage";
 		} else {
 			model.addAttribute("studentInfoDto", studentInfoDto);
 			model.addAttribute("dormStudentDto", dormStudentServiceJw.getDormStudentByStudentPk(studentPk));
@@ -52,15 +56,22 @@ public class DormStudentControllerJw {
 	public String jw_checkDormStudentPointPage(HttpSession session, Model model) {
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		if(studentInfoDto == null) {
+			return "redirect:/another/student/loginPage";
+		}
 		int studentPk = studentInfoDto.getStudent_pk();
 		
 		if(dormStudentServiceJw.checkDormStudent(studentPk) == 0) {
 			// 로그인 한 학생이 사생이 아니면 반환 (사생페이지)
-			return "/another/student/loginPage";
+			return "redirect:/another/student/loginPage";
 		} else {
 			model.addAttribute("studentInfoDto", studentInfoDto);
 			model.addAttribute("pointSituationListMap", dormStudentServiceJw.getPointSituation(studentPk));
-			model.addAttribute("sumTotalPoint", dormStudentServiceJw.sumTotalPointByStudentPk(studentPk));
+			
+			Integer sumTotalPoint = dormStudentServiceJw.sumTotalPointByStudentPk(studentPk);
+			int intSumTotalPoint = (sumTotalPoint != null) ? sumTotalPoint : 0;
+			
+			model.addAttribute("sumTotalPoint", intSumTotalPoint);
 			return "/tl_a/student/jw_checkDormStudentPointPage";
 		}
 		
