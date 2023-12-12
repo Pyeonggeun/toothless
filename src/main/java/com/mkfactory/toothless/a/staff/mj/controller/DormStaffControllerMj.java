@@ -68,7 +68,27 @@ public class DormStaffControllerMj {
 
 	// 사감 메인페이지
 	@RequestMapping("mj_mainPage")
-	public String mj_mainPage() {
+	public String mj_mainPage(Model model) {
+		
+		// 입사신청 전체 리스트
+		List<Map<String, Object>> applyList =  staffService.getAllDormApplyList();
+		// 선발완료 전체 리스트
+		List<Map<String, Object>> dormSelectedList =  staffService.getAllDormSelectedList();
+		// 납부완료 리스트
+		List<Map<String, Object>> paymentYesList =  staffService.getPaymentYesList();
+		
+		
+		// 입사신청 전체 개수
+		int countApplyList = applyList.size();
+		model.addAttribute("countApplyList", countApplyList);
+		
+		// 선발완료 전체 개수
+		int countDormSelectedList = dormSelectedList.size();
+		model.addAttribute("countDormSelectedList", countDormSelectedList);
+	
+		// 납부완료 전체 개수
+		int countPaymentYesList = paymentYesList.size();
+		model.addAttribute("countPaymentYesList", countPaymentYesList);
 		
 		return "tl_a/staff/mj_mainPage";
 	}
