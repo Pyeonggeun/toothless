@@ -9,6 +9,72 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    	
+    	<script>
+    		function reloadItemAndCategoryList(){
+    			
+    			const url = "./restItemAndCategoryList";
+    			
+    			fetch(url)
+    			.then(response => response.json())
+    			.then(response => {
+    				
+    				const itemAndCategoryListBox = document.getElementById("itemAndCategoryListBox");
+    				itemAndCategoryListBox.innerHTML = "";
+    				
+    				for(e of response.data){
+    					const itemAndCategoryWrapper = document.querySelector("#templete .itemAndCategoryWrapper").cloneNode(true);
+    					
+    					const itemPk = itemAndCategoryWrapper.querySelector(".itemPk");
+    					itemPk.innerText = e.ITEM_PK;
+    					
+    					const catName = itemAndCategoryWrapper.querySelector(".catName");
+    					catName.innerText = e.CAT_NAME;
+    					
+    					const itemName = itemAndCategoryWrapper.querySelector(".itemName");
+    					itemName.innerText = e.ITEM_NAME;
+    					
+    					itemName.setAttribute("onclick","getItem("+e.ITEM_PK+")");
+    					
+    					const createdAt = itemAndCategoryWrapper.querySelector(".createdAt");
+    					const date = new Date(e.CREATED_AT);
+    					
+    					createdAt.innerText = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+    					
+    					const modifiedButton = itemAndCategoryWrapper.querySelector(".modifiedButton");
+    					
+    					const deleteButton = itemAndCategoryWrapper.querySelector(".deleteButton"); 
+    					
+    					deleteButton.setAttribute("onclick","deleteItem("+e.ITEM_PK+")");
+    					
+    					itemAndCategoryListBox.appendChild(itemAndCategoryWrapper);
+    				}
+    			});	
+    		}
+			
+    		function getItem(itemPk){
+    			window.location.href = "./itemUpdateAndDeleteDetailPage?item_pk=" + itemPk;
+    		}
+    		
+    		function deleteItem(itemPk){
+    			const url = "./restItemDeleteProcess?item_pk=" + itemPk;
+    			
+    			fetch(url)
+    			.then(response => response.json())
+    			.then(response => {
+    				
+    				reloadItemAndCategoryList();
+    				
+    			});
+    			
+    		}
+    	
+    		window.addEventListener("DOMContentLoaded", () => {
+    			reloadItemAndCategoryList();
+    		});
+    	</script>
+    
+    
     </head>
     <body>
 
@@ -29,51 +95,49 @@
                                         </div>  
                                     </div>
                                     <form action="./itemRegistProcess" method="post" enctype="multipart/form-data">
-                                    <div class="row mt-2 ms-2 me-1 border-1" style="background-color: #DEF4F5; border-style: solid; border-color: #454545;">
+                                    <div class="row mt-2 ms-2 me-1">
                                         <div class="col">
-                                            <div class="row mt-4 me-0">
-                                                <div class="col-3"></div>  
-                                                <div class="col-1 ps-1 pe-0 fw-bold">물품카테고리</div>
-                                                <div class="col-2 ps-4">
-                                                    <select name="item_cat_pk" class="form-select form-select-sm d-grid rounded-0" aria-label="Small select example" style="border-color: black;">
+                                            <div class="row mt-4">
+                                                <div class="col-1 fw-bold border border-dark-subtle bg-dark-subtle" style="font-size: 0.8em; text-align: center; display: flex; align-items: center;">
+                                               	 물품카테고리
+                                               	 </div>
+                                               	 <div class="col-2 border border-dark-subtle" style="display: flex; align-items: center;">
+                                               	 	<select name="item_cat_pk" class="form-select form-select-sm d-grid rounded-0" aria-label="Small select example" style="border-color: black;">
                                                         <option class="text-center" selected>---선택해주세요---</option>
                                                         <c:forEach items="${itemCategoryList }" var="itemCategory">
                                                         <option value="${itemCategory.item_cat_pk }">${itemCategory.name }</option>
                                                         </c:forEach>
                                                     </select> 
+                                               	 </div>
+                                                <div class="col-1 fw-bold  border border-dark-subtle bg-dark-subtle" style="font-size: 0.8em; text-align: center; display: flex; align-items: center;">
+                                                물품명
                                                 </div>
-
-                                                <div class="col-1 ps-3 fw-bold"><span>물품명</span></div>
-                                                <div class="col-2 ps-4">
-                                                    <input name="name" type="text">
+                                                <div class="col-2 border border-dark-subtle" style="text-align: center; display: flex; align-items: center;">
+                                                    <input name="name" type="text" class="form-control-sm">
                                                 </div>
-                                                <div class="col-2"></div> 
-                                            </div>
-                                            <div class="row mt-3 mb-3 me-0">
-                                                <div class="col-3"></div>
-                                                <div class="col-1 ps-1 fw-bold">
+                                                <div class="col-1  fw-bold border border-dark-subtle bg-dark-subtle" style="font-size: 0.8em; text-align: center; display: flex; align-items: center;">
                                                     <span>물품설명서</span>
                                                 </div>
-                                                <div class="col-2 ps-4 pe-5">
-                                                    <textarea name="content"></textarea>
+                                                <div class="col-2  border border-dark-subtle" style="text-align: center; display: flex; align-items: center;">
+                                                    <textarea name="content" rows="2" cols="20" class="form-control-sm"></textarea>
                                                 </div>
-                                                
-                                                <div class="col-1 ps-2 fw-bold">
+                                                <div class="col-1  fw-bold border border-dark-subtle bg-dark-subtle" style="font-size: 0.8em; text-align: center; display: flex; align-items: center;">
                                                     물품이미지
+                                                </div>   
+                                                <div class="col-2  border border-dark-subtle" style="display: flex; align-items: center;">
+                                                    <input type="file" name="mainImage" class="form-control-sm py-4" accept="image/*">
                                                 </div>
-                                                <div class="col-2 ps-4">
-                                                    <input type="file" name="mainImage" accept="image/*">
-                                                </div>
-                                                <div class="col-5"></div>
-                                            </div>
+											</div>
+												
+                                            <div class="row mt-2 mx-0">
+		                                        <div class="col-11"></div>
+		                                        <div class="col ps-5 pe-1">
+		                                            <input type="submit" value="등록">
+		                                        </div>
+		                                    </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-2 mx-0">
-                                        <div class="col-11"></div>
-                                        <div class="col ps-5 pe-1">
-                                            <input type="submit" value="등록">
-                                        </div>
-                                    </div>
+                                    
                                     </form>
                                     <div class="row mt-5 ms-2 mx-auto">
                                         <div class="col-1 vr px-0" style="border-width:0.1em; border-style: solid; border-color: #0000FF;"></div>
@@ -83,46 +147,28 @@
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col">
-                                            <div class="row ">
-                                                <div class="col-3 fw-bold" style="text-align: center;">
-                                                    <span>물품번호</span>
+                                            <div class="row bg-dark-subtle ms-2 me-1 border border-dark-subtle">
+                                                <div class="col-2 fw-bold" style="text-align: center;">
+                                                    물품번호
+                                                </div>
+                                                <div class="col-2 fw-bold" style="text-align: center;">
+                                                    물품카테고리
+                                                </div>
+                                                <div class="col-2 fw-bold" style="text-align: center;">
+                                                    물품명
                                                 </div>
                                                 <div class="col-3 fw-bold" style="text-align: center;">
-                                                    <span>물품카테고리</span>
+                                                    등록일
                                                 </div>
                                                 <div class="col-3 fw-bold" style="text-align: center;">
-                                                    <span>물품명</span>
-                                                </div>
-                                                <div class="col-3 fw-bold" style="text-align: center;">
-                                                    <span>등록일</span>
+                                                    수정/삭제
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col ps-4">
-                                                    <hr style="border: solid 0.05em rgb(15, 15, 15);">
-                                                </div>
-                                            </div>
-                                            <c:forEach items="${itemAndCategoryList }" var="e">
-                                            <div class="row">
-                                                <div class="col-3" style="text-align: center;">
-                                                    <span>${e.ITEM_PK }</span>
-                                                </div>
-                                                <div class="col-3" style="text-align: center;">
-                                                    <span>${e.CAT_NAME }</span>
-                                                </div>
-                                                <div class="col-3" style="text-align: center;">
-                                                    <a href="./itemUpdateAndDeleteDetailPage?item_pk=${e.ITEM_PK }" style="text-decoration-line: none; color: #212529;"><span>${e.ITEM_NAME }</span></a>
-                                                </div>
-                                                <div class="col-3" style="text-align: center;">
-                                                    <span><fmt:formatDate value="${e.CREATED_AT }" pattern="yyyy-MM-dd"/></span>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col ps-4">
-                                                    <hr style="border-color:black">
-                                                </div>
-                                            </div>
-                                            </c:forEach>
+                                            
+                                        <div id="itemAndCategoryListBox" class="col">
+                                        
+                                        </div>    
+
                                         </div>
                                     </div>     
                             </div>
@@ -156,7 +202,31 @@
             </div>
         </div>
     </div>
-        
+    <div id="templete" class="d-none">
+    	<div class="itemAndCategoryWrapper row">
+    		<div class="col align-middle">
+    			<div class="row ms-2 me-1 border border-dark-subtle"> 
+			    	<div class="itemPk col-2 py-4" style="text-align: center;">
+			            <span>아이템 번호</span>
+			        </div>
+			        <div class="catName col-2 py-4" style="text-align: center;">
+			            <span>카테고리명</span>
+			        </div>
+			        <div class="itemName col-2 py-4" style="text-align: center;">
+			            
+			        </div>
+			        <div class="createdAt col-3 py-4" style="text-align: center;">
+			            <span>생성일시</span>
+			        </div>
+			        <div class= "col-3 py-4" style="text-align: center;">
+			            <button class="modifiedButton btn btn-primary">수정</button>
+			            <button class="deleteButton btn btn-outline-danger">삭제</button>
+			        </div>
+		    	</div>
+    		</div>
+    	</div>
+	</div>   
+    
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>
