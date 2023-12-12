@@ -49,8 +49,7 @@
 
 </style>
 <script>
-	
-	const categoryName = ${companyCategoryList.company_category_name};
+
 	
 	// 사업자등록번호 확인
 	let isCheckedCompanyId = false;
@@ -127,27 +126,21 @@
 		
 	}
 	
-	// 업종카테고리 리스트
-	function companyCategoryList() {
-		
-	}
 	
 	// 산업체 등록
 	function registerCompany(){
 		// 로그인 예외처리
-		/* if(staffId == null){
+		 if(staffId == null){
 			if(confirm("로그인 후 다시 이용해주세요. 로그인페이지로 이동하시겠습니까?")){
 				location.href = "../../another/staffLoginPage";
 			}
 			return;
-		} */
+		}
 		
 		const inputCompanyId = document.getElementById("inputCompanyId"); // 사업자 등록번호
 		const companyIdValue = inputCompanyId.value;
 		const inputCompanyName = document.getElementById("inputCompanyName"); // 사업체명
 		const companyNameValue = inputCompanyName.value;
-		/* const inputCompanyCategoryPk = document.getElementById("inputCompanyCategoryPk"); // 업종카테고리
-		const companyCategoryPkValue = inputCompanyCategoryPk.value; */
 		const inputCeoName = document.getElementById("inputCeoName"); // 대표명
 		const ceoNameValue = inputCeoName.value;
 		const inputAddress = document.getElementById("inputAddress"); // 주소
@@ -160,6 +153,10 @@
 		const externalIdValue = inputExternalId.value;
 		const inputExternalPassword = document.getElementById("inputExternalPassword"); // 산업체 비밀번호
 		const externalPasswordValue = inputExternalPassword.value;
+		const inputCompanyCategory = document.querySelector(".inputCompanyCategory"); // 업종카테고리
+		const inputCompanyCategoryValue = inputCompanyCategory.value; 
+		
+
 		
 		const url = "./registerCompany";
 		
@@ -168,10 +165,9 @@
 			headers: {
 				"Content-Type" : "application/x-www-form-urlencoded"
 			},
-			body:"company_id=" + companyIdValue + "&&" + "company_name=" + companyNameValue + "&&" 
-				+ "ceo_name=" + ceoNameValue + "&&" + "address=" + addressValue + "&&"
-				+ "phone" + phoneValue + "&&" + "url=" + urlValue + "&&" +
-				"external_id=" + externalIdValue + "&&" + "password=" + externalPasswordValue
+			body:"company_id=" + companyIdValue + "&company_name=" + companyNameValue + "&ceo_name=" + ceoNameValue +
+					"&address=" + addressValue + "&phone=" + phoneValue + "&url=" + urlValue + 
+					"&external_id=" + externalIdValue + "&password=" + externalPasswordValue + "&company_category_pk=" + inputCompanyCategoryValue
 		})
 		.then(response => response.json())
 		.then(response =>{
@@ -238,11 +234,11 @@
 					</div>
 					<div class="col-6 d-flex mt-2" style="font-size: 0.8em;">
 						<div class="row">
-							<div id="categoryListBox" class="col">
+							<div class="col">
 								<div class="row">
 									<div class="col">
 										<c:forEach items="${list}" var="companyCategoryList">
-											<input class="form-check-input"  name="company_category_pk" type="radio" value="${companyCategoryList.company_category_pk}">
+											<input class="inputCompanyCategory form-check-input"  name="company_category_pk" type="radio" value="${companyCategoryList.company_category_pk}">
 											&nbsp;${companyCategoryList.company_category_name}&nbsp;
 										</c:forEach>
 									</div>

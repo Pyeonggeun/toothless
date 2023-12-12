@@ -75,7 +75,7 @@ public class WoojaeExternalController {
 	@RequestMapping("registerCompanyProcess")
 	public String registerCompanyProcess(AjdksCompanyInfoDto ajdksCompanyInfoDto, ExternalInfoDto externalInfoDto) {
 		
-		woojaeExternalService.registerCompanyInfo(ajdksCompanyInfoDto, externalInfoDto);
+		//woojaeExternalService.registerCompanyInfo(ajdksCompanyInfoDto, externalInfoDto);
 		
 		return"redirect:./ajdksStaffMainPage";
 	}
