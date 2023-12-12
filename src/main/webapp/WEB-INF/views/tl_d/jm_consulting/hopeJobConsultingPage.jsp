@@ -6,9 +6,76 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
 <title>Insert title here</title>
+
+<script>
+	
+	
+	//온라인상담 등록
+	function onlineConsultingProcess(){
+		
+		const insertOnlineConsultingValue = document.getElementById("insertOnlineConsulting").value;
+		
+		const url = "./onlineConsultingProcess?on_consulting_contents=" + insertOnlineConsultingValue;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response =>{
+			reloadOnlineConsulting()
+			
+		});	
+	}
+	
+	
+	//온라인상담현황 리로딩
+	function reloadOnlineConsulting(){
+		
+		const url = "./reloadIsOnlineconsulting";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response =>{
+			
+			//어디에?
+			const isInsertOnlineConsulting = document.querySelector("#isInsertOnlineConsulting");
+			
+			isInsertOnlineConsulting.innerText='';
+					
+			//if문, 그냥 false일때 disabled걸자
+			if(response.data==false){
+				//신청창
+				const buttonElement = document.createElement('button');	
+				buttonElement.classList.add('btn btn-primary-subtle', 'btn-outline-primary');
+				isInsertOnlineConsulting.innerHTML='';
+				isInsertOnlineConsulting.innerText="신청 가능";
+				isInsertOnlineConsulting.appendChild(buttonElement);
+			}
+			else{
+				const buttonElement = document.createElement('button');	
+				buttonElement.classList.add('btn', 'btn-outline-secondary', 'disabled');
+				isInsertOnlineConsulting.innerHTML='';
+				isInsertOnlineConsulting.innerText="신청 완료";
+				isInsertOnlineConsulting.appendChild(buttonElement);				
+			}
+			
+			//2.내 상담가능여부 바뀌기
+			//3.그 상담현황도			
+			
+			
+			
+	
+			
+		});			
+	}
+	
+		
+
+</script>
 
 
 
@@ -39,7 +106,7 @@
 			
 				<div class="col">
 					<div class="row mt-3">						
-						<div class="col  bg-primary-subtle me-3 text-center border rounded-3">
+						<div class="col bg-primary-subtle me-3 text-center border rounded-3">
 							<div class="row">
 								<div class="col pt-3">
 									<span class="rounded-circle" style="font-size:3em;">
@@ -49,22 +116,133 @@
 							</div>
 							<div class="row">
 								<div class="col">
+								
+									<%--
 									<a class="navbar-brand" href="./insertOnConsultingPage">
 										<span class="fw-bold pt-2" style="font-size:1.2em;">
 											온라인 상담 신청
 										</span>
 									</a>
+									 --%>
+								</div>						
+							</div>
+							<div class="row">
+								<div class="col pt-1 pb-3 fw-bold" style="font-size:1.2em;">
+
+									<span class="">
+										온라인 상담 신청
+									</span>
+
 								</div>						
 							</div>
 							<div class="row">
 								<div class="col pt-1 pb-3" style="font-size:0.8em;">
-
-									<span>
-										교직원과 1:1 온라인 상담 문의
-									</span>
-
+										
+											<button id="isInsertOnlineConsulting" type="button" class="btn btn-primary-subtle btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+												신청가능
+											</button>
+											
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											  <div class="modal-dialog">
+											    <div class="modal-content">
+											      <div class="modal-header">
+											        <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">온라인 상담 신청</h1>
+											        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											      </div>
+											      <div class="modal-body">
+											      	
+											      		<div class="row">
+											      			<div class="col" style="text-align:left;">
+											      				<span class="ps-3 text-left fw-bold" style="color:gray;">내용 입력</span> 
+											      			</div>
+											      		</div>
+											      		<div class="row mt-1">
+											      			<div class="col">
+											      				<textarea id="insertOnlineConsulting" rows="5" cols="70" style="border:none;"></textarea>
+											      			</div>
+											      		</div>											      	 	
+											      	  
+											      	
+											      </div>
+											      <div class="modal-footer">
+											        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+											        <button onclick="onlineConsultingProcess()" data-bs-dismiss="modal" type="button" class="btn btn-primary">등록</button>
+											      </div>
+											    </div>
+											  </div>
+											</div>										
+									<%--
+									<c:choose>
+										<c:when test="${isOnlineconsulting}">
+											<button type="button" class="btn btn-primary-subtle btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+											 	신청 가능
+											</button>
+											
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											  <div class="modal-dialog">
+											    <div class="modal-content">
+											      <div class="modal-header">
+											        <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">온라인 상담 신청</h1>
+											        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											      </div>
+											      <div class="modal-body">
+											      	
+											      		<div class="row">
+											      			<div class="col" style="text-align:left;">
+											      				<span class="ps-3 text-left fw-bold" style="color:gray;">내용 입력</span> 
+											      			</div>
+											      		</div>
+											      		<div class="row mt-1">
+											      			<div class="col">
+											      				<textarea id="insertOnlineConsulting" rows="5" cols="70" style="border:none;"></textarea>
+											      			</div>
+											      		</div>											      	 	
+											      	  
+											      	
+											      </div>
+											      <div class="modal-footer">
+											        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+											        <button onclick="onlineConsultingProcess()" data-bs-dismiss="modal" type="button" class="btn btn-primary">등록</button>
+											      </div>
+											    </div>
+											  </div>
+											</div>																					
+										</c:when>
+										
+										
+										<c:otherwise>
+											<button type="button" class="btn btn-outline-secondary disabled" data-bs-toggle="modal" data-bs-target="#exampleModal">
+											 	신청 완료
+											</button>
+											
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											  <div class="modal-dialog">
+											    <div class="modal-content">
+											      <div class="modal-header">
+											        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+											        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											      </div>
+											      <div class="modal-body">
+											        ㅏㅏㅏㅏㅏㅏ
+											      </div>
+											      <div class="modal-footer">
+											        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+											        <button type="button" class="btn btn-primary">Save changes</button>
+											      </div>
+											    </div>
+											  </div>
+											</div>																					
+										</c:otherwise>
+										
+									
+									</c:choose>
+									 --%>
+																
 								</div>						
-							</div>										
+							</div>																	
 						</div>
 		
 						<div class="col bg-primary-subtle  me-3 text-center border rounded-3">
@@ -76,9 +254,9 @@
 								</div>						
 							</div>
 							<div class="row">
-								<div class="col">
+								<div class="col pt-1 pb-3">
 									<a class="navbar-brand" href="./myOnlineConsultingListPage">
-										<span class="fw-bold pt-2" style="font-size:1.2em;">
+										<span class="fw-bold" style="font-size:1.2em;">
 											내 온라인 상담 현황
 										</span>
 									</a>
@@ -86,9 +264,30 @@
 							</div>
 							<div class="row">
 								<div class="col pt-1 pb-3" style="font-size:0.8em;">
-									<span>
-										내가 문의한 온라인 상담 현황 확인
-									</span>
+									<c:choose>
+									<%---- 이게 답변 안 달린상태 --> --%>
+										<c:when test="${!isOnlineconsulting}">
+											<a class="navbar-brand" href="./myOnlineConsultingListPage">
+												<button type="button" class="btn btn-primary-subtle btn-outline-primary position-relative">
+												  미답변
+												</button>
+											</a>																				
+										</c:when>
+										
+										
+										<c:otherwise>
+											<a class="navbar-brand" href="./myOnlineConsultingListPage">
+												<button type="button" class="btn btn-primary-subtle btn-outline-primary position-relative" data-bs-toggle="modal" data-bs-target="#exampleModal">
+													새답변
+												  <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+												    <span class="visually-hidden">New alerts</span>
+												  </span>												 	
+												</button>
+											</a>																				
+										</c:otherwise>
+										
+									
+									</c:choose>
 								</div>						
 							</div>										
 						</div>				
