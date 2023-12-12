@@ -69,11 +69,11 @@
 			
 			if(e.PROFILEIMAGE != null){
 				counselorImage.src = "../../resources/img/counselorImage/" + e.PROFILEIMAGE;
-				counselorImageLink.setAttribute("href", "./counselorDetail?id=" + e.ID);	
+				counselorImageLink.setAttribute("href", "./counselorDetail?id=" + e.COUNSELORID);	
 			}
 			else{
 				counselorImage.src = "../../resources/img/counselorImage/no_image.jpg";
-				counselorImageLink.setAttribute("href", "./counselorDetail?id=" + e.ID);
+				counselorImageLink.setAttribute("href", "./counselorDetail?id=" + e.COUNSELORID);
 			}
 			
 			const counselorName = counselorboxWrapper.querySelector(".counselorName");
@@ -146,7 +146,34 @@
 				searchCategorySelectBox.appendChild(searchCategoryOption);
 				
 			}
+			/* <input name="type_category_id" class="form-check-input" type="checkbox" id="typeCategory" value="">
+            <label class="form-check-label" for="typeCategory"></label> */
 			
+			
+			const typeCategoryInModal = document.querySelector(".typeCategoryInModal");
+			typeCategoryInModal.innerHTML = "";
+			
+			const typeSelectBoxInModal = createHTMLElement("input");
+			typeSelectBoxInModal.setAttribute("name", "type_category_id");
+			typeSelectBoxInModal.setAttribute("class", "form-check-input");
+			typeSelectBoxInModal.setAttribute("type", "checkbox");
+			
+			
+			const typeLabelInModal = createHTMLElement("label");
+			typeLabelInModal.setAttribute("class", "form-check-label");
+			typeLabelInModal.setAttribute("for", "위에 아이디랑 맞춰주기");
+			
+			for(e of response.data){
+				
+				typeSelectBoxInModal.setAttribute("id", "typeCategory" + e.id);
+				typeSelectBoxInModal.setAttribute("value", "e.id");
+				
+				typeLabelInModal.setAttribute("for", "typeCategory" + e.id);
+				typeLabelInModal.innerText = e.name;
+				
+				typeCategoryInModal.appendChild(typeSelectBoxInModal);
+				typeCategoryInModal.appendChild(typeLabelInModal);
+			}
 		});
 	}
 	
@@ -164,6 +191,18 @@
 		}
 		return selectGender || "";
 	}
+	
+	function showModal(){
+        // 필요시 여기서 백엔드하고 연동...CSR
+        const modal = bootstrap.Modal.getOrCreateInstance("#registerModal");
+        modal.show();
+    }
+
+    function resigterCounselorProcess(){
+        // 필요시 여기서 백엔드하고 연동...CSR
+        const modal = bootstrap.Modal.getOrCreateInstance("#registerModal");
+        modal.hide();
+    }
 	
 	
 	
@@ -243,7 +282,12 @@
 					<div class="col">
 						<div class="row">
 							<div class="col">
-								<span class="fw-bold fs-5">상담원 검색</span>								
+								<span class="fw-bold fs-5 align-middle">상담원 검색</span>								
+							</div>
+							<div class="col text-end">
+								<button onclick="showModal()" class="btn btn-sm btn-success fw-bold fs-6 align-middle" data-bs-toggle="modal" data-bs-target="#registerCounselor">
+									상담원 신규등록
+								</button>								
 							</div>
 						</div>
 						<div class="row border rounded mt-3">
@@ -345,6 +389,227 @@
 		</div>
 	</div>
 	
+<!-- 여긴 컨테이너 밖이당 -->
+<!-- 모달, 오프캔버스는 컨테이너 밖으로...(pixed옵션이기 때문에) -->
+   	<div id="registerModal" class="modal fade" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">                        
+                    <span class="modal-title fw-bold fs-2 ms-5">상담원 신규등록</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                            
+                </div>
+                <div class="container modal-body">
+                    <div class="row mt-2">
+                        <div class="col-1"></div>
+                        <div class="col">                            
+                            
+                            <!-- 외부상담사아이디/비번 -->
+                            <div class="row mt-3">
+                                <!-- 아이디 -->
+                                <div class="col-auto">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="external_id" class="fw-bold form-label">상담원아이디</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <input name="external_id" type="text" id="external_id" class="form-control" required>                                                    
+                                        </div>																		
+                                    </div>								
+                                </div>
+                                
+                                <!-- 비밀번호 -->
+                                <div class="col-auto">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="password" class="fw-bold form-label">상담원비밀번호</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <input name="password" type="password" id="password" class="form-control" required>                                                    	
+                                        </div>
+                                    </div>								
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">	
+                                <!-- 상담원카테고리 -->
+                                <div class="col-auto">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="type_category_id" class="fw-bold form-label">상담카테고리</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">                                                    
+                                            <div class="typeCategoryInModal form-check form-check-inline" id="type_category_id" required>
+                                                <input name="type_category_id" class="form-check-input" type="checkbox" id="typeCategory" value="">
+                                                <label class="form-check-label" for="typeCategory"></label>
+                                            </div>
+                                        </div>
+                                    </div>								
+                                </div>							
+                            </div>	
+                            
+                            <!-- 상담사 이름/나이/성별 -->
+                            <div class="row mt-3">
+                                <!-- 이름 -->
+                                <div class="col-auto">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="name" class="fw-bold form-label">이름</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <input name="name" type="text" id="name" class="form-control" required>                                                    
+                                        </div>																		
+                                    </div>								
+                                </div>
+                                
+                                <!-- 나이 -->
+                                <div class="col-auto">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="age" class="fw-bold form-label">나이</label>	
+                                        </div>									
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <input name="age" id="age" type="number" class="form-control" min="0" required>                                                    
+                                        </div>															
+                                    </div>								
+                                </div>
+                                
+                                <!-- 성별 -->
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="gender" class="fw-bold form-label">성별</label>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col">
+                                            <input name="gender" type="radio" id="Male" class="form-check-input align-middle" value="M" checked>
+                                            <label class="form-check-label align-middle" for="Male">남</label>
+                                            <input name="gender" type="radio" id="Female" class="form-check-input align-middle" value="F">
+                                            <label class="form-check-label align-middle" for="Female">여</label>
+                                        </div>
+                                    </div>								
+                                </div>
+                            </div>
+                            
+                            
+                            <!-- 상담원 전화번호/이메일 -->
+                            <div class="row mt-3">
+                                <!-- 전화번호 -->
+                                <div class="col-auto">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="phonenumber" class="fw-bold form-label">전화번호</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <input name="phonenumber" id="phonenumber" type="text" class="form-control" required>                                                    
+                                        </div>									
+                                    </div>								
+                                </div>
+                                
+                                <!-- 이메일 -->
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="email" class="fw-bold form-label">이메일</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <input name="email" id="email" type="text" class="form-control" required>                                                    
+                                        </div>																	
+                                    </div>
+                                </div>							
+                            </div>
+                            
+                            
+                            <!-- 주소 -->
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="address" class="fw-bold form-label">주소</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input name="address" id="address" type="text" class="form-control" required>                                                    
+                                        </div>																		
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 경력사항 -->
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="career" class="fw-bold form-label">경력사항</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <textarea name="career" id="career" class="form-control" rows="10" required></textarea>                                                    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 증명사진 -->
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="profile_Image" class="fw-bold form-label">증명사진</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <input name="profile_Image" type="file" id="profile_Image" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 자격증 -->
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="license" class="fw-bold form-label">자격증</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <input name="license" accept="image/*" type="file" id="license" class="form-control" multiple>
+                                        </div>																	
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button onclick="resigterCounselorProcess()" type="button" class="btn btn-primary">등록하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<!-- 템플릿 짜두는 공간 -->
 	<div id="templete" class="d-none">
 		
 		<div class="counselorInfoBox col-2">

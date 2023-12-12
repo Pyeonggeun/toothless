@@ -100,6 +100,7 @@
 			WHERE ROOM_NAME = #{room_name} AND DORM_PK = #{dorm_pk}
 	</select>
 	
+	
 	<!-- 동과 호실에 해당하는 학생의 상 벌점 -->
 	<select id="selectStudentPoints" resultType="java.util.Map">
 	SELECT SUM(tapc.POINT)  AS sum FROM TL_A_POINT tap

@@ -6,7 +6,7 @@
 	
 	<insert id="insertFreeboardPosts">
 		INSERT INTO cp_student_freeboard VALUES(
-			cp_student_freeboard_seq.nextval,
+			#{id},
 			#{student_pk},
 			#{title},
 			#{text},
@@ -95,9 +95,8 @@
 	</insert>
 	
 	<select id="selectFreeboardImageDto" resultType="com.mkfactory.toothless.e.dto.FreeboardImageDto">
-		SELECT * FROM cp_freeboard_image cfi 
-		WHERE cfi.freeboard_id = #{freeboard_id}
-		ORDER BY cfi.id ASC
+		SELECT * FROM cp_freeboard_image 
+		WHERE freeboard_id = #{freeboard_id}
 	</select>
 	
 	<select id="createFreeboardPk" resultType="int">

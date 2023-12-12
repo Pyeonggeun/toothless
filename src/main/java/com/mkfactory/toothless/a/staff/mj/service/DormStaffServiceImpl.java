@@ -39,11 +39,39 @@ public class DormStaffServiceImpl {
 		staffSqlMapper.insertYear(semesterDto);
 	}
 	
+	// 학년도/학기 수정
+	public void updateSemester(int SEMESTER_PK) {
+		
+		staffSqlMapper.updateThisSemester(SEMESTER_PK);
+		staffSqlMapper.updateNotThisSemester(SEMESTER_PK);
+	}
+	
+	// 학년도/학기 삭제
+	public void deleteSemester(int SEMESTER_PK) {
+		
+		staffSqlMapper.deleteSemester(SEMESTER_PK);
+	}
+	
 	
 	// 학년도/학기 조회
-	public List<SemesterDto> getYearList() {
+	public List<Map<String, Object>> getYearList() {
 		
-		return staffSqlMapper.selectYearList();
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<SemesterDto> yearList = staffSqlMapper.selectYearList();
+		
+		for(SemesterDto yearInfo : yearList) {
+			
+			int countSomeSemesterJoinInfo = staffSqlMapper.countSomeSemesterJoinInfo(yearInfo.getSemester_pk());
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("yearInfo", yearInfo);
+			map.put("countSomeSemesterJoinInfo", countSomeSemesterJoinInfo);
+	
+			list.add(map);
+		}
+		
+		return list;
 	}
 
 	
@@ -59,12 +87,57 @@ public class DormStaffServiceImpl {
 		staffSqlMapper.insertInfo(joinDormInfoDto);
 	}
 	
-	// 공고 전체 조회
-	public List<JoinDormInfoDto> getAllDormInfoList() {
+	// 입주 공고 수정
+	public void updateJoinInfo(JoinDormInfoDto joinDormInfoDto) {
 		
-		return staffSqlMapper.selectAllDormInfoList();
+		staffSqlMapper.updateJoinInfo(joinDormInfoDto);
 	}
 	
+	// 입주 공고 삭제
+	public void deleteJoinInfo(int DORM_INFO_PK) {
+		
+		staffSqlMapper.deleteJoinInfo(DORM_INFO_PK);
+	}
+	
+	// 공고 전체 조회
+	public List<Map<String, Object>> getAllDormInfoList() {
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<JoinDormInfoDto> allDormInfoList = staffSqlMapper.selectAllDormInfoList();
+		
+		for(JoinDormInfoDto joinInfo : allDormInfoList) {
+			
+			int countSomeApplyInfo = staffSqlMapper.countSomeApplyInfo(joinInfo.getDorm_info_pk());
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("joinInfo", joinInfo);
+			map.put("countSomeApplyInfo", countSomeApplyInfo);
+
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
+	// 현재학기에 해당하는 년도의 모든 학기들..
+	public List<Map<String, Object>> getThisYearAllSemester(){
+		
+		return staffSqlMapper.selectThisYearAllSemester();
+	}
+	
+	// 이전년도들..
+	public List<Map<String, Object>> getBeforeYearAll(){
+		
+		return staffSqlMapper.selectBeforeYearAll();
+	}
+	
+	// 이전년도의 모든 학기들..
+	public List<Map<String, Object>> getBeforeYearAllSemester(){
+		
+		return staffSqlMapper.selectBeforeYearAllSemester();
+	}
+		
 	// 입사신청정보(학생정보, 학과정보, 학년, 입사신청정보..) 전체 조회
 	public List<Map<String, Object>> getAllDormApplyList() {
 		

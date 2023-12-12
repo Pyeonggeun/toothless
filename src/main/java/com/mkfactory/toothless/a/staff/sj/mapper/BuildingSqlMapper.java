@@ -51,8 +51,5 @@ public interface BuildingSqlMapper {
 	public PointDto selectPointPk(int dorm_point_pk);
 	public PointCategory selectPointCategoryPk(int point_category_pk);
 	
-	//public List<DormStudentDto> selectStudentPoints();
-	
-	//public List<PointDto> selectStudentPoints(int dorm_student_pk);
 	
 }

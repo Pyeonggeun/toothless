@@ -21,7 +21,7 @@
     </div>
 
 
-    <div class="container mt-3">
+    <div class="container my-5 ">
         <div class="row">
             <div class="col-3 me-3"><!-- 여기부분은 목차부분 -->
                 <div class="row rounded-1 opacity-90" style="background-color: #504528;">
@@ -66,10 +66,10 @@
                     <div class="col">
                         <div class="row my-3">
                             <div class="col pb-2">
-                                <span class="fw-bold" style="font-size: xx-large;">공고 및 입주신청</span>
+                                <span class="fw-bold" style="font-size: xx-large;">상벌점 확인</span>
                             </div>
                             <div class="col text-end pt-3">
-                                <span class="bi bi-house-door-fill" style="color: #999897;"></span><span style="color: #7A8082;"> > 모집안내 </span> <span style="color: #999897;"> > </span><span class="fw-bold" style="color: #767575;">공고 및 입주신청</span>
+                                <span class="bi bi-house-door-fill" style="color: #999897;"></span><span style="color: #7A8082;"> > 기숙사 커뮤니티 </span> <span style="color: #999897;"> > </span><span class="fw-bold" style="color: #767575;">상벌점 확인</span>
                             </div>
                             <span class="border-bottom  border-dark border-4 mt-2"></span>
                         </div>
@@ -78,123 +78,45 @@
                 </div>
                 <div class="row"><!--여기가 안에 들어갈 내용들-->
                     <div class="col">
-                    	<div class="row mt-2">
-                    		<div class="col py-3 text-center fw-bold" style="font-size: 1.5em;">
-                    			${thisSemesterJoinDormInfo.thisSemesterDto.semester_year }년도 ${thisSemesterJoinDormInfo.thisSemesterDto.semester } 기숙사 입사 신청 안내
+                    	<div class="row my-2">
+                    		<div class="col-2 py-3 fw-bold" style="font-size: 1.1rem;">
+                    			<span>이름</span>
+                    		</div>
+                    		<div class="col py-3 text-start" style="font-size: 1.0rem;">
+                    			${sessionStudentInfo.name}
                     		</div>
                     	</div>
-                        <div class="row mt-5">
-							<div class="col fw-bold" style="font-size: 1.2em;">
-								제목
-							</div>             
+                        <div class="row my-3">
+                        	<div class="col-2 fw-bold" style="font-size: 1.1rem;">
+								<span>상벌점 내역</span>
+							</div>
+							<div class="col text-end">
+							<span class="fw-bold">총 점수 &nbsp;</span>${sumTotalPoint}
+							</div>
                         </div>
-                        <div class="row mt-1">
-							<div class="col" style="font-size: 1.1em;">
-								${thisSemesterJoinDormInfo.joinDormInfoDto.title }
-							</div>             
+                        <div class="row my-4 border">
+                        	<div class="col">
+                        		<div class="row py-2 align-middle text-center border border-bottom-1 border-start-0 border-top-0 border-end-0">
+                        				<div class="col fw-bold border border-bottom-0 border-start-0 border-top-0 border-end-1">상/벌점 Category</div>
+                        				<div class="col fw-bold border border-bottom-0 border-start-0 border-top-0 border-end-1">사유</div>
+                        				<div class="col-1 fw-bold border border-bottom-0 border-start-0 border-top-0 border-end-1">점수</div>
+                        				<div class="col-3 fw-bold">부여일</div>
+                        			</div>
+                        		<c:forEach items="${pointSituationListMap}" var="pointSituationListMap">
+                        			<div class="row py-2 align-middle border border-bottom-1 border-start-0 border-top-0 border-end-0">
+                        				<div class="col border border-bottom-0 border-start-0 border-top-0 border-end-1">${pointSituationListMap.pointCategoryDto.content}</div>
+                        				<div class="col border border-bottom-0 border-start-0 border-top-0 border-end-1">${pointSituationListMap.pointDto.reason}</div>
+                        				<div class="col-1 text-center border border-bottom-0 border-start-0 border-top-0 border-end-1">${pointSituationListMap.pointCategoryDto.point}</div>
+                        				<div class="col-3 text-center"><fmt:formatDate value="${pointSituationListMap.pointDto.created_at}" pattern="yyyy-MM-dd"/></div>
+                        			</div>
+                        		</c:forEach>
+							</div>
                         </div>
-                        <div class="row mt-3">
-							<div class="col fw-bold" style="font-size: 1.2em;">
-								상세 내용
-							</div>             
-                        </div>
-                        <div class="row mt-1">
-							<div class="col" style="font-size: 1.1em;">
-								${thisSemesterJoinDormInfo.joinDormInfoDto.detail_expln }
-							</div>             
-                        </div>
-                        <div class="row mt-3">
-							<div class="col fw-bold" style="font-size: 1.2em">
-								신청일 
-							</div>             
-                        </div>
-                        <div class="row mt-1">
-							<div class="col" style="font-size: 1.1em;">
-								<fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.apply_start_date }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.apply_end_date }" pattern="yyyy-MM-dd"/>
-							</div>             
-                        </div>
-                        <div class="row mt-3">
-							<div class="col fw-bold" style="font-size: 1.2em;">
-								선발인원
-							</div>             
-                        </div>
-                        <div class="row mt-1">
-							<div class="col" style="font-size: 1.1em;">
-								${thisSemesterJoinDormInfo.joinDormInfoDto.selection_amount }
-							</div>             
-                        </div>
-                        <div class="row mt-3">
-							<div class="col fw-bold" style="font-size: 1.2em;">
-								합격자발표일
-							</div>             
-                        </div>
-                        <div class="row mt-1">
-							<div class="col" style="font-size: 1.1em;">
-								<fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.pass_anncm_date }" pattern="yyyy-MM-dd"/>
-							</div>             
-                        </div>
-                        <div class="row mt-3">
-							<div class="col fw-bold" style="font-size: 1.2em;">
-								관비납부일
-							</div>             
-                        </div>
-                        <div class="row mt-1">
-							<div class="col" style="font-size: 1.1em;">
-								<fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.payment_start_date }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.payment_end_date }" pattern="yyyy-MM-dd"/>
-							</div>             
-                        </div>
-                        <div class="row mt-3">
-							<div class="col fw-bold" style="font-size: 1.2em;">
-								배정통보일
-							</div>             
-                        </div>
-                        <div class="row mt-1">
-							<div class="col" style="font-size: 1.1em;">
-								<fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.asgnm_anncm_date }" pattern="yyyy-MM-dd"/>
-							</div>             
-                        </div>
-                        <div class="row mt-3">
-							<div class="col fw-bold" style="font-size: 1.2em;">
-								입주일 
-							</div>             
-                        </div>
-                        <div class="row mt-1">
-							<div class="col" style="font-size: 1.1em;">
-								<fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.join_dorm_date }" pattern="yyyy-MM-dd"/>
-							</div>             
-                        </div>
-                        
-                        <!-- 입사신청 버튼 -->
-			            <div class="row my-5 pb-5">	
-			                <div class="col px-0 text-end">
-			                	<c:choose>
-			                		<c:when test="${!empty sessionStudentInfo }">
-			                			<c:if test="${isApply == 1 }">
-						                    <button disabled type="button" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">신청 완료</button>
-			                			</c:if>
-			                			<c:if test="${isApply == 2 }">
-			                				<a href="./mj_applyDormByInfoPage">
-						                    <button type="button" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">입사 신청</button>
-						                	</a>
-			                			</c:if>
-			                		</c:when>
-			                		<c:otherwise>
-			                			<a href="./loginPage">
-					                    <button type="button" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">입사 신청</button>
-					                	</a>
-			                		</c:otherwise>
-			                	</c:choose>
-			                	
-			                </div>                    
-			            </div>
-                        
                     </div>
             	</div>
               </div>
                 <!-- 공고 끝 -->
-                
             </div>
-            
         </div>
         
         <!-- footer 부분-->
