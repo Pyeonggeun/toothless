@@ -47,6 +47,7 @@ public class RestDormStaffControllerMj {
 		return restResponseDto;	
 	}
 	
+	
 	// 입주공고 등록
 	@RequestMapping("mj_registerInfoProcess")
 	public Mj_RestResponseDto mj_registerInfoProcess(JoinDormInfoDto params) {
@@ -71,7 +72,7 @@ public class RestDormStaffControllerMj {
 		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
 	
 		// 공고전체 리스트
-		List<JoinDormInfoDto> infoList =  staffService.getAllDormInfoList();
+		List<Map<String, Object>> infoList =  staffService.getAllDormInfoList();
 		restResponseDto.addData("infoList", infoList);
 		
 		// 리스트 개수
@@ -82,7 +83,32 @@ public class RestDormStaffControllerMj {
 		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
 		restResponseDto.addData("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
 				
+		restResponseDto.setResult("success");
+		return restResponseDto;
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)		
+	}
+	
+	// 공고 수정
+	@RequestMapping("updateJoinInfo")
+	public Mj_RestResponseDto updateJoinInfo(JoinDormInfoDto joinDormInfoDto) {
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+	
+		staffService.updateJoinInfo(joinDormInfoDto);
 
+		restResponseDto.setResult("success");
+		return restResponseDto;
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)		
+	}
+	
+	// 공고 삭제
+	@RequestMapping("deleteJoinInfo")
+	public Mj_RestResponseDto deleteJoinInfo(@RequestParam int DORM_INFO_PK) {
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+		
+		staffService.deleteJoinInfo(DORM_INFO_PK);
+		
 		restResponseDto.setResult("success");
 		return restResponseDto;
 		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)		
@@ -225,7 +251,39 @@ public class RestDormStaffControllerMj {
 		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)	
 	}
 	
+	// 현재학기에 해당하는 년도의 모든 학기들..
+	@RequestMapping("getThisYearAllSemester")
+	public Mj_RestResponseDto getThisYearAllSemester(HttpSession session) {
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+	
+		List<Map<String, Object>> thisYearSemesterList = staffService.getThisYearAllSemester();
+		restResponseDto.addData("thisYearSemesterList", thisYearSemesterList);
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)		
+	}
+	
+	// 이전년도의 모든 학기들..
+	@RequestMapping("getBeforeYearAllSemester")
+	public Mj_RestResponseDto getBeforeYearAllSemester(HttpSession session) {
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+		
+		List<Map<String, Object>> beforeYearList = staffService.getBeforeYearAll();
+		restResponseDto.addData("beforeYearList", beforeYearList);
+		
+		List<Map<String, Object>> beforeYearSemesterList = staffService.getBeforeYearAllSemester();
+		restResponseDto.addData("beforeYearSemesterList", beforeYearSemesterList);
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)		
+	}
 
+	
+	
 	
 	
 	

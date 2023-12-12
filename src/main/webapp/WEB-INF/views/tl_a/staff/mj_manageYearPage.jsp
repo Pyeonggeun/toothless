@@ -131,11 +131,11 @@
 			  <thead>
 			    <tr class="align-middle border-bottom border-2">
 			      <th scope="col" class="col-1 text-bg-light"></th>
-			      <th scope="col" class="col-3 text-bg-light">학년도</th>
+			      <th scope="col" class="col-2 text-bg-light">학년도</th>
 			      <th scope="col" class="col-3 text-bg-light">학기</th>
 			      <th scope="col" class="col-2 text-bg-light">진행상태</th>
-			      <th scope="col" class="text-bg-light">수정</th>
-			      <th scope="col" class="text-bg-light">삭제</th>
+			      <th scope="col" class="col-2 text-bg-light">현재 학기 여부</th>
+			      <th scope="col" class="col-1 text-bg-light">삭제</th>
 			    </tr>
 			  </thead>
 			  <c:forEach items="${yearList }" var="item">
@@ -148,18 +148,31 @@
 				        </label>
 				    </div>
 				  </td>
-				  <td>${item.semester_year }</td>
-				  <td>${item.semester }</td>
-				  <td>${item.progress_state }</td>
+				  <td>${item.yearInfo.semester_year }</td>
+				  <td>${item.yearInfo.semester }</td>
+				  <td>${item.yearInfo.progress_state }</td>
 				  <td>
-				  	<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
-			      		<button type="button" class="fw-bold rounded-0 btn btn-secondary btn-sm mb-1">수정</button>
+				  	<a href="./mj_changeProgressProcess?SEMESTER_PK=${item.yearInfo.semester_pk }" class="text-black d-grid mx-2" style="text-decoration: none;">
+			      		<c:if test="${item.yearInfo.progress_state == 'Y'}">
+			      		<button type="button" class="fw-bold rounded-0 btn btn-primary btn-sm mb-1">현재학기</button>
+			      		</c:if>
+			      		<c:if test="${item.yearInfo.progress_state == 'N'}">
+			      		<button type="button" class="fw-bold rounded-0 btn btn-secondary btn-sm mb-1">선택하기</button>
+			      		</c:if>
 			      	</a>
 				  </td>
 				  <td>
-				  	<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
-			      		<button type="button" class="fw-bold rounded-0 btn btn-danger btn-sm mb-1">삭제</button>
-			      	</a>
+				  		<c:if test="${item.countSomeSemesterJoinInfo > 0}">
+			      		<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
+			      		<button disabled type="button" class="fw-bold rounded-0 btn btn-secondary btn-sm mb-1">삭제불가</button>
+			      		</a>
+			      		</c:if>
+			      		<c:if test="${item.countSomeSemesterJoinInfo <= 0}">
+			      		<a href="./deleteSemesterProcess?SEMESTER_PK=${item.yearInfo.semester_pk }" class="text-black d-grid mx-2" style="text-decoration: none;">
+			      		<button type="button" class="fw-bold rounded-0 btn btn-danger btn-sm mb-1">삭제하기</button>
+			      		</a>
+			      		</c:if>
+			      	
 				  </td>
 			    </tr>		    
 			  </tbody>
