@@ -19,7 +19,7 @@
     			<a href="./sj_registerDormInfo" style="text-decoration: none; color: black; font-size: 0.8em">기숙사 정보</a>
     		</div>
     		<div class="col text-center border-end align-self-center">
-    			<a href="./mj_registerJoinInfoPage" style="text-decoration: none; color: black; font-size: 0.8em">기숙사 관리</a>
+    			<a href="./mj_readApplyDormInfoPage" style="text-decoration: none; color: black; font-size: 0.8em">기숙사 관리</a>
     		</div>
     		<div class="col-4 text-center align-self-center">
 				<div class="row text-center align-self-center">

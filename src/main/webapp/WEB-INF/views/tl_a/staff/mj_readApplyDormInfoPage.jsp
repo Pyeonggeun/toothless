@@ -509,12 +509,12 @@
 			  <thead>
 			    <tr class="align-middle border-bottom border-2">
 			      <th scope="col" class="col text-bg-light"></th>
-					      <th scope="col" class="col-2 text-bg-light">학년도/학기</th>
+					      <th scope="col" class="col text-bg-light">학년도/학기</th>
 					      <th scope="col" class="col-1 text-bg-light">이름</th>
-					      <th scope="col" class="col-1 text-bg-light">학년</th>
-					      <th scope="col" class="col-2 text-bg-light">학번</th>
-					      <th scope="col" class="col-1 text-bg-light">학과</th>
-					      <th scope="col" class="col-2 text-bg-light">주소</th>
+					      <th scope="col" class="col text-bg-light">학년</th>
+					      <th scope="col" class="col-1 text-bg-light">학번</th>
+					      <th scope="col" class="col text-bg-light">학과</th>
+					      <th scope="col" class="col-3 text-bg-light">주소</th>
 					      <th scope="col" class="col-1 text-bg-light">우선선발</th>
 					      <th scope="col" class="col text-bg-light">선발여부</th>
 					    </tr>

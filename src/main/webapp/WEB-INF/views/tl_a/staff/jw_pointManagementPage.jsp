@@ -76,7 +76,7 @@
 										<td>${pointManagementListMap.dormBuildingDto.name}</td>
 										<td>${pointManagementListMap.dormRoomDto.room_name}</td>
 										<td colspan="3">
-											<form action="./jw_pointRegisterProcess" method="get">
+											<form action="./jw_pointRegisterProcess" method="post">
 												<select name="point_category_pk" class="border-secondary-subtle form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
 													<option>선택해주세요.</option>
 													<c:forEach items="${pointManagementListMap.pointCategoryDto}" var="pointCategoryList">

@@ -55,4 +55,30 @@ public class RestItemStaffController {
 		
 		return restResponseDto;
 	}
+	
+	@RequestMapping("restItemAndCategoryList")
+	public B_RestResponseDto restItemAndCategoryList() {
+		
+		
+		B_RestResponseDto restResponseDto = new B_RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		
+		restResponseDto.setData(itemStaffService.getItemAndCategoryList());
+		
+		
+		return restResponseDto;
+	}
+	
+	
+	@RequestMapping("restItemDeleteProcess")
+	public B_RestResponseDto restItemDeleteProcess(int item_pk) {
+	
+		B_RestResponseDto restResponseDto = new B_RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		itemStaffService.deleteItem(item_pk);
+		
+		return restResponseDto;
+	}
 }

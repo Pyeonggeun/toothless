@@ -163,7 +163,19 @@
 				</div>	
 			</div>
 			
-			<!-- 글 내용 -->
+			<!-- 로딩된 첨부 이미지파일과 글 내용 -->
+			<div class="row">
+				<div class="col">
+					<c:forEach items="${pickpostMap.freeboardImageDtoList}" var="image">
+						<div class="row">
+							<div class="col">
+								이미지 <img class="img-fluid" src="/uploadFiles/${image.freeboard_image_link}">
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+			
 			<div class="row py-3 fs-4">
 				${pickpostMap.freeboardPost.text }
 			</div>

@@ -20,15 +20,16 @@ public class FreeboardCounselServiceImpl {
 	@Autowired
 	FreeboardCounselSqlMapper freeboardCounselSqlMapper;
 	
+	//글 작성
 	public void createFreeboardPostsProcess(FreeboardDto paraFreeboardDto, List<FreeboardImageDto> freeboardImageDtoList) {
 		
 		int freeboardPk = freeboardCounselSqlMapper.createFreeboardPk();
-		
+		//여기 좀 뭔가 이상....
 		paraFreeboardDto.setId(freeboardPk);
 		freeboardCounselSqlMapper.insertFreeboardPosts(paraFreeboardDto);
 		
 		for(FreeboardImageDto elementFreeboardImageDto: freeboardImageDtoList) {
-			elementFreeboardImageDto.setFreeboard_id(freeboardPk);;
+			elementFreeboardImageDto.setFreeboard_id(freeboardPk); //외래키 
 			freeboardCounselSqlMapper.insertImage(elementFreeboardImageDto);
 		}
 	}
@@ -132,15 +133,18 @@ public class FreeboardCounselServiceImpl {
 	//-----------------------------------------------------------------------------//
 	//상세 글보기
 	public Map<String, Object> pickPost(int id){
-
-		Map<String, Object> combinedMap = new HashMap<>();
-
 		FreeboardDto freeboardPost =  freeboardCounselSqlMapper.selectPostById(id);
 		int student_pk =freeboardPost.getStudent_pk();
 		StudentInfoDto studentInfo = freeboardCounselSqlMapper.selectByStudentId(student_pk);
-
+		
+		//이미지 뽑아오기
+		List<FreeboardImageDto> freeboardImageDtoList = freeboardCounselSqlMapper.selectFreeboardImageDto(id);
+		
+		Map<String, Object> combinedMap = new HashMap<>();
 		combinedMap.put("freeboardPost",freeboardPost);
 		combinedMap.put("studentInfo", studentInfo);
+		combinedMap.put("freeboardImageDtoList ", freeboardImageDtoList);
+		
 		return combinedMap;
 		}
 	

@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 
+<%
+    // 현재 날짜를 가져오기
+    Date currentDate = new Date();
+
+    // 날짜를 원하는 형식으로 포맷팅
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yy.MM.dd");
+    String formattedDate = dateFormat.format(currentDate);
+%>
   
 
 <!DOCTYPE html>
@@ -75,18 +85,18 @@
                                             <div class="row mt-4 fs-4 fw-bold text-center">
                                                 <div class="col-1"></div>
                                                 <div class="col">
-                                                    <a href="#" class="text-black" style="text-decoration: none;">
-                                                    x
+                                                    <a href="./mj_readApplyDormInfoPage" class="text-black" style="text-decoration: none;">
+                                                    ${countApplyList }
                                                     </a>
                                                 </div>
                                                 <div class="col">
-                                                    <a href="#" class="text-black" style="text-decoration: none;">
-                                                    x
+                                                    <a href="./mj_readApplyDormInfoPage" class="text-black" style="text-decoration: none;">
+                                                    ${countDormSelectedList }
                                                     </a>
                                                 </div>
                                                 <div class="col">
-                                                    <a href="#" class="text-black" style="text-decoration: none;">
-                                                    x
+                                                    <a href="./mj_managePaymentPage" class="text-black" style="text-decoration: none;">
+                                                    ${countPaymentYesList }
                                                     </a>
                                                 </div>
                                                 <div class="col">
@@ -99,15 +109,15 @@
                                             <div class="row mt-2 text-center">
                                                 <div class="col-1"></div>
                                                 <div class="col">
-                                                    <a href="#" class="text-black" style="text-decoration: none;">
+                                                    <a href="./mj_readApplyDormInfoPage" class="text-black" style="text-decoration: none;">
                                                     신청</a>
                                                 </div>
                                                 <div class="col">
-                                                    <a href="#" class="text-black" style="text-decoration: none;">
+                                                    <a href="./mj_readApplyDormInfoPage" class="text-black" style="text-decoration: none;">
                                                     선발완료</a>
                                                 </div>
                                                 <div class="col">
-                                                    <a href="#" class="text-black" style="text-decoration: none;">
+                                                    <a href="./mj_managePaymentPage" class="text-black" style="text-decoration: none;">
                                                     납부완료</a>
                                                 </div>
                                                 <div class="col">
@@ -136,7 +146,7 @@
 		                                </div>
                                         <div class="row ms-3 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
-		                                		23.12.03 기준
+		                                		 <%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
 		                                <div class="row mt-4">
@@ -170,7 +180,7 @@
 		                                </div>
 		                                <div class="row ms-3 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
-		                                		23.12.03 기준
+		                                		<%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
                                         <div class="row mt-4">
@@ -208,7 +218,7 @@
 		                                </div>
 		                                <div class="row ms-3 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
-		                                		23.12.03 기준
+		                                		<%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
 		                                <div class="row mt-4">
@@ -242,7 +252,7 @@
 		                                </div>
 		                                <div class="row ms-3 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
-		                                		23.12.03 기준
+		                                		<%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
 		                                <div class="row mt-4">
