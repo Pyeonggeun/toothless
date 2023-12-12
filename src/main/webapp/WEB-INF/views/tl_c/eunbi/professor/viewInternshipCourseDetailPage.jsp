@@ -64,6 +64,46 @@
 		});
 	}
 	
+	function reloadInternshipCourseInfo(){
+		
+		const internshipCourseTitle = document.querySelector(".internshipCourseTitle");
+		const companyName = document.querySelector(".companyName");
+		const totalMember = document.querySelector(".totalMember");
+		const recruitmentDepartment = document.querySelector(".recruitmentDepartment");
+		const semesterQualification = document.querySelector(".semesterQualification");
+		const applicationPeriod = document.querySelector(".applicationPeriod");
+		const announcementDate = document.querySelector(".announcementDate");
+		const internshipPeriod = document.querySelector(".internshipPeriod");
+		
+		fetch("./getInternshipCourseInfo?internship_course_pk=" + internship_course_pk)
+		.then(response => response.json())
+		.then(response => {
+			
+			const info = response.data;
+			
+			let applyingStartDate = new Date(info.internshipCourseDto.applying_start_date);
+			let applyingEndDate = new Date(info.internshipCourseDto.applying_end_date);
+			applyingStartDate = applyingStartDate.getFullYear() + "." + (applyingStartDate.getMonth()+1) + "." + applyingStartDate.getDate();
+			applyingEndDate = applyingEndDate.getFullYear() + "." + (applyingEndDate.getMonth()+1) + "." + applyingEndDate.getDate();
+			
+			const announcement_date = new Date(info.internshipCourseDto.announcement_date);
+			
+			let internshipStartDate = new Date(info.internshipCourseDto.internship_start_date);
+			let internshipEndDate = new Date(info.internshipCourseDto.internship_end_date);
+			internshipStartDate = internshipStartDate.getFullYear() + "." + (internshipStartDate.getMonth()+1) + "." + internshipStartDate.getDate();
+			internshipEndDate = internshipEndDate.getFullYear() + "." + (internshipEndDate.getMonth()+1) + "." + internshipEndDate.getDate();
+			
+			internshipCourseTitle.innerText = info.internshipCourseDto.course_title;
+			companyName.innerText = info.companyInfoDto.company_name;
+			totalMember.innerText = info.internshipCourseDto.internship_total_member;
+			recruitmentDepartment.innerText = info.departmentDto.name;
+			semesterQualification.innerText = info.internshipCourseDto.semester_qualification;
+			applicationPeriod.innerText = applyingStartDate + " - " + applyingEndDate;
+			announcementDate.innerText = announcement_date.getFullYear() + "." + (announcement_date.getMonth()+1) + "." + announcement_date.getDate();
+			internshipPeriod.innerText = internshipStartDate + " - " + internshipEndDate;
+			
+		});
+	}
 	
 	function reloadApplyStudentList(){
 		
@@ -122,11 +162,26 @@
 			internListBox.innerHTML = "";
 			
 			let now = new Date();
+			nowYear = now.getFullYear();
+			nowMonth = now.getMonth();
+			nowDate = now.getDate();
+			nowHour = now.getHours();
+			nowMinute = now.getMinutes();
+			nowSeconds = now.getSeconds();
+			
 			now = now.getTime();
 			
 			for(intern of response.data) {
 				
 				let internshipEndDate = new Date(intern.internshipCourseDto.internship_end_date);
+			
+				internshipEndDateYear = internshipEndDate.getFullYear();
+				internshipEndDateMonth = internshipEndDate.getMonth();
+				internshipEndDateDate = internshipEndDate.getDate();
+				internshipEndDateHour = internshipEndDate.getHours();
+				internshipEndDateMinute= internshipEndDate.getMinutes();
+				internshipEndDateSeconds = internshipEndDate.getSeconds();
+				
 				internshipEndDate = internshipEndDate.getTime();
 				
 				const internWrapper = document.querySelector("#internListTemplete .internWrapper").cloneNode(true);
@@ -171,13 +226,12 @@
 						const evaluationButton = internWrapper.querySelector(".evaluationButton");
 						evaluationButton.innerText = "평가하기";
 						evaluationButton.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1", "open-Modal");
+						
 						evaluationButton.setAttribute("onclick", "openModal()");
 						
-						const inputStudentInternPk = document.getElementById("inputStudentInternPk");
-						inputStudentInternPk.setAttribute("value",intern.studentInternDto.student_intern_pk);
-							
 					}else if(intern.didEvaluateIntern !== 0){
 						const internEvaluation = internWrapper.querySelector(".internEvaluation");
+						internEvaluation.setAttribute("style", "font-size:0.95em");
 						internEvaluation.classList.add("text-secondary", "fw-bold");
 						internEvaluation.innerText = "평가완료";
 					}
@@ -194,10 +248,8 @@
 	function openModal() {
     	
     	const modal = bootstrap.Modal.getOrCreateInstance("#internEvaluationModal");
+    	
     	modal.show();
-    	
- //   	submitButton.setAttribute("onclick","writeInternEvaluation(studentInternPk)");
-    	
 	}
 	
     function closeModal() {
@@ -212,9 +264,6 @@
 		const coorporation_score = document.querySelector('input[name="coorporation_score"]:checked');
 		const achievement_score = document.querySelector('input[name="achievement_score"]:checked');
 		const inputReview = document.getElementById("inputReview");
-		const inputStudentInternPk = document.getElementById("inputStudentInternPk");
-		
-		console.log(inputStudentInternPk.value);
 		
 		fetch("./writeInternEvaluation", {
 			method: "post",
@@ -225,8 +274,7 @@
 					"&responsibility_score=" + responsibility_score.value +
 					"&coorporation_score=" + coorporation_score.value +
 					"&achievement_score=" + achievement_score.value +
-					"&review=" + inputReview.value + 
-					"&student_intern_pk=" + inputStudentInternPk.value
+					"&review=" + inputReview.value
 		})
 		.then(response => response.json())
 		.then(response => {
@@ -236,7 +284,6 @@
 			coorporation_score.value = "";
 			achievement_score.value = "";
 			inputReview.value = "";
-			inputStudentInternPk.value="";
 			
 			const internListBox = document.getElementById("internListBox");
 			internListBox.innerHTML = "";
@@ -306,6 +353,7 @@
 	window.addEventListener("DOMContentLoaded", () => {
 		getProfessorPk();
 		reloadWhichList();
+		reloadInternshipCourseInfo();                                                                                                                                                                                                                                  
 		// setInterval(reloadCommentList,1000); // 1초마다 reloadCommentList호출
 	});
 
@@ -353,7 +401,7 @@
 										<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 											현장실습명
 										</div>
-										<div class="col border-start ps-4 fw-semibold">
+										<div class="internshipCourseTitle col border-start ps-4 fw-semibold">
 											현장실습명입력
 										</div>
 									</div>
@@ -361,13 +409,13 @@
 										<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 											산업체명
 										</div>
-										<div class="col border-start ps-4 border-end">
+										<div class="companyName col border-start ps-4 border-end">
 											산업체명입력
 										</div>
 										<div class="col-1 ms-3 me-3 text-center text-dark-emphasis fw-semibold">
 											실습인원
 										</div>
-										<div class="col border-start ps-4">
+										<div class="totalMember col border-start ps-4">
 											실습인원 입력
 										</div>
 									</div>
@@ -375,13 +423,13 @@
 										<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 											모집학과
 										</div>
-										<div class="col border-start ps-4 border-end">
+										<div class="recruitmentDepartment col border-start ps-4 border-end">
 											모집학과 입력
 										</div>
 										<div class="col-1 ms-3 me-3 text-center text-dark-emphasis fw-semibold">
 											자격학기
 										</div>
-										<div class="col border-start ps-4">
+										<div class="semesterQualification col border-start ps-4">
 											자격학기 입력
 										</div>
 									</div>
@@ -389,13 +437,13 @@
 										<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 											모집기간
 										</div>
-										<div class="col border-start ps-4 border-end">
+										<div class="applicationPeriod col border-start ps-4 border-end">
 											모집기간 입력
 										</div>
 										<div class="col-1 ms-3 me-3 text-center text-dark-emphasis fw-semibold">
 											결과발표일
 										</div>
-										<div class="col border-start ps-4">
+										<div class="announcementDate col border-start ps-4">
 											결과발표일 입력
 										</div>
 									</div>
@@ -403,7 +451,7 @@
 										<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 											실습기간
 										</div>
-										<div class="col border-start ps-4">
+										<div class="internshipPeriod col border-start ps-4">
 											실습기간 입력
 										</div>
 									</div>
@@ -664,7 +712,7 @@
 					</div>
 					<div class="modal-footer border-0 mb-3">
 						<input type="hidden" id="inputStudentInternPk">
-						<button onclick="writeInternEvaluation()" class="closeModal btn btn-secondary rounded-0">제출</button>
+						<button id="submitButton" onclick="writeInternEvaluation()" class="closeModal btn btn-secondary rounded-0">제출</button>
 					</div>
 				</div>
 			</div>
