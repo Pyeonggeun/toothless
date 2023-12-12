@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.a.student.jw.mapper.DormStudentMapperJw">
+
+	<!-- 로그인 한 학생을 현재 진행중인 학기의 사생정보에서 검증한 Count값 -->
+	<select id="countDormStudentByStudentAndProgressSemester" resultType="int">
+		SELECT count(*) FROM TL_A_DORM_STUDENT 
+		WHERE STUDENT_PK IN (
+			SELECT STUDENT_PK FROM TL_JIC_STUDENT_INFO 
+			WHERE STUDENT_PK = #{STUDENT_PK}
+		) AND DORM_STUDENT_PK IN (
+			SELECT tads.DORM_STUDENT_PK FROM TL_A_SEMESTER tas 
+			JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK 
+			WHERE tas.PROGRESS_STATE = 'Y'
+		)
+	</select>
+
+	<!-- 로그인 한 학생을 현재 진행중인 학기의 사생정보에서 검증한 사생정보 -->
+	<select id="selectDormStudentByStudentAndProgressSemester" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT * FROM TL_A_DORM_STUDENT 
+		WHERE STUDENT_PK IN (
+			SELECT STUDENT_PK FROM TL_JIC_STUDENT_INFO 
+			WHERE STUDENT_PK = #{STUDENT_PK}
+		) AND DORM_STUDENT_PK IN (
+			SELECT tads.DORM_STUDENT_PK FROM TL_A_SEMESTER tas 
+			JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK 
+			WHERE tas.PROGRESS_STATE = 'Y'
+		)
+	</select>
+	
+	<!-- 외출/외박 신청 -->
+	<insert id="insertExit">
+		INSERT INTO tl_a_exit VALUES(
+			tl_a_exit_seq.nextval,
+			#{dorm_student_pk},
+			#{reason},
+			#{exit_date},
+			sysdate
+		)
+	</insert>
+	
+	<!-- 로그인 한 학생을 현재 진행중인 학기의 사생정보에서 검증한 사생의 상/벌점 List -->
+	<select id="selectPointByStudentAndProgressSemester" resultType="com.mkfactory.toothless.a.dto.PointDto">
+		SELECT * FROM TL_A_POINT
+		WHERE DORM_STUDENT_PK = (
+			SELECT DORM_STUDENT_PK FROM TL_A_DORM_STUDENT 
+			WHERE STUDENT_PK IN (
+				SELECT STUDENT_PK FROM TL_JIC_STUDENT_INFO 
+				WHERE STUDENT_PK = #{STUDENT_PK}
+			) AND DORM_STUDENT_PK IN (
+				SELECT tads.DORM_STUDENT_PK FROM TL_A_SEMESTER tas 
+				JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK 
+				WHERE tas.PROGRESS_STATE = 'Y'
+			)
+		)
+	</select>
+	
+	<!-- 상/벌점 카테고리별 DTO -->
+	<select id="selectPointCategoryByPointCategoryPk" resultType="com.mkfactory.toothless.a.dto.PointCategory">
+		SELECT * FROM TL_A_POINT_CATEGORY
+		WHERE POINT_CATEGORY_PK = #{POINT_CATEGORY_PK}
+	</select>
+	
+	<!-- 사생별 상/벌점 총 점수 -->
+	<select id="sumTotalPointByStudentPk" resultType="int">
+		SELECT SUM(tapc.POINT) FROM TL_A_POINT tap
+		JOIN TL_A_POINT_CATEGORY tapc ON tap.POINT_CATEGORY_PK = tapc.POINT_CATEGORY_PK  
+		JOIN TL_A_DORM_STUDENT tads ON tap.DORM_STUDENT_PK = tads.DORM_STUDENT_PK
+		WHERE tads.DORM_STUDENT_PK = (
+			SELECT DORM_STUDENT_PK FROM TL_A_DORM_STUDENT 
+			WHERE STUDENT_PK IN (
+				SELECT STUDENT_PK FROM TL_JIC_STUDENT_INFO 
+				WHERE STUDENT_PK = #{STUDENT_PK}
+			) AND DORM_STUDENT_PK IN (
+				SELECT tads.DORM_STUDENT_PK FROM TL_A_SEMESTER tas 
+				JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK 
+				WHERE tas.PROGRESS_STATE = 'Y'
+			)
+		)
+	</select>
+	
+	
+</mapper>

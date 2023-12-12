@@ -11,7 +11,6 @@ public class ExitDto {
 	private String reason;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date exit_date;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date apply_create_at;
 	
 	
