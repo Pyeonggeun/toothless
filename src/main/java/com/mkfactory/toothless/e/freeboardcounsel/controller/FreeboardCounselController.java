@@ -2,6 +2,7 @@ package com.mkfactory.toothless.e.freeboardcounsel.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mkfactory.toothless.e.dto.FreeboardCommentDto;
 import com.mkfactory.toothless.e.dto.FreeboardDto;
+import com.mkfactory.toothless.e.dto.FreeboardImageDto;
 import com.mkfactory.toothless.e.freeboardcounsel.service.FreeboardCounselServiceImpl;
 
 @Controller
@@ -63,6 +65,9 @@ public class FreeboardCounselController {
 	public String createFreeboardPostsProcess(FreeboardDto paraFreeboardDto, MultipartFile[] imgFiles) {
 				System.out.println("createFreeboardPostsProcess 시작");
 				
+			//직접 파라미터 세팅
+				List<FreeboardImageDto> freeboardImageDtoList = new ArrayList<>();
+				
 			//파일저장로직
 			if(imgFiles != null) {
 				for(MultipartFile multipartFile: imgFiles) {
@@ -70,13 +75,19 @@ public class FreeboardCounselController {
 						continue;
 					}
 					
-				String rootPath = "#";
+				String rootPath = "C:/uploadFiles/";
 				
 				//날짜별 폴더 생성	
 				//simpledateformat은 날짜를 문자로, 문자를 날짜로 바꾸는 api
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
 				String todayPath = sdf.format(new Date());
 					
+				File todayFolderForCreate = new File(rootPath + todayPath);
+				
+				if(! todayFolderForCreate.exists()) {
+					todayFolderForCreate.mkdirs();
+				}
+				
 				String originalFileName = multipartFile.getOriginalFilename();
 				
 				//파일명 충돌 회피 - 랜덤, 시간 조합
@@ -89,16 +100,22 @@ public class FreeboardCounselController {
 				fileName += ext;
 				
 				try {
-					multipartFile.transferTo(new File("c://uploadFiles/" + originalFileName));	
+					multipartFile.transferTo(new File(rootPath+ todayPath+ fileName));	
 				}catch(Exception e) {
 				e.printStackTrace();
 				}
+				
+				FreeboardImageDto freeboardImageDto = new FreeboardImageDto();
+				freeboardImageDto.setFreeboard_image_link(todayPath + fileName);
+//				paraFreeboardDto.setFreeboard_id(0);
+				
+				freeboardImageDtoList.add(freeboardImageDto);
 				
 				}
 			}
 			
 		
-			freeboardCounselService.createFreeboardPostsProcess (paraFreeboardDto);
+			freeboardCounselService.createFreeboardPostsProcess(paraFreeboardDto, freeboardImageDtoList);
 				System.out.println("createFreeboardPostsProcess 완료");
 			
 		return "tl_e/freeboardCounsel/createFreeboardPostsComplete";

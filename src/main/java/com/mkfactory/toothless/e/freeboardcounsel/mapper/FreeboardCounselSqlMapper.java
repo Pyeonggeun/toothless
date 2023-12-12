@@ -6,8 +6,11 @@ import java.util.Map;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.FreeboardCommentDto;
 import com.mkfactory.toothless.e.dto.FreeboardDto;
+import com.mkfactory.toothless.e.dto.FreeboardImageDto;
 
 public interface FreeboardCounselSqlMapper {
+	
+	
 
 	public void insertFreeboardPosts(FreeboardDto paraFreeboardDto);
 	
@@ -36,5 +39,10 @@ public interface FreeboardCounselSqlMapper {
 	public List<FreeboardCommentDto> selectFreeboardComment();
 	
 	public StudentInfoDto selectStudentInfoForComment(int student_pk);
+	
+	public void insertImage(FreeboardImageDto elementFreeboardImageDto);
+	public List<FreeboardImageDto> selectFreeboardImageDto(int freeboard_id);
+	
+	public int createFreeboardPk();
 	
 }

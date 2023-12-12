@@ -105,19 +105,19 @@
 					<div class="row text-white text-center my-1 px-1 p-1 rounded-1  border-2 border-bottom" style="background-color:#888888;">
 								<div class="col-1 fw-bold">글번호</div>
 								<div class="col-2 fw-bold ">글제목</div>
-								<div class="col-4">내용</div>
+								<div class="col-5">내용</div>
 								<div class="col-1">조회수</div>
-								<div class="col-2 fw-bold">작성자</div>
+								<div class="col-1 fw-bold">작성자</div>
 								<div class="col-2">작성일</div>
 					</div>
 					
 					<c:forEach items="${bestFreeboardPostList}" var="best">
 						<div class="row text-center my-1 px-1 p-1 rounded-1  border-2 border-bottom"> 
 							<div class="col-1">${best.elementFreeboardPost.id}</div>
-							<div class="col-2"><a href="./readFreeboardPostPage?id=${best.elementFreeboardPost.id}">${best.elementFreeboardPost.title}</a></div>
-							<div class="col-4">${best.elementFreeboardPost.text}</div>
+							<div class="col-2 text-start"><a class="link-dark link-underline link-underline-opacity-0" href="./readFreeboardPostPage?id=${best.elementFreeboardPost.id}">${best.elementFreeboardPost.title}</a></div>
+							<div class="col-5 text-start">${best.elementFreeboardPost.text}</div>
 							<div class="col-1">${best.elementFreeboardPost.read_count}</div>
-							<div class="col-2">${best.studentInfo.name}</div>
+							<div class="col-1">${best.studentInfo.name}</div>
 							<div class="col-2"><fmt:formatDate value="${best.elementFreeboardPost.created_at}" pattern="yyyy-MM-dd hh:mm"/> </div>
 						</div>
 						</c:forEach>
@@ -178,7 +178,7 @@
 						
 						<div class="row text-center my-1 mx-1 p-1  border-bottom border-dark-subtle">
 							<div class="col-1 ">${List.elementFreeboardDto.id}</div>
-							<div class="col-2 fw-bold text-start"><a href="./readFreeboardPostPage?id=${List.elementFreeboardDto.id}">${List.elementFreeboardDto.title}</a></div>
+							<div class="col-2 fw-bold text-start"><a class="link-dark link-underline link-underline-opacity-0" href="./readFreeboardPostPage?id=${List.elementFreeboardDto.id}">${List.elementFreeboardDto.title}</a></div>
 							<!-- 최근게시물에 아이콘 붙이기 -->
 							<div class="col-5 text-start">
 								${List.elementFreeboardDto.text}

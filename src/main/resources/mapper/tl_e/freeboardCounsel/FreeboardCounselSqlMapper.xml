@@ -86,5 +86,23 @@
 		WHERE student_pk = #{student_pk}
 	</select>
 	
+	<insert id = "insertImage">
+		INSERT INTO cp_freeboard_image VALUES(
+		cp_freeboard_image_seq.nextval,
+		#{freeboard_id},
+		#{freeboard_image_link}
+		)
+	</insert>
+	
+	<select id="selectFreeboardImageDto" resultType="com.mkfactory.toothless.e.dto.FreeboardImageDto">
+		SELECT * FROM cp_freeboard_image cfi 
+		WHERE cfi.freeboard_id = #{freeboard_id}
+		ORDER BY cfi.id ASC
+	</select>
+	
+	<select id="createFreeboardPk" resultType="int">
+	 SELECT cp_student_freeboard_seq.nextval FROM Dual
+	</select>
+	
 	
 </mapper>
