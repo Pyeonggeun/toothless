@@ -107,14 +107,11 @@ public class FreeboardCounselController {
 				
 				FreeboardImageDto freeboardImageDto = new FreeboardImageDto();
 				freeboardImageDto.setFreeboard_image_link(todayPath + fileName);
-//				paraFreeboardDto.setFreeboard_id(0);
-				
+
 				freeboardImageDtoList.add(freeboardImageDto);
 				
 				}
 			}
-			
-		
 			freeboardCounselService.createFreeboardPostsProcess(paraFreeboardDto, freeboardImageDtoList);
 				System.out.println("createFreeboardPostsProcess 완료");
 			
@@ -133,6 +130,11 @@ public class FreeboardCounselController {
 		Map<String, Object> pickpostMap = freeboardCounselService.pickPost(id);
 		model.addAttribute("pickpostMap", pickpostMap);
 			System.out.println("컨트롤 상세글 뽑아와서 모델에 넣음");
+//		List<FreeboardImageDto> list = (List<FreeboardImageDto>)pickpostMap.get("freeboardImageDtoList");
+//		
+//		for(FreeboardImageDto FreeboardImageDto : list) {
+//			System.out.println(FreeboardImageDto.getFreeboard_image_link());
+//		}
 		
 		//댓글
 		List<Map<String, Object>> selectFreeboardCommentList= freeboardCounselService.selectFreeboardComment();
