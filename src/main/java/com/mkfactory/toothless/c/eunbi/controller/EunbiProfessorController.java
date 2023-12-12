@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.c.dto.AjdksProfessorEvaluationDto;
 import com.mkfactory.toothless.c.eunbi.service.EunbiProfessorServiceImpl;
+import com.mkfactory.toothless.c.eunbi.service.EunbiStudentServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 
 @Controller
@@ -17,6 +18,8 @@ public class EunbiProfessorController {
 	
 	@Autowired
 	private EunbiProfessorServiceImpl professorService;
+	@Autowired
+	private EunbiStudentServiceImpl studentService;
 	
 	@RequestMapping("internshipMainPage")
 	public String internshipMainPage(HttpSession session, Model model) {
@@ -73,7 +76,7 @@ public class EunbiProfessorController {
 	@RequestMapping("viewStudentDetailPage")
 	public String viewStudentDetailPage(HttpSession session, Model model, int student_pk) {
 		
-		model.addAttribute("studentDetails", professorService.viewStudentDetail(student_pk));
+		model.addAttribute("student_pk", student_pk);
 		
 		return"tl_c/eunbi/professor/viewStudentDetailPage";
 	}

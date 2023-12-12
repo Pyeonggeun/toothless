@@ -237,27 +237,6 @@ public class EunbiProfessorServiceImpl {
 		professorSqlMapper.insertProfessorEvaluation(professorEvaluationDto);
 	}
 	
-	// 학생 상세 출력
-	public Map<String, Object> viewStudentDetail(int studentPk) {
-		
-		Map<String, Object> studentDetail = new HashMap<>();
-		
-		StudentInfoDto studentInfoDto = studentSqlMapper.getStudentInfoByStudentPk(studentPk);
-		int departmentPk = studentInfoDto.getDepartment_pk();
-		int studentProfessorPk = studentInfoDto.getProfessor_pk();
-		
-		studentDetail.put("studentInfoDto", studentInfoDto);
-		studentDetail.put("studentDepartment", studentSqlMapper.getDepartmentByDepartmentPk(departmentPk));
-		studentDetail.put("studentProfessorInfo", professorSqlMapper.getProfessorInfo(studentProfessorPk));
-		studentDetail.put("countSemester", studentSqlMapper.countSemester(studentPk));
-		studentDetail.put("selfIntroduction", studentSqlMapper.getSelfIntroductionByStudentPk(studentPk));
-		
-		
-		studentDetail.put("certificationList", studentSqlMapper.getCertificationsByStudentPk(studentPk));
-		
-		return studentDetail;
-	}
-	
 	// 현재 날짜과 현장실습과정 날짜 비교
 	public Map<String, Object> isNow(int internshipCoursePk) {
 		

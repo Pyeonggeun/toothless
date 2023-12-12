@@ -47,6 +47,175 @@
 	}
 
 </style>
+
+<script>
+
+	let professorPk = null;
+	let student_pk = ${student_pk}
+	
+	function getProfessorPk(){
+		fetch("./getProfessorPk")
+		.then(response => response.json())
+		.then(response => {
+			const professorPk = response.data;
+		});
+	}
+	
+	function reloadStudentDetails(){
+		
+		const introductionImg = document.querySelector(".introductionImg");
+		const studentName = document.querySelector(".studentName");
+		const studentResidentId = document.querySelector(".studentResidentId");
+		const studentDepartment = document.querySelector(".studentDepartment");
+		const studentSemester = document.querySelector(".studentSemester");
+		const studentBirth = document.querySelector(".studentBirth");
+		const studentgender = document.querySelector(".studentgender");
+		const studentPhone = document.querySelector(".studentPhone");
+		const studentEmail = document.querySelector(".studentEmail");
+		const studentAdress = document.querySelector(".studentAdress");
+		
+		fetch("./getStudentDetails?student_pk=" + student_pk)
+		.then(response => response.json())
+		.then(response => {
+			
+			const info = response.data;
+			
+			const introductionImgSrc = info.selfIntroductionImg.self_introduction_img;
+			introductionImg.setAttribute("src", "/Git_imageFile/" + introductionImgSrc);
+			
+			const birth = new Date(info.studentInfoDto.birth);
+			
+			studentName.innerText = info.studentInfoDto.name;
+			studentResidentId.innerText = info.studentInfoDto.resident_id;
+			studentDepartment.innerText = info.studentDepartment.name;
+			studentSemester.innerText = info.countSemester + "학기";
+			studentBirth.innerText = birth.getFullYear() + "." + (birth.getMonth()+1) + "." + birth.getDate();
+			studentgender.innerText = info.studentInfoDto.gender;
+			studentPhone.innerText = info.studentInfoDto.phone;
+			studentEmail.innerText = info.studentInfoDto.email;
+			studentAdress.innerText = info.studentInfoDto.address;
+			
+		});
+	}
+
+	function reloadSelfIntroduction(){
+		
+		const answer1 = document.querySelector(".answer1");
+		const answer2 = document.querySelector(".answer2");
+		const answer3 = document.querySelector(".answer3");
+		const answer4 = document.querySelector(".answer4");
+		
+		fetch("./getSelfIntroduction?student_pk=" + student_pk)
+		.then(response => response.json())
+		.then(response => {
+			
+			const text = response.data;
+			
+			answer1.innerText = text.selfIntroduction.answer1;
+			answer2.innerText = text.selfIntroduction.answer2;
+			answer3.innerText = text.selfIntroduction.answer3;
+			answer4.innerText = text.selfIntroduction.answer4;
+			
+		});
+		
+	}
+	
+	function reloadCertification(){
+		
+		fetch("./getSelfIntroduction?student_pk=" + student_pk)
+		.then(response => response.json())
+		.then(response => {
+			
+			const certificationListBox = document.getElementById("certificationListBox");
+			certificationListBox.innerHTML = "";
+			
+			const certificationWrapper = document.querySelector("#certificationListTemplete .certificationWrapper").cloneNode(true);
+			
+			const certificationName = document.querySelector(".certificationName");
+			const acquisitionDate = document.querySelector(".acquisitionDate");
+			const certificationFile = document.querySelector(".certificationFile");
+			
+			for(certification of response.data.certificationList){
+				
+				let acquisition_date = new Date(certification.certification_acquisition_date);
+				
+				certificationName.innerText = certification.certification_name;
+				acquisitionDate.innerText = acquisition_date.getFullYear + "." + (acquisition_date.getMonth()+1) + "." + acquisition_date.getDate();
+				certificationFile.innerText = "자격증파일 보기";
+				certificationFile.setAttribute("class", "btn");
+				certificationFile.classList.add("btn-sm", "btn-outline-secondary");
+				certificationFile.setAttribute("onclick", "openModal()");
+				
+				certificationListBox.appendChild(certificationWrapper);
+			}
+		});
+		
+	}
+	
+	function showSelfIntroduction(){
+		
+		const showCertificationList = document.getElementById("showCertificationList");
+		showCertificationList.classList.add("d-none");
+		
+		const loadCertificationList = document.getElementById("loadCertificationList");
+		loadCertificationList.classList.remove("active");
+		
+		const showSelfIntroduction = document.getElementById("showSelfIntroduction");
+		showSelfIntroduction.classList.remove("d-none");
+		
+		const loadSelfIntroduction = document.getElementById("loadSelfIntroduction");
+		loadSelfIntroduction.classList.add("active");
+		
+		reloadSelfIntroduction();
+		
+	}
+	
+	function showCertificationList(){
+		
+		const showSelfIntroduction = document.getElementById("showSelfIntroduction");
+		showSelfIntroduction.classList.add("d-none");
+		
+		const loadSelfIntroduction = document.getElementById("loadSelfIntroduction");
+		loadSelfIntroduction.classList.remove("active");
+		
+		const showCertificationList = document.getElementById("showCertificationList");
+		showCertificationList.classList.remove("d-none");
+		
+		const loadCertificationList = document.getElementById("loadCertificationList");
+		loadCertificationList.classList.add("active");
+		
+		reloadCertification();
+	}
+	
+	
+	
+	
+	
+	window.addEventListener("DOMContentLoaded", () => {
+		getProfessorPk();
+		reloadStudentDetails();
+		showSelfIntroduction();
+		function showCertificationList(){
+			
+			const showSelfIntroduction = document.getElementById("showSelfIntroduction");
+			showSelfIntroduction.classList.add("d-none");
+			
+			const loadSelfIntroduction = document.getElementById("loadSelfIntroduction");
+			loadSelfIntroduction.classList.remove("active");
+			
+			const showCertificationList = document.getElementById("showCertificationList");
+			showCertificationList.classList.remove("d-none");
+			
+			const loadCertificationList = document.getElementById("loadCertificationList");
+			loadCertificationList.classList.add("active");
+			
+			reloadCertification();
+		}
+		// setInterval(reloadCommentList,1000); // 1초마다 reloadCommentList호출
+	});
+	
+</script>
+
 </head>
 <body>
 <div class="container-fluid"><!-- 전체 container 입구 -->
@@ -83,82 +252,168 @@
 							</div>
 							<div class="row mt-2">
 								<div class="col border border-secondary border-start-0 border-end-0" style="font-size:0.95em">
-									<div class="row">
+									<div class="row pt-1 pb-1">
 										<div class="col-2 border-end">
 											<div class="row py-3 px-5">
-												<div class="col bg-dark-subtle" style="height:10.5em"></div>
+												<div class="col border" style="height:10.5em">
+													<img class="introductionImg img-fluid" alt="...">
+												</div>
 											</div>
 										</div>
 										<div class="col">
-											<div class="row border-bottom py-2">
+											<div class="row border-bottom pt-1 pb-2">
 												<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 													이름
 												</div>
-												<div class="col border-start ps-4 border-end">
-													${studentDetails.studentInfoDto.name}
+												<div class="studentName col border-start ps-4 border-end fw-semibold">
+													이름넣는 칸
 												</div>
 												<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 													주민번호
 												</div>
-												<div class="col border-start ps-4">
-													${studentDetails.studentInfoDto.resident_id}
+												<div class="studentResidentId col border-start ps-4">
+													주민번호 넣는 칸
 												</div>
 											</div>
 											<div class="row border-bottom py-2">
 												<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 													전공
 												</div>
-												<div class="col border-start ps-4 border-end">
-													${studentDetails.studentDepartment.name}
+												<div class="studentDepartment col border-start ps-4 border-end">
+													전공 넣는 칸
 												</div>
 												<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 													이수학기
 												</div>
-												<div class="col border-start ps-4">
-													${studentDetails.countSemester}학기
+												<div class="studentSemester col border-start ps-4">
+													학기 넣는 칸
 												</div>
 											</div>
 											<div class="row border-bottom py-2">
 												<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 													생년월일
 												</div>
-												<div class="col border-start ps-4 border-end">
-													<fmt:formatDate value="${studentDetails.studentInfoDto.birth}" pattern="yyyy.MM.dd"/>
+												<div class="studentBirth col border-start ps-4 border-end">
+													생년월일 넣는 칸
 												</div>
 												<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 													성별
 												</div>
-												<div class="col border-start ps-4">
-													${studentDetails.studentInfoDto.gender}
+												<div class="studentgender col border-start ps-4">
+													성별 넣는 칸
 												</div>
 											</div>
 											<div class="row border-bottom py-2">
 												<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 													전화번호
 												</div>
-												<div class="col border-start ps-4 border-end">
-													${studentDetails.studentInfoDto.phone}
+												<div class="studentPhone col border-start ps-4 border-end">
+													전화번호 넣는 칸
 												</div>
 												<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 													이메일
 												</div>
-												<div class="col border-start ps-4">
-													${studentDetails.studentInfoDto.email}
+												<div class="studentEmail col border-start ps-4">
+													이메일 넣는 칸
 												</div>
 											</div>
-											<div class="row py-2">
+											<div class="row pt-2 pb-1">
 												<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 													주소
 												</div>
-												<div class="col border-start ps-4">
-													${studentDetails.studentInfoDto.address}
+												<div class="studentAdress col border-start ps-4">
+													주소 넣는 칸
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							
 							<!-- 이력서 출력 -->
+							<div class="row mt-4">
+								<div class="col mt-3">
+									<div class="row border-bottom border-secondary">
+										<div class="col-2 d-flex px-0">
+											<div class="btn-group">
+											<button id="loadSelfIntroduction" onclick="showSelfIntroduction()" class="btn btn-outline-secondary px-3 rounded-0 btn-sm border-bottom-0">자기소개서</button>
+											<button id="loadCertificationList" onclick="showCertificationList()" class="btn btn-outline-secondary px-3 rounded-0 btn-sm border-bottom-0 border-dark-subtle">자격증</button>
+											</div>
+										</div>
+									</div>
+									
+									<div id="showSelfIntroduction" class="row border border-secondary border-top-0 d-none">
+										<div class="col">
+											<div class="row">
+												<div class="col-2 border-end text-center fw-semibold d-grid align-items-center" style="height:9em; background-color:#f2f5f7;">
+													Q1. 지원동기
+												</div>
+												<div class="answer1 col px-4 overflow-y-scroll align-self-center" style="font-size:0.95em; height:8em">
+													지원동기 나오는곳
+												</div>
+											</div>
+											<div class="row border-top">
+												<div class="col-2 border-end text-center fw-semibold d-grid align-items-center" style="height:9em; background-color:#f2f5f7;">
+													Q2. 전공지식 및 기술능력
+												</div>
+												<div class="answer2 col px-4 overflow-y-scroll align-self-center" style="font-size:0.95em; height:8em">
+													전공지식 및 기술능력 나오는곳
+												</div>
+											</div>
+											<div class="row border-top">
+												<div class="col-2 border-end text-center fw-semibold d-grid align-items-center" style="height:9em; background-color:#f2f5f7;">
+													Q3. 주요경력 및 자격사항
+												</div>
+												<div class="answer3 col px-4 overflow-y-scroll align-self-center" style="font-size:0.95em; height:8em">
+													주요경력 및 자격사항 나오는곳
+												</div>
+											</div>
+											<div class="row border-top">
+												<div class="col-2 border-end text-center fw-semibold d-grid align-items-center" style="height:9em; background-color:#f2f5f7;">
+													Q4. 성격 및 장단점
+												</div>
+												<div class="answer4 col px-4 overflow-y-scroll align-self-center" style="font-size:0.95em; height:8em">
+													성격 및 장단점
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- 자격증 출력 -->
+									<div id="showCertificationList" class="row border border-secondary border-top-0 d-none">
+										<div class="col text-center">
+											<div class="row border-bottom py-1 fw-semibold text-dark-emphasis" style="background-color:#f2f5f7;">
+												<div class="col-5">
+													자격증명
+												</div>
+												<div class="col-4">
+													자격증 취득일
+												</div>
+												<div class="col-3">
+													자격증 파일
+												</div>
+											</div>
+											<div class="row">
+												<div class="col" id="certificationListBox">
+												<div id="certificationListTemplete" class="d-none">
+													<div class="certificationWrapper row py-2">
+														<div class="certificationName col-5 fw-semibold">
+															자격증명 입력
+														</div>
+														<div class="acquisitionDate col-4">
+															자격증 취득일 입력
+														</div>
+														<div class="certificationFile col-3">
+															<button>자격증 파일 입력</button>
+														</div>
+													</div>
+												</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
 							
 							
 						</div>

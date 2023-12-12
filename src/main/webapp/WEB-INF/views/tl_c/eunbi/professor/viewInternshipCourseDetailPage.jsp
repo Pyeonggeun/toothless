@@ -114,6 +114,11 @@
 			const applyingStudentListBox = document.getElementById("applyingStudentListBox");
 			applyingStudentListBox.innerHTML = "";
 			
+			const applicationPeriod = document.querySelector(".applicationPeriod");
+			const announcementDate = document.querySelector(".announcementDate");
+			applicationPeriod.classList.add("fw-semibold", "text-dark-emphasis");
+			announcementDate.classList.add("fw-semibold", "text-dark-emphasis");
+			
 			for(applyingStudent of response.data) {
 				
 				const applyingStudentWrapper = document.querySelector("#applyingStudentListTemplete .applyingStudentWrapper").cloneNode(true);
@@ -160,6 +165,9 @@
 			
 			const internListBox = document.getElementById("internListBox");
 			internListBox.innerHTML = "";
+			
+			const internshipPeriod = document.querySelector(".internshipPeriod");
+			internshipPeriod.classList.add("fw-semibold", "text-dark-emphasis");
 			
 			let now = new Date();
 			nowYear = now.getFullYear();
@@ -253,7 +261,9 @@
 	}
 	
     function closeModal() {
+    	
     	const modal = bootstrap.Modal.getOrCreateInstance("#internEvaluationModal");
+    	
         modal.hide();
 	}
 	
@@ -460,7 +470,7 @@
 						</div>
 					</div>
 					
-					<div class="row mt-4">
+					<div class="row mt-5">
 						<div class="col">
 							<div id="applyingInternForm" class="d-none">
 								<div class="row">
