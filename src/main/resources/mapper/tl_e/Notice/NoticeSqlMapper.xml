@@ -45,7 +45,12 @@
 			</choose>
 		</if>
 		ORDER BY cn.id desc
-	</select>		
+	</select>
+	<!-- 공지사항 별 이미지 유무 -->	
+	<select id="countImageByNotice_id" resultType="int">
+		SELECT COUNT(*) FROM cp_notice_image
+		WHERE notice_id = #{notice_id}
+	</select>	
 	<!-- 교직원정보 검색 -->
 	<select id="selectStaffInfoByStaff_Pk" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
 		SELECT * FROM tl_jic_staff_info 

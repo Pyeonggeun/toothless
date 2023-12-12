@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 <script>
 	function handleClick() {
-
 	}
 </script>
 <style>
@@ -20,6 +19,9 @@
         padding: 0;
         cursor: pointer;
         outline: none;
+    }
+    #headerSize {
+    	font-size: 0.8em;
     }
 </style>
 
@@ -46,6 +48,22 @@
 						<div class="row mt-3">
 							<div class="col-1 mb-1 border-top fs-5">제목 &nbsp;&nbsp;</div>
 							<div class="col mb-1 border-top fs-5">${list.noticeBoardDto.title }</div>
+							<c:if test="${!empty sessionStaffInfo&&sessionStaffInfo.staff_pk==list.noticeBoardDto.staff_pk}">	
+								<div class="col-1 border-top">
+									<div class="row">
+										<div class="col" style="font-size: 0.8em;">
+											<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./deleteNoticeArticleProcess?id=${list.noticeBoardDto.id }">삭제</a>
+										</div>
+									</div>
+								</div>
+								<div class="col-1 border-top">
+									<div class="row">
+										<div class="col" style="font-size: 0.8em;">
+											<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./updateNoticeArticlePage?id=${list.noticeBoardDto.id }">수정</a>
+										</div>
+									</div>
+								</div>
+							</c:if>
 							<div class="col-1 mb-1 border-top" style="font-size: 0.8em"><fmt:formatDate value="${list.noticeBoardDto.created_at }" pattern="yyyy-MM-dd"/></div>
 						</div>
 					</div>
@@ -116,16 +134,8 @@
 				</div>
 				<div class="row">
 					<div class="col">
-						<a href="./noticeMainPage">목록으로..</a>
+						<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black;" href="./noticeMainPage"><i class="bi bi-card-list"></i>&nbsp;&nbsp;목록</a>
 					</div>
-				</div>
-				<div class="row">
-					<c:if test="${!empty sessionStaffInfo&&sessionStaffInfo.staff_pk==list.noticeBoardDto.staff_pk}">
-						<div class="col">
-							<a href="./deleteNoticeArticleProcess?id=${list.noticeBoardDto.id }">삭제</a>
-							<a href="./updateNoticeArticlePage?id=${list.noticeBoardDto.id }">수정</a>
-						</div>
-					</c:if>
 				</div>
 			</div>
 			<div class="col-1"></div>
@@ -136,26 +146,24 @@
 		<div class="row">
 			<div class="col-1"></div>
 			<div class="col">
-				<div class="row border">
-					<div class="col">댓글번호</div>
-					<div class="col">글</div>
-					<div class="col">작성자</div>
-					<div class="col">작성일</div>
+				<div class="row">
+					<div class="col">댓글&nbsp;(${commentCount })</div>
 				</div>
 				<c:forEach items="${cList }" var="cList">
 					<div class="row">
-						<div class="col">${cList.noticeCommentDto.id }</div>
-						<div class="col">${cList.noticeCommentDto.text }</div>
-						<div class="col">${cList.studentInfoDto.name }</div>
-						<div class="col"><fmt:formatDate value="${cList.noticeCommentDto.created_at }" pattern="yyyy-MM-dd hh-mm"/> </div>
-						<c:if test="${sessionStudentInfo.student_pk==cList.noticeCommentDto.student_pk }">
-							<a href="./deleteNoticeArticleCommentProcess?id=${cList.noticeCommentDto.id }&notice_id=${cList.noticeCommentDto.notice_id}">삭제</a>
-						</c:if>
+						<div class="col border-bottom"><i class="bi bi-chat-dots"></i></div>
+						<div class="col border-bottom">${cList.noticeCommentDto.text }</div>
+						<div class="col border-bottom">${cList.studentInfoDto.name }</div>
+						<div class="col border-bottom"><fmt:formatDate value="${cList.noticeCommentDto.created_at }" pattern="yy-MM-dd hh-mm"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<c:if test="${sessionStudentInfo.student_pk==cList.noticeCommentDto.student_pk }">
+								<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./deleteNoticeArticleCommentProcess?id=${cList.noticeCommentDto.id }&notice_id=${cList.noticeCommentDto.notice_id}">삭제</a>
+							</c:if>
+						</div>
 					</div>
 				</c:forEach>
 				<c:if test="${!empty sessionStudentInfo }">
 					<form action="./writeNoticeCommentProcess" method="post">
-						<div class="row">
+						<div class="row mt-3">
 							<div class="col-9">
 								<input name="text" type="text" style="width:100%; height: 2em">
 								<input name="notice_id" type="hidden" value="${list.noticeBoardDto.id }">
@@ -167,6 +175,46 @@
 						</div>
 					</form>
 				</c:if>
+			</div>
+			<div class="col-1"></div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-1"></div>
+			<div class="col">
+				<div class="row fw-bold" style="background-color: silver;">
+					<div id="headerSize" class="col-1 border"><i class="bi bi-caret-right-fill"></i>&nbsp;&nbsp;글번호</div>
+					<div id="headerSize" class="col-8 border"><i class="bi bi-book-fill"></i>&nbsp;&nbsp;제목</div>
+					<div id="headerSize" class="col-1 border"><i class="bi bi-person-arms-up"></i>&nbsp;&nbsp;작성자</div>
+					<div id="headerSize" class="col-1 border"><i class="bi bi-mouse-fill"></i>&nbsp;&nbsp;조회수</div>
+					<div id="headerSize" class="col-1 border"><i class="bi bi-calendar-fill"></i>&nbsp;&nbsp;작성일</div>
+				</div>
+				<div class="row">
+					<c:forEach items="${mainList }" var="mainList">
+						<div id="headerSize" class="col-1 border"><i class="bi bi-caret-right-fill"></i>${mainList.noticeBoardDto.id }</div>
+						<div class="col-8 border">
+							<div class="row">
+								<div class="col-10">
+									<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./readNoticeBoardPage?id=${mainList.noticeBoardDto.id }">${mainList.noticeBoardDto.title }</a>
+									<c:if test="${mainList.commentCount > 0 }">
+										<span style="font-size: 0.7em; color: red; font-weight: bold;">[${mainList.commentCount }]</span> 
+									</c:if>
+									<c:if test="${mainList.imageCount > 0 }">
+										<i class="bi bi-card-image"></i>
+									</c:if>
+								</div>
+								<div class="col-1">
+									<span class="badge text-bg-light" style="font-size: 0.7em; color: red;">추천[${mainList.likeCount }]</span>
+								</div>
+								<div class="col-1">
+									<span class="badge text-bg-light" style="font-size: 0.7em;">비추[${mainList.disLikeCount }]</span>
+								</div>
+							</div>
+						</div>
+						<div id="headerSize" class="col-1 border">${mainList.staffInfoDto.name }</div>
+						<div id="headerSize" class="col-1 border">${mainList.noticeBoardDto.read_count }</div>
+						<div id="headerSize" class="col-1 border"><fmt:formatDate value="${mainList.noticeBoardDto.created_at }" pattern="yy-MM-dd"/></div>
+					</c:forEach>
+				</div>
 			</div>
 			<div class="col-1"></div>
 		</div>

@@ -4,19 +4,83 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>공지사항 상세글 수정이요</h1>
-	<form action="./updateNoticeArticleProcess" method="post">
-		${sessionStaffInfo.name } 님 글 수정중<br>
-		<input name="id" type="hidden" value="${list.noticeBoardDto.id }">
-		<input name="staff_pk" type="hidden" value="${sessionStaffInfo.staff_pk }">
-		<input name="title" type="text" value="${list.noticeBoardDto.title }"><br>
-		<textarea name="text" rows="10" cols="60">${list.noticeBoardDto.text }</textarea><br>
-		
-		<input type="submit" value="글 등록">
-	</form>
+	<div class="container">
+		<div class="row">&nbsp;</div>
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-10">
+				<div class="row">
+					<div class="col-10 fs-1 fw-bold text-center">
+						공지사항 수정
+					</div>
+					<div class="col-2">${sessionStaffInfo.name } 님 글 등록중</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black;" href="./noticeMainPage"><i class="bi bi-card-list"></i>&nbsp;&nbsp;목록</a>
+				<div class="row">
+					<div class="col-10">
+						<div class="row border">
+							<div class="col">
+								<form action="./updateNoticeArticleProcess" method="post">
+									<input name="id" type="hidden" value="${list.noticeBoardDto.id }">
+									<input name="staff_pk" type="hidden" value="${sessionStaffInfo.staff_pk }">
+									<div class="row">
+										<div class="col">
+											<div class="row mb-1">
+												<div class="col">제목</div>
+											</div>
+											<div class="row">
+												<div class="col"><input class="form-control" name="title" type="text" value="${list.noticeBoardDto.title }"></div>
+											</div>
+										</div>
+									</div>
+									<div class="row">&nbsp;</div>
+									<div class="row">
+										<div class="col">
+											<div class="row mb-1">
+												<div class="col">내용</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													<div class="form-floating">
+														<textarea class="form-control" name="text" rows="10" cols="60">${list.noticeBoardDto.text }</textarea>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">&nbsp;</div>
+									<div class="row">
+										<div class="col-10"></div>
+										<div class="col">
+											<button type="submit" class="btn btn-light">글등록</button>
+										</div>
+									</div>
+									<div class="row">&nbsp;</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="col-2"></div>					
+				</div>
+			</div>
+			<div class="col-1"></div>
+		</div>
+	</div>
 	
+	
+	
+	
+	
+	
+	
+	
+	
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

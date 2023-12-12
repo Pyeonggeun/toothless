@@ -21,6 +21,8 @@ public interface NoticeSqlMapper {
 	public void insertNoticeImage(NoticeImageDto noticeImageDto);
 	// 공지시항 리스트 출력
 	public List<NoticeBoardDto> selectNoticeList(@Param("searchType") String searchType, @Param("searchWord") String searchWord);
+	// 공지사항 별 이미지 유무
+	public int countImageByNotice_id(int notice_id);
 	// 교직원 정보 검색
 	public StaffInfoDto selectStaffInfoByStaff_Pk(int staff_pk);
 	// 공지사항별 이미지

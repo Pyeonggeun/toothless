@@ -48,6 +48,7 @@ public class NoticeServiceImpl {
 			int commentCount = noticeSqlMapper.commentCountByNotice_id(boardPk);	// 댓글 갯수
 			int likeCount = noticeSqlMapper.likeCountByNotice_id(boardPk);			// 추천 갯수
 			int disLikeCount = noticeSqlMapper.dislikeCountByNotice_id(boardPk);	// 비추천 갯수
+			int imageCount = noticeSqlMapper.countImageByNotice_id(boardPk);
 					
 			Map<String, Object> map = new HashMap<>();
 			map.put("noticeBoardDto", noticeBoardDto);
@@ -55,6 +56,7 @@ public class NoticeServiceImpl {
 			map.put("commentCount", commentCount);
 			map.put("likeCount", likeCount);
 			map.put("disLikeCount", disLikeCount);
+			map.put("imageCount", imageCount);
 			
 			list.add(map);	
 		}
@@ -133,6 +135,10 @@ public class NoticeServiceImpl {
 	// 공지사항 베스트글
 	public List<Map<String, Object>> selectBestNotice(){
 		return noticeSqlMapper.selectBestNotice();
+	}
+	// 공지사항 개시글별 댓글 갯수
+	public int commentCountByNotice_id(int notice_id) {
+		return noticeSqlMapper.commentCountByNotice_id(notice_id);
 	}
 
 }

@@ -17,6 +17,14 @@
 	font-family: 'Gowun Dodum', sans-serif;
 	/* font-family: 'Quicksand', sans-serif; */
 	}
+	
+	#tableHeader {
+		font-size: 0.8em;
+	}
+	
+	#numberSize {
+		font-size: 0.8em;
+	}
 
 </style>
 
@@ -26,34 +34,42 @@
 <body>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col"></div>
-			<div class="col"><div class="title-font" style="font-size:3em;">공지사항</div></div>
-			<div class="col"></div>
-			<div class="col"></div>
-			<div class="col">
+			<div class="col-2"></div>
+			<div class="col-10">
 				<div class="row">
-					<c:choose>
-						<c:when test="${!empty sessionStaffInfo }">
-							<div class="col mt-3 fs-6">${sessionStaffInfo.name }님</div>
-						</c:when>
-						<c:otherwise>
-							<div class="col mt-3 fs-6">${sessionStudentInfo.name }님</div>
-						</c:otherwise>
-					</c:choose>
-					<c:choose>
-						<c:when test="${!empty sessionStaffInfo }">
-							<div class="col mt-3 fs-6"><a href="./staffReturnToMainPage"><i class="bi bi-chevron-double-left"></i></a></div>
-						</c:when>
-						<c:otherwise>
-							<div class="col mt-3 fs-6"><a href="./studentReturnToMainPage"><i class="bi bi-chevron-double-left"></i></a></div>
-						</c:otherwise>
-					</c:choose>
-					<div class="col mt-3 fs-6"><a href="./logoutProcess"><i class="bi bi-box-arrow-right"></i></a></div>
-					<c:if test="${!empty sessionStaffInfo }">
-						<div class="col mt-3 fs-6">
-							<a href="./writeNoticeArticlePage">글쓰기</a>
+					<div class="col-1"></div>
+					<div class="col"><div class="title-font" style="font-size:3em;">공지사항</div></div>
+					<div class="col-1">
+						<div class="row text-end">
+							<c:choose>
+								<c:when test="${!empty sessionStaffInfo }">
+									<div class="col mt-3 fs-6">${sessionStaffInfo.name }님</div>
+								</c:when>
+								<c:otherwise>
+									<div class="col mt-3 fs-6">${sessionStudentInfo.name }님</div>
+								</c:otherwise>
+							</c:choose>
 						</div>
-					</c:if>
+					</div>
+					<div class="col-2">
+						<div class="row">
+							<c:choose>
+								<c:when test="${!empty sessionStaffInfo }">
+									<div class="col mt-3 fs-6"><a href="./staffReturnToMainPage"><i class="bi bi-chevron-double-left"></i></a></div>
+								</c:when>
+								<c:otherwise>
+									<div class="col mt-3 fs-6"><a href="./studentReturnToMainPage"><i class="bi bi-chevron-double-left"></i></a></div>
+								</c:otherwise>
+							</c:choose>
+							<div class="col mt-3 fs-6"><a href="./logoutProcess"><i class="bi bi-box-arrow-right"></i></a></div>
+							<c:if test="${!empty sessionStaffInfo }">
+								<div class="col mt-3 fs-6">
+									<a href="./writeNoticeArticlePage">글쓰기</a>
+								</div>
+							</c:if>
+						</div>
+					</div>
+					<div class="col-1"></div>
 				</div>
 			</div>
 		</div>
@@ -110,41 +126,54 @@
 								</div>
 							</div>
 						</form>
-						<div class="row fw-bold" style="background-color: silver;">
-							<div class="col-2 border">글번호</div>
-							<div class="col-4 border">제목</div>
-							<div class="col-2 border">작성자</div>
-							<div class="col-2 border">조회수</div>
-							<div class="col-2 border">작성일</div>
+						<div id="tableHeader" class="row fw-bold py-2 bg-secondary-subtle text-black-50 bg-white">
+							<div class="col-1"><i class="bi bi-caret-right-fill"></i>&nbsp;&nbsp;글번호</div>
+							<div class="col-8"><i class="bi bi-book-fill"></i>&nbsp;&nbsp;제목</div>
+							<div class="col-1"><i class="bi bi-person-arms-up"></i>&nbsp;&nbsp;작성자</div>
+							<div class="col-1"><i class="bi bi-mouse-fill"></i>&nbsp;&nbsp;조회수</div>
+							<div class="col-1"><i class="bi bi-calendar-fill"></i>&nbsp;&nbsp;작성일</div>
 						</div>
-						<div class="row">
-							<c:forEach items="${bList }" var="bList">
-								<div class="col-2 border">${bList.ID }</div>
-								<div class="col-4 border">
+						<c:forEach items="${bList }" var="bList">
+							<div class="row py-1">
+								<div id="numberSize" class="col-1"><i class="bi bi-caret-right-fill"></i>${bList.ID }</div>
+								<div class="col-8">
 									<div class="row">
-										<div class="col-1"><i class="bi bi-star" style="color: silver;"></i></div>
-										<div class="col"><a class="link-offset-2 link-underline link-underline-opacity-0" href="./readNoticeBoardPage?id=${bList.ID }" style="color: black">${bList.TITLE }</a></div>
+										<div class="col-1"><i class="bi bi-star-fill" style="color: silver;"></i></div>
+										<div class="col fs-5"><a class="link-offset-2 link-underline link-underline-opacity-0" href="./readNoticeBoardPage?id=${bList.ID }" style="color: black">${bList.TITLE }</a></div>
 									</div>
 								</div>
-								<div class="col-2 border">${bList.NAME }</div>
-								<div class="col-2 border">${bList.READ_COUNT }</div>
-								<div class="col-2 border"><fmt:formatDate value="${bList.CREATED_AT }" pattern="yyyy-MM-dd"/></div>
-							</c:forEach>
-						</div>
-						<div class="row">
-							<c:forEach items="${list }" var="list">
-								<div class="col-2 border">${list.noticeBoardDto.id }</div>
-								<div class="col-4 border">
-									<a class="link-offset-2 link-underline link-underline-opacity-0" href="./readNoticeBoardPage?id=${list.noticeBoardDto.id }" style="color: black">${list.noticeBoardDto.title }</a>
-									<span class="badge text-bg-light">${list.commentCount }</span>
-									<span class="badge text-bg-light">추천[${list.likeCount }]</span>
-									<span class="badge text-bg-light">비추[${list.disLikeCount }]</span>
+								<div id="numberSize" class="col-1">${bList.NAME }</div>
+								<div id="numberSize" class="col-1">${bList.READ_COUNT }</div>
+								<div id="numberSize" class="col-1"><fmt:formatDate value="${bList.CREATED_AT }" pattern="yy-MM-dd"/></div>
+							</div>
+						</c:forEach>
+						<c:forEach items="${list }" var="list">
+							<div class="row py-1">
+								<div id="numberSize" class="col-1"><i class="bi bi-caret-right-fill"></i>${list.noticeBoardDto.id }</div>
+								<div class="col-8">
+									<div class="row">
+										<div class="col-10">
+											<a class="link-offset-2 link-underline link-underline-opacity-0 fs-5" href="./readNoticeBoardPage?id=${list.noticeBoardDto.id }" style="color: black">${list.noticeBoardDto.title }</a>
+											<c:if test="${list.commentCount > 0 }">
+												<span style="font-size: 0.7em; color: red; font-weight: bold;">[${list.commentCount }]</span> 
+											</c:if>
+											<c:if test="${list.imageCount > 0 }">
+												<i class="bi bi-card-image"></i>
+											</c:if>
+										</div>
+										<div class="col-1">
+											<span class="badge text-bg-light" style="font-size: 0.7em; color: red;">추천[${list.likeCount }]</span>
+										</div>
+										<div class="col-1">
+											<span class="badge text-bg-light" style="font-size: 0.7em;">비추[${list.disLikeCount }]</span>
+										</div>
+									</div>
 								</div>
-								<div class="col-2 border">${list.staffInfoDto.name }</div>
-								<div class="col-2 border">${list.noticeBoardDto.read_count }</div>
-								<div class="col-2 border"><fmt:formatDate value="${list.noticeBoardDto.created_at }" pattern="yyyy-MM-dd"/></div>
-							</c:forEach>
-						</div>
+								<div id="numberSize" class="col-1">${list.staffInfoDto.name }</div>
+								<div id="numberSize" class="col-1">${list.noticeBoardDto.read_count }</div>
+								<div id="numberSize" class="col-1"><fmt:formatDate value="${list.noticeBoardDto.created_at }" pattern="yy-MM-dd"/></div>
+							</div>
+						</c:forEach>
 						<div class="row">
 							<div class="col">
 								<div>여기엔 뭘 넣을까요</div>

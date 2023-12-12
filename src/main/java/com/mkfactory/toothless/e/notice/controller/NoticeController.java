@@ -45,7 +45,6 @@ public class NoticeController {
 	public String studentReturnToMainPage() {
 		return "redirect:../commons/counselCenterStudentMainPage";
 	}
-	
 	// 로그아웃
 	@RequestMapping("logoutProcess")
 	public String logoutProcess(HttpSession session) {
@@ -131,6 +130,8 @@ public class NoticeController {
 			model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
 			model.addAttribute("cList", noticeService.selectCommentByNotice_Id(id));
 		}
+		model.addAttribute("mainList", noticeService.getNoticeList(null, null));
+		model.addAttribute("commentCount", noticeService.commentCountByNotice_id(id));
 
 		noticeService.increaseReadCount(id);
 		
