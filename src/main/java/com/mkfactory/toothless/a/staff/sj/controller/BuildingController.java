@@ -45,27 +45,18 @@ public class BuildingController {
 		
 		return "tl_a/staff/sj_manageDormInfo";
 	}
-//	
-//	@RequestMapping("sj_managePoint")
-//	public String managePoint(Model model) {
-//		model.addAttribute("point", buildingService.pointList());
-//		model.addAttribute("studentList", buildingService.studentList());
-//		return "tl_a/staff/sj_managePoint";
-//	}
 	
 	@RequestMapping("sj_managePoint")
     public String managePoint(Model model, int dorm_student_pk) {
         model.addAttribute("point", buildingService.pointsL(dorm_student_pk));
         model.addAttribute("studentList", buildingService.studentList());
-        // Assuming you have a method to get the list of students
-
-
+        
         return "tl_a/staff/sj_managePoint";
     }
 	
 	//기숙사 호실 관리 페이지
 	@RequestMapping("sj_manageRoomInfo")
-	public String roomInfo(Model model/*,int dorm_student_pk*/ ) {
+	public String roomInfo(Model model /*,int student_pk*/ ) {
 		
 		List<Map<String, Object>> rooms2 = buildingService.roomList();
 		model.addAttribute("rooms", rooms2);
@@ -73,9 +64,9 @@ public class BuildingController {
 		
 		//stList
 		model.addAttribute("studentList", buildingService.studentList());
-		//model.addAttribute("point", buildingService.pointList());
-
-       // model.addAttribute("pointList", buildingService.pointsL(dorm_student_pk));
+		
+		//test
+//		model.addAttribute("test", buildingService.testPrint(student_pk));
 		return "tl_a/staff/sj_manageRoomInfo";
 	}
 	

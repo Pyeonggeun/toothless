@@ -53,13 +53,13 @@
 			
 			<!-- 상세이미지링크 -->
             <div class="row">
-				<div class="col text-center fs-5 fw-bold my-4">
+				<div class="col fs-4 fw-bold my-4">
 					인실 별 이미지
 				</div>
 			</div>			
-			<div class="row border rounded py-3">
+			<div class="row border rounded-0 py-3">
 				<div class="col">
-					<div class="row text-center fw-bold  fs-5">
+					<div class="row text-center fw-bold my-3 fs-5 border-bottom pb-4">
 						<div class="col ">
 							인실
 						</div>
@@ -71,41 +71,24 @@
 					</div>
 					
 					<c:forEach items="${dormAmount }" var="ct">
-						<div class="row text-center my-5 border-bottom">
-							<div class="col">
+						<div class="row text-center my-4 border-bottom">
+							<div class="col my-4">
 								
 								${ct.dorm_amount }인실
 							</div>
-							<div class="col">
+							<div class="col my-4">
 								<img src="/uploadRoomImgs/${ct.dorm_imgs }" class="img-fluid img-thumbnail">
 							</div>
-							<div class="col">
-								<a href="./deleteForRoomDatailProcess?dorm_amount_pk=${ct.dorm_amount_pk }">삭제</a>
-							</div>
+							<div class="col my-4">
+                                   <a class="btn btn-outline-danger" href="./deleteForRoomDatailProcess?dorm_amount_pk=${ct.dorm_amount_pk }" role="button">삭제하기</a>
+                               </div>
 						</div>
 					</c:forEach>
 				    
 					
 				</div>
 			</div>
-			
-	
-			
-			<div class="row mt-3">
-				<div class="col px-0">
-					<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary me-1"> &nbsp;&nbsp; 취소 &nbsp;&nbsp;</button>
-					<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary me-1">미리보기</button>
-					<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary">중간저장</button>
-				</div>			
-				<div class="col-5"></div>
-                <div class="col px-0 text-end">
-					<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary">임시 저장</button>
-                    <button type="submit" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
-                </div>                    
-             </div>
-        
-			
-			
+						
 			<pre>
 			
 			

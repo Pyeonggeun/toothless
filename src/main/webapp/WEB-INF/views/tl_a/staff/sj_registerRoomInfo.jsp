@@ -85,8 +85,10 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col fs-6 fw-bold my-1">
+						<div class="col-1 fs-6 fw-bold my-1">
 							<input type="radio" name="dorm_amount_pk" value="2">2인실
+						</div>
+						<div class="col-1 fs-6 fw-bold my-1">
 							<input type="radio" name="dorm_amount_pk" value="4">4인실
 						</div>
 					</div>
@@ -120,23 +122,22 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col my-2">
+						<div class="col-1">
 							<input type="radio" name="gender" value="M">남
+						</div>
+						<div class="col-1">
 							<input type="radio" name="gender" value="F">여
 						</div>
 					</div>
 				</div>
+				</div>
 			</div>
 			
 			<div class="row mt-3">
-				<div class="col px-0">
-					<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary me-1"> &nbsp;&nbsp; 취소 &nbsp;&nbsp;</button>
-					<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary me-1">미리보기</button>
-					<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary">중간저장</button>
-				</div>			
+						
 				<div class="col-5"></div>
                 <div class="col px-0 text-end">
-					<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary">임시 저장</button>
+				
                     <button type="submit" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
                 </div>                    
              </div>

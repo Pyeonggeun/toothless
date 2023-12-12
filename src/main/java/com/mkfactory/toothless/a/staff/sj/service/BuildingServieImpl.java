@@ -204,63 +204,6 @@ public class BuildingServieImpl {
 		return buildingSqlMapper.selectStudentPoints(dorm_student_pk);
 	}
 	
-//	public List<Map<String, Object>> pointList(){
-//		List<Map<String, Object>> pointMapList = new ArrayList<>();
-//		
-//		List<PointDto> point = buildingSqlMapper.selectStudentPoints();
-//		
-//		for(PointDto pointDto : point) {
-//			
-//			int categoryPk = pointDto.getPoint_category_pk();
-//			PointCategory poinCategory = buildingSqlMapper.selectPointCategoryPk(categoryPk);
-//			
-//			int dormStudentPk = pointDto.getDorm_student_pk();
-//			DormStudentDto student = buildingSqlMapper.selectPk(dormStudentPk);			
-//			
-////			int pointPk = pointDto.getDorm_point_pk();
-////			pointDto.setDorm_point_pk(pointPk);
-//			
-//			Map<String, Object> map = new HashMap<>();
-//			map.put("pointDto", pointDto);
-//			map.put("poinCategory", poinCategory);
-//			map.put("student", student);
-//			
-//			pointMapList.add(map);
-//			
-//			System.out.println("point Pk : "+pointDto.getDorm_point_pk());
-//			System.out.println("dorm student Pk : "+pointDto.getDorm_student_pk());
-//		}
-//		
-//		return pointMapList;
-//	}
-	
-//	 public List<Map<String, Object>> getPointsForStudent(int dorm_studen_tPk) {
-//	        List<Map<String, Object>> pointMapList = new ArrayList<>();
-//
-//	        List<PointDto> pointList = buildingSqlMapper.selectStudentPoints(dorm_studen_tPk);
-//
-//	        for (PointDto pointDto : pointList) {
-//	            int categoryPk = pointDto.getPoint_category_pk();
-//	            PointCategory pointCategory = buildingSqlMapper.selectPointCategoryPk(categoryPk);
-//
-//	            // Assuming you have a method to get student details by dorm_student_pk
-//	            DormStudentDto student = buildingSqlMapper.selectPk(dorm_studen_tPk);
-//
-//	            Map<String, Object> map = new HashMap<>();
-//	            map.put("pointDto", pointDto);
-//	            map.put("pointCategory", pointCategory);
-//	            map.put("student", student);
-//
-//	            pointMapList.add(map);
-//
-//	            System.out.println("Point Pk: " + pointDto.getDorm_point_pk());
-//	            System.out.println("Dorm student Pk: " + pointDto.getDorm_student_pk());
-//	        }
-//
-//	        return pointMapList;
-//	    }
-
-	
 	//기숙사 동 삭제
 	public void deleteForDormInfoProcess(int dorm_pk) {
 		buildingSqlMapper.deleteForDormInfo(dorm_pk);

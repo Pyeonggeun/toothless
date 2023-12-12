@@ -73,15 +73,14 @@
 			<div class="row mt-3 border rounded p-3">
 				<div class="col">
 					<div class="row">
-						<div class="col fs-5 fw-bold">
-							현재 ${editRooms.roomDto.room_name} 호실명
-							 
+						<div class="col fs-5 fw-bold ">
+							호실명
 						
 						</div>
 					</div>
 					<div class="row">
 						<div class="col my-2">
-							<input class="form-control" name="room_name" type="text" placeholder="수정할 호실명을 입력해주세요.">
+							<input class="form-control" name="room_name" type="text" placeholder="현재 ${editRooms.roomDto.room_name}실입니다. 수정할 호실명을 입력해주세요.">
 						</div>
 					</div>
 				</div>
@@ -92,13 +91,19 @@
 				<div class="col">
 					<div class="row">
 						<div class="col">
-							<span class="fs-5 fw-bold my-1">현재 ${editRooms.categoryDto.dorm_amount } 인실</span>
+							<span class="fs-5 fw-bold my-1">인실</span>
+							<br>
+							<span class="text-secondary"> 현재 ${editRooms.categoryDto.dorm_amount }인실입니다. 
+							<br>
+							몇 인실로 수정할지 선택해주세요.</span> 
 						</div>
 					</div>
 					<div class="row">
-						<div class="col fs-6 fw-bold my-1">
-							몇 인실로 수정할지 선택해주세요. <br>
+					
+						<div class="col-1 fs-6 fw-bold my-1">
 							<input type="radio" name="dorm_amount_pk" value="2">2인실
+						</div>
+						<div class="col-1 fs-6 fw-bold my-1">
 							<input type="radio" name="dorm_amount_pk" value="4">4인실
 						</div>
 					</div>
@@ -112,13 +117,13 @@
 				<div class="col">
 					<div class="row">
 						<div class="col fs-5 fw-bold">
-							현재 ${editRooms.roomDto.dorm_floor } 층
+							 층
 							
 						</div>
 					</div>
 					<div class="row">
 						<div class="col my-2">
-							<input class="form-control" name="dorm_floor" type="number" placeholder="몇 층으로 수정할지 입력해주세요." min="1" max="10">
+							<input class="form-control" name="dorm_floor" type="number" placeholder="현재 ${editRooms.roomDto.dorm_floor }층입니다. 몇 층으로 수정할지 입력해주세요." min="1" max="10">
 						</div>
 					</div>
 				</div>
@@ -129,23 +134,35 @@
 				<div class="col">
 					<div class="row">
 						<div class="col fs-5 fw-bold">
-							현재 성별 
-							<c:choose>
+						성별 
+						</div>
+					</div>
+					<div class="row">
+						<div class="col my-2">
+							<span class="text-secondary">
+								현재  
+								<c:choose>
 								<c:when test="${editRooms.roomDto.gender=='M' }">
 									남성
 								</c:when>
 								<c:otherwise>
 									여성
 								</c:otherwise>
+								
 							</c:choose>
-							
-						</div>
-					</div>
-					<div class="row">
-						<div class="col my-2">
-							변경할 성별을 입력하세요.<br>
-							<input type="radio" name="gender" value="M">남
-							<input type="radio" name="gender" value="F">여
+							호실 입니다. 
+							<br>
+							변경할 성별을 입력하세요.
+							</span>
+							<br>
+							<div class="row">
+								<div class="col-1">
+									<input type="radio" name="gender" value="M">남
+								</div>
+								<div class="col-1">
+									<input type="radio" name="gender" value="F">여
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

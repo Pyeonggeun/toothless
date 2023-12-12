@@ -53,9 +53,9 @@
 			<!-- 세부내용 시작 -->
 			
 			<!-- 기숙사명 -->
-			<div class="row border rounded p-3">
+			<div class="row border rounded-0 p-3">
 				<div class="col">
-					<div class="row">
+					<div class="row text-center fw-bold my-3 fs-5 border-bottom ">
 						<div class="col">
 					<div class="row mb-4">
 						<div class="col text-center fw-bold fs-5">
@@ -83,14 +83,14 @@
 				<div class="col">
 					<div class="row mb-4">
 						<div class="col text-center">
-							
+							삭제
 						</div>
 					</div>
 				</div>
 					</div>
 					<c:forEach items="${dormBuilding }" var="dorm">
 						<input type="hidden" value="${dorm.dorm_pk }">
-						<div class="row my-4 border rounded">
+						<div class="row my-4 border-bottom rounded-0">
 							<div class="col">
 								<div class="row">
 									<div class="col text-center py-5 my-5">
@@ -115,11 +115,7 @@
 							<div class="col">
 								<div class="row">
 									<div class="col d-grid py-5 my-3">
-										<button type="button" class="btn btn-outline-secondary py-4">
-											<a href="./deleteForDormInfoProcess?dorm_pk=${dorm.dorm_pk }" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
-											삭제
-											</a>
-										</button>
+										<a href="./deleteForDormInfoProcess?dorm_pk=${dorm.dorm_pk }" class="btn btn-outline-danger py-3" role="button">삭제하기</a>
 									</div>
 								</div>
 							</div>
@@ -135,7 +131,8 @@
 		
 		<!-- 수정/삭제-->
 		
-            
+            <pre>
+            </pre>
         
 	</div> <!-- main row 끝 -->
 	

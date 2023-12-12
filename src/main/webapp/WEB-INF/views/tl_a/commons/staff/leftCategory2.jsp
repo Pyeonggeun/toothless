@@ -87,9 +87,11 @@
                     <ul style="list-style: none;">
                         <li class="my-2 text-body-secondary" style="font-size: 0.7rem;">관련사이트</li>
                         <li class="my-2" style="font-size: 0.8rem;">기숙사 홈페이지
-                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
-                        <li class="my-2" style="font-size: 0.8rem;">대학메인포털홈페이지
-                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
+                           <a href="../student/jw_mainPage" class="navbar-brand"> <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;" ></i></a>
+                            </li>
+                        <li class="my-2" style="font-size: 0.8rem;">대학메인 포털
+                            <a href="../../another/student/mainPage" class="navbar-brand"><i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></a>
+                            </li>
                         <li class="my-2" style="font-size: 0.8rem;">뭘 넣어야 될까
                             <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
                     </ul>

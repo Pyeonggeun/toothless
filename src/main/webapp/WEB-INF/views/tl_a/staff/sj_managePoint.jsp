@@ -39,13 +39,9 @@
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 					<li class="nav-item ta">
-					    <a class="nav-link active text-black" href="./sj_manageRoomInfo">전체보기</a>
+					    <a class="nav-link active text-black" href="./sj_manageRoomInfo">호실 정보 전체보기</a>
 					  </li>
-					<c:forEach items="${dormBuilding }" var="dorm">
-					  <li class="nav-item ">
-					    <a class="nav-link text-secondary" href="./sj_manageRoomInfoReadPage?dorm_pk=${dorm.dorm_pk }">${dorm.name }</a>
-					  </li>
-					 </c:forEach>
+
 					</ul>
 				</div>
 			</div>
@@ -53,39 +49,24 @@
 			<!-- 세부내용 시작 -->
 			<div class="row">
 				<div class="col text-center fs-5 fw-bold my-4">
-					전체 호실 정보
+					상벌점 
 				</div>
 			</div>			
 			<div class="row border rounded p-3">
-				<div class="col">
-					<div class="row text-center fw-bold my-3 fs-5">
-						<div class="col">
-							동
-						</div>
-						<div class="col">
-							층
-						</div>
-						<div class="col">
-							호실
-						</div>
-						<div class="col">
-							정원
-						</div>
-						<div class="col">
-							성별
-						</div>
-						<div class="col">수정</div>
-						<div class="col">삭제</div>
-					</div>
-					
-		<c:choose>
-		    <c:when test="${not empty point}">
-		        <span class="fw-bold">상벌점</span> <span class="mz-2">${point[0].SUM}</span>
-		    </c:when>
-		    <c:otherwise>
-		        상벌점이 없습니다.
-		    </c:otherwise>
-		</c:choose>
+				<div class="col py-4 px-4 text-center">
+							
+				<c:choose>
+				    <c:when test="${not empty point}">
+				        <span class="fw-bold">상벌점</span> <span class="mz-2">${point[0].SUM}</span>
+				    </c:when>
+				    <c:otherwise>
+				        상벌점이 없습니다.
+				    </c:otherwise>
+				</c:choose>
+				
+		
+		
+		
                <!-- dorm_student_pk를 hidden input으로 전달 -->
                
 				</div>
