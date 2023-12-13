@@ -186,13 +186,17 @@
 				<div class="col"></div> 
 			</div>
 			
-			<!-- 글수정 삭제 글목록 돌아가기 버튼 -->
+			<!-- 공감 /  글목록 돌아가기 버튼 -->
 			<div class="row py-2 border-top border-secondary">
 				
-				<div class="col-1 border border-secondary rounded text-center"> 공감 추가 예정</div>
+				<!-- 공감 -->
+				<div class="col-2"> 
+					공감 추가 예정
+				</div>
 				
 				<div class="col"></div>
 				
+				<!-- 글 목록 돌아가기 -->
 				<div class="col-2 text-end">
 					<a role="button" class="btn text-white" style="background-color: #133369;" type="button" href="./freeboardCounselPage"> 글 목록 </a>
 				</div>
