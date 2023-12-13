@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mkfactory.toothless.e.dto.FreeboardCommentDto;
 import com.mkfactory.toothless.e.dto.FreeboardDto;
+import com.mkfactory.toothless.e.dto.FreeboardEmpathyDto;
 import com.mkfactory.toothless.e.dto.FreeboardImageDto;
 import com.mkfactory.toothless.e.freeboardcounsel.service.FreeboardCounselServiceImpl;
 
@@ -152,6 +153,14 @@ public class FreeboardCounselController {
 		model.addAttribute("freeboardImageDtoList", freeboardImageDtoList);
 		
 		return "tl_e/freeboardCounsel/readFreeboardPostPage";
+	}
+	
+	//공감
+	@RequestMapping("insertEmpathy")
+	public String insertEmpathy(FreeboardEmpathyDto paraFreeboardEmpathyDto){
+		freeboardCounselService.insertEmpathy(paraFreeboardEmpathyDto);
+		
+		return "redirect:./readFreeboardPostPage?id=" +  paraFreeboardEmpathyDto.getFreeboard_id();
 	}
 	
 	//댓글 작성하기

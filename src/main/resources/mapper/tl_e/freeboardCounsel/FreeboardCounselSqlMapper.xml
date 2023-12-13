@@ -116,9 +116,9 @@
 	
 	<insert id = "insertImage">
 		INSERT INTO cp_freeboard_image VALUES(
-		cp_freeboard_image_seq.nextval,
-		#{freeboard_id},
-		#{freeboard_image_link}
+			cp_freeboard_image_seq.nextval,
+			#{freeboard_id},
+			#{freeboard_image_link}
 		)
 	</insert>
 	
@@ -130,6 +130,14 @@
 	<select id="createFreeboardPk" resultType="int">
 	 SELECT cp_student_freeboard_seq.nextval FROM Dual
 	</select>
+	
+	<insert id="insertEmpathy">
+		INSERT INTO cp_freeboard_empathy VALUES(
+			cp_freeboard_empathy_seq.nextval,
+			#{freeboard_id},
+			#{student_pk}
+		)
+	</insert>
 	
 	
 	
