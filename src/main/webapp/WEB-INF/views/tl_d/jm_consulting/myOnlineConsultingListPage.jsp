@@ -26,6 +26,20 @@
 		.then(response => {
 			
 			
+			//아직 상담목록 없으면
+			if(response.data.length==0){
+				
+				const myOnlineConsultingList = document.querySelector("#myOnlineConsultingList"); 
+				const spanElement = document.createElement('span');
+				
+				myOnlineConsultingList.classList.add('text-center','py-3');
+				spanElement.classList.add('fw-bold');
+				spanElement.innerText ="아직 상담목록이 없습니다."
+				
+				myOnlineConsultingList.appendChild(spanElement);
+				return;
+				
+			}
 			
 			//CSR - 클아이언트 사이드 렌더링
 				//복사할곳을 찾아놓음, id명 myOnlineCounsultiList를 위치로잡음 
