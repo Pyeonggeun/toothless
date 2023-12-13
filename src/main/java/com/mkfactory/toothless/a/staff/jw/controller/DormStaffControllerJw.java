@@ -52,7 +52,7 @@ public class DormStaffControllerJw {
 		List<PointCategory> pointCategoryListAll = dormStaffServiceJw.getPointCategory();
 		model.addAttribute("pointCategoryListAll", pointCategoryListAll);
 		
-		return "tl_a/staff/jw_pointCategoryPage";
+		return "/tl_a/staff/jw_pointCategoryPage";
 	}
 	
 	// 상벌코드 등록 프로세스
