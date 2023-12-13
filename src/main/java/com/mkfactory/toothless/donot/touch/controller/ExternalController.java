@@ -62,7 +62,6 @@ public class ExternalController {
 	@RequestMapping("mainPage")
 	public String mainPage() {
 		
-	
 		
 		return "another/external/mainPage";
 	}
