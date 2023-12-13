@@ -25,26 +25,27 @@
                                 	<div class="row mx-5">
                                         <div class="col">
                                             <div class="row">  
-                                                <div class="col pt-4 px-4">
+                                                <div class="col pt-4 px-2">
                                                     <div class="row">
 
                                                         <div class="col"> <!--교육목록-->
                                                             <div class="row">
                                                             	<div class="col">
                                                             	</div>
-                                                                <div class="col text-center fw-bold" style="font-size: 1.3em;">
-                                                                    교육 프로그램 신청 현황
+                                                                <div class="col text-center fw-bold px-0" style="font-size: 1.3em;">
+                                                                    교육 프로그램 신청현황
                                                                 </div>
-                                                                <div class="col-4 text-end">
+                                                                <div class="col"></div>
+                                                                <!-- <div class="col-1 text-end">
                                                                     <input name="name" type="text" style="height: 25px;">
                                                                     <i class="bi bi-search-heart"></i>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                             <div class="row mt-3">
                                                                 <div class="col">
                                                                     <div class="row fw-bold pb-1 border-bottom border-dark">
                                                                         <div class="col fw-bold" style="text-align: center;" >
-                                                                            <span>학생이름</span>
+                                                                            <span>신청자</span>
                                                                         </div>
                                                                         <div class="col fw-bold" style="text-align: center;" >
                                                                             <span>프로그램명</span>
@@ -81,6 +82,11 @@
                                                                             			<a class="btn btn-sm fw-bold text-white" href="./updateStatusNProcess?edu_apply_pk=${edu.eduApplyDto.edu_apply_pk}"
 	                                                                                	role="button" style="background-color: #014195;">수료완료</a>
                                                                             		</c:when>
+                                                                            		<c:when test="${edu.eduApplyDto.status eq 'D'}">
+                                                                            			<a class="btn btn-sm fw-bold" href=#
+	                                                                                	role="button" style="background-color: #F3F3F3; color: #C4C3C4;">수료완료(만족도O)</a>
+                                                                            		</c:when>
+                                                                            		
 	                                                                                <c:otherwise>
 	                                                                                	<a class="btn btn-sm fw-bold" href=#
 	                                                                                	role="button" style="background-color: #F3F3F3; color: #C4C3C4;" >신청취소</a>
@@ -92,14 +98,67 @@
                                                                 </div>
                                                             </div>
                                                         </div> <!--교육목록 끝--> 
-
-                                                        <div class="col-4"> <!--만족도 ㅎㅎ-->
+                                                        <!--만족도 ㅎㅎ-->
+                                                        <div class="col-1 px-0"></div>
+                                                        <div class="col"> 
                                                             <div class="row">
                                                                 <div class="col text-center fw-bold" style="font-size: 1.3em;">
-                                                                    만족도
+                                                                    만족도 작성 현황
                                                                 </div>
                                                             </div>
+                                                            <div class="row mt-3">
+                                                                <div class="col">
+                                                                    <div class="row fw-bold pb-1 border-bottom border-dark">
+                                                                        <div class="col fw-bold" style="text-align: center;" >
+                                                                            프로그램명
+                                                                        </div>
+                                                                        <div class="col fw-bold" style="text-align: center;" >
+                                                                            작성자
+                                                                        </div>
+                                                                        <div class="col fw-bold" style="text-align: center;" >
+                                                                            별점
+                                                                        </div>
+                                                                        <div class="col fw-bold" style="text-align: center;" >
+                                                                            평가내용
+                                                                        </div>
+                                                                    </div>
+                                                                    <c:forEach items="${allServeyList }" var="ser">
+                                                                    <div class="row py-1 border-bottom">
+                                                                        <div class="col align-self-center text-center" style="text-align: center;">
+                                                                            ${ser.eduName }
+                                                                        </div>
+                                                                        <div class="col align-self-center text-center" style="text-align: center;">
+                                                                            <span>${ser.studentName.name }</span>
+                                                                        </div>
+                                                                        <div class="col align-self-center text-center">
+                                                                        	<c:choose>
+																				<c:when test="${ser.eduStsfcSurveyDto.star_rated eq 5}">
+																					⭐⭐⭐⭐⭐
+																				</c:when>
+																				<c:when test="${ser.eduStsfcSurveyDto.star_rated eq 4}">
+																					⭐⭐⭐⭐
+																				</c:when>
+																				<c:when test="${ser.eduStsfcSurveyDto.star_rated eq 3}">
+																					⭐⭐⭐
+																				</c:when>
+																				<c:when test="${ser.eduStsfcSurveyDto.star_rated eq 2}">
+																					⭐⭐
+																				</c:when>
+																				<c:when test="${ser.eduStsfcSurveyDto.star_rated eq 1}">
+																					⭐
+																				</c:when>
+																			</c:choose>
+                                                                        </div>
+                                                                        <div class="col align-self-center text-center">
+                                                                        	${ser.eduStsfcSurveyDto.content }
+                                                                        </div>
+                                                                    </div>
+                                                                    </c:forEach>
+                                                                </div>
+                                                            </div>
+                                                        </div> <!--교육목록 끝--> 
                                                         </div>
+                                                        <!-- 만족도 끝 -->
 
                                                     </div>
                                                 </div>
@@ -147,7 +206,7 @@
                                                                         </a></span>
                                                                     </div>
                                                                     <div class="col" style="text-align: center;">
-                                                                        <span>1/${edu.eduDto.capacity }</span>
+                                                                        <span>${edu.applyStudentCount }/${edu.eduDto.capacity }</span>
                                                                     </div>
                                                                     <div class="col" style="text-align: center;">
                                                                         <span>${edu.staffInfoDto.name }</span>
@@ -206,10 +265,13 @@
                                     <div class="row" style="margin-left: 16%; margin-right: 16%;">
                                         <div class="col">
                                             <div class="row">
-                                                <div class="col-4 my-auto">
-                                                    <img class="img-fluid" src="./img/health/health_ci.gif">
+                                                <div class="col-1 my-auto">
+                                                    <img class="img-fluid" src="../../resources/img/another/logo_black.png">
                                                 </div>
-                                                <div class="col text-body-tertiary" style="font-size: small;">
+                                                <div class="col-3 ps-0 my-auto" style="font-size: x-large">
+                                                    MK University | 보건센터
+                                                </div>
+                                                <div class="col text-body-tertiary my-auto" style="font-size: small;">
                                                     <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
                                                     <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
                                                 </div>

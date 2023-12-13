@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mkfactory.toothless.e.dto.FreeboardCommentDto;
@@ -30,9 +31,13 @@ public class FreeboardCounselController {
 	
 	//작성글이 리스팅 되야하는 자유게시판 페이지
 	@RequestMapping("freeboardCounselPage")
-	public String freeboardCounsel(Model model, FreeboardDto paraFreeboardDto) {
+	public String freeboardCounsel(Model model, FreeboardDto paraFreeboardDto,
 		
-		List<Map<String, Object>> combinedFreeboardList = freeboardCounselService.getfreeboardList();
+			String searchType,
+			String searchWord
+			) {
+		
+		List<Map<String, Object>> combinedFreeboardList = freeboardCounselService.getfreeboardList(searchType,searchWord);
 		//게시글 목록
 		model.addAttribute("combinedFreeboardList", combinedFreeboardList);
 			System.out.println("상담게시판 메인페이지 리스팅 완료 ");

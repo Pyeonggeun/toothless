@@ -125,24 +125,40 @@
 			<!-- 상단 조회수 기준 베스트 게시물 끝-->
 			</div>
 			
-		
-			<div class="row my-2 py-2"> 
-					<form class="d-flex" role="search">
-						<div class="col-3  text-end me-2">
-							<div class="dropdown">
-								  <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> 검색기준 선택 </button>
-								  <ul class="dropdown-menu">
-								    <li><a class="dropdown-item" href="#">글번호</a></li>
-								    <li><a class="dropdown-item" href="#">글제목</a></li>
-								    <li><a class="dropdown-item" href="#">글내용</a></li>
-								    <li><a class="dropdown-item" href="#">작성자</a></li>
-								  </ul>
-								</div>
+			<!-- 검색창 감싸는 로우 콜 -->	
+			<div class="row">
+				<div class="col">
 						
+						
+						
+				<!-- 임시 검색 로우 콜 -->
+				
+				<div class="row">
+					<div class="col">
+					<form action="./freeboardCounselPage" method="get">
+						<div class="row"> <!--검색-->
+							<div class="col"> 
+								<select name="searchType" class="form-select">   
+									<option selected value="title">글 제목</option>
+									<option value="text">글내용</option>
+									<option value="id">글번호</option>
+									<option value="name">작성자</option>
+								</select>
+							</div>
+							<div class="col"> 
+								<input name ="searchWord" type = "text" class="form-control">
+							</div>
+							<div class="col"> 
+								<input class="btn btn-dark" type="submit">
+							</div>
 						</div>
-						<div class="col-6"><input class="form-control" type="search" placeholder="추후 기능 추가  예정) 검색" aria-laber="Search"></div>
-						<div class="col-2 ms-2 btn text-white" type="submit" style="background-color:#133369;">Search</div>
 					</form>
+					
+					</div>
+				</div>					
+					
+			<!-- 검색창 감싸는 로우 콜 -->	
+				</div>
 			</div>
 			
 			

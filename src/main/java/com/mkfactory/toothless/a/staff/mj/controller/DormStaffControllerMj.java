@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.a.dto.JoinDormApplicationDto;
 import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
-import com.mkfactory.toothless.a.dto.PointCategory;
 import com.mkfactory.toothless.a.dto.SemesterDto;
 import com.mkfactory.toothless.a.staff.mj.service.DormStaffServiceImpl;
 import com.mkfactory.toothless.a.student.mj.service.DormStudentServiceImpl;
@@ -174,26 +173,8 @@ public class DormStaffControllerMj {
 	
 	//=================================
 	
-	// 상벌코드 목록
-	@RequestMapping("mj_pointCategoryPage")
-	public String mj_pointCategoryPage(Model model) {
-		
-		List<PointCategory> pointCategoryListAll = staffService.getPointCategory();
-		model.addAttribute("pointCategoryListAll", pointCategoryListAll);
-		
-		return "tl_a/staff/mj_pointCategoryPage";
-	}
 	
-	// 상벌코드 등록 프로세스
-	@RequestMapping("mj_registerPointCategoryProcess")
-	public String mj_registerPointCategoryProcess(PointCategory params) {
-
-		staffService.registerPointCategory(params);
-		
-		return "redirect:../staff/mj_pointCategoryPage";
-	}
 	
-
 	
 	
 	

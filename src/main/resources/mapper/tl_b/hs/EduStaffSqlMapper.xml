@@ -48,6 +48,32 @@
 		AND EDU_PK = #{edu_pk}
 	</select>
 	
+	<!-- 모든 만족도 내역 출력 교직원이보는용도 -->
+	<select id="selectAllServeyList" resultType="com.mkfactory.toothless.b.dto.EduStsfcSurveyDto">
+		SELECT * FROM TL_B_EDU_STSFC_SURVEY ORDER BY edu_stsfc_survey_pk DESC
+	</select>
+	
+	<select id="selectServeyStudent" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO tjsi 
+		WHERE STUDENT_PK = (
+			SELECT STUDENT_PK FROM TL_B_EDU_APPLY tbea 
+			WHERE EDU_APPLY_PK = #{edu_apply_pk}
+		)
+	</select>
+	
+	<select id="selectServeyEduName" resultType="String">
+		SELECT NAME FROM TL_B_EDU_INFO tbei
+		WHERE EDU_PK = (
+			SELECT EDU_PK FROM TL_B_EDU_APPLY tbea
+			WHERE EDU_APPLY_PK = #{EDU_APPLY_PK}
+		)
+	</select>
+	<!-- 프로그램당 신청번호 개수 -->
+	<select id="selectApplyPkPerEduPkCount" resultType="int">
+		SELECT COUNT(EDU_APPLY_PK) FROM TL_B_EDU_APPLY tbea 
+		WHERE EDU_PK = #{EDU_PK}
+	</select>
+	
 	<!-- 교육정보 수정 삭제 -->
 	<update id="update">
 		UPDATE TL_B_EDU_INFO
@@ -75,6 +101,11 @@
 	
 	<update id="updateStatusC">
 		UPDATE TL_B_EDU_APPLY SET STATUS = 'C' 
+		WHERE EDU_APPLY_PK = #{edu_apply_pk}
+	</update>
+	
+	<update id="updateStatusD">
+		UPDATE TL_B_EDU_APPLY SET STATUS = 'D' 
 		WHERE EDU_APPLY_PK = #{edu_apply_pk}
 	</update>
 	

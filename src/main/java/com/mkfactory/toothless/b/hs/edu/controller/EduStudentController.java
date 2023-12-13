@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.b.dto.EduApplyDto;
 import com.mkfactory.toothless.b.dto.EduDto;
+import com.mkfactory.toothless.b.dto.EduStsfcSurveyDto;
+import com.mkfactory.toothless.b.hs.edu.mapper.EduStaffSqlMapper;
 import com.mkfactory.toothless.b.hs.edu.service.EduStaffServiceimpl;
 import com.mkfactory.toothless.b.hs.edu.service.EduStudentServiceimpl;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
@@ -25,6 +27,9 @@ public class EduStudentController {
 	
 	@Autowired
 	EduStaffServiceimpl eduStaffService;
+	
+	@Autowired
+	EduStaffSqlMapper eduStaffSqlMapper;
 	
 	//메인, 스태프 서비스 땡겨씀
 	@RequestMapping("eduMainPageForStudent")
@@ -43,7 +48,6 @@ public class EduStudentController {
 		
 		StudentInfoDto sessionstudentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 
-		System.out.println(sessionstudentInfoDto.getStudent_pk());
 		int studentPk = sessionstudentInfoDto.getStudent_pk();
 		eduApplyDto.setStudent_pk(studentPk);
 
@@ -57,7 +61,6 @@ public class EduStudentController {
 	}
 	
 	
-	
 	//프로그램 신청페이지
 	@RequestMapping("eduApplyPage")
 	public String eduApplyPage(Model model, EduDto eduDto) {
@@ -67,9 +70,13 @@ public class EduStudentController {
 		
 		// applydto 민방2
 		// model (dto.getNAmet())
-
+//		int applyStudentCount = eduStaffSqlMapper.selectApplyPkPerEduPkCount(eduDto.getEdu_pk());
+		
+		model.addAttribute("applyStudentCount", eduStaffSqlMapper.selectApplyPkPerEduPkCount(eduDto.getEdu_pk()));
 		model.addAttribute("edu_pk", eduDto.getEdu_pk());
 		model.addAttribute("name", eduDto.getName());
+		model.addAttribute("capacity", eduDto.getCapacity());
+		
 		
 		return "tl_b/hs/eduApplyPage";
 	}
@@ -77,13 +84,10 @@ public class EduStudentController {
 	@RequestMapping("eduApplyProcess")
 	public String eduApplyProcess(HttpSession session, EduApplyDto eduApplyDto) {
 		
-//		System.out.println("어플라이 프로세스 실행1"); 세션인포 인춘이가만든거에서 가져와야지
 		StudentInfoDto sessionstudentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		int studentPk = sessionstudentInfoDto.getStudent_pk();
-//		System.out.println(studentPk + "학생키");
-
+		
 		eduApplyDto.setStudent_pk(studentPk);
-//		System.out.println("여기실행되나?");
 
 		eduStudentService.eduApply(eduApplyDto);
 		
@@ -97,23 +101,44 @@ public class EduStudentController {
 	
 	//학생 마이페이지
 	@RequestMapping("eduMyPageForStudent")
-	public String eduMyPageForStudent(Model model) {
+	public String eduMyPageForStudent(Model model, HttpSession session) {
 		
-		List<Map<String, Object>> eduApplyList = eduStaffService.getEduApplyList();
+		StudentInfoDto sessionstudentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int studentPk = sessionstudentInfoDto.getStudent_pk();
 		
-		model.addAttribute("eduApplyList", eduApplyList);
+		
+		List<Map<String, Object>> MyEduList = eduStudentService.getMyEduList(studentPk);
+		List<Map<String, Object>> MyServeyList = eduStudentService.getMyServeyList(studentPk);
+		
+		model.addAttribute("MyServeyList", MyServeyList);
+		model.addAttribute("MyEduList", MyEduList);
 		
 		return "tl_b/hs/eduMyPageForStudent";
 	}
+	
 	//만족도 작성페이지(학생)
 	@RequestMapping("eduServeyWritePage")
-	public String eduServeyWritePage(Model model) {
+	public String eduServeyWritePage(Model model, HttpSession session, int edu_apply_pk) {
 		
-		List<Map<String, Object>> eduApplyList = eduStaffService.getEduApplyList();
+		StudentInfoDto sessionstudentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int studentPk = sessionstudentInfoDto.getStudent_pk();
 		
+		List<Map<String, Object>> eduApplyList = eduStudentService.getMyEduList(studentPk);
+		List<Map<String, Object>> MyServeyList = eduStudentService.getMyServeyList(studentPk);
+		
+		model.addAttribute("MyServeyList", MyServeyList);
 		model.addAttribute("eduApplyList", eduApplyList);
+		model.addAttribute("edu_apply_pk", edu_apply_pk);
 		
 		return "tl_b/hs/eduServeyWritePage";
+	}
+	//만족도 작성 프로세스
+	@RequestMapping("writeEduServeyProcess")
+	public String writeEduServeyProcess(HttpSession session, EduStsfcSurveyDto eduStsfcSurveyDto) {
+		
+		eduStudentService.writeEduServey(eduStsfcSurveyDto);
+		eduStaffService.updateStatusD(eduStsfcSurveyDto.getEdu_apply_pk());
+		return "redirect:./eduMyPageForStudent";
 	}
 	
 	//상태 바꾸기(학생)

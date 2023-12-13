@@ -32,10 +32,12 @@ public class EduStaffController {
 		
 		List<Map<String, Object>> list = eduStaffService.getEduProgList();
 		List<Map<String, Object>> eduApplyList = eduStaffService.getEduApplyList();
+		List<Map<String, Object>> allServeyList = eduStaffService.getAllServeyList();
 		
 
 		model.addAttribute("list", list);
 		model.addAttribute("eduApplyList", eduApplyList);
+		model.addAttribute("allServeyList", allServeyList);
 		
 		return "tl_b/hs/eduMainPageForStaff";
 	}

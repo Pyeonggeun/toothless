@@ -35,12 +35,13 @@ public class FreeboardCounselServiceImpl {
 	}
 	
 	//전체 게시물 불러오기 
-	public List<Map<String, Object>> getfreeboardList(){
+	public List<Map<String, Object>> getfreeboardList(String searchType, String searchWord){
 			
 		List<Map<String, Object>> combinedFreeboardList= new ArrayList<>();
 		
-		List<FreeboardDto> freeboardList = freeboardCounselSqlMapper.selectfreeboardList();
-		System.out.println("selectfreeboardList 실행");
+		List<FreeboardDto> freeboardList = 
+				freeboardCounselSqlMapper.selectfreeboardList(searchType, searchWord);
+		
 		
 		List<FreeboardDto> NewPostList =freeboardCounselSqlMapper.selectNewPost();
 		

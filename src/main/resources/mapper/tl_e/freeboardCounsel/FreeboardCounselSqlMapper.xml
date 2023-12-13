@@ -16,7 +16,35 @@
 	</insert>
 	
 	<select id="selectfreeboardList" resultType="com.mkfactory.toothless.e.dto.FreeboardDto">
-		SELECT * FROM cp_student_freeboard ORDER BY id DESC 
+		SELECT * FROM( 
+			SELECT csf.* 
+			FROM cp_student_freeboard csf
+			<if test="searchType != null and searchType == 'name'">
+				INNER JOIN tl_jic_student_info tjs ON tjs.STUDENT_PK = csf.STUDENT_PK  
+			</if>
+			WHERE 1=1
+			<if test="searchType != null">
+				<choose>
+					<when test="searchType == 'title'">
+						AND csf.title LIKE '%' || #{searchWord} || '%'
+					</when>
+				
+					<when test="searchType == 'text'">
+						AND csf.text LIKE '%' || #{searchWord} || '%'
+					</when>
+					
+					<when test="searchType == 'id'">
+						AND csf.id LIKE '%' || #{searchWord} || '%'
+					</when>
+					
+					<when test="searchType == 'name'">
+						AND tjs.NAME LIKE '%' || #{searchWord} || '%'
+					</when>
+				</choose>
+			</if>
+	 	)
+		ORDER BY id DESC 
+		
 	</select>
 	
 	<select id="selectStudentInfo" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
@@ -102,6 +130,7 @@
 	<select id="createFreeboardPk" resultType="int">
 	 SELECT cp_student_freeboard_seq.nextval FROM Dual
 	</select>
+	
 	
 	
 </mapper>
