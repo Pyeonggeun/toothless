@@ -24,10 +24,7 @@
         		});
         	}
         
-        	// 글로벌 변수
-        	//const comPk = ${jobPostingForStudent.companyDto.com_pk};
-        	//const jobPostingPk = null;
-        
+        	 	
         
         	// 공고 리스트 출력
         	function reloadJobPostingList(){
@@ -59,8 +56,27 @@
         				
         				// 회사명
         				const postingCompanyName = postingWrapper.querySelector(".postingCompanyName");
-        				postingCompanyName.innerText = e.companyDto.com_name;
         				
+		        		const companyInfoLink =	document.createElement("a");
+		        		
+		        		
+		        		companyInfoLink.href = "./companyPostingListForStudentPage?com_pk=" + e.companyDto.com_pk;
+
+		        		companyInfoLink.innerText = e.companyDto.com_name;
+		        		companyInfoLink.classList.add("navbar-brand");
+		        		
+		        		postingCompanyName.appendChild(companyInfoLink);
+        				 
+		        		const heartIcon = document.createElement("i");
+		        		heartIcon.classList.add("text-danger", "bi", "bi-suit-heart")
+		        		postingCompanyName.appendChild(heartIcon);
+		        		
+		        		/* const heartFillIcon = document.createElement("i");
+		        		heartFillIcon.classList.add("text-danger", "bi", "bi-suit-heart-fill")
+		        		postingCompanyName.appendChild(heartFillIcon);
+		        		 */
+		        		
+		        		
         				// 가족기업여부
         				const isFamilyCompany = postingWrapper.querySelector(".isFamilyCompany");
         				
@@ -75,11 +91,26 @@
 						
         				// 공고제목
         				const jobPostingName = postingWrapper.querySelector(".jobPostingName");
-        				jobPostingName.innerText = e.jobPostingDto.posting_name;
+        				
+        				const postingNameLink = document.createElement("a");
+        				
+        				postingNameLink.href="./jobPostingDetailForStudentPage?id=" + e.jobPostingDto.job_posting_pk;
+        				postingNameLink.classList.add("navbar-brand");
+        				
+        				postingNameLink.innerText = e.jobPostingDto.posting_name;
+        				
+        				jobPostingName.appendChild(postingNameLink);
+        				
 						
         				// 분야 + 직무 + 지역 + 마감일 
         				const jobPostingCondition = postingWrapper.querySelector(".jobPostingCondition");
-        				jobPostingCondition.classList.add("text-secondary");
+        				
+        				const postingLink = document.createElement("a");
+							
+        				postingLink.href="./jobPostingDetailForStudentPage?id=" + e.jobPostingDto.job_posting_pk;
+        				
+        				postingLink.classList.add("navbar-brand", "text-secondary");
+        				
         				
         				// date 변환(자바스크립트 클래스)
         				const date = new Date(e.jobPostingDto.posting_deadline);
@@ -89,10 +120,12 @@
         				var theDay = date.getDay();    
         				var dayLabel = week[theDay];   
         				
-        				jobPostingCondition.innerText = "#" + e.jobFieldCategoryDto.job_field_category_name + " " 
-	        				+ "#" + e.jobPostingDto.job_position + " " + "#" + e.companyDto.com_address + " "
-	        				// DATE 변환 필요 (달은 + 1 해줘야함)
-	        				+ "#" + "~" + (date.getMonth() + 1) + "/" + date.getDate() + "(" + dayLabel + ")" + " ";
+        				postingLink.innerText = "#" + e.jobFieldCategoryDto.job_field_category_name + " " 
+        				+ "#" + e.jobPostingDto.job_position + " " + "#" + e.companyDto.com_address + " "
+        				// DATE 변환 필요 (달은 + 1 해줘야함)
+        				+ "#" + "~" + (date.getMonth() + 1) + "/" + date.getDate() + "(" + dayLabel + ")" + " ";
+        				
+        				jobPostingCondition.appendChild(postingLink);
         				
         				// 마감임박 + 채용마감
         				if(e.postingDeadlineList.includes(e.jobPostingDto.job_posting_pk)){
@@ -114,27 +147,34 @@
         				const interestPosting = postingWrapper.querySelector(".interestPosting");
         				
         				
-        				if(e.allPostingInterest == 0){
-        					const icon = document.createElement("i");
-        					icon.classList.add("text-warning", "bi", "bi-star");
-        					interestPosting.appendChild(icon);
-        					icon.setAttribute("onclick","toggleInterest()")
+        				let interestCount = getTotalInterestPostingCount(e.jobPostingDto.job_posting_pk);
+        				console.log("a :" + interestCount);
+        				
+        				
+        				if(checkMyInterestPosting(e.jobPostingDto.job_posting_pk) === 0){
+        					const starIcon = document.createElement("i");
+        					//starIcon.classList.remove("bi-star-fill")
+        					//starIcon.classList.add("text-warning", "bi", "bi-star");
+        					starIcon.setAttribute("onclick","Interest(" + e.jobPostingDto.job_posting_pk + ")");
+        					interestPosting.appendChild(starIcon);
         				}else{
-        					const fillIcon = document.createElement("i");
-        					fillIcon.classList.add("text-warning", "bi", "bi-star-fill");
-        					interestPosting.appendChild(fillIcon);
-        					fillIcon.setAttribute("onclick","toggleInterest()")
+        					const starFillIcon = document.createElement("i");
+        					//starFillIcon.classList.add("text-warning", "bi", "bi-star-fill");
+        					//starFillIcon.classList.remove("bi-star")
+        					starFillIcon.setAttribute("onclick","unInterest(" + e.jobPostingDto.job_posting_pk + ")");
+        					interestPosting.appendChild(starFillIcon);
         				}
         				
-        				const allInterestCount = document.createElement("span");
+        				
+        				/* const allInterestCount = document.createElement("span");
         				allInterestCount.innerText = " " + e.allPostingInterest;
         				
         				interestPosting.appendChild(allInterestCount);
-        				
+        				 */
         				
         				
         				// 즐겨찾기 pk받기
-        				/*  const interestPostings = postingWrapper.querySelectorAll(".interestPosting");
+        				/*   const interestPostings = postingWrapper.querySelectorAll(".interestPosting");
         	                interestPostings.forEach(interestPosting => {
         	                    interestPosting.addEventListener("click", function (event) {
         	                    	plusInterest(event, e.jobPostingDto.job_posting_pk);
@@ -145,15 +185,29 @@
         				
         				const applyPosting = postingWrapper.querySelector(".applyPosting");
         				
-        				
-        			 	// 지원하기 버튼  처리
-        				/*  if(studentId == null){
-	        				applyPosting.setAttribute("onclick", "cannotApply()");
+        				/* 좀 더 깔끔하게 하기 */ 
+        				if(e.endPostingList.includes(e.jobPostingDto.job_posting_pk)){
+        					const endButton = document.createElement("button");
+        					endButton.classList.add("btn", "btn-dark", "btn-sm");
+        					endButton.innerText = "채용마감";
+        					endButton.disabled = true;
+        					applyPosting.appendChild(endButton); 
+        				}else if (studentId != null){
+	        				const applyLink = document.createElement("a");
+        					applyLink.href="../sb_resume/applyJobPostingPage?job_posting_pk=" + e.jobPostingDto.job_posting_pk;
+        					applyLink.classList.add("btn", "btn-dark","btn-sm");
+        					applyLink.innerText = "지원하기";
+        					applyPosting.appendChild(applyLink);
+        					
         				}else{
-        					applyPosting.setAttribute("onclick", "canApply()");
-        				}  
-        				 */
-        				 
+	        				const applyButton = document.createElement("button");
+    	    				applyButton.classList.add("btn", "btn-dark", "btn-sm");
+        					applyButton.innerText = "지원하기";
+        					applyButton.disabled = true;
+        					applyPosting.appendChild(applyButton);
+        				}
+        				
+        			 	        				 
         				// 반복문 돌면서 postingListBox 안쪽에 붙임
         				postingListBox.appendChild(postingWrapper);
         				 
@@ -163,25 +217,60 @@
         		
         	}
         	
-         	/*  function cannotApply(){
-				
-			}
-        	
-        	function canApply(){
-        		const url = "../sb_resume/applyJobPostingPage?job_posting_pk=" + jobPostingPk;
+               	
+        	// 관심공고
+        	function Interest(job_posting_pk){
         		
-        		fetch(url)
+        	/* 	if(studentId == null){
+        			alert("로그인 후에 이용해주세요")
+					return;
+        		} */
+        		
+        		fetch(" ./interestPosting?job_posting_pk=" + job_posting_pk)
         		.then(response => response.json())
-        		.then(response => {
-        				
+        		.then(response =>{
+        			getTotalInterestPostingCount(job_posting_pk);
         		});
         		
-        	}   */
-        	
-        	// 관심공고
-        	function toggleInterest(){
-        		// 관심공고 추가 + 삭제 로직
         	} 
+        	
+        	function unInterest(job_posting_pk){
+        		
+        	/* 	if(studentId == null){
+        			alert("로그인 후에 이용해주세요")
+					return;
+        		}
+        		 */
+        		
+        		fetch("./unInterestPosting?job_posting_pk=" + job_posting_pk)
+        		.then(response => response.json())
+        		.then(response =>{
+        			getTotalInterestPostingCount(job_posting_pk);
+        		});
+        		
+        	} 
+        	// 내가 관심공고를 했는지..?
+        	function checkMyInterestPosting(job_posting_pk){
+        		
+        	/* 	if(studentId == null){
+        			alert("로그인 후에 이용해주세요")
+					return;
+        		} */
+        		fetch("./isInterestPosting?job_posting_pk=" + job_posting_pk)
+        		.then(response => response.json())
+        		.then(response =>{
+        			
+        		});
+        	}
+        	function getTotalInterestPostingCount(job_posting_pk){
+        		fetch("./getTotalInterestPostingCount?job_posting_pk=" + job_posting_pk)
+        		.then(response => response.json())
+        		.then(response =>{
+        			const starCount = document.querySelector(".starCount");
+    				starCount.innerText = response.data;
+    				//reloadJobPostingList();
+        		});
+        	}
         	
         	
         	
@@ -219,9 +308,19 @@
 					<div class="col fs-4 fw-bold mt-5 text-center">채용공고리스트</div>
 				</div>
 				<div class="row mt-5 pb-3 border-bottom">
-					<div class="col-9 pt-1">
+					<div class="col-1 pt-1">
 						총 <span class="fw-bold">${postingCount}</span>건
 					</div>
+					 <div class="col-8 rounded-pill bg-white border border-secondary">
+		                <div class="row">
+		                    <div class="col-11">
+		                        <input class="bg-white border-0 form-control" type="text"> 
+		                    </div>
+		                    <div class="col pt-1 text-end">
+		                        <i class=" bi bi-search"></i>
+		                    </div>
+		                </div>
+		            </div>
 					<div class="col">
 						<select class="form-select form-select-sm">
 						    <option selected>정확도순</option>
@@ -338,9 +437,7 @@
 			<div class="col-2 mt-2 ps-4">
 				<div class="row">
 					<!-- 기업명 -->
-					<div class="col pe-0">
-						<a class="postingCompanyName navbar-brand" href="./companyPostingListForStudentPage?com_pk=${jobPostingForStudent.companyDto.com_pk}"></a>
-						<i class="text-danger bi bi-suit-heart"></i>
+					<div class="postingCompanyName col pe-0">
 					</div>
 				</div>
 				<div class="row">
@@ -352,17 +449,13 @@
 			<!-- 공고제목 -->
 			<div class="col-8 ps-4 pt-2">
 				<div class="row">
-					<div class="col">
+					<div class="jobPostingName col">
 					<!-- 링크 더 좋은 방법 생각해보기 -->
-					<a class="jobPostingName navbar-brand" href="./jobPostingDetailForStudentPage?id=${jobPostingForStudent.jobPostingDto.job_posting_pk}">
-					</a>
 					</div>
 				</div>
 				<div class="row">
 					<!-- 분야/지역/기간 태그  -->
 					<div class="jobPostingCondition col">
-						<a class="navbar-brand" href="./jobPostingDetailPage?id=${jobPostingForStudent.jobPostingDto.job_posting_pk}">
-						</a>
 					</div>
 				</div>
 			</div>
@@ -370,22 +463,12 @@
 			<div class="col-2">	
 				<div class="row">
 					<!-- 관심공고 별 -->
-					<div class="interestPosting col ms-3 mb-1"></div>
+					<div class="interestPosting col ms-3 mb-1">
+						<i class="starBox text-warning bi bi-star"></i><span class="starCount"></span>
+					</div>
 				</div>
 				<div class="row">
-					<div class="col">
-						<c:choose>
-							<c:when test="${jobPostingForStudent.endPostingList.contains(jobPostingForStudent.jobPostingDto.job_posting_pk)}">
-								<button class="btn btn-dark btn-sm" disabled>채용마감</button>
-							</c:when>
-							<c:when test="${empty sessionStudentInfo}">
-								<button class="btn btn-dark btn-sm" disabled>지원하기</button>
-							</c:when>
-							<c:otherwise>
-								<a class="applyPosting btn btn-dark btn-sm" 
-									href="../sb_resume/applyJobPostingPage?job_posting_pk=${jobPostingForStudent.jobPostingDto.job_posting_pk}">지원하기</a>
-							</c:otherwise>
-						</c:choose>
+					<div class="applyPosting col">
 					</div>
 				</div>
 			</div>

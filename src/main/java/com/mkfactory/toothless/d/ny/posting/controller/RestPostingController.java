@@ -20,7 +20,7 @@ public class RestPostingController {
 	@Autowired
 	private PostingServiceImpl postingService;
 	
-	// 로그인 확인용
+	// 로그인 확인 등 출력용
 	@RequestMapping("getStudentId")
 	public D_RestResponseDto getStudentId(HttpSession session) {
 		D_RestResponseDto restResponseDto = new D_RestResponseDto();
@@ -48,14 +48,31 @@ public class RestPostingController {
 			int studentPk = studentInfoDto.getStudent_pk();
 			params.setStudent_pk(studentPk);
 			
-			if(postingService.checkMyPostingInterestCount(params) == 0) {
-				postingService.plusInterestPosting(params);
-			}else {
-				postingService.minusInterestPosting(params);
-			}
+			
+			postingService.plusInterestPosting(params);
 			
 		}
+
 		// 불러 올 값이 없으므로 setData 안씀
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;
+	}
+	
+	@RequestMapping("unInterestPosting")
+	public D_RestResponseDto unInterestPosting(HttpSession session, InterestPostingDto params) {
+		D_RestResponseDto restResponseDto = new D_RestResponseDto();
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(studentInfoDto != null) {
+			int studentPk = studentInfoDto.getStudent_pk();
+			params.setStudent_pk(studentPk);
+			
+			postingService.minusInterestPosting(params);
+			
+		}
+		
 		
 		restResponseDto.setResult("success");
 		return restResponseDto;

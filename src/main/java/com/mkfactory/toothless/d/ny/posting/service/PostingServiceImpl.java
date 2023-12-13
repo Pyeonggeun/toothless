@@ -412,6 +412,8 @@ public class PostingServiceImpl {
 		return postingSqlMapper.selectByExternalPk(external_pk);
 	}
 	
+	
+	
 	// 공고스크랩 추가
 	public void plusInterestPosting(InterestPostingDto interestPostingDto) {
 		postingSqlMapper.insertInterestPosting(interestPostingDto);
