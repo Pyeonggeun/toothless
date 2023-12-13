@@ -169,7 +169,7 @@
 					<c:forEach items="${pickpostMap.freeboardImageDtoList}" var="image">
 						<div class="row">
 							<div class="col">
-								이미지 <img class="img-fluid" src="/uploadFiles/${image.freeboard_image_link}">
+								<img src="/uploadFiles/${image.freeboard_image_link}">
 							</div>
 						</div>
 					</c:forEach>
