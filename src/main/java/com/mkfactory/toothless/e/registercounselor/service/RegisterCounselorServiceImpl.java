@@ -23,6 +23,20 @@ public class RegisterCounselorServiceImpl {
 	@Autowired
 	RegisterCounselorSqlMapper registerCounselorSqlMapper;
 	
+	// AJAX - 상담원 신규등록시 ID중복확인
+	public boolean checkDuplicationID(String inputId) {
+		
+		int resultValue = registerCounselorSqlMapper.checkDuplicationExternalId(inputId);
+		
+		if(resultValue == 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+	}
+	
 	// 상담원 등록
 	public void registerCounselor(
 			ExternalInfoDto externalInfoDto,

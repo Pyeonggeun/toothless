@@ -65,14 +65,7 @@
 				const date = new Date(e.onlineConsultingDto.created_at);
 				listDate.innerText = date.getFullYear() +"." + (date.getMonth() + 1) + "." + date.getDate();
 				
-				//답변여부
-				//밑코드와 동일
-				//if(e.staffInfoDto==null){
-				//listISReply.innerHTML = '<span class="badge text-bg-danger">미답변</span>';	
-				//}
-				//else{
-				//listISReply.innerHTML = '<span class="badge text-bg-primary">답변완료</span>';					
-				//}				
+				//답변여부			
 				const listISReply = listWrapper.querySelector(".listISReply");
 				const badgeElement = document.createElement('span');
 				

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mkfactory.toothless.d.dto.D_RestResponseDto;
+import com.mkfactory.toothless.d.dto.HopeJobCategoryDto;
 import com.mkfactory.toothless.d.dto.HopeJobDto;
 import com.mkfactory.toothless.d.dto.OnlineConsultingDto;
 import com.mkfactory.toothless.d.jm.consulting.service.ConsultingService;
@@ -89,11 +90,97 @@ public class RestConsultingController {
 
 
 
+	//학생입장
+	//구직관심 분야 등록페이지
+	@RequestMapping("getHopeJobCategoryList")
+	public D_RestResponseDto getHopeJobCategoryList(HttpSession session, Model model) {
+		
+		
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int student_pk = studentInfoDto.getStudent_pk();
+		
+		//진행중인 구직희망 정보
+		HopeJobDto hopeJobDto = consultingService.getProgressHopejob(student_pk);
+		int hopeJobPk = hopeJobDto.getHope_job_pk();
+		
+		HopeJobCategoryDto hopeJobCategoryDto = new HopeJobCategoryDto();
+		hopeJobCategoryDto.setHope_job_pk(hopeJobPk);
+		
+		//채용분야 리스트
+		List<Map<String, Object>> jobFieldCategoryDtoList = consultingService.selectJobFieldCategoryList(hopeJobCategoryDto);
+
+		
+		d_RestResponseDto.setResult("success");
+		d_RestResponseDto.setData(jobFieldCategoryDtoList);
+		
+		return d_RestResponseDto;
+	}
+	
+	//내 구직관심 리스트
+	@RequestMapping("getMyHopeJobCategoryList")
+	public D_RestResponseDto getMyHopeJobCategoryList(HttpSession session, Model model) {
+		
+		
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int student_pk = studentInfoDto.getStudent_pk();
+		
+		//진행중인 구직희망 정보
+		HopeJobDto hopeJobDto = consultingService.getProgressHopejob(student_pk);
+		int hopeJobPk = hopeJobDto.getHope_job_pk();
+		
+		//구직희망의 관심분야 리스트
+		List<Map<String, Object>> getHopeJobCategoryList = consultingService.getHopeJobCategoryList(hopeJobPk);
+		
+		d_RestResponseDto.setResult("success");
+		d_RestResponseDto.setData(getHopeJobCategoryList);
+		
+		return d_RestResponseDto;
+	}
+	
+	
+	//내 구직관심분야 등록
+	@RequestMapping("insertHopeJobCategory")
+	public D_RestResponseDto insertHopeJobCategoryProcesss(int[] checkBoxValues, HttpSession session) {
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		HopeJobDto hopeJobDto = consultingService.getLastHopejob(studentInfoDto.getStudent_pk());
+		int hopeJobPk = hopeJobDto.getHope_job_pk();
+		
+		consultingService.insertHopeJobCategory(hopeJobPk, checkBoxValues);
+		
+		d_RestResponseDto.setResult("success");
+		
+		return d_RestResponseDto;
+	}
 
 
+	//내 구직관심분야 삭제
+	@RequestMapping("deleteMyHopeJobCategory")
+	public D_RestResponseDto deleteMyHopeJobCategory(int[] checkBoxValues) {
+		
+		for(int e : checkBoxValues) {
+		}
+		
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
 
+		
+		consultingService.deleteHopeJobCategory(checkBoxValues);
+		
+		d_RestResponseDto.setResult("success");
 
-
+		
+		return d_RestResponseDto;
+		
+		
+	}
 
 
 

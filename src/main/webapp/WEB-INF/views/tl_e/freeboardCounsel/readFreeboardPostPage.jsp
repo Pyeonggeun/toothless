@@ -166,10 +166,11 @@
 			<!-- 로딩된 첨부 이미지파일과 글 내용 -->
 			<div class="row">
 				<div class="col">
-					<c:forEach items="${pickpostMap.freeboardImageDtoList}" var="image">
+				
+					<c:forEach items="${freeboardImageDtoList}" var="image">
 						<div class="row">
 							<div class="col">
-								<img src="/uploadFiles/${image.freeboard_image_link}">
+								<img class="img-fluid" src="/uploadFiles/${image.freeboard_image_link}">
 							</div>
 						</div>
 					</c:forEach>
@@ -185,13 +186,17 @@
 				<div class="col"></div> 
 			</div>
 			
-			<!-- 글수정 삭제 글목록 돌아가기 버튼 -->
+			<!-- 공감 /  글목록 돌아가기 버튼 -->
 			<div class="row py-2 border-top border-secondary">
 				
-				<div class="col-1 border border-secondary rounded text-center"> 공감 추가 예정</div>
+				<!-- 공감 -->
+				<div class="col-2"> 
+					공감 추가 예정
+				</div>
 				
 				<div class="col"></div>
 				
+				<!-- 글 목록 돌아가기 -->
 				<div class="col-2 text-end">
 					<a role="button" class="btn text-white" style="background-color: #133369;" type="button" href="./freeboardCounselPage"> 글 목록 </a>
 				</div>

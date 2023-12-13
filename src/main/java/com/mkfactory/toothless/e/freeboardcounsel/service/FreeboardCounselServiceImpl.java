@@ -137,14 +137,15 @@ public class FreeboardCounselServiceImpl {
 		FreeboardDto freeboardPost =  freeboardCounselSqlMapper.selectPostById(id);
 		int student_pk =freeboardPost.getStudent_pk();
 		StudentInfoDto studentInfo = freeboardCounselSqlMapper.selectByStudentId(student_pk);
+		//int freeboard_id = freeboardPost.getId();
 		
 		//이미지 뽑아오기
-		List<FreeboardImageDto> freeboardImageDtoList = freeboardCounselSqlMapper.selectFreeboardImageDto(id);
+		//List<FreeboardImageDto> freeboardImageDtoList = freeboardCounselSqlMapper.selectFreeboardImageDto(freeboard_id);
 		
 		Map<String, Object> combinedMap = new HashMap<>();
 		combinedMap.put("freeboardPost",freeboardPost);
 		combinedMap.put("studentInfo", studentInfo);
-		combinedMap.put("freeboardImageDtoList ", freeboardImageDtoList);
+		//combinedMap.put("freeboardImageDtoList", freeboardImageDtoList);
 		
 		return combinedMap;
 		}
@@ -163,4 +164,9 @@ public class FreeboardCounselServiceImpl {
 	public void updateFreeboardPost(FreeboardDto paraFreeboardDto) {		
 		freeboardCounselSqlMapper.updateFreeboardPost( paraFreeboardDto);	
 	}
+	
+	public List<FreeboardImageDto> getFreeboardImage(int id){
+		return freeboardCounselSqlMapper.selectFreeboardImageDto(id);
+	}
+	
 }

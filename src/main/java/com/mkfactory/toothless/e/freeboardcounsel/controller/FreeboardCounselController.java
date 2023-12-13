@@ -146,6 +146,10 @@ public class FreeboardCounselController {
 			System.out.println("컨트롤 댓글 뽑아옴");
 		model.addAttribute("selectFreeboardCommentList",selectFreeboardCommentList);
 			System.out.println("컨트롤 댓글 뽑아와서 모델에 넣음");
+			
+		//이미지
+		List<FreeboardImageDto> freeboardImageDtoList = freeboardCounselService.getFreeboardImage(id);
+		model.addAttribute("freeboardImageDtoList", freeboardImageDtoList);
 		
 		return "tl_e/freeboardCounsel/readFreeboardPostPage";
 	}

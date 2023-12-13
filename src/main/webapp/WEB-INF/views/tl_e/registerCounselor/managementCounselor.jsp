@@ -122,7 +122,7 @@
 		.then(response => response.json())
 		.then(response=>{
 			
-			console.log(response.data);
+			console.log("reloadSearchTypeCategory()실행됨 : " + response.data);
 			const searchCategorySelectBox = document.querySelector("#searchCategorySelectBox");
 			searchCategorySelectBox.innerHTML = "";
 			
@@ -146,34 +146,33 @@
 				searchCategorySelectBox.appendChild(searchCategoryOption);
 				
 			}
-			/* <input name="type_category_id" class="form-check-input" type="checkbox" id="typeCategory" value="">
-            <label class="form-check-label" for="typeCategory"></label> */
 			
-			
-			const typeCategoryInModal = document.querySelector(".typeCategoryInModal");
-			typeCategoryInModal.innerHTML = "";
-			
-			const typeSelectBoxInModal = createHTMLElement("input");
-			typeSelectBoxInModal.setAttribute("name", "type_category_id");
-			typeSelectBoxInModal.setAttribute("class", "form-check-input");
-			typeSelectBoxInModal.setAttribute("type", "checkbox");
-			
-			
-			const typeLabelInModal = createHTMLElement("label");
-			typeLabelInModal.setAttribute("class", "form-check-label");
-			typeLabelInModal.setAttribute("for", "위에 아이디랑 맞춰주기");
+			const typeCategoryColInModal = document.querySelector(".typeCategoryColInModal");
+	    	typeCategoryColInModal.innerHTML = "";			
 			
 			for(e of response.data){
 				
-				typeSelectBoxInModal.setAttribute("id", "typeCategory" + e.id);
-				typeSelectBoxInModal.setAttribute("value", "e.id");
+				console.log("카테고리 반복문 진입");
 				
-				typeLabelInModal.setAttribute("for", "typeCategory" + e.id);
-				typeLabelInModal.innerText = e.name;
 				
-				typeCategoryInModal.appendChild(typeSelectBoxInModal);
-				typeCategoryInModal.appendChild(typeLabelInModal);
+				const typeCheckBoxInModal = document.querySelector("#templete .typeCheckBoxInModal").cloneNode(true);
+				
+				const typeCheckBox = typeCheckBoxInModal.querySelector(".typeCheckBox");
+				
+				typeCheckBox.setAttribute("id", "typeCategory" + e.id);
+				typeCheckBox.setAttribute("value", e.id);
+				
+				const typeCheckBoxLabel = typeCheckBoxInModal.querySelector(".typeCheckBoxLabel");				
+				
+				typeCheckBoxLabel.setAttribute("for", "typeCategory" + e.id);
+				typeCheckBoxLabel.innerText = e.name;
+				
+				typeCheckBoxInModal.appendChild(typeCheckBox);
+				typeCheckBoxInModal.appendChild(typeCheckBoxLabel);
+				
+				typeCategoryColInModal.appendChild(typeCheckBoxInModal);
 			}
+			
 		});
 	}
 	
@@ -192,17 +191,187 @@
 		return selectGender || "";
 	}
 	
+	
+	let isCheckId = false;
+	
+	function checkDuplicationId(target){
+		
+		console.log("checkDuplicationId() 실행됨");
+		console.log("클릭전 inputId : " + target.value);
+		const inputId = target.value;
+		console.log("클릭후 inputId : " + inputId);
+		
+		if(inputId == ""){
+			
+			const checkDuplicateId_col = document.querySelector("#checkDuplicateId_col");
+			
+			checkDuplicateId_col.innerHTML="";
+			
+			const isAvailableID = document.createElement("span");
+			
+			isAvailableID.innerHTML="";
+			
+			isAvailableID.innerText = "ID는 필수 입력항목입니다.";
+			
+			isAvailableID.classList.add("fw-bold", "text-danger");
+			
+			checkDuplicateId_col.appendChild(isAvailableID);
+			
+			target.value = "";
+			target.focus();
+			return;
+		}
+		
+		if(inputId != undefined){
+			const url = "./checkDuplicationId";
+			const inputValue = {
+					method : "post",
+					headers : {
+						"Content-Type" : "application/x-www-form-urlencoded"
+					},
+					body : "inputId=" + inputId
+			}
+			
+			fetch(url, inputValue)
+			.then(response => response.json())
+			.then(response => {
+				
+				if(response.data == true){
+					
+					isCheckId = true;
+					
+					const checkDuplicateId_col = document.querySelector("#checkDuplicateId_col");
+					
+					checkDuplicateId_col.innerHTML="";
+					
+					const isAvailableID = document.createElement("span");
+					
+					isAvailableID.innerText = "사용 가능한 ID입니다.";
+					
+					isAvailableID.classList.add("fw-bold", "text-primary");
+					
+					checkDuplicateId_col.appendChild(isAvailableID);
+					
+				}
+				else{
+					
+					isCheckId = false;
+					
+					const checkDuplicateId_col = document.querySelector("#checkDuplicateId_col");
+					
+					checkDuplicateId_col.innerHTML="";
+					
+					const isAvailableID = document.createElement("span");
+					
+					isAvailableID.innerText = "이미 사용중인 ID입니다.";
+					
+					isAvailableID.classList.add("fw-bold", "text-danger");
+					
+					checkDuplicateId_col.appendChild(isAvailableID);
+				}
+			});		
+		}
+	}
+	
 	function showModal(){
-        // 필요시 여기서 백엔드하고 연동...CSR
+		// 필요시 여기서 백엔드하고 연동...CSR
         const modal = bootstrap.Modal.getOrCreateInstance("#registerModal");
         modal.show();
+        
     }
 
     function resigterCounselorProcess(){
-        // 필요시 여기서 백엔드하고 연동...CSR
-        const modal = bootstrap.Modal.getOrCreateInstance("#registerModal");
-        modal.hide();
+        
+    	const categoryValueList = [];
+    	
+    	const categoryValue = document.getElementsByClassName("typeCheckBox");    	    	
+    	
+    	for(let e = 0 ; e < categoryValue.length ; e++){
+    		if(categoryValue[e].checked){
+    			categoryValueList.push(categoryValue[e].value);
+    		}
+    	}
+    	
+    	console.log(categoryValueList);
+    	
+    	const external_id = document.getElementById("external_id").value;
+    	const password = document.getElementById("password").value;    	
+    	const name = document.getElementById("name").value;
+    	const age = document.getElementById("age").value;
+    	const gender = document.getElementsByName("gender").value;
+    	const phonenumber = document.getElementById("phonenumber").value;
+    	const email = document.getElementById("email").value;
+    	const address = document.getElementById("address").value;
+    	const career = document.getElementById("career").value;
+    	const profile_Image = document.getElementById("profile_Image").value;    	
+    	const license = document.getElementById("license").value;
+    	
+    	const url = "./resigterCounselorProcess";
+    	const inputCounselorData = {
+				
+    			method : "post",
+				
+    			headers : {
+					"Content-Type" : "application/x-www-form-urlencoded"
+				},
+				
+				body : 
+					"external_id="+external_id+
+					"&password="+password+
+					"&name="+name+
+					"&age="+age+
+					"&gender="+gender+
+					"&phonenumber="+phonenumber+
+					"&email="+email+
+					"&address="+address+
+					"&career="+career+
+					"&profile_Image="+profile_Image+
+					"&license="+license+
+					"&type_category_id="+categoryValueList
+		}
+    	
+    	fetch(url, inputCounselorData)
+    	.then(response => response.json())
+    	.then(response =>{
+    		
+    		if(response.result == "success"){
+    			
+    			alert("신규 상담원 등록이 정상적으로 처리되었습니다.");
+    			
+    			const modal = bootstrap.Modal.getOrCreateInstance("#registerModal");
+                modal.hide();	
+    		}
+    		
+    		if(response.result == "fail"){
+    			alert("정상적으로 처리되지 않았습니다. 작성내용을 확인해주시기 바랍니다.");
+    		}
+    	});
+    	
+        
+    	/* 아래 코드 가능한거 확인만 함! 
+    	
+    	const regCounselorData = new Map(); 
+        
+        regCounselorData.set("external_id", external_id);
+        regCounselorData.set("password", password);
+        regCounselorData.set("type_category_id", categoryValueList);
+        regCounselorData.set("name", name);
+        regCounselorData.set("age", age);
+        regCounselorData.set("gender", gender);
+        regCounselorData.set("phonenumber", phonenumber);
+        regCounselorData.set("email", email);
+        regCounselorData.set("address", address);
+        regCounselorData.set("career", career);
+        regCounselorData.set("profile_Image", profile_Image);
+        regCounselorData.set("license", license);
+        
+        console.log(regCounselorData); */
+        
+    	
+    	
     }
+    
+    
 	
 	
 	
@@ -301,7 +470,7 @@
 											<div class="col-auto">
 												<input id="searchByCounselorName" type="text" class="form-control">
 											</div>
-										</div>
+										</div>										
 									</div>
 									
 									<div class="col">
@@ -409,14 +578,17 @@
                                 <div class="col-auto">
                                     <div class="row">
                                         <div class="col">
-                                            <label for="external_id" class="fw-bold form-label">상담원아이디</label>
+                                            <label for="`" class="fw-bold form-label">상담원아이디</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-auto">
-                                            <input name="external_id" type="text" id="external_id" class="form-control" required>                                                    
+                                            <input name="external_id" onblur="checkDuplicationId(this)" type="text" id="external_id" class="form-control" required>                                                    
                                         </div>																		
-                                    </div>								
+                                    </div>
+                                    <div class="row mt-2">
+										<div id="checkDuplicateId_col" class="col-auto"></div>										
+									</div>									
                                 </div>
                                 
                                 <!-- 비밀번호 -->
@@ -443,11 +615,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-auto">                                                    
-                                            <div class="typeCategoryInModal form-check form-check-inline" id="type_category_id" required>
-                                                <input name="type_category_id" class="form-check-input" type="checkbox" id="typeCategory" value="">
-                                                <label class="form-check-label" for="typeCategory"></label>
-                                            </div>
+                                        <div class="typeCategoryColInModal col-auto">
                                         </div>
                                     </div>								
                                 </div>							
@@ -466,7 +634,7 @@
                                         <div class="col-auto">
                                             <input name="name" type="text" id="name" class="form-control" required>                                                    
                                         </div>																		
-                                    </div>								
+                                    </div>                                    							
                                 </div>
                                 
                                 <!-- 나이 -->
@@ -628,6 +796,12 @@
 		</div>
 		
 		<option class="searchCategoryOption"></option>
+		
+		<div class="typeCheckBoxInModal form-check form-check-inline" id="type_category_id" required>                                                
+        	<input class="typeCheckBox form-check-input" type="checkbox" >
+        	<label class="typeCheckBoxLabel form-check-label"></label>                                    	
+        </div>
+		
 		
 	</div>
 
