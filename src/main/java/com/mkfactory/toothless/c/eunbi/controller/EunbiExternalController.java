@@ -15,9 +15,9 @@ public class EunbiExternalController {
 	@Autowired
 	private EunbiExternalServiceImpl externalService;
 	
-	@Autowired
-	public String writeCompanyEvaluationPage(HttpSession session) {
+	@RequestMapping("viewEvaluationCourseListPage")
+	public String viewEvaluationCourseListPage(HttpSession session) {
 		
-		return "tl_c/eunbi/external/writeCompanyEvaluationPage";
+		return "tl_c/eunbi/external/viewEvaluationCourseListPage";
 	}
 }

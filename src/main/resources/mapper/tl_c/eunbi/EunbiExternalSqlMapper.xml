@@ -4,6 +4,12 @@
 
 <mapper namespace="com.mkfactory.toothless.c.eunbi.mapper.EunbiExternalSqlMapper">
 
+	<!-- 산업체 pk 가져오기 -->
+	<select id="getCompanyPk" resultType="int">
+		SELECT company_pk FROM tl_c_company_info
+		WHERE external_pk = #{external_pk}
+	</select>
+	
 	<!-- 산업체 학생평가 입력 -->
 	<insert id="insertCompanyEvaluation">
 		INSERT INTO tl_c_company_evaluation VALUES(
@@ -29,6 +35,33 @@
 		WHERE internship_course_pk = #{internship_course_pk}
 	</select>
 
+	<!-- 산업체가 평가를 내려야하는 현장실습과정 -->
+	<select id="getEndInternshipCourse" resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
+		SELECT * FROM tl_c_internship_course
+		WHERE company_pk = #{company_pk}
+		<![CDATA[
+		AND TO_CHAR(internship_end_date, 'yyyyMMdd') <= SYSDATE
+		]]>
+	</select>
+	
+	<!-- 산업체가 인턴에게 평가 내렸는지 -->
+	<select id="countCompanyEvaluationToIntern" resultType="int">
+		SELECT COUNT(*) FROM tl_c_company_evaluation tcce
+		INNER JOIN (
+			SELECT * FROM tl_c_student_intern tcsi
+			INNER JOIN tl_c_internship_course tcic
+			ON tcsi.internship_course_pk = tcic.internship_course_pk
+			WHERE tcsi.internship_course_pk = #{internship_course_pk}
+			) intern_course
+		ON tcce.student_intern_pk = intern_course.student_intern_pk
+	</select>
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
