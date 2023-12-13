@@ -2,6 +2,7 @@ package com.mkfactory.toothless.a.staff.jw.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mkfactory.toothless.a.dto.PointCategory;
 import com.mkfactory.toothless.a.dto.PointDto;
 import com.mkfactory.toothless.a.staff.jw.service.DormStaffServiceJw;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
@@ -41,6 +43,25 @@ public class DormStaffControllerJw {
 		model.addAttribute("callAbsenceListMap", dormStaffServiceJw.getAllCallAbsence());
 		
 		return "/tl_a/staff/jw_callAttendSituationPage";
+	}
+	
+	// 상벌코드 목록
+	@RequestMapping("jw_pointCategoryPage")
+	public String jw_pointCategoryPage(Model model) {
+		
+		List<PointCategory> pointCategoryListAll = dormStaffServiceJw.getPointCategory();
+		model.addAttribute("pointCategoryListAll", pointCategoryListAll);
+		
+		return "tl_a/staff/jw_pointCategoryPage";
+	}
+	
+	// 상벌코드 등록 프로세스
+	@RequestMapping("jw_registerPointCategoryProcess")
+	public String mj_registerPointCategoryProcess(PointCategory params) {
+
+		dormStaffServiceJw.registerPointCategory(params);
+		
+		return "redirect:../staff/jw_pointCategoryPage";
 	}
 	
 	@RequestMapping("jw_pointManagementPage")

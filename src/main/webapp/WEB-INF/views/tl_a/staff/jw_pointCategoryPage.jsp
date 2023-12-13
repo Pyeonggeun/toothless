@@ -99,7 +99,7 @@
 						상벌 코드 등록
 					</div>
 					
-					<form action="./mj_registerPointCategoryProcess" method="post">
+					<form action="./jw_registerPointCategoryProcess" method="post">
 					<div class="row my-3 mx-0 border rounded-0 p-3">
 						<div class="col">
 							<div class="row">
