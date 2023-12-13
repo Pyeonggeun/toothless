@@ -112,7 +112,7 @@
 							<div class="row mt-5">
 								<div class="col">
 									<a href="./hopeJobConsultingPage"><button type="button" class="btn btn-primary">목록으로</button>
-</a>
+									</a>
 								</div>
 							</div>												
 						</div>
