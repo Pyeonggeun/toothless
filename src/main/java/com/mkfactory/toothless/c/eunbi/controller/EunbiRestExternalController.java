@@ -23,23 +23,46 @@ public class EunbiRestExternalController {
 	@Autowired
 	private EunbiExternalServiceImpl externalService;
 
-	@RequestMapping("getNeedEvaluationCourseInfo")
-	public RestResponseDto getNeedEvaluationCourseInfo(int company_pk) {
+	@RequestMapping("getNeedEvaluationCourseList")
+	public RestResponseDto getNeedEvaluationCourseList(int company_pk) {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
 		
-		if(externalService.getNeedEvaluationCourse(company_pk) != null) {
-			
-			restResponseDto.setData(externalService.getNeedEvaluationCourse(company_pk));
+		if(externalService.getNeedEvaluationCourse(company_pk) == null) {
+			restResponseDto.setData(false);
+			restResponseDto.setResult("Success");
 		}else {
-			
-			restResponseDto.setData("null");
+			restResponseDto.setData(externalService.getNeedEvaluationCourse(company_pk));
+			restResponseDto.setResult("Success");
 		}
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("getInternshipCourseInfo")
+	public RestResponseDto getInternshipCourseInfo(int internship_course_pk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(externalService.getInternshipCourseInfo(internship_course_pk));
 		
 		restResponseDto.setResult("Success");
 		
 		return restResponseDto;
 	}
+	
+	@RequestMapping("getStudentInternList")
+	public RestResponseDto getStudentInternList( int internship_course_pk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(studentService.getStudentInternList(internship_course_pk));
+		
+		restResponseDto.setResult("Success");
+		
+		return restResponseDto;
+	}
+	
 	
 	
 	

@@ -166,6 +166,8 @@ public class EunbiStudentServiceImpl {
 			
 			// 교수의 평가
 			internInfo.put("didProfessorEvaluateIntern", professorSqlMapper.didProfessorEvaluateIntern(internPk));
+			// 산업체 평가
+			internInfo.put("didCompanyEvaluateIntern", externalSqlMapper.didCompanyEvaluateIntern(internPk));
 			
 			studentInternList.add(internInfo);
 		}

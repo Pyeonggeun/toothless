@@ -44,7 +44,16 @@
 		]]>
 	</select>
 	
-	<!-- 산업체가 인턴에게 평가 내렸는지 -->
+	<!-- 위 코드가 null 인지 아닌지 -->
+	<select id="isEndCourseNull" resultType="int">
+		SELECT COUNT(*) FROM tl_c_internship_course
+		WHERE company_pk = #{company_pk}
+		<![CDATA[
+		AND TO_CHAR(internship_end_date, 'yyyyMMdd') <= SYSDATE
+		]]>
+	</select>
+	
+	<!-- 산업체가 인턴들에게 평가 내렸는지 -->
 	<select id="countCompanyEvaluationToIntern" resultType="int">
 		SELECT COUNT(*) FROM tl_c_company_evaluation tcce
 		INNER JOIN (
@@ -56,6 +65,10 @@
 		ON tcce.student_intern_pk = intern_course.student_intern_pk
 	</select>
 	
+	<select id="didCompanyEvaluateIntern" resultType="int">
+		SELECT COUNT(*) FROM tl_c_company_evaluation
+		WHERE student_intern_pk = #{student_intern_pk}
+	</select>
 	
 	
 	

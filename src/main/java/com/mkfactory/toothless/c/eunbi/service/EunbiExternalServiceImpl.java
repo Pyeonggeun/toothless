@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.mkfactory.toothless.c.dto.AjdksCompanyEvaluationDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 import com.mkfactory.toothless.c.eunbi.mapper.EunbiExternalSqlMapper;
+import com.mkfactory.toothless.c.eunbi.mapper.EunbiProfessorSqlMapper;
 import com.mkfactory.toothless.c.eunbi.mapper.EunbiStudentSqlMapper;
 
 @Service
@@ -20,6 +21,8 @@ public class EunbiExternalServiceImpl {
 	private EunbiExternalSqlMapper externalSqlMapper;
 	@Autowired
 	private EunbiStudentSqlMapper studentSqlMapper;
+	@Autowired
+	private EunbiProfessorSqlMapper professorSqlMapper;
 	
 	// 산업체Pk 가져오기
 	public int getCompanyPk(int externalPk) {
@@ -36,25 +39,32 @@ public class EunbiExternalServiceImpl {
 		
 		List<Map<String, Object>> endInternshipCourseList = new ArrayList<>();
 		
-		List<AjdksInternshipCourseDto> internshipCourseList = externalSqlMapper.getEndInternshipCourse(companyPk);
-
-		for(AjdksInternshipCourseDto internshipCourseDto : internshipCourseList) {
+		if(externalSqlMapper.isEndCourseNull(companyPk) == 0) {
 			
-			Map<String, Object> endInternshipCourseInfo = new HashMap<>();
+			return null;
+		}else {
 			
-			int internshipCoursePk = internshipCourseDto.getInternship_course_pk();
+			List<AjdksInternshipCourseDto> internshipCourseList = externalSqlMapper.getEndInternshipCourse(companyPk);
+			
+			for(AjdksInternshipCourseDto internshipCourseDto : internshipCourseList) {
 				
-			int countIntern = studentSqlMapper.countInternBycoursePk(internshipCoursePk);
-			int countDidCompanyEvaluate = externalSqlMapper.countCompanyEvaluationToIntern(internshipCoursePk);
-			
-			endInternshipCourseInfo.put("internshipCourseDto", internshipCourseDto);
-			endInternshipCourseInfo.put("countInternBycoursePk", countIntern);
-			endInternshipCourseInfo.put("countDidCompanyEvaluate", countDidCompanyEvaluate);
-
-			endInternshipCourseList.add(endInternshipCourseInfo);
+				Map<String, Object> endInternshipCourseInfo = new HashMap<>();
+				
+				int internshipCoursePk = internshipCourseDto.getInternship_course_pk();
+				
+				int countIntern = studentSqlMapper.countInternBycoursePk(internshipCoursePk);
+				int countDidCompanyEvaluate = externalSqlMapper.countCompanyEvaluationToIntern(internshipCoursePk);
+				
+				endInternshipCourseInfo.put("internshipCourseDto", internshipCourseDto);
+				endInternshipCourseInfo.put("countInternBycoursePk", countIntern);
+				endInternshipCourseInfo.put("countDidCompanyEvaluate", countDidCompanyEvaluate);
+				
+				endInternshipCourseList.add(endInternshipCourseInfo);
+			}
+		
+			return endInternshipCourseList;
 		}
 		
-		return endInternshipCourseList;
 	}
 	
 	// 현재 날짜과 현장실습과정 날짜 비교
@@ -69,6 +79,22 @@ public class EunbiExternalServiceImpl {
 		isNow.put("isEndInternship", externalSqlMapper.isEndInternship(internshipCoursePk));
 		
 		return isNow;
+	}
+	
+	public Map<String, Object> getInternshipCourseInfo(int internshipCoursePk) {
+		
+		Map<String, Object> internshipCourseInfo = new HashMap<>();
+		
+		AjdksInternshipCourseDto internshipCourseDto = externalSqlMapper.getInternshipCourseDetail(internshipCoursePk);
+		int departmentPk = internshipCourseDto.getDepartment_pk();
+		int professorPk = internshipCourseDto.getProfessor_pk();
+		
+		internshipCourseInfo.put("internshipCourseDto", internshipCourseDto);
+		internshipCourseInfo.put("departmentDto", studentSqlMapper.getDepartmentByDepartmentPk(departmentPk));
+		internshipCourseInfo.put("professorDto", professorSqlMapper.getProfessorInfo(professorPk));
+		internshipCourseInfo.put("countIntern", studentSqlMapper.countInternBycoursePk(internshipCoursePk));
+		
+		return internshipCourseInfo;
 	}
 
 	
