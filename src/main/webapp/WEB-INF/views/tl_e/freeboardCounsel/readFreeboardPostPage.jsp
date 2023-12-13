@@ -166,10 +166,11 @@
 			<!-- 로딩된 첨부 이미지파일과 글 내용 -->
 			<div class="row">
 				<div class="col">
-					<c:forEach items="${pickpostMap.freeboardImageDtoList}" var="image">
+				
+					<c:forEach items="${freeboardImageDtoList}" var="image">
 						<div class="row">
 							<div class="col">
-								<img src="/uploadFiles/${image.freeboard_image_link}">
+								<img class="img-fluid" src="/uploadFiles/${image.freeboard_image_link}">
 							</div>
 						</div>
 					</c:forEach>
