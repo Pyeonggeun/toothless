@@ -229,6 +229,11 @@
 		WHERE cor.COUNSELOR_ID = #{counselor_id}
 	</select>
 	
+	<!-- 상담원 신규등록시 중복확인 -->
+	<select id="checkDuplicationExternalId" resultType="int">
+		SELECT count(*) FROM TL_JIC_EXTERNAL_INFO		
+		WHERE EXTERNAL_ID LIKE #{inputId}
+	</select>
 	
 	
 	
