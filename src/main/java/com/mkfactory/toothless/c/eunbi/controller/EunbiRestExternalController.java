@@ -22,28 +22,19 @@ public class EunbiRestExternalController {
 	private EunbiStudentServiceImpl studentService;
 	@Autowired
 	private EunbiExternalServiceImpl externalService;
-	
-	@RequestMapping("getCompanyPk")
-	public RestResponseDto getCompanyPk(HttpSession session) {
-		
-		RestResponseDto restResponseDto = new RestResponseDto();
-		
-		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
-		int externalPk = externalInfoDto.getExternal_pk();
-		
-		restResponseDto.setData(externalService.getCompanyPk(externalPk));
-		
-		restResponseDto.setResult("Success");
-		
-		return restResponseDto;
-	}
 
 	@RequestMapping("getNeedEvaluationCourseInfo")
-	public RestResponseDto getNeedEvaluationCourseInfo(int companyPk) {
+	public RestResponseDto getNeedEvaluationCourseInfo(int company_pk) {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
 		
-		restResponseDto.setData(externalService.getNeedEvaluationCourse(companyPk));
+		if(externalService.getNeedEvaluationCourse(company_pk) != null) {
+			
+			restResponseDto.setData(externalService.getNeedEvaluationCourse(company_pk));
+		}else {
+			
+			restResponseDto.setData("null");
+		}
 		
 		restResponseDto.setResult("Success");
 		

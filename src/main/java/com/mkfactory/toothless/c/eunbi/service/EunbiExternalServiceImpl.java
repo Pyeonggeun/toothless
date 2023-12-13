@@ -43,11 +43,13 @@ public class EunbiExternalServiceImpl {
 			Map<String, Object> endInternshipCourseInfo = new HashMap<>();
 			
 			int internshipCoursePk = internshipCourseDto.getInternship_course_pk();
+				
+			int countIntern = studentSqlMapper.countInternBycoursePk(internshipCoursePk);
+			int countDidCompanyEvaluate = externalSqlMapper.countCompanyEvaluationToIntern(internshipCoursePk);
 			
-			if(externalSqlMapper.countCompanyEvaluationToIntern(internshipCoursePk) < studentSqlMapper.countInternBycoursePk(internshipCoursePk)) {
-				endInternshipCourseInfo.put("internshipCourseDto", internshipCourseDto);
-				endInternshipCourseInfo.put("countInternBycoursePk", studentSqlMapper.countInternBycoursePk(internshipCoursePk));
-			}
+			endInternshipCourseInfo.put("internshipCourseDto", internshipCourseDto);
+			endInternshipCourseInfo.put("countInternBycoursePk", countIntern);
+			endInternshipCourseInfo.put("countDidCompanyEvaluate", countDidCompanyEvaluate);
 
 			endInternshipCourseList.add(endInternshipCourseInfo);
 		}

@@ -47,6 +47,70 @@
 	}
 
 </style>
+
+<script>
+	
+	let companyPk = ${companyPk}
+	
+	function loadNullAlert(){
+		
+		const itemBox = document.getElementById("itemBox");
+		const ifNull = document.getElementById("ifNull");
+		
+		ifNull.classList.remove("d-none");
+		itemBox.classList.add("d-none");
+	}
+	
+	function reloadNeedEvaluationCourseInfo(){
+		
+		fetch("./getNeedEvaluationCourseInfo?company_pk=" + companyPk)
+		.then(response => response.json())
+		.then(response => {
+			
+			if(response.data == "null"){
+				
+				loadNullAlert();
+				
+			}else{
+				
+				const internshipCourseListBox = document.getElementById("internshipCourseListBox");
+				internshipCourseListBox.innerHTML = "";
+				
+				for(course of response.data){
+					
+					const internshipCourseWrapper = document.querySelector("#internshipCourseTemplete .internshipCourseWrapper").cloneNode(true);
+					
+					const courseTitle = internshipCourseWrapper.querySelector(".courseTitle");
+					const countIntern = internshipCourseWrapper.querySelector(".countIntern");
+					const coursePeroid = internshipCourseWrapper.querySelector(".coursePeroid");
+					
+					let startDate = new Date(course.internshipCourseDto.internship_start_date);
+					startDate = startDate.getFullYear() + "." + (startDate.getMonth()+1) + "." + startDate.getDate();
+					let endDate = new Date(course.internshipCourseDto.internship_end_date);
+					endDate = endDate.getFullYear() + "." + (endDate.getMonth()+1) + "." + endDate.getDate();
+					
+					courseTitle.innerText = course.internshipCourseDto.course_title;
+					countIntern.innerText = course.countInternBycoursePk;
+					coursePeroid.innerText = startDate + " - " + endDate;
+					
+					internshipCourseListBox.appendChild(internshipCourseWrapper);
+				}
+			}
+			
+		});
+	}
+	
+	
+
+
+	window.addEventListener("DOMContentLoaded", () => {
+		reloadNeedEvaluationCourseInfo();
+	});
+
+
+</script>
+
+
 </head>
 <body>
 <div class="container-fluid"><!-- 전체 container 입구 -->
@@ -71,8 +135,22 @@
 		<!-- 본문 : 자유롭게 이용하세요 화이팅 -->
 		<div class="row">
 			<div class="col mx-5">
+				
+				<div id="ifNull" class="row mt-5 d-none">
+					<div class="row">
+						<div class="col fw-semibold mt-2" style="font-size:1.3em">
+							<span class="text-secondary fs-3">&gt;</span>
+							최종평가 입력
+						</div>
+					</div>
+					<div class="row mt-2 px-4">
+						<div class="col mt-2 bg-body-secondary py-5 px-5">
+							<i class="bi bi-exclamation-triangle"></i> 평가할 수 있는 실습과정이 존재하지 않습니다.
+						</div>
+					</div>
+				</div>
 			
-				<div class="row">
+				<div id="itemBox" class="row">
 					<div class="col">
 						<div class="row mt-4">
 							<div class="col fw-semibold mt-2" style="font-size:1.3em">
@@ -81,30 +159,9 @@
 							</div>
 						</div>
 					
-						<div class="row row-cols-4 mt-2">
-
-							<div class="col px-4 py-2">
-								<div class="row">
-									<div class="col border px-1 py-1 d-grid">
-										<a class="btn btn-light rounded-0 border py-3">
-											<div class="row">
-												<div class="col fw-semibold">
-													실습과정제목
-												</div>
-											</div>
-											<div class="row mt-2" style="font-size:0.9em">
-												<div class="col">
-													n/total명 평가 미완료
-												</div>
-											</div>
-											<div class="row mt-1">
-												<div class="col text-secondary fw-semibold" style="font-size:0.85em">
-													진행기간 : 0000.00.00 - 0000.00.00
-												</div>
-											</div>
-										</a>
-									</div>
-								</div>
+						<div class="row row-cols-4 mt-3">
+							<div id="internshipCourseListBox" class="col px-4 py-2">
+							
 							</div>
 						</div>
 						
@@ -115,7 +172,7 @@
 								<div class="row">
 									<div class="col border border-dark-subtle px-4 py-3">
 									
-										<div class="row mt-2">
+										<div class="row mt-2 px-3">
 											<div class="col">
 												<div class="row">
 													<div class="col fw-semibold" style="font-size:1.1em">
@@ -186,7 +243,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="row mt-2 mb-4">
+										<div class="row mt-2 mb-4 px-3">
 											<div class="col">
 												<div class="row mt-4">
 													<div class="col fw-semibold" style="font-size:1.1em">
@@ -253,6 +310,60 @@
 	</div>
 	
 </div>
+
+
+
+	<!-- 현장실습과정 리스트 -->
+	<div id="internshipCourseTemplete" class="d-none">
+		<div class="internshipCourseWrapper row">
+			<div class="col border px-1 py-1 d-grid">
+				<div class="btn btn-light rounded-0 border py-3">
+					<div class="row">
+						<div class="courseTitle col fw-semibold">
+							실습과정제목
+						</div>
+					</div>
+					<div class="row mt-2" style="font-size:0.9em">
+						<div class="col">
+							실습인원 : <span class="countIntern fw-semibold"></span>
+						</div>
+					</div>
+					<div class="row mt-1">
+						<div class="coursePeroid col text-secondary fw-semibold" style="font-size:0.85em">
+							진행기간 : 0000.00.00 - 0000.00.00
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 실습생 리스트 -->
+	<div id="internListTemplete" class="d-none">
+		<div class="internWrapper row text-center py-1 border-bottom" style="font-size:0.95em">
+			<div class="internStudentPk col-1 align-self-center fw-semibold border-end">
+			</div>
+			<div class="internName col-2 align-self-center fw-semibold border-end">
+			</div>
+			<div class="internDepartment col-1 align-self-center border-end">
+			</div>
+			<div class="internProfessor col-1 align-self-center border-end">
+			</div>
+			<div class="col-1 align-self-center border-end d-grid px-3">
+				<a class="studentDetailPageBtn"></a>
+			</div>
+			<div class="internAttendance col-2 align-self-center border-end" style="font-size:0.95em">
+			</div>
+			<div class="col-2 align-self-center d-grid px-4 border-end">
+				<a class="readInternReport"></a>
+			</div>
+			<div class="internEvaluation col-2 align-self-center d-grid px-4">
+				<span class="evaluationButton"></span>
+			</div>
+		</div>
+	</div>
+
 
 </div><!-- 전체 container 출구 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
