@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.mkfactory.toothless.d.dto.ProgramCategoryDto;
 import com.mkfactory.toothless.d.dto.ProgramDto;
+import com.mkfactory.toothless.d.dto.ProgramApplyDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 public interface ProgramSqlMapper {
 	
@@ -27,4 +29,21 @@ public interface ProgramSqlMapper {
 	
 	//프로그램 정보 삭제
 	public void deleteProgram(int program_pk);
+	
+	public void insertStudentProgramApply(ProgramApplyDto programApplyDto);
+	
+	//신청한 프로그램 전체 뽑아내는거
+	public List<ProgramApplyDto> programApplySelectAll();
+
+	//학생 pk로 정보 하나씩만 뽑아오기
+	public StudentInfoDto studentSelectByPk(int student_pk);
+		
+	public int programApplyCount(int program_pk);
+	
+	public void changeStudentAttend(ProgramApplyDto programApplyDto);
+
+	public void changeStudentUnAttend(ProgramApplyDto programApplyDto);
+	
+	public int studentApplyCount(ProgramApplyDto programApplyDto);
+
 }
