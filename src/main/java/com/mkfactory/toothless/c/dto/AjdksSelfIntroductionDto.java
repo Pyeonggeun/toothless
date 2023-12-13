@@ -2,30 +2,28 @@ package com.mkfactory.toothless.c.dto;
 
 public class AjdksSelfIntroductionDto {
 	
-	public int self_introduction_pk;
-	public int student_pk;
-	public int tl_c_self_introduction_img_pk;
-	public String answer1;
-	public String answer2;
-	public String answer3;
-	public String answer4;
+	private int self_introduction_pk;
+	private int student_pk;
+	private int self_introduction_img_pk;
+	private String answer1;
+	private String answer2;
+	private String answer3;
+	private String answer4;
 	
 	public AjdksSelfIntroductionDto() {
 		super();
 	}
-	
-	public AjdksSelfIntroductionDto(int self_introduction_pk, int student_pk, int tl_c_self_introduction_img_pk,
+	public AjdksSelfIntroductionDto(int self_introduction_pk, int student_pk, int self_introduction_img_pk,
 			String answer1, String answer2, String answer3, String answer4) {
 		super();
 		this.self_introduction_pk = self_introduction_pk;
 		this.student_pk = student_pk;
-		this.tl_c_self_introduction_img_pk = tl_c_self_introduction_img_pk;
+		this.self_introduction_img_pk = self_introduction_img_pk;
 		this.answer1 = answer1;
 		this.answer2 = answer2;
 		this.answer3 = answer3;
 		this.answer4 = answer4;
 	}
-	
 	public int getSelf_introduction_pk() {
 		return self_introduction_pk;
 	}
@@ -38,11 +36,11 @@ public class AjdksSelfIntroductionDto {
 	public void setStudent_pk(int student_pk) {
 		this.student_pk = student_pk;
 	}
-	public int getTl_c_self_introduction_img_pk() {
-		return tl_c_self_introduction_img_pk;
+	public int getSelf_introduction_img_pk() {
+		return self_introduction_img_pk;
 	}
-	public void setTl_c_self_introduction_img_pk(int tl_c_self_introduction_img_pk) {
-		this.tl_c_self_introduction_img_pk = tl_c_self_introduction_img_pk;
+	public void setSelf_introduction_img_pk(int self_introduction_img_pk) {
+		this.self_introduction_img_pk = self_introduction_img_pk;
 	}
 	public String getAnswer1() {
 		return answer1;
@@ -68,6 +66,7 @@ public class AjdksSelfIntroductionDto {
 	public void setAnswer4(String answer4) {
 		this.answer4 = answer4;
 	}
+
 	
 	
 }

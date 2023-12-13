@@ -10,6 +10,7 @@
 
 <title>Insert title here</title>
 		<script>
+		<%--
 			function formSubmit(){
 				const frm = document.getElementById("frm");
 				const inputReason = document.getElementById("inputReason");
@@ -20,8 +21,57 @@
 					return ;
 				}
 				
+				if(inputRentalDate.value == ''){
+					alert("대여시작일를 입력해주셔야 합니다.");
+					inputRentalDate.focus();
+					return ;
+					
+				}
+				
+				if(inputReturnDate.value == ''){
+					alert("대여종료일를 입력해주셔야 합니다.");
+					inputReturnDate.focus();
+					return ;
+					
+				}
+				
 				frm.submit();
 			}
+		--%>
+		
+		function applyItem(){
+			
+			const inputStudentPk = document.getElementById("inputStudentPk");
+			const studentPkValue = inputStudentPk.value;
+			
+			const inputItemPk = document.getElementById("inputItemPk");
+			const itemPkValue = inputItemPk.value;
+			
+			const inputReason = document.getElementById("inputReason");
+			const reasonValue = inputReason.value;
+			
+			const inputRentalDate = document.getElementById("inputRentalDate");
+			const rentalDateValue = inputRentalDate.value;
+			
+			const inputReturnDate = document.getElementById("inputReturnDate");
+			const returnDateValue = inputReturnDate.value;
+			
+			const url = "./reststudentItemApply"
+		
+			fetch(url,{
+				method: "post",
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded"
+				},
+				body: "student_pk=" + studentPkValue + "&item_pk=" + itemPkValue + "&reason=" + reasonValue + "&rental_date=" + rentalDateValue + "&return_date=" + returnDateValue
+			})
+			.then(response => response.json())
+			.then(response => {
+				
+				location.href="./studentItemListPage";
+			})
+			;
+		}
 		
 		</script>
 </head>
@@ -49,16 +99,15 @@
 			<div class="col">
 				<div class="row mt-2">
 					<div class="col">
-						<form id="frm" action="./studentItemApplyProcess" method="post">
 						<div class="row mt-2 ms-2 me-1 border-1" style="background-color: #DEF4F5; border-style: solid; border-color: #454545;">
-				            <input type="hidden" name="student_pk" value=${sessionStudentInfo.student_pk }>
-				            <input type="hidden" name="item_pk" value=${getItem.item_pk }>
+				            <input type="hidden" id="inputStudentPk" value=${sessionStudentInfo.student_pk }>
+				            <input type="hidden" id="inputItemPk" value=${getItem.item_pk }>
 				            <div class="col">
 				                <div class="row mt-4 me-0">
 				                    <div class="col-2"></div>  
-				                    <div class="col-1 ps-1 pe-0 fw-bold">대여사유</div>
+				                    <div class="col ps-1 pe-0 fw-bold">대여사유</div>
 				                    <div class="col-4 ps-4">
-				                        <input id="inputReason" name="reason" type="text">
+				                        <input id="inputReason" type="text">
 				                    </div>
 				                    <div class="col-2"></div>
 				                </div>
@@ -68,20 +117,19 @@
 				                        <span>대여기간</span>
 				                    </div>
 				                    <div class="col ps-4 pe-5">
-				                       	<input name="rental_date" type="date">&nbsp;~
-				                        <input name="return_date" type="date">
+				                       	<input id="inputRentalDate" type="date">&nbsp;~
+				                        <input id="inputReturnDate" type="date">
 				                    </div>
 				                    <div class="col-1"></div>
 				                </div>
 				            </div>
 				        </div>
 				        <div class="row mt-2">
-						     <div class="col-11"></div>
-						     <div class="col ps-4">
-						         <input type="button" onclick="formSubmit()" value="등록">
+						     <div class="col-10"></div>
+						     <div class="col ps-5 d-grid">
+						         <button onclick="applyItem()" class="btn btn-primary">신청</button>
 						     </div>
 						 </div>
-				        </form>
 					</div>
 				</div>
 			</div>

@@ -55,35 +55,20 @@
 			</div>
 			
 			<div class="row">
-				<div class="col border py-4 mx-2 rounded border-dark btn text-start" onclick="location.href='#'">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
 					<div class="row">
-						<div class="col ms-2">
-								A동
-						</div>
-					</div>
-					
-					<div class="row mt-2">
-						<div class="col ms-2">
-							<span class="fs-5 fw-bold text-black">
-								x
-							</span>건
+						<div class="col ms-2 fw-bold">
+							A동
 						</div>
 					</div>
 				</div>
-				<div class="col border py-4 mx-2 rounded border-dark btn text-start" onclick="location.href='#'">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
 					<div class="row">
-						<div class="col ms-2">
-								B동
+						<div class="col ms-2 fw-bold">
+							B동
 						</div>
 					</div>
 					
-					<div class="row mt-2">
-						<div class="col ms-2">
-							<span class="fs-5 fw-bold text-black">
-								x
-							</span>건
-						</div>
-					</div>
 				</div>
 				<div class="col-8"></div>
 			</div>
@@ -99,45 +84,35 @@
 								<th scope="col" class="col-2 text-bg-light">층</th>
 								<th scope="col" class="col-2 text-bg-light">호</th>
 								<th scope="col" class="col-2 text-bg-light">각 층 배정 리스트</th>
-								<th scope="col" class="col-1 text-bg-light">배정</th>
 							</tr>
 						</thead>
 						<tbody>
-							<!-- 값 반복 예정 -->
-							<tr>
-								<td>홍길동</td>
-								<td>A동</td>
-								<td>1층</td>
-								<td>101호</td>
-								<td>
-									<input type="checkbox" checked> 101호
-									<input type="checkbox"> 102호
-									<input type="checkbox"> 103호
-									<input type="checkbox"> 104호
-								</td>
-								<td>
-									<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
-										<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">배정</span></button>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>신짱구</td>
-								<td>B동</td>
-								<td>2층</td>
-								<td>201호</td>
-								<td>
-									<input type="checkbox" checked> 201호
-									<input type="checkbox"> 202호
-									<input type="checkbox"> 203호
-									<input type="checkbox"> 204호
-								</td>
-								<td>
-									<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
-										<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">배정</span></button>
-									</a>
-								</td>
-							</tr>
+							<c:forEach items="${executiveListMap}" var="executiveListMap">
+								<tr>
+									<td>${executiveListMap.studentInfoDto.name}</td>
+									<td>${executiveListMap.dormBuildingDto.name}</td>
+									<td>${executiveListMap.dormRoomDto.dorm_floor}</td>
+									<td>${executiveListMap.dormRoomDto.room_name}</td>
+									<td>
+										<c:forEach items="${executiveListMap.dormRoomListByDormFloorAndDormPkListAndNY}" var="dormRoomList">
+											<c:choose>
+												<c:when test="${dormRoomList.isCount == 0}">
+													<a href="./jw_executiveRoomassignmentProcess?dorm_room_pk=${dormRoomList.dormRoomListByDormFloorAndDormPk.dorm_room_pk}
+													&executive_pk=${executiveListMap.executiveDto.executive_pk}" class="d-grid mx-2" style="text-decoration: none;">
+													<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">${dormRoomList.dormRoomListByDormFloorAndDormPk.room_name} 배정</span></button> 
+													</a>
+												</c:when>
+												<c:otherwise>
+													<a href="./jw_executiveRoomRemoveProcess?executive_pk=${executiveListMap.executiveDto.executive_pk}
+													&dorm_room_pk=${dormRoomList.dormRoomListByDormFloorAndDormPk.dorm_room_pk}" class="d-grid mx-2" style="text-decoration: none;">
+													<button type="button" class="btn btn-outline-danger btn-sm"><span class="text-black">${dormRoomList.dormRoomListByDormFloorAndDormPk.room_name} 배정취소</span></button> 
+													</a>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+									</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>

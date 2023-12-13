@@ -14,6 +14,7 @@ import com.mkfactory.toothless.a.dto.DormRoomDto;
 import com.mkfactory.toothless.a.dto.DormStudentDto;
 import com.mkfactory.toothless.a.dto.JoinDormApplicationDto;
 import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
+import com.mkfactory.toothless.a.dto.SemesterDto;
 import com.mkfactory.toothless.a.staff.dm.mapper.DormStaffSqlMapperDm;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -134,11 +135,13 @@ public class DormStaffServiceDm {
 				
 				int student_pk = e.getStudent_pk();
 				// 수납완료 Y 선발완료 Y 검증
+				// 12/11 문제발생 ==> 왜냐면 여기서 joinDormApplicationDto가 studentPk으로 가져왔을때 두명이나올수 있음 
+				//
 				JoinDormApplicationDto joinDormApplicationDto = dormStaffSqlMapperDm.joinDormAppliByStudentPK(student_pk);
 				// dormStudentDto 사생정보 없을때 배정리스트가 뽑히게 하기위한 확인용
 				DormStudentDto dormStudentDto = dormStaffSqlMapperDm.dormStudentInfoByStudentPk(student_pk);
 				
-				
+				// joinDormApplicationDto가 null값이 아닐때
 				if(joinDormApplicationDto == null) {
 					continue;
 				}
@@ -159,7 +162,49 @@ public class DormStaffServiceDm {
 		
 		}
 	
+		public List<Map<String, Object>> dormRoomAllList(){
+			
+			List<Map<String, Object>> list = new ArrayList<>();
+			
+			List<DormRoomDto> dormRoomDto = dormStaffSqlMapperDm.dormRoomAllList();
+			for(DormRoomDto e : dormRoomDto) {
+				
+				Map<String, Object> map = new HashMap<String, Object>();
+				
+				int dorm_pk = e.getDorm_pk();
+				DormBuildingDto dormBuildingDto = dormStaffSqlMapperDm.dormBuildingInfoByDormPk(dorm_pk);
+				
+				map.put("dormRoomDto", e);
+				map.put("dormBuildingDto", dormBuildingDto);
+				
+				list.add(map);
+				
+			}
+			
+			return list;
+		}
 	
+	public List<DormBuildingDto> dormListDong(){
+		
+		
+		return dormStaffSqlMapperDm.dormListDong();
+	}
+	
+	public SemesterDto SemesterCheckY(){
+		
+		return dormStaffSqlMapperDm.SemesterCheckY();
+	}
+	
+	public void dormStudentAssignmentInsert(DormStudentDto dormStudentDto) {
+		
+		dormStaffSqlMapperDm.dormStudentAssignmentInsert(dormStudentDto);
+		
+	}
+	
+	public List<DormRoomDto> dormRoomInfoByDormPk(int dorm_pk){
+		
+		return dormStaffSqlMapperDm.dormRoomInfoByDormPk(dorm_pk);
+	}
 	
 	
 }

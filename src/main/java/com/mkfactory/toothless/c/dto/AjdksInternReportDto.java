@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class AjdksInternReportDto {
 	
-	public int intern_report_pk;
-	public int student_intern_pk;
-	public String report_content;
-	public Date created_at;
+	private int intern_report_pk;
+	private int student_intern_pk;
+	private String report_content;
+	private Date created_at;
 	
 	public AjdksInternReportDto() {
 		super();

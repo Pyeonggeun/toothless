@@ -37,11 +37,19 @@ public class StaffboardServiceImpl {
 			int userPk = staffboardDto.getStaff_pk();
 			StaffInfoDto staffInfoDto = staffboardSqlMapper.selectStaffInfo(userPk);
 			
+			int contentCountPk = staffboardDto.getStaffboard_pk();
+			int staffboardLikeDto = staffboardSqlMapper.selectLikeCount(contentCountPk);
+			
+			int replyCountPk = staffboardDto.getStaffboard_pk();
+			int staffboardReplyDto = staffboardSqlMapper.selectReplyCount(replyCountPk);
+			
 			Map<String, Object> map = new HashMap<>();
 			map.put("staffboardDto", staffboardDto);
 			map.put("staffInfoDto", staffInfoDto);
+			map.put("staffboardLikeDto", staffboardLikeDto);
+			map.put("staffboardReplyDto", staffboardReplyDto);
 			
-			list.add(map);	
+			list.add(map);
 		}
 		return list;
 	}
@@ -117,6 +125,29 @@ public class StaffboardServiceImpl {
 	public void modifyReply(StaffboardReplyDto staffboardReplyDto) {
 		staffboardSqlMapper.updateReply(staffboardReplyDto);
 	}
+	
+	//좋아요
+	public void addLike(StaffboardLikeDto staffboardLikeDto) {
+		staffboardSqlMapper.insertAddLike(staffboardLikeDto);
+	}
+	
+	//좋아요 취소
+	public void canselLike(StaffboardLikeDto staffboardLikeDto) {
+		staffboardSqlMapper.deleteCanselLike(staffboardLikeDto);
+	}
+	
+	//좋아요 확인
+	public int checkLike(StaffboardLikeDto staffboardLikeDto) {
+		
+		return staffboardSqlMapper.selectCheckLike(staffboardLikeDto);
+	}
+	
+	//좋아요 수
+	public int likeCount(int staffboard_pk) {
+		
+		return staffboardSqlMapper.selectLikeCount(staffboard_pk);
+	}
+	
 }
 
 

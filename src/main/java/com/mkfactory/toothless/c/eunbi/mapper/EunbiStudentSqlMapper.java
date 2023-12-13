@@ -5,6 +5,7 @@ import java.util.List;
 import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
 import com.mkfactory.toothless.c.dto.AjdksInternSatisfactionDto;
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
+import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionImgDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
 import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
@@ -51,6 +52,7 @@ public interface EunbiStudentSqlMapper {
 	public AjdksSelfIntroductionDto getSelfIntroductionByStudentPk(int student_pk);
 	public List<AjdksCertificationDto> getCertificationsByStudentPk(int student_pk);
 	
+	public AjdksSelfIntroductionImgDto getIntroductionImg(int student_pk);
 	
 	
 	

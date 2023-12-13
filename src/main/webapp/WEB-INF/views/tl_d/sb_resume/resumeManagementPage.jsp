@@ -38,14 +38,15 @@
 							<div class="col fs-3">메인 이력서</div>
 						</div>
 						<div class="row border-bottom border-gray">
-							<div class="col-8 fs-5">제목</div>
+							<div class="col-6 fs-5">제목</div>
 							<div class="col fs-5 text-center">작성일</div>
 							<div class="col fs-5 text-center">공개 선택</div>
 							<div class="col fs-5 text-center">공개 여부</div>
+							<div class="col fs-5 text-center">이력서 삭제</div>
 						</div>
 						<div class="row mt-1">
 							
-							<div class="col-8 fs-6 fw-bold">
+							<div class="col-6 fs-6 fw-bold">
 								<a href="./resumeDetailPage?resume_pk=${resumeDto.resume_pk }"style="text-decoration: none;">${resumeDto.resume_title }</a>
 							</div>
 							<div class="col text-center">
@@ -53,7 +54,10 @@
 							</div>
 							<div class="col text-center">
 								<c:choose>
-									<c:when test="${resumeDto.is_public=='N' }">
+									<c:when test="${resumeDto.is_public==null }">
+									
+									</c:when>
+									<c:when test="${resumeDto.is_public=='N'}">
 										<form action="./changeResumeStatus" method="post">
 											<input type="hidden" name="resume_pk" value="${resumeDto.resume_pk }">
 											<input type="hidden" name="is_public" value="${resumeDto.is_public }">
@@ -73,14 +77,30 @@
 							</div>
 							<div class="col text-center">
 								<c:choose>
+									<c:when test="${resumeDto.is_public==null }">
+									</c:when>
 									<c:when test="${resumeDto.is_public=='N' }">
-										<h3><span class="badge text-bg-danger">비공개중</span></h3>
+										<button type="button" class="btn btn-danger" disabled>비공개중</button>
 									</c:when>
 									<c:otherwise>
-										<h3><span class="badge text-bg-primary">공개중</span></h3>
+										<button type="button" class="btn btn-primary" disabled>공개중</button>
 									</c:otherwise>
 								</c:choose>
 							</div>
+							<div class="col text-center">
+								
+								<c:choose>
+									<c:when test="${resumeDto.resume_pk.equals(0) || resumeDto==null}">
+									</c:when>
+									<c:otherwise>
+										<form action="./resumeDeleteProcess">
+											<input type="hidden" name="resume_pk" value="${resumeDto.resume_pk }">
+											<button type="submit" class="btn btn-danger">삭제</button>			
+										</form>
+									</c:otherwise>
+								</c:choose>
+								
+							</div>	
 						</div>	
 					</div>
 				</div>
@@ -92,9 +112,10 @@
 							<div class="col fs-3">이력서</div>
 						</div>
 						<div class="row border-bottom border-gray">
-							<div class="col-8 fs-5">제목</div>
+							<div class="col-7 fs-5">제목</div>
 							<div class="col fs-5 text-center">작성일</div>
-							<div class="col fs-5 text-center">메인이력서로 변경</div>
+							<div class="col-2 fs-5 text-center">메인이력서로 변경</div>
+							<div class="col fs-5 text-center">이력서 삭제</div>
 						</div>
 						
 						<div class="row mt-1">
@@ -106,14 +127,17 @@
 								<input type="hidden" name="main_resume" value="${list.main_resume }">
 								<input type="hidden" name="student_pk" value="${sessionStudentInfo.student_pk }">
 									<div class="row mt-2">
-										<div class="col-8">
-											<a href="./resumeDetailPage?resume_pk=${list.resume_pk }" style="text-decoration: none;">${list.resume_title }</a>
+										<div class="col-7">
+											<a class="navbar-brand" href="./resumeDetailPage?resume_pk=${list.resume_pk }">${list.resume_title }</a>
 										</div>
 										<div class="col text-center">
 											<fmt:formatDate value="${list.created_at}" pattern="yyyy-MM-dd"/>
 										</div>
+										<div class="col-2 text-center">
+											<button type="submit" class="btn btn-primary">선택</button>
+										</div>
 										<div class="col text-center">
-											<button type="submit" class="btn btn-success">선택</button>
+											<a class="btn btn-danger" href="./resumeDeleteProcess?resume_pk=${list.resume_pk }" role="button">삭제</a>
 										</div>
 									</div>
 								</form>
@@ -125,6 +149,21 @@
 					</div>	
 				</div>
 				
+				<div class="row mt-2">
+					<div class="col-9"></div>
+					<div class="col">
+						<form action="../common/studentMyPage" method="post">
+							<input type="hidden" name="student_pk" value="${sessionStudentInfo.student_pk }">
+							<button type="submit" class="btn btn-secondary">돌아가기</button>
+						</form>
+					</div>
+					<div class="col">
+						<form action="./resumeRegistrationPage" method="post">
+							<button type="submit" class="btn btn-primary">이력서 추가</button>
+						</form>
+					</div>
+				</div>
+				
 				
 			</div>
 			
@@ -132,6 +171,11 @@
 		</div>
 			
 	</div>
+	
+	<div class="container">
+		<div style="height: 200px;"></div>
+	</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

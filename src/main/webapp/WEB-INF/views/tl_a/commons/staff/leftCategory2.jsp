@@ -71,7 +71,7 @@
                         </div>
                         <div class="row ps-5 ms-1">
                         	<div class="col">
-							    <a href="./sj_manageRoomInfo"  style="text-decoration: none;" class="text-black">
+							    <a href="./sj_manageRoomImages"  style="text-decoration: none;" class="text-black">
 	                        	<button type="button" class="btn text-start">
 	                        		호실별 이미지 정보
 								</button>
@@ -87,10 +87,12 @@
                     <ul style="list-style: none;">
                         <li class="my-2 text-body-secondary" style="font-size: 0.7rem;">관련사이트</li>
                         <li class="my-2" style="font-size: 0.8rem;">기숙사 홈페이지
-                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
-                        <li class="my-2" style="font-size: 0.8rem;">대학정보공시
-                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
-                        <li class="my-2" style="font-size: 0.8rem;">뭐라도 넣겠찌?
+                           <a href="../student/jw_mainPage" class="navbar-brand"> <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;" ></i></a>
+                            </li>
+                        <li class="my-2" style="font-size: 0.8rem;">대학메인 포털
+                            <a href="../../another/student/mainPage" class="navbar-brand"><i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></a>
+                            </li>
+                        <li class="my-2" style="font-size: 0.8rem;">뭘 넣어야 될까
                             <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
                     </ul>
                 </div>

@@ -172,7 +172,7 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 																<div class="modal-body">
 																	<div class="card">
 																		<img
-																			src="../../resources/img/companyImage/company1.jpg"
+																			src="../../../resources/img/companyImage/company1.jpg"
 																			class="card-img-top" alt="...">
 																		<div class="card-body">
 																			<h4 class="card-title fw-bolder">${companyList.COMPANY_NAME}</h4>

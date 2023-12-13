@@ -53,11 +53,11 @@
 	<div class="row">
 		<div class="col">
 			<input type="checkbox" id="title3"/>
-			<label class="pt-3 pb-2 ps-3" for="title3"><i class="bi bi-diagram-3"></i>&nbsp;학생신청 관리</label>			
+			<label class="pt-3 pb-2 ps-3" for="title3"><i class="bi bi-diagram-3" ></i>&nbsp;학생신청 관리</label>			
 			<div class="content text-white-50">
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;실습생 선발</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../company/ajdksStudentinternPage'">&gt;&nbsp;실습생 선발</span>
 					</div>
 				</div>
 			</div>
@@ -76,7 +76,7 @@
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;출근부 관리</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='./courseListPageForWriteTimecard'">&gt;&nbsp;출근부 관리</span>
 					</div>
 				</div>
 			</div>

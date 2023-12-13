@@ -41,4 +41,10 @@
 		ON tbii.ITEM_PK = tbia.ITEM_PK
 		WHERE tbii.ITEM_PK = #{item_pk}
 	</select>
+	
+	<!-- 신청 내역에 해당 물품에 대여 진행 중인지 카운트로 확인 -->
+	<select id="ItemApplyCount" resultType="int">
+		SELECT count(*) FROM TL_B_ITEM_APPLY
+		WHERE ITEM_PK = #{item_pk} AND STATUS = 'N'
+	</select>
 </mapper>

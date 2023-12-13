@@ -60,6 +60,92 @@
 		ORDER BY type_category_id ASC
 	</select>
 	
+	<!-- 상담원 전체 중복제거 리스팅 for AJAX -->
+	<select id="selectAllCounselorForAJAX" resultType="map">
+		SELECT
+			counselorTB.rn AS rn,
+			counselorTB.category AS category,
+			counselorTB.id AS counselorId,
+			counselorTB.name AS name,
+			counselorTB.age AS age,
+			counselorTB.gender AS gender,
+			counselorTB.phonenumber AS phonenumber,
+			counselorTB.email AS email,
+			counselorTB.address AS address,
+			counselorTB.career AS career,
+			counselorTB.profileimage AS profileImage,
+			nvl(scoreTB.scoreAvg, 0) AS scoreAvg
+		FROM (
+			SELECT 
+				ROW_NUMBER () OVER (PARTITION BY cc.id ORDER BY cct.TYPE_CATEGORY_ID  ASC) rn,
+				cct.TYPE_CATEGORY_ID AS category,
+				cc.*
+			FROM CP_COUNSELOR_TYPE cct
+			INNER JOIN CP_COUNSELOR cc ON cc.id = cct.counselor_id
+			) counselorTB
+		LEFT JOIN (
+			SELECT 
+			counselor_id,
+			avg(scoreAvg) AS scoreAvg
+			FROM (
+				SELECT
+					cgc2.COUNSELOR_ID AS counselor_id,
+					avg(cgs.SCORE) AS scoreAvg
+				FROM CP_GROUP_SURVEY cgs
+				INNER JOIN CP_GROUP_RESERVATION cgr ON cgr.ID = cgs.GROUP_RESERVATION_ID
+				INNER JOIN CP_GROUP_COUNSEL cgc ON cgc.id = cgr.GROUP_COUNSEL_ID
+				INNER JOIN CP_GROUP_COUNSELOR cgc2 ON cgc2.GROUP_COUNSEL_ID = cgc.id
+				GROUP BY cgc2.COUNSELOR_ID
+				UNION
+				SELECT 
+					cor.COUNSELOR_ID AS counselor_id,
+					avg(coss.SCORE) AS scoreAvg
+				FROM CP_OFFLINE_RESERVATION cor
+				INNER JOIN CP_OFFLINE_SURVEY coss ON coss.RESERVATION_ID = cor.id
+				GROUP BY cor.COUNSELOR_ID 
+				UNION	
+				SELECT 
+					counselor_id,
+					scoreAvg
+				FROM (
+					SELECT 
+						cocr.counselor_id AS counselor_id,
+						avg(cocs.SCORE) AS scoreAvg
+					FROM CP_ONLINE_COUNSEL_SURVEY cocs
+					INNER JOIN CP_ONLINE_COUNSEL_BOARD cocb ON cocb.id = cocs.ONLINE_COUNSEL_BOARD_ID
+					INNER JOIN CP_ONLINE_COUNSEL_REPLY cocr ON cocb.ID = cocr.ONLINE_COUNSEL_BOARD_ID
+					GROUP BY cocr.counselor_id
+					) 
+				)
+				GROUP BY counselor_id
+				ORDER BY counselor_id asc
+			) scoreTB ON counselorTB.id = scoreTB.counselor_id
+		<if test="searchOption == false">
+			WHERE rn = 1
+		</if>		
+		<if test="searchOption == true">
+			WHERE 1 = 1		
+			<if test="!searchCounselorName.equals('default')">
+				AND name LIKE '%' || #{searchCounselorName} || '%'
+			</if>
+			<if test="!searchCounselorType == 0">
+				AND category = #{searchCounselorType}
+			</if>
+			<if test="!searchGenderOption.equals('default')">
+				AND gender = #{searchGenderOption}
+			</if>								
+		</if>
+		<if test="searchOption == true and !searchCounselorName.equals('default')">
+			and rn = 1
+		</if>		
+		<if test="!searchScoreOption.equals('default') and !searchScoreOption.equals('scoreASC')">			
+			ORDER BY SCOREAVG ASC
+		</if>
+		<if test="!searchScoreOption.equals('default') and !searchScoreOption.equals('scoreDESC')">
+			ORDER BY SCOREAVG DESC
+		</if>		
+	</select>
+	
 	<!-- 상담원 PK로 상담원정보 조회 -->
 	<select id="selectCounselorDetailByCounselorId" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
 		SELECT * FROM CP_COUNSELOR WHERE id = #{id}
@@ -142,6 +228,8 @@
 		INNER JOIN CP_OFFLINE_SURVEY coss ON coss.RESERVATION_ID = cor.id
 		WHERE cor.COUNSELOR_ID = #{counselor_id}
 	</select>
+	
+	
 	
 	
 

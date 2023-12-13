@@ -44,7 +44,16 @@
 	
 	<select id="joinDormAppliByStudentPK" resultType="com.mkfactory.toothless.a.dto.JoinDormApplicationDto">
 	
-		SELECT * FROM tl_a_join_dorm_application WHERE student_pk = #{student_pk}
+		SELECT tajda.DORM_APPLICATION_PK, tajda.STUDENT_PK, tajda.DORM_INFO_PK,
+		tajda.PRIORITY_SELECT, tajda.SELECTION_STATUS, tajda.PAYMENT_STATUS,
+		tajda.CREATED_AT 
+		FROM TL_A_JOIN_DORM_APPLICATION tajda 
+		INNER JOIN TL_A_JOIN_DORM_INFO tajdi 
+		ON tajda.dorm_info_pk = tajdi.dorm_info_pk
+		INNER JOIN TL_A_SEMESTER tas 
+		ON tas.SEMESTER_PK = tajdi.SEMESTER_PK
+		WHERE tajda.student_pk = #{student_pk} AND TAS.PROGRESS_STATE = 'Y'
+
 	
 	</select>
 	
@@ -60,11 +69,46 @@
 	
 	</select>
 	
-	<select id="">
+	<select id="dormRoomAllList" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
 	
-		SELECT * FROM 
+		SELECT * FROM TL_A_DORM_ROOM
+		
+	</select>
+	
+	<select id="dormListDong" resultType="com.mkfactory.toothless.a.dto.DormBuildingDto">
+	
+		SELECT * FROM TL_A_DORM_BUILDING
 	
 	</select>
+	
+	<select id="SemesterCheckY" resultType="com.mkfactory.toothless.a.dto.SemesterDto">
+	
+		SELECT * FROM TL_A_SEMESTER WHERE PROGRESS_STATE = 'Y'
+	
+	</select>
+	
+	<insert id="dormStudentAssignmentInsert">
+	
+		INSERT INTO tl_a_dorm_student VALUES(
+		   tl_a_dorm_student_seq.nextval,
+		   #{semester_pk},
+		   #{student_pk},
+		   #{dorm_room_pk}
+		)
+	
+	</insert>
+	
+	<select id="dormRoomInfoByDormPk" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
+	
+	SELECT * FROM TL_A_DORM_ROOM WHERE dorm_pk = #{dorm_pk}
+	
+	</select>
+	
+	
+	
+	
+	
+	
 	
 	
 </mapper>

@@ -36,10 +36,10 @@
 		
 		
 		<div class="col-9">
-			<div class="row">
+			<div class="row mt-4">
 				<div class="col">
 					<c:if test="${not isOnelineConsulting}">
-						<span class="text-danger">이미 대기중인 <a href="">온라인 상담</a> 이 있습니다!</span>
+						<span class="text-danger">이미 대기중인 온라인 상담 이 있습니다!</span>
 					</c:if>				
 				</div>
 		   </div>

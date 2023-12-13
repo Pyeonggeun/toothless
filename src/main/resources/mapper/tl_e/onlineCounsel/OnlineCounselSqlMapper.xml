@@ -12,8 +12,17 @@
 		SELECT * FROM cp_type_category WHERE id = #{id}
 	</select>
 
+	<select id="selectSurvey" resultType="com.mkfactory.toothless.e.dto.OnlineCounselSurveyDto">
+		SELECT * FROM CP_ONLINE_COUNSEL_SURVEY WHERE ONLINE_COUNSEL_BOARD_ID = #{ONLINE_COUNSEL_BOARD_ID}
+	</select>
 
-
+	<select id="getReplyCount" resultType="int">
+		SELECT COUNT(*) FROM CP_ONLINE_COUNSEL_REPLY WHERE online_counsel_board_id = #{online_counsel_board_id}
+	</select>
+	
+	<select id="isSurveyed" resultType="int">
+		SELECT COUNT(*) FROM CP_ONLINE_COUNSEL_SURVEY WHERE ONLINE_COUNSEL_BOARD_ID = #{ONLINE_COUNSEL_BOARD_ID}
+	</select>
 
 
 
@@ -29,6 +38,19 @@
 		)
 	</insert>
 
+
+	<insert id="insertOnlineCounselSurvey">
+		INSERT INTO cp_online_counsel_survey VALUES(
+			cp_online_counsel_survey_seq.nextval,
+			#{online_counsel_board_id},
+			#{score},
+			#{text},
+			SYSDATE
+		)
+	</insert>
+
+
+
 	<select id="selectAllCounselListByStudentPk" resultType="com.mkfactory.toothless.e.dto.OnlineCounselBoardDto">
 		SELECT * FROM cp_online_counsel_board WHERE student_id = #{student_id}
 	</select>
@@ -38,7 +60,7 @@
 	</select>
 	
 	<select id="selectCounsel" resultType="com.mkfactory.toothless.e.dto.OnlineCounselBoardDto">
-		SELECT * FROM cp_online_counsel_board WHERE id = #{id}
+		SELECT * FROM cp_online_counsel_board WHERE id = #{id} ORDER BY id DESC
 	</select>
 	
 	<select id="selectCounselorDto" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
@@ -52,6 +74,37 @@
 	<select id="selectCounselList" resultType="com.mkfactory.toothless.e.dto.OnlineCounselBoardDto">
 		SELECT * FROM cp_online_counsel_board WHERE type_category_id = #{type_category_id}
 	</select>
+	
+	
+	<insert id="insertOnlineCounselReply">
+		INSERT INTO cp_online_counsel_reply VALUES(
+			cp_online_counsel_reply_seq.nextval,
+			#{counselor_id},
+			#{online_counsel_board_id},
+			#{text},
+			SYSDATE
+		)
+	</insert>
+	
+	<select id="selectReplyListByCounselPk" resultType="com.mkfactory.toothless.e.dto.OnlineCounselReplyDto">
+		SELECT * FROM cp_online_counsel_reply WHERE online_counsel_board_id = #{online_counsel_board_id} ORDER BY created_at DESC
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
+	
+	
+	
+	
 	
 	<!--	상담원 관련 	-->
 	
@@ -69,4 +122,3 @@
 	
 	
 	
-</mapper>

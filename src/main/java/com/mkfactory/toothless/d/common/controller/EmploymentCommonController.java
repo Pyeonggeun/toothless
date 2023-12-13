@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.d.dto.CompanyDto;
+import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
+import com.mkfactory.toothless.d.sb.resume.service.ResumeServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -24,6 +26,8 @@ public class EmploymentCommonController {
 	@Autowired
 	private CompanyServiceIpml companyService;
 
+	@Autowired
+	private ResumeServiceImpl resumeService;
 	
 	// 학생용 마이페이지
 	@RequestMapping("studentMyPage")
@@ -34,6 +38,7 @@ public class EmploymentCommonController {
 		if(studentInfoDto != null) {
 			int studentPk = studentInfoDto.getStudent_pk();
 			model.addAttribute("interestpostingForMyPage", postingService.getInterestPostingListForMyPage(studentPk));
+			model.addAttribute("applyPostListForMyPage", resumeService.getRowNumApplyList(studentPk));
 		}
 		
 		

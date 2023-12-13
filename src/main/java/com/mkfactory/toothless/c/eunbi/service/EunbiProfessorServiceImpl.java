@@ -217,6 +217,7 @@ public class EunbiProfessorServiceImpl {
 			internInfo.put("studentInternDto", studentInternDto);
 			internInfo.put("studentDepartment", studentSqlMapper.getDepartmentByDepartmentPk(studentDepartmentPk));
 			internInfo.put("studentProfessorInfo", professorSqlMapper.getProfessorInfo(studentProfessorPk));
+			internInfo.put("internshipCourseDto", externalSqlMapper.getInternshipCourseDetail(internshipCoursePk));
 			
 			internInfo.put("countAttendance", studentSqlMapper.countAttendance(internPk));
 			internInfo.put("countLate", studentSqlMapper.countLate(internPk));
@@ -236,28 +237,19 @@ public class EunbiProfessorServiceImpl {
 		professorSqlMapper.insertProfessorEvaluation(professorEvaluationDto);
 	}
 	
-	// 학생 상세 출력
-	public Map<String, Object> viewStudentDetail(int studentPk) {
+	// 현재 날짜과 현장실습과정 날짜 비교
+	public Map<String, Object> isNow(int internshipCoursePk) {
 		
-		Map<String, Object> studentDetail = new HashMap<>();
+		Map<String, Object> isNow = new HashMap<>();
 		
-		StudentInfoDto studentInfoDto = studentSqlMapper.getStudentInfoByStudentPk(studentPk);
-		int departmentPk = studentInfoDto.getDepartment_pk();
-		int studentProfessorPk = studentInfoDto.getProfessor_pk();
+		isNow.put("isStartApplying", externalSqlMapper.isStartApplying(internshipCoursePk));
+		isNow.put("isEndApplying", externalSqlMapper.isEndApplying(internshipCoursePk));
+		isNow.put("didAnnouncement", externalSqlMapper.didAnnouncement(internshipCoursePk));
+		isNow.put("isStartInternship", externalSqlMapper.isStartInternship(internshipCoursePk));
+		isNow.put("isEndInternship", externalSqlMapper.isEndInternship(internshipCoursePk));
 		
-		studentDetail.put("studentInfoDto", studentInfoDto);
-		studentDetail.put("studentDepartment", studentSqlMapper.getDepartmentByDepartmentPk(departmentPk));
-		studentDetail.put("studentProfessorInfo", professorSqlMapper.getProfessorInfo(studentProfessorPk));
-		studentDetail.put("countSemester", studentSqlMapper.countSemester(studentPk));
-		studentDetail.put("selfIntroduction", studentSqlMapper.getSelfIntroductionByStudentPk(studentPk));
-		
-		
-		studentDetail.put("certificationList", studentSqlMapper.getCertificationsByStudentPk(studentPk));
-		
-		return studentDetail;
+		return isNow;
 	}
-	
-	
 	
 	
 	

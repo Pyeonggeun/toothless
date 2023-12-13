@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,8 +154,8 @@
 					<div class="col"></div>
 					 
 					<div class="col-4 fs-5">
-					 	<i class="bi bi-eye"></i>${pickpostMap.freeboardPost.read_count}
-					 	<i class="bi bi-clock"></i> ${pickpostMap.freeboardPost.created_at}
+					 	<i class="bi bi-eye"></i> ${pickpostMap.freeboardPost.read_count}
+					 	<i class="bi bi-clock"></i> <fmt:formatDate value="${pickpostMap.freeboardPost.created_at}" pattern="yyyy-MM-dd hh:mm"/>
 					</div> 
 				</div>
 				
@@ -162,8 +163,20 @@
 				</div>	
 			</div>
 			
-			<!-- 글 내용 -->
-			<div class="row py-3">
+			<!-- 로딩된 첨부 이미지파일과 글 내용 -->
+			<div class="row">
+				<div class="col">
+					<c:forEach items="${pickpostMap.freeboardImageDtoList}" var="image">
+						<div class="row">
+							<div class="col">
+								<img src="/uploadFiles/${image.freeboard_image_link}">
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+			
+			<div class="row py-3 fs-4">
 				${pickpostMap.freeboardPost.text }
 			</div>
 			
@@ -187,22 +200,89 @@
 			<!-- 글수정 삭제 글목록 돌아가기 버튼 끝 -->	
 			</div>
 			
+			<!-- 댓글창 -->
 			<div class="row text-center">
-				향후 댓글 추가 예정
+			
+			<!-- 댓글창 내에서 좌측 공간주는 col -->
+			<div class="col-1"></div>
+			
+			<!-- 본 댓글창 col -->
+				<div class="col">
+				
+				<!-- 댓글입력창 +버튼 기타 -->
+					<div class="row">
+						<div class="col border border-black rounded"> 
+						
+						<!-- 댓글작성 시작-->
+						<form action="./insertFreeboardComment" method=post>
+								<div class="row pt-2">
+									<div class="col-8 text-start ms-1 "> 
+										댓글을 남겨주세요
+									</div>
+									<div class="col text-end me-1"> 
+										<input class="form-controller" type="submit" value="댓글 달기">
+									</div>
+								</div>
+								<div class="row m-1">
+									<input name="text" type="text" placeholder="최대 100글자까지 작성가능합니다.">
+									<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id } ">
+									<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk } ">
+									
+								</div>
+								
+								
+								
+							</form>
+					<!-- 댓글입력창 +버튼 기타 -->
+						</div>
+					</div>
+					
+					
+					<!-- 댓글 리스팅 창 -->
+					<div class="row">
+						<div class="col">
+						
+						<div class="row pt-1"> <div class="col text-start"> <i class="bi bi-list-ul"></i> 향후 댓글 수 카운팅해올 예정 </div></div>
+							
+						<div class="row">	
+							<c:forEach items="${selectFreeboardCommentList}" var="comment">
+								<c:if test="${pickpostMap.freeboardPost.id == comment.elementFreeboardCommentDto.freeboard_id}">
+									<div class="row border-bottom border-dark ">
+										<div class="col">
+								
+											<!-- 이름과 생성일 날짜 나오게  -->
+											<div class="row ps-1 text-start pt-1"> 
+												<div class="col-4 ps-1 "> <span class="fs-5"> <i class="bi bi-person-vcard"></i> ${comment.studentInfo.name} </span> <i class="bi bi-clock"></i> <fmt:formatDate value="${comment.elementFreeboardCommentDto.created_At}" pattern="yyyy-MM-dd hh:mm"/></div>
+											
+												<div class="col"></div>
+											</div>
+											
+											<!-- 위 row에 정보 나온 글쓴이가 쓴 댓글 -->
+											<div class="row ps-2 fs-4">${comment.elementFreeboardCommentDto.text}</div>
+										</div>
+									</div>	
+								</c:if>
+							</c:forEach>
+						</div>
+						
+						<div class="row py-2"></div>
+							
+						</div>
+					</div>
+					
+					
+	
+				
+				<!-- 댓글창 끝 -->
+				</div>
+				
+				<!-- 댓글창 내에서 우측 공간주는 col -->
+				<div class="col-1"></div>
 			</div>
 			
-			<div class="row">
 			
-			</div>
 			
-				
-				
-				
-				
-		
-				
-		
-				
+
 				
 				</div> 
 			</div>

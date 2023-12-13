@@ -2,8 +2,8 @@ package com.mkfactory.toothless.c.dto;
 
 public class AjdksTimecardCategoryDto {
 	
-	public int timecard_category_pk;
-	public String timecard_category_name;
+	private int timecard_category_pk;
+	private String timecard_category_name;
 	
 	public AjdksTimecardCategoryDto() {
 		super();

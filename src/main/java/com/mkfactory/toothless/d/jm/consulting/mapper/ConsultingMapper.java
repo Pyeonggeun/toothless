@@ -41,10 +41,12 @@ public interface ConsultingMapper {
 	public HopeJobDto getLastHopejob(int student_pk);
 	//학생 진행중 구직희망 프로그램 출력
 	public HopeJobDto getProgressHopejob(int student_pk);	
-	//학생 최근 온라인상담 10건 뽑아오기(추후건수 변경가능)
-	public List<OnlineConsultingDto> getOnlineConsultingList (
+	//학생 본인 최근 온라인상담 10건 뽑아오기 + 정렬
+	public List<OnlineConsultingDto> getMyOnlineConsultingList (
 			@Param("hope_job_pk")int hope_job_pk, 
-			@Param("isReply") String isReply);
+			@Param("isReply") String isReply
+			)
+			;
 	
 	
 	

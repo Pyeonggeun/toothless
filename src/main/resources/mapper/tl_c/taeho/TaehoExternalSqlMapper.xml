@@ -3,6 +3,54 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mkfactory.toothless.c.taeho.mapper.TaehoExternalSqlMapper">
+	
+	<select id="selectSessionCompanyInfoByExternalPk" resultType="com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto">
+		SELECT * FROM tl_c_company_info WHERE external_pk = #{external_pk}
+	</select>
+
+	<select id="selectIngInternshipCourseByExternalPk" resultType="Map">
+		SELECT * FROM TL_C_INTERNSHIP_COURSE tcic 
+		INNER JOIN TL_C_COMPANY_INFO tcci ON tcic.COMPANY_PK  = tcci.COMPANY_PK 
+		INNER JOIN TL_JIC_EXTERNAL_INFO tjei ON tcci.EXTERNAL_PK = tjei.EXTERNAL_PK 
+		WHERE tjei.external_pk = #{external_pk}
+		<![CDATA[
+		AND TO_CHAR(sysdate, 'yyyy/MM/dd') >= TO_CHAR(tcic.INTERNSHIP_START_DATE, 'yyyy/MM/dd')
+		AND TO_CHAR(sysdate, 'yyyy/MM/dd') <= TO_CHAR(tcic.INTERNSHIP_END_DATE, 'yyyy/MM/dd')
+		]]> 
+	</select>
+
+	<select id="selectInternshipCourseInfoByInternshipCoursePk" resultType="Map">
+		SELECT tcic.INTERNSHIP_COURSE_PK, tcic.COURSE_TITLE, tcic.INTERNSHIP_TOTAL_MEMBER, tcic.INTERNSHIP_START_DATE, tcic.INTERNSHIP_END_DATE, tjpi.PHONE, tjpi.NAME AS PROFESSOR_NAME, tjdc.name AS DEPARTMENT_NAME 
+		FROM TL_C_INTERNSHIP_COURSE tcic 
+		INNER JOIN TL_JIC_PROFESSOR_INFO tjpi ON tcic.PROFESSOR_PK = tjpi.PROFESSOR_PK 
+		INNER JOIN TL_JIC_DEPARTMENT_CATEGORY tjdc ON tcic.DEPARTMENT_PK = tjdc.DEPARTMENT_PK
+		WHERE tcic.INTERNSHIP_COURSE_PK = #{internship_course_pk}
+	</select>
+
+	<select id="selectStudentInternByInternshipCoursePk" resultType="Map">
+		SELECT * FROM TL_JIC_STUDENT_INFO tjsi 
+		INNER JOIN TL_C_STUDENT_INTERN tcsi ON tjsi.STUDENT_PK = tcsi.STUDENT_PK 
+		WHERE tcsi.INTERNSHIP_COURSE_PK = #{INTERNSHIP_COURSE_PK}
+	</select>
+
+	<insert id="insertTimecardByStudentInternPk">
+		INSERT INTO tl_c_company_timecard VALUES (
+			tl_c_company_timecard_seq.nextval,
+			#{student_intern_pk},
+			#{timecard_category_pk},
+			#{timecard_year},
+			#{timecard_month},
+			#{timecard_date},
+			#{getin_hour},
+			#{getin_minute},
+			#{getoff_hour},
+			#{getoff_minute},
+			#{company_log},
+			sysdate		
+		)
+	</insert>
+
+
 
 
 

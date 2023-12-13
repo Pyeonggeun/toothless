@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.c.dto.AjdksProfessorEvaluationDto;
 import com.mkfactory.toothless.c.eunbi.service.EunbiProfessorServiceImpl;
+import com.mkfactory.toothless.c.eunbi.service.EunbiStudentServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 
 @Controller
@@ -17,6 +18,8 @@ public class EunbiProfessorController {
 	
 	@Autowired
 	private EunbiProfessorServiceImpl professorService;
+	@Autowired
+	private EunbiStudentServiceImpl studentService;
 	
 	@RequestMapping("internshipMainPage")
 	public String internshipMainPage(HttpSession session, Model model) {
@@ -49,7 +52,9 @@ public class EunbiProfessorController {
 //		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
 //		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
 //		
-		model.addAttribute("internshipCourseDetail", professorService.viewInternshipCourseDetail(internship_course_pk));
+//		model.addAttribute("internshipCourseDetail", professorService.viewInternshipCourseDetail(internship_course_pk));
+		model.addAttribute("internship_course_pk", internship_course_pk);
+		
 		
 		return "tl_c/eunbi/professor/viewInternshipCourseDetailPage";
 		
@@ -71,7 +76,7 @@ public class EunbiProfessorController {
 	@RequestMapping("viewStudentDetailPage")
 	public String viewStudentDetailPage(HttpSession session, Model model, int student_pk) {
 		
-		model.addAttribute("studentDetails", professorService.viewStudentDetail(student_pk));
+		model.addAttribute("student_pk", student_pk);
 		
 		return"tl_c/eunbi/professor/viewStudentDetailPage";
 	}

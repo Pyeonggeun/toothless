@@ -28,9 +28,9 @@
 		</div>
 		
 		<div class="col-9">
-			<div class="row border pt-2 mt-2">
+			<div class="row border pt-2 mt-5">
 				<div class="col">				
-					<div class="row mt-2 " style="font-size:1.2em;">
+					<div class="row " style="font-size:1.2em;">
 						<div class="col fw-bold">
 							만족도 조사 답변
 						</div>		
@@ -39,7 +39,7 @@
 						</div>										
 					</div>
 					<div class="row mt-3 pt-2 border-top">
-						<div class="col-3 fw-bold">
+						<div class="col-3 fw-bold border-end">
 							응답 번호
 						</div>	
 						<div class="col-9">
@@ -47,7 +47,7 @@
 						</div>																		
 					</div>
 					<div class="row mt-3">
-						<div class="col-3 fw-bold">
+						<div class="col-3 fw-bold border-end">
 							이름
 						</div>	
 						<div class="col-9">
@@ -55,7 +55,7 @@
 						</div>												
 					</div>
 					<div class="row mt-3">
-						<div class="col-3 fw-bold">
+						<div class="col-3 fw-bold border-end">
 							점수
 						</div>	
 						<div class="col-9">
@@ -64,12 +64,12 @@
 					</div>
 					<div class="row mt-3">
 						<div class="col-3">
-							<div class="row">
+							<div class="row pt-3">
 								<div class="col fw-bold">
 									기타사항
 								</div>
 							</div>
-							<div class="row">
+							<div class="row pt-4">
 								<div class="col">
 									${detailHJFInfo.hopeJobFeedbackDto.hjf_comment}
 								</div>
@@ -81,6 +81,9 @@
 				</div>
 			</div>
 			
+			<div class="col mt-5">
+				<a class="navbar-brand" href="./FeedbackListPage">목록으로</a>
+			</div>				
 			
 			
 

@@ -55,35 +55,20 @@
 			</div>
 			
 			<div class="row">
-				<div class="col border py-4 mx-2 rounded border-dark btn text-start" onclick="location.href='#'">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
 					<div class="row">
-						<div class="col ms-2">
-								A동
-						</div>
-					</div>
-					
-					<div class="row mt-2">
-						<div class="col ms-2">
-							<span class="fs-5 fw-bold text-black">
-								x
-							</span>건
+						<div class="col ms-2 fw-bold">
+							A동
 						</div>
 					</div>
 				</div>
-				<div class="col border py-4 mx-2 rounded border-dark btn text-start" onclick="location.href='#'">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
 					<div class="row">
-						<div class="col ms-2">
-								B동
+						<div class="col ms-2 fw-bold">
+							B동
 						</div>
 					</div>
 					
-					<div class="row mt-2">
-						<div class="col ms-2">
-							<span class="fs-5 fw-bold text-black">
-								x
-							</span>건
-						</div>
-					</div>
 				</div>
 				<div class="col-8"></div>
 			</div>
@@ -102,27 +87,21 @@
 							</tr>
 						</thead>
 						<tbody>
-							<!-- 값 반복 예정 -->
-							<tr>
-								<td>홍길동</td>
-								<td>A동</td>
-								<td>1층</td>
-								<td>101호</td>
-								<td>
-									<span>101호</span>
-									<span>102호</span>
-								</td>
-							</tr>
-							<tr>
-								<td>신짱구</td>
-								<td>B동</td>
-								<td>2층</td>
-								<td>201호</td>
-								<td>
-									<span>201호</span>
-									<span>202호</span>
-								</td>
-							</tr>
+							<c:forEach items="${executiveManagemenListMap}" var="executiveManagemenListMap">
+								<tr>
+									<td>${executiveManagemenListMap.studentInfoDto.name}</td>
+									<td>${executiveManagemenListMap.dormBuildingDto.name}</td>
+									<td>${executiveManagemenListMap.dormRoomDto.dorm_floor}</td>
+									<td>${executiveManagemenListMap.dormRoomDto.room_name}</td>
+									<td>
+										<c:forEach items="${executiveManagemenListMap.personalExecutiveRoomList}" var="personalExecutiveRoomList">
+											<span class="text-black">
+												${personalExecutiveRoomList.dorm_floor}층 ${personalExecutiveRoomList.room_name}
+											</span> 
+										</c:forEach>
+									</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>

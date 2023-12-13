@@ -30,11 +30,11 @@
 </div>
 <div class="row">
 	<a class="col ps-3 mt-3 fs-5 fw-bold navbar-brand" 
-		href="#">기업관리</a>
+		href="../gw_company/registerCompanyPage">기업등록</a>
 </div>
 <div class="row">
 	<a class="col ps-4 mt-2 navbar-brand" 
-		href="#">기업목록</a>
+		href="../gw_company/companyManagementPage">기업목록</a>
 </div>
 <div class="row">
 	<a class="col ps-4 mt-2 navbar-brand" 
@@ -46,11 +46,11 @@
 </div>
 <div class="row">
 	<a class="col ps-3 mt-3 fs-5 fw-bold navbar-brand"
-		href="#">프로그램관리</a>
+		href="../gw_program/programListPage">프로그램관리</a>
 </div>
 <div class="row">
 	<a class="col ps-4 mt-2 navbar-brand" 
-		href="#">프로그램등록</a>
+		href="../gw_program/registerProgramPage">프로그램등록</a>
 </div>
 <div class="row">
 	<a class="col ps-4 mt-2 navbar-brand" 

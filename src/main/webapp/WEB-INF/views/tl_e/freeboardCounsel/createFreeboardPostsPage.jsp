@@ -106,7 +106,7 @@
 							<div class="col">
 							자유게시판은 학생들의 글과 의견을 자유롭게 제시할 수 있는 게시판입니다.<br>
 							상업성광고, 정치적 목적 게시물, 특정단체나 개인의 명예훼손 게시물, 음란물 등 미풍양속에 어긋나는 게시물 게시자는 <br>
-							<span class="fw-bold text-danger">학사 징계</span>와 함게 <span class="fw-bold text-danger">민형사상 불이익</span>을 받을 수 있으니 게시판 성격에 맞는 내용만 게시하시기 바랍니다.
+							<span class="fw-bold text-danger">학사 징계</span>와 함께 <span class="fw-bold text-danger">민형사상 불이익</span>을 받을 수 있으니 게시판 성격에 맞는 내용만 게시하시기 바랍니다.
 							</div>
 				
 						</div>
@@ -123,7 +123,7 @@
 			<!--내용을 제외한 주요 정보들 -->
 			
 			<!-- 폼 액션 시작 -->
-			<form action="./createFreeboardPostsProcess" method=post>
+			<form action="./createFreeboardPostsProcess" method=post enctype="multipart/form-data">
 			<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk}">
 			
 				<div class="row">
@@ -149,14 +149,20 @@
 				
 				<!-- 글 내용 -->
 				<div class="row pt-3">
-					<div class="col">
-						<textarea name = "text" cols=150 rows=20 placeholder="이 공간에 원하는 내용을 입력하시면 됩니다..."></textarea>
+					<div class="col text-center">
+						<textarea name = "text" cols=160 rows=20 placeholder="이 공간에 원하는 내용을 입력하시면 됩니다..."></textarea>
 					</div>
+				</div>
+				
+				<!-- 글 내용과 작성완료 버튼 사이에 파일 업로드 위한 공간  -->
+				<div class="row">
+					<input name="imgFiles" type="file" accept="image/*" multiple>
+					
 				</div>
 			
 				<div class="row py-2">
 					<div class="col-5"></div>
-					<div class="col"  ><input type="submit" class="fw-semibold text-white py-1 rounded" style="background-color:#133369;" value="글 작성 완료"></div>
+					<div class="col text-center"  ><input type="submit" class="fw-semibold text-white py-1 rounded" style="background-color:#133369;" value="글 작성 완료"></div>
 					<div class="col-5"></div>
 				</div>
 			<!-- 폼액션 끝 -->

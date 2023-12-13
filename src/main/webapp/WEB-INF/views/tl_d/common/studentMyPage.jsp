@@ -81,8 +81,47 @@
 						<!-- (예정)신청한 공고정보 -->
 						<div class="row border-bottom border-2 border-dark">
 							<div class="col fs-5 fw-bold mt-5 pb-1">(예정)신청채용정보</div>
-							<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
+							<div class="col fs-5 fw-bold mt-5 text-end">
+								<a class="navbar-brand" href="../sb_resume/postApplyListPage">
+									<i class="bi bi-plus-lg"></i>
+								</a>	
+							</div>
 						</div>
+						<c:forEach items="${applyPostListForMyPage }" var="list">
+							<div class="row my-3 border-bottom">
+								<div class="col-4">
+									<!-- 회사 이름 -->
+									<div class="row">
+										<div class="col ms-2">${list.companyDto.com_name }</div>
+									</div>
+									<!-- 가족기업여부 -->
+									<div class="row mb-2">
+										<div class="col ms-2">
+											<c:if test="${list.companyDto.is_family_company ne null and list.companyDto.is_family_company eq 'Y'}">
+												<span class="badge text-bg-info text-white">Family</span>
+											</c:if>						
+										</div>
+									</div>
+								</div>
+								<div class="col">
+									<!-- 공고 제목 -->
+									<div class="row">
+										<div class="col">
+											${list.postDto.posting_name }
+										</div>
+									</div>
+									<!-- #카테고리 #콘텐츠 #주소 지역 #마감일 -->
+									<div class="row mb-3">
+										<div class="col">
+											<span class="text-secondary">#&nbsp;${list.jfcDto.job_field_category_name} #&nbsp;${list.postDto.job_position}
+											#&nbsp;${list.companyDto.com_address} #&nbsp;<fmt:formatDate value="${list.postDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+								
+						
 						<!-- (예정)신청한 공고정보 끝 -->
 					</div>
 					<div class="col mx-5 px-5 border-start">

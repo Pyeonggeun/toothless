@@ -74,7 +74,6 @@ public class ConsultingService {
 		
 		//아직 온라인 신청0번이면 가능
 		if(onlineConsultingDto == null) {
-			
 			return true;
 		}
 		
@@ -82,12 +81,11 @@ public class ConsultingService {
 		int on_consulting_pk = onlineConsultingDto.getOn_consulting_pk();
 		OnlineConsultingReplyDto onlineConsultingReplyDto = consultingMapper.checkOnConsultingReply(on_consulting_pk);
 		
+		//
 		if(onlineConsultingReplyDto != null) {
-
 			return true;
 		}
 		else {
-
 			return false;
 		}
 		
@@ -186,13 +184,14 @@ public class ConsultingService {
 	
 	//학생 최근 상담 10건 꺼내오기(나중에 페이징 처리하자)
 	//이 쿼리의 한계 <- 하나의 구직희망신청에서만 온라인 상담 내역 출력가능...
-	public List<Map<String, Object>> getOnlineConsultingList (int student_pk, String isReply){
+	public List<Map<String, Object>> getMyOnlineConsultingList (int student_pk, String isReply){
 		
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
 		HopeJobDto hopeJobDto = consultingMapper.getLastHopejob(student_pk);		
-		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getOnlineConsultingList(hopeJobDto.getHope_job_pk(), isReply);
+		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getMyOnlineConsultingList(hopeJobDto.getHope_job_pk(), isReply);
+		
 		for(OnlineConsultingDto onlineConsultingDto : onlineConsultingDtoList) {
 			int on_consulting_pk = onlineConsultingDto.getOn_consulting_pk();
 			OnlineConsultingReplyDto onlineConsultingReplyDto = consultingMapper.getOnConsultingReplyByOnPk(on_consulting_pk);
@@ -405,8 +404,8 @@ public class ConsultingService {
 			StudentInfoDto studentInfoDto = consultingMapper.getStudentInfoByHopeJobPk(hopeJobPk);
 			
 			//응답/미응답 확인
-			int student_pk = studentInfoDto.getStudent_pk();
-			OnlineConsultingReplyDto dto = consultingMapper.checkOnConsultingReply(student_pk);
+			int on_consulting_pk = onlineConsultingDto.getOn_consulting_pk();
+			OnlineConsultingReplyDto dto = consultingMapper.checkOnConsultingReply(on_consulting_pk);
 			if(dto==null) {
 				map.put("isReply", false);
 				
@@ -431,20 +430,20 @@ public class ConsultingService {
 	
 	
 	//교직원 입장에서 온라인상담 미응답/응답 출력
-	public boolean checkOnConsultingReplyForStaff (int student_pk) {
-		
-		OnlineConsultingReplyDto dto = consultingMapper.checkOnConsultingReply(student_pk);
-		
-		if(dto==null) {
-			return false;
-		}
-		
-		else {
-			return true;
-		}
-	}
-	
-	
+//	public boolean checkOnConsultingReplyForStaff (int student_pk) {
+//		
+//		OnlineConsultingReplyDto dto = consultingMapper.checkOnConsultingReply(student_pk);
+//		
+//		if(dto==null) {
+//			return false;
+//		}
+//		
+//		else {
+//			return true;
+//		}
+//	}
+//	
+//	
 	//교직원입장에서 구직희망 진행중인 학생 리스트 보기
 	//구직희망 - 학생엮음, 구직희망pk당 학생 정보
 	public List<Map<String, Object>> getHopeJobInfoList(){		

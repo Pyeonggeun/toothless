@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +59,7 @@
 			</div>
 			
 			<!-- 안쪽 두번째로우  - 전체 메뉴창 -->
-			<div class="row fw-bold py-2 fs-5" style= "background-color: #133369;">
+			<div class="row fw-bold py-2 fs-5 m-0" style= "background-color: #133369;">
 				<div class="col text-center text-light">상담신청</div>
 				<div class="col text-center text-light">공지사항</div>
 				<div class="col text-center text-light" >자유게시판</div>
@@ -67,17 +68,22 @@
 			<!-- 안쪽 두번째로우 끝-->
 			</div>
 			
+			
+				<!-- 상단배너 이미지 넣는  로우 시작 -->
+			<div class= "row p-0 m-0">
+				<div class="col d-grid p-0 m-0"> 
+					<img class="img-fluid" src="../../resources/img/offlineCounsel/offlineCounselBanner5.jpg">
+				</div>
+			<!-- 상단배너 이미지 넣는  로우 끝 -->
+			</div>
+			
 			<!-- 첫번째 콜 끝 메뉴창과 학교로고+로그인 상태 창을 포함하는 -->
 		</div>	
 	<!-- 첫번째 로우 끝 메뉴창과 학교로고+로그인 상태 창을 포함하는 -->
 	</div>
 	
 	
-	<!-- 상단배너 이미지 넣는  로우 시작 -->
-	<div class= "row">
-		<div class="col d-grid p-0 m-0"> 추후 이미지 클래스 추가 예정 </div>
-	<!-- 상단배너 이미지 넣는  로우 끝 -->
-	</div>
+
 
 	<!-- 중요한 내용이 들어가는 로우와 콜 시작 > 상시 변동 가능 -->
 	<div class="row">
@@ -99,55 +105,71 @@
 					<div class="row text-white text-center my-1 px-1 p-1 rounded-1  border-2 border-bottom" style="background-color:#888888;">
 								<div class="col-1 fw-bold">글번호</div>
 								<div class="col-2 fw-bold ">글제목</div>
-								<div class="col-4">내용</div>
+								<div class="col-5">내용</div>
 								<div class="col-1">조회수</div>
-								<div class="col-2 fw-bold">작성자</div>
+								<div class="col-1 fw-bold">작성자</div>
 								<div class="col-2">작성일</div>
 					</div>
 					
 					<c:forEach items="${bestFreeboardPostList}" var="best">
 						<div class="row text-center my-1 px-1 p-1 rounded-1  border-2 border-bottom"> 
 							<div class="col-1">${best.elementFreeboardPost.id}</div>
-							<div class="col-2"><a href="./readFreeboardPostPage?id=${best.elementFreeboardPost.id}">${best.elementFreeboardPost.title}</a></div>
-							<div class="col-4">${best.elementFreeboardPost.text}</div>
+							<div class="col-2 text-start"><a class="link-dark link-underline link-underline-opacity-0" href="./readFreeboardPostPage?id=${best.elementFreeboardPost.id}">${best.elementFreeboardPost.title}</a></div>
+							<div class="col-5 text-start">${best.elementFreeboardPost.text}</div>
 							<div class="col-1">${best.elementFreeboardPost.read_count}</div>
-							<div class="col-2">${best.studentInfo.name}</div>
-							<div class="col-2">${best.elementFreeboardPost.created_at}</div>
+							<div class="col-1">${best.studentInfo.name}</div>
+							<div class="col-2"><fmt:formatDate value="${best.elementFreeboardPost.created_at}" pattern="yyyy-MM-dd hh:mm"/> </div>
 						</div>
 						</c:forEach>
 				</div>
 			<!-- 상단 조회수 기준 베스트 게시물 끝-->
 			</div>
 			
-		
-			<div class="row my-2 py-2"> 
-					<form class="d-flex" role="search">
-						<div class="col-3  text-end me-2">
-							<div class="dropdown">
-								  <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> 검색기준 선택 </button>
-								  <ul class="dropdown-menu">
-								    <li><a class="dropdown-item" href="#">글번호</a></li>
-								    <li><a class="dropdown-item" href="#">글제목</a></li>
-								    <li><a class="dropdown-item" href="#">글내용</a></li>
-								    <li><a class="dropdown-item" href="#">작성자</a></li>
-								  </ul>
-								</div>
+			<!-- 검색창 감싸는 로우 콜 -->	
+			<div class="row">
+				<div class="col">
 						
+						
+						
+				<!-- 임시 검색 로우 콜 -->
+				
+				<div class="row">
+					<div class="col">
+					<form action="./freeboardCounselPage" method="get">
+						<div class="row"> <!--검색-->
+							<div class="col"> 
+								<select name="searchType" class="form-select">   
+									<option selected value="title">글 제목</option>
+									<option value="text">글내용</option>
+									<option value="id">글번호</option>
+									<option value="name">작성자</option>
+								</select>
+							</div>
+							<div class="col"> 
+								<input name ="searchWord" type = "text" class="form-control">
+							</div>
+							<div class="col"> 
+								<input class="btn btn-dark" type="submit">
+							</div>
 						</div>
-						<div class="col-6"><input class="form-control" type="search" placeholder="추후 기능 추가  예정) 검색" aria-laber="Search"></div>
-						<div class="col-2 ms-2 btn text-white" type="submit" style="background-color:#133369;">Search</div>
 					</form>
+					
+					</div>
+				</div>					
+					
+			<!-- 검색창 감싸는 로우 콜 -->	
+				</div>
 			</div>
 			
 			
 			
 			
 			
-			<div class="row my-2 border-bottom "> <div class="col fw-semibold"> 전체게시물</div> </div>
-			<div class="row"> 
-				<div class="col-3"><i class="bi bi-list-ul"></i> 총 게시물 수 ${countedPost}</div> 
+			
+			<div class="row me-0 pe-0"> 
+				<div class="col-3"> <span class="fw-bold fs-5">전체게시물</span> <i class="bi bi-list-ul"></i> 총 게시물 수 ${countedPost}</div> 
 				<div class="col"></div> 
-				<div class="col">향후 리스팅 형태 추가 예정</div> 
+				<div class="col pe-0 me-0 text-end"> <a class="btn  text-white text-center fw-bold" role="button"  href="./createFreeboardPostsPage" style="background-color:#133369;">글 작성 하기</a> </div> 
 			</div>
 			
 			<!-- 글 목록이 리스팅 되는 로우 시작 -->
@@ -159,9 +181,9 @@
 					<div class="row  text-white text-center my-1 px-1 p-1 rounded-1  border-2 border-bottom" style= "background-color: #133369;">
 						<div class="col-1 fw-bold">글번호</div>
 						<div class="col-2 fw-bold ">글제목</div>
-						<div class="col-4">내용</div>
+						<div class="col-5">내용</div>
 						<div class="col-1">조회수</div>
-						<div class="col-2 fw-bold">작성자</div>
+						<div class="col-1 fw-bold">작성자</div>
 						<div class="col-2">작성일</div>
 					</div>
 				<!-- 글 목록이 리스팅 되는 콜 끝 -->
@@ -169,40 +191,46 @@
 			
 					<!-- 목차에 맞춘 진짜 글 리스팅 되는 로우 시작 -->
 					<c:forEach items="${combinedFreeboardList}" var="List">
+						
 						<div class="row text-center my-1 mx-1 p-1  border-bottom border-dark-subtle">
-							<div class="col-1 fw-bold">${List.elementFreeboardDto.id}</div>
-							<div class="col-2 fw-bold"><a href="./readFreeboardPostPage?id=${List.elementFreeboardDto.id}">${List.elementFreeboardDto.title}</a></div>
-							<div class="col-4">${List.elementFreeboardDto.text}</div>
+							<div class="col-1 ">${List.elementFreeboardDto.id}</div>
+							<div class="col-2 fw-bold text-start"><a class="link-dark link-underline link-underline-opacity-0" href="./readFreeboardPostPage?id=${List.elementFreeboardDto.id}">${List.elementFreeboardDto.title}</a></div>
+							<!-- 최근게시물에 아이콘 붙이기 -->
+							<div class="col-5 text-start">
+								${List.elementFreeboardDto.text}
+								<c:forEach items="${newPostList}" var="brand">
+									<c:choose>
+										<c:when test="${brand.id == List.elementFreeboardDto.id }">
+											<i class="bi bi-check2-square fs-5 text-warning"></i>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+							</div>
 							<div class="col-1">${List.elementFreeboardDto.read_count}</div>
-							<div class="col-2 fw-bold">${List.studentInfo.name}</div>
-							<div class="col-2">${List.elementFreeboardDto.created_at}</div>
+							<div class="col-1 fw-bold">${List.studentInfo.name}</div>
+							<div class="col-2"><fmt:formatDate value="${List.elementFreeboardDto.created_at}" pattern="yyyy-MM-dd hh:mm"/> </div>
 						
 						<!-- 목차에 맞춘 진짜 글 리스팅 되는 로우 끝 -->
 						</div>
+						
 					</c:forEach>
 					
 			
 			<!-- 글 목록이 리스팅 되는 공간 끝 -->
 			</div>
 			
-			<div class="row"> <div class="col">빈 공간</div> </div>
+			<div class="row"> <div class="col text-center">빈 공간</div> </div>
 			
 			<!--주요내용 마지막 페이징과 글작성버튼  -->
-			<div class="row"> 
+			<div class="row mb-3"> 
 				<div class="col-2">빈공간 </div> 
-				<div class="col-8">페이징 예정 공간</div> 
-				<div class="col-2 text-end"> <a class="btn  text-white text-center fw-bold" role="button"  href="./createFreeboardPostsPage" style="background-color:#133369;">글 작성 하기</a> </div> 
+				<div class="col-8 text-center">페이징 예정 공간</div> 
+				<div class="col-2"> 빈공간 </div> 
 			</div>
 	
-	
-			
-			<a href="#"> 학사정보시스템 메인으로 복귀 버튼 예정</a>
-			
-			<a href=""> 상담 학생페이지 메인으로 복귀 버튼 예정</a>
 		
 		
-		
-		<!-- 중간에 중요한 내용이 들어가는 로우와 콜 시작 > 상시 변동 가능 -->
+		<!-- 중간에 중요한 내용이 들어가는 로우와 콜 끝 > 상시 변동 가능 -->
 		</div>
 		
 		<!-- 오른쪽 공간 주는 col -->

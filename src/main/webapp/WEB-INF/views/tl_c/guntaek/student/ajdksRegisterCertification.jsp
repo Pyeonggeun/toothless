@@ -68,16 +68,108 @@
 	<div class="col">
 		<div class="row">
 			
-				<div class="col mx-3">
+			<div class="col mx-3">
+			
+			
+			<div class ="row ms-2" style="margin-top:100px;">
+							
+							<div class="col-4 d-flex align-items-center">
+							<i class="bi bi-person-badge-fill" style="font-size: 2em;"></i> <span style = "font-size: 20pt">&nbsp;이력서 사진 등록</span></div>
+							<div class="col-7"></div>
+							
+							<br>
+							  <hr style="border-top:2px solid; margin-bottom: 0;">
+    		</div>
+			
+			<div class="row ms-2">		
+					<c:choose>
 					
-					<!-- 자소서를 하나도 등록하지 않았을때 이력서를 등록해준다.-->
+						<c:when test = "${empty selfIntroductionDto}"> 
+							<div class="col-2 border d-flex align-items-center justify-content-center" style="height:300px;">
+								<strong> 자소서 먼저 입력해주세요.</strong>
+							</div>
+						</c:when>
+						
+					
+					<%-- 답변만 했을 경우 (이미지 아직 X) --%>
+						<c:when test = "${selfIntroductionDto.self_introduction_img_pk == 0}"> 
+							<div class="col-2">
+								<form action="./ajdksRegisterIntroductionImage"  enctype="multipart/form-data" method ="post" >					
+									<div class="row border d-flex align-items-center justify-content-center"">
+	 
+									 	<input name="imageLink" type="file" accept="image/*" >		
+									 
+									 		<br><br><br><br><br><br><br><br><br><br><br>
+									 
+									 	<input type ="submit" value="제출">
+									</div>	
+								</form>
+							</div>
+						</c:when>
+					<%-- 만약 자격증을 등록했다면!? --%>					
+						<c:when test = "${selfIntroductionDto.self_introduction_img_pk != 0}">
+								<div class= "col-2 border d-flex align-items-center justify-content-center" style="height:300px;">
+												<img class="img-fluid " src="/Git_imageFile/${imageLink}">
+								</div>
+						</c:when>	
+					</c:choose>
+							
+							
+							
+							
+							
+							
+							
+							
+																
+					<div class="col-3">
+							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px; background-color: #CFE2FF;" >
+							        학생명/성별 *
+							    </div>
+							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px; background-color: #CFE2FF;">
+							        전화번호/휴대폰 *
+							    </div>
+							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px; background-color: #CFE2FF;">
+							        이메일 *
+							    </div>
+							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px; background-color: #CFE2FF;">
+							        주소 *
+							    </div>
+							</div>
+
+
+						<div class="col-7  text-center">
+								<div class="row border d-flex align-items-center justify-content-center" style="height:75px;">
+							        ${loginUser.name} /  ${loginUser.gender} 
+							    </div>
+							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px;">
+							        ${loginUser.phone}
+							    </div>
+							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px;">
+							        ${loginUser.email}
+							    </div>
+							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px;">
+							        ${loginUser.address}
+							    </div>
+						</div>
+						 <hr style="border-top:2px solid; margin-bottom: 0;">	
+					</div>
+			
+			
+			
+			
+			
+			
+			
+					
+			<!-- 자소서를 하나도 등록하지 않았을때 이력서를 등록해준다.-->
 			<c:choose>
 				<c:when test = "${introductionCount == 0}"> 
  			
  			<form action="ajdksRegisterSelfIntroductionProcess" method="post">
 				<div class ="row mt-5 ms-2">
 					<div class ="col-4">
-						<i class="bi bi-person-badge-fill" style="font-size: 2em;"></i> <span style = "font-size: 20pt">&nbsp;자기소개서 작성</span>
+						<i class="bi bi-person-vcard-fill" style="font-size: 2em;"></i> <span style = "font-size: 20pt">&nbsp;자기소개서 작성</span>
 					</div>
 				</div>
 				
@@ -101,7 +193,7 @@
 							<div class="accordion-body">
 												
 							<div class ="row mt-1 ms-2">
-							<div class="col-3 row align-items-center text-center" style="background-color: #B0C4DE; height: 125px; border: 1px solid black; ">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 125px; border: 1px solid black; ">
 										지원동기
 							</div>
 							<div class ="col-9">
@@ -109,20 +201,20 @@
 										
 							</div>
 							
-							<div class="col-3 row align-items-center text-center" style="background-color: #B0C4DE; height: 127px; border: 1px solid black;">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF ; height: 127px; border: 1px solid black;">
 										전공 및 기술 능력
 							</div>
 							<div class ="col-9">
 									    <textarea name="answer2" cols="180" style="height: 127px;">${studentIntroductionDto.answer2}</textarea>
 							</div>
 							
-							<div class="col-3 row align-items-center text-center" style="background-color: #B0C4DE; height: 127px; border: 1px solid black;">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 127px; border: 1px solid black;">
 										주요경력 및 자격사항
 							</div>
 							<div class ="col-9">
 									    <textarea name="answer3" cols="180" style="height: 127px;">${studentIntroductionDto.answer3}</textarea>
 							</div>
-							<div class="col-3 row align-items-center text-center" style="background-color: #B0C4DE; height: 127px; border: 1px solid black;">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 127px; border: 1px solid black;">
 										성격 및 장단점
 							</div>
 							<div class ="col-9 ">
@@ -155,7 +247,7 @@
  			<form action="ajdksUpdateSelfIntroductionProcess" method="post">
 				<div class ="row mt-5 ms-2">
 					<div class ="col-4">
-						<i class="bi bi-person-badge-fill" style="font-size: 2em;"></i> <span style = "font-size: 20pt">&nbsp;자기소개서 작성</span>
+						<i class="bi bi-person-vcard-fill" style="font-size: 2em;"></i> <span style = "font-size: 20pt">&nbsp;자기소개서 작성</span>
 					</div>
 				</div>
 				
@@ -178,7 +270,7 @@
 					      <div class="accordion-body">
 												
 							<div class ="row mt-1 ms-2">
-							<div class="col-3 row align-items-center text-center" style="background-color: #B0C4DE; height: 127px; border: 1px solid black;">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 127px; border: 1px solid black;">
 										지원동기
 							</div>
 							<div class ="col-9">
@@ -186,20 +278,20 @@
 										
 							</div>
 							
-							<div class="col-3 row align-items-center text-center" style="background-color: #B0C4DE; height: 127px; border: 1px solid black;">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 127px; border: 1px solid black;">
 										전공 및 기술 능력
 							</div>
 							<div class ="col-9">
 									    <textarea name="answer2" cols="180" style="height: 127px;">${studentIntroductionDto.answer2}</textarea>
 							</div>
 							
-							<div class="col-3 row align-items-center text-center" style="background-color: #B0C4DE; height: 127px; border: 1px solid black;">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 127px; border: 1px solid black;">
 										주요경력 및 자격사항
 							</div>
 							<div class ="col-9">
 									    <textarea name="answer3" cols="180" style="height: 127px;">${studentIntroductionDto.answer3}</textarea>
 							</div>
-							<div class="col-3 row align-items-center text-center" style="background-color: #B0C4DE; height: 127px; border: 1px solid black;">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 127px; border: 1px solid black;">
 										성격 및 장단점
 							</div>
 							<div class ="col-9 ">
@@ -246,9 +338,14 @@
 			</form>
  			</c:when>
  		</c:choose>
-	   
-	   
-	   
+ 		
+ 		
+<div class ="row ms-2" style ="margin-top:70px;">
+		<div class="col-4 d-flex align-items-center">
+				<i class="bi bi-postcard-fill" style="font-size: 2em;"></i> <span style = "font-size: 20pt">&nbsp; 자격증 등록</span></div>
+		<div class="col-7"></div>
+							
+</div>
 <div class = "row mt-2">	   
 	<div class="accordion accordion-flush" id="accordionFlushExample4">
 	  	<div class="accordion-item">
@@ -265,10 +362,10 @@
 
 							     
 							      	<div class="row mt-2" > 
-							      		<div class = "col-2 text-center border" style = "background-color: #B0C4DE; "> 	자격증명 </div> 
-							      		<div class = "col-4 text-center border" style="background-color: #B0C4DE; " > 취득일자 </div>
-							      		<div class = "col-4 text-center border" style="background-color: #B0C4DE; " > 이미지 파일 링크</div>
-							      		<div class ="col-2 text-center border"  style="background-color: #B0C4DE;"> 삭제</div>
+							      		<div class = "col-2 text-center border" style = "background-color: #CFE2FF; "> 	자격증명 </div> 
+							      		<div class = "col-4 text-center border" style="background-color: #CFE2FF; " > 취득일자 </div>
+							      		<div class = "col-4 text-center border" style="background-color: #CFE2FF; " > 이미지 파일 링크</div>
+							      		<div class ="col-2 text-center border"  style="background-color: #CFE2FF;"> 삭제</div>
 							      	</div>
 							      	
 	
@@ -295,7 +392,7 @@
 								 </c:forEach>
 						     			
 						     			
-						     	<div class="row" style="margin-top:250px;">
+						     	<div class="row" style="margin-top:75px;">
 									<div class="col-2 text-center">
 											자격증명
 									</div>
@@ -322,17 +419,10 @@
 								    <div class="col-4 text-center" >
 											 <input style ="width:289px;" name="imageLink" type="file" accept="image/*" >								    
 									</div>
-									<div class="col-2" >
-																			    
-									</div>
+									<div class="col-2 text-end">
 
-									<div class ="row text-left" style="margin-top:130px;">
-										<div class="col-3">
-										</div>
-										<div class="col-6">
-											<input type ="submit" class="btn btn-dark" value = "자격증 등록">
-										</div>
-										<div class ="col-3"></div>
+										<input type ="submit" class="btn btn-dark" value = "자격증 등록">
+																			    
 									</div>
 									
 								</form>

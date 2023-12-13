@@ -28,8 +28,16 @@
 		<div class="col-3">
 			<jsp:include page="../common/staffMenu.jsp"></jsp:include>	
 		</div>
-		<div class="col-9 border-end border-start px-2 py-2">		
-			<div class="row mt-3">
+		<div class="col-9 border-end border-start px-2 py-2">
+		
+			<div class="row">
+				<div class="col fw-bold" style="font-size:1.5em;">
+					내 구직 관심 분야 관리
+				</div>
+			</div>
+		
+				
+			<div class="row mt-5">
 				<div class="col fw-bold">
 					추가 관심 분야 등록
 				</div>
@@ -78,7 +86,7 @@
 										</c:forEach>
 									</div>
 								</div>
-								<div class="row mt-2">
+								<div class="row mt-4">
 									<div class="col">
 										<input style="font-size:0.7em;" class="btn btn-outline-dark" type="submit" value="삭제">
 									</div>
@@ -92,7 +100,7 @@
 			</div>	
 			<div class="row mt-5">
 				<div class="col">
-					<a href="./hopeJobConsultingPage">목록으로</a>
+					<a href="./hopeJobConsultingPage"><button type="button" class="btn btn-primary">목록</button></a>
 				</div>
 			</div>							
 		</div>

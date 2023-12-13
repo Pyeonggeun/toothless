@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mkfactory.toothless.d.dto.CareerCategoryDto;
 import com.mkfactory.toothless.d.dto.CareerDto;
+import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.InterestPostingDto;
 import com.mkfactory.toothless.d.dto.JobPostingDto;
 import com.mkfactory.toothless.d.dto.LicenseDto;
@@ -51,6 +53,13 @@ public class ResumeController {
 	// 이력서 등록
 	@RequestMapping("resumeRegisterProcess")
 	public String resumeRegisterProcess(ResumeDto params) {
+		
+		List<ResumeDto> list = resumeService.getResumeList(params);
+		if(list.isEmpty()) {
+			params.setMain_resume("Y");
+		}
+		
+		
 		resumeService.resumeRegistration(params);
 		
 		return "redirect:./resumeManagementPage";
@@ -58,27 +67,41 @@ public class ResumeController {
 	
 	// 이력서 목록 페이지
 	@RequestMapping("resumeManagementPage")
-	public String resumeManagementPage(HttpSession session, Model model, ResumeDto params) {
+	public String resumeManagementPage(HttpSession session, Model model) {
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
-		int student_pk = studentInfoDto.getStudent_pk();
-		params.setStudent_pk(student_pk);
 		
-		List<ResumeDto> list = resumeService.getResumeList(params);
+		if(studentInfoDto !=null) {
+			int student_pk = studentInfoDto.getStudent_pk();
+			ResumeDto params = new ResumeDto();
+			params.setStudent_pk(student_pk);
 		
-		List<ResumeDto> resumeList = new ArrayList<ResumeDto>();
-		ResumeDto resumeDto = new ResumeDto();
-		for(ResumeDto dto : list) {
-			if(dto.getMain_resume().equals("Y")) {
-				resumeDto = dto;
-			}else {
-				resumeList.add(dto);
+			List<ResumeDto> list = resumeService.getResumeList(params);
+			List<ResumeDto> resumeList = new ArrayList<ResumeDto>();
+			
+			ResumeDto resumeDto = null;
+			for(ResumeDto dto : list) {
+				if(dto.getMain_resume().equals("Y")) {
+					resumeDto = dto;
+				}else {
+					resumeList.add(dto);
+				}
 			}
+
+			model.addAttribute("resumeDto", resumeDto);
+			model.addAttribute("resumeList", resumeList);
+			
+			return "tl_d/sb_resume/resumeManagementPage";
+		
+		}else {
+			
+			return "redirect:../../another/student/loginPage";
 		}
 		
-		model.addAttribute("resumeDto", resumeDto);
-		model.addAttribute("resumeList", resumeList);
 		
-		return "tl_d/sb_resume/resumeManagementPage";
+		
+		
+		
+		
 	}
 	
 	// 메인이력서 등록
@@ -130,6 +153,14 @@ public class ResumeController {
 		
 		return "tl_d/sb_resume/resumeUpdatePage";
 	}
+	
+	//이력서 삭제
+	@RequestMapping("resumeDeleteProcess")
+	public String resumeDeleteProcess(ResumeDto params) {
+		resumeService.deleteResume(params);
+		return "redirect:./resumeManagementPage";
+	}
+	
 	
 	// 자소서 수정
 	@RequestMapping("resumeUpdateProcess")
@@ -257,8 +288,9 @@ public class ResumeController {
 	
 	// 공고 지원하기 페이지
 	@RequestMapping("applyJobPostingPage")
-	public String applyJobPostingPage(Model model ,HttpSession session ,VolunteerDto params,InterestPostingDto interestPostingDto ) {
-		params.setJob_posting_pk(221);
+	public String applyJobPostingPage(Model model ,HttpSession session ,VolunteerDto params,InterestPostingDto interestPostingDto,
+			@RequestParam(name = "resume_pk", required = false) String resume_pk) {
+		
 		JobPostingDto jobPostingDto = resumeService.getJobPostingDto(params);
 		model.addAttribute("jobPostingDto", jobPostingDto);
 		
@@ -272,7 +304,7 @@ public class ResumeController {
 		model.addAttribute("jobPostingDetailForStudent", postingService.getJobPostingDetailForStudentAndCompany(postingPk));
 		
 		// 관심 공고
-		interestPostingDto.setJob_posting_pk(221);
+		interestPostingDto.setJob_posting_pk(params.getJob_posting_pk());
 		
 		
 		
@@ -284,6 +316,10 @@ public class ResumeController {
 		
 		model.addAttribute("checkMyInteresting", postingService.checkMyPostingInterestCount(interestPostingDto));
 		
+		 if (resume_pk != null && !resume_pk.isEmpty()) {
+			 	ResumeDto dto = resumeService.getResume(resume_pk);
+				model.addAttribute("resumeDto", dto);
+	        }
 		
 		
 		return "tl_d/sb_resume/applyJobPostingPage";
@@ -298,16 +334,81 @@ public class ResumeController {
 		}else {
 			postingService.minusInterestPosting(params);
 		}
-		return "redirect:./applyJobPostingPage?id=" + params.getJob_posting_pk();
+		return "redirect:./applyJobPostingPage?job_posting_pk=" + params.getJob_posting_pk();
 		
 	}
 	
 	// 공고 지원하기
 	@RequestMapping("applyJobPostingProcess")
-	public String applyJobPostingProcess(VolunteerDto params) {
-		resumeService.applyJobPosting(params);
-		return "redirect:../ny_posting/jobPostingListForStudentPage";
+	public String applyJobPostingProcess(VolunteerDto params, HttpSession session) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		ResumeDto resumeDto = new ResumeDto();
+		resumeDto.setStudent_pk(studentInfoDto.getStudent_pk());
+		if(params.getResume_pk() == 0) {
+			List<ResumeDto> resumeList = resumeService.getResumeList(resumeDto);
+			for(ResumeDto dto : resumeList) {
+				if("Y".equals(dto.getMain_resume())) {
+					params.setResume_pk(dto.getResume_pk());
+					resumeService.applyJobPosting(params);
+				}
+			}
+			
+		
+		}else {
+			resumeService.applyJobPosting(params);
+
+		}
+		return "redirect:./postApplyListPage";
 	}
+	
+	
+	// 지원 공고 목록 페이지
+	@RequestMapping("postApplyListPage")
+	public String postApplyListPage(HttpSession session, Model model) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int student_pk = studentInfoDto.getStudent_pk();
+		
+//		List<JobPostingDto> postList = resumeService.getPostApplyList(student_pk);
+//		model.addAttribute("postList", postList);
+//		
+//		List<CompanyDto> companyDtoList = resumeService.getCompanyDtoListByStudentPk(student_pk);
+//		model.addAttribute("companyList", companyDtoList);
+		
+		List<Map<String, Object>> list = resumeService.getPostAndCompanyList(student_pk);
+		model.addAttribute("postAndCompanyList", list);
+		
+		
+		
+		model.addAttribute("applyCount", resumeService.getCountForStudentApplyList(student_pk));
+		
+		return "tl_d/sb_resume/postApplyListPage";
+	}
+	
+	// 공고 지원 취소
+	@RequestMapping("cancleApplyProcess")
+	public String cancleApplyProcess(HttpSession session, int job_posting_pk) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int student_pk = studentInfoDto.getStudent_pk();
+		
+		resumeService.cancleApply(student_pk, job_posting_pk);
+		
+		return "redirect:./postApplyListPage";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 //	// 이력서 수정 페이지

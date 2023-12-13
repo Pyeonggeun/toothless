@@ -258,6 +258,7 @@ public class PostingServiceImpl {
 			
 			int allPostingInterest = postingSqlMapper.selectAllInterestPosting(jobPostingDto.getJob_posting_pk());
 			
+			
 			jobPostingMap.put("companyDto", companyDto);
 			jobPostingMap.put("jobFieldCategoryDto", jobFieldCategoryDto);
 			jobPostingMap.put("jobPostingDto",jobPostingDto);
@@ -411,6 +412,8 @@ public class PostingServiceImpl {
 		return postingSqlMapper.selectByExternalPk(external_pk);
 	}
 	
+	
+	
 	// 공고스크랩 추가
 	public void plusInterestPosting(InterestPostingDto interestPostingDto) {
 		postingSqlMapper.insertInterestPosting(interestPostingDto);
@@ -421,10 +424,20 @@ public class PostingServiceImpl {
 		postingSqlMapper.deleteInterestPosting(intesePostingDto);
 	}
 	
+	// 공고스크랩 했던가..?(restAPI용)
+//	public boolean isMyPostingInterestCount(InterestPostingDto interestPostingDto) {
+//		return postingSqlMapper.selectMyPostingInterestCount(interestPostingDto) > 0 ? true : false;
+//	}
 	// 공고스크랩 했던가..?
-	public int checkMyPostingInterestCount(InterestPostingDto intesePostingDto) {
-		return postingSqlMapper.selectMyPostingInterestCount(intesePostingDto);
+	public int checkMyPostingInterestCount(InterestPostingDto interestPostingDto) {
+		return postingSqlMapper.selectMyPostingInterestCount(interestPostingDto);
 	}
+	
+	// 총 공고 스크랩 수
+	public int allPostingInterest (int job_posting_pk) {
+		return postingSqlMapper.selectAllInterestPosting(job_posting_pk); 
+	}
+	
 	
 	// 공고별 스크랩한 학생 리스트
 	public List<Map<String, Object>> getStudentListByPostingInterest(int job_posting_pk){

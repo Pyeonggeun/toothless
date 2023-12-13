@@ -4,26 +4,43 @@
 
 <mapper namespace="com.mkfactory.toothless.a.staff.jw.mapper.DormStaffMapperJw">
 
+	<!-- 전체 외출현황 -->
 	<select id="selectExitList" resultType="com.mkfactory.toothless.a.dto.ExitDto">
-		SELECT * FROM tl_a_exit
+		SELECT * FROM tl_a_exit ORDER BY DORM_STUDENT_PK ASC
 	</select>
 	
-	<!-- <select id="selectAllStudentInDormStudent" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
-		SELECT * FROM tl_jic_student_info si
-		WHERE si.STUDENT_PK in (
-			SELECT ds.DORM_STUDENT_PK FROM TL_A_DORM_STUDENT ds 
+	<!-- 점호 불참 -->
+	<select id="selectAllCallAbsenceList" resultType="com.mkfactory.toothless.a.dto.CallAbsenceDto">
+		SELECT * FROM TL_A_CALL_ABSENCE
+		WHERE TO_CHAR(CREATED_AT, 'YYYYMMDD') = 
+		TO_CHAR(SYSDATE, 'YYYYMMDD')
+	</select>
+	
+	<!-- 금일 점호 불참한 사생정보 List -->
+	<select id="selectCallAbsenceDormStudentList" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT tads.* FROM TL_A_DORM_STUDENT tads 
+		WHERE tads.DORM_STUDENT_PK IN (
+		SELECT taem.DORM_STUDENT_PK FROM TL_A_CALL_ABSENCE taca 
+		JOIN TL_A_EXECUTIVE_MANAGEMENT taem ON taca.EXECUTIVE_MANAGEMENT_PK = taem.EXECUTIVE_MANAGEMENT_PK
+			WHERE taca.CALL_ABSENCE_PK IN (
+				SELECT TL_A_CALL_ABSENCE.CALL_ABSENCE_PK FROM TL_A_CALL_ABSENCE
+				WHERE TO_CHAR(CREATED_AT, 'YYYYMMDD') = 
+				TO_CHAR(SYSDATE, 'YYYYMMDD')
+			)
 		)
 	</select>
 	
-	<select id="selectDormStudentInfoByStudentPk" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
-		SELECT * FROM TL_A_DORM_STUDENT ds
-		WHERE ds.STUDENT_PK = #{student_pk}
-	</select> -->
-	
-	<select id="selectStudentInfoByDormStudentPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
-		SELECT tjsi.* FROM TL_JIC_STUDENT_INFO tjsi
-		JOIN TL_A_DORM_STUDENT tads ON TADS.STUDENT_PK = TJSI.STUDENT_PK 
-		WHERE TADS.DORM_STUDENT_PK = #{DORM_STUDENT_PK}
+	<select id="selectStudentInfoByProgressSemesterDormStudentPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT tjsi.*
+		FROM TL_JIC_STUDENT_INFO tjsi
+		JOIN TL_A_DORM_STUDENT tads ON tads.STUDENT_PK = tjsi.STUDENT_PK
+		WHERE tads.DORM_STUDENT_PK IN (
+		    SELECT tads.DORM_STUDENT_PK
+		    FROM TL_A_SEMESTER tas
+		    JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK
+		    WHERE tas.PROGRESS_STATE = 'Y'
+		)
+		AND tads.DORM_STUDENT_PK = #{DORM_STUDENT_PK}
 	</select>
 	
 	<select id="selectDormRoomByDormStudentPk" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
@@ -37,7 +54,170 @@
 		WHERE tadb.DORM_PK = #{DORM_PK}
 	</select>
 	
+	<!-- 전체 사생정보 -->
+	<select id="selectAllDormStudentList" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT * FROM tl_a_dorm_student
+		ORDER BY DORM_STUDENT_PK ASC
+	</select>
 	
+	<!-- 전체 임원정보 -->
+	<select id="selectAllExecutiveList" resultType="com.mkfactory.toothless.a.dto.ExecutiveDto">
+		SELECT * FROM TL_A_EXECUTIVE ORDER BY DORM_STUDENT_PK ASC
+	</select>
+	
+	<!-- 진행 중인 학기의 사생정보 -->
+	<select id="selectDormStudentByProgressSemester">
+		SELECT tads.*
+		FROM TL_A_SEMESTER tas
+		JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK
+		WHERE tas.PROGRESS_STATE = 'Y'
+		ORDER BY tads.DORM_STUDENT_PK ASC
+	</select>
+	
+	<!-- 진행 중인 학기의 사생 정보 중 같은 호실인 사생  -->
+	<select id="selectDormStudentByProgressSemesterAndDormRoom" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT tads.*
+		FROM TL_A_SEMESTER tas
+		JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK
+		WHERE tas.PROGRESS_STATE = 'Y'
+		AND tads.DORM_ROOM_PK = #{DORM_ROOM_PK}
+		ORDER BY tads.DORM_STUDENT_PK ASC
+	</select>
+	
+	<!-- 임원 -->
+	<insert id="insertExecutive">
+		INSERT INTO tl_a_executive VALUES(
+			tl_a_executive_seq.nextval,
+			#{dorm_student_pk}
+		)
+	</insert>
+	
+	<select id="selectExecutiveByDormStudentPk" resultType="com.mkfactory.toothless.a.dto.ExecutiveDto">
+		SELECT * FROM TL_A_EXECUTIVE
+		WHERE DORM_STUDENT_PK = #{DORM_STUDENT_PK}
+	</select>
+	
+	<select id="selectExecutiveByExecutivePk" resultType="com.mkfactory.toothless.a.dto.ExecutiveDto">
+		SELECT * FROM TL_A_EXECUTIVE
+		WHERE EXECUTIVE_PK = #{EXECUTIVE_PK}
+	</select>
+	
+	<delete id="deleteExecutiveByDormStudentPk">
+		DELETE FROM TL_A_EXECUTIVE
+		WHERE DORM_STUDENT_PK = #{DORM_STUDENT_PK}
+	</delete>
+	
+	<!-- 임원별 호실 배정 -->
+	<select id="selectDormRoomListByDormFloorAndDormPk"  resultType="com.mkfactory.toothless.a.dto.DormRoomDto" parameterType="hashmap">
+		SELECT tadr.* FROM TL_A_DORM_ROOM tadr
+		JOIN TL_A_DORM_BUILDING tadb ON tadr.DORM_PK = tadb.DORM_PK 
+		WHERE tadr.DORM_FLOOR = #{param1}
+		AND tadb.DORM_PK = #{param2}
+		ORDER BY tadr.DORM_ROOM_PK ASC
+	</select>
+	
+	<select id="countExecutivePerRoomPk" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*) FROM TL_A_EXECUTIVE_MANAGEMENT taem
+		INNER JOIN TL_A_DORM_STUDENT tads ON TADS.DORM_STUDENT_PK = taem.DORM_STUDENT_PK
+		INNER JOIN TL_A_DORM_ROOM tadr ON TADR.DORM_ROOM_PK = TADS.DORM_ROOM_PK 
+		WHERE taem.EXECUTIVE_PK = #{param1}
+		AND tadr.DORM_ROOM_PK = #{param2}
+	</select>
+	
+	<delete id="deleteExecutivePerRoomPk" parameterType="hashmap">
+		DELETE FROM TL_A_EXECUTIVE_MANAGEMENT taem
+		WHERE taem.EXECUTIVE_MANAGEMENT_PK IN  (
+			SELECT taem.EXECUTIVE_MANAGEMENT_PK FROM TL_A_EXECUTIVE_MANAGEMENT taem
+			INNER JOIN TL_A_DORM_STUDENT tads ON TADS.DORM_STUDENT_PK = taem.DORM_STUDENT_PK
+			INNER JOIN TL_A_DORM_ROOM tadr ON TADR.DORM_ROOM_PK = TADS.DORM_ROOM_PK 
+			WHERE taem.EXECUTIVE_PK = #{param1}
+			AND tadr.DORM_ROOM_PK = #{param2}
+		)
+	</delete>
+	
+	<!-- 임원 관리 -->
+	<insert id="insertExecutiveManagement">
+		INSERT INTO TL_A_EXECUTIVE_MANAGEMENT VALUES(
+			TL_A_EXECUTIVE_MANAGEMENT_seq.nextval,
+			#{executive_pk},
+			#{dorm_student_pk}
+		)
+	</insert>
+	
+	<!-- 임원별 배정호실 -->
+	<select id="selectPersonalExecutiveRoomList" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
+		SELECT tadr.ROOM_NAME, tadr.DORM_FLOOR FROM TL_A_DORM_STUDENT tads 
+		JOIN TL_A_DORM_ROOM tadr ON tads.DORM_ROOM_PK = tadr.DORM_ROOM_PK 
+		WHERE tads.DORM_STUDENT_PK IN (
+			SELECT taem.DORM_STUDENT_PK FROM TL_A_EXECUTIVE_MANAGEMENT taem 
+			WHERE taem.EXECUTIVE_PK = #{EXECUTIVE_PK}
+		)
+		GROUP BY tadr.ROOM_NAME, tadr.DORM_FLOOR
+		ORDER BY tadr.ROOM_NAME ASC
+	</select>
+	
+	<!-- 일지 -->
+	<select id="selectAllDiaryList" resultType="com.mkfactory.toothless.a.dto.DiaryDto">
+		SELECT * FROM TL_A_DIARY
+	</select>
+	
+	<!-- 상벌점 -->
+	<insert id="insertPoint">
+		INSERT INTO tl_a_point VALUES(
+		tl_a_point_seq.nextval,
+		#{dorm_student_pk},
+		#{staff_pk},
+		#{point_category_pk},
+		#{reason},
+		sysdate
+	)
+	</insert>
+	
+	<!-- 상벌코드 등록 -->
+	<insert id="insertPointCategory">
+		INSERT INTO tl_a_point_category VALUES(
+		   tl_a_point_category_seq.nextval,
+		   #{content},
+		   #{point}
+		)
+	</insert>
+	
+	<!-- 상벌코드 목록 - 전체 -->
+	<select id="selectPointCategoryAll" resultType="com.mkfactory.toothless.a.dto.PointCategory">
+		SELECT * FROM tl_a_point_category
+		ORDER BY POINT desc
+	</select>
+	
+	<!-- 사생별 상벌점 현황 -->
+	<select id="sumPointByDormStudentPk" resultType="Integer">
+		SELECT SUM(tapc.POINT) FROM TL_A_POINT tap
+		JOIN TL_A_POINT_CATEGORY tapc ON tap.POINT_CATEGORY_PK = tapc.POINT_CATEGORY_PK  
+		JOIN TL_A_DORM_STUDENT tads ON tap.DORM_STUDENT_PK = tads.DORM_STUDENT_PK
+		WHERE tads.DORM_STUDENT_PK = #{DORM_STUDENT_PK}
+	</select>
+	
+	
+	<!-- 현재 진행중인 학기의 임원을 제외한 사생 --> 
+	<select id="selectDormStudentExceptExecuteByProgressSemester" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT tads.*
+		FROM TL_JIC_STUDENT_INFO tjsi
+		JOIN TL_A_DORM_STUDENT tads ON tads.STUDENT_PK = tjsi.STUDENT_PK
+		WHERE tads.DORM_STUDENT_PK IN (
+		    SELECT tads.DORM_STUDENT_PK
+		    FROM TL_A_SEMESTER tas
+		    JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK
+		    WHERE tas.PROGRESS_STATE = 'Y'
+		)
+		AND tads.DORM_STUDENT_PK IN (
+			SELECT tads.DORM_STUDENT_PK FROM TL_A_DORM_STUDENT tads 
+			MINUS
+			SELECT tae.DORM_STUDENT_PK FROM TL_A_EXECUTIVE tae
+		)
+	</select>
+	
+	<select id="selectAllPointCategory" resultType="com.mkfactory.toothless.a.dto.PointCategory">
+		SELECT * FROM TL_A_POINT_CATEGORY
+	</select>
 	
 	
 	

@@ -2,6 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<c:set var="now" value="<%=new java.util.Date()%>" />
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="formattedNow" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,27 +94,49 @@
 									<div class="container">
 
 										<div class="row">
-											<h2>
-												<span class="fw-bolder"><i
-													class="bi bi-building-check"></i>&nbsp;실습생 선발 </span>
-											</h2>
-										</div>
-										<div class="row">
-											<h6>
-												현장 학습 과정 선택
-											</h6>
+											<div class="col-auto">
+												<h2>
+													<span class="fw-bolder"><i
+														class="bi bi-building-check"></i>&nbsp;현장 실습 과정 조회 </span>
+												</h2>
+											</div>
+											<div class="col text-start mt-3">
+												<h6><span class="align-text-bottom">상세 과정 선택</span></h6>
+											</div>
 										</div>
 										<br>
 										<c:forEach items="${list}" var="companyList">
-											<div class="card w-auto mb-3">
+											<div class="card w-50 mb-3 text-center" >
+												<c:if test="${tf eq 'yes'}" >
+													<div class="card-header" style="background-color: #CFE2FF;">진행중</div>
+												</c:if>	
+												<c:if test="${tf eq 'no'}">
+													<div class="card-header"  style="background-color: #CFE2FF;">종료</div>
+												</c:if>
 												<div class="card-body">
-													<h5 class="card-title">${companyList.COMPANY_NAME}</h5>
-													<p class="card-text"><fmt:formatDate
-													value="${companyList.INTERNSHIP_START_DATE}"
-													pattern="yyyy-MM-dd hh:mm" /> ~ <br> <fmt:formatDate
-													value="${companyList.INTERNSHIP_END_DATE}"
-													pattern="yyyy-MM-dd hh:mm" /></p>
-													<a href="#" class="btn btn-primary">상세보기</a>
+													<h5 class="card-title">
+														<p class="fs-4 fw-bolder">
+															<i class="bi bi-bookmarks"></i>
+															&nbsp;${companyList.COMPANY_NAME}
+														</p>
+													</h5>
+													<p class="card-text fs-6">
+														과정 : ${companyList.COURSE_TITLE}<br> 현장실습 진행기간 :
+														<fmt:formatDate
+															value="${companyList.INTERNSHIP_START_DATE}"
+															pattern="yyyy-MM-dd hh:mm" />
+														~
+														<fmt:formatDate value="${companyList.INTERNSHIP_END_DATE}"
+															pattern="yyyy-MM-dd hh:mm" />
+														<br> 모집기간 :
+														<fmt:formatDate value="${companyList.APPLYING_START_DATE}"
+															pattern="yyyy-MM-dd hh:mm" />
+															~
+														<fmt:formatDate value="${companyList.APPLYING_END_DATE}"
+															pattern="yyyy-MM-dd hh:mm" />
+													</p>
+													<a href="./ajdksSelectInternPage?internship_course_pk=${companyList.INTERNSHIP_COURSE_PK}"
+													 class="d-grid btn" style="background-color:	; outline-color:#CFE2FF;">상세보기</a>
 												</div>
 											</div>
 										</c:forEach>
@@ -121,12 +149,13 @@
 					</div>
 
 				</div>
-
 			</div>
-			<!-- 전체 container 출구 -->
-			<script
-				src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-				integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-				crossorigin="anonymous"></script>
+		</div>
+	</div>
+	<!-- 전체 container 출구 -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
 </body>
 </html>

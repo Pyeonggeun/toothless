@@ -84,10 +84,10 @@
 									    <tr>
 									    
 									   <%--  <th scope="row"> <a href="./detailFeedbackPage?hjf_pk=${e.hopeJobFeedbackDto.hope_job_feedback_pk}">1</a></th> --%>
-									      <td><a href="./detailFeedbackPage?hjf_pk=${e.hopeJobFeedbackDto.hope_job_feedback_pk}">${e.hopeJobFeedbackDto.hope_job_feedback_pk }</a></td>
-									      <td><a href="./detailFeedbackPage?hjf_pk=${e.hopeJobFeedbackDto.hope_job_feedback_pk}">${e.studentInfoDto.name }</a></td>
-									      <td><a href="./detailFeedbackPage?hjf_pk=${e.hopeJobFeedbackDto.hope_job_feedback_pk}">${e.hopeJobFeedbackDto.hjf_score}</a></td>									    
-									      <td><a href="./detailFeedbackPage?hjf_pk=${e.hopeJobFeedbackDto.hope_job_feedback_pk}">
+									      <td><a class="navbar-brand" href="./detailFeedbackPage?hjf_pk=${e.hopeJobFeedbackDto.hope_job_feedback_pk}">${e.hopeJobFeedbackDto.hope_job_feedback_pk }</a></td>
+									      <td><a class="navbar-brand" href="./detailFeedbackPage?hjf_pk=${e.hopeJobFeedbackDto.hope_job_feedback_pk}">${e.studentInfoDto.name }</a></td>
+									      <td><a class="navbar-brand" href="./detailFeedbackPage?hjf_pk=${e.hopeJobFeedbackDto.hope_job_feedback_pk}">${e.hopeJobFeedbackDto.hjf_score}</a></td>									    
+									      <td><a class="navbar-brand" href="./detailFeedbackPage?hjf_pk=${e.hopeJobFeedbackDto.hope_job_feedback_pk}">
 									      <fmt:formatDate pattern="yyyy-MM-dd" value="${e.hopeJobFeedbackDto.created_at}"/> </a></td>
 									    
 									    </tr>
@@ -99,7 +99,13 @@
 								</div>
 							</div>
 						</div>
-					</div>					
+					</div>	
+					
+					<div class="col">
+						<a class="navbar-brand" href="./jmTempStaffMainPage">
+							<button type="button" class="btn btn-primary">목록</button>
+						</a>
+					</div>									
 										
 				</div>
 				

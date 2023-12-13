@@ -2,10 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mkfactory.toothless.a.staff.sj.mapper.BuildingSqlMapper">
-		
 
-
-	
 	<!-- 건물 등록 -->
 	<insert id="registerDormInfo">
 		INSERT INTO tl_a_dorm_building VALUES (
@@ -45,7 +42,7 @@
 	
 	<!-- 호실 조회 -->
 	<select id="selectRooms" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
-		SELECT * FROM tl_a_dorm_room ORDER BY DORM_ROOM_PK asc
+		SELECT * FROM TL_A_DORM_ROOM tadr ORDER BY DORM_PK, ROOM_NAME  asc
 	</select>
 	
 	<!-- 호실 삭제 -->
@@ -71,10 +68,10 @@
 	
 	<!-- 정원 카테고리 -->
 	<select id="dormCategory" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
-		SELECT * FROM tl_a_dorm_category
+		SELECT * FROM TL_A_DORM_CATEGORY tadc ORDER BY DORM_AMOUNT ASC
 	</select>
 	
-	<!-- 정원 카테고리 -->
+	<!-- 정원 카테고리 호실별 이미지 등록-->
 	<insert id="insertCategoryImgs">
 		INSERT INTO tl_a_dorm_category VALUES (
 		tl_a_dorm_category_seq.nextval,
@@ -82,16 +79,66 @@
 		#{dorm_imgs}
 	)
 	</insert>
-	
-	<!-- 정원 카테고리 img update -->
-	<update id="updateCategory">
-		UPDATE TL_A_DORM_CATEGORY 
-		SET DORM_IMGS =#{dorm_imgs}
-		WHERE DORM_AMOUNT_PK = #{dorm_amount_pk}
-	</update>
+
+	<!-- 정원 카테고리 이미지 삭제하기-->
+	<delete id="deleteCategoryImg">
+		DELETE FROM TL_A_DORM_CATEGORY tadc WHERE DORM_AMOUNT_PK = #{dorm_amount_pk}
+	</delete>
 	
 	<select id="selectDormCategoryPk" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
 		SELECT * FROM TL_A_DORM_CATEGORY tadc WHERE DORM_AMOUNT_PK =#{dorm_amount_pk}
+	</select>
+	
+	<!-- 동과 호실에 해당하는 학생 리스트 나오기 ex.A동 101호에 사는 학생이름, 학번 출력 -->
+	<select id="selectStudentNameAndId" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT TJSI.student_pk, tjsi.NAME
+			FROM TL_A_DORM_ROOM tadr 
+			INNER JOIN TL_A_DORM_STUDENT tads 
+			ON tadr.DORM_ROOM_PK = tads.DORM_ROOM_PK 
+			INNER JOIN TL_JIC_STUDENT_INFO tjsi
+			ON tjsi.STUDENT_PK  = tads.STUDENT_PK 
+			WHERE ROOM_NAME = #{room_name} AND DORM_PK = #{dorm_pk}
+	</select>
+	
+	
+	<!-- 동과 호실에 해당하는 학생의 상 벌점 -->
+	<select id="selectStudentPoints" resultType="java.util.Map">
+	SELECT SUM(tapc.POINT)  AS sum FROM TL_A_POINT tap
+	INNER JOIN TL_A_POINT_CATEGORY tapc ON TAPC.POINT_CATEGORY_PK = tap.POINT_CATEGORY_PK 
+	WHERE tap.DORM_STUDENT_PK = #{dorm_student_pk}
+	</select>
+	
+	<!-- pointDto pk 값 -->
+	<select id="selectPointPk" resultType="com.mkfactory.toothless.a.dto.PointDto">
+		SELECT * FROM TL_A_POINT tap WHERE DORM_POINT_PK = #{dorm_point_pk}
+	</select>
+	
+	<!-- pointCategory pk값 -->
+	<select id="selectPointCategoryPk" resultType="com.mkfactory.toothless.a.dto.PointCategory">
+		SELECT * FROM TL_A_POINT_CATEGORY tapc WHERE POINT_CATEGORY_PK = #{point_category_pk}
+	</select>
+	
+	<!-- pointDto에서 dorm_student_pk 뽑기 -->
+	<select id="stPk" resultType="com.mkfactory.toothless.a.dto.PointDto">
+		SELECT * FROM TL_A_POINT tap WHERE DORM_POINT_PK = #{dorm_point_pk}
+	</select>
+	
+	<!-- 이거는 전체 학생 디티오에서 pk 뽑으려고 -->
+	<select id="selectStudentPk" resultType="com.mkfactory.toothless.a.dto.DormStudentDto" >
+		SELECT * FROM TL_A_DORM_STUDENT tads WHERE STUDENT_PK =#{student_pk}
+	</select>
+	
+	<select id="forStudentName" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO tjsi WHERE STUDENT_PK = #{student_pk}
+	</select>
+	
+	
+	<select id ="selectPk" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT * FROM TL_A_DORM_STUDENT tads WHERE DORM_STUDENT_PK =#{dorm_student_pk}
+	</select>
+	
+	<select id="selectStudents" resultType="com.mkfactory.toothless.a.dto.DormStudentDto" >
+		SELECT * FROM TL_A_DORM_STUDENT tads 
 	</select>
 	
 </mapper>

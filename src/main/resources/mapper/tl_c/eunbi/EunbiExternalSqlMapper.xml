@@ -29,10 +29,52 @@
 		WHERE internship_course_pk = #{internship_course_pk}
 	</select>
 
+	
+	
+	
+	
+	
+	
+	<!-- 현장실습과정 날짜 비교 -->
+	<select id="isStartApplying" resultType="int">
+		SELECT COUNT(*) FROM tl_c_internship_course
+		<![CDATA[
+		WHERE TO_CHAR(applying_start_date, 'yyyyMMdd') <= SYSDATE
+		AND internship_course_pk = #{internship_course_pk}
+		]]>
+	</select>
 
+	<select id="isEndApplying" resultType="int">
+		SELECT COUNT(*) FROM tl_c_internship_course
+		<![CDATA[
+		WHERE TO_CHAR(applying_end_date, 'yyyyMMdd') >= SYSDATE
+		AND internship_course_pk = #{internship_course_pk}
+		]]>
+	</select>
+	
+	<select id="didAnnouncement" resultType="int">
+		SELECT COUNT(*) FROM tl_c_internship_course
+		<![CDATA[
+		WHERE TO_CHAR(announcement_date, 'yyyyMMdd') <= SYSDATE
+		AND internship_course_pk = #{internship_course_pk}
+		]]>
+	</select>
+	
+	<select id="isStartInternship" resultType="int">
+		SELECT COUNT(*) FROM tl_c_internship_course
+		<![CDATA[
+		WHERE TO_CHAR(internship_start_date, 'yyyyMMdd') <= SYSDATE
+		AND internship_course_pk = #{internship_course_pk}
+		]]>
+	</select>
 
-
-
+	<select id="isEndInternship" resultType="int">
+		SELECT COUNT(*) FROM tl_c_internship_course
+		<![CDATA[
+		WHERE TO_CHAR(internship_end_date, 'yyyyMMdd') < SYSDATE
+		AND internship_course_pk = #{internship_course_pk}
+		]]>
+	</select>
 
 
 

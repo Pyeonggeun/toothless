@@ -55,71 +55,41 @@
 			<!-- 세부내용 시작 -->			
 			<div class="row">
 				<div class="col">
-					<!-- 목록 -->
-					<div class="row py-3 justify-content-between">
-						<div class="col-1">
-						</div>
-						<div class="col-2 me-1">
-							<select class="form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
-								<option selected>전체</option>
-								<option value="1">상점</option>
-								<option value="2">벌점</option>
-							</select>
-						</div>
-					</div>
-					
 					<!-- 세부내용 -->
-					<div class="row py-3">
+					<div class="row py-3 mb-4">
 						<div class="col">
 							<table class="table table-bordered text-center align-middle">
 								<thead>
 									<tr class="align-middle border-bottom border-2">
-										<th scope="col" class="col-2 text-bg-light">이름</th>
+										<th scope="col" class="col-1 text-bg-light">이름</th>
 										<th scope="col" class="col-1 text-bg-light">기숙사명</th>
 										<th scope="col" class="col-1 text-bg-light">호</th>
-										<th scope="col" class="col-1 text-bg-light">상벌</th>
-										<th scope="col" class="col-6 text-bg-light">사유</th>
-										<th scope="col" class="col-1 text-bg-light">부여</th>
+										<th scope="col" class="col text-bg-light">상벌/사유/부여</th>
+										<!-- <th scope="col" class="col-4 text-bg-light">사유</th>
+										<th scope="col" class="col-1 text-bg-light">부여</th> -->
 									</tr>
 								</thead>
 								<tbody>
-									<!-- 값 반복 예정 -->
+									<c:forEach items="${pointManagementListMap}" var="pointManagementListMap">
 									<tr>
-										<td>홍길동</td>
-										<td>A동</td>
-										<td>101호</td>
-										<td>
-											<select class="border-secondary-subtle form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
-												<option selected>선택</option>
-												<option value="1">상점</option>
-												<option value="2">벌점</option>
-											</select>
-										</td>
-										<td><input type="text" class="form-control"></td>
-										<td>
-											<a href="#" class="d-grid mx-2" style="text-decoration: none;">
-												<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">부여</span></button>
-											</a>
+										<td>${pointManagementListMap.studentInfoDto.name}</td>
+										<td>${pointManagementListMap.dormBuildingDto.name}</td>
+										<td>${pointManagementListMap.dormRoomDto.room_name}</td>
+										<td colspan="3">
+											<form action="./jw_pointRegisterProcess" method="post">
+												<select name="point_category_pk" class="border-secondary-subtle form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
+													<option>선택해주세요.</option>
+													<c:forEach items="${pointManagementListMap.pointCategoryDto}" var="pointCategoryList">
+														<option value="${pointCategoryList.point_category_pk}">${pointCategoryList.content}</option>
+													</c:forEach>
+												</select>
+												<input type="hidden" name="dorm_student_pk" value="${pointManagementListMap.dormStudentDto.dorm_student_pk}">
+												<input type="text" name="reason" class="form-control">
+												<input type="submit" value="부여">
+											</form>
 										</td>
 									</tr>
-									<tr>
-										<td>신짱구</td>
-										<td>B동</td>
-										<td>201호</td>
-										<td>
-											<select class="border-secondary-subtle form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
-												<option selected>선택</option>
-												<option value="1">상점</option>
-												<option value="2">벌점</option>
-											</select>
-										</td>
-										<td><input type="text" class="form-control"></td>
-										<td>
-											<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
-												<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">부여</span></button>
-											</a>
-										</td>
-									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>

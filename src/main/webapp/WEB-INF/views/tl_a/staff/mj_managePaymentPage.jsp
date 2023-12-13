@@ -13,6 +13,411 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <title>Insert title here</title>
+
+
+<script>
+
+	let sessionStaffId = null;
+	
+	// 세션정보 가져오기
+	function getSessionStaffId(){
+		
+		fetch("./getSessionStaffId")
+		.then(response => response.json())
+		.then(response => {
+			sessionStaffId = response.data.sessionSaffId;
+		});		
+	}
+	
+	// 해당 탭만 active되게
+	function activeTab(tabNum) {
+		
+		// 모든 탭 초기화
+	    const tabs = document.querySelectorAll("#tabs > *");
+
+	    tabs.forEach(tab => {
+	        tab.classList.remove("bg-primary", "text-white");
+	    });
+		
+		const tab = document.getElementById(tabNum);
+		tab.classList.add("bg-primary", "text-white"); 
+	}
+	
+
+	// 납부현황 탭 보여주기
+	function mj_managePaymentPage(){
+		
+		miniMap();
+		
+		// 리스트 들고오는 함수
+		getPaymentAllList();
+		
+		// 양식
+		const secondRow = document.querySelector("#secondRow");
+
+		// 세부내용
+		const firstTab = document.querySelectorAll("#firstTab > *");
+		for (e of firstTab) {
+			secondRow.appendChild(e);
+		}
+		
+		// 해당 탭만 active되게
+		activeTab("tab1");
+		
+	}
+	
+	// 선발완료 목록(= 납부전체) 가져오기
+	function getPaymentAllList(){
+		
+		const url = "./getPaymentList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const paymentInfoListBox = document.querySelector("#paymentInfoListBox");
+			paymentInfoListBox.innerHTML = "";
+			
+			// 선발완료 전체리스트
+			const dormSelectedList = response.data.dormSelectedList;
+			
+			// 학년도/학기 정보 들어있는 map
+            const thisSemesterJoinDormInfo = response.data.thisSemesterJoinDormInfo;
+
+			// 선발완료 개수
+			const countDormSelectedList = response.data.countDormSelectedList;
+			document.querySelector("#countApplyList").innerText = "검색결과 (총 " + countDormSelectedList + " 개)";
+			document.querySelector("#num1").innerText = countDormSelectedList;
+			
+
+			for(e of dormSelectedList){
+				
+				// 반복문 돌면서 계속 양식 복사!
+				const paymentInfoWrapper = document.querySelector(".paymentInfoWrapper").cloneNode(true);
+				
+				// innerText로 반복문 돌면서 내용 변경하기
+				paymentInfoWrapper.querySelector(".semester_year").innerHTML = 
+					thisSemesterJoinDormInfo.thisSemesterDto.semester_year +
+				    '<span class="semester">xx학기</span>'; 
+			    paymentInfoWrapper.querySelector(".semester_year .semester").innerText = thisSemesterJoinDormInfo.thisSemesterDto.semester;
+			    paymentInfoWrapper.querySelector(".studentName").innerText = e.studentInfo.name;
+			    paymentInfoWrapper.querySelector(".studentYear").innerText = e.studentYear;
+			    paymentInfoWrapper.querySelector(".student_id").innerText = e.studentInfo.student_id;
+			    paymentInfoWrapper.querySelector(".departmentName").innerText = e.departmentInfo.name ;
+			    paymentInfoWrapper.querySelector(".address").innerText = e.studentInfo.address;
+			    paymentInfoWrapper.querySelector(".priority_select").innerText = e.selectedDto.priority_select;
+				
+			    paymentInfoListBox.appendChild(paymentInfoWrapper);
+				
+				// 버튼
+				const chooseBox = paymentInfoWrapper.querySelector(".chooseBox"); // 현재 반복에서 .chooseBox 찾기
+				
+				// 기존 내용 초기화 --> 안해주면 버튼이 계속 쌓이겠지...
+				chooseBox.innerHTML = "";
+				
+				const paymentStatus = e.selectedDto.payment_status;
+
+				const button = document.createElement("button");
+				button.type = "button";
+				button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mb-1", "d-grid", "mx-2");
+
+			   
+			    if (paymentStatus == "N") {
+			        // 결제 안된 경우
+			        button.classList.add("btn-primary");
+			        button.textContent = "납부확인";
+
+			        // 클릭하면 납부 프로세스 실행 
+		            button.setAttribute("onclick", "mj_updatePaymentStatusProcess("+ e.selectedDto.dorm_application_pk +", 'Y', 1)");
+					
+			    } else if (paymentStatus == "Y") {
+			        // 결제 완료된 경우
+			        button.classList.add("btn-secondary");
+			        button.textContent = "납부완료";
+			        button.disabled = true;
+			    }
+
+		        chooseBox.appendChild(button);
+
+			}
+			
+			
+		});
+		
+		
+	}
+	
+	// 납부완료 탭 보여주기
+	function mj_managePaymentYesPage(){
+		
+		miniMap();
+		
+		// 리스트 들고오는 함수
+		getPaymentYesList();
+		
+		// 양식
+		const secondRow = document.querySelector("#secondRow");
+
+		// 세부내용
+		const firstTab = document.querySelectorAll("#firstTab > *");
+		for (e of firstTab) {
+			secondRow.appendChild(e);
+		}
+		
+		// 해당 탭만 active되게
+		activeTab("tab2");
+	
+	}
+	
+	// 납부완료 목록 가져오기
+	function getPaymentYesList(){
+		
+		const url = "./getPaymentList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const paymentInfoListBox = document.querySelector("#paymentInfoListBox");
+			paymentInfoListBox.innerHTML = "";
+			
+			// 납부완료 전체리스트
+			const paymentYesList = response.data.paymentYesList;
+			
+			// 학년도/학기 정보 들어있는 map
+            const thisSemesterJoinDormInfo = response.data.thisSemesterJoinDormInfo;
+
+			// 납부완료 개수
+			const countPaymentYesList = response.data.countPaymentYesList;
+			document.querySelector("#countApplyList").innerText = "검색결과 (총 " + countPaymentYesList + " 개)";
+			
+			for(e of paymentYesList){
+				
+				// 반복문 돌면서 계속 양식 복사!
+				const paymentInfoWrapper = document.querySelector(".paymentInfoWrapper").cloneNode(true);
+				
+				// innerText로 반복문 돌면서 내용 변경하기
+				paymentInfoWrapper.querySelector(".semester_year").innerHTML = 
+					thisSemesterJoinDormInfo.thisSemesterDto.semester_year +
+				    '<span class="semester">xx학기</span>'; 
+			    paymentInfoWrapper.querySelector(".semester_year .semester").innerText = thisSemesterJoinDormInfo.thisSemesterDto.semester;
+			    paymentInfoWrapper.querySelector(".studentName").innerText = e.studentInfo.name;
+			    paymentInfoWrapper.querySelector(".studentYear").innerText = e.studentYear;
+			    paymentInfoWrapper.querySelector(".student_id").innerText = e.studentInfo.student_id;
+			    paymentInfoWrapper.querySelector(".departmentName").innerText = e.departmentInfo.name ;
+			    paymentInfoWrapper.querySelector(".address").innerText = e.studentInfo.address;
+			    paymentInfoWrapper.querySelector(".priority_select").innerText = e.paymentYesDto.priority_select;
+				
+			    paymentInfoListBox.appendChild(paymentInfoWrapper);
+				
+				// 버튼
+				const chooseBox = paymentInfoWrapper.querySelector(".chooseBox"); // 현재 반복에서 .chooseBox 찾기
+				
+				// 기존 내용 초기화 --> 안해주면 버튼이 계속 쌓이겠지...
+				chooseBox.innerHTML = "";
+				
+				const paymentStatus = e.paymentYesDto.payment_status;
+
+				const button = document.createElement("button");
+				button.type = "button";
+				button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mb-1", "d-grid", "mx-2");
+
+			   
+			    if (paymentStatus == "Y") {
+			        // 납부 완료된 경우
+			        button.classList.add("btn-danger");
+			        button.textContent = "납부취소";
+
+			        // 클릭하면 납부 프로세스 실행 
+		            button.setAttribute("onclick", "mj_updatePaymentStatusProcess("+ e.paymentYesDto.dorm_application_pk +", 'N', 2)");
+					
+			    } 
+
+		        chooseBox.appendChild(button);
+
+			}
+			
+			
+		});
+		
+		
+	}
+
+	// 납부완료 탭 보여주기
+	function mj_managePaymentNoPage(){
+		
+		miniMap();
+		
+		// 리스트 들고오는 함수
+		getPaymentNoList();
+		
+		// 양식
+		const secondRow = document.querySelector("#secondRow");
+
+		// 세부내용
+		const firstTab = document.querySelectorAll("#firstTab > *");
+		for (e of firstTab) {
+			secondRow.appendChild(e);
+		}
+		
+		// 해당 탭만 active되게
+		activeTab("tab3");
+	
+	}
+	
+	// 미납부 목록 가져오기
+	function getPaymentNoList(){
+		
+		const url = "./getPaymentList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const paymentInfoListBox = document.querySelector("#paymentInfoListBox");
+			paymentInfoListBox.innerHTML = "";
+			
+			// 미납부 전체리스트
+			const paymentNoList = response.data.paymentNoList;
+			
+			// 학년도/학기 정보 들어있는 map
+            const thisSemesterJoinDormInfo = response.data.thisSemesterJoinDormInfo;
+
+			// 납부완료 개수
+			const countPaymentNoList = response.data.countPaymentNoList;
+			document.querySelector("#countApplyList").innerText = "검색결과 (총 " + countPaymentNoList + " 개)";
+			
+			for(e of paymentNoList){
+				
+				// 반복문 돌면서 계속 양식 복사!
+				const paymentInfoWrapper = document.querySelector(".paymentInfoWrapper").cloneNode(true);
+				
+				// innerText로 반복문 돌면서 내용 변경하기
+				paymentInfoWrapper.querySelector(".semester_year").innerHTML = 
+					thisSemesterJoinDormInfo.thisSemesterDto.semester_year +
+				    '<span class="semester">xx학기</span>'; 
+			    paymentInfoWrapper.querySelector(".semester_year .semester").innerText = thisSemesterJoinDormInfo.thisSemesterDto.semester;
+			    paymentInfoWrapper.querySelector(".studentName").innerText = e.studentInfo.name;
+			    paymentInfoWrapper.querySelector(".studentYear").innerText = e.studentYear;
+			    paymentInfoWrapper.querySelector(".student_id").innerText = e.studentInfo.student_id;
+			    paymentInfoWrapper.querySelector(".departmentName").innerText = e.departmentInfo.name ;
+			    paymentInfoWrapper.querySelector(".address").innerText = e.studentInfo.address;
+			    paymentInfoWrapper.querySelector(".priority_select").innerText = e.paymentNoDto.priority_select;
+				
+			    paymentInfoListBox.appendChild(paymentInfoWrapper);
+				
+				// 버튼
+				const chooseBox = paymentInfoWrapper.querySelector(".chooseBox"); // 현재 반복에서 .chooseBox 찾기
+				
+				// 기존 내용 초기화 --> 안해주면 버튼이 계속 쌓이겠지...
+				chooseBox.innerHTML = "";
+				
+				const paymentStatus = e.paymentNoDto.payment_status;
+
+				const button = document.createElement("button");
+				button.type = "button";
+				button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mb-1", "d-grid", "mx-2");
+
+			   
+			    if (paymentStatus == "N") {
+			        // 미납부 경우
+			        button.classList.add("btn-primary");
+			        button.textContent = "납부확인";
+
+			        // 클릭하면 납부 프로세스 실행 
+		            button.setAttribute("onclick", "mj_updatePaymentStatusProcess("+ e.paymentNoDto.dorm_application_pk +", 'Y', 3)");
+					
+			    } 
+
+		        chooseBox.appendChild(button);
+
+			}
+			
+			
+		});
+		
+		
+	}
+	
+	function miniMap(){
+		
+		const url = "./getPaymentList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const countDormSelectedList = response.data.countDormSelectedList;
+			document.querySelector("#num1").innerText = countDormSelectedList;
+			
+			const countPaymentYesList = response.data.countPaymentYesList;
+			document.querySelector("#num2").innerText = countPaymentYesList;
+			
+			const countPaymentNoList = response.data.countPaymentNoList;
+			document.querySelector("#num3").innerText = countPaymentNoList;
+		});
+		
+	}
+	
+	
+	// 납부 프로세스
+	function mj_updatePaymentStatusProcess(dormApplicationPk, paymentStatus, pageNum){
+		
+		
+		if(sessionStaffId == null){
+			
+			if(confirm("로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+				
+				location.href = "./loginPage"
+			} 
+			return;	
+		}
+		
+		
+		const url = "./mj_updatePaymentStatusProcess?payment_status="+ paymentStatus +"&dorm_application_pk=" + dormApplicationPk;
+
+		// fetch를 통해 POST 요청 전송
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			if(paymentStatus == 'Y'){
+				if(pageNum == 1){
+					mj_managePaymentPage();
+				}else if(pageNum == 2){
+					mj_managePaymentYesPage();
+				}else if(pageNum == 3){
+					mj_managePaymentNoPage();
+				}
+			}else if(paymentStatus == 'N'){
+				
+				if(pageNum == 1){
+					mj_managePaymentPage();
+				}else if(pageNum == 2){
+					mj_managePaymentYesPage();
+				}else if(pageNum == 3){
+					mj_managePaymentNoPage();
+				}
+			}
+			
+			
+		});
+		
+	}
+
+
+
+
+	// 페이지의 DOM이 로드되면 실행될 함수 등록!! 
+	//	--> 함수가 실행이 안되면 값을 못 가져오는거...
+	window.addEventListener("DOMContentLoaded", () => {
+		getSessionStaffId();	
+		mj_managePaymentPage();
+	});
+
+</script>
+
+
 </head>
 <body>
 <div class="container-fluid">
@@ -20,7 +425,7 @@
 	<jsp:include page="../commons/staff/topNavi.jsp"></jsp:include>
 	
 	<!-- 기숙사관리 탭 페이지 -->
-<jsp:include page="../commons/staff/topNavi2.jsp"></jsp:include>
+	<jsp:include page="../commons/staff/topNavi2.jsp"></jsp:include>
 	
 	
 	<!-- 내용시작 -->
@@ -30,95 +435,75 @@
 		
 		<!-- 우측내용 -->
 		<div class="col mx-5">
-			<!-- 카테고리명 -->
-			<div class="row my-3">
-				<div class="col fs-4 fw-bold">
+		
+			<!-- 제목/탭 -->
+			<div class="row">
+				<div class="col my-3 fs-4 fw-bold">
 					납부 관리
 				</div>
 			</div>
-			
+		
 			<!-- 카테고리 -->
-			<div class="row mt-2">
-				<div class="col fw-bold text-center px-2 py-2 mb-3">
+			<div class="row">
+				<div class="col mt-2 fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 					  <li class="nav-item">
-					    <a class="nav-link active text-black" href="./mj_readApplyDormInfoPage">납부 현황</a>
+					    <a class="nav-link active text-black" onclick="mj_managePaymentPage()">납부 현황</a>
 					  </li>
 					</ul>
 				</div>
 			</div>
-
+			
+			<!-- 세부내용 -->
+			<div class="row">
+				<div id="secondRow" class="col">
+				
+				</div>
+			</div>
+			
+	<!-- 복붙할 내용 모음 -->
+		<!-- row2 -->
+		<div id="firstTab" class="d-none">
 			<!-- 세부내용 시작 -->			
 			<div class="row">
 				<div class="col">
 					<!-- 미니맵 -->
-					<div class="row">
-						<div class="col border bg-primary py-4 mx-2 rounded">
+					<div id="tabs" class="row">
+						<div id="tab1" onclick="mj_managePaymentPage()" class="col border py-4 mx-2 rounded">
 							<div class="row">
 								<div class="col ms-2">
-									<a href="./mj_managePaymentPage" class="text-white" style="text-decoration: none;">
 									전체
-									</a>
 								</div>
 							</div>
 							
 							<div class="row mt-2">
 								<div class="col ms-2">
-									<a href="./mj_managePaymentPage" class="text-white" style="text-decoration: none;">
-									<span class="fs-5 fw-bold">
-										<c:set var="dormSelectedListSize" value="${fn:length(dormSelectedList)}" />
-										${dormSelectedListSize}
-									</span>건
-									</a>
+									<span id="num1" class="fs-5 fw-bold"></span>건
 								</div>
 							</div>
 						</div>
-						<div class="col border py-4 mx-2 rounded">
+						<div id="tab2" onclick="mj_managePaymentYesPage()" class="col border py-4 mx-2 rounded">
 							<div class="row">
 								<div class="col ms-2">
-									<a href="./mj_managePaymentYesPage" class="text-black" style="text-decoration: none;">
 									납부 완료
-									</a>
 								</div>
 							</div>
 							
 							<div class="row mt-2">
 								<div class="col ms-2">
-									<a href="./mj_managePaymentYesPage" class="text-black" style="text-decoration: none;">
-									<span class="fs-5 fw-bold">
-										<c:set var="yesCount" value="0" />
-										<c:forEach items="${dormSelectedList}" var="item">
-										    <c:if test="${item.selectedDto.payment_status eq 'Y'}">
-										        <c:set var="yesCount" value="${yesCount + 1}" />
-										    </c:if>
-										</c:forEach>
-										${yesCount }
-									</span>건
-									</a>
+									<span id="num2" class="fs-5 fw-bold"></span>건
 								</div>
 							</div>
 						</div>
-						<div class="col border py-4 mx-2 rounded">
+						<div id="tab3" onclick="mj_managePaymentNoPage()" class="col border py-4 mx-2 rounded">
 							<div class="row">
 								<div class="col ms-2">
-									<a href="./mj_managePaymentNoPage" class="text-black" style="text-decoration: none;">
 									미납부
-									</a>
 								</div>
 							</div>
 							<div class="row mt-2">
 								<div class="col ms-2">
-									<a href="./mj_managePaymentNoPage" class="text-black" style="text-decoration: none;">
-									<span class="fs-5 fw-bold">
-										<c:set var="noCount" value="0" />
-										<c:forEach items="${dormSelectedList}" var="item">
-										    <c:if test="${item.selectedDto.payment_status eq 'N'}">
-										        <c:set var="noCount" value="${noCount + 1}" />
-										    </c:if>
-										</c:forEach>
-										${noCount }
-									</span>건
-									</a>
+									<span id="num3" class="fs-5 fw-bold"></span>건
 								</div>
 							</div>
 						</div>					
@@ -128,8 +513,8 @@
 					
 					<!-- 상품목록 -->
 					<div class="row mt-4 py-3 justify-content-between">
-						<div class="col-6">
-							검색결과 (총 ${countDormSelectedList }개)
+						<div id="countApplyList" class="col-6">
+							검색결과 (총 x개)
 							<button type="button" class="ms-5 px-3 border-secondary-subtle rounded-0 px-0 fw-bold btn btn-sm btn-light">
 		           				<i class="bi bi-download"></i>
 		           				납부 목록 다운로드
@@ -148,62 +533,50 @@
 					  <thead>
 					    <tr class="align-middle border-bottom border-2">
 					      <th scope="col" class="col text-bg-light"></th>
-					      <th scope="col" class="col-2 text-bg-light">학년도/학기</th>
+					      <th scope="col" class="col text-bg-light">학년도/학기</th>
 					      <th scope="col" class="col-1 text-bg-light">이름</th>
 					      <th scope="col" class="col-1 text-bg-light">학년</th>
 					      <th scope="col" class="col-2 text-bg-light">학번</th>
 					      <th scope="col" class="col-1 text-bg-light">학과</th>
-					      <th scope="col" class="col-2 text-bg-light">주소</th>
+					      <th scope="col" class="col-3 text-bg-light">주소</th>
 					      <th scope="col" class="col-1 text-bg-light">우선선발</th>
-					      <th scope="col" class="col-2 text-bg-light">납부여부</th>
+					      <th scope="col" class="col text-bg-light">납부여부</th>
 					    </tr>
 					  </thead>
 					  
-					  <c:forEach items="${dormSelectedList }" var="item">
-					  <tbody>
-					    <tr>
-					      <td class="p-0 pt-1 text-center">
-						    <div class="form-check m-0 px-1 d-inline-block">
-						        <input class="form-check-input m-0 p-0" type="checkbox" value="" id="flexCheckDefault">
-						        <label class="form-check-label" for="flexCheckDefault">
-						        </label>
-						    </div>
-						  </td>
-						  <td>${thisSemesterJoinDormInfo.thisSemesterDto.semester_year }년도 
-						  ${thisSemesterJoinDormInfo.thisSemesterDto.semester }</td>
-						  <td>${item.studentInfo.name }</td>
-						  <td>
-						  	${item.studentYear }학년
-						  </td>
-						  <td>${item.studentInfo.student_id }</td>
-						  <td>${item.departmentInfo.name }</td>
-						  <td>${item.studentInfo.address }</td>
-						  <td>${item.selectedDto.priority_select}</td>
-						  <td>
-						  	<c:choose>
-						  		<c:when test="${item.selectedDto.payment_status == 'N'}">
-						  			<a href="./mj_updatePaymentStatusProcess?page=1&payment_status=Y&dorm_application_pk=${item.selectedDto.dorm_application_pk}" class="text-black d-grid mx-2" style="text-decoration: none;">
-							      		<button type="button" class="fw-bold rounded-0 btn btn-primary btn-sm mb-1">납부확인</button>
-							      	</a>
-						  		</c:when>
-						  		<c:otherwise>
-						  			<a href="#" class="text-black d-grid mx-2" style="text-decoration: none;">
-							      		<button disabled type="button" class="fw-bold rounded-0 btn btn-secondary btn-sm mb-1">납부완료</button>
-							      	</a>
-						  		</c:otherwise>
-						  	</c:choose>
-						  
-						  	
-						  </td>
-					    </tr>		    
+					  <tbody id="paymentInfoListBox">
+					   		    
 					  </tbody>
-					  </c:forEach>
 					</table>
-					
 				</div>
+				
+				<!-- 납부현황 리스트 -->
+				<table id="paymentInfoTemplate" class="d-none">
+				 <tr class="paymentInfoWrapper">
+			      <td class="p-0 pt-1 text-center">
+				    <div class="form-check m-0 px-1 d-inline-block">
+				        <input class="form-check-input m-0 p-0" type="checkbox" value="" id="flexCheckDefault">
+				        <label class="form-check-label" for="flexCheckDefault">
+				        </label>
+				    </div>
+				  </td>
+				  <td class="semester_year">
+				  	<span class="semester"></span>
+				  </td>
+				  <td class="studentName"></td>
+				  <td class="studentYear"></td>
+				  <td class="student_id"></td>
+				  <td class="departmentName"></td>
+				  <td class="address"></td>
+				  <td class="priority_select"></td>
+				  <td class="chooseBox d-grid"></td>
+			    </tr>
+				</table>
+				
 			</div>
-			
-		</div> <!-- 우측내용 col 끝 -->
+		</div>
+		
+	</div> <!-- 우측내용 col 끝 -->
             
         
 	</div> <!-- main row 끝 -->

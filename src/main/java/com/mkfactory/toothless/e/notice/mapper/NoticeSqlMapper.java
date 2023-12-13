@@ -1,6 +1,9 @@
 package com.mkfactory.toothless.e.notice.mapper;
 
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
@@ -17,7 +20,9 @@ public interface NoticeSqlMapper {
 	// 공지사항 이미지 등록
 	public void insertNoticeImage(NoticeImageDto noticeImageDto);
 	// 공지시항 리스트 출력
-	public List<NoticeBoardDto> selectNoticeList();
+	public List<NoticeBoardDto> selectNoticeList(@Param("searchType") String searchType, @Param("searchWord") String searchWord);
+	// 공지사항 별 이미지 유무
+	public int countImageByNotice_id(int notice_id);
 	// 교직원 정보 검색
 	public StaffInfoDto selectStaffInfoByStaff_Pk(int staff_pk);
 	// 공지사항별 이미지
@@ -46,4 +51,17 @@ public interface NoticeSqlMapper {
 	// 공지사항 추천 삭제
 	public void deleteNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto);
 	public void deleteNoticeDisLike(NoticeBoardLikeDto noticeBoardLikeDto);
+	// 공지사항 댓글 갯수
+	public int commentCountByNotice_id(int notice_id);
+	// 공지사항 추천 갯수
+	public int likeCountByNotice_id(int notice_id);
+	// 공지사항 비추천 갯수
+	public int dislikeCountByNotice_id(int notice_id);
+	// 공지사항 베스트글
+	public List<Map<String, Object>> selectBestNotice();
+	
+	
+	
+	
+	
 }

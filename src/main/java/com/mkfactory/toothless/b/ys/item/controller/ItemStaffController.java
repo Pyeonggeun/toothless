@@ -63,7 +63,7 @@ public class ItemStaffController {
 		
 		if(mainImage != null) {
 			 
-			String rootPath = "C:/uploadFiles/mainImage/";
+			String rootPath = "C:\\Workspace2\\GitWorkSpace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\healthItem\\";
 			
 			// 날짜별 폴더 생성
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
@@ -122,7 +122,7 @@ public class ItemStaffController {
 		System.out.println(params.getImg_link());
 		if(mainImage != null) {
 			 
-			String rootPath = "C:/uploadFiles/mainImage/";
+			String rootPath = "C:\\Workspace2\\GitWorkSpace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\healthItem\\";
 			
 			// 날짜별 폴더 생성
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
@@ -169,24 +169,23 @@ public class ItemStaffController {
 	}
 	
 	
-//	@RequestMapping("staffItemApplyListPage")
-//	public String staffItemApplyListPage(Model model) {
-//		
-//		model.addAttribute("itemApplyList",itemStaffService.getItemApplyList());
-//		
-//		return "tl_b/ys/staffItemApplyListPage";
-//	}
+	@RequestMapping("staffItemApplyListPage")
+	public String staffItemApplyListPage(Model model) {
+		
+		model.addAttribute("itemApplyList",itemStaffService.getItemApplyList());
+		
+		return "tl_b/ys/staffItemApplyListPage";
+	}
 	
 	//REST API
-	@ResponseBody
-	@RequestMapping("staffItemApplyListPage")
-	public List<Map<String,Object>> staffItemApplyListPage(Model model) {
-		
-		List<Map<String,Object>> itemApplyList = itemStaffService.getItemApplyList();
-		
-		return itemApplyList;
-
-	}
+//	@RequestMapping("staffItemApplyListPage")
+//	public List<Map<String,Object>> staffItemApplyListPage(Model model) {
+//		
+//		List<Map<String,Object>> itemApplyList = itemStaffService.getItemApplyList();
+//		
+//		return itemApplyList;
+//
+//	}
 	
 	@RequestMapping("rentalProcess")
 	public String rentalProcess(int item_apply_pk) {

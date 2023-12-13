@@ -215,7 +215,7 @@ public class PostingController {
 	@RequestMapping("jobPostingListForStudentPage")
 	public String jobPostingListForStudentPage(Model model) {
 		
-		model.addAttribute("jopPostingForStudent", postingService.getPostingListForStudent());
+		model.addAttribute("jopPostingForStudentList", postingService.getPostingListForStudent());
 		model.addAttribute("postingCount", postingService.getPostingCount());
 
 		// 여기서도 찜하는 방법 생각해보기

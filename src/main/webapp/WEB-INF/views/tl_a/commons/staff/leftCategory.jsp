@@ -3,66 +3,91 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 
-    <div class="col-2 p-0 border-end">
+	<script>
+	
+		// 기숙사 관리 탭(등록된 학기정보들만 나오게)
+		function manageThisSemester() {
+
+		
+			
+			const thisSemesterListBox = document.getElementById("thisSemesterListBox");
+			thisSemesterListBox.innerHTML = "";
+			const semesterTemplate = document.querySelector(".semesterTemplate");
+
+			fetch("./getThisYearAllSemester")
+			    .then(response => response.json())
+			    .then(response => {
+			        const thisYearSemesterList = response.data.thisYearSemesterList;
+
+			        for (e of thisYearSemesterList) {
+			         
+			            const semesterButton = semesterTemplate.cloneNode(true);
+			            semesterButton.classList.remove("d-none");
+			            semesterButton.innerText = e.SEME; // 각 학기의 이름 설정
+			            
+			            if(e.STATE == 'Y'){
+			            	semesterButton.href = "./mj_readApplyDormInfoPage";
+			            }else{
+			            	semesterButton.href = "./mj_readBeforeInfoPage";
+			            }
+			            
+
+			            thisSemesterListBox.appendChild(semesterButton);
+			        }
+			    });
+		}
+		
+		
+		// 이전년도 조회 탭(등록된 학기정보들만 나오게)
+		function readBeforeYearInfo() {
+			
+			location.href = "./mj_readBeforeInfoPage"	// 추후 수정... 아래 대충해놓음
+
+	        const beforeYearListBox = document.querySelector("#beforeYearListBox");
+	        beforeYearListBox.innerHTML = "";
+	
+		        fetch("./getBeforeYearAllSemester")
+		            .then(response => response.json())
+		            .then(response => {
+		            	const beforeYears = response.data.beforeYearList;
+	
+		            	for (e of beforeYears) {
+		            	    const beforeYearWrapper = document.querySelector(".beforeYearWrapper").cloneNode(true);
+		            	    beforeYearWrapper.querySelector(".yearTemplate").innerText = e.YEARS;
+	
+		            	    beforeYearListBox.appendChild(beforeYearWrapper); 
+		                }
+	            });
+	    }
+		
+		
+	
+	</script>
+
+   		 <div class="col-2 p-0 border-end">
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item">
                   <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-1" aria-expanded="false" aria-controls="flush-collapseOne">
+                    <button onclick="readBeforeYearInfo()" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-1" aria-expanded="false" aria-controls="flush-collapseOne">
                         <i class="ms-3 fs-5 bi bi-hourglass-bottom"></i> &nbsp; 이전년도 조회
                     </button>
                   </h2>
                   <div id="flush-1" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body d-grid p-0">
+                    <div id="beforeYearListBox" class="accordion-body d-grid p-0">
                     	<!-- 이전년도 반복문 돌곳 -->
-                        <div class="row ps-5 ms-1">
-                        	<div class="col-2 btn-group dropend">
-							  <button type="button" class="btn text-start" data-bs-toggle="dropdown" aria-expanded="false">
-							    2021
-							  </button>
-							  <ul class="dropdown-menu">
-							    <li><a class="dropdown-item text-center" href="#">1학기</a></li>
-							    <li><a class="dropdown-item text-center" href="#">여름학기</a></li>
-							    <li><a class="dropdown-item text-center" href="#">2학기</a></li>
-							    <li><a class="dropdown-item text-center" href="#">겨울학기</a></li>
-							  </ul>
-							</div>
-                        </div>
-                        <div class="row ps-5 ms-1">
-                        	<div class="col-2 btn-group dropend">
-							  <button type="button" class="btn text-start" data-bs-toggle="dropdown" aria-expanded="false">
-							    2022
-							  </button>
-							  <ul class="dropdown-menu">
-							    <li><a class="dropdown-item text-center" href="#">1학기</a></li>
-							    <li><a class="dropdown-item text-center" href="#">여름학기</a></li>
-							    <li><a class="dropdown-item text-center" href="#">2학기</a></li>
-							    <li><a class="dropdown-item text-center" href="#">겨울학기</a></li>
-							  </ul>
-							</div>
-                        </div>
+                    	
                     </div>
                   </div>
                 </div>
                 <div class="accordion-item">
                   <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-2" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    <button onclick="manageThisSemester()" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-2" aria-expanded="false" aria-controls="flush-collapseTwo">
                         <i class="ms-3 fs-5 bi bi-buildings"></i> &nbsp; 기숙사 관리
                     </button>
                   </h2>
                   <div id="flush-2" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body d-grid p-0">
-                        <div class="row ps-5 ms-1 my-2">
-                        	<%-- <c:forEach items="${thisYearAllSemester}" var="item">
-							    <a class="btn text-start my-1" href="#" role="button">
-							        ${item.SEME} 왜안나와. 서렌
-							    </a>
-							</c:forEach> --%>
-                        
-                            <a class="btn text-start my-1" href="#" role="button">1학기</a>
-                            <a class="btn text-start my-1" href="#" role="button">여름학기</a>
-                            <a class="btn text-start my-1" href="#" role="button">2학기</a>
-                            <a class="btn text-start my-1" href="./mj_registerJoinInfoPage" role="button">겨울학기</a>
-                        </div>
+                    <div id="thisSemesterListBox" class="accordion-body d-grid p-0">
+                        <!-- 학기 반복문 돌곳 -->
                     </div>
                   </div>
                 </div>
@@ -87,9 +112,11 @@
                     <ul style="list-style: none;">
                         <li class="my-2 text-body-secondary" style="font-size: 0.7rem;">관련사이트</li>
                         <li class="my-2" style="font-size: 0.8rem;">기숙사 홈페이지
-                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
-                        <li class="my-2" style="font-size: 0.8rem;">대학정보공시
-                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
+                           <a href="../student/jw_mainPage" class="navbar-brand"> <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;" ></i></a>
+                            </li>
+                        <li class="my-2" style="font-size: 0.8rem;">대학메인 포털
+                            <a href="../../another/student/mainPage" class="navbar-brand"><i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></a>
+                            </li>
                         <li class="my-2" style="font-size: 0.8rem;">뭐라도 넣겠찌?
                             <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
                     </ul>
@@ -111,3 +138,28 @@
             </pre>
 
 		</div>
+		
+		<!-- 이전년도 조회 템플릿 -->
+		<div id="listContainer" class="d-none">
+		    <div class="beforeYearWrapper row ps-5 ms-1">
+		        <div class="col-2 btn-group dropend">
+		            <button type="button" class="btn text-start" data-bs-toggle="dropdown" aria-expanded="false">
+		                <span class="yearTemplate">2021</span>
+		            </button>
+		            
+		          <!--   <ul class="dropdown-menu">
+		                <li><a class="dropdown-item text-center" href="#">1학기</a></li>
+		                <li><a class="dropdown-item text-center" href="#">여름학기</a></li>
+		                <li><a class="dropdown-item text-center" href="#">2학기</a></li>
+		                <li><a class="dropdown-item text-center" href="#">겨울학기</a></li>
+		            </ul> -->
+		            
+		        </div>
+		    </div>
+		</div> 
+		
+		<!-- 이번학기 템플릿 -->
+		<div id="thisSemesterList" class="d-none row ms-1 my-2">
+        	<a class="semesterTemplate btn text-start ps-5 ms-4 my-1" href="#" role="button">1학기</a>
+      	</div>
+		

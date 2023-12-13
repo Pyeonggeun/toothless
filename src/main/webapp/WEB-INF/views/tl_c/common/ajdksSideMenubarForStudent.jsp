@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- 좌측메뉴바 -->
-<div class="col-2 text-white px-0 studentleftmenubar" style="background-color: #0C2145; height: 140dvh; box-shadow: 2px 2px 2px gray;">
+<div class="col-2 text-white px-0 studentleftmenubar" style="background-color: #0C2145; box-shadow: 2px 2px 2px gray;">
 
 	<!-- 접속자 정보 묶음 -->
 	<div class="row text-center my-3">
@@ -42,12 +42,12 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;이력서 작성</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../guntaek/student/ajdksRegisterSelfIntroduction'">&gt;&nbsp;이력서 작성</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;나의 이력서 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../guntaek/student/ajdksResumeInquiry'">&gt;&nbsp;나의 이력서 조회</span>
 					</div>
 				</div>
 			</div>
@@ -61,12 +61,12 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;현장실습과정 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/student/ajdksInterneduApplyPage'">&gt;&nbsp;현장실습과정 조회</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;신청내역 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/student/ajdksStudentApplyPage'">&gt;&nbsp;신청내역 조회</span>
 					</div>
 				</div>
 			</div>
@@ -94,7 +94,7 @@
 
 	<div class="row">
 		<div class="col">
-			<input type="checkbox" id="title4"/>
+			<input type="checkbox" id="title4">
 			<label class="pt-3 pb-2 ps-3" for="title4"><i class="bi bi-transparency"></i>&nbsp;실습결과 관리</label>			
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">

@@ -34,22 +34,31 @@ public class NoticeServiceImpl {
 		}
 	}
 	// 공지사항 출력
-	public List<Map<String, Object>> getNoticeList() {
+	public List<Map<String, Object>> getNoticeList(String searchType, String searchWord) {
 		
 		List<Map<String, Object>> list = new ArrayList<>();
 		
-		List<NoticeBoardDto> noticeBoardDtoList = noticeSqlMapper.selectNoticeList();
+		List<NoticeBoardDto> noticeBoardDtoList = noticeSqlMapper.selectNoticeList(searchType, searchWord);
 		
 		for(NoticeBoardDto noticeBoardDto : noticeBoardDtoList) {
 			
 			int staffPk = noticeBoardDto.getStaff_pk();
+			int boardPk = noticeBoardDto.getId();
 			StaffInfoDto staffInfoDto = noticeSqlMapper.selectStaffInfoByStaff_Pk(staffPk);
+			int commentCount = noticeSqlMapper.commentCountByNotice_id(boardPk);	// 댓글 갯수
+			int likeCount = noticeSqlMapper.likeCountByNotice_id(boardPk);			// 추천 갯수
+			int disLikeCount = noticeSqlMapper.dislikeCountByNotice_id(boardPk);	// 비추천 갯수
+			int imageCount = noticeSqlMapper.countImageByNotice_id(boardPk);
 					
 			Map<String, Object> map = new HashMap<>();
 			map.put("noticeBoardDto", noticeBoardDto);
-			map.put("staffInfoDto", staffInfoDto);			
+			map.put("staffInfoDto", staffInfoDto);	
+			map.put("commentCount", commentCount);
+			map.put("likeCount", likeCount);
+			map.put("disLikeCount", disLikeCount);
+			map.put("imageCount", imageCount);
 			
-			list.add(map);
+			list.add(map);	
 		}
 		return list;
 	}
@@ -111,7 +120,7 @@ public class NoticeServiceImpl {
 	public int noticeDownThumbCheck(NoticeBoardLikeDto noticeBoardLikeDto) {
 		return noticeSqlMapper.noticeDownThumbCheck(noticeBoardLikeDto);
 	}
-	// 공지사항 추천 추가
+	// 공지사항 추천,비추천 추가
 	public void insertThumb(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeSqlMapper.insertThumb(noticeBoardLikeDto);
 	}
@@ -119,9 +128,17 @@ public class NoticeServiceImpl {
 	public void deleteNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeSqlMapper.deleteNoticeLike(noticeBoardLikeDto);
 	}
+	// 공지사항 비추천 삭제
 	public void deleteNoticeDisLike(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeSqlMapper.deleteNoticeDisLike(noticeBoardLikeDto);
 	}
-
+	// 공지사항 베스트글
+	public List<Map<String, Object>> selectBestNotice(){
+		return noticeSqlMapper.selectBestNotice();
+	}
+	// 공지사항 개시글별 댓글 갯수
+	public int commentCountByNotice_id(int notice_id) {
+		return noticeSqlMapper.commentCountByNotice_id(notice_id);
+	}
 
 }

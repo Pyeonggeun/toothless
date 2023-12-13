@@ -1,7 +1,12 @@
 package com.mkfactory.toothless.e.freeboardcounsel.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,8 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.mkfactory.toothless.e.dto.FreeboardCommentDto;
 import com.mkfactory.toothless.e.dto.FreeboardDto;
+import com.mkfactory.toothless.e.dto.FreeboardImageDto;
 import com.mkfactory.toothless.e.freeboardcounsel.service.FreeboardCounselServiceImpl;
 
 @Controller
@@ -22,9 +31,13 @@ public class FreeboardCounselController {
 	
 	//작성글이 리스팅 되야하는 자유게시판 페이지
 	@RequestMapping("freeboardCounselPage")
-	public String freeboardCounsel(Model model, FreeboardDto paraFreeboardDto) {
+	public String freeboardCounsel(Model model, FreeboardDto paraFreeboardDto,
 		
-		List<Map<String, Object>> combinedFreeboardList = freeboardCounselService.getfreeboardList();
+			String searchType,
+			String searchWord
+			) {
+		
+		List<Map<String, Object>> combinedFreeboardList = freeboardCounselService.getfreeboardList(searchType,searchWord);
 		//게시글 목록
 		model.addAttribute("combinedFreeboardList", combinedFreeboardList);
 			System.out.println("상담게시판 메인페이지 리스팅 완료 ");
@@ -38,8 +51,10 @@ public class FreeboardCounselController {
 		model.addAttribute("countedPost", countedPost);	
 			
 		//가장 높은 숫자의 글번호 글을 뽑아와서 new아이콘 붙이기 
+		List<FreeboardDto> newPostList = freeboardCounselService.NewPostList();
+		model.addAttribute("newPostList",newPostList);
 		
-		
+
 		return "tl_e/freeboardCounsel/freeboardCounselPage";
 	}
 	
@@ -52,26 +67,97 @@ public class FreeboardCounselController {
 	
 	//자유게시판 글 작성한 내용 dto에 집어넣는 프로세스 
 	@RequestMapping("createFreeboardPostsProcess")
-	public String createFreeboardPostsProcess(FreeboardDto paraFreeboardDto) {
-			System.out.println("createFreeboardPostsProcess 시작");
-		freeboardCounselService.createFreeboardPostsProcess (paraFreeboardDto);
-			System.out.println("createFreeboardPostsProcess 완료");
+	public String createFreeboardPostsProcess(FreeboardDto paraFreeboardDto, MultipartFile[] imgFiles) {
+				System.out.println("createFreeboardPostsProcess 시작");
+				
+			//직접 파라미터 세팅
+				List<FreeboardImageDto> freeboardImageDtoList = new ArrayList<>();
+				
+			//파일저장로직
+			if(imgFiles != null) {
+				for(MultipartFile multipartFile: imgFiles) {
+					if(multipartFile.isEmpty()) {
+						continue;
+					}
+					
+				String rootPath = "C:/uploadFiles/";
+				
+				//날짜별 폴더 생성	
+				//simpledateformat은 날짜를 문자로, 문자를 날짜로 바꾸는 api
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+				String todayPath = sdf.format(new Date());
+					
+				File todayFolderForCreate = new File(rootPath + todayPath);
+				
+				if(! todayFolderForCreate.exists()) {
+					todayFolderForCreate.mkdirs();
+				}
+				
+				String originalFileName = multipartFile.getOriginalFilename();
+				
+				//파일명 충돌 회피 - 랜덤, 시간 조합
+				String uuid = UUID.randomUUID().toString();
+				long currentTime = System.currentTimeMillis();
+				String fileName= uuid + "_" + currentTime;
+				
+				//확장자 추출 - 오리지날네임에서 
+				String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+				fileName += ext;
+				
+				try {
+					multipartFile.transferTo(new File(rootPath+ todayPath+ fileName));	
+				}catch(Exception e) {
+				e.printStackTrace();
+				}
+				
+				FreeboardImageDto freeboardImageDto = new FreeboardImageDto();
+				freeboardImageDto.setFreeboard_image_link(todayPath + fileName);
+
+				freeboardImageDtoList.add(freeboardImageDto);
+				
+				}
+			}
+			freeboardCounselService.createFreeboardPostsProcess(paraFreeboardDto, freeboardImageDtoList);
+				System.out.println("createFreeboardPostsProcess 완료");
+			
 		return "tl_e/freeboardCounsel/createFreeboardPostsComplete";
 	}
 	
 	//자유게시판 상세 글보기 페이지
 	@RequestMapping("readFreeboardPostPage")
 	public String readFreeboardPostPage(Model model, int id) {
+			System.out.println("컨트롤 상세글보기 페이지 시작");
 		
 		//조회수 카운트
 		freeboardCounselService.readCount(id);
+			System.out.println("컨트롤 readCount시작");
 		
 		Map<String, Object> pickpostMap = freeboardCounselService.pickPost(id);
 		model.addAttribute("pickpostMap", pickpostMap);
-
+			System.out.println("컨트롤 상세글 뽑아와서 모델에 넣음");
+//		List<FreeboardImageDto> list = (List<FreeboardImageDto>)pickpostMap.get("freeboardImageDtoList");
+//		
+//		for(FreeboardImageDto FreeboardImageDto : list) {
+//			System.out.println(FreeboardImageDto.getFreeboard_image_link());
+//		}
+		
+		//댓글
+		List<Map<String, Object>> selectFreeboardCommentList= freeboardCounselService.selectFreeboardComment();
+			System.out.println("컨트롤 댓글 뽑아옴");
+		model.addAttribute("selectFreeboardCommentList",selectFreeboardCommentList);
+			System.out.println("컨트롤 댓글 뽑아와서 모델에 넣음");
+		
 		return "tl_e/freeboardCounsel/readFreeboardPostPage";
 	}
 	
+	//댓글 작성하기
+	@RequestMapping("insertFreeboardComment")
+	public String insertFreeboardComment(FreeboardCommentDto paraFreeboardCommentDto) {
+			System.out.println("insertFreeboardComment 시작");
+		freeboardCounselService.insertFreeboardComment(paraFreeboardCommentDto);
+			System.out.println("insertFreeboardComment 완료");
+		return "redirect: ./readFreeboardPostPage?id=" + paraFreeboardCommentDto.getFreeboard_id();
+	}
 	
 	
 	//자유게시판 글 수정 페이지

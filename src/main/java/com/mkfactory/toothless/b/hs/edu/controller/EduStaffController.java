@@ -1,7 +1,11 @@
 package com.mkfactory.toothless.b.hs.edu.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.mkfactory.toothless.b.dto.EduApplyDto;
 import com.mkfactory.toothless.b.dto.EduDto;
 import com.mkfactory.toothless.b.hs.edu.service.EduStaffServiceimpl;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
@@ -25,9 +31,13 @@ public class EduStaffController {
 	public String eduMainPageForStaff(Model model) {
 		
 		List<Map<String, Object>> list = eduStaffService.getEduProgList();
+		List<Map<String, Object>> eduApplyList = eduStaffService.getEduApplyList();
+		List<Map<String, Object>> allServeyList = eduStaffService.getAllServeyList();
 		
 
 		model.addAttribute("list", list);
+		model.addAttribute("eduApplyList", eduApplyList);
+		model.addAttribute("allServeyList", allServeyList);
 		
 		return "tl_b/hs/eduMainPageForStaff";
 	}
@@ -39,7 +49,41 @@ public class EduStaffController {
 	}
 	//프로그램 등록프로세스
 	@RequestMapping("eduProgRegisterProcess")
-	public String eduProgRegisterProcess(HttpSession session, EduDto eduDto) {
+	public String eduProgRegisterProcess(HttpSession session, EduDto eduDto, MultipartFile eduImage) {
+		
+		if(eduImage != null) {
+			String rootPath = "C:/uploadFiles/eduImage/";
+			
+			// 날짜별 폴더 생성
+	         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+	         // 아래 new Date는 현재 날짜 반환 format으로 문자로 반환
+	         String todayPath = sdf.format(new Date());
+	         
+	         File todayFolderForCreate = new File(rootPath + todayPath);
+	         if(!todayFolderForCreate.exists()) {
+	            todayFolderForCreate.mkdirs();
+	         }
+	         
+	         String originalFileName = eduImage.getOriginalFilename();
+	         
+	         String uuid = UUID.randomUUID().toString();
+	         long currentTime = System.currentTimeMillis();
+	         String fileName = uuid + "_" + currentTime;
+	         
+	         // 확장자 추출
+	         String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+	         
+	         fileName += ext;
+	         
+	         try {
+	        	 eduImage.transferTo(new File(rootPath + todayPath + fileName));
+	         } catch (Exception e) {
+	            e.printStackTrace();
+	         }
+	         
+	         eduDto.setImg_link(todayPath + fileName);   
+	         
+		}
 		
 		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
 		int staffPk = sessionStaffInfo.getStaff_pk();
@@ -53,9 +97,9 @@ public class EduStaffController {
 	
 	//상세 글 보기
 	@RequestMapping("readEduProgPage")
-	public String readEduProgPage(Model model, int edu_pk) {
+	public String readEduProgPage(Model model, EduApplyDto eduApplyDto) {
 		
-		Map<String, Object> map = eduStaffService.getEduProg(edu_pk);
+		Map<String, Object> map = eduStaffService.getEduProg(eduApplyDto);
 		
 		model.addAttribute("qwer", map);
 		
@@ -64,9 +108,9 @@ public class EduStaffController {
 	
 	//교육프로그램 정보 수정
 	@RequestMapping("updateEduProgPage")
-	public String updateEduProgPage(Model model, int edu_pk) {
+	public String updateEduProgPage(Model model,EduApplyDto eduApplyDto) {
 		
-		model.addAttribute("update", eduStaffService.getEduProg(edu_pk));
+		model.addAttribute("update", eduStaffService.getEduProg(eduApplyDto));
 		
 		return "tl_b/hs/updateEduProgPage";
 	}
@@ -75,8 +119,6 @@ public class EduStaffController {
 	public String updateEduProgProcess(EduDto params) {
 		
 		eduStaffService.updateEduProg(params);
-		
-		System.out.println(params.getEdu_pk());
 		
 		return "redirect:./readEduProgPage?edu_pk=" + params.getEdu_pk();
 	}
@@ -88,6 +130,17 @@ public class EduStaffController {
 		return "redirect:./eduMainPageForStaff";
 	}
 	
+	//상태 바꾸기(교직원)
+	@RequestMapping("updateStatusYProcess")
+	public String updateStatusYProcess(int edu_apply_pk) {
+		eduStaffService.updateStatusY(edu_apply_pk);
+		return "redirect:./eduMainPageForStaff";
+	}
+	@RequestMapping("updateStatusNProcess")
+	public String updateStatusNProcess(int edu_apply_pk) {
+		eduStaffService.updateStatusN(edu_apply_pk);
+		return "redirect:./eduMainPageForStaff";
+	}
 	
 	
 	

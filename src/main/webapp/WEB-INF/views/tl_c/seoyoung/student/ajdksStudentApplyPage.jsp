@@ -77,7 +77,7 @@
 						<!-- 본문작성공간 -->
 						<br> <br>
 						<div class="container">
-
+			
 							<div class="row">
 								<h2>
 									<span class="fw-bolder"><i class="bi bi-calendar-check"></i>&nbsp;신청내역

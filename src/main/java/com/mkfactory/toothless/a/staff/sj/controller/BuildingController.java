@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mkfactory.toothless.a.dto.DormBuildingDto;
 import com.mkfactory.toothless.a.dto.DormCategoryDto;
 import com.mkfactory.toothless.a.dto.DormRoomDto;
+import com.mkfactory.toothless.a.dto.DormStudentDto;
 import com.mkfactory.toothless.a.staff.sj.mapper.BuildingSqlMapper;
 import com.mkfactory.toothless.a.staff.sj.service.BuildingServieImpl;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
@@ -33,8 +36,8 @@ public class BuildingController {
 	
 	@Autowired
 	private StaffServiceImpl staffService;
-	
-	//관리페이지
+		
+	//기숙사 동 관리페이지
 	@RequestMapping("sj_manageDormInfo")
 	public String buildingPage(Model model) {
 		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
@@ -43,50 +46,68 @@ public class BuildingController {
 		return "tl_a/staff/sj_manageDormInfo";
 	}
 	
+	@RequestMapping("sj_managePoint")
+    public String managePoint(Model model, int dorm_student_pk) {
+        model.addAttribute("point", buildingService.pointsL(dorm_student_pk));
+        model.addAttribute("studentList", buildingService.studentList());
+        
+        return "tl_a/staff/sj_managePoint";
+    }
+	
+	//기숙사 호실 관리 페이지
 	@RequestMapping("sj_manageRoomInfo")
-	public String roomInfo(Model model ) {
+	public String roomInfo(Model model /*,int student_pk*/ ) {
 		
 		List<Map<String, Object>> rooms2 = buildingService.roomList();
 		model.addAttribute("rooms", rooms2);
-		
-
 		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
-//		model.addAttribute("dormAmount", buildingService.dormCategoryList());
 		
+		//stList
+		model.addAttribute("studentList", buildingService.studentList());
 		
-		
+		//test
+//		model.addAttribute("test", buildingService.testPrint(student_pk));
 		return "tl_a/staff/sj_manageRoomInfo";
 	}
 	
+	//기숙사 호실 상세 페이지?
 	@RequestMapping("sj_manageRoomInfoReadPage")
 	public String roomInfoReadPage(Model model, int dorm_pk) {
 		
 		List<Map<String, Object>> rooms2 = buildingService.roomList();
 		model.addAttribute("rooms", rooms2);
 		
-		List<Map<String, Object>> dorm = buildingService.dormList();
-		model.addAttribute("forDorm", dorm);
-		
+		model.addAttribute("studentList", buildingService.studentList());
 		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
+		//model.addAttribute("points", buildingService.pointList());
 		
 		return "tl_a/staff/sj_manageRoomInfoReadPage";
 	}
 	
+	//기숙사 호실 별 (2/4인실) 이미지 관리 페이지
 	@RequestMapping("sj_manageRoomImages")
-	public String roomImgInfo(Model model) {
-		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
+	public String roomImgInfo(Model model, DormCategoryDto categoryDto) {
+		
 		model.addAttribute("dormAmount", buildingService.dormCategoryList());
+		
 		return "tl_a/staff/sj_manageRoomImages";
 	}
 	
+	@RequestMapping("sj_manageRoomImagesReadPage")
+	public String roomImgInfoReadPage() {
+		
+		return "tl_a/staff/sj_manageRoomImagesReadPage";
+	}
 	
-	//등록페이지
+	
+	//기숙사 동 등록페이지
 	@RequestMapping("sj_registerDormInfo")
 	public String dormInfo() {
 		
 		return "tl_a/staff/sj_registerDormInfo";
 	}
 	
+	//기숙사 호실 등록 페이지
 	@RequestMapping("sj_registerRoomInfo")
 	public String registerRoomInfoPage(Model model) {
 		
@@ -96,7 +117,7 @@ public class BuildingController {
 	}
 
 	
-	//기숙사 동 등록
+	//기숙사 동 등록 프로세스
 	@RequestMapping("registerDormProcess")
 	public String registerDormInfoProcess(/*StaffInfoDto params,*/ DormBuildingDto dormbuildingDto, DormRoomDto dormRoomDto,MultipartFile mainImage) {
 		//StaffInfoDto staffInfoDto = staffService.loginByStaffIdAndPassword(params);
@@ -137,16 +158,17 @@ public class BuildingController {
 		
 	
 		buildingService.registerBuilding(dormbuildingDto);
-		return "redirect:./sj_registerDormInfo";
+		return "redirect:./sj_manageDormInfo";
 	}
 	
 	//기숙사 호실 이미지 등록!
 	@RequestMapping("sj_registerRoomImages")
-	public String registerRoomImagesPage(Model model) {
+	public String registerRoomImagesPage(Model model ) {
 		model.addAttribute("dormAmount", buildingService.dormCategoryList());
 		return "tl_a/staff/sj_registerRoomImages";
 	}
 	
+	//호실 별 이미지 프로세스
 	@RequestMapping("registeRoomImagesProcess")
 	public String registerRoomImageProcess(@RequestParam("dorm_amount") int dormAmount, DormCategoryDto dormCategory, MultipartFile[] roomImgs, DormBuildingDto dormBuild) {
 		// 상세 이미지 렛츠고
@@ -199,7 +221,7 @@ public class BuildingController {
 			}
 		}
 		buildingService.insertRegisterCategory(dormCategory, categoryList);
-		return "redirect:./sj_registerRoomImages";
+		return "redirect:./sj_manageRoomImages";
 	}
 	
 	//기숙사 호실 등록
@@ -209,10 +231,10 @@ public class BuildingController {
 		buildingService.registerRoom(roomDto);
 		 System.out.println("dorm_amount_pk: " + roomDto.getDorm_amount_pk());
 		 System.out.println("dorm_pk: " + roomDto.getDorm_pk());
-		return "redirect:./sj_manageRoomImages";
+		return "redirect:./sj_manageRoomInfo";
 	}
 	
-	//기숙사 동 삭제
+	//기숙사 동 삭제 프로세스
 	@RequestMapping("deleteForDormInfoProcess")
 	public String manageDorm(int dorm_pk) {
 		buildingService.deleteForDormInfoProcess(dorm_pk);
@@ -220,12 +242,14 @@ public class BuildingController {
 		
 	}
 	
+	//기숙사 호실 삭제 프로세스
 	@RequestMapping("deleteForRoomProcess")
 	public String manageRoom(int dorm_room_pk) {
 		buildingService.deleteForRoomProcess(dorm_room_pk);
 		return "redirect:./sj_manageRoomInfo";
 	}
 	
+	//기숙사 호실 수정 페이지
 	@RequestMapping("sj_editRoomInfo")
 	public String editRoomPage(Model model, int dorm_room_pk) {
 		
@@ -253,5 +277,16 @@ public class BuildingController {
 		return "redirect:./sj_manageRoomInfoReadPage?dorm_pk="+roomDto.getDorm_pk();
 	}
 	
+//	이거 일괄 그거
+//	@RequestMapping("deleteForRoomDatailProcess")
+//	public String deleteForRoomDatailProcess(int dorm_amount) {
+//		buildingService.deleteForRoomDetailImg(dorm_amount);
+//		return "redirect:./sj_manageRoomImages";
+//	}
+	
+	@RequestMapping("deleteForRoomDatailProcess")
+	public String deleteForRoomDatailProcess(int dorm_amount_pk, DormCategoryDto categoryDto) {
+		return "redirect:./sj_manageRoomImages";
+	}
 	
 }

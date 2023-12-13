@@ -10,10 +10,13 @@ import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.d.dto.CareerCategoryDto;
 import com.mkfactory.toothless.d.dto.CareerDto;
+import com.mkfactory.toothless.d.dto.CompanyDto;
+import com.mkfactory.toothless.d.dto.JobFieldCategoryDto;
 import com.mkfactory.toothless.d.dto.JobPostingDto;
 import com.mkfactory.toothless.d.dto.LicenseDto;
 import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.dto.VolunteerDto;
+import com.mkfactory.toothless.d.ny.posting.mapper.PostingSqlMapper;
 import com.mkfactory.toothless.d.sb.resume.mapper.ResumeSqlMapper;
 
 @Service
@@ -21,6 +24,8 @@ public class ResumeServiceImpl {
 
 	@Autowired
 	private ResumeSqlMapper resumeSqlMapper;
+	@Autowired
+	private PostingSqlMapper postingSqlMapper;
 	
 	// 이력서 등록
 	public void resumeRegistration(ResumeDto resumeDto) {
@@ -49,6 +54,13 @@ public class ResumeServiceImpl {
 		return resumeList;
 	}
 	
+	public ResumeDto getResume(String resume_pk) {
+		ResumeDto resumeDto = resumeSqlMapper.getResumeDtoByResumePk(resume_pk);
+		return resumeDto;
+	}
+	
+
+	
 	// 메인 이력서 변경
 	public void changeMainResume(ResumeDto resumeDto) {
 		
@@ -74,15 +86,8 @@ public class ResumeServiceImpl {
 		
 		}else {
 			resumeSqlMapper.changePrivateResume(resumeDto);
-		}
-		
-		
-		
-		
+		}	
 	}
-	
-	
-	
 	
 	
 	// 이력서 상세보기
@@ -98,6 +103,13 @@ public class ResumeServiceImpl {
 		
 		resumeSqlMapper.updateResumeDtoByResumePk(resumeDto);
 	}
+	
+	// 이력서 삭제
+	public void deleteResume(ResumeDto resumeDto) {
+		
+		resumeSqlMapper.deleteResumeByResumePk(resumeDto);
+	}
+	
 	
 	
 	// 경력 카테고리 가져오기
@@ -187,16 +199,109 @@ public class ResumeServiceImpl {
 	}
 	
 	
+	// 학생이 지원한 공고 목록 가져오기
+	public List<JobPostingDto> getPostApplyList(int student_pk){
+		
+		List<JobPostingDto> list = resumeSqlMapper.getPostingListByStudentPk(student_pk);
+		
+		return list;
+	}
+	
+	// 학생이 지원한 회사 정보 목록 가져오기
+	public List<CompanyDto> getCompanyDtoListByStudentPk(int student_pk){
+		
+		List<CompanyDto> list = resumeSqlMapper.getComPanyDtoListByStudentPk(student_pk);
+		
+		return list;
+	}
+	
+	// 학생이 지원한 공고목록과 회사 정보 가져오기
+	public List<Map<String, Object>> getPostAndCompanyList(int student_pk) {
+		
+		List<JobPostingDto> postList = resumeSqlMapper.getPostingListByStudentPk(student_pk);
+		
+		
+		List<CompanyDto> companyList = resumeSqlMapper.getComPanyDtoListByStudentPk(student_pk);
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		
+		
+		for(JobPostingDto jobPostingDto : postList) {
+			
+			for(CompanyDto companyDto : companyList) {
+				if(jobPostingDto.getCom_pk()== companyDto.getCom_pk()) {
+					Map<String, Object> map = new HashMap<String, Object>();
+					JobFieldCategoryDto jobFieldCategoryDto = postingSqlMapper.selectByJobFieldCategoryPk(jobPostingDto.getJob_field_category_pk());
+					
+					String str = companyDto.getCom_address();
+					
+					if (str.length() >= 2) {
+						companyDto.setCom_address(str.substring(0, 2));
+					}
+					
+					map.put("postDto", jobPostingDto);
+					map.put("companyDto", companyDto);
+					map.put("jfcDto", jobFieldCategoryDto);
+					list.add(map);
+				}
+			}
+		}
+		
+		return list;
+		
+		
+		
+	}
 	
 	
 	
+	// 학생이 지원한 공고 수 가져오기
+	public int getCountForStudentApplyList(int student_pk) {
+		int count = resumeSqlMapper.getCountForStudentApplyListByStudentPk(student_pk);
+		
+		return count;
+	}
+	
+	// 학생이 공고 지원 취소하기
+	public void cancleApply(int student_pk, int job_posting_pk) {
+		
+		resumeSqlMapper.cancleApplyForJobPosting(student_pk, job_posting_pk);
+	}
 	
 	
+	// 학생 마이페이지에 지원한 공고목록 4줄 요약
+	public List<Map<String, Object>> getRowNumApplyList(int student_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		List<JobPostingDto> postList = resumeSqlMapper.getApplyListByStudentPkToMyPage(student_pk);
+		
+		List<CompanyDto> companyList = resumeSqlMapper.getComPanyDtoListByStudentPk(student_pk);
+		
+		for(JobPostingDto jobPostingDto : postList) {
+				
+			for(CompanyDto companyDto : companyList) {
+				if(jobPostingDto.getCom_pk()== companyDto.getCom_pk()) {
+					Map<String, Object> map = new HashMap<String, Object>();
+					JobFieldCategoryDto jobFieldCategoryDto = postingSqlMapper.selectByJobFieldCategoryPk(jobPostingDto.getJob_field_category_pk());
+					
+					String str = companyDto.getCom_address();
+					
+					if (str.length() >= 2) {
+						companyDto.setCom_address(str.substring(0, 2));
+					}
+					
+					map.put("postDto", jobPostingDto);
+					map.put("companyDto", companyDto);
+					map.put("jfcDto", jobFieldCategoryDto);
+					list.add(map);
+				}
+			}
+		}
 	
-	
-	
-	
-	
+		return list;
+	}
 	
 	
 	

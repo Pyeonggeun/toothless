@@ -81,8 +81,8 @@
                                                     <li><hr class="dropdown-divider"></li>
                                               <li><a class="dropdown-item" href="#">공지사항</a></li>
                                               <li><a class="dropdown-item" href="#">서식 자료실</a></li>
-                                              <li><a class="dropdown-item" href="#">외박 및 외출신청</a></li>
-                                              <li><a class="dropdown-item" href="#">상벌점 확인</a></li>
+                                              <li><a class="dropdown-item" href="./jw_exitApplyPage">외박 및 외출신청</a></li>
+                                              <li><a class="dropdown-item" href="./jw_checkDormStudentPointPage">상벌점 확인</a></li>
                                               <li><a class="dropdown-item" href="#">고장수리요청</a></li>
                                               <li><a class="dropdown-item" href="#">상담 및 건의</a></li>
                                               <li><a class="dropdown-item" href="#">FAQ</a></li>

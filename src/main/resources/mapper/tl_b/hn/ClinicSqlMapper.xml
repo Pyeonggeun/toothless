@@ -4,6 +4,29 @@
 
 <mapper namespace="com.mkfactory.toothless.b.hn.clinic.mapper.ClinicSqlMapper">
 
+	<insert id="insertWaitingClinicPatientInfo">
+		INSERT INTO tl_b_clinic_patient_wait VALUES(
+			tl_b_clinic_patient_wait_seq.nextval,
+			#{clinic_patient_pk},
+			'N',
+			SYSDATE,
+			SYSDATE
+		)
+	</insert>
+	
+	<insert id="insertNewClinicPatientInfo">
+		INSERT INTO tl_b_clinic_patient_info VALUES(
+			tl_b_clinic_patient_info_seq.nextval,
+			#{resident_id},
+			#{name},
+			0,
+			#{address},
+			#{phone},
+			#{birth},
+			SYSDATE
+		)
+	</insert>
+
 	<select id="getClinicPatientInfoList" resultType="com.mkfactory.toothless.b.dto.ClinicPatientDto">
 		SELECT t1.* FROM (
 			SELECT cpi.*, rownum rnum FROM tl_b_clinic_patient_info cpi
@@ -35,6 +58,67 @@
 			WHERE name LIKE '%'||#{searchWord}||'%'
 			OR TO_CHAR(birth, 'yyMMdd') LIKE #{searchWord}
 		</if>
+	</select>
+	
+	<select id="getWaitingClinicPatientPkList" resultType="int">
+		SELECT t1.clinic_patient_pk FROM (
+			SELECT cpw.*, rownum rnum FROM tl_b_clinic_patient_wait cpw
+			WHERE cpw.status LIKE 'N'
+		)t1
+		<![CDATA[
+			WHERE t1.rnum >= (#{pageNumber}-1)*20 + 1 AND t1.rnum <= #{pageNumber}*20
+		]]>
+		ORDER BY created_at ASC
+	</select>
+	
+	<select id="getClinicPatientInfoByClinicPatientPk" resultType="com.mkfactory.toothless.b.dto.ClinicPatientDto">
+		SELECT clinic_patient_pk, resident_id, name, TO_NUMBER(TO_CHAR(SYSDATE, 'yyyy')-TO_CHAR(birth, 'yyyy')+1) AS age,
+			address, phone, birth, created_at FROM tl_b_clinic_patient_info
+		WHERE clinic_patient_pk = #{clinic_patient_pk}
+	</select>
+	
+	<select id="getWaitingClinicPatientTotalPageNumber" resultType="int">
+		SELECT COUNT(*) FROM tl_b_clinic_patient_wait
+		WHERE status LIKE 'N'
+	</select>
+	
+	<select id="getNewClinicPatientInfoByResidentId" resultType="com.mkfactory.toothless.b.dto.ClinicPatientDto">
+		SELECT t1.* FROM (
+			SELECT resident_id, name, address, phone, birth, '학생' AS classify FROM tl_jic_student_info
+			UNION
+			SELECT resident_id, name, address, phone, birth, '교직원' AS classify FROM tl_jic_staff_info
+			UNION
+			SELECT resident_id, name, address, phone, birth, '교수' AS classify FROM tl_jic_professor_info
+		)t1
+		WHERE t1.resident_id LIKE #{resident_id}
+	</select>
+	
+	<select id="getClinicPatientPkByResidentId" resultType="int">
+		SELECT clinic_patient_pk FROM tl_b_clinic_patient_info WHERE resident_id LIKE #{resident_id}
+	</select>
+	
+	<select id="getClinicPatientLogInfoListByClinicPatientPk" resultType="com.mkfactory.toothless.b.dto.ClinicPatientLogDto">
+		SELECT * FROM tl_b_clinic_patient_log WHERE clinic_patient_pk = #{clinic_patient_pk}
+	</select>
+	
+	<select id="getStaffNameByStaffPk" resultType="String">
+		SELECT name FROM tl_jic_staff_info WHERE staff_pk = #{staff_pk}
+	</select>
+	
+	<select id="getDiseaseNameByDiseaseCodePk" resultType="String">
+		SELECT name FROM tl_b_disease_code_info WHERE disease_code_pk = #{disease_code_pk}
+	</select>
+	
+	<select id="getClinicPatientLogInfoByClinicPatientLogPk" resultType="com.mkfactory.toothless.b.dto.ClinicPatientLogDto">
+		SELECT * FROM tl_b_clinic_patient_log WHERE clinic_patient_log_pk = #{clinic_patient_log_pk}
+	</select>
+	
+	<select id="getPrescriptionInfoListByClinicPatientLogPk" resultType="com.mkfactory.toothless.b.dto.PrescriptionDto">
+		SELECT * FROM tl_b_prescription_info WHERE clinic_patient_log_pk = #{clinic_patient_log_pk}
+	</select>
+	
+	<select id="getMedicineNameByMedicineCodePk" resultType="String">
+		SELECT name FROM tl_b_medicine_code_info WHERE medicine_code_pk = #{medicine_code_pk}
 	</select>
 	
 </mapper>

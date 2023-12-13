@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,13 +13,13 @@
 </head>
 <body>
 	<div class="row">
-		<div class="col-2"></div>
-		<div class="col text-center" style="font-size: 2.5em; color: orange; font-weight: bold">상담 페이지</div>
-		<div class="col-2 mt-3 d-flex justify-content-around">
-			<span class="fw-bold" style="font-size: 1.3em;"> 상담사 ${sessionExternalInfo.external_id }님</span>
+		<div class="col"></div>
+		<div class="col-9" style="text-align:center; font-size: 2.2em; color: dark; font-weight: bold">상담 센터</div>
+		<div class="col mt-2" style="text-align: center; font-size: 1.2em; font-weight: bold">
+			상담사 ${sessionExternalInfo.external_id }님
 		</div>
 	</div>
-	<div class="row mt-2 text-center" style="font-weight: bold; font-size: 2.3em; background-color: orange;"  >
+	<div class="row align-items-center" style="font-weight: bold; font-size: 1.2em; background-color: blue; color:beige; text-align: center;"  >
 		<div class="col-1"></div>		
 		<div class="col">
 			Home
@@ -31,12 +32,13 @@
 		</div>
 		<div class="col">
 			<div class="dropdown">
-				<button class="btn btn-secondary dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    	내 정보
+				<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+			    	<span style="font-size: 1.4em; font-weight: bold; color: beige;">내 정보</span>
 				</button>
-				<ul class="dropdown-menu">
-				    <li><a class="dropdown-item" href="#">답변 완료 상담</a></li>
-				    <li><a class="dropdown-item" href="#">채택 된 상담</a></li>
+				<ul class="dropdown-menu" style="background-color: #333;">
+				    <li><a class="dropdown-item" href="#" style="color: beige;">답변 완료 상담</a></li>
+				    <li><a class="dropdown-item" href="#" style="color: beige;">채택 된 상담</a></li>
+				    <li><a class="dropdown-item" href="./logoutProcess" style="color: beige;">로그아웃</a></li>
 				</ul>
 			</div>
 		</div>
@@ -47,35 +49,19 @@
 			<div class="col" style="font-weight: bold; font-size: 2.0em;">
 				상담 목록
 			</div>
-		</div>	
-		<div class="row mt-5">
-			<div class="col-8">
-				<div class="row fw-bold" style="font-size: 1.2em; color: gray;" >
-					<div class="col">전체</div>
-					<div class="col">문학</div>
-					<div class="col">경제 경영</div>
-					<div class="col">자기계발</div>
-					<div class="col">경영 혁신</div>
-					<div class="col">컴퓨터</div>
-					<div class="col">소설</div>
-					<div class="col">예술</div>
-					<div class="col">건강</div>
-				</div>
-			</div>
-			<div class="col"></div>
-		</div>	
+		</div>		
 		<div class="row mt-4">
-			<div class="col border border-2" style="color: black;">
-			</div>
+			<div class="col border border-primary border-3;"></div>
 		</div>
-		<div class="row mt-2 text-center" style="font-size: 1.2em; font-weight: bold; color: gray;">
-			<div class="col-1" style="color: red;" >No.</div>
-			<div class="col-2" style="color: blue;" >작성자</div>
+		<div class="row mt-2 text-center" style="font-size: 1.2em; font-weight: bold; color: dark;">
+			<div class="col-1">No.</div>
+			<div class="col-2">작성자</div>
 			<div class="col-3">카테고리</div>
-			<div class="col" style="color: brown;" >제목</div>
+			<div class="col">제목</div>
+			<div class="col">작성일</div>
 		</div>
 		<div class="row mt-2">
-			<div class="col border" style="color: black;"></div>
+			<div class="col border border-primary-emphasis"></div>
 		</div>
 		<C:forEach items="${counselList }" var="list">
 			<C:forEach items="${list}" var="mapList">
@@ -90,14 +76,45 @@
 						${mapList.typeCategoryDto.name}
 					</div>
 					<div class="col">
-						${mapList.onlineCounselBoardDto.title }
+						<a style="color: black !important; text-decoration: none !important;" class="link-secondary link-offset-2 link-underline link-underline-opacity-0" href="./counselorOnlineCounselReadCounselPage?counsel_pk=${mapList.onlineCounselBoardDto.id }">
+							${mapList.onlineCounselBoardDto.title }
+							<C:if test="${mapList.replyCount != 0}">
+								[${mapList.replyCount }]
+							</C:if>
+						</a> 
+					</div>
+					<div class="col">
+						<fmt:formatDate value="${mapList.onlineCounselBoardDto.created_at }" pattern="yy.MM.dd"/> 
 					</div>
 				</div>
 				<div class="row mt-1">
-					<div class="col border" style="color: black;"></div>
+					<div class="col border border-primary-emphasis"></div>
 				</div>
 			</C:forEach>
 		</C:forEach>
+		<div class="row mt-5">
+			<div class="col-1"></div>
+			<div class="col d-flex justify-content-center">
+				<nav aria-label="Page navigation example">
+				  <ul class="pagination">
+				    <li class="page-item">
+				      <a class="page-link" href="#" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <li class="page-item"><a class="page-link" href="#">1</a></li>
+				    <li class="page-item"><a class="page-link" href="#">2</a></li>
+				    <li class="page-item"><a class="page-link" href="#">3</a></li>
+				    <li class="page-item">
+				      <a class="page-link" href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
+			</div>
+			<div class="col-1"></div>
+		</div>
 	</div>	
 </body>
 </html>
