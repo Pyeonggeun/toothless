@@ -96,11 +96,18 @@ public class WoojaeRestExternalController {
 		
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
+		if(company_category_pk == 0) {
+			restResponseDto.setData(woojaeExternalService.registedCompanyList());
+			
+			restResponseDto.setResult("success");
+			return restResponseDto;
+		}else {
+			restResponseDto.setResult("success");
+			restResponseDto.setData(woojaeExternalService.getCompanyListByCategoryPk(company_category_pk));
+			
+			return restResponseDto;
+		}
 		
-		restResponseDto.setResult("success");
-		restResponseDto.setData(woojaeExternalService.getCompanyListByCategoryPk(company_category_pk));
-		
-		return restResponseDto;
 	}
 
 	// 전체 산업체 리스트
