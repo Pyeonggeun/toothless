@@ -26,5 +26,11 @@ import com.mkfactory.toothless.donot.touch.service.StudentServiceImpl;
 public class LifeStaffControllerMj {
 	
 	
+	@RequestMapping("mainPage")
+	public String mainPage() {
+		
+		return "tl_x/mj/mainPage";
+	}
+	
 	
 }
