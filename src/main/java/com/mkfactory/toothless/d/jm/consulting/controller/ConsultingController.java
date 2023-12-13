@@ -278,8 +278,9 @@ public class ConsultingController {
 	public String insertHJFProcess(HopeJobFeedbackDto par) {
 				
 		consultingService.insertHopeJobFeedback(par);
+		System.out.println(par.getHjf_score()+"점수");
 		
-		return"redirect:./myUnAnsweredHJFListPage";
+		return"redirect:./hopeJobConsultingPage";
 	}
 	
 	
