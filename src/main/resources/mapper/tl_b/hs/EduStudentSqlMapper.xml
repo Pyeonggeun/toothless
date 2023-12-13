@@ -12,11 +12,43 @@
 			SYSDATE
 		)
 	</insert>
-	
+	<!-- 만족도 작성 -->
+	<insert id="insertMyServey">
+		INSERT INTO TL_B_EDU_STSFC_SURVEY VALUES(
+			TL_B_EDU_STSFC_SURVEY_seq.nextval,
+			#{edu_apply_pk},
+			#{star_rated},
+			#{content},
+			SYSDATE
+		)
+	</insert>
+	<!-- 나의 교육프로그램 리스트 -->
 	<select id="selectMyEduList" resultType="com.mkfactory.toothless.b.dto.EduApplyDto">
 		SELECT * FROM TL_B_EDU_APPlY 
 		WHERE  STUDENT_PK = #{student_pk}
 		ORDER BY edu_apply_pk DESC
+	</select>
+	
+	<!-- 나의 만족도 작성내역 -->
+	<select id="selectMyServeyList" resultType="com.mkfactory.toothless.b.dto.EduStsfcSurveyDto">
+		SELECT * FROM TL_B_EDU_STSFC_SURVEY tbess 
+			INNER JOIN TL_B_EDU_APPLY tbea 
+			ON tbea.EDU_APPLY_PK = tbess.EDU_APPLY_PK 
+		WHERE tbea.STUDENT_PK = #{student_pk} AND status = 'D'
+		ORDER BY tbess.CREATED_AT DESC
+	</select>
+	
+	<!-- 신청번호별로 프로그램 이름 하나 뽑아오기 -->
+	<select id="selectMyEduName" resultType="String">
+		SELECT NAME FROM TL_B_EDU_INFO tbei
+		WHERE EDU_PK = (
+			SELECT EDU_PK FROM TL_B_EDU_APPLY tbea
+			WHERE EDU_APPLY_PK = #{EDU_APPLY_PK}
+		)
+	</select>
+	                      
+	<select id="selectByIdStudent" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO WHERE student_pk = #{student_pk}
 	</select>
 	
 </mapper>
