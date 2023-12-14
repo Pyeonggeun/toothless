@@ -115,12 +115,93 @@
 				counselorListBox.appendChild(counselorWrapper);
 			}
 			
+		});
+	}
+	
+	
+	function showModal(){
+		
+		const writeModal = bootstrap.Modal.getOrCreateInstance("#writeModal");
+		const writeModalElement = document.querySelector("#writeModal");
+		
+		const url = "./getCounselorList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const allCounseolorListBox = document.getElementById("allCounseolorListBox");
+			allCounseolorListBox.innerHTML= "";
+			
+			for(e of response.data){
+				
+				const allCounselorWrapper = document.querySelector("#templete .allCounselorWrapper").cloneNode(true);
+				
+				const counselorName = allCounselorWrapper.querySelector(".counselorName");
+				counselorName.innerText = e.name;
+
+				const counselorGender = allCounselorWrapper.querySelector(".counselorGender");
+				counselorGender.innerText = e.gender;
+
+				const counselorPhone = allCounselorWrapper.querySelector(".counselorPhone");
+				counselorPhone.innerText = e.phonenumber;				
+				
+				
+				const checkBox = allCounselorWrapper.querySelector(".checkBox");
+				checkBox.value = e.id;
+				
+				allCounseolorListBox.appendChild(allCounselorWrapper);
+			}
+			
 			
 			
 		});
 		
+		writeModal.show();
 		
 	}
+	
+	
+	function isCheck(){
+		
+		const allCounseolorListBox = document.querySelector("#allCounseolorListBox");
+		const checkBoxList = allCounseolorListBox.querySelectorAll(".checkBox");
+		
+		
+		for(checkBox of checkBoxList){
+			
+			if(checkBox.checked == true){
+				register(checkBox.value);
+			}else{
+				continue;
+			}
+		}
+		closeModal();
+		reloadGroupCounselCounselorByGroupCounselId();
+	}
+	
+	
+	function register(counselorId){
+		
+		const url = "./registerCounselor?group_counsel_id=" + groupCounselId + "&counselor_id=" + counselorId;
+		
+		fetch(url)
+		.then(response => response)
+		.then(response => {
+			
+			
+		})
+		
+	}
+	
+	function closeModal() {
+		
+		const modal = bootstrap.Modal.getOrCreateInstance("#writeModal");
+		
+		modal.hide();
+		
+	}
+		
 	
 	
 	
@@ -478,7 +559,7 @@
 									<div class="fw-bold" style="font-size:1.9em; color: #07355e;">상담원 정보</div>
 								</div>
 								<div class="col-2 pt-1 text-end">
-									<a href="./counselorAddPage?group_counsel_id=${groupCounselDetail.groupCounselDto.id }"><i class="bi bi-plus-square" style="font-size:1.6em; color:black;"></i></a>
+									<a onclick="showModal()"><i class="bi bi-plus-square" style="font-size:1.6em; color:black;"></i></a>
 								</div>
 							</div>
 							<div class="row border-top border-2 border-black pb-2 text-bg-light">
@@ -529,9 +610,8 @@
 </div>
 
 
-
+<!-- 템플릿 -->
 <div id="templete" class="d-none">
-
 
 	<div class="row studentWrapper border-bottom py-2">
 		<div class="col-4 text-center">
@@ -561,18 +641,91 @@
 			<div style="font-size:0.9em;"></div>
 		</div>
 		<div class="col-2 text-center">
-			<div class="counselorName" style="font-size:0.9em;">${list.counselorDto.name }</div>
+			<div class="counselorName" style="font-size:0.9em;"></div>
 		</div>
 		<div class="col-2 text-center">
-			<div class="counselorGender" style="font-size:0.9em;">${list.counselorDto.gender}</div>
+			<div class="counselorGender" style="font-size:0.9em;"></div>
 		</div>
 		<div class="col-4 text-center">
-			<div class="counselorPhone" style="font-size:0.9em;">${list.counselorDto.phonenumber }</div>
+			<div class="counselorPhone" style="font-size:0.9em;"></div>
 		</div>
 	</div>
-
+	
+	<div class="row allCounselorWrapper border-bottom py-2">
+		<div class="col-1"></div>
+		<div class="col-2 text-center">
+			<div style="font-size:0.9em;">
+				<input type="checkbox" class="checkBox">
+			</div>
+		</div>
+		<div class="col-2 text-center">
+			<div class="counselorName" style="font-size:0.9em;"></div>
+		</div>
+		<div class="col-2 text-center">
+			<div class="counselorGender" style="font-size:0.9em;"></div>
+		</div>
+		<div class="col-4 text-center">
+			<div class="counselorPhone" style="font-size:0.9em;"></div>
+		</div>
+		<div class="col-1"></div>
+	</div>	
 	
 </div>
+
+
+<!-- 모달창 -->
+
+<div id="writeModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">상담원 목록</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+				<div class="row border-bottom pb-2 text-bg-light">
+					<div class="col-1"></div>
+					<div class="col-2 text-center">
+						<div class="fw-bold" style="font-size:1.0em;"></div>
+					</div>
+					<div class="col-2 text-center">
+						<div class="fw-bold" style="font-size:1.0em;">이름</div>
+					</div>
+					<div class="col-2 text-center">
+						<div class="fw-bold" style="font-size:1.0em;">성별</div>
+					</div>
+					<div class="col-4 text-center">
+						<div class="fw-bold" style="font-size:1.0em;">전화번호</div>
+					</div>
+					<div class="col-1"></div>
+				</div>	            
+            
+				<div class="row">
+					<div class="col" id= "allCounseolorListBox">
+							
+					
+					
+					</div>
+				</div>   
+
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            <button onclick="isCheck()" type="button" class="btn btn-primary">등록</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
 
 
 

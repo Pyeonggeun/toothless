@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mkfactory.toothless.donot.touch.dto.RestResponseDto;
+import com.mkfactory.toothless.e.dto.GroupCounselCounselorDto;
 import com.mkfactory.toothless.e.dto.GroupCounselReservationDto;
 import com.mkfactory.toothless.e.dto.RestResponseGroupCounselDto;
 import com.mkfactory.toothless.e.groupcounsel.service.GroupCounselStaffServiceImpl;
@@ -52,8 +53,30 @@ public class RestGroupCounselStaffController {
 		
 		return restResponseGroupCounselDto;
 	}
+	
+	@RequestMapping("getCounselorList")
+	public RestResponseGroupCounselDto getCounselorList() {
+		RestResponseGroupCounselDto restResponseGroupCounselDto = new RestResponseGroupCounselDto();
 		
+		restResponseGroupCounselDto.setData(groupCounselStaffService.readGrouopCounselCounselorList());
 		
+		restResponseGroupCounselDto.setResult("success");
+		
+		return restResponseGroupCounselDto;
+	}		
+
+	@RequestMapping("registerCounselor")
+	public RestResponseGroupCounselDto registerCounselor(GroupCounselCounselorDto params) {
+		RestResponseGroupCounselDto restResponseGroupCounselDto = new RestResponseGroupCounselDto();
+		
+		groupCounselStaffService.insertGroupCounselCounselor(params);
+		
+		restResponseGroupCounselDto.setResult("success");
+		
+		return restResponseGroupCounselDto;
+	}	
+	
+	
 	
 	public RestResponseGroupCounselDto templete() {
 		RestResponseGroupCounselDto restResponseGroupCounselDto = new RestResponseGroupCounselDto();
