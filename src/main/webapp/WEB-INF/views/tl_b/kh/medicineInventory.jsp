@@ -16,6 +16,205 @@
 	            background-color: #014195;
 	        }
         </style>
+
+        <script>
+
+            let name = null;
+
+            function frmInventoryModify(){
+
+                const changeInventory = document.getElementById("changeInventory")
+                if(changeInventory.value === '의약품명'){
+                    alert("의약품을 선택해야만 재고수정을 할 수 있습니다!");
+                    changeInventory.focus();
+                    return;
+                }
+                
+
+                const frmInventoryModify = document.getElementById("frmInventoryModify");
+                if(name == null){
+                    alert("관리하실 분야를 선택해주세요.");
+                    return;
+                }
+                const inputQuantity = document.getElementById("inputQuantity");
+                if(inputQuantity.value == 0){
+                    alert("0은 입력할 수 없습니다.");
+                    inputQuantity.focus();
+                    return;
+                }
+                const inputReason = document.getElementById("inputReason");
+                if(inputReason.value == ""){
+                    alert("비고란을 입력해주세요");
+                    inputReason.focus();
+                    return;
+                }
+                
+                frmInventoryModify.submit();
+            }
+            function reloadInventoryInfo(){
+                const url = "./inventoryStatistics"
+
+                fetch(url)
+                .then(response => response.json())
+                .then(response => {
+
+                   
+                })
+            }
+
+            function orderByInventoryInfo(obj){
+                const url = "./reloadInventoryInfo?orderNumber="+obj;
+
+                console.log(obj);
+
+                fetch(url)
+                .then(response => response.json())
+                .then(response => {
+
+                    const allInventoryLocation = document.querySelector(".allInventoryLocation");
+                    allInventoryLocation.innerHTML = "";
+
+                    for(e of response.data){
+                        const inventoryWrapper = document.querySelector("#templete .inventoryWrapper").cloneNode(true);
+
+                        const MEDICINE_CODE_PK = inventoryWrapper.querySelector(".MEDICINE_CODE_PK");
+                        MEDICINE_CODE_PK.innerHTML = e.MEDICINE_CODE_PK;
+
+                        const MEDI_NAME = inventoryWrapper.querySelector(".MEDI_NAME");
+                        MEDI_NAME.innerHTML = e.MEDI_NAME;
+
+                        const M_TYPE = inventoryWrapper.querySelector(".M_TYPE");
+                        M_TYPE.innerHTML = e.M_TYPE;
+
+                        const QUANTITY = inventoryWrapper.querySelector(".QUANTITY");
+                        QUANTITY.innerHTML = e.QUANTITY;
+
+                        const isQuantity = inventoryWrapper.querySelector(".isQuantity");
+                        if(e.isQuantity === undefined){
+                        isQuantity.innerHTML = "";
+                        }
+
+                        const M_NAME = inventoryWrapper.querySelector(".M_NAME");
+                        M_NAME.innerHTML = e.M_NAME;
+
+                        const DATE = inventoryWrapper.querySelector(".DATE");
+                        const date = new Date(e.DATE)
+                        DATE.innerHTML = date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate();
+
+                        allInventoryLocation.appendChild(inventoryWrapper);
+                    }
+                });
+            }
+
+            function changeInventoryInfo(){
+
+                const url = "./restGetMedicineList";
+
+                fetch(url)
+                .then(response => response.json())
+                .then(response => {
+
+                    const changeInventory = document.querySelector("#changeInventory");
+                    changeInventory.innerHTML = "";
+                    
+                    const defaultOption = document.createElement("option");
+                    defaultOption.setAttribute("selected","");
+                    defaultOption.innerText = "의약품명";
+                    changeInventory.appendChild(defaultOption);
+
+                    for (e of response.data){
+
+                        const option = document.createElement("option");
+                        option.setAttribute("value", ""+e.medicineInfo.medicine_code_pk+"");
+                        option.innerText = e.medicineInfo.name;
+                        changeInventory.appendChild(option);
+                        
+
+                    }
+
+                });
+            }
+
+            function getMedicineCodePk(medicine_code_pk){
+
+                const inputCodePk = document.querySelector("#inputCodePk");
+                inputCodePk.innerText="";
+                inputCodePk.innerText=""+medicine_code_pk+"";
+                inputCodePk.value = medicine_code_pk;
+            }
+            //재고카테고리 가져오기
+            function reloadInventoryCat(){
+
+                const url = "./reloadInventoryCat";
+
+                fetch(url)
+                .then(response => response.json())
+                .then(response => {
+
+                    const medicineMgmtCatPk = document.querySelector("#medicineMgmtCatPk");
+                    medicineMgmtCatPk.innerHTML = "";
+                    
+                    const defaultOption = document.createElement("option");
+                    defaultOption.setAttribute("selected","");
+                    defaultOption.innerText = "재고관리";
+                    medicineMgmtCatPk.appendChild(defaultOption);
+
+                    for (e of response.data){
+
+                        const option = document.createElement("option");
+                        option.setAttribute("value", ""+e.medicine_mgmt_cat_pk+"");
+                        option.innerText = e.name;
+                        medicineMgmtCatPk.appendChild(option);
+                        
+
+                    }
+
+                });
+            }
+
+            function getCatValue(element){
+
+                console.log(element);
+                getCatMgmtName(element); //이게 이름이댐
+
+
+            }
+
+            function getCatMgmtName(catMgmtPk){
+
+                const url = "./getMedicineMgmtCatInfoByPk?medicine_mgmt_cat_pk=" + catMgmtPk;
+
+                fetch(url)
+                .then(response => response.json())
+                .then(response => {
+                    const list = response.data;
+                    name = list.name;
+                    limitQuantity();
+                });
+                
+            }
+
+            function limitQuantity(){
+                const inputQuantity = document.getElementById("inputQuantity");
+                
+
+                if (name === '폐기' || name === '망실') {
+                    inputQuantity.setAttribute("min", "-5");
+                    inputQuantity.setAttribute("max", "-1");
+                    inputQuantity.value = -1 ;
+                } else if (name === '조정') {
+                    inputQuantity.setAttribute("min", "-5");
+                    inputQuantity.setAttribute("max", "5");
+                    inputQuantity.value = 1 ;
+              }
+            }
+
+            window.addEventListener("DOMContentLoaded", () => {
+                orderByInventoryInfo(1);
+                changeInventoryInfo();
+                reloadInventoryCat();
+            });
+        </script>
     </head>
     <body>
 
@@ -33,150 +232,93 @@
                                     <div class="row mx-3 my-5">
                                         <div class="col">
                                             <div class="container">
-                                                <div class="row mb-3">
-                                                    <div class="col">
-                                                        <div class="fw-bold">재고 변경 관리</div>
-                                                    </div>
-                                                </div>
+                                            <div class="row py-3 border-bottom border-primary">
+                                            	<div class="col">
+	                                            	<div class="row mb-3 ">
+	                                                    <div class="col text-center">
+	                                                        <div class="fw-bold">&lt;재고 수정&gt;</div>
+	                                                    </div>
+	                                                </div>
+	                                                
+	                                                <form id="frmInventoryModify" action="./inventoryModifyProcess" method="get">
+	                                                <div class="row ">
+	                                                    <div class="col">
+	                                                    	<select id="changeInventory" name="medicine_code_pk" class="form-select rounded-0" aria-label="Default select example"
+                                                                onchange="getMedicineCodePk(this.value)">
+                                                                <!-- <option selected>의약품명</option>
+                                                                <option value="1">변동일(최신순)</option>
+                                                                <option value="2">변동일(오래된순)</option>
+                                                                <option value="3">의약품순</option>
+                                                                <option value="4">변동사유순</option> -->
+                                                            </select>
+	                                                    </div>
+	                                                    <div class="col">
+	                                                    	<div class="input-group mb-3">
+															  <span class="input-group-text customColor" id="basic-addon1">코드번호</span>
+															  <span id="inputCodePk" type="text" class="form-control rounded-0" placeholder="코드번호" aria-describedby="basic-addon1"></span>
+															</div>
+	                                                    </div>
+	                                                    <div class="col">
+	                                                    	<div class="input-group mb-3">
+															  <span class="input-group-text customColor" id="basic-addon1">변경수량</span>
+															  <input id="inputQuantity" name="quantity" type="number" class="form-control rounded-0" placeholder="변경수량" aria-label="Username" aria-describedby="basic-addon1" min="-5" max="5">
+															</div>
+	                                                    </div>
+	                                                    <div class="col">
+	                                                    <select id="medicineMgmtCatPk" name="medicine_mgmt_cat_pk" class="form-select rounded-0" aria-label="Default select example"
+                                                        onchange="getCatValue(this.value)">
+														    <%-- 재고 카테고리 들어가는곳 --%>
+														</select>
+	                                                    </div>
+	                                                    <div class="col">
+	                                                    	<div class="input-group mb-3">
+															  <span class="input-group-text customColor" id="basic-addon1">비고</span>
+															  <input id="inputReason" name="reason" type="text" class="form-control rounded-0" placeholder="비고" aria-label="Username" aria-describedby="basic-addon1" value="">
+															</div>
+	                                                    </div>
+	                                                    <div class="col">
+	                                                    	<input type="button" class="btn btn-secondary customColor" onclick="frmInventoryModify()" value="수정하기">
+	                                                    </div>
+	                                                </div>
+	                                                </form>
+                                            	
+                                            	</div>
+                                            </div>
                                                 
-                                                <form action="./inventoryModifyProcess" method="get">
-                                                <div class="row ">
-                                                    <div class="col">
-                                                    	<div class="btn-group">
-														  <button class="btn btn-secondary dropdown-toggle customColor" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
-														    의약품명
-														  </button>
-														  <ul class="dropdown-menu">
-														  <c:forEach items="${medicineList}" var="e">
-														    <li><a class="dropdown-item" href="./medicineInventory?medicine_code_pk=${e.medicine_code_pk}">${e.name }</a></li>
-														    <input name="medicine_code_pk" type="hidden" value="${e.medicine_code_pk}">
-	                                                      </c:forEach>
-														  </ul>
-														</div>
-                                                    </div>
-                                                    <div class="col">
-                                                    	<div class="input-group mb-3">
-														  <span class="input-group-text customColor" id="basic-addon1">코드번호</span>
-														  <input type="text" class="form-control rounded-0" placeholder="코드번호" aria-label="Username" aria-describedby="basic-addon1" value="${medicine_code_pk}">
-														</div>
-                                                    </div>
-                                                    <div class="col">
-                                                    	<div class="input-group mb-3">
-														  <span class="input-group-text customColor" id="basic-addon1">변경수량</span>
-														  <input name="quantity" type="number" class="form-control rounded-0" placeholder="변경수량" aria-label="Username" aria-describedby="basic-addon1" min="-5" max="5">
-														</div>
-                                                    </div>
-                                                    <div class="col">
-                                                    <select name="medicine_mgmt_cat_pk" class="form-select rounded-0" aria-label="Default select example">
-													<option selected>재고 관리</option>
-														<c:forEach items="${MedicineMgmtCatDtoList}" var="e">
-															<option value="${e.medicine_mgmt_cat_pk}">${e.name}</option>
-														</c:forEach>
-													</select>
-                                                    </div>
-                                                    <div class="col">
-                                                    	<div class="input-group mb-3">
-														  <span class="input-group-text customColor" id="basic-addon1">비고</span>
-														  <input name="reason" type="text" class="form-control rounded-0" placeholder="비고" aria-label="Username" aria-describedby="basic-addon1" value="">
-														</div>
-                                                    </div>
-                                                    <div class="col">
-                                                    	<button type="submit" class="btn btn-secondary customColor">수정하기</button>
-                                                    </div>
-                                                </div>
-                                                </form>
                                                 
-                                                <div class="row">
-                                                    <div class="col-11"></div>
-                                                    <div class="col-1 text-end">
-                                                        <div class="btn-group">
-														  <button class="btn btn-sm btn-secondary dropdown-toggle customColor" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
-														    정렬
-														  </button>
-														  <ul class="dropdown-menu">
-														    <li><a class="dropdown-item" href="#">코드번호</a></li>
-														    <li><a class="dropdown-item" href="#">의약품명</a></li>
-														    <li><a class="dropdown-item" href="#">약품카테고리</a></li>
-														    <li><a class="dropdown-item" href="#">회사</a></li>
-														    <li><a class="dropdown-item" href="#">효능</a></li>
-														    <li><a class="dropdown-item" href="#">주의사항</a></li>
-														    <li><a class="dropdown-item" href="#">등록일(최신순)</a></li>
-														    <li><a class="dropdown-item" href="#">등록일(오래된순)</a></li>
-														  </ul>
-														</div>
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="row my-3">
                                                     <div class="col">
-                                                        <table class="table table-hover">
-                                                            <thead>
-                                                              <tr>
-                                                                <th scope="col">약품코드</th>
-                                                                <th scope="col">의약품명</th>
-                                                                <th scope="col">변동사유</th>
-                                                                <th scope="col">변동수량</th>
-																
-																<c:choose>                                                                
-                                                                <c:when test="${medicine_code_pk == null }">
-                                                            	</c:when>
-                                                            	<c:otherwise>
-                                                            		<th scope="col">현재수량</th>
-                                                            	</c:otherwise>
-                                                            	</c:choose>
-                                                                <th scope="col">재고관리자</th>
-                                                                <th scope="col">재고 변경일</th>
-                                                              </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <c:choose>
-                                                            	<c:when test="${medicine_code_pk == null }">
-                                                            		<c:forEach items="${inventoryStatisticsList}" var="e">
-		                                                              <tr>
-		                                                                <td>${e.MEDICINE_CODE_PK}</td>
-		                                                                <td>${e.MEDI_NAME}</td>
-		                                                                <td>${e.M_TYPE}</td>
-		                                                                <c:choose>
-		                                                                	<c:when test="${e.M_TYPE eq '처방'}">
-		                                                        	            <td>${-e.QUANTITY}</td>
-		                                                                	</c:when>
-		                                                                	<c:otherwise>
-		                                                                		<td>${e.QUANTITY}</td>
-		                                                                	</c:otherwise>
-		                                                                </c:choose>
-		                                                                <td>${e.M_NAME}</td>
-		                                                                <td><fmt:formatDate value="${e.DATE}"/> </td>
-		                                                              </tr>
-		                                                             </c:forEach>
-                                                            	</c:when>
-	                                                            <c:otherwise>
-    																<c:forEach items="${inventoryMedicineStatisticsList}" var="e">
-		                                                              <tr>
-		                                                                <td>${e.MEDICINE_CODE_PK}</td>
-		                                                                <td>${e.MEDI_NAME}</td>
-		                                                                <td>${e.M_TYPE}</td>
-		                                                                <c:choose>
-		                                                                	<c:when test="${e.M_TYPE eq '처방'}">
-		                                                        	            <td>${-e.QUANTITY}</td>
-		                                                                	</c:when>
-		                                                                	<c:otherwise>
-		                                                                		<td>${e.QUANTITY}</td>
-		                                                                	</c:otherwise>
-		                                                                </c:choose>
-		                                                                <td>${e.sum }</td>
-		                                                                <td>${e.M_NAME}</td>
-		                                                                <td><fmt:formatDate value="${e.DATE}"/> </td>
-		                                                              </tr>
-		                                                             </c:forEach>
-    	                                                        </c:otherwise>
-	                                                            
-                                                            </c:choose>
-                                                            
-                                                             
-                                                            </tbody>
-                                                          </table>
+                                                        <div class="fw-bold text-center">&lt;재고 변동 현황&gt;</div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <div class="row">
+                                                    <div class="col-10"></div>
+                                                    <div class="col-2 text-end">
+                                                    	<select id="orderByInventoryInfo" class="form-select rounded-0" aria-label="Default select example"
+                                                        onchange="orderByInventoryInfo(this.value)">
+														  <option value="1">변동일(최신순)</option>
+														  <option value="2">변동일(오래된순)</option>
+														  <option value="3">의약품순</option>
+														  <option value="4">변동사유순</option>
+														</select>
+                                                    </div>
+                                                </div>
+                                                <div class="container">
+	                                                <div class="row mt-3 mb-1 pb-3 fw-bold text-center border-bottom border-3 border-primary">
+	                                                    <div class="col border-end border-primary">약품코드</div>
+	                                                    <div class="col border-end border-primary">의약품명</div>
+	                                                    <div class="col border-end border-primary">변동사유</div>
+	                                                    <div class="col border-end border-primary">변동수량</div>
+	                                                    <div class="col border-end border-primary">현재수량</div>
+	                                                    <div class="col border-end border-primary">재고관리자</div>
+	                                                    <div class="col border-primary">재고변경일</div>
+	                                                </div>
+	                                                <div class="row mt-1 allInventoryLocation">
+	                                                    <!-- 여기에 반복문 나와야함-->
+	                                                </div>
+                                                </div>
+                                        </div>
 
                                     <!-- 내가 쓸꺼!!-->
                                 </div>
@@ -205,6 +347,18 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        
+        <div id = "templete" class="d-none">
+            <div class="row mt-3 inventoryWrapper text-center border-bottom pb-3 border-primary">
+                <div class="col MEDICINE_CODE_PK">약품코드</div>
+                <div class="col MEDI_NAME">의약품명</div>
+                <div class="col M_TYPE">변동사유</div>
+                <div class="col QUANTITY">변동수량</div>
+                <div class="col isQuantity">현재수량</div>
+                <div class="col M_NAME">재고관리자</div>
+                <div class="col DATE text-right">재고변경일</div>
             </div>
         </div>
         
