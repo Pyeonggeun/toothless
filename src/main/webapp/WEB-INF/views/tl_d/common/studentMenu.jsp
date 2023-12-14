@@ -38,7 +38,7 @@
 </div>
 <div class="row">
 	<a class="col ps-4 mt-2 navbar-brand" 
-		href="#">나의프로그램</a>
+		href="../gw_program/applyProgramListForStudentPage">나의프로그램</a>
 </div>
 <div class="row">
 	<a class="col fs-5 fw-bold ps-3 mt-3 navbar-brand"

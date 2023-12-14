@@ -54,15 +54,7 @@
 </div>
 <div class="row">
 	<a class="col ps-4 mt-2 navbar-brand" 
-		href="#">프로그램목록</a>
-</div>
-<div class="row">
-	<a class="col ps-4 mt-2 navbar-brand" 
-		href="#">신청학생목록</a>
-</div>
-<div class="row">
-	<a class="col ps-4 mt-2 navbar-brand" 
-		href="#">만족도조사</a>
+		href="../gw_program/programListPage">프로그램목록</a>
 </div>
 <div class="row">
 	<a class="col fs-5 fw-bold ps-3 mt-3 navbar-brand"
