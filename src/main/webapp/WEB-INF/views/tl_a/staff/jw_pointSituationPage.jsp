@@ -39,7 +39,7 @@
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 						<li class="nav-item">
-							<a class="nav-link text-black" href="./mj_pointCategoryPage">상벌 코드</a>
+							<a class="nav-link text-black" href="./jw_pointCategoryPage">상벌 코드</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-black" href="./jw_pointManagementPage">상벌 관리</a>

@@ -6,7 +6,7 @@
 	
 	<insert id="insertFreeboardPosts">
 		INSERT INTO cp_student_freeboard VALUES(
-			cp_student_freeboard_seq.nextval,
+			#{id},
 			#{student_pk},
 			#{title},
 			#{text},
@@ -16,7 +16,35 @@
 	</insert>
 	
 	<select id="selectfreeboardList" resultType="com.mkfactory.toothless.e.dto.FreeboardDto">
-		SELECT * FROM cp_student_freeboard ORDER BY id DESC 
+		SELECT * FROM( 
+			SELECT csf.* 
+			FROM cp_student_freeboard csf
+			<if test="searchType != null and searchType == 'name'">
+				INNER JOIN tl_jic_student_info tjs ON tjs.STUDENT_PK = csf.STUDENT_PK  
+			</if>
+			WHERE 1=1
+			<if test="searchType != null">
+				<choose>
+					<when test="searchType == 'title'">
+						AND csf.title LIKE '%' || #{searchWord} || '%'
+					</when>
+				
+					<when test="searchType == 'text'">
+						AND csf.text LIKE '%' || #{searchWord} || '%'
+					</when>
+					
+					<when test="searchType == 'id'">
+						AND csf.id LIKE '%' || #{searchWord} || '%'
+					</when>
+					
+					<when test="searchType == 'name'">
+						AND tjs.NAME LIKE '%' || #{searchWord} || '%'
+					</when>
+				</choose>
+			</if>
+	 	)
+		ORDER BY id DESC 
+		
 	</select>
 	
 	<select id="selectStudentInfo" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
@@ -85,6 +113,56 @@
 		SELECT * FROM TL_JIC_STUDENT_INFO
 		WHERE student_pk = #{student_pk}
 	</select>
+	
+	<insert id = "insertImage">
+		INSERT INTO cp_freeboard_image VALUES(
+			cp_freeboard_image_seq.nextval,
+			#{freeboard_id},
+			#{freeboard_image_link}
+		)
+	</insert>
+	
+	<select id="selectFreeboardImageDto" resultType="com.mkfactory.toothless.e.dto.FreeboardImageDto">
+		SELECT * FROM cp_freeboard_image 
+		WHERE freeboard_id = #{freeboard_id}
+	</select>
+	
+	<select id="createFreeboardPk" resultType="int">
+	 SELECT cp_student_freeboard_seq.nextval FROM Dual
+	</select>
+	
+	<insert id="insertEmpathy">
+		INSERT INTO cp_freeboard_empathy VALUES(
+			cp_freeboard_empathy_seq.nextval,
+			#{freeboard_id},
+			#{student_pk}
+		)
+	</insert>
+	
+	<select id="selectAllEmpathy" resultType="com.mkfactory.toothless.e.dto.FreeboardEmpathyDto">
+		SELECT count(*) FROM cp_freeboard_empathy
+		WHERE FREEBOARD_ID = #{freeboard_id}
+	</select>
+	
+	<select id="countEmpathyByIdAndPk" resultType="int" >
+		SELECT count(*) from(
+			SELECT * FROM cp_freeboard_empathy
+			WHERE FREEBOARD_ID = #{freeboard_id}
+			AND STUDENT_PK = #{student_pk}	
+		)
+	</select>
+	
+	<select id="countAllEmpathyInPost" resultType="com.mkfactory.toothless.e.dto.FreeboardEmpathyDto"  >
+		SELECT count(*) FROM cp_freeboard_empathy
+		WHERE FREEBOARD_ID = #{freeboard_id}	
+	</select>
+	
+	<delete id="deleteEmpathyByIdAndPk">
+		DELETE FROM cp_freeboard_empathy
+		WHERE FREEBOARD_ID = #{freeboard_id}
+		AND STUDENT_PK = #{student_pk}
+	</delete>
+	
 	
 	
 </mapper>

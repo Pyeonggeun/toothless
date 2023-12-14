@@ -4,6 +4,7 @@
 
 <mapper namespace="com.mkfactory.toothless.d.gw.program.mapper.ProgramSqlMapper">
 
+	<!-- 교직원용 -->
 	<select id="selectProgramCategoryAll" resultType="com.mkfactory.toothless.d.dto.ProgramCategoryDto">
 		SELECT * FROM tl_d_program_category
 		ORDER BY program_category_name ASC
@@ -61,7 +62,100 @@
 	</update>
 	
 	<delete id="deleteProgram">
-		DELETE FROM tl_d_program WHERE program_pk=41
+		DELETE FROM tl_d_program WHERE program_pk=#{program_pk}
 	</delete>
+	
+	<!-- 학생용 -->
+	<insert id="insertStudentProgramApply">
+		INSERT INTO tl_d_program_apply VALUES(
+			tl_d_program_apply_seq.nextval,
+			#{student_pk},
+			#{program_pk},
+			#{prg_student_phone},
+			'N',
+			SYSDATE
+		)
+	</insert>
+	
+	<select id="programApplyListForStaff" resultType="com.mkfactory.toothless.d.dto.ProgramApplyDto">
+		SELECT * FROM tl_d_program_apply
+		WHERE program_pk=#{program_pk}
+	</select>
+	
+	<select id="programApplyListForStudent" resultType="com.mkfactory.toothless.d.dto.ProgramApplyDto">
+		SELECT * FROM tl_d_program_apply
+		WHERE student_pk=#{student_pk}	
+	</select>
+	
+	<select id="programApplySelectAll" resultType="com.mkfactory.toothless.d.dto.ProgramApplyDto">
+		SELECT * FROM tl_d_program_apply
+		ORDER BY program_apply_pk DESC
+	</select>
+
+	
+	<!-- 학생 pk로 정보뽑아오는거 -->
+	<select id="studentSelectByPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO
+		WHERE student_pk=#{student_pk}
+	</select>
+	
+	<!-- 프로그램 신청자 수 -->
+	<select id="programApplyCount" resultType="int">
+		SELECT COUNT(*) FROM tl_d_program_apply
+		WHERE program_pk=#{program_pk}
+	</select>
+	
+	<!-- 학생 출석여부 변환 -->
+	<update id="changeStudentAttend">
+		UPDATE tl_d_program_apply
+		SET prg_is_student_attend='Y'
+		WHERE student_pk=#{student_pk}
+		AND program_pk=#{program_pk}
+	</update>
+	
+	<update id="changeStudentUnAttend">
+		UPDATE tl_d_program_apply
+		SET prg_is_student_attend='N'
+		WHERE student_pk=#{student_pk}
+		AND program_pk=#{program_pk}
+	</update>
+	
+	<!-- 학생 프로그램 신청했나 카운트(중복신청 막을려고) -->
+	<select id="studentApplyCount" resultType="int">
+		SELECT COUNT(*) FROM tl_d_program_apply
+		WHERE student_pk=#{student_pk}
+		AND program_pk=#{program_pk}
+	</select>
+	
+	<insert id="insertProgramReview">
+		INSERT INTO tl_d_program_review VALUES(
+			tl_d_program_review_seq.nextval,
+			#{program_apply_pk},
+			#{prg_score},
+			#{prg_comment},
+			SYSDATE
+		)
+	</insert>
+	
+	<!-- 학생이 신청한 프로그램 정보 뽑아오는거 -->
+	<select id="studentApplySelect" resultType="com.mkfactory.toothless.d.dto.ProgramApplyDto">
+		SELECT * FROM tl_d_program_apply
+		WHERE program_apply_pk=#{program_apply_pk}
+	</select>
+	
+	<select id="studentReviewCount" resultType="int">
+		SELECT COUNT(*) FROM tl_d_program_review
+		WHERE program_apply_pk=#{program_apply_pk}
+	</select>
+	
+	<select id="programReviewForStaff" resultType="com.mkfactory.toothless.d.dto.ProgramReviewDto">
+		SELECT * FROM tl_d_program_review
+		WHERE program_apply_pk=#{program_apply_pk}
+	</select>
+	
+	<select id="programReviewSelectAll" resultType="com.mkfactory.toothless.d.dto.ProgramReviewDto">
+		SELECT * FROM tl_d_program_review
+		ORDER BY program_review_pk DESC
+	</select>
 	
 </mapper>

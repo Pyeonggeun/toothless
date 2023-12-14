@@ -14,12 +14,12 @@
 <body>
 	<div class="row">
 		<div class="col-2"></div>
-		<div class="col text-center" style="font-size: 2.5em; color: dark; font-weight: bold">상담 센터</div>
+		<div class="col text-center" style="font-size: 2.2em; color: dark; font-weight: bold">상담 센터</div>
 		<div class="col-2 mt-3 d-flex justify-content-around">
-			<span class="fw-bold" style="font-size: 1.3em;"> 상담사 ${sessionExternalInfo.external_id }님</span>
+			<span class="fw-bold" style="font-size: 1.3em;">${sessionStudentInfo.name }학생</span>
 		</div>
 	</div>
-	<div class="row mt-2 align-items-center" style="font-weight: bold; font-size: 1.4em; background-color: orange; text-align: center;"  >
+	<div class="row mt-2 align-items-center" style="font-weight: bold; font-size: 1.4em; background-color: blue; color: beige; text-align: center;"  >
 		<div class="col-1"></div>		
 		<div class="col">
 			Home
@@ -33,19 +33,19 @@
 		<div class="col">
 			<div class="dropdown">
 				<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    	<span style="font-size: 1.4em; font-weight: bold;">내 정보</span>
+			    	<span style="font-size: 1.4em; font-weight: bold; color: beige;">내 정보</span>
 				</button>
 				<ul class="dropdown-menu" style="background-color: #333;">
-				    <li><a class="dropdown-item" href="#" style="color: orange">답변 완료 상담</a></li>
-				    <li><a class="dropdown-item" href="#" style="color: orange">채택 된 상담</a></li>
-				    <li><a class="dropdown-item" href="./logoutProcess" style="color: orange">로그아웃</a></li>
+				    <li><a class="dropdown-item" href="#" style="color: beige;">답변 완료 상담</a></li>
+				    <li><a class="dropdown-item" href="#" style="color: beige;">채택 된 상담</a></li>
+				    <li><a class="dropdown-item" href="./logoutProcess" style="color: beige;">로그아웃</a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="col-1"></div>
 	</div>
 	<div class="row mt-4">
-		<div class="col border border-danger border-1"></div>
+		<div class="col border border-warning-emphasis border-1"></div>
 	</div>
 	<div class="container">
 		<div class="row my-2">
@@ -72,24 +72,58 @@
 		</div>
 		<div class="row">
 			<div class="col-1"></div>
-			<div class="col mt-3">
+			<div class="col mt-3" style="font-weight: bold; font-size: 0.9em;">
 				<span style="font-size: 1.4em;">
 					${targetCounselDto.counselDto.text }
 				</span>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col">
-				<textarea rows="5" cols="30"></textarea>
-			</div>
+	</div>
+		<div class="row mt-4">
+			<div class="col border border-warning-emphasis border-1"></div>
 		</div>
-		<div class="row">
-			<div class="col"></div>
-			<div class="col"></div>
-			<div class="col-1">
+	<div class="container">
+		<div class="row mt-4">
+			<div class="col" style="font-size: 1.9em; font-weight: bold; text-align: left ;">답변</div>
+		</div>
+		<div class="row mt-4" style="font-size: 1.4em; font-weight: bold;">
+			<div class="col">작성자</div>
+			<div class="col">답변내용</div>
+			<div class="col">작성시간</div>
+		</div>
+		<c:forEach items="${replyDtoList }" var="replyDtoList">
+			<div class="row mt-1" style="text-align: left; font-weight: bold; font-size: 1.1em;">
+				<div class="col">
+					${replyDtoList.counselorDto.name }
+				</div>
+				<div class="col">
+					${replyDtoList.replyDto.text }
+				</div>
+				<div class="col">
+					<fmt:formatDate value="${replyDtoList.replyDto.created_at }" pattern="yy.MM.dd"/>
+					
+				</div>
+			</div>
+		</c:forEach>
+		<c:if test="${targetCounselDto.count != 0 }">
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col mt-5" style="text-align: center;">
+				<form action="./writeOnlineCounselSurveyPage" method="post">
+					<input name="online_counsel_board_id" type="hidden" value=${targetCounselDto.counselDto.id }>
+					<button type="submit" value="만족도 조사" class="text-warning btn btn-dark d-grid gap-2 col-6 mx-auto link-dark link-offset-2 link-underline link-underline-opacity-0">만족도 조사</button>
+				</form>	
+				</div>
+				<div class="col-2"></div>
+			</div>
+			<div class="row">
+				<div class="col"></div>
+				<div class="col"></div>
+				<div class="col-1">
 					<a class="btn btn-dark" href="./counselorOnlineCounselMainPage" class="link-dark link-offset-2 link-underline link-underline-opacity-0">Back</a>
 			</div>
-		</div>
+		</div>		
+		</c:if>
 	</div>
 </body>
 </html>

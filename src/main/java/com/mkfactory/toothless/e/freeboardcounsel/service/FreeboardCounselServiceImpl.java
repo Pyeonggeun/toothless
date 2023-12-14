@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.FreeboardCommentDto;
 import com.mkfactory.toothless.e.dto.FreeboardDto;
+import com.mkfactory.toothless.e.dto.FreeboardEmpathyDto;
+import com.mkfactory.toothless.e.dto.FreeboardImageDto;
 import com.mkfactory.toothless.e.freeboardcounsel.mapper.FreeboardCounselSqlMapper;
 
 @Service
@@ -19,17 +21,28 @@ public class FreeboardCounselServiceImpl {
 	@Autowired
 	FreeboardCounselSqlMapper freeboardCounselSqlMapper;
 	
-	public void createFreeboardPostsProcess(FreeboardDto paraFreeboardDto) {
+	//글 작성
+	public void createFreeboardPostsProcess(FreeboardDto paraFreeboardDto, List<FreeboardImageDto> freeboardImageDtoList) {
+		
+		int freeboardPk = freeboardCounselSqlMapper.createFreeboardPk();
+		//여기 좀 뭔가 이상....
+		paraFreeboardDto.setId(freeboardPk);
 		freeboardCounselSqlMapper.insertFreeboardPosts(paraFreeboardDto);
+		
+		for(FreeboardImageDto elementFreeboardImageDto: freeboardImageDtoList) {
+			elementFreeboardImageDto.setFreeboard_id(freeboardPk); //외래키 
+			freeboardCounselSqlMapper.insertImage(elementFreeboardImageDto);
+		}
 	}
 	
 	//전체 게시물 불러오기 
-	public List<Map<String, Object>> getfreeboardList(){
+	public List<Map<String, Object>> getfreeboardList(String searchType, String searchWord){
 			
 		List<Map<String, Object>> combinedFreeboardList= new ArrayList<>();
 		
-		List<FreeboardDto> freeboardList = freeboardCounselSqlMapper.selectfreeboardList();
-		System.out.println("selectfreeboardList 실행");
+		List<FreeboardDto> freeboardList = 
+				freeboardCounselSqlMapper.selectfreeboardList(searchType, searchWord);
+		
 		
 		List<FreeboardDto> NewPostList =freeboardCounselSqlMapper.selectNewPost();
 		
@@ -122,22 +135,44 @@ public class FreeboardCounselServiceImpl {
 	//-----------------------------------------------------------------------------//
 	//상세 글보기
 	public Map<String, Object> pickPost(int id){
-
-		Map<String, Object> combinedMap = new HashMap<>();
-
 		FreeboardDto freeboardPost =  freeboardCounselSqlMapper.selectPostById(id);
 		int student_pk =freeboardPost.getStudent_pk();
 		StudentInfoDto studentInfo = freeboardCounselSqlMapper.selectByStudentId(student_pk);
-
+		//int freeboard_id = freeboardPost.getId();
+		
+		//이미지 뽑아오기
+		//List<FreeboardImageDto> freeboardImageDtoList = freeboardCounselSqlMapper.selectFreeboardImageDto(freeboard_id);
+		
+		Map<String, Object> combinedMap = new HashMap<>();
 		combinedMap.put("freeboardPost",freeboardPost);
 		combinedMap.put("studentInfo", studentInfo);
+		//combinedMap.put("freeboardImageDtoList", freeboardImageDtoList);
+		
 		return combinedMap;
 		}
 	
-	//조회수
-	public void readCount(int id) {
-		freeboardCounselSqlMapper.readCount(id);
-	}
+		//-----//
+		//조회수
+		public void readCount(int id) {
+			freeboardCounselSqlMapper.readCount(id);
+		}
+		
+		//-----//
+		//상세게시판 공감 넣기 
+		public void insertEmpathy(FreeboardEmpathyDto paraFreeboardEmpathyDto) {
+		freeboardCounselSqlMapper.insertEmpathy(paraFreeboardEmpathyDto);
+		}
+		
+		//상세게시판 공감 카운트 해오기
+		public int countEmpathyByIdAndPk(int id){
+			return freeboardCounselSqlMapper.countEmpathyByIdAndPk(id); 
+		}
+		
+		//-----//
+		//이미지
+		public List<FreeboardImageDto> getFreeboardImage(int id){
+			return freeboardCounselSqlMapper.selectFreeboardImageDto(id);
+		}
 	
 	//글 삭제
 	public void deleteFreeboardPost(int id) {
@@ -148,4 +183,9 @@ public class FreeboardCounselServiceImpl {
 	public void updateFreeboardPost(FreeboardDto paraFreeboardDto) {		
 		freeboardCounselSqlMapper.updateFreeboardPost( paraFreeboardDto);	
 	}
+	
+	
+	
+	
+	
 }

@@ -163,7 +163,20 @@
 				</div>	
 			</div>
 			
-			<!-- 글 내용 -->
+			<!-- 로딩된 첨부 이미지파일과 글 내용 -->
+			<div class="row">
+				<div class="col">
+				
+					<c:forEach items="${freeboardImageDtoList}" var="image">
+						<div class="row">
+							<div class="col">
+								<img class="img-fluid" src="/uploadFiles/${image.freeboard_image_link}">
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+			
 			<div class="row py-3 fs-4">
 				${pickpostMap.freeboardPost.text }
 			</div>
@@ -173,13 +186,49 @@
 				<div class="col"></div> 
 			</div>
 			
-			<!-- 글수정 삭제 글목록 돌아가기 버튼 -->
+			<!-- 공감 /  글목록 돌아가기 버튼 -->
 			<div class="row py-2 border-top border-secondary">
 				
-				<div class="col-1 border border-secondary rounded text-center"> 공감 추가 예정</div>
+				<!-- 공감 -->
+				<div class="col-2"> 
+					<!-- 공감 두개칸 전체 시작 -->
+					<div class="row">
+					
+						<!-- 공감 따봉칸 시작 -->
+							<div class="col">
+						<!-- 공감기능 전체 -->	
+						<!-- 	freeboardEmpathyDto <i class="bi bi-hand-thumbs-up-fill"></i> <i class="bi bi-hand-thumbs-up"></i> -->
+						<form action="countEmpathyByIdAndPk" method=post>
+							<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk}">
+						</form>	
+						<c:choose>
+						
+							<c:when test="${countEmpathy != 0}">
+								<i class="bi bi-hand-thumbs-up-fill"></i>
+							</c:when>
+							
+							<c:otherwise>
+								<i class="bi bi-hand-thumbs-up"></i>
+							</c:otherwise>
+							
+							
+							
+						</c:choose>
+					
+					
+						<!-- 공감 따봉칸 끝 -->
+						</div>
+						
+						<!-- 공감 수량 카운트 칸 -->
+						<div class="row"><div class="col"></div></div>
+						
+					<!-- 공감 두개칸 전체 끝 -->
+					</div>
+				</div>
 				
 				<div class="col"></div>
 				
+				<!-- 글 목록 돌아가기 -->
 				<div class="col-2 text-end">
 					<a role="button" class="btn text-white" style="background-color: #133369;" type="button" href="./freeboardCounselPage"> 글 목록 </a>
 				</div>
@@ -197,7 +246,7 @@
 			<!-- 본 댓글창 col -->
 				<div class="col">
 				
-				<!-- 댓글입력창 +버튼 기타 -->
+				<!-- 댓글입력창 +버튼 기타 시작 -->
 					<div class="row">
 						<div class="col border border-black rounded"> 
 						
@@ -221,7 +270,7 @@
 								
 								
 							</form>
-					<!-- 댓글입력창 +버튼 기타 -->
+					<!-- 댓글입력창 +버튼 기타 끝 -->
 						</div>
 					</div>
 					

@@ -6,16 +6,23 @@ import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
+import com.mkfactory.toothless.e.dto.OnlineCounselReplyDto;
+import com.mkfactory.toothless.e.dto.OnlineCounselSurveyDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 
 public interface OnlineCounselSqlMapper {
 
 	//		**		공용		**
 	
+	public int getReplyCount(int counsel_pk);
+	
 	public List<TypeCategoryDto> takeAllCategory();
 	
 	public TypeCategoryDto selectCategoryDto(int category_id);
 
+	public int isSurveyed(int counsel_pk);
+	
+	public OnlineCounselSurveyDto selectSurvey(int counsel_pk);
 
 	
 	//		**	학생관련	**
@@ -28,7 +35,7 @@ public interface OnlineCounselSqlMapper {
 	
 	public OnlineCounselBoardDto selectCounsel(int counsel_pk);
 	
-	
+	public void insertOnlineCounselSurvey(OnlineCounselSurveyDto onlineCounselSurveyDto);
 	
 	
 	//		***		상담원 관련	***
@@ -38,6 +45,14 @@ public interface OnlineCounselSqlMapper {
 	public List<CounselorTypeDto> selectCounselTypeDto(int counselorId);
 	
 	public List<OnlineCounselBoardDto> selectCounselList(int typeCategoryId);
+	
+	public void insertOnlineCounselReply(OnlineCounselReplyDto onlineCounselReplyDto);
+	
+	public List<OnlineCounselReplyDto> selectReplyListByCounselPk(int counsel_pk);
+	
+	
+	
+	
 	
 //	public CounselorDto selectCounselorInfo(int externalPk);
 //	

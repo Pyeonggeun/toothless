@@ -15,6 +15,7 @@ import com.mkfactory.toothless.a.dto.DormStudentDto;
 import com.mkfactory.toothless.a.dto.ExecutiveDto;
 import com.mkfactory.toothless.a.dto.ExecutiveManagementDto;
 import com.mkfactory.toothless.a.dto.ExitDto;
+import com.mkfactory.toothless.a.dto.PointCategory;
 import com.mkfactory.toothless.a.dto.PointDto;
 import com.mkfactory.toothless.a.staff.jw.mapper.DormStaffMapperJw;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
@@ -77,7 +78,31 @@ public class DormStaffServiceJw {
 		return list;
 	}
 	
+	// 상벌 코드
+	public void registerPointCategory(PointCategory pointCategory) {
+		dormStaffMapperJw.insertPointCategory(pointCategory);
+	}
 	
+	public void deletePointCategory(int point_category_pk) {
+		dormStaffMapperJw.deletePointCategory(point_category_pk);
+	}
+	
+	public void updatePointCategory(PointCategory pointCategory) {
+		dormStaffMapperJw.updatePointCategory(pointCategory);
+	}
+	
+	// 상벌 코드 목록
+	public List<PointCategory> getPointCategory(){
+		return dormStaffMapperJw.selectPointCategoryAll();
+	}
+	
+	public List<PointCategory> getPointCategoryPlus(){
+		return dormStaffMapperJw.selectPointCategoryPlus();
+	}
+	
+	public List<PointCategory> getPointCategoryMinus(){
+		return dormStaffMapperJw.selectPointCategoryMinus();
+	}
 	
 	public List<Map<String, Object>> getAllDormStudentList(){
 		

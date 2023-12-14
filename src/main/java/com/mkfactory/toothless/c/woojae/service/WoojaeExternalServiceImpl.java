@@ -45,7 +45,7 @@ public class WoojaeExternalServiceImpl {
 	// 등록된 산업체 리스트
 	public List<Map<String, Object>> registedCompanyList(){
 		
-		List<Map<String, Object>> registedCompanyList = new ArrayList<>();
+		List<Map<String, Object>> registedCompanyList = new ArrayList<Map<String,Object>>();
 		
 		List<AjdksCompanyInfoDto> list = woojaeExternalSqlMapper.selectRegisteredCompanyList();
 		

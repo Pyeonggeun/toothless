@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mkfactory.toothless.c.dto.AjdksProfessorEvaluationDto;
+import com.mkfactory.toothless.c.eunbi.service.EunbiExternalServiceImpl;
 import com.mkfactory.toothless.c.eunbi.service.EunbiProfessorServiceImpl;
+import com.mkfactory.toothless.c.eunbi.service.EunbiStudentServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.RestResponseDto;
 
@@ -17,6 +19,10 @@ public class EunbiRestProfessorController {
 	
 	@Autowired
 	private EunbiProfessorServiceImpl professorService;
+	@Autowired
+	private EunbiStudentServiceImpl studentService;
+	@Autowired
+	private EunbiExternalServiceImpl externalService;
 	
 	@RequestMapping("getProfessorPk")
 	public RestResponseDto getProfessorPk(HttpSession session) {
@@ -53,12 +59,25 @@ public class EunbiRestProfessorController {
 		return restResponseDto;
 	}
 	
-	@RequestMapping("getApplyingStudentListByCourse")
-	public RestResponseDto getStudentListByCourse(HttpSession session, int internship_course_pk) {
+	@RequestMapping("getInternshipCourseInfo")
+	public RestResponseDto getInternshipCourseInfo(int internship_course_pk) {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
 		
-		restResponseDto.setData(professorService.getApplyingStudentList(internship_course_pk));
+		restResponseDto.setData(professorService.viewInternshipCourseDetail(internship_course_pk));
+		
+		restResponseDto.setResult("Success");
+		
+		return restResponseDto;
+		
+	}
+	
+	@RequestMapping("getApplyingStudentListByCourse")
+	public RestResponseDto getStudentListByCourse(int internship_course_pk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(studentService.getApplyingStudentList(internship_course_pk));
 		
 		restResponseDto.setResult("Success");
 		
@@ -66,30 +85,52 @@ public class EunbiRestProfessorController {
 	}
 	
 	@RequestMapping("getStudentInternList")
-	public RestResponseDto getStudentInternList(HttpSession session, int internship_course_pk) {
+	public RestResponseDto getStudentInternList( int internship_course_pk) {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
 		
-		restResponseDto.setData(professorService.getStudentInternList(internship_course_pk));
+		restResponseDto.setData(studentService.getStudentInternList(internship_course_pk));
 		
 		restResponseDto.setResult("Success");
 		
 		return restResponseDto;
 	}
 	
+	@RequestMapping("isNow")
 	public RestResponseDto isNow(int internship_course_pk) {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
 		
-		restResponseDto.setData(professorService.isNow(internship_course_pk));
+		restResponseDto.setData(externalService.isNow(internship_course_pk));
 		
 		restResponseDto.setResult("Success");
 		
 		return restResponseDto;
 	}
 	
+	@RequestMapping("getStudentDetails")
+	public RestResponseDto getStudentDetails(int student_pk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(studentService.viewStudentDetail(student_pk));
+		
+		restResponseDto.setResult("Success");
+		
+		return restResponseDto;
+	}
 	
-	
+	@RequestMapping("getSelfIntroduction")
+	public RestResponseDto getSelfIntroduction(int student_pk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(studentService.viewSelfIntroduction(student_pk));
+		
+		restResponseDto.setResult("Success");
+		
+		return restResponseDto;
+	}
 	
 	
 	

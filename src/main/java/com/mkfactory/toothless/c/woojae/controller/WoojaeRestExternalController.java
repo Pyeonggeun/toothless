@@ -47,7 +47,7 @@ public class WoojaeRestExternalController {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
 		restResponseDto.setData(woojaeExternalService.companyCategoryList());
-		
+	
 		restResponseDto.setResult("success");
 		
 		return restResponseDto;
@@ -62,6 +62,8 @@ public class WoojaeRestExternalController {
 		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
 		int staffPk = sessionStaffInfo.getStaff_pk();
 		ajdksCompanyInfoDto.setStaff_pk(staffPk);
+		
+		restResponseDto.setData(woojaeExternalService.companyCategoryList());
 		
 		woojaeExternalService.registerCompanyInfo(ajdksCompanyInfoDto, externalInfoDto);
 		
@@ -87,20 +89,42 @@ public class WoojaeRestExternalController {
 		return restResponseDto;
 		
 	}
-	// 등록된 산업체 전체 리스트
+	
+	// 카테고리별 등록된 산업체 전체 리스트
 	@RequestMapping("getCompanyListByCategoryPk")
 	public RestResponseDto getCompanyListByCategoryPk(int company_category_pk) {
 		
+		
 		RestResponseDto restResponseDto = new RestResponseDto();
+		if(company_category_pk == 0) {
+			restResponseDto.setData(woojaeExternalService.registedCompanyList());
+			
+			restResponseDto.setResult("success");
+			return restResponseDto;
+		}else {
+			restResponseDto.setResult("success");
+			restResponseDto.setData(woojaeExternalService.getCompanyListByCategoryPk(company_category_pk));
+			
+			return restResponseDto;
+		}
+		
+	}
+
+	// 전체 산업체 리스트
+	@RequestMapping("registedCompanyList")
+	public RestResponseDto registedCompanyList() {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		restResponseDto.setData(woojaeExternalService.registedCompanyList());
 		
 		restResponseDto.setResult("success");
-		restResponseDto.setData(woojaeExternalService.getCompanyListByCategoryPk(company_category_pk));
 		
 		return restResponseDto;
 		
 	}
 	
-
+	
+	
 	
 	// 템플릿
 	@RequestMapping("templete")

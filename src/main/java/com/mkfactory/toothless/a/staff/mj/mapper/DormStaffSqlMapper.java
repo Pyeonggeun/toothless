@@ -1,6 +1,7 @@
 package com.mkfactory.toothless.a.staff.mj.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -13,6 +14,21 @@ public interface DormStaffSqlMapper {
 	
 	// 학년도/학기 등록
 	public void insertYear(SemesterDto semesterDto);
+	
+	// 현재 학기 선택 
+	public void updateThisSemester(int SEMESTER_PK);
+	
+	// 현재 학기 아닌것들
+	public void updateNotThisSemester(int SEMESTER_PK);
+	
+	// 특정 학기 삭제
+	public void deleteSemester(int SEMESTER_PK);
+	
+	// 특정 학기에 등록된 공고 개수
+	public int countSomeSemesterJoinInfo(int SEMESTER_PK);
+	
+	// 특정 공고에 신청한 입주신청 개수
+	public int countSomeApplyInfo(int DORM_INFO_PK);
 
 	// 학년도/학기 조회
 	public List<SemesterDto> selectYearList();
@@ -23,8 +39,23 @@ public interface DormStaffSqlMapper {
 	// 입주공고 등록
 	public void insertInfo(JoinDormInfoDto joinDormInfoDto);
 	
-	// 공고 전체 조회
+	// 입주공고 수정
+	public void updateJoinInfo(JoinDormInfoDto joinDormInfoDto);
+	
+	// 입주공고 삭제
+	public void deleteJoinInfo(int DORM_INFO_PK);
+	
+	// 진행중 학기 공고 전체 조회
 	public List<JoinDormInfoDto> selectAllDormInfoList();
+	
+	// 현재학기에 해당하는 년도의 모든 학기들..
+	public List<Map<String, Object>> selectThisYearAllSemester();
+	
+	// 이전년도들..
+	public List<Map<String, Object>> selectBeforeYearAll();
+	
+	// 이전년도의 모든 학기들..
+	public List<Map<String, Object>> selectBeforeYearAllSemester();
 	
 	// 입사신청 전체 조회
 	public List<JoinDormApplicationDto> selectAllDormApplyList();
@@ -50,11 +81,7 @@ public interface DormStaffSqlMapper {
 	// 선발인원 중 미납부 리스트
 	public List<JoinDormApplicationDto> selectPaymentNoList();
 	
-	// 상벌코드 등록
-	public void insertPointCategory(PointCategory pointCategory);
 	
-	// 상벌코드 목록 - 전체
-	public List<PointCategory> selectPointCategoryAll();
 	
 	
 	

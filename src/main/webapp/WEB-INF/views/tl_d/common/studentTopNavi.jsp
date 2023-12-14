@@ -27,7 +27,7 @@
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li style="list-style-type: none;" class="nav-item"><a href="../buyer/buyerLoginPage"
+						<li style="list-style-type: none;" class="nav-item"><a href="../../another/student/loginPage"
 							class="nav-link">로그인</a></li>
 					</c:otherwise>
 				</c:choose>

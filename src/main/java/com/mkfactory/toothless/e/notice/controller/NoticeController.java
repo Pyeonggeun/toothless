@@ -30,8 +30,9 @@ public class NoticeController {
 	private NoticeServiceImpl noticeService;
 	// 공지사항 메인페이지
 	@RequestMapping("noticeMainPage")
-	public String noticeMainPage(Model model) {
-		model.addAttribute("list", noticeService.getNoticeList());
+	public String noticeMainPage(Model model, String searchType, String searchWord) {	
+		model.addAttribute("list", noticeService.getNoticeList(searchType, searchWord));
+		model.addAttribute("bList", noticeService.selectBestNotice());
 		return "tl_e/notice/noticeMainPage";
 	}
 	// 직원 뒤로가기
@@ -44,7 +45,6 @@ public class NoticeController {
 	public String studentReturnToMainPage() {
 		return "redirect:../commons/counselCenterStudentMainPage";
 	}
-	
 	// 로그아웃
 	@RequestMapping("logoutProcess")
 	public String logoutProcess(HttpSession session) {
@@ -121,7 +121,7 @@ public class NoticeController {
 			noticeBoardLikeDto.setStudent_pk(studentPk);
 			noticeBoardLikeDto.setNotice_id(id);
 			
-			model.addAttribute("likeCheck", noticeService.noticeLikeCheck(noticeBoardLikeDto));
+			model.addAttribute("likeCheck", noticeService.noticeLikeCheck(noticeBoardLikeDto));				// 추천,비추천 체크여부
 			model.addAttribute("upThumbCheck", noticeService.noticeUpThumbCheck(noticeBoardLikeDto));
 			model.addAttribute("downThumbCheck", noticeService.noticeDownThumbCheck(noticeBoardLikeDto));
 			model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
@@ -130,6 +130,8 @@ public class NoticeController {
 			model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
 			model.addAttribute("cList", noticeService.selectCommentByNotice_Id(id));
 		}
+		model.addAttribute("mainList", noticeService.getNoticeList(null, null));
+		model.addAttribute("commentCount", noticeService.commentCountByNotice_id(id));
 
 		noticeService.increaseReadCount(id);
 		

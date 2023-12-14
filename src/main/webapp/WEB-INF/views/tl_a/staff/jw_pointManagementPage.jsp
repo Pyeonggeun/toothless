@@ -39,7 +39,7 @@
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 						<li class="nav-item">
-							<a class="nav-link text-black" href="./mj_pointCategoryPage">상벌 코드</a>
+							<a class="nav-link text-black" href="./jw_pointCategoryPage">상벌 코드</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link active text-black" href="./jw_pointManagementPage">상벌 관리</a>
@@ -76,7 +76,7 @@
 										<td>${pointManagementListMap.dormBuildingDto.name}</td>
 										<td>${pointManagementListMap.dormRoomDto.room_name}</td>
 										<td colspan="3">
-											<form action="./jw_pointRegisterProcess" method="get">
+											<form action="./jw_pointRegisterProcess" method="post">
 												<select name="point_category_pk" class="border-secondary-subtle form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
 													<option>선택해주세요.</option>
 													<c:forEach items="${pointManagementListMap.pointCategoryDto}" var="pointCategoryList">

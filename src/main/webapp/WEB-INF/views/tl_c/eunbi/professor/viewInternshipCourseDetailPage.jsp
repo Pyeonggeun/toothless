@@ -54,13 +54,54 @@
 <script>
 
 	let professorPk = null;
-	const internship_course_pk = ${internshipCourseDetail.internshipCourseDto.internship_course_pk}
+	let internship_course_pk = ${internship_course_pk}
 	
 	function getProfessorPk(){
 		fetch("./getProfessorPk")
 		.then(response => response.json())
 		.then(response => {
-			professorPk = response.data;
+			const professorPk = response.data;
+		});
+	}
+	
+	function reloadInternshipCourseInfo(){
+		
+		const internshipCourseTitle = document.querySelector(".internshipCourseTitle");
+		const companyName = document.querySelector(".companyName");
+		const totalMember = document.querySelector(".totalMember");
+		const recruitmentDepartment = document.querySelector(".recruitmentDepartment");
+		const semesterQualification = document.querySelector(".semesterQualification");
+		const applicationPeriod = document.querySelector(".applicationPeriod");
+		const announcementDate = document.querySelector(".announcementDate");
+		const internshipPeriod = document.querySelector(".internshipPeriod");
+		
+		fetch("./getInternshipCourseInfo?internship_course_pk=" + internship_course_pk)
+		.then(response => response.json())
+		.then(response => {
+			
+			const info = response.data;
+			
+			let applyingStartDate = new Date(info.internshipCourseDto.applying_start_date);
+			let applyingEndDate = new Date(info.internshipCourseDto.applying_end_date);
+			applyingStartDate = applyingStartDate.getFullYear() + "." + (applyingStartDate.getMonth()+1) + "." + applyingStartDate.getDate();
+			applyingEndDate = applyingEndDate.getFullYear() + "." + (applyingEndDate.getMonth()+1) + "." + applyingEndDate.getDate();
+			
+			const announcement_date = new Date(info.internshipCourseDto.announcement_date);
+			
+			let internshipStartDate = new Date(info.internshipCourseDto.internship_start_date);
+			let internshipEndDate = new Date(info.internshipCourseDto.internship_end_date);
+			internshipStartDate = internshipStartDate.getFullYear() + "." + (internshipStartDate.getMonth()+1) + "." + internshipStartDate.getDate();
+			internshipEndDate = internshipEndDate.getFullYear() + "." + (internshipEndDate.getMonth()+1) + "." + internshipEndDate.getDate();
+			
+			internshipCourseTitle.innerText = info.internshipCourseDto.course_title;
+			companyName.innerText = info.companyInfoDto.company_name;
+			totalMember.innerText = info.internshipCourseDto.internship_total_member;
+			recruitmentDepartment.innerText = info.departmentDto.name;
+			semesterQualification.innerText = info.internshipCourseDto.semester_qualification;
+			applicationPeriod.innerText = applyingStartDate + " - " + applyingEndDate;
+			announcementDate.innerText = announcement_date.getFullYear() + "." + (announcement_date.getMonth()+1) + "." + announcement_date.getDate();
+			internshipPeriod.innerText = internshipStartDate + " - " + internshipEndDate;
+			
 		});
 	}
 	
@@ -72,6 +113,11 @@
 			
 			const applyingStudentListBox = document.getElementById("applyingStudentListBox");
 			applyingStudentListBox.innerHTML = "";
+			
+			const applicationPeriod = document.querySelector(".applicationPeriod");
+			const announcementDate = document.querySelector(".announcementDate");
+			applicationPeriod.classList.add("fw-semibold", "text-dark-emphasis");
+			announcementDate.classList.add("fw-semibold", "text-dark-emphasis");
 			
 			for(applyingStudent of response.data) {
 				
@@ -120,6 +166,9 @@
 			const internListBox = document.getElementById("internListBox");
 			internListBox.innerHTML = "";
 			
+			const internshipPeriod = document.querySelector(".internshipPeriod");
+			internshipPeriod.classList.add("fw-semibold", "text-dark-emphasis");
+			
 			let now = new Date();
 			nowYear = now.getFullYear();
 			nowMonth = now.getMonth();
@@ -128,42 +177,37 @@
 			nowMinute = now.getMinutes();
 			nowSeconds = now.getSeconds();
 			
-			now = nowYear + nowMonth + nowDate + nowHour + nowMinute + nowSeconds;
+			now = now.getTime();
 			
-			let internshipEndDate = new Date("${internshipCourseDetail.internshipCourseDto.internship_end_date}");
-			
-			internshipEndDateYear = internshipEndDate.getFullYear();
-			internshipEndDateMonth = internshipEndDate.getMonth();
-			internshipEndDateDate = internshipEndDate.getDate();
-			internshipEndDateHour = internshipEndDate.getHours();
-			internshipEndDateMinute= internshipEndDate.getMinutes();
-			internshipEndDateSeconds = internshipEndDate.getSeconds();
-			
-			internshipEndDate = internshipEndDateYear + internshipEndDateMonth + internshipEndDateDate + internshipEndDateHour + internshipEndDateMinute + internshipEndDateSeconds;
-
 			for(intern of response.data) {
+				
+				let internshipEndDate = new Date(intern.internshipCourseDto.internship_end_date);
+			
+				internshipEndDateYear = internshipEndDate.getFullYear();
+				internshipEndDateMonth = internshipEndDate.getMonth();
+				internshipEndDateDate = internshipEndDate.getDate();
+				internshipEndDateHour = internshipEndDate.getHours();
+				internshipEndDateMinute= internshipEndDate.getMinutes();
+				internshipEndDateSeconds = internshipEndDate.getSeconds();
+				
+				internshipEndDate = internshipEndDate.getTime();
 				
 				const internWrapper = document.querySelector("#internListTemplete .internWrapper").cloneNode(true);
 				
-				const internPk = internWrapper.querySelector(".internStudentPk");
-				internPk.innerText = intern.studentInfoDto.student_pk
+				const internStudentPk = internWrapper.querySelector(".internStudentPk");
+				internStudentPk.innerText = intern.studentInfoDto.student_pk;
 				
-				const interntName = internWrapper.querySelector(".internName");
-				internName.innerText = intern.studentInfoDto.name
+				const internName = internWrapper.querySelector(".internName");
+				internName.innerText = intern.studentInfoDto.name;
 				
 				const internDepartment = internWrapper.querySelector(".internDepartment");
-				internDepartment.innerText = intern.studentDepartment.name
+				internDepartment.innerText = intern.studentDepartment.name;
 				
 				const internProfessor = internWrapper.querySelector(".internProfessor");
-				applyingStudentProfessor.innerText = intern.studentProfessorInfo.name
+				internProfessor.innerText = intern.studentProfessorInfo.name;
 				
 				const internAttendance = internWrapper.querySelector(".internAttendance");
-				internAttendance.innerText =
-					"출석" + intern.countAttendance + "&nbsp;"
-					"지각" + intern.countLate + "&nbsp;"
-					"조퇴" + countEarlyleave + "&nbsp;"
-					"결근" + countAbsent
-					;
+				internAttendance.innerText = "출석" + intern.countAttendance +" "+ "지각" + intern.countLate +" "+ "조퇴" + intern.countEarlyleave +" "+ "결근" + intern.countAbsent;
 				
 				const studentDetailPageBtn = internWrapper.querySelector(".studentDetailPageBtn");
 				studentDetailPageBtn.innerText = "상세보기";
@@ -175,66 +219,156 @@
 				readInternReport.classList.add("btn", "btn-outline-secondary", "btn-sm", "rounded-1");
 				readInternReport.setAttribute("href", "./viewInternReport?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
 				
-				const internEvaluation = internWrapper.querySelector(".internEvaluation");
+				console.log(now);
+				console.log(internshipEndDate);
 				
-				if(now <= internship_end_date == true){
-					internWrapper.querySelector(".internEvaluationBox").innerText = "";
+				if(now <= internshipEndDate){
+					const internEvaluation = internWrapper.querySelector(".internEvaluation");
+					internEvaluation.setAttribute("style", "font-size:0.95em");
+					internEvaluation.classList.add("text-secondary", "fw-bold");
 					internEvaluation.innerText = "평가입력기간이 아닙니다";
-				}else if(now > internship_end_date == true){
-					if(intern.didEvaluateIntern == 0){
-						internEvaluation.innerText = "평가하기";
-						internEvaluation.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1", "openModal");
-						internWrapper.querySelector(".openModal").addEventListner("click", () => {
-							document.querySelector("#internListTemplete").remove();
-							document.querySelector("#internListTemplete").setAttribute("d-flex");
-						})
-					}else if(intern.didEvaluateIntern != 0){
-						internWrapper.querySelector(".internEvaluationBox").innerText = "";
+					
+				}else if(now > internshipEndDate){
+					console.log(intern.didProfessorEvaluateIntern);
+					if(intern.didProfessorEvaluateIntern === 0){
+						const evaluationButton = internWrapper.querySelector(".evaluationButton");
+						evaluationButton.innerText = "평가하기";
+						evaluationButton.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1", "open-Modal");
+						
+						evaluationButton.setAttribute("onclick", "openModal()");
+						
+						const inputStudentInternPk = document.getElementById("inputStudentInternPk");
+						inputStudentInternPk.setAttribute("value",intern.studentInternDto.student_intern_pk);
+						
+					}else if(intern.didProfessorEvaluateIntern !== 0){
+						const internEvaluation = internWrapper.querySelector(".internEvaluation");
+						internEvaluation.setAttribute("style", "font-size:0.95em");
+						internEvaluation.classList.add("text-secondary", "fw-bold");
 						internEvaluation.innerText = "평가완료";
 					}
 				}
 				
 				internListBox.appendChild(internWrapper);
+				
 			}
 			
 			
 		});
 	}
 	
+	function openModal() {
+    	
+    	const modal = bootstrap.Modal.getOrCreateInstance("#internEvaluationModal");
+    	
+    	modal.show();
+	}
+	
+    function closeModal() {
+    	
+    	const modal = bootstrap.Modal.getOrCreateInstance("#internEvaluationModal");
+    	
+        modal.hide();
+	}
+	
 	function writeInternEvaluation(){
+		
+		const diligence_score = document.querySelector('input[name="diligence_score"]:checked');
+		const responsibility_score = document.querySelector('input[name="responsibility_score"]:checked');
+		const coorporation_score = document.querySelector('input[name="coorporation_score"]:checked');
+		const achievement_score = document.querySelector('input[name="achievement_score"]:checked');
+		const inputReview = document.getElementById("inputReview");
+		const inputStudentInternPk = document.getElementById("inputStudentInternPk");
 		
 		fetch("./writeInternEvaluation", {
 			method: "post",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"
 			},
-			body: "diligence_score=" + document.getElementById("diligence_score") +
-					"&responsibility_score=" + document.getElementById("responsibility_score") +
-					"&coorporation_score=" + document.getElementById("coorporation_score") +
-					"&achievement_score=" + document.getElementById("achievement_score") +
-					"&review=" + document.getElementById("inputReview")
+			body: "diligence_score=" + diligence_score.value +
+					"&responsibility_score=" + responsibility_score.value +
+					"&coorporation_score=" + coorporation_score.value +
+					"&achievement_score=" + achievement_score.value +
+					"&review=" + inputReview.value + 
+					"&student_intern_pk=" + inputStudentInternPk.value
 		})
 		.then(response => response.json())
 		.then(response => {
 			
+			diligence_score.value = "";
+			responsibility_score.value = "";
+			coorporation_score.value = "";
+			achievement_score.value = "";
+			inputReview.value = "";
+			
+			const internListBox = document.getElementById("internListBox");
+			internListBox.innerHTML = "";
 			reloadInternList();
+			
+			closeModal();
 			
 		});
 	}
 	
+	function loadApplyingInternForm(){
+		
+		fetch("./isNow?internship_course_pk=" + internship_course_pk)
+		.then(response => response.json())
+		.then(response => {
+			
+			const isStartApplying = response.data.isStartApplying;
+			const isStartInternship = response.data.isStartInternship;
+			const applyingInternForm = document.getElementById("applyingInternForm");
+			const studentInternForm = document.getElementById("studentInternForm");
+			
+			if(isStartApplying == 1 && isStartInternship == 0){
+				applyingInternForm.removeAttribute("class");
+			}
+			
+		});
+	}
 	
+	function loadStudentInternForm(){
+		
+		fetch("./isNow?internship_course_pk=" + internship_course_pk)
+		.then(response => response.json())
+		.then(response => {
+			
+			const isStartInternship = response.data.isStartInternship;
+			const studentInternForm = document.getElementById("studentInternForm");
+			const applyingInternForm = document.getElementById("applyingInternForm");
+			
+			if(isStartInternship == 1){
+				studentInternForm.removeAttribute("class");
+			}
+			
+		});
+	}
 	
+	function reloadWhichList(){
 	
-	 
-	
-	
-	function reloadWhichList
-	
+		fetch("./isNow?internship_course_pk=" + internship_course_pk)
+		.then(response => response.json())
+		.then(response => {
+			
+			let isStartInternship = response.data.isStartInternship;
+			
+			if(isStartInternship == 0){
+				loadApplyingInternForm();
+				reloadApplyStudentList();
+			}else if(isStartInternship == 1){
+				loadStudentInternForm();
+				reloadInternList();
+			} 
+			
+			
+		});
+		
+	}
 	
 	window.addEventListener("DOMContentLoaded", () => {
 		getProfessorPk();
-		reloadApplyStudentList();
-		reloadInternList();
+		reloadWhichList();
+		reloadInternshipCourseInfo();                                                                                                                                                                                                                                  
 		// setInterval(reloadCommentList,1000); // 1초마다 reloadCommentList호출
 	});
 
@@ -269,6 +403,7 @@
 					</div>
 					
 					<div class="row mt-4">
+					
 						<div class="col">
 							<div class="row">
 								<div class="col fw-semibold" style="font-size:1.1em">
@@ -281,61 +416,58 @@
 										<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 											현장실습명
 										</div>
-										<div class="col border-start ps-4 fw-semibold">
-											${internshipCourseDetail.internshipCourseDto.course_title}
+										<div class="internshipCourseTitle col border-start ps-4 fw-semibold">
+											현장실습명입력
 										</div>
 									</div>
 									<div class="row border-bottom py-2">
 										<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 											산업체명
 										</div>
-										<div class="col border-start ps-4 border-end">
-											${internshipCourseDetail.companyInfoDto.company_name}
+										<div class="companyName col border-start ps-4 border-end">
+											산업체명입력
 										</div>
 										<div class="col-1 ms-3 me-3 text-center text-dark-emphasis fw-semibold">
 											실습인원
 										</div>
-										<div class="col border-start ps-4">
-											${internshipCourseDetail.countStudentIntern} / ${internshipCourseDetail.internshipCourseDto.internship_total_member}
+										<div class="totalMember col border-start ps-4">
+											실습인원 입력
 										</div>
 									</div>
 									<div class="row border-bottom py-2">
 										<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 											모집학과
 										</div>
-										<div class="col border-start ps-4 border-end">
-											${internshipCourseDetail.departmentDto.name}
+										<div class="recruitmentDepartment col border-start ps-4 border-end">
+											모집학과 입력
 										</div>
 										<div class="col-1 ms-3 me-3 text-center text-dark-emphasis fw-semibold">
 											자격학기
 										</div>
-										<div class="col border-start ps-4">
-											${internshipCourseDetail.internshipCourseDto.semester_qualification}학기 이상
+										<div class="semesterQualification col border-start ps-4">
+											자격학기 입력
 										</div>
 									</div>
 									<div class="row border-bottom py-2">
 										<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 											모집기간
 										</div>
-										<div class="col border-start ps-4 border-end">
-											<fmt:formatDate value="${internshipCourseDetail.internshipCourseDto.applying_start_date}" pattern="yyyy.MM.dd"/>
-											 - <fmt:formatDate value="${internshipCourseDetail.internshipCourseDto.applying_end_date}" pattern="yyyy.MM.dd"/>
+										<div class="applicationPeriod col border-start ps-4 border-end">
+											모집기간 입력
 										</div>
 										<div class="col-1 ms-3 me-3 text-center text-dark-emphasis fw-semibold">
 											결과발표일
 										</div>
-										<div class="col border-start ps-4">
-											<fmt:formatDate value="${internshipCourseDetail.internshipCourseDto.announcement_date}" pattern="yyyy.MM.dd"/>
-											학기 이상
+										<div class="announcementDate col border-start ps-4">
+											결과발표일 입력
 										</div>
 									</div>
 									<div class="row py-2">
 										<div class="col-1 mx-3 text-center text-dark-emphasis fw-semibold">
 											실습기간
 										</div>
-										<div class="col border-start ps-4">
-											<fmt:formatDate value="${internshipCourseDetail.internshipCourseDto.internship_start_date}" pattern="yyyy.MM.dd"/>
-											 - <fmt:formatDate value="${internshipCourseDetail.internshipCourseDto.internship_end_date}" pattern="yyyy.MM.dd"/>
+										<div class="internshipPeriod col border-start ps-4">
+											실습기간 입력
 										</div>
 									</div>
 								</div>
@@ -343,96 +475,93 @@
 						</div>
 					</div>
 					
-					<div class="row mt-4">
+					<div class="row mt-5">
 						<div class="col">
-						<jsp:useBean id="now" class="java.util.Date"/>
-							<c:choose>
-								<c:when test="${now >= internshipCourseDetail.internshipCourseDto.applying_start_date && now < internshipCourseDetail.internshipCourseDto.internship_start_date}">
-									<div class="row">
-										<div class="col fw-semibold" style="font-size:1.1em">
-											현장실습 신청 내역
-										</div>
+							<div id="applyingInternForm" class="d-none">
+								<div class="row">
+									<div class="col fw-semibold" style="font-size:1.1em">
+										현장실습 신청 내역
 									</div>
-									<div class="row mt-2" style="height:18em">
-										<div class="col border-secondary border-top border-bottom overflow-y-scroll">
-											<div class="row text-center bg-body-secondary border-bottom border-secondary py-1 fw-semibold">
-												<div class="col-1 border-end">
-													학번
-												</div>
-												<div class="col-2 border-end">
-													이름
-												</div>
-												<div class="col-2 border-end">
-													학과
-												</div>
-												<div class="col-2 border-end">
-													담당교수
-												</div>
-												<div class="col-1 border-end">
-													수료학기
-												</div>
-												<div class="col-1 border-end">
-													신청상태
-												</div>
-												<div class="col-2 border-end">
-													학생정보
-												</div>
-												<div class="col-1">
-													날짜
-												</div>
+								</div>
+								<div class="row mt-2" style="height:18em">
+									<div class="col border-secondary border-top border-bottom overflow-y-scroll">
+										<div class="row text-center bg-body-secondary border-bottom border-secondary py-1 fw-semibold">
+											<div class="col-1 border-end">
+												학번
 											</div>
-											<div class="row">
-												<div id="applyingStudentListBox" class="col">
-													
-												</div>
+											<div class="col-2 border-end">
+												이름
+											</div>
+											<div class="col-2 border-end">
+												학과
+											</div>
+											<div class="col-2 border-end">
+												담당교수
+											</div>
+											<div class="col-1 border-end">
+												수료학기
+											</div>
+											<div class="col-1 border-end">
+												신청상태
+											</div>
+											<div class="col-2 border-end">
+												학생정보
+											</div>
+											<div class="col-1">
+												날짜
+											</div>
+										</div>
+										<div class="row">
+											<div id="applyingStudentListBox" class="col">
+												
 											</div>
 										</div>
 									</div>
-								</c:when>
-							
-								<c:when test="${now >= internshipCourseDetail.internshipCourseDto.internship_start_date}">
-									<div class="row">
-										<div class="col fw-semibold" style="font-size:1.1em">
-											실습생 내역
-										</div>
+								</div>
+							</div>
+						
+							<div id="studentInternForm" class="d-none">
+								<div class="row">
+									<div class="col fw-semibold" style="font-size:1.1em">
+										실습생 내역
 									</div>
-									<div class="row mt-2" style="height:20em">
-										<div class="col border-secondary border-top border-bottom overflow-y-scroll">
-											<div class="row text-center bg-body-secondary border-bottom border-secondary py-1 fw-semibold">
-												<div class="col-1 border-end">
-													학번
-												</div>
-												<div class="col-2 border-end">
-													이름
-												</div>
-												<div class="col-1 border-end">
-													학과
-												</div>
-												<div class="col-1 border-end">
-													담당교수
-												</div>
-												<div class="col-1 border-end">
-													학생정보
-												</div>
-												<div class="col-2 border-end">
-													출결
-												</div>
-												<div class="col-2 border-end">
-													업무일지
-												</div>
-												<div class="col-2">
-													성적산출
-												</div>
+								</div>
+								<div class="row mt-2" style="height:20em">
+									<div class="col border-secondary border-top border-bottom overflow-y-scroll">
+										<div class="row text-center bg-body-secondary border-bottom border-secondary py-1 fw-semibold">
+											<div class="col-1 border-end">
+												학번
 											</div>
-											<div class="row">
-												<div id="internListBox" class="col">
-													
-												</div>
+											<div class="col-2 border-end">
+												이름
+											</div>
+											<div class="col-1 border-end">
+												학과
+											</div>
+											<div class="col-1 border-end">
+												담당교수
+											</div>
+											<div class="col-1 border-end">
+												학생정보
+											</div>
+											<div class="col-2 border-end">
+												출결
+											</div>
+											<div class="col-2 border-end">
+												업무일지
+											</div>
+											<div class="col-2">
+												성적산출
 											</div>
 										</div>
+										<div class="row">
+											<div id="internListBox" class="col">
+												
+											</div>
+										</div>
 									</div>
-								</c:when>
-							</c:choose>
+								</div>
+							</div>
 						</div>
 					</div>
 					
@@ -478,7 +607,7 @@
 		<!-- 실습 -->
 		<div id="internListTemplete" class="d-none">
 			<div class="internWrapper row text-center py-1 border-bottom" style="font-size:0.95em">
-				<div class="internPk col-1 align-self-center fw-semibold border-end">
+				<div class="internStudentPk col-1 align-self-center fw-semibold border-end">
 				</div>
 				<div class="internName col-2 align-self-center fw-semibold border-end">
 				</div>
@@ -489,40 +618,40 @@
 				<div class="col-1 align-self-center border-end d-grid px-3">
 					<a class="studentDetailPageBtn"></a>
 				</div>
-				<div class="internAttendance col-2 align-self-center border-end" style="font-size:0.9em">
+				<div class="internAttendance col-2 align-self-center border-end" style="font-size:0.95em">
 				</div>
 				<div class="col-2 align-self-center d-grid px-4 border-end">
 					<a class="readInternReport"></a>
 				</div>
-				<div class="internEvaluationBox col-2 align-self-center d-grid px-4">
-					<button class="internEvaluation"></button>
+				<div class="internEvaluation col-2 align-self-center d-grid px-4">
+					<span class="evaluationButton"></span>
 				</div>
 			</div>
 		</div>
 		
 		<!-- 모달 -->
-		<div id="internEvaluationModal" class="d-none">
+		<div id="internEvaluationModal" class="modal">
 			<div class="modal-dialog">
-				<div class="modal-content px-3">
-					<div class="modal-header">
-						<h4 class="modal-title">실습생 평가</h4>
-						<button type="button" class="close" id="close-modal"></button>
+				<div class="modal-content px-3 rounded-0">
+					<div class="modal-header mt-1">
+						<h5 class="modal-title fw-semibold">실습생 평가</h5>
+						<span onclick="closeModal()" class="close text-secondary fs-4" id="close-modal"><i class="bi bi-x-lg"></i></span>
 					</div>
 					<div class="modal-body">
 						<div class="row">
 							<div class="col">
 								<div class="row">
-									<div class="col">
+									<div class="col fw-semibold">
 										성실성 평가
 									</div>
 								</div>
 								<div class="row mt-2">
 									<div class="col">
-										 <input class="form-check-input me-2" type="radio" id="diligence_score" value="5"> 매우높음
-										 <input class="form-check-input me-2" type="radio" id="diligence_score" value="4"> 높음
-										 <input class="form-check-input me-2" type="radio" id="diligence_score" value="3"> 보통
-										 <input class="form-check-input me-2" type="radio" id="diligence_score" value="2"> 낮음
-										 <input class="form-check-input me-2" type="radio" id="diligence_score" value="1"> 매우낮음
+										<input class="form-check-input me-1" type="radio" name="diligence_score" value="5"> 매우높음
+										<input class="form-check-input me-1 ms-2" type="radio" name="diligence_score" value="4"> 높음
+										<input class="form-check-input me-1 ms-2" type="radio" name="diligence_score" value="3"> 보통
+										<input class="form-check-input me-1 ms-2" type="radio" name="diligence_score" value="2"> 낮음
+										<input class="form-check-input ms-2" type="radio" name="diligence_score" value="1"> 매우낮음
 									</div>
 								</div>
 							</div>
@@ -530,17 +659,17 @@
 						<div class="row">
 							<div class="col">
 								<div class="row mt-4">
-									<div class="col">
+									<div class="col fw-semibold">
 										책임감 평가
 									</div>
 								</div>
 								<div class="row mt-2">
 									<div class="col">
-										 <input class="form-check-input me-2" type="radio" id="responsibility_score" value="5"> 매우높음
-										 <input class="form-check-input me-2" type="radio" id="responsibility_score" value="4"> 높음
-										 <input class="form-check-input me-2" type="radio" id="responsibility_score" value="3"> 보통
-										 <input class="form-check-input me-2" type="radio" id="responsibility_score" value="2"> 낮음
-										 <input class="form-check-input me-2" type="radio" id="responsibility_score" value="1"> 매우낮음
+										<input class="form-check-input me-1" type="radio" name="responsibility_score" value="5"> 매우높음
+										<input class="form-check-input me-1 ms-2" type="radio" name="responsibility_score" value="4"> 높음
+										<input class="form-check-input me-1 ms-2" type="radio" name="responsibility_score" value="3"> 보통
+										<input class="form-check-input me-1 ms-2" type="radio" name="responsibility_score" value="2"> 낮음
+										<input class="form-check-input ms-2" type="radio" name="responsibility_score" value="1"> 매우낮음
 									</div>
 								</div>
 							</div>
@@ -548,17 +677,17 @@
 						<div class="row">
 							<div class="col">
 								<div class="row mt-4">
-									<div class="col">
+									<div class="col fw-semibold">
 										협조성 평가
 									</div>
 								</div>
 								<div class="row mt-2">
 									<div class="col">
-										 <input class="form-check-input me-2" type="radio" id="coorporation_score" value="5"> 매우높음
-										 <input class="form-check-input me-2" type="radio" id="coorporation_score" value="4"> 높음
-										 <input class="form-check-input me-2" type="radio" id="coorporation_score" value="3"> 보통
-										 <input class="form-check-input me-2" type="radio" id="coorporation_score" value="2"> 낮음
-										 <input class="form-check-input me-2" type="radio" id="coorporation_score" value="1"> 매우낮음
+										<input class="form-check-input me-1" type="radio" name="coorporation_score" value="5"> 매우높음
+										<input class="form-check-input me-1 ms-2" type="radio" name="coorporation_score" value="4"> 높음
+										<input class="form-check-input me-1 ms-2" type="radio" name="coorporation_score" value="3"> 보통
+										<input class="form-check-input me-1 ms-2" type="radio" name="coorporation_score" value="2"> 낮음
+										<input class="form-check-input ms-2" type="radio" name="coorporation_score" value="1"> 매우낮음
 									</div>
 								</div>
 							</div>
@@ -566,38 +695,39 @@
 						<div class="row">
 							<div class="col">
 								<div class="row mt-4">
-									<div class="col">
+									<div class="col fw-semibold">
 										업무달성도
 									</div>
 								</div>
 								<div class="row mt-2">
 									<div class="col">
-										 <input class="form-check-input me-2" type="radio" id="achievement_score" value="5"> 매우높음
-										 <input class="form-check-input me-2" type="radio" id="achievement_score" value="4"> 높음
-										 <input class="form-check-input me-2" type="radio" id="achievement_score" value="3"> 보통
-										 <input class="form-check-input me-2" type="radio" id="achievement_score" value="2"> 낮음
-										 <input class="form-check-input me-2" type="radio" id="achievement_score" value="1"> 매우낮음
+										<input class="form-check-input me-1" type="radio" name="achievement_score" value="5"> 매우높음
+										<input class="form-check-input me-1 ms-2" type="radio" name="achievement_score" value="4"> 높음
+										<input class="form-check-input me-1 ms-2" type="radio" name="achievement_score" value="3"> 보통
+										<input class="form-check-input me-1 ms-2" type="radio" name="achievement_score" value="2"> 낮음
+										<input class="form-check-input ms-2" type="radio" name="achievement_score" value="1"> 매우낮음 
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col">
-								<div class="row mt-5">
-									<div class="col">
+								<div class="row mt-4">
+									<div class="col fw-semibold">
 										총평가
 									</div>
 								</div>
 								<div class="row">
 									<div class="col mt-2">
-										<textarea id="inputReview" class="form-control"></textarea>
+										<textarea id="inputReview" rows="5" class="form-control rounded-0"></textarea>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<button onclick="writeInternEvaluation()" class="closeModal btn btn-secondary rounded-1">제출</button>
+					<div class="modal-footer border-0 mb-3">
+						<input type="hidden" id="inputStudentInternPk">
+						<button id="submitButton" onclick="writeInternEvaluation()" class="closeModal btn btn-secondary rounded-0">제출</button>
 					</div>
 				</div>
 			</div>

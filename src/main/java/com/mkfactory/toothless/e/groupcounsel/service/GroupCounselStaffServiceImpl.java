@@ -121,18 +121,22 @@ public class GroupCounselStaffServiceImpl {
 		
 		if(groupCounselReservationDto.getIsAttend().equals("Y")) {
 			groupCounselStaffMapper.studentIsAttendSetN(id);
-			System.out.println("yyy");
 			
 			
 		}else if(groupCounselReservationDto.getIsAttend().equals("N")) {
 			groupCounselStaffMapper.studentIsAttendSetY(id);
-			System.out.println("nnn");
 	
-		
 		
 		}
 	}
 		
+	public GroupCounselReservationDto getGroupCounselReservationById(int id) {
+		
+		
+		return groupCounselStaffMapper.selectGroupCounselReservationById(id);
+	}
+	
+	
 	
 	//sysdate 가져오기
 	public Date getSysdate() {

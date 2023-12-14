@@ -105,7 +105,7 @@
 				            <div class="col">
 				                <div class="row mt-4 me-0">
 				                    <div class="col-2"></div>  
-				                    <div class="col-1 ps-1 pe-0 fw-bold">대여사유</div>
+				                    <div class="col ps-1 pe-0 fw-bold">대여사유</div>
 				                    <div class="col-4 ps-4">
 				                        <input id="inputReason" type="text">
 				                    </div>

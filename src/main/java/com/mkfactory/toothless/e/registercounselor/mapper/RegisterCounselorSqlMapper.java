@@ -3,6 +3,8 @@ package com.mkfactory.toothless.e.registercounselor.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
@@ -27,7 +29,13 @@ public interface RegisterCounselorSqlMapper {
 	public List<Map<String, Object>> selectAllCounselor();
 	
 	// 상담원 전체 중복제거 리스팅 for AJAX
-	public List<Map<String, Object>> selectAllCounselorForAJAX();
+	public List<Map<String, Object>> selectAllCounselorForAJAX(			
+			@Param("searchCounselorName") String searchCounselorName,
+			@Param("searchCounselorType") int searchCounselorType,
+			@Param("searchGenderOption") String searchGenderOption,
+			@Param("searchScoreOption") String searchScoreOption,
+			@Param("searchOption") Boolean searchOption
+			);
 	
 	// 상담원PK로 상담원 정보 조회
 	public CounselorDto selectCounselorDetailByCounselorId(int id);
@@ -55,6 +63,9 @@ public interface RegisterCounselorSqlMapper {
 	
 	// 상담원PK로 오프라인상담 평점 조회
 	public Object selectOfflineCounselScoreAvg(int counselor_id);
+	
+	// 상담원 신규등록시 ID중복검사
+	public int checkDuplicationExternalId(String inputId);
 	
 	
 

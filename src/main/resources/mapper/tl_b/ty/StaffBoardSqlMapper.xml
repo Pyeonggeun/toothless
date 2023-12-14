@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.b.ty.staffboard.mapper.StaffBoardSqlMapper">
+
+	<select id="createBoardPk" resultType="int">
+		SELECT tl_b_studentboard_seq.nextval FROM Dual
+	</select>
+	
+	
+	<insert id="insertNotice">
+	INSERT INTO tl_b_studentboard values(
+		#{studentboard_pk},
+		#{staff_pk},
+		#{title},
+		#{content},
+		0,
+		null,
+		sysdate
+	)
+	</insert>
+	
+	
+	
+	<!-- <insert id="insertNotice">
+	INSERT INTO tl_b_studentboard values(
+		tl_b_studentboard_seq.nextval,
+		#{staff_pk},
+		#{title},
+		#{content},
+		0,
+		#{img_link},
+		sysdate
+	)
+	</insert> -->
+	<select id="sellectAll" resultType="com.mkfactory.toothless.b.dto.StudentboardDto">
+		
+		SELECT t2.* FROM (
+			SELECT t1.* FROM tl_b_studentboard t1 
+			WHERE 1=1
+			<if test="searchType != null">
+				<choose>
+					<when test="searchType == 'title'">
+						AND TITLE LIKE '%' || #{searchWord} || '%'		
+					</when>
+					<when test="searchType == 'content'">
+						AND CONTENT  LIKE '%' || #{searchWord} || '%'
+					</when>
+				</choose>
+			</if>
+		)t2	
+		ORDER BY created_at DESC
+		
+
+		
+	</select>
+	<select id="selectById" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
+		SELECT * FROM TL_JIC_STAFF_INFO WHERE STAFF_PK =#{STAFF_PK}
+	</select>
+	<select id="selectNoticeId" resultType="com.mkfactory.toothless.b.dto.StudentboardDto">
+		SELECT * FROM tl_b_studentboard
+		WHERE studentboard_pk=#{studentboard_pk}
+	</select>
+	<delete id="deleteNotice">
+		DELETE FROM tl_b_studentboard
+		WHERE studentboard_pk=#{studentboard_pk}
+	</delete>
+	<update id="updateRead" >
+		UPDATE tl_b_studentboard
+		SET content=#{content}, title=#{title}, img_link=#{img_link}
+		WHERE studentboard_pk=#{studentboard_pk}
+	</update>
+	<update id="increase">
+		UPDATE tl_b_studentboard
+		SET read_count = read_count+1
+		WHERE studentboard_pk=#{studentboard_pk}
+	</update>
+	<insert id="insertReply">
+		INSERT INTO tl_b_studentboard_reply VALUES(
+			tl_b_studentboard_reply_seq.nextval,
+			#{staff_pk},
+			#{student_pk},
+			#{studentboard_pk},
+			#{content},
+			sysdate
+		)
+	</insert>
+	<select id="selectreply" resultType="com.mkfactory.toothless.b.dto.StudentboardReplyDto">
+		SELECT * FROM tl_b_studentboard_reply 
+		WHERE studentboard_pk=#{studentboard_pk} ORDER BY created_at 
+	</select>
+	
+	<select id="StudentSelectId" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO WHERE student_pk=#{student_pk}
+	</select>
+	<delete id="deleteReply">
+		DELETE FROM tl_b_studentboard_reply
+		WHERE studentboard_reply_pk=#{studentboard_reply_pk}
+	</delete>
+	
+	<select id="staffReplyCount" resultType="int">
+		SELECT COUNT(*) FROM tl_b_studentboard_reply
+		WHERE staff_pk=#{staff_pk}
+	</select>
+	
+	<select id="studentOrStaffId" resultType="com.mkfactory.toothless.b.dto.StudentboardReplyDto">
+	SELECT * FROM tl_b_studentboard_reply
+	WHERE studentboard_pk=#{studentboard_pk}
+	</select>
+	<select id="readReplyCount" resultType="int">
+		SELECT COUNT(*) FROM tl_b_studentboard_reply
+		WHERE studentboard_pk=#{studentboard_pk}
+	</select>
+	
+	<!-- 좋아요 -->
+	
+	<insert id="insertLike">
+		INSERT INTO tl_b_studentboard_like VALUES(
+			tl_b_studentboard_like_seq.nextval,
+			#{student_pk},
+			#{studentboard_pk},
+			sysdate
+		)
+	</insert>
+	<select id="selectLike" resultType="com.mkfactory.toothless.b.dto.StudentboardLikeDto">
+		SELECT * FROM tl_b_studentboard_like
+		WHERE student_pk=#{student_pk} 
+		AND  studentboard_pk=#{studentboard_pk}
+	</select>
+	<delete id="deleteLike">
+		DELETE FROM tl_b_studentboard_like
+		WHERE student_pk=#{student_pk} 
+		AND  studentboard_pk=#{studentboard_pk}
+	</delete>
+	<select id="likeCount" resultType="int">
+	SELECT COUNT(*) FROM tl_b_studentboard_like
+	WHERE student_pk=#{student_pk} 
+	AND  studentboard_pk=#{studentboard_pk}
+	</select>
+	<select id="studentLikeCount" resultType="int">
+	SELECT COUNT(*) FROM tl_b_studentboard_like
+	WHERE studentboard_pk=#{studentboard_pk}
+	</select>
+	<select id="boardLikeCountList" resultType="int">
+		SELECT COUNT(*) FROM tl_b_studentboard_like
+		WHERE studentboard_pk=#{studentboard_pk}
+	</select>
+	
+	<!-- Total -->
+	<select id="totalCount" resultType="int">
+		SELECT COUNT(*) FROM tl_b_studentboard
+	</select>
+	
+	<!-- 이미지 -->
+	<insert id="insertimg">
+		INSERT INTO tl_b_studentboard_image VALUES(
+			tl_b_studentboard_image_seq.nextval,
+			#{studentboard_pk},
+			#{img_link}
+		) 
+	</insert>
+	<select id="getArticleImageList" resultType="com.mkfactory.toothless.b.dto.StudentboardImageDto">
+		SELECT * FROM tl_b_studentboard_image
+		WHERE studentboard_pk=#{studentboard_pk}
+		ORDER BY studentboard_image_pk ASC 
+	</select>
+	
+	
+	<!-- 베스트글 -->
+	<select id="maxRead" resultType="com.mkfactory.toothless.b.dto.StudentboardDto">
+	<![CDATA[
+	SELECT t2.*, rownum FROM 
+	(SELECT t1.* FROM tl_b_studentboard t1
+	ORDER BY t1.READ_COUNT DESC ) t2
+	WHERE rownum <=3
+	]]>
+	</select>
+	
+	<select id="imageView" resultType="int">
+		SELECT count(*) FROM tl_b_studentboard_image
+		WHERE studentboard_pk=#{studentboard_pk}
+	</select>
+	
+	
+	
+	
+</mapper>

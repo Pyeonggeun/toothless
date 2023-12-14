@@ -43,6 +43,49 @@
 			// 여러 이유로 인해 함수 실행이 종료되어야 할 때는 return;을 사용하는 것이 깔끔한 방법!!		
 		}
 		
+		
+		// 미입력 필드를 담을 배열
+	    const emptyFields = [];
+
+	    // 값이 비어있는지 확인
+	    if (!document.getElementById("title").value.trim()) {
+	        emptyFields.push("제목을 입력해주세요.");
+	    }
+	    if (!document.getElementById("detail_expln").value.trim()) {
+	        emptyFields.push("상세 설명을 입력해주세요.");
+	    }
+	    if (!document.getElementById("apply_start_date").value.trim()) {
+	        emptyFields.push("신청 시작일을 입력해주세요.");
+	    }
+	    if (!document.getElementById("apply_end_date").value.trim()) {
+	        emptyFields.push("신청 종료일을 입력해주세요.");
+	    }
+	    if (!document.getElementById("selection_amount").value.trim()) {
+	        emptyFields.push("선발 인원을 입력해주세요.");
+	    }
+	    if (!document.getElementById("pass_anncm_date").value.trim()) {
+	        emptyFields.push("합격자 발표일을 입력해주세요.");
+	    }
+	    if (!document.getElementById("payment_start_date").value.trim()) {
+	        emptyFields.push("관비 납부 시작일을 입력해주세요.");
+	    }
+	    if (!document.getElementById("payment_end_date").value.trim()) {
+	        emptyFields.push("관비 납부 종료일을 입력해주세요.");
+	    }
+	    if (!document.getElementById("asgnm_anncm_date").value.trim()) {
+	        emptyFields.push("배정 통보일을 입력해주세요.");
+	    }
+	    if (!document.getElementById("join_dorm_date").value.trim()) {
+	        emptyFields.push("입주일을 입력해주세요.");
+	    }
+
+	    // 미입력 필드가 있다면 알림 표시
+	   if (emptyFields.length > 0) {
+		    const missingFieldsMessage = emptyFields[0];
+		    alert(missingFieldsMessage);
+		    return;
+		}
+		
 		// 입력된 값 모으기(body로 간결하게 보내보자) == map이랑 비슷한뎅?
 		const inputJoinInfo = new FormData();
 		
@@ -75,10 +118,48 @@
 
 	}
 	
+	function checkNumber(){
+		
+		const checkNumResultBox = document.getElementById("checkNumResultBox");
+		const inputNum = document.getElementById("selection_amount").value;
+		
+		if (!Number.isInteger(parseInt(inputNum))) {
+			checkNumResultBox.innerText = "선발 인원은 정수로 입력해야 합니다.";
+			checkNumResultBox.style.color = "red";
+		}else{
+			checkNumResultBox.innerText = "올바르게 입력되었습니다.";
+			checkNumResultBox.style.color = "green";
+		}
+		
+	}
+	
 
 	// 공고 등록 탭 보여주기
 	function mj_registerJoinInfoPage(){
 		
+
+		fetch("./getRegisterJoinInfo")
+		.then(response => response.json())
+		.then(response => {
+	
+			// 공고 개수
+			const countInfoList = response.data.countInfoList;
+		
+			if(countInfoList > 0){
+				// 버튼을 비활성화
+				const inputButton = document.querySelector("#inputButton");
+				inputButton.innerText = "등록 불가";
+				inputButton.disabled = true;
+				
+				if(confirm("이미 등록된 공고가 있습니다. 조회/수정 페이지로 이동하시겠습니까?")){
+					mj_readRegisterJoinInfoPage();
+				} 
+				
+				return;
+			}
+			
+		});
+			
 		// 양식
 		const firstRow = document.querySelector(".firstRow");
 		const secondRow = document.querySelector(".secondRow");
@@ -125,9 +206,28 @@
 	// 조회/수정 탭 보여주기
 	function mj_readRegisterJoinInfoPage(){
 		
+		fetch("./getRegisterJoinInfo")
+		.then(response => response.json())
+		.then(response => {
+	
+			// 공고 개수
+			const countInfoList = response.data.countInfoList;
+		
+			if(countInfoList <= 0){
+				
+				if(confirm("등록된 공고가 없습니다. 공고 등록 페이지로 이동하시겠습니까?")){
+					mj_registerJoinInfoPage();
+				} 
+				
+				return;
+			}
+			
+		});
+			
+		
 		// 이 함수가 실행되고나서 리스트를 가져오게해야 정보 등록 후에 그 정보를 들고 올 수 있을듯~ 
 		readJoinInfoList();
-
+		
 		// 양식
 		const firstRow = document.querySelector(".firstRow");
 		const secondRow = document.querySelector(".secondRow");
@@ -142,17 +242,19 @@
 		for (e of commonTitle.children) {
 			firstRow.appendChild(e);
 		}
+		
 		for (e of commonTabs.children) {
 			secondRow.appendChild(e);
 		}
 		
 		// 탭 전체가져와서 --> 이때 clone을 안하면 다른 탭으로 이동할 때 원본 manageInfoTab의 innerHTML이 삭제됨!!!!! 중요****
 		const readAndUpdateInfoTab = document.getElementById("readAndUpdateInfoTab").cloneNode(true);
-
+	
 		// 그 하위내용(= child들)을 돌면서 tabContent에 추가
 		for (e of readAndUpdateInfoTab.children) {
 			thirdRow.appendChild(e);
 		}
+		
 		
 		// 해당 탭만 active되게
 		const tab1 = document.getElementById("tab1");
@@ -162,6 +264,177 @@
 		tab2.classList.add("active");  
 
 	}
+	// 공고 수정 페이지
+	function updateJoinInfoPage(dorm_info_pk){
+		
+		if(sessionStaffId == null){
+			
+			if(confirm("로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+				
+				location.href = "./loginPage"
+			} 
+			
+			return;	
+		}
+		
+		// 이 함수가 실행되고나서 리스트를 가져오게해야 정보 등록 후에 그 정보를 들고 올 수 있을듯~ 
+		readJoinInfoList();
+		
+		// 양식
+		const firstRow = document.querySelector(".firstRow");
+		const secondRow = document.querySelector(".secondRow");
+		const thirdRow = document.querySelector(".thirdRow");
+		thirdRow.innerHTML = "";
+		
+		// 공통 제목/탭 가져오기
+		const commonTitle = document.querySelector(".commonTitle");
+		const commonTabs = document.querySelector(".commonTabs");
+		
+		// 양식에 붙여주고
+		for (e of commonTitle.children) {
+			firstRow.appendChild(e);
+		}
+		
+		for (e of commonTabs.children) {
+			secondRow.appendChild(e);
+		}
+		
+		// 탭 전체가져와서 --> 이때 clone을 안하면 다른 탭으로 이동할 때 원본 manageInfoTab의 innerHTML이 삭제됨!!!!! 중요****
+		const manageInfoTab = document.getElementById("manageInfoTab").cloneNode(true);
+		
+		// manageInfoTab의 모든 하위 요소를 가져옴
+		const allChildElements = manageInfoTab.querySelectorAll(".info");
+
+		// 그 하위내용(= child들)을 돌면서 tabContent에 추가
+		for(e of allChildElements){
+			thirdRow.appendChild(e);
+		}
+		
+		
+		// 버튼 수정
+		const inputButton = document.querySelector("#inputButton");
+		inputButton.innerText = "수정 완료";
+
+		// 클로저를 사용하여 pk를 전달하는 함수 정의★★★★★★
+		inputButton.onclick = function() {
+		    // 여기서 pk를 원하는 값으로 설정
+		    const pk = dorm_info_pk;
+		    
+		    // updateJoinInfo 함수 호출
+		    updateJoinInfo(pk);
+		};
+		
+		
+		fetch("./getRegisterJoinInfo")
+		.then(response => response.json())
+		.then(response => {
+
+			// 입주공고 전체 리스트
+			const infoList = response.data.infoList;
+			
+			// 돌아보자!!!
+			for(e of infoList){
+
+				document.getElementById("title").value = e.joinInfo.title;
+				document.getElementById("detail_expln").value = e.joinInfo.detail_expln;
+				document.getElementById("apply_start_date").value = formatDate(new Date(e.joinInfo.apply_start_date));
+				document.getElementById("apply_end_date").value = formatDate(new Date(e.joinInfo.apply_end_date));
+				document.getElementById("selection_amount").value = e.joinInfo.selection_amount;
+				document.getElementById("pass_anncm_date").value = formatDate(new Date(e.joinInfo.pass_anncm_date));
+				document.getElementById("payment_start_date").value = formatDate(new Date(e.joinInfo.payment_start_date));
+				document.getElementById("payment_end_date").value = formatDate(new Date(e.joinInfo.payment_end_date));
+				document.getElementById("asgnm_anncm_date").value = formatDate(new Date(e.joinInfo.asgnm_anncm_date));
+				document.getElementById("join_dorm_date").value = formatDate(new Date(e.joinInfo.join_dorm_date));
+
+			}
+		});
+		
+	}
+	
+	// 공고 수정
+	function updateJoinInfo(dorm_info_pk){
+		
+		// 입력된 값 모으기(body로 간결하게 보내보자) == map이랑 비슷한뎅?
+		const inputJoinInfo = new FormData();
+		
+		inputJoinInfo.append("title", document.getElementById("title").value);
+		inputJoinInfo.append("detail_expln", document.getElementById("detail_expln").value);
+		inputJoinInfo.append("apply_start_date", document.getElementById("apply_start_date").value);
+		inputJoinInfo.append("apply_end_date", document.getElementById("apply_end_date").value);
+		inputJoinInfo.append("selection_amount", document.getElementById("selection_amount").value);
+		inputJoinInfo.append("pass_anncm_date", document.getElementById("pass_anncm_date").value);
+		inputJoinInfo.append("payment_start_date", document.getElementById("payment_start_date").value);
+		inputJoinInfo.append("payment_end_date", document.getElementById("payment_end_date").value);
+		inputJoinInfo.append("asgnm_anncm_date", document.getElementById("asgnm_anncm_date").value);
+		inputJoinInfo.append("join_dorm_date", document.getElementById("join_dorm_date").value);
+		
+		
+		const url = "./updateJoinInfo?dorm_info_pk=" + dorm_info_pk;
+		
+		fetch(url, {
+			method: "post",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded"
+			},
+			body: new URLSearchParams(inputJoinInfo)
+		})
+		.then(response => response.json())		// 응답받는 방식 : json
+		.then(response => mj_readRegisterJoinInfoPage());		// 서버쪽 갔다와서 해야할 일들
+		
+	}
+	
+	// 공고 삭제 확인
+	function confirmDeleteJoinInfo(DORM_INFO_PK){
+		
+		if(sessionStaffId == null){
+			
+			if(confirm("로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+				
+				location.href = "./loginPage"
+			} 
+			return;	
+		}
+		
+		if(confirm("해당 공고를 삭제하시겠습니까?")){
+			
+			deleteJoinInfo(DORM_INFO_PK);
+		} 
+		return;	
+
+	}
+	
+	// 공고 삭제
+	function deleteJoinInfo(DORM_INFO_PK){
+		
+		if(sessionStaffId == null){
+			
+			if(confirm("로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+				
+				location.href = "./loginPage"
+			} 
+			return;	
+		}
+		
+		const url = "./deleteJoinInfo?DORM_INFO_PK="+ DORM_INFO_PK;
+
+		// fetch를 통해 POST 요청 전송
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			mj_registerJoinInfoPage();
+		});
+		
+	}
+	
+	// 날짜 포맷
+	function formatDate(date) {
+	    var day = date.getDate();
+	    var month = date.getMonth() + 1;
+	    var year = date.getFullYear();
+
+	    // 원하는 형식에 맞게 조합 (여기서는 YYYY-MM-DD 형식)
+	    return year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+	}
 	
 	// 숫자를 문자열로 변환하고 한 자리 숫자에 0을 붙임	--> 날짜가 23-08-03 으로 나오게
 	function addLeadingZero(number) {
@@ -170,22 +443,20 @@
 	
 	// 공고 목록 가져오기
 	function readJoinInfoList() {
-		
-		const url = "./getRegisterJoinInfo"
-		
-		fetch(url)
+
+		fetch("./getRegisterJoinInfo")
 		.then(response => response.json())
 		.then(response => {
 			
 			const joinInfoListBox = document.querySelector(".joinInfoListBox");
 			joinInfoListBox.innerHTML = "";		// 딱 이순간에만 허용한다했던! 초기화 시키고 나서 append해야 중복 배제할거잖아.
 			
-			// 입주공고 전체 리스트
-            const infoList = response.data.infoList;
-			
 			// 공고 개수
 			const countInfoList = response.data.countInfoList;
 			document.querySelector(".countInfoList").innerText = "검색결과 (총 " + countInfoList + " 개)";
+			
+			// 입주공고 전체 리스트
+			const infoList = response.data.infoList;
 			
          	// 학년도/학기 정보 들어있는 map
             const thisSemesterJoinDormInfo = response.data.thisSemesterJoinDormInfo;
@@ -206,35 +477,57 @@
 				    
 				joinInfoWrapper.querySelector(".year .semester").innerText = thisSemesterJoinDormInfo.thisSemesterDto.semester;
 
-				joinInfoWrapper.querySelector(".title").innerText = e.title;
+				joinInfoWrapper.querySelector(".title").innerText = e.joinInfo.title;
 				// ** json에서 날짜는 항상 숫자로 리턴된다.. date api있당!
-				let date = new Date(e.apply_end_date);
+				let date = new Date(e.joinInfo.apply_end_date);
 				joinInfoWrapper.querySelector(".apply_end_date").innerText = date.getFullYear() + "-" + addLeadingZero(date.getMonth()+1) + "-" + addLeadingZero(date.getDate());	
 				
-				joinInfoWrapper.querySelector(".selection_amount").innerText = e.selection_amount;
+				joinInfoWrapper.querySelector(".selection_amount").innerText = e.joinInfo.selection_amount;
 				
-				date = new Date(e.pass_anncm_date);
+				date = new Date(e.joinInfo.pass_anncm_date);
 				joinInfoWrapper.querySelector(".pass_anncm_date").innerText = date.getFullYear() + "-" + addLeadingZero(date.getMonth()+1) + "-" + addLeadingZero(date.getDate());	
-				date = new Date(e.payment_end_date);
+				date = new Date(e.joinInfo.payment_end_date);
 				joinInfoWrapper.querySelector(".payment_end_date").innerText = date.getFullYear() + "-" + addLeadingZero(date.getMonth()+1) + "-" + addLeadingZero(date.getDate());	
-				date = new Date(e.asgnm_anncm_date);
+				date = new Date(e.joinInfo.asgnm_anncm_date);
 				joinInfoWrapper.querySelector(".asgnm_anncm_date").innerText = date.getFullYear() + "-" + addLeadingZero(date.getMonth()+1) + "-" + addLeadingZero(date.getDate());	
-				date = new Date(e.join_dorm_date);
+				date = new Date(e.joinInfo.join_dorm_date);
 				joinInfoWrapper.querySelector(".join_dorm_date").innerText = date.getFullYear() + "-" + addLeadingZero(date.getMonth()+1) + "-" + addLeadingZero(date.getDate());	
 
 				// 다 만들었으면 어디에 붙일래
 				joinInfoListBox.appendChild(joinInfoWrapper);
 			
+				
+				// 수정 버튼
+				const updateBtn = document.querySelector("#updateBtn")
+				updateBtn.setAttribute("onclick", "updateJoinInfoPage("+ e.joinInfo.dorm_info_pk +")");
+				
+				// 삭제 버튼
+				const deleteBtn = document.querySelector("#deleteBtn");
+				
+				// 해당 공고에 입주신청자 1명이라도 있으면 삭제 못하게!!!
+				if(e.countSomeApplyInfo > 0){
+					
+					//deleteBtn.disabled = true; --> 어차피 컨펌창만 띄우면 삭제 불가능하겠군.
+					
+					deleteBtn.onclick = function() {
+						
+						if(confirm("이미 진행된 공고로, 삭제가 불가능 합니다.")){
+							readJoinInfoList();
+						}
+					};
+
+				}else{
+					deleteBtn.setAttribute("onclick", "confirmDeleteJoinInfo("+ e.joinInfo.dorm_info_pk +")");
+				}
+				
+				
 			}
-			
 			
 		});
 		
 	}
 	
-	
-	
-	
+
 	
 	
 	// 페이지의 DOM이 로드되면 실행될 함수 등록!! 
@@ -319,7 +612,7 @@
 			</div>
 			<div class="row">
 				<div class="col my-2">
-					<input class="form-control" id="title" type="text" placeholder="제목을 입력해주세요.">
+					<input class="form-control" id="title" type="text" placeholder="제목을 입력해주세요."></input>
 				</div>
 			</div>
 		</div>
@@ -380,8 +673,9 @@
 			</div>
 			<div class="row">
 				<div class="col my-2">
-					<input class="form-control" id="selection_amount" type="text" placeholder="선발 인원을 정수로 입력해주세요.">
+					<input onblur="checkNumber()" class="form-control" id="selection_amount" type="text" placeholder="선발 인원을 정수로 입력해주세요.">
 				</div>
+				<div id="checkNumResultBox" class="ms-2" style="font-size: 0.8em"></div>
 			</div>
 		</div>
 	</div>
@@ -474,7 +768,7 @@
 		<div class="col-5"></div>
         <div class="col px-0 text-end">
 			<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary">임시 저장</button>
-        	<button onclick="registerJoinInfo()" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
+        	<button id="inputButton" onclick="registerJoinInfo()" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
         </div>                    
     </div>
     <input class="info" type="hidden" name="seller_id" value="${sessionSeller.id }">	
@@ -564,7 +858,7 @@
 			<!-- 상품목록 -->
 			<div class="row mt-4 py-3 justify-content-between">
 				<div class="col-6">
-					<span class="countInfoList">검색결과 (총 x 개)</span>
+					<span class="countInfoList">검색결과 (총 0 개)</span>
 					<button type="button" class="ms-5 px-3 border-secondary-subtle rounded-0 px-0 fw-bold btn btn-sm btn-light">
            				<i class="bi bi-download"></i>
            				공고 목록 다운로드
@@ -626,10 +920,10 @@
 	  <td class="asgnm_anncm_date">날짜 </td>
 	  <td class="join_dorm_date">날짜</td>
 	  <td>
-	  	<button id="update" type="button" class="fw-bold rounded-0 btn btn-secondary btn-sm mb-1">수정</button>
+	  	<button id="updateBtn" type="button" class="fw-bold rounded-0 btn btn-secondary btn-sm mb-1">수정</button>
 	  </td>
 	  <td>
-	    <button id="delete" type="button" class="fw-bold rounded-0 btn btn-danger btn-sm mb-1">삭제</button>
+	    <button id="deleteBtn" type="button" class="fw-bold rounded-0 btn btn-danger btn-sm mb-1">삭제</button>
 	  </td>
     </tr>	
 </table>

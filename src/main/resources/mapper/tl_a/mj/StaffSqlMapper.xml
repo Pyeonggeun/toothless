@@ -20,10 +20,56 @@
 		ORDER BY SEMESTER_YEAR desc, SEMESTER_pk desc
 	</select>
 	
+	<!-- 현재 학기 선택  -->
+	<update id="updateThisSemester">
+		UPDATE TL_A_SEMESTER
+		SET 
+		PROGRESS_STATE = 'Y'
+		WHERE SEMESTER_PK = #{SEMESTER_PK}
+	</update>
+	
+	<!-- 현재 학기 아닌것들 -->
+	<update id="updateNotThisSemester">
+		UPDATE TL_A_SEMESTER
+		SET 
+		PROGRESS_STATE = 'N'
+		WHERE SEMESTER_PK != #{SEMESTER_PK}
+	</update>
+	
+	<!-- 특정학기 삭제 -->
+	<delete id="deleteSemester">
+		DELETE FROM TL_A_SEMESTER
+		WHERE SEMESTER_PK = #{SEMESTER_PK}
+	</delete>
+	
 	<!-- 현재학기 조회 -->
 	<select id="selectThisSemester" resultType="com.mkfactory.toothless.a.dto.SemesterDto">
 		SELECT * FROM tl_a_semester
 		WHERE PROGRESS_STATE = 'Y'
+	</select>
+	
+	<!-- 현재학기에 해당하는 년도의 모든 학기들.. -->
+	<select id="selectThisYearAllSemester" resultType="map">
+		SELECT semester AS SEME, PROGRESS_STATE AS STATE FROM tl_a_semester
+		WHERE SEMESTER_YEAR = (
+			SELECT SEMESTER_YEAR FROM tl_a_semester
+			WHERE PROGRESS_STATE = 'Y'
+		)
+		ORDER BY SEMESTER_pk asc
+	</select>
+	
+	<!-- 등록된 이전 년도들 -->
+	<select id="selectBeforeYearAll" resultType="map">
+		SELECT SEMESTER_YEAR AS YEARS FROM tl_a_semester
+		GROUP BY SEMESTER_YEAR
+		ORDER BY SEMESTER_YEAR asc
+	</select>
+	
+	<!-- 등록된 이전 년도들 & 학기들... -->
+	<select id="selectBeforeYearAllSemester" resultType="map">
+		SELECT SEMESTER_YEAR AS YEARS, semester AS SEME FROM tl_a_semester
+		GROUP BY SEMESTER_YEAR, semester
+		ORDER BY SEMESTER_YEAR desc
 	</select>
 	
 	<!-- 입주공고 등록 -->
@@ -45,9 +91,46 @@
 		)
 	</insert>
 	
-	<!-- 등록된 공고들 조회 -->
+	<!-- 공고 수정 -->
+	<update id="updateJoinInfo">
+		UPDATE tl_a_join_dorm_info
+		SET TITLE = #{title},
+		DETAIL_EXPLN = #{detail_expln},
+		APPLY_START_DATE = #{apply_start_date},
+		APPLY_END_DATE = #{apply_end_date},
+		SELECTION_AMOUNT = #{selection_amount},
+		PASS_ANNCM_DATE = #{pass_anncm_date},
+		PAYMENT_START_DATE = #{payment_start_date},
+		PAYMENT_END_DATE = #{payment_end_date},
+		ASGNM_ANNCM_DATE = #{asgnm_anncm_date},
+		JOIN_DORM_DATE = #{join_dorm_date}
+		WHERE DORM_INFO_PK = #{dorm_info_pk}
+	</update>
+	
+	<!-- 공고삭제 -->
+	<delete id="deleteJoinInfo">
+		DELETE FROM tl_a_join_dorm_info
+		WHERE DORM_INFO_PK = #{DORM_INFO_PK}
+	</delete>
+	
+	<!-- 특정학기에 공고 등록여부 -->
+	<select id="countSomeSemesterJoinInfo" resultType="int">
+		SELECT COUNT(*) FROM tl_a_join_dorm_info
+		WHERE SEMESTER_PK = #{SEMESTER_PK}
+	</select>
+	
+	<!-- 특정공고에 입사신청 여부 -->
+	<select id="countSomeApplyInfo" resultType="int">
+		SELECT COUNT(*) FROM tl_a_join_dorm_application
+		WHERE DORM_INFO_PK = #{DORM_INFO_PK}
+	</select>
+	
+	<!-- 현재학기 등록된 공고들 조회 -->
 	<select id="selectAllDormInfoList" resultType="com.mkfactory.toothless.a.dto.JoinDormInfoDto">
-		SELECT * FROM tl_a_join_dorm_info
+		SELECT * FROM tl_a_join_dorm_info di
+		WHERE di.SEMESTER_PK = (SELECT SEMESTER_PK FROM tl_a_semester
+		WHERE PROGRESS_STATE = 'Y')
+		ORDER BY DORM_INFO_PK desc
 	</select>
 	
 	<!-- 현재 학년도 전체 조회 -->
@@ -103,20 +186,7 @@
 		ORDER BY DORM_APPLICATION_PK desc
 	</select>
 	
-	<!-- 상벌코드 등록 -->
-	<insert id="insertPointCategory">
-		INSERT INTO tl_a_point_category VALUES(
-		   tl_a_point_category_seq.nextval,
-		   #{content},
-		   #{point}
-		)
-	</insert>
 	
-	<!-- 상벌코드 목록 - 전체 -->
-	<select id="selectPointCategoryAll" resultType="com.mkfactory.toothless.a.dto.PointCategory">
-		SELECT * FROM tl_a_point_category
-		ORDER BY POINT desc
-	</select>
 	
 	
 	

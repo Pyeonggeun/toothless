@@ -24,12 +24,24 @@
 		AND group_counsel_id=#{group_counsel_id}
 	</select>
 
+	
+	<select id="selectGroupCounselReservationListByStudentId" resultType="com.mkfactory.toothless.e.dto.GroupCounselReservationDto">
+		SELECT * FROM cp_group_reservation
+		WHERE student_pk=#{student_pk}
+	</select>
 
 
 
 
-
-
+	<insert id="insertGroupCounselSurvey">
+		INSERT INTO cp_group_survey VALUES(
+			cp_group_survey_seq.nextval,
+			#{group_reservation_id},
+			#{score},
+			#{text},
+			sysdate
+		)
+	</insert>
 
 
 

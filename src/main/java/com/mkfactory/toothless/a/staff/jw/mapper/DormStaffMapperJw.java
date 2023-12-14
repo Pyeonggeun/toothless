@@ -60,6 +60,17 @@ public interface DormStaffMapperJw {
 	public List<PointCategory> selectAllPointCategory();
 	public Integer sumPointByDormStudentPk(int dorm_student_pk);
 	
+	// 상벌코드
+	public void insertPointCategory(PointCategory pointCategory);
+	public void deletePointCategory(int point_category_pk);
+	public void updatePointCategory(PointCategory pointCategory);
+	
+	// 상벌코드 목록
+	public List<PointCategory> selectPointCategoryAll();
+	public List<PointCategory> selectPointCategoryPlus();
+	public List<PointCategory> selectPointCategoryMinus();
+	
+	
 	// 점호 불참
 	public List<CallAbsenceDto> selectAllCallAbsenceList();
 	public List<DormStudentDto> selectCallAbsenceDormStudentList();

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.x.mj.mapper.LifeStaffSqlMapper">
+
+	<!-- 교육과정 목록(카테고리) 리스트 -->
+	<select id="selectLectureCategory" resultType="com.mkfactory.toothless.x.dto.LectureCategoryDto">
+		SELECT * FROM tl_x_lecture_category
+	</select>
+	
+	<!-- 아직 강사등록 안된 사람들 -->
+	<select id="selectNotYetTeacher" resultType="com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto">
+		SELECT * FROM tl_jic_external_info
+		WHERE EXTERNAL_CATEGORY  = 4
+		AND EXTERNAL_PK NOT IN (
+			SELECT EXTERNAL_PK FROM tl_x_life_lecturer
+		)
+		ORDER BY EXTERNAL_ID asc
+	</select>
+	
+	<!-- 강사pk 강제생성 -->
+	<select id="createTeacherPk" resultType="int">
+		SELECT tl_x_life_lecturer_seq.nextval FROM Dual
+	</select>
+	
+	<!-- 강사정보등록 -->
+	<insert id="insertTeacherInfo">
+		INSERT INTO tl_x_life_lecturer VALUES( 
+		   #{lecturer_key},
+		   #{external_pk},
+		   #{name},
+		   #{resident_id},
+		   #{birth},
+		   #{gender},
+		   #{address},
+		   #{phone},
+		   #{email},
+		   #{entered_at},
+		   SYSDATE
+		)
+	</insert>
+	
+	<!-- 강사별 가능한 강의 정보등록 -->
+	<insert id="insertPossibleLecture">
+		INSERT INTO tl_x_possible_lecture VALUES( 
+		   tl_x_possible_lecture_seq.nextval,
+		   #{lecturer_key},
+		   #{lecture_category_key},
+		   SYSDATE
+		)
+	</insert>
+	
+	<!-- 전체 강사 목록 -->
+	<select id="selectAllTeacherList" resultType="com.mkfactory.toothless.x.dto.LifeLecturerDto">
+		SELECT * FROM tl_x_life_lecturer
+		ORDER BY LECTURER_KEY desc
+	</select>
+	
+	<!-- 강사별 가능한 과목 리스트 -->
+	<select id="selectPossibleLectuer" resultType="com.mkfactory.toothless.x.dto.LectureCategoryDto">
+		SELECT * FROM tl_x_lecture_category
+		WHERE LECTURE_CATEGORY_KEY IN (
+			SELECT LECTURE_CATEGORY_KEY FROM tl_x_possible_lecture
+			WHERE LECTURER_KEY = #{lecturer_key}
+		)
+	</select>
+	
+	<!-- 강사별 정보 -->
+	<select id="selectSomeTeacher" resultType="com.mkfactory.toothless.x.dto.LifeLecturerDto">
+		SELECT * FROM tl_x_life_lecturer
+		WHERE LECTURER_KEY = #{lecturer_key}
+	</select>
+
+	<!-- 특정강사의 외부인 회원가입 정보 -->
+	<select id="selectSomeTeacherExternalInfo" resultType="com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto">
+		SELECT * FROM tl_jic_external_info
+		WHERE EXTERNAL_PK = (
+			SELECT EXTERNAL_PK FROM tl_x_life_lecturer
+			WHERE LECTURER_KEY = #{lecturer_key}
+		)
+	</select>
+	
+	<!-- 강사 정보 수정 -->
+	<update id="updateTeacherInfo">
+		UPDATE tl_x_life_lecturer
+		SET NAME = #{name},
+		RESIDENT_ID = #{resident_id},
+		BIRTH = #{birth},
+		GENDER = #{gender},
+		ADDRESS = #{address},
+		PHONE = #{phone},
+		EMAIL = #{email},
+		ENTERED_AT = #{entered_at},
+		EXTERNAL_PK = #{external_pk}
+		WHERE LECTURER_KEY = #{lecturer_key}
+	</update>
+	
+	<!-- 강사별 가능한 과목 수정(그냥 삭제하고 인서트할래) -->
+	<update id="deletePossibleLecture">
+		DELETE FROM tl_x_possible_lecture
+		WHERE LECTURER_KEY = #{lecturer_key}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>

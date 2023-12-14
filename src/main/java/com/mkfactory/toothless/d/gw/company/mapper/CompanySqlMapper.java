@@ -6,6 +6,7 @@ import com.mkfactory.toothless.d.dto.ComScaleCategoryDto;
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.CompanyManagerDto;
 import com.mkfactory.toothless.d.dto.InterestCompanyDto;
+import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.GraduationInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
@@ -80,4 +81,7 @@ public interface CompanySqlMapper {
 	
 	//학생 졸업여부
 	public GraduationInfoDto studentGraduationInfoSelectByPk(int student_pk);
+	
+	//가족기업용 학생 메인 이력서
+	public List<ResumeDto> resumeListForFamilyCompany();
 }

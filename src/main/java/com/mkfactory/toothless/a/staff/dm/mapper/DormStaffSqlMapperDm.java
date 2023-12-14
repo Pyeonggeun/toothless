@@ -39,4 +39,6 @@ public interface DormStaffSqlMapperDm {
 	public SemesterDto SemesterCheckY();
 	
 	public void dormStudentAssignmentInsert(DormStudentDto dormStudentDto);
+	
+	public List<DormRoomDto> dormRoomInfoByDormPk(int dorm_pk);
 }

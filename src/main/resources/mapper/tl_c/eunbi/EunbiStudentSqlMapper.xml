@@ -85,6 +85,11 @@
 		WHERE student_pk = #{student_pk}
 	</select>
 	
+	<select id="getIntroductionImg" resultType="com.mkfactory.toothless.c.dto.AjdksSelfIntroductionImgDto">
+		SELECT * FROM tl_c_self_introduction_img
+		WHERE self_introduction_img_pk = #{self_introduction_img_pk}
+	</select>
+	
 	<!-- 해당 학생의 학기 계산 -->
 	<select id="countSemester" resultType="int">
 		SELECT COUNT(*)-1 FROM TL_JIC_STUDENT_SEMESTER

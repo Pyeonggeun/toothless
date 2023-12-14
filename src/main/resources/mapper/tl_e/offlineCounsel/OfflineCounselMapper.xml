@@ -108,9 +108,151 @@
 	
 	<!-- 학생별 예약 리스트 -->
 	<select id="selectCounselReservationList" resultType="com.mkfactory.toothless.e.dto.OfflineReservationDto">
-		SELECT * FROM CP_OFFLINE_RESERVATION
-		WHERE STUDENT_PK = #{student_pk}
+		SELECT t2.* FROM (
+			SELECT t1.*, ROWNUM AS rnum FROM (
+				SELECT cor.* FROM CP_OFFLINE_RESERVATION cor
+				<if test="counselorNameValue != &quot;0&quot;">
+				INNER JOIN CP_COUNSELOR cc ON cor.counselor_id = cc.id
+				</if>
+				WHERE 1 = 1
+				AND cor.student_pk = #{student_pk}
+				<if test="counselorNameValue != &quot;0&quot;">
+					AND cc.name = #{counselorNameValue}
+				</if>
+				<if test="selectDateType != 0">
+					<choose>
+						<when test="selectDateType == 1">
+							AND (
+								cor.created_at IN (
+									SELECT cor3.CREATED_AT FROM CP_OFFLINE_RESERVATION cor3
+									WHERE TRUNC(cor3.CREATED_AT, 'dd') = TRUNC(TO_DATE(#{datevalueStr}, 'YYYY-MM-DD"T"HH24:MI'), 'dd')
+								)
+							)
+						</when>
+						<when test="selectDateType == 2">
+							AND (
+								TO_DATE(cor.counsel_year || '-' || cor.counsel_month || '-' || cor.counsel_date || ' ' || cor.counsel_hour, 'YYYY-MM-DD HH24')
+								= TRUNC(TO_DATE(#{datevalueStr}, 'YYYY-MM-DD"T"HH24:MI'), 'HH')
+							)
+						</when>
+					</choose>
+				</if>
+				<if test="categoryType != 0">
+					<choose>
+						<when test="categoryType == 1">
+							AND cor.type_category_id = 1
+						</when>
+						<when test="categoryType == 2">
+							AND cor.type_category_id = 2
+						</when>
+						<when test="categoryType == 3">
+							AND cor.type_category_id = 3
+						</when>
+						<when test="categoryType == 4">
+							AND cor.type_category_id = 4
+						</when>
+						<when test="categoryType == 5">
+							AND cor.type_category_id = 5
+						</when>
+						<when test="categoryType == 6">
+							AND cor.type_category_id = 6
+						</when>
+					</choose>
+				</if>
+				<if test="stateType != 0">
+					<choose>
+						<when test="stateType == 1">
+							AND cor.state = '신청'
+						</when>
+						<when test="stateType == 2">
+							AND cor.state = '완료'
+						</when>
+						<when test="stateType == 3">
+							AND cor.state = '취소'
+						</when>
+						<when test="stateType == 4">
+							AND cor.state = '노쇼'
+						</when>
+					</choose>				
+				</if>
+				ORDER BY cor.id DESC
+				)t1
+			)t2
+			<![CDATA[
+			WHERE t2.rnum >= (#{pageNum}-1)*10+1 AND t2.rnum <= #{pageNum}*10
+			]]>
 	</select>
+	
+	
+	<!-- 학생의 총 상담수 -->
+	<select id="selectTotalCounselCount" resultType="int">
+		SELECT count(*) FROM CP_OFFLINE_RESERVATION cor
+		<if test="counselorNameValue != &quot;0&quot;">
+		INNER JOIN CP_COUNSELOR cc ON cor.counselor_id = cc.id
+		</if>
+		WHERE 1 = 1
+		AND cor.student_pk = #{student_pk}
+		<if test="counselorNameValue != &quot;0&quot;">
+			AND cc.name = #{counselorNameValue}
+		</if>
+		<if test="selectDateType != 0">
+			<choose>
+				<when test="selectDateType == 1">
+					AND (
+						cor.created_at IN (
+							SELECT cor3.CREATED_AT FROM CP_OFFLINE_RESERVATION cor3
+							WHERE TRUNC(cor3.CREATED_AT, 'dd') = TRUNC(TO_DATE(#{datevalueStr}, 'YYYY-MM-DD"T"HH24:MI'), 'dd')
+						)
+					)
+				</when>
+				<when test="selectDateType == 2">
+					AND (
+						TRUNC(TO_DATE(cor.counsel_year || '-' || cor.counsel_month || '-' || cor.counsel_date || ' ' || cor.counsel_hour, 'YYYY-MM-DD HH24:MI:SS'), 'HH')
+						= TRUNC(TO_DATE(#{datevalueStr}, 'YYYY-MM-DD"T"HH24:MI'), 'HH')
+					)
+				</when>
+			</choose>
+		</if>
+		<if test="categoryType != 0">
+			<choose>
+				<when test="categoryType == 1">
+					AND cor.type_category_id = 1
+				</when>
+				<when test="categoryType == 2">
+					AND cor.type_category_id = 2
+				</when>
+				<when test="categoryType == 3">
+					AND cor.type_category_id = 3
+				</when>
+				<when test="categoryType == 4">
+					AND cor.type_category_id = 4
+				</when>
+				<when test="categoryType == 5">
+					AND cor.type_category_id = 5
+				</when>
+				<when test="categoryType == 6">
+					AND cor.type_category_id = 6
+				</when>
+			</choose>
+		</if>
+		<if test="stateType != 0">
+			<choose>
+				<when test="stateType == 1">
+					AND cor.state = '신청'
+				</when>
+				<when test="stateType == 2">
+					AND cor.state = '완료'
+				</when>
+				<when test="stateType == 3">
+					AND cor.state = '취소'
+				</when>
+				<when test="stateType == 4">
+					AND cor.state = '노쇼'
+				</when>
+			</choose>				
+		</if>
+	</select>
+	
 	
 	<!-- 만족도조사 insert -->
 	<insert id="insertOfflineSurvey">
@@ -179,5 +321,9 @@
 		WHERE counselor_id = #{counselor_id}
 	</select>
 	
-
+	<!-- 학생의 상담리스트 검색 -->
+	<select id="selectOfflineCounselListOfStudent" resultType="com.mkfactory.toothless.e.dto.OfflineReservationDto">
+		
+	</select>
+	
 </mapper>

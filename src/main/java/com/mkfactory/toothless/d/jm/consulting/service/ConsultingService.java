@@ -74,7 +74,6 @@ public class ConsultingService {
 		
 		//아직 온라인 신청0번이면 가능
 		if(onlineConsultingDto == null) {
-			
 			return true;
 		}
 		
@@ -82,12 +81,11 @@ public class ConsultingService {
 		int on_consulting_pk = onlineConsultingDto.getOn_consulting_pk();
 		OnlineConsultingReplyDto onlineConsultingReplyDto = consultingMapper.checkOnConsultingReply(on_consulting_pk);
 		
+		//
 		if(onlineConsultingReplyDto != null) {
-
 			return true;
 		}
 		else {
-
 			return false;
 		}
 		
@@ -186,13 +184,14 @@ public class ConsultingService {
 	
 	//학생 최근 상담 10건 꺼내오기(나중에 페이징 처리하자)
 	//이 쿼리의 한계 <- 하나의 구직희망신청에서만 온라인 상담 내역 출력가능...
-	public List<Map<String, Object>> getOnlineConsultingList (int student_pk, String isReply){
+	public List<Map<String, Object>> getMyOnlineConsultingList (int student_pk, String isReply){
 		
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
 		HopeJobDto hopeJobDto = consultingMapper.getLastHopejob(student_pk);		
-		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getOnlineConsultingList(hopeJobDto.getHope_job_pk(), isReply);
+		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getMyOnlineConsultingList(hopeJobDto.getHope_job_pk(), isReply);
+		
 		for(OnlineConsultingDto onlineConsultingDto : onlineConsultingDtoList) {
 			int on_consulting_pk = onlineConsultingDto.getOn_consulting_pk();
 			OnlineConsultingReplyDto onlineConsultingReplyDto = consultingMapper.getOnConsultingReplyByOnPk(on_consulting_pk);

@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.d.dto.CompanyDto;
+import com.mkfactory.toothless.d.dto.ProgramDto;
 import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
+import com.mkfactory.toothless.d.gw.program.service.ProgramServiceIpml;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.d.sb.resume.service.ResumeServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
@@ -29,6 +31,9 @@ public class EmploymentCommonController {
 	@Autowired
 	private ResumeServiceImpl resumeService;
 	
+	@Autowired
+	private ProgramServiceIpml programService;
+	
 	// 학생용 마이페이지
 	@RequestMapping("studentMyPage")
 	public String studentMyPage(HttpSession session, Model model) {
@@ -39,6 +44,7 @@ public class EmploymentCommonController {
 			int studentPk = studentInfoDto.getStudent_pk();
 			model.addAttribute("interestpostingForMyPage", postingService.getInterestPostingListForMyPage(studentPk));
 			model.addAttribute("applyPostListForMyPage", resumeService.getRowNumApplyList(studentPk));
+			model.addAttribute("applyProgramListForMyPage", programService.studentApplyProgramList());
 		}
 		
 		
@@ -64,6 +70,11 @@ public class EmploymentCommonController {
 			int externalPk = externalInfoDto.getExternal_pk();
 			
 			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalPk);
+			
+			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
+			model.addAttribute("companyList", companyService.getCompanyList());
+			model.addAttribute("mainResumeList", companyService.mainResumeListForCompany());
+			
 			model.addAttribute("jobPostingForCompanyMainPage", postingService.getPostingListForCompanyMainPage(companyDto.getCom_pk()));
 			model.addAttribute("applyListForMainPage", postingService.getApplyListForCompanyMainPage(externalPk));
 		}

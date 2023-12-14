@@ -1,5 +1,7 @@
 package com.mkfactory.toothless.e.offlinecounsel.mapper;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +61,25 @@ public interface OfflineCounselMapper {
 	public CounselDocumentDto selectCounselDocumentInfoByReservationId(int reservation_id);
 	
 	// 학생별 예약 리스트
-	public List<OfflineReservationDto> selectCounselReservationList(int student_pk);
+	public List<OfflineReservationDto> selectCounselReservationList(
+			@Param("student_pk") int student_pk, 
+			@Param("pageNum") int pageNum,
+			@Param("counselorNameValue") String counselorNameValue,
+			@Param("selectDateType") int selectDateType,
+			@Param("datevalueStr") String datevalueStr,
+			@Param("categoryType") int categoryType,
+			@Param("stateType") int stateType
+			);
+	
+	// 학생페이지 총 상담리스트 수
+	public int selectTotalCounselCount(
+			@Param("student_pk") int student_pk, 
+			@Param("counselorNameValue") String counselorNameValue,
+			@Param("selectDateType") int selectDateType,
+			@Param("datevalueStr") String datevalueStr,
+			@Param("categoryType") int categoryType,
+			@Param("stateType") int stateType
+			);
 	
 	// 만족도조사 insert
 	public void insertOfflineSurvey(OfflineSurveyDto offlineSurveyDto);
@@ -88,5 +108,7 @@ public interface OfflineCounselMapper {
 	// 상담원별 불가일정 날짜형식으로 포맷
 	public List<Map<String, Object>> selectImpossibleDateMap(int counselor_id);
 	
+	// 학생페이지 상담리스트 조회
+	public List<OfflineReservationDto> selectOfflineCounselListOfStudent();
 	
 }

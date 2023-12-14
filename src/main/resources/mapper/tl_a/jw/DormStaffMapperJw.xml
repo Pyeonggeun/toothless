@@ -173,6 +173,49 @@
 	)
 	</insert>
 	
+	<!-- 상벌코드 등록 -->
+	<insert id="insertPointCategory">
+		INSERT INTO tl_a_point_category VALUES(
+		   tl_a_point_category_seq.nextval,
+		   #{content},
+		   #{point}
+		)
+	</insert>
+	
+	<!-- 상벌코드 삭제 -->
+	<delete id="deletePointCategory">
+		DELETE FROM TL_A_POINT_CATEGORY
+		WHERE POINT_CATEGORY_PK = #{POINT_CATEGORY_PK}
+	</delete>
+	
+	<!-- 상벌코드 수정 -->
+	<update id="updatePointCategory">
+		UPDATE TL_A_POINT_CATEGORY SET 
+		CONTENT = #{CONTENT}, 
+		POINT = #{POINT}
+		WHERE POINT_CATEGORY_PK = #{POINT_CATEGORY_PK}
+	</update>
+	
+	<!-- 상벌코드 목록 - 전체 -->
+	<select id="selectPointCategoryAll" resultType="com.mkfactory.toothless.a.dto.PointCategory">
+		SELECT * FROM tl_a_point_category
+		ORDER BY POINT desc
+	</select>
+	
+	<!-- 상벌코드 목록 - 상점 -->
+	<select id="selectPointCategoryPlus" resultType="com.mkfactory.toothless.a.dto.PointCategory">
+		SELECT * FROM TL_A_POINT_CATEGORY
+		<![CDATA[WHERE point > 0]]>
+		ORDER BY POINT desc
+	</select>
+	
+	<!-- 상벌코드 목록 - 벌점 -->
+	<select id="selectPointCategoryMinus" resultType="com.mkfactory.toothless.a.dto.PointCategory">
+		SELECT * FROM TL_A_POINT_CATEGORY
+		<![CDATA[WHERE point < 0]]>
+		ORDER BY POINT desc
+	</select>
+	
 	<!-- 사생별 상벌점 현황 -->
 	<select id="sumPointByDormStudentPk" resultType="Integer">
 		SELECT SUM(tapc.POINT) FROM TL_A_POINT tap
