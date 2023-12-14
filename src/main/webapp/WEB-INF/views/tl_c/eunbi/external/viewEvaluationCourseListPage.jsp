@@ -92,7 +92,7 @@
 					countIntern.innerText = course.countInternBycoursePk;
 					coursePeroid.innerText = startDate + " - " + endDate;
 					
-					showCourseInfoButton.setAttribute("onclick", "showCourseInfo(course.internshipCourseDto.internship_course_pk)");
+					showCourseInfoButton.setAttribute("data-value", course.internshipCourseDto.internship_course_pk);
 					
 					if(course.countDidCompanyEvaluate < course.countInternBycoursePk){
 						internshipCourseListBox.appendChild(internshipCourseWrapper);
@@ -107,17 +107,30 @@
 	
 	function showCourseInfo(internshipCoursePk){
 		
-		toggleCourseInfoButton();
+		toggleCourseInfoButton(internshipCoursePk);
+		
 		reloadCourseInfo(internshipCoursePk);
+		
 	}
 	
-	function toggleCourseInfoButton(){
+	function toggleCourseInfoButton(internshipCoursePk){
 		
 		const detailBox = document.getElementById("detailBox");
 		detailBox.classList.toggle("d-none");
 		
+	}
+	
+	function changeActive(internshipCoursePk){
+		
+		const targetValue = internshipCoursePk;
+		console.log(targetValue);
+		
 		const showCourseInfoButton = document.querySelector(".showCourseInfoButton");
-		showCourseInfoButton.classList.toggle("active");
+		const getValue = showCourseInfoButton.dataset.value;
+		
+		if(targetValue === getValue){
+			showCourseInfoButton.classList.add("active");
+		}
 	}
 	
 	function reloadCourseInfo(internshipCoursePk){	
@@ -212,14 +225,17 @@
 				readInternReport.classList.add("btn", "btn-outline-secondary", "btn-sm", "rounded-1");
 				readInternReport.setAttribute("href", "./viewInternReport?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
 				
-				if(intern.didProfessorEvaluateIntern === 0){
+				if(intern.didCompanyEvaluateIntern === 0){
 					const evaluationButton = internWrapper.querySelector(".evaluationButton");
 					evaluationButton.innerText = "평가하기";
 					evaluationButton.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1", "open-Modal");
 					
 					evaluationButton.setAttribute("onclick", "openModal()");
 					
-				}else if(intern.didProfessorEvaluateIntern !== 0){
+					const inputStudentInternPk = document.getElementById("inputStudentInternPk");
+					inputStudentInternPk.setAttribute("value",intern.studentInternDto.student_intern_pk);
+					
+				}else if(intern.didCompanyEvaluateIntern !== 0){
 					const internEvaluation = internWrapper.querySelector(".internEvaluation");
 					internEvaluation.setAttribute("style", "font-size:0.95em");
 					internEvaluation.classList.add("text-secondary", "fw-bold");
@@ -232,7 +248,58 @@
 		});
 	}
 	
+	function writeInternEvaluation(){
+		
+		const diligence_score = document.querySelector('input[name="diligence_score"]:checked');
+		const responsibility_score = document.querySelector('input[name="responsibility_score"]:checked');
+		const coorporation_score = document.querySelector('input[name="coorporation_score"]:checked');
+		const achievement_score = document.querySelector('input[name="achievement_score"]:checked');
+		const inputReview = document.getElementById("inputReview");
+		const inputStudentInternPk = document.getElementById("inputStudentInternPk");
+		
+		fetch("./writeInternEvaluation", {
+			method: "post",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded"
+			},
+			body: "&diligence_score=" + diligence_score.value +
+					"&responsibility_score=" + responsibility_score.value +
+					"&coorporation_score=" + coorporation_score.value +
+					"&achievement_score=" + achievement_score.value +
+					"&review=" + inputReview.value + 
+					"&student_intern_pk=" + inputStudentInternPk.value
+		})
+		.then(response => response.json())
+		.then(response => {
+			
+			diligence_score.value = "";
+			responsibility_score.value = "";
+			coorporation_score.value = "";
+			achievement_score.value = "";
+			inputReview.value = "";
+			
+			const internListBox = document.getElementById("internListBox");
+			internListBox.innerHTML = "";
+			reloadInternList();
+			
+			closeModal();
+			
+		});
+	}
 	
+	function openModal() {
+    	
+    	const modal = bootstrap.Modal.getOrCreateInstance("#internEvaluationModal");
+    	
+    	modal.show();
+	}
+	
+    function closeModal() {
+    	
+    	const modal = bootstrap.Modal.getOrCreateInstance("#internEvaluationModal");
+    	
+        modal.hide();
+	}
 	
 	
 	
@@ -294,16 +361,16 @@
 							</div>
 						</div>
 					
-						<div id="internshipCourseListBox" class="row row-cols-4 mt-3">
+						<div id="internshipCourseListBox" class="row row-cols-4 mt-2">
 							
 						</div>
 						
 						<!-- 현장실습 정보/학생 -->
 						
-						<div id="detailBox" class="row d-none">
+						<div id="detailBox" class="row mt-4 d-none">
 							<div class="col px-4">
 								<div class="row">
-									<div class="col border border-dark-subtle px-4 py-3">
+									<div class="col border border-start-0 border-end-0 border-dark-subtle px-4 py-3">
 									
 										<div class="row mt-2 px-3">
 											<div class="col">
@@ -448,10 +515,10 @@
 
 	<!-- 현장실습과정 리스트 -->
 	<div id="internshipCourseTemplete" class="d-none">
-		<div class="internshipCourseWrapper col px-4 py-2">
+		<div class="internshipCourseWrapper col px-4 pt-3">
 			<div class="row">
-				<div class="col border px-1 py-1 d-grid">
-					<div class="showCourseInfoButton btn btn-light rounded-0 border py-3">
+				<div class="borderStyle col border px-1 py-1 d-grid">
+					<div id="getInternPk" onclick="showCourseInfo(this.getAttribute('data-value'))" class="showCourseInfoButton btn btn-light rounded-0 border py-3">
 						<div class="row">
 							<div class="courseTitle col fw-semibold">
 							</div>
@@ -497,6 +564,110 @@
 		</div>
 	</div>
 
+	
+	<!-- 모달 -->
+	<div id="internEvaluationModal" class="modal">
+		<div class="modal-dialog">
+			<div class="modal-content px-3 rounded-0">
+				<div class="modal-header mt-1">
+					<h5 class="modal-title fw-semibold">실습생 평가</h5>
+					<span onclick="closeModal()" class="close text-secondary fs-4" id="close-modal"><i class="bi bi-x-lg"></i></span>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col">
+							<div class="row">
+								<div class="col fw-semibold">
+									성실성 평가
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col">
+									<input class="form-check-input me-1" type="radio" name="diligence_score" value="5"> 매우높음
+									<input class="form-check-input me-1 ms-2" type="radio" name="diligence_score" value="4"> 높음
+									<input class="form-check-input me-1 ms-2" type="radio" name="diligence_score" value="3"> 보통
+									<input class="form-check-input me-1 ms-2" type="radio" name="diligence_score" value="2"> 낮음
+									<input class="form-check-input ms-2" type="radio" name="diligence_score" value="1"> 매우낮음
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="row mt-4">
+								<div class="col fw-semibold">
+									책임감 평가
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col">
+									<input class="form-check-input me-1" type="radio" name="responsibility_score" value="5"> 매우높음
+									<input class="form-check-input me-1 ms-2" type="radio" name="responsibility_score" value="4"> 높음
+									<input class="form-check-input me-1 ms-2" type="radio" name="responsibility_score" value="3"> 보통
+									<input class="form-check-input me-1 ms-2" type="radio" name="responsibility_score" value="2"> 낮음
+									<input class="form-check-input ms-2" type="radio" name="responsibility_score" value="1"> 매우낮음
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="row mt-4">
+								<div class="col fw-semibold">
+									협조성 평가
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col">
+									<input class="form-check-input me-1" type="radio" name="coorporation_score" value="5"> 매우높음
+									<input class="form-check-input me-1 ms-2" type="radio" name="coorporation_score" value="4"> 높음
+									<input class="form-check-input me-1 ms-2" type="radio" name="coorporation_score" value="3"> 보통
+									<input class="form-check-input me-1 ms-2" type="radio" name="coorporation_score" value="2"> 낮음
+									<input class="form-check-input ms-2" type="radio" name="coorporation_score" value="1"> 매우낮음
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="row mt-4">
+								<div class="col fw-semibold">
+									업무달성도
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col">
+									<input class="form-check-input me-1" type="radio" name="achievement_score" value="5"> 매우높음
+									<input class="form-check-input me-1 ms-2" type="radio" name="achievement_score" value="4"> 높음
+									<input class="form-check-input me-1 ms-2" type="radio" name="achievement_score" value="3"> 보통
+									<input class="form-check-input me-1 ms-2" type="radio" name="achievement_score" value="2"> 낮음
+									<input class="form-check-input ms-2" type="radio" name="achievement_score" value="1"> 매우낮음 
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="row mt-4">
+								<div class="col fw-semibold">
+									총평가
+								</div>
+							</div>
+							<div class="row">
+								<div class="col mt-2">
+									<textarea id="inputReview" rows="5" class="form-control rounded-0"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer border-0 mb-3">
+					<input type="hidden" id="inputStudentInternPk">
+					<button id="submitButton" onclick="writeInternEvaluation()" class="closeModal btn btn-secondary rounded-0">제출</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div><!-- 전체 container 출구 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

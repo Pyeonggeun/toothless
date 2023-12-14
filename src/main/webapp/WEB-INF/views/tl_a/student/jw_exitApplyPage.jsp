@@ -56,6 +56,11 @@
                 </div>
                 <div class="row" style="border-bottom: 0.01em solid #161313;">
                     <div class="col py-3" style="font-size: large;">
+                        <span style="color: black;">일지 등록</span>
+                    </div>
+                </div>
+                <div class="row" style="border-bottom: 0.01em solid #161313;">
+                    <div class="col py-3" style="font-size: large;">
                         <span style="color: black;">FAQ</span>
                     </div>
                 </div>
@@ -76,7 +81,7 @@
                        
                     </div>
                 </div>
-                <form class="row" action="./jw_exitApplyProcess" method="get"><!--여기가 안에 들어갈 내용들-->
+                <form class="row" action="./jw_exitApplyProcess" method="post">
                     <div class="col">
                     	<div class="row mt-2">
                     		<div class="col-2 py-3 fw-bold" style="font-size: 1.1rem;">

@@ -109,14 +109,14 @@ public class ProgramServiceIpml {
 			
 			ProgramDto programDto=programSqlMapper.programSelectByPk(programApplyDto.getProgram_pk());
 			StudentInfoDto studentInfoDto=programSqlMapper.studentSelectByPk(programApplyDto.getStudent_pk());
-			ProgramReviewDto programReviewDto=programSqlMapper.studentReviewCount(programApplyDto.getProgram_apply_pk());
+			int programReviewCount=programSqlMapper.studentReviewCount(programApplyDto.getProgram_apply_pk());
 			
 			Map<String, Object> applyProgramMap=new HashMap<>();
 			
 			applyProgramMap.put("programApplyDto", programApplyDto);
 			applyProgramMap.put("programDto", programDto);
 			applyProgramMap.put("studentInfoDto", studentInfoDto);
-			applyProgramMap.put("programReviewDto", programReviewDto);
+			applyProgramMap.put("programReviewCount", programReviewCount);
 			
 			applyProgramList.add(applyProgramMap);
 			

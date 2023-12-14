@@ -139,6 +139,30 @@
 		)
 	</insert>
 	
+	<select id="selectAllEmpathy" resultType="com.mkfactory.toothless.e.dto.FreeboardEmpathyDto">
+		SELECT count(*) FROM cp_freeboard_empathy
+		WHERE FREEBOARD_ID = #{freeboard_id}
+	</select>
+	
+	<select id="countEmpathyByIdAndPk" resultType="int" >
+		SELECT count(*) from(
+			SELECT * FROM cp_freeboard_empathy
+			WHERE FREEBOARD_ID = #{freeboard_id}
+			AND STUDENT_PK = #{student_pk}	
+		)
+	</select>
+	
+	<select id="countAllEmpathyInPost" resultType="com.mkfactory.toothless.e.dto.FreeboardEmpathyDto"  >
+		SELECT count(*) FROM cp_freeboard_empathy
+		WHERE FREEBOARD_ID = #{freeboard_id}	
+	</select>
+	
+	<delete id="deleteEmpathyByIdAndPk">
+		DELETE FROM cp_freeboard_empathy
+		WHERE FREEBOARD_ID = #{freeboard_id}
+		AND STUDENT_PK = #{student_pk}
+	</delete>
+	
 	
 	
 </mapper>

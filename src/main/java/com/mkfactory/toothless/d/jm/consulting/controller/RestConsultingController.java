@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -181,8 +182,54 @@ public class RestConsultingController {
 		
 		
 	}
+	
+	//내 구직희망정보
+	@RequestMapping("myHopeJobInfo")
+	public D_RestResponseDto myHopeJobInfo(Model model, HttpSession session) {
+		
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
 
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int student_pk = studentInfoDto.getStudent_pk();	
+		Map<String, Object> studentAndHopeJobInfoByStudentPk = consultingService.studentAndHopeJobInfoByStudentPk(student_pk);		
+		
+		d_RestResponseDto.setResult("success");
+		d_RestResponseDto.setData(studentAndHopeJobInfoByStudentPk);
 
+		
+		return d_RestResponseDto;
+
+	}
+	
+	
+	//내 구직희망정보 업뎃
+	//구직희망 업데이트 프로세스
+	@RequestMapping("updateHopeJobProcess")
+	public D_RestResponseDto updateHopeJobProcess(HopeJobDto par) {
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+		
+		consultingService.updateHopeJobProcess(par);
+		
+		d_RestResponseDto.setResult("success");
+		
+		return d_RestResponseDto;
+	}
+
+	
+	//내 구직희망 프로그램 종료
+	@RequestMapping("endHopeJobConsulting")
+	public D_RestResponseDto endHopeJobConsulting(int hope_job_pk) {
+		
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+		
+		consultingService.endHopeJobProcess(hope_job_pk);
+		
+		d_RestResponseDto.setResult("success");
+		
+		return d_RestResponseDto;
+	}
+	
+	
 
 }	
 	
