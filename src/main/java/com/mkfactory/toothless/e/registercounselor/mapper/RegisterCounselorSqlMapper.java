@@ -64,6 +64,9 @@ public interface RegisterCounselorSqlMapper {
 	// 상담원PK로 오프라인상담 평점 조회
 	public Object selectOfflineCounselScoreAvg(int counselor_id);
 	
+	// 상담원 신규등록시 ID중복검사
+	public int checkDuplicationExternalId(String inputId);
+	
 	
 
 }

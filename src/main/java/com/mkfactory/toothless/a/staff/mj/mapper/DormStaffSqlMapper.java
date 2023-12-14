@@ -81,11 +81,7 @@ public interface DormStaffSqlMapper {
 	// 선발인원 중 미납부 리스트
 	public List<JoinDormApplicationDto> selectPaymentNoList();
 	
-	// 상벌코드 등록
-	public void insertPointCategory(PointCategory pointCategory);
 	
-	// 상벌코드 목록 - 전체
-	public List<PointCategory> selectPointCategoryAll();
 	
 	
 	

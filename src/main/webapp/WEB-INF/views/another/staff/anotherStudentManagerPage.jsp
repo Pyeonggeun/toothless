@@ -30,102 +30,69 @@
         		});
         	
         	}
-			function checkStaffId(){
-        		
-        		const inputStaffIdValue = document.querySelector("#inputStaffId").value;
-        		const url = "./existsStaffId?staff_id="+inputStaffIdValue;
-        		
-        		fetch(url)
-        		.then(response => response.json())
-        		.then((response) => {
-        			
-        			if(response.data == true){
-        				const staffIdResultBox = document.getElementById("staffIdResultBox");
-        				staffIdResultBox.innerText = "이미 존재하는 아이디입니다.";
-        				staffIdResultBox.style.color = "red";
-        				
-        			}else{
-        				const staffIdResultBox = document.getElementById("staffIdResultBox");
-        				staffIdResultBox.innerText = "사용가능한 아이디입니다.";
-        				staffIdResultBox.style.color = "green";
-        			}
-        		});
-        	
-        	}
 			
-			function checkProfessorId(){
-        		
-        		const inputProfessorIdValue = document.querySelector("#inputProfessorId").value;
-        		const url = "./existsProfessorId?professor_id="+inputProfessorIdValue;
-        		
-        		fetch(url)
-        		.then(response => response.json())
-        		.then((response) => {
-        			
-        			if(response.data == true){
-        				const professorIdResultBox = document.getElementById("professorIdResultBox");
-        				professorIdResultBox.innerText = "이미 존재하는 아이디입니다.";
-        				professorIdResultBox.style.color = "red";
-        				
-        			}else{
-        				const professorIdResultBox = document.getElementById("professorIdResultBox");
-        				professorIdResultBox.innerText = "사용가능한 아이디입니다.";
-        				professorIdResultBox.style.color = "green";
-        			}
-        		});
-        	
-        	}
+			
 			function showLoading(){
-				const studentListBox = document.getElementById("studentListBox");
-            	const loaded = document.querySelector("#loadedtemplete #loaded").cloneNode(true);	
-            	studentListBox.appendChild(loaded);
+				const loaded = document.getElementById("loaded");
+				loaded.classList.remove("d-none");	
+            	
 			}
 			function hideLoading(){
-				const studentListBox = document.getElementById("studentListBox");
-            	const loaded = document.querySelector("#loaded");
-            	loaded.remove();
+				const loaded = document.getElementById("loaded");
+				loaded.classList.add("d-none");	
 			}
-			let pageNum = 0;
+			
+			var pageNum = 1;
             function reloadStudentList(){
-            	/* showLoading(); */
-            	pageNum +=1;
-            	const loaded = document.getElementById("loaded");
-            	loaded.classList.remove("d-none");
+            	showLoading();
                 const url = "./getStudentInfoList?pageNum="+pageNum;
                 fetch(url)
                 .then(response => response.json())
                 .then((response) => {
-                	
+                	  ++pageNum;
                     for(e of response.data){
-
-                   		const studentListBox = document.getElementById("studentListBox");
+                    	const studentListBox = document.querySelector("#studentListBox");
+                    	
+                    	if(pageNum > e.totalPageNum){
+							const loaded = document.querySelector("#loaded");
+							loaded.classList.remove("spinner-border", "text-primary");
+							loaded.classList.add("text-secondary", "mt-4");
+							loaded.innerText = "더이상 표시할 학생이 없습니다.";
+							const scrollBox = document.querySelector("#scrollBox");
+							window.removeEventListener("scroll",reloadStudentList);
+							console.log("sss");
+							
+							
+						}else{
                    		
-                        const studentListWrapper = document.querySelector("#templete .studentListWrapper").cloneNode(true);
-                    
-                        const student_id = studentListWrapper.querySelector(".student_id");
-                        student_id.innerText = e.studentInfoDto.student_id;
-
-                        const student_name = studentListWrapper.querySelector(".student_name");
-                        student_name.innerText = e.studentInfoDto.name;
-
-                        const student_department = studentListWrapper.querySelector(".student_department");
-                        student_department.innerText = e.departmentName;
-
-                        const student_studentYear = studentListWrapper.querySelector(".student_studentYear");
-                        student_studentYear.innerText = e.studentYear;
-
-                        const student_professorName = studentListWrapper.querySelector(".student_professorName");
-                        student_professorName.innerText = e.professorInfoDto.name;
+                   		
+	                        const studentListWrapper = document.querySelector("#templete .studentListWrapper").cloneNode(true);
+	                    
+	                        const student_id = studentListWrapper.querySelector(".student_id");
+	                        student_id.innerText = e.studentInfoDto.student_id;
+	
+	                        const student_name = studentListWrapper.querySelector(".student_name");
+	                        student_name.innerText = e.studentInfoDto.name;
+	
+	                        const student_department = studentListWrapper.querySelector(".student_department");
+	                        student_department.innerText = e.departmentName;
+	
+	                        const student_studentYear = studentListWrapper.querySelector(".student_studentYear");
+	                        student_studentYear.innerText = e.studentYear;
+	
+	                        const student_professorName = studentListWrapper.querySelector(".student_professorName");
+	                        student_professorName.innerText = e.professorInfoDto.name;
+							
+	                        
+	                        studentListBox.appendChild(studentListWrapper);
+	                   
+                	   	}
 						
-                        
-                        studentListBox.appendChild(studentListWrapper);
-                        if(e.totalPageNum == pageNum){
-                        	window.removeEventListener('scroll', {});
-                        }
-                	}
-                    loaded.classList.add("d-none");
-                   /*  hideLoading(); */
-                });    
+						
+                  	}
+                    hideLoading();
+                });
+              
             }
            
             
@@ -212,16 +179,21 @@
                     obj[i].checked = false;
                 }
             }
-            
-            
-            
-            window.addEventListener('scroll', () => {
-            	let isScroll = false;
-            	if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight-10) {
-            		reloadStudentList();
-            	}
-            });
-
+           	function listUp(){
+           		const scrollBox = document.querySelector("#scrollBox");
+           		scrollBox.addEventListener('scroll', () => {
+            	
+            	console.log(scrollBox.scrollTop);
+            	console.log(scrollBox.scrollHeight);
+            	console.log(scrollBox.offsetHeight);
+            	console.log(scrollBox.clientHeight);
+            	
+            		if ((scrollBox.scrollTop + scrollBox.offsetHeight) >= scrollBox.scrollHeight) {
+            		
+            			reloadStudentList();
+            		}
+            	});
+           	}
 
             window.addEventListener("DOMContentLoaded", () =>{
                 reloadStudentList();
@@ -315,9 +287,8 @@
                 </div>
             </div>
             <div class="row mt-3 ">
-                <div class="col-2"></div>
             	<div class="col">
-            		<div class="row fw-bold border-bottom border-black">
+            		<div class="row">
             			<div class="col">
             				학번
             			</div>
@@ -334,24 +305,28 @@
             				지도교수 
             			</div>
             		</div>
-            	</div>
-                <div class="col-2"></div>
+            	</div>	
+            	<div class="col"></div>	
+            </div>	
+           		<div class="row mt-3">
+          				<div id="scrollBox" class="col border border-2 overflow-y-auto" style="height: 20em">
+          					<div class="row">
+	           				 <div id="studentListBox" class="col">
+								
+	                		</div>
+	                		<div class="col"></div>
+          					</div>
+          					<div class="row">
+           					<div class="col text-center">
+                				<div id="loaded"class="spinner-border text-primary" > </div>
+               				</div>          					
+          				</div>
+          			</div>
+           		</div>
             </div>
-           <div class="row mt-3">
-                <div id="studentListBox" class="col text-center">
-					
-                </div>
-           </div>
-           <div class="row">
-           		<div class="col text-center">
-                	<div id="loaded"class="spinner-border text-primary" role="status">
- 						 <span class="visually-hidden">Loading...</span>
-					</div>
-                </div>
-           </div>
            <div class="row">
            		<div class="col-2"></div>
-           		<div id="loading"class="col text-end">
+           		<div class="col text-end">
            			<input onclick="showStudentInsertModal()" type="button" class="btn btn-primary" value ="등록하기">
            		</div>
            		<div class="col-2"></div>
@@ -379,12 +354,6 @@
  			
  			</pre>
         </div>
-        <div id="loadedtemplete"class="col d-none">
-        	<div id="loaded"class="spinner-border text-primary" role="status">
- 					<span class="visually-hidden">Loading...</span>
-			</div>
-        </div>
-		
         <div id="templete" class="d-none">
             <div class="row studentListWrapper">
                 <div class="col-2"></div>

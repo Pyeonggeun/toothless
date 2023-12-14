@@ -50,6 +50,19 @@
 </style>
 <script>
 
+	let staffId = null;
+
+	function getStaffId(){
+		const url = "./getStaffId";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response =>{
+			
+			staffId = response.data;
+		});
+	}
+
 	
 	// 사업자등록번호 확인
 	let isCheckedCompanyId = false;
@@ -132,7 +145,7 @@
 		// 로그인 예외처리
 		 if(staffId == null){
 			if(confirm("로그인 후 다시 이용해주세요. 로그인페이지로 이동하시겠습니까?")){
-				location.href = "../../another/staffLoginPage";
+				location.href = "../../../another/staff/loginPage";
 			}
 			return;
 		}
@@ -177,9 +190,10 @@
 	}
 	
 	// 페이지가 로드 되자마자 아이디 줌.
-	/* window.addEventListener("DOMContentLoaded", ()=>{
+	  window.addEventListener("DOMContentLoaded", ()=>{
 		getStaffId();
-	}); */
+		
+	}); 
 </script>
 </head>
 <body>

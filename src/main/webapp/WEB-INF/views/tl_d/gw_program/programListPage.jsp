@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<title>프로그램 목록 페이지</title>
+<title>프로그램 목록 페이지-교직원용</title>
 </head>
 <body>
 	<!-- 취업팀용 페이지 -->
@@ -47,10 +47,10 @@
 								<div class="col-3 text-center pt-1">
 									 <c:choose>
 						                <c:when test="${list.programDto.prg_apply_deadline lt now}">
-						                	<span class="text-center badge text-bg-primary">모집중</span>
+						                	 <span class="text-center badge text-bg-primary">모집중</span>
 						                </c:when>
 						                <c:otherwise>
-						                     <span class="text-center badge text-bg-secondary">마감</span>
+						                	<span class="text-center badge text-bg-secondary">마감</span>
 						                </c:otherwise>
 						            </c:choose>
 								</div>

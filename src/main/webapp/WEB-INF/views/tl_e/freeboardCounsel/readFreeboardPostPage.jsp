@@ -166,10 +166,11 @@
 			<!-- 로딩된 첨부 이미지파일과 글 내용 -->
 			<div class="row">
 				<div class="col">
-					<c:forEach items="${pickpostMap.freeboardImageDtoList}" var="image">
+				
+					<c:forEach items="${freeboardImageDtoList}" var="image">
 						<div class="row">
 							<div class="col">
-								이미지 <img class="img-fluid" src="/uploadFiles/${image.freeboard_image_link}">
+								<img class="img-fluid" src="/uploadFiles/${image.freeboard_image_link}">
 							</div>
 						</div>
 					</c:forEach>
@@ -185,13 +186,21 @@
 				<div class="col"></div> 
 			</div>
 			
-			<!-- 글수정 삭제 글목록 돌아가기 버튼 -->
+			<!-- 공감 /  글목록 돌아가기 버튼 -->
 			<div class="row py-2 border-top border-secondary">
 				
-				<div class="col-1 border border-secondary rounded text-center"> 공감 추가 예정</div>
+				<!-- 공감 -->
+				<div class="col-2"> 
+					<form action="./insertEmpathy" method=post>
+						<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id} "> 
+						<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk} "> 
+						<input type="submit" value="공감">
+					</form>
+				</div>
 				
 				<div class="col"></div>
 				
+				<!-- 글 목록 돌아가기 -->
 				<div class="col-2 text-end">
 					<a role="button" class="btn text-white" style="background-color: #133369;" type="button" href="./freeboardCounselPage"> 글 목록 </a>
 				</div>
@@ -209,7 +218,7 @@
 			<!-- 본 댓글창 col -->
 				<div class="col">
 				
-				<!-- 댓글입력창 +버튼 기타 -->
+				<!-- 댓글입력창 +버튼 기타 시작 -->
 					<div class="row">
 						<div class="col border border-black rounded"> 
 						
@@ -233,7 +242,7 @@
 								
 								
 							</form>
-					<!-- 댓글입력창 +버튼 기타 -->
+					<!-- 댓글입력창 +버튼 기타 끝 -->
 						</div>
 					</div>
 					

@@ -229,15 +229,15 @@
 					internEvaluation.innerText = "평가입력기간이 아닙니다";
 					
 				}else if(now > internshipEndDate){
-					console.log(intern.didEvaluateIntern);
-					if(intern.didEvaluateIntern === 0){
+					console.log(intern.didProfessorEvaluateIntern);
+					if(intern.didProfessorEvaluateIntern === 0){
 						const evaluationButton = internWrapper.querySelector(".evaluationButton");
 						evaluationButton.innerText = "평가하기";
 						evaluationButton.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1", "open-Modal");
 						
 						evaluationButton.setAttribute("onclick", "openModal()");
 						
-					}else if(intern.didEvaluateIntern !== 0){
+					}else if(intern.didProfessorEvaluateIntern !== 0){
 						const internEvaluation = internWrapper.querySelector(".internEvaluation");
 						internEvaluation.setAttribute("style", "font-size:0.95em");
 						internEvaluation.classList.add("text-secondary", "fw-bold");

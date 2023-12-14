@@ -43,7 +43,7 @@
 	</select>
 	
 	<!-- 실습생 개개인 평가 했는지 안했는지 -->
-	<select id="didEvaluateIntern" resultType="int">
+	<select id="didProfessorEvaluateIntern" resultType="int">
 		SELECT COUNT(*) FROM tl_c_professor_evaluation
 		WHERE student_intern_pk = #{student_intern_pk}
 	</select>

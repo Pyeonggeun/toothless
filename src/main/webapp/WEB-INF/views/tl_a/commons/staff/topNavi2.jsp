@@ -48,7 +48,7 @@
 					  </li>
 					  <li class="nav-item mx-2">
 					    <a class="nav-link fs-5" style="text-decoration: none; color: black;"
-					    href="./mj_pointCategoryPage">상벌점 관리</a>
+					    href="./jw_pointCategoryPage">상벌점 관리</a>
 					  </li>
 					  <li class="nav-item mx-2">
 					    <a class="nav-link fs-5" style="text-decoration: none; color: black;"

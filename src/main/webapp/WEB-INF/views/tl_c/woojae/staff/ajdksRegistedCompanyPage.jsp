@@ -63,9 +63,10 @@
 			const catWrapper = document.querySelector("#catWrapper");
 			const defaultOption = document.createElement("option");
 		    defaultOption.setAttribute("selected","");
+		    defaultOption.setAttribute("value","0");
 		    defaultOption.innerText = "전체";
 		    catWrapper.appendChild(defaultOption);
-			
+		   
 			for(e of response.data){
 				
 				const newOption = document.createElement("option");
@@ -74,6 +75,7 @@
 			    catWrapper.appendChild(newOption);
 			    
 			}
+			
 			
 			
 		});
@@ -118,6 +120,7 @@
 				
 				
 				companyListBox.appendChild(companyListWrapper);
+				console.log(companyListWrapper);
 				}
 			
 			

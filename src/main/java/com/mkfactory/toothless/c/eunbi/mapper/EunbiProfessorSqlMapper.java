@@ -19,7 +19,7 @@ public interface EunbiProfessorSqlMapper {
 	
 	// 학생평가 했는지 안했는지
 	public Integer isExistProfessorEvaluation(int internship_course_pk);
-	public int didEvaluateIntern(int student_intern_pk);
+	public int didProfessorEvaluateIntern(int student_intern_pk);
 	
 	// 교수info
 	public ProfessorInfoDto getProfessorInfo(int professor_pk);

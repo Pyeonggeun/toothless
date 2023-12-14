@@ -81,7 +81,7 @@
 			const info = response.data;
 			
 			const introductionImgSrc = info.selfIntroductionImg.self_introduction_img;
-//			introductionImg.setAttribute("src", "/Git_imageFile/" + introductionImgSrc);
+			introductionImg.setAttribute("src", "/Git_imageFile/" + introductionImgSrc);
 			
 			const birth = new Date(info.studentInfoDto.birth);
 			

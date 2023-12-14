@@ -14,10 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mkfactory.toothless.e.dto.FreeboardCommentDto;
 import com.mkfactory.toothless.e.dto.FreeboardDto;
+import com.mkfactory.toothless.e.dto.FreeboardEmpathyDto;
 import com.mkfactory.toothless.e.dto.FreeboardImageDto;
 import com.mkfactory.toothless.e.freeboardcounsel.service.FreeboardCounselServiceImpl;
 
@@ -30,9 +32,13 @@ public class FreeboardCounselController {
 	
 	//작성글이 리스팅 되야하는 자유게시판 페이지
 	@RequestMapping("freeboardCounselPage")
-	public String freeboardCounsel(Model model, FreeboardDto paraFreeboardDto) {
+	public String freeboardCounsel(Model model, FreeboardDto paraFreeboardDto,
 		
-		List<Map<String, Object>> combinedFreeboardList = freeboardCounselService.getfreeboardList();
+			String searchType,
+			String searchWord
+			) {
+		
+		List<Map<String, Object>> combinedFreeboardList = freeboardCounselService.getfreeboardList(searchType,searchWord);
 		//게시글 목록
 		model.addAttribute("combinedFreeboardList", combinedFreeboardList);
 			System.out.println("상담게시판 메인페이지 리스팅 완료 ");
@@ -141,8 +147,20 @@ public class FreeboardCounselController {
 			System.out.println("컨트롤 댓글 뽑아옴");
 		model.addAttribute("selectFreeboardCommentList",selectFreeboardCommentList);
 			System.out.println("컨트롤 댓글 뽑아와서 모델에 넣음");
+			
+		//이미지
+		List<FreeboardImageDto> freeboardImageDtoList = freeboardCounselService.getFreeboardImage(id);
+		model.addAttribute("freeboardImageDtoList", freeboardImageDtoList);
 		
 		return "tl_e/freeboardCounsel/readFreeboardPostPage";
+	}
+	
+	//공감
+	@RequestMapping("insertEmpathy")
+	public String insertEmpathy(FreeboardEmpathyDto paraFreeboardEmpathyDto){
+		freeboardCounselService.insertEmpathy(paraFreeboardEmpathyDto);
+		
+		return "redirect:./readFreeboardPostPage?id=" +  paraFreeboardEmpathyDto.getFreeboard_id();
 	}
 	
 	//댓글 작성하기

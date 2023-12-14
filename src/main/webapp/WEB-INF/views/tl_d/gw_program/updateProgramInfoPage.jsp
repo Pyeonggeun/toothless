@@ -99,8 +99,12 @@
 									<div class="row mb-3">
 										<input class="form-control" name="updateimageFile" type="file" accept="image/*">
 									</div>
-									<div class="col">
-										<img src="../../resources/img/employment/${program.programDto.prg_main_image}">
+									
+									<div class="row mb-1">
+										수정 전 이미지
+									</div>
+									 <div class="row">
+										<img src="../../resources/img/employment/${program.programDto.prg_main_image}" class="image-fluid">
 									</div>	
 								</div>
 							</div>

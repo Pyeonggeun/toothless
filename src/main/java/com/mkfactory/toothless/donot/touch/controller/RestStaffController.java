@@ -60,6 +60,22 @@ public class RestStaffController {
 		return responseDto;
 		
 	}
+	@RequestMapping("getStudentTotalCount")
+	public RestResponseDto getStudentTotalCount(int pageNum) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		
+		
+		List<Map<String, Object>> studentInfoList = staffService.getStudentList(pageNum);
+		
+		
+		
+		responseDto.setResult("success");
+		responseDto.setData(studentInfoList);
+		
+		return responseDto;
+		
+	}
 	@RequestMapping("studentRegisterProcess")
 	public RestResponseDto studentRegisterProcess(StudentInfoDto studentInfoDto,
 			int semester_count,
