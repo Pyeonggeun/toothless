@@ -126,7 +126,7 @@
 		<if test="searchOption == true">
 			WHERE 1 = 1		
 			<if test="!searchCounselorName.equals('default')">
-				AND name LIKE '%' || #{searchCounselorName} || '%'
+				AND name LIKE '%' || #{searchCounselorName} || '%'				
 			</if>
 			<if test="!searchCounselorType == 0">
 				AND category = #{searchCounselorType}
@@ -137,7 +137,24 @@
 		</if>
 		<if test="searchOption == true and !searchCounselorName.equals('default')">
 			and rn = 1
-		</if>		
+		</if>
+		<if test="
+			searchOption == true and
+			searchCounselorName.equals('default') and
+			searchCounselorType == 0 and
+			!searchGenderOption.equals('default')
+			">
+			and rn = 1
+		</if>
+		<if test="
+			searchOption == true and
+			searchCounselorName.equals('default') and
+			searchCounselorType == 0 and
+			searchGenderOption.equals('default') and
+			!searchScoreOption.equals('default')
+			">
+			and rn = 1
+		</if>
 		<if test="!searchScoreOption.equals('default') and !searchScoreOption.equals('scoreASC')">			
 			ORDER BY SCOREAVG ASC
 		</if>
