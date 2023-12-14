@@ -189,5 +189,12 @@
 		WHERE student_pk=#{student_pk}
 	</select>
 	
+	<!-- 가족기업용 이력서 공개한 학생거 보기 -->
+	<select id="resumeListForFamilyCompany" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
+		SELECT * FROM tl_d_resume
+		WHERE MAIN_RESUME='Y'
+		AND IS_PUBLIC ='Y'
+		ORDER BY main_resume DESC
+	</select>
 
 </mapper>
