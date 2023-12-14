@@ -8,8 +8,31 @@
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <title>Insert title here</title>
+	<script>
+		function formSubmit(){
+			const frm = document.getElementById("frm");
+			const inputContent = document.getElementById("inputContent");
+			const inputPoint = document.getElementById("inputPoint");
+			
+			if(inputContent.value == ''){
+				alert("내용을 입력하세요");
+				inputContent.focus();
+				return ;
+			}
+			
+			if(inputPoint.value == ''){
+				alert("점수를 입력하세요");
+				inputPoint.focus();
+				return ;
+			}
+			
+			frm.submit();
+		}
+		
+	</script>
+	
 </head>
 <body>
 <div class="container-fluid">
@@ -39,7 +62,7 @@
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 						<li class="nav-item">
-							<a class="nav-link active text-black" href="./mj_pointCategoryPage">상벌 코드</a>
+							<a class="nav-link active text-black" href="./jw_pointCategoryPage">상벌 코드</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-black" href="./jw_pointManagementPage">상벌 관리</a>
@@ -99,7 +122,7 @@
 						상벌 코드 등록
 					</div>
 					
-					<form action="./jw_registerPointCategoryProcess" method="post">
+					<form id="frm" action="./jw_registerPointCategoryProcess" method="post">
 					<div class="row my-3 mx-0 border rounded-0 p-3">
 						<div class="col">
 							<div class="row">
@@ -109,7 +132,7 @@
 							</div>
 							<div class="row">
 								<div class="col my-2">
-									<input class="form-control" name="content" type="text" placeholder="내용을 입력하세요.">
+									<input id="inputContent" class="form-control" name="content" type="text" placeholder="내용을 입력하세요.">
 								</div>
 							</div>
 						</div>
@@ -121,7 +144,7 @@
 							</div>
 							<div class="row">
 								<div class="col my-2">
-									<input class="form-control" name="point" type="number" placeholder="점수를 입력하세요.">
+									<input id="inputPoint" class="form-control" name="point" type="number" placeholder="점수를 입력하세요.">
 								</div>
 							</div>
 						</div>
@@ -136,7 +159,7 @@
 						<div class="col-5"></div>
 		                <div class="col px-0 text-end">
 							<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary">임시 저장</button>
-		                    <button type="submit" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">코드 등록</button>
+		                    <input type="button" onclick="formSubmit()" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1" value="코드 등록">
 		                </div>                    
 		             </div>
 		        	</form>
