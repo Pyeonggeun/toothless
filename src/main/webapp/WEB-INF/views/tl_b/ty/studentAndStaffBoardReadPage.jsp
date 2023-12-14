@@ -56,8 +56,8 @@
                                     <div class="row mt-5">
                                         <div class="col">
                                         	<c:forEach items="${read.boardImageDtoList }" var="boardImageDto">
-                                        	<img src="/uploadFiles/${boardImageDto.img_link }">
-                                        </c:forEach>
+	                                        	<img src="/uploadFiles/${boardImageDto.img_link }">
+	                                        </c:forEach>
                                         </div>
                                     </div>
                                     
