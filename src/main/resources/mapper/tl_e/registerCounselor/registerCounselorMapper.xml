@@ -128,8 +128,11 @@
 			<if test="!searchCounselorName.equals('default')">
 				AND name LIKE '%' || #{searchCounselorName} || '%'				
 			</if>
-			<if test="!searchCounselorType == 0">
-				AND category = #{searchCounselorType}
+			<if test="searchCounselorType != null and searchCounselorType.length > 0">
+				AND category IN
+				<foreach collection="searchCounselorType" item="type" open="(" separator="," close=")">
+					#{type}
+				</foreach>				
 			</if>
 			<if test="!searchGenderOption.equals('default')">
 				AND gender = #{searchGenderOption}
