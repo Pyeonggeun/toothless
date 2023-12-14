@@ -141,6 +141,12 @@ public class FreeboardCounselController {
 //		for(FreeboardImageDto FreeboardImageDto : list) {
 //			System.out.println(FreeboardImageDto.getFreeboard_image_link());
 //		}
+			
+		//계정이 공감을 눌렀는지 누르지 않았는지 확인하기 위해 카운트 해오기 
+		int countEmpathy = freeboardCounselService.countEmpathyByIdAndPk(id);
+			System.out.println("countEmpathy :"+countEmpathy);
+		model.addAttribute("countEmpathy",countEmpathy);
+		
 		
 		//댓글
 		List<Map<String, Object>> selectFreeboardCommentList= freeboardCounselService.selectFreeboardComment();
@@ -155,13 +161,15 @@ public class FreeboardCounselController {
 		return "tl_e/freeboardCounsel/readFreeboardPostPage";
 	}
 	
-	//공감
+	//공감 넣기 
 	@RequestMapping("insertEmpathy")
 	public String insertEmpathy(FreeboardEmpathyDto paraFreeboardEmpathyDto){
 		freeboardCounselService.insertEmpathy(paraFreeboardEmpathyDto);
 		
 		return "redirect:./readFreeboardPostPage?id=" +  paraFreeboardEmpathyDto.getFreeboard_id();
 	}
+	
+	
 	
 	//댓글 작성하기
 	@RequestMapping("insertFreeboardComment")

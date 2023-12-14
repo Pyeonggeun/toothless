@@ -127,5 +127,35 @@
 		AND program_pk=#{program_pk}
 	</select>
 	
+	<insert id="insertProgramReview">
+		INSERT INTO tl_d_program_review VALUES(
+			tl_d_program_review_seq.nextval,
+			#{program_apply_pk},
+			#{prg_score},
+			#{prg_comment},
+			SYSDATE
+		)
+	</insert>
+	
+	<!-- 학생이 신청한 프로그램 정보 뽑아오는거 -->
+	<select id="studentApplySelect" resultType="com.mkfactory.toothless.d.dto.ProgramApplyDto">
+		SELECT * FROM tl_d_program_apply
+		WHERE program_apply_pk=#{program_apply_pk}
+	</select>
+	
+	<select id="studentReviewCount" resultType="com.mkfactory.toothless.d.dto.ProgramReviewDto">
+		SELECT COUNT(*) FROM tl_d_program_review
+		WHERE program_apply_pk=#{program_apply_pk}
+	</select>
+	
+	<select id="programReviewForStaff" resultType="com.mkfactory.toothless.d.dto.ProgramReviewDto">
+		SELECT * FROM tl_d_program_review
+		WHERE program_apply_pk=#{program_apply_pk}
+	</select>
+	
+	<select id="programReviewSelectAll" resultType="com.mkfactory.toothless.d.dto.ProgramReviewDto">
+		SELECT * FROM tl_d_program_review
+		ORDER BY program_review_pk DESC
+	</select>
 	
 </mapper>

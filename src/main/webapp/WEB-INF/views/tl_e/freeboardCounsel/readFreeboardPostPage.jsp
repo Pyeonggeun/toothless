@@ -191,11 +191,39 @@
 				
 				<!-- 공감 -->
 				<div class="col-2"> 
-					<form action="./insertEmpathy" method=post>
-						<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id} "> 
-						<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk} "> 
-						<input type="submit" value="공감">
-					</form>
+					<!-- 공감 두개칸 전체 시작 -->
+					<div class="row">
+					
+						<!-- 공감 따봉칸 시작 -->
+							<div class="col">
+						<!-- 공감기능 전체 -->	
+						<!-- 	freeboardEmpathyDto <i class="bi bi-hand-thumbs-up-fill"></i> <i class="bi bi-hand-thumbs-up"></i> -->
+						<form action="countEmpathyByIdAndPk" method=post>
+							<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk}">
+						</form>	
+						<c:choose>
+						
+							<c:when test="${countEmpathy != 0}">
+								<i class="bi bi-hand-thumbs-up-fill"></i>
+							</c:when>
+							
+							<c:otherwise>
+								<i class="bi bi-hand-thumbs-up"></i>
+							</c:otherwise>
+							
+							
+							
+						</c:choose>
+					
+					
+						<!-- 공감 따봉칸 끝 -->
+						</div>
+						
+						<!-- 공감 수량 카운트 칸 -->
+						<div class="row"><div class="col"></div></div>
+						
+					<!-- 공감 두개칸 전체 끝 -->
+					</div>
 				</div>
 				
 				<div class="col"></div>

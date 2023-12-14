@@ -234,7 +234,7 @@
 										<div class="col">${read.noticeboardDto.content }</div>
 									</div>
                                     <div class="row mt-5">
-                                        <div class="col">${read.noticeboardDto.content }
+                                        <div class="col">
                                         	<c:forEach items="${read.boardImageDtoList }" var="boardImageDto">
                                         	<img src="/uploadFiles/${boardImageDto.img_link }">
                                         </c:forEach>

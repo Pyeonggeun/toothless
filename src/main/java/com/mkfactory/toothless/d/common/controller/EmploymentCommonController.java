@@ -64,6 +64,11 @@ public class EmploymentCommonController {
 			int externalPk = externalInfoDto.getExternal_pk();
 			
 			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalPk);
+			
+			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
+			model.addAttribute("companyList", companyService.getCompanyList());
+			model.addAttribute("mainResumeList", companyService.mainResumeListForCompany());
+			
 			model.addAttribute("jobPostingForCompanyMainPage", postingService.getPostingListForCompanyMainPage(companyDto.getCom_pk()));
 			model.addAttribute("applyListForMainPage", postingService.getApplyListForCompanyMainPage(externalPk));
 		}

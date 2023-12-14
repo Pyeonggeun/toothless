@@ -207,90 +207,150 @@
                                             <div class="row mt-5  ">
                                                 <div class="col fw-bold fs-2 text-center border-bottom border-4">보건진료소</div>
                                             </div>
-                                            <form action="./staffBoardPage" method="get">
-                                            <div class="row mt-4">
-                                                <div class="col">
-                                                    <span style="font-size: 120%; font-weight: bold;">Total</span>
-                                                    <span style="font-size: 80%;">${total }개</span> 
-                                                </div>
-                                                <div class="col-2">
-                                                    <select name="searchType" class="form-select" aria-label="Default select example">
-                                                        <option selected>항목</option>
-                                                        <option value="title">제목</option>
-                                                        <option value="content">내용</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-3 pe-0 text-end">
-                                                    <input name="searchWord" class="form-control " type="text" placeholder="내용을검색하세요">
-                                                </div> 
-                                                <div class="col-1 text-start">
-                                                    <button type="submit" class="btn btn-outline-dark">검색</button>
-                                                </div>
-                                            </div>
-                                            </form>
-                                            <div class="row">
-                                                <div class="col text-start" style="font-size: 60%">홈>공지사항</div>
-                                            </div>
 
-                                            <div class="row ">
+                                            <div class="row px-5 mx-3">
                                                 <div class="col">
-                                                    <div class="row pt-3 mt-5 my-2">
-                                                        <div class="col fw-bold fs-5">
-                                                            <div class="row border-bottom border-dark border-3 text-center">
-                                                                <div class="col">글 번호</div>
-                                                                <div class="col">제목</div>
-                                                                <div class="col">작성자</div>
-                                                                <div class="col">작성일</div>
-                                                                <div class="col">좋아요</div>
-                                                                <div class="col">조회수</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <c:forEach items="${noticeList }" var="notice">
-                                                    <div class="row">
+                                                    <form action="./staffBoardPage" method="get">
+                                                    
+                                                        <div class="row mt-4">
                                                         <div class="col">
-                                                            <div class="row border-bottom border-0 text-center">
-                                                                <div class="col">${notice.noticeboardDto.studentboard_pk }</div>
-                                                                <div class="col"><a href="./staffBoardReadPage?id=${notice.noticeboardDto.studentboard_pk }">${notice.noticeboardDto.title }</a>&nbsp;[${notice.replyDto }]</div>
-                                                                <div class="col">${notice.staffDto.name }</div>
-                                                                <div class="col">
-                                                                <fmt:formatDate value="${notice.noticeboardDto.created_at  }" pattern="yyyy년 MM월 dd일"/>
-                                                                </div>
-                                                                <div class="col">${notice.likeDto }</div>
-                                                                <div class="col">${notice.noticeboardDto.read_count }</div>
-                                                            </div>
+                                                            <span style="font-size: 120%; font-weight: bold;">Total</span>
+                                                            <span style="font-size: 80%;">${total }개</span> 
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <select name="searchType" class="form-select" aria-label="Default select example">
+                                                                <option selected>항목</option>
+                                                                <option value="title">제목</option>
+                                                                <option value="content">내용</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-3 pe-0 text-end">
+                                                            <input name="searchWord" class="form-control " type="text" placeholder="내용을검색하세요">
+                                                        </div> 
+                                                        <div class="col-1 text-start">
+                                                            <button type="submit" class="btn btn-outline-dark">검색</button>
                                                         </div>
                                                     </div>
-                                                    </c:forEach> 
-                                                </div>
-                                            </div>
-                                            <div class="row mx-5">
-                                                <div class="col text-end">
-                                                    <a href="./staffWriteBoardPage">글쓰기</a>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-4">
-                                                <div class="col">
-                                                    <nav aria-label="Page navigation example ">
-                                                        <ul class="pagination  justify-content-center ">
-                                                        <li class="page-item">
-                                                            <a class="page-link" href="#" aria-label="Previous">
-                                                            <span aria-hidden="true">&laquo;</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                        <li class="page-item">
-                                                            <a class="page-link" href="#" aria-label="Next">
-                                                            <span aria-hidden="true">&raquo;</span>
-                                                            </a>
-                                                        </li>
-                                                        </ul>
-                                                    </nav>
-                                                </div>
-                                            </div>
+                                                    </form>
+                                                    <div class="row">
+                                                        <div class="col text-start" style="font-size: 60%">홈>공지사항</div>
+                                                    </div>
 
+                                                    <div class="row mt-4">
+                                                        <div class="col">
+                                                            <div class="row ">
+                                                                <div class="col fw-bold fs-5 text-center ">[ 인기 게시글 ]</div>
+                                                            </div>
+                                                                <div class="row mt-3" >
+                                                                    <div class="col text-center">
+                                                                        <div class="row border-2 border-bottom border-dark fw-bold">
+                                                                            <div class="col-3">인기글 순위</div>
+                                                                            <div class="col-5">제목</div>
+                                                                            <div class="col-2">작성자</div>
+                                                                            <div class="col-2">조회수</div>                                                                   
+                                                                        </div>
+                                                                        <c:forEach items="${readList }" var="notice" varStatus="loop">
+                                                                        <c:if test="${loop.index<3 }">
+                                                                        <div class="row border-1 border-bottom">
+                                                                            <div class="col-3 fw-bold text-danger">${loop.index+1}</div>
+                                                                            <div class="col-5" style="text-decoration:none;" >
+                                                                            	<a href="./staffBoardReadPage?id=${notice.noticeboardDto.studentboard_pk }"
+		                                                                        	style="text-decoration:none;">
+		                                                                        	${notice.noticeboardDto.title }
+		                                                                        </a>
+                                                                            	<%-- <c:if test="${notice.replyDto !=0 }">
+                                                                        			&nbsp;[${notice.replyDto }]
+                                                                        		</c:if>
+                                                                        		<c:if test="${notice.imgDto !=0}">
+	                                                                        		<i class="bi bi-images"></i>
+	                                                                        	</c:if> --%>
+                                                                            	</div>
+                                                                            <div class="col-2">${notice.staffDto.name }</div>
+                                                                            <div class="col-2">${notice.noticeboardDto.read_count }</div>
+                                                                        </div>
+                                                                        </c:if>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                </div>  
+                                                        </div>
+                                                        <div class="col-7"></div>
+                                                    </div>
+
+
+                                                    <div class="row mt-5">
+                                                        <div class="col">
+                                                        	<div class="row">
+                                                        		<div class="col fw-bold fs-5 text-center">[ 공지사항 ]</div>
+                                                        	</div>
+                                                            <div class="row mt-3 my-2">
+                                                                <div class="col fw-bold fs-5">
+                                                                    <div class="row border-bottom border-dark border-3 text-center">
+                                                                        <div class="col-1">글 번호</div>
+                                                                        <div class="col-5">제목</div>
+                                                                        <div class="col-1">작성자</div>
+                                                                        <div class="col">작성일</div>
+                                                                        <div class="col-1">좋아요</div>
+                                                                        <div class="col-1">조회수</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <c:forEach items="${noticeList }" var="notice">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="row border-bottom border-0 text-center">
+                                                                        <div class="col-1">${notice.noticeboardDto.studentboard_pk }</div>
+                                                                        <div class="col-5">
+                                                                        	<a href="./staffBoardReadPage?id=${notice.noticeboardDto.studentboard_pk }"
+                                                                        	style="text-decoration:none;">
+                                                                        	${notice.noticeboardDto.title }
+                                                                        	</a>
+                                                                        	<c:if test="${notice.replyDto !=0 }">
+                                                                        		&nbsp;[${notice.replyDto }]
+                                                                        	</c:if>
+                                                                        	<c:if test="${notice.imgDto !=0}">
+                                                                        		<i class="bi bi-images"></i>
+                                                                        	</c:if>
+                                                                        </div>
+                                                                        <div class="col-1">${notice.staffDto.name }</div>
+                                                                        <div class="col">
+                                                                        <fmt:formatDate value="${notice.noticeboardDto.created_at  }" pattern="yyyy년 MM월 dd일"/>
+                                                                        </div>
+                                                                        <div class="col-1">${notice.likeDto }</div>
+                                                                        <div class="col-1">${notice.noticeboardDto.read_count }</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            </c:forEach> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mx-5">
+                                                        <div class="col text-end">
+                                                            <a href="./staffWriteBoardPage" style="text-decoration:none;">글쓰기</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-4">
+                                                        <div class="col">
+                                                            <nav aria-label="Page navigation example ">
+                                                                <ul class="pagination  justify-content-center ">
+                                                                <li class="page-item">
+                                                                    <a class="page-link" href="#" aria-label="Previous">
+                                                                    <span aria-hidden="true">&laquo;</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                                <li class="page-item">
+                                                                    <a class="page-link" href="#" aria-label="Next">
+                                                                    <span aria-hidden="true">&raquo;</span>
+                                                                    </a>
+                                                                </li>
+                                                                </ul>
+                                                            </nav>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
                                         </div>
                                     </div>
 
