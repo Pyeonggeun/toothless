@@ -70,11 +70,11 @@ public class PostingServiceImpl {
 	}
 	
 	// 채용공고 리스트
-	public List<Map<String, Object>> getPostingList(){
+	public List<Map<String, Object>> getPostingList(String searchType, String searchWord){
 		
 		List<Map<String, Object>> postingList = new ArrayList<>();
 		
-		List<JobPostingDto> jobPostingDtoList = postingSqlMapper.selectPostingList();
+		List<JobPostingDto> jobPostingDtoList = postingSqlMapper.selectPostingList(searchType, searchWord);
 		
 		for(JobPostingDto jobPostingDto : jobPostingDtoList) {
 			
@@ -232,11 +232,11 @@ public class PostingServiceImpl {
 	// 학생
 	
 	// 학생용 채용공고 리스트(관심공고 정보 추가)
-	public List<Map<String, Object>> getPostingListForStudent(){
+	public List<Map<String, Object>> getPostingListForStudent(int student_pk, String searchType, String searchWord){
 		
 		List<Map<String, Object>> postingList = new ArrayList<>();
 		
-		List<JobPostingDto> jobPostingDtoList = postingSqlMapper.selectPostingList();
+		List<JobPostingDto> jobPostingDtoList = postingSqlMapper.selectPostingList(searchType, searchWord);
 		
 		for(JobPostingDto jobPostingDto : jobPostingDtoList) {
 			
@@ -256,6 +256,9 @@ public class PostingServiceImpl {
 			List<Integer> postingDeadlineList = postingSqlMapper.selectPostingDeadline();
 			List<Integer> endPostingList = postingSqlMapper.selectEndPosting();
 			
+			// 관심기업
+			List<Integer> interestCompany = postingSqlMapper.selectInterestCompanyByStudentPk(student_pk);
+			
 			int allPostingInterest = postingSqlMapper.selectAllInterestPosting(jobPostingDto.getJob_posting_pk());
 			
 			
@@ -265,6 +268,7 @@ public class PostingServiceImpl {
 			jobPostingMap.put("postingDeadlineList", postingDeadlineList);
 			jobPostingMap.put("endPostingList", endPostingList);
 			jobPostingMap.put("allPostingInterest", allPostingInterest);
+			jobPostingMap.put("interestCompany", interestCompany);
 			
 			
 			postingList.add(jobPostingMap);
