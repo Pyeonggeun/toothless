@@ -191,7 +191,11 @@
 				
 				<!-- 공감 -->
 				<div class="col-2"> 
-					공감 추가 예정
+					<form action="./insertEmpathy" method=post>
+						<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id} "> 
+						<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk} "> 
+						<input type="submit" value="공감">
+					</form>
 				</div>
 				
 				<div class="col"></div>
@@ -214,7 +218,7 @@
 			<!-- 본 댓글창 col -->
 				<div class="col">
 				
-				<!-- 댓글입력창 +버튼 기타 -->
+				<!-- 댓글입력창 +버튼 기타 시작 -->
 					<div class="row">
 						<div class="col border border-black rounded"> 
 						
@@ -238,7 +242,7 @@
 								
 								
 							</form>
-					<!-- 댓글입력창 +버튼 기타 -->
+					<!-- 댓글입력창 +버튼 기타 끝 -->
 						</div>
 					</div>
 					

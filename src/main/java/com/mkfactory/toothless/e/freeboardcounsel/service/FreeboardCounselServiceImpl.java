@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.FreeboardCommentDto;
 import com.mkfactory.toothless.e.dto.FreeboardDto;
+import com.mkfactory.toothless.e.dto.FreeboardEmpathyDto;
 import com.mkfactory.toothless.e.dto.FreeboardImageDto;
 import com.mkfactory.toothless.e.freeboardcounsel.mapper.FreeboardCounselSqlMapper;
 
@@ -165,8 +166,14 @@ public class FreeboardCounselServiceImpl {
 		freeboardCounselSqlMapper.updateFreeboardPost( paraFreeboardDto);	
 	}
 	
+	//이미지
 	public List<FreeboardImageDto> getFreeboardImage(int id){
 		return freeboardCounselSqlMapper.selectFreeboardImageDto(id);
 	}
 	
+	
+	//상세게시판 공감 넣기 
+	public void insertEmpathy(FreeboardEmpathyDto paraFreeboardEmpathyDto) {
+	freeboardCounselSqlMapper.insertEmpathy(paraFreeboardEmpathyDto);
+	}
 }
