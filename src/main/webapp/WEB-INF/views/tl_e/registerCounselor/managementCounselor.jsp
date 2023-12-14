@@ -298,39 +298,39 @@
     	const password = document.getElementById("password").value;    	
     	const name = document.getElementById("name").value;
     	const age = document.getElementById("age").value;
-    	const gender = document.getElementsByName("gender").value;
+    	const gender = document.querySelector('input[name="gender"]:checked').value;
     	const phonenumber = document.getElementById("phonenumber").value;
     	const email = document.getElementById("email").value;
     	const address = document.getElementById("address").value;
     	const career = document.getElementById("career").value;
-    	const profile_Image = document.getElementById("profile_Image").value;    	
-    	const license = document.getElementById("license").value;
+    	
+    	
+    	const profile_ImageInput = document.getElementById("profile_Image");    	
+    	const licenseInput = document.getElementById("license");
+    	
+    	const formData = new FormData();
+    	
+    	formData.append("external_id", external_id);
+    	formData.append("password", password);
+    	formData.append("name", name);
+    	formData.append("age", age);
+    	formData.append("gender", gender);
+    	formData.append("phonenumber", phonenumber);
+    	formData.append("email", email);
+    	formData.append("address", address);
+    	formData.append("career", career);
+    	formData.append("type_category_id", categoryValueList);
+    	
+    	formData.append("profile_Image", profile_ImageInput.files[0]);
+    	
+    	for(let e = 0 ; e < licenseInput.length ; e++){
+    		formData.append("license", licenseInput[e]);
+    	}
+    	
     	
     	const url = "./resigterCounselorProcess";
-    	const inputCounselorData = {
-				
-    			method : "post",
-				
-    			headers : {
-					"Content-Type" : "application/x-www-form-urlencoded"
-				},
-				
-				body : 
-					"external_id="+external_id+
-					"&password="+password+
-					"&name="+name+
-					"&age="+age+
-					"&gender="+gender+
-					"&phonenumber="+phonenumber+
-					"&email="+email+
-					"&address="+address+
-					"&career="+career+
-					"&profile_Image="+profile_Image+
-					"&license="+license+
-					"&type_category_id="+categoryValueList
-		}
     	
-    	fetch(url, inputCounselorData)
+    	fetch(url, {method : "post", body : formData})
     	.then(response => response.json())
     	.then(response =>{
     		
@@ -339,7 +339,8 @@
     			alert("신규 상담원 등록이 정상적으로 처리되었습니다.");
     			
     			const modal = bootstrap.Modal.getOrCreateInstance("#registerModal");
-                modal.hide();	
+                modal.hide();
+                reloadCounselorList();
     		}
     		
     		if(response.result == "fail"){
