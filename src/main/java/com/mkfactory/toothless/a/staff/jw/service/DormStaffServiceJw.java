@@ -78,14 +78,30 @@ public class DormStaffServiceJw {
 		return list;
 	}
 	
-	// 상벌 코드 등록
+	// 상벌 코드
 	public void registerPointCategory(PointCategory pointCategory) {
 		dormStaffMapperJw.insertPointCategory(pointCategory);
 	}
 	
-	// 상벌 코드 목록 - 전체
+	public void deletePointCategory(int point_category_pk) {
+		dormStaffMapperJw.deletePointCategory(point_category_pk);
+	}
+	
+	public void updatePointCategory(PointCategory pointCategory) {
+		dormStaffMapperJw.updatePointCategory(pointCategory);
+	}
+	
+	// 상벌 코드 목록
 	public List<PointCategory> getPointCategory(){
 		return dormStaffMapperJw.selectPointCategoryAll();
+	}
+	
+	public List<PointCategory> getPointCategoryPlus(){
+		return dormStaffMapperJw.selectPointCategoryPlus();
+	}
+	
+	public List<PointCategory> getPointCategoryMinus(){
+		return dormStaffMapperJw.selectPointCategoryMinus();
 	}
 	
 	public List<Map<String, Object>> getAllDormStudentList(){
