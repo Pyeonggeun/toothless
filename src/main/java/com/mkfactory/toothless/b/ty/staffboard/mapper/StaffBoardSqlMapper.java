@@ -54,7 +54,7 @@ public interface StaffBoardSqlMapper {
 		//이미지
 		public void insertimg(StudentboardImageDto studentboardImageDto);
 		public List<StudentboardImageDto> getArticleImageList(int studentboard_pk);
-	
+		public int imageView(int studentboard_image_pk);
 }
 
 

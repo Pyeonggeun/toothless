@@ -168,14 +168,19 @@
 	
 	
 	<!-- 베스트글 -->
-	<!-- <select id="maxRead" resultType="com.mkfactory.toothless.b.dto.StudentboardDto">
+	<select id="maxRead" resultType="com.mkfactory.toothless.b.dto.StudentboardDto">
+	<![CDATA[
 	SELECT t2.*, rownum FROM 
 	(SELECT t1.* FROM tl_b_studentboard t1
 	ORDER BY t1.READ_COUNT DESC ) t2
 	WHERE rownum <=3
-	</select> -->
+	]]>
+	</select>
 	
-	
+	<select id="imageView" resultType="int">
+		SELECT count(*) FROM tl_b_studentboard_image
+		WHERE studentboard_pk=#{studentboard_pk}
+	</select>
 	
 	
 	

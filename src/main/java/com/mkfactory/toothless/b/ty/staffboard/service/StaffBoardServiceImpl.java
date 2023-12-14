@@ -38,6 +38,33 @@ public class StaffBoardServiceImpl {
 		
 		
 	}
+	public List<Map<String, Object>> bestRead (){
+		List<Map<String, Object>> list = new ArrayList<>();
+		List<StudentboardDto> bestReadList = staffBoardSqlMapper.maxRead();
+		
+		for(StudentboardDto noticeboardDto : bestReadList) {
+			int staffPk = noticeboardDto.getStaff_pk();
+			StaffInfoDto staffDto = staffBoardSqlMapper.selectById(staffPk);
+			
+			int replyCommentCount = noticeboardDto.getStudentboard_pk();
+			int replyDto = staffBoardSqlMapper.readReplyCount(replyCommentCount);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("noticeboardDto", noticeboardDto);
+			map.put("staffDto", staffDto);
+			map.put("replyDto", replyDto);
+			
+			list.add(map);
+		}
+		return list;
+	
+	
+	
+	
+	}
+	
+	
+	
 	public List<Map<String, Object>> boardNoticeList(String searchType, String searchword){
 		List<Map<String, Object>> list = new ArrayList<>();
 		List<StudentboardDto> noticeDtoList = staffBoardSqlMapper.sellectAll(searchType, searchword);
@@ -48,20 +75,19 @@ public class StaffBoardServiceImpl {
 			
 			int boardPk = noticeboardDto.getStudentboard_pk();
 			int likeDto = staffBoardSqlMapper.boardLikeCountList(boardPk);
+			int imgDto = staffBoardSqlMapper.imageView(boardPk);
 			
 			int replyCommentCount = noticeboardDto.getStudentboard_pk();
 			int replyDto = staffBoardSqlMapper.readReplyCount(replyCommentCount);
-			
-			
 			
 			Map<String, Object> map = new HashMap<>();
 			map.put("noticeboardDto", noticeboardDto);
 			map.put("staffDto", staffDto);
 			map.put("likeDto", likeDto);
 			map.put("replyDto", replyDto);
+			map.put("imgDto", imgDto);
 			
-			
-			list.add(map);
+			list.add(map); 
 		}
 		return list;
 	}
@@ -161,6 +187,7 @@ public class StaffBoardServiceImpl {
 	public int likeCount(int like) {
 		return staffBoardSqlMapper.boardLikeCountList(like);
 	}
+	
 	
 	
 	
