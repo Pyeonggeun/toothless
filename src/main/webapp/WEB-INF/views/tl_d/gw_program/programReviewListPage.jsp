@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<title>프로그램 목록 페이지-교직원용</title>
+<title>프로그램 신청 학생 목록</title>
 </head>
 <body>
 	<!-- 취업팀용 페이지 -->
@@ -28,44 +28,42 @@
 			</div>
 			
 			<div class="col">
+			
 				<div class="row">
 					<div class="col-1"></div>
 					<div class="col">
-						<div class="row mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">프로그램 목록</div>
+						<div class="row mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">프로그램 리뷰</div>
 						<div class="row border-bottom border-2 border-black pb-3 mb-3 mt-5">
-							      <div class="col-1 text-center fw-bold">No.</div>
-							      <div class="col text-center fw-bold">프로그램명</div>
-							      <div class="col-3 text-center fw-bold">글쓴이</div>
-							      <div class="col-2 text-center fw-bold">프로그램 현황</div>
+						      <div class="col-2 text-center fw-bold">평점</div>
+						      <div class="col text-center fw-bold">평가</div>
 						</div>
 						
-						<c:forEach items="${programList}" var="list">
-							<div class="row border-bottom border-bs-border pb-3 mb-3">
-								<div class="col-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
-								<div class="col"><a class="btn ms-4" href="./programViewDetailsPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a></div>
-								<div class="col-3 text-center pt-1">${list.staffInfoDto.name}</div>
-								<div class="col-3 text-center pt-1">
-									 <c:choose>
-						                <c:when test="${list.programDto.prg_apply_deadline lt now}">
-						                	 <span class="text-center badge text-bg-primary">모집중</span>
-						                </c:when>
-						                <c:otherwise>
-						                	<span class="text-center badge text-bg-secondary">마감</span>
-						                </c:otherwise>
-						            </c:choose>
-								</div>
-							</div>
-						</c:forEach> 
+						<c:forEach items="${studentApplyProgram}" var="list">
+								<div class="row border-bottom border-bs-border pb-3 mb-3">
+									
+								    <div class="col-2 text-center">
+										${list.programReviewDto.prg_score}
+									</div>
+									<div class="col text-center">
+					    				${list.programReviewDto.prg_comment}
+									</div>
+								</div>		
+						</c:forEach>
 						
 						<div class="row">
 							<div class="col text-end"> 
-								<a class="btn btn-primary" href="./registerProgramPage">프로그램 등록</a> 
+								<a class="btn btn-primary" href="./programViewDetailsPage?program_pk=${program.programDto.program_pk }">프로그램 페이지로</a> 
 							</div>
 						</div>
 					</div>
+					
 					<div class="col-2"></div>
+					
 				</div>
+				
 			</div>
+			
+			
 		</div>
 	</div>
 	
