@@ -53,6 +53,37 @@ public class DormStaffServiceJw {
 		return list;
 	}
 	
+	public List<DormBuildingDto> getAllDormBuilding(){
+		return dormStaffMapperJw.selectAllDormBuildingList();
+	}
+	
+	public List<Map<String, Object>> getExitSituationByDormPk(int dorm_pk) {
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<ExitDto> exitList = dormStaffMapperJw.selectExitListByDormPk(dorm_pk);
+		
+		for(ExitDto exitDto : exitList) {
+			
+			int dormStudentPk = exitDto.getDorm_student_pk();
+			StudentInfoDto studentInfoDto = dormStaffMapperJw.selectStudentInfoByProgressSemesterDormStudentPk(dormStudentPk);
+			DormRoomDto dormRoomDto = dormStaffMapperJw.selectDormRoomByDormStudentPk(dormStudentPk);
+			
+			int dormPk = dormRoomDto.getDorm_pk();
+			DormBuildingDto dormBuildingDto = dormStaffMapperJw.selectDormByDormPk(dormPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("exitDto", exitDto);
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("dormRoomDto", dormRoomDto);
+			map.put("dormBuildingDto", dormBuildingDto);
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
 	public List<Map<String, Object>> getAllCallAbsence(){
 		
 		List<Map<String, Object>> list = new ArrayList<>();

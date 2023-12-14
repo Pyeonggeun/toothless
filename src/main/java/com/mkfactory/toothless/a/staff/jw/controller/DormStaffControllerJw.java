@@ -28,8 +28,18 @@ public class DormStaffControllerJw {
 	public String jw_exitSituationPage(Model model) {
 		
 		model.addAttribute("exitListMap", dormStaffServiceJw.getAllExitSituation());
+		model.addAttribute("dormBuildingList", dormStaffServiceJw.getAllDormBuilding());
 		
 		return "/tl_a/staff/jw_exitSituationPage";
+	}
+	
+	@RequestMapping("jw_exitSituationByDormPkPage")
+	public String jw_exitSituationByDormPkPage(Model model, int dorm_pk) {
+		
+		model.addAttribute("exitListMap", dormStaffServiceJw.getExitSituationByDormPk(dorm_pk));
+		model.addAttribute("dormBuildingList", dormStaffServiceJw.getAllDormBuilding());
+		
+		return "/tl_a/staff/jw_exitSituationByDormPkPage";
 	}
 	
 	@RequestMapping("jw_callAttendSituationPage")

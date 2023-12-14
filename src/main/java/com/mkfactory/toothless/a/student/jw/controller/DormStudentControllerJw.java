@@ -87,7 +87,7 @@ public class DormStudentControllerJw {
 		int studentPk = studentInfoDto.getStudent_pk();
 		 
 		if(session.getAttribute("sessionStudentInfo") != null && dormStudentServiceJw.checkDormStudentExecutive(studentPk) == 0) {
-			// 로그인 한 사생이 임원이 아니면 반환 (사생페이지)
+			// 로그인 한 사생이 임원이 아니면 반환 (임원페이지)
 			return "redirect:/another/student/loginPage";
 		} else {
 			model.addAttribute("studentInfoDto", studentInfoDto);

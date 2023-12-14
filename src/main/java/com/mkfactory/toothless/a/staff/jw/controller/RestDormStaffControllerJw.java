@@ -15,6 +15,7 @@ public class RestDormStaffControllerJw {
 	@Autowired
 	private DormStaffServiceJw dormStaffServiceJw;
 	
+	@RequestMapping("templete")
 	public RestResponseDto templete() {
 		RestResponseDto restResponseDto = new RestResponseDto();
 		
@@ -83,4 +84,11 @@ public class RestDormStaffControllerJw {
 		return restResponseDto;
 	}
 	
+	@RequestMapping("restGetExitSituationByA")
+	public RestResponseDto restGetExitSituationByA() {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;
+	}
 }
