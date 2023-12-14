@@ -9,7 +9,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mkfactory.toothless.a.dto.DiaryDto;
 import com.mkfactory.toothless.a.dto.DormStudentDto;
+import com.mkfactory.toothless.a.dto.ExecutiveDto;
 import com.mkfactory.toothless.a.dto.ExitDto;
 import com.mkfactory.toothless.a.dto.PointDto;
 import com.mkfactory.toothless.a.student.jw.mapper.DormStudentMapperJw;
@@ -24,8 +26,16 @@ public class DormStudentServiceJw {
 		return dormStudentMapperJw.countDormStudentByStudentAndProgressSemester(student_pk);
 	}
 	
+	public int checkDormStudentExecutive(int student_pk) {
+		return dormStudentMapperJw.countDormStudentByStudentAndProgressSemesterAndExecutive(student_pk);
+	}
+	
 	public DormStudentDto getDormStudentByStudentPk(int student_pk){
 		return dormStudentMapperJw.selectDormStudentByStudentAndProgressSemester(student_pk);
+	}
+	
+	public ExecutiveDto getDormStudentByStudentPkAndExecutive(int student_pk) {
+		return dormStudentMapperJw.selectDormStudentByStudentAndProgressSemesterAndExecutive(student_pk);
 	}
 	
 	public void applyExit(ExitDto exitDto) {
@@ -54,5 +64,7 @@ public class DormStudentServiceJw {
 		return dormStudentMapperJw.sumTotalPointByStudentPk(student_pk);
 	}
 	
-	
+	public void registerDiary(DiaryDto diaryDto) {
+		dormStudentMapperJw.insertDiary(diaryDto);
+	}
 }
