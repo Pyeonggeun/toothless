@@ -147,6 +147,8 @@ public class EunbiStudentServiceImpl {
 			int studentPk = studentInternDto.getStudent_pk();
 			int internPk = studentInternDto.getStudent_intern_pk();
 			
+			System.out.println(internPk);
+			
 			StudentInfoDto studentInfoDto = studentSqlMapper.getStudentInfoByStudentPk(studentPk);
 			int studentDepartmentPk = studentInfoDto.getDepartment_pk();
 			int studentProfessorPk = studentInfoDto.getProfessor_pk();
@@ -168,6 +170,7 @@ public class EunbiStudentServiceImpl {
 			internInfo.put("didProfessorEvaluateIntern", professorSqlMapper.didProfessorEvaluateIntern(internPk));
 			// 산업체 평가
 			internInfo.put("didCompanyEvaluateIntern", externalSqlMapper.didCompanyEvaluateIntern(internPk));
+			
 			
 			studentInternList.add(internInfo);
 		}
