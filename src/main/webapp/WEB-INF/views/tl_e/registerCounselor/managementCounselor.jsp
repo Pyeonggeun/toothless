@@ -143,27 +143,14 @@
 		
 	}
 	
-	function searchTypeCategoryControl(){
+	function searchTypeCategoryControl(target){
 		
-		const selectOptionAll = document.querySelector(".searchCategoryOption #categoryOptionAll");
+		const isChecked = target.checked;
+		
 		const selectOptionList = document.querySelectorAll(".searchCategoryOption .categoryOption:not(#categoryOptionAll)");
 		
-		selectOptionAll.addEventListener('click',()=>{
-			selectOptionList.forEach(checkbox => {
-				checkbox.checked = selectOptionAll.checked;
-			});
-		});
-		
-		selectOptionList.forEach(checkbox => {
-			checkbox.addEventListener('click', ()=>{
-				if(!checkbox.checked){
-					selectOptionAll.checked = false;
-				}
-				else{
-					const allChecked = Array.from(selectOptionList).every(checkbox => checkbox.checked);
-					selectOptionAll.checked = allChecked;
-				}
-			});
+		selectOptionList.forEach((e)=>{
+			e.checked = isChecked;
 		});
 		
 	}
@@ -180,8 +167,9 @@
 			
 			const selectOptionAll = document.querySelector("#templete .searchCategoryOption").cloneNode(true);
 			const categoryOption = selectOptionAll.querySelector(".categoryOption");
-			categoryOption.setAttribute("id", "categoryOptionAll");			
-			categoryOption.setAttribute("value", 0);			
+			categoryOption.setAttribute("id", "categoryOptionAll");
+			categoryOption.setAttribute("value", "0");
+			categoryOption.setAttribute("onclick", "searchTypeCategoryControl(this)");
 			
 			const categoryLabel = selectOptionAll.querySelector(".categoryLabel");				
 			categoryLabel.setAttribute("for", "categoryOptionAll");			
@@ -239,7 +227,7 @@
 			}
 			
 		});
-		searchTypeCategoryControl();
+		
 	}
 	
 	
@@ -455,6 +443,8 @@
 <title>상담원 등록 페이지</title>
 </head>
 <body>
+	
+	<jsp:include page="../commons/staffTopArea.jsp"></jsp:include>
 	
 	<div class="container">
 	

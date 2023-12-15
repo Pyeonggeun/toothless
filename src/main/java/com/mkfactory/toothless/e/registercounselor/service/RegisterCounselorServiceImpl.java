@@ -106,18 +106,18 @@ public class RegisterCounselorServiceImpl {
 		System.out.println("searchScoreOption : " + searchScoreOption);		
 		
 		if(
-			!(searchCounselorName.equals("default"))||
-			(searchCounselorType != null)||
-			!(searchGenderOption.equals("default"))||
-			!(searchScoreOption.equals("default"))) {
-			Boolean searchOption = true;
+			(searchCounselorName.equals("default"))&&
+			(searchCounselorType == null)&&
+			(searchGenderOption.equals("default"))&&
+			(searchScoreOption.equals("default"))) {			
+			Boolean searchOption = false;
 			System.out.println("searchOption : " + searchOption);
 			return registerCounselorSqlMapper.selectAllCounselorForAJAX(
 					searchCounselorName,searchCounselorType,searchGenderOption,searchScoreOption,searchOption
 					);
 		}
 		else {
-			Boolean searchOption = false;
+			Boolean searchOption = true;
 			System.out.println("searchOption : " + searchOption);
 			return registerCounselorSqlMapper.selectAllCounselorForAJAX(
 					searchCounselorName,searchCounselorType,searchGenderOption,searchScoreOption,searchOption
