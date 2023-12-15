@@ -42,8 +42,11 @@ public interface OfflineCounselMapper {
 	// 상담원별 예약된 날짜 리스트
 	public List<String> selectReservationDateInfoByCounselorId(int counselor_id);
 	
-	// 상담원별 예약 리스트
-	public List<OfflineReservationDto> selectReservationListByCounselorId(int counselor_id);
+	// 상담원별 상담 리스트
+	public List<OfflineReservationDto> selectReservationListByCounselorId(@Param("counselor_id") int counselor_id, @Param("pageNum") int pageNum);
+	
+	// 상담원별 총 상담리스트 수
+	public int selectReservationCountByCounselorId(int counselor_id);
 	
 	// 학생dto 출력
 	public StudentInfoDto selectStudentInfoByStudentPk(int student_pk);
@@ -52,7 +55,11 @@ public interface OfflineCounselMapper {
 	public CounselorDto selectCounselorInfoByExternalPk(int external_pk);
 	
 	// 상담일지 insert
-	public void insertCounselDocument(@Param("reservation_id") int id, @Param("text") String text);
+	public void insertCounselDocument(
+			@Param("reservation_id") int id, 
+			@Param("text") String text,
+			@Param("location") String location
+			);
 	
 	// 예약 테이블 상태 update
 	public void updateCounselReservationState(@Param("id") int id, @Param("state") String state);
@@ -67,7 +74,7 @@ public interface OfflineCounselMapper {
 			@Param("counselorNameValue") String counselorNameValue,
 			@Param("selectDateType") int selectDateType,
 			@Param("datevalueStr") String datevalueStr,
-			@Param("categoryType") int categoryType,
+			@Param("categoryValues") List<Integer> categoryValues,
 			@Param("stateType") int stateType
 			);
 	
@@ -77,7 +84,7 @@ public interface OfflineCounselMapper {
 			@Param("counselorNameValue") String counselorNameValue,
 			@Param("selectDateType") int selectDateType,
 			@Param("datevalueStr") String datevalueStr,
-			@Param("categoryType") int categoryType,
+			@Param("categoryValues") List<Integer> categoryValues,
 			@Param("stateType") int stateType
 			);
 	
@@ -108,7 +115,24 @@ public interface OfflineCounselMapper {
 	// 상담원별 불가일정 날짜형식으로 포맷
 	public List<Map<String, Object>> selectImpossibleDateMap(int counselor_id);
 	
-	// 학생페이지 상담리스트 조회
-	public List<OfflineReservationDto> selectOfflineCounselListOfStudent();
+//	// 학생페이지 상담리스트 조회
+//	public List<OfflineReservationDto> selectOfflineCounselListOfStudent();
+	
+	// 통계 관련
+	// 지난 2주간 일자별 상담 통계
+	public List<Map<String, Object>> twoWeekStatisticsData(int counselor_id);
+	
+	// 지난 2주간 카테고리별 상담 통계
+	public List<Map<String, Object>> twoWeekStatisticsDataByCategory(int counselor_id);
+	
+	// 오프라인 상담 별점 통계
+	public List<Map<String, Object>> selectOfflineScoreStatistics(int counselor_id);
+	
+	// 요일별 상담 통계
+	public List<Map<String, Object>> selectOfflineStatisticsOfDay(int counselor_id);
+	
+	// 카테고리 리스트
+	public List<TypeCategoryDto> selectTypeCategoryDtoList();
+	
 	
 }

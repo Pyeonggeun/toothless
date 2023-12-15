@@ -16,10 +16,10 @@
 	
 		<div class="row py-2">
             <div class="col-1 pe-2 text-end">
-                <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
+                <a class="navbar-brand" href="../commons/counselCenterStudentMainPage"><img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;"></a>
             </div>
             <div class="col-3 ps-0 pt-2 fw-bold fs-3 text-start ">
-                MK University<span class="fs-6"> | </span> <span class="fs-5">상담센터</span> 
+                <a class="navbar-brand" href="../commons/counselCenterStudentMainPage">MK University<span class="fs-6"> | </span> <span class="fs-5">상담센터</span></a>
             </div>
             <div class="col-2"></div>
             <div class="col">

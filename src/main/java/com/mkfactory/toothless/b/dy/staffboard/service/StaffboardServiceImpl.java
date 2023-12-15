@@ -27,11 +27,11 @@ public class StaffboardServiceImpl {
 		staffboardSqlMapper.insertStaffboardText(staffboardDto);
 	}
 	
-	public List<Map<String, Object>> getBoardContentsInfo() {
+	public List<Map<String, Object>> getBoardContentsInfo(String searchType, String searchWord) {
 		
 		List<Map<String, Object>> list = new ArrayList<>();
 		
-		List<StaffboardDto> contentsDtolist = staffboardSqlMapper.selectBoardContentsInfo();
+		List<StaffboardDto> contentsDtolist = staffboardSqlMapper.selectBoardContentsInfo(searchType, searchWord);
 		
 		for(StaffboardDto staffboardDto : contentsDtolist) {
 			int userPk = staffboardDto.getStaff_pk();
@@ -142,12 +142,15 @@ public class StaffboardServiceImpl {
 		return staffboardSqlMapper.selectCheckLike(staffboardLikeDto);
 	}
 	
-	//좋아요 수
+	//리드페이지 좋아요 수
 	public int likeCount(int staffboard_pk) {
 		
 		return staffboardSqlMapper.selectLikeCount(staffboard_pk);
 	}
-	
+	//리드페이지 댓글 수
+	public int replyCountInContent(int staffboard_pk) {
+		return staffboardSqlMapper.selectReplyCount(staffboard_pk);
+	}
 }
 
 
