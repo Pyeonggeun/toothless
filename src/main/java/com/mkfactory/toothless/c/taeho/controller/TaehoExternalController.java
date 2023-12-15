@@ -74,6 +74,22 @@ public class TaehoExternalController {
 		return "redirect:./writeCompanyTimecardPage?internshipCoursePk="+internshipCoursePk;
 	}
 	
+	@RequestMapping("readStudentInternListPage")
+	public String readStudentInternListPage(HttpSession session, Model model) {
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		int externalPk = externalInfoDto.getExternal_pk();
+		AjdksCompanyInfoDto ajdksCompanyInfoDto = taehoExternalService.getSessionCompanyInfoByExternalPk(externalPk);
+		model.addAttribute("ajdksCompanyInfoDto", ajdksCompanyInfoDto);		
+		
+		List<Map<String, Object>> ingInternshipCourseList = taehoExternalService.getIngInternshipCourseByExternalPk(externalPk);		
+		model.addAttribute("ingInternshipCourseList", ingInternshipCourseList);
+		
+		return "tl_c/taeho/external/readStudentInternListPage";
+	}
+	
+	
+	
 	
 	
 	

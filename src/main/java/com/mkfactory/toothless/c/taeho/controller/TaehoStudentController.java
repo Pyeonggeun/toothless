@@ -35,8 +35,8 @@ public class TaehoStudentController {
 		List<Map<String, Object>> attendanceCountList = taehoStudentService.getAttendanceCountByStudentPk(studentPk);
 		model.addAttribute("attendanceCountList", attendanceCountList);
 		
-		List<Map<String, Object>> internReportList = taehoStudentService.getIngInternReportByStudentPk(studentPk);
-		model.addAttribute("internReportList", internReportList);
+//		List<Map<String, Object>> internReportList = taehoStudentService.getIngInternReportByStudentPk(studentPk);
+//		model.addAttribute("internReportList", internReportList);
 		
 		return"tl_c/taeho/student/writeInternReportPage";
 	}
