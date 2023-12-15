@@ -5,7 +5,6 @@
 <div class="row">
 	<div class="col">
 		<div class="row bg-body-white border-bottom mt-4 pb-0">
-			<div class="col-1"></div>
 			<div class="col-1 pe-2 text-end">
                 <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
             </div>
@@ -13,27 +12,27 @@
                 MK University<span class="fs-6"> | </span> <span class="fs-5">취창업지원센터</span> 
             </div>
 	    	<div class="col"></div>
-	    	<div class="col-1 mt-5 pb-2 text-secondary text-end">
+	    	<div class="col-1 mt-5 pb-2 pe-0 text-secondary text-end">
 				<%-- mainPage --%>
 				<c:choose>
 					<c:when test="${!empty sessionExternalInfo}">
 						<li style="list-style-type: none;" class="nav-item dropdown ms-auto"><a
-							class="fw-bold nav-link dropdown-toggle" href="#" role="button"
+							class="fw-bold nav-link dropdown-toggle" href="../../another/external/loginPage" role="button"
 							data-bs-toggle="dropdown" aria-expanded="false">
 								${sessionExternalInfo.external_id} 님</a>
 							<ul class="dropdown-menu">
-								<li><a href="../buyer/buyerLogoutProcess"
+								<li><a href="../common/companyLogoutProcess"
 									class="dropdown-item">로그아웃</a></li>
 							</ul>
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li style="list-style-type: none;" class="nav-item"><a href="../buyer/buyerLoginPage"
+						<li style="list-style-type: none;" class="nav-item"><a href="../../another/external/loginPage"
 							class="nav-link">로그인</a></li>
 					</c:otherwise>
 				</c:choose>
 			</div>
-	    	<div class="col-1"></div>
+	    	<div class="col-1 px-0"></div>
    		</div>
 	</div>	
 </div>

@@ -355,18 +355,18 @@
 				<div class="row">
 					<div class="col fs-4 fw-bold mt-5 text-center">채용공고리스트</div>
 				</div>
-				<div class="row mt-4 pb-3 border-bottom">
-					<div class="col-1 pt-1">
+				<div class="row mt-5 pb-1 border-bottom">
+					<div class="col-1 pt-1 mt-3">
 						총 <span class="fw-bold">${postingCount}</span>건
 					</div>
-					<div class="col-2">
+					<div class="col-2 mt-2">
 						<select class="searchType form-select">
 							<option value="posting_name">제목</option>
 							<option value="job_position">직무</option>
 							<option value="posting_contents">내용</option>
 						</select>				
 					</div>
-					 <div class="col-6 rounded-pill bg-white border border-secondary border-sm pt-1 my-2">
+					 <div class="col-7 rounded-pill bg-white border border-secondary border-sm pt-1 mb-3">
 		                <div class="row">
 		                    <div class="col-6">
 		                       <input type="text" class="searchWord form-control border-0"> 
@@ -376,7 +376,8 @@
 		                    </div>
 		                </div>
 		            </div>
-					<div class="col">
+		            <div class="col px-0"></div>
+					<div class="col px-0 mt-2">
 						<select class="form-select form-select-sm">
 						    <option selected>정확도순</option>
 						    <option value="1">등록일순</option>
@@ -386,94 +387,7 @@
 					</div>
 				</div>
 				<div class="row pb-3">
-					<div id="postingListBox" class="col">
-					
-					</div>
-				<!-- 리스트 출력 -->
-				<%-- <c:forEach items="${jopPostingForStudentList}" var="jobPostingForStudent">
-					<div class="row mt-3 pb-3 border-bottom">
-						<!-- 1번째 칸 -->
-						<div class="col-2 mt-2 ps-4">
-							<div class="row">
-								<!-- 기업명 -->
-								<div class="col pe-0">
-									<a class="navbar-brand" href="./companyPostingListForStudentPage?com_pk=${jobPostingForStudent.companyDto.com_pk}">${jobPostingForStudent.companyDto.com_name}</a>
-									<i class="text-danger bi bi-suit-heart"></i>
-								</div>
-							</div>
-							<div class="row">
-								<!-- 가족기업여부 -->
-								<div class="col mt-1 ms-1">
-									<c:if test="${jobPostingForStudent.companyDto.is_family_company ne null and jobPostingForStudent.companyDto.is_family_company eq 'Y'}">
-										<span class="badge text-bg-info text-white">Family</span>
-									</c:if>						
-								</div>
-							</div>
-						</div>
-						<!-- 2번째 칸 -->
-						<!-- 공고제목 -->
-						<div class="col-8 ps-4 pt-2">
-							<div class="row">
-								<div class="col">
-								<!-- 링크 더 좋은 방법 생각해보기 -->
-								<a class="navbar-brand" href="./jobPostingDetailForStudentPage?id=${jobPostingForStudent.jobPostingDto.job_posting_pk}">
-										${jobPostingForStudent.jobPostingDto.posting_name}
-								</a>
-								</div>
-							</div>
-							<div class="row">
-								<!-- 분야/지역/기간 태그  -->
-								<div class="col">
-									<a class="navbar-brand" href="./jobPostingDetailPage?id=${jobPostingForStudent.jobPostingDto.job_posting_pk}">
-									<span class="text-secondary">#&nbsp;${jobPostingForStudent.jobFieldCategoryDto.job_field_category_name} #&nbsp;${jobPostingForStudent.jobPostingDto.job_position}
-									#&nbsp;${jobPostingForStudent.companyDto.com_address} #&nbsp;<fmt:formatDate value="${jobPostingForStudent.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
-									<c:choose>
-										<c:when test="${jobPostingForStudent.postingDeadlineList.contains(jobPostingForStudent.jobPostingDto.job_posting_pk)}">
-											<span class="badge text-bg-danger">마감임박!</span>
-										</c:when>
-										<c:when test="${jobPostingForStudent.endPostingList.contains(jobPostingForStudent.jobPostingDto.job_posting_pk)}">
-											<span class="badge text-bg-secondary">채용마감</span>
-										</c:when>
-									</c:choose>
-									</a>
-								</div>
-							</div>
-						</div>
-						<!-- 3번째 칸 -->
-						<!-- 별 크기 생각해보기 -->
-						<div class="col-2">	
-							<div class="row">
-								<div class="col ms-3 mb-1">
-									<c:choose>
-										<c:when test="${jobPostingForStudent.allPostingInterest == 0}">
-											<i class="text-warning bi bi-star"></i>
-										</c:when>
-										<c:otherwise>
-											<i class="text-warning bi bi-star-fill"></i>
-										</c:otherwise>
-									</c:choose>
-									<span>${jobPostingForStudent.allPostingInterest}</span>	
-								</div>
-							</div>
-							<div class="row">
-								<div class="col">
-									<c:choose>
-										<c:when test="${jobPostingForStudent.endPostingList.contains(jobPostingForStudent.jobPostingDto.job_posting_pk)}">
-											<button class="btn btn-dark btn-sm" disabled>채용마감</button>
-										</c:when>
-										<c:when test="${empty sessionStudentInfo}">
-											<button class="btn btn-dark btn-sm" disabled>지원하기</button>
-										</c:when>
-										<c:otherwise>
-											<a class="btn btn-dark btn-sm" 
-												href="../sb_resume/applyJobPostingPage?job_posting_pk=${jobPostingForStudent.jobPostingDto.job_posting_pk}">지원하기</a>
-										</c:otherwise>
-									</c:choose>
-								</div>
-							</div>
-						</div>
-					</div>
-				</c:forEach> --%>
+					<div id="postingListBox" class="col"></div>
 				</div>
 			</div>
 			<%-- 오른쪽 --%>	
@@ -492,10 +406,8 @@
 			<div class="col-2 mt-2 ps-4">
 				<div class="row">
 					<!-- 기업명 -->
-					<div class="postingCompanyName col pe-0">
-					</div>
-					<div class="col ms-3 mb-1">
-					</div>
+					<div class="postingCompanyName col pe-0"></div>
+					<div class="col ms-3 mb-1"></div>
 				</div>
 				<div class="row">
 					<!-- 가족기업여부 -->
@@ -506,14 +418,11 @@
 			<!-- 공고제목 -->
 			<div class="col-8 ps-4 pt-2">
 				<div class="row">
-					<div class="jobPostingName col">
-					<!-- 링크 더 좋은 방법 생각해보기 -->
-					</div>
+					<div class="jobPostingName col"></div>
 				</div>
 				<div class="row">
 					<!-- 분야/지역/기간 태그  -->
-					<div class="jobPostingCondition col">
-					</div>
+					<div class="jobPostingCondition col"></div>
 				</div>
 			</div>
 			<!-- 3번째 칸 -->
@@ -534,8 +443,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="applyPosting col">
-					</div>
+					<div class="applyPosting col"></div>
 				</div>
 			</div>
 		</div>

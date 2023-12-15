@@ -75,11 +75,22 @@ public class EmploymentCommonController {
 			model.addAttribute("companyList", companyService.getCompanyList());
 			model.addAttribute("mainResumeList", companyService.mainResumeListForCompany());
 			
+			// 관심기업 학생 4개 컷
+			model.addAttribute("interestCompanyList", postingService.getInterestCompanyListForMainPage(companyDto.getCom_pk()));
+			// 채용공고 4개 컷
 			model.addAttribute("jobPostingForCompanyMainPage", postingService.getPostingListForCompanyMainPage(companyDto.getCom_pk()));
-			model.addAttribute("applyListForMainPage", postingService.getApplyListForCompanyMainPage(externalPk));
+			// 기업 지원자 4개 컷
+			model.addAttribute("applyListForMainPage", postingService.getApplyListForCompanyMainPage(companyDto.getCom_pk()));
 		}
 		
 		return "tl_d/common/companyMainPage";
+	}
+	
+	// 기업 메인페이지 로그아웃
+	@RequestMapping("companyLogoutProcess")
+	public String companyLogoutProcess(HttpSession session) {
+		session.invalidate();
+		return "redirect:./companyMainPage";
 	}
 	
 	

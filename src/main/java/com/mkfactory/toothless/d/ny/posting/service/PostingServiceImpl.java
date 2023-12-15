@@ -154,6 +154,7 @@ public class PostingServiceImpl {
 			
 			return companypostingList;
 	}
+
 	
 	// 교직원용 공고 상세리스트
 	public Map<String, Object> getJobPostingDetail(int job_posting_pk){
@@ -465,7 +466,7 @@ public class PostingServiceImpl {
 		return interestStudentList;
 	}
 	
-	// 메인페이지용 기업별 공고리스트(마감임박 + 스크랩 많은 순 -> 나중에 지원자 많은 순으로 바꿀 예정)
+	// 메인페이지용 기업별 공고리스트(마감임박 + 지원자 많은 순)
 	public List<Map<String, Object>> getPostingListForCompanyMainPage(int com_pk){
 		
 		List<Map<String, Object>> companypostingList = new ArrayList<>();
@@ -532,10 +533,11 @@ public class PostingServiceImpl {
 		return interestStudentList;
 	}
 	
+	
 	// 기업 메인페이지용 지원 학생 리스트
 	public List<Map<String, Object>> getApplyListForCompanyMainPage(int com_pk){
 		
-		List<Map<String, Object>> interestStudentList = new ArrayList<>();
+		List<Map<String, Object>> applyStudentList = new ArrayList<>();
 		
 		List<StudentInfoDto> studentInfoDtoList = postingSqlMapper.selectApplyStudentListForCompany(com_pk);
 		
@@ -543,15 +545,61 @@ public class PostingServiceImpl {
 			
 			List<Integer> graduationInfoDtoList = postingSqlMapper.selectGraduationList();
 			
-			Map<String, Object> interestStudentMap = new HashMap<>();
+			Map<String, Object> applyStudentMap = new HashMap<>();
 			
-			interestStudentMap.put("studentInfoDto", studentInfoDto);
-			interestStudentMap.put("graduationInfoDtoList", graduationInfoDtoList);
+			applyStudentMap.put("studentInfoDto", studentInfoDto);
+			applyStudentMap.put("graduationInfoDtoList", graduationInfoDtoList);
 			
-			interestStudentList.add(interestStudentMap);
+			applyStudentList.add(applyStudentMap);
 			
 		}
-		return interestStudentList;
+		return applyStudentList;
 	
 	}
+	
+	// 기업 메인페이지용 관심 기업 학생 리스트
+	public List<Map<String, Object>> getInterestCompanyListForMainPage(int com_pk){
+		
+		List<Map<String, Object>> interestCompanyList = new ArrayList<>();
+		
+		List<StudentInfoDto> studentInfoDtoList = postingSqlMapper.selectMyCompanyInterestStudentList(com_pk);
+		
+		for(StudentInfoDto studentInfoDto : studentInfoDtoList) {
+			
+			List<Integer> graduationInfoDtoList = postingSqlMapper.selectGraduationList();
+			
+			Map<String, Object> interestCompanyMap = new HashMap<>();
+			
+			interestCompanyMap.put("studentInfoDto", studentInfoDto);
+			interestCompanyMap.put("graduationInfoDtoList", graduationInfoDtoList);
+			
+			interestCompanyList.add(interestCompanyMap);
+			
+		}
+		return interestCompanyList;
+		
+	}
+	
+	// 기업 지원한 학생 총 리스트
+	public List<Map<String, Object>> getApplyStudentTotalList(int com_pk){
+		
+		List<Map<String, Object>> alpplyStudentTotalList = new ArrayList<>();
+		
+		List<StudentInfoDto> studentInfoDtoList = postingSqlMapper.selectApplyStudentTotalList(com_pk);
+		
+		for(StudentInfoDto studentInfoDto : studentInfoDtoList) {
+			
+			List<Integer> graduationInfoDtoList = postingSqlMapper.selectGraduationList();
+			
+			Map<String, Object> applyStudentTotalMap = new HashMap<>();
+			
+			applyStudentTotalMap.put("studentInfoDto", studentInfoDto);
+			applyStudentTotalMap.put("graduationInfoDtoList", graduationInfoDtoList);
+			
+			alpplyStudentTotalList.add(applyStudentTotalMap);
+			
+		}
+		return alpplyStudentTotalList;
+	}
+	
 }
