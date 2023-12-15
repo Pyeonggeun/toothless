@@ -8,6 +8,7 @@
 	<meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        
 </head>
 <body>
 	<div class="container-fluid">
@@ -19,7 +20,7 @@
                         <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
                     </div>
                     <div class="col-3 ps-0 fw-bold fs-1 text-start ">
-                        MK University<span class="fs-6"> | </span> <span class="fs-5">학생포털사이트</span> 
+                        MK University<span class="fs-6"> | </span> <span class="fs-5">취업지원센터</span> 
                     </div>
                     <div class="col-6"></div>
                     <div class="col-1 mt-5 pb-2 text-secondary text-end">
@@ -47,8 +48,8 @@
                 </div>
             </div>
         </div>
-        <!-- 메뉴 -->
-        <div class="row text-center py-1 fw-bold text-light" style="background-color: #133369">
+        <!-- 상단부 : 메뉴 -->
+        <div class="row text-center py-2 fw-bold text-light" style="background-color: #133369">
             <div class="col-2"></div>
             <div class="col align-self-center">
                 <a class="navbar-brand" href="../ny_posting/jobPostingListForStudentPage">채용공고</a>
@@ -68,8 +69,86 @@
             </div>
             <div class="col-2"></div>
         </div>
-		<!-- 아래 쪽 -->
-		<div class="row">
+        <!-- 중앙부 : 단일 배너 -->
+        <div class="row">
+        	<div class="col">
+				<img class="img-fluid" src="../../resources/img/employment/employmentBanner.jpg">
+        	</div>
+        </div>
+		<!-- 하단부 : 프로그램리스트 + 공지사항 + 링크등 -->
+		<div class="row mb-5">
+			<div class="col-1 ms-5 me-3"></div>
+			<!-- 공지사항 -->
+			<div class="col-3 mx-3">
+				<div class="row border-bottom border-2">
+					<div class="col fs-5 fw-bold mt-5 pb-1">공지사항</div>
+					<div class="col fs-5 fw-bold mt-5 text-end">
+						<a class="navbar-brand" href="#">
+							<i class="bi bi-plus-lg"></i>
+						</a>	
+					</div>
+				</div>
+			</div>
+			<!-- 프로그램 -->
+			<div class="col-3 mx-3">
+				<div class="row border-bottom border-2">
+					<div class="col fs-5 fw-bold mt-5 pb-1">프로그램</div>
+					<div class="col fs-5 fw-bold mt-5 text-end">
+						<a class="navbar-brand" href="#">
+							<i class="bi bi-plus-lg"></i>
+						</a>	
+					</div>
+				</div>
+			</div>
+			<!-- 캘린더 -->
+			<div class="col-3 ms-3">
+				<div class="row mt-4">
+					<div class="col">
+						<img class="img-fluid" src="../../resources/img/employment/calender.png">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 링크들 -->
+		<div class="row mb-3">
+			<div class="col-1"></div>
+			<div class="col">
+				<img class="img-fluid mx-5" src="../../resources/img/employment/employmentcenter.jpg">			
+				<img class="img-fluid mx-5" src="../../resources/img/employment/onlinecenter.jpg">			
+				<img class="img-fluid mx-5" src="../../resources/img/employment/jobkorea.jpg">			
+				<img class="img-fluid mx-5" src="../../resources/img/employment/saramin.jpg">			
+				<img class="img-fluid mx-5" src="../../resources/img/employment/worknet.jpg">			
+				<img class="img-fluid mx-5" src="../../resources/img/employment/workplus.jpg">			
+			</div>
+		</div>
+		<!-- 최하단 : 개인정보처리방침 + 주소 등 -->
+		<div class="row py-4" style="background-color: #808080">
+			<div class="col-1 pt-1 pe-2 text-end">
+                <img class="opacity-25" src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
+            </div>
+            <div class="col pt-1">
+            	<div class="row">
+            		<div class="col text-white">
+		            	<span class="pe-2">개인정보처리방침</span><span>|</span>
+		            	<span class="pe-2">이메일무단수집거부</span><span>|</span>
+		            	<span class="pe-2">대학정보공시</span><span>|</span>
+		            	<span class="pe-2">사이트맵</span>
+            		</div>
+            	</div>
+            	<div class="row">
+            		<div class="col text-dark">
+            			서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / TEL:010-4761-2103 / E-MAIL:se001lec@naver.com
+            		</div>
+            	</div>
+            	<div class="row">
+            		<div class="col text-dark" style="font-size: 0.9rem;">
+            			COPYRIGHT© 2023 MINKUE UNIVERSITY ALL RIGHTS RESERVED.
+            		</div>
+            	</div>
+            </div>
+		</div>
+		<div class="col">
+			
 		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
