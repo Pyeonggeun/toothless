@@ -17,8 +17,8 @@
 	
 		<div class="row pt-2 pb-3 border-bottom">
             <div class="col-4 ps-5 text-start">
-                <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
-                <span class="fw-bold fs-3 text-start align-middle">MK University</span><span class="fs-6t align-middle">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class="fs-5 fw-bold align-middle">상담센터</span> 
+                <a class="navbar-brand" href="../commons/counselCenterCounselorMainPage"><img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
+                <span class="fw-bold fs-3 text-start align-middle">MK University</span><span class="fs-6t align-middle">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class="fs-5 fw-bold align-middle">상담센터</span></a>
             </div>
             <div class="col-2"></div>
             <div class="col">
