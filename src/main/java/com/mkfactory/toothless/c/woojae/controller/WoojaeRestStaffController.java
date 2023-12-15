@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto;
@@ -97,9 +98,10 @@ public class WoojaeRestStaffController {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
 		if(company_category_pk == 0) {
-			restResponseDto.setData(woojaeStaffService.registedCompanyList());
 			
+			restResponseDto.setData(woojaeStaffService.registedCompanyList());
 			restResponseDto.setResult("success");
+			
 			return restResponseDto;
 		}else {
 			restResponseDto.setResult("success");
@@ -124,6 +126,20 @@ public class WoojaeRestStaffController {
 	}
 	
 	
+	// 카테고리 검색 리스트
+	@RequestMapping("categorizedCompanyList")
+	public RestResponseDto categorizedCompanyList(
+			@RequestParam(name = "searchType", required = false) int[] searchType, 
+			@RequestParam(name = "searchWord", defaultValue = "default") String searchWord ){
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		restResponseDto.setData(woojaeStaffService.categorizedCompanyList(searchType, searchWord));
+		
+		return restResponseDto;
+		
+	}
 
 	
 	

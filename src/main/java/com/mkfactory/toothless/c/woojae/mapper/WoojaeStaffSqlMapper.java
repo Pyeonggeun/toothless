@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Param;
 
 import com.mkfactory.toothless.c.dto.AjdksCompanyCategoryDto;
 import com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto;
-import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 
 public interface WoojaeStaffSqlMapper {
