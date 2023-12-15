@@ -127,6 +127,7 @@ public class NoticeController {
 			model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
 			model.addAttribute("cList", noticeService.selectCommentByNotice_Id(id));
 		}else {
+			
 			model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
 			model.addAttribute("cList", noticeService.selectCommentByNotice_Id(id));
 		}

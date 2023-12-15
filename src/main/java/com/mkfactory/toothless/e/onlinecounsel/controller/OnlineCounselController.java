@@ -29,9 +29,20 @@ public class OnlineCounselController {
 
 	@Autowired
 	private OnlineCounselService onlineCounselService;
+
+	
+	// 모든 엔트리 출력
+//  List<Map<String, Object>> testList = onlineCounselService.getAllCounselListByStudentPk(studentPk);
+//  Map<String, Object> testMap = testList.get(0);
+//  for (Map.Entry<String, Object> entry : testMap.entrySet()) {
+//      String key = entry.getKey();
+//      Object value = entry.getValue();
+//      System.out.println("Key: " + key + ", Value: " + value);
+//  }
 	
 	
-/*	만족도 조사가 완료 된 글 리스팅 될 때 제목 옆에 아이콘 같은거 띄우는거 해보기
+	
+/*
  * 	자신이 만족도 조사한 것을 자기 글에 들어갔을때 본인도 볼 수 있게 하기
 */
 	
@@ -45,14 +56,7 @@ public class OnlineCounselController {
 		int studentPk = studentInfoDto.getStudent_pk();
 		model.addAttribute("counselList", onlineCounselService.getAllCounselListByStudentPk(studentPk));
 		
-		// 모든 엔트리 출력
-//      List<Map<String, Object>> testList = onlineCounselService.getAllCounselListByStudentPk(studentPk);
-//      Map<String, Object> testMap = testList.get(0);
-//      for (Map.Entry<String, Object> entry : testMap.entrySet()) {
-//          String key = entry.getKey();
-//          Object value = entry.getValue();
-//          System.out.println("Key: " + key + ", Value: " + value);
-//      }
+
 		return "tl_e/onlineCounsel/onlineCounselMainPage";
 	}
 	
@@ -163,6 +167,12 @@ public class OnlineCounselController {
 	
 	
 	
+	
+	@RequestMapping("test")
+	public String test() {
+		
+		return "./tl_e/commons/staffTopArea";
+	}
 	
 	
 	
