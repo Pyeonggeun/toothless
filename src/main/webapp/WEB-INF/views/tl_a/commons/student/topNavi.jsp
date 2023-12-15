@@ -19,7 +19,7 @@
 		    });
 		</script>
 
-        <div class="row">
+        <div class="row sticky-top">
             <div class="col">
                 <nav class="navbar navbar-expand-lg py-1" style="background-color: #ffffff">
                     <div class="container-fluid">

@@ -178,7 +178,9 @@
 <!-- 중간 -->
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-1"></div>
+		<div class="col-1 ps-0 pe-3 d-flex align-items-end">
+			<img src="../../resources/img/dormitory/mainPageLeftImg.png" class="img-fluid">		
+		</div>
 		<div class="col">
 			<!-- 버튼들 -->
 			<div class="row mb-5 py-5">
@@ -638,7 +640,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-1"></div>
+		<div class="col-1 pe-0 ps-3"></div>
 	</div>
 </div>
 
