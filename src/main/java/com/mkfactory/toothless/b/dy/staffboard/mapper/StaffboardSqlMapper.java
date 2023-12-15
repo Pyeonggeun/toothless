@@ -2,6 +2,8 @@ package com.mkfactory.toothless.b.dy.staffboard.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mkfactory.toothless.b.dto.StaffboardDto;
 import com.mkfactory.toothless.b.dto.StaffboardLikeDto;
 import com.mkfactory.toothless.b.dto.StaffboardReplyDto;
@@ -11,8 +13,12 @@ public interface StaffboardSqlMapper {
 //글 작성	
 	public void insertStaffboardText(StaffboardDto staffboardDto);
 // 글 리스트 출력	
-	public List<StaffboardDto> selectBoardContentsInfo();
-
+	public List<StaffboardDto> selectBoardContentsInfo(
+			@Param("searchType") String searchType, 
+			@Param("searchWord") String searchWord //여기 변수명 중요하지 않음
+		);
+//@Param 은 mapper에서 2개 이상의 파라메터를 받을 때, 위처럼 사용된다.
+	
 	public StaffInfoDto selectStaffInfo(int staff_pk);
 	
 	public StaffboardDto selectContentsDetailInfo(int staffboard_pk);
