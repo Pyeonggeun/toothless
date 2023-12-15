@@ -3,6 +3,8 @@ package com.mkfactory.toothless.d.ny.posting.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mkfactory.toothless.d.dto.ComScaleCategoryDto;
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.CompanyManagerDto;
@@ -35,7 +37,10 @@ public interface PostingSqlMapper {
 	public int selectPostingCount();
 	
 	// 공고 리스트 출력
-	public List<JobPostingDto> selectPostingList();
+	public List<JobPostingDto> selectPostingList(
+			@Param("searchType") String searchType, 
+			@Param("searchWord") String searchWord
+			);
 	
 	// 기업 + 채용공고
 	public CompanyDto selectByCompanyPk(int com_pk); 
@@ -85,6 +90,8 @@ public interface PostingSqlMapper {
 	// 총 관심공고 수
 	public int selectTotalInterestPostingCount(int student_pk);
 	
+	// 학생 공고리스트용 관심기업
+	public List<Integer> selectInterestCompanyByStudentPk(int student_pk);
 	
 	
 	// 기업
@@ -110,7 +117,7 @@ public interface PostingSqlMapper {
 	// 졸업여부
 	public List<Integer> selectGraduationList();
 	
-	// 기업 메인페이지용 공고 목록 4개(마감임박 + 스크랩 많은 순 -> 나중에 지원자 많은 순으로 변경)
+	// 기업 메인페이지용 공고 목록 4개(마감임박 + 지원자 많은 순)
 	public List<JobPostingDto> selectPostingListForCompanyMainPage(int com_pk);
 	
 	// 공고 지원한 학생 출력
@@ -118,4 +125,13 @@ public interface PostingSqlMapper {
 	
 	// 기업 메인페이지용 지원 학생
 	public List<StudentInfoDto> selectApplyStudentListForCompany(int com_pk);
+	
+	// 기업 지원학생 리스트
+	public List<StudentInfoDto> selectApplyStudentTotalList(int com_pk);
+	
+	// 기업 메인페이지용 관심기업 학생
+	public List<StudentInfoDto> selectMyCompanyInterestStudentList(int com_pk);
+	
+	// 학생 + 학과
+	public String selectByDepartmentPk(int department_pk);
 }

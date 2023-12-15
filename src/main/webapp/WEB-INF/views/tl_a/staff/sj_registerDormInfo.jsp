@@ -8,8 +8,38 @@
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
-<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<title>동 정보 등록</title>
+<script>
+	function dormSubmit(){
+		const dormRegister = document.getElementById("dormRegister");
+		const dormName = document.getElementById("dormName");
+		const dormAddress = document.getElementById("dormAddress");
+		const dormImg = document.getElementById("dormImg");
+		
+		if(dormName.value == ""){
+			alert("기숙사 동 이름이 입력되지 않았습니다.");
+			dormName.value="";
+			dormName.focus();
+			return;
+		}
+		
+		if(dormAddress.value ==''){
+			alert("기숙사 주소가 입력되지 않았습니다.");
+			dormAddress.value="";
+			dormAddress.focust();
+			return;
+		}
+		
+		if(dormImg.value==""){
+			alert("기숙사 이미지가 선택되지 않았습니다.")
+			dormImg.focus();
+			return;
+		}
+		
+		dormRegister.submit();
+	}
+</script>
 </head>
 <body>
 <div class="container-fluid">
@@ -35,7 +65,7 @@
 				</div>
 			</div>
 			
-			<form action="./registerDormProcess" method="post" enctype="multipart/form-data">
+			<form action="./registerDormProcess" id="dormRegister" method="post" enctype="multipart/form-data">
              	<!-- <input type="hidden" name="staff_pk" value="${sessionStaffInfo.staff_pk }"> -->
 			
 			<!-- 기숙사명 -->
@@ -48,7 +78,7 @@
 					</div>
 					<div class="row">
 						<div class="col my-2">
-							<input class="form-control" name="name" type="text" placeholder="기숙사명을 입력해주세요.">
+							<input class="form-control" id="dormName" name="name" type="text" placeholder="기숙사명을 입력해주세요.">
 						</div>
 					</div>
 				</div>
@@ -64,7 +94,7 @@
 					</div>
 					<div class="row">
 						<div class="col my-2">
-							<input class="form-control" name="address" type="text" placeholder="주소를 입력해주세요.">
+							<input class="form-control" id="dormAddress" name="address" type="text" placeholder="주소를 입력해주세요.">
 						</div>
 					</div>
 				</div>
@@ -84,7 +114,7 @@
                      		대표이미지
                      	</div>
                         <div class="col align-self-center">
-                     		<input class="form-control" name="mainImage" type="file" accept="image/*">
+                     		<input class="form-control" id="dormImg" name="mainImage" type="file" accept="image/*">
                      	</div>
                      </div>
                      
@@ -96,7 +126,7 @@
 				<div class="col-5"></div>
                 <div class="col px-0 text-end">
 				
-                    <button type="submit" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
+                    <button type="button" onclick="dormSubmit()" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
                 </div>                    
              </div>
         	</form>

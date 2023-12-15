@@ -50,22 +50,23 @@
 			
 			<!-- 미니맵 -->
 			<div class="row">
-				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
+				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='./jw_exitSituationPage'">
 					<div class="row">
-						<div class="col ms-2 fw-bold">
-							A동
+						<div class="col fw-bold">
+							전체
 						</div>
 					</div>
 				</div>
-				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
-					<div class="row">
-						<div class="col ms-2 fw-bold">
-							B동
+				<c:forEach items="${dormBuildingList}" var="dormBuildingList">
+					<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='./jw_exitSituationByDormPkPage?dorm_pk=${dormBuildingList.dorm_pk}'">
+						<div class="row">
+							<div class="col fw-bold">
+								${dormBuildingList.name}
+							</div>
 						</div>
 					</div>
-					
-				</div>
-				<div class="col-8"></div>
+				</c:forEach>
+				<div class="col-6"></div>
 			</div>
 
 			<!-- 세부내용 시작 -->

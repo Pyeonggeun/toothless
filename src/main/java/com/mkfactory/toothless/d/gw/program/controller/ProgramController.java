@@ -19,6 +19,7 @@ import com.mkfactory.toothless.d.dto.CompanyManagerDto;
 import com.mkfactory.toothless.d.dto.InterestCompanyDto;
 import com.mkfactory.toothless.d.dto.ProgramApplyDto;
 import com.mkfactory.toothless.d.dto.ProgramDto;
+import com.mkfactory.toothless.d.dto.ProgramReviewDto;
 import com.mkfactory.toothless.d.gw.program.service.ProgramServiceIpml;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
@@ -234,6 +235,7 @@ public class ProgramController {
 		
 		model.addAttribute("studentApplyProgram", programService.studentApplyProgramList());
 		
+		
 		return "/tl_d/gw_program/applyProgramListForStudentPage";
 	}
 	
@@ -265,5 +267,31 @@ public class ProgramController {
 		return "redirect:./applyProgramListForStaffPage?program_pk="+programApplyDto.getProgram_pk();
 	}
 	
-
+	
+	//프로그램 리뷰쓰기
+	@RequestMapping("programReviewPage")
+	public String programReviewPage(Model model, int program_apply_pk) {
+		
+		model.addAttribute("program", programService.getApplyProgram(program_apply_pk));
+		
+		return "/tl_d/gw_program/programReviewPage";
+	}
+	
+	@RequestMapping("programReviewProcess")
+	public String programReviewProcess(ProgramReviewDto programReviewDto) {
+		
+		programService.inputProgramReview(programReviewDto);
+		
+		return "redirect:./applyProgramListForStudentPage";
+	}
+	
+	//리뷰목록
+	@RequestMapping("programReviewListPage")
+	public String programReviewListPage(Model model, int program_pk) {
+		
+		model.addAttribute("program", programService.getProgram(program_pk));
+		model.addAttribute("studentApplyProgram", programService.applyProgramList(program_pk));
+		
+		return "/tl_d/gw_program/programReviewListPage";
+	}
 }

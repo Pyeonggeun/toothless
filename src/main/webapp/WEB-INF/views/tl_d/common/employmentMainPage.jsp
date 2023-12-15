@@ -14,7 +14,7 @@
 		<!-- 상단바 -->
 		<div class="row">
             <div class="col">
-                <div class="row text-center">
+                <div class="row my-1 pt-4 text-center">
                     <div class="col-1 pe-2 text-end">
                         <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
                     </div>
@@ -31,17 +31,15 @@
 									data-bs-toggle="dropdown" aria-expanded="false">
 										${sessionStudentInfo.name} 님</a>
 									<ul class="dropdown-menu">
-										<li><a href="./studentMypage"
+										<li><a href="../common/studentMyPage"
 											class="dropdown-item">마이페이지</a></li>
-									</ul>
-									<ul class="dropdown-menu">
-										<li><a href="#"
+										<li><a href="../common/studentLogoutProcessForMain"
 											class="dropdown-item">로그아웃</a></li>
 									</ul>
 								</li>
 							</c:when>
 							<c:otherwise>
-								<li style="list-style-type: none;" class="nav-item"><a href="../buyer/buyerLoginPage"
+								<li style="list-style-type: none;" class="nav-item"><a href="../../another/student/loginPage"
 									class="nav-link">로그인</a></li>
 							</c:otherwise>
 						</c:choose>

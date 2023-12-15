@@ -33,23 +33,7 @@
 
     <div class="container mt-3">
         <div class="row">
-            <div class="col-3 me-3"><!-- 여기부분은 목차부분 -->
-                <div class="row rounded-1 opacity-90" style="background-color: #504528;">
-                    <div class="col py-4 text-center">
-                        <span class="fw-bold" style="color: white; font-size: x-large;">기숙시설</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">수용인원 현황</span>         
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.2em solid #504528;">
-                    <div class="col py-3 fw-bold" style="font-size: large;">
-                        <span style="color: #504528;">건물 현황</span>       
-                    </div>
-                </div>
-            </div><!-- ㅋ-->
+            <jsp:include page="../commons/student/leftButtons2.jsp"></jsp:include>
             <div class="col">
                 <div class="row">
                     <div class="col">

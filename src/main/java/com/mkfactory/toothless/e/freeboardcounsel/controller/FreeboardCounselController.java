@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.FreeboardCommentDto;
 import com.mkfactory.toothless.e.dto.FreeboardDto;
+import com.mkfactory.toothless.e.dto.FreeboardEmpathyDto;
 import com.mkfactory.toothless.e.dto.FreeboardImageDto;
 import com.mkfactory.toothless.e.freeboardcounsel.service.FreeboardCounselServiceImpl;
 
@@ -125,9 +127,15 @@ public class FreeboardCounselController {
 	
 	//자유게시판 상세 글보기 페이지
 	@RequestMapping("readFreeboardPostPage")
-	public String readFreeboardPostPage(Model model, int id) {
+	public String readFreeboardPostPage(Model model, int id, FreeboardEmpathyDto paraFreeboardEmpathyDto, HttpSession session) {
 			System.out.println("컨트롤 상세글보기 페이지 시작");
 		
+			
+		paraFreeboardEmpathyDto.setFreeboard_id(id);
+		
+		StudentInfoDto aa = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		paraFreeboardEmpathyDto.setStudent_pk(aa.getStudent_pk());
+			
 		//조회수 카운트
 		freeboardCounselService.readCount(id);
 			System.out.println("컨트롤 readCount시작");
@@ -135,11 +143,11 @@ public class FreeboardCounselController {
 		Map<String, Object> pickpostMap = freeboardCounselService.pickPost(id);
 		model.addAttribute("pickpostMap", pickpostMap);
 			System.out.println("컨트롤 상세글 뽑아와서 모델에 넣음");
-//		List<FreeboardImageDto> list = (List<FreeboardImageDto>)pickpostMap.get("freeboardImageDtoList");
-//		
-//		for(FreeboardImageDto FreeboardImageDto : list) {
-//			System.out.println(FreeboardImageDto.getFreeboard_image_link());
-//		}
+
+		//유저정보와 게시글 정보로 공감 카운트 뽑아오기 
+		Map<String, Object>	countedEmpathy= freeboardCounselService.submitAndSelectEmpathy(paraFreeboardEmpathyDto);
+			System.out.println("countedEmpathy : "+countedEmpathy);
+		model.addAttribute("countedEmpathy", countedEmpathy);
 		
 		//댓글
 		List<Map<String, Object>> selectFreeboardCommentList= freeboardCounselService.selectFreeboardComment();
@@ -154,10 +162,30 @@ public class FreeboardCounselController {
 		return "tl_e/freeboardCounsel/readFreeboardPostPage";
 	}
 	
+	//공감 집어넣기
+	@RequestMapping("insertEmpathy")
+	public String insertEmpathy(FreeboardEmpathyDto paraFreeboardEmpathyDto) {
+		freeboardCounselService.insertEmpathy(paraFreeboardEmpathyDto);
+		return "redirect: ./readFreeboardPostPage?id=" + paraFreeboardEmpathyDto.getFreeboard_id();
+	}
+	
+	//공감 삭제하기
+	@RequestMapping("deleteEmpathyByIdAndPk")
+	public String deleteEmpathyByIdAndPk(FreeboardEmpathyDto paraFreeboardEmpathyDto) {
+		freeboardCounselService.deleteEmpathyByIdAndPk(paraFreeboardEmpathyDto);
+		return "redirect: ./readFreeboardPostPage?id=" + paraFreeboardEmpathyDto.getFreeboard_id();
+
+	}
+	
 	//댓글 작성하기
 	@RequestMapping("insertFreeboardComment")
-	public String insertFreeboardComment(FreeboardCommentDto paraFreeboardCommentDto) {
-			System.out.println("insertFreeboardComment 시작");
+	public String insertFreeboardComment(FreeboardCommentDto paraFreeboardCommentDto, HttpSession session) {
+
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+
+		paraFreeboardCommentDto.setStudent_pk(studentInfoDto.getStudent_pk());
+		
+		System.out.println("insertFreeboardComment 시작");
 		freeboardCounselService.insertFreeboardComment(paraFreeboardCommentDto);
 			System.out.println("insertFreeboardComment 완료");
 		return "redirect: ./readFreeboardPostPage?id=" + paraFreeboardCommentDto.getFreeboard_id();

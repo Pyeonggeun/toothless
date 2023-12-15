@@ -136,7 +136,7 @@
 															pattern="yyyy-MM-dd hh:mm" />
 													</p>
 													<a href="./ajdksSelectInternPage?internship_course_pk=${companyList.INTERNSHIP_COURSE_PK}"
-													 class="d-grid btn" style="background-color:	; outline-color:#CFE2FF;">상세보기</a>
+													 class="d-grid btn" style="background-color:	#CFE2FF; outline-color:#CFE2FF;">상세보기</a>
 												</div>
 											</div>
 										</c:forEach>

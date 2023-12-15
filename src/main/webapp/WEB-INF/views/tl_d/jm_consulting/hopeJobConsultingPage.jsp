@@ -18,7 +18,12 @@
 	//그러면 등록하면서 리로딩이 되어야함
 	//리로딩 함수안에선 신청가능키, 새답변키 함수가 실행
 	
+	var shared_hope_job_pk;
 	
+	function openModal() {
+	  var modal = document.getElementById('myModal');
+	  modal.style.display = 'block';
+	}
 	
 	
 	
@@ -47,7 +52,6 @@
 		.then(response => response.json())
 		.then(response =>{
 			
-			console.log(response.data+"리로딩쪽");
 			
 			//실행할 함수들
 			
@@ -67,7 +71,6 @@
 			//어디에?
 			const checkIsInsertOnlineConsulting = document.querySelector("#checkIsInsertOnlineConsulting");
 			
-			console.log(check+"신청현황");
 
 					
 			//if문, 그냥 false일때 disabled걸자
@@ -94,7 +97,6 @@
 		//어디에?
 		const checkIsNewOnlineConsultingReply = document.querySelector("#checkIsNewOnlineConsultingReply");
 		
-		console.log(check+"상담현황");
 				
 		//if문, false일때 신청가능하다 = 답변이있다 즉 상담현황은 true일때 새답변 알람끄기 
 		if(check==true){
@@ -113,12 +115,302 @@
 				
 	}	;
 		
+
+	
+	
+	
+	
+	
+	
+<%-- 구직관심관리 --%>
+<%-- --%>
+<%-- 전체 카테고리 불러오고 출력 --%>
+function getCategortListAll(){
+	
+	url = "./getHopeJobCategoryList"
+	
+	fetch(url)
+	.then(response => response.json())
+	.then(response =>{
+		
+		
+		//복사 붙여넣기할 위치
+		const allJobFiledList = document.getElementById("allJobFiledList");
+		
+		allJobFiledList.innerText='';
+		allJobFiledList.innerHTML='';
+		for(e of response.data){
+		
+		<%-- 복사할 템플릿 불러오기 --%>
+		const listWrapper = document.querySelector("#templete .listWrapper").cloneNode(true);
+		
+		//리스트네임 위치찾기
+		const listName = listWrapper.querySelector(".listName");
+		
+		//리스트네임에 불러온값(카테고리이름) 넣어주기
+		listName.innerText = e.jobFieldCategoryDto.job_field_category_name;	
+		//카테고리 input type checkbox 값 할당해서 넣어주기
+		
+		//위치찾기
+		const listIsCheck = listWrapper.querySelector(".listIsCheck");
+		
+		//input엘리먼트부여
+		const listIsCheckElement = document.createElement('input');
+		
+		//type속성부여
+		listIsCheckElement.type = 'checkbox';
+		listIsCheckElement.value = e.jobFieldCategoryDto.job_field_category_pk;
+		
+		//나중에 등록할때 다중 선택을 위한 class부여
+		listIsCheckElement.classList.add('insertHopeJobCategoryValue');
+		
+		//이미 학생의 관심분야일때 disabled
+		if(e.isBoolean == true){
+			listIsCheckElement.disabled = true;
+		}
+		
+		
+		//마무리
+		listIsCheck.appendChild(listIsCheckElement);
+		allJobFiledList.appendChild(listWrapper);
+		};//포문끝
+				
+	});
+	
+}//전체 카테고리끝
+
+<%--내 카테고리 --%>
+function getMyHopeJobCategoryList(){
+
+	url = "./getMyHopeJobCategoryList"
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response =>{
+			
+			const myJobFiledList = document.getElementById("myJobFiledList");
+			
+			
+			myJobFiledList.innerText='';
+			
+			
+			for(e of response.data){
+				
+				const listWrapper = document.querySelector("#templete .listWrapper").cloneNode(true);
+				const listName = listWrapper.querySelector(".listName");
+				listName.innerText = e.jobFieldCategoryDto.job_field_category_name;
+				
+				
+				const listIsCheck = listWrapper.querySelector(".listIsCheck");
+				
+				
+				const listIsCheckElement = document.createElement('input');
+				listIsCheckElement.type = 'checkbox';					
+				listIsCheckElement.value = e.hopeJobCategoryDto.hope_job_category_pk;
+				listIsCheckElement.classList.add("deleteMyHopeJobCategoryValue");
+				
+				listIsCheck.appendChild(listIsCheckElement);
+				myJobFiledList.appendChild(listWrapper);
+				
+			};				
+		});
+	
+}
+
+
+//구직관심분야 등록하기	
+function insertHopeJobCategory(){
+
+	//체크된 등록 벨류들 가져오기
+	//input.에서 .은 class선택자라고함
+	var checkboxes = document.querySelectorAll('input.insertHopeJobCategoryValue:checked');
+	console.log(checkboxes);
+	// 체크박스 벨류담을 배열생성
+	var checkBoxValues = [];
+	//for문돌려서 value뽑기
+      checkboxes.forEach(function(checkbox) {
+    	checkBoxValues.push(checkbox.value);
+      });
+	
+	if(checkboxes.length==0){
+		alert("등록할 분야를 선택해 주세요!");
+		return;
+	}
+
+	//등록		
+	<%--링크--%>
+	const url = "./insertHopeJobCategory?checkBoxValues=" + checkBoxValues;
+	fetch(url)
+	.then(response => response.json()) //얘는 es5처럼 역직렬화 해줘야함(제이쿼리는 안해줌) (언어변환) 
+	.then((response) => {
+		getCategortListAll();
+		getMyHopeJobCategoryList();
+	})	;
+}
+
+
+//내 구직희망 카테고리 삭제
+function deleteMyHopeJobCategory(){
+	
+	
+	//체크된거 뽑기
+	var checkboxes = document.querySelectorAll('input.deleteMyHopeJobCategoryValue:checked');
+	
+	var checkBoxValues = [];
+	
+	if(checkboxes.length==0){
+		alert("삭제할 분야를 선택해 주세요!");
+		return;
+	}		
+	
+	for(var e of checkboxes){
+		checkBoxValues.push(e.value);
+	};
+	
+	//체크된거 삭제
+	const url = "./deleteMyHopeJobCategory?checkBoxValues=" + checkBoxValues;
+	fetch(url)
+	.then(response => response.json()) //얘는 es5처럼 역직렬화 해줘야함(제이쿼리는 안해줌) (언어변환) 
+	.then((response) => {
+		getCategortListAll();
+		getMyHopeJobCategoryList();
+	})	;		
+	
+}
+	
+	
+	
+	
+	
+	//내 구직희망 정보 ${map.studentInfoDto.student_pk}
+	function myHopeJobInfo(){
+		const url = "./myHopeJobInfo";
+		
+		fetch(url)
+		.then(response => response.json())  
+		.then((response) => {
+			
+			const myHopeJobInfo = response.data;
+			const requierments = myHopeJobInfo.hopeJobDto.requierments;
+			const hope_area = myHopeJobInfo.hopeJobDto.hope_area;
+			const hope_salary = myHopeJobInfo.hopeJobDto.hope_salary;
+			const hope_job_pk = myHopeJobInfo.hopeJobDto.hope_job_pk;
+			const student_pk = myHopeJobInfo.studentInfoDto.student_pk;
+			shared_hope_job_pk = myHopeJobInfo.hopeJobDto.hope_job_pk;
+			//다른곳에서도 hope_job_pk필요
+			
+			//값 세팅
+			document.querySelector("#requierments").value = requierments;
+			document.querySelector("#hope_area").value = hope_area;
+			document.querySelector("#hope_salary").value = hope_salary;
+			document.querySelector("#hope_job_pk").value = hope_job_pk;
+			document.querySelector("#student_pk").value = student_pk;
+
+		})	
+	}
+	
+	
+	<%-- --%>
+	//구직희망정보 수정
+	function updateMyHopeJobInfo(){
+		
+		//값세팅
+		const hope_job_pk = document.querySelector("#hope_job_pk").value;
+		const requierments = document.querySelector("#requierments").value;
+		const hope_area = document.querySelector("#hope_area").value;
+		const hope_salary = document.querySelector("#hope_salary").value;
+		const student_pk = document.querySelector("#student_pk").value;
+		
+		//예외처리
+		if(hope_salary==0){
+							
+		}
+		if(hope_area==null){
+					
+		}
+			
+		
+		if(requierments==null){
+						
+		}
+
+		
+		//코드실행
+		const url ="./updateHopeJobProcess?hope_job_pk="+hope_job_pk+"&requierments="+requierments+"&hope_area="+hope_area+"&hope_salary="+hope_salary+"&student_pk="+student_pk ;
+		fetch(url)
+		.then(response => response.json())  
+		.then((response) => {
+		})	;
+		
+	}
+	
+	
+	
+	
+	
+	//희망연봉 null점검
+	function checkHopeSalaryNull(){
+		var warningHopeSalaryValue = document.querySelector("#warningHopeSalaryValue")
+		var checkHopeSalaryNull = document.querySelector("#hope_salary").value;
+		if(checkHopeSalaryNull==null || checkHopeSalaryNull==0 ||checkHopeSalaryNull == ''){
+			warningHopeSalaryValue.innerHTML='';
+			const spanEl = document.createElement('span');
+			spanEl.innerText="연봉 0원 이상으로 입력해주세요";
+			warningHopeSalaryValue.appendChild(spanEl);
+		};
+	}
+	
+	//희망지역 null점검
+	function checkHopeAreaNull(){
+		var warningHopeAreaValue = document.querySelector("#warningHopeAreaValue")
+		var checkHopeAreaNull = document.querySelector("#hope_area").value;
+		if(checkHopeAreaNull==null ||checkHopeAreaNull == ''){
+			warningHopeAreaValue.innerHTML='';
+			const spanEl = document.createElement('span');
+			spanEl.innerText="희망지역을 입력해주세요";
+
+			warningHopeAreaValue.appendChild(spanEl);
+		};
+	}	
+	
+	//희망요구사항 null점검
+	function checkHopeRequiermentsNull(){
+		var warningHopeRequiermentsValue = document.querySelector("#warningHopeRequiermentsValue")
+		var checkHopeRequiermentsNull = document.querySelector("#requierments").value;
+		if(checkHopeRequiermentsNull==null ||checkHopeRequiermentsNull == ''){
+			warningHopeRequiermentsValue.innerHTML='';
+			const spanEl = document.createElement('span');
+			spanEl.innerText="요구사항을 입력해주세요";
+			warningHopeRequiermentsValue.appendChild(spanEl);
+		};
+	}	
+	
+	
+	
+	//구직희망프로그램 종료
+	function endHopeJobConsulting(){
+		console.log(shared_hope_job_pk+"따당");
+		const url="./endHopeJobConsulting?hope_job_pk=" + shared_hope_job_pk;
+		
+		
+			fetch(url)
+			.then(response => response.json())  
+			.then((response) => {
+			})	;
+		
+	}
+	
+	
+	
+	
 	
 	
 	<!-- -->
 	window.addEventListener("DOMContentLoaded", () => {
 		reloadOnlineConsultingState();
-
+		getCategortListAll();
+		getMyHopeJobCategoryList();
+		myHopeJobInfo();
 	});		
 
 </script>
@@ -273,18 +565,101 @@
 							</div>
 							<div class="row ">
 								<div class="col">
-									<a class="navbar-brand" href="./insertHJCPage">
-										<span class="fw-bold pt-2" style="font-size:1.2em;">
-											구직관심 관리
-										</span>
-									</a>
+									
+									<span class="fw-bold pt-2" style="font-size:1.2em;">
+										구직관심 관리
+									</span>
+									
 								</div>						
 							</div>
 							<div class="row">
 								<div class="col pt-1 pb-3" style="font-size:0.8em;">
+								<%--
 									<span>
 										나의 구직관심 분야를 관리
 									</span>
+								 --%>
+								<button type="button" class=" btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#hopeJobSettingModal">
+									이동
+								</button>
+								
+								<!-- Modal -->
+								<div class="modal fade" id="hopeJobSettingModal" tabindex="-1" aria-labelledby="hopeJobSettingModal" aria-hidden="true">
+								  <div class="modal-dialog">
+								    <div class="modal-content">
+								      <div class="modal-header text-center">
+								        <h1 class="modal-title text-center fs-5 fw-bold" id="exampleModalLabel">구직관심분야 관리</h1>
+								        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								      </div>
+								      <div class="modal-body">
+								      	
+				
+										<div class="col mx-2 my-2">
+										
+										
+											
+											<div class="row">
+												<div class="col p-3 border text-center">
+													<div class="row py-3 border-bottom border-2 ">
+														<div class="col fw-bold" style="font-size:1.4em;">
+															전체 관심 분야
+														</div>
+													</div>
+													<div class="row pt-3">
+														<div id="allJobFiledList" class="col" style="font-size:0.9em;">
+															
+														</div>
+													</div>					
+												</div>
+												<!-- 등록/삭제버튼 -->
+												<div class="col-2 text-center">
+													<div class="row mt-5 pt-5">
+														<div class="col mt-5 pt-5" style="font-size:2.3em;">
+															<div class="row">
+																<div class="col">
+																	<button type="button" class="btn btn-light" style="font-size:1em;"><i onclick="insertHopeJobCategory()" class="bi-btn bi-arrow-right-square"></i></button>
+																	
+																</div>
+															</div>
+															<div class="row pt-2">
+																<div class="col">
+																	<i onclick="deleteMyHopeJobCategory()" class="bi bi-arrow-left-square"></i>
+																</div>
+															</div>							
+														</div>
+													</div>							
+												</div>
+												
+												<div class="col p-3 border text-center">
+													<div class="row py-3 border-bottom border-2">
+														<div class="col fw-bold" style="font-size:1.4em;">
+															내 관심 분야
+														</div>
+													</div>
+													<div class="row pt-3">
+														<div id="myJobFiledList" class="col" style="font-size:0.9em;"><!-- 리스트래퍼 -->
+															
+														</div>
+													</div>					
+												</div>
+											</div>
+														
+																	
+										</div>											      	 	
+								      	  
+								      	
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+								        
+								      </div>
+								    </div>
+								  </div>
+								</div>									 
+								 
+								 
+								 
+								 
 								</div>						
 							</div>										
 						</div>
@@ -299,18 +674,92 @@
 							</div>
 							<div class="row">
 								<div class="col">
-									<a class="navbar-brand" href="./unAnsweredHJFListPage">
+									<a class="navbar-brand" href="./myUnAnsweredHJFListPage">
+									
 										<span class="fw-bold pt-2" style="font-size:1.2em;">
-											만족도 조사
+											미응답 만족도 조사
 										</span>
 									</a>
 								</div>						
 							</div>
 							<div class="row">
 								<div class="col pt-1 pb-3" style="font-size:0.8em;">
-									<span>
-										종료된 구직 희망 프로그램 만족도 조사 없으면 모달창@
-									</span>
+								
+								
+									<c:choose>
+										<c:when test="${countUnAnsweredHJF==0}">
+											<button disabled type="button" class=" btn btn-outline-secondary">
+												<span class="fw-bold" style="font-size:1.2em;">${countUnAnsweredHJF}</span> 건
+											</button>	
+										
+										</c:when>
+										
+										<c:otherwise>
+										
+										
+										<!-- Button trigger modal -->
+										<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#myUnAnsweredHJF">
+										  <span class="fw-bold" style="font-size:1.2em;">${countUnAnsweredHJF}</span> 건
+										</button>
+										
+										<!-- Modal -->
+										<div class="modal fade" id="myUnAnsweredHJF" tabindex="-1" aria-hidden="true">
+										  <div class="modal-dialog">
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <h1 class="modal-title fs-5" id="exampleModalLabel">미응답 만족도 조사 리스트</h1>
+										        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										      </div>
+										      <div class="modal-body">
+										        <div class="row">
+										        	<div class="col">
+										        		<div class="row fw-bold border-2 border-bottom pb-3">
+										        			<div class="col">
+										        				신청번호
+										        			</div>
+										        			<div class="col">
+										        				구직 희망 신청일
+										        			</div>
+										        			<div class="col">
+										        				만족도 조사하기
+										        			</div>										        													        			
+										        		</div>
+										        		<div class="row pt-2">
+										        			<div class="col">
+										        				<c:forEach items="${hopeJobDtoList}" var="e">
+										        					<div class="row py-3">
+										        						<div class="col">
+										        							${e.hope_job_pk}
+										        						</div>
+										        						<div class="col">
+										        							<fmt:formatDate value="${e.created_at}" pattern="yyyy-MM-dd"/>
+										        						</div>
+										        						<div class="col">
+										        							<a href="./insertHJFPage?hope_job_pk=${e.hope_job_pk}" style="text-decoration: none;"> 바로가기 ></a>
+										        						</div>										        																        																        						
+										        					</div>										        				
+										        				</c:forEach>
+										        			</div>
+										        		</div>
+										        	</div>
+										        </div>
+										      </div>
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>										        
+										      </div>
+										    </div>
+										  </div>
+										</div>										
+										
+										
+										
+										
+							
+																																					
+										</c:otherwise>													
+									</c:choose>
+								
+								
 								</div>						
 							</div>										
 						</div>			
@@ -354,9 +803,75 @@
 							</div>
 							<div class="row">
 								<div class="col pt-1 pb-3" style="font-size:0.8em;">
-									<span>
-										나의 구직희망 정보 열람 및 수정 하기
-									</span>
+									
+									<button onclick="myHopeJobInfo()" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#updateHopeJob">
+									  수정
+									</button>
+									
+									
+									<div class="modal fade" id="updateHopeJob" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-dialog-scrollable">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h1 class="modal-title fs-5" id="exampleModalLabel">구직희망 정보 수정</h1>
+									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									      </div>
+									      <div class="modal-body">
+											  <div class="row mt-4" style="font-size:0.9em;">
+													<div class="col">
+														<div class="row">
+															<div class="col-2 pe-0 border-end">
+																희망 연봉
+															</div>
+															<div class="col ms-4 border">
+																<input onblur="checkHopeSalaryNull()" id="hope_salary" type="number" min="0" name="hope_salary" value="" style="width:100%; border:none; outline:none;">
+															</div>	
+															<div class="col-1" style="font-size:0.8em; display: flex; align-items: center;">원</div>
+															<div id="warningHopeSalaryValue" class="col-6" style="text-align: left; display: flex; align-items:center; color:red; font-size:0.9em;"></div>				
+														</div>
+														<div class="row pt-3">
+															<div class="col-2 pe-0 border-end">
+																희망 지역
+															</div>
+															<div class="col ms-4 border">
+																<input onblur="checkHopeAreaNull()" id="hope_area" type="text" name="hope_area" placeholder="" style="width:100%; border:none; outline:none;">
+															</div>				
+															<div class="col-1"></div>
+															<div id="warningHopeAreaValue" class="col-6" style="text-align: left; display: flex; align-items:center; color:red; font-size:0.9em;"></div>			
+														</div>
+														<div class="row text-left pt-3">
+															<div class="col">
+																<div class="row">
+																	<div class="col ps-4" style="text-align:left;">
+																	 	요구사항
+																	</div>
+																	<div id="warningHopeRequiermentsValue" class="col-9" style="text-align: left; display: flex; align-items:center; color:red; font-size:0.9em;">
+																		
+																	</div>
+																</div>
+																<div class="row border mx-2 my-2 px-1 py-1">
+																	<div class="col">
+																		<textarea onblur="checkHopeRequiermentsNull()" id="requierments" name="requierments" rows="30" cols="8" placeholder="" style="width:100%; border:none; outline:none;"></textarea>
+																	</div>
+																</div>							
+															</div>						
+														</div>																	
+													</div>
+													<div class="row">
+														<div class="col">
+															<input id="hope_job_pk" type="hidden" name="hope_job_pk" value="">
+															<input id="student_pk" type="hidden" name="student_pk" value="">
+														</div>
+													</div>
+												</div>								       
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+									        <button onclick="updateMyHopeJobInfo()" type="button" class="btn btn-primary">수정</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
 								</div>						
 							</div>										
 						</div>
@@ -380,9 +895,48 @@
 							</div>
 							<div class="row">
 								<div class="col pt-1 pb-3" style="font-size:0.8em;">
-									<span>
-										진행중인 구직희망 프로그램을 종료 경고창 표시@
-									</span>
+								
+									<!-- Button trigger modal -->
+									<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#endHopeJobConsulting">
+									  종료
+									</button>
+									
+									<!-- Modal -->
+									<div class="modal fade" id="endHopeJobConsulting" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+									  <div class="modal-dialog">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h1 class="modal-title fs-5" id="staticBackdropLabel">구직희망 프로그램 종료</h1>
+									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									      </div>
+									      <div class="modal-body">
+									        <div class="row">
+									        	<div class="col fw-bold">
+									        		정말로 구직희망 프로그램을 <span class="color-red">종료</span> 하시겠습니까?	
+									        	</div>
+									        </div>
+									        <div class="row pt-2">
+									        	<div class="col text-secondary" style="font-size:0.9em;">
+									        		*종료하신후 복구는 불가능 합니다.
+									        	</div>
+									        </div>									        
+									        
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+									        
+									        <a href="./hopeJobConsultingPage" style="">
+									        <button onclick="endHopeJobConsulting()" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+									        프로그램 종료
+									        </button>
+									        </a>
+									        
+									      </div>
+									    </div>
+									  </div>
+									</div>								
+
+
 								</div>						
 							</div>										
 						</div>				
@@ -400,7 +954,16 @@
 
 
 
+<div id ="templete" class="d-none">
+	<div class="listWrapper row py-2" style="font-size:1.1em;">
+		<div class="listName col ps-3">
 
+		</div>
+		<div class="listIsCheck ps-4 col">
+			
+		</div>					
+	</div>
+</div>
 
 
 

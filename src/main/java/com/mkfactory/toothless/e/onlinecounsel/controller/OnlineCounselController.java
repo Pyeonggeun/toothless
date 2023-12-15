@@ -20,6 +20,8 @@ import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselReplyDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselSurveyDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
+import com.mkfactory.toothless.e.groupcounsel.service.GroupCounselStaffServiceImpl;
+import com.mkfactory.toothless.e.notice.service.NoticeServiceImpl;
 import com.mkfactory.toothless.e.onlinecounsel.service.OnlineCounselService;
 
 
@@ -30,10 +32,24 @@ public class OnlineCounselController {
 	@Autowired
 	private OnlineCounselService onlineCounselService;
 	
+	@Autowired
+	private NoticeServiceImpl noticeServiceImpl;
 	
-/*	만족도 조사가 완료 된 글 리스팅 될 때 제목 옆에 아이콘 같은거 띄우는거 해보기
- * 	자신이 만족도 조사한 것을 자기 글에 들어갔을때 본인도 볼 수 있게 하기
-*/
+	@Autowired
+	private GroupCounselStaffServiceImpl groupCounselStaffServiceImpl;
+	
+	
+	
+	// 모든 엔트리 출력
+//  List<Map<String, Object>> testList = onlineCounselService.getAllCounselListByStudentPk(studentPk);
+//  Map<String, Object> testMap = testList.get(0);
+//  for (Map.Entry<String, Object> entry : testMap.entrySet()) {
+//      String key = entry.getKey();
+//      Object value = entry.getValue();
+//      System.out.println("Key: " + key + ", Value: " + value);
+//  }
+	
+	
 	
 	
 	//	****	학생 메인페이지		****
@@ -45,14 +61,7 @@ public class OnlineCounselController {
 		int studentPk = studentInfoDto.getStudent_pk();
 		model.addAttribute("counselList", onlineCounselService.getAllCounselListByStudentPk(studentPk));
 		
-		// 모든 엔트리 출력
-//      List<Map<String, Object>> testList = onlineCounselService.getAllCounselListByStudentPk(studentPk);
-//      Map<String, Object> testMap = testList.get(0);
-//      for (Map.Entry<String, Object> entry : testMap.entrySet()) {
-//          String key = entry.getKey();
-//          Object value = entry.getValue();
-//          System.out.println("Key: " + key + ", Value: " + value);
-//      }
+
 		return "tl_e/onlineCounsel/onlineCounselMainPage";
 	}
 	
@@ -162,59 +171,8 @@ public class OnlineCounselController {
 	}
 	
 	
-	
-	
-	
-	
+
 }	
-
-
-
-
-
-
-
-//	@RequestMapping("counselorOnlineCounselMainPage")
-//	public String counselorOnlineCounselMainPage(HttpSession session, Model model) {
-//		
-//		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
-//		int externalPk = externalInfoDto.getExternal_pk();  // 302
-//		
-//		CounselorDto counselorDto = onlineCounselService.getCounselorInfo(externalPk);
-//
-//		int id = counselorDto.getId(); //82
-//		
-//		List<CounselorTypeDto> counselorTypeDtoList = onlineCounselService.getCounselorTypeInfo(id);
-//		List<List<Map<String, Object>>> counselList = new ArrayList<>();
-////		System.out.println(counselorTypeDtoList);
-////		counselList.aList.studentDto.name
-//		
-//		for(CounselorTypeDto counselorTypeDto : counselorTypeDtoList) {
-//			int typeCategoryId = counselorTypeDto.getType_category_id();  //3 , 4
-//			List<Map<String, Object>> aList = new ArrayList<>();
-//			List<OnlineCounselBoardDto> onlineCounselBoardDtoList = onlineCounselService.getCounselBoardInfo(typeCategoryId);
-//			
-//			for(OnlineCounselBoardDto onlineCounselBoardDto : onlineCounselBoardDtoList) {
-//				int studentPk = onlineCounselBoardDto.getStudent_id();
-//				StudentInfoDto studentInfoDto = onlineCounselService.getStudentInfo(studentPk);
-//				Map<String, Object> map = new HashMap<>();
-//				map.put("studentInfoDto", studentInfoDto);
-//				map.put("onlineCounselBoardDto", onlineCounselBoardDto);
-//				aList.add(map);	
-//				
-//			}	
-//			counselList.add(aList);
-//		}
-//		
-//		
-//		model.addAttribute("counselList", counselList);
-//		
-//		return "tl_e/onlineCounsel/counselorOnlineCounselMainPage";
-//		
-//		
-//		
-//		
-//	}
 
 
 

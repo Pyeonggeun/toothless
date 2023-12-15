@@ -42,16 +42,19 @@ public class StaffBoardController {
 		StaffInfoDto sessionStaffInfo =(StaffInfoDto) session.getAttribute("sessionStaffInfo");
 		int staffPk = sessionStaffInfo.getStaff_pk(); 
 		params.setStaff_pk(staffPk);
-			
 		
 		int total = staffBoardService.totalList(params);
 		int aa = staffBoardService.upAndDownCount(likeDto);
 		
 		List<Map<String, Object>>list=staffBoardService.boardNoticeList(searchType, searchWord);
-	
+		List<Map<String, Object>>readList = staffBoardService.bestRead();
+		
+		
 		model.addAttribute("aa" , aa);
 		model.addAttribute("noticeList", list);
 		model.addAttribute("total", total);
+		model.addAttribute("readList", readList);
+		
 		return "tl_b/ty/staffBoardPage";
 	}
 	

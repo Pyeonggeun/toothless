@@ -77,7 +77,7 @@
 						<!-- 본문작성공간 -->
 						<br> <br>
 						<div class="container">
-			
+
 							<div class="row">
 								<h2>
 									<span class="fw-bolder"><i class="bi bi-calendar-check"></i>&nbsp;신청내역
@@ -200,9 +200,10 @@
 														</tr>
 													</thead>
 													<tbody>
-														<c:forEach items="${list2}" var="companyList">
+														<c:forEach items="${list2}" var="companyList"
+															varStatus="loopStatus">
 															<tr>
-																<th scope="row">${companyList.INTERNSHIP_COURSE_PK}</th>
+																<th class="text-center">${loopStatus.index + 1}</th>
 																<th scope="row">${companyList.COMPANY_NAME}</th>
 																<th scope="row">${companyList.ADDRESS}</th>
 																<th><fmt:formatDate

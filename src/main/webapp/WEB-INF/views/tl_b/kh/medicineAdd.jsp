@@ -19,6 +19,170 @@
 	            background-color: #014195;
 	        }
 		</style>
+
+        <script>
+
+            function addInfoSubmit(){
+
+                const addInfoSubmit = document.getElementById("addInfoSubmit");
+
+                const addCatInfo = document.querySelector("#addCatInfo");
+                
+                if(addCatInfo.value === '의약품종류'){
+                    alert("의약품종류를 선택해 주세요");
+                    return;
+                }
+                const addQuantity = document.querySelector("#addQuantity");
+                if(addQuantity.value.trim() === ""){
+                    alert("수량을 입력해주세요.");
+                    addQuantity.focus();
+                    return;
+                }
+                const maxDate = document.querySelector("#maxDate");
+                if(!maxDate.value){
+                    alert("정확한 입고일을 입력해주세요.");
+                    maxDate.focus();
+                    return;
+                }
+
+                addInfoSubmit.submit();
+                orderDate(1);
+
+            }
+
+            let maxToday = null;
+
+            // 오늘 날짜를 YYYY-MM-DD 형식으로 가져오는 함수
+            function getToday() {
+                const today = new Date();
+                const dd = String(today.getDate()).padStart(2, '0');
+                const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+                const yyyy = today.getFullYear();
+                return yyyy + '-' + mm + '-' + dd;
+            }
+
+
+            // const dateInput = document.querySelector("#maxDate");
+            // dateInput.setAttribute("max", ""+getToday()+"");
+
+
+            let aa = null;
+            function reloadAddinfo(){
+                
+                const url = "./getAddInfo";
+
+                fetch(url)
+                .then(response => response.json())
+                .then(response => {
+
+                const allAddInfoLocation = document.querySelector(".allAddInfoLocation");
+                allAddInfoLocation.innerHTML = "";
+
+                for (e of response.data){
+                    const addWrapper = document.querySelector("#templete .addWrapper").cloneNode(true);
+
+                    const addNumber = addWrapper.querySelector(".addNumber");
+                    addNumber.innerHTML = e.addInfo.medicine_add_pk;
+
+                    const medicineName = addWrapper.querySelector(".medicineName");
+                    medicineName.innerHTML = e.medicineInfo.name;
+
+                    const addQuantity = addWrapper.querySelector(".addQuantity");
+                    addQuantity.innerHTML = e.addInfo.quantity;
+
+                    const addPerson = addWrapper.querySelector(".addPerson");
+                    addPerson.innerHTML = e.staffInfo.name;
+
+                    const addDate = addWrapper.querySelector(".addDate");
+                    const date = new Date(e.addInfo.add_at);
+                    addDate.innerHTML = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
+
+                    allAddInfoLocation.appendChild(addWrapper)
+
+                }
+
+
+                });
+
+            }       
+
+            function orderDate(obj){
+                console.log(obj)
+                const url = "./restGetAddInfo?orderDate="+obj;
+
+                fetch(url)
+                .then(response => response.json())
+                .then(response => {
+
+                const allAddInfoLocation = document.querySelector(".allAddInfoLocation");
+                allAddInfoLocation.innerHTML = "";
+
+                for (e of response.data){
+                    const addWrapper = document.querySelector("#templete .addWrapper").cloneNode(true);
+
+                    const addNumber = addWrapper.querySelector(".addNumber");
+                    addNumber.innerHTML = e.addInfo.medicine_add_pk;
+
+                    const medicineName = addWrapper.querySelector(".medicineName");
+                    medicineName.innerHTML = e.medicineInfo.name;
+
+                    const addQuantity = addWrapper.querySelector(".addQuantity");
+                    addQuantity.innerHTML = e.addInfo.quantity;
+
+                    const addPerson = addWrapper.querySelector(".addPerson");
+                    addPerson.innerHTML = e.staffInfo.name;
+
+                    const addDate = addWrapper.querySelector(".addDate");
+                    const date = new Date(e.addInfo.add_at);
+                    addDate.innerHTML = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
+
+                    allAddInfoLocation.appendChild(addWrapper)
+
+                }
+
+
+                });
+            }
+
+            function reloadAddCatInfo(){
+
+                const url = "./reloadAddCatInfo"
+
+                fetch(url)
+                .then(response => response.json())
+                .then(response => {
+
+                    const addCatInfo = document.querySelector("#addCatInfo");
+                    addCatInfo.innerHTML = "";
+
+                    const defaultOption = document.createElement("option");
+                    defaultOption.setAttribute("selected","");
+                    defaultOption.innerText = "의약품종류";
+                    addCatInfo.appendChild(defaultOption);
+
+                    for(e of response.data){
+                        
+                        const option = document.createElement("option");
+                        option.setAttribute("value", ""+e.medicine_code_pk+"");
+                        option.innerText = e.name;
+                        addCatInfo.appendChild(option);
+
+
+                    }
+
+                })
+
+            }
+
+
+            window.addEventListener("DOMContentLoaded", () => {
+                // reloadAddinfo();
+                orderDate(1);
+                reloadAddCatInfo();
+                const maxToday = getToday(); // 오늘 날짜를 가져옴
+                document.getElementById('maxDate').setAttribute('max', maxToday); // max 속성을 동적으로 설정
+            });
+        </script>
     </head>
     <body>
 
@@ -38,7 +202,7 @@
                                             <div class="container">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="fw-bold">입고 관리</div>
+                                                        <div class="fw-bold">&lt;입고 관리&gt;</div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -46,79 +210,66 @@
                                                         <div class="row">
                                                             <div class="col text-end">
                                                             
-                                                                <a href="" class="btn-sm btn btn-outline-primary rounded-0">최신순</a>
-                                                                <a href="" class="btn-sm btn btn-outline-primary rounded-0">오래된순</a>
+                                                                <input onchange="orderDate(this.value)" name="orderDate" type="radio" value="1">최신순
+                                                                <input onchange="orderDate(this.value)" name="orderDate" type="radio" value="2">오래된순
                                                                 
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <table class="table table-hover">
-                                                                <thead>
-                                                                  <tr>
-                                                                    <th scope="col">입고번호</th>
-                                                                    <th scope="col">의약품이름</th>
-                                                                    <th scope="col">수량</th>
-                                                                    <th scope="col">입고자</th>
-                                                                    <th scope="col">입고일</th>
-                                                                    <th scope="col"></th>
-                                                                  </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                <c:forEach items="${addInfoAndMedicineInfoList }" var="e">
-                                                                  <tr>
-                                                                    <td>${e.addInfo.medicine_add_pk }</td>
-                                                                    <td>${e.medicineInfo.name }</td>
-                                                                    <td>${e.addInfo.quantity }</td>
-                                                                    <td>${e.staffInfo.name }</td>
-                                                                    <td><fmt:formatDate value="${e.addInfo.add_at }" pattern="yyyy-MM-dd"/></td>
-                                                                    <td><button type="button" class="btn btn-outline-info btn-sm rounded-0"
-																	    data-bs-toggle="popover" data-bs-placement="right"
-																	    data-bs-custom-class="text-center custom-popover"
-																	    data-bs-title="제품 정보"
-																	    data-bs-content="약품명 : ${e.medicineInfo.name }
-																	    				약품효능 : ${e.medicineInfo.efficacy}
-																	    				제조사 : ${e.medicineInfo.company }
-																	    				주의사항 : ${e.medicineInfo.precaution }">
-																	    상세보기
-																	    </button>
-																	</td>
-                                                                  </tr>
-                                                                </c:forEach>  
-                                                                </tbody>
-                                                            </table>
+                                                        <div class="row mt-3 mb-1 pb-3 fw-bold text-center border-bottom border-3 border-primary">
+                                                            <div class="col border-end border-primary">입고번호</div>
+                                                            <div class="col border-end border-primary">의약품이름</div>
+                                                            <div class="col border-end border-primary">수량</div>
+                                                            <div class="col border-end border-primary">입고자</div>
+                                                            <div class="col border-primary">입고일</div>
+                                                            <div class="col"></div>
+                                                        </div>
+                                                        <div class="row mt-1 allAddInfoLocation">
+                                                            <!-- 여기에 반복문 나와야함-->
                                                         </div>
                                                     </div>
                                                     <div class="col-1"></div>
                                                     
-                                                    <div class="col-4">
-                                                    	<form action="./medicineAddProcess" method="get">
-                                                        <div class="row mt-5">
-                                                            <div class="col">
-                                                                <select name="medicine_code_pk" class="form-select rounded-0" aria-label="Default select example">
-                                                                    <option selected>의약품선택</option>
-                                                                    <c:forEach items="${medicineInfo }" var="e">
-                                                                    	<option value="${e.medicine_code_pk }">${e.name}</option>
-                                                                    </c:forEach>
-                                                                </select>
+                                                    
+                                                        <div class="col-4 border-start border-primary ps-5">
+                                                        	<form id="addInfoSubmit" action="./medicineAddProcess" method="get">
+                                                            <div class="row">
+                                                                <div class="col text-center">
+                                                                    <span class="fw-bold">의약품 입고</span>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row mt-3">
-                                                            <div class="col">
-                                                                수량 : <input class="rounded-0 form-control" name="quantity" type="number" min="1" max="5">
+                                                            <div class="row mt-5">
+                                                                <div class="col">
+                                                                    <select id="addCatInfo" name="medicine_code_pk" class="form-select rounded-0" aria-label="Default select example">
+                                                                        <!-- 약품 카테고리 반복문 나오는곳-->
+                                                                    </select>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row mt-3">
-                                                            <div class="col">
-                                                                입고일 : <input class="rounded-0 form-control" name="add_at" type="date">
+                                                            <div class="row mt-3">
+                                                            	<div class="col-3">
+                                                                    <span class="form-control border border-0">수량 : </span>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <input id="addQuantity" class="rounded-0 form-control" name="quantity" type="number" min="1" max="10">
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <span class="form-control text-danger border border-0">※최대 10개</span>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row mt-3">
-                                                            <div class="col d-grid">
-                                                            	<button class="btn btn-secondary customColor" type="submit">입고하기</button>
+                                                            <div class="row mt-3">
+                                                            	<div class="col-3">
+                                                            		<span class="form-control border border-0">입고일:</span>
+                                                            	</div>
+                                                                <div class="col">
+                                                                    <input id="maxDate" class="rounded-0 form-control" name="add_at" type="date">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                   		</form>
-                                                    </div>
+                                                            <div class="row mt-3">
+                                                                <div class="col d-grid">
+                                                                    <input type="button" class="btn btn-secondary customColor" onclick="addInfoSubmit()" value="입고하기">
+                                                                </div>
+                                                            </div>
+                                                        	</form>
+                                                	</div>
                                                 </div>
                                                 <div class="row my-3">
                                                     <div class="col">
@@ -157,6 +308,18 @@
             </div>
         </div>
         
+
+        <div id = "templete" class="d-none">
+            <div class="row mt-3 addWrapper text-center border-bottom pb-3 border-primary">
+                <div class="col addNumber ">입고번호</div>
+                <div class="col medicineName">의약품이름</div>
+                <div class="col addQuantity">수량</div>
+                <div class="col addPerson">입고자</div>
+                <div class="col addDate">입고일</div>
+                <div class="col"></div>
+            </div>
+        </div>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script>
 	    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')

@@ -23,6 +23,20 @@ public class RegisterCounselorServiceImpl {
 	@Autowired
 	RegisterCounselorSqlMapper registerCounselorSqlMapper;
 	
+	// AJAX - 상담원 신규등록시 ID중복확인
+	public boolean checkDuplicationID(String inputId) {
+		
+		int resultValue = registerCounselorSqlMapper.checkDuplicationExternalId(inputId);
+		
+		if(resultValue == 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+	}
+	
 	// 상담원 등록
 	public void registerCounselor(
 			ExternalInfoDto externalInfoDto,
@@ -81,20 +95,19 @@ public class RegisterCounselorServiceImpl {
 	// 상담원 전체 중복제거 리스팅 for AJAX
 	public List<Map<String, Object>> getCounselorListForAJAX(
 			String searchCounselorName ,
-			int searchCounselorType ,
+			int[] searchCounselorType ,
 			String searchGenderOption ,
 			String searchScoreOption){
 		System.out.println("[ RegisterCounselorServiceImpl] => [ getCounselorListForAJAX ] 실행됨");
 		System.out.println("---------------------------------------------------------");
 		
-		System.out.println("searchCounselorName : " + searchCounselorName);
-		System.out.println("searchCounselorType : " + searchCounselorType);
+		System.out.println("searchCounselorName : " + searchCounselorName);		
 		System.out.println("searchGenderOption : " + searchGenderOption);
 		System.out.println("searchScoreOption : " + searchScoreOption);		
 		
 		if(
 			!(searchCounselorName.equals("default"))||
-			(searchCounselorType!=0)||
+			(searchCounselorType != null)||
 			!(searchGenderOption.equals("default"))||
 			!(searchScoreOption.equals("default"))) {
 			Boolean searchOption = true;

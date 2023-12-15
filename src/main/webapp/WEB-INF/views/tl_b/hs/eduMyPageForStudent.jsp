@@ -157,19 +157,19 @@
 							</div>
 							<div class="row fw-bold border-bottom my-1">
 								<!-- 프로그램명 -->
-								<div class="col">
+								<div class="col ">
 										프로그램명
 								</div>
 								<!-- 별점 -->
-								<div class="col">
+								<div class="col-2">
 									별점
 								</div>
 								<!-- 평가내용 -->
-								<div class="col">
+								<div class="col-5 text-center">
 									평가내용
 								</div>
 								<!-- 평가일 -->
-								<div class="col">
+								<div class="col-2">
 									평가일
 								</div>
 							</div>
@@ -179,7 +179,7 @@
 								<div class="col">
 									${myser.name}
 								</div>
-								<div class="col">
+								<div class="col-2">
 									<c:choose>
 										<c:when test="${myser.eduStsfcSurveyDto.star_rated eq 5}">
 											⭐⭐⭐⭐⭐
@@ -199,10 +199,10 @@
 									</c:choose>
 									
 								</div>
-								<div class="col">
+								<div class="col-5">
 									${myser.eduStsfcSurveyDto.content }
 								</div>
-								<div class="col">
+								<div class="col-2">
 									<fmt:formatDate value="${myser.eduStsfcSurveyDto.created_at}"
 									pattern="yy년 MM월 dd일"/>
 								</div>
@@ -249,3 +249,11 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 	</body>
 </html>
+
+
+
+
+
+
+
+

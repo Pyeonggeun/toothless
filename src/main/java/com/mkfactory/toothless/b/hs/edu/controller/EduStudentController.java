@@ -28,14 +28,16 @@ public class EduStudentController {
 	@Autowired
 	EduStaffServiceimpl eduStaffService;
 	
-	@Autowired
+	@Autowired 
 	EduStaffSqlMapper eduStaffSqlMapper;
 	
 	//메인, 스태프 서비스 땡겨씀
 	@RequestMapping("eduMainPageForStudent")
-	public String eduMainPageForStudent(Model model) {
+	public String eduMainPageForStudent(Model model, 
+			String searchType,
+			String searchWord) {
 
-		List<Map<String, Object>> list = eduStaffService.getEduProgList();
+		List<Map<String, Object>> list = eduStaffService.getEduProgList(searchType, searchWord);
 
 		model.addAttribute("list", list);
 		

@@ -82,6 +82,11 @@
 						<a class="btn btn-outline-primary" href="./applyProgramListForStaffPage?program_pk=${program.programDto.program_pk}" role="button">신청자 목록보기</a>
 					</div>
 				</div>
+				<div class="row border-bottom py-3">
+					<div class="col-2 p-1 ps-2 fw-bold">
+						<a class="btn btn-outline-primary" href="./programReviewListPage?program_pk=${program.programDto.program_pk}" role="button">프로그램 리뷰보기</a>
+					</div>
+				</div>
 			</div>
 			
 			<!-- 신청 학생수 -->

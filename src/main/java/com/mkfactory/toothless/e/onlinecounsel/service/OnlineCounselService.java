@@ -64,6 +64,7 @@ public class OnlineCounselService {
 			
 			
 			
+			map.put("isSurveyed", onlineCounselSqlMapper.isSurveyed(onlineCounselBoardDto.getId()));
 			map.put("replyCount", onlineCounselSqlMapper.getReplyCount(onlineCounselBoardDto.getId()));
 			map.put("studentDto", onlineCounselSqlMapper.getStudentInfo(onlineCounselBoardDto.getStudent_id()));
 			map.put("onlineCounselBoardDto", onlineCounselBoardDto);
@@ -118,6 +119,7 @@ public class OnlineCounselService {
 				
 				
 				Map<String, Object> map = new HashMap<>();
+				map.put("isSurveyed", onlineCounselSqlMapper.isSurveyed(onlineCounselBoardDto.getId()));
 				map.put("replyCount", onlineCounselSqlMapper.getReplyCount( onlineCounselBoardDto.getId()));
 				map.put("typeCategoryDto", typeCategoryDto);
 				map.put("studentInfoDto", studentInfoDto);
