@@ -45,6 +45,7 @@
 		<div class="col">
 			<div class="row my-5">
 				<div class="col px-0">
+					<a href="./dm_dormIntroduction" style="text-decoration: none;">
 					<button class="px-0 border-1 border-end-0 border-secondary-subtle" style="height:15rem; width:16rem; background-color:white">
 						<div class="row">
 							<div class="col ms-3 mb-2 text-start " style="font-size:1.5rem">
@@ -69,8 +70,10 @@
 							</div>
 						</div>
 					</button>
+					</a>
 				</div>
 				<div class="col px-0">
+					<a href="./dm_dormIntroduction" style="text-decoration: none;">
 					<button class="px-0 border-1 border-end-0 border-secondary-subtle" style="height:15rem; width:16rem; background-color:white">
 						<div class="row">
 							<div class="col ms-3 mb-2 text-start" style="font-size:1.5rem">
@@ -95,8 +98,10 @@
 							</div>
 						</div>
 					</button>
+					</a>
 				</div>
 				<div class="col px-0">
+					<a href="./dm_dormIntroduction" style="text-decoration: none;">
 					<button class="px-0 border-1 border-end-0 border-secondary-subtle" style="height:15rem; width:16rem; background-color:white">
 						<div class="row">
 							<div class="col ms-3 mb-2 text-start" style="font-size:1.5rem">
@@ -122,8 +127,10 @@
 							</div>
 						</div>
 					</button>
+					</a>
 				</div>
 				<div class="col px-0">
+					<a href="./dm_dormIntroduction" style="text-decoration: none;">
 					<button class="px-0 border-1 border-end-0 border-secondary-subtle" style="height:15rem; width:16rem; background-color:white">
 						<div class="row">
 							<div class="col ms-3 mb-2 text-start" style="font-size:1.5rem">
@@ -132,12 +139,12 @@
 						</div>
 						<div class="row">
 							<div class="col ms-3 mb-1 text-start fs-5 fw-bold">
-								<span>생활수칙</span>
+								<span>FAQ</span>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col ms-3 pb-3 text-start" style="font-size:0.9rem">
-								<span>생활관의 생활수칙을 알려드립니다.</span>
+								<span>자주하는 질문을 확인하실 수 있습니다.</span>
 							</div>
 						</div>
 						<div class="row">
@@ -148,8 +155,10 @@
 							</div>
 						</div>
 					</button>
+					</a>
 				</div>
 				<div class="col px-0 " >
+					<a href="./dm_dormIntroduction" style="text-decoration: none;">
 					<button class="px-0 border-1 border-secondary-subtle" style="height:15rem; width:15rem; background-color:white">
 						<div class="row">
 							<div class="col ms-3 mb-2 text-start" style="font-size:1.5rem">
@@ -158,12 +167,12 @@
 						</div>
 						<div class="row">
 							<div class="col ms-3 mb-1 text-start fs-5 fw-bold">
-								<span>생활관 대관 신청 안내</span>
+								<span>고장신고</span>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col ms-3 text-start" style="font-size:0.9rem">
-								<span>생활관 대관(외부)신청, 게스트룸 신청 방법 및 서류를 안내합니다.</span>
+								<span>고장수리를 요청하실 수 있습니다.</span>
 							</div>
 						</div>
 						<div class="row">
@@ -174,6 +183,7 @@
 							</div>
 						</div>
 					</button>
+					</a>
 				</div>
 			</div>
 			<div class="row my-5 py-5">
