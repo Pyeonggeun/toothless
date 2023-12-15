@@ -151,10 +151,28 @@ public class FreeboardCounselServiceImpl {
 		return combinedMap;
 		}
 	
-	//조회수
-	public void readCount(int id) {
-		freeboardCounselSqlMapper.readCount(id);
-	}
+		//-----//
+		//조회수
+		public void readCount(int id) {
+			freeboardCounselSqlMapper.readCount(id);
+		}
+		
+		//-----//
+		//상세게시판 공감 넣기 
+		public void insertEmpathy(FreeboardEmpathyDto paraFreeboardEmpathyDto) {
+		freeboardCounselSqlMapper.insertEmpathy(paraFreeboardEmpathyDto);
+		}
+		
+		//상세게시판 공감 카운트 해오기
+		public int countEmpathyByIdAndPk(int id){
+			return freeboardCounselSqlMapper.countEmpathyByIdAndPk(id); 
+		}
+		
+		//-----//
+		//이미지
+		public List<FreeboardImageDto> getFreeboardImage(int id){
+			return freeboardCounselSqlMapper.selectFreeboardImageDto(id);
+		}
 	
 	//글 삭제
 	public void deleteFreeboardPost(int id) {
@@ -166,14 +184,8 @@ public class FreeboardCounselServiceImpl {
 		freeboardCounselSqlMapper.updateFreeboardPost( paraFreeboardDto);	
 	}
 	
-	//이미지
-	public List<FreeboardImageDto> getFreeboardImage(int id){
-		return freeboardCounselSqlMapper.selectFreeboardImageDto(id);
-	}
 	
 	
-	//상세게시판 공감 넣기 
-	public void insertEmpathy(FreeboardEmpathyDto paraFreeboardEmpathyDto) {
-	freeboardCounselSqlMapper.insertEmpathy(paraFreeboardEmpathyDto);
-	}
+	
+	
 }

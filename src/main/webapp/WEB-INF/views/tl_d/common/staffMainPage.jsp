@@ -20,14 +20,13 @@
 		</div>
 		
 		<div class="row">
-			<div class="col-1"></div>
 			<!-- 취업팀 메뉴 바 -->
-			<div class="col-2 border-end pb-0">
+			<div class="col-2">
 				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 			</div>
 			
 			
-			<div class="col">
+			<div class="col border-start">
 				<!-- 이제 여따가 진행 구직희망, 구직희망 신청,기업 -->
 				<div class="row ms-5 mt-5 pt-3">
 					

@@ -54,7 +54,7 @@ public interface ProgramSqlMapper {
 	public ProgramApplyDto studentApplySelect(int program_apply_pk);
 	
 	//학생이 리뷰 썼나 카운트
-	public ProgramReviewDto studentReviewCount(int program_apply_pk);
+	public int studentReviewCount(int program_apply_pk);
 
 	//교직원이 프로그램 리뷰 보는거
 	public ProgramReviewDto programReviewForStaff(int program_apply_pk);

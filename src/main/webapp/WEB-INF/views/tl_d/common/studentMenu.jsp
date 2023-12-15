@@ -5,42 +5,37 @@
 	<div class="col"></div>
 </div>
 <div class="row">
-	<c:if test="${!empty sessionStudentInfo}">
-		<div class="col ps-5 mt-2">${sessionStudentInfo.name} <span class="fs-5 fw-bold">&nbsp;님</span></div>	
-	</c:if> 
-</div>
-<div class="row">
 	<div class="col mt-3"></div>
 </div>
 <div class="row">
-	<a class="col fs-5 fw-bold ps-3 mt-3 navbar-brand"
+	<a class="col fs-5 fw-bold ps-5 ms-5 mt-3 navbar-brand"
 		href="../common/studentMyPage">마이페이지</a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 navbar-brand" 
-		href="../sb_resume/resumeRegistrationPage">이력서등록</a>
+	<a class="col ps-5 mt-2 ms-5 navbar-brand"
+		href="../sb_resume/resumeRegistrationPage">&nbsp;이력서등록</a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 navbar-brand" 
-		href="../sb_resume/resumeManagementPage">이력서관리</a>
+	<a class="col ps-5 mt-2 ms-5 navbar-brand" 
+		href="../sb_resume/resumeManagementPage">&nbsp;이력서관리</a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 navbar-brand" 
-		href="">관심기업</a>
+	<a class="col ps-5 mt-2 ms-5 navbar-brand" 
+		href="">&nbsp;관심기업</a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 navbar-brand" 
-		href="../ny_posting/interestPostingListForStudentPage">관심공고</a>
+	<a class="col ps-5 mt-2 ms-5 navbar-brand" 
+		href="../ny_posting/interestPostingListForStudentPage">&nbsp;관심공고</a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 navbar-brand" 
-		href="../sb_resume/postApplyListPage">지원공고목록</a>
+	<a class="col ps-5 mt-2 ms-5 navbar-brand" 
+		href="../sb_resume/postApplyListPage">&nbsp;지원공고목록</a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 navbar-brand" 
-		href="#">나의프로그램</a>
+	<a class="col ps-5 mt-2 ms-5 navbar-brand" 
+		href="../gw_program/applyProgramListForStudentPage">&nbsp;나의프로그램</a>
 </div>
 <div class="row">
-	<a class="col fs-5 fw-bold ps-3 mt-3 navbar-brand"
+	<a class="col fs-5 fw-bold ps-5 mt-3 ms-5 navbar-brand"
 		href="#">구직희망</a>
 </div>

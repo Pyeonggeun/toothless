@@ -1,12 +1,16 @@
 package com.mkfactory.toothless.c.woojae.mapper;
 
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.mkfactory.toothless.c.dto.AjdksCompanyCategoryDto;
 import com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto;
+import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 
-public interface WoojaeExternalSqlMapper {
+public interface WoojaeStaffSqlMapper {
 	
 	// 외부사용자 PK
 	public int createExternalPk();
@@ -30,6 +34,13 @@ public interface WoojaeExternalSqlMapper {
 	//사업자 등록번호 확인
 	public int countByCompanyId(String company_id);
 	
-	// 산업페 아이디 확인
+	// 산업체 아이디 확인
 	public int countByExternalId(String external_id);
+	
+	// 산업체 카테고리 + 검색
+	public List<Map<String, Object>> joinedCompanyList(
+			@Param("searchType")int[] searchType,
+			@Param("searchWord")String searchWord);
+	
+	
 }

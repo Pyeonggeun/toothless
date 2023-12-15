@@ -16,6 +16,25 @@
 		/* font-family: 'Quicksand', sans-serif; */
 	}
 </style>
+<script>
+	function formSubmit(){
+		const frm = document.getElementById("frm");
+		const articleTitle = document.getElementById("articleTitle");
+		const articleText = document.getElementById("articleText");
+		
+		if(articleTitle.value == ''){
+			alert("제목을 입력해야 합니다.");
+			articleTitle.focus();
+			return ;
+		}else if(articleText.value == ''){
+			alert("내용을 입력해야 합니다.");
+			articleText.focus();
+			return ;
+		}
+		
+		frm.submit();
+	}
+</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -40,7 +59,7 @@
 					<div class="col-11">
 						<div class="row border">
 							<div class="col">
-								<form action="./writeNoticeArticleProcess" method="post" enctype="multipart/form-data">
+								<form id="frm" action="./writeNoticeArticleProcess" method="post" enctype="multipart/form-data">
 									<input name="staff_pk" type="hidden" value="${sessionStaffInfo.staff_pk }">
 									<div class="row">
 										<div class="col">
@@ -48,7 +67,7 @@
 												<div class="col">제목</div>
 											</div>
 											<div class="row">
-												<div class="col"><input type="text" class="form-control" placeholder="제목입력" aria-label="Username" aria-describedby="basic-addon1"></div>
+												<div class="col"><input id="articleTitle" type="text" class="form-control" name="title" placeholder="제목입력" aria-label="Username" aria-describedby="basic-addon1"></div>
 											</div>
 										</div>
 									</div>
@@ -61,7 +80,7 @@
 											<div class="row">
 												<div class="col">
 													<div>
-														<textarea class="form-control" name="text" rows="10" cols="60" placeholder="내용입력" id="floatingTextarea2"></textarea>
+														<textarea id="articleText" class="form-control" name="text" rows="10" cols="60" placeholder="내용입력" id="floatingTextarea2"></textarea>
 													</div>
 												</div>
 											</div>
@@ -73,7 +92,7 @@
 											<input class="btn btn-light" name="imageFiles" type="file" accept="image/*" multiple="multiple">
 										</div>
 										<div class="col">
-											<button type="submit" class="btn btn-light">글등록</button>
+											<input type="button" onclick="formSubmit()" value="글등록">
 										</div>
 									</div>
 									<div class="row">&nbsp;</div>

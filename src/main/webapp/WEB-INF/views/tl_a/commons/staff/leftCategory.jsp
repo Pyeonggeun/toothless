@@ -8,8 +8,6 @@
 		// 기숙사 관리 탭(등록된 학기정보들만 나오게)
 		function manageThisSemester() {
 
-		
-			
 			const thisSemesterListBox = document.getElementById("thisSemesterListBox");
 			thisSemesterListBox.innerHTML = "";
 			const semesterTemplate = document.querySelector(".semesterTemplate");
@@ -37,11 +35,11 @@
 			    });
 		}
 		
-		
+		// **** 추후 수정... 아래 대충해놓음
 		// 이전년도 조회 탭(등록된 학기정보들만 나오게)
 		function readBeforeYearInfo() {
 			
-			location.href = "./mj_readBeforeInfoPage"	// 추후 수정... 아래 대충해놓음
+			location.href = "./mj_readBeforeInfoPage"	
 
 	        const beforeYearListBox = document.querySelector("#beforeYearListBox");
 	        beforeYearListBox.innerHTML = "";

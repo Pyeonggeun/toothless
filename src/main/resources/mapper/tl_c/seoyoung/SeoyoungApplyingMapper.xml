@@ -25,6 +25,19 @@
 		)
 	</select>
 	
+	<select id="selectApplyCompanyModal" resultType="map">
+		SELECT * 
+		FROM TL_C_INTERNSHIP_COURSE
+		JOIN tl_c_company_info ON TL_C_INTERNSHIP_COURSE.COMPANY_PK = tl_c_company_info.COMPANY_PK
+		JOIN tl_c_company_category ON tl_c_company_category.COMPANY_CATEGORY_PK = tl_c_company_info.COMPANY_CATEGORY_PK
+		WHERE TL_C_INTERNSHIP_COURSE.COMPANY_PK IN (
+		    SELECT COMPANY_PK
+		    FROM TL_C_INTERNSHIP_COURSE
+		    WHERE TO_DATE(SYSDATE, 'YYYY-MM-DD') BETWEEN TO_DATE(APPLYING_START_DATE, 'YYYY-MM-DD') AND TO_DATE(APPLYING_END_DATE, 'YYYY-MM-DD')
+		)
+		AND tl_c_internship_course.INTERNSHIP_COURSE_PK = #{INTERNSHIP_COURSE_PK}
+	</select>
+	
 	<!-- 지원 신청 -->
 	<insert id="insert">
 	INSERT INTO tl_c_student_applying VALUES(

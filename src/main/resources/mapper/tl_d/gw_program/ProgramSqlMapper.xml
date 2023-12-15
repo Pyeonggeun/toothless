@@ -143,7 +143,7 @@
 		WHERE program_apply_pk=#{program_apply_pk}
 	</select>
 	
-	<select id="studentReviewCount" resultType="com.mkfactory.toothless.d.dto.ProgramReviewDto">
+	<select id="studentReviewCount" resultType="int">
 		SELECT COUNT(*) FROM tl_d_program_review
 		WHERE program_apply_pk=#{program_apply_pk}
 	</select>

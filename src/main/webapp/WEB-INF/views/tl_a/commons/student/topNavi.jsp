@@ -5,11 +5,13 @@
         <div class="row">
             <div class="col">
                 <nav class="navbar navbar-expand-lg" style="background-color: #ffffff">
-                    <div class="container-fluid py-1">
-                        <a class="navbar-brand ms-3" href="./jw_mainPage">
-                            <img src="../../resources/img/dormitory/slog.png" alt="Logo" width="140" height="35" class="d-inline-block align-text-top">
-                            <span class="fw-bold" style="color: #190D0F; font-size: large;">기숙사</span>
-                        </a>
+                    <div class="container-fluid">
+				            <div class="col p-0 align-self-center text-black fw-bold fs-3">
+				            <a href="./jw_mainPage" style="text-decoration: none;" class="text-black">
+				            <img src="../../resources/img/another/logo_black.png" alt="" style="height: 70px; width: 70px;">
+				                MK <span class="fs-4">대학교</span> <span class="fs-6"> | </span> <span class="fs-5"> 기숙사</span> 
+				            </a>
+			            </div>
                       <div class="col-6">
                         <div class="row fw-bold fs-5">
                             <div class="col">
@@ -20,7 +22,7 @@
                                       </button>
                                       <div class="collapse navbar-collapse" id="navbarNavDropdown">
                                         <ul class="navbar-nav">
-                                            <li class="nav-item dropdown"  style="text-align: right;">
+                                            <li class="nav-item dropdown mx-4"  style="text-align: right;">
                                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <span class="fw-bold" style="color: #190D0F; font-size: large;">기숙사 소개</span>
                                                 </a>
@@ -32,7 +34,7 @@
                                                   <li><a class="dropdown-item" href="./dm_dormSearchMap">찾아오시는 길</a></li>
                                                 </ul>
                                               </li>
-                                            <li class="nav-item dropdown ps-3">
+                                            <li class="nav-item dropdown mx-4">
                                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                   <span class="fw-bold" style="color: #190D0F; font-size: large;">기숙시설</span>
                                                 </a>
@@ -43,7 +45,7 @@
                                                   <li><a class="dropdown-item" href="./dm_dormBulidingStatus">건물 현황</a></li>
                                                 </ul>
                                               </li>
-                                            <li class="nav-item dropdown ps-3">
+                                            <li class="nav-item dropdown mx-4">
                                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <span style="color: #190D0F; font-size: large;">모집 안내</span>
                                                 </a>
@@ -56,23 +58,9 @@
                                                   <li><a class="dropdown-item" href="./dm_paymentMoney">납부금 안내</a></li>
                                                   <li><a class="dropdown-item" href="./mj_announcePassPage">합격 조회</a></li>
                                                 </ul>
-                                              </li>
-                                          <li class="nav-item dropdown ps-3">
-                                            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <span style="color: #190D0F; font-size: large;">기숙 안내</span>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item disabled">기숙 안내</a></li>
-                                                <li><hr class="dropdown-divider"></li>
-                                              <li><a class="dropdown-item" href="#">운영수칙</a></li>
-                                              <li><a class="dropdown-item" href="#">입실 안내</a></li>
-                                              <li><a class="dropdown-item" href="#">환불 안내</a></li>
-                                              <li><a class="dropdown-item" href="#">퇴사 신청</a></li>
-                                              <li><a class="dropdown-item" href="#">기숙사 일정</a></li>
-                                              <li><a class="dropdown-item" href="#">증명서 발급</a></li>
-                                            </ul>
-                                          </li>
-                                          <li class="nav-item dropdown ps-3">
+                                            </li>
+                                          
+                                          <li class="nav-item dropdown mx-4">
                                             <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <span style="color: #190D0F; font-size: large;">기숙사 커뮤니티</span>
                                             </a>
@@ -80,11 +68,11 @@
                                                 <li><a class="dropdown-item disabled">기숙사 커뮤니티</a></li>
                                                     <li><hr class="dropdown-divider"></li>
                                               <li><a class="dropdown-item" href="#">공지사항</a></li>
-                                              <li><a class="dropdown-item" href="#">서식 자료실</a></li>
+                                              <li><a class="dropdown-item" href="#">자유게시판</a></li>
                                               <li><a class="dropdown-item" href="./jw_exitApplyPage">외박 및 외출신청</a></li>
                                               <li><a class="dropdown-item" href="./jw_checkDormStudentPointPage">상벌점 확인</a></li>
                                               <li><a class="dropdown-item" href="#">고장수리요청</a></li>
-                                              <li><a class="dropdown-item" href="#">상담 및 건의</a></li>
+                                              <li><a class="dropdown-item" href="./jw_diartApplyPage">일지 등록</a></li>
                                               <li><a class="dropdown-item" href="#">FAQ</a></li>
                                             </ul>
                                           </li>
@@ -118,7 +106,7 @@
 			                                   </div>
 			                           			<div class="col-2 me-3">
 			                           				<div class="row">
-			                           					 <div class="col text-center" style="font-size: xx-large; text-align: center;"><a href="#" role="button" class="btn-fluid bi bi-hospital" style="color: black;"></a></div>
+			                           					 <div class="col text-center" style="font-size: xx-large; text-align: center;"><a href="../../another/student/mainPage" role="button" class="btn-fluid bi bi-hospital" style="color: black;"></a></div>
 			                           				</div>
 			                           				<div class="row">
 			                           					<div class="col text-center" style="font-size: small; text-align: center;">학사</div>
@@ -138,7 +126,7 @@
 			                           			</div>
 			                           			<div class="col-2 me-3">
 			                           				<div class="row">
-			                           					 <div class="col text-center" style="font-size: xx-large; text-align: center;"><a href="#" role="button" class="btn-fluid bi bi-hospital" style="color: black;"></a></div>
+			                           					 <div class="col text-center" style="font-size: xx-large; text-align: center;"><a href="../../another/student/loginPage" role="button" class="btn-fluid bi bi-hospital" style="color: black;"></a></div>
 			                           				</div>
 			                           				<div class="row">
 			                           					<div class="col text-center" style="font-size: small; text-align: center;">학사</div>

@@ -43,8 +43,19 @@
 	</div>
 	<div class="container">
 		<div class="row mt-5">
-			<div class="col-2" style="font-weight: bold; text-align: center; font-size: 2.2em;">내 상담</div>
-			<div class="col"></div>
+			<div class="col" style="font-weight: bold; text-align: center; font-size: 2.2em;">내 상담</div>
+			<div class="col-9"></div>
+			<div class="col">
+				<div class="row" style="font-size: 0.8em; font-weight: bold">
+					<div class="col"><i class="bi bi-check-lg" style="color: red;"></i> : 만족도 조사 요망</div>
+				</div>
+				<div class="row" style="font-size: 0.8em; font-weight: bold">
+					<div class="col"><i class="bi bi-check-lg" style="color: orange;"></i> : 답변 대기</div>
+				</div>
+				<div class="row" style="font-size: 0.8em; font-weight: bold">
+					<div class="col"><i class="bi bi-check-lg" style="color: green;"></i> : 만족도 조사 완료</div>
+				</div>
+			</div>
 		</div>
 		<div class="row mt-4">
 			<div class="col border border-primary border-3;"></div>
@@ -68,6 +79,19 @@
 						<td>${counselList.studentDto.name }</td>
 						<td>${counselList.category.name }</td>
 						<td>
+							<C:if test="${counselList.replyCount == 0 }">
+								<i class="bi bi-check-lg" style="color: orange;"></i>
+							</C:if>
+							<C:if test="${counselList.replyCount > 0 }">
+								<C:choose>
+									<C:when test="${counselList.isSurveyed == 0 }">
+										<i class="bi bi-check-lg" style="color: red;"></i>
+									</C:when>
+									<C:otherwise>
+										<i class="bi bi-check-lg" style="color: green;"></i>
+									</C:otherwise>
+								</C:choose>
+							</C:if>
 							<a href="./readCounselPage?counsel_pk=${counselList.onlineCounselBoardDto.id }" class="link-dark link-offset-2 link-underline link-underline-opacity-0">
 					      		${counselList.onlineCounselBoardDto.title }
 								<C:if test="${counselList.replyCount != 0 }">

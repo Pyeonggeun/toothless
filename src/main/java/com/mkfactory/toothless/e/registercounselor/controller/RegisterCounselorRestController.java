@@ -50,7 +50,7 @@ public class RegisterCounselorRestController {
 	@RequestMapping("restGetCounselorInfo")	
 	public JinyongRestResponseDto restGetCounselorInfo(
 			@RequestParam(name="searchCounselorName" ,defaultValue="default") String searchCounselorName,
-			@RequestParam(name="searchCounselorType",defaultValue="0") int searchCounselorType,
+			@RequestParam(name="searchCounselorType", required=false) int[] searchCounselorType,
 			@RequestParam(name="searchGenderOption", defaultValue="default") String searchGenderOption,
 			@RequestParam(name="searchScoreOption",defaultValue="default") String searchScoreOption			
 			) {
@@ -65,12 +65,7 @@ public class RegisterCounselorRestController {
 			searchGenderOption = "F";
 		}else if(searchGenderOption.equals("all")) {
 			searchGenderOption = "default";
-		}
-		
-		System.out.println("searchCounselorName : " + searchCounselorName);
-		System.out.println("searchCounselorType : " + searchCounselorType);	
-		System.out.println("searchGenderOption : " + searchGenderOption);
-		System.out.println("searchScoreOption : " + searchScoreOption);
+		}		
 		
 		List<Map<String, Object>> counselorList = 
 				registerCounselorService.getCounselorListForAJAX(

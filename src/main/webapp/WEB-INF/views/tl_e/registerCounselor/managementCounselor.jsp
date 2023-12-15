@@ -29,13 +29,25 @@
 		fetch("./restGetStaffInfo")
 		.then(response => response.json())
 		.then(response => {
-			console.log("AJAX 리스폰 성공 진입함")
+			
+			const staffLoginUrl = "http://localhost:8181/toothless/another/staff/loginPage";
 			
 			loginStaffInfo = response.data;
+			if(loginStaffInfo == null){
+				const moveToLoginPage = confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?");
+				
+				if(moveToLoginPage){
+					window.location.href = staffLoginUrl;
+				}
+				
+			}
+			else{
+				const staffInfoBox = document.getElementById("staffInfoBox");
+				
+				staffInfoBox.innerText = loginStaffInfo.name;	
+			}
 			
-			const staffInfoBox = document.getElementById("staffInfoBox");
 			
-			staffInfoBox.innerText = loginStaffInfo.name;
 		});		
 	}
 	
@@ -48,9 +60,8 @@
 			
 			//const counselorList = [...response.data];
 			searchData = response.data;
-			console.log("reloadCounselorList()결과 : " + searchData);
-			searchCounselor();
-			
+			console.log("reloadCounselorList()결과 : " + searchData);			
+			processSearchData(searchData);
 		});
 	}
 	
@@ -85,12 +96,28 @@
 		
 	}
 	
+	function getSearchCounselorType(){
+		const searchCategoryValueList = [];
+		
+		const searchCategoryValue = document.getElementsByClassName("categoryOption");
+		
+		for(let e = 0 ; e < searchCategoryValue.length ; e++){
+			if(searchCategoryValue[e].checked){
+				searchCategoryValueList.push(searchCategoryValue[e].value);
+			}
+		}
+		
+		return searchCategoryValueList;
+	}
+	
 	function searchCounselor(){
 		
 		console.log("searchCounselor() 실행됨");
 		
-		const searchCounselorName = document.getElementById("searchByCounselorName").value;
-		const searchCounselorType = document.getElementById("searchCategorySelectBox").value;
+		
+		
+		const searchCounselorType = getSearchCounselorType();
+		const searchCounselorName = document.getElementById("searchByCounselorName").value;		
 		const searchScoreOption = document.getElementById("searchScoreOption").value;		
 		const searchGenderOption = getSelectGender();
 		
@@ -116,6 +143,31 @@
 		
 	}
 	
+	function searchTypeCategoryControl(){
+		
+		const selectOptionAll = document.querySelector(".searchCategoryOption #categoryOptionAll");
+		const selectOptionList = document.querySelectorAll(".searchCategoryOption .categoryOption:not(#categoryOptionAll)");
+		
+		selectOptionAll.addEventListener('click',()=>{
+			selectOptionList.forEach(checkbox => {
+				checkbox.checked = selectOptionAll.checked;
+			});
+		});
+		
+		selectOptionList.forEach(checkbox => {
+			checkbox.addEventListener('click', ()=>{
+				if(!checkbox.checked){
+					selectOptionAll.checked = false;
+				}
+				else{
+					const allChecked = Array.from(selectOptionList).every(checkbox => checkbox.checked);
+					selectOptionAll.checked = allChecked;
+				}
+			});
+		});
+		
+	}
+	
 	
 	function reloadSearchTypeCategory(){
 		fetch("./reloadSearchTypeCategory")
@@ -123,27 +175,40 @@
 		.then(response=>{
 			
 			console.log("reloadSearchTypeCategory()실행됨 : " + response.data);
-			const searchCategorySelectBox = document.querySelector("#searchCategorySelectBox");
-			searchCategorySelectBox.innerHTML = "";
+			const searchCategoryCheckBoxCol = document.querySelector(".searchCategoryCheckBoxCol");
+			searchCategoryCheckBoxCol.innerHTML = "";
 			
-			const createHTMLElement = tagName => document.createElement(tagName);
-			const newSelectOption = createHTMLElement("option");
-			newSelectOption.innerText = "카테고리 선택";
-			newSelectOption.setAttribute("selected", "");
-			newSelectOption.setAttribute("disabled", "");
-			newSelectOption.setAttribute("value", "");
+			const selectOptionAll = document.querySelector("#templete .searchCategoryOption").cloneNode(true);
+			const categoryOption = selectOptionAll.querySelector(".categoryOption");
+			categoryOption.setAttribute("id", "categoryOptionAll");			
+			categoryOption.setAttribute("value", 0);			
 			
-			searchCategorySelectBox.appendChild(newSelectOption);
+			const categoryLabel = selectOptionAll.querySelector(".categoryLabel");				
+			categoryLabel.setAttribute("for", "categoryOptionAll");			
+			categoryLabel.innerText = "전체";
+			
+			selectOptionAll.appendChild(categoryOption);
+			selectOptionAll.appendChild(categoryLabel);
+			
+			searchCategoryCheckBoxCol.appendChild(selectOptionAll);
 			
 			for(e of response.data){
 				
 				const searchCategoryOption = document.querySelector("#templete .searchCategoryOption").cloneNode(true);
 				
-				searchCategoryOption.innerText = e.name;
+				const categoryOption = searchCategoryOption.querySelector(".categoryOption");
+				categoryOption.setAttribute("id", "categoryOption" + e.id);			
+				categoryOption.setAttribute("value", e.id);				
 				
-				searchCategoryOption.setAttribute("value", e.id);
+				const categoryLabel = searchCategoryOption.querySelector(".categoryLabel");				
+				categoryLabel.setAttribute("for", "categoryOption" + e.id);				
+				categoryLabel.innerText = e.name;
 				
-				searchCategorySelectBox.appendChild(searchCategoryOption);
+				searchCategoryOption.appendChild(categoryOption);
+				searchCategoryOption.appendChild(categoryLabel);
+				
+				searchCategoryCheckBoxCol.appendChild(searchCategoryOption);
+				
 				
 			}
 			
@@ -174,6 +239,7 @@
 			}
 			
 		});
+		searchTypeCategoryControl();
 	}
 	
 	
@@ -298,39 +364,39 @@
     	const password = document.getElementById("password").value;    	
     	const name = document.getElementById("name").value;
     	const age = document.getElementById("age").value;
-    	const gender = document.getElementsByName("gender").value;
+    	const gender = document.querySelector('input[name="gender"]:checked').value;
     	const phonenumber = document.getElementById("phonenumber").value;
     	const email = document.getElementById("email").value;
     	const address = document.getElementById("address").value;
     	const career = document.getElementById("career").value;
-    	const profile_Image = document.getElementById("profile_Image").value;    	
-    	const license = document.getElementById("license").value;
+    	
+    	
+    	const profile_ImageInput = document.getElementById("profile_Image");    	
+    	const licenseInput = document.getElementById("license");
+    	
+    	const formData = new FormData();
+    	
+    	formData.append("external_id", external_id);
+    	formData.append("password", password);
+    	formData.append("name", name);
+    	formData.append("age", age);
+    	formData.append("gender", gender);
+    	formData.append("phonenumber", phonenumber);
+    	formData.append("email", email);
+    	formData.append("address", address);
+    	formData.append("career", career);
+    	formData.append("type_category_id", categoryValueList);
+    	
+    	formData.append("profile_Image", profile_ImageInput.files[0]);
+    	
+    	for(let e = 0 ; e < licenseInput.length ; e++){
+    		formData.append("license", licenseInput[e]);
+    	}
+    	
     	
     	const url = "./resigterCounselorProcess";
-    	const inputCounselorData = {
-				
-    			method : "post",
-				
-    			headers : {
-					"Content-Type" : "application/x-www-form-urlencoded"
-				},
-				
-				body : 
-					"external_id="+external_id+
-					"&password="+password+
-					"&name="+name+
-					"&age="+age+
-					"&gender="+gender+
-					"&phonenumber="+phonenumber+
-					"&email="+email+
-					"&address="+address+
-					"&career="+career+
-					"&profile_Image="+profile_Image+
-					"&license="+license+
-					"&type_category_id="+categoryValueList
-		}
     	
-    	fetch(url, inputCounselorData)
+    	fetch(url, {method : "post", body : formData})
     	.then(response => response.json())
     	.then(response =>{
     		
@@ -339,7 +405,8 @@
     			alert("신규 상담원 등록이 정상적으로 처리되었습니다.");
     			
     			const modal = bootstrap.Modal.getOrCreateInstance("#registerModal");
-                modal.hide();	
+                modal.hide();
+                reloadCounselorList();
     		}
     		
     		if(response.result == "fail"){
@@ -371,14 +438,16 @@
     	
     }
     
-    
-	
-	
+    function pressEnter(){
+    	if(window.event.keyCode == 13){
+    		searchCounselor();
+    	}
+    }
 	
 	window.addEventListener("DOMContentLoaded", ()=>{
 		getStaffInfo()
 		reloadCounselorList()
-		reloadSearchTypeCategory()		
+		reloadSearchTypeCategory()
 		
 	});
 	
@@ -465,10 +534,10 @@
 									<div class="col">
 										<div class="row">
 											<div class="col-3">
-												<span class="fw-bold align-middle">상담원 이름</span>
+												<span class="fw-bold align-middle">이름</span>
 											</div>
 											<div class="col-auto">
-												<input id="searchByCounselorName" type="text" class="form-control">
+												<input id="searchByCounselorName" onkeyup="pressEnter()" type="text" class="form-control">
 											</div>
 										</div>										
 									</div>
@@ -495,19 +564,6 @@
 										</div>
 									</div>
 									
-								</div>
-								<div class="row mt-2">
-									<div class="col">
-										<div class="row">
-											<div class="col-3">
-												<span class="fw-bold align-middle">상담종류</span>	
-											</div>
-											<div class="col-auto">
-												<select id="searchCategorySelectBox" class="form-select">
-												</select>
-											</div>
-										</div>										
-									</div>
 									<div class="col">
 										<div class="row">
 											<div class="col-2">
@@ -515,13 +571,25 @@
 											</div>
 											<div class="col-auto">
 												<select id="searchScoreOption" class="form-select">													
-													<option selected disabled value="">-선택-</option>
-													<option value="scoreDESC">평점 높은순</option>
-													<option value="scoreASC">평점 낮은순</option>
+													<option selected value="">-선택-</option>
+													<option value="scoreDESC">평점 낮은순</option>
+													<option value="scoreASC">평점 높은순</option>
 												</select>
 											</div>
 										</div>										
-									</div>									
+									</div>
+									
+								</div>
+								<div class="row mt-4">
+									<div class="col">
+										<div class="row">
+											<div class="col-auto">
+												<span class="fw-bold align-middle">상담종류</span>	
+											</div>
+											<div class="searchCategoryCheckBoxCol col-auto">												
+											</div>
+										</div>										
+									</div>																		
 								</div>
 								
 								<div class="row mt-4 mb-3 justify-content-center">
@@ -795,7 +863,11 @@
 			</div>								
 		</div>
 		
-		<option class="searchCategoryOption"></option>
+		
+		<div class="searchCategoryOption form-check form-check-inline align-middle" id="" required>                                                
+        	<input class="categoryOption form-check-input" type="checkbox" >
+        	<label class="categoryLabel form-check-label"></label>                                    	
+        </div>
 		
 		<div class="typeCheckBoxInModal form-check form-check-inline" id="type_category_id" required>                                                
         	<input class="typeCheckBox form-check-input" type="checkbox" >

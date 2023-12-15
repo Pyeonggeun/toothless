@@ -52,10 +52,33 @@
 	</select>
 	
 	<!-- 공고 리스트 출력  -->
-	<select id="selectPostingList" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
+<!-- 	<select id="selectPostingList" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
 		SELECT * FROM TL_D_JOB_POSTING tdjp
 		ORDER BY tdjp.CREATED_AT DESC
-	</select>
+	</select> -->
+	
+	<!-- 공고리스트 출력(검색 포함) -->
+ 	<select id="selectPostingList" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
+		SELECT * 
+		FROM TL_D_JOB_POSTING tdjp 
+		WHERE 1 = 1
+		<if test="searchType != null"
+		>
+			<choose>
+				<when test="searchType == 'posting_name'">
+					AND tdjp.POSTING_NAME  LIKE '%' || #{searchWord} ||'%' 
+				</when>
+				<when test="searchType == 'job_position'">
+					AND tdjp.JOB_POSITION  LIKE '%' || #{searchWord} || '%'
+				</when>
+				<when test="searchType == 'posting_contents'">
+					AND tdjp.POSTING_CONTENTS LIKE '%' || #{searchWord} || '%'
+				</when>
+			</choose>  
+		</if>
+		ORDER BY tdjp.CREATED_AT DESC  
+	</select> 
+	
 	
 	<!-- 기업 + 채용공고  -->
 	<select id="selectByCompanyPk" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
@@ -184,8 +207,11 @@
 		WHERE tdip.STUDENT_PK = #{student_pk}
 	</select>
 
-	
-	
+	<!-- 학생 공고리스트용 관심기업 -->
+	<select id="selectInterestCompanyByStudentPk" resultType="int">
+		SELECT tdic.COM_PK FROM TL_D_INTEREST_COMPANY tdic
+		WHERE tdic.STUDENT_PK = #{student_pk}
+	</select>
 	
 	
 	<!-- 기업 -->
@@ -246,7 +272,7 @@
 		SELECT STUDENT_PK FROM TL_JIC_GRADUATION_INFO
 	</select>
 	
-	<!-- 기업 메인페이지용 공고 목록 4개(마감임박 + 스크랩 많은 순 / 나중에 지원자 많은 순으로 변경) -->
+	<!-- 기업 메인페이지용 공고 목록 4개(마감임박 + 지원자 많은 순) -->
 	<select id="selectPostingListForCompanyMainPage" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
 		SELECT tdjp.* 
 		FROM TL_D_JOB_POSTING tdjp 
@@ -256,9 +282,9 @@
 			FROM(
 				SELECT t1.JOB_POSTING_PK 
 				FROM (
-					SELECT job_posting_pk 
-					FROM TL_D_INTEREST_POSTING 
-					GROUP BY JOB_POSTING_PK 
+					SELECT tdv.job_posting_pk 
+					FROM TL_D_VOLUNTEER tdv 
+					GROUP BY tdv.JOB_POSTING_PK 
 					ORDER BY count(*) DESC  
 				)t1
 				<![CDATA[
@@ -295,11 +321,48 @@
 		    JOIN TL_D_VOLUNTEER tdv ON tdr.RESUME_PK = tdv.RESUME_PK
 		    JOIN TL_D_JOB_POSTING tdjp ON tdv.JOB_POSTING_PK = tdjp.JOB_POSTING_PK
 		    JOIN TL_D_COMPANY tdc ON tdjp.COM_PK = tdc.COM_PK
-		    WHERE tdc.COM_PK = 41
+		    WHERE tdc.COM_PK = #{com_pk}
 		)
 		<![CDATA[
 		WHERE rnum <= 4
 		]]>
 	</select>
-
+	
+	<!-- 지원학생 리스트 카운트 -->
+	
+	<!-- 지원학생 리스트 -->
+	<select id="selectApplyStudentTotalList" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT tjsi.* 
+		FROM TL_JIC_STUDENT_INFO tjsi
+		JOIN TL_D_RESUME tdr ON tjsi.STUDENT_PK = tdr.STUDENT_PK
+		JOIN TL_D_VOLUNTEER tdv ON tdr.RESUME_PK = tdv.RESUME_PK
+		JOIN TL_D_JOB_POSTING tdjp ON tdv.JOB_POSTING_PK = tdjp.JOB_POSTING_PK
+		JOIN TL_D_COMPANY tdc ON tdjp.COM_PK = tdc.COM_PK
+		WHERE tdc.COM_PK = #{com_pk}
+		ORDER BY tdjp.POSTING_DEADLINE ASC 
+	</select>
+	
+	<!-- 기업 메인페이지용 관심기업 학생 -->
+	<select id="selectMyCompanyInterestStudentList" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT *
+		FROM (
+		    SELECT tjsi.*
+		    FROM TL_JIC_STUDENT_INFO tjsi
+		    WHERE tjsi.STUDENT_PK IN (
+		        SELECT tdic.STUDENT_PK
+		        FROM TL_D_INTEREST_COMPANY tdic
+		        WHERE tdic.COM_PK = 41
+		    )
+		    <![CDATA[
+		    AND ROWNUM <= 4
+		    ]]>
+		) t1
+	</select>
+	<!-- 학생 + 학과  -->
+	<select id="selectByDepartmentPk" resultType="String">
+		SELECT tjdc.name FROM TL_JIC_DEPARTMENT_CATEGORY tjdc 
+		WHERE tjdc.DEPARTMENT_PK = #{department_pk}
+	</select>
+	
+	
 </mapper>
