@@ -57,4 +57,6 @@ public interface FreeboardCounselSqlMapper {
 
 	public void deleteEmpathyByIdAndPk(FreeboardEmpathyDto paraFreeboardEmpathyDto);
 	
+	public int selectAllEmpathy(int id);
+	
 }

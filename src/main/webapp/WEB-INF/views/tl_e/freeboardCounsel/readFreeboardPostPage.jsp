@@ -200,7 +200,7 @@
 						<form action="./submitAndSelectEmpathy" method=post>
 							<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id}">
 							<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk}">
-							<input type="submit" value="공감확인하기">
+						
 						</form>
 						
 						<!-- 0이면 공감 누를 수 있게 1이면 삭제하게 하기   -->
