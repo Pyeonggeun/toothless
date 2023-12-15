@@ -31,7 +31,7 @@ public interface RegisterCounselorSqlMapper {
 	// 상담원 전체 중복제거 리스팅 for AJAX
 	public List<Map<String, Object>> selectAllCounselorForAJAX(			
 			@Param("searchCounselorName") String searchCounselorName,
-			@Param("searchCounselorType") int searchCounselorType,
+			@Param("searchCounselorType") int[] searchCounselorType,
 			@Param("searchGenderOption") String searchGenderOption,
 			@Param("searchScoreOption") String searchScoreOption,
 			@Param("searchOption") Boolean searchOption

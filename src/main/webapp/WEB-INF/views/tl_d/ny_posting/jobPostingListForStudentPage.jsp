@@ -23,14 +23,12 @@
         			studentId = response.data;
         		});
         	}
-        
-        	 	
-        
+        	
         	// 공고 리스트 출력
-        	function reloadJobPostingList(){
+        	function reloadJobPostingList(searchType, searchWord){
         		
         		// 링크 가져오기
-        		const url = "./getJobPostingListForStudent";
+        		const url = "./getJobPostingListForStudent?searchType=" + searchType + "&searchWord=" + searchWord;
         		// get방식 
         		//fetch(url)
 				
@@ -66,15 +64,18 @@
 		        		companyInfoLink.classList.add("navbar-brand");
 		        		
 		        		postingCompanyName.appendChild(companyInfoLink);
-        				 
-		        		const heartIcon = document.createElement("i");
-		        		heartIcon.classList.add("text-danger", "bi", "bi-suit-heart")
-		        		postingCompanyName.appendChild(heartIcon);
 		        		
-		        		/* const heartFillIcon = document.createElement("i");
-		        		heartFillIcon.classList.add("text-danger", "bi", "bi-suit-heart-fill")
-		        		postingCompanyName.appendChild(heartFillIcon);
-		        		 */
+		        		if(e.interestCompany.includes(e.companyDto.com_pk)){
+			        		const heartFillIcon = document.createElement("i");
+			        		heartFillIcon.classList.add("text-danger", "bi", "bi-suit-heart-fill")
+			        		postingCompanyName.appendChild(heartFillIcon);
+			        		 
+		        		}else{
+			        		const heartIcon = document.createElement("i");
+			        		heartIcon.classList.add("text-danger", "bi", "bi-suit-heart")
+			        		postingCompanyName.appendChild(heartIcon); 
+		        		}
+        				 
 		        		
 		        		
         				// 가족기업여부
@@ -146,41 +147,75 @@
         				// 공고스크랩
         				const interestPosting = postingWrapper.querySelector(".interestPosting");
         				
-        				
-        				let interestCount = getTotalInterestPostingCount(e.jobPostingDto.job_posting_pk);
-        				console.log("a :" + interestCount);
-        				
-        				
-        				if(checkMyInterestPosting(e.jobPostingDto.job_posting_pk) === 0){
-        					const starIcon = document.createElement("i");
-        					//starIcon.classList.remove("bi-star-fill")
-        					//starIcon.classList.add("text-warning", "bi", "bi-star");
-        					starIcon.setAttribute("onclick","Interest(" + e.jobPostingDto.job_posting_pk + ")");
-        					interestPosting.appendChild(starIcon);
-        				}else{
-        					const starFillIcon = document.createElement("i");
-        					//starFillIcon.classList.add("text-warning", "bi", "bi-star-fill");
-        					//starFillIcon.classList.remove("bi-star")
-        					starFillIcon.setAttribute("onclick","unInterest(" + e.jobPostingDto.job_posting_pk + ")");
-        					interestPosting.appendChild(starFillIcon);
-        				}
-        				
-        				
-        				/* const allInterestCount = document.createElement("span");
+        				 if (e.allPostingInterest == 0) {
+     			        	const starIcon = document.createElement("i");
+     			        	starIcon.classList.add("text-warning", "bi", "bi-star");
+         					interestPosting.appendChild(starIcon);
+     			        } else {
+     			        	const starFillIcon = document.createElement("i");
+     			        	starFillIcon.classList.add("text-warning", "bi", "bi-star-fill");
+         					interestPosting.appendChild(starFillIcon);
+     			        }       				
+        			    
+        			    
+        				const allInterestCount = document.createElement("span");
         				allInterestCount.innerText = " " + e.allPostingInterest;
         				
         				interestPosting.appendChild(allInterestCount);
-        				 */
+        			    
+        				/* 관심공고를 시도중 1..  
+        				checkMyInterestPosting(e.jobPostingDto.job_posting_pk)
+        			    .then(isInterest => {
+        			        if (isInterest === 0) {
+        			        	//const starIcon = document.createElement("i");
+            					starBox.classList.remove("bi-star-fill")
+            					starBox.classList.add("bi-star");
+            					starBox.setAttribute("onclick","Interest(" + e.jobPostingDto.job_posting_pk + ")");
+            					//interestPosting.appendChild(starIcon);
+        			        } else {
+        			        	//const starFillIcon = document.createElement("i");
+            					starBox.classList.remove("bi-star")
+            					starBox.classList.add("bi-star-fill");
+            					starBox.setAttribute("onclick","unInterest(" + e.jobPostingDto.job_posting_pk + ")");
+            					//interestPosting.appendChild(starFillIcon);
+        			        }
+        			    }); */
+        			    
+				       /* 관심공고를 시도중 2..
+				       
+				       // 새로운 별 아이콘을 생성
+				        const starIcon = document.createElement("i");
+				        interestPosting.appendChild(starIcon);
+				
+				        // 클래스 설정
+				        starIcon.classList.add("text-warning", "bi");
+        			    
+        				checkMyInterestPosting(e.jobPostingDto.job_posting_pk)
+        					 .then(myInterestCount => {
+        						 
+						        if (myInterestCount === 0) {
+						            starIcon.classList.add("bi-star");
+						            starIcon.setAttribute("onclick", "interest(" + e.jobPostingDto.job_posting_pk + ")");
+						        } else {
+						            starIcon.classList.add("bi-star-fill");
+						            starIcon.setAttribute("onclick", "unInterest(" + e.jobPostingDto.job_posting_pk + ")");
+						        }
         				
+        					});
         				
-        				// 즐겨찾기 pk받기
-        				/*   const interestPostings = postingWrapper.querySelectorAll(".interestPosting");
-        	                interestPostings.forEach(interestPosting => {
-        	                    interestPosting.addEventListener("click", function (event) {
-        	                    	plusInterest(event, e.jobPostingDto.job_posting_pk);
-        	                    });
-        	                });
-        				 */
+	        				getTotalInterestPostingCount(e.jobPostingDto.job_posting_pk)
+	        					.then(interestCount =>{
+		        				
+		        				const allInterestCount = document.createElement("span");
+		        				allInterestCount.innerText = " " + interestCount;
+		        				
+		        				
+		        				
+		        				interestPosting.appendChild(allInterestCount);
+		        				
+	        					
+	        				});
+        			 */
         				 
         				
         				const applyPosting = postingWrapper.querySelector(".applyPosting");
@@ -218,8 +253,8 @@
         	}
         	
                	
-        	// 관심공고
-        	function Interest(job_posting_pk){
+         	// 관심공고
+        	function interest(job_posting_pk){
         		
         	/* 	if(studentId == null){
         			alert("로그인 후에 이용해주세요")
@@ -229,7 +264,8 @@
         		fetch(" ./interestPosting?job_posting_pk=" + job_posting_pk)
         		.then(response => response.json())
         		.then(response =>{
-        			getTotalInterestPostingCount(job_posting_pk);
+        			checkMyInterestPosting(job_posting_pk);
+        			reloadJobPostingList();
         		});
         		
         	} 
@@ -245,10 +281,12 @@
         		fetch("./unInterestPosting?job_posting_pk=" + job_posting_pk)
         		.then(response => response.json())
         		.then(response =>{
-        			getTotalInterestPostingCount(job_posting_pk);
+        			checkMyInterestPosting(job_posting_pk);
+        			reloadJobPostingList();
         		});
         		
         	} 
+        	 
         	// 내가 관심공고를 했는지..?
         	function checkMyInterestPosting(job_posting_pk){
         		
@@ -256,22 +294,32 @@
         			alert("로그인 후에 이용해주세요")
 					return;
         		} */
-        		fetch("./isInterestPosting?job_posting_pk=" + job_posting_pk)
+        		return fetch("./isInterestPosting?job_posting_pk=" + job_posting_pk)
         		.then(response => response.json())
         		.then(response =>{
-        			
-        		});
-        	}
-        	function getTotalInterestPostingCount(job_posting_pk){
-        		fetch("./getTotalInterestPostingCount?job_posting_pk=" + job_posting_pk)
-        		.then(response => response.json())
-        		.then(response =>{
-        			const starCount = document.querySelector(".starCount");
-    				starCount.innerText = response.data;
-    				//reloadJobPostingList();
+        			return response.data;
         		});
         	}
         	
+        	function getTotalInterestPostingCount(job_posting_pk){
+        		return fetch("./getTotalInterestPostingCount?job_posting_pk=" + job_posting_pk)
+        		.then(response => response.json())
+        		.then(response =>{
+	    				return response.data;
+        		});
+        	}
+        
+        	function search(){
+        		const searchTypeValue = document.querySelector(".searchType");
+        		const searchType = searchTypeValue.value;
+        		
+        		const searchWordValue = document.querySelector(".searchWord");
+        		const searchWord = searchWordValue.value;
+        		
+        		reloadJobPostingList(searchType, searchWord);
+        	}
+        
+         
         	
         	
         	// 제일 처음 실행되는 구간
@@ -307,17 +355,24 @@
 				<div class="row">
 					<div class="col fs-4 fw-bold mt-5 text-center">채용공고리스트</div>
 				</div>
-				<div class="row mt-5 pb-3 border-bottom">
+				<div class="row mt-4 pb-3 border-bottom">
 					<div class="col-1 pt-1">
 						총 <span class="fw-bold">${postingCount}</span>건
 					</div>
-					 <div class="col-8 rounded-pill bg-white border border-secondary">
+					<div class="col-2">
+						<select class="searchType form-select">
+							<option value="posting_name">제목</option>
+							<option value="job_position">직무</option>
+							<option value="posting_contents">내용</option>
+						</select>				
+					</div>
+					 <div class="col-6 rounded-pill bg-white border border-secondary border-sm pt-1 my-2">
 		                <div class="row">
-		                    <div class="col-11">
-		                        <input class="bg-white border-0 form-control" type="text"> 
+		                    <div class="col-6">
+		                       <input type="text" class="searchWord form-control border-0"> 
 		                    </div>
 		                    <div class="col pt-1 text-end">
-		                        <i class=" bi bi-search"></i>
+		                        <button onclick="search()" class="bg-white border-0"><i class="bi bi-search"></i></button>
 		                    </div>
 		                </div>
 		            </div>
@@ -439,6 +494,8 @@
 					<!-- 기업명 -->
 					<div class="postingCompanyName col pe-0">
 					</div>
+					<div class="col ms-3 mb-1">
+					</div>
 				</div>
 				<div class="row">
 					<!-- 가족기업여부 -->
@@ -464,7 +521,16 @@
 				<div class="row">
 					<!-- 관심공고 별 -->
 					<div class="interestPosting col ms-3 mb-1">
-						<i class="starBox text-warning bi bi-star"></i><span class="starCount"></span>
+						<!-- <i onclick="interestBox()" class="starBox text-warning bi bi-star"></i> -->
+						<%-- <c:choose>
+							<c:when test="${jobPostingForStudent.allPostingInterest == 0}">
+								<i class="text-warning bi bi-star"></i>
+							</c:when>
+							<c:otherwise>
+								<i class="text-warning bi bi-star-fill"></i>
+							</c:otherwise>
+						</c:choose>
+						<span>${jobPostingForStudent.allPostingInterest}</span>	 --%>
 					</div>
 				</div>
 				<div class="row">

@@ -3,6 +3,8 @@ package com.mkfactory.toothless.b.kh.medicine.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mkfactory.toothless.b.dto.MedicineAddDto;
 import com.mkfactory.toothless.b.dto.MedicineCatDto;
 import com.mkfactory.toothless.b.dto.MedicineCodeDto;
@@ -49,5 +51,23 @@ public interface MedicineSqlMapper {
 	public StaffInfoDto selectedStaffInfoByStaffPk(int staff_pk);
 	
 	public void insertModifiedInventory(MedicineInventoryDto medicineInventoryDto);
+	
+	//ajax때문에 생성
+	
+	public MedicineCodeDto selectExistMedicineInfoByPk(int medicine_code_pk);
+	
+	public List<MedicineCodeDto> RestSelectMedicineInfo(@Param("orderNumber") int orderNumber);
+	
+	public int checkAddLog(int medicine_code_pk);
+	
+	public List<MedicineAddDto> RestSelectAllMedicineAddInfo(@Param("orderDate") int orderDate);
+	
+	public List<Map<String, Object>> restInventoryStatistics(@Param("orderNumber") int orderNumber);
+	
+	public MedicineCodeDto restSelectedMedicineInfoByMedicineCodePk(int medicine_code_pk);
+	
+	public MedicineMgmtCatDto restSelectedMedicineMgmtCatInfoByPk(int medicine_mgmt_cat_pk);
+
+
 	
 }

@@ -3,6 +3,8 @@ package com.mkfactory.toothless.d.ny.posting.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mkfactory.toothless.d.dto.ComScaleCategoryDto;
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.CompanyManagerDto;
@@ -35,7 +37,10 @@ public interface PostingSqlMapper {
 	public int selectPostingCount();
 	
 	// 공고 리스트 출력
-	public List<JobPostingDto> selectPostingList();
+	public List<JobPostingDto> selectPostingList(
+			@Param("searchType") String searchType, 
+			@Param("searchWord") String searchWord
+			);
 	
 	// 기업 + 채용공고
 	public CompanyDto selectByCompanyPk(int com_pk); 
@@ -85,6 +90,8 @@ public interface PostingSqlMapper {
 	// 총 관심공고 수
 	public int selectTotalInterestPostingCount(int student_pk);
 	
+	// 학생 공고리스트용 관심기업
+	public List<Integer> selectInterestCompanyByStudentPk(int student_pk);
 	
 	
 	// 기업
