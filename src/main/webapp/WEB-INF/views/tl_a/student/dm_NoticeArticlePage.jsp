@@ -108,6 +108,7 @@
                 		${noticeInfo.content}
                 	</div>
                 </div>
+                <c:if test="${!empty staffSession}">
                 <div class="row my-5 pb-5">	
 			             <div class="col px-0 text-end">
 			                	<a href="./noticeDeleteProcess?dorm_notice_pk=${noticeInfo.dorm_notice_pk}">
@@ -115,7 +116,7 @@
 					            </a>
 			             </div>                    
 			     </div>
-                
+                </c:if>
             </div>
         </div>
     </div>

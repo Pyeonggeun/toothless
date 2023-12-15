@@ -158,4 +158,12 @@ public class DormStudentControllerDm {
 		return "redirect:./dm_dormNoticePage";
 	}
 	
+	@RequestMapping("dm_FAQ")
+	public String dm_FAQ() {
+		
+		
+		
+		return "/tl_a/student/dm_FAQ";
+	}
+	
 }
