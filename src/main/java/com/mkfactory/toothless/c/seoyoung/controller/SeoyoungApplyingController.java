@@ -18,7 +18,7 @@ import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto;
 import com.mkfactory.toothless.c.guntaek.service.GuntaekStudentServiceImpl;
 import com.mkfactory.toothless.c.seoyoung.service.SeoyoungApplyingServicempl;
-import com.mkfactory.toothless.c.woojae.service.WoojaeExternalServiceImpl;
+import com.mkfactory.toothless.c.woojae.service.WoojaeStaffServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -33,7 +33,7 @@ public class SeoyoungApplyingController {
 	private GuntaekStudentServiceImpl guntaekStudentService;
 	
 	@Autowired
-	private WoojaeExternalServiceImpl woojaeExternalService;
+	private WoojaeStaffServiceImpl woojaeExternalService;
 	
 	
 	//test

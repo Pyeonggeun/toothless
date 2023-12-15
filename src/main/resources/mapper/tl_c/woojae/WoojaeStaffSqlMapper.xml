@@ -4,7 +4,7 @@
 
 
 
-<mapper namespace="com.mkfactory.toothless.c.woojae.mapper.WoojaeExternalSqlMapper">
+<mapper namespace="com.mkfactory.toothless.c.woojae.mapper.WoojaeStaffSqlMapper">
 	
 	<!-- 외부사용자 PK -->
 	<select id="createExternalPk" resultType="int">
@@ -65,4 +65,27 @@
 	<select id="countByExternalId" resultType="int">
 		SELECT COUNT(*) FROM TL_JIC_EXTERNAL_INFO WHERE EXTERNAL_ID = #{external_id}
 	</select>
+	
+	<!-- 현장실습 과정 내역 -->
+	<select id="selectInternshipCourseList" resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
+		SELECT * FROM tl_c_internship_course ORDER BY INTERNSHIP_COURSE_PK DESC
+	</select>
+	
+	
+	<!-- 검색 카테고리 -->
+	<select id="joinedCompanyList" resultType="map">
+		SELECT * FROM tl_c_company_info tci
+		INNER JOIN tl_c_company_category tcc ON tci.COMPANY_CATEGORY_PK  = tcc.COMPANY_CATEGORY_PK
+		WHERE 1=1
+		<if test="searchType != null">
+			AND tci.COMPANY_CATEGORY_PK IN
+			<foreach collection="searchType" item="arr" separator="," open="(" close=")">
+					#{arr}
+			</foreach>
+		</if>
+		<if test="searchWord != null">
+			AND tci.COMPANY_NAME LIKE '%'||#{searchWord}||'%'
+		</if>
+	</select>	
+
 </mapper>
