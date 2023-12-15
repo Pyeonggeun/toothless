@@ -1,5 +1,6 @@
 package com.mkfactory.toothless.c.seoyoung.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
 import com.mkfactory.toothless.c.dto.AjdksCompanyCategoryDto;
@@ -19,6 +21,7 @@ import com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto;
 import com.mkfactory.toothless.c.guntaek.service.GuntaekStudentServiceImpl;
 import com.mkfactory.toothless.c.seoyoung.service.SeoyoungApplyingServicempl;
 import com.mkfactory.toothless.c.woojae.service.WoojaeExternalServiceImpl;
+import com.mkfactory.toothless.donot.touch.dto.RestResponseDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -39,8 +42,9 @@ public class SeoyoungApplyingController {
 	//test
 	@RequestMapping("helloSeoyoung") 
 	public String helloSeoyoung() {
-		return "tl_c/seoyoung/helloSeoyoung";
+		return "/tl_c/seoyoung/student/helloSeoyoung";
 	}
+	
 	
 	// 학생 지원신청 페이지, 산업체 조회 확인
 	@RequestMapping("ajdksInterneduApplyPage") 

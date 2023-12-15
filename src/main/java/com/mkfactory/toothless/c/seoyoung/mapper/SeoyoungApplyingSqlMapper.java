@@ -28,4 +28,6 @@ public interface SeoyoungApplyingSqlMapper {
 	
 	//카테고리+산업체 조인
 	public List<Map<String, Object>> searchCompanyCategori();
+
+	public Map<String, Object> selectApplyCompanyModal(int INTERNSHIP_COURSE_PK);
 }
