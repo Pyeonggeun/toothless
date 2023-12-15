@@ -31,11 +31,11 @@ public class EduStaffServiceimpl {
 		eduStaffSqlMapper.insert(eduDto);
 	}
 	//프로그램 리스트 출력
-	public List<Map<String, Object>> getEduProgList(){
+	public List<Map<String, Object>> getEduProgList(String searchType, String searchWord){
 		
 		List<Map<String, Object>> list = new ArrayList<>();
 		
-		List<EduDto> EduProgList = eduStaffSqlMapper.selectAll(); 
+		List<EduDto> EduProgList = eduStaffSqlMapper.selectAll(searchType, searchWord); 
 		
 		for(EduDto eduDto : EduProgList) {
 			int staffPk = eduDto.getStaff_pk();

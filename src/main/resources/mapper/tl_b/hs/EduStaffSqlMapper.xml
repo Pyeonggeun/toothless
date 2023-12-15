@@ -19,9 +19,33 @@
 			SYSDATE
 		)
 	</insert>
-	<!-- 프로그램 목록 가져오기 -->
+	<!-- 프로그램 목록 가져오기 --><!-- 마이베티스 동적쿼리 -->
 	<select id="selectAll" resultType="com.mkfactory.toothless.b.dto.EduDto">
-		SELECT * FROM TL_B_EDU_INFO ORDER BY edu_pk DESC
+		<!-- SELECT tbei1.* FROM( -->
+			SELECT tbei.* 
+			FROM TL_B_EDU_INFO tbei
+			
+			<if test="searchType != null and searchType == 'name'">
+			INNER JOIN TL_JIC_STAFF_INFO tjsi ON TJSI.STAFF_PK = TBEI.STAFF_PK 
+			</if>
+			
+			WHERE 1=1
+			<if test="searchType != null">
+				<choose>
+					<when test="searchType == 'eduName'">
+						AND tbei.NAME LIKE '%' || #{searchWord} || '%'
+					</when>
+					<when test="searchType == 'name'">
+						AND tjsi. NAME LIKE '%' || #{searchWord} || '%'
+					</when>
+					<when test="searchType == 'content'">
+						AND tbei.CONTENT LIKE '%' || #{searchWord} || '%' 
+					</when>
+				</choose>
+			</if>
+<!-- 		)tbei1
+ -->		ORDER BY edu_pk DESC  
+	
 	</select>
 	
 	<!-- 프로그램 신청 목록가져오기 -->
