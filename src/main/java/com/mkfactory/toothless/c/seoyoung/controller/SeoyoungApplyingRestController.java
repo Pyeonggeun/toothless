@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mkfactory.toothless.c.guntaek.service.GuntaekStudentServiceImpl;
 import com.mkfactory.toothless.c.seoyoung.service.SeoyoungApplyingServicempl;
-import com.mkfactory.toothless.c.woojae.service.WoojaeExternalServiceImpl;
+import com.mkfactory.toothless.c.woojae.service.WoojaeStaffServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.RestResponseDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -28,7 +28,7 @@ public class SeoyoungApplyingRestController {
 	private GuntaekStudentServiceImpl guntaekStudentService;
 
 	@Autowired
-	private WoojaeExternalServiceImpl woojaeExternalService;
+	private WoojaeStaffServiceImpl woojaeStaffServiceImpl;
 
 	@RequestMapping("companyListBox")
 	public RestResponseDto companyListBox() {

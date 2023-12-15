@@ -234,15 +234,18 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 		const modal = bootstrap.Modal.getOrCreateInstance("#nextModal");
 	        
     //    const companyListWrapper = document.querySelector("#nextModal .companyListWrapper");
-        
+         
         fetch("./companyTF")
         .then(response => response.json())
         .then(response => {
         	console.log(response);
         	const modalValues = response.data;
         	
-        	console.log(modalValues);
-        	
+        	if (modalValues=="yes"){
+        		console.log("결과 : yes");
+        	}else{
+        		console.log("결과 : no");
+        	}
         	
         });
         
