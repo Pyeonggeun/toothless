@@ -70,7 +70,7 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 
 <script>
 
-	
+const student_pk = ${sessionStudentInfo.student_pk};
 	function reloadcompanyList(){
         
         const url = "./companyListBox";
@@ -226,46 +226,189 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 		});
         //console.log(companyListWrapper);
         modal.show();
+        
     	
     	
 	}
 	
 	function openModal2(itemPk) {
 		const modal = bootstrap.Modal.getOrCreateInstance("#nextModal");
-	        
-    //    const companyListWrapper = document.querySelector("#nextModal .companyListWrapper");
-         
+	  
         fetch("./companyTF")
         .then(response => response.json())
         .then(response => {
-        	console.log(response);
+        	console.log(response.data);
         	const modalValues = response.data;
-        	
-        	if (modalValues=="yes"){
-        		console.log("결과 : yes");
-        	}else{
-        		console.log("결과 : no");
-        	}
-        	
+        	if (modalValues == "yes") {
+    		    console.log("결과: yes");
+    		    const applyButton = document.getElementById("applyButton");
+    		    applyButton.setAttribute("onclick", "studentApplyProcess("+e.INTERNSHIP_COURSE_PK+")");
+    		} else {
+    		    failModal();
+    		    modal.hide();
+    		    console.log("결과: no");
+    		}
+     
         });
         
 		modal.show();
-		
+		//modal.hide();
 	}
 	
+	function studentApplyProcess(itemPk){
+		//const modalValues = response.data;
+       // console.log(modalValues.INTERNSHIP_COURSE_PK);
+		
+		const url = "./insertInternApply"
+			
+			fetch(url,{
+				method: "post",
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded"
+				},
+				body: "student_pk=" + student_pk
+				+ "&internship_course_pk=" + itemPk
+			})
+			.then(response => response.json())
+			.then(response => {
+				
+				
+				reloadcompanyList();
+				
+				alert("신청완료되었습니다.");
+				closeopenModal2();
+
+			})
+			;
+		}
 	function failModal() {
-		const modal = bootstrap.Modal.getOrCreateInstance("#failModal");
-	        
+		const modal = bootstrap.Modal.getOrCreateInstance("#failModal");    
         const companyListWrapper = document.querySelector("#failModal .companyListWrapper");
-	
-		modal.show();
-		closeModal();
+        modal.show();
+        setTimeout(function() {
+            closeModal();
+        }, 0);
 	//	modal.hide();
 	}
+	
+	function searchAppButton(){
+		const modal = bootstrap.Modal.getOrCreateInstance("#searchCompany");
+        
+        const url = "./companyListModal?pk="+itemPk;
+        fetch(url)
+		.then(response => response.json())
+		.then(response => {
+		})
+		;
+	}
+	
+	function searchByCompany(){
+		console.log("searchByCompany() 실행");
+				
+		const inputCategory = document.getElementById("inputCategory").value;	
+		const searchCompanyWord = document.getElementById("searchCompanyWord").value;
+		
+		
+		console.log(inputCategory);
+		console.log(searchCompanyWord);
+		
+		
+		const url = "./searchCompany";
+		const searchOption = {
+				method : "post",
+				headers : {
+					"Content-Type" : "application/x-www-form-urlencoded"
+				},
+				body : "company_category_pk=" +  inputCategory + "&searchCompanyWord=" + searchCompanyWord
+		}
+		fetch(url, searchOption)
+		.then(response => response.json())
+		.then(response =>{			
+			searchData = response.data;
+			console.log(searchData);
+			console.log(response);
+			
+			const companyListBox = document.getElementById("companyListBox");
+	           companyListBox.innerHTML = "";
+	           
+	           for(e of response.data){
+	              const companyListWrapper = document.querySelector("#companyListTemplete .companyListWrapper").cloneNode(true);
+	              
+	              const INTERNSHIP_COURSE_PK = companyListWrapper.querySelector(".INTERNSHIP_COURSE_PK");
+	              INTERNSHIP_COURSE_PK.innerText = e.INTERNSHIP_COURSE_PK;
+	              
+	              const COMPANY_CATEGORY_NAME = companyListWrapper.querySelector(".COMPANY_CATEGORY_NAME");
+	              COMPANY_CATEGORY_NAME.innerText = e.COMPANY_CATEGORY_NAME;
+	              
+	              const COMPANY_NAME = companyListWrapper.querySelector(".COMPANY_NAME");
+	              COMPANY_NAME.innerText = e.COMPANY_NAME;
+	              
+	              const ADDRESS = companyListWrapper.querySelector(".ADDRESS");
+	              ADDRESS.innerText = e.ADDRESS;
+	              
+	              const INTERNSHIP_START_DATE = companyListWrapper.querySelector(".INTERNSHIP_START_DATE");
+	              const date = new Date(e.INTERNSHIP_START_DATE); 
+	              const formattedStartDate = date.getFullYear() + "-" + padZero(date.getMonth() + 1) + "-" + padZero(date.getDate()) +
+	                " " + padZero(date.getHours()) + ":" + padZero(date.getMinutes()) + " ~ ";
+	              INTERNSHIP_START_DATE.innerText = formattedStartDate;
+	              
+	              const INTERNSHIP_END_DATE = companyListWrapper.querySelector(".INTERNSHIP_END_DATE");
+	              const date2 = new Date(e.INTERNSHIP_END_DATE); 
+	              const formattedEndDate = date2.getFullYear() + "-" + padZero(date2.getMonth() + 1) + "-" + padZero(date2.getDate()) +
+	                " " + padZero(date2.getHours()) + ":" + padZero(date2.getMinutes());
+	              INTERNSHIP_END_DATE.innerText = formattedEndDate;
+	              
+	              const APPLYING_END_DATE = companyListWrapper.querySelector(".APPLYING_END_DATE");
+	              const date3 = new Date(e.APPLYING_END_DATE); 
+	              const formattedApplyEndDate = date3.getFullYear() + "-" + padZero(date3.getMonth() + 1) + "-" + padZero(date3.getDate()) +
+	                " " + padZero(date3.getHours()) + ":" + padZero(date3.getMinutes());
+	                APPLYING_END_DATE.innerText = formattedApplyEndDate;
+
+	              function padZero(number) {
+	                return number < 10 ? "0" + number : number;
+	              }
+
+	              const INTERNSHIP_TOTAL_MEMBER = companyListWrapper.querySelector(".INTERNSHIP_TOTAL_MEMBER");
+	              INTERNSHIP_TOTAL_MEMBER.innerText = e.INTERNSHIP_TOTAL_MEMBER;
+	              
+	              
+	              const viewButton = companyListWrapper.querySelector(".viewButton");
+	              viewButton.innerText = "상세보기";
+	              viewButton.classList.add("btn", "btn-sm", "rounded-1", "open-Modal");
+	              viewButton.setAttribute("onclick", "openModal("+e.INTERNSHIP_COURSE_PK+")");
+				
+	              companyListBox.appendChild(companyListWrapper);
+	           }
+			
+		//	processSearchData(searchData);
+		});
+		
+	}
+		
+		
+		
+		function pressEnter(){
+	    	if(window.event.keyCode == 13){
+	    		searchByCompany();
+	    	}
+	    }
 	
     function closeModal() {
     	const modal = bootstrap.Modal.getOrCreateInstance("#internEvaluationModal");
         modal.hide();
+	}
+    
+    function closeModalfail() {
+        const modal = bootstrap.Modal.getOrCreateInstance("#failModal");
+        modal.hide();
+    }
+    
+    function closeopenModal2() {
+    	//closeModal();
+    	const modal = bootstrap.Modal.getOrCreateInstance("#internEvaluationModal");
+    	const modal2 = bootstrap.Modal.getOrCreateInstance("#nextModal");
+        modal.hide();
+        modal2.hide();
 	}
 	
 	
@@ -290,6 +433,7 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 	function CompanyList() {
 		const url = "ajdksInterneduApplyPage" + company_Pk;
 	}
+	
 
 	window.addEventListener("DOMContentLoaded", () => {
 		reloadcompanyList();
@@ -329,36 +473,32 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 							</div>
 							<br>
 
-							<form>
-								<nav class="navbar navbar-light">
-									<div class="col">
-										<div class="row ms-3 mt-3 me-3 mb-3">
-											<div class="col-2 px-0">
-												<select class="form-select" id="inputCategory">
-													<option selected>업종 선택</option>
-													<option value="1">제조업</option>
-													<option value="2">건설업</option>
-													<option value="3">정보통신업</option>
-													<option value="4">금융업</option>
-													<option value="5">부동산업</option>
-												</select>
-											</div>
-											<div class="input-group col px-0 ">
-												<input class="form-control" type="search"
-													placeholder="Search" aria-label="Search">
-												<button
-													class="input-group-prepend btn btn-primary btn-outline-light"
-													style="background-color: #CFE2FF;">
-													<i class="bi bi-search"></i>
-												</button>
-
-											</div>
-
+							<nav class="navbar navbar-light" id="searchCompany"  style="background-color: #CFE2FF;">
+								<div class="col">
+									<div class="row ms-3 mt-3 me-3 mb-3">
+										<div class="col-2 px-0">
+											<select class="form-select" id="inputCategory">
+												<option selected value=	0>업종 선택</option>
+												<option value=1>제조업</option>
+												<option value=2>건설업</option>
+												<option value=3>정보통신업</option>
+												<option value=4>금융업</option>
+												<option value=5>부동산업</option>
+											</select>
 										</div>
-									</div>
+										<div class="input-group col px-0 " >
+											<input id="searchCompanyWord" onkeyup="pressEnter()"
+												type="text" class="form-control btn-outline-light">
+												 <a href="#" onclick="searchByCompany()" role="button" class="btn btn-primary  btn-outline-light" >
+												 <i class="bi bi-search"></i></a>
+										</div>
 
-								</nav>
-							</form>
+									</div>
+								</div>
+
+							</nav>
+
+
 							<br>
 							<!-- 컴퍼니 리스트 -->
 							<div class="row mt-2" style="height: 18em">
@@ -430,7 +570,7 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 			<div class="modal-content px-3 rounded-0">
 				<div class="modal-header mt-1">
 					<h5 class="modal-title fw-semibold" id="exampleModalToggleLabel">현장학습신청</h5>
-					<span onclick="closeModal()" class="close text-secondary fs-4"
+					<span onclick="closeModalfail()" class="close text-secondary fs-4"
 						id="close-modal"><i class="bi bi-x-lg"></i></span>
 				</div>
 				<div class="modal-body">
@@ -537,49 +677,19 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 				<div class="modal-body">
 					신청하시겠습니까?<br> *신청 하시면 결과 발표 때까지 지원이 불가 합니다.
 				</div>
-				<c:if test="${tf eq 'yes'}">
-					<div class="aaa modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">뒤로가기</button>
-						<button type="submit" class="failModal btn btn-primary">신청</button>
-
-					</div>
-				</c:if>
-				<c:if test="${tf eq 'no'}">
-					<div class="aaa modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">뒤로가기</button>
-						<a class="failModal btn btn-primary" data-bs-toggle="modal"
-							href="#exampleModalToggle3" role="button">신청</a>
-					</div>
-				</c:if>
-				<div class="modal fade " id="exampleModalToggle3" aria-hidden="true"
-					aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalToggleLabel2">현장학습신청</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								<p>이미 신청한 내역이 있습니다.</p>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">닫기</button>
-							</div>
-							<div class="closeModal"></div>
-						</div>
-					</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-danger"
+						data-bs-dismiss="modal">취소</button>
+					<button type="button" id="applyButton" class="btn btn-primary">신청</button>
 				</div>
+
+
 			</div>
 		</div>
 	</div>
-
-	<div class="modal fade " id="failModal" aria-hidden="true"
-		aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
-		<div class=" modal-dialog">
+	<!-- 이미 신청 내역 있 모달 -->
+	<div class="modal fade " id="failModal">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalToggleLabel2">현장학습신청</h5>
@@ -593,9 +703,12 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">닫기</button>
 				</div>
+				<div class="closeModal"></div>
 			</div>
 		</div>
 	</div>
+	<!-- 서치 -->
+
 
 	<!-- 전체 container 출구 -->
 	<script
