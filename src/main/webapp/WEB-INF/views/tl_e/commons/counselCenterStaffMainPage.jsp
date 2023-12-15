@@ -9,64 +9,82 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
+	<jsp:include page="./staffTopArea.jsp"></jsp:include>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+	
+	<!--  -->	
+
+	<div class="row">
+		<div class="col fw-bold text-center">
+			<img src="../../resources/img/counselCenterStaff/topBanner01.jpg" class="border border-dark">
+		</div>
+	</div>
+	
+	<!--  -->
 
 	<div class="container">
-	
-		<div class="row border-bottom">
-			<div class="col-10"></div>
-			<div class="col py-2 me-0 pe-0 text-center dropdown nav-item">
-			  <a class="nav-link pt-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    <span class="fw-bold">${sessionStaffInfo.name}</span>님
-			  </a>
-			  <ul class="dropdown-menu">
-			    <li><a class="dropdown-item" href="#">정보 수정</a></li>
-			    <li><a class="dropdown-item" href="#">마이페이지</a></li>
-			    <li><hr class="dropdown-divider"></li>
-			    <li><a class="dropdown-item" href="#"><span><i class="bi bi-power"></i></span>&nbsp;로그아웃</a></li>
-			  </ul>
+		<div class="row text-center fw-bold mt-4">
+			<div class="col text-primary-emphasis">집단상담List</div>
+			<div class="col text-primary-emphasis">공지사항</div>
+			<div class="col text-primary-emphasis">자유게시판</div>
+		</div>
+		<div class="row text-center mt-3">
+			<div class="col">
+				<div class="row">
+					<div class="col-3"></div>
+					<div class="col border-success border-top rounded-1"></div>
+					<div class="col-3"></div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="row">
+					<div class="col-3"></div>
+					<div class="col border-success border-top rounded-1"></div>
+					<div class="col-3"></div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="row">
+					<div class="col-3"></div>
+					<div class="col border-success border-top rounded-1"></div>
+					<div class="col-3"></div>
+				</div>
 			</div>
 		</div>
-
+		
+		
+		<!--  -->
+		
+		
+		<div class="row text-center mt-3">
+			<div class="col border-top border-start border-subtle rounded-1">
+				
+			</div>
+			<div class="col border-top rounded-1">2</div>
+			<div class="col border-top rounded-1">3</div>
+		</div>		
 		<div class="row"></div>
-		<div class="row">
-			<div class="col ms-4">
-				<div class="row pt-5">
-					<div class="col fw-bold fs-3">
-						MENU
-					</div>
-				</div>
-				<div class="row pt-5">
-					<div class="col fs-5">						
-						<div class="dropend">
-							<button class="btn btn-white dropdown-toggle navbar-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-							상담원 관리
-							</button>
-							<ul class="dropdown-menu">
-							    <li><a class="dropdown-item" href="../registerCounselor/registerPage">상담원 등록</a></li>
-						   		<li><a class="dropdown-item" href="../registerCounselor/counselorInfo">상담원 조회</a></li>
-						   		<li><a class="dropdown-item" href="../registerCounselor/managementCounselor">상담원 관리(JS)</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="row pt-4">
-					<div class="col fs-5">
-						<a class="navbar-brand" href="../notice/noticeMainPage">공지사항</a>
-					</div>
-				</div>
-				<div class="row pt-4">
-					<div class="col fs-5">
-						<a class="navbar-brand" href="../groupcounsel/staff/groupCounselListPage">집단상담</a>
-					</div>
-				</div>
+		<div class="row text-center border rounded-1">
+			<div class="col">
+				통계1
 			</div>
-			<div class="col-10"></div>
+			<div class="col">
+				통계2
+			</div>
+			<div class="col">
+				통계3
+			</div>
 		</div>
-	
-	
 	</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+	
+	
+	<!--  -->
+	
+	
+	<div class="row">
+		<div class="col text-center fw-bold">
+			<hr>Footer
+		</div>
+	</div>
 </body>
 </html>
