@@ -14,7 +14,7 @@
 	
 	<div class="container">
 		<div class="row my-4">
-			<div class="col fs-3 border-bottom">서흥의 레전더리 자유게시판</div>
+			<div class="col fs-3 border-bottom">기숙사 자유게시판</div>
 		</div>
 		<div class="row fw-bold my-3">
 			<div class="col">글 번호</div>
