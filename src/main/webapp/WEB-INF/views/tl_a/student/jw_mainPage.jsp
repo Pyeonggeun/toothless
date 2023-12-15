@@ -24,74 +24,124 @@
 		.new-color {
 		    color: #FFFFFF;
 		}
+
 		
 		.image-transition {
             transition: transform 0.5s ease;
         }
         
-         .img-container {
-            position: relative;
-        }
+		.img-container {
+		    position: relative;
+		    z-index: 1; /* 이미지 위에 나타나도록 설정 */
+		}
 
-        .circle-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100px; /* 조절 가능한 원의 크기 */
-            height: 100px;
-            border-radius: 50%;
-            background-color: #8C7427; /* 색상 */
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
-        }
-
-        #box:hover .circle-overlay {
-            opacity: 1;
-        }
-        
+		.box {
+		    position: relative;
+		}
+		
+		.circle-overlay {
+		    position: absolute;
+		    top: 50%;
+		    left: 45%;
+		    transform: translate(-50%, -50%);
+		    width: 100px; /* 조절 가능한 원의 크기 */
+		    height: 100px;
+		    border-radius: 50%;
+		    background-color: #8C7427; /* 색상 */
+		    opacity: 0;
+		    transition: opacity 0.5s ease;
+		    z-index: -1;
+		}
+		
         .badge-container {
             position: relative;
-            z-index: 2; /* 버지를 이미지와 원 위로 가져오기 */
+            z-index: 2; /* 뱃지를 이미지와 원 위로 가져오기 */
         }
-
-        #box:hover .badge-container {
-            display: none; /* 마우스 오버시 바로가기 숨기기 */
-        }
+        
+        .button-with-background {
+		    transition: transform 0.3s ease;
+		}
 		
+		.button-with-background:hover {
+		   transform: translateY(-10px);
+		}
+
 		
 	</style>
 	
 	<script>
+
 	
-	    function changeColor() {
-	        document.getElementById("box").style.backgroundColor = "#8C7427";
-	        document.getElementById("title").style.color = "#FFC704";
-	        document.getElementById("title").classList.add("fw-bold");
-	        document.getElementById("content").classList.remove("default-color");
-	        document.getElementById("content").classList.add("new-color");
-	        document.getElementById("imageContainer").classList.add("image-transition");
+	    function changeColor(num) {
+	        document.getElementById("box" + num).style.backgroundColor = "#8C7427";
+	        document.getElementById("title" + num).style.color = "#FFC704";
+	        document.getElementById("title" + num).classList.add("fw-bold");
+	        document.getElementById("content" + num).classList.remove("default-color");
+	        document.getElementById("content" + num).classList.add("new-color");
+	        document.getElementById("imageContainer" + num).classList.add("image-transition");
 	        
-	     // 이미지 올리기
-	        document.getElementById("imageContainer").style.transform = "translateY(-38px)";
+	     	// 이미지 올리기
+	        document.getElementById("imageContainer" + num).style.transform = "translateY(-38px)";
+	     	
+	     	// 뱃지 바꾸기
+	     	const badge = document.getElementById("badge" + num);
+	     	badge.classList.remove("p-2");
+	     	badge.classList.add("px-4", "py-2");
+	     	badge.style.backgroundColor = "#E5E5E5";
+	     	badge.style.color = "#777777";
+	     	badge.innerText = "바로가기";
+	     	
+	     	const iTag = document.createElement("i");
+	     	iTag.classList.add("ms-2", "fs-5", "bi", "bi-arrow-right");
+	     	iTag.style.color = "#777777";
+	     	badge.appendChild(iTag);
+	     	
+	     	// 원 만들기
+	     	var box = document.getElementById("box" + num);
+	     	var circleOverlay = box.querySelector(".circle-overlay");
+		    if (circleOverlay) {
+		        circleOverlay.style.opacity = 1;
+		    }
+	     	
 	    }
 
-	    
-	
-	    function restoreColor() {
-	    	document.getElementById("box").style.backgroundColor = "";
-	    	document.getElementById("title").style.color = "black";
-	    	document.getElementById("title").classList.remove("fw-bold");
-	    	document.getElementById("content").classList.remove("new-color");
-	    	document.getElementById("content").classList.add("default-color");
+
+	    function restoreColor(num) {
+	    	document.getElementById("box" + num).style.backgroundColor = "";
+	    	document.getElementById("title" + num).style.color = "black";
+	    	document.getElementById("title" + num).classList.remove("fw-bold");
+	    	document.getElementById("content" + num).classList.remove("new-color");
+	    	document.getElementById("content" + num).classList.add("default-color");
 
 	    	// 이미지 내리기
-		    document.getElementById("imageContainer").style.transform = "translateY(0)";
+		    document.getElementById("imageContainer" + num).style.transform = "translateY(0)";
+	    	
+	     	// 뱃지 바꾸기
+	     	const badge = document.getElementById("badge" + num);
+	     	badge.classList.add("p-2");
+	     	badge.classList.remove("px-4", "py-2");
+	     	badge.style.backgroundColor = "#E5E5E5";
+	     	badge.innerText = "";
+	     	
+	     	const iTag = document.createElement("i");
+	     	iTag.classList.add("fs-5", "bi", "bi-arrow-right");
+	     	iTag.style.color = "white";
+	     	badge.appendChild(iTag);
+	     	
+	     	var box = document.getElementById("box" + num);
+	     	var circleOverlay = box.querySelector(".circle-overlay");
+	        if (circleOverlay) {
+	            circleOverlay.style.opacity = 0;
+	        }
 		}
 	    
+	    // 특정 링크로 이동 - onclick사용
+	    function toLink(link) {
+
+		    window.location.href = link;
+		}
 	    
-	  
+
 	    
 	    
 	</script>
@@ -134,33 +184,35 @@
 			<div class="row mb-5 py-5">
 				<div class="col">
 					<div class="row border border-bottom-0 p-0">
-						<div id="box" onmouseover="changeColor()" onmouseout="restoreColor()" class="col border-end">
+						<div id="box0" class="box box0 col border-end"
+						onclick="toLink('./dm_dormIntroduction')"
+						onmouseover="changeColor(0)" onmouseout="restoreColor(0)">
 							<!-- 이모티콘 -->
 							<div class="row mt-4 ms-3">
-								<div id="imageContainer" class="col-3 img-container">
+								<div id="imageContainer0" class="col-3 img-container">
 									<div class="circle-overlay"></div>
 									<img src="../../resources/img/dormitory/img1.png" class="img-fluid" style="height: 60px">
 								</div>
 							</div>
 							<!-- 제목 -->
-							<div id="title" class="row mt-3 ms-3">
+							<div id="title0" class="row mt-3 ms-3">
 								<div class="col fs-5">
 									MK대 기숙사
 								</div>
 							</div>
 							<!-- 설명 -->
-							<div id="content" class="row default-color mt-2 ms-3">
+							<div id="content0" class="row default-color mt-2 ms-3">
 								<div class="col">
 									MK대 기숙사를 소개합니다.<br>
 									&nbsp;
 								</div>
 							</div>
 							<!-- 바로가기 -->
-							<div class="row mt-5 ms-3 mb-4 badge-container">
+							<div class="row mt-5 ms-3 mb-4">
 								<div class="col">
 									<div class="row">
 										<div class="col-3 align-self-center">
-										<span class="badge rounded-5 p-2" style="background-color: #E5E5E5; font-size: 1.1em">
+										<span id="badge0" class="badge rounded-5 p-2 " style="background-color:#E5E5E5; font-size: 1.1em">
 											<i class="text-white fs-5 bi bi-arrow-right"></i>
 										</span>
 										</div>
@@ -168,22 +220,26 @@
 								</div>
 							</div>
 						</div>
-						<div class="col border-end">
+						<div id="box1" class="box box1 col border-end" 
+						onclick="toLink('./mj_dormPosted')"
+						onmouseover="changeColor(1)" onmouseout="restoreColor(1)">
 							<!-- 이모티콘 -->
 							<div class="row mt-4 ms-3">
-								<div class="col-3">
-									<img src="../../resources/img/dormitory/img2.png" class="img-fluid" style="height: 59px">
+								<div id="imageContainer1" class="col-3 img-container">
+									<div class="circle-overlay"></div>
+									<span>
+									<img src="../../resources/img/dormitory/img2.png" class="img-fluid" style="height: 57px; width: 51px"></span>
 								</div>
 							</div>
 							<!-- 제목 -->
-							<div class="row mt-3 ms-3">
+							<div id="title1" class="row mt-3 ms-3">
 								<div class="col fs-5">
 									입사신청
 								</div>
 							</div>
 							<!-- 설명 -->
-							<div class="row mt-2 ms-3">
-								<div class="col" style="color: #777777;">
+							<div id="content1" class="row default-color mt-2 ms-3">
+								<div class="col">
 									생활관 입사신청 방법을<br>
 									안내합니다.
 								</div>
@@ -193,30 +249,33 @@
 								<div class="col">
 									<div class="row">
 										<div class="col-3 align-self-center">
-										<span class="badge rounded-5 px-4 py-2" style="background-color: #E5E5E5; color: #777777; font-size: 1.1em">
-											바로가기 <i class="fs-5 bi bi-arrow-right" style="color: #777777;"></i>
+										<span id="badge1" class="badge rounded-5 p-2 " style="background-color:#E5E5E5; font-size: 1.1em">
+											<i class="text-white fs-5 bi bi-arrow-right"></i>
 										</span>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col border-end">
+						<div id="box2" class="box box2 col border-end" 
+						onclick="toLink('./jw_exitApplyPage')"
+						onmouseover="changeColor(2)" onmouseout="restoreColor(2)">
 							<!-- 이모티콘 -->
 							<div class="row mt-4 ms-3">
-								<div class="col-3">
+								<div id="imageContainer2" class="col-3 img-container">
+									<div class="circle-overlay"></div>
 									<img src="../../resources/img/dormitory/img3.png" class="img-fluid" style="height: 60px">
 								</div>
 							</div>
 							<!-- 제목 -->
-							<div class="row mt-3 ms-3">
+							<div id="title2" class="row mt-3 ms-3">
 								<div class="col fs-5">
 									외박 및 외출신청
 								</div>
 							</div>
 							<!-- 설명 -->
-							<div class="row mt-2 ms-3">
-								<div class="col" style="color: #777777;">
+							<div id="content2" class="row default-color mt-2 ms-3">
+								<div class="col">
 									외박 및 외출신청 방법을<br>
 									안내합니다.
 								</div>
@@ -226,30 +285,33 @@
 								<div class="col">
 									<div class="row">
 										<div class="col-3 align-self-center">
-										<span class="badge rounded-5 px-4 py-2" style="background-color: #9BABB8; font-size: 1.1em">
-											바로가기 <i class="text-white fs-5 bi bi-arrow-right"></i>
+										<span id="badge2" class="badge rounded-5 p-2 " style="background-color:#E5E5E5; font-size: 1.1em">
+											<i class="text-white fs-5 bi bi-arrow-right"></i>
 										</span>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col">
+						<div id="box3" class="box box3 col" 
+						onclick="toLink('./dm_dormNoticePage')"
+						onmouseover="changeColor(3)" onmouseout="restoreColor(3)">
 							<!-- 이모티콘 -->
 							<div class="row mt-4 ms-3">
-								<div class="col-3">
-									<img src="../../resources/img/dormitory/img4.png" class="img-fluid" style="height: 57px">
+								<div id="imageContainer3" class="col-3 img-container">
+									<div class="circle-overlay"></div>
+									<img src="../../resources/img/dormitory/img4.png" class="img-fluid" style="height: 57px; width: 49px;">
 								</div>
 							</div>
 							<!-- 제목 -->
-							<div class="row mt-3 ms-3">
+							<div id="title3" class="row mt-3 ms-3">
 								<div class="col fs-5">
 									공지사항
 								</div>
 							</div>
 							<!-- 설명 -->
-							<div class="row mt-2 ms-3">
-								<div class="col" style="color: #777777;">
+							<div id="content3" class="row default-color mt-2 ms-3">
+								<div class="col">
 									기숙사의 공지사항을<br>
 									알려드립니다.
 								</div>
@@ -259,8 +321,8 @@
 								<div class="col">
 									<div class="row">
 										<div class="col-3 align-self-center">
-										<span class="badge rounded-5 px-4 py-2" style="background-color: #E7CFD7; font-size: 1.1em">
-											바로가기 <i class="text-white fs-5 bi bi-arrow-right"></i>
+										<span id="badge3" class="badge rounded-5 p-2 " style="background-color:#E5E5E5; font-size: 1.1em">
+											<i class="text-white fs-5 bi bi-arrow-right"></i>
 										</span>
 										</div>
 									</div>
@@ -270,22 +332,25 @@
 					</div>
 					<!-- 222222222222222222222222222222222222222222222222222222 -->
 					<div class="row border p-0">
-						<div class="col border-end">
+						<div id="box4" class="box box4 col border-end" 
+						onclick="toLink('./dm_FAQ')"
+						onmouseover="changeColor(4)" onmouseout="restoreColor(4)">
 							<!-- 이모티콘 -->
 							<div class="row mt-4 ms-3">
-								<div class="col-3">
-									<img src="../../resources/img/dormitory/img5.png" class="img-fluid" style="height: 60px">
+								<div id="imageContainer4" class="col-3 img-container">
+									<div class="circle-overlay"></div>
+									<img src="../../resources/img/dormitory/img5.png" class="img-fluid" style="height: 63px; width: 50px;">
 								</div>
 							</div>
 							<!-- 제목 -->
-							<div class="row mt-3 ms-3">
+							<div id="title4" class="row mt-3 ms-3">
 								<div class="col fs-5">
 									FAQ
 								</div>
 							</div>
 							<!-- 설명 -->
-							<div class="row mt-2 ms-3">
-								<div class="col" style="color: #777777;">
+							<div id="content4" class="row default-color mt-2 ms-3">
+								<div class="col">
 									자주하는 질문을 확인하실 수<br>
 									있습니다.
 								</div>
@@ -295,30 +360,33 @@
 								<div class="col">
 									<div class="row">
 										<div class="col-3 align-self-center">
-										<span class="badge rounded-5 px-4 py-2" style="background-color: #9BABB8; font-size: 1.1em">
-											바로가기 <i class="text-white fs-5 bi bi-arrow-right"></i>
+										<span id="badge4" class="badge rounded-5 p-2 " style="background-color:#E5E5E5; font-size: 1.1em">
+											<i class="text-white fs-5 bi bi-arrow-right"></i>
 										</span>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col border-end">
+						<div id="box5" class="box box5 col border-end" 
+						onclick="toLink('#')"
+						onmouseover="changeColor(5)" onmouseout="restoreColor(5)">
 							<!-- 이모티콘 -->
 							<div class="row mt-4 ms-3">
-								<div class="col-3">
-									<img src="../../resources/img/dormitory/img6.png" class="img-fluid" style="height: 60px">
+								<div id="imageContainer5" class="col-3 img-container">
+									<div class="circle-overlay"></div>
+									<img src="../../resources/img/dormitory/img6.png" class="img-fluid" style="height: 60px; width: 62px;">
 								</div>
 							</div>
 							<!-- 제목 -->
-							<div class="row mt-3 ms-3">
+							<div id="title5" class="row mt-3 ms-3">
 								<div class="col fs-5">
 									고장 수리요청
 								</div>
 							</div>
 							<!-- 설명 -->
-							<div class="row mt-2 ms-3">
-								<div class="col" style="color: #777777;">
+							<div id="content5" class="row default-color mt-2 ms-3">
+								<div class="col">
 									고장 수리를 요청하실 수<br>
 									있습니다.
 								</div>
@@ -328,30 +396,33 @@
 								<div class="col">
 									<div class="row">
 										<div class="col-3 align-self-center">
-										<span class="badge rounded-5 px-4 py-2" style="background-color: #9BABB8; font-size: 1.1em">
-											바로가기 <i class="text-white fs-5 bi bi-arrow-right"></i>
+										<span id="badge5" class="badge rounded-5 p-2 " style="background-color:#E5E5E5; font-size: 1.1em">
+											<i class="text-white fs-5 bi bi-arrow-right"></i>
 										</span>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col border-end">
+						<div id="box6" class="box box6 col border-end" 
+						onclick="toLink('./mainGaesipan')"
+						onmouseover="changeColor(6)" onmouseout="restoreColor(6)">
 							<!-- 이모티콘 -->
 							<div class="row mt-4 ms-3">
-								<div class="col-3">
+								<div id="imageContainer6" class="col-3 img-container">
+									<div class="circle-overlay"></div>
 									<img src="../../resources/img/dormitory/img7.png" class="img-fluid" style="height: 60px">
 								</div>
 							</div>
 							<!-- 제목 -->
-							<div class="row mt-3 ms-3">
+							<div id="title6" class="row mt-3 ms-3">
 								<div class="col fs-5">
 									자유게시판
 								</div>
 							</div>
 							<!-- 설명 -->
-							<div class="row mt-2 ms-3">
-								<div class="col" style="color: #777777;">
+							<div id="content6" class="row default-color mt-2 ms-3">
+								<div class="col">
 									자유롭게 글을 작성하실<br>
 									수 있습니다.
 								</div>
@@ -361,30 +432,33 @@
 								<div class="col">
 									<div class="row">
 										<div class="col-3 align-self-center">
-										<span class="badge rounded-5 px-4 py-2" style="background-color: #9BABB8; font-size: 1.1em">
-											바로가기 <i class="text-white fs-5 bi bi-arrow-right"></i>
+										<span id="badge6" class="badge rounded-5 p-2 " style="background-color:#E5E5E5; font-size: 1.1em">
+											<i class="text-white fs-5 bi bi-arrow-right"></i>
 										</span>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col">
+						<div id="box7" class="box box7 col" 
+						onclick="toLink('./jw_checkDormStudentPointPage')"
+						onmouseover="changeColor(7)" onmouseout="restoreColor(7)">
 							<!-- 이모티콘 -->
 							<div class="row mt-4 ms-3">
-								<div class="col-3">
-									<img src="../../resources/img/dormitory/img8.png" class="img-fluid" style="height: 60px">
+								<div id="imageContainer7" class="col-3 img-container">
+									<div class="circle-overlay"></div>
+									<img src="../../resources/img/dormitory/img8.png" class="img-fluid" style="height: 60px;">
 								</div>
 							</div>
 							<!-- 제목 -->
-							<div class="row mt-3 ms-3">
+							<div id="title7" class="row mt-3 ms-3">
 								<div class="col fs-5">
 									상벌점 확인
 								</div>
 							</div>
 							<!-- 설명 -->
-							<div class="row mt-2 ms-3">
-								<div class="col" style="color: #777777;">
+							<div id="content7" class="row default-color mt-2 ms-3">
+								<div class="col">
 									상벌점을 확인하실 수<br>
 									있습니다.
 								</div>
@@ -394,8 +468,8 @@
 								<div class="col">
 									<div class="row">
 										<div class="col-3 align-self-center">
-										<span class="badge rounded-5 px-4 py-2" style="background-color: #9BABB8; font-size: 1.1em">
-											바로가기 <i class="text-white fs-5 bi bi-arrow-right"></i>
+										<span id="badge7" class="badge rounded-5 p-2 " style="background-color:#E5E5E5; font-size: 1.1em">
+											<i class="text-white fs-5 bi bi-arrow-right"></i>
 										</span>
 										</div>
 									</div>
@@ -568,83 +642,8 @@
 	</div>
 </div>
 
-<!-- 하단 -->
-<div class="row" style="background-color:#181C23">
-	<div class="col">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="row my-2 py-4 border-bottom border-secondary d-flex">
-						<div class="col">
-							<div class="row">
-								<div class="col">
-									<span class="text-warning" style="font-size:1.1rem">
-										개인정보처리방침
-									</span>
-								</div>
-								<div class="col-3 text-center px-0">
-									<span class="text-secondary" style="font-size:1.2rem">
-										<i class="bi bi-dot"></i>
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="col">
-							<div class="row">
-								<div class="col">
-									<span class="text-light" style="font-size:1.1rem">
-										이메일무단수집거부
-									</span>
-								</div>
-								<div class="col-3 text-center px-0">
-									<span class="text-secondary" style="font-size:1.2rem">
-										<i class="bi bi-dot"></i>
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="col">
-							<div class="row">
-								<div class="col px-0 text-end">
-									<span class="text-light" style="font-size:1.1rem">
-										대학정보공시
-									</span>
-								</div>
-								<div class="col-6 text-center">
-									<span class="text-secondary" style="font-size:1.2rem">
-										<i class="bi bi-dot"></i>
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="col ps-0">
-							<div class="row">
-								<div class="col">
-									<span class="text-light" style="font-size:1.1rem">
-										오시는길
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="col text-end">
-							<i class="bi bi-facebook text-light me-3"></i>
-							<i class="bi bi-youtube text-light me-3"></i>
-							<i class="bi bi-chat-fill text-light"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row py-5 mb-4">
-				<div class="col">
-					<span class="text-light me-4">[06134] 서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) 신축생활관 사무실</span>
-					<span class="text-light">TEL:02-561-1911 / FAX:02-538-2613</span>
-					<br>
-					<span class="text-secondary">COPYRIGHT© 2020 MK UNIVERSITY. ALL RIGHTS RESERVED.~</span>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<!-- 하단 footer -->
+<jsp:include page="../commons/student/footer.jsp"></jsp:include>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

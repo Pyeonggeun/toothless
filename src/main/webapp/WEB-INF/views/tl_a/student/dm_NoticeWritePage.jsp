@@ -133,53 +133,9 @@
 
             </div>
         </div>  
-        <!-- footer 부분-->
-        <div class="row" style="background-color: #181C23;">
-            <div class="col-2 pt-4">
-                
-            </div>
-            <div class="col-6 py-4">
-                <div class="row">
-                    <div class="col-2 px-0 fw-bold text-center" style="color: #FFC00B; font-size: medium;">
-                        개인정보처리방침
-                    </div>
-                    <div class="col px-0 pt-2 fw-bold text-center" style="color: #BABBBD; font-size: 0.3em;">
-                        <span class="bi bi-circle-fill"></span>
-                    </div>
-                    <div class="col-2 px-0 fw-bold text-center" style="color: #BABBBD;">
-                        이메일무단수집거부
-                    </div>
-                    <div class="col px-0 pt-2 fw-bold text-center" style="color: #BABBBD; font-size: 0.3em;">
-                        <span class="bi bi-circle-fill"></span>
-                    </div>
-                    <div class="col-2 px-0 fw-bold text-center" style="color: #BABBBD;">
-                        대학정보공시
-                    </div>
-                    <div class="col pt-2 px-0 fw-bold text-center" style="color: #BABBBD; font-size: 0.3em;">
-                        <span class="bi bi-circle-fill"></span>
-                    </div>
-                    <div class="col-2 px-0 fw-bold text-center" style="color: #BABBBD;">
-                        오시는길
-                    </div>
-                </div>
-                <div class="row ms-1 mt-4" style="border-bottom: 0.01em solid #303339;">
-                    <div class="col"></div>
-                </div>
-                <div class="row mt-5">
-                    <div class="col fw-bold" style="color: #BABBBD; font-size: medium;">
-                        서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층)
-                    </div>
-                </div>
-                <div class="row mt-1 mb-5">
-                    <div class="col fw-bold" style="color: #505F65; font-size: medium;">
-                        COPYRIGHT© 2023 MINGYU UNIVERSITY. ALL RIGHTS RESERVED.
-                    </div>
-                </div>
-                
-            </div>
-            
 
-        </div>
+<!-- 하단 footer -->
+<jsp:include page="../commons/student/footer.jsp"></jsp:include>
 
    
     

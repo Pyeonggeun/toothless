@@ -2,13 +2,30 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
+
+		<script>
+		    document.addEventListener("DOMContentLoaded", function() {
+		        const dropdownMenus = document.querySelectorAll('.nav-item.dropdown');
+		
+		        dropdownMenus.forEach(function(menu) {
+		            menu.addEventListener('mouseover', function() {
+		                menu.querySelector('.dropdown-menu').classList.add('show');
+		            });
+		
+		            menu.addEventListener('mouseout', function() {
+		                menu.querySelector('.dropdown-menu').classList.remove('show');
+		            });
+		        });
+		    });
+		</script>
+
         <div class="row">
             <div class="col">
-                <nav class="navbar navbar-expand-lg" style="background-color: #ffffff">
+                <nav class="navbar navbar-expand-lg py-1" style="background-color: #ffffff">
                     <div class="container-fluid">
 				            <div class="col p-0 align-self-center text-black fw-bold fs-3">
-				            <a href="./jw_mainPage" style="text-decoration: none;" class="text-black">
-				            <img src="../../resources/img/another/logo_black.png" alt="" style="height: 60px; width: 60px;">
+				            <a href="./jw_mainPage" style="text-decoration: none;" class="text-black align-self-center">
+				            <img src="../../resources/img/another/logo_black.png" alt="" style="height: 50px; width: 50px;">
 				                MK <span class="fs-4">대학교</span> <span class="fs-6"> | </span> <span class="fs-5"> 기숙사</span> 
 				            </a>
 			            </div>
@@ -20,7 +37,7 @@
                                       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                         <span class="navbar-toggler-icon"></span>
                                       </button>
-                                      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                      <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
                                         <ul class="navbar-nav">
                                             <li class="nav-item dropdown mx-4"  style="text-align: right;">
                                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

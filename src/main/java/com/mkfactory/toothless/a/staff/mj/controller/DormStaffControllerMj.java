@@ -145,21 +145,36 @@ public class DormStaffControllerMj {
 
 	// 공고등록 페이지
 	@RequestMapping("mj_registerJoinInfoPage")
-	public String mj_registerJoinInfoPage() {
+	public String mj_registerJoinInfoPage(HttpSession session) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 
 		return "tl_a/staff/mj_registerJoinInfoPage";
 	}
 
 	// 입사신청 목록 관리 페이지 (= 선발관리)
 	@RequestMapping("mj_readApplyDormInfoPage")
-	public String mj_readApplyDormInfoPage() {
+	public String mj_readApplyDormInfoPage(HttpSession session) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		
 		return "tl_a/staff/mj_readApplyDormInfoPage";
 	}
 	
 	// 납부관리 페이지로(전체)
 	@RequestMapping("mj_managePaymentPage")
-	public String mj_managePaymentPage() {
+	public String mj_managePaymentPage(HttpSession session) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		
 		return "tl_a/staff/mj_managePaymentPage";
 	}
