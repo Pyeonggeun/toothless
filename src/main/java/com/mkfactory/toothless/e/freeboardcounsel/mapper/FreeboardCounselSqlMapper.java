@@ -53,7 +53,8 @@ public interface FreeboardCounselSqlMapper {
 	
 	public void insertEmpathy(FreeboardEmpathyDto paraFreeboardEmpathyDto);
 	
-	//안되면 프리보드 아이디 바꿔보기 
-	public int countEmpathyByIdAndPk(int id);
+	public int submitAndSelectEmpathy(FreeboardEmpathyDto paraFreeboardEmpathyDto);
+
+	public void deleteEmpathyByIdAndPk(FreeboardEmpathyDto paraFreeboardEmpathyDto);
 	
 }
