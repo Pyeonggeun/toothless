@@ -85,6 +85,7 @@
 		    alert(missingFieldsMessage);
 		    return;
 		}
+	    
 		
 		// 입력된 값 모으기(body로 간결하게 보내보자) == map이랑 비슷한뎅?
 		const inputJoinInfo = new FormData();

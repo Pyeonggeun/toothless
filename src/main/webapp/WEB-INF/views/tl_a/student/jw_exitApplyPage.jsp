@@ -23,48 +23,7 @@
 
     <div class="container mt-3">
         <div class="row">
-            <div class="col-3 me-3"><!-- 여기부분은 목차부분 -->
-                <div class="row rounded-1 opacity-90" style="background-color: #504528;">
-                    <div class="col py-4 text-center">
-                        <span class="fw-bold" style="color: white; font-size: x-large;">기숙사 커뮤니티</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: #504528;">서식 자료실</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.2em solid #504528;">
-                    <div class="col py-3 fw-bold" style="font-size: large;">
-                        <span style="color: black;">외박 및 외출신청</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">상벌점 확인</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">고장수리요청</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">상담 및 건의</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">일지 등록</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">FAQ</span>
-                    </div>
-                </div>
-            </div>
+            <jsp:include page="../commons/student/leftButtons4.jsp"></jsp:include>
             <!-- 왼쪽 목차 끝 -->
             <div class="col">
                 <div class="row">

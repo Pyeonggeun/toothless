@@ -40,11 +40,32 @@ public class LifeStaffControllerMj {
 	}
 	
 	
-	// 강사관리 페이지로
+	// 강사관리 페이지로 (강사등록 탭)
 	@RequestMapping("manageTeacherPage")
-	public String manageTeacherPage(Model model) {
+	public String manageTeacherPage() {
 		
 		return "tl_x/mj/manageTeacherPage";
+	}
+	
+	// 강사관리 페이지2로 (조회/수정 탭)
+	@RequestMapping("manageTeacherPage2")
+	public String manageTeacherPage2() {
+		
+		return "tl_x/mj/manageTeacherPage2";
+	}
+	
+	// 학생관리 페이지로 (학생등록 탭)
+	@RequestMapping("manageStudentPage")
+	public String manageStudentPage() {
+		
+		return "tl_x/mj/manageStudentPage";
+	}
+	
+	// 학생관리 페이지2로 (조회/수정 탭)
+	@RequestMapping("manageStudentPage2")
+	public String manageStudentPage2() {
+		
+		return "tl_x/mj/manageStudentPage2";
 	}
 	
 	

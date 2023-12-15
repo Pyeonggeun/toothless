@@ -39,38 +39,7 @@
 
     <div class="container mt-3">
         <div class="row">
-            <div class="col-3 me-3"><!-- 여기부분은 목차부분 -->
-                <div class="row rounded-1 opacity-90" style="background-color: #504528;">
-                    <div class="col py-4 text-center">
-                        <span class="fw-bold" style="color: white; font-size: x-large;">모집안내</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.2em solid #504528;">
-                    <div class="col py-3 fw-bold" style="font-size: large;">
-                        <span style="color: #504528;">공고 및 입주신청</span>       
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">선발 안내</span>         
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">거리 배점표</span>         
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">납부금 안내</span>         
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">합격 조회</span>         
-                    </div>
-                </div>
-            </div>
+            <jsp:include page="../commons/student/leftButtons3.jsp"></jsp:include>
             <!-- 왼쪽 목차 끝 -->
             <div class="col">
                 <div class="row">

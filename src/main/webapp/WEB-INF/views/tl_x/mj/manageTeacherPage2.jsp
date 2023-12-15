@@ -117,8 +117,8 @@
 		    return;
 		}
 	    
-
 	    
+
 		// 입력된 값 모으기(body로 간결하게 보내보자) == map이랑 비슷한뎅?
 		const inputTeacherInfo = new FormData();
 		
@@ -669,8 +669,8 @@
 	// 페이지의 DOM이 로드되면 실행될 함수 등록!! 
 	//	--> 함수가 실행이 안되면 값을 못 가져오는거...
 	window.addEventListener("DOMContentLoaded", () => {
-		registerTeacherPage();
 		searchConditionByLectureList();
+		manageTeacherInfoPage();
 	});
 	
 	

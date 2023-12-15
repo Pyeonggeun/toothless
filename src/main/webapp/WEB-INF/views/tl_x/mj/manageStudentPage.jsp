@@ -66,98 +66,33 @@
 	
 	
 	// 정보 등록
-	function registerTeacherInfo(){
-		
-		// 미입력 필드를 담을 배열
-	    const emptyFields = [];
+	function registerStudentInfo(){
 
-	    // 값이 비어있는지 확인
-	    if (!document.getElementById("teacherName").value.trim()) {
-	        emptyFields.push("이름을 입력해주세요.");
-	    }
-	    // ** radio
-	    if (!document.querySelector('input[name="gender"]:checked')) {
-		    emptyFields.push("성별을 선택해주세요.");
-		}
-	    if (!document.getElementById("birth").value.trim()) {
-	        emptyFields.push("생년월일 입력해주세요.");
-	    }
-	    if (!document.getElementById("resident_id").value.trim()) {
-	        emptyFields.push("주민등록번호를 입력해주세요.");
-	    }
-	    // ** selectBox
-	    if (document.getElementById("external_pk").selectedIndex == 0) {
-	        emptyFields.push("외부아이디를 선택해주세요.");
-	    }
-	    if (!document.getElementById("external_pk").value.trim()) {
-	        emptyFields.push("외부아이디를 선택해주세요.");
-	    }
-	    if (!document.getElementById("address").value.trim()) {
-	        emptyFields.push("주소를 입력해주세요.");
-	    }
-	    if (!document.getElementById("phone").value.trim()) {
-	        emptyFields.push("전화번호를 입력해주세요.");
-	    }
-	    if (!document.getElementById("email").value.trim()) {
-	        emptyFields.push("이메일을 입력해주세요.");
-	    }
-	    // ** checkBox
-	    if (!document.querySelectorAll('input[name="lecture_category_key"]:checked').length > 0) {
-		    emptyFields.push("강의 가능한 교육과정을 선택해주세요.");
-		}
-	    if (!document.getElementById("entered_at").value.trim()) {
-	        emptyFields.push("입사일을 입력해주세요.");
-	    }
-
-	    
-	    // 미입력 필드가 있다면 알림 표시
-	    if (emptyFields.length > 0) {
-		    const missingFieldsMessage = emptyFields[0];
-		    alert(missingFieldsMessage);
-		    return;
-		}
-	    
-
-	    
 		// 입력된 값 모으기(body로 간결하게 보내보자) == map이랑 비슷한뎅?
-		const inputTeacherInfo = new FormData();
-		
-		
-		// **체크박스 값넘기기
-		 
-	 	// 선택된 체크박스들의 값을 저장할 배열
-	 	let selectedCategories = [];
-	
-	 	// 모든 체크박스를 확인, 선택된 체크박스의 값을 배열에 추가
-	 	// --> input이니까 - id가 아니라 name으로 찾기~~ input에는 id를 못넣어요...^^;
-	 	document.querySelectorAll('input[name="lecture_category_key"]:checked').forEach(e => selectedCategories.push(e.value));
-	
-	  	// 선택된 카테고리를 FormData에 추가
-	  	selectedCategories.forEach(e => inputTeacherInfo.append("lecture_category_key", e));
-		
-		
-		inputTeacherInfo.append("name", document.getElementById("teacherName").value);
-		inputTeacherInfo.append("resident_id", document.getElementById("resident_id").value);
-		inputTeacherInfo.append("birth", document.getElementById("birth").value);
-		inputTeacherInfo.append("gender", document.querySelector('input[name="gender"]:checked').value);
-		inputTeacherInfo.append("address", document.getElementById("address").value);
-		inputTeacherInfo.append("phone", document.getElementById("phone").value);
-		inputTeacherInfo.append("email", document.getElementById("email").value);
-		inputTeacherInfo.append("entered_at", document.getElementById("entered_at").value);
-		inputTeacherInfo.append("external_pk", document.getElementById("external_pk").value);		
+		const inputStudentInfo = new FormData();
+
+		inputStudentInfo.append("name", document.getElementById("studentName").value);
+		inputStudentInfo.append("resident_id", document.getElementById("resident_id").value);
+		inputStudentInfo.append("birth", document.getElementById("birth").value);
+		inputStudentInfo.append("gender", document.querySelector('input[name="gender"]:checked').value);
+		inputStudentInfo.append("address", document.getElementById("address").value);
+		inputStudentInfo.append("phone", document.getElementById("phone").value);
+		inputStudentInfo.append("email", document.getElementById("email").value);
+		inputStudentInfo.append("entered_at", document.getElementById("entered_at").value);
+		inputStudentInfo.append("external_pk", document.getElementById("external_pk").value);		
 
 		
-		const url = "./registerTeacherProcess";
+		const url = "./registerStudentProcess";
 		
 		fetch(url, {
 			method: "post",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"
 			},
-			body: new URLSearchParams(inputTeacherInfo)
+			body: new URLSearchParams(inputStudentInfo)
 		})
 		.then(response => response.json())	
-		.then(response => manageTeacherInfoPage());		// 서버쪽 갔다와서 해야할 일들
+		.then(response => manageStudentInfoPage());		// 서버쪽 갔다와서 해야할 일들
 
 	}
 	
@@ -165,11 +100,11 @@
 	// 전역변수 - 교육과정 리스트
 	let lectureCategoryList;
 	
-	// 강사 등록 탭 보여주기
-	function registerTeacherPage(){
+	// 학생 등록 탭 보여주기
+	function registerStudentPage(){
 		
-		// 외부아이디 selectBox 내용(= 아직강사로 등록안된 아이디들, pk넘기려고)
-		fetch("./getRegisterTeacherInfo")
+		// 외부아이디 selectBox 내용(= 아직 평생교육원 학생으로 등록안된 아이디들, pk넘기려고)
+		fetch("./getRegisterStudentInfo")
 		.then(response => response.json())
 		.then(response => {
 	
@@ -177,17 +112,17 @@
 			// ** textContent는 모든 텍스트를 고려하므로 숨겨진 텍스트도 포함합니다.
 			
 			
-			// 1. 아직 강사등록 안된 사람 리스트
-			const notYetTeacherList = response.data.notYetTeacherList;
+			// 1. 아직 학생등록 안된 사람 리스트
+			const notYetStudentList = response.data.notYetStudentList;
 		
 			// selectBox찾기
 		    const selectBox = document.getElementById("external_pk");
 			selectBox.innerHTML = "";
 			
-			//  <option selected>강사로 등록할 아이디를 선택하세요</option> 만들기
+			//  <option selected>학생으로 등록할 아이디를 선택하세요</option> 만들기
 			const optionTag = document.createElement("option");
 			optionTag.selected = true;
-			optionTag.innerText = "강사로 등록할 아이디를 선택하세요";
+			optionTag.innerText = "학생으로 등록할 아이디를 선택하세요";
 			selectBox.add(optionTag);
 			
 			/*  만들기
@@ -195,7 +130,7 @@
 			  	<option value="${item.external_pk}">${item.external_id}</option>
 			</c:forEach> 
 			*/
-			notYetTeacherList.forEach(item => {
+			notYetStudentList.forEach(item => {
 		        const optionTag = document.createElement("option");
 		        optionTag.value = item.external_pk;
 		        optionTag.innerText = item.external_id;
@@ -278,12 +213,11 @@
 	}
 	
 	
-	
-	// 강사 조회/수정 탭 보여주기
-	function manageTeacherInfoPage(){
+	// 학생 조회/수정 탭 보여주기
+	function manageStudentInfoPage(){
 
 		// 이 함수가 실행되고나서 리스트를 가져오게해야 정보 등록 후에 그 정보를 들고 올 수 있을듯~ 
-		readTeacherInfoList();
+		readStudentInfoList();
 		
 		// 복붙 양식
 		commonTemplate();
@@ -307,110 +241,41 @@
 		tab2.classList.add("active");  
 
 	}
-	
-	// 검색조건 中 교육과정 checkBox로 반복문돌기
-	function searchConditionByLectureList(){
-		
-		fetch("./getRegisterTeacherInfo")
-		.then(response => response.json())
-		.then(response => {
-	
-				// id="lectureCategory" 찾기
-				const lectureCategory = document.getElementById("lectureCategory");
-				lectureCategory.innerHTML = "";
-				
-				// 교육과정 리스트
-				lectureCategoryList = response.data.lectureCategoryList;
-				
-				/* 만들기
-				<c:forEach items="${lectureCategoryList}" var="item">
-					<div class="form-check form-check-inline">													        	
-						<input class="form-check-input" type="checkbox" name="lecture_category_key" value="${item.lecture_category_key}">
-						<label class="form-check-label">${item.category_name}</label>													            
-					</div>
-				</c:forEach>
-				*/
-				
-				let count = 0;
-				
-				lectureCategoryList.forEach(item => {
-					const divTag = document.createElement("div");
-					divTag.classList.add("form-check", "form-check-inline");
-				    
-				    const inputTag = document.createElement("input");
-				    inputTag.classList.add("form-check-input");
-				    inputTag.type = "checkbox";
-				    inputTag.name = "lecture_category_key";
-				    inputTag.value = item.lecture_category_key;
-				    
-				    const labelTag = document.createElement("label");
-				    labelTag.classList.add("form-check-label");
-				    labelTag.innerText = item.category_name;
-				    
-				    divTag.appendChild(inputTag);
-				    divTag.appendChild(labelTag);
-				    
-				    lectureCategory.appendChild(divTag);
-				    
-				    count++;
-				    if (count == 5) {
-				    	lectureCategory.appendChild(document.createElement("br"));
-				        count = 0; 
-				    }
-				    
-				});
-		});
-				
-	}
-	
-	
-	// 강사 목록 가져오기
-	function readTeacherInfoList() {
 
-		fetch("./getAllTeacherInfoList")
+	
+	// 학생 목록 가져오기
+	function readStudentInfoList() {
+
+		fetch("./getAllStudentInfoList")
 		.then(response => response.json())
 		.then(response => {
 			
-			const teacherInfoListBox = document.querySelector(".teacherInfoListBox");
-			teacherInfoListBox.innerHTML = "";		// 딱 이순간에만 허용한다했던! 초기화 시키고 나서 append해야 중복 배제할거잖아.
+			const studentInfoListBox = document.querySelector(".studentInfoListBox");
+			studentInfoListBox.innerHTML = "";		// 딱 이순간에만 허용한다했던! 초기화 시키고 나서 append해야 중복 배제할거잖아.
 			
 			// 전체 리스트
-			const allTeacherInfoList = response.data.allTeacherInfoList;
+			const allStudentInfoList = response.data.allStudentInfoList;
 			// 전체 리스트 개수
-			const countAllTeacher = allTeacherInfoList.length;
-			document.querySelector(".countInfoList").innerText = "검색결과 (총 " + countAllTeacher + " 개)";
+			const countAllStudent = allStudentInfoList.length;
+			document.querySelector(".countInfoList").innerText = "검색결과 (총 " + countAllStudent + " 개)";
          	
 			// 돌아보자!!!
-			for(e of allTeacherInfoList){
+			for(e of allStudentInfoList){
 				
 				// 반복문 돌면서 계속 양식 복사할거임
-				const teacherInfoWrapper = document.querySelector(".teacherInfoWrapper").cloneNode(true);
+				const studentInfoWrapper = document.querySelector(".studentInfoWrapper").cloneNode(true);
 				
 				// innerText로 반복문 돌면서 내용 변경하기
-				teacherInfoWrapper.querySelector(".key").innerText = e.lecturerDto.lecturer_key;
-				teacherInfoWrapper.querySelector(".name").innerText = e.lecturerDto.name;
-				teacherInfoWrapper.querySelector(".phone").innerText = e.lecturerDto.phone;
-				teacherInfoWrapper.querySelector(".email").innerText = e.lecturerDto.email;
-				
-				// **강사별 가능한 과목 리스트
-				const possibleList = e.possibleLectuerList;
-
-				let possibleText = ""; // 누적할 문자열 초기화해야지!!! 안그러면 다른강사꺼에 계속 누적...ㅎㅎ;;;;
-				
-				for (i of possibleList) {	// 돌면서 문자열에 추가,
-					possibleText += i.category_name + ", ";
-				}
-				
-				// 마지막에 추가된 쉼표+공백 제거하기
-				possibleText = possibleText.slice(0, -2);
-				
-				// 붙이기
-				teacherInfoWrapper.querySelector(".possible").innerText = possibleText;
+				studentInfoWrapper.querySelector(".key").innerText = e.life_student_key;
+				studentInfoWrapper.querySelector(".name").innerText = e.name;
+				studentInfoWrapper.querySelector(".gender").innerText = e.gender;
+				studentInfoWrapper.querySelector(".birth").innerText = formatDate(new Date(e.birth));
+				studentInfoWrapper.querySelector(".phone").innerText = e.phone;
+				studentInfoWrapper.querySelector(".email").innerText = e.email;
+				studentInfoWrapper.querySelector(".entered_at").innerText = formatDate(new Date(e.entered_at));
 		
 				// 다 만들었으면 어디에 붙일래
-				teacherInfoListBox.appendChild(teacherInfoWrapper);
-			
-			
+				studentInfoListBox.appendChild(studentInfoWrapper);
 			}
 			
 		});
@@ -426,10 +291,10 @@
 	    // --> 사용자가 어디를 클릭해도 그 row를 찾을 수 있겠군!!!!!
 	    const clickedRow = event.target.closest("tr");
 	
-	    const lecturerKey = clickedRow.querySelector(".key").innerText;
+	    const studentKey = clickedRow.querySelector(".key").innerText;
 	
 	    // showModal에 key넘겨주고, 찐 모달 show함수 호출!
-	    showModal(lecturerKey);
+	    showModal(studentKey);
 	 }
 	
 	// ** 모달
@@ -442,44 +307,40 @@
     
     
     //** fetch밖에서도 사용할 수 있게 전역으로 선언...
-    let someTeacherExternalInfo;	
-    let someTeacherInfo;	
+    let someStudentInfo;	
+    let someStudentExternalInfo;	
     
-    function showModal(lecturerKey){
+    function showModal(studentKey){
     	
     	// 리스트 들고오고나서 모달띄우면 이전 정보가 있겠지?
         const modal = bootstrap.Modal.getOrCreateInstance("#writeModal");
         modal.show();
     	
-    	console.log(lecturerKey);
 
     	// 이전 입력 내용 
-		fetch("./getSomeTeacherInfo?lecturer_key=" + lecturerKey)
+		fetch("./getSomeStudentInfo?life_student_key=" + studentKey)
 		.then(response => response.json())
 		.then(response => {
 
 			// 특정강사 정보
-			someTeacherInfo = response.data.someTeacherInfo;
+			someStudentInfo = response.data.someStudentInfo;
 
-			// 특정강사 가능 강의 리스트
-			const possibleLectuerList = response.data.possibleLectuerList;
-			
 			// 특정강사 외부회원가입 정보
-			someTeacherExternalInfo = response.data.someTeacherExternalInfo;
+			someStudentExternalInfo = response.data.someStudentExternalInfo;
 			
 			
 			
 			// 모달내부 --> 이전에 등록된 정보로 변경하기.
-			document.getElementById("nameModal").value = someTeacherInfo.name;
-			document.getElementById("resident_idModal").value = someTeacherInfo.resident_id;
-			document.getElementById("birthModal").value = formatDate(new Date(someTeacherInfo.birth));
+			document.getElementById("nameModal").value = someStudentInfo.name;
+			document.getElementById("resident_idModal").value = someStudentInfo.resident_id;
+			document.getElementById("birthModal").value = formatDate(new Date(someStudentInfo.birth));
 			//document.getElementById("gender").value = someTeacherInfo.gender; --> M/F로만 나오고 라디오에 체크가 안되겠지...
-			document.getElementById("addressModal").value = someTeacherInfo.address;
-			document.getElementById("phoneModal").value = someTeacherInfo.phone;
-			document.getElementById("emailModal").value = someTeacherInfo.email;
-			document.getElementById("entered_atModal").value = formatDate(new Date(someTeacherInfo.entered_at));
+			document.getElementById("addressModal").value = someStudentInfo.address;
+			document.getElementById("phoneModal").value = someStudentInfo.phone;
+			document.getElementById("emailModal").value = someStudentInfo.email;
+			document.getElementById("entered_atModal").value = formatDate(new Date(someStudentInfo.entered_at));
 			
-			document.getElementById("register_atModal").innerText = formatDate(new Date(someTeacherInfo.created_at));
+			document.getElementById("register_atModal").innerText = formatDate(new Date(someStudentInfo.created_at));
 			// **1. innerText & value
 			// innerText: 주로 HTML 요소의 텍스트 콘텐츠를 나타내는 속성입니다. 
 			// ---> 주로 <div>, <span>, <p> 등의 블록 레벨 또는 인라인 요소에서 텍스트 내용을 가져오거나 설정할 때 사용됩니다.
@@ -490,9 +351,9 @@
 			
 			
 			// **2. 이전정보 보여주려는게 라디오버튼으로 돼있을 때(ex. gender)
-			if (someTeacherInfo.gender == "M") {
+			if (someStudentInfo.gender == "M") {
 				  document.getElementById("radio1Modal").checked = true;
-				} else if (someTeacherInfo.gender == "F") {
+				} else if (someStudentInfo.gender == "F") {
 				  document.getElementById("radio2Modal").checked = true;
 				}
 			
@@ -500,143 +361,88 @@
 			// **3. 이전정보 보여주려는게 셀렉트박스로 돼있을 때 - 이전에 선택한 정보를 checked, 다른거 선택도 할 수 있게....
 	
 			// 3-1. 이전에 선택한 정보는 checked, 아직강사로 등록안된 아이디들 셀렉트박스 내에 올라가게
-			fetch("./getRegisterTeacherInfo")
-			.then(response => response.json())
-			.then(response => {
+				fetch("./getRegisterStudentInfo")
+				.then(response => response.json())
+				.then(response => {
+					
+					// 아직 강사등록 안된 사람 리스트
+					const notYetStudentList = response.data.notYetStudentList;
 				
-				// 아직 강사등록 안된 사람 리스트
-				const notYetTeacherList = response.data.notYetTeacherList;
-			
-				// selectBox찾기
-			    const selectBox = document.getElementById("external_pkModal");
-				selectBox.innerHTML = "";
-				
-				//  <option selected>이전에 등록한 외부아이디정보 나오게</option> 만들기
-				const optionTag = document.createElement("option");
-				optionTag.value = someTeacherExternalInfo.external_pk;
-				optionTag.innerText = someTeacherExternalInfo.external_id;
-				
-				selectBox.add(optionTag);		// 이전에 등록한 외부아이디 정보가 제일먼저 보이게!! 순서중요하당..
-				
-				/*  만들기
-				<c:forEach items="${notYetTeacherList}" var="item">
-				  	<option value="${item.external_pk}">${item.external_id}</option>
-				</c:forEach> 
-				*/
-				notYetTeacherList.forEach(item => {
-			        const optionTag = document.createElement("option");
-			        optionTag.value = item.external_pk;
-			        optionTag.innerText = item.external_id;
+					// selectBox찾기
+				    const selectBox = document.getElementById("external_pkModal");
+					selectBox.innerHTML = "";
+					
+					//  <option selected>이전에 등록한 외부아이디정보 나오게</option> 만들기
+					const optionTag = document.createElement("option");
+					optionTag.value = someStudentExternalInfo.external_pk;
+					optionTag.innerText = someStudentExternalInfo.external_id;
+					
+					selectBox.add(optionTag);		// 이전에 등록한 외부아이디 정보가 제일먼저 보이게!! 순서중요하당..
+					
+					/*  만들기
+					<c:forEach items="${notYetTeacherList}" var="item">
+					  	<option value="${item.external_pk}">${item.external_id}</option>
+					</c:forEach> 
+					*/
+					notYetStudentList.forEach(item => {
+				        const optionTag = document.createElement("option");
+				        optionTag.value = item.external_pk;
+				        optionTag.innerText = item.external_id;
+	
+				        selectBox.add(optionTag);
+				    });
+					
+				});
 
-			        selectBox.add(optionTag);
-			    });
-				
-			});
 
-
-			// **4. 이전정보 보여주려는게 체크박스로 돼있을 때 - 이전에 선택한 정보를 checked, 다른거 선택도 할 수 있게....
 			
-			// checkBox찾기
-			const checkBoxModal = document.getElementById("checkBoxModal");
-			checkBoxModal.innerHTML = "";
-			
-			/* 만들기
-			<c:forEach items="${lectureCategoryList}" var="item">
-				<div class="form-check form-check-inline">													        	
-					<input class="form-check-input" type="checkbox" name="lecture_category_key" value="${item.lecture_category_key}">
-					<label class="form-check-label">${item.category_name}</label>													            
-				</div>
-			</c:forEach>
-			*/
-			
-			lectureCategoryList.forEach(item => {
-				const divTag = document.createElement("div");
-				divTag.classList.add("form-check", "form-check-inline");
-			    
-			    const inputTag = document.createElement("input");
-			    inputTag.classList.add("form-check-input");
-			    inputTag.type = "checkbox";
-			    inputTag.name = "lecture_category_key";
-			    inputTag.value = item.lecture_category_key;
-			    
-			    // +++ 추가코드
-			    // --> possibleLectuerList의 lecture_category_key와 현재 반복문돌고있느 아이템의 lecture_category_key 요소가 같다면 체크!!!!
-			    possibleLectuerList.forEach(p => {
-				   
-					if(p.lecture_category_key == item.lecture_category_key){
-						inputTag.checked = true;
-					}
-				   
-			    });
-    			// ====
-
-			    const labelTag = document.createElement("label");
-			    labelTag.classList.add("form-check-label");
-			    labelTag.innerText = item.category_name;
-			    
-			    divTag.appendChild(inputTag);
-			    divTag.appendChild(labelTag);
-			    
-			    checkBoxModal.appendChild(divTag);
 
 			});
 			
 			// 수정 버튼
-			const updateBtn = document.querySelector("#updateBtn")
-			updateBtn.setAttribute("onclick", "saveBtn("+ someTeacherInfo.lecturer_key +")");
+			const updateBtn = document.querySelector("#updateBtn") 
+			updateBtn.setAttribute("onclick", "saveBtn("+ studentKey +")");
 			
 			// 삭제 버튼
 			const deleteBtn = document.querySelector("#deleteBtn")
-			deleteBtn.setAttribute("onclick", "deleteBtn("+ someTeacherInfo.lecturer_key +")");
+			deleteBtn.setAttribute("onclick", "deleteBtn("+ studentKey +")");
 
-		});
-    	
     }
 
     // 2. 모달 내용 저장(수정하기)
-    function saveBtn(lecturer_key){ 
+    function saveBtn(studentKey){ 
     	console.log("모달에서 수정");
-    	console.log(lecturer_key);
+    	console.log(studentKey);
     	
     	// 입력된 값 모으기(body로 간결하게 보내보자) == map이랑 비슷한뎅?
-		const inputTeacherInfo = new FormData();
-    	 
-	 	// 선택된 체크박스들의 값을 저장할 배열
-	 	let selectedCategories = [];
-	
-	 	// 모든 체크박스를 확인, 선택된 체크박스의 값을 배열에 추가
-	 	// --> input이니까 - id가 아니라 name으로 찾기~~ input에는 id를 못넣어요...^^;
-	 	document.querySelectorAll('input[name="lecture_category_key"]:checked').forEach(e => selectedCategories.push(e.value));
-	
-	  	// 선택된 카테고리를 FormData에 추가
-	  	selectedCategories.forEach(e => inputTeacherInfo.append("lecture_category_key", e));
+		const inputStudentInfo = new FormData(); 	
 		
-		inputTeacherInfo.append("name", document.getElementById("nameModal").value);
-		inputTeacherInfo.append("resident_id", document.getElementById("resident_idModal").value);
-		inputTeacherInfo.append("birth", document.getElementById("birthModal").value);
-		inputTeacherInfo.append("gender", document.querySelector('input[name="genderModal"]:checked').value);
-		inputTeacherInfo.append("address", document.getElementById("addressModal").value);
-		inputTeacherInfo.append("phone", document.getElementById("phoneModal").value);
-		inputTeacherInfo.append("email", document.getElementById("emailModal").value);
-		inputTeacherInfo.append("entered_at", document.getElementById("entered_atModal").value);
-		inputTeacherInfo.append("external_pk", document.getElementById("external_pkModal").value);
+		inputStudentInfo.append("name", document.getElementById("nameModal").value);
+		inputStudentInfo.append("resident_id", document.getElementById("resident_idModal").value);
+		inputStudentInfo.append("birth", document.getElementById("birthModal").value);
+		inputStudentInfo.append("gender", document.querySelector('input[name="genderModal"]:checked').value);
+		inputStudentInfo.append("address", document.getElementById("addressModal").value);
+		inputStudentInfo.append("phone", document.getElementById("phoneModal").value);
+		inputStudentInfo.append("email", document.getElementById("emailModal").value);
+		inputStudentInfo.append("entered_at", document.getElementById("entered_atModal").value);
+		inputStudentInfo.append("external_pk", document.getElementById("external_pkModal").value);
 		
 		
 		//const modal = bootstrap.Modal.getOrCreateInstance("#writeModal");
 		
-		const url = "./updateTeacherInfo?lecturer_key=" + lecturer_key;
+		const url = "./updateStudentInfo?life_student_key=" + studentKey;
 		
 		fetch(url, {
 			method: "post",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"
 			},
-			body: new URLSearchParams(inputTeacherInfo)
+			body: new URLSearchParams(inputStudentInfo)
 		})
 		.then(response => response.json())	
 		.then(response => {
 		    alert("정보 수정이 완료되었습니다.");
-		    manageTeacherInfoPage();
+		    manageStudentInfoPage();
 		    bootstrap.Modal.getOrCreateInstance("#writeModal").hide();		// 수정 or 조회 끝났으면 모달 숨기기
 		});
         
@@ -644,18 +450,18 @@
 	
 
 	// 강사정보 삭제
-	function deleteBtn(lecturer_key){
+	function deleteBtn(studentKey){
 		
-		if(confirm("해당 강사의 정보를 삭제하시겠습니까?")){
+		if(confirm("해당 학생의 정보를 삭제하시겠습니까?")){
 			
-			const url = "./deleteTeacherInfo?lecturer_key="+ lecturer_key;
+			const url = "./deleteStudentInfo?life_student_key="+ studentKey;
 
 			// fetch를 통해 POST 요청 전송
 			fetch(url)
 			.then(response => response.json())
 			.then(response => {
 			    alert("정보 삭제가 완료되었습니다.");
-			    manageTeacherInfoPage();
+			    manageStudentInfoPage();
 			    bootstrap.Modal.getOrCreateInstance("#writeModal").hide();		// 삭제 끝났으면 모달 숨기기
 			});
 		} 
@@ -669,8 +475,7 @@
 	// 페이지의 DOM이 로드되면 실행될 함수 등록!! 
 	//	--> 함수가 실행이 안되면 값을 못 가져오는거...
 	window.addEventListener("DOMContentLoaded", () => {
-		registerTeacherPage();
-		searchConditionByLectureList();
+		registerStudentPage();
 	});
 	
 	
@@ -713,7 +518,7 @@
 	<!-- 카테고리명 -->
 	<div class="commonTitle">
 		<div class="col fs-4 fw-bold">
-			강사 관리
+			학생 관리
 		</div>
 	</div>
 	
@@ -722,10 +527,10 @@
 		<div class="col fw-bold text-center py-2 mb-3">
 			<ul class="nav nav-tabs">
 			  <li class="nav-item">
-			    <a id="tab1" class="nav-link text-black" onclick="registerTeacherPage()">강사 등록</a>
+			    <a id="tab1" class="nav-link text-black" onclick="registerStudentPage()">학생 등록</a>
 			  </li>
 			  <li class="nav-item">
-			    <a id="tab2" class="nav-link text-black" onclick="manageTeacherInfoPage()">조회/수정</a>
+			    <a id="tab2" class="nav-link text-black" onclick="manageStudentInfoPage()">조회/수정</a>
 			  </li>
 			</ul>
 		</div>
@@ -733,7 +538,7 @@
 </div>
 
 
-<!-- 강사등록 탭 -->
+<!-- 학생등록 탭 -->
 <div id="registerInfoTab" class="d-none">
 	<div class="info row">
     	<div class="col">
@@ -742,14 +547,14 @@
 			<div class="col">
 				<div class="row text-center">
 					<div class="col fw-bold fs-3 my-2">
-						강사 채용 등록
+						학생 입학 등록
 					</div>
 				</div>
 				
-				<!-- 강사 기본정보 -->
+				<!-- 학생 기본정보 -->
 				<div class="row mt-2 ms-2">
 					<div class="col fw-bold" style="font-size: 0.9em;">
-						<i class="bi bi-dot"></i>강사 기본정보
+						<i class="bi bi-dot"></i>학생 기본정보
 						<span class="ms-3 text-danger" style="font-size: 0.8em;">*는 필수 입력사항입니다.</span>
 					</div>
 				</div>
@@ -762,7 +567,7 @@
 								<span class="text-danger" style="font-size: 0.8em;">*</span>이  름
 							</div>
 							<div class="col-4 py-2 border-end border-dark">
-								<input class="d-grid border rounded-0" id="teacherName" type="text"></input>
+								<input class="d-grid border rounded-0" id="studentName" type="text"></input>
 							</div>
 							<div class="col-2 py-2 border-end border-dark fw-bold bg-secondary bg-opacity-10">
 								<span class="text-danger" style="font-size: 0.8em;">*</span>성  별
@@ -822,16 +627,7 @@
 						</div>
 						<div class="row border-bottom border-dark">
 							<div class="col-2 py-2 border-end border-dark fw-bold bg-secondary bg-opacity-10">
-								<span class="text-danger" style="font-size: 0.8em;">*</span>교육 과정
-							</div>
-							<!-- 등록된 카테고리에 따라 체크박스 반복문 필요 -->
-							<div id="checkBox" class="col py-2 border-end text-start">
-								<!-- 교육과정 리스트 -->
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-2 py-2 border-end border-dark fw-bold bg-secondary bg-opacity-10">
-								<span class="text-danger" style="font-size: 0.8em;">*</span>입사일
+								<span class="text-danger" style="font-size: 0.8em;">*</span>입학일
 							</div>
 							<div class="col-4 py-2 border-end border-dark d-grid">
 								<input class="border rounded-0" id="entered_at" type="date">
@@ -843,13 +639,22 @@
 								<%= formattedDate %>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-2 py-2 border-end border-dark fw-bold bg-secondary bg-opacity-10">
+								관심 교육 과정
+							</div>
+							<!-- 등록된 카테고리에 따라 체크박스 반복문 필요 -->
+							<div id="checkBox" class="col py-2 border-end text-start">
+								<!-- 교육과정 리스트 -->
+							</div>
+						</div>
 					</div>
 				</div>
 				
-				<!-- 강사 학력정보 -->
+				<!-- 학생 학력정보 -->
 				<div class="row mt-5 ms-2">
 					<div class="col fw-bold" style="font-size: 0.9em;">
-						<i class="bi bi-dot"></i>강사 학력정보
+						<i class="bi bi-dot"></i>이전 학력정보
 					</div>
 				</div>
 				
@@ -902,7 +707,7 @@
 		<div class="col-5"></div>
         <div class="col px-0 text-end">
 			<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary">임시 저장</button>
-        	<button id="inputButton" onclick="registerTeacherInfo()" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
+        	<button id="inputButton" onclick="registerStudentInfo()" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
         </div>                    
     </div>
 </div>
@@ -940,12 +745,19 @@
 					</div>
 					<div class="row border-bottom py-2">
 						<div class="col-2 text-center align-self-center fw-bold">
-							교육 과정
+							입학 년도
 						</div>
 						<div class="col ms-2">
 							<div class="row">
-								<div id="lectureCategory" class="col text-start">
-								<!-- 반복문 -->
+								<div class="col ps-1 py-1 text-start">
+									<input type="radio" name="enteredYear" id="#" value="2020">
+									<label for="#">2020</label>
+									<input class="ms-5" type="radio" name="enteredYear" id="#" value="2021">
+									<label for="#">2021</label>
+									<input class="ms-5" type="radio" name="enteredYear" id="#" value="2022">
+									<label for="#">2022</label>
+									<input class="ms-5" type="radio" name="enteredYear" id="#" value="2023">
+									<label for="#">2023</label>
 								</div>
 							</div>
 						</div>
@@ -975,7 +787,7 @@
 					</span>
 					<button type="button" class="ms-5 px-3 border-secondary-subtle rounded-0 px-0 fw-bold btn btn-sm btn-light">
            				<i class="bi bi-download"></i>
-           				강사 목록 다운로드
+           				학생 목록 다운로드
            			</button>
 				</div>
 				<div class="col-2 me-1 justify-content-end">
@@ -999,12 +811,14 @@
 			      <th scope="col" class="col text-bg-light"></th>
 			      <th scope="col" class="col text-bg-light">No.</th>
 			      <th scope="col" class="col-2 text-bg-light">이름</th>
+			      <th scope="col" class="col text-bg-light">성별</th>
+			      <th scope="col" class="col-2 text-bg-light">생년월일</th>
 			      <th scope="col" class="col-2 text-bg-light">전화번호</th>
-			      <th scope="col" class="col-2 text-bg-light">이메일</th>
-			      <th scope="col" class="col text-bg-light">강의 가능한 교육과정</th>
+			      <th scope="col" class="col-3 text-bg-light">이메일</th>
+			      <th scope="col" class="col text-bg-light">입학일</th>
 			    </tr>
 			  </thead>
-			  <tbody onclick="getSomeKey(event)" class="teacherInfoListBox" style="cursor: pointer;">
+			  <tbody onclick="getSomeKey(event)" class="studentInfoListBox" style="cursor: pointer;">
 			    <!-- template로 옮김 -->  
 			  </tbody>
 			</table>
@@ -1016,7 +830,7 @@
 
 <!-- 리스트 템플릿 -->
 <table id="template" class="d-none">
-	<tr class="teacherInfoWrapper">
+	<tr class="studentInfoWrapper">
       <td class="p-0 px-1 pt-1 text-center">
 	    <div class="form-check m-0 p-0 d-inline-block">
 	        <input class="form-check-input m-0 p-0" type="checkbox" value="" id="flexCheckDefault">
@@ -1024,11 +838,13 @@
 	        </label>
 	    </div>
 	  </td>
-	  <td class="key">강사 번호</td>
+	  <td class="key">학생 번호</td>
 	  <td class="name">이름</td>
+	  <td class="gender">성별</td>
+	  <td class="birth">성별</td>
 	  <td class="phone">전화번호</td>
 	  <td class="email">이메일</td>
-	  <td class="possible text-start">강의 가능한 교육과정</td>
+	  <td class="entered_at">입학일</td>
     </tr>	
 </table>
 
@@ -1038,14 +854,14 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 600px; width: 100%;">
       <div class="modal-content">
         <div class="modal-header py-2" style="background-color: #003399;">
-          <h5 class="modal-title fw-bold fs-5 text-white p-0">강사 정보</h5>
+          <h5 class="modal-title fw-bold fs-5 text-white p-0">학생 정보</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body py-2">
         <!-- 강사 기본정보 -->
 			<div class="row mt-2 ms-2">
 				<div class="col fw-bold" style="font-size: 0.9em;">
-					<i class="bi bi-dot"></i>강사 기본정보
+					<i class="bi bi-dot"></i>학생 기본정보
 					<span class="ms-3 text-danger" style="font-size: 0.8em;">*는 필수 입력사항입니다.</span>
 				</div>
 			</div>
@@ -1123,16 +939,7 @@
 					</div>
 					<div class="row border-bottom border-dark">
 						<div class="col-3 py-2 border-end border-dark fw-bold bg-secondary bg-opacity-10">
-							<span class="text-danger" style="font-size: 0.8em;">*</span>교육과정
-						</div>
-						<!-- 등록된 카테고리에 따라 체크박스 반복문 필요 -->
-						<div id="checkBoxModal" class="col py-2 border-end text-start">
-							<!-- 교육과정 리스트 -->
-						</div>
-					</div>
-					<div class="row border-bottom border-dark">
-						<div class="col-3 py-2 border-end border-dark fw-bold bg-secondary bg-opacity-10">
-							<span class="text-danger" style="font-size: 0.8em;">*</span>입사일
+							<span class="text-danger" style="font-size: 0.8em;">*</span>입학일
 						</div>
 						<div class="col py-2 d-grid text-start">
 							<input class="border rounded-0" id="entered_atModal" type="date">
@@ -1147,12 +954,12 @@
 						</div>
 					</div>
 				</div>
-			</div> <!-- 강사 기본정보 끝 -->
+			</div> <!-- 학생 기본정보 끝 -->
 				
-			<!-- 강사 학력정보 -->
+			<!-- 학생 학력정보 -->
 			<div class="row mt-5 ms-2">
 				<div class="col fw-bold" style="font-size: 0.9em;">
-					<i class="bi bi-dot"></i>강사 학력정보
+					<i class="bi bi-dot"></i>학생 학력정보
 				</div>
 			</div>
 			

@@ -23,58 +23,17 @@
 
     <div class="container mt-3">
         <div class="row">
-            <div class="col-3 me-3"><!-- 여기부분은 목차부분 -->
-                <div class="row rounded-1 opacity-90" style="background-color: #504528;">
-                    <div class="col py-4 text-center">
-                        <span class="fw-bold" style="color: white; font-size: x-large;">기숙사 커뮤니티</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: #504528;">서식 자료실</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">외박 및 외출신청</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">상벌점 확인</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">고장수리요청</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">상담 및 건의</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.2em solid #504528;">
-                    <div class="col py-3 fw-bold" style="font-size: large;">
-                        <span style="color: black;">일지 등록</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">FAQ</span>
-                    </div>
-                </div>
-            </div>
+           <jsp:include page="../commons/student/leftButtons4.jsp"></jsp:include>
             <!-- 왼쪽 목차 끝 -->
             <div class="col">
                 <div class="row">
                     <div class="col">
                         <div class="row my-3">
                             <div class="col pb-2">
-                                <span class="fw-bold" style="font-size: xx-large;">일지 작성</span>
+                                <span class="fw-bold" style="font-size: xx-large;">일지 등록</span>
                             </div>
                             <div class="col text-end pt-3">
-                                <span class="bi bi-house-door-fill" style="color: #999897;"></span><span style="color: #7A8082;"> > 기숙사 커뮤니티 </span> <span style="color: #999897;"> > </span><span class="fw-bold" style="color: #767575;">일지 작성</span>
+                                <span class="bi bi-house-door-fill" style="color: #999897;"></span><span style="color: #7A8082;"> > 기숙사 커뮤니티 </span> <span style="color: #999897;"> > </span><span class="fw-bold" style="color: #767575;">일지 등록</span>
                             </div>
                             <span class="border-bottom  border-dark border-4 mt-2"></span>
                         </div>
