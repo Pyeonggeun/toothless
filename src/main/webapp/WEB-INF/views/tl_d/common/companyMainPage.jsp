@@ -21,7 +21,7 @@
 			<%-- 관심기업 학생 --%>
 			<div class="col-5 px-5 mx-5">
 				<!-- 관심기업 학생 -->
-				<div class="row mt-3 border-bottom border-2 border-dark">
+				<div class="row mt-3 pb-2 border-bottom border-2">
 					<div class="col fs-5 fw-bold mt-5">기업에 관심이 있는 학생</div>
 					<!-- <a class="col fs-5 fw-bold mt-5 text-end navbar-brand"href="#">
 					<i class="bi bi-plus-lg"></i></a> -->
@@ -64,7 +64,7 @@
 			<%-- 우리기업 지원자 목록 --%>	
 			<div class="col px-5 me-5 mt-3 border-start">
 				<!-- 공고 지원한 학생목록, 공고를 띄우는게 낫지 않나..?-->
-				<div class="row border-bottom border-2 border-dark">
+				<div class="row pb-2 border-bottom border-2">
 					<div class="col fs-5 fw-bold mt-5">기업 지원자</div>
 					<a class="col fs-5 fw-bold mt-5 text-end navbar-brand" 
 						href="../ny_posting/myCompanyApplyStudentListPage"><i class="bi bi-plus-lg"></i></a>
@@ -108,7 +108,7 @@
 		<div class="row mx-5">
 			<div class="col">
 				<!-- 채용공고 -->
-				<div class="row mt-3 mx-3 border-bottom border-2 border-dark">
+				<div class="row mt-3 mx-3 pb-2 border-bottom border-2">
 					<div class="col fs-5 fw-bold mt-5">채용공고</div>
 					<a class="col fs-5 fw-bold mt-5 text-end navbar-brand"
 						href="../ny_posting/jobPostingListForCompanyPage"><i class="bi bi-plus-lg"></i></a>
@@ -176,7 +176,7 @@
 		<c:if test="${company.companyDto.is_family_company=='Y'}">
 				<div class="col ps-4 pe-5 mx-5 mt-3">
 					<!-- 공고 지원한 학생목록 -->
-					<div class="row border-bottom border-2 border-dark">
+					<div class="row pb-2 border-bottom border-2">
 						<div class="col fs-5 fw-bold mt-5">이력서 공개 학생의 이력서 목록</div>
 						<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
 					</div>

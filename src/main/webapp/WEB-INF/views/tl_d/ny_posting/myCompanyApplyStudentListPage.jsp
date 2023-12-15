@@ -29,11 +29,11 @@
 				<div class="row">
 					<div class="col fs-4 fw-bold mt-5 text-center">기업지원학생리스트</div>
 				</div>
-				<div class="row mt-4 pb-3 border-bottom border-3 border-dark">
+			<%-- 	<div class="row mt-4 pb-3 border-bottom border-3 border-dark">
 					<div class="col-1 pt-1">
-						총 <span class="fw-bold">${loop.index}</span>건
+						총 <span class="fw-bold"></span>건
 					</div>
-				</div>
+				</div> --%>
 				<div class="row mt-3 ps-5 mb-1 text-secondary border-bottom">
 					<!-- 이름 -->
 					<div class="col ms-4 px-0">이름</div>

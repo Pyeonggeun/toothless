@@ -131,4 +131,7 @@ public interface PostingSqlMapper {
 	
 	// 기업 메인페이지용 관심기업 학생
 	public List<StudentInfoDto> selectMyCompanyInterestStudentList(int com_pk);
+	
+	// 학생 + 학과
+	public String selectByDepartmentPk(int department_pk);
 }

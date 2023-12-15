@@ -358,6 +358,11 @@
 		    ]]>
 		) t1
 	</select>
+	<!-- 학생 + 학과  -->
+	<select id="selectByDepartmentPk" resultType="String">
+		SELECT tjdc.name FROM TL_JIC_DEPARTMENT_CATEGORY tjdc 
+		WHERE tjdc.DEPARTMENT_PK = #{department_pk}
+	</select>
 	
 	
 </mapper>

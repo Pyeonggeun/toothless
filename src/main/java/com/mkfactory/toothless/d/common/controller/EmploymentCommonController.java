@@ -45,16 +45,31 @@ public class EmploymentCommonController {
 			model.addAttribute("interestpostingForMyPage", postingService.getInterestPostingListForMyPage(studentPk));
 			model.addAttribute("applyPostListForMyPage", resumeService.getRowNumApplyList(studentPk));
 			model.addAttribute("applyProgramListForMyPage", programService.studentApplyProgramList());
+			model.addAttribute("studentDepartmentName", postingService.getStudentDepartmentName(studentInfoDto.getDepartment_pk()));
 		}
 		
 		
 		return "tl_d/common/studentMyPage";
 	}
 	
+	// 학생 로그아웃
+	@RequestMapping("studentLogoutProcess")
+	public String studentLogoutProcess(HttpSession session) {
+		session.invalidate();
+		return "redirect:./studentMyPage";
+	}
+	
 	// 취창업 메인 페이지
 	@RequestMapping("employmentMainPage")
 	public String employMainPage() {
 		return "tl_d/common/employmentMainPage";
+	}
+	
+	// 메인페이지 로그아웃
+	@RequestMapping("studentLogoutProcessForMain")
+	public String studentLogoutProcessForMain(HttpSession session) {
+		session.invalidate();
+		return "redirect:./employmentMainPage";
 	}
 	
 	
@@ -86,7 +101,7 @@ public class EmploymentCommonController {
 		return "tl_d/common/companyMainPage";
 	}
 	
-	// 기업 메인페이지 로그아웃
+	// 기업 로그아웃
 	@RequestMapping("companyLogoutProcess")
 	public String companyLogoutProcess(HttpSession session) {
 		session.invalidate();
@@ -105,6 +120,14 @@ public class EmploymentCommonController {
 		model.addAttribute("companyList", companyService.getCompanyList());
 		
 		return "tl_d/common/staffMainPage";
+	}
+	
+	// 교직원 로그아웃
+	@RequestMapping("staffLogoutProcess")
+	public String staffLogoutProcess(HttpSession session) {
+		
+		session.invalidate();
+		return "redirect:./staffMainPage";
 	}
 
 }

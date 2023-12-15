@@ -593,6 +593,7 @@ public class PostingServiceImpl {
 			
 			Map<String, Object> applyStudentTotalMap = new HashMap<>();
 			
+			
 			applyStudentTotalMap.put("studentInfoDto", studentInfoDto);
 			applyStudentTotalMap.put("graduationInfoDtoList", graduationInfoDtoList);
 			
@@ -600,6 +601,11 @@ public class PostingServiceImpl {
 			
 		}
 		return alpplyStudentTotalList;
+	}
+	
+	// 학생 + 학과 
+	public String getStudentDepartmentName(int department_pk) {
+		return postingSqlMapper.selectByDepartmentPk(department_pk);
 	}
 	
 }
