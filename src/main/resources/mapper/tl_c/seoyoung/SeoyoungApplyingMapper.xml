@@ -133,7 +133,7 @@
 		JOIN tl_c_internship_course ttt ON tci.company_pk = ttt.company_pk
 		WHERE 
 		    (
-		        (tcc.COMPANY_CATEGORY_PK = 0 AND tci.COMPANY_NAME LIKE '%' || #{searchWord} || '%')
+		        (tcc.COMPANY_CATEGORY_PK = 0 OR tci.COMPANY_NAME LIKE '%' || #{searchWord} || '%')
 		        OR
 		        (tcc.COMPANY_CATEGORY_PK = #{COMPANY_CATEGORY_PK} AND tci.COMPANY_NAME LIKE '%' || #{searchWord} || '%')
 		    )

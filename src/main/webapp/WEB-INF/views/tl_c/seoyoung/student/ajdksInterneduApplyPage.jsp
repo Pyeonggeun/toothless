@@ -434,6 +434,11 @@ const student_pk = ${sessionStudentInfo.student_pk};
 		const url = "ajdksInterneduApplyPage" + company_Pk;
 	}
 	
+	function reloadSearchTypeCategory(){
+		
+		
+	}
+	
 
 	window.addEventListener("DOMContentLoaded", () => {
 		reloadcompanyList();
@@ -473,12 +478,13 @@ const student_pk = ${sessionStudentInfo.student_pk};
 							</div>
 							<br>
 
-							<nav class="navbar navbar-light" id="searchCompany"  style="background-color: #CFE2FF;">
+							<nav class="navbar navbar-light" id="searchCompany"
+								style="background-color: #CFE2FF;">
 								<div class="col">
 									<div class="row ms-3 mt-3 me-3 mb-3">
 										<div class="col-2 px-0">
 											<select class="form-select" id="inputCategory">
-												<option selected value=	0>업종 선택</option>
+												<option selected value=0>업종 선택</option>
 												<option value=1>제조업</option>
 												<option value=2>건설업</option>
 												<option value=3>정보통신업</option>
@@ -486,13 +492,24 @@ const student_pk = ${sessionStudentInfo.student_pk};
 												<option value=5>부동산업</option>
 											</select>
 										</div>
-										<div class="input-group col px-0 " >
+										<div class="input-group col px-0 ">
 											<input id="searchCompanyWord" onkeyup="pressEnter()"
 												type="text" class="form-control btn-outline-light">
-												 <a href="#" onclick="searchByCompany()" role="button" class="btn btn-primary  btn-outline-light" >
-												 <i class="bi bi-search"></i></a>
+											<a href="#" onclick="searchByCompany()" role="button"
+												class="btn btn-primary  btn-outline-light"> <i
+												class="bi bi-search"></i></a>
 										</div>
 
+									</div>
+									<div class="row mt-4">
+										<div class="col">
+											<div class="row">
+												<div class="col-auto">
+													<span class="fw-bold align-middle">세부검색</span>
+												</div>
+												<div class="searchCategoryCheckBox col-auto"></div>
+											</div>
+										</div>
 									</div>
 								</div>
 
