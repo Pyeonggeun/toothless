@@ -8,7 +8,7 @@
                     <div class="container-fluid">
 				            <div class="col p-0 align-self-center text-black fw-bold fs-3">
 				            <a href="./jw_mainPage" style="text-decoration: none;" class="text-black">
-				            <img src="../../resources/img/another/logo_black.png" alt="" style="height: 70px; width: 70px;">
+				            <img src="../../resources/img/another/logo_black.png" alt="" style="height: 60px; width: 60px;">
 				                MK <span class="fs-4">대학교</span> <span class="fs-6"> | </span> <span class="fs-5"> 기숙사</span> 
 				            </a>
 			            </div>
