@@ -16,7 +16,7 @@ public class WoojaeExternalController {
 	@RequestMapping("ajdksInternshipCourseListPage")
 	public String ajdksInternshipCourseListPage(Model model) {
 		
-		model.addAttribute("list", woojaeStaffService.internshipCourseList());
+	
 		
 		return"tl_c/woojae/external/ajdksInternshipCourseListPage";
 	}

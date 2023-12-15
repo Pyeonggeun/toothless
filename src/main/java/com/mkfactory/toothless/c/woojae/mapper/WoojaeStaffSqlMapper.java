@@ -42,6 +42,5 @@ public interface WoojaeStaffSqlMapper {
 			@Param("searchType")int[] searchType,
 			@Param("searchWord")String searchWord);
 	
-	//현장실습과정 내역
-	public List<AjdksInternshipCourseDto> selectInternshipCourseList();
+	
 }

@@ -20,7 +20,6 @@ public class WoojaeRestExternalController {
 		RestResponseDto restResponseDto = new RestResponseDto();
 		
 		restResponseDto.setResult("success");
-		restResponseDto.setData(woojaeStaffService.internshipCourseList());
 		
 		return restResponseDto;
 	}

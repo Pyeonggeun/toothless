@@ -86,12 +86,12 @@
 				<div class="row mt-3">
 					<div class="col border border-2"></div>
 				</div>
-				<form action="./ajdksRegistedCompanyPageCCCC">
+				<form action="./ajdksRegistedCompanyPageCCCC" method="get">
 				<div class="row mt-5">
-					<div class="col-5">
+					<div class="col-4 mt-2">
 						<div class="form-check">
-							<c:forEach items="${catSearch}" var="CL">
-								<input name="searchType" type="checkbox" value="${CL.COMPANY_CATEGORY_PK}">${CL.COMPANY_CATEGORY_NAME}
+							<c:forEach items="${categoryList}" var="CL">
+								<input name="searchType" type="checkbox" value="${CL.company_category_pk}">${CL.company_category_name}
 							</c:forEach>
 						</div>
 					</div>
@@ -115,29 +115,17 @@
 					<div class="col">주소</div>
 					<div class="col-2">전화번호</div>
 				</div>
-				<c:forEach items="catSearch" var="CL">
-					 <div class="row">
-				 		<div class="col-1">${CL.COMPANY_PK}</div>
-						<div class="col-2">${CL.COMPANY_CATEGORY_NAME}</div>
-						<div class="col-2">${CL.COMPANY_NAME}</div>
-						<div class="col-1">${CL.CEO_NAME}</div>
-						<div class="col">${CL.ADDRESS}</div>
-						<div class="col-2">${CL.PHONE}</div>
-					 </div>
-				</c:forEach>
-				<div class="row mt-1">
-					<div id="companyListBox" class="col border-bottom border-secondary-subtle"></div>
-				</div>
-				<c:forEach items="catSearch" var="cList">
-					 <div class="row">
-				 		<div class="col-1">${cList.COMPANY_PK}</div>
-						<div class="col-2">${cList.COMPANY_CATEGORY_NAME}</div>
-						<div class="col-2">${cList.COMPANY_NAME}</div>
-						<div class="col-1">${cList.CEO_NAME}</div>
-						<div class="col">${cList.ADDRESS}</div>
-						<div class="col-2">${cList.PHONE}</div>
-					 </div>
-				</c:forEach>
+					<c:forEach items="registedCompanyList" var="cList">
+						 <div class="row">
+					 		<div class="col-1">${cList.ajdksCompanyInfoDto.company_pk}</div>
+							<div class="col-2">${cList.ajdksCompanyCategoryDto.company_category_name}</div>
+							<div class="col-2">${cList.ajdksCompanyInfoDto.company_name}</div>
+							<div class="col-1">${cList.ajdksCompanyInfoDto.ceo_name}</div>
+							<div class="col">${cList.ajdksCompanyInfoDto.address}</div>
+							<div class="col-2">${cList.ajdksCompanyInfoDto.phone}</div>
+						 </div>
+					</c:forEach> 
+			
 				
 				<div class="row mt-2">
 					<div class="col"></div>
@@ -185,9 +173,3 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
-
-<%--
-	<c:if test="${!empty sessionStaffInfo}">
-	
-	</c:if>
- --%>
