@@ -85,6 +85,7 @@
                                               <li><a class="dropdown-item" href="./jw_checkDormStudentPointPage">상벌점 확인</a></li>
                                               <li><a class="dropdown-item" href="#">고장수리요청</a></li>
                                               <li><a class="dropdown-item" href="#">상담 및 건의</a></li>
+                                              <li><a class="dropdown-item" href="./jw_diartApplyPage">일지 등록</a></li>
                                               <li><a class="dropdown-item" href="#">FAQ</a></li>
                                             </ul>
                                           </li>

@@ -130,17 +130,55 @@
 			</div>
 			<!-- (예정) 우리기업 지원자 목록 끝 -->
 		</div>
+		
 		<!-- (예정)가족기업일 경우 이력서 공개 학생의 이력서 목록 -->
-		<div class="row">
-			<div class="col px-5 mx-5 mt-3 border-top">
-				<!-- 공고 지원한 학생목록 -->
-				<div class="row border-bottom border-2 border-dark">
-					<div class="col fs-5 fw-bold mt-5">(예정)이력서 공개 학생의 이력서 목록</div>
-					<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
+		<c:if test="${company.companyDto.is_family_company=='Y'}">
+				<div class="col px-5 mx-5 mt-3 border-top">
+					<!-- 공고 지원한 학생목록 -->
+					<div class="row border-bottom border-2 border-dark">
+						<div class="col fs-5 fw-bold mt-5">(예정)이력서 공개 학생의 이력서 목록</div>
+						<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
+					</div>
+					<div class="row mt-3 mb-1 text-secondary border-bottom">
+					<!-- 이름 -->
+					<div class="col ms-4 px-0">이름</div>
+					<!-- 생년월일 -->
+					<div class="col ms-4 px-0">생년월일</div>
+					<!-- 성별 -->
+					<div class="col px-0">성별</div>
+					<!-- 이메일 -->
+					<div class="col px-0">이메일</div>
+					<!-- 졸업여부 -->
+					<div class="col px-0">졸업여부</div>
 				</div>
+				<c:forEach items="${mainResumeList}" var="mainResume">
+					<!-- 목록 -->
+					<a class="navbar-brand" href="../ny_posting/jobPostingDetailForCompanyPage">
+						<div class="row my-2 border-bottom">
+							<div class="col-2 ms-3">${mainResume.studentInfoDto.name}</div>
+							<div class="col ps-5">
+								<fmt:formatDate value="${mainResume.studentInfoDto.birth}" pattern="yyMMdd"/>
+							</div>
+							<div class="col-1 ps-5">${mainResume.studentInfoDto.gender}</div>
+							<div class="col-4 ps-5 pe-0">${mainResume.studentInfoDto.email}</div>
+							<div class="col ps-0 pe-5">
+								<c:choose>
+									<c:when test="${! mainResume.graduationInfoDtoList.contains(applyList.studentInfoDto.student_pk)}">
+										재학생
+									</c:when>
+									<c:otherwise>
+										졸업생
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
+					</a>
+				</c:forEach>
+				
 			</div>
-		</div>
+		</c:if>
 		<!-- (예정)가족기업일 경우 이력서 공개 학생의 이력서 목록 끝-->
+		
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

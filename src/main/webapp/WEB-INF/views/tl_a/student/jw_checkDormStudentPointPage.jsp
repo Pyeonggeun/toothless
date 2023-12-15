@@ -56,6 +56,11 @@
                 </div>
                 <div class="row" style="border-bottom: 0.01em solid #161313;">
                     <div class="col py-3" style="font-size: large;">
+                        <span style="color: black;">일지 등록</span>
+                    </div>
+                </div>
+                <div class="row" style="border-bottom: 0.01em solid #161313;">
+                    <div class="col py-3" style="font-size: large;">
                         <span style="color: black;">FAQ</span>
                     </div>
                 </div>

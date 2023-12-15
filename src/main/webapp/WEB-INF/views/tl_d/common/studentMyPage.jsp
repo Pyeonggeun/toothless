@@ -217,6 +217,8 @@
 						</div>
 						<!-- (예정)신청한 프로그램 끝 -->
 					</div>
+					
+					
 					<div class="col mx-5 px-5 border-start ">
 						<!-- (예정)공지사항 혹은 설문조사 -->
 						<div class="row border-bottom border-2 border-dark">

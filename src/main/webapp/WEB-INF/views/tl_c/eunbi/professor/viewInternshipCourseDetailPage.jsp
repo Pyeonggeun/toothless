@@ -237,6 +237,9 @@
 						
 						evaluationButton.setAttribute("onclick", "openModal()");
 						
+						const inputStudentInternPk = document.getElementById("inputStudentInternPk");
+						inputStudentInternPk.setAttribute("value",intern.studentInternDto.student_intern_pk);
+						
 					}else if(intern.didProfessorEvaluateIntern !== 0){
 						const internEvaluation = internWrapper.querySelector(".internEvaluation");
 						internEvaluation.setAttribute("style", "font-size:0.95em");
@@ -274,6 +277,7 @@
 		const coorporation_score = document.querySelector('input[name="coorporation_score"]:checked');
 		const achievement_score = document.querySelector('input[name="achievement_score"]:checked');
 		const inputReview = document.getElementById("inputReview");
+		const inputStudentInternPk = document.getElementById("inputStudentInternPk");
 		
 		fetch("./writeInternEvaluation", {
 			method: "post",
@@ -284,7 +288,8 @@
 					"&responsibility_score=" + responsibility_score.value +
 					"&coorporation_score=" + coorporation_score.value +
 					"&achievement_score=" + achievement_score.value +
-					"&review=" + inputReview.value
+					"&review=" + inputReview.value + 
+					"&student_intern_pk=" + inputStudentInternPk.value
 		})
 		.then(response => response.json())
 		.then(response => {

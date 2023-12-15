@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mkfactory.toothless.a.dto.DiaryDto;
 import com.mkfactory.toothless.a.dto.ExitDto;
 import com.mkfactory.toothless.a.student.jw.service.DormStudentServiceJw;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
@@ -74,7 +75,34 @@ public class DormStudentControllerJw {
 			model.addAttribute("sumTotalPoint", intSumTotalPoint);
 			return "/tl_a/student/jw_checkDormStudentPointPage";
 		}
+	}
+	
+	@RequestMapping("jw_diartApplyPage")
+	public String jw_diartApplyPage(HttpSession session, Model model) {
 		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		if(studentInfoDto == null) {
+			return "redirect:/another/student/loginPage";
+		}
+		int studentPk = studentInfoDto.getStudent_pk();
+		 
+		if(session.getAttribute("sessionStudentInfo") != null && dormStudentServiceJw.checkDormStudentExecutive(studentPk) == 0) {
+			// 로그인 한 사생이 임원이 아니면 반환 (임원페이지)
+			return "redirect:/another/student/loginPage";
+		} else {
+			model.addAttribute("studentInfoDto", studentInfoDto);
+			model.addAttribute("dormStudentDto", dormStudentServiceJw.getDormStudentByStudentPk(studentPk));
+			model.addAttribute("executiveDto", dormStudentServiceJw.getDormStudentByStudentPkAndExecutive(studentPk));
+			return "/tl_a/student/jw_diartApplyPage";
+		}
+	}
+	
+	@RequestMapping("jw_diartApplyProcess")
+	public String jw_diartApplyProcess(DiaryDto params) {
+		
+		dormStudentServiceJw.registerDiary(params);
+		
+		return "redirect:/tl_a/student/jw_diartApplyPage";
 	}
 	
 }

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.FreeboardCommentDto;
 import com.mkfactory.toothless.e.dto.FreeboardDto;
+import com.mkfactory.toothless.e.dto.FreeboardEmpathyDto;
 import com.mkfactory.toothless.e.dto.FreeboardImageDto;
 
 public interface FreeboardCounselSqlMapper {
@@ -49,5 +50,10 @@ public interface FreeboardCounselSqlMapper {
 	public List<FreeboardImageDto> selectFreeboardImageDto(int freeboard_id);
 	
 	public int createFreeboardPk();
+	
+	public void insertEmpathy(FreeboardEmpathyDto paraFreeboardEmpathyDto);
+	
+	//안되면 프리보드 아이디 바꿔보기 
+	public int countEmpathyByIdAndPk(int id);
 	
 }
