@@ -15,7 +15,7 @@ import com.mkfactory.toothless.a.student.sh.freeboard.service.DormBoardServiceIm
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @Controller
-@RequestMapping("/tl_a/student/gasipan/*")
+@RequestMapping("/tl_a/student/*")
 public class DormBoardController {
 
 	@Autowired

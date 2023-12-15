@@ -67,8 +67,8 @@
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item disabled">기숙사 커뮤니티</a></li>
                                                     <li><hr class="dropdown-divider"></li>
-                                              <li><a class="dropdown-item" href="#">공지사항</a></li>
-                                              <li><a class="dropdown-item" href="#">자유게시판</a></li>
+                                              <li><a class="dropdown-item" href="./dm_dormNoticePage">공지사항</a></li>
+                                              <li><a class="dropdown-item" href="./mainGaesipan">자유게시판</a></li>
                                               <li><a class="dropdown-item" href="./jw_exitApplyPage">외박 및 외출신청</a></li>
                                               <li><a class="dropdown-item" href="./jw_checkDormStudentPointPage">상벌점 확인</a></li>
                                               <li><a class="dropdown-item" href="#">고장수리요청</a></li>

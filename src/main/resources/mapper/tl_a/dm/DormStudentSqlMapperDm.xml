@@ -17,4 +17,40 @@
 	
 	</select>
 	
+	<select id="dormNoticeAllList" resultType="com.mkfactory.toothless.a.dto.DormNoticeDto">
+	
+		SELECT * FROM TL_A_DORM_NOTICE ORDER BY dorm_notice_pk DESC
+	
+	</select>
+	
+	<select id="staffInfoByStaffPk" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
+	
+		SELECT * FROM TL_JIC_STAFF_INFO WHERE STAFF_PK = #{STAFF_PK}
+	
+	</select>
+	
+	<select id="dormNoticeInsertByDormNoticeDto" resultType="com.mkfactory.toothless.a.dto.DormNoticeDto">
+	
+		INSERT INTO tl_a_dorm_notice VALUES(
+		   tl_a_dorm_notice_seq.nextval,
+		   #{staff_pk},
+		   #{title},
+		   #{content},
+		   SYSDATE
+		)
+	
+	</select>
+	
+	<select id="dormNoticeInfoByDormNoticePk" resultType="com.mkfactory.toothless.a.dto.DormNoticeDto">
+	
+		SELECT * FROM tl_a_dorm_notice WHERE DORM_NOTICE_PK = #{DORM_NOTICE_PK}
+	
+	</select>
+	
+	<delete id="deleteDormNoticeInfoByDormNoticePk">
+	
+		DELETE FROM tl_a_dorm_notice WHERE DORM_NOTICE_PK = #{DORM_NOTICE_PK}
+	
+	</delete>
+	
 </mapper>
