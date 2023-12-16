@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mkfactory.toothless.a.student.sj.mapper.RequestRepairSqlMapper">
+	<select id="printDormStudentPk" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT * 
+		FROM TL_A_DORM_STUDENT tads 
+		WHERE tads.STUDENT_PK = 
+		(SELECT tjsi.STUDENT_PK FROM TL_JIC_STUDENT_INFO tjsi WHERE tjsi.STUDENT_PK = #{student_pk})
+	</select>
+	
+	<!-- <select id ="dormStudent">
+	SELECT * FROM TL_A_DORM_STUDENT tads WHERE DORM_STUDENT_PK = #{dorm_student_pk}
+	</select> -->
+	
+	<insert id="insertRequestRepair">
+	INSERT INTO tl_a_request_repair_seq VALUES( 
+	   tl_a_request_repair_seq.nextval,
+	   #{dorm_student_pk},
+	   #{title},
+	   #{content},
+	   #{image_link},
+	   SYSDATE
+		)
+	</insert>
+</mapper>

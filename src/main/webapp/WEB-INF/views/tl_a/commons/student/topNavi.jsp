@@ -88,7 +88,7 @@
                                               <li><a class="dropdown-item" href="./mainGaesipan">자유게시판</a></li>
                                               <li><a class="dropdown-item" href="./jw_exitApplyPage">외박 및 외출신청</a></li>
                                               <li><a class="dropdown-item" href="./jw_checkDormStudentPointPage">상벌점 확인</a></li>
-                                              <li><a class="dropdown-item" href="#">고장수리요청</a></li>
+                                              <li><a class="dropdown-item" href="./sj_requestRepairPage">고장수리요청</a></li>
                                               <li><a class="dropdown-item" href="./jw_diartApplyPage">일지 등록</a></li>
                                               <li><a class="dropdown-item" href="./dm_FAQ">FAQ</a></li>
                                             </ul>
