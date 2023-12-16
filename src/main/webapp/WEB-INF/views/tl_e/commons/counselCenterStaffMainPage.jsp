@@ -30,6 +30,41 @@
 	<div class="row">
 		<div class="col fw-bold text-center">
 			<img src="../../resources/img/counselCenterStaff/topBanner01.jpg" class="border border-dark" style="max-width: 100%; height: auto;">
+			<div class="row"></div>
+			<div class="row">
+				<div class="col ms-4">
+					<div class="row pt-5">
+						<div class="col fw-bold fs-3">
+							MENU
+						</div>
+					</div>
+					<div class="row pt-5">
+						<div class="col fs-5">						
+							<div class="dropend">
+								<button class="btn btn-white dropdown-toggle navbar-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+								상담원 관리
+								</button>
+								<ul class="dropdown-menu">
+								    <li><a class="dropdown-item" href="../registerCounselor/registerPage">상담원 등록</a></li>
+							   		<li><a class="dropdown-item" href="../registerCounselor/counselorInfo">상담원 조회</a></li>
+							   		<li><a class="dropdown-item" href="../registerCounselor/managementCounselor">상담원 관리(JS)</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="row pt-4">
+						<div class="col fs-5">
+							<a class="navbar-brand" href="../notice/noticeMainPage_Staff">공지사항</a>
+						</div>
+					</div>
+					<div class="row pt-4">
+						<div class="col fs-5">
+							<a class="navbar-brand" href="../groupcounsel/staff/groupCounselListPage">집단상담</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-10"></div>
+			</div>
 		</div>
 	</div>
 	
