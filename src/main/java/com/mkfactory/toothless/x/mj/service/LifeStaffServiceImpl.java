@@ -23,6 +23,7 @@ import com.mkfactory.toothless.donot.touch.mapper.StudentSqlMapper;
 import com.mkfactory.toothless.x.dto.LectureCategoryDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
 import com.mkfactory.toothless.x.dto.LifeLecturerDto;
+import com.mkfactory.toothless.x.dto.LifeStudentDto;
 import com.mkfactory.toothless.x.dto.PossibleLectureDto;
 import com.mkfactory.toothless.x.mj.mapper.LifeStaffSqlMapper;
 
@@ -93,6 +94,14 @@ public class LifeStaffServiceImpl {
 		}
 	}
 	
+	// 강사 정보 삭제 deleteTeacherInfo
+	public void deleteTeacherInfo(int lecturer_key) {
+		
+		lifeStaffSqlMapper.deleteTeacherInfo(lecturer_key);
+		lifeStaffSqlMapper.deletePossibleLecture(lecturer_key);
+	}
+	
+	
 
 	// '전체'강사목록 + 강사별 가능한 교육과정조회
 	public List<Map<String, Object>> getAllTeacherInfoList() {
@@ -134,6 +143,59 @@ public class LifeStaffServiceImpl {
 		
 		return lifeStaffSqlMapper.selectSomeTeacherExternalInfo(lecturer_key);
 	}
+	
+	
+	// ============== 여기부터 학생 정보 ======================
+	
+	// 아직 학생등록 안된 사람들
+	public List<ExternalInfoDto> getNotYetStudent(){
+		
+		return lifeStaffSqlMapper.selectNotYetStudent();
+	}
+	
+	
+	// 학생등록
+	public void registerStudentInfo(LifeStudentDto lifeStudentDto) {
+
+		lifeStaffSqlMapper.insertStudentInfo(lifeStudentDto);
+	}
+	
+
+	// '전체'학생목록
+	public List<LifeStudentDto> getAllStudentInfoList() {
+
+		return lifeStaffSqlMapper.selectAllStudentList();
+	}
+	
+	
+	// '특정'학생 정보
+	public LifeStudentDto getSomeStudentInfo(int life_student_key) {
+
+		return lifeStaffSqlMapper.selectSomeStudentInfo(life_student_key);
+	}
+	
+	// '특정'학생의 외부인 회원가입 정보
+	public ExternalInfoDto getSomeStudentExternalInfo(int life_student_key){
+		
+		return lifeStaffSqlMapper.selectSomeStudentExternalInfo(life_student_key);
+	}
+	
+
+	// 학생 정보 수정
+	public void updateStudentInfo(LifeStudentDto lifeStudentDto, int life_student_key) {
+		
+		// 강사 기본정보 수정
+		lifeStaffSqlMapper.updateStudentInfo(lifeStudentDto);
+		
+	}
+	
+	// 강사 정보 삭제 deleteTeacherInfo
+	public void deleteStudentInfo(int life_student_key) {
+		
+		lifeStaffSqlMapper.deleteStudentInfo(life_student_key);
+	}
+	
+	
 	
 	
 	

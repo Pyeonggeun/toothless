@@ -62,6 +62,22 @@
 	
 	<!-- 상담원 전체 중복제거 리스팅 for AJAX -->
 	<select id="selectAllCounselorForAJAX" resultType="map">
+		SELECT *
+		FROM(
+		SELECT
+			ROW_NUMBER () OVER (PARTITION BY mainView.counselorId ORDER BY mainView.category) mainRn,
+			mainView.category AS category,	
+			mainView.counselorId AS counselorId,
+			mainView.name AS name,
+			mainView.age AS age,
+			mainView.gender AS gender,
+			mainView.phonenumber AS phonenumber,
+			mainView.email AS email,
+			mainView.address AS address,
+			mainView.career AS career,
+			mainView.profileimage AS profileImage,
+			mainView.scoreAvg AS scoreAvg
+		FROM (
 		SELECT
 			counselorTB.rn AS rn,
 			counselorTB.category AS category,
@@ -77,7 +93,7 @@
 			nvl(scoreTB.scoreAvg, 0) AS scoreAvg
 		FROM (
 			SELECT 
-				ROW_NUMBER () OVER (PARTITION BY cc.id ORDER BY cct.TYPE_CATEGORY_ID  ASC) rn,
+				ROW_NUMBER () OVER (PARTITION BY cct.TYPE_CATEGORY_ID ORDER BY cc.id ASC) rn,
 				cct.TYPE_CATEGORY_ID AS category,
 				cc.*
 			FROM CP_COUNSELOR_TYPE cct
@@ -119,42 +135,57 @@
 				)
 				GROUP BY counselor_id
 				ORDER BY counselor_id asc
-			) scoreTB ON counselorTB.id = scoreTB.counselor_id
-		<if test="searchOption == false">
-			WHERE rn = 1
-		</if>		
-		<if test="searchOption == true">
-			WHERE 1 = 1		
-			<if test="!searchCounselorName.equals('default')">
-				AND name LIKE '%' || #{searchCounselorName} || '%'				
-			</if>
-			<if test="!searchCounselorType == 0">
-				AND category = #{searchCounselorType}
-			</if>
-			<if test="!searchGenderOption.equals('default')">
-				AND gender = #{searchGenderOption}
-			</if>								
-		</if>
-		<if test="searchOption == true and !searchCounselorName.equals('default')">
-			and rn = 1
-		</if>
-		<if test="
-			searchOption == true and
-			searchCounselorName.equals('default') and
-			searchCounselorType == 0 and
-			!searchGenderOption.equals('default')
-			">
-			and rn = 1
-		</if>
-		<if test="
-			searchOption == true and
-			searchCounselorName.equals('default') and
-			searchCounselorType == 0 and
-			searchGenderOption.equals('default') and
-			!searchScoreOption.equals('default')
-			">
-			and rn = 1
-		</if>
+			) scoreTB ON counselorTB.id = scoreTB.counselor_id			
+		<choose>
+			<when test="searchOption == true">			
+				WHERE 1 = 1		
+				<if test="!searchCounselorName.equals('default')">
+					AND name LIKE '%' || #{searchCounselorName} || '%'				
+				</if>
+				<if test="searchCounselorType != null and searchCounselorType.length > 0">
+					AND category IN
+					<foreach collection="searchCounselorType" item="type" open="(" separator="," close=")">
+						#{type}
+					</foreach>						
+				</if>
+				<if test="!searchGenderOption.equals('default')">
+					AND gender = #{searchGenderOption}
+				</if>								
+				
+				<!-- <if test="searchOption == true and !searchCounselorName.equals('default')">
+					and rn = 1
+				</if>
+				<if test="
+					searchOption == true and
+					searchCounselorName.equals('default') and
+					searchCounselorType != null and searchCounselorType.length == 0 and
+					!searchGenderOption.equals('default')
+					">
+					and rn = 1
+				</if>
+				<if test="
+					searchOption == true and
+					searchCounselorName.equals('default') and
+					searchCounselorType != null and searchCounselorType.length == 0 and
+					searchGenderOption.equals('default') and
+					!searchScoreOption.equals('default')
+					">
+					and rn = 1
+				</if>
+				<if test="
+					searchOption == true and
+					searchCounselorName.equals('default') and
+					searchCounselorType != null and searchCounselorType.length == 0 and
+					!searchGenderOption.equals('default') and
+					!searchScoreOption.equals('default')
+					">
+					and rn = 1
+				</if> -->				
+			</when>
+		</choose>
+		) mainView
+		) ranked
+		WHERE mainrn = 1
 		<if test="!searchScoreOption.equals('default') and !searchScoreOption.equals('scoreASC')">			
 			ORDER BY SCOREAVG ASC
 		</if>

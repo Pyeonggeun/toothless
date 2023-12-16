@@ -30,7 +30,7 @@
 				<form action="./registerJobPostingProcess" method="post" enctype="multipart/form-data">
 				<!-- 채용공고 -->
 				<div class="row">
-					<div class="col fs-4 fw-bold mt-5 text-center">채용공고</div>
+					<div class="col fs-4 fw-bold mt-5 text-center">채용공고등록</div>
 				</div>
 				<!-- 공고 제목 -->
 				<div class="row mt-3">

@@ -12,8 +12,105 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&amp;family=Gowun+Dodum&amp;family=Quicksand:wght@300&amp;display=swap" rel="stylesheet">
 <script>
+
+	const notice_id = ${list.noticeBoardDto.id};
+
 	function handleClick() {
 	}
+	
+	function formSubmit() {
+		const frm = document.getElementById("frm");
+		const inputComment = document.getElementById("inputComment");
+		
+		if(inputComment.value == ''){
+			alert("값을 입력해야 합니다.");
+			inputComment.focus();
+			return ;
+		}
+		
+		frm.submit();
+	}
+	
+	function writeComment() {
+		
+		const inputComment = document.getElementById("inputComment");
+		const commentValue = inputComment.value;
+		
+		const url = "./writeComment"
+		
+		fetch(url, {
+			method: "post",
+			headers: {	// post 방식일때
+				"Content-Type": "application/x-www-form-urlencoded"
+			},
+			body: "text=" + commentValue + "&notice_id=" + notice_id	// 값을 보내는곳
+		})
+		.then(response => response.json())
+		.then(response => {
+			inputComment.value = "";
+			reloadCommentList();
+		});
+		
+	}
+	
+	function reloadCommentList(){
+		
+		const url ="./getCommentList?notice_id=" + notice_id;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const commentListBox = document.getElementById("commentListBox");
+			commentListBox.innerHTML = "";
+			
+			for(e of response.data){
+				// templete호출
+				const commentWrapper = document.querySelector("#templete .commentWrapper").cloneNode(true);
+				// 닉네임 호출
+				const commentNickname = commentWrapper.querySelector(".commentNickname");
+				commentNickname.innerText = e.studentInfoDto.name;
+				// 날짜 호출
+				const commentDate = commentWrapper.querySelector(".commentDate");
+				commentDate.innerText = e.noticeCommentDto.created_at;
+				// 날짜 원하는대로 출력 pattern(yy.MM.dd)
+				const date = new Date(e.noticeCommentDto.created_at);
+				commentDate.innerText = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate();
+				// 댓글 내용 호출
+				const commentText = commentWrapper.querySelector(".commentText");
+				commentText.innerText = e.noticeCommentDto.text;
+			
+				const commentDelete = commentWrapper.querySelector(".commentDelete");
+				commentDelete.setAttribute("onclick", "deleteComment("+e.noticeCommentDto.id+")");
+				
+				if(${sessionStudentInfo == null} || ${sessionStudentInfo.student_pk} != e.studentInfoDto.student_pk){
+					commentDelete.remove();
+				}
+
+				commentListBox.appendChild(commentWrapper);
+				
+			}
+			
+		});
+	}
+	
+	function deleteComment(id){
+		const url = "./deleteComment?id=" + id;
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			reloadCommentList();
+		});
+	}
+
+	
+	// 해당 jsp화면이 열리면? 실행되야하는 함수
+	window.addEventListener("DOMContentLoaded", () => {
+		reloadCommentList();
+		
+	});
+	
+	
 </script>
 <style>
 	*{
@@ -156,31 +253,34 @@
 				<div class="row">
 					<div class="col">댓글&nbsp;(${commentCount })</div>
 				</div>
-				<c:forEach items="${cList }" var="cList">
-					<div class="row">
-						<div class="col border-bottom"><i class="bi bi-chat-dots"></i></div>
-						<div class="col border-bottom">${cList.noticeCommentDto.text }</div>
-						<div class="col border-bottom">${cList.studentInfoDto.name }</div>
-						<div class="col border-bottom"><fmt:formatDate value="${cList.noticeCommentDto.created_at }" pattern="yy-MM-dd hh-mm"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<c:if test="${sessionStudentInfo.student_pk==cList.noticeCommentDto.student_pk }">
-								<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./deleteNoticeArticleCommentProcess?id=${cList.noticeCommentDto.id }&notice_id=${cList.noticeCommentDto.notice_id}">삭제</a>
-							</c:if>
-						</div>
+				<div id="commentListBox" class="row">
+					<div class="col">
+						
 					</div>
-				</c:forEach>
+				</div>
 				<c:if test="${!empty sessionStudentInfo }">
-					<form action="./writeNoticeCommentProcess" method="post">
+					<!--  
+					<form id="frm" action="./writeNoticeCommentProcess" method="post">
 						<div class="row mt-3">
 							<div class="col-9">
-								<input name="text" type="text" style="width:100%; height: 2em">
+								<input id="inputComment" name="text" type="text" style="width:100%; height: 2em">
 								<input name="notice_id" type="hidden" value="${list.noticeBoardDto.id }">
 								<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk }">
 							</div>
 							<div class="col">
-								<input type="submit" style="width:100%; height: 2em" value="댓글띠">
+								<input type="button" onclick="formSubmit()" style="width:100%; height: 2em" value="댓글띠">
 							</div>
 						</div>
 					</form>
+					-->
+					<div class="row mt-3">
+						<div class="col-9">
+							<input id="inputComment" name="text" type="text" style="width:100%; height: 2em">
+						</div>
+						<div class="col d-grid">
+							<button onclick="writeComment()" style="width:100%; height: 2em">댓글띠</button>
+						</div>
+					</div>
 				</c:if>
 			</div>
 			<div class="col-1"></div>
@@ -226,6 +326,16 @@
 			<div class="col-1"></div>
 		</div>
 	</div>
+	<div id="templete" class="d-none">
+		<div class="commentWrapper row">
+			<div class="col border-bottom"><i class="bi bi-chat-dots"></i></div>
+			<div class="commentText col border-bottom">댓글내용</div>
+			<div class="commentNickname col border-bottom">댓글작성자</div>
+			<div class="commentDate col border-bottom">작성일</div>
+			<div class="commentDelete">삭제</div>
+		</div>		
+	</div>
+	
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

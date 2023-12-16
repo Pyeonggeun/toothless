@@ -73,7 +73,6 @@ public class RestPostingController {
 			
 		}
 		
-		
 		restResponseDto.setResult("success");
 		return restResponseDto;
 	}
@@ -109,13 +108,18 @@ public class RestPostingController {
 	
 	// 학생 페이지 공고리스트 출력
 	@RequestMapping("getJobPostingListForStudent")
-	public D_RestResponseDto getJobPostingListForStudent() {
+	public D_RestResponseDto getJobPostingListForStudent(HttpSession session, String searchType, String searchWord) {
 		
 		// DTO생성
 		D_RestResponseDto restResponseDto = new D_RestResponseDto();
 		
-		// 메서드 호출(데이터에 셋팅)
-		restResponseDto.setData(postingService.getPostingListForStudent());
+		StudentInfoDto studentInfo = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(studentInfo != null) {
+			int studentPk = studentInfo.getStudent_pk();
+			// 메서드 호출(데이터에 셋팅)
+			restResponseDto.setData(postingService.getPostingListForStudent(studentPk, searchType, searchWord));
+		}
 		
 		// 항상 result는 success
 		restResponseDto.setResult("success");

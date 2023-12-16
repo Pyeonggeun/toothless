@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
+	
         <script>
 
     		let searchWord = "";
@@ -22,6 +22,8 @@
         	let totalWaitingPageNumber = 1;
         	let startWaitingPageNumber = 1;
         	let endWaitingPageNumber = 1;
+        	
+        	let forIdCount = 1;
         	
         	function reset() {
         		
@@ -438,6 +440,7 @@
         			const logAge = document.getElementById("logAge");
         			const logAddress = document.getElementById("logAddress");
         			const logPhone = document.getElementById("logPhone");
+        			const logButton = document.getElementById("logButton");
         			const clinicPatientLogListBox = document.getElementById("clinicPatientLogListBox");
         			
         			logName.innerText = response.data.clinicPatientInfo.name;
@@ -445,6 +448,7 @@
         			logAge.innerText = response.data.clinicPatientInfo.age;
         			logAddress.innerText = response.data.clinicPatientInfo.address;
         			logPhone.innerText = response.data.clinicPatientInfo.phone;
+        			logButton.value = response.data.clinicPatientInfo.clinic_patient_pk;
         			
         			for(e of response.data.clinicPatientLogInfoList) {
         				
@@ -462,8 +466,8 @@
         				const logDisease = clinicPatientLogWrapper.querySelector(".logDisease");
         				logDisease.innerText = e.clinicPatientLogInfo.disease_code_pk + " " + e.diseaseName;
         				
-        				const logButton = clinicPatientLogWrapper.querySelector(".logButton");
-        				logButton.value = e.clinicPatientLogInfo.clinic_patient_log_pk;
+        				const detailButton = clinicPatientLogWrapper.querySelector(".detailButton");
+        				detailButton.value = e.clinicPatientLogInfo.clinic_patient_log_pk;
         				
         				clinicPatientLogListBox.appendChild(clinicPatientLogWrapper);
         				
@@ -507,6 +511,159 @@
         		
         	}
         	
+        	function getDiseaseCodeInfo() {
+        		
+        		const url = "./getDiseaseCodeInfoList";
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			const diseaseDataListOptionsBox = document.getElementById("diseaseDataListOptionsBox");
+        			
+        			for(e of response.data) {
+        				
+        				const option = document.createElement("option");
+        				option.value = e.disease_code_pk + " " + e.name;
+        				
+        				diseaseDataListOptionsBox.appendChild(option);
+        				
+        			}
+        			
+        		});
+        		
+        	}
+        	
+        	function getMedicineCodeInfo() {
+        		
+        		const writeMedicine = document.getElementsByClassName("writeMedicine");
+        		const selectMedicines = [];
+        		
+        		for(e of writeMedicine) {
+        			selectMedicines.push(Number(e.value.slice(0, e.value.indexOf(" "))));
+        		}
+        		
+        		const url = "./getMedicineCodeInfoList?selectMedicines=" + selectMedicines;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			const medicineDataListOptionsBox = document.getElementsByClassName("medicineDataListOptionsBox");
+        			
+        			for(box of medicineDataListOptionsBox) {
+        				
+        				box.innerHTML = "";
+        				
+        				for(e of response.data) {
+            				
+            				const option = document.createElement("option");
+            				option.value = e.medicine_code_pk + " " + e.name;
+            				
+            				box.appendChild(option);
+            				
+            			}
+        			}
+        			
+        		});
+        		
+        	}
+        	
+        	function getMedicineMaxQuantity(target) {
+        		
+        		const selectMedicineCodePk = Number(target.value.slice(0, target.value.indexOf(" ")));
+        		
+        		const url = "./getMedicineMaxQuantity?medicine_code_pk=" + selectMedicineCodePk;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			const wrtiePrescriptionWrapper = target.closest(".wrtiePrescriptionWrapper");
+    	       		const writeQuantity = wrtiePrescriptionWrapper.querySelector(".writeQuantity");
+    	       		
+    	       		writeQuantity.setAttribute("max", response.data);
+    	       		writeQuantity.setAttribute("min", "0");
+    	       		writeQuantity.value = "0";
+    	       		
+        		});
+        		
+        	}
+        	
+        	function addPrescription() {
+        		
+        		const wrtiePrescriptionWrapper = document.querySelector("#templete .wrtiePrescriptionWrapper").cloneNode(true);
+        		
+        		wrtiePrescriptionWrapper.querySelector(".writeMedicine").setAttribute("list", "optionsBox" + forIdCount);
+        		wrtiePrescriptionWrapper.querySelector(".medicineDataListOptionsBox").setAttribute("id", "optionsBox" + forIdCount);
+        		
+        		forIdCount++;
+        		
+        		document.getElementById("writePrescriptionBox").appendChild(wrtiePrescriptionWrapper);
+        		
+        		getMedicineCodeInfo();
+        		
+        	}
+        	
+        	function checkListAndQuantityFetch(target) {
+	       		
+	       		getMedicineCodeInfo();
+	       		getMedicineMaxQuantity(target);
+        		
+        	}
+        	
+        	function addLog() {
+        		
+        		const diseaseCodePk = document.getElementById("writeDisease").value
+        			.slice(0, document.getElementById("writeDisease").value.indexOf(" "));
+        		const content = document.getElementById("writeContent").value;
+         		const clinicPatientPk = document.getElementById("logButton").value;
+        		
+        		const writeMedicine = document.getElementsByClassName("writeMedicine");
+        		const writeQuantity = document.getElementsByClassName("writeQuantity");
+        		
+         		const medicineCodePkList = [];
+        		const QuantityList = [];
+        		
+        		for(e of writeMedicine) {
+        			medicineCodePkList.push(Number(e.value.slice(0, e.value.indexOf(" "))));
+        		}
+        		for(e of writeQuantity) {
+        			QuantityList.push(-Number(e.value));
+        		}
+        		
+        		const url = "./insertClinicPatientLog?disease_code_pk=" + diseaseCodePk + "&content=" + content +
+        				"&clinic_patient_pk=" + diseaseCodePk +
+        				"&medicineCodePkList=" + medicineCodePkList + "&quantityList=" + QuantityList;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			const modal = bootstrap.Modal.getOrCreateInstance("#writeClinicPatientLog");
+        			
+        			modal.hide();
+        			updateWaitingStatus(clinicPatientPk);
+        			resetClinicPaitentLogInfo();
+            		getClinicPatientLogInfo(clinicPatientPk);
+        			
+        		});
+        		
+        	}
+        	
+        	function updateWaitingStatus(clinicPatientPk) {
+        		const url = "./updateWaitingStatus?clinic_patient_pk=" + clinicPatientPk;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+
+        			reloadWaitingClinicTotalPageNumber();
+                	reloadWaitingClinicPatientList();
+                	
+        		});
+        	}
+        	
             function showAddClinicPatientModal() {
                 const modal = bootstrap.Modal.getOrCreateInstance("#addNewClinicPatient");
                 resetAddClinicPatientModal();
@@ -515,6 +672,9 @@
 
             function showWriteClinicPatientLogModal() {
                 const modal = bootstrap.Modal.getOrCreateInstance("#writeClinicPatientLog");
+                forIdCount = 1;
+                resetWriteLogInfo();
+                getDiseaseCodeInfo();
                 modal.show();
             }
 
@@ -546,6 +706,7 @@
     			document.getElementById("logAge").innerText = "";
     			document.getElementById("logAddress").innerText = "";
     			document.getElementById("logPhone").innerText = "";
+    			document.getElementById("logButton").value = "";
     			document.getElementById("clinicPatientLogListBox").innerHTML = "";
     			
             }
@@ -558,6 +719,14 @@
             	
             }
             
+            function resetWriteLogInfo() {
+            	
+            	document.getElementById("diseaseDataListOptionsBox").innerHTML = "";
+            	document.getElementById("writeContent").innerText = "";
+            	document.getElementById("writePrescriptionBox").innerHTML = "";
+            	
+            }
+            
             window.addEventListener("DOMContentLoaded", () => {
             	
             	reloadClinicTotalPageNumber();
@@ -565,6 +734,8 @@
             	reloadWaitingClinicTotalPageNumber();
             	reloadWaitingClinicPatientList();
             	resetClinicPaitentLogInfo();
+            	
+            	asdf();
             	
             });
 
@@ -984,11 +1155,11 @@
                                                                             진료내역
                                                                         </div>
                                                                         <div class="col d-grid justify-content-end">
-                                                                            <button onclick="showWriteClinicPatientLogModal()" class="btn text-white rounded-0" style="font-size: 0.8em; background-color: #014195;">진료보기</button>
+                                                                            <button onclick="showWriteClinicPatientLogModal()" id="logButton" class="btn text-white rounded-0" style="font-size: 0.8em; background-color: #014195;">진료보기</button>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row mb-4 mt-2">
-                                                                        <div id="clinicPatientLogListBox" class="col overflow-auto" style="height: 34em; background-image: url(./img/health/cutebaduck.gi); background-repeat: no-repeat; background-size: contain; background-position: center;">
+                                                                        <div id="clinicPatientLogListBox" class="col overflow-auto" style="height: 34em; background-image: url(../../resources/img/healthRoom/cutebaduck.gi); background-repeat: no-repeat; background-size: contain; background-position: center;">
                                                                             
                                                                             <!-- 진료내역 clinicPatientLogWrapper -->
 
@@ -1087,7 +1258,7 @@
 	                <div class="row mt-2">
 	                    <div class="logDisease col my-auto" style="font-size: 0.85em;">10527 질병명</div>
 	                    <div class="col my-auto d-grid justify-content-end">
-	                        <button onclick="showDetailClinicPatientLogModal(this)" class="logButton btn rounded-0 py-0" style="font-size: 0.8em; border-color: #014195;">상세보기</button>
+	                        <button onclick="showDetailClinicPatientLogModal(this)" class="detailButton btn rounded-0 py-0" style="font-size: 0.8em; border-color: #014195;">상세보기</button>
 	                    </div>
 	                </div>
 	                <div>
@@ -1111,12 +1282,12 @@
 	        
 	        <div class="wrtiePrescriptionWrapper row mt-2">
 		    	<div class="col">
-		        	<input class="form-control rounded-0" list="datalistOptions" placeholder="처방할 의약품을 입력해주세요" style="font-size: 0.7em;">
+		        	<input onblur="checkListAndQuantityFetch(this)" class="writeMedicine form-control rounded-0" placeholder="처방할 의약품을 입력해주세요" style="font-size: 0.7em;">
 		            <datalist class="medicineDataListOptionsBox">
 		            </datalist>
 		        </div>
 		        <div class="col-1">
-		        	<input type="number" class="writeQuantity form-control rounded-0" style="font-size: 0.7em;" value="1" min="1">
+		        	<input type="number" class="writeQuantity form-control rounded-0" style="font-size: 0.7em;" value="0" min="0" max="0">
 		        </div>
 		    </div>
 	        
@@ -1216,7 +1387,7 @@
                                         
                                         <div class="row mt-2">
                                             <div class="col">
-                                                <input class="form-control rounded-0" id="exampleDataList" placeholder="질병사유를 입력해주세요" style="font-size: 0.7em;">
+                                                <input class="form-control rounded-0" list="diseaseDataListOptionsBox" id="writeDisease" placeholder="질병사유를 입력해주세요" style="font-size: 0.7em;">
                                                 <datalist id="diseaseDataListOptionsBox">
                                                 </datalist>
                                             </div>

@@ -102,16 +102,84 @@
 		WHERE LECTURER_KEY = #{lecturer_key}
 	</update>
 	
+	<!-- 강사 정보 삭제 -->
+	<delete id="deleteTeacherInfo">
+		DELETE FROM tl_x_life_lecturer
+		WHERE LECTURER_KEY = #{lecturer_key}
+	</delete>
 	
 	
+	<!-- @@@@@@ 여기부터 학생 관련 @@@@@@@@@-->
 	
 	
+	<!-- 아직 학생등록 안된 사람들 -->
+	<select id="selectNotYetStudent" resultType="com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto">
+		SELECT * FROM tl_jic_external_info
+		WHERE EXTERNAL_CATEGORY  = 5
+		AND EXTERNAL_PK NOT IN (
+			SELECT EXTERNAL_PK FROM tl_x_life_Student
+		)
+		ORDER BY EXTERNAL_ID asc
+	</select>
 	
+	<!-- 학생정보등록 -->
+	<insert id="insertStudentInfo">
+		INSERT INTO tl_x_life_Student VALUES( 
+		   tl_x_life_Student_seq.nextval,
+		   #{external_pk},
+		   #{name},
+		   #{resident_id},
+		   #{birth},
+		   #{gender},
+		   #{address},
+		   #{phone},
+		   #{email},
+		   #{entered_at},
+		   SYSDATE
+		)
+	</insert>
 	
+	<!-- 전체 학생목록 -->
+	<select id="selectAllStudentList" resultType="com.mkfactory.toothless.x.dto.LifeStudentDto">
+		SELECT * FROM tl_x_life_Student 
+		ORDER BY LIFE_STUDENT_KEY DESC
+	</select>
 	
+	<!-- 학생별 정보 -->
+	<select id="selectSomeStudentInfo" resultType="com.mkfactory.toothless.x.dto.LifeStudentDto">
+		SELECT * FROM tl_x_life_Student
+		WHERE LIFE_STUDENT_KEY = #{life_student_key}
+	</select>
+
+	<!-- 특정학생의 외부인 회원가입 정보 -->
+	<select id="selectSomeStudentExternalInfo" resultType="com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto">
+		SELECT * FROM tl_jic_external_info
+		WHERE EXTERNAL_PK = (
+			SELECT EXTERNAL_PK FROM tl_x_life_Student
+			WHERE LIFE_STUDENT_KEY = #{life_student_key}
+		)
+	</select>
 	
-	
-	
+	<!-- 학생 정보 수정 -->
+	<update id="updateStudentInfo">
+		UPDATE tl_x_life_Student
+		SET NAME = #{name},
+		RESIDENT_ID = #{resident_id},
+		BIRTH = #{birth},
+		GENDER = #{gender},
+		ADDRESS = #{address},
+		PHONE = #{phone},
+		EMAIL = #{email},
+		ENTERED_AT = #{entered_at},
+		EXTERNAL_PK = #{external_pk}
+		WHERE LIFE_STUDENT_KEY = #{life_student_key}
+	</update>
+
+	<!-- 학생 정보 삭제 -->
+	<delete id="deleteStudentInfo">
+		DELETE FROM tl_x_life_Student
+		WHERE LIFE_STUDENT_KEY = #{life_student_key}
+	</delete>
 	
 	
 	

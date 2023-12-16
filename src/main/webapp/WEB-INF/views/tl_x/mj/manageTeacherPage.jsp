@@ -67,7 +67,58 @@
 	
 	// 정보 등록
 	function registerTeacherInfo(){
+		
+		// 미입력 필드를 담을 배열
+	    const emptyFields = [];
 
+	    // 값이 비어있는지 확인
+	    if (!document.getElementById("teacherName").value.trim()) {
+	        emptyFields.push("이름을 입력해주세요.");
+	    }
+	    // ** radio
+	    if (!document.querySelector('input[name="gender"]:checked')) {
+		    emptyFields.push("성별을 선택해주세요.");
+		}
+	    if (!document.getElementById("birth").value.trim()) {
+	        emptyFields.push("생년월일 입력해주세요.");
+	    }
+	    if (!document.getElementById("resident_id").value.trim()) {
+	        emptyFields.push("주민등록번호를 입력해주세요.");
+	    }
+	    // ** selectBox
+	    if (document.getElementById("external_pk").selectedIndex == 0) {
+	        emptyFields.push("외부아이디를 선택해주세요.");
+	    }
+	    if (!document.getElementById("external_pk").value.trim()) {
+	        emptyFields.push("외부아이디를 선택해주세요.");
+	    }
+	    if (!document.getElementById("address").value.trim()) {
+	        emptyFields.push("주소를 입력해주세요.");
+	    }
+	    if (!document.getElementById("phone").value.trim()) {
+	        emptyFields.push("전화번호를 입력해주세요.");
+	    }
+	    if (!document.getElementById("email").value.trim()) {
+	        emptyFields.push("이메일을 입력해주세요.");
+	    }
+	    // ** checkBox
+	    if (!document.querySelectorAll('input[name="lecture_category_key"]:checked').length > 0) {
+		    emptyFields.push("강의 가능한 교육과정을 선택해주세요.");
+		}
+	    if (!document.getElementById("entered_at").value.trim()) {
+	        emptyFields.push("입사일을 입력해주세요.");
+	    }
+
+	    
+	    // 미입력 필드가 있다면 알림 표시
+	    if (emptyFields.length > 0) {
+		    const missingFieldsMessage = emptyFields[0];
+		    alert(missingFieldsMessage);
+		    return;
+		}
+	    
+
+	    
 		// 입력된 값 모으기(body로 간결하게 보내보자) == map이랑 비슷한뎅?
 		const inputTeacherInfo = new FormData();
 		
@@ -255,6 +306,61 @@
 		const tab2 = document.getElementById("tab2");
 		tab2.classList.add("active");  
 
+	}
+	
+	// 검색조건 中 교육과정 checkBox로 반복문돌기
+	function searchConditionByLectureList(){
+		
+		fetch("./getRegisterTeacherInfo")
+		.then(response => response.json())
+		.then(response => {
+	
+				// id="lectureCategory" 찾기
+				const lectureCategory = document.getElementById("lectureCategory");
+				lectureCategory.innerHTML = "";
+				
+				// 교육과정 리스트
+				lectureCategoryList = response.data.lectureCategoryList;
+				
+				/* 만들기
+				<c:forEach items="${lectureCategoryList}" var="item">
+					<div class="form-check form-check-inline">													        	
+						<input class="form-check-input" type="checkbox" name="lecture_category_key" value="${item.lecture_category_key}">
+						<label class="form-check-label">${item.category_name}</label>													            
+					</div>
+				</c:forEach>
+				*/
+				
+				let count = 0;
+				
+				lectureCategoryList.forEach(item => {
+					const divTag = document.createElement("div");
+					divTag.classList.add("form-check", "form-check-inline");
+				    
+				    const inputTag = document.createElement("input");
+				    inputTag.classList.add("form-check-input");
+				    inputTag.type = "checkbox";
+				    inputTag.name = "lecture_category_key";
+				    inputTag.value = item.lecture_category_key;
+				    
+				    const labelTag = document.createElement("label");
+				    labelTag.classList.add("form-check-label");
+				    labelTag.innerText = item.category_name;
+				    
+				    divTag.appendChild(inputTag);
+				    divTag.appendChild(labelTag);
+				    
+				    lectureCategory.appendChild(divTag);
+				    
+				    count++;
+				    if (count == 5) {
+				    	lectureCategory.appendChild(document.createElement("br"));
+				        count = 0; 
+				    }
+				    
+				});
+		});
+				
 	}
 	
 	
@@ -478,6 +584,10 @@
 			// 수정 버튼
 			const updateBtn = document.querySelector("#updateBtn")
 			updateBtn.setAttribute("onclick", "saveBtn("+ someTeacherInfo.lecturer_key +")");
+			
+			// 삭제 버튼
+			const deleteBtn = document.querySelector("#deleteBtn")
+			deleteBtn.setAttribute("onclick", "deleteBtn("+ someTeacherInfo.lecturer_key +")");
 
 		});
     	
@@ -512,11 +622,7 @@
 		inputTeacherInfo.append("external_pk", document.getElementById("external_pkModal").value);
 		
 		
-		//inputTeacherInfo.append("external_pk", document.querySelector('select[name="external_pkModal"]').value);
-
-		
-		
-		// 보내야할 값 LifeLecturerDto params, int lecturer_key, int[] lecture_category_key
+		//const modal = bootstrap.Modal.getOrCreateInstance("#writeModal");
 		
 		const url = "./updateTeacherInfo?lecturer_key=" + lecturer_key;
 		
@@ -527,42 +633,34 @@
 			},
 			body: new URLSearchParams(inputTeacherInfo)
 		})
-		.then(response => response.json())		// 응답받는 방식 : json
-		.then(response => manageTeacherInfoPage());		// 서버쪽 갔다와서 해야할 일들
+		.then(response => response.json())	
+		.then(response => {
+		    alert("정보 수정이 완료되었습니다.");
+		    manageTeacherInfoPage();
+		    bootstrap.Modal.getOrCreateInstance("#writeModal").hide();		// 수정 or 조회 끝났으면 모달 숨기기
+		});
         
-        /*
- 		// 수정 or 조회 끝났으면 모달 숨기기
-		const modal = bootstrap.Modal.getOrCreateInstance("#writeModal");
-        modal.hide();
-        */
     }
 	
-	
 
-	
-
-	
-	// 공고 삭제
-	function deleteJoinInfo(DORM_INFO_PK){
+	// 강사정보 삭제
+	function deleteBtn(lecturer_key){
 		
-		if(sessionStaffId == null){
+		if(confirm("해당 강사의 정보를 삭제하시겠습니까?")){
 			
-			if(confirm("로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
-				
-				location.href = "./loginPage"
-			} 
-			return;	
-		}
-		
-		const url = "./deleteJoinInfo?DORM_INFO_PK="+ DORM_INFO_PK;
+			const url = "./deleteTeacherInfo?lecturer_key="+ lecturer_key;
 
-		// fetch를 통해 POST 요청 전송
-		fetch(url)
-		.then(response => response.json())
-		.then(response => {
-			mj_registerJoinInfoPage();
-		});
+			// fetch를 통해 POST 요청 전송
+			fetch(url)
+			.then(response => response.json())
+			.then(response => {
+			    alert("정보 삭제가 완료되었습니다.");
+			    manageTeacherInfoPage();
+			    bootstrap.Modal.getOrCreateInstance("#writeModal").hide();		// 삭제 끝났으면 모달 숨기기
+			});
+		} 
 		
+		return;	
 	}
 	
 	
@@ -572,6 +670,7 @@
 	//	--> 함수가 실행이 안되면 값을 못 가져오는거...
 	window.addEventListener("DOMContentLoaded", () => {
 		registerTeacherPage();
+		searchConditionByLectureList();
 	});
 	
 	
@@ -740,7 +839,7 @@
 							<div class="col-2 py-2 border-end border-dark fw-bold bg-secondary bg-opacity-10">
 								등록일
 							</div>
-							<div class="col-4 py-2">
+							<div class="col-4 py-2 text-start">
 								<%= formattedDate %>
 							</div>
 						</div>
@@ -830,12 +929,6 @@
 						<div class="col align-self-center">
 							<!-- 버튼들 -->
 			            	<div class="row">
-			            		<div class="col-2 text-end">
-									<select class="border-secondary-subtle form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
-									  <option selected>학년도</option>
-									  <option value="1">학기</option>
-									</select>
-								</div>
 			            		<div class="col-2 align-self-center">
 			            			<input type="date" class="border border-secondary-subtle form-control rounded-0 py-1" style="font-size: 0.9rem; color: #aaaaaa">
 			            		</div> ~ 
@@ -847,36 +940,20 @@
 					</div>
 					<div class="row border-bottom py-2">
 						<div class="col-2 text-center align-self-center fw-bold">
-							진행 상태
+							교육 과정
 						</div>
 						<div class="col ms-2">
 							<div class="row">
-								 <div class="col text-start">
-			                        <div class="form-check form-check-inline">
-			                            <input class="form-check-input" type="radio" name="1" value="" checked>
-			                            <label class="form-check-label" for="inlineRadio1">전체</label>
-			                        </div>                                
-			                    </div>
-			                    <div class="col text-start">
-			                        <div class="form-check form-check-inline">
-			                            <input class="form-check-input" type="radio" name="1" value="">
-			                            <label class="form-check-label" for="inlineRadio2">진행중</label>
-			                        </div>
-			                    </div>
-			                    <div class="col text-start">
-			                        <div class="form-check form-check-inline">
-			                            <input class="form-check-input" type="radio" name="1" value="" >
-			                            <label class="form-check-label" for="inlineRadio3">종료</label>
-			                        </div>
-			                    </div>
-			                    <div class="col-7"></div>
+								<div id="lectureCategory" class="col text-start">
+								<!-- 반복문 -->
+								</div>
 							</div>
 						</div>
 					</div>
 					
 					<div class="row py-2 justify-content-center">
 	            		<div class="col-3 d-grid px-3">
-	            			<button type="button" class="border-secondary-subtle rounded-0 px-0 fw-bold btn btn-sm btn-primary">
+	            			<button type="button" class="border-secondary-subtle rounded-0 px-0 fw-bold btn btn-sm text-white" style="background-color: #003399;">
 	            				<i class="bi bi-search"></i> 조회하기
 	            			</button>
 	            		</div>
@@ -958,10 +1035,10 @@
 <!-- 모달 - BS복붙해옴 -->
 <!-- 다른 요소와의 간섭을 피하기 위해, container 바깥 && 맨밑에 넣어놓기... -->
 <div id="writeModal" class="modal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 570px; width: 100%;">
-      <div class="modal-content rounded-0">
-        <div class="modal-header">
-          <h5 class="modal-title fw-bold fs-3">강사 정보</h5>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 600px; width: 100%;">
+      <div class="modal-content">
+        <div class="modal-header py-2" style="background-color: #003399;">
+          <h5 class="modal-title fw-bold fs-5 text-white p-0">강사 정보</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body py-2">
@@ -1121,9 +1198,9 @@
 			
         </div>
         <div class="modal-footer d-flex justify-content-between">
-            <button onclick="deleteBtn()" type="button" class="btn btn-danger rounded-0">삭제하기</button>
+            <button id="deleteBtn" type="button" class="btn btn-danger rounded-0">삭제하기</button>
             <div>
-                <button id="updateBtn" type="button" class="btn btn-primary rounded-0">수정완료</button>
+                <button id="updateBtn" type="button" class="btn btn-primary rounded-0 text-white" style="background-color: #003399;">수정완료</button>
                 <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">닫기</button>
             </div>
         </div>

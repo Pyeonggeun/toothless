@@ -67,12 +67,12 @@ public class OfflineCounselController {
 	@RequestMapping("offlineCounselReservationCheckPage")
 	public String offlineCounselReservationCheckPage(HttpSession session, Model model) {
 		
-		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
-		int external_pk = externalInfoDto.getExternal_pk();
-		System.out.println(external_pk);
-		
-		List<Map<String, Object>> list = offlineCounselService.getReservationListByCounselorId(external_pk);
-		model.addAttribute("list", list);
+//		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+//		int external_pk = externalInfoDto.getExternal_pk();
+//		System.out.println(external_pk);
+//		
+//		List<Map<String, Object>> list = offlineCounselService.getReservationListByCounselorId(external_pk);
+//		model.addAttribute("list", list);
 		
 		return "tl_e/offlineCounsel/offlineCounselReservationCheckPage";
 	}
@@ -96,18 +96,19 @@ public class OfflineCounselController {
 		return "tl_e/offlineCounsel/createCounselReportPage";
 	}
 	
-	@RequestMapping("counselReportRegisterProcess")
-	public String counselReportRegisterProcess(
-			@RequestParam("id") int id, 
-			@RequestParam("state") String state, 
-			@RequestParam("text") String text) {
-		
-		// update, insert
-		offlineCounselService.updateCounselReservationState(id, state);
-		offlineCounselService.insertCounselDocumentInfo(id, text);
-		
-		return "redirect:./offlineCounselReservationCheckPage";
-	}
+//	@RequestMapping("counselReportRegisterProcess")
+//	public String counselReportRegisterProcess(
+//			@RequestParam("id") int id, 
+//			@RequestParam("state") String state, 
+//			@RequestParam("text") String text
+//			) {
+//		
+//		// update, insert
+//		offlineCounselService.updateCounselReservationState(id, state);
+//		offlineCounselService.insertCounselDocumentInfo(id, text);
+//		
+//		return "redirect:./offlineCounselReservationCheckPage";
+//	}
 	
 	
 	@RequestMapping("checkOfflineCounselReservationStudentPage")
@@ -118,6 +119,8 @@ public class OfflineCounselController {
 //		
 //		List<Map<String, Object>> list = offlineCounselService.getCounselReservationList(student_pk);
 //		model.addAttribute("list", list);
+		
+		model.addAttribute("categoryList", offlineCounselService.getTypeCategoryDtoList());
 		
 		return "tl_e/offlineCounsel/checkOfflineCounselReservationStudentPage";
 	}
@@ -184,6 +187,12 @@ public class OfflineCounselController {
 		offlineCounselService.insertImpossibleDateInfo(params);
 		
 		return "redirect:./scheduleManagePage";
+	}
+	
+	@RequestMapping("offlineCounselStatisticsPage")
+	public String offlineCounselStatisticsPage() {
+		
+		return "tl_e/offlineCounsel/offlineCounselStatisticsPage";
 	}
 	
 	

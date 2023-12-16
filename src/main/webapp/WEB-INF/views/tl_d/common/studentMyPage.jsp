@@ -19,13 +19,12 @@
 		<!-- 전체크기 -->
 		<div class="row">
 			<!-- 왼쪽 여백 -->
-			<div class="col-1"></div>
 			<%-- 학생 메뉴 바 --%>
-			<div class="col-1 me-5">
+			<div class="col-2">
 				<jsp:include page="./studentMenu.jsp"></jsp:include>
 			</div>
 			<!-- 메인기능쪽 -->
-			<div class="col ms-3 ps-5 pe-4 border-start">
+			<div class="col ps-5 pe-4 border-start">
 				<div class="row">
 				<!-- 가운데 여백 -->
 					<%-- 학생 정보 --%>
@@ -39,23 +38,33 @@
 							<div class="col mt-2 ps-0">
 								<!-- 이름 -->
 								<div class="row">
-									<div class="col">이름</div>
+									<div class="col text-secondary">이름
+										<span class="text-dark ps-3">${sessionStudentInfo.name}</span>
+									</div>
 								</div>
 								<!-- 학번 -->
 								<div class="row">
-									<div class="col">학번</div>
+									<div class="col text-secondary">학번
+										<span class="text-dark ps-3">${sessionStudentInfo.student_id}</span>
+									</div>
 								</div>
 								<!-- 학과 -->
 								<div class="row">
-									<div class="col">학과</div>
+									<div class="col text-secondary">학과
+										<span class="text-dark ps-3">${studentDepartmentName}</span>
+									</div>
 								</div>
 								<!-- 전화번호 -->
 								<div class="row">
-									<div class="col">전화번호</div>
+									<div class="col text-secondary">전화번호
+										<span class="text-dark ps-3">${sessionStudentInfo.phone}</span>
+									</div>
 								</div>
 								<!-- 이메일 -->
 								<div class="row">
-									<div class="col">이메일</div>
+									<div class="col text-secondary">이메일
+										<span class="text-dark ps-3">${sessionStudentInfo.email}</span>
+									</div>
 								</div>
 								<!-- 구직희망신청상태 나중에 if문 -->
 								<div class="row">
@@ -68,7 +77,7 @@
 					<%-- (예정) 상담이력 --%>	
 					<div class="col mx-5 mt-3 px-5 pb-0 border-start">
 						<!-- 공고 지원한 학생목록 -->
-						<div class="row border-bottom border-2 border-dark">
+						<div class="row border-bottom border-2">
 							<div class="col fs-5 fw-bold mt-5 pb-1">(예정)상담이력</div>
 							<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
 						</div>
@@ -79,8 +88,8 @@
 				<div class="row pt-0 my-3">
 					<div class="col-4 me-4 ps-3">
 						<!-- (예정)신청한 공고정보 -->
-						<div class="row border-bottom border-2 border-dark">
-							<div class="col fs-5 fw-bold mt-5 pb-1">(예정)신청채용정보</div>
+						<div class="row border-bottom border-2">
+							<div class="col fs-5 fw-bold mt-5 pb-1">신청채용정보</div>
 							<div class="col fs-5 fw-bold mt-5 text-end">
 								<a class="navbar-brand" href="../sb_resume/postApplyListPage">
 									<i class="bi bi-plus-lg"></i>
@@ -126,7 +135,7 @@
 					</div>
 					<div class="col mx-5 px-5 border-start">
 						<!-- 관심채용정보 -->
-						<div class="row border-bottom border-2 border-dark">
+						<div class="row border-bottom border-2">
 							<div class="col fs-5 fw-bold mt-5 pb-1">관심채용정보</div>
 							<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
 						</div>
@@ -211,8 +220,8 @@
 				<div class="row pt-0 my-3">
 					<div class="col-4 me-4 ps-3">
 						<!-- (예정)신청한 프로그램 -->
-						<div class="row border-bottom border-2 border-dark">
-							<div class="col fs-5 fw-bold mt-5 pb-1">(예정)이수예정 프로그램</div>
+						<div class="row border-bottom border-2">
+							<div class="col fs-5 fw-bold mt-5 pb-1">이수예정 프로그램</div>
 							<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
 						</div>
 						<!-- (예정)신청한 프로그램 끝 -->
@@ -221,7 +230,7 @@
 					
 					<div class="col mx-5 px-5 border-start ">
 						<!-- (예정)공지사항 혹은 설문조사 -->
-						<div class="row border-bottom border-2 border-dark">
+						<div class="row border-bottom border-2">
 							<div class="col fs-5 fw-bold mt-5 pb-1">(예정)공지사항 혹은 설문조사</div>
 							<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
 						</div>

@@ -82,6 +82,20 @@
 		WHERE student_pk = #{student_pk}
 	</update>
 	
+	<!-- 실습생 정보 db 추가 -->
+	<insert id="insertStudentIntern">
+	INSERT INTO tl_c_student_intern VALUES(
+		tl_c_student_intern_seq.nextval,
+		#{STUDENT_INTERN_PK} ,
+		#{INTERNSHIP_COURSE_PK},  
+		#{STUDENT_PK},
+		
+		SYSDATE
+	)
+		
+	</insert>
+	
+	
 
 	<!-- 밑에부터잘안씀 -->
 	<select id="selectionGrade" resultType="Map">
@@ -102,7 +116,9 @@
 		tl_c_student_applying.internship_course_pk = #{internship_course_pk}
 	</select>
 
-
+ 
+ 
+ 
 
 
 	<!--AjdksStudentApplyingDto -->

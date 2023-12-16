@@ -229,7 +229,19 @@
 
 	<div class="row pb-3 border-bottom border-dark-subtle">
 		<div class="col-2 pt-3">
-			<div class="fw-bold" style="font-size: 1.5em;"><img class="img-fluid" style="width: 60px; height: 60px; color:blue;" src="../../../resources/img/groupCounsel/logo_black.png"> Mk University</div>
+			<div class="row">
+				<div class="col-3 pe-0 me-0">
+					<img class="img-fluid" style="width: 60px; height: 60px; color:blue;" src="../../../resources/img/groupCounsel/logo_black.png">
+				</div>
+				<div class="col">
+					<div class="row" style="height: 0.55em;"></div>
+					<div class="row">
+						<div class="col ps-0 ms-0">
+							<div class="fw-bold" style="font-size: 1.7em;"> Mk University</div>						
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="col">
 			<div class="row">
@@ -240,7 +252,7 @@
 						<div class="col-6 pt-2 text-center">
 							<div class="fw-bold" style="font-size: 1.2em;">[${sessionStaffInfo.name}]님</div>
 						</div>
-						<div class="col-6 pt-1	">
+						<div class="col-6 pt-1">
 							<i class="bi bi-box-arrow-right" style="font-size:1.6em;"></i>						
 						</div>
 					</div>
@@ -679,10 +691,34 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title">상담원 목록</h5>
+            <div class="modal-title fw-bold" style="font-size:2em;">상담원 목록</div>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+            	<div class="row">
+            		<div class="col-2">
+						<div class="dropdown">
+						  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						    전체
+						  </button>
+						  <ul class="dropdown-menu">
+						    <li><a class="dropdown-item" onclick="reloadModalByCategoryId()">성격문제</a></li>
+						    <li><a class="dropdown-item">대인/가족관계</a></li>
+						    <li><a class="dropdown-item">이성문제</a></li>
+						    <li><a class="dropdown-item">우울/불안문제</a></li>
+						    <li><a class="dropdown-item">진로문제</a></li>
+						    <li><a class="dropdown-item">학업문제</a></li>
+						  </ul>
+						</div>
+            		</div>
+            		<div class="col"></div>
+            	</div>
+            	
+            	<div class="row" style="height: 1em;"></div>
+            	
+				<div class="row border-top border-2 border-black pb-2 text-bg-light">
+					<div class="col"></div>
+				</div>            
 				<div class="row border-bottom pb-2 text-bg-light">
 					<div class="col-1"></div>
 					<div class="col-2 text-center">
@@ -712,7 +748,7 @@
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-            <button onclick="isCheck()" type="button" class="btn btn-primary">등록</button>
+            <button onclick="isCheck()" type="button" class="btn" style="background-color:white; color: black; border-color: black;">등록</button>
             </div>
         </div>
     </div>

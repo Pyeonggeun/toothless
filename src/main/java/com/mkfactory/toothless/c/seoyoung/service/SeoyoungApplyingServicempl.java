@@ -55,4 +55,15 @@ public class SeoyoungApplyingServicempl {
 		return (List<Map<String, Object>>) seoyoungApplyingSqlMapper.searchCompanyCategori();
 	}
 	
+	public Map<String, Object> getApplyCompanyModal(int pk){
+		return (Map<String, Object>) seoyoungApplyingSqlMapper.selectApplyCompanyModal(pk);
+		
+	}
+	
+	//검색
+	public List<Map<String, Object>> getSearchCompanyName(int COMPANY_CATEGORY_PK, String searchWord){
+		return (List<Map<String, Object>>) seoyoungApplyingSqlMapper.searchCompanyName(COMPANY_CATEGORY_PK,searchWord);
+		
+	}
+	
 }

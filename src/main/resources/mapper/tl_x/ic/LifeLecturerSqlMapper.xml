@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.x.ic.mapper.LifeLecturerSqlMapper">
+	<!--  개설된 강의중 강사키 맞는 리스트 가지고 오기 -->
+	<select id="selectMyOpenLectureInfoList" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+		SELECT * FROM tl_x_open_lecture
+		WHERE lecturer_key = #{lecturer_key}
+		ORDER BY open_lecture_key DESC
+	</select>
+	<!--  수업 기본 정보 -->
+	<select id="selectLectureInfo" resultType="com.mkfactory.toothless.x.dto.LectureInfoDto">
+		SELECT * FROM tl_x_lecture_info
+		WHERE lecture_info_key = #{lecture_info_key}
+	</select>
+	<!-- 강사정보 -->
+	<select id="selectLifeLecturerInfo" resultType="com.mkfactory.toothless.x.dto.LifeLecturerDto">
+		SELECT * FROM tl_x_life_lecturer
+		WHERE external_pk = #{external_pk}
+	</select>
+	<!--평생학생 정보 -->
+	<select id="selectStudentDto" resultType="com.mkfactory.toothless.x.dto.LifeStudentDto">
+		SELECT * FROM tl_x_life_Student
+		WHERE LIFE_STUDENT_KEY = #{life_student_key}
+	</select>
+	<!--  수강생 리스트 -->
+	<select id="selectLectureStudentList" resultType="com.mkfactory.toothless.x.dto.LectureStudentDto">
+		SELECT * FROM tl_x_lecture_student
+		WHERE open_lecture_key = #{open_lecture_key}
+	</select>
+	<select id="selectOpenLectureDto" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+		SELECT * FROM tl_x_open_lecture
+		WHERE OPEN_LECTURE_KEY = #{open_lecture_key}
+	</select>
+	
+	<select id="selectAttendanceBookPk" resultType="int">
+		SELECT tl_x_attendance_book_seq.nextval FROM dual
+	</select>
+	
+	<insert id="insertAttendanceStatus">
+		INSERT INTO tl_x_attendance_status values(
+			tl_x_attendance_status_seq.nextval,
+			#{attendance_book_key},
+			#{lecture_student_key},
+			#{status},
+			sysdate
+		)	
+	</insert>
+	
+	<insert id="insertAttendanceBook">
+		INSERT INTO tl_x_attendance_book values(
+			#{attendance_book_key},
+			#{open_lecture_key},
+			#{date_created},
+			#{study_log},
+			sysdate
+		)
+	</insert>
+	
+	<select id="selectAttendanceBookByDate" resultType="com.mkfactory.toothless.x.dto.AttendanceBookDto">
+		SELECT * FROM tl_x_attendance_book
+		WHERE date_created = #{date_created}
+	</select>
+	
+	<select id="selectAttendanceStatusByBookPk" resultType="com.mkfactory.toothless.x.dto.AttendanceStatusDto">
+		SELECT * FROM tl_x_attendance_status
+		WHERE attendance_book_key = #{attendance_book_key}
+	</select>
+	
+	<select id="selectLectureStudentDto" resultType="com.mkfactory.toothless.x.dto.LectureStudentDto">
+		SELECT * FROM tl_x_lecture_student
+		WHERE lecture_student_key = #{lecture_student_key}
+	</select>
+	
+	<select id="selectOpenLectureName" resultType="String">
+		SELECT name FROM tl_x_lecture_info
+		WHERE lecture_info_key in (
+			SELECT lecture_info_key FROM tl_x_open_lecture
+			WHERE open_lecture_key = #{open_lecture_key)
+	</select>
+	
+	<select id="selectLectureCount" resultType="int">
+		SELECT count(*) FROM tl_x_open_lecture
+		WHERE lecture_info_key = #{lecture_info_key}
+	</select>
+	
+	<select id="lectureRoundCount" resultType="int">
+		SELECT ol2.rnum FROM (
+				SELECT ol.open_lecture_key, rownum AS rnum FROM tl_x_open_lecture ol
+				WHERE LECTURE_INFO_KEY = #{lecture_info_key} 
+				ORDER BY OPEN_DATE) ol2
+		WHERE ol2.open_lecture_key = #{open_lecture_key}
+	
+	</select>
+	
+	<select id="selectLecturerDto" resultType="com.mkfactory.toothless.x.dto.LifeLecturerDto">
+		SELECT * FROM TL_X_LIFE_LECTURER
+		WHERE lecturer_key = #{lecturer_key}
+	</select>
+
+
+
+
+
+</mapper>

@@ -9,6 +9,25 @@
 		SELECT * FROM tl_a_exit ORDER BY DORM_STUDENT_PK ASC
 	</select>
 	
+	<!-- ?동 외출현황 -->
+	<select id="selectExitListByDormPk" resultType="com.mkfactory.toothless.a.dto.ExitDto">
+		SELECT * FROM TL_A_EXIT tae 
+		WHERE DORM_STUDENT_PK IN (
+			SELECT tads.DORM_STUDENT_PK FROM TL_A_DORM_STUDENT tads 
+			JOIN TL_A_DORM_ROOM tadr ON tads.DORM_ROOM_PK = tadr.DORM_ROOM_PK 
+			WHERE tadr.DORM_ROOM_PK IN (
+				SELECT tadr.DORM_ROOM_PK FROM TL_A_DORM_ROOM tadr 
+				JOIN TL_A_DORM_BUILDING tadb ON tadr.DORM_PK = tadb.DORM_PK 
+				WHERE tadb.DORM_PK = #{DORM_PK}
+			)
+		)
+	</select>
+	
+	<!-- 방 리스트 -->
+	<select id="selectAllDormBuildingList" resultType="com.mkfactory.toothless.a.dto.DormBuildingDto">
+		SELECT * FROM TL_A_DORM_BUILDING
+	</select>
+	
 	<!-- 점호 불참 -->
 	<select id="selectAllCallAbsenceList" resultType="com.mkfactory.toothless.a.dto.CallAbsenceDto">
 		SELECT * FROM TL_A_CALL_ABSENCE
@@ -20,8 +39,8 @@
 	<select id="selectCallAbsenceDormStudentList" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
 		SELECT tads.* FROM TL_A_DORM_STUDENT tads 
 		WHERE tads.DORM_STUDENT_PK IN (
-		SELECT taem.DORM_STUDENT_PK FROM TL_A_CALL_ABSENCE taca 
-		JOIN TL_A_EXECUTIVE_MANAGEMENT taem ON taca.EXECUTIVE_MANAGEMENT_PK = taem.EXECUTIVE_MANAGEMENT_PK
+			SELECT taem.DORM_STUDENT_PK FROM TL_A_CALL_ABSENCE taca 
+			JOIN TL_A_EXECUTIVE_MANAGEMENT taem ON taca.EXECUTIVE_MANAGEMENT_PK = taem.EXECUTIVE_MANAGEMENT_PK
 			WHERE taca.CALL_ABSENCE_PK IN (
 				SELECT TL_A_CALL_ABSENCE.CALL_ABSENCE_PK FROM TL_A_CALL_ABSENCE
 				WHERE TO_CHAR(CREATED_AT, 'YYYYMMDD') = 
@@ -240,6 +259,29 @@
 			SELECT tads.DORM_STUDENT_PK FROM TL_A_DORM_STUDENT tads 
 			MINUS
 			SELECT tae.DORM_STUDENT_PK FROM TL_A_EXECUTIVE tae
+		)
+		ORDER BY tads.DORM_STUDENT_PK ASC
+	</select>
+	
+	<select id="selectDormStudentExceptExecuteByProgressSemesterAndDormPk" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT tads.*
+		FROM TL_JIC_STUDENT_INFO tjsi 
+		JOIN TL_A_DORM_STUDENT tads ON tads.STUDENT_PK = tjsi.STUDENT_PK
+		WHERE tads.DORM_STUDENT_PK IN (
+		    SELECT tads.DORM_STUDENT_PK
+		    FROM TL_A_SEMESTER tas
+		    JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK
+		    WHERE tas.PROGRESS_STATE = 'Y'
+		)
+		AND tads.DORM_STUDENT_PK IN (
+			SELECT tads.DORM_STUDENT_PK FROM TL_A_DORM_STUDENT tads 
+			MINUS
+			SELECT tae.DORM_STUDENT_PK FROM TL_A_EXECUTIVE tae
+		)
+		AND tads.DORM_ROOM_PK IN (
+			SELECT tadr.DORM_ROOM_PK FROM TL_A_DORM_ROOM tadr 
+			JOIN TL_A_DORM_BUILDING tadb ON tadr.DORM_PK = tadb.DORM_PK 
+			WHERE tadb.DORM_PK = #{DORM_PK}
 		)
 	</select>
 	

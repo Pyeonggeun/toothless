@@ -144,11 +144,11 @@
 		WHERE FREEBOARD_ID = #{freeboard_id}
 	</select>
 	
-	<select id="countEmpathyByIdAndPk" resultType="int" >
+	<select id="submitAndSelectEmpathy" resultType="int" >
 		SELECT count(*) from(
 			SELECT * FROM cp_freeboard_empathy
-			WHERE FREEBOARD_ID = #{freeboard_id}
-			AND STUDENT_PK = #{student_pk}	
+			WHERE freeboard_id = #{freeboard_id}
+			AND student_pk = #{student_pk}	
 		)
 	</select>
 	

@@ -26,6 +26,27 @@
 			SYSDATE
 		)
 	</insert>
+	
+	<insert id="insertClinicPatientLogInfo">
+		INSERT INTO tl_b_clinic_patient_log VALUES(
+			#{clinic_patient_log_pk},
+			#{clinic_patient_pk},
+			#{staff_pk},
+			#{disease_code_pk},
+			#{content},
+			SYSDATE
+		)
+	</insert>
+	
+	<insert id="insertPrescriptionInfo">
+		INSERT INTO tl_b_prescription_info VALUES(
+			tl_b_prescription_info_seq.nextval,
+			#{clinic_patient_log_pk},
+			#{medicine_code_pk},
+			#{quantity},
+			SYSDATE
+		)
+	</insert>
 
 	<select id="getClinicPatientInfoList" resultType="com.mkfactory.toothless.b.dto.ClinicPatientDto">
 		SELECT t1.* FROM (
@@ -120,5 +141,36 @@
 	<select id="getMedicineNameByMedicineCodePk" resultType="String">
 		SELECT name FROM tl_b_medicine_code_info WHERE medicine_code_pk = #{medicine_code_pk}
 	</select>
+	
+	<select id="getDiseaseCodeInfoList" resultType="com.mkfactory.toothless.b.dto.DiseaseCodeDto">
+		SELECT * FROM tl_b_disease_code_info
+	</select>
+	
+	<select id="getMedicineCodeInfoList" resultType="com.mkfactory.toothless.b.dto.MedicineCodeDto">
+		SELECT * FROM tl_b_medicine_code_info
+		WHERE medicine_code_pk NOT IN
+		<foreach collection="array" item="arr" open="(" close=")" separator=",">
+			#{arr}
+		</foreach>
+	</select>
+	
+	<select id="getMedicineMaxQuantity" resultType="int">
+		SELECT NVL(SUM(t1.quantity), 0) AS quantity FROM (
+			SELECT medicine_code_pk, quantity, '입고' AS classify FROM tl_b_medicine_add
+			union
+			SELECT medicine_code_pk, quantity, '출고' AS classify FROM tl_b_prescription_info
+			union
+			SELECT medicine_code_pk, quantity, '기타' AS classify FROM tl_b_medicine_inventory
+		)t1 WHERE t1.medicine_code_pk = #{medicine_code_pk}
+	</select>
+	
+	<select id="getClinicPatientlogPk" resultType="int">
+		SELECT tl_b_clinic_patient_log_seq.nextval FROM dual
+	</select>
+	
+	<update id="updateWaitingStatus">
+		UPDATE tl_b_clinic_patient_wait SET status = 'Y'
+		WHERE clinic_patient_pk = #{clinic_patient_pk}
+	</update>
 	
 </mapper>

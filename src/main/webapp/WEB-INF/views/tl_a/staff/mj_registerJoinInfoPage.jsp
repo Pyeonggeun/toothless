@@ -492,7 +492,7 @@
 				joinInfoWrapper.querySelector(".asgnm_anncm_date").innerText = date.getFullYear() + "-" + addLeadingZero(date.getMonth()+1) + "-" + addLeadingZero(date.getDate());	
 				date = new Date(e.joinInfo.join_dorm_date);
 				joinInfoWrapper.querySelector(".join_dorm_date").innerText = date.getFullYear() + "-" + addLeadingZero(date.getMonth()+1) + "-" + addLeadingZero(date.getDate());	
-
+				
 				// 다 만들었으면 어디에 붙일래
 				joinInfoListBox.appendChild(joinInfoWrapper);
 			

@@ -13,6 +13,7 @@ import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.x.dto.LectureCategoryDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
 import com.mkfactory.toothless.x.dto.LifeLecturerDto;
+import com.mkfactory.toothless.x.dto.LifeStudentDto;
 import com.mkfactory.toothless.x.dto.PossibleLectureDto;
 
 public interface LifeStaffSqlMapper {
@@ -25,6 +26,9 @@ public interface LifeStaffSqlMapper {
 	
 	// 강사 정보 수정
 	public void updateTeacherInfo(LifeLecturerDto lifeLecturerDto);
+	
+	// 강사 정보 삭제
+	public void deleteTeacherInfo(int lecturer_key);
 	
 	// 특정 강사 정보조회
 	public LifeLecturerDto selectSomeTeacher(int lecturer_key);
@@ -51,18 +55,41 @@ public interface LifeStaffSqlMapper {
 	public ExternalInfoDto selectSomeTeacherExternalInfo(int lecturer_key);
 	
 	
+	// ============== 여기부터 학생관련 =======================
 	
-	/*
-	public List<Map<String, Object>> selectBeforeYearAllSemester();
+	// 아직 학생등록 안된 사람들
+	public List<ExternalInfoDto> selectNotYetStudent();
 	
-	// 입사신청 전체 조회
-	public List<LectureCategoryDto> selectAllDormApplyList();
+	// 학생 정보 등록 
+	public void insertStudentInfo(LifeStudentDto lifeStudentDto);
+	
+	// 전체 학생목록 조회
+	public List<LifeStudentDto> selectAllStudentList();
+	
+	// 특정 학생 정보조회
+	public LifeStudentDto selectSomeStudentInfo(int life_student_key);
+	
+	// 특정 학생 외부인 회원가입 정보
+	public ExternalInfoDto selectSomeStudentExternalInfo(int life_student_key);
+	
+	// 학생 정보 수정
+	public void updateStudentInfo(LifeStudentDto lifeStudentDto);
+	
+	// 학생 정보 삭제
+	public void deleteStudentInfo(int life_student_key);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
-	// 선발상태 업데이트
-	public void updateSelectionStatus(
-			@Param("selection_status") String selection_status, 
-			@Param("dorm_application_pk") int dorm_application_pk
-			);
-	*/
 	
 }
