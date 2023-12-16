@@ -122,6 +122,14 @@
 		)
 	</insert>
 	
+	<select id="resentBoardthree" resultType="com.mkfactory.toothless.a.dto.DormNoticeDto">
+	
+		<![CDATA[ SELECT t2.dorm_notice_pk, t2.staff_pk, t2.title, t2.content, t2.created_at FROM (SELECT t1.*, Rownum rnum FROM (SELECT * FROM TL_A_DORM_NOTICE tadn) t1
+		ORDER BY DORM_NOTICE_PK desc) t2
+		WHERE t2.rnum < 4 ]]>
+	
+	</select>
+	
 	
 	
 	

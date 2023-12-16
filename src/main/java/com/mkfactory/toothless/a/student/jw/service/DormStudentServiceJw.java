@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.a.dto.DiaryDto;
+import com.mkfactory.toothless.a.dto.DormNoticeDto;
 import com.mkfactory.toothless.a.dto.DormStudentDto;
 import com.mkfactory.toothless.a.dto.ExecutiveDto;
 import com.mkfactory.toothless.a.dto.ExitDto;
@@ -66,5 +67,10 @@ public class DormStudentServiceJw {
 	
 	public void registerDiary(DiaryDto diaryDto) {
 		dormStudentMapperJw.insertDiary(diaryDto);
+	}
+	
+	public List<DormNoticeDto> resentBoardthree(){
+		
+		return dormStudentMapperJw.resentBoardthree();
 	}
 }
