@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mkfactory.toothless.a.dto.DormNoticeDto;
 import com.mkfactory.toothless.a.dto.JoinDormApplicationDto;
 import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
 import com.mkfactory.toothless.a.dto.SemesterDto;
@@ -67,7 +68,12 @@ public class DormStaffControllerMj {
 
 	// 사감 메인페이지
 	@RequestMapping("mj_mainPage")
-	public String mj_mainPage(Model model) {
+	public String mj_mainPage(Model model, HttpSession session) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		
 		// 입사신청 전체 리스트
 		List<Map<String, Object>> applyList =  staffService.getAllDormApplyList();
@@ -75,7 +81,8 @@ public class DormStaffControllerMj {
 		List<Map<String, Object>> dormSelectedList =  staffService.getAllDormSelectedList();
 		// 납부완료 리스트
 		List<Map<String, Object>> paymentYesList =  staffService.getPaymentYesList();
-		
+		// 메인페이지 공고리스트
+		List<DormNoticeDto> dormNoticeList = staffService.getDormNotice();
 		
 		// 입사신청 전체 개수
 		int countApplyList = applyList.size();
@@ -88,6 +95,17 @@ public class DormStaffControllerMj {
 		// 납부완료 전체 개수
 		int countPaymentYesList = paymentYesList.size();
 		model.addAttribute("countPaymentYesList", countPaymentYesList);
+		
+		// 임원, 상/벌점 관리탭 기준 학기
+		model.addAttribute("thisSemester", staffService.getThisSemester());
+		
+		model.addAttribute("dormNoticeList", dormNoticeList);
+		model.addAttribute("countExecutive", staffService.getCountExecutive());
+		model.addAttribute("countTodayDiary", staffService.getCountTodayDiary());
+		model.addAttribute("countPlusPointDormStudent", staffService.getCountPlusPointDormStudent());
+		model.addAttribute("countMinusPointDormStudent", staffService.getCountMinusPointDormStudent());
+		model.addAttribute("countTodayExit", staffService.getCountTodayExit());
+		model.addAttribute("countTodayCallAbsence", staffService.getCountTodayCallAbsence());
 		
 		return "tl_a/staff/mj_mainPage";
 	}

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mkfactory.toothless.a.dto.DormNoticeDto;
 import com.mkfactory.toothless.a.dto.ExitDto;
 import com.mkfactory.toothless.a.dto.JoinDormApplicationDto;
 import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
@@ -257,19 +258,36 @@ public class DormStaffServiceImpl {
 		return list;
 	}
 	
+	// --------------------------------------------
+	// 메인페이지 공고리스트
+	public List<DormNoticeDto> getDormNotice(){
+		return staffSqlMapper.selectDormNotice();
+	}
 	
+	// 현황
+	public int getCountExecutive() {
+		return staffSqlMapper.countExecutive();
+	}
 	
+	public int getCountTodayDiary() {
+		return staffSqlMapper.countTodayDiary();
+	}
 	
+	public int getCountPlusPointDormStudent() {
+		return staffSqlMapper.countPlusPointDormStudent();
+	}
 	
+	public int getCountMinusPointDormStudent() {
+		return staffSqlMapper.countMinusPointDormStudent();
+	}
 	
+	public int getCountTodayExit() {
+		return staffSqlMapper.countTodayExit();
+	}
 	
-	
-	
-	
-	
-	
-	
-	
+	public int getCountTodayCallAbsence() {
+		return staffSqlMapper.countTodayCallAbsence();
+	}
 	
 	
 }

@@ -103,8 +103,6 @@
 		
 	}
 	
-	
-
 	window.addEventListener("DOMContentLoaded", () => {
 		reloadPointSituationList();
 		reloadBuildingName();
