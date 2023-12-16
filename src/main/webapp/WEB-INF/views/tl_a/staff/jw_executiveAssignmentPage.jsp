@@ -185,13 +185,10 @@
 		
 	}
 	
-	
-	
 	window.addEventListener("DOMContentLoaded", () => {
 		reloadDormStudentList();
 		reloadBuildingName();
 	})
-	
 	
 </script>
 </head>
