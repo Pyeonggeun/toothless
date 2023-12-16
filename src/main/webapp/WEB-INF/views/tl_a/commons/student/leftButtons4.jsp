@@ -9,13 +9,19 @@
    </div>
    <div class="row" style="border-bottom: 0.01em solid #161313;">
        <div class="col py-3" style="font-size: large;">
-       <a href="#" style="text-decoration: none;">
-           <span style="color: black;">서식 자료실</span></a>
+       <a href="./dm_dormNoticePage" style="text-decoration: none;">
+           <span style="color: black;">공지사항</span></a>
        </div>
    </div>
    <div class="row" style="border-bottom: 0.01em solid #161313;">
        <div class="col py-3" style="font-size: large;">
        <a href="./jw_exitApplyPage" style="text-decoration: none;">
+           <span style="color: black;">자유게시판</span></a>
+       </div>
+   </div>
+   <div class="row" style="border-bottom: 0.01em solid #161313;">
+       <div class="col py-3" style="font-size: large;">
+       <a href="./jw_checkDormStudentPointPage" style="text-decoration: none;">
            <span style="color: black;">외박 및 외출신청</span></a>
        </div>
    </div>
@@ -27,14 +33,8 @@
    </div>
    <div class="row" style="border-bottom: 0.01em solid #161313;">
        <div class="col py-3" style="font-size: large;">
-       <a href="#" style="text-decoration: none;">
+       <a href="" style="text-decoration: none;">
            <span style="color: black;">고장수리요청</span></a>
-       </div>
-   </div>
-   <div class="row" style="border-bottom: 0.01em solid #161313;">
-       <div class="col py-3" style="font-size: large;">
-       <a href="#" style="text-decoration: none;">
-           <span style="color: black;">상담 및 건의</span></a>
        </div>
    </div>
    <div class="row" style="border-bottom: 0.01em solid #161313;">
@@ -45,7 +45,7 @@
    </div>
    <div class="row" style="border-bottom: 0.01em solid #161313;">
        <div class="col py-3" style="font-size: large;">
-       <a href="#" style="text-decoration: none;">
+       <a href="./dm_FAQ" style="text-decoration: none;">
            <span style="color: black;">FAQ</span></a>
         </div>
     </div>

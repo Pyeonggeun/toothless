@@ -16,9 +16,24 @@
             <img src="../../resources/img/dormitory/studentMainLogo.jpg">
         </div>
     </div>
-
-	<div class="container">
-		<div class="row my-4">
+    <div class="container mt-3">
+	<div class="row">
+		<jsp:include page="../commons/student/leftButtons4.jsp"></jsp:include>
+		<div class="col">
+		<div class="row">
+                    <div class="col">
+                        <div class="row my-3">
+                            <div class="col pb-2">
+                                <span class="fw-bold" style="font-size: xx-large;">기숙사 자유게시판</span>
+                            </div>
+                            <div class="col text-end pt-3">
+                                <span class="bi bi-house-door-fill" style="color: #999897;"></span><span style="color: #7A8082;"> > 기숙사 커뮤니티 </span> <span style="color: #999897;"> > </span><span class="fw-bold" style="color: #767575;"> 기숙사 자유게시판</span>
+                            </div>
+                            <span class="border-bottom  border-dark border-4 mt-2"></span>
+                        </div>
+                    </div>
+                </div>
+			<div class="row my-4">
 			<div class="col fs-3 fw-bold">게시글 수정</div>
 		</div>
 		<div class="row my-2">
@@ -51,6 +66,10 @@
 				</div>
 			</div>
 		</form>
+		</div>
+	</div>
+	
+		
 		
 	</div>
 

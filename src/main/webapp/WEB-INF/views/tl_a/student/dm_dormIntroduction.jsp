@@ -86,7 +86,7 @@
                     <div class="col-6 d-grid">
                         <div class="row">
                             <div class="col">
-                                <img class="img-fluid" src="/img/img4.jpg">
+                                <img class="img-fluid" src="../../resources/img/dormitory/mkpicture.jpg">
                             </div>
                         </div>
                         <div class="row">

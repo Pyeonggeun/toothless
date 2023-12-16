@@ -162,7 +162,6 @@ public class DormStudentControllerDm {
 	public String dm_FAQ() {
 		
 		
-		
 		return "/tl_a/student/dm_FAQ";
 	}
 	

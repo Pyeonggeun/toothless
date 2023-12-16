@@ -35,48 +35,7 @@
 
     <div class="container mt-3">
         <div class="row">
-            <div class="col-3 me-3"><!-- 여기부분은 목차부분 -->
-                <div class="row rounded-1 opacity-90" style="background-color: #504528;">
-                    <div class="col py-4 text-center">
-                        <span class="fw-bold" style="color: white; font-size: x-large;">기숙사 커뮤니티</span>
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">공지사항</span>         
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">자유게시판</span>         
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">외출 외박 신청</span>         
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">상벌점 확인</span>         
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">고장수리요청</span>         
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">일지 작성</span>         
-                    </div>
-                </div>
-                <div class="row" style="border-bottom: 0.01em solid #161313;">
-                    <div class="col py-3" style="font-size: large;">
-                        <span style="color: black;">FAQ</span>         
-                    </div>
-                </div>
-            </div><!-- ㅋ-->
+            <jsp:include page="../commons/student/leftButtons4.jsp"></jsp:include>
             <div class="col">
                 <div class="row">
                     <div class="col">
@@ -94,16 +53,16 @@
                 <div class="row"><!--여기가 안에 들어갈 내용들-->
                     <div class="col">
                         <div class="row">
-                            <div class="col-3 pb-3 text-center fw-bold" style="font-size: large;">
+                            <div class="col-2 pb-3 text-center fw-bold" style="font-size: large;">
                                 글번호
                             </div>
-                            <div class="col-3 text-center fw-bold" style="font-size: large;">
+                            <div class="col text-center fw-bold" style="font-size: large;">
                                 제목
                             </div>
-                            <div class="col-3 text-center fw-bold" style="font-size: large;">
+                            <div class="col-2 text-center fw-bold" style="font-size: large;">
                                 작성자
                             </div>
-                            <div class="col text-center fw-bold" style="font-size: large;">
+                            <div class="col-2 text-center fw-bold" style="font-size: large;">
                                 작성일
                             </div>
                         </div>
@@ -114,10 +73,10 @@
                 <div class="row">
                     <div class="col">
                         <div class="row" style="border-top: 0.03em solid black;">
-                            <div class="col-3 py-3 text-center" style="font-size: large;">${NList.dormNoticeDto.dorm_notice_pk }</div>
-                            <div class="col-3 py-3 text-center" style="font-size: large;"><a href="./dm_NoticeArticlePage?dorm_notice_pk=${NList.dormNoticeDto.dorm_notice_pk }" style="text-decoration: none; color: black;">${NList.dormNoticeDto.title }</a></div>
-                            <div class="col-3 py-3 text-center" style="font-size: large;">${NList.staffInfoDto.name }</div>
-                            <div class="col py-3 text-center" style="font-size: large;"><fmt:formatDate value="${NList.dormNoticeDto.created_at }"/></div>
+                            <div class="col-2 py-3 text-center" style="font-size: large;">${NList.dormNoticeDto.dorm_notice_pk }</div>
+                            <div class="col py-3 text-center" style="font-size: large;"><a href="./dm_NoticeArticlePage?dorm_notice_pk=${NList.dormNoticeDto.dorm_notice_pk }" style="text-decoration: none; color: black;">${NList.dormNoticeDto.title }</a></div>
+                            <div class="col-2 py-3 text-center" style="font-size: large;">${NList.staffInfoDto.name }</div>
+                            <div class="col-2 py-3 text-center" style="font-size: large;"><fmt:formatDate value="${NList.dormNoticeDto.created_at }"/></div>
                         </div>
                     </div>
                 </div>
@@ -126,10 +85,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="row" style="border-top: 0.03em solid black;">
-                            <div class="col-3 py-3 text-center" style="font-size: large;">${NList.dormNoticeDto.dorm_notice_pk }</div>
-                            <div class="col-3 py-3 text-center" style="font-size: large;">${NList.dormNoticeDto.title }</div>
-                            <div class="col-3 py-3 text-center" style="font-size: large;">${NList.staffInfoDto.name }</div>
-                            <div class="col py-3 text-center" style="font-size: large;"><fmt:formatDate value="${NList.dormNoticeDto.created_at }"/></div>
+                           
                         </div>
                     </div>
                 </div>

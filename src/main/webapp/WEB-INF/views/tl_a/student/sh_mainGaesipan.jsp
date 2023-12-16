@@ -18,17 +18,29 @@
             <img src="../../resources/img/dormitory/studentMainLogo.jpg">
         </div>
     </div>
-	
-	<div class="container">
-		<div class="row my-4">
-			<div class="col fs-3 border-bottom">기숙사 자유게시판</div>
-		</div>
-		<div class="row fw-bold my-3">
-			<div class="col">글 번호</div>
-			<div class="col-8">제목</div>
-			<div class="col">작성자</div>
-			<div class="col">작성일</div>
-		</div>
+    <div class="container mt-3">
+	<div class="row">
+		   <jsp:include page="../commons/student/leftButtons4.jsp"></jsp:include>
+		<div class="col">
+		<div class="row">
+                    <div class="col">
+                        <div class="row my-3">
+                            <div class="col pb-2">
+                                <span class="fw-bold" style="font-size: xx-large;">기숙사 자유게시판</span>
+                            </div>
+                            <div class="col text-end pt-3">
+                                <span class="bi bi-house-door-fill" style="color: #999897;"></span><span style="color: #7A8082;"> > 기숙사 커뮤니티 </span> <span style="color: #999897;"> > </span><span class="fw-bold" style="color: #767575;"> 기숙사 자유게시판</span>
+                            </div>
+                            <span class="border-bottom  border-dark border-4 mt-2"></span>
+                        </div>
+                    </div>
+                </div>
+			<div class="row fw-bold my-3">
+				<div class="col">글 번호</div>
+				<div class="col-8">제목</div>
+				<div class="col">작성자</div>
+				<div class="col">작성일</div>
+			</div>
 		<c:forEach items="${list }" var="map">
 			<div class="row border-bottom my-1">
 				<div class="col">${map.dormFreeboardDto.dorm_freeboard_pk}</div>
@@ -38,31 +50,18 @@
 			</div>
 		</c:forEach>
 		
-		<div class="row mt-3">
-			<div class="col">
-				<nav aria-label="...">
-				  <ul class="pagination mb-0">
-				    <li class="page-item disabled">
-				      <a class="page-link">Previous</a>
-				    </li>
-				    <li class="page-item"><a class="page-link" href="#">1</a></li>
-				    <li class="page-item active" aria-current="page">
-				      <a class="page-link" href="#">2</a>
-				    </li>
-				    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				    <li class="page-item">
-				      <a class="page-link" href="#">Next</a>
-				    </li>
-				  </ul>
-				</nav>				
-			</div>
+			<div class="row mt-3">
+				
 			<c:if test="${!empty sessionStudentInfo}">
-			
-			<div class="col-3 ms-auto d-grid">
+			<div class="col text-end ms-auto d-grid">
 				<a class="btn btn-primary" href="./writeGasipan">글쓰기</a>
 			</div>
 			</c:if>
 		</div>
+		</div>
+	</div>
+	
+		
 		
 	</div>
 
