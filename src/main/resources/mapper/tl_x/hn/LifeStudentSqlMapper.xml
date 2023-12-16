@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.x.hn.mapper.LifeStudentSqlMapper">
+
+	<insert id="insertLectureStudentInfo">
+		INSERT INTO tl_x_lecture_student VALUES (
+			tl_x_lecture_student_seq.nextval,
+			#{open_lecture_key},
+			#{life_student_key},
+			SYSDATE
+		)
+	</insert>
+
+	<select id="getReceivingLectureList" resultType="map">
+		SELECT txli.credit, txli.name, txll.name AS lecturer_name, txol.open_lecture_key, txol.max_student FROM tl_x_open_lecture txol
+		INNER JOIN tl_x_lecture_info txli ON txol.lecture_info_key = txli.lecture_info_key
+		INNER JOIN tl_x_life_lecturer txll ON txol.lecturer_key = txll.lecturer_key
+		WHERE TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		BETWEEN TO_CHAR(txol.start_apply, 'yyyy-MM-dd')
+		AND TO_CHAR(txol.end_apply, 'yyyy-MM-dd')
+	</select>
+	
+	<select id="getCurrentApplyNumberByOpenLectureKey" resultType="int">
+		SELECT COUNT(*) FROM tl_x_lecture_student
+		WHERE open_lecture_key = #{open_lecture_key}
+	</select>
+	
+	
+	<select id="getOpenLectureInfoByOpenLectureKey" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+		SELECT * FROM tl_x_open_lecture WHERE open_lecture_key = #{open_lecture_key}
+	</select>
+	
+	<select id="getLectureInfoByLectureInfoKey" resultType="com.mkfactory.toothless.x.dto.LectureInfoDto">
+		SELECT * FROM tl_x_lecture_info WHERE lecture_info_key = #{lecture_info_key}
+	</select>
+	
+	<select id="getLectureRoundByLectureInfoKeyAndOpenLectrueKey" resultType="int">
+		SELECT t2.ground FROM (
+			SELECT t1.*, rownum AS ground FROM (
+				SELECT * FROM tl_x_open_lecture WHERE lecture_info_key = #{lecture_info_key}
+				ORDER BY open_date ASC
+			)t1
+		)t2
+		WHERE t2.open_lecture_key = #{open_lecture_key}
+	</select>
+	
+	<select id="getConditionLectureKeyListByLectureInfoKey" resultType="int">
+		SELECT condition_lecture_key FROM tl_x_apply_condition WHERE lecture_info_key = #{lecture_info_key}
+		ORDER BY condition_lecture_key ASC
+	</select>
+	
+	<select id="getLectureNameByConditionLectureKey" resultType="String">
+		SELECT name FROM tl_x_lecture_info WHERE lecture_info_key = #{condition_lecture_key}
+	</select>
+	
+	<select id="getLectureCategoryNameByLectureCategoryKey" resultType="String">
+		SELECT category_name FROM tl_x_lecture_category WHERE lecture_category_key = #{lecture_category_key}
+	</select>
+	
+	<select id="getLecturerNameByLecturerKey" resultType="String">
+		SELECT name FROM tl_x_life_lecturer WHERE lecturer_key = #{lecturer_key}
+	</select>
+	
+	<select id="isApply" resultType="int">
+		SELECT COUNT(*) FROM tl_x_lecture_student WHERE open_lecture_key = #{open_lecture_key} AND life_student_key = #{life_student_key}
+	</select>
+	
+	<select id="isConditionSatisfaction" resultType="int">
+		SELECT NVL(t3.lecture_info_key, 0) FROM (
+			SELECT condition_lecture_key FROM tl_x_apply_condition WHERE lecture_info_key = (
+				SELECT lecture_info_key FROM tl_x_open_lecture WHERE open_lecture_key = #{open_lecture_key}
+			)
+		)t2
+		LEFT JOIN (
+			SELECT txol.lecture_info_key FROM (
+				SELECT open_lecture_key FROM tl_x_lecture_student WHERE life_student_key = #{life_student_key}
+			)t1
+			INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
+		)t3 ON t2.condition_lecture_key = t3.lecture_info_key
+	</select>
+	
+	<select id="getLifeStudentKeyByExternalPk" resultType="int">
+		SELECT life_student_key FROM tl_x_life_student WHERE external_pk = #{external_pk}
+	</select>
+	
+	<select id="getOpenLectureInfoList" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+	
+		SELECT t4.* FROM (
+			SELECT t3.*, rownum rnum FROM (
+				SELECT txol.* FROM tl_x_open_lecture txol
+				INNER JOIN tl_x_lecture_info txli ON txol.lecture_info_key = txli.lecture_info_key
+				WHERE TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+				BETWEEN TO_CHAR(txol.start_apply, 'yyyy-MM-dd')
+				AND TO_CHAR(txol.end_apply, 'yyyy-MM-dd')
+				<if test="searchType != null and searchType.size != 1">
+					AND txli.lecture_category_key IN 
+					<foreach collection="searchType" item="arr" open="(" close=")" separator=",">
+						#{arr}
+					</foreach>
+				</if>
+				<if test="searchWord != null">
+					AND txli.name LIKE '%'||#{searchWord}||'%'
+				</if>
+				<if test="searchRecruitment != null and searchRecruitment != 0">
+					<choose>
+						<when test="searchRecruitment == 1">
+							<![CDATA[
+								AND max_student > (
+							]]>
+								SELECT COUNT(*) FROM tl_x_lecture_student txls
+								WHERE txls.open_lecture_key = txol.open_lecture_key
+							)
+						</when>
+						<otherwise>
+							<![CDATA[
+								AND max_student <= (
+							]]>
+								SELECT COUNT(*) FROM tl_x_lecture_student txls
+								WHERE txls.open_lecture_key = txol.open_lecture_key
+							)	
+						</otherwise>
+					</choose>
+				</if>
+			)t3
+		)t4
+		<![CDATA[
+			WHERE t4.rnum >= (#{pageNumber}-1)*#{eachTotalNumber} + 1 AND t4.rnum <= #{pageNumber}*#{eachTotalNumber}
+		]]>
+	</select>
+	
+	<select id="getTotalOpenLectureCount" resultType="int">
+		SELECT COUNT(*) FROM (
+			SELECT txol.* FROM tl_x_open_lecture txol
+			INNER JOIN tl_x_lecture_info txli ON txol.lecture_info_key = txli.lecture_info_key
+			WHERE TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+			BETWEEN TO_CHAR(txol.start_apply, 'yyyy-MM-dd')
+			AND TO_CHAR(txol.end_apply, 'yyyy-MM-dd')
+			<if test="searchType != null and searchType.size != 1">
+				AND txli.lecture_category_key IN 
+				<foreach collection="searchType" item="arr" open="(" close=")" separator=",">
+					#{arr}
+				</foreach>
+			</if>
+			<if test="searchWord != null">
+				AND txli.name LIKE '%'||#{searchWord}||'%'
+			</if>
+			<if test="searchRecruitment != null and searchRecruitment != 0">
+				<choose>
+					<when test="searchRecruitment == 1">
+						<![CDATA[
+							AND max_student > (
+						]]>
+							SELECT COUNT(*) FROM tl_x_lecture_student txls
+							WHERE txls.open_lecture_key = txol.open_lecture_key
+						)
+					</when>
+					<otherwise>
+						<![CDATA[
+							AND max_student <= (
+						]]>
+							SELECT COUNT(*) FROM tl_x_lecture_student txls
+							WHERE txls.open_lecture_key = txol.open_lecture_key
+						)	
+					</otherwise>
+				</choose>
+			</if>
+		)
+	</select>
+	
+	<select id="getLectureCategoryList" resultType="com.mkfactory.toothless.x.dto.LectureCategoryDto">
+		SELECT * FROM tl_x_lecture_category
+	</select>
+
+</mapper>

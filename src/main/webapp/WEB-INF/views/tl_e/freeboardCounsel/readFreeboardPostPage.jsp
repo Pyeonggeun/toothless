@@ -195,25 +195,44 @@
 					<div class="row">
 					
 						<!-- 공감 따봉칸 시작 -->
-							<div class="col">
-						<!-- 공감기능 전체 -->	
-						<!-- 	freeboardEmpathyDto <i class="bi bi-hand-thumbs-up-fill"></i> <i class="bi bi-hand-thumbs-up"></i> -->
-						<form action="countEmpathyByIdAndPk" method=post>
+						<div class="col">
+						<!-- freeboard_id와 student_pk를 넘겨주는 폼 액션 이를 통해 조건에 맞는 공감dto 가져온다 -->
+						<form action="./submitAndSelectEmpathy" method=post>
+							<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id}">
 							<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk}">
-						</form>	
-						<c:choose>
 						
-							<c:when test="${countEmpathy != 0}">
-								<i class="bi bi-hand-thumbs-up-fill"></i>
+						</form>
+						
+						<!-- 0이면 공감 누를 수 있게 1이면 삭제하게 하기   -->
+						ttt: ${countedEmpathy.countedEmpathy}
+						<c:choose>
+							<c:when test="${countedEmpathy.countedEmpathy == 0}">
+								 <form action="./insertEmpathy" method=post>
+									<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id}">
+									<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk}">
+									<input type="submit" value="공감하기">
+								</form>
 							</c:when>
-							
+								
 							<c:otherwise>
-								<i class="bi bi-hand-thumbs-up"></i>
+							
+							<form action="./deleteEmpathyByIdAndPk" method=post>
+								<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id}">
+								<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk}">
+								<input type="submit" value="공감취소">
+							</form>
 							</c:otherwise>
-							
-							
-							
 						</c:choose>
+						
+						
+
+
+
+
+
+
+
+
 					
 					
 						<!-- 공감 따봉칸 끝 -->
@@ -262,9 +281,7 @@
 								</div>
 								<div class="row m-1">
 									<input name="text" type="text" placeholder="최대 100글자까지 작성가능합니다.">
-									<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id } ">
-									<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk } ">
-									
+									<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id } ">									
 								</div>
 								
 								

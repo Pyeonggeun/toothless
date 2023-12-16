@@ -79,14 +79,14 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col ps-4" style="font-size: medium;">
-                                또 " ㅋㅋ " 는 건학이념을 기초로 미래의 주역으로 성장하게 될 관생들이 다양한 지식 축척과 인격도야는 물론 자치적으로 이루어지는 각종 문화행사를 통해 아름다운 <span class="fw-bold" style="color: #8C7430;">추억과 미래의 비전</span>을 세울 수 있는 좋은 기회의 공간입니다.
+                                건학이념을 기초로 미래의 주역으로 성장하게 될 관생들이 다양한 지식 축척과 인격도야는 물론 자치적으로 이루어지는 각종 문화행사를 통해 아름다운 <span class="fw-bold" style="color: #8C7430;">추억과 미래의 비전</span>을 세울 수 있는 좋은 기회의 공간입니다.
                             </div>
                         </div>
                     </div>
                     <div class="col-6 d-grid">
                         <div class="row">
                             <div class="col">
-                                <img class="img-fluid" src="/img/img4.jpg">
+                                <img class="img-fluid" src="../../resources/img/dormitory/mkpicture.jpg">
                             </div>
                         </div>
                         <div class="row">
@@ -109,7 +109,7 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col ps-4 pe-5" style="font-size: medium;">
-                        다시 한 번 우리 기숙사 입사를 진심으로 축하드리며 <span class="fw-bold">관생 여러분들의 앞날과 학부모님의 가정에 하나님의 축복이 늘 함께 하시기를 소망합니다.</span>
+                        다시 한 번 우리 기숙사 입사를 진심으로 축하드리며 <span class="fw-bold">관생 여러분들의 앞날과 학부모님의 가정에 하나님의 축복이 늘 함께 하시기를 소망합니다... 화이팅..!</span>
                     </div>
                 </div>
              </div>    
@@ -131,53 +131,9 @@
 
             </div>
         </div>
-        <!-- footer 부분-->
-        <div class="row" style="background-color: #181C23;">
-            <div class="col-2 pt-4">
-                
-            </div>
-            <div class="col-6 py-4">
-                <div class="row">
-                    <div class="col-2 px-0 fw-bold text-center" style="color: #FFC00B; font-size: medium;">
-                        개인정보처리방침
-                    </div>
-                    <div class="col px-0 pt-2 fw-bold text-center" style="color: #BABBBD; font-size: 0.3em;">
-                        <span class="bi bi-circle-fill"></span>
-                    </div>
-                    <div class="col-2 px-0 fw-bold text-center" style="color: #BABBBD;">
-                        이메일무단수집거부
-                    </div>
-                    <div class="col px-0 pt-2 fw-bold text-center" style="color: #BABBBD; font-size: 0.3em;">
-                        <span class="bi bi-circle-fill"></span>
-                    </div>
-                    <div class="col-2 px-0 fw-bold text-center" style="color: #BABBBD;">
-                        대학정보공시
-                    </div>
-                    <div class="col pt-2 px-0 fw-bold text-center" style="color: #BABBBD; font-size: 0.3em;">
-                        <span class="bi bi-circle-fill"></span>
-                    </div>
-                    <div class="col-2 px-0 fw-bold text-center" style="color: #BABBBD;">
-                        오시는길
-                    </div>
-                </div>
-                <div class="row ms-1 mt-4" style="border-bottom: 0.01em solid #303339;">
-                    <div class="col"></div>
-                </div>
-                <div class="row mt-5">
-                    <div class="col fw-bold" style="color: #BABBBD; font-size: medium;">
-                        서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층)
-                    </div>
-                </div>
-                <div class="row mt-1 mb-5">
-                    <div class="col fw-bold" style="color: #505F65; font-size: medium;">
-                        COPYRIGHT© 2023 MINGYU UNIVERSITY. ALL RIGHTS RESERVED.
-                    </div>
-                </div>
-                
-            </div>
-            
-
-        </div>
+      
+      <!-- 하단 footer -->
+<jsp:include page="../commons/student/footer.jsp"></jsp:include>
 
    
     

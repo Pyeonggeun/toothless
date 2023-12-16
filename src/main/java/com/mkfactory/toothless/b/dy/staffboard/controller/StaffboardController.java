@@ -24,11 +24,14 @@ public class StaffboardController {
 	
 	//교직원용 게시판 페이지
 	@RequestMapping("staffboardPage")
-	public String staffboardPage(Model model) {
+	public String staffboardPage(Model model, String searchType, String searchWord) {
 		
-		List<Map<String, Object>> staffboardList = staffboardService.getBoardContentsInfo();
+		List<Map<String, Object>> staffboardList = staffboardService.getBoardContentsInfo(searchType, searchWord);
 		
 		model.addAttribute("list", staffboardList);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchWord", searchWord);
+		
 		
 		return "tl_b/dy/staffboardPage";
 	}
@@ -36,7 +39,6 @@ public class StaffboardController {
 	//글쓰기
 	@RequestMapping("writeTextPage")
 	public String writeTextPage() {
-		
 		
 		return "tl_b/dy/writeTextPage";
 	}
@@ -85,13 +87,16 @@ public class StaffboardController {
 		int count = staffboardService.checkLike(likeDto);
 		
 		model.addAttribute("count", count);
-		
+		//좋아요 수
 		int likeCount = staffboardService.likeCount(staffboard_pk);
 		
 		System.out.println(likeCount);
 		
 		model.addAttribute("likeCount", likeCount);
+		//댓글 수
+		int replyCountInContent = staffboardService.replyCountInContent(staffboard_pk);
 		
+		model.addAttribute("replyCountInContent", replyCountInContent);
 		
 		return "tl_b/dy/readTextPage";
 	}

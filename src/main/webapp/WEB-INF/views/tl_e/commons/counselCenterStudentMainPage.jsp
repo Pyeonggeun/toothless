@@ -43,7 +43,7 @@
 			<div class="col">
 				<ul class="nav nav-pills">
 				  <li>
-				    <a class="nav-link text-dark" href="../notice/noticeMainPage" role="button" aria-expanded="false">공지사항</a>
+				    <a class="nav-link text-dark" href="../notice/noticeMainPage_Student" role="button" aria-expanded="false">공지사항</a>
 				  </li>
 				</ul>
 			</div>

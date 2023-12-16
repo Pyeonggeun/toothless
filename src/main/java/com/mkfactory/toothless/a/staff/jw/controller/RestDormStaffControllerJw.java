@@ -1,7 +1,11 @@
 package com.mkfactory.toothless.a.staff.jw.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mkfactory.toothless.a.dto.PointCategory;
@@ -23,6 +27,14 @@ public class RestDormStaffControllerJw {
 		return restResponseDto;
 	}
 	
+	@RequestMapping("restBuildingList")
+	public RestResponseDto restBuildingList() {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(dormStaffServiceJw.getAllDormBuilding());
+		restResponseDto.setResult("success");
+		return restResponseDto;
+	}
 	
 	@RequestMapping("restRegisterPointCategory")
 	public RestResponseDto registerPointCategory(PointCategory params) {
@@ -71,6 +83,7 @@ public class RestDormStaffControllerJw {
 		dormStaffServiceJw.deletePointCategory(point_category_pk);
 		
 		restResponseDto.setResult("success");
+		
 		return restResponseDto;
 	}
 	
@@ -81,14 +94,107 @@ public class RestDormStaffControllerJw {
 		dormStaffServiceJw.updatePointCategory(params);
 		
 		restResponseDto.setResult("success");
+		
 		return restResponseDto;
 	}
 	
-	@RequestMapping("restGetExitSituationByA")
-	public RestResponseDto restGetExitSituationByA() {
+	// 전체 외출 현황 Listmap
+	@RequestMapping("restGetAllExitSituationList")
+	public RestResponseDto restGetAllExitSituationList() {
 		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> allExitList = dormStaffServiceJw.getAllExitSituation();
+		
+		restResponseDto.setData(allExitList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	// dormPk별 외출 현황 Listmap
+	@RequestMapping("restGetExitSituationListByDormPk")
+	public RestResponseDto restGetExitSituationListByDormPk(int dorm_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> dormPkExitList = dormStaffServiceJw.getExitSituationByDormPk(dorm_pk);
+		
+		restResponseDto.setData(dormPkExitList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	// 전체 상벌 현황 Listmap
+	@RequestMapping("restGetAllPointSituationList")
+	public RestResponseDto restGetAllPointSituationList() {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> allPointList = dormStaffServiceJw.getAllPointScoreList();
+		
+		restResponseDto.setData(allPointList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	// 호실별 상벌 현황 Listmap
+	@RequestMapping("restGetPointSituationListByDormPk")
+	public RestResponseDto restGetPointSituationListByDormPk(int dorm_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> dormPkPointList = dormStaffServiceJw.getPointScoreListByDormPk(dorm_pk);
+		
+		restResponseDto.setData(dormPkPointList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	// 임원 배정 페이지 - 사생 현황
+	@RequestMapping("restGetAllDormStudent")
+	public RestResponseDto restGetAllDormStudent() {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> allDormList = dormStaffServiceJw.getAllDormStudentList();
+		
+		restResponseDto.setData(allDormList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	// 호실별 사생 현황
+	@RequestMapping("restGetAllDormStudentByDormPk")
+	public RestResponseDto restGetAllDormStudentByDormPk(int dorm_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> dormPkDormList = dormStaffServiceJw.getAllDormStudentListByDormPk(dorm_pk);
+		
+		restResponseDto.setData(dormPkDormList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("restRegisterExecutiveProcess")
+	public RestResponseDto restRegisterExecutiveProcess(int dorm_student_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		dormStaffServiceJw.registerExecutive(dorm_student_pk);
 		
 		restResponseDto.setResult("success");
 		return restResponseDto;
 	}
+	
+	@RequestMapping("restdeleteExecutiveProcess")
+	public RestResponseDto restdeleteExecutiveProcess(int dorm_student_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		dormStaffServiceJw.deleteExecutive(dorm_student_pk);
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;
+	}
+	
+	
 }

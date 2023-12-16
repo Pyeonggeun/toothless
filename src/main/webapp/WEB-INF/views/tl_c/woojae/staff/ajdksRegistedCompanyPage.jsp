@@ -211,7 +211,7 @@
 				</div>
 				<div class="row mt-5">
 					<div class="col">
-						<select name="searchType" onchange="getCompanyListByCategoryPk(this.value)" id="catWrapper" class="form-select" aria-label="Default select example">
+						<select  onchange="getCompanyListByCategoryPk(this.value)" id="catWrapper" class="form-select" aria-label="Default select example">
 						</select>
 					</div>
 					<div class="col-10"></div>

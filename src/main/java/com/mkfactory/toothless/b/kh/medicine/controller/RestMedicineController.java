@@ -34,12 +34,14 @@ public class RestMedicineController {
 		return b_RestResponseDto;
 	}
 	
-	//의약품 삭제 프로세스
+	//의약품 삭제 프로세스 + 입고정보 삭제 + 재고 정보 삭제
 	@RequestMapping("deletMedicineInfo")
 	public B_RestResponseDto deletMedicineInfo(int medicine_code_pk) {
 		B_RestResponseDto b_RestResponseDto = new B_RestResponseDto();
 		
 		medicineService.deleteMedicineInfo(medicine_code_pk);
+		medicineService.chainedDeleteAddinfo(medicine_code_pk);
+		medicineService.chainedDeleteInventoryInfo(medicine_code_pk);
 		
 		b_RestResponseDto.setResult("success");
 		b_RestResponseDto.setData(medicine_code_pk);
@@ -124,8 +126,8 @@ public class RestMedicineController {
 		return b_RestResponseDto;
 	}
 	
-	@RequestMapping("reloadAddCatInfo")
-	public B_RestResponseDto reloadAddCatInfo(){
+	@RequestMapping("reloadAddMedicineInfo")
+	public B_RestResponseDto reloadAddMedicineInfo(){
 		B_RestResponseDto b_RestResponseDto = new B_RestResponseDto();
 		
 		b_RestResponseDto.setResult("success");
@@ -196,5 +198,15 @@ public class RestMedicineController {
 		
 		return b_RestResponseDto;
 	}
-
+	
+	//재고 변동 내역 가져오기 restInventoryInfoByPk
+	@RequestMapping("restInventoryInfoByPk")
+	public B_RestResponseDto restInventoryInfoByPk(int medicine_code_pk){
+		B_RestResponseDto b_RestResponseDto = new B_RestResponseDto();
+		
+		b_RestResponseDto.setResult("success");
+		b_RestResponseDto.setData(medicineService.restInventoryInfoByPk(medicine_code_pk));
+		
+		return b_RestResponseDto;
+	}
 }

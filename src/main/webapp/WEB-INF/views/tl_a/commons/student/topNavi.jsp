@@ -2,13 +2,30 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-        <div class="row">
+
+		<script>
+		    document.addEventListener("DOMContentLoaded", function() {
+		        const dropdownMenus = document.querySelectorAll('.nav-item.dropdown');
+		
+		        dropdownMenus.forEach(function(menu) {
+		            menu.addEventListener('mouseover', function() {
+		                menu.querySelector('.dropdown-menu').classList.add('show');
+		            });
+		
+		            menu.addEventListener('mouseout', function() {
+		                menu.querySelector('.dropdown-menu').classList.remove('show');
+		            });
+		        });
+		    });
+		</script>
+
+        <div class="row sticky-top">
             <div class="col">
-                <nav class="navbar navbar-expand-lg" style="background-color: #ffffff">
+                <nav class="navbar navbar-expand-lg py-1" style="background-color: #ffffff">
                     <div class="container-fluid">
 				            <div class="col p-0 align-self-center text-black fw-bold fs-3">
-				            <a href="./jw_mainPage" style="text-decoration: none;" class="text-black">
-				            <img src="../../resources/img/another/logo_black.png" alt="" style="height: 70px; width: 70px;">
+				            <a href="./jw_mainPage" style="text-decoration: none;" class="text-black align-self-center">
+				            <img src="../../resources/img/another/logo_black.png" alt="" style="height: 50px; width: 50px;">
 				                MK <span class="fs-4">대학교</span> <span class="fs-6"> | </span> <span class="fs-5"> 기숙사</span> 
 				            </a>
 			            </div>
@@ -20,7 +37,7 @@
                                       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                         <span class="navbar-toggler-icon"></span>
                                       </button>
-                                      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                      <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
                                         <ul class="navbar-nav">
                                             <li class="nav-item dropdown mx-4"  style="text-align: right;">
                                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -67,13 +84,13 @@
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item disabled">기숙사 커뮤니티</a></li>
                                                     <li><hr class="dropdown-divider"></li>
-                                              <li><a class="dropdown-item" href="#">공지사항</a></li>
-                                              <li><a class="dropdown-item" href="#">자유게시판</a></li>
+                                              <li><a class="dropdown-item" href="./dm_dormNoticePage">공지사항</a></li>
+                                              <li><a class="dropdown-item" href="./mainGaesipan">자유게시판</a></li>
                                               <li><a class="dropdown-item" href="./jw_exitApplyPage">외박 및 외출신청</a></li>
                                               <li><a class="dropdown-item" href="./jw_checkDormStudentPointPage">상벌점 확인</a></li>
-                                              <li><a class="dropdown-item" href="#">고장수리요청</a></li>
+                                              <li><a class="dropdown-item" href="./sj_requestRepairPage">고장수리요청</a></li>
                                               <li><a class="dropdown-item" href="./jw_diartApplyPage">일지 등록</a></li>
-                                              <li><a class="dropdown-item" href="#">FAQ</a></li>
+                                              <li><a class="dropdown-item" href="./dm_FAQ">FAQ</a></li>
                                             </ul>
                                           </li>
                                         </ul>

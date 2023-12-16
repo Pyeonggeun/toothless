@@ -32,8 +32,10 @@ public interface DormStaffMapperJw {
 	// 특정 학생 동정보
 	public DormBuildingDto selectDormByDormPk(int dorm_pk);
 	
-	// 전체 사생정보
+	// 사생정보
 	public List<DormStudentDto> selectAllDormStudentList();
+	public List<DormStudentDto> selectDormStudentListByDormPk(int dorm_pk);
+	
 	
 	// 진행중인 학기의 사생정보
 	public List<DormStudentDto> selectDormStudentByProgressSemester();
@@ -63,6 +65,7 @@ public interface DormStaffMapperJw {
 	public void insertPoint(PointDto pointDto);
 	public List<PointCategory> selectAllPointCategory();
 	public Integer sumPointByDormStudentPk(int dorm_student_pk);
+	public List<DormStudentDto> selectDormStudentExceptExecuteByProgressSemesterAndDormPk(int dorm_pk);
 	
 	// 상벌코드
 	public void insertPointCategory(PointCategory pointCategory);

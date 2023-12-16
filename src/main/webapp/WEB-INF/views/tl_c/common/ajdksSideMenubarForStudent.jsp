@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- 좌측메뉴바 -->
-<div class="col-2 text-white px-0 studentleftmenubar" style="background-color: #0C2145; box-shadow: 2px 2px 2px gray;">
+<div class="col-2 text-white px-0 studentleftmenubar" style="background-color: #0C2145; height: 142dvh; box-shadow: 2px 2px 2px gray;">
 
 	<!-- 접속자 정보 묶음 -->
 	<div class="row text-center my-3">
@@ -150,7 +150,7 @@
 						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;공지사항</span>
 					</div>
 				</div>
-				<div class="row py-2 ps-2">
+				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
 						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;자유게시판</span>
 					</div>

@@ -13,7 +13,7 @@
                   </h2>
                   <div id="flush-1" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body d-grid p-0">
-                        <div class="row ps-5 ms-1">
+                        <div class="row ps-5 ms-1 my-2">
                         	<div class="col">
 							    <a href="./sj_registerDormInfo"  style="text-decoration: none;" class="text-black">
 	                        	<button type="button" class="btn text-start">
@@ -22,7 +22,7 @@
                         		</a>	
 							</div>
                         </div>
-                         <div class="row ps-5 ms-1">
+                         <div class="row ps-5 ms-1 my-2">
                         	<div class="col">
 							    <a href="./sj_registerRoomInfo"  style="text-decoration: none;" class="text-black">
 	                        	<button type="button" class="btn text-start">
@@ -31,7 +31,7 @@
                         		</a>	
 							</div>
                         </div>
-                        <div class="row ps-5 ms-1">
+                        <div class="row ps-5 ms-1 my-2">
                         	<div class="col">
 							    <a href="./sj_registerRoomImages"  style="text-decoration: none;" class="text-black">
 	                        	<button type="button" class="btn text-start">
@@ -51,7 +51,7 @@
                   </h2>
                   <div id="flush-2" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body d-grid p-0">
-                        <div class="row ps-5 ms-1">
+                        <div class="row ps-5 ms-1 my-2">
                         	<div class="col">
 							    <a href="./sj_manageDormInfo"  style="text-decoration: none;" class="text-black">
 	                        	<button type="button" class="btn text-start">
@@ -60,7 +60,7 @@
                         		</a>	
 							</div>
                         </div>
-                         <div class="row ps-5 ms-1">
+                         <div class="row ps-5 ms-1 my-2">
                         	<div class="col">
 							    <a href="./sj_manageRoomInfo"  style="text-decoration: none;" class="text-black">
 	                        	<button type="button" class="btn text-start">
@@ -69,7 +69,7 @@
                         		</a>	
 							</div>
                         </div>
-                        <div class="row ps-5 ms-1">
+                        <div class="row ps-5 ms-1 my-2">
                         	<div class="col">
 							    <a href="./sj_manageRoomImages"  style="text-decoration: none;" class="text-black">
 	                        	<button type="button" class="btn text-start">

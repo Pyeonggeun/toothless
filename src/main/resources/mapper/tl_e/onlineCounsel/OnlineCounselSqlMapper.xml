@@ -97,28 +97,33 @@
 	
 	
 	
+	<!-- 공용 UI용 -->
+	<select id="selectNoticeListSpecificNum" resultType="com.mkfactory.toothless.e.dto.NoticeBoardDto">
+		SELECT * FROM (
+			SELECT * FROM CP_NOTICE ORDER BY CREATED_AT DESC
+			)
+		WHERE ROWNUM &lt;= 8
+	</select>
+	
+	<select id="selectFreeboardListSpecificNum" resultType="com.mkfactory.toothless.e.dto.FreeboardDto">
+		SELECT * FROM (
+			SELECT * FROM CP_STUDENT_FREEBOARD ORDER BY created_at DESC
+			)
+		WHERE ROWNUM &lt;= 8
+	</select>
+	
+	<select id="selectGroupCounselListSpecificNum" resultType="com.mkfactory.toothless.e.dto.GroupCounselDto">
+		SELECT * FROM (
+			SELECT * FROM CP_GROUP_COUNSEL ORDER BY created_at DESC
+			)
+		WHERE ROWNUM &lt;= 8
+	</select>
+	
+	
+	
 	
 	
 	
 </mapper>
-	
-	
-	
-	
-	
-	<!--	상담원 관련 	-->
-	
-<!-- 	<select id="selectCounselorInfo" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
-		SELECT * FROM cp_counselor WHERE EXTERNAL_PK  = #{external_pk}
-	</select>
-	
-	<select id="selectCounselorTypeInfo" resultType="com.mkfactory.toothless.e.dto.CounselorTypeDto">
-		SELECT * FROM cp_counselor_type WHERE COUNSELOR_ID = #{counselor_id}
-	</select>
-	
-	<select id="selectCounselBoardInfo" resultType="com.mkfactory.toothless.e.dto.OnlineCounselBoardDto">
-		SELECT * FROM CP_ONLINE_COUNSEL_BOARD cocb WHERE TYPE_CATEGORY_ID = #{ TYPE_CATEGORY_ID}
-	</select> -->
-	
 	
 	

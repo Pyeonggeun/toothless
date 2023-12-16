@@ -18,23 +18,76 @@
                         <div class="col">
                             <div class="row">
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
-                                <div class="col">
-                                    <h1>작성 글 수정</h1>
-                                    <form action="./modifyTextProcess" method="post">
-                                    제목 <input name="title" type="text" value="${readText.staffboardDto.title }">
-                                    <br>
-                                    작성자 ${sessionStaffInfo.name}
-                                    <br>
-                                    내용 <br>
-                                    <textarea name="content" rows='20' cols='60'>${readText.staffboardDto.content}</textarea>
-                                    <input name="staffboard_pk" type="hidden" value="${readText.staffboardDto.staffboard_pk }">
-                                    <input type="submit" value="수정완료">
-                                    </form>
-                                   <!--  <button type="button" onclick="location.href='./readTextPage?staffboard_pk=${readText.staffboardDto.staffboard_pk }'">취소</button> -->
+                                <div class="col bg-body-tertiary">
+                                    <!--여기서 부터-->
+                                    <div class="row mt-5 mb-5">
+                                    	<div class="col">
+                                    	<form action="./modifyTextProcess" method="post">
+                                    		<div class="row ms-5 mb-5">
+                                    			<div class="col-md-5 me-4 border bg-white text-dark">
+                                    				<div class="row">
+                                    					<div class="col">
+                                    						<div class="row border-bottom">
+                                    							<div class="col d-flex align-items-center fw-bold fs-5 py-3">글쓰기</div>
+                                    						</div>
+                                    						<div class="row">
+                                    							<div class="col my-4">
+                                    								<textarea name="title" class="form-control" style="height: 40px" placeholder="제목을 입력해주세요.">${readText.staffboardDto.title }</textarea>
+                                    							</div>
+                                    						</div>
+                                    						<div class="row mb-4">
+                                    							<div class="col mb-4">
+																	<textarea name="content" class="form-control" style="height: 400px;" placeholder="내용을 입력해주세요.">${readText.staffboardDto.content}</textarea>
+																</div>
+                                    						</div>
+                                    					</div>
+                                    				</div>
+                                    			</div>
+                                    			<div class="col-md-4 ms-4">
+                                    				<div class="row">
+                                    					<div class="col border bg-white text-dark">
+                                    						<div class="row mt-3 pb-3">
+                                    							<div class="col text-center"><input class="btn btn-primary px-5" type="submit" value="수정완료"></div>
+                                    							<div class="col text-center"><button class="btn btn-primary px-5" type="button" onclick="location.href='./readTextPage?staffboard_pk=${readText.staffboardDto.staffboard_pk }'">취 &nbsp;&nbsp;&nbsp;&nbsp; 소</button></div>
+                                    						</div>
+                                    					</div>
+                                    				</div>
+													<div class="row border mt-3 bg-white text-dark">
+														<div class="col">
+															<div class="row py-1 border-bottom">
+																<div class="col fw-bold fs-6">게시판 주의사항</div>
+															</div>
+															<div class="row">
+																<div class="col">
+																	<div class="row mt-2">
+																		<div class="col" style="font-size: small;"> ● 지나치게 선정적, 폭력적이거나 불법적인 내용의 게시물은 바로 삭제됩니다.</div>
+																	</div>
+																	<div class="row mt-2">
+																		<div class="col" style="font-size: small;"> ● 도배 방지를 위해 유사한 내용의 게시글을 72시간 내 업로드할 시 게시글 삭제 및 이용제한이 이루어질 수 있습니다.</div>
+																	</div>
+																	<div class="row mt-2">
+																		<div class="col" style="font-size: small;"> ● 작성된 게시물이 저작권을 침해하는 경우 게시자에게 책임이 있습니다.</div>
+																	</div>
+																	<div class="row mt-2">
+																		<div class="col" style="font-size: small;"> ● 그 외 게시판 이용에 관련된 사항은 커뮤니티 이용 규칙을 따릅니다.
+																		</div>
+																	</div>
+																	<div class="row mt-2 mb-2">
+																		<div class="col" style="font-size: small;"> ● siu~~~~~~~~~~~</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+                                    			</div>
+                                    		</div>
+                                    		<input name="staffboard_pk" type="hidden" value="${readText.staffboardDto.staffboard_pk }">
+                                    	</form>
+                                    	</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <div class="row">
                         <div class="col">
                             <div class="row">

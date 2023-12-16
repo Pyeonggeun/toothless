@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.mkfactory.toothless.b.dto.ClinicPatientDto;
 import com.mkfactory.toothless.b.dto.ClinicPatientLogDto;
+import com.mkfactory.toothless.b.dto.DiseaseCodeDto;
+import com.mkfactory.toothless.b.dto.MedicineCodeDto;
 import com.mkfactory.toothless.b.dto.PrescriptionDto;
 
 public interface ClinicSqlMapper {
@@ -35,4 +37,14 @@ public interface ClinicSqlMapper {
 	public ClinicPatientLogDto getClinicPatientLogInfoByClinicPatientLogPk(int clinic_patient_log_pk);
 	public List<PrescriptionDto> getPrescriptionInfoListByClinicPatientLogPk(int clinic_patient_log_pk);
 	public String getMedicineNameByMedicineCodePk(int medicine_code_pk);
+	
+	public List<DiseaseCodeDto> getDiseaseCodeInfoList();
+	public List<MedicineCodeDto> getMedicineCodeInfoList(int[] selectMedicines);
+	public int getMedicineMaxQuantity(int medicine_code_pk);
+	
+	public int getClinicPatientlogPk();
+	public void insertClinicPatientLogInfo(ClinicPatientLogDto clinicPatientLogDto);
+	public void insertPrescriptionInfo(PrescriptionDto prescriptionDto);
+	
+	public void updateWaitingStatus(int clinic_patient_pk);
 }

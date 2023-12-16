@@ -176,6 +176,47 @@ public class DormStaffServiceJw {
 		return list;
 	}
 	
+	public List<Map<String, Object>> getAllDormStudentListByDormPk(int dorm_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<DormStudentDto> dormStudentList = dormStaffMapperJw.selectDormStudentListByDormPk(dorm_pk);
+		
+		for(DormStudentDto dormStudentDto : dormStudentList) {
+			
+			int dormStudentPk = dormStudentDto.getDorm_student_pk();
+			
+			StudentInfoDto studentInfoDto = dormStaffMapperJw.selectStudentInfoByProgressSemesterDormStudentPk(dormStudentPk);
+			
+			if(studentInfoDto == null) {
+				continue;
+			}
+			
+			DormRoomDto dormRoomDto = dormStaffMapperJw.selectDormRoomByDormStudentPk(dormStudentPk);
+			
+			int dormPk = dormRoomDto.getDorm_pk();
+			DormBuildingDto dormBuildingDto = dormStaffMapperJw.selectDormByDormPk(dormPk);
+			
+			int isExecutiveCheck;
+			ExecutiveDto executiveDto = dormStaffMapperJw.selectExecutiveByDormStudentPk(dormStudentPk);
+			if(executiveDto == null) {
+				isExecutiveCheck = 0;
+			}else {
+				isExecutiveCheck = 1;
+			}
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("dormStudentDto", dormStudentDto);
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("dormRoomDto", dormRoomDto);
+			map.put("dormBuildingDto", dormBuildingDto);
+			map.put("isExecutiveCheck", isExecutiveCheck);
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
 	public List<Map<String, Object>> getAllExecutiveList(){
 		
 		List<Map<String, Object>> list = new ArrayList<>();
@@ -354,13 +395,44 @@ public class DormStaffServiceJw {
 		dormStaffMapperJw.insertPoint(pointDto);
 	}
 	
-public List<Map<String, Object>> getAllPointScoreList(){
+	public List<Map<String, Object>> getAllPointScoreList(){
 		
 		List<Map<String, Object>> list = new ArrayList<>();
 		
 		List<DormStudentDto> dormStudentExceptExecutive = dormStaffMapperJw.selectDormStudentExceptExecuteByProgressSemester();
 		
 		for(DormStudentDto dormStudentDto : dormStudentExceptExecutive) {
+			
+			int dormStudentPk = dormStudentDto.getDorm_student_pk();
+			StudentInfoDto studentInfoDto = dormStaffMapperJw.selectStudentInfoByProgressSemesterDormStudentPk(dormStudentPk);
+			DormRoomDto dormRoomDto = dormStaffMapperJw.selectDormRoomByDormStudentPk(dormStudentPk);
+			Integer sumPointByDormStudentPk = dormStaffMapperJw.sumPointByDormStudentPk(dormStudentPk);
+			
+			int intSumPointValue = (sumPointByDormStudentPk != null) ? sumPointByDormStudentPk : 0;
+			
+			int dormPk = dormRoomDto.getDorm_pk();
+			DormBuildingDto dormBuildingDto = dormStaffMapperJw.selectDormByDormPk(dormPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("dormStudentDto", dormStudentDto);
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("dormRoomDto", dormRoomDto);
+			map.put("dormBuildingDto", dormBuildingDto);
+			map.put("intSumPointValue", intSumPointValue);
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
+	public List<Map<String, Object>> getPointScoreListByDormPk(int dorm_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<DormStudentDto> dormStudentExceptExecutiveByDormPk = dormStaffMapperJw.selectDormStudentExceptExecuteByProgressSemesterAndDormPk(dorm_pk);
+		
+		for(DormStudentDto dormStudentDto : dormStudentExceptExecutiveByDormPk) {
 			
 			int dormStudentPk = dormStudentDto.getDorm_student_pk();
 			StudentInfoDto studentInfoDto = dormStaffMapperJw.selectStudentInfoByProgressSemesterDormStudentPk(dormStudentPk);

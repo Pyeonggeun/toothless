@@ -22,6 +22,8 @@ public class DormStudentControllerJw {
 	@RequestMapping("jw_mainPage")
 	public String jw_mainPage() {
 		
+		
+		
 		return "/tl_a/student/jw_mainPage";
 	}
 	

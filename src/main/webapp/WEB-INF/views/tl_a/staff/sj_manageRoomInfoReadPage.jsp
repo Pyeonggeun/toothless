@@ -2,6 +2,8 @@
 <%@page import="java.util.Set"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -42,12 +44,29 @@
 					<li class="nav-item ta">
 					    <a class="nav-link  text-black" href="./sj_manageRoomInfo">전체보기</a>
 					  </li>
-					<c:forEach items="${dormBuilding }" var="dorm">
-					  <li class="nav-item ">
-					    <a class="nav-link active text-black" href="./sj_manageRoomInfoReadPage?dorm_pk=${dorm.dorm_pk }">${dorm.name }</a>
-					  </li>
-					  </c:forEach>
-					  
+					  	<!-- 세지야 여기 수정했어!!! - MJ -->
+						<c:forEach items="${dormBuilding}" var="dorm">
+						    <c:set var="uri" value="${pageContext.request.requestURI}" />
+						    <c:set var="dormUri" value="./sj_manageRoomInfoReadPage?dorm_pk=${dorm.dorm_pk}" />
+						    
+						    <c:choose>
+						        <c:when test="${not empty param.dorm_pk && param.dorm_pk eq dorm.dorm_pk}">
+						            <li class="nav-item">
+						                <a class="nav-link active text-black" href="${dormUri}">
+						                    ${dorm.name}
+						                </a>
+						            </li>
+						        </c:when>
+						        <c:otherwise>
+						            <li class="nav-item">
+						                <a class="nav-link text-black" href="${dormUri}">
+						                    ${dorm.name}
+						                </a>
+						            </li>
+						        </c:otherwise>
+						    </c:choose>
+						</c:forEach>
+
 					</ul>
 				</div>
 			</div>
