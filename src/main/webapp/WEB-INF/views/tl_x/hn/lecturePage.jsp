@@ -68,6 +68,58 @@
                 const modal = bootstrap.Modal.getOrCreateInstance("#submitWarningModal");
                 modal.show();
             }
+            
+			function goMyPage() {
+	    		
+	    		/* if(myPk == null) {
+	    			location.href = "../../another/student/loginPage";
+	    			return;
+	    		} */
+	    		
+	    		location.href = "./myPage";
+	    		
+	    	}
+	    	
+	    	function goApplyPage() {
+	    		
+	    		/* if(myPk == null) {
+	    			location.href = "../../another/student/loginPage";
+	    			return;
+	    		} */
+	    		
+	    		location.href = "./applyPage";
+	    		
+	    	}
+	    	
+	    	function goMainPage() {
+	    		
+	    		location.href = "./mainPage";
+	    		
+	    	}
+	    	
+			function goLecturePage() {
+	    		
+	    		location.href = "./lecturePage";
+	    		
+	    	}
+	    	
+	    	function goReviewPage() {
+	    		
+	    		location.href = "./reviewPage";
+	    		
+	    	}
+	    	
+	    	function logout() {
+	    		
+	    		location.href = "../../another/external/logoutProcess";
+	    		
+	    	}
+	    	
+	    	window.addEventListener("DOMContentLoaded", () => {
+	    		
+	    		/* getMyPk(); */
+	    		
+	    	});
 
         </script>
         
@@ -93,7 +145,7 @@
                                 <div class="col-2">
                                     <div class="row sticky-top" style="top: 8em;">
                                         <div class="col rounded border">
-                                            <div class="row">
+                                            <div onclick="goMyPage()" class="row">
                                                 <div class="col fw-bold text-secondary py-3 ps-3" style="font-size: 0.95em;">
                                                     홈
                                                 </div>
@@ -104,7 +156,7 @@
                                             <div>
                                                 <hr class="my-0">
                                             </div>
-                                            <div class="row">
+                                            <div onclick="goLecturePage()" class="row">
                                                 <div class="col fw-bold py-3 ps-3" style="font-size: 0.95em; color: #7844ae;">
                                                     학습
                                                 </div>
@@ -115,7 +167,7 @@
                                             <div>
                                                 <hr class="my-0">
                                             </div>
-                                            <div class="row">
+                                            <div onclick="goReviewPage()" class="row">
                                                 <div class="col fw-bold text-secondary py-3 ps-3" style="font-size: 0.95em;">
                                                     만족도/후기
                                                 </div>

@@ -12,6 +12,16 @@
 			SYSDATE
 		)
 	</insert>
+	
+	<insert id="insertLectureReviewInfo">
+		INSERT INTO tl_x_lecture_review VALUES(
+			tl_x_lecture_review_seq.nextval,
+			#{lecture_student_key},
+			#{star_count},
+			#{review},
+			SYSDATE
+		)
+	</insert>
 
 	<select id="getReceivingLectureList" resultType="map">
 		SELECT txli.credit, txli.name, txll.name AS lecturer_name, txol.open_lecture_key, txol.max_student FROM tl_x_open_lecture txol
@@ -37,8 +47,8 @@
 	</select>
 	
 	<select id="getLectureRoundByLectureInfoKeyAndOpenLectrueKey" resultType="int">
-		SELECT t2.ground FROM (
-			SELECT t1.*, rownum AS ground FROM (
+		SELECT t2.round FROM (
+			SELECT t1.*, rownum AS round FROM (
 				SELECT * FROM tl_x_open_lecture WHERE lecture_info_key = #{lecture_info_key}
 				ORDER BY open_date ASC
 			)t1
@@ -81,6 +91,19 @@
 		)t3 ON t2.condition_lecture_key = t3.lecture_info_key
 	</select>
 	
+	<select id="isOverlapDate" resultType="int">
+		SELECT COUNT(*) FROM (
+			SELECT * FROM tl_x_open_lecture
+			WHERE open_lecture_key = (
+				SELECT open_lecture_key FROM tl_x_lecture_student
+				WHERE life_student_key = #{life_student_key}
+			)
+		)t1
+		WHERE TO_CHAR((SELECT open_date FROM tl_x_open_lecture WHERE open_lecture_key = #{open_lecture_key}), 'yyyy-MM-dd')
+		BETWEEN TO_CHAR(t1.open_date, 'yyyy-MM-dd')
+		AND TO_CHAR(t1.close_date, 'yyyy-MM-dd')
+	</select>
+	
 	<select id="getLifeStudentKeyByExternalPk" resultType="int">
 		SELECT life_student_key FROM tl_x_life_student WHERE external_pk = #{external_pk}
 	</select>
@@ -94,7 +117,7 @@
 				WHERE TO_CHAR(SYSDATE, 'yyyy-MM-dd')
 				BETWEEN TO_CHAR(txol.start_apply, 'yyyy-MM-dd')
 				AND TO_CHAR(txol.end_apply, 'yyyy-MM-dd')
-				<if test="searchType != null and searchType.size != 1">
+				<if test="searchType != null and searchType.length != 0">
 					AND txli.lecture_category_key IN 
 					<foreach collection="searchType" item="arr" open="(" close=")" separator=",">
 						#{arr}
@@ -137,7 +160,7 @@
 			WHERE TO_CHAR(SYSDATE, 'yyyy-MM-dd')
 			BETWEEN TO_CHAR(txol.start_apply, 'yyyy-MM-dd')
 			AND TO_CHAR(txol.end_apply, 'yyyy-MM-dd')
-			<if test="searchType != null and searchType.size != 1">
+			<if test="searchType != null and searchType.length != 0">
 				AND txli.lecture_category_key IN 
 				<foreach collection="searchType" item="arr" open="(" close=")" separator=",">
 					#{arr}
@@ -171,6 +194,43 @@
 	
 	<select id="getLectureCategoryList" resultType="com.mkfactory.toothless.x.dto.LectureCategoryDto">
 		SELECT * FROM tl_x_lecture_category
+	</select>
+	
+	<select id="getLectureStudentKeyAndOpenLectureKeyByLifeStudentKey" resultType="map">
+		SELECT * FROM (
+			SELECT t2.*, rownum rnum FROM (
+				SELECT t1.lecture_student_key, t1.open_lecture_key FROM (
+					SELECT * FROM tl_x_lecture_student
+					WHERE life_student_key = #{life_student_key}
+				)t1
+				INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
+				<![CDATA[
+					WHERE TO_CHAR(txol.close_date, 'yyyy-MM-dd') < TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+				]]>
+			)t2
+		)t3
+		<![CDATA[
+			WHERE t3.rnum >= (#{pageNumber}-1)*10 + 1 AND t3.rnum <= #{pageNumber}*10
+		]]>
+	</select>
+	
+	<select id="getToTalReviewLectureCount" resultType="int">
+		SELECT COUNT(*) FROM (
+			SELECT * FROM tl_x_lecture_student
+			WHERE life_student_key = 21
+		)t1
+		INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
+		<![CDATA[
+			WHERE TO_CHAR(txol.close_date, 'yyyy-MM-dd') < TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		]]>
+	</select>
+	
+	<select id="isReviewRegister" resultType="int">
+		SELECT COUNT(*) FROM tl_x_lecture_review WHERE lecture_student_key = #{lecture_student_key}
+	</select>
+	
+	<select id="getLectureReviewInfoByLectureStudentKey" resultType="com.mkfactory.toothless.x.dto.LectureReviewDto">
+		SELECT * FROM tl_x_lecture_review WHERE lecture_student_key = #{lecture_student_key}
 	</select>
 
 </mapper>
