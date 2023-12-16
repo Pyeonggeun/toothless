@@ -41,6 +41,7 @@
 							
 						</div>
 					</div>
+					
 					<div class="row">
 						<div class="col justify-content-end">
 							<form action="./eduMainPageForStudent" method="get">
@@ -78,71 +79,129 @@
 							</form>
 						</div>
 					</div>
-					<div class="row mt-5">
+					
+					<div class="row mt-3">
 						<div class="col">
 							<div class="row fw-bold pb-1 border-bottom border-dark">
-								<div class="col-1 fw-bold" style="text-align: center;" >
-									<span>글번호</span>
-								</div>
-								<div class="col-4 fw-bold" style="text-align: center;" >
-									<span>프로그램명</span>
-								</div>
-								<div class="col-1 fw-bold" style="text-align: center;" >
-									<span>교육정원</span>
-								</div>
-								<div class="col fw-bold" style="text-align: center;" >
-									<span>신청기간</span>
-								</div>
-								<div class="col fw-bold" style="text-align: center;" >
-									<span>교육일</span>
-								</div>
-								<div class="col-1 fw-bold" style="text-align: center;" >
-									<span>작성자</span>
-								</div>
-								<div class="col-1 fw-bold" style="text-align: center;" >
-									<span>조회</span>
-								</div>
+								
 							</div>
+							
 							<c:forEach items="${list }" var="map">
 							<div class="row py-1 border-bottom">
 								<div class="col-1 align-self-center text-center"><!--글번호 -->
 									${map.eduDto.edu_pk }
 								</div>
-								<div class="col-4 align-self-center fw-bold" ><!-- 프로그램명 -->
-									<a href="./readEduProgPageForStudent?edu_pk=${map.eduDto.edu_pk}"
-									style="text-decoration: none;"
-									class="text-black">
-									${map.eduDto.name }
-									</a>
-								</div>
-								<div class="col-1 align-self-center text-center"><!-- 인원 -->
-									<span>${map.eduDto.capacity }</span>
-								</div>
-								<div class="col align-self-center text-center"><!-- 신청기간 -->
-									<span><fmt:formatDate
-									value="${map.eduDto.apply_start_date}"
-									pattern="yy. MM. dd"/></span>
-									~
-									<span><fmt:formatDate
-									value="${map.eduDto.apply_end_date}"
-									pattern="yy. MM. dd"/></span>
-								</div>
-								<div class="col align-self-center text-center"> <!-- 교육일 -->
-									<span><fmt:formatDate value="${map.eduDto.edu_date}"
-									pattern="yy. MM. dd."/></span>
-								</div>
 								
-								<div class="col-1 align-self-center text-center"> <!-- 작성자 -->
-									<span>${map.staffInfoDto.name }</span>
+								<div class="col-2 align-self-center fw-bold" ><!-- 이미지 -->
+									
+									<a href="./readEduProgPageForStudent?edu_pk=${map.eduDto.edu_pk}">
+										<img class="img img-fluid"
+										src="../../resources/img/healthRoom/edu/${map.eduDto.img_link }"
+										style="max-height: 220px; width: 180px;" >
+									</a>	
+
 								</div>
-								<div class="col-1 align-self-center text-center">
-									조회수
+
+								<!-- 프로그램 간단 정보 -->
+								<div class="col my-5 ps-5">
+
+									<div class="row">
+										<div class="col">
+											<h5>
+												<span class="badge px-3 text-white" 
+												style="background-color: #133369;">진행중
+												</span>
+												<span class="badge px-3 text-white" 
+												style="background-color: #F3AD12;">학생
+												</span>
+											</h5>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col">
+											
+											<span class="badge px-3 text-white" 
+											style="background-color: #007141; font-size: 14px;
+											border-radius: 100%;">
+											중앙
+											</span>
+											
+											<span class="col fw-bold" style="font-size: 20px;">
+												<a href="./readEduProgPageForStudent?edu_pk=${map.eduDto.edu_pk}"
+												style="text-decoration: none;"
+												class="text-black">
+												${map.eduDto.name }
+												</a>
+											</span>
+											
+										</div>
+									</div>
+
+									
+									
+									<div class="row">
+										<div class="col fw-bold align-self-center text-start"
+										style="font-size: 16px; color: #535D66;">
+											<span>신청기간</span>
+											<span><fmt:formatDate
+											value="${map.eduDto.apply_start_date}"
+											pattern="yy. MM. dd"/></span>
+											~
+											<span><fmt:formatDate
+											value="${map.eduDto.apply_end_date}"
+											pattern="yy. MM. dd"/></span>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col fw-bold align-self-center text-start"
+										style="font-size: 16px; color: #535D66;">
+											<span>교&nbsp;육&nbsp;&nbsp;일</span>
+											<span><fmt:formatDate
+											value="${map.eduDto.edu_date}"
+											pattern="yy. MM. dd"/></span>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col fw-bold align-self-center text-start"
+										style="font-size: 16px; color: #535D66;">
+											<span>모집인원</span>
+											<span>${map.eduDto.capacity }</span>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col fw-bold align-self-center text-start"
+										style="font-size: 16px; color: #535D66;">
+											<span>조&nbsp;회&nbsp;&nbsp;수</span>
+											<span>10</span>
+										</div>
+									</div>
+									
+									
+
+
 								</div>
+
+								<div class="col-2 align-self-center text-center">
+									<a href="./readEduProgPageForStudent?edu_pk=${map.eduDto.edu_pk}">
+										<img class="img-fluid" src="../../resources/img/healthRoom/edu/상세보기캡쳐.JPG"
+										style="max-height: 130px; width: 130px;"
+										>
+									</a>	
+								</div>
+
+
+
+								
 							</div>
 							</c:forEach>
 						</div>
 					</div>
 				</div> <!--교육목록 끝-->
+				
 				<div class="col"></div>
 			</div>
 			

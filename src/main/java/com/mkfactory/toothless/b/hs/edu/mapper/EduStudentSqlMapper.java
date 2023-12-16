@@ -2,6 +2,7 @@ package com.mkfactory.toothless.b.hs.edu.mapper;
 
 import java.util.List;
 import com.mkfactory.toothless.b.dto.EduApplyDto;
+import com.mkfactory.toothless.b.dto.EduDto;
 import com.mkfactory.toothless.b.dto.EduStsfcSurveyDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -26,5 +27,7 @@ public interface EduStudentSqlMapper {
 	public void insertMyServey(EduStsfcSurveyDto eduStsfcSurveyDto);
 	
 	
+	//프로그램번호로 전제 청보 가져오기
+	public EduDto selectEduInfoByEduPk(int edu_pk);
 	
 }

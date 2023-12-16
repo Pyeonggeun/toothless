@@ -12,6 +12,14 @@
 			SYSDATE
 		)
 	</insert>
+	
+	<select id="selectEduInfoByEduPk" resultType="com.mkfactory.toothless.b.dto.EduDto">
+		SELECT * FROM TL_B_EDU_INFO tbei 
+		WHERE EDU_PK = #{edu_pk}
+	</select>
+	 
+	
+	
 	<!-- 만족도 작성 -->
 	<insert id="insertMyServey">
 		INSERT INTO TL_B_EDU_STSFC_SURVEY VALUES(

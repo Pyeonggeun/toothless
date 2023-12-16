@@ -11,18 +11,25 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     	<title>교육 학생 상세페이지</title>
     	
-    	<!-- <style>
+    	<style>
 		    @font-face {
-    font-family: 'GangwonEdu_OTFBoldA';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
+			    font-family: 'TheJamsil5Bold';
+			    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+			    font-weight: 700;
+			    font-style: normal;
+			}
 			.sss{
-    font-family: 'GangwonEdu_OTFBoldA';
+			    font-family: 'TheJamsil5Bold';
 			 }
 			 
-    	</style> -->
+             @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+            .noto * { 
+            font-family: 'Noto Sans KR', sans-serif;
+            }
+
+
+    	</style>
     </head>
     <body>
         <div class="container-fluid">
@@ -51,7 +58,7 @@
                     <div class="row border-bottom ">
                         <div class="col-3 align-self-center my-3">
                             <img class="img img-fluid"
-                            src="/uploadFiles/eduImage/${qwer.eduDto.img_link }"
+                            src="../../resources/img/healthRoom/edu/${qwer.eduDto.img_link }"
                             style="max-height: 350px; width: 290px;" >
                         </div>
                         <div class="col px-0 mt-3">
@@ -72,13 +79,13 @@
                             </div>
 
                             <div class="row">
-                                <div class="col sss fw-bold" style="font-size: 1.5em;">
+                                <div class="col fw-bold" style="font-size: 1.5em;">
                                     ${qwer.eduDto.name }
                                 </div>
                             </div>
                             <div class="row my-2">
-                                <div class="col">
-                                    <span style="font-size: 18px;" class="fw-bold">
+                                <div class="col fw-bold">
+                                    <span style="font-size: 18px;">
                                         교육일자 &nbsp;
                                     </span> 
                                     <span style="font-size: 18px;">
@@ -90,8 +97,8 @@
                                 </div>
                             </div>
                             <div class="row my-2">
-                                <div class="col">
-                                    <span style="font-size: 18px;" class="fw-bold">
+                                <div class="col fw-bold">
+                                    <span style="font-size: 18px;">
                                         신청기간 &nbsp;
                                     </span> 
                                     <span style="font-size: 18px;">
@@ -106,12 +113,12 @@
                                 </div>
                             </div>
                             <div class="row my-2">
-                                <div class="col">
-                                    <span style="font-size: 18px;" class="fw-bold">
+                                <div class="col fw-bold" style="font-size: 18px;">
+                                    <span>
                                         모집인원 &nbsp;
                                     </span> 
-                                    <span style="font-size: 18px;">
-                                        ${qwer.eduDto.capacity} 명
+                                    <span>
+                                        ${qwer.eduDto.capacity}명
                                     </span>
                                 </div>
 
@@ -133,7 +140,7 @@
 
                             <!-- 상세내용 -->
                             <div class="row mt-4"> 
-                                <div class="col">
+                                <div class="col noto">
                                     
                                     <div class="row">
                                         <div class="col fw-bold" 
@@ -150,20 +157,20 @@
                                     
                                     <div class="row mt-1">
                                         <div class="col fw-bold"
-                                        style= "font-size: 18px;">
+                                        style= "font-size: 18px; color: #535D66;">
                                             *교육장소 ${qwer.eduDto.place }
                                         </div>
                                     </div> 
                                     <div class="row mt-1">
                                         <div class="col fw-semibold"
-                                        style="font-size: 18px; color: #363C48;">
+                                        style="font-size: 18px; color: #535D66;">
                                             *모집인원 ${qwer.eduDto.capacity }명
                                         </div>
                                     </div> 
                                    
                                     <div class="row mt-1">
                                         <div class="col fw-semibold text-secondary"
-                                        style="font-size: 18px;">
+                                        style="font-size: 18px; color: #535D66;">
                                             *신청방법<br>
                                             *강사<br>
                                             <br>
@@ -175,7 +182,7 @@
                                     <div class="row mt-4"> 
                                         <div class="col">
                                             <img class="img img-fluid"
-                                            src="/uploadFiles/eduImage/${qwer.eduDto.img_link }"
+                                            src="../../resources/img/healthRoom/edu/${qwer.eduDto.img_link }"
                                             style="max-height: 800px;">
                                         </div>
                                     </div>
@@ -185,7 +192,7 @@
 
                             
                             <div class="row"> 
-                                <div class="col"
+                                <div class="col fw-bold text-secondary"
                                 style="font-size: 18px; color: #363C48;">
                                     - 프로그램 운영 사진 및 영상물은 MK대학교 보건센터 홍보영상등으로 활용될 수 있습니다.<br>
                                     - 접수 취소시, 반드시 보건센터로 사전 연락 부탁드립니다.<br>
@@ -196,18 +203,18 @@
                                             <strong>불참시 프로그램 참여가 불가함</strong>
                                         </span>
 
-                                    을 안내드립니다.
+                                    을 안내드립니다.)
                                     </span>
                                     <br>
                                     <span style="font-size: 18px;">
-                                        문의 010 -6379-0626
+                                        문의 010-6379-0626
                                     </span>
                                     <br>
                                 </div>
                             </div>
                             
-                            <div class="row mt-5"> 
-                                <div class="col">
+                            <div class="row my-5"> 
+                                <div class="col fw-bold">
                                     작성자 ${qwer.staffInfoDto.name }<br>
                                     등록일
                                     <fmt:formatDate value="${qwer.eduDto.created_at}"
@@ -215,7 +222,8 @@
                                 </div>
                             </div>
                             <!---->
-                            <div class="row justify-content-end"> 
+                            <div class="row mt-5"> 
+                                <div class="col"></div>
                                 <div class="col-1 text-end pe-0">
                                     <button class="btn fw-bold" 
                                             style="background-color: #EFF0F2;" 
@@ -238,12 +246,13 @@
                                         </c:when>
                                     
                                         <c:otherwise>
-                                            <button class="btn fw-bold" style="background-color: #a6abb2;" disabled>
+                                            <button class="btn fw-bold" style="background-color: #a6abb2; border: none;" disabled>
                                                 프로그램 신청
                                             </button>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
+                                <div class="col"></div>
                             </div>
                             
                         </div>
@@ -259,7 +268,7 @@
             </div>
         </div>
 			
-                    <div class="row">
+                    <div class="row mt-5">
                         <div class="col">
                             <div class="row">
                                 <div class="col py-4" style="background-color: #F2F2F2;">
