@@ -32,8 +32,10 @@ public interface DormStaffMapperJw {
 	// 특정 학생 동정보
 	public DormBuildingDto selectDormByDormPk(int dorm_pk);
 	
-	// 전체 사생정보
+	// 사생정보
 	public List<DormStudentDto> selectAllDormStudentList();
+	public List<DormStudentDto> selectDormStudentListByDormPk(int dorm_pk);
+	
 	
 	// 진행중인 학기의 사생정보
 	public List<DormStudentDto> selectDormStudentByProgressSemester();

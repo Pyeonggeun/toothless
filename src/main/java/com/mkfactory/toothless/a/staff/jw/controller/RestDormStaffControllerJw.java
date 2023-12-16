@@ -149,4 +149,52 @@ public class RestDormStaffControllerJw {
 		
 		return restResponseDto;
 	}
+	
+	// 임원 배정 페이지 - 사생 현황
+	@RequestMapping("restGetAllDormStudent")
+	public RestResponseDto restGetAllDormStudent() {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> allDormList = dormStaffServiceJw.getAllDormStudentList();
+		
+		restResponseDto.setData(allDormList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	// 호실별 사생 현황
+	@RequestMapping("restGetAllDormStudentByDormPk")
+	public RestResponseDto restGetAllDormStudentByDormPk(int dorm_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> dormPkDormList = dormStaffServiceJw.getAllDormStudentListByDormPk(dorm_pk);
+		
+		restResponseDto.setData(dormPkDormList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("restRegisterExecutiveProcess")
+	public RestResponseDto restRegisterExecutiveProcess(int dorm_student_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		dormStaffServiceJw.registerExecutive(dorm_student_pk);
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;
+	}
+	
+	@RequestMapping("restdeleteExecutiveProcess")
+	public RestResponseDto restdeleteExecutiveProcess(int dorm_student_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		dormStaffServiceJw.deleteExecutive(dorm_student_pk);
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;
+	}
+	
+	
 }

@@ -99,9 +99,7 @@
 				buildingListBox.appendChild(buildingNameWrapper);
 			}
 			
-		});
-		
-		
+		})
 		
 	}
 	
