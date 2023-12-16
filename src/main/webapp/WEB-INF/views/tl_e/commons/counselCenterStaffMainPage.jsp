@@ -72,7 +72,7 @@
 				<a href="../groupcounsel/staff/groupCounselListPage" class="link-offset-2 link-underline link-underline-opacity-0" style="color: mediumblue;">more</a>
 			</div>
 			<div class="col-4">
-				<a href="../notice/noticeMainPage_Staff" class="link-offset-2 link-underline link-underline-opacity-0" style="color: mediumblue;">more</a>
+				<a href="../notice/noticeMainPage" class="link-offset-2 link-underline link-underline-opacity-0" style="color: mediumblue;">more</a>
 			</div>
 			<div class="col">
 				<a href="../freeboardCounsel/freeboardCounselPage" class="link-offset-2 link-underline link-underline-opacity-0" style="color: mediumblue;">more</a>
@@ -85,7 +85,7 @@
 		
 		<!-- 리스트 -->
 		
-			<!-- 집단상담 -->
+		<!-- 집단상담 -->
 		<div class="row mt">
 			<div class="col">
 				<c:forEach items="${groupCounselList }" var="groupCounselList">
