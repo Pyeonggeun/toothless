@@ -244,7 +244,20 @@ public class MedicineServiceImpl {
 		return medicineSqlMapper.restSelectedMedicineMgmtCatInfoByPk(medicine_mgmt_cat_pk);
 	}
 	
+	//rest add인포 연쇄 삭제
+	public void chainedDeleteAddinfo(int medicine_code_pk) {
+		medicineSqlMapper.chainedDeleteAddinfo(medicine_code_pk);
+	}
+	public void chainedDeleteInventoryInfo(int medicine_code_pk) {
+		medicineSqlMapper.chainedDeleteInventoryInfo(medicine_code_pk);
+	}
 	
+	//rest 재고정보가져오기
+	public List<Map<String, Object>> restInventoryInfoByPk(int medicine_code_pk){
+		
+		return medicineSqlMapper.restInventoryInfoByPk(medicine_code_pk);
+	}
+
 	
 	
 	

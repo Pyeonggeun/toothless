@@ -89,10 +89,10 @@
                         const QUANTITY = inventoryWrapper.querySelector(".QUANTITY");
                         QUANTITY.innerHTML = e.QUANTITY;
 
-                        const isQuantity = inventoryWrapper.querySelector(".isQuantity");
-                        if(e.isQuantity === undefined){
-                        isQuantity.innerHTML = "";
-                        }
+                        // const isQuantity = inventoryWrapper.querySelector(".isQuantity");
+                        // if(e.isQuantity === undefined){
+                        // isQuantity.innerHTML = "";
+                        // }
 
                         const M_NAME = inventoryWrapper.querySelector(".M_NAME");
                         M_NAME.innerHTML = e.M_NAME;
@@ -306,15 +306,14 @@
                                                 </div>
                                                 <div class="container">
 	                                                <div class="row mt-3 mb-1 pb-3 fw-bold text-center border-bottom border-3 border-primary">
-	                                                    <div class="col border-end border-primary">약품코드</div>
-	                                                    <div class="col border-end border-primary">의약품명</div>
-	                                                    <div class="col border-end border-primary">변동사유</div>
-	                                                    <div class="col border-end border-primary">변동수량</div>
-	                                                    <div class="col border-end border-primary">현재수량</div>
-	                                                    <div class="col border-end border-primary">재고관리자</div>
-	                                                    <div class="col border-primary">재고변경일</div>
+	                                                    <div class="col-2 border-end border-primary">약품코드</div>
+	                                                    <div class="col-2 border-end border-primary">의약품명</div>
+	                                                    <div class="col-2 border-end border-primary">변동사유</div>
+	                                                    <div class="col-2 border-end border-primary">변동수량</div>
+	                                                    <div class="col-2 border-end border-primary">재고관리자</div>
+	                                                    <div class="col-2 border-primary">재고변경일</div>
 	                                                </div>
-	                                                <div class="row mt-1 allInventoryLocation">
+	                                                <div class="mt-1 allInventoryLocation">
 	                                                    <!-- 여기에 반복문 나와야함-->
 	                                                </div>
                                                 </div>
@@ -352,13 +351,12 @@
         
         <div id = "templete" class="d-none">
             <div class="row mt-3 inventoryWrapper text-center border-bottom pb-3 border-primary">
-                <div class="col MEDICINE_CODE_PK">약품코드</div>
-                <div class="col MEDI_NAME">의약품명</div>
-                <div class="col M_TYPE">변동사유</div>
-                <div class="col QUANTITY">변동수량</div>
-                <div class="col isQuantity">현재수량</div>
-                <div class="col M_NAME">재고관리자</div>
-                <div class="col DATE text-right">재고변경일</div>
+                <div class="col-2 MEDICINE_CODE_PK">약품코드</div>
+                <div class="col-2 MEDI_NAME">의약품명</div>
+                <div class="col-2 M_TYPE">변동사유</div>
+                <div class="col-2 QUANTITY">변동수량</div>
+                <div class="col-2 M_NAME">재고관리자</div>
+                <div class="col-2 DATE text-right">재고변경일</div>
             </div>
         </div>
         
