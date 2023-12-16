@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.b.dto.ClinicPatientDto;
 import com.mkfactory.toothless.b.dto.ClinicPatientLogDto;
+import com.mkfactory.toothless.b.dto.DiseaseCodeDto;
+import com.mkfactory.toothless.b.dto.MedicineCodeDto;
 import com.mkfactory.toothless.b.dto.PrescriptionDto;
 import com.mkfactory.toothless.b.hn.clinic.mapper.ClinicSqlMapper;
 
@@ -152,6 +154,46 @@ public class ClinicServiceImpl {
 		map.put("prescriptionInfoList", list);
 		
 		return map;
+	}
+	
+	public List<DiseaseCodeDto> getDiseaseCodeInfoList() {
+		
+		return clinicSqlMapper.getDiseaseCodeInfoList();
+	}
+	
+	public List<MedicineCodeDto> getMedicineCodeInfoList(int[] selectMedicines) {
+		
+		return clinicSqlMapper.getMedicineCodeInfoList(selectMedicines);
+	}
+	
+	public int getMedicineMaxQuantity(int medicine_code_pk) {
+		
+		return clinicSqlMapper.getMedicineMaxQuantity(medicine_code_pk);
+	}
+	
+	public void insertClinicPatientLogInfo(ClinicPatientLogDto clinicPatientLogDto, List<PrescriptionDto> list) {
+		
+		int clinic_patient_log_pk = clinicSqlMapper.getClinicPatientlogPk();
+		clinicPatientLogDto.setClinic_patient_log_pk(clinic_patient_log_pk);
+		
+		if(list.size() != 1) {
+			for(PrescriptionDto prescriptionDto : list) {
+				
+				prescriptionDto.setClinic_patient_log_pk(clinic_patient_log_pk);
+				
+				clinicSqlMapper.insertPrescriptionInfo(prescriptionDto);
+				
+			}
+		}
+		
+		clinicSqlMapper.insertClinicPatientLogInfo(clinicPatientLogDto);
+		
+	}
+	
+	public void updateWaitingStatus(int clinic_patient_pk) {
+		
+		clinicSqlMapper.updateWaitingStatus(clinic_patient_pk);
+		
 	}
 
 }
