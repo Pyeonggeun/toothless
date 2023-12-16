@@ -66,7 +66,7 @@
 					const pointCategoryWrapper = document.querySelector("#templete .pointCategoryWrapper").cloneNode(true);
 					
 					const pointCategoryPk = pointCategoryWrapper.querySelector(".pointCategoryPk");
-					pointCategoryPk.innerText = e.point_category_pk;
+					pointCategoryPk.innerText = e.point_category_pk; 
 					
 					const pointCategoryContent = pointCategoryWrapper.querySelector(".pointCategoryContent");
 					pointCategoryContent.innerText = e.content;

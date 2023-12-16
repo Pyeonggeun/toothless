@@ -260,6 +260,29 @@
 			MINUS
 			SELECT tae.DORM_STUDENT_PK FROM TL_A_EXECUTIVE tae
 		)
+		ORDER BY tads.DORM_STUDENT_PK ASC
+	</select>
+	
+	<select id="selectDormStudentExceptExecuteByProgressSemesterAndDormPk" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT tads.*
+		FROM TL_JIC_STUDENT_INFO tjsi 
+		JOIN TL_A_DORM_STUDENT tads ON tads.STUDENT_PK = tjsi.STUDENT_PK
+		WHERE tads.DORM_STUDENT_PK IN (
+		    SELECT tads.DORM_STUDENT_PK
+		    FROM TL_A_SEMESTER tas
+		    JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK
+		    WHERE tas.PROGRESS_STATE = 'Y'
+		)
+		AND tads.DORM_STUDENT_PK IN (
+			SELECT tads.DORM_STUDENT_PK FROM TL_A_DORM_STUDENT tads 
+			MINUS
+			SELECT tae.DORM_STUDENT_PK FROM TL_A_EXECUTIVE tae
+		)
+		AND tads.DORM_ROOM_PK IN (
+			SELECT tadr.DORM_ROOM_PK FROM TL_A_DORM_ROOM tadr 
+			JOIN TL_A_DORM_BUILDING tadb ON tadr.DORM_PK = tadb.DORM_PK 
+			WHERE tadb.DORM_PK = #{DORM_PK}
+		)
 	</select>
 	
 	<select id="selectAllPointCategory" resultType="com.mkfactory.toothless.a.dto.PointCategory">

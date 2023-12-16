@@ -63,6 +63,7 @@ public interface DormStaffMapperJw {
 	public void insertPoint(PointDto pointDto);
 	public List<PointCategory> selectAllPointCategory();
 	public Integer sumPointByDormStudentPk(int dorm_student_pk);
+	public List<DormStudentDto> selectDormStudentExceptExecuteByProgressSemesterAndDormPk(int dorm_pk);
 	
 	// 상벌코드
 	public void insertPointCategory(PointCategory pointCategory);
