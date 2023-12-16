@@ -15,7 +15,7 @@
    </div>
    <div class="row" style="border-bottom: 0.01em solid #161313;">
        <div class="col py-3" style="font-size: large;">
-       <a href="./jw_exitApplyPage" style="text-decoration: none;">
+       <a href="./mainGaesipan" style="text-decoration: none;">
            <span style="color: black;">자유게시판</span></a>
        </div>
    </div>
@@ -33,7 +33,7 @@
    </div>
    <div class="row" style="border-bottom: 0.01em solid #161313;">
        <div class="col py-3" style="font-size: large;">
-       <a href="" style="text-decoration: none;">
+       <a href="#" style="text-decoration: none;">
            <span style="color: black;">고장수리요청</span></a>
        </div>
    </div>

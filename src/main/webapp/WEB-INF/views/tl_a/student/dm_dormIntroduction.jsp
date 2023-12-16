@@ -79,7 +79,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col ps-4" style="font-size: medium;">
-                                또 " ㅋㅋ " 는 건학이념을 기초로 미래의 주역으로 성장하게 될 관생들이 다양한 지식 축척과 인격도야는 물론 자치적으로 이루어지는 각종 문화행사를 통해 아름다운 <span class="fw-bold" style="color: #8C7430;">추억과 미래의 비전</span>을 세울 수 있는 좋은 기회의 공간입니다.
+                                건학이념을 기초로 미래의 주역으로 성장하게 될 관생들이 다양한 지식 축척과 인격도야는 물론 자치적으로 이루어지는 각종 문화행사를 통해 아름다운 <span class="fw-bold" style="color: #8C7430;">추억과 미래의 비전</span>을 세울 수 있는 좋은 기회의 공간입니다.
                             </div>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col ps-4 pe-5" style="font-size: medium;">
-                        다시 한 번 우리 기숙사 입사를 진심으로 축하드리며 <span class="fw-bold">관생 여러분들의 앞날과 학부모님의 가정에 하나님의 축복이 늘 함께 하시기를 소망합니다.</span>
+                        다시 한 번 우리 기숙사 입사를 진심으로 축하드리며 <span class="fw-bold">관생 여러분들의 앞날과 학부모님의 가정에 하나님의 축복이 늘 함께 하시기를 소망합니다... 화이팅..!</span>
                     </div>
                 </div>
              </div>    
