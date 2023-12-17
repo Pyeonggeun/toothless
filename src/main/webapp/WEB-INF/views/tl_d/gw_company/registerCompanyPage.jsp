@@ -8,6 +8,150 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <title>기업 등록 페이지</title>
+
+<script>
+	function companyFormSubmit() {
+		const companySubmit=document.getElementById("companySubmit");
+		
+		//여기서부터 회사
+		
+		//회사 규모 카테고리
+		const comScale=document.getElementById("comScale");
+		if(comScale.value=="기업규모를 선택해주세요"){
+			alert("기업 규모를 선택해 주세요.");
+			comScale.focus();
+			return;
+		}
+		
+		//사업자번호
+		const businessNumber=document.getElementById("businessNumber");
+		if(businessNumber.value==''){
+			alert("사업자 번호를 입력해 주세요.");
+			businessNumber.focus();
+			return;
+		}
+		
+		//회사명
+		const comName=document.getElementById("comName");
+		if(comName.value==''){
+			alert("회사 명을 입력해 주세요.");
+			comName.focus();
+			return;
+		}
+		
+		//회사 대표명
+		const comBossname=document.getElementById("comBossname");
+		if(comBossname.value==''){
+			alert("회사 대표 성함을 입력해 주세요.");
+			comBossname.focus();
+			return;
+		}
+	
+		//회사 주소명
+		const comAddress=document.getElementById("comAddress");
+		if(comAddress.value==''){
+			alert("회사 주소를 입력해 주세요.");
+			comAddress.focus();
+			return;
+		}
+		
+		//여기서부터 담당자
+		
+		//담당자 이름
+		const comManagerName=document.getElementById("comManagerName");
+		if(comManagerName.value==''){
+			alert("담당자 성함을 입력해 주세요.");
+			comManagerName.focus();
+			return;
+		}
+		
+		//담당자 이메일
+		const comManagerEmail=document.getElementById("comManagerEmail");
+		if(comManagerEmail.value==''){
+			alert("담당자 이메일 주소를 입력해 주세요.");
+			comManagerEmail.focus();
+			return;
+		}
+		
+		//담당자 부서
+		const comManagerDepartment=document.getElementById("comManagerDepartment");
+		if(comManagerDepartment.value==''){
+			alert("담당자 부서명을 입력해 주세요.");
+			comManagerDepartment.focus();
+			return;
+		}
+		
+		//담당자 직위
+		const comManagerPosition=document.getElementById("comManagerPosition");
+		if(comManagerPosition.value==''){
+			alert("담당자 직위를 입력해 주세요.");
+			comManagerPosition.focus();
+			return;
+		}
+		
+		//사무실 전화번호
+		const comDirectNumber=document.getElementById("comDirectNumber");
+		if(comDirectNumber.value==''){
+			alert("사무실 전화번호를 입력해 주세요.");
+			comDirectNumber.focus();
+			return;
+		}
+		
+		//담당자 휴대폰번호
+		const comManagerPhone=document.getElementById("comManagerPhone");
+		if(comManagerPhone.value==''){
+			alert("담당자 휴대폰 번호를 입력해 주세요.");
+			comManagerPhone.focus();
+			return;
+		}
+		
+		//여기서부터 기업 계정 가입 정보
+		
+		//외부인 계정 아이디
+		const externalId=document.getElementById("externalId");
+		if(comManagerEmail.value==''){
+			alert("담당자 이메일 주소를 입력해 주세요.");
+			comManagerEmail.focus();
+			return;
+		}
+		
+		const externalIdRegex = /^[a-zA-Z][a-zA-Z0-9_]*$/;
+		if(!externalIdRegex.test(externalId.value)){
+			alert("영문 대소문자, 숫자만 입력 가능합니다.");
+			externalId.focus();	
+			return ;
+		}
+		
+		//외부인 계정 비밀번호
+		const password=document.getElementById("password");
+		if(password.value==''){
+			alert("패스워드를 입력해주세요."); 
+			password.focus();
+			return;
+		}
+		 
+		//비밀번호 정규표현 에러
+		const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+		if(!passwordRegex.test(password.value)){
+			alert("영문 대소문자, 숫자, 특수문자(@,$,!,%,*,?,&)를 사용하여 비밀번호를 작성해주세요.");
+			password.value = "";
+			password.focus();
+			
+			return;
+		}
+		
+		//사업자번호 중복
+		//if(isCheckedBusinessNumber==false){
+		//	alert("사업자 등록번호를 확인해주세요.")
+		//	return;
+		//}
+		
+		companySubmit.submit();
+	}
+	
+	
+
+</script>
 </head>
 <body>
 
@@ -18,19 +162,19 @@
 		
 		<!-- 기업 정보 입력 -->
 		<div class="row mt-5 mb-2">
-			<div class="col text-center fw-bold">기업 소재</div>
+			<div class="col fs-5 text-center fw-bold">기업 소재</div>
 		</div>
 		
-		<form action="./registerCompanyProcess" method="post">
+		<form id="companySubmit" action="./registerCompanyProcess" method="post">
 			<div class="row">
 				<div class="col"></div>
-				<div class="col mt-3 border-top border-bottom border-light-subtle">
+				<div class="col mt-3 border-light-subtle">
 					
 					<!-- 기업 규모 입력 -->
 					<div class="row mt-3"> 
 						<div class="col"> 
 							<div class="row mb-1">기업규모</div>
-							<select class="form-select" name="com_scale_category_pk" >
+							<select id="comScale" class="form-select" name="com_scale_category_pk">
 							  <option disabled selected>기업규모를 선택해주세요</option>
 							  <c:forEach items="${comScaleList}" var="scale">
 							  	<option value="${scale.com_scale_category_pk}">${scale.com_scale_category_name}</option>
@@ -43,10 +187,11 @@
 					<div class="row mt-3">
 						<div class="col">
 							<div class="row mb-1">
-								사업자 등록번호 
+								사업자 등록번호
 							</div>
 							<div class="row">
-								<input type="text" name="business_number" class="form-control" placeholder="사업자 등록번호를 입력해주세요.">
+								<input onblur="checkBusinessNumberFetch()" id="businessNumber" type="text" name="business_number" class="form-control" placeholder="000-00-00000">
+								<div id="checkBusinessNumberResultBox"></div>
 							</div>
 						</div>
 					</div>
@@ -58,7 +203,7 @@
 								회사명
 							</div>
 							<div class="row">
-								<input type="text" name="com_name" class="form-control" placeholder="회사명을 입력해주세요.">
+								<input id="comName" type="text" name="com_name" class="form-control" placeholder="회사명을 입력해주세요.">
 							</div>
 						</div>
 					</div>
@@ -70,7 +215,7 @@
 								대표자 명 
 							</div>
 							<div class="row">
-								<input type="text" name="com_bossname" class="form-control" placeholder="대표자명을 입력해주세요.">
+								<input id="comBossname" type="text" name="com_bossname" class="form-control" placeholder="대표자명을 입력해주세요.">
 							</div>
 						</div>
 					</div>
@@ -82,7 +227,7 @@
 								주소 
 							</div>
 							<div class="row mb-3">
-								<input type="text" name="com_address" class="form-control" placeholder="주소를 입력해주세요.">
+								<input id="comAddress" type="text" name="com_address" class="form-control" placeholder="주소를 입력해주세요.">
 							</div>
 						</div>
 					</div>
@@ -94,54 +239,54 @@
 			</div>
 			
 			<!-- 기업 담당자 입력 -->
-			<div class="row mt-3 mb-2">
-				<div class="col text-center fw-bold">기업 담당자 등록</div>
+			<div class="row mt-3">
+				<div class="col fs-5 text-center fw-bold">기업 담당자 등록</div>
 			</div>
 			
 			
 			<div class="row">
 				<div class="col"></div>
-				<div class="col mt-3 border-top border-bottom border-light-subtle">
+				<div class="col mt-3 border-light-subtle">
 					
 					<!-- 담당자 이름 입력 -->
 					<div class="row mt-3">
 						<div class="col">
-							담당자 이름 <input type="text" name="com_manager_name" class="form-control" placeholder="담당자 명을 입력해주세요.">
+							담당자 이름 <input id="comManagerName" type="text" name="com_manager_name" class="form-control" placeholder="담당자 명을 입력해주세요.">
 						</div>
 					</div>
 					
 					<!-- 담당자 이메일 입력 -->
 					<div class="row mt-3">
 						<div class="col">
-							이메일 <input type="text" name="com_manager_email" class="form-control" placeholder="이메일을 입력해주세요.">
+							이메일 <input id="comManagerEmail" type="text" name="com_manager_email" class="form-control" placeholder="이메일을 입력해주세요.">
 						</div>
 					</div>
 					
 					<!-- 담당자 부서명 입력 -->
 					<div class="row mt-3">
 						<div class="col">
-							부서명 <input type="text" name="com_manager_department" class="form-control" placeholder="주소를 입력해주세요.">
+							부서명 <input id="comManagerDepartment" type="text" name="com_manager_department" class="form-control" placeholder="주소를 입력해주세요.">
 						</div>
 					</div>
 					
 					<!-- 담당자 직위 입력 -->
 					<div class="row mt-3">
 						<div class="col">
-							직위 <input type="text" name="com_manager_position" class="form-control" placeholder="직위를 입력해주세요.">
+							직위 <input id="comManagerPosition" type="text" name="com_manager_position" class="form-control" placeholder="직위를 입력해주세요.">
 						</div>
 					</div>
 					
 					<!-- 담당자 사무실 전화번호 입력 -->
 					<div class="row mt-3">
 						<div class="col">
-							사무실 전화번호 <input type="text" name="com_direct_number" class="form-control" placeholder="사무실 전화번호를 입력해주세요.">
+							사무실 전화번호 <input id="comDirectNumber" type="text" name="com_direct_number" class="form-control" placeholder="사무실 전화번호를 입력해주세요.">
 						</div>
 					</div>
 					
 					<!-- 담당자 휴대폰번호 입력 -->
 					<div class="row mt-3">
 						<div class="col mb-3">
-							핸드폰번호 <input type="text" name="com_manager_phone" class="form-control" placeholder="휴대폰 번호를 입력해주세요.">
+							핸드폰번호 <input id="comManagerPhone" type="text" name="com_manager_phone" class="form-control" placeholder="휴대폰 번호를 입력해주세요.">
 						</div>
 					</div>
 					
@@ -155,22 +300,23 @@
 			
 			<!-- 취업지원센터에서 사용할 아이디, 비밀번호 입력 -->
 			<div class="row mt-3 mb-2">
-				<div class="col text-center fw-bold">기업 계정 가입 정보</div>
+				<div class="col fs-5 text-center fw-bold">기업 계정 가입 정보</div>
 			</div>
 			
 			<div class="row">
 				<div class="col"></div>
-				<div class="col mt-3 border-top border-bottom border-light-subtle">
+				<div class="col mt-3 border-light-subtle">
 					
 					<div class="row mt-2">
-						
+						 
 						<div class="row">
-							ID <input type="text" name="external_id" class="form-control" placeholder="로그인시 사용할 ID를 입력해주세요.">
+							ID <input onblur="checkexternalIdFetch()" id="externalId" type="text" name="external_id" class="form-control" placeholder="로그인시 사용할 ID를 입력해주세요.">
+							<div id="checkExternalIdResultBox"></div>
 						</div>
 					</div>
 					<div class="row mt-3">
 						<div class="row mb-3">
-							PW <input type="text" name="password" class="form-control" placeholder="로그인시 사용할 password를 입력해주세요.">
+							PW <input id="password" type="text" name="password" class="form-control" placeholder="로그인시 사용할 password를 입력해주세요.">
 						</div>
 					</div>
 					
@@ -183,7 +329,7 @@
 			
 				
 				<div class="col"></div>
-				<div class="col d-grid"><input class="btn btn-primary" type="submit" value="가입하기"></div>
+				<div class="col d-grid"><input class="btn btn-primary" onclick="companyFormSubmit()" value="가입하기"></div>
 				<div class="col"></div>
 				
 			</div>

@@ -196,5 +196,14 @@
 		AND IS_PUBLIC ='Y'
 		ORDER BY main_resume DESC
 	</select>
+	
+	<!-- 기업 가입할때 사업자번호 중복확인 -->
+	<select id="countByBusinessNumber" resultType="int">
+		SELECT COUNT(*) FROM tl_d_company WHERE business_number=#{business_number}
+	</select>
+	<!-- 가입할때 아이디 중복확인 -->
+	<select id="countByExternalId" resultType="int">
+		SELECT COUNT(*) FROM tl_jic_external_info WHERE external_id=#{external_id}
+	</select>
 
 </mapper>

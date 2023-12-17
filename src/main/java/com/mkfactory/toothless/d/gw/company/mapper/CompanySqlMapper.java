@@ -84,4 +84,13 @@ public interface CompanySqlMapper {
 	
 	//가족기업용 학생 메인 이력서
 	public List<ResumeDto> resumeListForFamilyCompany();
+	
+	
+	//중복확인용
+	
+	//사업자번호 중복확인
+	public int countByBusinessNumber(String business_number);
+	
+	//외부인계정 아이디 중복확인
+	public int countByExternalId(String external_id);
 }
