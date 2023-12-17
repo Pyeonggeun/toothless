@@ -125,8 +125,8 @@
                                                     </a>
                                                 </div>
                                                 <div class="col">
-                                                    <a href="#" class="text-black" style="text-decoration: none;">
-                                                    x
+                                                    <a href="./dm_roomAssignment" class="text-black" style="text-decoration: none;">
+                                                    ${assignedDormStudentCount }
                                                     </a>
                                                 </div>
                                                 <div class="col-1"></div>
@@ -146,7 +146,7 @@
                                                     납부완료</a>
                                                 </div>
                                                 <div class="col">
-                                                    <a href="#" class="text-black" style="text-decoration: none;">
+                                                    <a href="./dm_roomAssignment" class="text-black" style="text-decoration: none;">
                                                     배정완료</a>
                                                 </div>
                                                 <div class="col-1"></div>

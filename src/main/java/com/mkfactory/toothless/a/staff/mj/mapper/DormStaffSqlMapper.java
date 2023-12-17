@@ -93,5 +93,8 @@ public interface DormStaffSqlMapper {
 	public int countMinusPointDormStudent();
 	public int countTodayExit();
 	public int countTodayCallAbsence();
+	
+	// 현재 배정 인원 ㅋ왜 나만한개야
+	public int assignedDormStudentCount();
 
 }

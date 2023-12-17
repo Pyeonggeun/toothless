@@ -107,6 +107,9 @@ public class DormStaffControllerMj {
 		model.addAttribute("countTodayExit", staffService.getCountTodayExit());
 		model.addAttribute("countTodayCallAbsence", staffService.getCountTodayCallAbsence());
 		
+		//사생 배정 인원 수
+		model.addAttribute("assignedDormStudentCount", staffService.assignedDormStudentCount());
+		
 		return "tl_a/staff/mj_mainPage";
 	}
 	
