@@ -25,6 +25,7 @@ import com.mkfactory.toothless.x.dto.LectureCategoryDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
 import com.mkfactory.toothless.x.dto.LifeLecturerDto;
 import com.mkfactory.toothless.x.dto.LifeStudentDto;
+import com.mkfactory.toothless.x.dto.OpenLectureDto;
 import com.mkfactory.toothless.x.dto.PossibleLectureDto;
 import com.mkfactory.toothless.x.mj.mapper.LifeStaffSqlMapper;
 
@@ -296,6 +297,7 @@ public class LifeStaffServiceImpl {
 		
 		lifeStaffSqlMapper.insertCategory(lectureCategoryDto);
 	}
+
 	
 	// 교육과정 카테고리 정보 삭제
 	public void deleteCategory(int lecture_category_key) {
@@ -303,13 +305,32 @@ public class LifeStaffServiceImpl {
 		lifeStaffSqlMapper.deleteCategory(lecture_category_key);
 	}
 	
-	// 교육과정 카테고리 정보 삭제되면 그 카테고리 수업들도 삭제
+	// 교육과정 카테고리 정보 삭제되면 그 카테고리 수업들/가능정보도 삭제
 	public void deleteLectureListByCategoryKey(int lecture_category_key) {
 		
 		lifeStaffSqlMapper.deleteLectureListByCategoryKey(lecture_category_key);
+		lifeStaffSqlMapper.deletePossibleByCategoryKey(lecture_category_key);
 	}
 	
+	// ================여기부터 강의관련===================
+	
+	// 카테고리별 수업리스트
+	public List<LectureInfoDto> getLectureListByCategory(int lecture_category_key) {
+		
+		return lifeStaffSqlMapper.getLectureListByCategory(lecture_category_key);
+	}
+	
+	// 카테고리별 강사리스트
+	public List<LifeLecturerDto> getTeacherListByCategory(int lecture_category_key) {
+		
+		return lifeStaffSqlMapper.getTeacherListByCategory(lecture_category_key);
+	}
 
+	// 신규 강의 개설
+	public void insertOpenLecture(OpenLectureDto openLectureDto) {
+		
+		lifeStaffSqlMapper.insertOpenLecture(openLectureDto);
+	}
 	
 	
 	

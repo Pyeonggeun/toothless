@@ -15,6 +15,7 @@ import com.mkfactory.toothless.x.dto.LectureCategoryDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
 import com.mkfactory.toothless.x.dto.LifeLecturerDto;
 import com.mkfactory.toothless.x.dto.LifeStudentDto;
+import com.mkfactory.toothless.x.dto.OpenLectureDto;
 import com.mkfactory.toothless.x.dto.PossibleLectureDto;
 
 public interface LifeStaffSqlMapper {
@@ -114,8 +115,17 @@ public interface LifeStaffSqlMapper {
 	// 교육과정 카테고리 정보 삭제되면 그 카테고리 수업들도 삭제
 	public void deleteLectureListByCategoryKey(int lecture_category_key);
 	
-
+	// 교육과정 카테고리 정보 삭제되면 그 카테고리 가능 정보들도 삭제
+	public void deletePossibleByCategoryKey(int lecture_category_key);
 	
+	// 카테고리별 강의 리스트
+	public List<LectureInfoDto> getLectureListByCategory(int lecture_category_key);
+	
+	// 카테고리별 강사 리스트
+	public List<LifeLecturerDto> getTeacherListByCategory(int lecture_category_key);
+	
+	// 신규강의 개설
+	public void insertOpenLecture(OpenLectureDto openLectureDto);
 	
 	
 	

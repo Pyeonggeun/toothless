@@ -217,7 +217,7 @@
 	<!-- 특정 강의 정보 -->
 	<select id="selectSomeLectureInfo" resultType="com.mkfactory.toothless.x.dto.LectureInfoDto">
 		SELECT * FROM TL_X_LECTURE_INFO
-		WHERE LECTURE_INFO_KEY = #{lecture_category_key}
+		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
 	</select>
 	
 	<!-- 강의정보 수정 -->
@@ -284,10 +284,45 @@
 		WHERE LECTURE_CATEGORY_KEY = #{lecture_category_key}
 	</delete>
 	
+	<!-- 교육과정 카테고리 정보 삭제되면 그 카테고리 가능하다했떤 정보들도 삭제 -->
+	<delete id="deletePossibleByCategoryKey">
+		DELETE FROM TL_X_POSSIBLE_LECTURE
+		WHERE LECTURE_CATEGORY_KEY = #{lecture_category_key}
+	</delete>
 	
 	
+	<!-- 카테고리별 강의리스트 -->
+	<select id="getLectureListByCategory" resultType="com.mkfactory.toothless.x.dto.LectureInfoDto">
+		SELECT * FROM TL_X_LECTURE_INFO
+		WHERE LECTURE_CATEGORY_KEY = #{lecture_category_key}
+		ORDER BY TOTAL_HOUR ASC, CREDIT ASC, LECTURE_INFO_KEY asc
+	</select>
 	
 	
+	<!-- 카테고리별 강사 리스트 -->
+	<select id="getTeacherListByCategory" resultType="com.mkfactory.toothless.x.dto.LifeLecturerDto">
+		SELECT * FROM TL_X_LIFE_LECTURER ll
+		WHERE LECTURER_KEY IN (
+			SELECT LECTURER_KEY FROM TL_X_POSSIBLE_LECTURE pl
+			WHERE LECTURE_CATEGORY_KEY = #{lecture_category_key}
+		)
+		ORDER BY name ASC, LECTURER_KEY ASC
+	</select>
+	
+	<!-- 신규 강의 개설 -->
+	<insert id="insertOpenLecture">
+		INSERT INTO tl_x_open_lecture VALUES( 
+		   tl_x_open_lecture_seq.nextval,
+		   #{lecture_info_key},
+		   #{lecturer_key},
+		   #{max_student},
+		   #{start_apply},
+		   #{end_apply},
+		   #{open_date},
+		   #{close_date},
+		   SYSDATE
+		)
+	</insert>
 	
 	
 	

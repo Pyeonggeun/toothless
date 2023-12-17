@@ -23,6 +23,7 @@ import com.mkfactory.toothless.x.dto.LectureCategoryDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
 import com.mkfactory.toothless.x.dto.LifeLecturerDto;
 import com.mkfactory.toothless.x.dto.LifeStudentDto;
+import com.mkfactory.toothless.x.dto.OpenLectureDto;
 import com.mkfactory.toothless.x.dto.PossibleLectureDto;
 import com.mkfactory.toothless.x.mj.service.LifeStaffServiceImpl;
 
@@ -347,6 +348,47 @@ public class RestLifeStaffControllerMj {
 		
 		lifeStaffService.insertCategory(params);
 
+		restResponseDto.setResult("success");
+		return restResponseDto;	
+	}
+
+	
+	
+	// =================여기부터 개설 강의 관련========================
+	// 카테고리별 수업리스트
+	@RequestMapping("getLectureListByCategory")
+	public Mj_RestResponseDto getLectureListByCategory(int lecture_category_key) {
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+		
+		List<LectureInfoDto> lectureListByCategory = lifeStaffService.getLectureListByCategory(lecture_category_key);
+		restResponseDto.addData("lectureListByCategory", lectureListByCategory);
+		
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;	
+	}
+	
+	// 카테고리별 수업가능한 강사리스트
+	@RequestMapping("getTeacherListByCategory")
+	public Mj_RestResponseDto getTeacherListByCategory(int lecture_category_key) {
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+		
+		List<LifeLecturerDto> teacherListByCategory = lifeStaffService.getTeacherListByCategory(lecture_category_key);
+		restResponseDto.addData("teacherListByCategory", teacherListByCategory);
+		
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;	
+	}
+	
+
+	// 신규 강의개설
+	@RequestMapping("registerOpenLectureProcess")
+	public Mj_RestResponseDto registerOpenLectureProcess(OpenLectureDto params) {
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+		
+		lifeStaffService.insertOpenLecture(params);
+		
 		restResponseDto.setResult("success");
 		return restResponseDto;	
 	}

@@ -65,93 +65,6 @@
 	}
 	
 	
-	// 정보 등록
-	function registerLectureInfo(){
-
-		// 미입력 필드를 담을 배열
-	    const emptyFields = [];
-
-	    // 값이 비어있는지 확인
-	    
-	    // ** radio - 교육과정정보
-	    if (!document.querySelector('input[name="lecture_category_key"]:checked')) {
-		    emptyFields.push("교육과정명을 선택해주세요.");
-		}
-	    
-	    // 수업정보
-	    if (!document.getElementById("lectureName").value.trim()) {
-	        emptyFields.push("수업명을 입력해주세요.");
-	    }
-	    if (!document.getElementById("total_hour").value.trim()) {
-	        emptyFields.push("총 수업시간을 입력해주세요.");
-	    }
-	    if (!document.querySelector('input[name="credit"]:checked')) {
-	        emptyFields.push("학점을 입력해주세요.");
-	    }
-	    if (!document.getElementById("essential_attendance").value.trim()) {
-	        emptyFields.push("출석 수료조건을 입력해주세요.");
-	    }
-	    if (!document.getElementById("essential_grade").value.trim()) {
-	        emptyFields.push("성적 수료조건을 입력해주세요.");
-	    }
-	    if (!document.getElementById("study_target").value.trim()) {
-	        emptyFields.push("교육대상을 입력해주세요.");
-	    }
-	    if (!document.getElementById("need_knowledge").value.trim()) {
-	        emptyFields.push("선수지식을 입력해주세요.");
-	    }
-	    if (!document.getElementById("study_goal").value.trim()) {
-	        emptyFields.push("교육목표를 입력해주세요.");
-	    }
-	    if (!document.getElementById("study_content").value.trim()) {
-	        emptyFields.push("교육내용을 입력해주세요.");
-	    }
-
-	    
-	    // 미입력 필드가 있다면 알림 표시
-	    if (emptyFields.length > 0) {
-		    const missingFieldsMessage = emptyFields[0];
-		    alert(missingFieldsMessage);
-		    return;
-		}
-	    
-	    
-	    
-
-		// 입력된 값 모으기(body로 간결하게 보내보자) == map이랑 비슷한뎅?
-		const inputLectureInfo = new FormData();
-		
-	    inputLectureInfo.append("lecture_category_key", document.querySelector('input[name="lecture_category_key"]:checked').value);
-	    inputLectureInfo.append("credit", document.querySelector('input[name="credit"]:checked').value); 
-		
-	    inputLectureInfo.append("name", document.getElementById("lectureName").value);
-	    inputLectureInfo.append("total_hour", document.getElementById("total_hour").value);
-	    inputLectureInfo.append("essential_attendance", document.getElementById("essential_attendance").value);
-	    inputLectureInfo.append("essential_grade", document.getElementById("essential_grade").value);
-	    inputLectureInfo.append("study_target", document.getElementById("study_target").value);
-	    inputLectureInfo.append("need_knowledge", document.getElementById("need_knowledge").value);
-	    inputLectureInfo.append("study_goal", document.getElementById("study_goal").value);		
-	    inputLectureInfo.append("study_content", document.getElementById("study_content").value);		
-
-		
-		const url = "./registerLectureProcess";
-		
-		fetch(url, {
-			method: "post",
-			headers: {
-				"Content-Type": "application/x-www-form-urlencoded"
-			},
-			body: new URLSearchParams(inputLectureInfo)
-		})
-		.then(response => response.json())	
-		.then(response => {
-		    alert("정보 등록이 완료되었습니다.");
-		    manageLectureInfoPage();
-		});
-
-	}
-	
-	
 	// 전역변수 - 교육과정 리스트
 	let lectureCategoryList;
 	
@@ -165,54 +78,187 @@
 			// 교육과정 리스트
 			lectureCategoryList = response.data.lectureCategoryList;
 			
-			// categoryBox찾기
-			const categoryBox = document.getElementById("categoryBox");
-			categoryBox.innerHTML = "";
+			// sel_one찾기
+			const sel_one = document.getElementById("sel_one");
+			sel_one.innerHTML = "";
 			
 			/* 만들기
-			<c:forEach items="${lectureCategoryList}" var="item">
-				<div class="form-check form-check-inline">
-				  <input class="form-check-input" type="radio" name="lecture_category_key" value="lecture_category_key">
-				  <label class="form-check-label">"category_name"</label>
-				</div>
-			</c:forEach>
+			<select id="sel_one" class="form-select rounded-0">
+			  <option selected>교육과정을 선택하세요.</option>
+				  <c:forEach items="${lectureCategoryList}" var="item">
+				  	<option value="1">One</option>
+				  </c:forEach>
+			</select>
+			
 			*/
 			
-			let count = 0;
+			//  <option selected>교육과정을 선택하세요.</option> 만들기
+			const optionTag = document.createElement("option");
+			optionTag.selected = true;
+			optionTag.innerText = "교육과정을 선택하세요.";
+			sel_one.add(optionTag);
 			
+			/*  만들기
+			<c:forEach items="${lectureCategoryList}" var="item">
+			  	<option value="카테고리번호">카테고리명</option>
+			</c:forEach>
+			*/
 			lectureCategoryList.forEach(item => {
-				const divTag = document.createElement("div");
-				divTag.classList.add("form-check", "form-check-inline");
+		        const optionTag = document.createElement("option");
+		        optionTag.value = item.lecture_category_key;
+		        optionTag.innerText = item.category_name;
+		        sel_one.add(optionTag);
+		    });
 			    
-			    const inputTag = document.createElement("input");
-			    inputTag.classList.add("form-check-input");
-			    inputTag.type = "radio";
-			    inputTag.name = "lecture_category_key";
-			    inputTag.value = item.lecture_category_key;
-			    
-			    const labelTag = document.createElement("label");
-			    labelTag.classList.add("form-check-label");
-			    labelTag.innerText = item.category_name;
-			    
-			    divTag.appendChild(inputTag);
-			    divTag.appendChild(labelTag);
-			    
-			    categoryBox.appendChild(divTag);
-			    
-			    count++;
-			    if (count == 9) {
-			    	categoryBox.appendChild(document.createElement("br"));
-			        count = 0; 
-			    }
-			    
-			});
-			
 		});
+			
 	}
 	
 	
+	// 카테고리에 따른 하위 셀렉트박스
+	function selectChild(){ 
+		
+        let oneSel = document.getElementById("sel_one").value;
+        
+     	// 카테고리에 따른 하위 수업명들
+		fetch("./getLectureListByCategory?lecture_category_key=" + oneSel)
+		.then(response => response.json())
+		.then(response => {
+			
+			const lectureListByCategory = response.data.lectureListByCategory;
+			
+			// 선택된 값에 따라 자식 셀렉트박스 업데이트
+	        let childSelect = document.getElementById("sel_two");
+	        childSelect.innerHTML = ""; // 자식 셀렉트박스 초기화
+	        
+	        const optionTag = document.createElement("option");
+			optionTag.selected = true;
+			optionTag.innerText = "개설할 수업 정보를 선택하세요.";
+			childSelect.appendChild(optionTag);
+	        
+	     	// 자식 셀렉트박스에 옵션 추가
+	        lectureListByCategory.forEach(item => {
+	            const optionTag = document.createElement("option");
+	            optionTag.value = item.lecture_info_key;
+	            optionTag.innerText = item.name;
+	            childSelect.appendChild(optionTag);
+	        });
+	        
+	        // 첫번째꺼 선택되면 두번째꺼 포커스해서 사용자에게 선택하라는 느낌적인 느낌...
+	        childSelect.focus();
+			
+		});
+		
+	}
+	
+	
+	// 수업명에 따른 하위 셀렉트박스
+	function selectSecondChild(){ 
+		
+		let oneSel = document.getElementById("sel_one").value;
+        console.log(oneSel);
+        
+     	// 수업명에 따른 강사선택 (== 카테고리에 따른 수업가능한 강사리스트겠지!!!)
+		fetch("./getTeacherListByCategory?lecture_category_key=" + oneSel)
+		.then(response => response.json())
+		.then(response => {
+			
+			const teacherListByCategory = response.data.teacherListByCategory;
+			
+			// 선택된 값에 따라 자식 셀렉트박스 업데이트
+	        let teacherSelect = document.getElementById("sel_teacher");
+	        teacherSelect.innerHTML = ""; // 자식 셀렉트박스 초기화
+	        
+	        const optionTag = document.createElement("option");
+			optionTag.selected = true;
+			optionTag.innerText = "담당할 강사를 선택하세요.";
+			teacherSelect.appendChild(optionTag);
+	        
+	     	// 자식 셀렉트박스에 옵션 추가
+	        teacherListByCategory.forEach(item => {
+	            const optionTag = document.createElement("option");
+	            optionTag.value = item.lecturer_key;
+	            optionTag.innerText = item.name;
+	            teacherSelect.appendChild(optionTag);
+	        });
+	        
+	        // 첫번째꺼 선택되면 두번째꺼 포커스해서 사용자에게 선택하라는 느낌적인 느낌...
+	        teacherSelect.focus();
+			
+		});
+     	
+     	// ++ 수업명이 선택되면 수업정보(수업시간 / 학점) 자동 업데이트하기
+     	let twoSel = document.getElementById("sel_two").value;
+        console.log(twoSel);
+     	
+    	fetch("./getSomeLectureInfo?lecture_info_key=" + twoSel)
+		.then(response => response.json())
+		.then(response => {
+			
+			someLectureInfoBySelect = response.data.someLectureInfo;
+			document.getElementById("total_hourByLecture").innerText = "총 " + someLectureInfoBySelect.total_hour + "시간";
+			document.getElementById("creditBylecture").innerText = someLectureInfoBySelect.credit + "학점";
+		
+		});
+		
+	}
+	
+	let someLectureInfoBySelect;
+	
+	// 선택된 개강일 날짜로부터 평일개수만 추가하는 코드.... 그렇군
+	function addWeekdays(date, days) {
+         const resultDate = new Date(date);
+         
+         let addedDays = 0;
+         while (addedDays < days) {
+             resultDate.setDate(resultDate.getDate() + 1);
+             
+             const dayOfWeek = resultDate.getDay();
+             if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+                 addedDays++;
+             }
+         }
+         return resultDate;
+     }
+	
+	
+	function autoEndDate(){ 
+		
+		// 총수업일자가 아직 안나왔다면 개강일 선택시 강의먼저 선택하라고 ㄱㄱ
+        if (!someLectureInfoBySelect || !someLectureInfoBySelect.total_hour) {
+	        alert("수업 정보를 먼저 선택하세요.");
+	        document.getElementById("open_date").value = "";
+	        return;
+	    }
+		
+    	// 개강일의 값 가져오기
+        let openDateValue = document.getElementById("open_date").value;
+
+        // 만약 개강일이 선택되지 않았다면 종강일도 비움
+        if (!openDateValue) {
+            document.getElementById("end_date").value = "";
+            return;
+        }
+        
+        
+        // 개강일
+        let openDate = new Date(openDateValue);
+        
+        // 총수업시간 / 8 = 수업일수
+        let studyDays = (someLectureInfoBySelect.total_hour / 8);
+
+        // 평일만 추가해서 종강일 계산(개강일 포함하려고 -1함)
+        let endDate = addWeekdays(openDate, studyDays - 1);
+
+        // 계산된 종강일을 문자열로 변환하여 종강일 입력 필드에 설정... 사람들은 참 똑똑하다!
+        document.getElementById("end_date").valueAsDate = endDate;
+    
+	}
+	
+	
+	
 	// 교육과정 등록 탭 보여주기
-	function registerLecturePage(){
+	function registerOpenLecturePage(){
 		
 		showCategoryList();
 
@@ -241,6 +287,101 @@
 		tab2.classList.remove("active");  
 		
 	}
+	
+	
+	// 정보 등록
+	function registerOpenLectureInfo(){
+
+		/*
+		// 미입력 필드를 담을 배열
+	    const emptyFields = [];
+
+	    // 값이 비어있는지 확인
+	    if (!document.getElementById("teacherName").value.trim()) {
+	        emptyFields.push("이름을 입력해주세요.");
+	    }
+	    // ** radio
+	    if (!document.querySelector('input[name="gender"]:checked')) {
+		    emptyFields.push("성별을 선택해주세요.");
+		}
+	    if (!document.getElementById("birth").value.trim()) {
+	        emptyFields.push("생년월일 입력해주세요.");
+	    }
+	    if (!document.getElementById("resident_id").value.trim()) {
+	        emptyFields.push("주민등록번호를 입력해주세요.");
+	    }
+	    // ** selectBox
+	    if (document.getElementById("external_pk").selectedIndex == 0) {
+	        emptyFields.push("외부아이디를 선택해주세요.");
+	    }
+	    if (!document.getElementById("external_pk").value.trim()) {
+	        emptyFields.push("외부아이디를 선택해주세요.");
+	    }
+	    if (!document.getElementById("address").value.trim()) {
+	        emptyFields.push("주소를 입력해주세요.");
+	    }
+	    if (!document.getElementById("phone").value.trim()) {
+	        emptyFields.push("전화번호를 입력해주세요.");
+	    }
+	    if (!document.getElementById("email").value.trim()) {
+	        emptyFields.push("이메일을 입력해주세요.");
+	    }
+	    // ** checkBox
+	    if (!document.querySelectorAll('input[name="lecture_category_key"]:checked').length > 0) {
+		    emptyFields.push("강의 가능한 교육과정을 선택해주세요.");
+		}
+	    if (!document.getElementById("entered_at").value.trim()) {
+	        emptyFields.push("입사일을 입력해주세요.");
+	    }
+
+	    
+	    // 미입력 필드가 있다면 알림 표시
+	    if (emptyFields.length > 0) {
+		    const missingFieldsMessage = emptyFields[0];
+		    alert(missingFieldsMessage);
+		    return;
+		}
+	    */
+	    
+
+	    
+		// 입력된 값 모으기(body로 간결하게 보내보자) == map이랑 비슷한뎅?
+		const inputOpenLectureInfo = new FormData();
+		
+		// 셀렉트박스/날짜는 그냥 똑같이 넘기면 되지요~
+		inputOpenLectureInfo.append("lecture_info_key", document.getElementById("sel_two").value);
+		inputOpenLectureInfo.append("lecturer_key", document.getElementById("sel_teacher").value);
+		
+		// 값 넘기기
+		inputOpenLectureInfo.append("max_student", document.getElementById("max_student").value);
+		inputOpenLectureInfo.append("start_apply", document.getElementById("start_apply").value);
+		inputOpenLectureInfo.append("end_apply", document.getElementById("end_apply").value);
+		inputOpenLectureInfo.append("open_date", document.getElementById("open_date").value);
+		inputOpenLectureInfo.append("close_date", document.getElementById("end_date").value);
+		
+		
+
+		
+		const url = "./registerOpenLectureProcess";
+		
+		fetch(url, {
+			method: "post",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded"
+			},
+			body: new URLSearchParams(inputOpenLectureInfo)
+		})
+		.then(response => response.json())	
+		.then(response => {
+		    alert("신규 강의가 개설되었습니다.");
+		    manageOpenLectureInfoPage();
+		    
+		});
+	}
+	
+
+	
+	
 	
 	// 교육과정 목록 관리(추가/삭제 등등..)
 	function manageLectureList(){
@@ -346,10 +487,10 @@
 	
 	
 	// 교육과정 조회/수정 탭 보여주기
-	function manageLectureInfoPage(){
+	function manageOpenLectureInfoPage(){
 
 		// 이 함수가 실행되고나서 리스트를 가져오게해야 정보 등록 후에 그 정보를 들고 올 수 있을듯~ 
-		readLectureInfoList();
+		readOpenLectureInfoList();
 		searchConditionByLectureList();
 		
 		// 복붙 양식
@@ -432,7 +573,7 @@
 	
 	
 	// 강의 목록 가져오기
-	function readLectureInfoList() {
+	function readOpenLectureInfoList() {
 
 		fetch("./getAllLectureInfoList")
 		.then(response => response.json())
@@ -858,7 +999,7 @@
 	//	--> 함수가 실행이 안되면 값을 못 가져오는거...
 	window.addEventListener("DOMContentLoaded", () => {
 		searchConditionByLectureList();
-		registerLecturePage();
+		registerOpenLecturePage();
 	});
 	
 	
@@ -901,7 +1042,7 @@
 	<!-- 카테고리명 -->
 	<div class="commonTitle">
 		<div class="col fs-4 fw-bold">
-			교육과정 관리
+			강의 관리
 		</div>
 	</div>
 	
@@ -910,10 +1051,13 @@
 		<div class="col fw-bold text-center py-2 mb-3">
 			<ul class="nav nav-tabs">
 			  <li class="nav-item">
-			    <a id="tab1" class="nav-link text-black" onclick="registerLecturePage()">과정 등록</a>
+			    <a id="tab1" class="nav-link text-black" onclick="registerOpenLecturePage()">강의 개설</a>
 			  </li>
 			  <li class="nav-item">
-			    <a id="tab2" class="nav-link text-black" onclick="manageLectureInfoPage()">조회/수정</a>
+			    <a id="tab2" class="nav-link text-black" onclick="manageOpenLectureInfoPage()">조회/수정</a>
+			  </li>
+			  <li class="nav-item">
+			    <a id="tab2" class="nav-link text-black">진행상황</a>
 			  </li>
 			</ul>
 		</div>
@@ -921,7 +1065,7 @@
 </div>
 
 
-<!-- 강사등록 탭 -->
+<!-- 등록 탭 -->
 <div id="registerInfoTab" class="d-none">
 	<div class="info row">
     	<div class="col">
@@ -931,39 +1075,13 @@
 				<div class="row text-center">
 					<div class="col-3"></div>
 					<div class="col fw-bold fs-3 my-2">
-						교육과정 등록
+						신규 강의 개설
 					</div>
-					<div class="col-3 text-end me-3">
-						<button onclick="manageLectureList()" type="button" class="btn my-2 px-3 rounded-0 text-white" style="background-color: #003399">
-						교육과정 목록 관리
-						</button>
-					</div>
+					<div class="col-3"></div>
 				</div>
 				
 				<!-- 강사 학력정보 -->
 				<div class="row mt-2 ms-2">
-					<div class="col fw-bold" style="font-size: 0.9em;">
-						<i class="bi bi-dot"></i>교육과정 정보
-						<span class="ms-3 text-danger" style="font-size: 0.8em;">*는 필수 입력사항입니다.</span>
-					</div>
-				</div>
-				
-				<!-- 정보/양식 -->
-				<div class="row border border-dark rounded-0 m-3 mt-1 text-center">
-					<div class="col">
-						<div class="row border-top border-bottom border-dark  bg-secondary bg-opacity-10">
-							<div class="col-2 align-self-center py-2 fw-bold">
-								<span class="text-danger" style="font-size: 0.8em;">*</span>교육과정명
-							</div>
-							<div id="categoryBox" class="col py-2 text-start border-start border-dark bg-white">
-								<!-- 수업 카테고리에서 끌고오기, value에 lecture_category_key를 넣을 수 있을까?-->
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<!-- 강사 기본정보 -->
-				<div class="row mt-5 ms-2">
 					<div class="col fw-bold" style="font-size: 0.9em;">
 						<i class="bi bi-dot"></i>기본 수업 정보
 						<span class="ms-3 text-danger" style="font-size: 0.8em;">*는 필수 입력사항입니다.</span>
@@ -973,80 +1091,138 @@
 				<!-- 정보/양식 -->
 				<div class="row border border-dark rounded-0 m-3 mt-1 text-center">
 					<div class="col">
-						<div class="row border-top border-bottom border-dark bg-secondary bg-opacity-10">
-							<div class="col-2 py-2 fw-bold ">
+						<div class="row border-top border-bottom border-dark  bg-secondary bg-opacity-10">
+							<div class="col-2 align-self-center py-2 fw-bold">
 								<span class="text-danger" style="font-size: 0.8em;">*</span>수업명
 							</div>
-							<div class="col py-2 d-grid border-start border-dark bg-white">
-								<input class="d-grid border rounded-0" id="lectureName" type="text"></input>
+							<div id="selectBoxOne" class="col-4 py-2 ps-2 pe-0 border-start border-dark bg-white">
+								<select id="sel_one" onchange="selectChild()" class="form-select rounded-0">
+								  <option selected>교육과정을 선택하세요.</option>
+								  <option value="1">One</option>
+								  <option value="2">Two</option>
+								  <option value="3">Three</option>
+								</select>
+							</div>
+							<div id="selectBoxTwo" class="col py-2 ps-0 pe-2 bg-white">
+								<select id="sel_two" onchange="selectSecondChild()" class="form-select rounded-0">
+								  <option selected>개설할 수업 정보를 선택하세요.</option>
+								  <option value="1">One</option>
+								  <option value="2">Two</option>
+								  <option value="3">Three</option>
+								</select>
 							</div>
 						</div>
 						<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
-							<div class="col-2 py-2 border-dark fw-bold ">
-								<span class="text-danger" style="font-size: 0.8em;">*</span>총 수업시간
+							<div class="col-2 py-2 fw-bold ">
+								총 수업시간
 							</div>
-							<div class="col-4 py-2 border-end border-start border-dark d-grid bg-white">
-								<input class="border rounded-0" id="total_hour" type="number" placeholder="8의 배수로 입력하세요.">
+							<div id="total_hourByLecture" class="col-4 py-2 text-center border-end border-start border-dark d-grid bg-white">
+								<!-- 값 들고오기 -->
 							</div>
-							<div class="col-2 py-2 border-end border-dark fw-bold">
-								<span class="text-danger" style="font-size: 0.8em;">*</span>학  점
+							<div class="col-2 py-2 fw-bold">
+								학  점
 							</div>
-							<div class="col-4 py-2 text-start bg-white">
-								<input type="radio" name="credit" id="radio1" value="2">
-								<label for="radio1">2학점</label>
-								<input class="ms-5" type="radio" name="credit" id="radio2" value="3">
-								<label for="radio2">3학점</label>
+							<div id="creditBylecture" class="col-4 py-2 text-center bg-white border-start border-dark">
+								<!-- 값들고오기 -->
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 강사 기본정보 -->
+				<div class="row mt-5 ms-2">
+					<div class="col fw-bold" style="font-size: 0.9em;">
+						<i class="bi bi-dot"></i>강의 개설 정보
+						<span class="ms-3 text-danger" style="font-size: 0.8em;">*는 필수 입력사항입니다.</span>
+					</div>
+				</div>
+				
+				<!-- 정보/양식 -->
+				<div class="row border border-dark rounded-0 m-3 mt-1 text-center">
+					<div class="col">
+						<div class="row border-top border-bottom border-dark bg-secondary bg-opacity-10">
+							<div class="col-2 py-2 fw-bold align-self-center">
+								<span class="text-danger" style="font-size: 0.8em;">*</span>담당 강사명
+							</div>
+							<div id="selectTeacherBox" class="col-4 py-2 bg-white border-start border-end border-dark">
+								<select id="sel_teacher" class="form-select rounded-0">
+								  <option selected>담당할 강사를 선택하세요.</option>
+								  <option value="1">One</option>
+								  <option value="2">Two</option>
+								  <option value="3">Three</option>
+								</select>
+							</div>
+							<div class="col-2 py-2  fw-bold align-self-center">
+								<span class="text-danger" style="font-size: 0.8em;">*</span>최대 수강인원
+							</div>
+							<div class="col-4 py-2 d-grid bg-white border-start border-dark">
+								<input class="border rounded-0" id="max_student" type="number" placeholder="정수로 입력하세요.">
 							</div>
 						</div>
 						<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
-							<div class="col-2 py-2 border-dark">
-								<span class="text-danger" style="font-size: 0.8em;">*</span>
-								<span class="fw-bold">출석</span>
-								<span style="font-size: 0.8em">(수료조건)</span>
+							<div class="col-2 py-2 fw-bold align-self-center">
+								<span class="text-danger" style="font-size: 0.8em;">*</span>수강신청 시작일
 							</div>
-							<div class="col-4 py-2 border-end border-start border-dark d-grid bg-white">
-								<input class="border rounded-0" id="essential_attendance" type="number" placeholder="정수로 입력하세요.">
+							<div class="col-4 py-2 border-start border-end border-dark d-grid bg-white">
+								<input class="border rounded-0 py-2" id="start_apply" type="date">
 							</div>
-							<div class="col-2 py-2 border-end border-dark fw-bold">
-								<span class="text-danger" style="font-size: 0.8em;">*</span>
-								<span class="fw-bold">성적</span>
-								<span style="font-size: 0.8em">(수료조건)</span></div>
-							<div class="col-4 py-2 d-grid bg-white">
-								<input class="border rounded-0" id="essential_grade" type="number" placeholder="정수로 입력하세요.">
+							<div class="col-2 py-2 fw-bold align-self-center">
+								<span class="text-danger" style="font-size: 0.8em;">*</span>수강신청 종료일
+							</div>
+							<div class="col-4 py-2 d-grid bg-white border-start border-dark">
+								<input class="border rounded-0 py-2" id="end_apply" type="date">
 							</div>
 						</div>
 						<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
-							<div class="col-2 align-self-center py-2 fw-bold">
-								<span class="text-danger" style="font-size: 0.8em;">*</span>교육 대상
+							<div class="col-2 py-2 fw-bold align-self-center">
+								<span class="text-danger" style="font-size: 0.8em;">*</span>개강일
 							</div>
-							<div class="col py-2 border-start border-dark text-start bg-white">
-								<textarea rows="2" class="w-100 border rounded-0" id="study_target"></textarea>
+							<div class="col-4 py-2 border-start border-end border-dark d-grid bg-white">
+								<input class="border rounded-0 py-2" onchange="autoEndDate()" id="open_date" type="date">
+							</div>
+							<div class="col-2 py-2 fw-bold align-self-center">
+								종강일 <span style="font-size: 0.8em;">(자동계산)</span>
+							</div>
+							<div class="col-4 py-2 d-grid bg-white border-start border-dark">
+								<input class="border rounded-0 py-2" id="end_date" type="date">
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 강사 기본정보 -->
+				<div class="row mt-5 ms-2">
+					<div class="col fw-bold" style="font-size: 0.9em;">
+						<i class="bi bi-dot"></i>강의 추가 정보
+					</div>
+				</div>
+				
+				<!-- 정보/양식 -->
+				<div class="row border border-dark rounded-0 m-3 mt-1 text-center">
+					<div class="col">
+						<div class="row border-top border-bottom border-dark bg-secondary bg-opacity-10">
+							<div class="col-2 py-2 fw-bold align-self-center">
+								수업 시간
+							</div>
+							<div id="selectTeacherBox" class="col-4 py-2 d-grid bg-white border-start border-end border-dark">
+								<input class="border rounded-0 py-1" type="text"></input>
+							</div>
+							<div class="col-2 py-2 fw-bold align-self-center">
+								수강료
+							</div>
+							<div class="col-4 py-2 d-grid bg-white border-start border-dark">
+								<input class="border py-1 rounded-0" type="number" placeholder="정수로 입력하세요."></input>
 							</div>
 						</div>
 						<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
-							<div class="col-2 align-self-center py-2 fw-bold">
-								<span class="text-danger" style="font-size: 0.8em;">*</span>선수 지식
+							<div class="col-2 py-2 fw-bold align-self-center">
+								수강 장소
 							</div>
-							<div class="col py-2 border-start border-dark text-start bg-white">
-								<textarea rows="2" class="w-100 border rounded-0" id="need_knowledge"></textarea>
-							</div>
-						</div>
-						<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
-							<div class="col-2 align-self-center py-2 fw-bold">
-								<span class="text-danger" style="font-size: 0.8em;">*</span>교육 목표
-							</div>
-							<div class="col py-2 border-start border-dark text-start bg-white">
-								<textarea rows="5" class="w-100 border rounded-0" id="study_goal"></textarea>
+							<div class="col py-2 border-start border-dark d-grid bg-white">
+								<input class="border py-1 rounded-0" type="text"></input>
 							</div>
 						</div>
-						<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
-							<div class="col-2 align-self-center py-2 fw-bold">
-								<span class="text-danger" style="font-size: 0.8em;">*</span>교육 내용
-							</div>
-							<div class="col py-2 border-start border-dark text-start bg-white">
-								<textarea rows="15" class="w-100 border rounded-0" id="study_content"></textarea>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 				
@@ -1066,7 +1242,7 @@
 		<div class="col-5"></div>
         <div class="col px-0 text-end">
 			<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary">임시 저장</button>
-        	<button id="inputButton" onclick="registerLectureInfo()" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
+        	<button id="inputButton" onclick="registerOpenLectureInfo()" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
         </div>                    
     </div>
 </div>
