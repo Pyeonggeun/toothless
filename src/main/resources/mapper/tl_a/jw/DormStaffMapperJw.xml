@@ -6,7 +6,8 @@
 
 	<!-- 전체 외출현황 -->
 	<select id="selectExitList" resultType="com.mkfactory.toothless.a.dto.ExitDto">
-		SELECT * FROM tl_a_exit ORDER BY DORM_STUDENT_PK ASC
+		SELECT * FROM TL_A_EXIT
+		ORDER BY EXIT_DATE ASC
 	</select>
 	
 	<!-- ?동 외출현황 -->

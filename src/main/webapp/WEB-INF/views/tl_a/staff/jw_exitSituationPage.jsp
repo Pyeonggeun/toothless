@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,10 +75,12 @@
 					<table class="table table-bordered text-center align-middle">
 						<thead>
 							<tr class="align-middle border-bottom border-2">
-								<th scope="col" class="col-2 text-bg-light">이름</th>
-								<th scope="col" class="col-2 text-bg-light">기숙사명</th>
-								<th scope="col" class="col-2 text-bg-light">호</th>
-								<th scope="col" class="col-6 text-bg-light">사유</th>
+								<th scope="col" class="col-1 text-bg-light">이름</th>
+								<th scope="col" class="col-1 text-bg-light">기숙사명</th>
+								<th scope="col" class="col-1 text-bg-light">호</th>
+								<th scope="col" class="col-5 text-bg-light">사유</th>
+								<th scope="col" class="col-2 text-bg-light">외출/외박 일</th>
+								<th scope="col" class="col-2 text-bg-light">외출/외박 신청일</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -89,6 +91,8 @@
 								<td>${exitListMap.dormBuildingDto.name}</td>
 								<td>${exitListMap.dormRoomDto.room_name}</td>
 								<td>${exitListMap.exitDto.reason}</td>
+								<td><fmt:formatDate value="${exitListMap.exitDto.exit_date}" pattern="yyyy-MM-dd" /></td>
+								<td><fmt:formatDate value="${exitListMap.exitDto.apply_create_at}" pattern="yyyy-MM-dd" /></td>
 							</tr>
 							</c:forEach>
 						</tbody>
