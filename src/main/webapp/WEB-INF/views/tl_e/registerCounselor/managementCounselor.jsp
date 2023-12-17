@@ -102,12 +102,15 @@
 		const searchCategoryValue = document.getElementsByClassName("categoryOption");
 		
 		for(let e = 0 ; e < searchCategoryValue.length ; e++){
-			if(searchCategoryValue[e].checked){
+			if(searchCategoryValue[e].checked && searchCategoryValue[e].value !== "0" && searchCategoryValue[e].value !== "on"){
 				searchCategoryValueList.push(searchCategoryValue[e].value);
 			}
 		}
-		
-		return searchCategoryValueList;
+		if(searchCategoryValueList.length > 0){
+			return searchCategoryValueList;			
+		}else{
+			return [];	
+		}
 	}
 	
 	function searchCounselor(){
@@ -155,6 +158,22 @@
 		
 	}
 	
+	function doUncheck(target){
+		
+		const categoryOptionAll = document.getElementById("categoryOptionAll");
+		const selectOptionList = document.querySelectorAll(".searchCategoryOption .categoryOption:not(#categoryOptionAll)");
+		
+		const isAllChecked = Array.from(selectOptionList).every(option => option.checked);
+		
+		if(target.checked == false){			
+			categoryOptionAll.checked = false;
+		}else{
+			if(isAllChecked){
+				categoryOptionAll.checked = true;
+			}
+		}	
+	}
+	
 	
 	function reloadSearchTypeCategory(){
 		fetch("./reloadSearchTypeCategory")
@@ -186,7 +205,8 @@
 				
 				const categoryOption = searchCategoryOption.querySelector(".categoryOption");
 				categoryOption.setAttribute("id", "categoryOption" + e.id);			
-				categoryOption.setAttribute("value", e.id);				
+				categoryOption.setAttribute("value", e.id);
+				categoryOption.setAttribute("onclick", "doUncheck(this)");
 				
 				const categoryLabel = searchCategoryOption.querySelector(".categoryLabel");				
 				categoryLabel.setAttribute("for", "categoryOption" + e.id);				
@@ -436,7 +456,6 @@
 		getStaffInfo()
 		reloadCounselorList()
 		reloadSearchTypeCategory()
-		
 	});
 	
 </script>
@@ -551,8 +570,12 @@
 				<div class="row mt-5">
 					<div class="col">
 						<div class="row">
-							<div class="col border-bottom">
-								<span class="fw-bold fs-2">상담원 목록</span>	
+							<div class="col">
+								<div class="row">
+									<div class="col border-bottom pb-2">
+										<span class="fw-bold fs-2">상담원 목록</span>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="row">
