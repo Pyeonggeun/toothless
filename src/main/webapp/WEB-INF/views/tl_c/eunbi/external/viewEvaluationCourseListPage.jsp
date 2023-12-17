@@ -454,7 +454,7 @@
 												<div id="studentInternForm">
 												<div class="row mt-2" style="height:15em">
 													<div class="col border-secondary border-top border-bottom overflow-y-scroll">
-														<div class="row text-center border-bottom border-secondary py-1 fw-semibold" style=" background-color:#e4e4eb">
+														<div class="row text-center border-bottom border-secondary py-1 fw-semibold" style="background-color:#e4e4eb">
 															<div class="col-1 border-end">
 																학번
 															</div>
