@@ -74,7 +74,8 @@
 	
 	<!-- 검색 카테고리 -->
 	<select id="joinedCompanyList" resultType="map">
-		SELECT * FROM tl_c_company_info tci
+		SELECT tci.COMPANY_PK, tcc.COMPANY_CATEGORY_NAME, tci.COMPANY_NAME, tci.CEO_NAME, tci.ADDRESS, tci.PHONE
+		FROM tl_c_company_info tci
 		INNER JOIN tl_c_company_category tcc ON tci.COMPANY_CATEGORY_PK  = tcc.COMPANY_CATEGORY_PK
 		WHERE 1=1
 		<if test="searchType != null">
