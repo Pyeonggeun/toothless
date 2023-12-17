@@ -107,7 +107,7 @@
                                                     선발 현황
                                                 </div>
                                             </div>
-                                            <div class="row mt-4 fs-4 fw-bold text-center">
+                                            <div class="row pt-2 mt-4 fs-4 fw-bold text-center">
                                                 <div class="col-1"></div>
                                                 <div class="col">
                                                     <a href="./mj_readApplyDormInfoPage" class="text-black" style="text-decoration: none;">
@@ -164,19 +164,19 @@
                         	<div class="row">
                         		<div class="col ps-5 pt-2 pe-2">
 		                            <div class="col bg-white rounded-4 border border-light-subtle" style="height: 220px;">
-		                                <div class="row ms-3 mt-3">
+		                                <div class="row ms-4 mt-4">
 		                                	<div class="col fs-5 fw-bold">
 		                                		임원 관리
 		                                	</div>
 		                                </div>
-                                        <div class="row ms-3 mt-1">
+                                        <div class="row ms-4 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
 		                                		 ${thisSemester.semester_year} ${thisSemester.semester} <%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
-		                                <div class="row mt-4">
+		                                <div class="row pt-2">
 		                                	<div class="col">
-		                                		<div class="row justify-content-between">
+		                                		<div class="row mt-4 justify-content-between">
 		                                			<div class="col-1"></div>
 		                                			<div class="col fw-lighter text-start align-self-center">임원 현황</div>
 		                                			<div class="col fw-bold fs-4 text-end">${countExecutive}
@@ -198,19 +198,19 @@
 		                        </div>
                         		<div class="col ps-2 pb-2 pt-2 pe-2">
 		                            <div class="col bg-white rounded-4 border border-light-subtle" style="height: 220px;">
-		                                <div class="row ms-3 mt-3">
+		                                <div class="row ms-4 mt-4">
 		                                	<div class="col fs-5 fw-bold">
 		                                		상/벌점 관리
 		                                	</div>
 		                                </div>
-		                                <div class="row ms-3 mt-1">
+		                                <div class="row ms-4 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
 		                                		${thisSemester.semester_year} ${thisSemester.semester} <%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
-                                        <div class="row mt-4">
+                                        <div class="row pt-2">
 		                                	<div class="col">
-		                                		<div class="row justify-content-between">
+		                                		<div class="row mt-4 justify-content-between">
 		                                			<div class="col-1"></div>
 		                                			<div class="col fw-lighter text-start align-self-center">장학금 대상</div>
 		                                			<div class="col fw-bold fs-4 text-end">${countPlusPointDormStudent}
@@ -236,19 +236,19 @@
                         	<div class="row">
                         		<div class="col ps-2 pb-4 pt-2 pe-2">
 		                            <div class="col bg-white rounded-4 border border-light-subtle" style="height: 220px;">
-		                                <div class="row ms-3 mt-3">
+		                                <div class="row ms-4 mt-4">
 		                                	<div class="col fs-5 fw-bold">
 		                                		외출/외박 현황
 		                                	</div>
 		                                </div>
-		                                <div class="row ms-3 mt-1">
+		                                <div class="row ms-4 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
 		                                		${thisSemester.semester_year} ${thisSemester.semester} <%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
-		                                <div class="row mt-4">
+		                                <div class="row pt-2">
 		                                	<div class="col">
-		                                		<div class="row justify-content-between">
+		                                		<div class="row mt-4 justify-content-between">
 		                                			<div class="col-1"></div>
 		                                			<div class="col fw-lighter text-start align-self-center">외출/외박 인원</div>
 		                                			<div class="col fw-bold fs-4 text-end">${countTodayExit}
@@ -262,19 +262,19 @@
 		                        </div>
                         		<div class="col ps-2 pb-2 pt-2 pe-5">
 		                            <div class="col bg-white rounded-4 border border-light-subtle" style="height: 220px;">
-		                                <div class="row ms-3 mt-3">
+		                                <div class="row ms-4 mt-4">
 		                                	<div class="col fs-5 fw-bold">
 		                                		점호 참석 현황
 		                                	</div>
 		                                </div>
-		                                <div class="row ms-3 mt-1">
+		                                <div class="row ms-4 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
 		                                		${thisSemester.semester_year} ${thisSemester.semester} <%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
-		                                <div class="row mt-4">
+		                                <div class="row pt-2">
 		                                	<div class="col">
-		                                		<div class="row justify-content-between">
+		                                		<div class="row mt-4 justify-content-between">
 		                                			<div class="col-1"></div>
 		                                			<div class="col fw-lighter text-start align-self-center">
 			                                				불참 인원
