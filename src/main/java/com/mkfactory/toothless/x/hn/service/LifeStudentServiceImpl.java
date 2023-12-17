@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.x.dto.LectureCategoryDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
+import com.mkfactory.toothless.x.dto.LectureReviewDto;
 import com.mkfactory.toothless.x.dto.LectureStudentDto;
 import com.mkfactory.toothless.x.dto.OpenLectureDto;
 import com.mkfactory.toothless.x.hn.mapper.LifeStudentSqlMapper;
@@ -98,6 +99,11 @@ public class LifeStudentServiceImpl {
 		return isSatisfaction;
 	}
 	
+	public boolean isOverlapDate(int open_lecture_key, int life_student_key) {
+		
+		return lifeStudentSqlMapper.isOverlapDate(open_lecture_key, life_student_key) > 0 ? true : false;
+	}
+	
 	public int getLifeStudentKey(int external_pk) {
 		
 		return lifeStudentSqlMapper.getLifeStudentKeyByExternalPk(external_pk);
@@ -141,6 +147,43 @@ public class LifeStudentServiceImpl {
 	public List<LectureCategoryDto> getLectureCategoryList() {
 		
 		return lifeStudentSqlMapper.getLectureCategoryList();
+	}
+	
+	public List<Map<String, Object>> getReviewLectureList(int pageNumber, int life_student_key) {
+		
+		List<Map<String, Object>> list = lifeStudentSqlMapper.getLectureStudentKeyAndOpenLectureKeyByLifeStudentKey(pageNumber, life_student_key);
+		
+		for(Map<String, Object> map : list) {
+			
+			int open_lecture_key = ((BigDecimal)map.get("OPEN_LECTURE_KEY")).intValue();
+			int lecture_student_key = ((BigDecimal)map.get("LECTURE_STUDENT_KEY")).intValue();
+			
+			OpenLectureDto openLectureDto = lifeStudentSqlMapper.getOpenLectureInfoByOpenLectureKey(open_lecture_key);
+			LectureInfoDto lectureInfoDto = lifeStudentSqlMapper.getLectureInfoByLectureInfoKey(openLectureDto.getLecture_info_key());
+			
+			map.put("lectureName", lectureInfoDto.getName());
+			map.put("categoryName", lifeStudentSqlMapper.getLectureCategoryNameByLectureCategoryKey(lectureInfoDto.getLecture_category_key()));
+			map.put("round", lifeStudentSqlMapper.getLectureRoundByLectureInfoKeyAndOpenLectrueKey(openLectureDto.getLecture_info_key(), open_lecture_key));
+			map.put("isReviewRegister", lifeStudentSqlMapper.isReviewRegister(lecture_student_key) > 0 ? true : false);
+			
+		}
+		
+		return list;
+	}
+	
+	public int getTotalReviewLectureCount(int life_student_key) {
+		
+		return lifeStudentSqlMapper.getToTalReviewLectureCount(life_student_key);
+	}
+	
+	public LectureReviewDto getLectureReviewInfo(int lecture_student_key) {
+		
+		return lifeStudentSqlMapper.getLectureReviewInfoByLectureStudentKey(lecture_student_key);
+	}
+	
+	public void insertLectureReviewInfo(LectureReviewDto lectureReviewDto) {
+		
+		lifeStudentSqlMapper.insertLectureReviewInfo(lectureReviewDto);
 	}
 
 }

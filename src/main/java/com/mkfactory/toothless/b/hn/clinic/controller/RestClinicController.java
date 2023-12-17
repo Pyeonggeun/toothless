@@ -166,8 +166,8 @@ public class RestClinicController {
 		
 		B_RestResponseDto restResponseDto = new B_RestResponseDto();
 		
-//		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
-//		params.setStaff_pk(staffInfoDto.getStaff_pk());
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		params.setStaff_pk(staffInfoDto.getStaff_pk());
 		
 		List<PrescriptionDto> list = new ArrayList<>();
 		
@@ -193,6 +193,28 @@ public class RestClinicController {
 		
 		clinicService.updateWaitingStatus(clinic_patient_pk);
 		
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("isAreadyWaiting")
+	public B_RestResponseDto isAreadyWaiting(int clinic_patient_pk) {
+		
+		B_RestResponseDto restResponseDto = new B_RestResponseDto();
+		
+		restResponseDto.setData(clinicService.isAreadyWaiting(clinic_patient_pk));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("isAlreadyPatient")
+	public B_RestResponseDto isAlreadyPatient(String resident_id) {
+		
+		B_RestResponseDto restResponseDto = new B_RestResponseDto();
+		
+		restResponseDto.setData(clinicService.isAlreadyPatient(resident_id));
 		restResponseDto.setResult("success");
 		
 		return restResponseDto;

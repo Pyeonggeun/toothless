@@ -68,6 +68,20 @@ public class LifeStaffControllerMj {
 		return "tl_x/mj/manageStudentPage2";
 	}
 	
+	// 교육과정관리 페이지로 (등록 탭)
+	@RequestMapping("manageLecturePage")
+	public String manageLecturePage() {
+		
+		return "tl_x/mj/manageLecturePage";
+	}
+	
+	// 교육과정관리 페이지2로 (조회/수정 탭)
+	@RequestMapping("manageLecturePage2")
+	public String manageLecturePage2() {
+		
+		return "tl_x/mj/manageLecturePage2";
+	}
+	
 	
 	
 	

@@ -245,5 +245,12 @@
 		WHERE TO_CHAR(CREATED_AT, 'YYYYMMDD') = 
 		TO_CHAR(SYSDATE, 'YYYYMMDD')
 	</select>
+	<!-- 현재 배정 현황 -->
+	
+	<select id="assignedDormStudentCount" resultType="int">
+	
+		SELECT count(*) FROM TL_A_DORM_STUDENT
+	
+	</select>
 
 </mapper>

@@ -23,7 +23,10 @@
     		});
 			
 		}
-     	
+     	function getOpenLecutreDto() {
+     		sessionStorage.setItem()
+     		
+		}
      	
      	function loadMyOpenLectureList(lecturer_key) {
      		
@@ -41,7 +44,15 @@
     				open_lecture_key.innerText = e.openLectureDto.open_lecture_key;
     				
     				const name = openLectureWrapper.querySelector(".name");
-					name.innerText = e.lectureInfoDto.name;
+    				name.innerText ="";
+    				const nameAtag = document.createElement("a");
+    				nameAtag.setAttribute("href", "./lectureManagementPage?open_lecture_key="+e.openLectureDto.open_lecture_key);
+    				
+    				nameAtag.classList.add("navbar-brand");
+    				
+    				nameAtag.innerText = e.lectureInfoDto.name;
+    				name.appendChild(nameAtag);
+
 					
 					const roundCount = openLectureWrapper.querySelector(".roundCount");
 					roundCount.innerText = e.roundCount;
@@ -86,7 +97,7 @@
     				const lectureStudentListBox =document.querySelector(".lectureStudentListBox");
     				
     				const name = openLectureWrapper.querySelector(".name");
-    				name.innerText = e.name;
+    				name.innerText = e.lifeStudentDto.name;
     				
     				lectureStudentListBox.appendChild(openLectureWrapper);
     				
@@ -105,7 +116,7 @@
      		const open_lecture_key = document.querySelector("#open_lecture_key");
 			
 			open_lecture_key.setAttribute("value" , openLectureKey);
-     		
+     		console.log(date_created);
 			openLectureInfo(openLectureKey);
      		checkAttendanceBook(date_created);
      		
@@ -481,22 +492,45 @@
             </div>
             
             <div class="row">
-                <div class="col-2 me-5 text-light" style="background-color: #133369;" >
-                    <div class="row">
-                        <div class="accordion accordion-flush">
+                <div class="col-1 me-5 text-light" style="background-color: #133369;" >
+                     <div class="row">
+                        <div class="accordion accordion-flush px-0">
 						  <div class="accordion-item">
-						      <a class="accordion-button collapsed text-light navbar-brand mt-5 fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" style="background-color: #133369;">
-						        학적부
+						      <a class="accordion-button collapsed navbar-brand"type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" style="background-color: #133369; color: yellow;">
+						        나의 강의
 						      </a>
 						    <div id="flush-collapseOne" class="accordion-collapse collapse">
 						      <div class="accordion-body text-light"  style="background-color: #133369;">
 						      	<div class="row">
-						      		<div class="col ms-3">
+						      		<div class="col">
+						      			전체 강의
+						      		</div>
+						      	</div>
+						      	<div class="row">
+						      		<div class="col mt-2">
+						      			진행중
+						      		</div>
+						      	</div>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+                    </div>
+                    <div class="row">
+                        <div class="accordion accordion-flush px-0">
+						  <div class="accordion-item">
+						      <a class="accordion-button collapsed text-light navbar-brand"type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" style="background-color: #133369;">
+						         학적부
+						      </a>
+						    <div id="flush-collapseTwo" class="accordion-collapse collapse">
+						      <div class="accordion-body text-light"  style="background-color: #133369;">
+						      	<div class="row">
+						      		<div class="col">
 						      			수강생 관리
 						      		</div>
 						      	</div>
 						      	<div class="row">
-						      		<div class="col mt-2 ms-3">
+						      		<div class="col mt-2">
 						      			출석 관리
 						      		</div>
 						      	</div>
@@ -506,12 +540,12 @@
 						</div>
                     </div>
                     <div class="row">
-                        <div class="accordion accordion-flush">
+                        <div class="accordion accordion-flush px-0">
 						  <div class="accordion-item">
-						      <a class="accordion-button collapsed text-light navbar-brand fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" style="background-color: #133369;">
+						      <a class="accordion-button collapsed text-light navbar-brand" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" style="background-color: #133369;">
 						        강의 관리
 						      </a>
-						    <div id="flush-collapseTwo" class="accordion-collapse collapse">
+						    <div id="flush-collapseThree" class="accordion-collapse collapse">
 						      <div class="accordion-body text-light"  style="background-color: #133369;">
 						      	<div class="row">
 						      		<div class="col">
@@ -529,9 +563,9 @@
 						</div>
                     </div>
                     <div class="row">
-                        <div class="accordion accordion-flush">
+                        <div class="accordion accordion-flush px-0">
 						  <div class="accordion-item">
-						      <a class="accordion-button collapsed text-light navbar-brand fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" style="background-color: #133369;">
+						      <a class="accordion-button collapsed text-light navbar-brand" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" style="background-color: #133369;">
 						        강의 관리
 						      </a>
 						    <div id="flush-collapseTwo" class="accordion-collapse collapse">
@@ -555,12 +589,12 @@
                 <div class="col mt-5">
                     <div class="row">
                         <div class="col">
-                            home > 학적부 > 훈련생 현황
+                            home > 강의 진행 현황
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col fw-bold fs-3 text-light" style="background-color: #133369;">
-                            훈련생 현황
+                            강의 진행 현황
                         </div>
                     </div>
                     <div class="row bg-white border border-black pt-3 px-3">
@@ -741,7 +775,7 @@
 	      		<div class="col name">
 	      			이름
 	      		</div>
-	      		<div class="col ">
+	      		<div class="col absenceStatus">
 	      			출석현황
 	      		</div>
 	      		<div class="col ">

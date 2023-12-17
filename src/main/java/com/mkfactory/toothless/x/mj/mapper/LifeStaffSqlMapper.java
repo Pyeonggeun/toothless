@@ -10,6 +10,7 @@ import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
 import com.mkfactory.toothless.a.dto.PointCategory;
 import com.mkfactory.toothless.a.dto.SemesterDto;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.x.dto.ApplyConditionDto;
 import com.mkfactory.toothless.x.dto.LectureCategoryDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
 import com.mkfactory.toothless.x.dto.LifeLecturerDto;
@@ -77,6 +78,46 @@ public interface LifeStaffSqlMapper {
 	
 	// 학생 정보 삭제
 	public void deleteStudentInfo(int life_student_key);
+	
+	// ============== 여기부터 교육과정 관련 =======================
+	
+	// 기본 수업 정보 등록
+	public void insertLectureInfo(LectureInfoDto lectureInfoDto);
+	
+	// 전체 교육과정 목록 조회
+	public List<LectureInfoDto> selectAllLectureInfoList();
+	
+	// 특정 강의 정보조회
+	public LectureInfoDto selectSomeLectureInfo(int lecture_info_key);
+	
+	// 강의 정보 수정
+	public void updateLectureInfo(LectureInfoDto lectureInfoDto);
+	
+	// 강의 정보 삭제
+	public void deleteLectureInfo(int lecture_info_key);
+	
+	// 강의별 수강신청 조건 리스트 
+	public List<ApplyConditionDto> selectConditionListByLectureKey(int lecture_info_key);
+	
+	// 강의별 수강신청 정보 삭제
+	public void deleteConditionList(int lecture_info_key);
+	
+	// 강의별 수강신청 정보 등록
+	public void insertConditionInfo(ApplyConditionDto applyConditionDto);
+	
+	// 교육과정 카테고리 정보 등록
+	public void insertCategory(LectureCategoryDto lectureCategoryDto);
+	
+	// 교육과정 카테고리 정보 삭제
+	public void deleteCategory(int lecture_category_key);
+	
+	// 교육과정 카테고리 정보 삭제되면 그 카테고리 수업들도 삭제
+	public void deleteLectureListByCategoryKey(int lecture_category_key);
+	
+
+	
+	
+	
 	
 	
 	

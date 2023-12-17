@@ -125,8 +125,8 @@
                                                     </a>
                                                 </div>
                                                 <div class="col">
-                                                    <a href="#" class="text-black" style="text-decoration: none;">
-                                                    x
+                                                    <a href="./dm_roomAssignment" class="text-black" style="text-decoration: none;">
+                                                    ${assignedDormStudentCount }
                                                     </a>
                                                 </div>
                                                 <div class="col-1"></div>
@@ -146,7 +146,7 @@
                                                     납부완료</a>
                                                 </div>
                                                 <div class="col">
-                                                    <a href="#" class="text-black" style="text-decoration: none;">
+                                                    <a href="./dm_roomAssignment" class="text-black" style="text-decoration: none;">
                                                     배정완료</a>
                                                 </div>
                                                 <div class="col-1"></div>
@@ -171,7 +171,7 @@
 		                                </div>
                                         <div class="row ms-3 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
-		                                		 ${thisSemester.semester_year} ${thisSemester.semester} 기준
+		                                		 ${thisSemester.semester_year} ${thisSemester.semester} <%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
 		                                <div class="row mt-4">
@@ -205,7 +205,7 @@
 		                                </div>
 		                                <div class="row ms-3 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
-		                                		${thisSemester.semester_year} ${thisSemester.semester} 기준
+		                                		${thisSemester.semester_year} ${thisSemester.semester} <%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
                                         <div class="row mt-4">
@@ -243,7 +243,7 @@
 		                                </div>
 		                                <div class="row ms-3 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
-		                                		<%= formattedDate %> 기준
+		                                		${thisSemester.semester_year} ${thisSemester.semester} <%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
 		                                <div class="row mt-4">
@@ -269,7 +269,7 @@
 		                                </div>
 		                                <div class="row ms-3 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
-		                                		<%= formattedDate %> 기준
+		                                		${thisSemester.semester_year} ${thisSemester.semester} <%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
 		                                <div class="row mt-4">

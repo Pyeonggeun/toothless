@@ -289,5 +289,13 @@ public class DormStaffServiceImpl {
 		return staffSqlMapper.countTodayCallAbsence();
 	}
 	
+	// 사생 배정 현황 끌고오는 ~ing
+	public int assignedDormStudentCount() {
+		
+		return staffSqlMapper.assignedDormStudentCount();
+				
+	}
+	
+	
 	
 }
