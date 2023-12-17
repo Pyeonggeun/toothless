@@ -87,7 +87,7 @@
 							</div>
 							
 							<c:forEach items="${list }" var="map">
-							<div class="row py-1 border-bottom">
+							<div class="row  border-bottom">
 								<div class="col-1 align-self-center text-center"><!--글번호 -->
 									${map.eduDto.edu_pk }
 								</div>

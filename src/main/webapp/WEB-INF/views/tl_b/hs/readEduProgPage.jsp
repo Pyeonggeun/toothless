@@ -211,7 +211,7 @@
                                                             </button>
                                                             <button class="btn fw-bold text-white" 
                                                                     style="background-color: #B8312F;" 
-                                                                    onclick="location.href='./eduApplyPage?edu_pk=${qwer.eduDto.edu_pk}&name=${qwer.eduDto.name}&capacity=${qwer.eduDto.capacity}'">
+                                                                    onclick="location.href='./deleteEduProgProcess?edu_pk=${qwer.eduDto.edu_pk}'">
                                                                 글 삭제
                                                             </button>
 
