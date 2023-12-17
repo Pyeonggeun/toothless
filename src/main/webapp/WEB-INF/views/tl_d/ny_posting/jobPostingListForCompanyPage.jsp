@@ -17,40 +17,72 @@
 				<jsp:include page="../common/companyTopNavi.jsp"></jsp:include>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col">
+				<img  class="opacity-55" src="../../resources/img/employment/companyBanner.png" style="width: 95rem; height : 30rem;">
+			</div>		
+		</div>
 	 	<%-- 전체 크기 --%>
 		<div class="row">
 			<%-- 왼쪽 여백--%>
-			<div class="col-1"></div>
-			<%-- 가운데 여백--%>	
 			<div class="col-2"></div>
 			<%-- 채용공고 리스트 양식 --%>
 			<div class="col">
 				<!-- 채용공고 -->
 				<div class="row">
-					<div class="col fs-4 fw-bold mt-5 text-center">채용공고리스트</div>
+					<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">채용공고리스트</div>
+				</div>
+				<!-- 검색 바 -->
+				<div class="row mt-3 p-2">
+					<div class="col">
+						<div class="row mt-1">
+							<div class="col-4 border p-3">
+								<select class="form-select form-select-sm border-0 pe-0">
+						    		<option selected>전체</option>
+								    <c:forEach items="${jobFieldCategory}" var="jobField">
+									    <option value="${jobField.job_field_category_pk}">${jobField.job_field_category_name}</option>
+								    </c:forEach>
+								</select>
+							</div>
+							<div class="col-4 border p-3">
+								<input type="text" class="searchWord form-control border-0" placeholder="직무검색"> 
+							</div>
+							<div class="col-4 border p-3">
+								<input type="text" class="searchWord form-control border-0" placeholder="지역검색"> 
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-2 border p-3">
+								<select class="searchType form-select border-0">
+									<option value="posting_name">제목</option>
+									<option value="posting_contents">내용</option>
+								</select>				
+							</div>
+							<div class="col-8 border p-3">
+								 <input type="text" class="searchWord form-control border-0" placeholder="검색내용을 입력해주세요"> 
+							</div>
+							<div class="col border p-3">
+								<button onclick="search()" class="form-control bg-white border-0">
+									<span class="fw-bold text-secondary">검색</span>
+								</button>
+							</div>						
+						</div>
+					</div>
 				</div>
 				<div class="row mt-5 pb-3 border-bottom border-3 border-dark">
 					<div class="col-1 pt-1">
 						총 <span class="fw-bold">${companyPostingCount}</span>건
 					</div>
 					<!-- 기능 구현하기 -->
+					<div class="col-8"></div>
 					<div class="col-3 btn-group btn-group-sm">
 						<a href="./jobPostingListForCompanyPage" class="btn btn-outline-dark active" aria-current="page">전체</a>
 					    <a href="#" class="btn btn-outline-dark">진행중</a>
 					    <a href="#" class="btn btn-outline-dark">마감</a>
 					</div>
-					<div class="col-5"></div>
-					<div class="col-2 ms-4 pe-3">
-						<select class="form-select form-select-sm">
-						    <option selected>전체</option>
-						    <c:forEach items="${jobFieldCategory}" var="jobField">
-							    <option value="${jobField.job_field_category_pk}">${jobField.job_field_category_name}</option>
-						    </c:forEach>
-						</select>
-					</div>
 				</div>
 				<c:forEach items="${companyPostingList}" var="companyPosting">
-					<div class="row mt-3 ps-3 pb-3 border-bottom">
+					<div class="row mt-3 ps-5 pb-3 border-bottom">
 						<div class="col-1 pt-3">
 							<c:choose>
 								<c:when test="${companyPosting.postingDeadlineList.contains(companyPosting.jobPostingDto.job_posting_pk)}">
@@ -104,8 +136,9 @@
 				</c:forEach>
 			</div>
 			<%-- 오른쪽 --%>	
-			<div class="col-3"></div>	
+			<div class="col-2"></div>	
 		</div>
+		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

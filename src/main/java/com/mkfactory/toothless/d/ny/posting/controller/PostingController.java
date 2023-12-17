@@ -39,7 +39,15 @@ public class PostingController {
 	
 	// 채용공고 등록 페이지
 	@RequestMapping("registerJobPostingPage")
-	public String registerJobPostingPage(Model model) {
+	public String registerJobPostingPage(HttpSession session, Model model) {
+		
+		StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(staffInfo == null) {
+			return "redirect:../../another/staff/loginPage";
+			
+		}
+		
 		model.addAttribute("jobFieldCategory", postingService.getJobFieldCategoryList());
 		return "tl_d/ny_posting/registerJobPostingPage";
 	}
@@ -231,13 +239,15 @@ public class PostingController {
 		if(searchType != null && searchWord != null) {
 			searchQueryString += "&searchType=" + searchType;
 			searchQueryString += "&searchWord=" + searchWord;
+			
 		}
 		
 		model.addAttribute("searchQueryString", searchQueryString);
 		
-		// 50. 검색 칸에 검색 내용 띄워 두기 영상확인!
+		// 검색 칸에 검색 내용 띄워 두기 영상확인!
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchWord", searchWord);
+
 		// 여기서도 찜하는 방법 생각해보기
 		
 		return "tl_d/ny_posting/jobPostingListForStudentPage";
@@ -255,7 +265,6 @@ public class PostingController {
 	@RequestMapping("jobPostingDetailForStudentPage")
 	public String jobPostingDetailForStudentPage(HttpSession session, Model model, int id, InterestPostingDto params) {
 
-		model.addAttribute("jobPostingDetailForStudent", postingService.getJobPostingDetailForStudentAndCompany(id));
 		
 		params.setJob_posting_pk(id);
 		
@@ -264,6 +273,8 @@ public class PostingController {
 		if(studentInfoDto != null) {
 			int studentPk = studentInfoDto.getStudent_pk();
 			params.setStudent_pk(studentPk);
+			model.addAttribute("jobPostingDetailForStudent",
+					postingService.getJobPostingDetailForStudentAndCompany(/* studentPk, */ id));
 			
 		}
 		
@@ -335,7 +346,7 @@ public class PostingController {
 	public String jobPostingDetailForCompanyPage(Model model, int id) {
 		
 		// 기업 상세
-		model.addAttribute("jobPostingDetailForCompany", postingService.getJobPostingDetailForStudentAndCompany(id));
+		model.addAttribute("jobPostingDetailForCompany", postingService.getJobPostingDetail(id));
 		
 		// 관심공고 학생 리스트
 		model.addAttribute("interestStudentList", postingService.getStudentListByPostingInterest(id));
