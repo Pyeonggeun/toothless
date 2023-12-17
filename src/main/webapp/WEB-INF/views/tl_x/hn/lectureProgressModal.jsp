@@ -6,7 +6,7 @@
             <div class="modal-header py-1">
                 <div class="row">
                     <div class="col-auto pe-1">
-                        <img class="img-fluid" src="./img/logo_black.png" style="height: 3.3em;">
+                        <img class="img-fluid" src="../../resources/img/lifeStudent/logo_black.png" style="height: 3.3em;">
                     </div>
                     <div class="mkmk col ps-0 my-auto" style="font-size: 1.5em; font-weight: 600;">
                         MK<span style="color: #4a3187;">평생교육원</span>
@@ -38,7 +38,7 @@
                                     <div class="col-auto my-auto fw-bold text-body-tertiary" style="font-size: 0.85em;">
                                         교육과정
                                     </div>
-                                    <div class="col fw-bold" style="font-size: 1.2em;">
+                                    <div id="progressName" class="col fw-bold" style="font-size: 1.2em;">
                                         기업현장교사 기본과정 온라인교육(15시간) 이수자를 위한 보충 영상 ※선택사항, 정규교과과정아님
                                     </div>
                                     <div class="col-auto my-auto">
@@ -53,20 +53,20 @@
                                             <div class="col-auto fw-bold" style="font-size: 0.8em;">
                                                 교육기간
                                             </div>
-                                            <div class="col-auto fw-bold text-body-tertiary" style="font-size: 0.8em;">
+                                            <div id="progressLectureDate" class="col-auto fw-bold text-body-tertiary" style="font-size: 0.8em;">
                                                 2024.01.01~2024.12.31
                                             </div>
                                             <div class="col-auto fw-bold" style="font-size: 0.8em;">
                                                 인정학점
                                             </div>
                                             <div class="col-auto" style="font-size: 0.8em;">
-                                                <span class="fw-bold" style="color: #f7a505;">3</span> 학점
+                                                <span id="progressCredit" class="fw-bold" style="color: #f7a505;">3</span> 학점
                                             </div>
                                             <div class="col-auto fw-bold" style="font-size: 0.8em;">
                                                 시험
                                             </div>
                                             <div class="col" style="font-size: 0.8em;">
-                                                <span class=" fw-bold" style="color: #f7a505;">1</span> / 10
+                                                <span id="studentTotalTestCount" class=" fw-bold" style="color: #f7a505;">1</span> / <span id="totalTestCount">10</span>
                                             </div>
                                         </div>
                                     </div>
@@ -117,11 +117,11 @@
                                                                                 <div class="row mt-1">
                                                                                     <div class="col my-auto">
                                                                                         <div class="progress" style="height: 0.8em;" role="progressbar" aria-label="Basic example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                                                                            <div class="progress-bar" style="width: 100%; background-color: #f7a505;"></div>
+                                                                                            <div id="attendanceRate" class="progress-bar" style="width: 100%; background-color: #f7a505;"></div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="col-auto my-auto fw-bold" style="font-size: 0.9em; color: #f7a505;">
-                                                                                        100.0%
+                                                                                    <div id="attendanceRatePer" class="col-auto my-auto fw-bold" style="font-size: 0.9em; color: #f7a505;">
+                                                                                        100%
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -138,7 +138,7 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col-auto my-auto fw-bold" style="font-size: 0.9em; color: #f7a505;">
-                                                                                        100.0%
+                                                                                        100%
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -177,10 +177,8 @@
                                                                     <div class="col text-center text-body-tertiary fw-bold" style="font-size: 0.85em;">
                                                                         수료여부
                                                                     </div>
-                                                                    <div class="col">
-                                                                        <span class="px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #4CAF50; background-color: #F1F9F1;">
-                                                                            수료
-                                                                        </span>
+                                                                    <div id="progressStatusBox" class="col">
+                                                                        
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -197,21 +195,23 @@
                                                                 </div>
                                                                 <div class="row border-bottom border-start">
                                                                     <div class="col py-2 border-end" style="background-color: #f7f7f9;">취득점수&#40;점&#41;</div>
-                                                                    <div class="col py-2 border-end" style="color: #7844ae;">100</div>
-                                                                    <div class="col py-2" style="color: #7844ae;">70</div>
+                                                                    <div id="attendanceScore" class="col py-2 border-end" style="color: #7844ae;">100</div>
+                                                                    <div id="score" class="col py-2" style="color: #7844ae;">70</div>
                                                                 </div>
                                                                 <div class="row border-bottom border-start">
                                                                     <div class="col py-2 border-end" style="background-color: #f7f7f9;">환산점수&#40;점&#41;</div>
-                                                                    <div class="col py-2 border-end" style="color: #7844ae;">80</div>
-                                                                    <div class="col py-2" style="color: #7844ae;">14</div>
+                                                                    <div id="calcAttendanceScore" class="col py-2 border-end" style="color: #7844ae;">80</div>
+                                                                    <div id="calcScore" class="col py-2" style="color: #7844ae;">14</div>
                                                                 </div>
                                                                 <div class="row border-bottom border-start">
                                                                     <div class="col-4 py-2 border-end" style="background-color: #f7f7f9;">수료조건</div>
-                                                                    <div class="col py-2">총점 : 84점 이상 / 과락 기준 : 진도율 90점 이상, 시험 60점 이상</div>
+                                                                    <div class="col py-2">
+                                                                    	총점 : 85점 이상 / 과락 기준 : 진도율 <span id="attendanceCondition">90</span>점 이상, 시험 <span id="testCondition">60</span>점 이상
+                                                                    </div>
                                                                 </div>
                                                                 <div class="row border-start">
                                                                     <div class="col-4 py-2 border-end" style="background-color: #f7f7f9;">총점</div>
-                                                                    <div class="col py-2"><span style="color: #7844ae;">94</span> / 100</div>
+                                                                    <div class="col py-2"><span id="totalScore" style="color: #7844ae;">94</span> / 100</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -409,58 +409,10 @@
                                                             <div class="col-1 text-center fw-bold" style="font-size: 0.95em;">응시/제출</div>
                                                         </div>
 
-                                                        <div class="row py-2 border-bottom">
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;">1</div>
-                                                            <div class="col text-center" style="font-size: 0.9em;">기업현장교사 기본과정 온라인교육(15시간) 이수자를 위한 보충 영상</div>
-                                                            <div class="col text-center" style="font-size: 0.9em;">2023-07-31 00:00~2023-08-31 23:59</div>
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;">20%</div>
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;">○</div>
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;"><span class="fw-bold">70</span> / 100</div>
-                                                            <div class="col-1 text-center fw-bold" style="font-size: 0.9em;">
-                                                                <span class="px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #4CAF50; background-color: #F1F9F1;">
-                                                                    응시완료
-                                                                </span>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row py-2 border-bottom">
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;">1</div>
-                                                            <div class="col text-center" style="font-size: 0.9em;">기업현장교사 기본과정 온라인교육(15시간) 이수자를 위한 보충 영상</div>
-                                                            <div class="col text-center" style="font-size: 0.9em;">2023-07-31 00:00~2023-08-31 23:59</div>
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;">20%</div>
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;">○</div>
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;"><span class="fw-bold">70</span> / 100</div>
-                                                            <div class="col-1 text-center fw-bold" style="font-size: 0.9em;">
-                                                                <span onclick="showTestWarningModal()" class="btn px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #7844ae; background-color: #F3ECFF;">
-                                                                    응시하기
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row py-2 border-bottom">
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;">1</div>
-                                                            <div class="col text-center" style="font-size: 0.9em;">기업현장교사 기본과정 온라인교육(15시간) 이수자를 위한 보충 영상</div>
-                                                            <div class="col text-center" style="font-size: 0.9em;">2023-07-31 00:00~2023-08-31 23:59</div>
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;">20%</div>
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;">X</div>
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;"><span class="fw-bold">0</span> / 100</div>
-                                                            <div class="col-1 text-center fw-bold" style="font-size: 0.9em;">
-                                                                <span class="px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #FA4D5A; background-color: #FAF1F4;">
-                                                                    미응시
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row py-2 border-bottom">
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;">1</div>
-                                                            <div class="col text-center" style="font-size: 0.9em;">기업현장교사 기본과정 온라인교육(15시간) 이수자를 위한 보충 영상</div>
-                                                            <div class="col text-center" style="font-size: 0.9em;">2023-07-31 00:00~2023-08-31 23:59</div>
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;">20%</div>
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;">X</div>
-                                                            <div class="col-1 text-center" style="font-size: 0.9em;"><span class="fw-bold">0</span> / 100</div>
-                                                            <div class="col-1 text-center fw-bold" style="font-size: 0.9em;">
-                                                                <span class="px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #B0B0B3; background-color: #f7f7f9;">
-                                                                    종료
-                                                                </span>
-                                                            </div>
+                                                        <div class="row">
+                                                        	<div id="testBox" class="col">
+                                                        		
+                                                        	</div>
                                                         </div>
 
                                                     </div>
