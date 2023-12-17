@@ -36,7 +36,7 @@ public class RequestRepaireController {
 		
 		model.addAttribute("repairList", repairService.printingAllRequestRepairArticle());
 		model.addAttribute("dormStudent", repairService.forDormStudentsList());
-		model.addAttribute("printing", repairService.name());
+		//model.addAttribute("printing", repairService.name());
 		return "/tl_a/student/sj_requestRepairPage";
 	}
 	

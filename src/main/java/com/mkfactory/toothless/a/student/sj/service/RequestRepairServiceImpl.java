@@ -30,8 +30,8 @@ public class RequestRepairServiceImpl {
 		return requestRepairSqlMapper.dormStudents();
 	}
 	
-	public List<Map<String, Object>> name() {
-		return requestRepairSqlMapper.name();
-	}
+//	public List<Map<String, Object>> name() {
+//		return requestRepairSqlMapper.name();
+//	}
 	
 }

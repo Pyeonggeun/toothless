@@ -42,13 +42,13 @@
 		WHERE tarr.DORM_STUDENT_PK = #{dorm_student_pk}
 	</select>
 	-->
-	
+	<!--  
 	<select id="name" resultType="java.util.map">
 		SELECT TJSI.NAME 
 		FROM TL_JIC_STUDENT_INFO tjsi 
 		WHERE EXISTS(SELECT * FROM TL_A_DORM_STUDENT tads 
 		INNER JOIN TL_A_REQUEST_REPAIR tarr ON tarr.DORM_STUDENT_PK = tads.DORM_STUDENT_PK WHERE tjsi.STUDENT_PK = TADS.STUDENT_PK)
 	</select>
-	
+	-->
 	
 </mapper>

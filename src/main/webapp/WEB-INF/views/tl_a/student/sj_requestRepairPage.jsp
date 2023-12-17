@@ -90,10 +90,11 @@
                     	${repair.title }
                     </div>
                     <div class="col">
-                   	 	<c:if test="${(repair.dorm_student_pk == dormStudent.dorm_student_pk) &&
+                   	 	<%-- <c:if test="${(repair.dorm_student_pk == dormStudent.dorm_student_pk) &&
                    	 		dormStudent.studnt_pk ==printing.student_pk  }">
                    	 		${printing.NAME }
                    	 	</c:if>
+                   	 	--%>
                     </div>
                     <div class="col">
                     	<fmt:formatDate value="${repair.request_date }" pattern="yyyy.MM.dd"/>  
