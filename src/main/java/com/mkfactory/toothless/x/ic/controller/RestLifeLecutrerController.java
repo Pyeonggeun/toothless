@@ -105,6 +105,41 @@ public class RestLifeLecutrerController {
 		
 		return responseDto;
 	}
+	@RequestMapping("getAttendanceInfoList")
+	public RestResponseDto getAttendanceInfoList(int open_lecture_key) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> list = lifeLecturerService.lectureAttendanceBookList(open_lecture_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(list);
+		
+		return responseDto;
+		
+	}
+	@RequestMapping("getTotalStudyingInfo")
+	public RestResponseDto getTotalStudyingInfo(int open_lecture_key) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		Map<String, Object> map = lifeLecturerService.totalStudyingInfo(open_lecture_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(map);
+		
+		return responseDto;
+		
+	}
+	@RequestMapping("insertLectureTestAndGetTestPk")
+	public RestResponseDto insertLectureTestAndGetTestPk() {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		//responseDto.setData(map);
+		
+		return responseDto;
+		
+	}
+	
 	
 	
 	

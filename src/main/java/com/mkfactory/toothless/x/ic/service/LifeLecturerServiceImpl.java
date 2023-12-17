@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.x.dto.AttendanceBookDto;
 import com.mkfactory.toothless.x.dto.AttendanceStatusDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
@@ -55,18 +56,22 @@ public class LifeLecturerServiceImpl {
 		List<Map<String, Object>> list = new ArrayList<>();
 		
 		List<LectureStudentDto> StudentList = lifeLecturerSqlMapper.selectLectureStudentList(open_lecture_key);
-		
+		System.out.println(StudentList.size());
 		for(LectureStudentDto lectureStudentDto : StudentList) {
-			 Map<String, Object> map = new HashMap<>();
+			Map<String, Object> map = new HashMap<>();
 			LifeStudentDto lifeStudentDto = lifeLecturerSqlMapper.selectStudentDto(lectureStudentDto.getLife_student_key());
-			OpenLectureDto openLectureDto = lifeLecturerSqlMapper.selectOpenLectureDto(open_lecture_key);
+			ExternalInfoDto externalInfoDto = lifeLecturerSqlMapper.selectLifeStudentExternalId(lifeStudentDto.getExternal_pk());
+			int lateCount = lifeLecturerSqlMapper.selectLectureStudentLateCount(lectureStudentDto.getLecture_student_key());
+			int absenceCount = lifeLecturerSqlMapper.selectLectureStudentAbsenceCount(lectureStudentDto.getLecture_student_key());
 			
+			
+			map.put("lateCount", lateCount);
+			map.put("absenceCount", absenceCount);
 			map.put("lectureStudentDto", lectureStudentDto);
 			map.put("lifeStudentDto", lifeStudentDto);
-			map.put("openLectureDto", openLectureDto);
+			map.put("externalInfoDto", externalInfoDto);
 			
-				
-			 
+
 			list.add(map);
 		}
 		
@@ -135,6 +140,72 @@ public class LifeLecturerServiceImpl {
 		return list;
 		
 	}
+	public Map<String, Object> totalStudyingInfo(int open_lecture_key){
+		
+		Map<String, Object> map = new HashMap<>();
+		int totalHour = lifeLecturerSqlMapper.selectLectureInfo(lifeLecturerSqlMapper.selectOpenLectureDto(open_lecture_key).getLecture_info_key()).getTotal_hour();
+		List<Map<String, Object>> dayList = lifeLecturerSqlMapper.selectCurrentStudyDay(open_lecture_key);
+		int studyingHour = 0;
+		int nullAttendanceBookCount = 0;
+		double percent = 0;
+		for(Map<String, Object> dayMap : dayList) {
+			String date = (String)dayMap.get("DT");
+			if(dayMap.get("WEEK_DAY").equals("평일") && lifeLecturerSqlMapper.selectAttendanceBookByDate(date) == null) {
+				studyingHour += 8;
+				nullAttendanceBookCount++;
+			}
+		}
+		System.out.println(studyingHour);
+		System.out.println(totalHour);
+		percent = ((double)studyingHour/totalHour) * 100;
+		
+		map.put("percent", percent);
+		map.put("studyingHour", studyingHour);
+		map.put("totalHour", totalHour);
+		map.put("nullAttendanceBookCount", nullAttendanceBookCount);
+		
+		
+		
+		
+		return map;
+	}
+	
+	
+	public List<Map<String, Object>> lectureAttendanceBookList(int open_lecture_key){
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<Map<String, Object>> dayList = lifeLecturerSqlMapper.selectCurrentStudyDay(open_lecture_key);
+		
+		for(Map<String, Object> dayMap : dayList ) {
+			
+			 if(dayMap.get("WEEK_DAY").equals("평일")) {
+				 Map<String, Object> map = new HashMap<>();
+				 String date = (String)dayMap.get("DT");
+				 AttendanceBookDto attendanceBookDto = lifeLecturerSqlMapper.selectAttendanceBookByDate(date);
+				 if(attendanceBookDto != null) {
+					 int attendance_book_key =  attendanceBookDto.getAttendance_book_key();
+					 int absenceStudentCount = lifeLecturerSqlMapper.selectAbsenceStudentCount(attendance_book_key);
+					 int lateStudentCount = lifeLecturerSqlMapper.selectLateStudentCount(attendance_book_key);
+					 
+					 map.put("absenceStudentCount", absenceStudentCount);
+					 map.put("lateStudentCount", lateStudentCount);
+				 
+				 }
+
+				 
+				 
+				 map.put("date", date);
+				 map.put("attendanceBookDto", attendanceBookDto);
+				 
+				 
+				 list.add(map);
+				 
+			 }
+			 
+		}
+		return list;
+		
+	}
 	
 	public Map<String, Object> openLectureInfo(int open_lecture_key) {
 		Map<String, Object> map = new HashMap<>();
@@ -143,7 +214,11 @@ public class LifeLecturerServiceImpl {
 		LectureInfoDto lectureInfoDto = lifeLecturerSqlMapper.selectLectureInfo(openLectureDto.getLecture_info_key());
 		int roundCount = lifeLecturerSqlMapper.lectureRoundCount(openLectureDto);
 		int lectureStudentCount = lifeLecturerSqlMapper.selectLectureStudentList(open_lecture_key).size();
+		String categoryName = lifeLecturerSqlMapper.selectOpenLectureCategoryName(lectureInfoDto.getLecture_category_key());
+		LifeLecturerDto lifeLecturerDto = lifeLecturerSqlMapper.selectLecturerDto(openLectureDto.getLecturer_key());
 		
+		map.put("lifeLecturerDto", lifeLecturerDto);
+		map.put("categoryName", categoryName);
 		map.put("lectureStudentCount", lectureStudentCount);
 		map.put("openLectureDto", openLectureDto);
 		map.put("lectureInfoDto", lectureInfoDto);
@@ -151,5 +226,11 @@ public class LifeLecturerServiceImpl {
 		return map;
 	}
 	
+	public int insertLecutreTestInfoAndReturnPk() {
+		int lecture_test_key =  lifeLecturerSqlMapper.selectLectureTestKey();
+		
+		return lecture_test_key;
+	}
 	
+
 }
