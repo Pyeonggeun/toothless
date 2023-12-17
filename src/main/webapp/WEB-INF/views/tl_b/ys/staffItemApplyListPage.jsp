@@ -25,13 +25,9 @@
 				
 				if(loginStaffInfo == null){
 					
-					const moveToLoginPage = confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?");
 					
-					if(moveToLoginPage){
-						
-						window.location.href = staffLoginPageUrl;
-					
-					}
+					window.location.href = staffLoginPageUrl;
+				
 				}
 			});		
 		}		

@@ -23,13 +23,8 @@
 	    			console.log(response.data);
 	    			if(loginStudentInfo == null){
 	    				
-	    				const moveToLoginPage = confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?");
+	    				window.location.href = studentLoginPageUrl;
 	    				
-	    				if(moveToLoginPage){
-	    					
-	    					window.location.href = studentLoginPageUrl;
-	    				
-	    				}
 	    			}
 	    		});		
 	    	}
