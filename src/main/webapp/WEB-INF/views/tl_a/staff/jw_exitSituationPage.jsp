@@ -10,6 +10,122 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <title>Insert title here</title>
+<script>
+	
+	// 전체 리스트
+	function reloadExitSituationList(){
+		
+		const url = "./restGetAllExitSituationList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const exitSituationBox = document.getElementById("exitSituationBox");
+			exitSituationBox.innerHTML = "";
+			for(e of response.data){
+				
+				const exitSituationWrapper = document.querySelector("#templete .exitSituationWrapper").cloneNode(true);
+				
+				const studentNameSpace = exitSituationWrapper.querySelector(".studentNameSpace");
+				studentNameSpace.innerText = e.studentInfoDto.name;
+				
+				const buildingNameSpace = exitSituationWrapper.querySelector(".buildingNameSpace");
+				buildingNameSpace.innerText = e.dormBuildingDto.name;
+				
+				const roomNameSpace = exitSituationWrapper.querySelector(".roomNameSpace");
+				roomNameSpace.innerText = e.dormRoomDto.room_name;
+				
+				const reasonSpace = exitSituationWrapper.querySelector(".reasonSpace");
+				reasonSpace.innerText = e.exitDto.reason;
+				
+				const exitDateSpace = exitSituationWrapper.querySelector(".exitDateSpace");
+				const date1 = new Date(e.exitDto.exit_date);
+				exitDateSpace.innerText = date1.getFullYear() + "." + ((date1.getMonth())+1) + "." + date1.getDate();
+				
+				const applyDateSpace = exitSituationWrapper.querySelector(".applyDateSpace");
+				const date2 = new Date(e.exitDto.apply_create_at);
+				applyDateSpace.innerText = date2.getFullYear() + "." + ((date2.getMonth())+1) + "." + date2.getDate();
+				
+				exitSituationBox.appendChild(exitSituationWrapper);
+			
+			}
+		})
+	}
+	
+	// dorm_pk별 리스트
+	function reloadExitSituationListByDormPk(dorm_pk){
+		
+		const url = "./restGetExitSituationListByDormPk?dorm_pk=" + dorm_pk;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const exitSituationBox = document.getElementById("exitSituationBox");
+			exitSituationBox.innerHTML = "";
+			for(e of response.data){
+				
+				const exitSituationWrapper = document.querySelector("#templete .exitSituationWrapper").cloneNode(true);
+				
+				const studentNameSpace = exitSituationWrapper.querySelector(".studentNameSpace");
+				studentNameSpace.innerText = e.studentInfoDto.name;
+				
+				const buildingNameSpace = exitSituationWrapper.querySelector(".buildingNameSpace");
+				buildingNameSpace.innerText = e.dormBuildingDto.name;
+				
+				const roomNameSpace = exitSituationWrapper.querySelector(".roomNameSpace");
+				roomNameSpace.innerText = e.dormRoomDto.room_name;
+				
+				const reasonSpace = exitSituationWrapper.querySelector(".reasonSpace");
+				reasonSpace.innerText = e.exitDto.reason;
+				
+				const exitDateSpace = exitSituationWrapper.querySelector(".exitDateSpace");
+				const date1 = new Date(e.exitDto.exit_date);
+				exitDateSpace.innerText = date1.getFullYear() + "." + ((date1.getMonth())+1) + "." + date1.getDate();
+				
+				const applyDateSpace = exitSituationWrapper.querySelector(".applyDateSpace");
+				const date2 = new Date(e.exitDto.apply_create_at);
+				applyDateSpace.innerText = date2.getFullYear() + "." + ((date2.getMonth())+1) + "." + date2.getDate();
+				
+				exitSituationBox.appendChild(exitSituationWrapper);
+			
+			}
+		})
+		
+	}
+	
+	// 건물명 반복문
+	function reloadBuildingName(){
+		
+		const url = "./restBuildingList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const buildingListBox = document.getElementById("buildingListBox");
+			buildingListBox.innerHTML = "";
+			for(e of response.data){
+				
+				const buildingNameWrapper = document.querySelector("#buildingTemplete .buildingNameWrapper").cloneNode(true);
+				buildingNameWrapper.setAttribute("onclick", "reloadExitSituationListByDormPk("+e.dorm_pk+")");
+				
+				const buildingName = buildingNameWrapper.querySelector(".buildingName");
+				buildingName.innerText = e.name;
+				
+				buildingListBox.appendChild(buildingNameWrapper);
+			}
+		})
+		
+	}
+
+	window.addEventListener("DOMContentLoaded", () => {
+		reloadExitSituationList();
+		reloadBuildingName();
+	})
+	
+</script>
 </head>
 <body>
 <div class="container-fluid">
@@ -49,24 +165,19 @@
 			</div>
 			
 			<!-- 미니맵 -->
-			<div class="row">
-				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='./jw_exitSituationPage'">
+			<div id="buildingListBox" class="row">
+				
+			</div>
+			
+			<!-- 반복될 건물명 -->
+			<div id="buildingTemplete" class="d-none">
+				<div class="buildingNameWrapper col-1 border py-4 mx-2 rounded border-dark btn text-center">
 					<div class="row">
-						<div class="col fw-bold">
-							전체
+						<div class="buildingName col ms-2 fw-bold">
+							동나오는곳
 						</div>
 					</div>
 				</div>
-				<c:forEach items="${dormBuildingList}" var="dormBuildingList">
-					<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='./jw_exitSituationByDormPkPage?dorm_pk=${dormBuildingList.dorm_pk}'">
-						<div class="row">
-							<div class="col fw-bold">
-								${dormBuildingList.name}
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-				<div class="col-6"></div>
 			</div>
 
 			<!-- 세부내용 시작 -->
@@ -83,22 +194,26 @@
 								<th scope="col" class="col-2 text-bg-light">외출/외박 신청일</th>
 							</tr>
 						</thead>
-						<tbody>
-							<!-- 값 반복 -->
-							<c:forEach items="${exitListMap}" var="exitListMap">
-							<tr>
-								<td>${exitListMap.studentInfoDto.name}</td>
-								<td>${exitListMap.dormBuildingDto.name}</td>
-								<td>${exitListMap.dormRoomDto.room_name}</td>
-								<td>${exitListMap.exitDto.reason}</td>
-								<td><fmt:formatDate value="${exitListMap.exitDto.exit_date}" pattern="yyyy-MM-dd" /></td>
-								<td><fmt:formatDate value="${exitListMap.exitDto.apply_create_at}" pattern="yyyy-MM-dd" /></td>
-							</tr>
-							</c:forEach>
+						<tbody id="exitSituationBox">
+							
 						</tbody>
 					</table>
 				</div>
 			</div>
+			
+			<table id="templete" class="d-none">
+				<tr class="exitSituationWrapper">
+					<td class="studentNameSpace">이름나오는곳</td>
+					<td class="buildingNameSpace">기숙사명나오는곳</td>
+					<td class="roomNameSpace">호나오는곳</td>
+					<td class="reasonSpace">사유나오는곳</td>
+					<td class="exitDateSpace">외출/외박일나오는곳</td>
+					<td class="applyDateSpace">외출/외박신청일나오는곳</td>
+				</tr>
+			</table>
+			
+			
+			
 			
 		</div> <!-- 우측내용 끝 -->
             
