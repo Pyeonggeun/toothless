@@ -400,9 +400,26 @@ function deleteMyHopeJobCategory(){
 		
 	}
 	
+	//화살표 효과
+	function insertHJCMouseOver(e){
+		e.classList.remove("bi-arrow-right-square")
+		e.classList.add("bi-arrow-right-square-fill")		
+	}
 	
+	function insertHJCMouseOut(e){
+		e.classList.remove("bi-arrow-right-square-fill")
+		e.classList.add("bi-arrow-right-square")		
+	}
 	
+	function deleteHJCMouseOver(e){
+		e.classList.remove("bi-arrow-left-square")
+		e.classList.add("bi-arrow-left-square-fill")		
+	}
 	
+	function deleteHJCMouseOut(e){
+		e.classList.remove("bi-arrow-left-square-fill")
+		e.classList.add("bi-arrow-left-square")		
+	}	
 	
 	
 	<!-- -->
@@ -617,13 +634,13 @@ function deleteMyHopeJobCategory(){
 														<div class="col mt-5 pt-5" style="font-size:2.3em;">
 															<div class="row">
 																<div class="col">
-																	<button type="button" class="btn btn-light" style="font-size:1em;"><i onclick="insertHopeJobCategory()" class="bi-btn bi-arrow-right-square"></i></button>
+																	<i onmouseout="insertHJCMouseOut(this)" onmouseover="insertHJCMouseOver(this)" onclick="insertHopeJobCategory()" class="bi-btn bi-arrow-right-square"></i>
 																	
 																</div>
 															</div>
 															<div class="row pt-2">
 																<div class="col">
-																	<i onclick="deleteMyHopeJobCategory()" class="bi bi-arrow-left-square"></i>
+																	<i onmouseout="deleteHJCMouseOut(this)" onmouseover="deleteHJCMouseOver(this)" onclick="deleteMyHopeJobCategory()" class="bi bi-arrow-left-square"></i>
 																</div>
 															</div>							
 														</div>
@@ -867,7 +884,7 @@ function deleteMyHopeJobCategory(){
 									      </div>
 									      <div class="modal-footer">
 									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-									        <button onclick="updateMyHopeJobInfo()" type="button" class="btn btn-primary">수정</button>
+									        <button onclick="updateMyHopeJobInfo()" type="button" class="btn btn-primary" data-bs-dismiss="modal">수정</button>
 									      </div>
 									    </div>
 									  </div>
