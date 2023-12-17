@@ -2,9 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-
 <!-- 공고~납부 + 임원관리 -->
-<div class="row mt-4 py-1 border-bottom align-self-center" style="background-color:white">
+<div class="row mb-2 pb-2 border-bottom align-self-center" style="background-color:white">
 	<div class="col-2 align-self-center">
 		<div class="row">
 			
