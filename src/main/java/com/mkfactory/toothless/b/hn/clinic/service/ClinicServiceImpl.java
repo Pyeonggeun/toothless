@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -136,6 +137,12 @@ public class ClinicServiceImpl {
 		
 		ClinicPatientLogDto clinicPatientLogDto = clinicSqlMapper.getClinicPatientLogInfoByClinicPatientLogPk(clinic_patient_log_pk);
 		
+		String content = clinicPatientLogDto.getContent();
+		
+		content = StringEscapeUtils.escapeHtml4(content);
+		content = content.replaceAll("<br>", "\n");
+		clinicPatientLogDto.setContent(content);
+		
 		List<Map<String, Object>> list = new ArrayList<>();
 		List<PrescriptionDto> prescriptionList = clinicSqlMapper.getPrescriptionInfoListByClinicPatientLogPk(clinic_patient_log_pk);
 		
@@ -179,12 +186,22 @@ public class ClinicServiceImpl {
 		if(list.size() != 1) {
 			for(PrescriptionDto prescriptionDto : list) {
 				
+				if(prescriptionDto.getMedicine_code_pk() == 0) {
+					continue;
+				}
+				
 				prescriptionDto.setClinic_patient_log_pk(clinic_patient_log_pk);
 				
 				clinicSqlMapper.insertPrescriptionInfo(prescriptionDto);
 				
 			}
 		}
+		
+		String content = clinicPatientLogDto.getContent();
+		
+		content = StringEscapeUtils.escapeHtml4(content);
+		content = content.replaceAll("\n", "<br>");
+		clinicPatientLogDto.setContent(content);
 		
 		clinicSqlMapper.insertClinicPatientLogInfo(clinicPatientLogDto);
 		
@@ -194,6 +211,16 @@ public class ClinicServiceImpl {
 		
 		clinicSqlMapper.updateWaitingStatus(clinic_patient_pk);
 		
+	}
+	
+	public boolean isAreadyWaiting(int clinic_patient_pk) {
+		
+		return clinicSqlMapper.isAlreadyWaiting(clinic_patient_pk) > 0 ? true : false;
+	}
+	
+	public boolean isAlreadyPatient(String resident_id) {
+		
+		return clinicSqlMapper.isAlreadyPatient(resident_id) > 0 ? true : false;
 	}
 
 }
