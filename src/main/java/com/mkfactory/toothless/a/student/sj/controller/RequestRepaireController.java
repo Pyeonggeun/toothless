@@ -32,7 +32,11 @@ public class RequestRepaireController {
 	private RequestRepairServiceImpl repairService;
 
 	@RequestMapping("sj_requestRepairPage")
-	public String reqeustRepairPage() {
+	public String reqeustRepairPage(Model model) {
+		
+		model.addAttribute("repairList", repairService.printingAllRequestRepairArticle());
+		model.addAttribute("dormStudent", repairService.forDormStudentsList());
+		model.addAttribute("printing", repairService.name());
 		return "/tl_a/student/sj_requestRepairPage";
 	}
 	
@@ -57,79 +61,47 @@ public class RequestRepaireController {
 	
 	@RequestMapping("requestRepairWriteProcess")
 	public String requestWriteProcess(HttpSession session, RequestRepairDto repairDto, 
-						Model model, int[] categoryList,MultipartFile[] imgs) {
-	
+						Model model, MultipartFile imgs) {
 		
-		List<RequestRepairDto> repairList = new ArrayList<>();
-				
-		if(imgs != null) {
-			for(MultipartFile multipartFile : imgs) {
-				if(multipartFile.isEmpty()) {
-					continue;
-				}
+			if (imgs != null && !imgs.isEmpty()) {
+		        String rootPath = "C:/requestRepairImg/";
 
-				String rootPath = "C:/requestRepairImg/";
-				
-				// 날짜별 폴더 생성.
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
-				String todayPath = sdf.format(new Date());
-				
-				File todayFolderForCreate = new File(rootPath + todayPath);
-				
-				if(!todayFolderForCreate.exists()) {
-					todayFolderForCreate.mkdirs();
-				}
-				
-				String originalFileName = multipartFile.getOriginalFilename();
+		        // 날짜별 폴더 생성.
+		        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+		        String todayPath = sdf.format(new Date());
 
-				//파일명 충돌 회피 - 랜덤, 시간 조합
-				String uuid = UUID.randomUUID().toString();
-				long currentTime = System.currentTimeMillis();
-				String fileName = uuid + "_" + currentTime;
-				
-				// 확장자 추출
-				String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
-				fileName += ext;
-				
-				try {
-					multipartFile.transferTo(new File(rootPath + todayPath + fileName));					
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
-				
-				RequestRepairDto requestRepairDto = new RequestRepairDto();
-				requestRepairDto.setImage_link(todayPath + fileName);
+		        File todayFolderForCreate = new File(rootPath + todayPath);
 
-				//articleImageDto.setOriginal_filename(originalFileName);
-				
-				repairList.add(requestRepairDto);
-				}
-			StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
-			if(studentInfoDto == null) {
-				return "redirect:../../tl_a/student/loginPage";
-			}
-			int studentPk = studentInfoDto.getStudent_pk();
-			 
-			if(session.getAttribute("sessionStudentInfo") != null && dormStudentServiceJw.checkDormStudent(studentPk) == 0) {
-				// 로그인 한 학생이 사생이 아니면 반환 (사생페이지)
-				return "redirect:../../tl_a/student/loginPage";
-			} else {
-				model.addAttribute("studentInfoDto", studentInfoDto);
-				model.addAttribute("dormStudentDto", dormStudentServiceJw.getDormStudentByStudentPk(studentPk));
-				
-				return "/tl_a/student/sj_requestRepairPage";
-			}
+		        if (!todayFolderForCreate.exists()) {
+		            todayFolderForCreate.mkdirs();
+		        }
+
+		        String originalFileName = imgs.getOriginalFilename();
+
+		        // 파일명 충돌 회피 - 랜덤, 시간 조합
+		        String uuid = UUID.randomUUID().toString();
+		        long currentTime = System.currentTimeMillis();
+		        String fileName = uuid + "_" + currentTime;
+
+		        // 확장자 추출
+		        String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+		        fileName += ext;
+
+		        try {
+		        	imgs.transferTo(new File(rootPath + todayPath + fileName));
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+
+		        repairDto.setImage_link(todayPath+fileName);
+		    }
 			
-			
-			
-			
-		}
-	
+		
 			repairService.insertRequestRepair(repairDto);
-			return "/tl_a/student/sj_requestRepairPage";
-		
-		
+			return "redirect:./sj_requestRepairPage";
+				
 	}
+	
 	
 	
 }

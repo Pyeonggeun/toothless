@@ -49,27 +49,29 @@
                        
                     </div>
                 </div>
-                <form action="" method="post" >
+                <form action="./requestRepairWriteProcess" method="post" enctype="multipart/form-data">
                 <div class="row my-2">
                 	<div class="col">
+                	<input type="hidden" value="${dormStudentDto.dorm_student_pk}" name="dorm_student_pk">
                 		<div class="my-3">
 						  	<label for="exampleFormControlInput1" class="form-label">제목</label>
 						  	<input type="text" class="form-control" name="title"  placeholder="제목을 입력하세요.">
 						</div>
 						<label for="exampleFormControlInput1" class="form-label">작성자</label>
-						<input type="hidden" value="${dormStudentDto.dorm_student_pk}">
+						
 						<input class="form-control my-3" type="text" value="${studentInfoDto.name}" aria-label="readonly input example" readonly>
 						<div class="my-3">
 						 	<label for="exampleFormControlTextarea1" class="form-label">내용</label>
-						  	<textarea class="form-control"  rows="10" name="content" placeholder="내용을 입력하세요."></textarea>
+						  	<textarea class="form-control" name="content" rows="10"  placeholder="내용을 입력하세요."></textarea>
 						</div>
 						<div class="mb-3">
 						  <label for="formFileMultiple" class="form-label">파손시설 사진</label>
-						  <input class="form-control" type="file" id="formFileMultiple" name="imgs" multiple accept="image/*">
+						  <input class="form-control" type="file" id="formFileMultiple" name="imgs"accept="image/*">
 						</div>
 						<div class="row">
 							<div class="col d-flex justify-content-end my-2">
-                		<a class="btn btn-outline-danger" href="./requestRepairWriteProcess" role="button">접수완료</a>
+                			
+                			<button type="submit" class="btn btn-outline-danger">접수완료</button>
                 		</div>
 						</div>
 		            </div>

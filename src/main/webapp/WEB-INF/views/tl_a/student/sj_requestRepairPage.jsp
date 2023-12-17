@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,21 +81,25 @@
                     </div>
                 </div>
                 <!-- 게시판 우하하 -->
-                <div class="row text-center my-2 border-top border-bottom "><!-- 게시판 ㄲ --> 
+                <c:forEach items="${repairList }" var="repair">
+                <div class="row text-center my-4 border-top border-bottom "><!-- 게시판 ㄲ --> 
                     <div class="col">
-                    	1
+                    	${repair.request_repair_pk }
                     </div>
                     <div class="col">
-                    	ㅅㅂ
+                    	${repair.title }
                     </div>
                     <div class="col">
-                    	정세진
+                   	 	<c:if test="${(repair.dorm_student_pk == dormStudent.dorm_student_pk) &&
+                   	 		dormStudent.studnt_pk ==printing.student_pk  }">
+                   	 		${printing.NAME }
+                   	 	</c:if>
                     </div>
                     <div class="col">
-                    	2023.12.16
+                    	<fmt:formatDate value="${repair.request_date }" pattern="yyyy.MM.dd"/>  
                     </div>
                 </div>
-                
+                </c:forEach>
                 <div class="row">
                 	<div class="col-6"></div>
                 	<div class="col d-flex justify-content-end my-2">
