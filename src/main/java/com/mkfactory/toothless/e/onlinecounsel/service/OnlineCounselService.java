@@ -196,4 +196,24 @@ public class OnlineCounselService {
 		
 		return onlineCounselSqlMapper.selectGroupCounselListSpecificNum();
 	}
+	
+	public double getLastestReadCountAvg() {
+		
+		return onlineCounselSqlMapper.selectLastestReadCountAvg();
+	}
+	
+	public List<NoticeBoardDto> getTop3ReadCountNotice(){
+		
+		return onlineCounselSqlMapper.selectTop3ReadCountNotice();
+	}
+	
+	public List<FreeboardDto> getTop3ReadCountFreeboard(){
+		
+		return onlineCounselSqlMapper.selectTop3ReadCountFreeboard();
+	}
+	
+	public List<CounselorDto> getAllCounselor(){
+		
+		return onlineCounselSqlMapper.selectAllCounselor();
+	}
 }
