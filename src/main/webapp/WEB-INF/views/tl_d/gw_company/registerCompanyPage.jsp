@@ -141,12 +141,150 @@
 		}
 		
 		//사업자번호 중복
-		//if(isCheckedBusinessNumber==false){
-		//	alert("사업자 등록번호를 확인해주세요.")
-		//	return;
-		//}
+		if(isCheckedBusinessNumber==false){
+			alert("사업자 등록번호를 확인해주세요.");
+			businessNumber.focus();
+			
+			return;
+		}
+		
+		//계정 아이디 중복
+		if(isChekedExternalId==false){
+			alert("아이디 중복확인이 필요합니다.");
+			externalId.focus();
+			
+			return;
+		}
 		
 		companySubmit.submit();
+	}
+	
+	
+	//사업자번호 중복체크
+	function checkBusinessNumber(){
+		const inputBusinessNumberValue = document.getElementById("businessNumber").value;
+		
+		const businessNumberxhr = new XMLHttpRequest();
+		
+		businessNumberxhr.onreadystatechange = function(){
+			if(businessNumberxhr.readyState == 4 && businessNumberxhr.status == 200){
+				
+				const response = JSON.parse(businessNumberxhr.responseText);
+				
+				console.log(response.result);
+				console.log(response.data);
+			}
+		};
+		
+		businessNumberxhr.open("get", "./existByBusinessNumber?business_number=" + inputBusinessNumberValue);
+		
+		businessNumberxhr.send();
+		
+	}
+	
+	function checkBusinessNumberJquery(){
+		const inputBusinessNumberValue = $("#businessNumber").val();
+
+		$.ajax({
+			url: "./existByBusinessNumber?business_number=" + inputBusinessNumberValue,
+			method: "get",
+			dataType: "json",
+			success: function(response){
+				
+				console.log(response.result);
+				console.log(response.data);
+			}
+		});
+		
+	}
+	
+	let isCheckedBusinessNumber = false;
+	
+	function checkBusinessNumberFetch(){
+		const inputBusinessNumberValue = document.querySelector("#businessNumber").value;
+		
+		const url = "./existByBusinessNumber?business_number=" + inputBusinessNumberValue;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then((response) => {
+			
+			if(response.data == true){
+				
+				isCheckedBusinessNumber = false;
+				
+				const checkBusinessNumberResultBox = document.getElementById("checkBusinessNumberResultBox");
+				checkBusinessNumberBox.innerText = "이미 등록된 사업자 등록번호 입니다.";
+				checkBusinessNumberBox.style.color = "red";
+				
+				
+			}else{
+				isCheckedBusinessNumber = true;
+			}
+		})
+		;
+	}
+	
+	//외부인 아이디 중복체크
+	function checkExternalId(){
+		const inputExternalIdValue=document.getElenentById("externalId");
+		
+		const externalIdxhr=new XMLHttpRequest();
+		
+		externalIdxhr.onreadystatechange=function(){
+			if(externalIdxhr.readyState==4 && externalIdxhr.status==200){
+				const response=JSON.parse(externalIdxhr.responseText);
+				
+				console.log(response.result);
+				console.log(response.data);
+			}
+			
+		}; 
+		
+		externalIdxhr.open("get","./existByExternalId?external_id="+inputExternalIdValue);
+		
+		externalIdxhr.send();
+		
+	}
+	
+	function checkExternalIdJquery(){
+		const inputExternalIdValue=$("#externalId").val();
+		
+		$.ajax({
+			url:"./existByExternalId?external_id="+inputExternalIdValue,
+			method: "get",
+			dataType:"json",
+			success: function(response){
+				console.log(response.result);
+				console.log(response.data);
+			}
+		});
+	}
+	
+	let isChekedExternalId=false;
+	 
+	function checkExternalIdFetch(){
+		const inputExternalIdValue=document.querySelector("#externalId").value;
+		const url="./existByExternalId?external_id="+inputExternalIdValue;
+		
+		fetch(url)
+		.then(response=>response.json())
+		.then((response)=>{
+			if(response.data==true){
+				isChekedExternalId=false;
+				
+				const checkExternalIdResultBox=document.getElementById("checkExternalIdResultBox");
+				checkExternalIdResultBox.innerText="이미 존재하는 아이디 입니다.";
+				checkExternalIdResultBox.style.color="red";
+			}else{
+				isChekedExternalId=true;
+				
+				const checkExternalIdResultBox=document.getElementById("checkExternalIdResultBox");
+				checkExternalIdResultBox.innerText="사용 가능한 아이디 입니다.";
+				checkExternalIdResultBox.style.color="green";
+			}
+		});
+	
 	}
 	
 	
@@ -191,7 +329,7 @@
 							</div>
 							<div class="row">
 								<input onblur="checkBusinessNumberFetch()" id="businessNumber" type="text" name="business_number" class="form-control" placeholder="000-00-00000">
-								<div id="checkBusinessNumberResultBox"></div>
+								<div id="checkBusinessNumberBox"></div>
 							</div>
 						</div>
 					</div>
@@ -310,7 +448,7 @@
 					<div class="row mt-2">
 						 
 						<div class="row">
-							ID <input onblur="checkexternalIdFetch()" id="externalId" type="text" name="external_id" class="form-control" placeholder="로그인시 사용할 ID를 입력해주세요.">
+							ID <input onblur="checkExternalIdFetch()" id="externalId" type="text" name="external_id" class="form-control" placeholder="로그인시 사용할 ID를 입력해주세요.">
 							<div id="checkExternalIdResultBox"></div>
 						</div>
 					</div>

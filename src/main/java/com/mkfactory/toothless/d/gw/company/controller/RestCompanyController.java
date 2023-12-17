@@ -31,7 +31,7 @@ public class RestCompanyController {
 		D_RestResponseDto d_RestResponseDto=new D_RestResponseDto();
 		
 		d_RestResponseDto.setResult("success");
-		d_RestResponseDto.setData(companyService.existBusinessNumber(external_id));
+		d_RestResponseDto.setData(companyService.existExternalId(external_id));
 		
 		return d_RestResponseDto;
 	}
