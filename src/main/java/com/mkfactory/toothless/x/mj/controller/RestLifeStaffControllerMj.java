@@ -116,7 +116,21 @@ public class RestLifeStaffControllerMj {
 		// 특정강사 외부인 회원가입 정보
 		ExternalInfoDto someTeacherExternalInfo = lifeStaffService.getSomeTeacherExternalInfo(lecturer_key);
 		restResponseDto.addData("someTeacherExternalInfo", someTeacherExternalInfo);
-				
+
+		restResponseDto.setResult("success");
+		return restResponseDto;
+	} 
+	
+	// 전체 강사 목록만
+	@RequestMapping("getAllTeacherList")
+	public Mj_RestResponseDto getAllTeacherList() {
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+
+		// 전체강사목록
+		List<LifeLecturerDto> allTeacherList = lifeStaffService.getAllTeacherList();
+		restResponseDto.addData("allTeacherList", allTeacherList);
+
+		
 		restResponseDto.setResult("success");
 		return restResponseDto;
 	} 
@@ -206,6 +220,7 @@ public class RestLifeStaffControllerMj {
 		restResponseDto.setResult("success");
 		return restResponseDto;	
 	}
+
 	
 	// =================여기부터 교육과정 관련========================
 	
@@ -289,14 +304,17 @@ public class RestLifeStaffControllerMj {
 		restResponseDto.setResult("success");
 		return restResponseDto;	
 	}
-	
-	
+
 	// 강의 정보 삭제
 	@RequestMapping("deleteLectureInfo")
 	public Mj_RestResponseDto deleteLectureInfo(int lecture_info_key) {
 		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
 		
+		// 강의정보삭제되면
 		lifeStaffService.deleteLectureInfo(lecture_info_key);
+		
+		// 해당하는 개설된 강의들도 삭제(---> 수강신청이 한명이라도있으면 삭제 불가하게...(-))
+		lifeStaffService.deleteOpenLectureInfoByLecKey(lecture_info_key);
 		
 		restResponseDto.setResult("success");
 		return restResponseDto;	
@@ -373,6 +391,7 @@ public class RestLifeStaffControllerMj {
 	public Mj_RestResponseDto getTeacherListByCategory(int lecture_category_key) {
 		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
 		
+		// 수업가능한 강사리스트
 		List<LifeLecturerDto> teacherListByCategory = lifeStaffService.getTeacherListByCategory(lecture_category_key);
 		restResponseDto.addData("teacherListByCategory", teacherListByCategory);
 		
@@ -393,8 +412,82 @@ public class RestLifeStaffControllerMj {
 		return restResponseDto;	
 	}
 	
+	// 개설강의 정보 리스트
+	@RequestMapping("getAllOpenLectureInfoList")
+	public Mj_RestResponseDto getAllOpenLectureInfoList() {
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+		
+		// 개설강의 정보 리스트
+		List<Map<String, Object>> allOpenLectureInfoList = lifeStaffService.getAllOpenLectureInfoList();
+		restResponseDto.addData("allOpenLectureInfoList", allOpenLectureInfoList);
+		
+		// 전체강사목록
+		List<LifeLecturerDto> allTeacherList = lifeStaffService.getAllTeacherList();
+		restResponseDto.addData("allTeacherList", allTeacherList);
+		
+		// 교육과정 리스트
+		List<LectureCategoryDto> lectureCategoryList = lifeStaffService.getLectureCategory();
+		restResponseDto.addData("lectureCategoryList", lectureCategoryList);
+		
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;	
+	}
+	
+	// 개설강의 입력된 정보 + 해당 강의 기본수업정보
+	@RequestMapping("getSomeOpenLectureInfo")
+	public Mj_RestResponseDto getSomeOpenLectureInfo(int open_lecture_key) {
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+
+		// 특정 개설강의 정보
+		OpenLectureDto someOpenLecInfo = lifeStaffService.getSomeOpenLectureInfo(open_lecture_key);
+		restResponseDto.addData("someOpenLecInfo", someOpenLecInfo);
+		
+		// 특정 강의 기본 정보
+		LectureInfoDto someLectureInfo = lifeStaffService.getSomeLectureInfo(someOpenLecInfo.getLecture_info_key());
+		restResponseDto.addData("someLectureInfo", someLectureInfo);
+		
+		// 교육과정 리스트
+		List<LectureCategoryDto> lectureCategoryList = lifeStaffService.getLectureCategory();
+		restResponseDto.addData("lectureCategoryList", lectureCategoryList);
+		
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;
+	} 
+	
+	// 개설 강의 정보 수정(모달창에서)
+	@RequestMapping("updateOpenLectureInfo")
+	public Mj_RestResponseDto updateOpenLectureInfo(OpenLectureDto params, int open_lecture_key) {
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+		
+		params.setOpen_lecture_key(open_lecture_key);
+		
+		/* 특정 개설강의 정보
+		OpenLectureDto someOpenLecInfo = lifeStaffService.getSomeOpenLectureInfo(open_lecture_key);
+		params.setLecture_info_key(someOpenLecInfo.getLecture_info_key());
+		*/
+		lifeStaffService.updateOpenLectureInfo(params);
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;	
+	}
+	
+	// 개설 강의 정보 삭제(모달창에서)
+	@RequestMapping("deleteOpenLectureInfo")
+	public Mj_RestResponseDto deleteOpenLectureInfo(int open_lecture_key) {
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+		
+		lifeStaffService.deleteOpenLectureInfo(open_lecture_key);
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;	
+	}
+	
+
 	
 	
+
 	
 	
 	

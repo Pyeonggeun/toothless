@@ -219,6 +219,7 @@
 		SELECT * FROM TL_X_LECTURE_INFO
 		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
 	</select>
+
 	
 	<!-- 강의정보 수정 -->
 	<update id="updateLectureInfo">
@@ -324,9 +325,40 @@
 		)
 	</insert>
 	
+	<!-- 개설강의 리스트 -->
+	<select id="selectAllOpenLecture" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+		SELECT * FROM tl_x_open_lecture
+		ORDER BY OPEN_LECTURE_KEY DESC
+	</select>
 	
+	<!-- 특정 개설강의 정보 -->
+	<select id="selectSomeOpenLectureInfo" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+		SELECT * FROM tl_x_open_lecture
+		WHERE OPEN_LECTURE_KEY = #{open_lecture_key}
+	</select>
 	
+	<!-- 개설강의 수정 --> 
+	<update id="updateOpenLectureInfo">
+		UPDATE tl_x_open_lecture
+		SET LECTURER_KEY = #{lecturer_key},
+		MAX_STUDENT = #{max_student},
+		START_APPLY = #{start_apply},
+		OPEN_DATE = #{open_date},
+		CLOSE_DATE = #{close_date}
+		WHERE OPEN_LECTURE_KEY = #{open_lecture_key}
+	</update>
 	
+	<!-- 개설강의 삭제 -->
+	<delete id="deleteOpenLectureInfo">
+		DELETE FROM tl_x_open_lecture
+		WHERE OPEN_LECTURE_KEY = #{open_lecture_key}
+	</delete>
+	
+	<!-- 특정 강의정보가 삭제되면 개설강의 삭제 -->
+	<delete id="deleteOpenLectureInfoByLecKey">
+		DELETE FROM tl_x_open_lecture
+		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
+	</delete>
 	
 	
 	
