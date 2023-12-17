@@ -13,8 +13,8 @@
                   <div id="flush-1" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body d-grid p-0">
                         <div class="row ps-5 ms-1 my-2">
-                            <a class="btn text-start my-1" href="#" role="button">신규 교육과정 등록</a>
-                            <a class="btn text-start my-1" href="#" role="button">교육과정 조회/수정</a>
+                            <a class="btn text-start my-1" href="./manageLecturePage" role="button">신규 교육과정 등록</a>
+                            <a class="btn text-start my-1" href="./manageLecturePage2" role="button">교육과정 조회/수정</a>
                         </div>
                     </div>
                   </div>

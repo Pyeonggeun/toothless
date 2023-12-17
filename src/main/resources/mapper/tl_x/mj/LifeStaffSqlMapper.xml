@@ -6,7 +6,8 @@
 
 	<!-- 교육과정 목록(카테고리) 리스트 -->
 	<select id="selectLectureCategory" resultType="com.mkfactory.toothless.x.dto.LectureCategoryDto">
-		SELECT * FROM tl_x_lecture_category
+		SELECT * FROM TL_X_LECTURE_CATEGORY
+		ORDER BY LECTURE_CATEGORY_KEY asc
 	</select>
 	
 	<!-- 아직 강사등록 안된 사람들 -->
@@ -180,6 +181,131 @@
 		DELETE FROM tl_x_life_Student
 		WHERE LIFE_STUDENT_KEY = #{life_student_key}
 	</delete>
+	
+	
+	
+	
+	
+	
+		
+	<!-- @@@@@@ 여기부터 학생 관련 @@@@@@@@@-->
+	
+	<!-- 학생정보등록 -->
+	<insert id="insertLectureInfo">
+		INSERT INTO tl_x_lecture_info VALUES( 
+		   tl_x_lecture_info_seq.nextval,
+		   #{lecture_category_key},
+		   #{name},
+		   #{total_hour},
+		   #{credit},
+		   #{essential_attendance},
+		   #{essential_grade},
+		   #{study_target},
+		   #{need_knowledge},
+		   #{study_goal},
+		   #{study_content},
+		   SYSDATE
+		)
+	</insert>
+	
+	<!-- 전체 교육과정목록 -->
+	<select id="selectAllLectureInfoList" resultType="com.mkfactory.toothless.x.dto.LectureInfoDto">
+		SELECT * FROM TL_X_LECTURE_INFO
+		ORDER BY LECTURE_INFO_KEY desc
+	</select>
+	
+	<!-- 특정 강의 정보 -->
+	<select id="selectSomeLectureInfo" resultType="com.mkfactory.toothless.x.dto.LectureInfoDto">
+		SELECT * FROM TL_X_LECTURE_INFO
+		WHERE LECTURE_INFO_KEY = #{lecture_category_key}
+	</select>
+	
+	<!-- 강의정보 수정 -->
+	<update id="updateLectureInfo">
+		UPDATE TL_X_LECTURE_INFO
+		SET NAME = #{name},
+		LECTURE_CATEGORY_KEY = #{lecture_category_key},
+		TOTAL_HOUR = #{total_hour},
+		CREDIT = #{credit},
+		ESSENTIAL_ATTENDANCE = #{essential_attendance},
+		ESSENTIAL_GRADE = #{essential_grade},
+		STUDY_TARGET = #{study_target},
+		NEED_KNOWLEDGE = #{need_knowledge},
+		STUDY_GOAL = #{study_goal},
+		STUDY_CONTENT = #{study_content}
+		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
+	</update>
+	
+	<!-- 강의정보 삭제 -->
+	<delete id="deleteLectureInfo">
+		DELETE FROM TL_X_LECTURE_INFO
+		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
+	</delete>
+
+	<!-- 강의별 수강신청 조건 -->
+	<select id="selectConditionListByLectureKey" resultType="com.mkfactory.toothless.x.dto.ApplyConditionDto">
+		SELECT * FROM tl_x_apply_condition
+		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
+	</select>
+	
+	<!-- 강의별 수강신청 조건 삭제 -->
+	<delete id="deleteConditionList">
+		DELETE FROM tl_x_apply_condition
+		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
+	</delete>
+	
+	<!-- 강의별 수강신청 조건 등록 -->
+	<insert id="insertConditionInfo">
+		INSERT INTO tl_x_apply_condition VALUES( 
+		   tl_x_apply_condition_seq.nextval,
+		   #{lecture_info_key},
+		   #{condition_lecture_key},
+		   SYSDATE
+		)
+	</insert>
+	
+	<!-- 교육과정 카테고리 등록 -->
+	<insert id="insertCategory">
+		INSERT INTO tl_x_lecture_category VALUES( 
+		   tl_x_lecture_category_seq.nextval,
+		   #{category_name}
+		)
+	</insert>
+	
+	<!-- 교육과정 카테고리 삭제 -->
+	<delete id="deleteCategory">
+		DELETE FROM TL_X_LECTURE_CATEGORY
+	WHERE LECTURE_CATEGORY_KEY = #{lecture_category_key}
+	</delete>
+	
+	<!-- 교육과정 카테고리 정보 삭제되면 그 카테고리 수업들도 삭제 -->
+	<delete id="deleteLectureListByCategoryKey">
+		DELETE FROM TL_X_LECTURE_INFO
+		WHERE LECTURE_CATEGORY_KEY = #{lecture_category_key}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
