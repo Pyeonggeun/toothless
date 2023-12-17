@@ -112,7 +112,8 @@
                                             </a>
                                         </div>
                                         <div class="col px-0 d-grid justify-content-center">
-                                            <button class="rounded-circle btn text-white" style="aspect-ratio: 1/1; width: 130%; background-color: #014195;">
+                                            <button class="rounded-circle btn text-white" style="aspect-ratio: 1/1; width: 130%; background-color: #014195;"
+                                            onclick="location.href='../hs/eduMainPageForStudent'">
                                                 <div class="row">
                                                     <div class="col">
                                                         <i class="bi bi-pencil-square" style="font-size: x-large;"></i>

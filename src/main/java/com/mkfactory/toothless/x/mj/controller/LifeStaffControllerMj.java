@@ -68,6 +68,34 @@ public class LifeStaffControllerMj {
 		return "tl_x/mj/manageStudentPage2";
 	}
 	
+	// 교육과정관리 페이지로 (등록 탭)
+	@RequestMapping("manageLecturePage")
+	public String manageLecturePage() {
+		
+		return "tl_x/mj/manageLecturePage";
+	}
+	
+	// 교육과정관리 페이지2로 (조회/수정 탭)
+	@RequestMapping("manageLecturePage2")
+	public String manageLecturePage2() {
+		
+		return "tl_x/mj/manageLecturePage2";
+	}
+	
+	// 강의관리 페이지로 (등록 탭)
+	@RequestMapping("manageOpenLecturePage")
+	public String manageOpenLecturePage() {
+		
+		return "tl_x/mj/manageOpenLecturePage";
+	}
+	
+	// 강의관리 페이지2로 (조회/수정 탭)
+	@RequestMapping("manageOpenLecturePage2")
+	public String manageOpenLecturePage2() {
+		
+		return "tl_x/mj/manageOpenLecturePage2";
+	}
+	
 	
 	
 	

@@ -37,15 +37,21 @@ public class CounselCommonsStaffController {
 			return "tl_e/commons/loginRequired";
 		}else {
 			
-
+			model.addAttribute("counselorList", onlineCouneslService.getAllCounselor());
+			
 			//공지사항
 			model.addAttribute("noticeList", onlineCouneslService.getNoticeListSpecificNum());
-			
+			model.addAttribute("top3Notice", onlineCouneslService.getTop3ReadCountNotice());
+
 			// 집단상담
 			model.addAttribute("groupCounselList", onlineCouneslService.getGroupCounselListSpecificNum());
 
-			// 자유게시판
+			// 자유게시판		
 			model.addAttribute("freeboardList", onlineCouneslService.getFreeboardListSpecificNum());
+			model.addAttribute("top3Freeboard", onlineCouneslService.getTop3ReadCountFreeboard());
+				// 최근 조회수 평균
+				model.addAttribute("readCountNum", onlineCouneslService.getLastestReadCountAvg());
+			
 			
 			return "tl_e/commons/counselCenterStaffMainPage";
 		}

@@ -17,19 +17,19 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-auto pe-0">
-                                <i class="fa-solid fa-star" style="color: #f7a505; font-size: 2em;"></i>
+                                <i id="starShow1" class="fa-solid fa-star" style="color: #f7a505; font-size: 2em;"></i>
                             </div>
                             <div class="col-auto pe-0 ps-1">
-                                <i class="fa-regular fa-star" style="color: #f7a505; font-size: 2em;"></i>
+                                <i id="starShow2" class="fa-regular fa-star" style="color: #f7a505; font-size: 2em;"></i>
                             </div>
                             <div class="col-auto pe-0 ps-1">
-                                <i class="fa-regular fa-star" style="color: #f7a505; font-size: 2em;"></i>
+                                <i id="starShow3" class="fa-regular fa-star" style="color: #f7a505; font-size: 2em;"></i>
                             </div>
                             <div class="col-auto pe-0 ps-1">
-                                <i class="fa-regular fa-star" style="color: #f7a505; font-size: 2em;"></i>
+                                <i id="starShow4" class="fa-regular fa-star" style="color: #f7a505; font-size: 2em;"></i>
                             </div>
                             <div class="col-auto ps-1">
-                                <i class="fa-regular fa-star" style="color: #f7a505; font-size: 2em;"></i>
+                                <i id="starShow5" class="fa-regular fa-star" style="color: #f7a505; font-size: 2em;"></i>
                             </div>
                         </div>
                         <div class="row mt-4">
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <div class="col border rounded mx-2 py-3" style="font-size: 0.85em;">
+                            <div id="showContent" class="col border rounded mx-2 py-3" style="font-size: 0.85em;">
                                 아주 재미있었습니다 강사님도 친절하세요
                             </div>
                         </div>

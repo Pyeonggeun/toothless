@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.mkfactory.toothless.x.dto.LectureCategoryDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
+import com.mkfactory.toothless.x.dto.LectureReviewDto;
 import com.mkfactory.toothless.x.dto.LectureStudentDto;
 import com.mkfactory.toothless.x.dto.OpenLectureDto;
 
@@ -25,7 +26,10 @@ public interface LifeStudentSqlMapper {
 	
 	public int isApply(@Param("open_lecture_key") int open_lecture_key, @Param("life_student_key") int life_student_key);
 	
-	public List<Integer> isConditionSatisfaction(@Param("open_lecture_key") int open_lecture_key, @Param("life_student_key") int life_student_key);
+	public List<Integer> isConditionSatisfaction(
+			@Param("open_lecture_key") int open_lecture_key, @Param("life_student_key") int life_student_key);
+	public int isOverlapDate(
+			@Param("open_lecture_key") int open_lecture_key, @Param("life_student_key") int life_student_key);
 	
 	public int getLifeStudentKeyByExternalPk(int externalPk);
 	
@@ -36,5 +40,12 @@ public interface LifeStudentSqlMapper {
 			@Param("pageNumber") int pageNumber, @Param("eachTotalNumber") int eachTotalNumber);
 	public int getTotalOpenLectureCount(@Param("searchType") int[] searchType, @Param("searchWord") String searchWord, @Param("searchRecruitment") int searchRecruitment);
 	public List<LectureCategoryDto> getLectureCategoryList();
+	
+	public List<Map<String, Object>> getLectureStudentKeyAndOpenLectureKeyByLifeStudentKey(
+			@Param("pageNumber") int pageNumber, @Param("life_student_key") int life_student_key);
+	public int getToTalReviewLectureCount(int life_student_key);
+	public int isReviewRegister(int lecture_student_key);
+	public LectureReviewDto getLectureReviewInfoByLectureStudentKey(int lecture_student_key);
+	public void insertLectureReviewInfo(LectureReviewDto lectureReviewDto);
 
 }

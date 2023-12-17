@@ -29,10 +29,11 @@
         	const openLectureKey = ${open_lecture_key};
         	let canApply = true;
         	let canSatisfaction = true;
+        	let canOverlap = true;
         	
         	function reloadDetailPage() {
         		
-        		url = "./getDetailPageInfo?open_lecture_key=" + openLectureKey;
+        		const url = "./getDetailPageInfo?open_lecture_key=" + openLectureKey;
         		
         		removeDetailPage();
         		
@@ -83,9 +84,13 @@
         			
         			const applyButton = document.getElementById("applyButton");
         			
-        			if(canApply == false && canSatisfaction == true) {
+        			if(canApply == false && canSatisfaction == true && canOverlap == false) {
 
         				applyButton.setAttribute("onclick", "applyLecture()");
+        				
+        			}else if(canApply == false && canSatisfaction == true && canOverlap == true) {
+        				
+        				applyButton.setAttribute("onclick", "showOverlapDate()");
         				
         			}else if(canApply == true && canSatisfaction == true) {
 
@@ -111,7 +116,7 @@
         	
         	function isApply() {
         		
-        		url = "./isApply?open_lecture_key=" + openLectureKey;
+        		const url = "./isApply?open_lecture_key=" + openLectureKey;
         		
         		fetch(url)
         		.then(response => response.json())
@@ -127,7 +132,7 @@
         	
         	function isConditionSatisfaction() {
         		
-        		url = "./isConditionSatisfaction?open_lecture_key=" + openLectureKey;
+        		const url = "./isConditionSatisfaction?open_lecture_key=" + openLectureKey;
         		
         		fetch(url)
         		.then(response => response.json())
@@ -141,9 +146,25 @@
         		
         	}
         	
+        	function isOverlapDate() {
+        		
+				const url = "./isOverlapDate?open_lecture_key=" + openLectureKey;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			canOverlap = response.data;
+        			
+        			reloadDetailPage();
+        			
+        		});
+        		
+        	}
+        	
         	function applyLecture() {
         		
-        		url = "./insertLectureStudentInfo?open_lecture_key=" + openLectureKey;
+        		const url = "./insertLectureStudentInfo?open_lecture_key=" + openLectureKey;
         		
         		fetch(url)
         		.then(response => response.json())
@@ -198,6 +219,11 @@
                 modal.show();	
             }
             
+            function showOverlapDate() {
+            	const modal = bootstrap.Modal.getOrCreateInstance("#overlapDateModal");
+                modal.show();
+            }
+            
             function applyCompleteModalHide() {
             	
             	const modal = bootstrap.Modal.getOrCreateInstance("#applyCompleteModal");
@@ -224,6 +250,15 @@
                 modal.hide();
             	
             }
+			
+			function notApplicableModalHide() {
+            	
+            	const modal = bootstrap.Modal.getOrCreateInstance("#overlapDateModal");
+            	
+            	isApply();
+                modal.hide();
+            	
+            }
             
 			function goMyPage() {
         		
@@ -234,6 +269,7 @@
         		
         		applyCompleteModalHide();
         		applyAlreadyCompleteModalHide();
+        		notApplicableModalHide();
         		notApplicableModalHide();
         		
         		location.href = "./myPage";
@@ -522,6 +558,20 @@
                     </div>
                     <div class="modal-footer py-1 border-0">
                         <button onclick="notApplicableModalHide()" class="btn btn-secondary" style="font-size: 0.8em;" data-bs-dismiss="modal">닫기</button>
+                        <button onclick="goMyPage()" class="btn text-white fw-bold" style="background-color: #7844ae; font-size: 0.8em;">나의 강의실</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="overlapDateModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body text-center fw-bold py-5" style="font-size: 0.9em;">
+                        교육기간이 겹치는 강의는 신청이 불가능합니다
+                    </div>
+                    <div class="modal-footer py-1 border-0">
+                        <button onclick="overlapDateModalHide()" class="btn btn-secondary" style="font-size: 0.8em;" data-bs-dismiss="modal">닫기</button>
                         <button onclick="goMyPage()" class="btn text-white fw-bold" style="background-color: #7844ae; font-size: 0.8em;">나의 강의실</button>
                     </div>
                 </div>

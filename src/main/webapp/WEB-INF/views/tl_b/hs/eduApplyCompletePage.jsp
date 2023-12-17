@@ -9,46 +9,191 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<title>교육프로그램 신청완료</title>
+		<title>교육프로그램 신청완료</title>
 	</head>
 	<body>
-		<h1>프로그램 신청완료!</h1>
-		<a href="./eduMainPageForStudent">메인페이지</a><br>
-		<a href="./eduMyPageForStudent">나의 교육프로그램 신청내역</a>
-		
-			
-			
-			
-			
-			
-			
-			
-					<div class="row">
-                        <div class="col">
+        <div class="container-fluid">
+            <jsp:include page="../hs/eduStudentTopBanner.jsp"></jsp:include>
+            
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+						<div class="col"></div>
+						<div class="col-8 text-start">
+							<a href="./eduMainPageForStudent" class="btn btn-sm fw-bold" 
+							style="color: #4c4a4c;">메인페이지</a>
+							<a href="./eduMyPageForStudent" class="btn btn-sm fw-bold"
+							style="color: #4c4a4c;">마이페이지</a>
+						</div>
+						<div class="col"></div>
+					</div>
+                </div>
+            </div>
+
+			<!-- 페이지내용 -->
+            <div class="row mt-4">
+                <div class="col"></div>
+
+                <div class="col-6" >
+					
+                 	<div class="row border-bottom border-dark border-2">
+                        <div class="col mb-3 fw-bold text-center" style="font-size: 1.5em;">
+							신청 완료
+						</div>
+                    </div>
+
+                    <div class="row border-bottom ">
+                        <div class="col"></div>
+                        <div class="col-8 px-0 mt-2">
+                            
+
                             <div class="row">
-                                <div class="col py-4" style="background-color: #F2F2F2;">
-                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-1 my-auto">
-                                                    <img class="img-fluid" src="../../resources/img/another/logo_black.png">
-                                                </div>
-                                                <div class="col-3 ps-0 my-auto" style="font-size: x-large">
-                                                    MK University | 보건센터
-                                                </div>
-                                                <div class="col text-body-tertiary my-auto" style="font-size: small;">
-                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                                </div>
-                                            </div>
+                                <div class="col fw-bold text-center" 
+								style="font-size: 40px;
+                                color: #2969B0;">
+                                    <i class="bi bi-check-circle"></i>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                            	<div class="col fw-bold text-center"
+                            	style="font-size: 24px;">
+                            		교육프로그램 신청이 완료되었습니다.
+                            	</div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col fw-bold text-center">
+                                    <span style="font-size: 18px;">
+                                         <img class="img img-fluid"
+				                            src="../../resources/img/healthRoom/edu/${eduDto.img_link }"
+				                            style="max-height: 350px; width: 300px;"
+				                         >
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="row mt-4">
+                                <div class="col-3 fw-bold text-center">
+                                    <span style="font-size: 18px;">
+                                        프로그램명
+                                    </span> 
+                                </div>
+
+                                <div class="col">
+                                    <span style="font-size: 18px;">
+                                        ${eduDto.name}
+                                   </span>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-3 fw-bold text-center">
+                                    <span style="font-size: 18px;">
+                                        교&nbsp;&nbsp;&nbsp;육&nbsp;&nbsp;&nbsp;일
+                                    </span> 
+                                </div>
+
+                                <div class="col">
+                                    <span style="font-size: 18px;">
+                                        <fmt:formatDate 
+                                        value="${eduDto.edu_date }"
+                                        pattern="yy년 MM월 dd일 hh시"
+                                        />
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-3 fw-bold text-center">
+                                    <span style="font-size: 18px;">
+                                        교&nbsp;육&nbsp;장&nbsp;소
+                                    </span> 
+                                </div>
+
+                                <div class="col">
+                                    <span style="font-size: 18px;">
+                                        ${eduDto.place}
+                                   </span>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3 mb-4">
+                                <div class="col-3 fw-bold text-center">
+                                    <span style="font-size: 18px;">
+                                        강&nbsp;&nbsp;&nbsp;사&nbsp;&nbsp;&nbsp;명
+                                    </span> 
+                                </div>
+
+                                <div class="col">
+                                    <span style="font-size: 18px;">
+                                    	이민규
+                                   	</span>
+                                </div>
+                            </div>
+                            
+                        </div>
+						<div class="col"></div>
+                    </div>
+                    
+                    <!-- 버튼 -->
+					<div class="row mt-3">
+					
+                        <div class="col text-center">
+                            <button class="btn fw-bold ms-4 me-1" 
+                                    style="background-color: #EFF0F2;" 
+                                    onclick="location.href='./eduMainPageForStudent'">
+                                    목록
+                            </button>
+                            <button class="btn fw-bold text-white ms-1" 
+                            style="background-color: #014195;" 
+                            onclick="location.href='./eduMyPageForStudent'">
+                            나의 신청내역
+                            </button>
+                        </div>
+                        
+                      
+					</div>	
+
+
+
+
+
+
+
+                </div>
+                <div class="col"></div>
+            </div>
+			
+
+
+
+            <div class="row mt-5">
+                <div class="col">
+                    <div class="row">
+                        <div class="col py-4" style="background-color: #F2F2F2;">
+                            <div class="row" style="margin-left: 16%; margin-right: 16%;">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-1 my-auto">
+                                            <img class="img-fluid" src="../../resources/img/another/logo_black.png">
+                                        </div>
+                                        <div class="col-3 ps-0 my-auto" style="font-size: x-large">
+                                            MK University | 보건센터
+                                        </div>
+                                        <div class="col text-body-tertiary my-auto" style="font-size: small;">
+                                            <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
+                                            <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    
+                </div>
+            </div>
+        </div>
+		
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 	</body>
 </html>

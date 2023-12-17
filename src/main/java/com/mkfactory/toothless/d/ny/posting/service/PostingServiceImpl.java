@@ -138,6 +138,7 @@ public class PostingServiceImpl {
 				List<Integer> postingDeadlineList = postingSqlMapper.selectPostingDeadline();
 				List<Integer> endPostingList = postingSqlMapper.selectEndPosting();
 				
+				
 				// 총 공고찜 수(공고별)
 				int allPostingInterest = postingSqlMapper.selectAllInterestPosting(jobPostingDto.getJob_posting_pk());
 				
@@ -156,7 +157,7 @@ public class PostingServiceImpl {
 	}
 
 	
-	// 교직원용 공고 상세리스트
+	// 교직원용 공고 상세리스트(기업용 공고 상세 페이지)
 	public Map<String, Object> getJobPostingDetail(int job_posting_pk){
 		
 		
@@ -181,6 +182,8 @@ public class PostingServiceImpl {
 		// 마감임박
 		List<Integer> postingDeadlineList = postingSqlMapper.selectPostingDeadline();
 		
+		int allPostingInterest = postingSqlMapper.selectAllInterestPosting(job_posting_pk);
+		
 		
 		// 채용마감 디데이
 		if (postingDeadlineList.contains(job_posting_pk) && ! endPostingList.contains(job_posting_pk)) {
@@ -196,6 +199,7 @@ public class PostingServiceImpl {
 		jobPostingMap.put("comScaleCategoryDto", comScaleCategoryDto);
 		jobPostingMap.put("postingDeadlineList", postingDeadlineList);
 		jobPostingMap.put("endPostingList", endPostingList);
+		jobPostingMap.put("allPostingInterest", allPostingInterest);
 		
 			
 		return jobPostingMap;
@@ -259,6 +263,9 @@ public class PostingServiceImpl {
 			
 			// 관심기업
 			List<Integer> interestCompany = postingSqlMapper.selectInterestCompanyByStudentPk(student_pk);
+			// 지원자
+			List<Integer> myApplyPostingList = postingSqlMapper.selectMyApplyByStudentPk(student_pk);
+			
 			
 			int allPostingInterest = postingSqlMapper.selectAllInterestPosting(jobPostingDto.getJob_posting_pk());
 			
@@ -270,6 +277,7 @@ public class PostingServiceImpl {
 			jobPostingMap.put("endPostingList", endPostingList);
 			jobPostingMap.put("allPostingInterest", allPostingInterest);
 			jobPostingMap.put("interestCompany", interestCompany);
+			jobPostingMap.put("myApplyPostingList", myApplyPostingList);
 			
 			
 			postingList.add(jobPostingMap);
@@ -280,8 +288,10 @@ public class PostingServiceImpl {
 	}
 	
 	
-	// 학생용 공고 상세 페이지(기업용 공고 상세 페이지)
-	public Map<String, Object> getJobPostingDetailForStudentAndCompany(int job_posting_pk){
+	// 학생용 공고 상세 페이지
+	public Map<String, Object> getJobPostingDetailForStudentAndCompany(
+			//int student_pk, 
+			int job_posting_pk){
 		
 		
 		JobPostingDto jobPostingDto = postingSqlMapper.selectPostingDetailByJobPostingPk(job_posting_pk);
@@ -312,6 +322,9 @@ public class PostingServiceImpl {
 		    	jobPostingMap.put("deadlineDDay", deadlineDDay);
 		}
 			
+		//List<Integer> myApplyPostingList = postingSqlMapper.selectMyApplyByStudentPk(student_pk);
+		//List<Integer> interestCompany = postingSqlMapper.selectInterestCompanyByStudentPk(student_pk);
+		
 		int allPostingInterest = postingSqlMapper.selectAllInterestPosting(job_posting_pk);
 		
 		jobPostingMap.put("companyDto", companyDto);
@@ -322,6 +335,8 @@ public class PostingServiceImpl {
 		jobPostingMap.put("postingDeadlineList", postingDeadlineList);
 		jobPostingMap.put("endPostingList", endPostingList);
 		jobPostingMap.put("allPostingInterest", allPostingInterest);
+		//jobPostingMap.put("myApplyPostingList",myApplyPostingList);
+		//jobPostingMap.put("interestCompany", interestCompany);
 		
 			
 		return jobPostingMap;
@@ -389,14 +404,14 @@ public class PostingServiceImpl {
 			
 			List<Integer> postingDeadlineList = postingSqlMapper.selectPostingDeadline();
 			List<Integer> endPostingList = postingSqlMapper.selectEndPosting();
-			
+			List<Integer> interestCompany = postingSqlMapper.selectInterestCompanyByStudentPk(student_pk);
 			
 			jobPostingMap.put("companyDto", companyDto);
 			jobPostingMap.put("jobFieldCategoryDto", jobFieldCategoryDto);
 			jobPostingMap.put("jobPostingDto",jobPostingDto);
 			jobPostingMap.put("postingDeadlineList", postingDeadlineList);
 			jobPostingMap.put("endPostingList", endPostingList);
-			
+			jobPostingMap.put("interestCompany", interestCompany);
 			
 			postingList.add(jobPostingMap);
 			

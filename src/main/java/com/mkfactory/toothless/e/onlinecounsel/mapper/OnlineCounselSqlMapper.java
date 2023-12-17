@@ -65,5 +65,14 @@ public interface OnlineCounselSqlMapper {
 	public List<GroupCounselDto> selectGroupCounselListSpecificNum();
 	
 	
+	//		***		통계		***
+	public double selectLastestReadCountAvg();
+	
+	public List<NoticeBoardDto> selectTop3ReadCountNotice();
+	
+	public List<FreeboardDto> selectTop3ReadCountFreeboard();
+	
+	public List<CounselorDto> selectAllCounselor();
+	
 	
 }

@@ -9,12 +9,12 @@
 		(SELECT tjsi.STUDENT_PK FROM TL_JIC_STUDENT_INFO tjsi WHERE tjsi.STUDENT_PK = #{student_pk})
 	</select>
 	
-	<!-- <select id ="dormStudent">
-	SELECT * FROM TL_A_DORM_STUDENT tads WHERE DORM_STUDENT_PK = #{dorm_student_pk}
-	</select> -->
+	<select id ="dormStudents" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+	SELECT * FROM TL_A_DORM_STUDENT tads 
+	</select> 
 	
 	<insert id="insertRequestRepair">
-	INSERT INTO tl_a_request_repair_seq VALUES( 
+	INSERT INTO tl_a_request_repair VALUES( 
 	   tl_a_request_repair_seq.nextval,
 	   #{dorm_student_pk},
 	   #{title},
@@ -23,4 +23,32 @@
 	   SYSDATE
 		)
 	</insert>
+	
+	<select id="selectDormstudentArticle" resultType="com.mkfactory.toothless.a.dto.RequestRepairDto">
+		SELECT * FROM TL_A_REQUEST_REPAIR tarr WHERE DORM_STUDENT_PK = #{dorm_student_pk}
+	</select>
+	
+	<select id ="printingArticles" resultType="com.mkfactory.toothless.a.dto.RequestRepairDto">
+		SELECT * FROM TL_A_REQUEST_REPAIR tarr ORDER BY REQUEST_REPAIR_PK desc
+	</select>
+	
+	<!-- 
+	<select id="printingPage" resultType="java.util.map">
+		SELECT tjsi.NAME AS NAME, tarr.TITLE AS TITLE, tarr.CONTENT AS CONTENT,  TARR.REQUEST_REPAIR_PK AS REQUEST_PK,
+			starr.REQUEST_DATE AS REQUEST_DATE 
+			from TL_JIC_STUDENT_INFO tjsi
+		INNER JOIN TL_A_DORM_STUDENT tads ON tads.STUDENT_PK = TJSI.STUDENT_PK 
+		INNER JOIN TL_A_REQUEST_REPAIR tarr ON tarr.DORM_STUDENT_PK = tads.DORM_STUDENT_PK 
+		WHERE tarr.DORM_STUDENT_PK = #{dorm_student_pk}
+	</select>
+	-->
+	<!--  
+	<select id="name" resultType="java.util.map">
+		SELECT TJSI.NAME 
+		FROM TL_JIC_STUDENT_INFO tjsi 
+		WHERE EXISTS(SELECT * FROM TL_A_DORM_STUDENT tads 
+		INNER JOIN TL_A_REQUEST_REPAIR tarr ON tarr.DORM_STUDENT_PK = tads.DORM_STUDENT_PK WHERE tjsi.STUDENT_PK = TADS.STUDENT_PK)
+	</select>
+	-->
+	
 </mapper>

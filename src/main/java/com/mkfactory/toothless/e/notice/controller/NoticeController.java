@@ -28,12 +28,19 @@ public class NoticeController {
 	
 	@Autowired
 	private NoticeServiceImpl noticeService;
-	// 공지사항 메인페이지
-	@RequestMapping("noticeMainPage")
-	public String noticeMainPage(Model model, String searchType, String searchWord) {	
+	// 공지사항 직원 메인페이지
+	@RequestMapping("noticeMainPage_Staff")
+	public String noticeMainPage_Staff(Model model, String searchType, String searchWord) {	
 		model.addAttribute("list", noticeService.getNoticeList(searchType, searchWord));
 		model.addAttribute("bList", noticeService.selectBestNotice());
-		return "tl_e/notice/noticeMainPage";
+		return "tl_e/notice/noticeMainPage_Staff";
+	}
+	// 공지사항 학생 메인페이지
+	@RequestMapping("noticeMainPage_Student")
+	public String noticeMainPage_Student(Model model, String searchType, String searchWord) {	
+		model.addAttribute("list", noticeService.getNoticeList(searchType, searchWord));
+		model.addAttribute("bList", noticeService.selectBestNotice());
+		return "tl_e/notice/noticeMainPage_Student";
 	}
 	// 직원 뒤로가기
 	@RequestMapping("staffReturnToMainPage")
@@ -108,11 +115,23 @@ public class NoticeController {
 		}
 		noticeService.insertNoticeArticle(noticeBoardDto, noticeImageDtoList);
 		
-		return "redirect:./noticeMainPage";
+		return "redirect:./noticeMainPage_Staff";
 	}
 	// 공지사항 상세글보기
-	@RequestMapping("readNoticeBoardPage")
-	public String readNoticeBoardPage(HttpSession session, Model model, int id) {
+	@RequestMapping("readNoticeBoardPage_Staff")
+	public String readNoticeBoardPage_Staff(Model model, int id) {
+		model.addAttribute("list", noticeService.getNoticeBoardDetaiilById(id));
+		model.addAttribute("cList", noticeService.selectCommentByNotice_Id(id));
+		model.addAttribute("mainList", noticeService.getNoticeList(null, null));
+		model.addAttribute("commentCount", noticeService.commentCountByNotice_id(id));
+
+		noticeService.increaseReadCount(id);
+		
+		return "tl_e/notice/readNoticeBoardPage_Staff";
+	}
+	// 공지사항 상세글보기
+	@RequestMapping("readNoticeBoardPage_Student")
+	public String readNoticeBoardPage_Student(HttpSession session, Model model, int id) {
 		if(session.getAttribute("sessionStudentInfo") != null) {
 			StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 			int studentPk = studentInfoDto.getStudent_pk();
@@ -136,13 +155,13 @@ public class NoticeController {
 
 		noticeService.increaseReadCount(id);
 		
-		return "tl_e/notice/readNoticeBoardPage";
+		return "tl_e/notice/readNoticeBoardPage_Student";
 	}
 	// 공지사항 삭제
 	@RequestMapping("deleteNoticeArticleProcess")
 	public String deleteNoticeArticleProcess(int id) {
 		noticeService.deleteNoticeArticle(id);
-		return "redirect:./noticeMainPage";
+		return "redirect:./noticeMainPage_Staff";
 	}
 	// 공지사항 수정
 	@RequestMapping("updateNoticeArticlePage")

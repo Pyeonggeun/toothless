@@ -1,5 +1,6 @@
 package com.mkfactory.toothless.d.jm.consulting.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,9 @@ import com.mkfactory.toothless.d.dto.D_RestResponseDto;
 import com.mkfactory.toothless.d.dto.HopeJobCategoryDto;
 import com.mkfactory.toothless.d.dto.HopeJobDto;
 import com.mkfactory.toothless.d.dto.OnlineConsultingDto;
+import com.mkfactory.toothless.d.dto.OnlineConsultingReplyDto;
 import com.mkfactory.toothless.d.jm.consulting.service.ConsultingService;
+import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @RestController
@@ -29,7 +32,7 @@ public class RestConsultingController {
 	//학생 본인 상담 리스트 출력
 	@RequestMapping("reloadMyOnlineConsultingList")
 	public D_RestResponseDto reloadMyOnlineConsultingList(HttpSession session, Model model,
-			@RequestParam(value="isReply", defaultValue="all") String isReply				
+			@RequestParam(value="isReply", defaultValue="all") String isReply
 			) {
 		
 		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
@@ -230,7 +233,126 @@ public class RestConsultingController {
 	}
 	
 	
+	
+	
+	//학생들 온라인상담 리스트 출력
+	@RequestMapping("ViewOnlineConsultingList")
+	public D_RestResponseDto ViewOnlineConsultingList(
+			@RequestParam(value="isReply", defaultValue="all") String isReply,
+			@RequestParam(value="sortby", defaultValue="earliest") String sortby,
+			String searchType,
+			String searchContents,
+			@RequestParam(value="pageNum", defaultValue="1") int pageNum
+			)
+		 {
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
 
+		
+		
+		//온라인 상담	//온라인상담 오래된순 싹 출력 + 검색 및 정렬 추가
+		List<Map<String, Object>> list = consultingService.getOnlineConsultingList(isReply, sortby,searchType,searchContents, pageNum);
+		
+		d_RestResponseDto.setResult("success");
+		d_RestResponseDto.setData(list);
+		
+		return d_RestResponseDto;
+	}
+	
+	//학생들 온라인상담 페이징관련
+	@RequestMapping("countTotalBoardNumInSOC")
+	public D_RestResponseDto countTotalBoardNumInSOC(
+			@RequestParam(value="isReply", defaultValue="all") String isReply,
+			@RequestParam(value="sortby", defaultValue="earliest") String sortby,			
+			String searchType,
+			String searchContents,
+			@RequestParam(value="pageNum", defaultValue="1") int pageNum
+			)
+		 {
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map = consultingService.countTotalBoardNumInSOC(isReply, sortby, searchType, searchContents, pageNum);
+		
+		d_RestResponseDto.setResult("success");
+		d_RestResponseDto.setData(map);
+		
+		return d_RestResponseDto;
+	}
+	
+	
+	//학셍 온라인상담 자세히보기 정보
+	@RequestMapping("staffManageOnlineConsultingInfo")
+	public D_RestResponseDto staffManageOnlineConsultingInfo(int onlineConsultingPk) {
+		
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+
+		
+		Map<String, Object> onlineConsultingInfo = consultingService.getOnlineConsultingByPk(onlineConsultingPk);
+		d_RestResponseDto.setResult("success");
+		d_RestResponseDto.setData(onlineConsultingInfo);
+		return d_RestResponseDto;
+	}	
+	
+	
+	
+
+	
+	//만족도 조사 리스트 보기
+	@RequestMapping("FeedbackList")
+	public D_RestResponseDto FeedbackList(
+			@RequestParam(value="sortHJFScore", defaultValue="default") String sortHJFScore
+			) {
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+
+		List<Map<String, Object>> list = consultingService.getHopeJobFeedbackListAll(sortHJFScore);
+		
+		d_RestResponseDto.setResult("success");
+		d_RestResponseDto.setData(list);		
+		//Integer avgScore = consultingService.avgHopeJobFeedbackScore();
+
+		
+		return d_RestResponseDto;
+	}	
+	
+	//만족도 조사 디테일 정보
+	@RequestMapping("detailFeedback")
+	public D_RestResponseDto detailFeedback(int hjf_pk) {
+		
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+
+		Map<String, Object> detailHJFInfo = consultingService.HopeJobFeedbackDetailInfo(hjf_pk);
+		
+		d_RestResponseDto.setResult("success");
+		d_RestResponseDto.setData(detailHJFInfo);
+		
+		return d_RestResponseDto;
+	}	
+	
+	//교직원 온라인 상담 답글입력 프로세스
+	@RequestMapping("insertOnlineConsultingReply")
+	public D_RestResponseDto insertOnlineConsultingReply(OnlineConsultingReplyDto par, HttpSession session) {
+		
+		
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+
+		
+		//jsp페이지에서 on_consulting_pk, on_contents_reply받기
+		//staffpk세팅
+		StaffInfoDto staffInfoDto =(StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		int staffPk = staffInfoDto.getStaff_pk();
+		par.setStaff_pk(staffPk);
+				
+		consultingService.insertOnlineConsultingReply(par);
+		
+		d_RestResponseDto.setResult("success");
+		
+		return d_RestResponseDto;
+	}
+	
+	
+	
 }	
 	
 	

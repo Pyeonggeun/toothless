@@ -98,9 +98,78 @@
 		SELECT * FROM TL_X_LIFE_LECTURER
 		WHERE lecturer_key = #{lecturer_key}
 	</select>
+	
+	
+	
+	<select id="selectCurrentStudyDay" resultType="map">
+		SELECT CASE WHEN TO_CHAR(TO_DATE(DT),'D') IN ('1','7')
+            THEN '주말'
+            ELSE '평일' END AS WEEK_DAY,
+            DT
+		FROM (
+		    SELECT TO_CHAR(TO_DATE(ST_DT, 'YYYY-MM-DD') + LEVEL - 1, 'YYYY-MM-DD') AS DT
+		    FROM ( SELECT
+		    			(SELECT TO_CHAR(TRUNC(open_date, 'DD'), 'YYYYMMDD')
+		    			FROM tl_x_open_lecture
+						WHERE open_lecture_key = #{open_lecture_key}) 
+					AS ST_DT,
+					<!-- 나중에는 현재날짜가 종강일을 넘어감으로 if 문 통해서 분기를 만들어줘야함,....-->						
+						(TO_CHAR(TRUNC(sysdate, 'DD'), 'YYYYMMDD'))
+					AS END_DT
+		           	FROM DUAL )
+		    <![CDATA[
+		    CONNECT BY LEVEL <=  TO_DATE(END_DT, 'YYYYMMDD') - TO_DATE(ST_DT, 'YYYYMMDD') + 1
+			]]>
+		)ORDER BY DT DESC
+	</select>
+	
+	<select id="selectLateStudentCount" resultType="int">
+		SELECT count(*) FROM tl_x_attendance_status
+		WHERE attendance_book_key = #{attendance_book_key}
+		AND status LIKE '지각'
+	</select>
+	<select id="selectAbsenceStudentCount" resultType="int">
+		SELECT count(*) FROM tl_x_attendance_status
+		WHERE attendance_book_key = #{attendance_book_key}
+		AND status LIKE '결석'
+	</select>
 
-
-
+	<select id="selectLectureStudentLateCount" resultType="int">
+		SELECT count(*) FROM tl_x_attendance_status
+		WHERE lecture_student_key = #{lecture_student_key}
+		AND status like '지각'
+	</select>
+	
+	<select id="selectLectureStudentAbsenceCount" resultType="int">
+		SELECT count(*) FROM tl_x_attendance_status
+		WHERE lecture_student_key = #{lecture_student_key}
+		AND status like '결석'
+	</select>
+	<select id="selectLifeStudentExternalId" resultType="com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto">
+		SELECT * FROM TL_JIC_EXTERNAL_INFO
+		WHERE external_pk = #{external_pk}
+	</select>
+	
+	<select id="selectOpenLectureCategoryName" resultType="String">
+		SELECT category_name FROM tl_x_lecture_category
+		WHERE lecture_category_key = #{lecture_category_key}
+	</select>
+	
+	<select id="selectLectureTestKey" resultType="int">
+		SELECT tl_x_lecture_test_seq.nextval FROM dual
+	</select>
+	
+	<insert id="insertLectureTestInfo">
+		INSERT INTO tl_x_lecture_test VALUES(
+			#{lecture_test_key},
+			#{open_lecture_key},
+			#{test_name},
+			#{open_test_day},
+			#{close_test_day},
+			SYSDATE
+		)
+	</insert>
+	
 
 
 </mapper>

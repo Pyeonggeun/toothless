@@ -169,4 +169,20 @@ public class CompanyServiceIpml {
 		
 		return mainResumeList;
 	}
+	
+	
+	
+	//사업자번호 중복확인
+	public boolean existBusinessNumber(String business_number){
+		
+		return companySqlMapper.countByBusinessNumber(business_number)>0 ? true:false;
+	}
+	
+	//외부인 계정 아이디 중복 확인
+	public boolean existExternalId(String external_id){
+		
+		return companySqlMapper.countByExternalId(external_id)>0 ? true:false;
+	}
+	
+	
 }

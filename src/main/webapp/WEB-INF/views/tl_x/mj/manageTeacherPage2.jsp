@@ -1197,7 +1197,7 @@
 				
 			
         </div>
-        <div class="modal-footer d-flex justify-content-between">
+        <div class="modal-footer mx-3 d-flex justify-content-between">
             <button id="deleteBtn" type="button" class="btn btn-danger rounded-0">삭제하기</button>
             <div>
                 <button id="updateBtn" type="button" class="btn btn-primary rounded-0 text-white" style="background-color: #003399;">수정완료</button>

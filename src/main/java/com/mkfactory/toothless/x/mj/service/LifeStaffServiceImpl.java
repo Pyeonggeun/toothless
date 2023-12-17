@@ -20,10 +20,12 @@ import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.donot.touch.mapper.StudentSqlMapper;
+import com.mkfactory.toothless.x.dto.ApplyConditionDto;
 import com.mkfactory.toothless.x.dto.LectureCategoryDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
 import com.mkfactory.toothless.x.dto.LifeLecturerDto;
 import com.mkfactory.toothless.x.dto.LifeStudentDto;
+import com.mkfactory.toothless.x.dto.OpenLectureDto;
 import com.mkfactory.toothless.x.dto.PossibleLectureDto;
 import com.mkfactory.toothless.x.mj.mapper.LifeStaffSqlMapper;
 
@@ -183,17 +185,154 @@ public class LifeStaffServiceImpl {
 
 	// 학생 정보 수정
 	public void updateStudentInfo(LifeStudentDto lifeStudentDto, int life_student_key) {
-		
-		// 강사 기본정보 수정
+
 		lifeStaffSqlMapper.updateStudentInfo(lifeStudentDto);
-		
 	}
 	
-	// 강사 정보 삭제 deleteTeacherInfo
+	// 학생 정보 삭제
 	public void deleteStudentInfo(int life_student_key) {
 		
 		lifeStaffSqlMapper.deleteStudentInfo(life_student_key);
 	}
+	
+	// ============== 여기부터 교육과정 정보 ======================
+	
+	// 기본강의정보 등록
+	public void registerLectureInfo(LectureInfoDto lectureInfoDto) {
+
+		lifeStaffSqlMapper.insertLectureInfo(lectureInfoDto);
+	}
+	
+	
+	// 전체 교육과정목록
+	public List<LectureInfoDto> getAllLectureList(){
+		
+		return lifeStaffSqlMapper.selectAllLectureInfoList();
+	}
+	
+	
+	// '전체'교육과정목록 + 강의별 수강신청 조건개수
+	public List<Map<String, Object>> getAllLectureInfoList() {
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		// 전체 교육과정 목록
+		List<LectureInfoDto> allLectureInfoList = lifeStaffSqlMapper.selectAllLectureInfoList();
+		
+		
+		for(LectureInfoDto lectureDto : allLectureInfoList) {
+			
+			// 강의별 수강신청 조건 리스트(for 개수새서 버튼 바꾸러고)
+			List<ApplyConditionDto> conditionListByLectureKey = lifeStaffSqlMapper.selectConditionListByLectureKey(lectureDto.getLecture_info_key());
+			
+			// 수강신청 조건 개수
+			int countCondition = conditionListByLectureKey.size();
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("lectureDto", lectureDto);
+			map.put("conditionListByLectureKey", conditionListByLectureKey);
+			map.put("countCondition", countCondition);
+	
+			list.add(map);
+		}
+
+		return list;
+		
+	}
+	
+	// '특정'강의 정보
+	public LectureInfoDto getSomeLectureInfo(int lecture_info_key) {
+
+		return lifeStaffSqlMapper.selectSomeLectureInfo(lecture_info_key);
+	}
+
+	// 강의 정보 수정
+	public void updateLectureInfo(LectureInfoDto lectureInfoDto) {
+
+		lifeStaffSqlMapper.updateLectureInfo(lectureInfoDto);
+	}
+	
+	// 강의 정보 삭제
+	public void deleteLectureInfo(int lecture_info_key) {
+		
+		lifeStaffSqlMapper.deleteLectureInfo(lecture_info_key);
+	}
+	
+	// 강의별 수강신청 조건 리스트 
+	public List<ApplyConditionDto> getConditionListByLectureKey(int lecture_info_key) {
+
+		return lifeStaffSqlMapper.selectConditionListByLectureKey(lecture_info_key);
+	}
+	
+	// 강의별 수강신청 조건 수정
+	public void updateConditionInfo(int lecture_info_key, int[] condition_lecture_key) {
+			
+		// 강의별 수강신청 조건 리스트 이전꺼 삭제
+		lifeStaffSqlMapper.deleteConditionList(lecture_info_key);
+		
+		// 강의 가능한 과목 새로 다시 입력~
+		if(condition_lecture_key != null) {
+			
+			for(int value : condition_lecture_key) {				
+				
+				ApplyConditionDto applyConditionDto = new ApplyConditionDto();
+				
+				applyConditionDto.setLecture_info_key(lecture_info_key);
+				applyConditionDto.setCondition_lecture_key(value);
+	
+				lifeStaffSqlMapper.insertConditionInfo(applyConditionDto);	
+				
+			}			
+		}
+	}
+	
+	// 강의별 수강신청 조건 정보 삭제
+	public void deleteConditionList(int lecture_info_key) {
+		
+		lifeStaffSqlMapper.deleteConditionList(lecture_info_key);
+	}
+	
+	// 교육과정 카테고리 정보 등록
+	public void insertCategory(LectureCategoryDto lectureCategoryDto) {
+		
+		lifeStaffSqlMapper.insertCategory(lectureCategoryDto);
+	}
+
+	
+	// 교육과정 카테고리 정보 삭제
+	public void deleteCategory(int lecture_category_key) {
+		
+		lifeStaffSqlMapper.deleteCategory(lecture_category_key);
+	}
+	
+	// 교육과정 카테고리 정보 삭제되면 그 카테고리 수업들/가능정보도 삭제
+	public void deleteLectureListByCategoryKey(int lecture_category_key) {
+		
+		lifeStaffSqlMapper.deleteLectureListByCategoryKey(lecture_category_key);
+		lifeStaffSqlMapper.deletePossibleByCategoryKey(lecture_category_key);
+	}
+	
+	// ================여기부터 강의관련===================
+	
+	// 카테고리별 수업리스트
+	public List<LectureInfoDto> getLectureListByCategory(int lecture_category_key) {
+		
+		return lifeStaffSqlMapper.getLectureListByCategory(lecture_category_key);
+	}
+	
+	// 카테고리별 강사리스트
+	public List<LifeLecturerDto> getTeacherListByCategory(int lecture_category_key) {
+		
+		return lifeStaffSqlMapper.getTeacherListByCategory(lecture_category_key);
+	}
+
+	// 신규 강의 개설
+	public void insertOpenLecture(OpenLectureDto openLectureDto) {
+		
+		lifeStaffSqlMapper.insertOpenLecture(openLectureDto);
+	}
+	
+	
 	
 	
 	

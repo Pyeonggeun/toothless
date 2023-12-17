@@ -101,25 +101,60 @@
 	<select id="selectNoticeListSpecificNum" resultType="com.mkfactory.toothless.e.dto.NoticeBoardDto">
 		SELECT * FROM (
 			SELECT * FROM CP_NOTICE ORDER BY CREATED_AT DESC
-			)
-		WHERE ROWNUM &lt;= 8
+		)
+		WHERE ROWNUM &lt;= 10
 	</select>
 	
 	<select id="selectFreeboardListSpecificNum" resultType="com.mkfactory.toothless.e.dto.FreeboardDto">
 		SELECT * FROM (
 			SELECT * FROM CP_STUDENT_FREEBOARD ORDER BY created_at DESC
-			)
-		WHERE ROWNUM &lt;= 8
+		)
+		WHERE ROWNUM &lt;= 10
 	</select>
 	
 	<select id="selectGroupCounselListSpecificNum" resultType="com.mkfactory.toothless.e.dto.GroupCounselDto">
 		SELECT * FROM (
-			SELECT * FROM CP_GROUP_COUNSEL ORDER BY created_at DESC
-			)
-		WHERE ROWNUM &lt;= 8
+			SELECT * FROM CP_GROUP_COUNSEL 
+			ORDER BY created_at DESC
+		)
+		WHERE ROWNUM &lt;= 10
 	</select>
 	
 	
+	<!-- 통계 -->
+	<select id="selectLastestReadCountAvg" resultType="double">
+		SELECT AVG(read_count) FROM(
+			SELECT read_count 
+			FROM (
+				SELECT read_count 
+				FROM CP_STUDENT_FREEBOARD csf 
+				ORDER BY CREATED_AT DESC
+			)	 
+		WHERE ROWNUM &lt;= 10
+		)
+	</select>
+	
+	
+	<select id="selectTop3ReadCountNotice" resultType="com.mkfactory.toothless.e.dto.NoticeBoardDto">
+		SELECT * FROM (
+			SELECT * FROM cp_notice 
+			ORDER BY READ_COUNT DESC
+		) 
+		WHERE ROWNUM &lt;= 3
+	</select>
+	
+	<select id="selectTop3ReadCountFreeboard" resultType="com.mkfactory.toothless.e.dto.FreeboardDto">
+		SELECT * FROM (
+			SELECT * FROM CP_STUDENT_FREEBOARD
+			ORDER BY READ_COUNT DESC
+		)
+		WHERE ROWNUM &lt;= 3
+	</select>
+	
+	
+	<select id="selectAllCounselor" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
+		SELECT * FROM cp_counselor
+	</select>
 	
 	
 	
