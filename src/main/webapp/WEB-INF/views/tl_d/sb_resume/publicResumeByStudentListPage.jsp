@@ -150,15 +150,15 @@ function showResume(resume_pk){
 					<div class="col ms-1 fw-bold">상세보기</div>
 					<div class="col-1"></div>
 				</div>
-				<div class="row border">
+				<div class="row border mb-4">
 					<div class="col">
 						<c:forEach items="${resumeList }" var="list">
-							<div class="row mt-4">
+							<div class="row border-bottom">
 								<div class="col-1"></div>
-								<div class="col-8 fw-bold fs-4">
+								<div class="col-8 p-3 fw-bold fs-4">
 									${list.resume_title }
 								</div>
-								<div class="col">
+								<div class="col p-3 ms-1">
 									<button onclick="showResume(${list.resume_pk})" type="button" class="btn btn-outline-dark">선택</button>
 								</div>
 								<div class="col-1"></div>
