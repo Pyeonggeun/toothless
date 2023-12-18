@@ -50,18 +50,19 @@
 			
 				<div class="row my-2">
 					<div class="col">
-						<input class="form-control" name="title" type="text" value="${qwer.dormFreeboardDto.title }" placeholder="제목을 입력하여주세요">
+						<input class="form-control" name="title" type="text" value="${qwer.dormFreeboardDto.title }" placeholder="제목">
 					</div>
 				</div>
 				<div class="row my-2">
 					<div class="col">
-						<textarea rows="15" name="content" class="form-control" placeholder="내용을 입력해주세요">${qwer.dormFreeboardDto.content }</textarea>
+						<textarea rows="15" name="content" class="form-control" placeholder="내용">${qwer.dormFreeboardDto.content }</textarea>
 						<input name="id" type="hidden" value="${qwer.dormFreeboardDto.dorm_freeboard_pk }">
 					</div>
 				</div>
 				<div class="row my-2">
-					<div class="col d-grid">
-						<input type="submit" class="btn btn-primary" value="글 수정">
+					<div class="col-10"></div>
+					<div class="col-2 d-grid">
+						<input type="submit" class="btn"style=" background-color:#504528; color:#FFFFFF;" value="글 수정">
 					</div>
 				</div>
 			</div>
@@ -74,16 +75,7 @@
 	</div>
 
 	<pre>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	</pre>
 

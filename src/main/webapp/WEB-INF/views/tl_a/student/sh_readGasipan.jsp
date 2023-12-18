@@ -34,36 +34,34 @@
                             <span class="border-bottom  border-dark border-4 mt-2"></span>
                         </div>
                     </div>
-                </div>
+			</div>
     		<div class="row">
-				<div class="col">
-						
-				<div class="row mt-4">
-					<div class="col fs-5 fw-bold text-primary">
-						${qwer.dormFreeboardDto.title }
-					</div>
+				<div class="col-1">
+					제목:
 				</div>
-				<div class="row mt-1">
-					<div class="col">
-						<span class="text-secondary" style="font-size:0.8em">${qwer.studentInfoDto.name } |</span>
-						<span class="text-secondary" style="font-size:0.8em">${qwer.dormFreeboardDto.created_at }</span>
-					</div>
+				<div class="col-11">	
+					${qwer.dormFreeboardDto.title}
 				</div>
-				<div class="row my-4" style="min-height: 20em">
-					<div class="col">
-						${qwer.dormFreeboardDto.content }
-					</div>
+			</div>
+				<div class="row">
+				<div class="col-1">
+					내용:
 				</div>
+				<div class="col-6">
+					${qwer.dormFreeboardDto.content}		
+				</div>
+			</div>
+
 				<div class="row my-4">
-					<div class="col-auto d-grid">
-						<a class="btn btn-primary" href="./mainGaesipan">목록으로</a>
+					<div class="col-2 d-grid">
+						<a class="btn" style="background-color:#504528; color:#FFFFFF;" href="./mainGaesipan">목록으로</a>
 					</div>
 					<c:if test="${!empty sessionStudentInfo && sessionStudentInfo.student_pk == qwer.dormFreeboardDto.student_pk }">
 					<div class="ms-auto col-auto d-grid">
 						<a class="btn btn-danger" href="./deleteGasipanProcess?id=${qwer.dormFreeboardDto.dorm_freeboard_pk }">삭제</a>
 					</div>
 					<div class="col-auto d-grid">
-						<a class="btn btn-outline-primary" href="./updateDorm?id=${qwer.dormFreeboardDto.dorm_freeboard_pk }">수정</a>
+						<a class="btn" style="background-color:#504528; color:#FFFFFF;"href="./updateDorm?id=${qwer.dormFreeboardDto.dorm_freeboard_pk }">수정</a>
 					</div>
 					</c:if>
 				</div>
