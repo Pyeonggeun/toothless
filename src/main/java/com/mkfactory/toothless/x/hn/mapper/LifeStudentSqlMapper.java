@@ -9,6 +9,7 @@ import com.mkfactory.toothless.x.dto.LectureCategoryDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
 import com.mkfactory.toothless.x.dto.LectureReviewDto;
 import com.mkfactory.toothless.x.dto.LectureStudentDto;
+import com.mkfactory.toothless.x.dto.LectureTestDto;
 import com.mkfactory.toothless.x.dto.OpenLectureDto;
 
 public interface LifeStudentSqlMapper {
@@ -57,5 +58,11 @@ public interface LifeStudentSqlMapper {
 	public int getAttendanceCountByLectureStudentKey(int lecture_student_key);
 	public int getExceptAttendanceAndAbsentCountByLectureStudentKey(int lecture_student_key);
 	public int getAvgTestScoreByOpenLectureKey(int open_lecture_key);
+	
+	public int getTotalTestCount(int open_lecture_key);
+	public int getStudentTotalTestCount(int lecture_student_key);
+	public List<LectureTestDto> getLectureTestInfoByOpenLectureKey(int open_lecture_key);
+	public int getStudentTestScoreByLectureTestKey(int lecture_test_key);
+	public int isCompleteTest(int lecture_test_key);
 
 }

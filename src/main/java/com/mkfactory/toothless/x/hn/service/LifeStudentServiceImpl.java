@@ -13,6 +13,7 @@ import com.mkfactory.toothless.x.dto.LectureCategoryDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
 import com.mkfactory.toothless.x.dto.LectureReviewDto;
 import com.mkfactory.toothless.x.dto.LectureStudentDto;
+import com.mkfactory.toothless.x.dto.LectureTestDto;
 import com.mkfactory.toothless.x.dto.OpenLectureDto;
 import com.mkfactory.toothless.x.hn.mapper.LifeStudentSqlMapper;
 
@@ -231,6 +232,61 @@ public class LifeStudentServiceImpl {
 		}
 		
 		return list;
+	}
+	
+	public int getLectureStudentKey(int life_student_key, int open_lecture_key) {
+		
+		return lifeStudentSqlMapper.getLectureStudentKeyByOpenLectureKeyAndLifeStudentKey(open_lecture_key, life_student_key);
+	}
+	
+	public Map<String, Object> getLectureProgressInfo(int open_lecture_key, int lecture_student_key) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		OpenLectureDto openLectureDto = lifeStudentSqlMapper.getOpenLectureInfoByOpenLectureKey(open_lecture_key);
+		LectureInfoDto lectureInfoDto = lifeStudentSqlMapper.getLectureInfoByLectureInfoKey(openLectureDto.getLecture_info_key());
+		
+		boolean isComplete = false;
+		
+		Clac clac = new Clac();
+		double attendanceResult = Double.parseDouble(clac.attendanceClac(
+				lifeStudentSqlMapper.getTotalAttendanceCount(open_lecture_key),
+				lifeStudentSqlMapper.getExceptAttendanceAndAbsentCountByLectureStudentKey(lecture_student_key),
+				lifeStudentSqlMapper.getAttendanceCountByLectureStudentKey(lecture_student_key)));
+		
+		int testResult = lifeStudentSqlMapper.getAvgTestScoreByOpenLectureKey(open_lecture_key);
+		
+		if(lectureInfoDto.getEssential_attendance() <= attendanceResult && lectureInfoDto.getEssential_grade() <= testResult) {
+			
+			isComplete = true;
+		}
+		
+		List<Map<String, Object>> testList = new ArrayList<>();
+		List<LectureTestDto> list = lifeStudentSqlMapper.getLectureTestInfoByOpenLectureKey(open_lecture_key);
+		
+		for(LectureTestDto lectureTestDto : list) {
+			
+			Map<String, Object> testMap = new HashMap<String, Object>();
+			
+			boolean isCompleteTest = lifeStudentSqlMapper.isCompleteTest(lectureTestDto.getLecture_test_key()) > 0 ? true : false;
+			
+			map.put("lectureTestInfo", lectureTestDto);
+			map.put("testScore", lifeStudentSqlMapper.getStudentTestScoreByLectureTestKey(lectureTestDto.getLecture_test_key()));
+			map.put("isCompleteTest", isCompleteTest);
+			
+			testList.add(testMap);
+		}
+		
+		map.put("openLectureInfo", openLectureDto);
+		map.put("lectureInfo", lectureInfoDto);
+		map.put("studentTotalTestCount", lifeStudentSqlMapper.getStudentTotalTestCount(lecture_student_key));
+		map.put("totalTestCount", lifeStudentSqlMapper.getTotalTestCount(open_lecture_key));
+		map.put("attendanceResult", attendanceResult);
+		map.put("isComplete", isComplete);
+		map.put("testResult", testResult);
+		map.put("testList", testList);
+		
+		return map;
 	}
 
 }

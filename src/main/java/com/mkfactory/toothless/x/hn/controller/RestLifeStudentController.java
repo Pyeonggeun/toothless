@@ -233,5 +233,27 @@ public class RestLifeStudentController {
 		
 		return restResponseDto;
 	}
+	
+	@RequestMapping("getLectureStudentKey")
+	public RestResponseDto getLectureStudentKey(int life_student_key, int open_lecture_key) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(lifeStudentService.getLectureStudentKey(life_student_key, open_lecture_key));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("getLectureProgressInfo")
+	public RestResponseDto getLectureProgressInfo(int open_lecture_key, int lecture_student_key) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(lifeStudentService.getLectureProgressInfo(open_lecture_key, lecture_student_key));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
 
 }

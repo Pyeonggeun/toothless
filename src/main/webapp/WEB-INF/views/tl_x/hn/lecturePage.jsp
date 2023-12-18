@@ -262,8 +262,139 @@
 				});
 				
 			}
-
-            function showLectureProgressModal() {
+			
+			function reloadLectureProgress() {
+				/* 이놈 */
+				const url = "./getLectureProgressInfo?open_lecture_key=" + openLectureKey + "&lecture_student_key=" + lectureStudentKey;
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					const openDate = new Date(response.data.openLectureInfo.open_date);
+					const closeDate = new Date(response.data.openLectureInfo.close_date);
+					const sysdate = new Date();
+					
+					document.getElementById("progressName").innerText = response.data.lectureInfo.name;
+					document.getElementById("progressLectureDate").innerText =
+        				openDate.getFullYear() + "." + ("0" + (openDate.getMonth() + 1)).slice(-2) + "." + ("0" + openDate.getDate()).slice(-2) + "~" +
+        				closeDate.getFullYear() + "." + ("0" + (closeDate.getMonth() + 1)).slice(-2) + "." + ("0" + closeDate.getDate()).slice(-2);
+					document.getElementById("progressCredit").innerText = response.data.lectureInfo.credit;
+					document.getElementById("studentTotalTestCount").innerText = response.data.studentTotalTestCount;
+					document.getElementById("totalTestCount").innerText = response.data.totalTestCount;
+					document.getElementById("attendanceRate").style.width = response.data.attendanceResult + "%";
+					document.getElementById("attendanceRatePer").innerText = response.data.attendanceResult + "%";
+					
+					const progressStatusBox = document.getElementById("progressStatusBox");
+					
+					if(openDate > sysdate) {
+						const progressWaite = document.querySelector("#progressTemplete .progressWaite").cloneNode(true);
+						progressStatusBox.appendChild(progressWaite);
+					}else if(openDate < sysdate && closeDate > sysdate) {
+						const progressIng = document.querySelector("#progressTemplete .progressIng").cloneNode(true);
+						progressStatusBox.appendChild(progressIng);
+					}else  {
+						
+						if(response.data.isComplete) {
+							const progressComplete = document.querySelector("#progressTemplete .progressComplete").cloneNode(true);
+							progressStatusBox.appendChild(progressComplete);
+						}else {
+							const progressPoor = document.querySelector("#progressTemplete .progressPoor").cloneNode(true);
+							progressStatusBox.appendChild(progressPoor);
+						}
+						
+					}
+					
+					const attendanceResult = response.data.attendanceResult;
+					const testResult = response.data.testResult;
+					
+					document.getElementById("attendanceScore").innerText = attendanceResult;
+					document.getElementById("score").innerText = testResult;
+					document.getElementById("calcAttendanceScore").innerText = (attendanceResult * 0.5).toFixed(1);
+					document.getElementById("calcScore").innerText = (testResult * 0.5).toFixed(1);
+					document.getElementById("totalLeftScore").innerText = ((attendanceResult * 0.5) + (testResult * 0.5)).toFixed(1);
+					document.getElementById("attendanceCondition").innerText = response.data.lectureInfo.essential_attendance;
+					document.getElementById("testCondition").innerText = response.data.lectureInfo.essential_grade;
+					document.getElementById("totalScore").innerText = ((attendanceResult * 0.5) + (testResult * 0.5)).toFixed(1);
+					
+					const testBox = document.getElementById("testBox");
+					
+					let count = 1;
+					
+					for(e of response.data.testList) {
+						
+						const testWrapper = document.querySelector("#progress .testWrapper").cloneNode(true);
+						
+						let openTestDate = new Date(e.lectureTestInfo.open_test_day);
+						let closeTestDate = new Date(e.lectureTestInfo.close_test_day);
+						
+						testWrapper.querySelector(".testNumber").innerText = count;
+						testWrapper.querySelector(".testName").innerText = e.lectureTestInfo.test_name;
+						testWrapper.querySelector(".testDate").innerText =
+							openTestDate.getFullYear() + "." + ("0" + (openTestDate.getMonth() + 1)).slice(-2) + "." + ("0" + openTestDate.getDate()).slice(-2) + "~" +
+							closeTestDate.getFullYear() + "." + ("0" + (closeTestDate.getMonth() + 1)).slice(-2) + "." + ("0" + closeTestDate.getDate()).slice(-2);
+						testWrapper.querySelector(".testWhether").innerText = "X";
+						testWrapper.querySelector(".testScore").innerText = e.testScore;
+						
+						const testButtonBox = testWrapper.querySelector(".testButtonBox");
+						
+						if(openTestDate > sysdate) {
+							const testBeforeOpen = document.querySlector("#progressTemplete .testBeforeOpen").cloneNode(true);
+							testButtonBox.appendChild(testBeforeOpen);
+						}else if(openTestDate < sysdate && closeTestDate > sysdate) {
+							
+							if(e.isCompleteTest) {
+								const testComplete = document.querySlector("#progressTemplete .testComplete").cloneNode(true);
+								testButtonBox.appendChild(testComplete);
+							}else {
+								const testIng = document.querySlector("#progressTemplete .testIng").cloneNode(true);
+								testIng.vlaue = e.lectureTestInfo.lecture_test_key;
+								testButtonBox.appendChild(testIng);
+							}
+							
+						}else  {
+							
+							if(e.isCompleteTest) {
+								const testComplete = document.querySlector("#progressTemplete .testComplete").cloneNode(true);
+								testButtonBox.appendChild(testComplete);
+							}else {
+								const testPoor = document.querySlector("#progressTemplete .testPoor").cloneNode(true);
+								testButtonBox.appendChild(testPoor);
+							}
+							
+						}
+						
+						testBox.appendChild(testWrapper);
+						
+					}
+					
+				});
+				
+			}
+			
+			function getLectureStudentKey() {
+				/* 이놈 */
+				const url = "./getLectureStudentKey?life_student_key=" + lifeStudentKey + "&open_lecture_key=" + openLectureKey;
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					lectureStudentKey = response.data;
+					
+					reloadLectureProgress();
+					
+				});
+				
+			}
+			
+            function showLectureProgressModal(target) {
+            	/* 이놈 */
+            	openLectureKey = Number(target.value);
+            	
+            	resetLectureProgressModal();
+            	getLectureStudentKey();
+            	
                 const modal = bootstrap.Modal.getOrCreateInstance("#lectureProgressModal");
                 modal.show();
             }
@@ -283,6 +414,27 @@
             function showSubmitWarningModal() {
                 const modal = bootstrap.Modal.getOrCreateInstance("#submitWarningModal");
                 modal.show();
+            }
+            
+            function resetLectureProgressModal() {
+            	/* 이놈 */
+            	document.getElementById("progressName").innerText = "";
+            	document.getElementById("progressLectureDate").innerText = "";
+            	document.getElementById("progressCredit").innerText = "";
+            	document.getElementById("studentTotalTestCount").innerText = "";
+            	document.getElementById("totalTestCount").innerText = "";
+            	document.getElementById("attendanceRatePer").innerText = "";
+            	document.getElementById("totalLeftScore").innerText = "";
+            	document.getElementById("progressStatusBox").innerHTML = "";
+            	document.getElementById("attendanceScore").innerText = "";
+            	document.getElementById("score").innerText = "";
+            	document.getElementById("calcAttendanceScore").innerText = "";
+            	document.getElementById("calcScore").innerText = "";
+            	document.getElementById("attendanceCondition").innerText = "";
+            	document.getElementById("testCondition").innerText = "";
+            	document.getElementById("totalScore").innerText = "";
+            	document.getElementById("testBox").innerHTML = "";
+            	
             }
             
 			function goMyPage() {
@@ -335,6 +487,7 @@
 	    		
 	    		/* getMyPk(); */
 	    		getLifeStudentKey();
+	    		
 	    	});
 
         </script>
