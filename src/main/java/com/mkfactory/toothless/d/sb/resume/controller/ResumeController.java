@@ -133,7 +133,7 @@ public class ResumeController {
 		// 경력 내용 가져오기
 		List<Map<String, Object>> careerList = resumeService.getCareerDtoList(resumeDto);
 		model.addAttribute("careerList", careerList);
-		
+		// 자격증
 		LicenseDto licenseDto = new LicenseDto();
 		int resume_pk = resumeDto.getResume_pk();
 		licenseDto.setResume_pk(resume_pk);
@@ -144,7 +144,7 @@ public class ResumeController {
 		return "tl_d/sb_resume/resumeDetailPage";
 	}
 	
-	// 이력서 수정 페이지
+	// 이력서 수정 페이지 
 	@RequestMapping("resumeUpdatePage")
 	public String resumeUpdatePage(Model model, ResumeDto params) {
 		
@@ -155,11 +155,11 @@ public class ResumeController {
 	}
 	
 	//이력서 삭제
-	@RequestMapping("resumeDeleteProcess")
-	public String resumeDeleteProcess(ResumeDto params) {
-		resumeService.deleteResume(params);
-		return "redirect:./resumeManagementPage";
-	}
+//	@RequestMapping("resumeDeleteProcess")
+//	public String resumeDeleteProcess(ResumeDto params) {
+//		resumeService.deleteResume(params);
+//		return "redirect:./resumeManagementPage";
+//	}
 	
 	
 	// 자소서 수정

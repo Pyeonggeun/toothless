@@ -54,18 +54,16 @@ public class ResumeServiceImpl {
 		return resumeList;
 	}
 	
-	public ResumeDto getResume(String resume_pk) {
-		ResumeDto resumeDto = resumeSqlMapper.getResumeDtoByResumePk(resume_pk);
-		return resumeDto;
-	}
 	
-
 	
 	// 메인 이력서 변경
 	public void changeMainResume(ResumeDto resumeDto) {
 		
-		if(resumeDto.getMain_resume().equals("N")) {	
-			List<ResumeDto> resumeList = resumeSqlMapper.getResumeListByStudentPk(resumeDto);
+		ResumeDto dto = resumeSqlMapper.getThisResumeDtoByResumePk(resumeDto);
+		
+		
+		if(dto.getMain_resume().equals("N")) {	
+			List<ResumeDto> resumeList = resumeSqlMapper.getResumeListByStudentPk(dto);
 			for(ResumeDto resumeDto2 : resumeList) {
 				if(resumeDto2.getMain_resume().equals("Y") || resumeDto2.getIs_public().equals("Y") ) {
 					
@@ -81,11 +79,14 @@ public class ResumeServiceImpl {
 	// 이력서 공개
 	public void changeResumeStatus(ResumeDto resumeDto) {
 		
-		if(resumeDto.getIs_public().equals("N")) {
-			resumeSqlMapper.changePublicResume(resumeDto);
+		ResumeDto dto = resumeSqlMapper.getThisResumeDtoByResumePk(resumeDto);
 		
+		if(dto.getIs_public().equals("N")) {
+			resumeSqlMapper.changePublicResume(resumeDto);
+			
 		}else {
 			resumeSqlMapper.changePrivateResume(resumeDto);
+			
 		}	
 	}
 	
@@ -105,12 +106,15 @@ public class ResumeServiceImpl {
 	}
 	
 	// 이력서 삭제
-	public void deleteResume(ResumeDto resumeDto) {
-		
-		resumeSqlMapper.deleteResumeByResumePk(resumeDto);
+//	public void deleteResume(ResumeDto resumeDto) {
+//		
+//		resumeSqlMapper.deleteResumeByResumePk(resumeDto);
+//	}
+	
+	public ResumeDto getResume(String resume_pk) {
+		ResumeDto resumeDto = resumeSqlMapper.getResumeDtoByResumePk(resume_pk);
+		return resumeDto;
 	}
-	
-	
 	
 	// 경력 카테고리 가져오기
 	public List<CareerCategoryDto> getCareerCategory(){
@@ -303,9 +307,35 @@ public class ResumeServiceImpl {
 		return list;
 	}
 	
+//	-----------------------------------------------------------------------------------------
+	// ajax 
+	
+	// 학생의 일반 이력서 목록 가져오기
+	public List<ResumeDto> getGeneralResumeList(int student_pk) {
+		
+		List<ResumeDto> resumeList = resumeSqlMapper.getGeneralResumeListByStudentPk(student_pk);
+		
+		return resumeList;
+		
+		
+	}
+	
+	// 학생 메인 이력서 가져오기
+	public ResumeDto getMainResumeDto(int student_pk) {
+		ResumeDto resumeDto = resumeSqlMapper.getMainResumeDtoByStudentPk(student_pk);
+		return resumeDto;
+	}
 	
 	
+	// 학생 이력서 삭제
+	public void deleteResume(int resume_pk) {
+		resumeSqlMapper.deleteResumeByResumePk(resume_pk);
+	}
 	
-	
+	// 이력서 미리보기
+	public ResumeDto getThisResumeDto(int resume_pk) {
+		ResumeDto resumeDto = resumeSqlMapper.getResumeDtoByResumePk(resume_pk);
+		return resumeDto;
+	}
 	
 }
