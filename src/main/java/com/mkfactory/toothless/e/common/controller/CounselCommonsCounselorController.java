@@ -13,5 +13,5 @@ public class CounselCommonsCounselorController {
 		return "tl_e/commons/counselCenterCounselorMainPage";
 	}
 	
-
+		
 }
