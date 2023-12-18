@@ -383,8 +383,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-4" style="background-color: #eaf0f6;">
-            
+            <div class="row mt-4">
                 <div class="col">
                     <div class="row">
                         <div class="col-1"></div>
