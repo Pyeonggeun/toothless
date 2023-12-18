@@ -80,8 +80,11 @@
 				const reportWrapper = document.querySelector("#reportTemplate .reportWrapper").cloneNode(true); 
 				
 				const reportDate = document.querySelector(".reportDate");
-				const date = new Date(e.REPORT_DATE);
-				reportDate.innerText = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+				const tempDate = new Date(e.REPORT_DATE);
+				
+				<!-- 월요일에 강사님한테 여쭤보기, console에는 날짜가 제대로 찍힌다, 그런데 출력은 이상하게 된다 -->
+				console.log(tempDate);
+				reportDate.innerText = tempDate.getFullYear() + "-" + (tempDate.getMonth()+1) + "-" + tempDate.getDate();
 				
 				const reportContent = reportWrapper.querySelector(".reportContent");
 				reportContent.innerText = e.REPORT_CONTENT;
@@ -92,9 +95,33 @@
 		});
 	}
 	
+	function reloadAttendanceCountList(){
+		
+		const url = "./getAttendanceCountList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+		const attendanceCountListBox = document.getElementById("attendanceCountListBox");
+		attendanceCountListBox.innerHTML = "";
+		
+			for(e of response.data){
+				const attendanceWrapper = document.querySelector("#attendanceTemplate .attendanceWrapper").cloneNode(true);
+				
+				<!-- 여기도 console은 제대로 찍히는데, 값이 이상하게 나온다 -->
+				console.log(e.ATTENDANCE_COUNT);
+				const attendanceCount = document.querySelector(".attendanceCount");
+				attendanceCount.innerText = e.ATTENDANCE_COUNT + "일";
+				
+				attendanceCountListBox.appendChild(attendanceWrapper);				
+			}
+		});
+	}
+	
 	window.addEventListener("DOMContentLoaded", () => {
 		reloadReportList();
-		
+		reloadAttendanceCountList();
 	});
 	
 </script>
@@ -172,11 +199,23 @@
 				<div class="col"><i class="bi bi-dash-circle text-primary"></i>&nbsp;조퇴</div>
 				<div class="col"><i class="bi bi-x-circle text-danger"></i>&nbsp;결근</div>
 			</div>
-			<div class="row py-3">
-				<c:forEach items="${attendanceCountList }" var="attendanceCountMap">
-					<div class="col ps-4">${attendanceCountMap.ATTENDANCE_COUNT }&nbsp;일</div>
-				</c:forEach>
+
+			
+			<!-- 출결요약 AJAX 들어가는 공간 -->
+			<div id="attendanceCountListBox" class="row py-3">
+				<!-- 출결요약 내용 들어가는 공간 -->
 			</div>
+
+			<!-- 출결요약 AJAX TEMPLATE -->
+			<div id="attendanceTemplate" class="d-none">
+				<div class="attendanceWrapper col">
+					<span class="attendanceCount ps-2">
+						<!-- 출결요약 탬플릿 내용 -->				
+					</span>
+				</div>
+			</div>
+
+
 		
 		</div>
 	</div>
@@ -223,7 +262,7 @@
 	</div>
 
 	
-	<!-- AJAX 카드 들어가는 공간 -->
+	<!-- AJAX 업무보고카드 들어가는 공간 -->
 	<div id="internReportListBox" class="row row-cols-5 px-3">
 		<!-- 여기에 AJAX 카드 들어갈 예정 -->
 	</div>

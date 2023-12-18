@@ -95,33 +95,6 @@
 		}
 	}
 	
-	function reloadInternList(){
-		const url = "./getInternList?internshipCoursePk=" + internshipCoursePk;
-		
-		fetch(url)
-		.then(response => response.json())
-		.then(response =>{
-			
-		//CSR-클라이언트사이드렌더링
-		const internListBox = document.getElementById("internListBox");
-		internListBox.innerHTML = "";
-		
-		for(e of response.data){
-			
-			const internListWrapper = document.querySelector("#modal-inner .internListWrapper").cloneNode(true);
-			
-			const internName = internListWrapper.querySelector(".internName");
-			internName.innerText = e.NAME;
-			
-			
-		}
-			
-		});
-		
-		
-		
-	}
-	
 	
 	
 	
@@ -235,7 +208,6 @@
 
 
 
-
 	<div id="modal-inner" class="d-none">
 		<div class="internListWrapper row">
 			<div class="internName col">이름</div>
@@ -245,12 +217,6 @@
 			<div class="internEmail col">이메일</div>
 		</div>
 	</div>
-
-
-
-
-
-
 
 
 
