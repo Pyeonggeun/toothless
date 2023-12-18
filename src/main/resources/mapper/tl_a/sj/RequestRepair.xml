@@ -2,12 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mkfactory.toothless.a.student.sj.mapper.RequestRepairSqlMapper">
-	<select id="printDormStudentPk" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
-		SELECT * 
-		FROM TL_A_DORM_STUDENT tads 
-		WHERE tads.STUDENT_PK = 
-		(SELECT tjsi.STUDENT_PK FROM TL_JIC_STUDENT_INFO tjsi WHERE tjsi.STUDENT_PK = #{student_pk})
-	</select>
+	
+
 	
 	<select id ="dormStudents" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
 	SELECT * FROM TL_A_DORM_STUDENT tads 
@@ -29,26 +25,34 @@
 	</select>
 	
 	<select id ="printingArticles" resultType="com.mkfactory.toothless.a.dto.RequestRepairDto">
-		SELECT * FROM TL_A_REQUEST_REPAIR tarr ORDER BY REQUEST_REPAIR_PK desc
+		SELECT * FROM TL_A_REQUEST_REPAIR tarr ORDER BY REQUEST_DATE desc
 	</select>
 	
-	<!-- 
-	<select id="printingPage" resultType="java.util.map">
+
+	<select id="printingPage" resultType="map">
 		SELECT tjsi.NAME AS NAME, tarr.TITLE AS TITLE, tarr.CONTENT AS CONTENT,  TARR.REQUEST_REPAIR_PK AS REQUEST_PK,
-			starr.REQUEST_DATE AS REQUEST_DATE 
-			from TL_JIC_STUDENT_INFO tjsi
-		INNER JOIN TL_A_DORM_STUDENT tads ON tads.STUDENT_PK = TJSI.STUDENT_PK 
-		INNER JOIN TL_A_REQUEST_REPAIR tarr ON tarr.DORM_STUDENT_PK = tads.DORM_STUDENT_PK 
-		WHERE tarr.DORM_STUDENT_PK = #{dorm_student_pk}
+		tarr.REQUEST_DATE AS REQUEST_DATE , TARR.DORM_STUDENT_PK AS DORM_STUDENT_PK, TARR.IMAGE_LINK AS IMG_LINK
+		from TL_JIC_STUDENT_INFO tjsi
+	INNER JOIN TL_A_DORM_STUDENT tads ON tads.STUDENT_PK = TJSI.STUDENT_PK 
+	INNER JOIN TL_A_REQUEST_REPAIR tarr ON tarr.DORM_STUDENT_PK = tads.DORM_STUDENT_PK 
+	WHERE tarr.DORM_STUDENT_PK = TADS.DORM_STUDENT_PK 
+	ORDER BY TARR.REQUEST_DATE desc
 	</select>
-	-->
-	<!--  
-	<select id="name" resultType="java.util.map">
-		SELECT TJSI.NAME 
-		FROM TL_JIC_STUDENT_INFO tjsi 
-		WHERE EXISTS(SELECT * FROM TL_A_DORM_STUDENT tads 
-		INNER JOIN TL_A_REQUEST_REPAIR tarr ON tarr.DORM_STUDENT_PK = tads.DORM_STUDENT_PK WHERE tjsi.STUDENT_PK = TADS.STUDENT_PK)
+	
+	<select id="selectArticle" resultType="com.mkfactory.toothless.a.dto.RequestRepairDto">
+		SELECT * FROM TL_A_REQUEST_REPAIR tarr WHERE REQUEST_REPAIR_PK = #{request_repair_pk}
 	</select>
-	-->
+	
+	<select id="selectDormStudentPk" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT * FROM TL_A_DORM_STUDENT tads WHERE DORM_STUDENT_PK = #{dorm_student_pk}
+	</select>
+	
+	<select id ="studentPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO tjsi WHERE STUDENT_PK = #{student_pk}
+	</select>
+	
+	<delete id="deleteRequestRepair">
+		DELETE FROM TL_A_REQUEST_REPAIR tarr WHERE REQUEST_REPAIR_PK = #{request_repair_pk}
+	</delete>
 	
 </mapper>

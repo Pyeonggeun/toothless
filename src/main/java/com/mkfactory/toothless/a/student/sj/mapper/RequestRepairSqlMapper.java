@@ -14,5 +14,10 @@ public interface RequestRepairSqlMapper {
 	
 	public List<RequestRepairDto> printingArticles();
 	public List<DormStudentDto> dormStudents();
-	//public List<Map<String, Object>> name();
+	public List<Map<String, Object>> printingPage();
+	
+	public RequestRepairDto selectArticle(int request_repair_pk);
+	public DormStudentDto selectDormStudentPk(int dorm_student_pk);
+	public StudentInfoDto studentPk(int student_pk);
+	public void deleteRequestRepair(int request_repair_pk);
 }
