@@ -20,10 +20,9 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-1"></div>
 			
 			<!-- 학생용 메뉴 바 -->
-			<div class="col-2 me-5 border-end">
+			<div class="col-2 pb-0 me-5 border-end">
 				<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 			</div>
 			

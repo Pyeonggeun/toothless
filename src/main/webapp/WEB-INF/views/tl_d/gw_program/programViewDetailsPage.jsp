@@ -20,18 +20,21 @@
 			</div>
 	</div>
 	<div class="row">
-		<div class="col-1"></div>
 		<!-- 취업팀 메뉴 바 -->
-		<div class="col-2 me-5 border-end">
+		<div class="col-2 pb-0 me-5 border-end">
 			<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 		</div>
 		
 		
 		<div class="col">
-			<div class="row border-bottom border-3 border-bs-border mt-5 mb-3 pb-3 fs-4 fw-bold">
-				<div class="col-3">프로그램 상세정보</div>
+			<div class="row">
+				
+				<div class="col-1"></div>
+				<div class="col border-bottom border-3 border-bs-border mt-5 mb-3 pb-3 fs-4 fw-bold">프로그램 상세정보</div>
+				
 			</div> 
 			<div class="row">
+				<div class="col-1"></div>
 				<div class="col"> 
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">프로그램명</div>
@@ -110,7 +113,7 @@
 			
 		</div>
 		
-		<div class="col-1"></div>
+		<div class="col-2"></div>
 		
 	</div>
 	

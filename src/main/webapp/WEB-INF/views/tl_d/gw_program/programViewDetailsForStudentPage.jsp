@@ -20,18 +20,21 @@
 			</div>
 	</div>
 	<div class="row">
-		<div class="col-1"></div>
 		<!-- 학생용 메뉴 바 -->
-		<div class="col-2 me-5 border-end">
+		<div class="col-2 pb-0 me-5 border-end">
 			<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 		</div>
 		
 		
 		<div class="col">
-			<div class="row border-bottom border-3 border-bs-border mt-5 mb-3 pb-3 fs-4 fw-bold">
-				<div class="col-3">프로그램 상세정보</div>
-			</div> 
 			<div class="row">
+				
+				<div class="col-1"></div>
+				<div class="col border-bottom border-3 border-bs-border mt-5 mb-3 pb-3 fs-4 fw-bold">프로그램 상세정보</div>
+				
+			</div> 
+			<div class="row"> 
+				<div class="col-1"></div>
 				<div class="col"> 
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">프로그램명</div>
@@ -79,7 +82,7 @@
 			<!-- 버튼들 여따 -->
 			<c:set var="currentTime" value="<%= new java.util.Date() %>" />
 			<div class="row mt-4 mb-5"> 
-				
+				<div class="col-1"></div>
 				<div class="col-2 mx-0 text-start">
 				<c:choose>
 	                <c:when test="${program.programDto.prg_apply_deadline.before(currentTime)}">
@@ -109,7 +112,7 @@
 			
 		</div>
 		
-		<div class="col-1"></div>
+		<div class="col-2"></div>
 		
 	</div>
 </div>
