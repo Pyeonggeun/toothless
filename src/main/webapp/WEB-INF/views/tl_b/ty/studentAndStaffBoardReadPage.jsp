@@ -108,6 +108,7 @@
                                             </form>
                                             </c:if>
                                             
+                                            
                                             <c:forEach items="${reply }" var="boardReply">
                                             <div class="row border-1 border-bottom">
                                                 <div class="col">
@@ -120,7 +121,9 @@
                                                     <div class="row">
                                                     	<div class="col text-secondary" style="font-size: 80%">
                                                     		<fmt:formatDate value="${boardReply.replyDto.created_at }" pattern="yy년 MM월 dd일 "/>
-                                                    		<a href="./studentReplyDeleteProcess?id=${boardReply.replyDto.studentboard_reply_pk }&deleteId=${boardReply.studentDto.student_pk}&boardPk=${read.noticeboardDto.studentboard_pk}">삭제</a>
+                                                    		<c:if test="${sessionStudentInfo.student_pk == boardReply.replyDto.student_pk }">
+                                                    			<a href="./studentReplyDeleteProcess?id=${boardReply.replyDto.studentboard_reply_pk }&deleteId=${boardReply.studentDto.student_pk}&boardPk=${read.noticeboardDto.studentboard_pk}">삭제</a>
+                                                    		</c:if>
                                                     	</div>
                                                     </div>
                                                 </div>

@@ -80,7 +80,7 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;출결현황 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#######'">&gt;&nbsp;출결현황 조회</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
@@ -99,7 +99,7 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;최종성적 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../eunbi/student/gradeInquiryPage'">&gt;&nbsp;최종성적 조회</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
