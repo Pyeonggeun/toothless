@@ -1,5 +1,6 @@
 package com.mkfactory.toothless.e.offlinecounsel.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -59,17 +60,29 @@ public class OfflineCounselController {
 		
 		int offlineReservationPk = offlineCounselService.getOfflineReservationPk();
 		params.setId(offlineReservationPk);
-		Map<String, Object> map = offlineCounselService.insertOfflineReservationInfo(params, reservationDate);
-		model.addAttribute("map", map);
 		
-		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int count = 0;
+		List<Map<String, Object>> list = offlineCounselService.getDateReservationList();
 		
-		if(studentInfoDto != null) {
-			return "tl_e/offlineCounsel/counselReservationCompletedPage";
-		}else {
-			return "redirect:../../another/student/loginPage";
+		for(Map<String, Object> mapValue : list) {
+			
+			String value = (String)mapValue.get("DATE_VALUE");
+			
+			if(value.equals(reservationDate)) {
+				count++;
+			}
 		}
 		
+		System.out.println("recount: "+count);
+		if(count > 0) {
+			return "tl_e/offlineCounsel/counselReservationImpossiblePage";
+		}else {
+			Map<String, Object> map = offlineCounselService.insertOfflineReservationInfo(params, reservationDate);
+			model.addAttribute("map", map);
+			
+			return "tl_e/offlineCounsel/counselReservationCompletedPage";
+		}
+
 	}
 	
 	@RequestMapping("offlineCounselReservationCheckPage")

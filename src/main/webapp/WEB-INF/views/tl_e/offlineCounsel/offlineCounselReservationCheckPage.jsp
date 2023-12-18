@@ -78,7 +78,7 @@
 						createCounselReport.classList.add("btn-outline-dark");
 						createCounselReport.value = "일지작성";
 					}
-						
+					
 					reservationListBox.appendChild(reservationWrapper);
 				}
 				
@@ -98,6 +98,9 @@
 			.then(response => {
 				
 				const map = response.data;
+				
+				console.log("listreid: "+reservationPk);
+				console.log("처음들어온id: "+map.offlineReservationDto.id);
 				
 				const counselDate = writeModalElement.querySelector(".counselDate");
 				counselDate.innerText = map.offlineReservationDto.counsel_year + "-" + map.offlineReservationDto.counsel_month 
@@ -198,29 +201,29 @@
 					locationMap(map.counselDocumentDto.location);
 				}
 				
-				const closeBtn = writeModalElement.querySelector(".closeBtn");
-				closeBtn.setAttribute("onclick", "closeModal()");
-				
 				const saveBtn = writeModalElement.querySelector(".saveBtn");
 				
 				if(map.counselDocumentDto != null){
 					saveBtn.disabled = true;
 				}
 				
-			    saveBtn.addEventListener("click", function() {
-			        const id = map.offlineReservationDto.id;
-			        console.log("showmodalClick: "+id);
-			        const stateValue = counselState.value;
-			        console.log("showmodalClick: "+stateValue);
-			        const textValue = counselorText.value;
-			        console.log("showmodalClick: "+textValue);
-			        const locationValue = counselLocation.value;
-			        console.log("showmodalClick: "+locationValue);
+				writeModalElement.dataset.reservationPk = reservationPk;
+				
+				function saveHandler() {
+				    const id = writeModalElement.dataset.reservationPk;
+				    const stateValue = counselState.value;
+				    const textValue = counselorText.value;
+				    const locationValue = counselLocation.value;
 
-			        // 필요한 매개변수와 함께 save 함수 호출
-			        save(id, stateValue, textValue, locationValue);
-			    });
-
+				    // 필요한 매개변수와 함께 save 함수 호출
+				    save(id, stateValue, textValue, locationValue);
+				}
+			    
+				saveBtn.onclick = saveHandler;
+				
+				const closeBtn = writeModalElement.querySelector(".closeBtn");
+				closeBtn.setAttribute("onclick", "closeModal()");
+			    
 				const xClose = writeModalElement.querySelector(".xClose");
 				xClose.setAttribute("onclick", "closeModal()");
 				
@@ -633,14 +636,7 @@
 				${map.offlineReservationDto.counsel_hour }<span>:00</span>
 			</div>
 			<div class="col d-grid">
-				<c:choose>
-					<c:when test="${!empty map.counselDocumentDto.id }">
-						<input class="createCounselReport btn" type="submit" value="일지확인">
-					</c:when>
-					<c:otherwise>
-						<input class="createCounselReport btn" type="submit" value="일지작성">
-					</c:otherwise>
-				</c:choose>
+				<input class="createCounselReport btn" type="submit" value="일지작성">
 			</div>
 		</div>
 		<%--

@@ -545,7 +545,7 @@
 		SELECT 
 			cor.counsel_year || '.' || cor.counsel_month || '.' || cor.counsel_date || '.' || cor.counsel_hour || '.' || cor.counsel_day AS DATE_VALUE 
 		FROM CP_OFFLINE_RESERVATION cor
-		WHERE cor.STATE = '신청' OR cor.STATE = '취소'
+		WHERE cor.STATE = '신청'
 	</select>
 	
 	

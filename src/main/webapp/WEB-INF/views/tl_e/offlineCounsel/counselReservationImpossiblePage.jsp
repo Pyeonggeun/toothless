@@ -51,7 +51,7 @@
 						상담 신청
 					</div>
 					<div class="col text-center bg-dark text-white py-2 fs-5 border border-white border-1 rounded">
-						신청 완료
+						신청 실패
 					</div>
 				</div>
 			</div>
@@ -62,53 +62,25 @@
 			<div class="col-2"></div>
 			<div class="col border" style="background-color: rgb(254, 254, 252);">
 				<div class="row pt-3">
-					<div class="col text-center fs-1 fw-bold" style="color: #133369;">
-						<i class="bi bi-check-circle"></i>
+					<div class="col text-center fs-1 fw-bold text-danger">
+						<i class="bi bi-exclamation-circle"></i>
 					</div>
 				</div>
 				<div class="row pt-3">
-					<div class="col text-center fs-4 fw-bold">
-						상담 예약이 완료되었습니다.
-					</div>
-				</div>
-				<div class="row pt-2">
 					<div class="col text-center">
-						향후 상담관련 안내는 센터에서 진행할 예정입니다.
+						<span class="fs-4 fw-bold">상담 예약에 실패하였습니다.</span><br> 
+						<span class="fs-6">이미 예약이 완료된 날짜와 시간입니다.<br>
+						다른 날짜와 시간으로 예약을 진행해주세요.</span>
 					</div>
 				</div>
-				<div class="row pt-5 pb-5 px-5 mx-3">
-					<div class="col border border-dark rounded" style="background-color: rgb(246, 246, 242);">
-						<div class="row py-2">
-							<div class="col border-end ps-4">
-								<div class="row pt-4 pb-2">
-									<div class="col">
-										<span class="fw-bold">상담주제 : </span>
-										<span>${map.typeCategoryDto.name }</span>
-									</div>
-								</div>
-								<div class="row pt-2 pb-4">
-									<div class="col">
-										<span class="fw-bold">상담원명: </span>
-										<span>${map.counselorDto.name }</span>&nbsp;상담사
-									</div>
-								</div>
-							</div>
-							<div class="col ps-4">
-								<div class="row pt-4 pb-2">
-									<div class="col">
-										<span class="fw-bold">일시 : </span>
-										<span>${map.offlineReservationDto.counsel_year }년 ${map.offlineReservationDto.counsel_month }월 ${map.offlineReservationDto.counsel_date }일(${map.dayString }) ${map.offlineReservationDto.counsel_hour }:00</span>
-									</div>
-								</div>
-								<div class="row pt-2 pb-4">
-									<div class="col">
-										<span class="fw-bold">장소: </span>
-										mk대학교 서울캠퍼스 한빛관 상담센터 5층
-									</div>
-								</div>
-							</div>
+				<div class="row pt-4 pb-5">
+					<div class="col-4"></div>
+						<div class="col">
+							<form class="d-grid" action="./selectCounselorPage" method="post">
+								<input class="btn btn-dark" type="submit" value="예약페이지로 돌아가기">
+							</form>
 						</div>
-					</div>
+					<div class="col-4"></div>
 				</div>
 			</div>
 			<div class="col-2"></div>

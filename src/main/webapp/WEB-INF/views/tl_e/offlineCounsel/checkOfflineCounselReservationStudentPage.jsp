@@ -510,34 +510,11 @@
 
 	<div class="container-fluid">
 	
-		<div class="row py-2 border-bottom">
-            <div class="col-4 ps-5 text-start">
-                <a class="navbar-brand" href="../commons/counselCenterStudentMainPage"><img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
-                <span class="fw-bold fs-3 text-start align-middle">MK University</span><span class="fs-6t align-middle">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class="fs-5 fw-bold align-middle">상담센터</span></a>
-            </div>
-            <div class="col-1"></div>
-            <div class="col">
-            	<div class="row pt-3 align-items-center">
-					<div class="col pt-1 pe-4 text-end fs-5">
-						<span class="fw-bold"><a class="navbar-brand" href="../offlineCounsel/offlineCounselReservationCheckPage">오프라인 상담</a></span><span class="fs-5 text-body-tertiary">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-						<span class="fw-bold"><a class="navbar-brand" href="../onlineCounsel/counselorOnlineCounselMainPage">온라인 상담</a></span><span class="fs-5 text-body-tertiary">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-						<span class="fw-bold"><a class="navbar-brand" href="">집단 상담</a></span><span class="fs-5 text-body-tertiary">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-						<span class="fw-bold"><a class="navbar-brand" href="../offlineCounsel/offlineCounselStatisticsPage">통계 자료</a></span>
-					</div>
-            	</div>
-            </div>
-			<div class="col-1 pt-3 me-0 pe-0 text-center dropdown nav-item">
-			  <a class="nav-link pt-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    <span class="fw-bold">${sessionStudentInfo.student_id }</span>님
-			  </a>
-			  <ul class="dropdown-menu">
-			    <li><a class="dropdown-item" href="#">마이페이지</a></li>
-			    <li><hr class="dropdown-divider"></li>
-			    <li><a class="dropdown-item" href="#"><span><i class="bi bi-power"></i></span>&nbsp;로그아웃</a></li>
-			  </ul>
+		<div class="row">
+			<div class="col">
+				<jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
 			</div>
-			<div class="col-1"></div>
-		</div>
+		</div>	
 
 		<div class="row">
 			<div class="col-2 ms-4 border-end" style="height: 53em">
