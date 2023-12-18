@@ -411,7 +411,7 @@ public class ResumeController {
 			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalInfoPk);
 		
 			model.addAttribute("applyStudentList", postingService.getApplyStudentTotalList(companyDto.getCom_pk()));
-			
+			model.addAttribute("resumeList", resumeService.getPublicResumeList());
 		}	
 		return "tl_d/sb_resume/publicResumeByStudentListPage";
 	}
