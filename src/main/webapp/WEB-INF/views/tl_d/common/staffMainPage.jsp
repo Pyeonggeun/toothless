@@ -34,27 +34,51 @@
 					<!-- 진행 구직희망 -->
 					<div class="col me-4">
 					
-						<div class="row fw-bold fs-5 pb-1 border-bottom border-bd-border border-2">
+						<div class="row fw-bold fs-5 pb-1 mb-2 border-bottom border-bd-border border-2">
 							<div class="col">진행 구직희망</div>
 							<div class="col text-end fw-bold fs-5">
-								<a href="#" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
+								<a href="../jm_consulting/staffViewOnlineConsultingPage" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
 							</div>
 						</div>
 						 
-						<div class="row"></div>
+						<div class="row">
+							<div class="col">
+								<c:forEach items="${progressOnlinceConsultingNumFive}" var="e">
+										<div class="row border-bottom border-bs-border pb-2 mb-2">
+											<div class="col-1 text-center fw-bold pt-1">${e.onlineConsultingDto.on_consulting_pk}</div>
+											<div class="col"><a class="btn ms-4" href="../jm_consulting/viewDetailStudentInfoPage?hope_job_pk=${e.HOPE_JOB_PK}">${e.studentInfoDto.name}</a></div>
+											<div class="col-3 text-center pt-1">
+												${e.studentInfoDto.student_id}									
+											</div>
+										</div>
+								</c:forEach> 							
+							</div>						
+						</div>
 					</div>
 					
 					
 					<!-- 구직희망 신청 -->
 					<div class="col me-4">
-						<div class="row fw-bold fs-5 pb-1 border-bottom border-bd-border border-2">
+						<div class="row fw-bold fs-5 pb-1 mb-2 border-bottom border-bd-border border-2">
 							<div class="col">구직희망 신청</div>
 							<div class="col text-end fw-bold fs-5">
-								<a href="#" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
+								<a href="../jm_consulting/viewStudentListPage" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
 							</div>
 						</div>
 						
-						<div class="row"></div>
+						<div class="row">
+							<div class="col">
+								<c:forEach items="${getHopeJobInfoNumFive}" var="e">
+										<div class="row border-bottom border-bs-border pb-2 mb-2">
+											<div class="col-1 text-center fw-bold pt-1">${e.HOPE_JOB_PK}</div>
+											<div class="col"><a class="btn ms-4" href="../jm_consulting/viewDetailStudentInfoPage?hope_job_pk=${e.HOPE_JOB_PK}">${e.NAME}</a></div>
+											<div class="col-3 text-center pt-1" style="font-size:0.8em;">
+												<fmt:formatDate pattern="yyyy-MM-dd" value="${e.CREATED_AT}"/>											
+											</div>
+										</div>
+								</c:forEach> 							
+							</div>												
+						</div>
 					</div>
 					
 					 

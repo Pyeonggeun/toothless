@@ -267,154 +267,156 @@
 
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
 
 	<div class="row">
 		<div class="col">
-			<div class="col">
-				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>
-			</div>			
+				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>		
 		</div>
 	</div>
 	
 	
 
 	<div class="row">
-		<div class="col-1"></div>
-		<div class="col-10">
-			<div class="row">
-				<div class="col-3">
-					<jsp:include page="../common/staffMenu.jsp"></jsp:include>
-				</div>
-				
-				<div class="col-9">
-					<div class="row mt-5">
-						<div class="col fw-bold ps-0" style="font-size:1.5em;">
-							온라인 상담 목록
+	
+				<div class="col">
+					<div class="row">
+						<div class="col-2 border-end pb-0">
+							<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 						</div>
 						
-						<div class="row mt-4">
-							<div class="col">	
-			
-								 
-								 
-								<div class="row" style="font-size:0.8em;">																					
-									<div class="col ps-0">									
-										<select class="form-select" aria-label="Default select example" onchange="reloadOnlineConsultingList(this.value,shared_sortby,searchCategory.value,searchContents.value, shared_pageNum)">
-										  <option value="all" ${isReply == 'all' ? 'checked' : null }>전체</option>
-										  <option value="reply" ${isReply == 'Reply' ? 'checked' : null }>답변</option>
-										  <option value="unReply" ${isReply == 'unReply' ? 'checked' : null }>미답변</option>										  
-										</select>										
-									</div>
-									<div class="col-6"></div>															
-									
-									<div class="col">
-										<div class="row pt-3" style="font-size:0.8em; display:flex; text-align:right;">
-											<div id="getOnlineConsultingListLatest" onclick="reloadOnlineConsultingList(shared_isReply,'latest',searchCategory.value,searchContents.value, currentPageNum.value)" class="col pe-0">
-												<span onmouseover="cursorChangeLikeLink(this)">최신순</span>
-											</div>
-											<div id="getOnlineConsultingListEarliest" onclick="reloadOnlineConsultingList(shared_isReply,'earliest',searchCategory.value,searchContents.value, currentPageNum.value)" class="col pe-0">
-												<span onmouseover="cursorChangeLikeLink(this)">과거순</span>
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-					
-					<div class="row mt-3">
-						<div class="col">
-							<div class="row border" style="align-items:center;">
-							
-													
-								<div class="col-3">
-									<select id="searchCategory" class="ps-0 form-select" aria-label="Default select example" style="border:none; outline:none; font-size:0.7em;">
-									  <option value="all">선택</option>
-									  <option value="student_name">학생 이름</option>
-									  <option value="online_consulting_pk">신청번호</option>
-									</select>							
-								</div>
-								<div class="col-9">
-									<div class="row">
-										<div class="col-11">
-											<input id="searchContents" type="text" style="border:none; outline:none; width:100%; font-size:0.7em;">
-										</div>								
-										<div class="col-1">
-											<button onclick="reloadOnlineConsultingList(shared_isReply,shared_sortby,searchCategory.value,searchContents.value, currentPageNum.value)"  style="border:none; background:none; cursor:pointer;"><i class="bi bi-search"></i>
-											</button>
-										</div>
-
-									</div>									
-								</div>										
-
-													
-							</div>
-
-						</div>
-					</div>
-					
-					<div class="row border border-bottom-0 pt-4">
 						<div class="col">
 							<div class="row">
+								<div class="col-1"></div>							
 								<div class="col">
-									온라인 상담 번호
+									<div class="row mt-5">
+										<div class="col fw-bold ps-0" style="font-size:1.5em;">
+											온라인 상담 목록
+										</div>
+									</div>	
+									<div class="row mt-4">
+											<div class="col">	
+											 
+												<div class="row" style="font-size:0.8em;">																					
+													<div class="col ps-0">									
+														<select class="form-select" aria-label="Default select example" onchange="reloadOnlineConsultingList(this.value,shared_sortby,searchCategory.value,searchContents.value, shared_pageNum)">
+														  <option value="all" ${isReply == 'all' ? 'checked' : null }>전체</option>
+														  <option value="reply" ${isReply == 'Reply' ? 'checked' : null }>답변</option>
+														  <option value="unReply" ${isReply == 'unReply' ? 'checked' : null }>미답변</option>										  
+														</select>										
+													</div>
+													<div class="col-6"></div>															
+													
+													<div class="col">
+														<div class="row pt-3" style="font-size:0.8em; display:flex; text-align:right;">
+															<div id="getOnlineConsultingListLatest" onclick="reloadOnlineConsultingList(shared_isReply,'latest',searchCategory.value,searchContents.value, currentPageNum.value)" class="col pe-0">
+																<span onmouseover="cursorChangeLikeLink(this)">최신순</span>
+															</div>
+															<div id="getOnlineConsultingListEarliest" onclick="reloadOnlineConsultingList(shared_isReply,'earliest',searchCategory.value,searchContents.value, currentPageNum.value)" class="col pe-0">
+																<span onmouseover="cursorChangeLikeLink(this)">과거순</span>
+															</div>
+														</div>
+													</div>
+												</div>
+				
+											</div>
+									  </div>
+									
+									
+									<div class="row mt-3">
+										<div class="col">
+											<div class="row border" style="align-items:center;">
+											
+																	
+												<div class="col-3">
+													<select id="searchCategory" class="ps-0 form-select" aria-label="Default select example" style="border:none; outline:none; font-size:0.7em;">
+													  <option value="all">선택</option>
+													  <option value="student_name">학생 이름</option>
+													  <option value="online_consulting_pk">신청번호</option>
+													</select>							
+												</div>
+												<div class="col-9">
+													<div class="row">
+														<div class="col-11">
+															<input id="searchContents" type="text" style="border:none; outline:none; width:100%; font-size:0.7em;">
+														</div>								
+														<div class="col-1">
+															<button onclick="reloadOnlineConsultingList(shared_isReply,shared_sortby,searchCategory.value,searchContents.value, currentPageNum.value)"  style="border:none; background:none; cursor:pointer;"><i class="bi bi-search"></i>
+															</button>
+														</div>
+				
+													</div>									
+												</div>										
+				
+																	
+											</div>
+				
+										</div>
+									</div>
+									
+									<div class="row border border-bottom-0 pt-4">
+										<div class="col">
+											<div class="row">
+												<div class="col">
+													온라인 상담 번호
+												</div>
+												<div class="col">
+													학생 이름
+												</div>
+												<div class="col">
+													상담 날짜
+												</div>
+												<div class="col">
+													응답여부
+												</div>
+												<div class="col">
+													링크
+												</div>								
+											</div>
+										</div>
+									</div>
+									
+									<%--붙이는 위치 --%>
+									<div class="row pt-4 border border-top-0">
+										<div id="viewListLocation" class="col">
+				
+										</div>
+									</div>
+									
+									
+									<%--페이징 --%>
+									<div class="row ">
+										<div class="col ps-0">						
+										  <div class="btn-group me-2" role="group" aria-label="First group">
+											<button id="pagingLeft" onclick="reloadOnlineConsultingList(shared_isReply,shared_sortby,searchCategory.value,searchContents.value, currentPageNum.value)" type="button" class="btn btn-outline-primary">&lt;</button>
+										    <div class="row">
+										    	<div class="col pagingWrapper">							    		
+										    	</div>
+										    </div>
+										    
+										    <button id="pagingRight" onclick="reloadOnlineConsultingList(shared_isReply,shared_sortby,searchCategory.value,searchContents.value, currentPageNum.value)" type="button" class="btn btn-outline-primary">></button>
+										  </div>
+									  </div>
+									</div>					
+														
+									<div class="row mt-5">
+										<div class="col ps-0">
+											<a href="./jmTempStaffMainPage">
+												<button type="button" class="btn btn-primary">목록</button>
+											</a>
+										</div>
+									</div>						
+								 </div>
+								<div class="col-2"></div>															 
 								</div>
-								<div class="col">
-									학생 이름
-								</div>
-								<div class="col">
-									상담 날짜
-								</div>
-								<div class="col">
-									응답여부
-								</div>
-								<div class="col">
-									링크
-								</div>								
 							</div>
 						</div>
-					</div>
-					
-					<%--붙이는 위치 --%>
-					<div class="row pt-4 border border-top-0">
-						<div id="viewListLocation" class="col">
-
-						</div>
-					</div>
-					
-					
-					<%--페이징 --%>
-					<div class="row">
-						<div class="col">						
-						  <div class="btn-group me-2" role="group" aria-label="First group">
-							<button id="pagingLeft" onclick="reloadOnlineConsultingList(shared_isReply,shared_sortby,searchCategory.value,searchContents.value, currentPageNum.value)" type="button" class="btn btn-outline-primary">&lt;</button>
-						    <div class="row">
-						    	<div class="col pagingWrapper">							    		
-						    	</div>
-						    </div>
-						    
-						    <button id="pagingRight" onclick="reloadOnlineConsultingList(shared_isReply,shared_sortby,searchCategory.value,searchContents.value, currentPageNum.value)" type="button" class="btn btn-outline-primary">></button>
-						  </div>
-					  </div>
-					</div>					
-										
-					<div class="row mt-5 ps-0">
-						<div class="col ps-0">
-							<a href="./jmTempStaffMainPage">
-								<button type="button" class="btn btn-primary">목록</button>
-							</a>
-						</div>
-					</div>						
-					
+				
+		
 					
 				</div>
-			</div>
+			</div>		
 		
-		</div>
-		<div class="col-1"></div>				
-	</div>
 	
 
 	

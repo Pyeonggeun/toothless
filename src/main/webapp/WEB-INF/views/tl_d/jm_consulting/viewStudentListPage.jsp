@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col">
 			<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>
@@ -22,19 +22,27 @@
 	<div class="row">
 		<div class="col">
 			<div class="row">
-				<div class="col-3">
+				<div class="col-2">
 					<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 				</div>
 				
-				<div class="col-9">
+				<div class="col">
 					<div class="row">
+						<div class="col-1"></div>
 						<div class="col">
+							<div class="row">
+								<div class="col  mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">
+									구직희망 학생 목록
+								</div>
+							</div>
+							
+							
 							<div class="row mt-5">
 								<div class="col">
 									<table class="table">
-									  <thead>
+									  <thead class="border-black border-bottom-3">
 									    <tr>
-									      <th scope="col">신청번호</th>
+									      <th scope="col">No.</th>
 									      <th scope="col">학생 이름</th>
 									      <th scope="col">학번</th>
 									      <th scope="col">신청 날짜</th>
@@ -66,14 +74,16 @@
 									</table>    							
 								</div>
 							</div>
+							<div class="row mt-2 ps-0">
+								<div class="col">
+									<a href="./jmTempStaffMainPage"><button type="button" class="btn btn-primary">목록</button></a>
+								</div>
+							</div>	
 						</div>
+						<div class="col-1"></div>
 					</div>
 					
-					<div class="row mt-2 ps-0">
-						<div class="col">
-							<a href="./jmTempStaffMainPage"><button type="button" class="btn btn-primary">목록</button></a>
-						</div>
-					</div>						
+					
 					
 				</div>
 								

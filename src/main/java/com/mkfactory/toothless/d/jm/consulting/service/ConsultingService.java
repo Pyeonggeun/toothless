@@ -251,14 +251,14 @@ public class ConsultingService {
 	
 	//교직원 화면 출력용
 	//미응답 온라인 상담 최근 5개 오래된순으로 꺼내오기
-	public List<Map<String, Object>> getOnConsultingList(){
+	public List<Map<String, Object>> getOnConsultingInfoListNumFiveASC(){
 		
 		
 		//리턴용 list
 		List<Map<String, Object>> temp = new ArrayList<Map<String,Object>>();
 		
 		//컨설팅dto 5개
-		List<OnlineConsultingDto> onlineConsultingDto = consultingMapper.getOnConsultingList();
+		List<OnlineConsultingDto> onlineConsultingDto = consultingMapper.getOnConsultingListNumFiveASC();
 		
 		for(OnlineConsultingDto e : onlineConsultingDto) {
 			
@@ -268,6 +268,15 @@ public class ConsultingService {
 			
 			//온라인 상담 dto에서 구직희망 신청번호 뽑고 구직희망 dto 뽑기
 			int hopeJobPk = e.getHope_job_pk();
+			
+			//카테고리 정보담기			
+			List<Map<String, Object>> categoryList = new ArrayList<Map<String,Object>>();
+			for(Map<String, Object> d : consultingMapper.getHopeJobCategoryByHopeJobPk(hopeJobPk)) {
+				Map<String, Object> hopeJobCategory = d ;
+				categoryList.add(hopeJobCategory);
+			}
+			map.put("categoryList", categoryList);
+			
 			HopeJobDto hopeJobDto = consultingMapper.getHopeJobByPk(hopeJobPk);
 			
 			//구직희망 신청번호에서 학생pk뽑고 학생정보 갖고오기
@@ -525,18 +534,16 @@ public class ConsultingService {
 		
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-		
 		List<HopeJobFeedbackDto> hopeJobFeedbackDtoList = consultingMapper.getHopeJobFeedbackListAll(sortHJFScore);
-		
 		for(HopeJobFeedbackDto hopeJobFeedbackDto : hopeJobFeedbackDtoList) {
 			
 			Map<String, Object> map = new HashMap<String, Object>();
-			
 			int hope_job_pk = hopeJobFeedbackDto.getHope_job_pk();
+
 			HopeJobDto hopeJobDto = consultingMapper.getHopeJobByPk(hope_job_pk);
 			int studetn_pk = hopeJobDto.getStudent_pk();
 			StudentInfoDto studentInfoDto = consultingMapper.getStudentInfoByPk(studetn_pk);
-			
+
 			map.put("hopeJobFeedbackDto", hopeJobFeedbackDto);
 			map.put("hopeJobDto", hopeJobDto);
 			map.put("studentInfoDto", studentInfoDto);
@@ -546,7 +553,6 @@ public class ConsultingService {
 	}
 	//만족도조사 평균평점
 	public Integer avgHopeJobFeedbackScore() {
-		
 		Integer vaule = consultingMapper.avgHopeJobFeedbackScore();
 		return vaule; 
 				
@@ -591,5 +597,13 @@ public class ConsultingService {
 		consultingMapper.endHopeJobProcess(hope_jop_pk);
 	}
 	
+	//메인페이지 출력용 구직희망 신청 최근5건
+	public List<Map<String, Object>> getHopeJobInfoNumFive(){
+		
+		return consultingMapper.getHopeJobInfoNumFive();
+	}
+	
+	
+
 	
 }

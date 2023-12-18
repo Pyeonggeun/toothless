@@ -44,7 +44,24 @@
 	<a class="col ps-5 mt-2 ms-5 navbar-brand" 
 		href="../gw_program/applyProgramListForStudentPage">&nbsp;나의프로그램</a>
 </div>
-<div class="row">
-	<a class="col fs-5 fw-bold ps-5 mt-3 ms-5 navbar-brand"
-		href="#"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 구직희망&nbsp;&nbsp;</span></a>
-</div>
+<%--true면 등록가능 --%>
+
+
+<c:choose>
+	<c:when test="${checkOverlapHopejob}">
+		<div class="row">
+			<a class="col fs-5 fw-bold ps-5 mt-3 ms-5 navbar-brand"
+				href="../jm_consulting/applyHopeJobPage"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 구직희망&nbsp;&nbsp;</span></a>
+		</div>	
+	</c:when>
+	
+	<c:otherwise>
+		<div class="row">
+			<a class="col fs-5 fw-bold ps-5 mt-3 ms-5 navbar-brand"
+				href="../jm_consulting/hopeJobConsultingPage"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 구직희망&nbsp;&nbsp;</span></a>
+		</div>		
+	</c:otherwise>
+
+</c:choose>
+
+

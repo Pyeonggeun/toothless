@@ -187,19 +187,19 @@
 
 	<div class="row">
 		<div class="col">
-			<div class="row">
+
 				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>
-			</div>			
+			
 		</div>
 	</div>
 
 	<div class="row">
 	
-		<div class="col-1">
+		<div class="col-2">
 			<jsp:include page="../common/staffMenu.jsp"></jsp:include>	
 		</div>
-		<div class="col-2"></div>
-		<div class="col border-start mx-2 my-2">
+		<div class="col-1 border-start"></div>
+		<div class="col mx-2 my-2">
 		
 			<div class="row mx-1 mt-4">
 				<div class="col fw-bold text-center" style="font-size:1.5em;">

@@ -92,11 +92,13 @@ public interface ConsultingMapper {
 	
 	//교직원 화면출력용
 	//미응답 온라인 상담 최근 5개 오래된순으로 꺼내오기
-	public List<OnlineConsultingDto > getOnConsultingList();
+	public List<OnlineConsultingDto > getOnConsultingListNumFiveASC();
 	//구직희망신청번호로 구직희망 정보 뽑기
 	public HopeJobDto getHopeJobByPk(int HOPE_JOB_PK);
 	//student_pk로 학생정보 뽑기
 	public StudentInfoDto getStudentInfoByPk(int STUDENT_PK);
+	//구직희망번호pk로 채용분야+카테고리 뽑기
+	public List<Map<String, Object>> getHopeJobCategoryByHopeJobPk(int hope_job_pk);
 	
 	
 	//교직원 온라인상담 답글입력
@@ -150,6 +152,11 @@ public interface ConsultingMapper {
 	public void updateHopeJobProcess(HopeJobDto par);
 	//구직희망 종료
 	public void endHopeJobProcess(int hope_job_pk);
+	
+	//구직희만신청 메인페이지 출력용 5건
+	public List<Map<String, Object>> getHopeJobInfoNumFive();
+	
+
 	
 	
 

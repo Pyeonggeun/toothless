@@ -13,12 +13,13 @@
 
 
 <script>
-var shared_sortHJFScore ;
+var shared_sortHJFScore;
 
 
 	function reloadlist(sortHJFScore){
 				
-		url = "./FeedbackList?sortHJFScore=" + sortHJFScore
+		
+		url = "./FeedbackList?sortHJFScore=" + sortHJFScore ;
 		
 		fetch(url)
 		.then(response => response.json())
@@ -110,7 +111,7 @@ var shared_sortHJFScore ;
 
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col">
 			<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>	
@@ -120,86 +121,91 @@ var shared_sortHJFScore ;
 	<div class="row">
 		<div class="col">
 			<div class="row">
-				<div class="col-3">
+				<div class="col-2 border-end pb-0">
 					<jsp:include page="../common/staffMenu.jsp"></jsp:include>	
 				</div>
-				<div class="col-1"></div>
-				<div class="col-7 ps-3" style="font-size:0.8em;">
-					<div class="row mt-5">
-						<div class="col fw-bold" style="font-size:1.4em;">
-							학생 만족도 조사 리스트
-						</div>
-					</div>
-					<div class="row mt-5 border py-2">
-						<div class="col-2 fw-bold">
-							평균 평점
-						</div>
-						<div class="col-2 pe-0" style="text-align:left">
-							<c:choose>
-								<c:when test="${avgScore==null }">
-									완료된 만족도 조사가 없습니다.
-								</c:when>
-								
-								<c:otherwise>
-									<span>${avgScore}점</span>
-								</c:otherwise>
-							</c:choose>
-						</div>
-						<div class="col"></div>
-						<div class="col-5">
-							<div class="row">
-								<div class="col">
-									<input onclick="reloadlist(this.value)" type="radio" name="sortHJFScore" value="sortLow"${sortHJFScore == 'sortLow' ? 'checked' : null }>평점 낮은순
-								</div>
-								<div class="col"> 
-									<input onclick="reloadlist(this.value)" type="radio" name="sortHJFScore" value="sortHigh" ${sortHJFScore == 'sortHigh' ? 'checked' : null }>평점 높은순
-								</div>															
-							</div>
-						</div>																		
-					</div>
-					
-					<div class="row border pb-0" style="font-size:1.2em;">
+				<div class="col ps-3" style="font-size:0.8em;">
+					<div class="row">
+						<div class="col-1"></div>
 						<div class="col">
-							<div class="row border-bottom py-2">
-								<div class="col border-end">
-									만족도조사 번호			
+							<div class="row mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">
+								<div class="col fw-bold">
+									학생 만족도 조사 리스트
 								</div>
-								<div class="col border-end">
-									학생 이름			
+							</div>
+							<div class="row mt-5 border py-2">
+								<div class="col-2 fw-bold">
+									평균 평점
 								</div>
-								<div class="col border-end">
-									점수			
+								<div class="col-2 pe-0" style="text-align:left">
+									<c:choose>
+										<c:when test="${avgScore==null }">
+											완료된 만족도 조사가 없습니다.
+										</c:when>
+										
+										<c:otherwise>
+											<span>${avgScore}점</span>
+										</c:otherwise>
+									</c:choose>
 								</div>
-								<div class="col border-end">
-									설문일			
-								</div>
-								<div class="col">
-									설문 내용
-								</div>																															
+								<div class="col"></div>
+								<div class="col-5">
+									<div class="row">
+										<div class="col">
+											<input onclick="reloadlist(this.value)" type="radio" name="sortHJFScore" value="sortLow"${sortHJFScore == 'sortLow' ? 'checked' : null }>평점 낮은순
+										</div>
+										<div class="col"> 
+											<input onclick="reloadlist(this.value)" type="radio" name="sortHJFScore" value="sortHigh" ${sortHJFScore == 'sortHigh' ? 'checked' : null }>평점 높은순
+										</div>															
+									</div>
+								</div>																		
 							</div>
 							
-							<div class="row">
-								<div id="listOutput" class="col"><%--여기에 복붙 --%>
-								
-								
-								
-								</div>
-							</div>
-
-															
-						</div>
-					</div>	
-					
-					<div class="row mt-4">
-						<div class="col ps-0">
-							<a class="navbar-brand" href="./jmTempStaffMainPage">
-								<button type="button" class="btn btn-primary">목록</button>
-							</a>
-						</div>
-					</div>									
+							<div class="row border pb-0" style="font-size:1.2em;">
+								<div class="col">
+									<div class="row border-bottom py-2">
+										<div class="col border-end">
+											만족도조사 번호			
+										</div>
+										<div class="col border-end">
+											학생 이름			
+										</div>
+										<div class="col border-end">
+											점수			
+										</div>
+										<div class="col border-end">
+											설문일			
+										</div>
+										<div class="col">
+											설문 내용
+										</div>																															
+									</div>
+									
+									<div class="row">
+										<div id="listOutput" class="col"><%--여기에 복붙 --%>
 										
+										
+										
+										</div>
+									</div>
+		
+																	
+								</div>
+							</div>	
+							
+							<div class="row mt-4">
+								<div class="col ps-0">
+									<a class="navbar-brand" href="./jmTempStaffMainPage">
+										<button type="button" class="btn btn-primary">목록</button>
+									</a>
+								</div>
+							</div>	
+							
+							
+						</div>	
+						<div class="col-2"></div>						
+					</div>					
 				</div>
-				<div class="col-1"></div>
 				
 			</div>
 		</div>

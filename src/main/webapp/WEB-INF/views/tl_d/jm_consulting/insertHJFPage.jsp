@@ -101,7 +101,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container-fluid">
 	
 	<div class="row">
 		<div class="col">
@@ -109,10 +109,11 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-3">
+		<div class="col-2">
 			<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 		</div>
-		<div class="col-9">
+		<div class="col-1 border-start"></div>
+		<div class="col">
 		
 					<div class="row">
 						<div class="col">
@@ -183,6 +184,7 @@
 					</div>
 
 			</div>
+			<div class="col-2"></div>
 	</div>
 </div>
 
