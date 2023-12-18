@@ -16,11 +16,11 @@
      		fetch(url)
     		.then(response => response.json())
     		.then((response) => {
-    			lecturer_key = response.data.lecturer_key;
-    			loadMyOpenLectureList(lecturer_key);
+    			console.log(response.data.name);
     			const lecturerNmae = document.querySelector("#lecturerNmae");
     			lecturerNmae.innerText = response.data.name;
-    			
+    			const openLecturerName = document.querySelector("#openLecturerName");
+    			openLecturerName.innerText = response.data.name;
     			
     		});
 			
@@ -35,6 +35,7 @@
      		loadAttendanceStatusList(open_lecture_key);
      		getStudyingInfo(open_lecture_key);
      		loadStudentInfo(open_lecture_key);
+     		lectureTestListInfo(open_lecture_key);
      		
 		}
      	function loadStudentInfo(open_lecture_key) {
@@ -42,36 +43,41 @@
 			fetch(url)
     		.then(response => response.json())
     		.then((response) => {
+    			
     			const studentInfoListBox = document.querySelector("#studentInfoListBox");
+    			studentInfoListBox.innerHtml ="";
+    			if(response.data[0] == null){
+    				studentInfoListBox.innerText = "수강신청 된 학생이 존재하지 않습니다.";
+    				studentInfoListBox.classList.add("text-center" , "text-secondary");
+    			}else{
     			
+	    			for(e of response.data){
+	    				const studentInfoListWrapper = document.querySelector("#studentInfoListTemplete .studentInfoListWrapper").cloneNode(true);	
+	        			
+	        			const name = studentInfoListWrapper.querySelector(".name");
+	        			name.innerText = e.lifeStudentDto.name;
+	        			
+	        			/* 나중에 제대로 할때 해야함... 자꾸 널떠...
+	        			const externalId = studentInfoListWrapper.querySelector(".externalId");
+	    				externalId.innerText = e.externalInfoDto.external_id; */
+	        			
+	        			const gender = studentInfoListWrapper.querySelector(".gender");
+	        			if(e.lifeStudentDto.gender == "M"){
+	        				gender.innerText = "남";	
+	        			}else{
+	        				gender.innerText = "여";
+	        			}
+	        			
+	        			const lateCount = studentInfoListWrapper.querySelector(".lateCount");
+	        			lateCount.innerText = e.lateCount+"건";
+	        			
+	        			const absenceCount = studentInfoListWrapper.querySelector(".absenceCount");
+	        			absenceCount.innerText = e.absenceCount+"건";
+	        			
+	        			studentInfoListBox.appendChild(studentInfoListWrapper);
+	    			}
     			
-    			for(e of response.data){
-    				const studentInfoListWrapper = document.querySelector("#studentInfoListTemplete .studentInfoListWrapper").cloneNode(true);	
-        			
-        			const name = studentInfoListWrapper.querySelector(".name");
-        			name.innerText = e.lifeStudentDto.name;
-        			
-        			/* 나중에 제대로 할때 해야함... 자꾸 널떠...
-        			const externalId = studentInfoListWrapper.querySelector(".externalId");
-    				externalId.innerText = e.externalInfoDto.external_id; */
-        			
-        			const gender = studentInfoListWrapper.querySelector(".gender");
-        			if(e.lifeStudentDto.gender == "M"){
-        				gender.innerText = "남";	
-        			}else{
-        				gender.innerText = "여";
-        			}
-        			
-        			const lateCount = studentInfoListWrapper.querySelector(".lateCount");
-        			lateCount.innerText = e.lateCount+"건";
-        			
-        			const absenceCount = studentInfoListWrapper.querySelector(".absenceCount");
-        			absenceCount.innerText = e.absenceCount+"건";
-        			
-        			studentInfoListBox.appendChild(studentInfoListWrapper);
     			}
-    			
-    			
     			
     		});
 			
@@ -81,17 +87,35 @@
 			fetch(url)
     		.then(response => response.json())
     		.then((response) => {
+    			
     			const studyingHourInfo = document.querySelector("#studyingHourInfo");
-    			studyingHourInfo.innerText = response.data.totalHour+"시간 중 "+response.data.studyingHour+"시간";
-    			
+    			if(response.data.studyingHour == null){
+    				studyingHourInfo.innerText = response.data.totalHour+"시간 중 0시간";
+    			}else{
+    				studyingHourInfo.innerText = response.data.totalHour+"시간 중 "+response.data.studyingHour+"시간";	
+    			}
     			const percent = document.querySelector("#percent");
-    			percent.innerText = response.data.percent+"% 진행";
-    			
-    			const chartPercent = document.querySelector("#chartPercent"); 
-    			chartPercent.setAttribute("style","background: conic-gradient(#3d1cb5 "+response.data.percent+"%, #d1cecb 0% 100%);")
-    			
+    			const chartPercent = document.querySelector("#chartPercent");
+    			if(response.data.percent ==null){
+    				percent.innerText = "0% 진행";
+    			}else{
+    				const rouned =  ((response.data.percent).toFixed(1));
+        			percent.innerText = rouned+"% 진행";	
+        			chartPercent.setAttribute("style","background: conic-gradient(#3d1cb5 "+response.data.percent+"%, #d1cecb 0% 100%);")
+    			}
     			const nullAttendanceCount = document.querySelector("#nullAttendanceCount");
-    			nullAttendanceCount.innerText = response.data.nullAttendanceBookCount+"건";
+    			if(response.data.nullAttendanceBookCount == null){
+    				nullAttendanceCount.innerText = "0 건";	
+    			}else{
+    				nullAttendanceCount.innerText = response.data.nullAttendanceBookCount+" 건";
+    			}
+    			
+    			
+    			 
+    			
+    			
+    			
+    			
     			
     		});
 		}
@@ -148,61 +172,125 @@
 			fetch(url)
     		.then(response => response.json())
     		.then((response) => {
-    			
-    			for(e of response.data){
-    				const attendanceStatusListBox = document.querySelector("#attendanceStatusListBox");
-    				const attendanceStatusWrapper = document.querySelector("#attendanceStatusTemplete .attendanceStatusWrapper").cloneNode(true);
-    			
-    				const targetDate = attendanceStatusWrapper.querySelector(".targetDate");
-    				const resultDate = new Date(e.date);
-    				const day = resultDate.getFullYear()+"."+(resultDate.getMonth()+1)+"."+resultDate.getDate();
-    				targetDate.innerText = day;
+    			const attendanceStatusListBox = document.querySelector("#attendanceStatusListBox");
+    			attendanceStatusListBox.innerHtml = "";
+    			if(response.data[0] ==null){
+    				attendanceStatusListBox.innerText = "작성 가능한 강의 일지가 없습니다.";
+    				attendanceStatusListBox.classList.add("text-center" , "text-secondary");
+    			}else{
     				
-    				const absenceCount = attendanceStatusWrapper.querySelector(".absenceCount");
-    				const lateCount = attendanceStatusWrapper.querySelector(".lateCount");
-    				
-    				
-    				const thisDate = new Date(e.date);
-    				const date_created = thisDate.getFullYear()+"-"+(thisDate.getMonth()+1)+"-"+thisDate.getDate();
-    				const millis = Date.parse(date_created);
-    				
-    				console.log(millis);
-    				
-    				const writeStudyLog= attendanceStatusWrapper.querySelector(".writeStudyLog");
-    				if(e.attendanceBookDto == null){
-    					writeStudyLog.innerText = '일지작성';
-    					writeStudyLog.classList.add("btn-primary");
-    					writeStudyLog.setAttribute("onclick","showAttendacneModal("+millis+")");
-    					
-    					absenceCount.innerText = "-";
-    					lateCount.innerText = "-";
-    					
-    				}else {
-    					writeStudyLog.innerText = '상세보기';
-    					writeStudyLog.classList.add("btn-outline-secondary");
-    					writeStudyLog.setAttribute("onclick","showAttendacneModal("+millis+")");
-    					
-    					absenceCount.innerText = e.absenceStudentCount;
-    					lateCount.innerText = e.lateStudentCount;
-    				}
-    				
-    				 
-    				
-    				
-    				
+	    			
+	    			for(e of response.data){
+	    				
+	    				const attendanceStatusWrapper = document.querySelector("#attendanceStatusTemplete .attendanceStatusWrapper").cloneNode(true);
+	    			
+	    				const targetDate = attendanceStatusWrapper.querySelector(".targetDate");
+	    				const resultDate = new Date(e.date);
+	    				const day = resultDate.getFullYear()+"."+(resultDate.getMonth()+1)+"."+resultDate.getDate();
+	    				targetDate.innerText = day;
+	    				
+	    				const absenceCount = attendanceStatusWrapper.querySelector(".absenceCount");
+	    				const lateCount = attendanceStatusWrapper.querySelector(".lateCount");
+	    				
+	    				const maxCount = attendanceStatusWrapper.querySelector(".maxCount");
+	    				
+	    				const thisDate = new Date(e.date);
+	    				const date_created = thisDate.getFullYear()+"-"+(thisDate.getMonth()+1)+"-"+thisDate.getDate();
+	    				const millis = Date.parse(date_created);
+	    				
+	    			
+	    				
+	    				const writeStudyLog= attendanceStatusWrapper.querySelector(".writeStudyLog");
+	    				if(e.attendanceBookDto == null){
+	    					writeStudyLog.innerText = '일지작성';
+	    					writeStudyLog.classList.add("btn-primary");
+	    					writeStudyLog.setAttribute("onclick","showAttendacneModal("+millis+")");
+	    					
+	    					absenceCount.innerText = "-";
+	    					lateCount.innerText = "-";
+	    					
+	    				}else {
+	    					writeStudyLog.innerText = '상세보기';
+	    					writeStudyLog.classList.add("btn-outline-secondary");
+	    					writeStudyLog.setAttribute("onclick","showAttendacneModal("+millis+")");
+	    					
+	    					absenceCount.innerText = e.absenceStudentCount;
+	    					lateCount.innerText = e.lateStudentCount;
+	    				}
+
     				attendanceStatusListBox.appendChild(attendanceStatusWrapper);
-    				
-    				
+    				}
     			}
     		});
 			
 		}
+     	function lectureTestListInfo(open_lecture_key) {
+			
+     		const url = "./getLectureTestList?open_lecture_key="+open_lecture_key;
+     		fetch(url)
+    		.then(response => response.json())
+    		.then((response) => {
+    			const lectureTestListBox = document.querySelector("#lectureTestListBox");
+    			lectureTestListBox.innerHtml = "";
+    			if(response.data[0] == null){
+    				lectureTestListBox.innerText = "등록되어있는 시험이 존재하지 않습니다.";
+    				lectureTestListBox.classList.add("text-center" , "text-secondary");
+    			}else{
+    				lectureTestListBox.classList.remove("text-center" , "text-secondary");
+    			
+	    			for(e of response.data){
+	    					
+	        			const testListWrapper = document.querySelector("#lecutreTestListTemplete .testListWrapper").cloneNode(true);
+	
+	        			const testNumber = testListWrapper.querySelector(".testNumber");
+	        			testNumber.innerText = e.lectureTestDto.lecture_test_key;
+	        			
+	        			const testName = testListWrapper.querySelector(".testName"); 
+	        			testName.innerText = e.lectureTestDto.test_name;
+	        			
+	        			
+	        			const openDate = new Date(e.lectureTestDto.open_test_day);
+	         			const open_test_day = openDate.getFullYear()+"-"+(openDate.getMonth()+1) + "-"+ openDate.getDate();
+	        			
+	         			const open_date = testListWrapper.querySelector(".open_date");
+	        			open_date.innerText = open_test_day;
+	        			
+	        			const closeDate = new Date(e.lectureTestDto.close_test_day);
+	         			const close_test_day = closeDate.getFullYear()+"-"+(closeDate.getMonth()+1) + "-"+ closeDate.getDate();
+	        			
+	        			const close_date = testListWrapper.querySelector(".close_date");
+	        			close_date.innerText = close_test_day;
+	        			
+	        			const maxStudentAndTotalStudent = testListWrapper.querySelector(".maxStudentAndTotalStudent");
+	        			maxStudentAndTotalStudent.innerText = e.testingStudentCount+"/"+e.lectureStudentCount
+	        			
+	        			lectureTestListBox.appendChild(testListWrapper);
+	    			}
+    			}
+    		});
+		}
+     	
+     	
+     	
      	// 시험등록 모달
      	function showTestWriteModal() {
      		const modal = bootstrap.Modal.getOrCreateInstance("#testWriteModal");
      		loadWriteTestInfo();
 			modal.show();
      	}
+     	function hideTestWriteModal() {
+     		const modal = bootstrap.Modal.getOrCreateInstance("#testWriteModal");
+     		const test_name = document.querySelector("#test_name");
+     		test_name.value ="";
+     		const open_test_day = document.querySelector("#open_test_day");
+     		open_test_day.value ="";
+     		const close_test_day = document.querySelector("#close_test_day");
+     		close_test_day.value ="";
+     		const testQuestionListBox = document.querySelector("#testQuestionListBox");
+     		testQuestionListBox.innerHTML ="";
+     		modal.hide();
+		}
+     	
      	
 		function loadWriteTestInfo(){
 			const url = "./loadOpenLectureInfo?open_lecture_key="+open_lecture_key;
@@ -235,49 +323,86 @@
      	}
      	
      	function insertTestInfo(){
+     		// 빈칸있거나, (다른곳에서는 체크 두번안되게 체크 확인하는 기능만들어야함.), 배점이 100점이 아닐시 알람뜨게해야함.
      		const test_name = document.querySelector("#test_name").value;
      		const open_test_day = document.querySelector("#open_test_day").value;
      		const close_test_day = document.querySelector("#close_test_day").value;
      		
-     		const url = "./insertLectureTestAndGetTestPk;
+     		const url = "./insertLectureTestAndGetTestPk";
      		fetch(url, {
      			method: "post",
      			headers: {
      				"Content-Type": "application/x-www-form-urlencoded"
      			},
-     			body:"test_name="+test_name+"&open_test_day="+open_test_day
-     	            +"&close_test_day="+close_test_day
+     			body:"open_lecture_key="+open_lecture_key+"&test_name="+test_name
+     				+"&open_test_day="+open_test_day+"&close_test_day="+close_test_day
      		})
      		.then(response => response.json())
     		.then((response) => {
     			
+    			insertTestQuestion(response.data);
     			
     		});
      		
      	}
      	
-     	function insertTest() {
+     	function insertTestQuestion(lecture_test_key) {
 			const testQuestionWrapperList = document.querySelectorAll("#testQuestionListBox .testQuestionWrapper");
-			
 			
 			for(testQuestionWrapper of testQuestionWrapperList){
 				// 시험 문항 인서트 되어야함.
 				const question_number = testQuestionWrapper.querySelector(".questionNumber").innerText;
 				const question = testQuestionWrapper.querySelector(".question").value;
 				const test_point = testQuestionWrapper.querySelector(".test_point").value;
-				// 시험보기 인서트 
-				const choiceList = testQuestionWrapper.querySelectorAll(".choiceBox");'
-				for(choiceBox of choiceList){
-					const choice = choiceBox.querySelector(".choice").value;
-					const anserCheckBox = choiceBox.querySelector(".anserCheckBox");
-					if(anserCheckBox.checked == true){
-						const answer = "true";
-					}else{
-						const answer = "false";
-					}
-					// 보기 인서트 되어야함.
-				}
+				
+				
+				
+				const url = "./insertTestQuestionAndGetQuestionPk";
+	     		fetch(url, {
+	     			method: "post",
+	     			headers: {
+	     				"Content-Type": "application/x-www-form-urlencoded"
+	     			},
+	     			body:"lecture_test_key="+lecture_test_key+"&question="+question
+	     	            +"&test_point="+test_point+"&question_number="+question_number
+	     		})
+	     		.then(response => response.json())
+	    		.then((response) => {
+	    			const test_question_key = response.data;
+	    			const choiceList = testQuestionWrapper.querySelectorAll(".choiceBox");
+	    			for(choiceBox of choiceList){
+						let answer = "false";
+						const choice = choiceBox.querySelector(".choice").value;
+						const answerCheckBox = choiceBox.querySelector(".answerCheckBox");
+						if(answerCheckBox.checked == true){
+							answer = "true";
+						}
+						const url = "./insertQuestionChoice";
+			     		fetch(url , {
+			     			method: "post",
+			     			headers: {
+			     				"Content-Type": "application/x-www-form-urlencoded"
+			     			},
+			     			body:"test_question_key="+test_question_key+"&choice="+choice
+			     	            +"&answer="+answer
+			     		}); 
+	    			
+	    			}
+	    			hideTestWriteModal();
+	    			lectureTestListInfo(open_lecture_key);
+	    		});
+	    		
 			}
+     	}
+     	function checkTestResult(target){
+     		
+     		const testQuestionWrapper = target.closest(".testQuestionWrapper");
+     		const answerCheckBoxList = testQuestionWrapper.querySelectorAll(".answerCheckBox");
+     		for(answerCheckBox of answerCheckBoxList){
+   				
+   				answerCheckBox.checked = false;
+     		}
+     		target.checked = true;
      	}
      	
      	
@@ -310,10 +435,9 @@
 				const selectDate = document.querySelector("#selectDate");
 				
 				const open_date = new Date(response.data.openLectureDto.open_date);
-				
-				selectDate.setAttribute("min", open_date.getFullYear()+"-"+(open_date.getMonth()+1) + "-"+ open_date.getDate());
+				selectDate.setAttribute("min", open_date.getFullYear()+"-"+(open_date.getMonth()+1).toString().padStart(2, '0') + "-"+ open_date.getDate().toString().padStart(2, '0'));
 				const currentDate = new Date();
-				selectDate.setAttribute("max", currentDate.getFullYear()+"-"+(currentDate.getMonth()+1) + "-"+ currentDate.getDate());
+				selectDate.setAttribute("max", currentDate.getFullYear()+"-"+(currentDate.getMonth()+1).toString().padStart(2, '0') + "-"+ currentDate.getDate().toString().padStart(2, '0'));
 				
 				const max_student = document.querySelector("#max_student");
 				max_student.innerText = response.data.openLectureDto.max_student+"명";
@@ -450,10 +574,7 @@
         	fetch(url)
     		.then(response => response.json())
     		.then((response) => {
-				
-    			
-				
-				
+	
     			for(e of response.data){
     				
     				const absenceStudentCheckBoxList = document.querySelector("#absenceStudentCheckBoxList");
@@ -628,6 +749,7 @@
      	
      	window.addEventListener("DOMContentLoaded", () =>{
      		loadMainPageInfo();
+     		getMyInfo();
         });
      	
      	</script>
@@ -681,7 +803,7 @@
             		마이페이지
             	</div>
             	<div class="col mt-1" style="font-size: small">
-            		<a class="" href="../../another/external/loginPage">로그아웃</a>
+            		<a class="navbar-brand" href="../../another/external/loginPage">로그아웃</a>
             	</div>
             </div>
             
@@ -829,7 +951,7 @@
                                 <div id="roundCount" class="col-1 py-3 border align-self-center">
                                     
                                 </div>
-                                <div id="lecturerName" class="col-1 py-3 border align-self-center ">
+                                <div id="openLecturerName" class="col-1 py-3 border align-self-center ">
                                     
                                 </div>
                                 <div id="open_date" class="col-1 py-3 border align-self-center">
@@ -845,7 +967,7 @@
                                     
                                 </div>
                             </div>
-                            <div class="row mt-4">
+                            <div class="row mt-3">
                                 <div class="col">
                                     <div class="row">
                                         <div class="col fw-bold border-bottom border-black">
@@ -921,21 +1043,21 @@
                                 </div>
                             </div>
                             <div class="row bg-white overflow-y-auto" style="height: 12em;">
-                                <div class="col border mx-3 my-3 align-self-center">
+                                <div class="col border mx-3 my-3">
                                     <div class="row text-center  fw-bold" style="background-color: rgb(228, 227, 227);">
-                                        <div class="col-3 border">
+                                        <div class="col-3 border align-self-center">
                                             날짜
                                         </div>
-                                        <div class="col border">
+                                        <div class="col border align-self-center">
                                             재적
                                         </div>
-                                        <div class="col border">
+                                        <div class="col border align-self-center">
                                             지각
                                         </div>
-                                        <div class="col border">
+                                        <div class="col border align-self-center">
                                             결석
                                         </div>
-                                        <div class="col-3 border">
+                                        <div class="col-3 border align-self-center">
                                             관리
                                         </div>
                                     </div>
@@ -957,27 +1079,27 @@
                                 </div>
                             </div>
                             <div class="row bg-white overflow-y-auto" style="height: 12em;">
-                                <div class="col border mx-3 my-3 align-self-center">
+                                <div class="col border mx-3 my-3 ">
                                     <div class="row text-center fw-bold" style="background-color: rgb(228, 227, 227);">
-                                        <div class="col-3 border">
+                                        <div class="col-3 border align-self-center">
                                             등록번호
                                         </div>
-                                        <div class="col border">
+                                        <div class="col border align-self-center">
                                             이름
                                         </div>
-                                        <div class="col border">
+                                        <div class="col border align-self-center">
                                             성별
                                         </div>
-                                        <div class="col border">
+                                        <div class="col border align-self-center">
                                             지각
                                         </div>
-                                        <div class="col border">
+                                        <div class="col border align-self-center">
                                             결석
                                         </div>
-                                        <div class="col border">
+                                        <div class="col border align-self-center">
                                             시험
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-3 align-self-center">
                                             관리
                                         </div>
                                     </div>
@@ -1018,25 +1140,10 @@
                                     관리
                                 </div>
                             </div>
-                            <div class="row fw-bold text-center">
-                                <div class="col-1 border align-self-center border py-2">
-                                    1
-                                </div>
-                                <div class="col-4 border align-self-center border py-2">
-                                    인춘이와 함께 춤을
-                                </div>
-                                <div class="col border align-self-center border py-2">
-                                    2023.12.12
-                                </div>
-                                <div class="col border align-self-center border py-2">
-                                    2023.12.20
-                                </div>
-                                <div class="col border align-self-center border py-2 my-0">
-                                    8명/19명
-                                </div>
-                                <div class="col border align-self-center py-2">
-                                    <button class="btn btn-outline-secondary py-0">상세보기</button>
-                                </div>
+                            <div class="row overflow-y-auto" style="height: 12em;">
+                            	<div id="lectureTestListBox" class="col">
+                            	
+                            	</div>
                             </div>
                         </div>
                     </div>
@@ -1378,8 +1485,8 @@
               </div>
 
               <div class="modal-footer">
-                  <button onclick="hideAttendanceModal()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                  <button id="insertButton" onclick="insertTest()" type="button" class="btn btn-primary">등록하기</button>
+                  <button onclick="hideTestWriteModal()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                  <button id="insertButton" onclick="insertTestInfo()" type="button" class="btn btn-primary">등록하기</button>
                 </div>
               </div>
           </div>
@@ -1408,7 +1515,7 @@
                      <div class="col">
                          <div class="row my-3 choiceBox">
                              <div class="col-1 align-self-center text-end">
-                                 <input class="form-check-input border-black px-0 anserCheckBox" type="checkbox">
+                                 <input onclick="checkTestResult(this)" class="form-check-input border-black px-0 answerCheckBox" type="checkbox">
                              </div>
                              <div class="col-8">
                                  <input class="form-control form-control-sm align-self-center px-0 choice" type="text" placeholder="1번 보기를 입력해주세요.">
@@ -1417,7 +1524,7 @@
                          </div>
                          <div class="row my-3 choiceBox">
                              <div class="col-1 align-self-center text-end">
-                                 <input class="form-check-input border-black px-0 anserCheckBox" type="checkbox">
+                                 <input onclick="checkTestResult(this)" class="form-check-input border-black px-0 answerCheckBox" type="checkbox">
                              </div>
                              <div class="col-8">
                                  <input class="form-control form-control-sm align-self-center px-0 choice" type="text"placeholder="2번 보기를 입력해주세요.">
@@ -1426,7 +1533,7 @@
                          </div>
                          <div class="row my-3 choiceBox">
                              <div class="col-1 align-self-center text-end">
-                                 <input class="form-check-input border-black px-0 anserCheckBox" type="checkbox">
+                                 <input onclick="checkTestResult(this)" class="form-check-input border-black px-0 answerCheckBox" type="checkbox">
                              </div>
                              <div class="col-8">
                                  <input class="form-control form-control-sm align-self-center px-0 choice" type="text" placeholder="3번 보기를 입력해주세요.">
@@ -1435,7 +1542,7 @@
                          </div>
                          <div class="row my-3 choiceBox">
                              <div class="col-1 align-self-center text-end">
-                                 <input class="form-check-input border-black px-0 anserCheckBox" type="checkbox">
+                                 <input onclick="checkTestResult(this)" class="form-check-input border-black px-0 answerCheckBox" type="checkbox">
                              </div>
                              <div class="col-8">
                                  <input class="form-control form-control-sm align-self-center px-0 choice" type="text" placeholder="4번 보기를 입력해주세요.">
@@ -1448,7 +1555,28 @@
          </div>
 	 </div>
 	 
-		
+	 <div id="lecutreTestListTemplete" class="d-none">
+		  <div class="row fw-bold text-center testListWrapper">
+	          <div class="col-1 border align-self-center border py-2 testNumber">
+	              1
+	          </div>
+	          <div class="col-4 border align-self-center border py-2 testName">
+	              인춘이와 함께 춤을
+	          </div>
+	          <div class="col border align-self-center border py-2 open_date">
+	              2023.12.12
+	          </div>
+	          <div class="col border align-self-center border py-2 close_date">
+	              2023.12.20
+	          </div>
+	          <div class="col border align-self-center border py-2 my-0 maxStudentAndTotalStudent">
+	              8명/19명
+	          </div>
+          	  <div class="col border align-self-center py-2">
+            	  <button class="btn btn-outline-secondary py-0">상세보기</button>
+        	  </div>
+    	  </div>
+     </div>
 		
 		
 		

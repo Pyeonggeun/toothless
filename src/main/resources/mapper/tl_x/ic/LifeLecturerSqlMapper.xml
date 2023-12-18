@@ -169,7 +169,42 @@
 			SYSDATE
 		)
 	</insert>
+	<select id="selectTestQuestionKey" resultType="int">
+		SELECT tl_x_test_question_seq.nextval FROM dual
+	</select>
+	<insert id="insertTestQuestionInfo">
+		INSERT INTO tl_x_test_question VALUES(
+			#{test_question_key},
+			#{lecture_test_key},
+			#{question},
+			#{test_point},
+			#{question_number},
+			SYSDATE
+		)
+	</insert>
+	<insert id="insertQuestionChoiceInfo">
+		INSERT INTO tl_x_question_choice VALUES(
+			tl_x_question_choice_seq.nextval,
+			#{test_question_key},
+			#{choice},
+			#{answer},
+			SYSDATE
+		)
+	</insert>
 	
-
+	
+	<select id="selectLectureTestList" resultType="com.mkfactory.toothless.x.dto.LectureTestDto">
+		SELECT * FROM tl_x_lecture_test
+		WHERE open_lecture_key = #{open_lecture_key}
+	</select>
+	
+	<select id="selectTestingStudentCount" resultType="int">
+		SELECT count(*) FROM tl_x_test_result
+		WHERE lecture_test_key = #{lecture_test_key}	
+	</select>
+	
+	
+	
+	
 
 </mapper>
