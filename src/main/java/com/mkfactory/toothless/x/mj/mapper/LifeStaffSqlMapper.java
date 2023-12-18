@@ -97,6 +97,9 @@ public interface LifeStaffSqlMapper {
 	// 강의 정보 삭제
 	public void deleteLectureInfo(int lecture_info_key);
 	
+	// 강의 정보 삭제되면 그에 따른 개설강의들도 삭제
+	public void deleteOpenLectureInfoByLecKey(int lecture_info_key);
+	
 	// 강의별 수강신청 조건 리스트 
 	public List<ApplyConditionDto> selectConditionListByLectureKey(int lecture_info_key);
 	
@@ -127,10 +130,17 @@ public interface LifeStaffSqlMapper {
 	// 신규강의 개설
 	public void insertOpenLecture(OpenLectureDto openLectureDto);
 	
+	// 개설강의 리스트
+	public List<OpenLectureDto> selectAllOpenLecture();
 	
+	// 특정 강의 정보조회
+	public OpenLectureDto selectSomeOpenLectureInfo(int open_lecture_key);
 	
+	// 개설 강의 정보 수정
+	public void updateOpenLectureInfo(OpenLectureDto openLectureDto);
 	
-	
+	// 개설 강의 정보 삭제
+	public void deleteOpenLectureInfo(int open_lecture_key);
 	
 	
 	

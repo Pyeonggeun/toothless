@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.d.hc.board.mapper.HcBoardSqlMapper">
+	<insert id="insert">
+		INSERT INTO tl_d_QnA_board values(
+		tl_d_QnA_board_seq.nextval,
+		#{staff_pk},
+		#{board_title},
+		#{board_contents},
+		#{board_answer},
+		sysdate
+		)
+	</insert>
+	
+	<select id="selectAll" resultType="com.mkfactory.toothless.d.dto.QnABoardDto">
+		SELECT * FROM tl_d_QnA_board ORDER BY board_pk desc
+	</select>
+	
+	<select id="selectBypk" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
+		SELECT * FROM tl_jic_staff_info
+		WHERE staff_pk = #{staff_pk}
+	</select>
+	
+	<select id="selectById" resultType="com.mkfactory.toothless.d.dto.QnABoardDto">
+		SELECT * FROM tl_d_QnA_board WHERE board_pk = #{board_pk}
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM tl_d_QnA_board WHERE board_pk = #{board_pk}
+	</delete>
+	
+	<update id="update">	
+		UPDATE tl_d_QnA_board
+		SET board_title = #{board_title},board_contents=#{board_contents}
+		WHERE board_pk = #{board_pk}
+	</update>
+	
+	<insert id="notice">
+		INSERT INTO tl_d_notice_board values(
+		tl_d_notice_board_seq.nextval,
+		#{staff_pk},
+		#{notice_title},
+		#{notice_contents},
+		sysdate
+		)
+	</insert>
+	
+	<select id="selectNoticeAll" resultType="com.mkfactory.toothless.d.dto.NoticeStaffBoardDto">
+		SELECT * FROM tl_d_notice_board ORDER BY notice_board_pk desc
+	</select>
+	
+	<select id="selectBynoticepk" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
+		SELECT * FROM tl_jic_staff_info
+		WHERE staff_pk = #{staff_pk}
+	</select>
+	
+	<select id="selectpk" resultType="com.mkfactory.toothless.d.dto.NoticeStaffBoardDto">
+		SELECT * FROM tl_d_notice_board WHERE notice_board_pk = #{notice_board_pk}
+	</select>
+	
+	<delete id="deletenotice">
+		DELETE FROM tl_d_notice_board WHERE notice_board_pk = #{notice_board_pk}
+	</delete>
+	
+	<update id="updateno">
+		UPDATE tl_d_notice_board SET notice_title = #{notice_title}, notice_contents = #{notice_contents}
+		WHERE notice_board_pk = #{notice_board_pk}
+	</update>
+
+</mapper>

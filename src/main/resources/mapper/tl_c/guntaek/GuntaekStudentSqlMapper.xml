@@ -124,4 +124,92 @@ INSERT INTO tl_c_self_introduction_img VALUES(
 <!--  ************************ 이력서 사진에 쓴 쿼리들 .. ******************************** -->
 
 
+<!--  ************************ 교육 프로그램에 쓴 쿼리들 ************************************* -->
+<!-- 프로그램 신청 -->
+<insert id = "RegisterProgramProcess">
+INSERT INTO tl_c_internedu_applying values(
+	tl_c_internedu_applying_seq.nextval,
+	#{internedu_program_pk},
+	#{student_pk},
+	SYSDATE,
+	'N'
+)
+</insert>
+
+<!-- 신청 여부 -->
+<select id ="programToApply" resultType = "com.mkfactory.toothless.c.dto.AjdksInternEduApplying">
+	SELECT * FROM tl_c_internedu_applying
+	WHERE internedu_program_pk = #{internedu_program_pk}
+	AND student_pk = #{student_pk}
+</select>
+
+
+<!--  신청한 프로그램이 마감되었는지 안되었는지 확인하는 쿼리 -->
+
+<select id ="deadProgram" resultType ="com.mkfactory.toothless.c.dto.AjdksInternEduProgramDto">
+	<![CDATA[
+	SELECT t1.* FROM
+	(SELECT ip.* FROM TL_C_INTERNEDU_PROGRAM ip
+	WHERE TO_CHAR(ip.DEADLINE_DATE , 'yyyyMMdd') <= SYSDATE)t1
+	WHERE t1.internedu_program_pk = #{internedu_program_pk}
+	ORDER BY t1.CREATED_AT
+	]]>
+</select>
+
+<!-- 특정 학생이 신청한 프로그램 프로그램신청Dto List (본인이 신청했던 모든 신청Dto들이 List로 나오게한다.) -->
+<select id = "applyProgramListByStudent" resultType = "com.mkfactory.toothless.c.dto.AjdksInternEduApplying">
+	SELECT * FROM TL_C_INTERNEDU_APPLYING
+	WHERE student_pk = #{student_pk}
+ </select>
+
+<!-- 특정 학생이 신청했고 이수한 순수 프로그램Dto List (학생 기준 이수한 교육 프로그램) -->
+<select id ="programListByStudent" resultType ="com.mkfactory.toothless.c.dto.AjdksInternEduProgramDto">	
+	SELECT * FROM(
+	SELECT * FROM TL_C_INTERNEDU_PROGRAM
+	WHERE INTERNEDU_PROGRAM_PK IN 
+	(SELECT INTERNEDU_PROGRAM_PK  FROM TL_C_INTERNEDU_APPLYING
+	WHERE student_pk = #{student_pk}
+	AND COMPLETION ='Y'
+	))
+</select>
+
+
+<!-- 특정 프로그램에 몇명이 지원했는지  -->
+<select id ="getCountPeopleOfProgram" resultType ="int">	
+	SELECT COUNT(*) FROM TL_C_INTERNEDU_APPLYING
+	WHERE INTERNEDU_PROGRAM_PK = #{internedu_program_pk}
+</select>
+
+
+
+<!-- 프로그램 신청한 고유 키 가져오기 이수 OK, 학생, 프로그램 외래키로 가져옴 -->
+<select id = "getApplyKey" resultType ="int">
+	SELECT INTERNEDU_APPLYING_PK  FROM TL_C_INTERNEDU_APPLYING
+	WHERE STUDENT_PK = #{student_pk}
+	AND INTERNEDU_PROGRAM_PK = #{internedu_program_pk}
+	AND COMPLETION ='Y'
+</select>
+
+
+<!-- 학생의 리뷰 등록 -->
+<insert id ="registerProgramReview">
+	INSERT INTO TL_C_INTERNEDU_REVIEW VALUES(
+		tl_c_internEdu_review_seq.nextval,
+		#{internedu_applying_pk},
+		#{rating},
+		#{review},
+		SYSDATE
+)
+</insert>
+
+<!-- 리뷰 등록 여부 확인 -->
+<select id ="getCheckReview" resultType ="com.mkfactory.toothless.c.dto.AjdksInternEduReviewDto">
+	SELECT * FROM TL_C_INTERNEDU_REVIEW
+	WHERE INTERNEDU_APPLYING_PK = #{INTERNEDU_APPLYING_PK}
+</select>
+
+<!--  **************************************************************************** -->
+
+
+
 </mapper>

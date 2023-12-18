@@ -14,18 +14,6 @@ public class TaehoRestExternalController {
 	@Autowired
 	private TaehoExternalServiceImpl taehoExternalService;
 	
-	public RestResponseDto getInternList(int internshipCoursePk) {
-		
-		RestResponseDto restResponseDto = new RestResponseDto();
-		
-		restResponseDto.setResult("success");
-		restResponseDto.setData(taehoExternalService.getStudentInternByInternshipCoursePk(internshipCoursePk));
-		
-		return restResponseDto;
-	}
-	
-	
-	
 	
 	
 	

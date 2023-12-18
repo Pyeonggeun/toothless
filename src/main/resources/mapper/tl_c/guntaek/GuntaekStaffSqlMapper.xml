@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.c.guntaek.mapper.GuntaekStaffSqlMapper">
+
+
+<insert id ="registerEduProgram">
+INSERT INTO TL_C_INTERNEDU_PROGRAM VALUES (
+	tl_c_internedu_program_seq.nextval,
+	#{staff_pk},
+	#{title},
+	#{content},
+	#{place},
+	#{lecturer},
+	#{maximum_applicant},
+	#{deadline_date},
+	#{progress_date},
+	#{poster_image},
+	SYSDATE	
+)
+</insert>
+<!-- 모든 교육 프로그램 리스트 가져오기 -->
+<select id = "getListEduProgram" resultType ="com.mkfactory.toothless.c.dto.AjdksInternEduProgramDto">
+	SELECT * FROM TL_C_INTERNEDU_PROGRAM
+</select>
+<!-- 특정 담당자가 작성한 교육 프로그램 리스트 가져오기 -->
+<select id = "getListEduProgramByStaff" resultType ="com.mkfactory.toothless.c.dto.AjdksInternEduProgramDto">
+	SELECT * FROM TL_C_INTERNEDU_PROGRAM 
+	WHERE STAFF_PK =#{staffPk}
+</select>
+<!-- 특정 교육 키에 해당하는 dto 가져오기-->
+<select id ="getEduProgramByPk" resultType ="com.mkfactory.toothless.c.dto.AjdksInternEduProgramDto">
+	SELECT * FROM TL_C_INTERNEDU_PROGRAM
+	WHERE INTERNEDU_PROGRAM_PK = #{program_pk}
+</select>
+<!-- 특정 담당자의 정보 Dto 가져오기 -->
+<select id ="getStaffDtoByStaff" resultType ="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
+	SELECT * FROM TL_JIC_STAFF_INFO
+	WHERE staff_pk = #{STAFF_PK}
+</select>
+<!-- 이미 마감된 교육 프로그램 DTO 리스트 가져오기 -->
+<select id = "getDeadLineProgram" resultType="com.mkfactory.toothless.c.dto.AjdksInternEduProgramDto">
+	SELECT * FROM TL_C_INTERNEDU_PROGRAM
+	<![CDATA[
+	WHERE TO_CHAR(DEADLINE_DATE , 'yyyyMMdd') <= SYSDATE
+	ORDER BY CREATED_AT
+	]]>
+</select>
+<!-- 모집중인 교육 프로그램 Dto 리스트 가져오기 -->
+<select id = "getRecruitingProgram" resultType ="com.mkfactory.toothless.c.dto.AjdksInternEduProgramDto">
+	SELECT * FROM TL_C_INTERNEDU_PROGRAM 
+	<![CDATA[
+	WHERE TO_CHAR(DEADLINE_DATE , 'yyyyMMdd') >= SYSDATE
+	ORDER BY CREATED_AT 
+	]]>
+</select>
+
+<!-- 담당자의 교육 프로그램 삭제  -->
+<delete id = "deleteProgramByStaff">
+	DELETE FROM tl_c_internedu_program
+	WHERE internedu_program_pk = #{internedu_program_pk}
+</delete>
+
+<!-- 특정 담당자가 운영하는 프로그램 리스트 얻어오기 (이수내역 관리용)-->
+<select id ="getEduProgramByStaff" resultType ="com.mkfactory.toothless.c.dto.AjdksInternEduProgramDto">
+	SELECT * FROM TL_C_INTERNEDU_PROGRAM
+	WHERE STAFF_PK = #{STAFF_PK}
+</select>
+
+<!-- 특정 프로그램에 신청한 신청Dto 리스트 얻어오기 -->
+<select id ="getInternEduApplyingByProgram" resultType = "com.mkfactory.toothless.c.dto.AjdksInternEduApplying">
+	SELECT * FROM TL_C_INTERNEDU_APPLYING
+	WHERE INTERNEDU_PROGRAM_PK=#{INTERNEDU_PROGRAM_PK}
+</select>
+
+<!-- 담당자가 특정 프로그램의 특정 학생 키를 이용하여 N값에서 Y(수료)로 바꿔준다. -->
+<update id ="updateInternEduComplete">
+	UPDATE TL_C_INTERNEDU_APPLYING
+	SET completion  = 'Y'
+	WHERE student_pk = #{student_pk}
+	AND internedu_program_pk = #{internedu_program_pk}
+</update>
+
+
+<!--  특정 프로그램에서 교육을 이수한 사람들의 applying key를 가져오고 그 중 리뷰한 점수의 평균을 가져온다 (1자리수 반올함) --> 
+
+<select id ="getProgramRatingByProgramPk" resultType ="Double">
+	SELECT ROUND(AVG(RATING),1) FROM TL_C_INTERNEDU_REVIEW
+	WHERE INTERNEDU_APPLYING_PK IN (
+	SELECT INTERNEDU_APPLYING_PK  FROM TL_C_INTERNEDU_APPLYING
+	WHERE internedu_program_pk = #{internedu_program_pk}
+	AND COMPLETION = 'Y'
+	)
+</select>
+
+
+<!-- 특정 프로그램에서 교육을 이수한 사람들 + 리뷰를 등록한 사람들의 정보를 Dto 리스트로 얻어온다. -->
+<select id ="getReviewDtoListByProgramPk" resultType ="com.mkfactory.toothless.c.dto.AjdksInternEduReviewDto">
+	SELECT * FROM TL_C_INTERNEDU_REVIEW
+	WHERE INTERNEDU_APPLYING_PK IN (
+	SELECT INTERNEDU_APPLYING_PK  FROM TL_C_INTERNEDU_APPLYING
+	WHERE internedu_program_pk = #{internedu_program_pk}
+	AND COMPLETION = 'Y'
+	)
+</select>
+
+<!-- 특정 리뷰 삭제 -->
+<delete id ="deleteProgramReview">
+
+	DELETE FROM TL_C_INTERNEDU_REVIEW
+	WHERE INTERNEDU_REVIEW_PK = #{INTERNEDU_REVIEW_PK}
+
+</delete>
+
+
+</mapper>

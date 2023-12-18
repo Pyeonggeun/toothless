@@ -21,6 +21,9 @@
 	<select id="getResumeListByStudentPk" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
 		SELECT * FROM tl_d_resume WHERE student_pk = #{student_pk} ORDER BY main_resume DESC	
 	</select>
+	
+	
+	
 
 	<!-- 선택된 이력서 가져오기 -->
 	<select id="getResumeDtoByResumePk" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
@@ -223,13 +226,24 @@
 	
 	
 	
+	<!--							 				ajax 									-->
 	
 	
 	
+	<!-- 학생의 일반이력서목록만 가져오기 -->
+	<select id="getGeneralResumeListByStudentPk" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
+		SELECT * FROM tl_d_resume WHERE student_pk = #{student_pk} AND main_resume='N' ORDER BY resume_pk DESC	
+	</select>
 	
+		<!-- 이력서 삭제 -->
+	<delete id="deleteThisResumeByResumePk">
+		DELETE FROM tl_d_resume WHERE resume_pk = #{resume_pk}
+	</delete>
 	
-	
-	
+	<!-- 메인 이력서 가져오기 -->
+	<select id="getMainResumeDtoByStudentPk" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
+		SELECT * FROM tl_d_resume WHERE student_pk = #{student_pk} AND main_resume='Y'
+	</select>
 	
 	
 	

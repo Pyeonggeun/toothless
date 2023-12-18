@@ -255,6 +255,32 @@
     
 	}
 	
+	function autoEndDateModal(){ 
+		
+    	// 개강일의 값 가져오기
+        let openDateValue = document.getElementById("open_dateModal").value;
+
+        // 만약 개강일이 선택되지 않았다면 종강일도 비움
+        if (!openDateValue) {
+            document.getElementById("end_dateModal").value = "";
+            return;
+        }
+        
+        
+        // 개강일
+        let openDate = new Date(openDateValue);
+        
+        // 총수업시간 / 8 = 수업일수
+        let studyDays = (someLectureInfo.total_hour / 8);
+
+        // 평일만 추가해서 종강일 계산(개강일 포함하려고 -1함)
+        let endDate = addWeekdays(openDate, studyDays - 1);
+
+        // 계산된 종강일을 문자열로 변환하여 종강일 입력 필드에 설정... 사람들은 참 똑똑하다!
+        document.getElementById("end_dateModal").valueAsDate = endDate;
+    
+	}
+	
 	
 	
 	// 교육과정 등록 탭 보여주기
@@ -381,112 +407,7 @@
 	
 
 	
-	
-	
-	// 교육과정 목록 관리(추가/삭제 등등..)
-	function manageLectureList(){
-		
-		// 교육과정 카테고리 보여줘야함
-		fetch("./getLectureCategory")
-		.then(response => response.json())
-		.then(response => {
-				
-			// 교육과정 리스트
-			const categoryList = response.data.lectureCategoryList;
-			
-		 
-			// 이전내용 초기화
-			document.getElementById("newLectureName").value = "";
-			document.getElementById("categoryTemplateWrapper").innerHTML = "";
-			
-			const categoryListWrapper = document.querySelector("#categoryListWrapper");
-	
-		    for(const e of categoryList){
-		    	
-		    	// 템플릿복사
-		    	const categoryTemplate = document.querySelector(".categoryTemplate").cloneNode(true);
-		    	
-		    	// 보여줄 정보넣고
-		        categoryTemplate.querySelector("#categoryNum").innerText = e.lecture_category_key;
-		        categoryTemplate.querySelector("#categoryName").innerText = e.category_name;
-	
-		     	// 삭제 버튼에 onclick추가
-		        categoryTemplate.querySelector("#deleteCategoryBtn").addEventListener("click", function() {
-		            removeCategory(e.lecture_category_key);
-		        });
-	
-		        // 리스트에 추가
-		        categoryTemplateWrapper.appendChild(categoryTemplate);
-		    	
-		    }
-		    
-		});
-		
-	     
-			
-		const modal = bootstrap.Modal.getOrCreateInstance("#manageLectureModal");
-	    modal.show();
-	 
-	}
-
-	
-	// 교육과정 추가
-	function addCategory(){
-		
-		const emptyFields = [];
-		
-	    if (!document.getElementById("newLectureName").value.trim()) {
-	        emptyFields.push("교육과정명을 입력해주세요.");
-	    }
-		if (emptyFields.length > 0) {
-		    const missingFieldsMessage = emptyFields[0];
-		    alert(missingFieldsMessage);
-		    return;
-		}
-
-		const inputCatagoryInfo = new FormData();
-		inputCatagoryInfo.append("category_name", document.getElementById("newLectureName").value);
-		
-	    const url = "./insertCategoryProcess";
-		
-		fetch(url, {
-			method: "post",
-			headers: {
-				"Content-Type": "application/x-www-form-urlencoded"
-			},
-			body: new URLSearchParams(inputCatagoryInfo)
-		})
-		.then(response => response.json())
-		.then(response => {
-		    alert("신규 교육과정명(" + document.getElementById("newLectureName").value +")이 등록되었습니다.");
-		    showCategoryList();
-		    manageLectureList();
-		    
-		});
-	}
-	
-	// 교육과정 삭제
-	function removeCategory(lecture_category_key){
-		
-		if(confirm("해당 교육과정명을 삭제하시겠습니까?\n관련 수업정보도 전부 삭제됩니다.")){
-			
-			const url = "./deleteCategoryProcess?lecture_category_key="+ lecture_category_key;
-
-			// fetch를 통해 POST 요청 전송
-			fetch(url)
-			.then(response => response.json())
-			.then(response => {
-			    alert("정보 삭제가 완료되었습니다.");
-			    showCategoryList();
-			    manageLectureList();
-			});
-		} 
-		
-		return;	
-	}
-	
-	
-	// 교육과정 조회/수정 탭 보여주기
+	// 조회/수정 탭 보여주기
 	function manageOpenLectureInfoPage(){
 
 		// 이 함수가 실행되고나서 리스트를 가져오게해야 정보 등록 후에 그 정보를 들고 올 수 있을듯~ 
@@ -572,47 +493,57 @@
 	}
 	
 	
-	// 강의 목록 가져오기
+	// 개설 강의 목록 가져오기
 	function readOpenLectureInfoList() {
 
-		fetch("./getAllLectureInfoList")
+		fetch("./getAllOpenLectureInfoList")
 		.then(response => response.json())
 		.then(response => {
 			
 			const lectureInfoListBox = document.querySelector(".lectureInfoListBox");
 			lectureInfoListBox.innerHTML = "";		// 딱 이순간에만 허용한다했던! 초기화 시키고 나서 append해야 중복 배제할거잖아.
 			
-			// 전체 리스트
-			const allLectureInfoList = response.data.getAllLectureInfoList;
-			// 전체 리스트 개수
-			const countAllLecture = allLectureInfoList.length;
-			document.querySelector(".countInfoList").innerText = "검색결과 (총 " + countAllLecture + " 개)";
+			// 강사 전체 리스트
+			const allTeacherList = response.data.allTeacherList;
 			
 			// 교육과정 카테고리 리스트(자바/ 파이썬..)
 			const lectureCategoryList = response.data.lectureCategoryList;
-         	
 			
+			// 개설 강의 전체 리스트
+			const allOpenLectureInfoList = response.data.allOpenLectureInfoList;
+			// 전체 리스트 개수
+			const countAllOpenLecture = allOpenLectureInfoList.length;
+			document.querySelector(".countInfoList").innerText = "검색결과 (총 " + countAllOpenLecture + " 개)";
 			
+
 			// 돌아보자!!!
-			for(e of allLectureInfoList){
+			for(e of allOpenLectureInfoList){
 				
 				// 반복문 돌면서 계속 양식 복사할거임
 				const lectureInfoWrapper = document.querySelector(".lectureInfoWrapper").cloneNode(true);
 				
 				// innerText로 반복문 돌면서 내용 변경하기
-				lectureInfoWrapper.querySelector(".key").innerText = e.lectureDto.lecture_info_key;
-				lectureInfoWrapper.querySelector(".lectureName").innerText = e.lectureDto.name;
-				lectureInfoWrapper.querySelector(".total_hour").innerText = e.lectureDto.total_hour + "시간";
-				lectureInfoWrapper.querySelector(".credit").innerText = e.lectureDto.credit;
-				lectureInfoWrapper.querySelector(".essential_attendance").innerText = e.lectureDto.essential_attendance + "시간 미만";
-				lectureInfoWrapper.querySelector(".essential_grade").innerText = e.lectureDto.essential_grade + "점 이상";
+				lectureInfoWrapper.querySelector(".key").innerText = e.openLec.open_lecture_key;
+				lectureInfoWrapper.querySelector(".lectureName").innerText = e.lectureInfo.name;
+				lectureInfoWrapper.querySelector(".startDate").innerText = formatDate(new Date(e.openLec.open_date));
+				lectureInfoWrapper.querySelector(".applyPeriod").innerText = formatDate(new Date(e.openLec.start_apply)) + " ~ " + formatDate(new Date(e.openLec.end_apply));
 				
+				
+				// lectureInfoWrapper.querySelector(".teacherName").innerText = e.openLec.lecturer_key;
+				// ++ 강사 key가 1이면 민지.. 2면 티모..
+				for(p of allTeacherList){
+					
+					if(p.lecturer_key == e.openLec.lecturer_key){
+						lectureInfoWrapper.querySelector(".teacherName").innerText = p.name;
+					}
+					
+				}
 				
 				// ++ key가 1이면 자바, 2면 파이썬...해야지...
 				for(p of lectureCategoryList){
 					
-					if(p.lecture_category_key == e.lectureDto.lecture_category_key){
-						lectureInfoWrapper.querySelector(".lecture_category_key").innerText = p.category_name;
+					if(p.lecture_category_key == e.lectureInfo.lecture_category_key){
+						lectureInfoWrapper.querySelector(".categoryName").innerText = p.category_name;
 					}
 					
 				}
@@ -621,221 +552,13 @@
 				// 다 만들었으면 어디에 붙일래
 				lectureInfoListBox.appendChild(lectureInfoWrapper);
 				
-				
-				
-				// +++ 강의별 수강신청 조건개수
-				const countCondition = e.countCondition;
-				console.log(countCondition);
-				
-				/* 버튼 만들기
-				<button onclick="getThisRowKey(event)" type="button" class="btn mx-2 rounded-0 text-white" style="background-color: #003399">
-			  		등록하기
-			  	</button>
-				*/
-				
-			    // 기존 버튼 삭제
-			    const btnWrapper = lectureInfoWrapper.querySelector(".condition_key");
-				btnWrapper.innerHTML = "";
-				
-				const buttonTag = document.createElement("button");
-				buttonTag.type = "button";
-				buttonTag.addEventListener("click", getThisRowKey);
-		        buttonTag.classList.add("btn", "mx-2", "rounded-0", "text-white");
-				
-			  	if (countCondition > 0) {
-			        buttonTag.innerText = "수정하기";
-			        buttonTag.style.backgroundColor = "#6A7FAD";
-			    } else {
-			        buttonTag.innerText = "등록하기";
-			        buttonTag.style.backgroundColor = "#003399";
-			    }
-			  	
-				btnWrapper.appendChild(buttonTag);
-				
 			}
 			
 			
 		});
 		
 	}
-	
-	
-	// 수강조건 넣기(버튼클릭)
-	function getThisRowKey(event) {
-		
-	    // ** 이벤트(마우스/키보드..)가 발생한 요소에 대한 정보 가져오기
-	    const clickedRow = event.target.closest("tr");
-	
-	    const lectureKey = clickedRow.querySelector(".key").innerText;
-	
-	    // showModal에 key넘겨주고, 찐 모달 show함수 호출!
-	    showInsertConditionModal(lectureKey);
-	 }
-	
-	
-	// fetch밖에서도 쓰고싶은 전역변수
-	let conditionListByLectureKey;
-	
-	function showInsertConditionModal(lectureKey){
-    	
-        const modal = bootstrap.Modal.getOrCreateInstance("#insertConditionModal");
-        modal.show();
-  
 
-    	// 이전 입력 내용 
-		fetch("./getSomeLectureInfo?lecture_info_key=" + lectureKey)
-		.then(response => response.json())
-		.then(response => {
-
-			// 특정강의 정보
-			someLectureInfo = response.data.someLectureInfo;		
-			
-			// ++ 강의별 수강신청 조건 리스트
-			conditionListByLectureKey = response.data.conditionListByLectureKey;
-			
-			// 모달내부 --> 이전에 등록된 정보로 변경하기.
-			document.getElementById("getLectureName").innerText = someLectureInfo.name;
-			
-			// 교육과정 카테고리 리스트(자바/ 파이썬..)
-			const lectureCategoryList = response.data.lectureCategoryList;
-			
-			// ++ key가 1이면 자바, 2면 파이썬...해야지...
-			for(p of lectureCategoryList){
-				
-				if(p.lecture_category_key == someLectureInfo.lecture_category_key){
-					document.getElementById("getLectureCategory").innerText = p.category_name;
-				}
-				
-			}
-			
-			
-			// 선택해야할 강의 리스트 - 전체 강의 리스트 들고옴..
-			allLectureList = response.data.allLectureList;
-			
-			// **이전정보 보여주려는게 체크박스로 돼있을 때 - 이전에 선택한 정보를 checked, 다른거 선택도 할 수 있게....
-			
-			// checkBox찾기
-			const conditionCheckBox = document.getElementById("conditionCheckBox");
-			conditionCheckBox.innerHTML = "";
-
-			/* 만들기
-			<c:forEach items="${lectureCategoryList}" var="item">
-				<div class="form-check form-check-inline">													        	
-					<input class="form-check-input" type="checkbox" name="lecture_category_key" value="${item.lecture_category_key}">
-					<label class="form-check-label">${item.category_name}</label>													            
-				</div>
-			</c:forEach>
-			*/
-			
-			allLectureList.forEach(item => {
-				
-				const divTag = document.createElement("div");
-				divTag.classList.add("form-check", "form-check-inline");
-			    
-			    const inputTag = document.createElement("input");
-			    inputTag.classList.add("form-check-input");
-			    inputTag.type = "checkbox";
-			    inputTag.name = "condition_lecture_key";
-			    inputTag.value = item.lecture_info_key;
-			    
-			    // +++ 추가코드
-			    // --> conditionListByLectureKey의 condition_lecture_key와 현재 반복문돌고있느 아이템의 lecture_info_key 요소가 같다면 체크!!!!
-		     	conditionListByLectureKey.forEach(p => {
-				   
-					if(p.condition_lecture_key == item.lecture_info_key){
-						inputTag.checked = true;
-					}
-				   
-			    });
-
-			    
-    			// ====
-
-			    const labelTag = document.createElement("label");
-			    labelTag.classList.add("form-check-label");
-			    labelTag.innerText = item.name;
-			    
-			    divTag.appendChild(inputTag);
-			    divTag.appendChild(labelTag);
-			    
-			    conditionCheckBox.appendChild(divTag);
-
-			});
-			
-			// 수정 버튼
-			const updateConditionBtn = document.querySelector("#updateConditionBtn")
-			updateConditionBtn.setAttribute("onclick", "saveConditionBtn("+ lectureKey +")");
-			
-			// 삭제 버튼
-			const deleteConditionBtn = document.querySelector("#deleteConditionBtn")
-			deleteConditionBtn.setAttribute("onclick", "deleteConditionBtn("+ lectureKey +")");
-
-		});
-    	
-    }
-	
-    // 수강조건 모달 내용 저장(수정하기)
-    // --> 체크박스 수정하게되면 lecture_info_key로 조건리스트 뽑아서 전체 삭제하고,
-    // --> 다시 lecture_info_key별로 condition_lecture_key 인서트하는게 편하다!
-    function saveConditionBtn(lectureKey){ 
-    	console.log("모달에서 수정");
-    	console.log(lectureKey);
-    	
-    	// 입력된 값 모으기(body로 간결하게 보내보자) == map이랑 비슷한뎅?
-		const inputConditionInfo = new FormData();
-    	 
-	 	// 선택된 체크박스들의 값을 저장할 배열
-	 	let selectedConditions = [];
-	
-	 	// 모든 체크박스를 확인, 선택된 체크박스의 값을 배열에 추가
-	 	// --> input이니까 - id가 아니라 name으로 찾기~~ input에는 id를 못넣어요...^^;
-	 	document.querySelectorAll('input[name="condition_lecture_key"]:checked').forEach(e => selectedConditions.push(e.value));
-	
-	  	// 선택된 카테고리를 FormData에 추가
-	  	selectedConditions.forEach(e => inputConditionInfo.append("condition_lecture_key", e));
-		
-		
-		const url = "./updateConditionInfo?lecture_info_key=" + lectureKey;
-		
-		fetch(url, {
-			method: "post",
-			headers: {
-				"Content-Type": "application/x-www-form-urlencoded"
-			},
-			body: new URLSearchParams(inputConditionInfo)
-		})
-		.then(response => response.json())	
-		.then(response => {
-		    alert("정보 수정이 완료되었습니다.");
-		    manageLectureInfoPage();
-		    bootstrap.Modal.getOrCreateInstance("#insertConditionModal").hide();		// 수정 or 조회 끝났으면 모달 숨기기
-		});
-        
-    }
-    
-	// 강의정보 삭제
-	function deleteConditionBtn(lectureKey){
-		
-		if(confirm("해당 강의의 정보를 삭제하시겠습니까?")){
-			
-			const url = "./deleteLectureInfo?lecture_info_key="+ lectureKey;
-
-			// fetch를 통해 POST 요청 전송
-			fetch(url)
-			.then(response => response.json())
-			.then(response => {
-			    alert("정보 삭제가 완료되었습니다.");
-			    manageLectureInfoPage();
-			    bootstrap.Modal.getOrCreateInstance("#insertConditionModal").hide();		// 삭제 끝났으면 모달 숨기기
-			});
-		} 
-		
-		return;	
-	}
-    
-    
-	
-	
 	// showModal로 key를 넘기기 위해서는 row를 onclick했을 때 그 줄의 key값을 가져와야함. 중간단계 필요!!
 	function getSomeKey(event) {
 		
@@ -845,10 +568,10 @@
 	    // --> 사용자가 어디를 클릭해도 그 row를 찾을 수 있겠군!!!!!
 	    const clickedRow = event.target.closest("tr");
 	
-	    const lectureKey = clickedRow.querySelector(".key").innerText;
+	    const open_lecture_key = clickedRow.querySelector(".key").innerText;
 	
 	    // showModal에 key넘겨주고, 찐 모달 show함수 호출!
-	    showModal(lectureKey);
+	    showModal(open_lecture_key);
 	 }
 	
 	// ** 모달
@@ -860,24 +583,27 @@
     // --> 특정 ID(#writeModal)를 가진 모달 요소를 찾거나 생성한 후에 해당 모달을 화면에 표시하는 거임
     
     
-    //** fetch밖에서도 사용할 수 있게 전역으로 선언...	
-    let someLectureInfo;	
+ 	let someLectureInfo;
+    let someOpenLecInfo;
     
-    function showModal(lectureKey){
+    function showModal(open_lecture_key){
     	
     	// 리스트 들고오고나서 모달띄우면 이전 정보가 있겠지?
         const modal = bootstrap.Modal.getOrCreateInstance("#writeModal");
         modal.show();
     	
-    	console.log(lectureKey);
+    	console.log(open_lecture_key);
 
     	// 이전 입력 내용 
-		fetch("./getSomeLectureInfo?lecture_info_key=" + lectureKey)
+		fetch("./getSomeOpenLectureInfo?open_lecture_key=" + open_lecture_key)
 		.then(response => response.json())
 		.then(response => {
 
-			// 특정강의 정보
-			someLectureInfo = response.data.someLectureInfo;		
+			// 특정강의 기본 정보
+			someLectureInfo = response.data.someLectureInfo;	
+			
+			// 특정 개설강의 정보
+			someOpenLecInfo = response.data.someOpenLecInfo;	
 			
 			// 교육과정 카테고리 리스트(자바/ 파이썬..)
 			const lectureCategoryList = response.data.lectureCategoryList;
@@ -888,20 +614,18 @@
 				if(p.lecture_category_key == someLectureInfo.lecture_category_key){
 					document.getElementById("keyModal").innerText = p.category_name;
 					document.getElementById("keyModal").value = p.lecture_category_key;
-					
 				}
-				
 			}
 			
 			// 모달내부 --> 이전에 등록된 정보로 변경하기.
-			document.getElementById("nameModal").value = someLectureInfo.name;
-			document.getElementById("total_hourModal").value = someLectureInfo.total_hour;
-			document.getElementById("essential_attendanceModal").value = someLectureInfo.essential_attendance;
-			document.getElementById("essential_gradeModal").value = someLectureInfo.essential_grade;
-			document.getElementById("study_targetModal").value = someLectureInfo.study_target;
-			document.getElementById("need_knowledgeModal").value = someLectureInfo.need_knowledge;
-			document.getElementById("study_goalModal").value = someLectureInfo.study_goal;
-			document.getElementById("study_contentModal").value = someLectureInfo.study_content;
+			document.getElementById("nameModal").innerText = someLectureInfo.name;
+			document.getElementById("totalHourModal").innerText = someLectureInfo.total_hour + "시간";
+			document.getElementById("creditModal").innerText = someLectureInfo.credit + "학점";
+			document.getElementById("max_studentModal").value = someOpenLecInfo.max_student;
+			document.getElementById("start_applyModal").value = formatDate(new Date(someOpenLecInfo.start_apply));
+			document.getElementById("end_applyModal").value = formatDate(new Date(someOpenLecInfo.end_apply));
+			document.getElementById("open_dateModal").value = formatDate(new Date(someOpenLecInfo.open_date));
+			document.getElementById("end_dateModal").value = formatDate(new Date(someOpenLecInfo.close_date));
 			
 			// **1. innerText & value
 			// innerText: 주로 HTML 요소의 텍스트 콘텐츠를 나타내는 속성입니다. 
@@ -911,61 +635,94 @@
 			// ---> 주로 <input>, <textarea>, <select> 등의 폼 요소에서 값에 접근하거나 값을 설정할 때 사용됩니다.
 			// ---> 사용자 입력을 받는 폼 요소!!
 			
-			// **2. 이전정보 보여주려는게 라디오버튼으로 돼있을 때(ex. gender)
-			if (someLectureInfo.credit == "2") {
-				  document.getElementById("radio1Modal").checked = true;
-				} else if (someLectureInfo.credit == "3") {
-				  document.getElementById("radio2Modal").checked = true;
-				}
+			
+			
+			// **3. 이전정보 보여주려는게 셀렉트박스로 돼있을 때 - 이전에 선택한 정보를 checked, 다른거 선택도 할 수 있게....
+			
+			// document.getElementById("sel_teacherModal").value = someOpenLecInfo.lecturer_key;	// select
+			
+			// 3-1. 이전에 선택한 정보는 checked, 아직강사로 등록안된 아이디들 셀렉트박스 내에 올라가게
+			fetch("./getTeacherListByCategory?lecture_category_key=" + someLectureInfo.lecture_category_key)
+			.then(response => response.json())
+			.then(response => {
+				
+
+				// 카테고리별 가능한 강사 리스트
+				const teacherListByCategory = response.data.teacherListByCategory;
+				
+				// 이전에 등록한 lecturer_key
+				const previousLecturerKey = someOpenLecInfo.lecturer_key;
+			
+				// selectBox찾기
+			    const selectBox = document.getElementById("sel_teacherModal");
+				selectBox.innerHTML = "";
+
+				/*  만들기
+				<c:forEach items="${notYetTeacherList}" var="item">
+				  	<option value="${item.external_pk}">${item.external_id}</option>
+				</c:forEach> 
+				*/
+				teacherListByCategory.forEach(item => {
+			        const optionTag = document.createElement("option");
+			        optionTag.value = item.lecturer_key;
+			        optionTag.innerText = item.name;
+
+			        // 이전에 등록한 lecturer_key와 같은 값이면 selected 처리
+			        if (item.lecturer_key == previousLecturerKey) {
+			            optionTag.selected = true;
+			        }
+			        
+			        selectBox.add(optionTag);
+			    });
+				
+			});
+
 			
 		
 			// 수정 버튼
 			const updateBtn = document.querySelector("#updateBtn")
-			updateBtn.setAttribute("onclick", "saveBtn("+ someLectureInfo.lecture_info_key +")");
+			updateBtn.setAttribute("onclick", "saveBtn("+ someOpenLecInfo.open_lecture_key +")");
 			
 			// 삭제 버튼
 			const deleteBtn = document.querySelector("#deleteBtn")
-			deleteBtn.setAttribute("onclick", "deleteBtn("+ someLectureInfo.lecture_info_key +")");
+			deleteBtn.setAttribute("onclick", "deleteBtn("+ someOpenLecInfo.open_lecture_key +")");
 
 		});
     	
     }
 
     // 2. 모달 내용 저장(수정하기)
-    function saveBtn(lecture_info_key){ 
+    function saveBtn(open_lecture_key){ 
     	console.log("모달에서 수정");
-    	console.log(lecture_info_key);
+    	console.log(open_lecture_key);
     	
-    	// 입력된 값 모으기(body로 간결하게 보내보자) == map이랑 비슷한뎅?
-		const inputLectureInfo = new FormData();
+		const inputOpenLectureInfo = new FormData();
 		
-		inputLectureInfo.append("lecture_category_key", document.getElementById("keyModal").value);
-		inputLectureInfo.append("name", document.getElementById("nameModal").value);
-		inputLectureInfo.append("total_hour", document.getElementById("total_hourModal").value);
-		inputLectureInfo.append("credit", document.querySelector('input[name="creditModal"]:checked').value); 
-		inputLectureInfo.append("essential_attendance", document.getElementById("essential_attendanceModal").value);
-		inputLectureInfo.append("essential_grade", document.getElementById("essential_gradeModal").value);
-		inputLectureInfo.append("study_target", document.getElementById("study_targetModal").value);
-		inputLectureInfo.append("need_knowledge", document.getElementById("need_knowledgeModal").value);
-		inputLectureInfo.append("study_goal", document.getElementById("study_goalModal").value);
-		inputLectureInfo.append("study_content", document.getElementById("study_contentModal").value);
+		// 셀렉트박스/날짜는 그냥 똑같이 넘기면 되지요~
+		inputOpenLectureInfo.append("lecturer_key", document.getElementById("sel_teacherModal").value);
 		
-		console.log(inputLectureInfo.name);
+		// 값 넘기기
+		inputOpenLectureInfo.append("max_student", document.getElementById("max_studentModal").value);
+		inputOpenLectureInfo.append("start_apply", document.getElementById("start_applyModal").value);
+		inputOpenLectureInfo.append("end_apply", document.getElementById("end_applyModal").value);
+		inputOpenLectureInfo.append("open_date", document.getElementById("open_dateModal").value);
+		inputOpenLectureInfo.append("close_date", document.getElementById("end_dateModal").value);
 		
+
 		
-		const url = "./updateLectureInfo?lecture_info_key=" + lecture_info_key;
+		const url = "./updateOpenLectureInfo?open_lecture_key=" + open_lecture_key;
 		
 		fetch(url, {
 			method: "post",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"
 			},
-			body: new URLSearchParams(inputLectureInfo)
+			body: new URLSearchParams(inputOpenLectureInfo)
 		})
 		.then(response => response.json())	
 		.then(response => {
 		    alert("정보 수정이 완료되었습니다.");
-		    manageLectureInfoPage();
+		    manageOpenLectureInfoPage();
 		    bootstrap.Modal.getOrCreateInstance("#writeModal").hide();		// 수정 or 조회 끝났으면 모달 숨기기
 		});
         
@@ -973,18 +730,18 @@
 	
 
 	// 강사정보 삭제
-	function deleteBtn(lecture_info_key){
+	function deleteBtn(open_lecture_key){
 		
 		if(confirm("해당 강의의 정보를 삭제하시겠습니까?")){
 			
-			const url = "./deleteLectureInfo?lecture_info_key="+ lecture_info_key;
+			const url = "./deleteOpenLectureInfo?open_lecture_key="+ open_lecture_key;
 
 			// fetch를 통해 POST 요청 전송
 			fetch(url)
 			.then(response => response.json())
 			.then(response => {
 			    alert("정보 삭제가 완료되었습니다.");
-			    manageLectureInfoPage();
+			    manageOpenLectureInfoPage();
 			    bootstrap.Modal.getOrCreateInstance("#writeModal").hide();		// 삭제 끝났으면 모달 숨기기
 			});
 		} 
@@ -992,6 +749,12 @@
 		return;	
 	}
 	
+	
+	// 제목누르면 강의 기본정보 모달..
+	function getSomeKeyModal(event){
+		
+		
+	}
 	
 	
 	
@@ -1098,17 +861,11 @@
 							<div id="selectBoxOne" class="col-4 py-2 ps-2 pe-0 border-start border-dark bg-white">
 								<select id="sel_one" onchange="selectChild()" class="form-select rounded-0">
 								  <option selected>교육과정을 선택하세요.</option>
-								  <option value="1">One</option>
-								  <option value="2">Two</option>
-								  <option value="3">Three</option>
 								</select>
 							</div>
 							<div id="selectBoxTwo" class="col py-2 ps-0 pe-2 bg-white">
 								<select id="sel_two" onchange="selectSecondChild()" class="form-select rounded-0">
 								  <option selected>개설할 수업 정보를 선택하세요.</option>
-								  <option value="1">One</option>
-								  <option value="2">Two</option>
-								  <option value="3">Three</option>
 								</select>
 							</div>
 						</div>
@@ -1147,9 +904,6 @@
 							<div id="selectTeacherBox" class="col-4 py-2 bg-white border-start border-end border-dark">
 								<select id="sel_teacher" class="form-select rounded-0">
 								  <option selected>담당할 강사를 선택하세요.</option>
-								  <option value="1">One</option>
-								  <option value="2">Two</option>
-								  <option value="3">Three</option>
 								</select>
 							</div>
 							<div class="col-2 py-2  fw-bold align-self-center">
@@ -1280,6 +1034,29 @@
 					</div>
 					<div class="row border-bottom py-2">
 						<div class="col-2 text-center align-self-center fw-bold">
+							진행 상황
+						</div>
+						<div class="col ms-2">
+							<div class="row">
+								<div class="col text-start">
+									<div class="form-check form-check-inline">
+									  <input checked class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+									  <label class="form-check-label" for="inlineRadio1">전체</label>
+									</div>
+									<div class="ms-3 form-check form-check-inline">
+									  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+									  <label class="form-check-label" for="inlineRadio2">진행중</label>
+									</div>
+									<div class="ms-3 form-check form-check-inline">
+									  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+									  <label class="form-check-label" for="inlineRadio3">종강</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row border-bottom py-2">
+						<div class="col-2 text-center align-self-center fw-bold">
 							교육 과정
 						</div>
 						<div class="col ms-2">
@@ -1315,7 +1092,7 @@
 					</span>
 					<button type="button" class="ms-5 px-3 border-secondary-subtle rounded-0 px-0 fw-bold btn btn-sm btn-light">
            				<i class="bi bi-download"></i>
-           				강의 목록 다운로드
+           				개설 강의 목록 다운로드
            			</button>
 				</div>
 				<div class="col-2 me-1 justify-content-end">
@@ -1333,13 +1110,11 @@
 			    <tr class="align-middle border-bottom border-2">
 			      <th scope="col" class="col text-bg-light"></th>
 			      <th scope="col" class="col text-bg-light">No.</th>
-			      <th scope="col" class="col-2 text-bg-light">교육과정명</th>
-			      <th scope="col" class="col-4 text-bg-light">수업명</th>
-			      <th scope="col" class="col text-bg-light">총 수업시간</th>
-			      <th scope="col" class="col text-bg-light">학점</th>
-			      <th scope="col" class="col text-bg-light">출석조건</th>
-			      <th scope="col" class="col text-bg-light">성적조건</th>
-			      <th scope="col" class="col text-bg-light">수강조건</th>
+			      <th scope="col" class="col text-bg-light">교육과정명</th>
+			      <th scope="col" class="col-5 text-bg-light">수업명</th>
+			      <th scope="col" class="col text-bg-light">담당 강사</th>
+			      <th scope="col" class="col text-bg-light">개강일</th>
+			      <th scope="col" class="col text-bg-light">수강신청기간</th>
 			    </tr>
 			  </thead>
 			  <tbody class="lectureInfoListBox" style="cursor: pointer;">
@@ -1354,28 +1129,179 @@
 
 <!-- 리스트 템플릿 -->
 <table id="template" class="d-none">
-	<tr class="lectureInfoWrapper">
-      <td onclick="getSomeKey(event)" class="p-0 px-1 pt-1 text-center">
+	<tr class="lectureInfoWrapper" onclick="getSomeKey(event)">
+      <td class="p-0 px-1 pt-1 text-center">
 	    <div class="form-check m-0 p-0 d-inline-block">
 	        <input class="form-check-input m-0 p-0" type="checkbox" value="" id="flexCheckDefault">
 	        <label class="form-check-label" for="flexCheckDefault">
 	        </label>
 	    </div>
 	  </td>
-	  <td onclick="getSomeKey(event)" class="key">교육과정 번호</td>
-	  <td onclick="getSomeKey(event)" class="lecture_category_key">교육과정명</td>
-	  <td onclick="getSomeKey(event)" class="lectureName">수업명</td>
-	  <td onclick="getSomeKey(event)" class="total_hour">총 수업시간</td>
-	  <td onclick="getSomeKey(event)" class="credit">학점</td>
-	  <td onclick="getSomeKey(event)" class="essential_attendance">출석조건</td>
-	  <td onclick="getSomeKey(event)" class="essential_grade">성적조건</td>
-	  <td class="condition_key d-grid" style="cursor: pointer;">
-	  	<button onclick="getThisRowKey(event)" type="button" class="conditionBtn btn mx-2 rounded-0 text-white" style="background-color: #003399">
-	  		등록하기
-	  	</button>
-	  </td>
+	  <td class="key">교육과정 번호</td>
+	  <td class="categoryName">교육과정명</td>
+	  <td class="lectureName">수업명</td>
+	  <td class="teacherName">강사</td>
+	  <td class="startDate">개강일</td>
+	  <td class="applyPeriod">수강신청기간</td>
     </tr>	
 </table>
+
+<!-- 모달 - BS복붙해옴 -->
+<!-- 다른 요소와의 간섭을 피하기 위해, container 바깥 && 맨밑에 넣어놓기... -->
+<div id="writeModal" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 1000px; width: 100%;">
+      <div class="modal-content">
+        <div class="modal-header py-2" style="background-color: #003399;">
+          <h5 class="modal-title fw-bold fs-5 text-white p-0">개설 강의 정보</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body py-2">
+        <!-- 기본정보 -->
+			<div class="row mt-2 ms-2">
+				<div class="col fw-bold" style="font-size: 0.9em;">
+					<i class="bi bi-dot"></i>기본 수업 기본정보
+					<span class="ms-3 text-primary" style="font-size: 0.8em;">수업명 클릭 시 해당 수업의 전체 정보를 보실 수 있습니다.</span>
+				</div>
+			</div>
+          <!-- 정보/양식 -->
+			<div id="modalForInfo" class="row border border-dark rounded-0 m-3 mt-1 text-center">
+				<div class="col">
+					<div class="row border-top border-bottom border-dark">
+						<div class="col-2 py-2 border-end border-dark fw-bold bg-secondary bg-opacity-10">
+							교육과정명
+						</div>
+						<div id="keyModal" class="col-3 py-2 d-grid border-end border-dark">
+							<!-- 정보가져오기 -->
+						</div>
+						<div class="col-2 py-2 border-end border-dark fw-bold bg-secondary bg-opacity-10">
+							수업명
+						</div>
+						<div id="nameModal" onclick="getSomeKeyModal(event)" class="col-5 py-2 d-grid text-primary">
+							<!-- 정보가져오기 -->
+						</div>
+					</div>
+					<div class="row border-bottom border-dark">
+						<div class="col-2 align-self-center py-2 border-end border-dark fw-bold bg-secondary bg-opacity-10">
+							학  점
+						</div>
+						<div id="creditModal" class="col-3 py-2 text-center border-end border-dark">
+							<!-- 정보가져오기 -->
+						</div>
+						<div class="col-2 py-2 border-end border-dark fw-bold bg-secondary bg-opacity-10">
+							총 수업시간
+						</div>
+						<div id="totalHourModal" class="col-5 py-2 d-grid">
+							<!-- 정보가져오기 -->
+						</div>
+					</div>
+				</div>
+			</div>
+		 <!-- 기본정보 끝 -->
+		 
+		 <!-- 개설 정보 -->
+		<div class="row mt-5 ms-2">
+			<div class="col fw-bold" style="font-size: 0.9em;">
+				<i class="bi bi-dot"></i>강의 개설 정보
+				<span class="ms-3 text-danger" style="font-size: 0.8em;">*는 필수 입력사항입니다.</span>
+			</div>
+		</div>
+		
+		<!-- 정보/양식 -->
+		<div class="row border border-dark rounded-0 m-3 mt-1 text-center">
+			<div class="col">
+				<div class="row border-top border-bottom border-dark bg-secondary bg-opacity-10">
+					<div class="col-2 py-2 fw-bold align-self-center">
+						<span class="text-danger" style="font-size: 0.8em;">*</span>담당 강사명
+					</div>
+					<div id="selectTeacherBox" class="col-4 py-2 bg-white border-start border-end border-dark">
+						<select id="sel_teacherModal" class="form-select rounded-0">
+						</select>
+					</div>
+					<div class="col-2 py-2  fw-bold align-self-center">
+						<span class="text-danger" style="font-size: 0.8em;">*</span>최대 수강인원
+					</div>
+					<div class="col-4 py-2 d-grid bg-white border-start border-dark">
+						<input class="border rounded-0" id="max_studentModal" type="number" placeholder="정수로 입력하세요.">
+					</div>
+				</div>
+				<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
+					<div class="col-2 py-2 fw-bold align-self-center">
+						<span class="text-danger" style="font-size: 0.8em;">*</span>수강신청 시작일
+					</div>
+					<div class="col-4 py-2 border-start border-end border-dark d-grid bg-white">
+						<input class="border rounded-0 py-2" id="start_applyModal" type="date">
+					</div>
+					<div class="col-2 py-2 fw-bold align-self-center">
+						<span class="text-danger" style="font-size: 0.8em;">*</span>수강신청 종료일
+					</div>
+					<div class="col-4 py-2 d-grid bg-white border-start border-dark">
+						<input class="border rounded-0 py-2" id="end_applyModal" type="date">
+					</div>
+				</div>
+				<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
+					<div class="col-2 py-2 fw-bold align-self-center">
+						<span class="text-danger" style="font-size: 0.8em;">*</span>개강일
+					</div>
+					<div class="col-4 py-2 border-start border-end border-dark d-grid bg-white">
+						<input class="border rounded-0 py-2" onchange="autoEndDateModal()" id="open_dateModal" type="date">
+					</div>
+					<div class="col-2 py-2 fw-bold align-self-center">
+						종강일 <span style="font-size: 0.8em;">(자동계산)</span>
+					</div>
+					<div class="col-4 py-2 d-grid bg-white border-start border-dark">
+						<input class="border rounded-0 py-2" id="end_dateModal" type="date">
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 추가 정보 -->
+		<div class="row mt-5 ms-2">
+			<div class="col fw-bold" style="font-size: 0.9em;">
+				<i class="bi bi-dot"></i>강의 추가 정보
+			</div>
+		</div>
+		
+		<!-- 정보/양식 -->
+		<div class="row border border-dark rounded-0 m-3 mt-1 text-center">
+			<div class="col">
+				<div class="row border-top border-bottom border-dark bg-secondary bg-opacity-10">
+					<div class="col-2 py-2 fw-bold align-self-center">
+						수업 시간
+					</div>
+					<div id="selectTeacherBox" class="col-4 py-2 d-grid bg-white border-start border-end border-dark">
+						<input class="border rounded-0 py-1" type="text"></input>
+					</div>
+					<div class="col-2 py-2 fw-bold align-self-center">
+						수강료
+					</div>
+					<div class="col-4 py-2 d-grid bg-white border-start border-dark">
+						<input class="border py-1 rounded-0" type="number" placeholder="정수로 입력하세요."></input>
+					</div>
+				</div>
+				<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
+					<div class="col-2 py-2 fw-bold align-self-center">
+						수강 장소
+					</div>
+					<div class="col py-2 border-start border-dark d-grid bg-white">
+						<input class="border py-1 rounded-0" type="text"></input>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+				
+        <div class="modal-footer mx-0 d-flex justify-content-between">
+            <button id="deleteBtn" type="button" class="btn btn-danger rounded-0 px-4">삭제하기</button>
+            <div>
+                <button id="updateBtn" type="button" class="btn btn-primary rounded-0 text-white px-4" style="background-color: #003399;">수정완료</button>
+                <button type="button" class="btn btn-secondary rounded-0 px-3" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- 모달 - BS복붙해옴 -->
 <!-- 다른 요소와의 간섭을 피하기 위해, container 바깥 && 맨밑에 넣어놓기... -->
@@ -1486,147 +1412,6 @@
     </div>
 </div>
 
-<!-- 수강신청조건 입력/수정 -->
-<div id="insertConditionModal" class="modal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 850px; width: 100%;">
-      <div class="modal-content">
-        <div class="modal-header py-2" style="background-color: #003399;">
-          <h5 class="modal-title fw-bold fs-5 text-white p-0">수강신청 조건</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body py-2">
-        <!-- 강사 기본정보 -->
-			<div class="row mt-2 ms-2">
-				<div class="col fw-bold" style="font-size: 0.9em;">
-					<i class="bi bi-dot"></i>조건 조회/수정
-					<span class="ms-3 text-danger" style="font-size: 0.8em;">*는 필수 입력사항입니다.</span>
-				</div>
-			</div>
-          <!-- 정보/양식 -->
-			<div id="modalForInsertCondition" class="row border border-dark rounded-0 m-3 mt-1 text-center">
-				<div class="col">
-					<div class="row border-top border-bottom border-dark">
-						<div class="col-2 py-2 fw-bold bg-secondary bg-opacity-10">
-							교육과정명
-						</div>
-						<div id="getLectureCategory" class="col-3 py-2 d-grid border-start border-end border-dark bg-white">
-							<!-- 정보들고오기 -->
-						</div>
-						<div class="col-2 py-2 fw-bold border-end border-dark bg-secondary bg-opacity-10">
-							수업명
-						</div>
-						<div id="getLectureName" class="col py-2 d-grid">
-							<!-- 정보들고오기 -->
-						</div>
-					</div>
-					<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
-						<div class="col-2 align-self-center py-2 border-dark fw-bold">
-							<span class="text-danger" style="font-size: 0.8em;">*</span>수강조건
-						</div>
-						<div class="col py-2 text-start border-start border-dark bg-white">
-							<!-- 등록된 카테고리에 따라 체크박스 반복문 필요 -->
-							<div id="conditionCheckBox" class="col py-2 text-start">
-								<!-- 강의 리스트 -->
-							</div>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-		 <!-- 강사 기본정보 끝 -->
-        </div>
-        <div class="modal-footer mx-3 d-flex justify-content-between">
-            <button id="deleteConditionBtn" type="button" class="btn btn-danger rounded-0 px-4">삭제하기</button>
-            <div>
-                <button id="updateConditionBtn" type="button" class="btn btn-primary rounded-0 text-white px-4" style="background-color: #003399;">수정완료</button>
-                <button type="button" class="btn btn-secondary rounded-0 px-3" data-bs-dismiss="modal">닫기</button>
-            </div>
-        </div>
-      </div>
-    </div>
-</div>
-
-<!-- 신규교육과정 등록버튼 -->
-<div id="manageLectureModal" class="modal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 700px; width: 100%;">
-      <div class="modal-content">
-        <div class="modal-header py-2" style="background-color: #003399;">
-          <h5 class="modal-title fw-bold fs-5 text-white p-0">교육과정 목록 관리</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body py-2">
-        	<!-- 등록 -->
-			<div class="row mt-2 ms-2">
-				<div class="col fw-bold" style="font-size: 0.9em;">
-					<i class="bi bi-dot"></i>신규 교육과정 등록
-					<span class="ms-3 text-danger" style="font-size: 0.8em;">*는 필수 입력사항입니다.</span>
-				</div>
-			</div>
-          <!-- 정보/양식 -->
-			<div class="row border rounded-0 m-3 mt-1 text-center">
-				<div class="col">
-					<div class="row align-self-center border-top border-bottom border-dark bg-secondary bg-opacity-10">
-						<div class="col-2 align-self-center py-2 border-dark fw-bold" style="font-size: 0.9em;">
-							<span class="text-danger" style="font-size: 0.8em;">*</span>교육과정명
-						</div>
-						<div class="col-8 py-2 text-start border-start border-dark bg-white d-grid">
-							<input class="border rounded-0" id="newLectureName" type="text"></input>
-						</div>
-						<div class="col py-2 text-start bg-white d-grid">
-							<button onclick="addCategory()" type="button" class="btn rounded-0 text-white px-3" 
-							style="background-color: #003399;">등록</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- 관리 -->
-			<div class="row mt-5 ms-2">
-				<div class="col fw-bold" style="font-size: 0.9em;">
-					<i class="bi bi-dot"></i>교육과정 목록
-					<span class="ms-3 text-danger" style="font-size: 0.8em;">*는 필수 입력사항입니다.</span>
-				</div>
-			</div>
-          <!-- 정보/양식 -->
-			<div class="row border rounded-0 m-3 mt-1 text-center">
-				<div class="col">
-					<div class="row border-top border-bottom border-dark bg-secondary bg-opacity-10">
-						<div class="col-1 align-self-center py-2 border-dark fw-bold">
-							NO.
-						</div>
-						<div class="col-9 py-2 text-center border-start border-dark">
-							<span class="text-danger" style="font-size: 0.8em;">*</span>교육과정명
-						</div>
-					</div>
-					<!-- 템플릿 돌곳 -->
-					<div id="categoryTemplateWrapper">
-					
-					</div>
-					
-					<!-- 숨겨둔템플릿 -->
-					<div id="categoryListWrapper" class="d-none">
-						<div class="row categoryTemplate border-bottom border-dark text-center">
-							<div id="categoryNum" class="col-1 align-self-center py-2 border-dark fw-bold">
-								
-							</div>
-							<div id="categoryName" class="col-9 py-2 border-start border-dark">
-								
-							</div>
-							<div class="col py-2 d-grid">
-								<button id="deleteCategoryBtn" type="button" class="btn btn-sm btn-danger rounded-0 text-white px-3">삭제</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-        </div>
-        <div class="modal-footer mx-3 d-flex justify-content-end">
-            <div>
-            	<button type="button" class="btn btn-secondary rounded-0 px-3" data-bs-dismiss="modal">닫기</button>
-            </div>
-        </div>
-      </div>
-    </div>
-</div>
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
  integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

@@ -28,6 +28,8 @@
 
    		</style>
         <script>
+        
+        	type="text/javascript" src="../../resources/js/hn/sideBar.js"
             
             function formSubmit(){
                 const frm = document.getElementById("frm");
@@ -69,9 +71,6 @@
                     return;
                 }
 
-                
-
-                console.log("aaa");
                 frm.submit();
             }
 
@@ -154,7 +153,6 @@
 
             //약품삭제 + 연쇄로 입고 정보도 삭제 시켜야함
             function deleteMedicine(targerElement, medicine_code_pk){
-                console.log(medicine_code_pk);
 
                 let userConfirmed = confirm("정말 삭제 하시겠습니까?\n삭제시 입고,재고와 관련된 모든 정보가 삭제되며 이작업은 되돌릴 수 없습니다.");
 
@@ -208,7 +206,6 @@
 
             function orderedByMedicineList(obj){
 
-                console.log(obj);
                 const url = "./orderedByMedicineList?orderNumber="+obj;
 
                 fetch(url)
@@ -239,8 +236,11 @@
                         
                         medicineName.appendChild(modalWrapper);
 
-                        const inventoryWrapper = modalWrapper.querySelector(".inventoryWrapper");
-                        inventoryWrapper.classList.add(""+e.medicineInfo.medicine_code_pk+"");
+                        const inventoryWrapperStation = modalWrapper.querySelector(".inventoryWrapperStation");
+
+                        inventoryWrapperStation.classList.remove("Pk"+e.medicineInfo.medicine_code_pk+"");
+                        inventoryWrapperStation.classList.add("Pk"+e.medicineInfo.medicine_code_pk+"");
+                        inventoryWrapperStation.innerHTML = "";
 
                         //modal내용
                         const modalBody = modalWrapper.querySelector(".modal-body");
@@ -285,24 +285,50 @@
 
             function getInventoryInfo(medicine_code_pk){
 
-                console.log(medicine_code_pk);
-
                 const url = "./restInventoryInfoByPk?medicine_code_pk="+ medicine_code_pk;
 
                 fetch(url)
                 .then(response => response.json())
                 .then(response => {
 
+                    const classCodePk = document.querySelector(".Pk"+medicine_code_pk+"");
+                    classCodePk.innerHTML = "";
 
+                    let nowQuantity = 0;
+                    //수량 확인용 Id ... 오우마이갓...
+                    let idName = null;
                     //포문~
                     for(e of response.data){
                         
-                        console.log(e.QUANTITY);
-                        console.log(e.M_NAME);
-                        console.log(e.M_TYPE);
-                        console.log(e.DATE);
+                        const inventoryWrapper = document.querySelector("#templete .inventoryWrapper").cloneNode(true);
 
+                        // if(response.data == null){
+                        //     const inventoryWrapper = document.querySelector(".inventoryWrapper");
+                        //     inventoryWrapper.innerHTML = "재고 변경된 이력 없음";
+                        // }
+
+                        const inventoryDate = inventoryWrapper.querySelector(".inventoryDate");
+                        const date = new Date(e.DATE);
+                        inventoryDate.innerHTML = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
+                        const inventoryPerson = inventoryWrapper.querySelector(".inventoryPerson");
+                        inventoryPerson.innerText = e.M_NAME;
+                        const inventoryReason = inventoryWrapper.querySelector(".inventoryReason");
+                        inventoryReason.innerText = e.M_TYPE;
+                        const inventoryQuantityChange = inventoryWrapper.querySelector(".inventoryQuantityChange");
+                        inventoryQuantityChange.innerText = e.QUANTITY;
+
+                        nowQuantity += e.QUANTITY;
+                        
+                        classCodePk.appendChild(inventoryWrapper);
+
+                        idName = ""+e.MEDI_NAME+""
+                        
                     }
+                    console.log(idName);
+                    const getMediName = document.querySelector("#idName");
+                    console.log(getMediName);
+                    const nowQuantityStation = getMediName.querySelector(".nowQuantityStation");
+                    nowQuantityStation.innerText = "남은 수량 호로로";
 
                 });
                 
@@ -327,7 +353,7 @@
                         <div class="col">
                             <div class="row">
                             	<jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
-                                <div class="col">
+                                <div class="col pb-5">
                                     <!-- 내가 쓸꺼!!-->
                                     <div class="row mx-3 my-5">
                                         <div class="col">
@@ -436,27 +462,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col py-4" style="background-color: #F2F2F2;">
-                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-4 my-auto">
-                                                    <img class="img-fluid" src="./img/health/health_ci.gif">
-                                                </div>
-                                                <div class="col text-body-tertiary" style="font-size: small;">
-                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
                 </div>
             </div>
         </div>
@@ -501,23 +507,26 @@
                                     <h4 id="titleName"></h4>
                                 </div>
                             </div>
+                            <div class="row pb-1">
+                                <div class="col text-center">
+                                    <span class="nowQuantityStation fw-bold">
+                                        &lt; 남은 수량 : &gt;
+                                    </span>
+                                </div>
+                            </div>
                             <div class="row mt-3 mb-1 pb-3 fw-bold text-center border-bottom border-3 border-primary">
-                                <div class="col-2 border-end border-primary">변동일</div>
-                                <div class="col-2 border-end border-primary">관리자</div>
-                                <div class="col-2 border-end border-primary">변동사유</div>
-                                <div class="col-2 border-end border-primary">변동수량</div>
-                                <div class="col-2"></div>
-                                <div class="col-2 border-start border-primary">현재수량</div>
+                                <div class="col-3 border-end border-primary">변동일</div>
+                                <div class="col-3 border-end border-primary">관리자</div>
+                                <div class="col-3 border-end border-primary">변동사유</div>
+                                <div class="col-3 border-start border-primary">변동수량</div>
                             </div>
                             <div class="row">
                                 <div class="col inventoryWrapperStation">
                                     <div class="inventoryWrapper row mt-3 mb-1 pb-3 text-center border-bottom border-1 border-primary">
-                                        <div class="inventoryDate col-2 border-primary">변동일</div>
-                                        <div class="inventoryPerson col-2 border-primary">관리자</div>
-                                        <div class="inventoryReason col-2 border-primary">변동사유</div>
-                                        <div class="inventoryQuantityChange col-2 border-primary">변동수량</div>
-                                        <div class="col-2">내가 머 잘못한건데?</div>
-                                        <div class="inventoryQuantityNow col-2 border-primary">현재수량</div>
+                                        <div class="inventoryDate col-3 border-primary">변동일</div>
+                                        <div class="inventoryPerson col-3 border-primary">관리자</div>
+                                        <div class="inventoryReason col-3 border-primary">변동사유</div>
+                                        <div class="inventoryQuantityChange col-3 border-primary">변동수량</div>
                                     </div>
                                 </div>
                             </div>

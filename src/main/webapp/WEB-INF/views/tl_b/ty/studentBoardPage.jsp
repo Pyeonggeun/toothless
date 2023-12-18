@@ -11,6 +11,19 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     </head>
+    	<script>
+            function formSubmit(){
+                const frm = document.getElementById("frm");
+                
+                const inputComment=document.getElementById("inputComment");
+                if(inputComment.value == ''){
+                    alert("검색어를 입력하세요.");
+                    inputComment.focus;
+                    return;
+                }
+                frm.submit();
+            }
+        </script>
     <body>
 
         <div class="container-fluid">
@@ -28,7 +41,7 @@
                                             <div class="row mt-5  ">
                                                 <div class="col fw-bold fs-2 text-center border-bottom border-4">보건진료소</div>
                                             </div>
-                                            <form action="./studentBoardPage" method="get">
+                                            <form id="frm" action="./studentBoardPage" method="get">
                                             <div class="row mt-4">
                                                 <div class="col">
                                                     <span style="font-size: 120%; font-weight: bold;">Total</span>
@@ -42,10 +55,10 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-3 pe-0 text-end">
-                                                    <input name="searchWord" class="form-control " type="text" placeholder="내용을검색하세요">
+                                                    <input id="inputComment" name="searchWord" class="form-control " type="text" placeholder="내용을검색하세요">
                                                 </div> 
                                                 <div class="col-1 text-start">
-                                                    <button type="submit" class="btn btn-outline-dark">검색</button>
+                                                    <input type="button" onclick="formSubmit()" class="btn btn-outline-dark" value="검색">
                                                 </div>
                                             </div>
                                             </form>

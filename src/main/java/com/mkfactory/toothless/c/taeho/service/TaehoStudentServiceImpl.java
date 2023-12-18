@@ -45,7 +45,12 @@ public class TaehoStudentServiceImpl {
 	}
 	
 	
-	
+	public List<Map<String, Object>> getDetailAttendanceStatusByStudentPk(int studentPk, String categoryType){
+
+		System.out.println("서비스 : " + categoryType);
+
+		return taehoStudentSqlMapper.selectDetailAttendanceStatusByStudentPk(studentPk, categoryType);
+	}
 	
 	
 	

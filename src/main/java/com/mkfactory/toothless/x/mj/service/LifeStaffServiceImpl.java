@@ -128,6 +128,15 @@ public class LifeStaffServiceImpl {
 		return list;
 	}
 	
+	
+	// '전체' 강사목록만
+	public List<LifeLecturerDto> getAllTeacherList(){
+		
+		return lifeStaffSqlMapper.selectAllTeacherList();
+	}
+	
+	
+	
 	// '특정'강사 정보
 	public LifeLecturerDto getSomeTeacherInfo(int lecturer_key) {
 
@@ -251,11 +260,18 @@ public class LifeStaffServiceImpl {
 
 		lifeStaffSqlMapper.updateLectureInfo(lectureInfoDto);
 	}
+
 	
 	// 강의 정보 삭제
 	public void deleteLectureInfo(int lecture_info_key) {
 		
 		lifeStaffSqlMapper.deleteLectureInfo(lecture_info_key);
+	}
+	
+	// 특정강의가 삭제되면 그에따른 개설강의 삭제
+	public void deleteOpenLectureInfoByLecKey(int lecture_info_key) {
+		
+		lifeStaffSqlMapper.deleteOpenLectureInfoByLecKey(lecture_info_key);
 	}
 	
 	// 강의별 수강신청 조건 리스트 
@@ -332,7 +348,47 @@ public class LifeStaffServiceImpl {
 		lifeStaffSqlMapper.insertOpenLecture(openLectureDto);
 	}
 	
+	// 개설강의 정보 + 기본강의 정보
+	public List<Map<String, Object>> getAllOpenLectureInfoList() {
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+
+		// 개설강의 리스트
+		List<OpenLectureDto> openLectureList = lifeStaffSqlMapper.selectAllOpenLecture();
+		
+		for(OpenLectureDto openLec : openLectureList) {
+			
+			// 특정 기본수업정보
+			LectureInfoDto lectureInfo = lifeStaffSqlMapper.selectSomeLectureInfo(openLec.getLecture_info_key());
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("openLec", openLec);
+			map.put("lectureInfo", lectureInfo);
 	
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
+	// '특정' 개설 강의 정보
+	public OpenLectureDto getSomeOpenLectureInfo(int open_lecture_key) {
+		
+		return lifeStaffSqlMapper.selectSomeOpenLectureInfo(open_lecture_key);
+	}
+	
+	// 개설 강의 정보 수정
+	public void updateOpenLectureInfo(OpenLectureDto openLectureDto) {
+		
+		lifeStaffSqlMapper.updateOpenLectureInfo(openLectureDto);
+	}
+	
+	
+	// 개설 강의 정보 삭제
+	public void deleteOpenLectureInfo(int open_lecture_key) {
+		
+		lifeStaffSqlMapper.deleteOpenLectureInfo(open_lecture_key);
+	}
 	
 	
 	
