@@ -99,7 +99,7 @@ WHERE on_consulting_pk = #{on_consulting_pk}
 </select>
 
 
-<!-- (학생) 전체보기 -->
+<!-- (학생) 온라인상담 전체보기 -->
 <!-- 정확히는 구직희망pk에따른것 -->
 <select id="getMyOnlineConsultingList" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
 SELECT t2.*
@@ -136,6 +136,45 @@ FROM (
 </select>
 
 
+<!-- (학생) 온라인상담 5건보기 -->
+<!-- 정확히는 구직희망pk에따른것 -->
+<select id="getMyOnlineConsultingListNumFive" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
+SELECT t2.*
+FROM (
+	SELECT t1.*,rownum rnum
+	FROM (
+		SELECT a.*
+		FROM tl_d_online_consulting a
+		WHERE Hope_job_pk = #{hope_job_pk}
+			<if test="isReply != null">
+				<choose>
+					<when test="isReply == 'all'">
+						AND 1=1		
+					</when>
+					<when test="isReply == 'Reply'">
+				 		AND ON_CONSULTING_PK in
+				 		(
+						SELECT ON_CONSULTING_PK from TL_D_ONLINE_CONSULTING_REPLY		 		
+				 		)
+				 		
+					</when>
+					<when test="isReply == 'unReply'">
+				 		AND ON_CONSULTING_PK not in
+				 		(
+						SELECT ON_CONSULTING_PK from TL_D_ONLINE_CONSULTING_REPLY		 		
+				 		)
+					</when>
+				</choose>
+			</if>			
+		ORDER BY a.created_at desc	
+	)t1
+)t2
+<![CDATA[
+    WHERE rnum <= 5
+]]>
+</select>
+
+
 
 
 
@@ -158,6 +197,12 @@ FROM (
 			SELECT b.ON_CONSULTING_PK
 			FROM tl_d_online_consulting_reply b
 			) 
+		AND a.hope_job_pk IN
+			(
+			SELECT c.HOPE_JOB_PK 
+			FROM TL_D_HOPE_JOB c
+			WHERE c.IS_END_HOPE_JOB = 'N'
+			)			
 		ORDER BY a.CREATED_AT asc
 	)t1
 )t2

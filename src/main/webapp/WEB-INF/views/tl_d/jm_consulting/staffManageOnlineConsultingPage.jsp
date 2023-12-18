@@ -67,7 +67,7 @@
 								</div>
 								
 								<div class="col">
-									<span style="font-size:0.8em;">학번</span> <span class="fw-bold"">${onlineConsultingInfo.studentInfoDto.student_id}</span>
+									<span style="font-size:0.8em;">학번</span> <span class="fw-bold">${onlineConsultingInfo.studentInfoDto.student_id}</span>
 								</div>
 								
 								<div class="col-8"></div>

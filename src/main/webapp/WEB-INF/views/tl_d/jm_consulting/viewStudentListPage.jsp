@@ -76,7 +76,7 @@
 							</div>
 							<div class="row mt-2 ps-0">
 								<div class="col">
-									<a href="./jmTempStaffMainPage"><button type="button" class="btn btn-primary">목록</button></a>
+									<a href="../common/staffMainPage"><button type="button" class="btn btn-primary">목록</button></a>
 								</div>
 							</div>	
 						</div>

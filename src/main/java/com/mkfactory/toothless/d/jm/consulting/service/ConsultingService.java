@@ -182,7 +182,7 @@ public class ConsultingService {
 	}
 	
 	
-	//학생 최근 상담 10건 꺼내오기(나중에 페이징 처리하자)
+	//학생 최근 상담 전부 꺼내오기(나중에 페이징 처리하자)
 	//이 쿼리의 한계 <- 하나의 구직희망신청에서만 온라인 상담 내역 출력가능...
 	public List<Map<String, Object>> getMyOnlineConsultingList (int student_pk, String isReply){
 		
@@ -191,6 +191,42 @@ public class ConsultingService {
 		
 		HopeJobDto hopeJobDto = consultingMapper.getLastHopejob(student_pk);		
 		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getMyOnlineConsultingList(hopeJobDto.getHope_job_pk(), isReply);
+		
+		for(OnlineConsultingDto onlineConsultingDto : onlineConsultingDtoList) {
+			int on_consulting_pk = onlineConsultingDto.getOn_consulting_pk();
+			OnlineConsultingReplyDto onlineConsultingReplyDto = consultingMapper.getOnConsultingReplyByOnPk(on_consulting_pk);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			//상담 답글 안달렸을때에
+			if(onlineConsultingReplyDto==null) {
+				map.put("onlineConsultingDto", onlineConsultingDto);
+				map.put("onlineConsultingReplyDto", onlineConsultingReplyDto);
+				map.put("staffInfoDto", null);
+			}
+			else {
+				int staff_pk = onlineConsultingReplyDto.getStaff_pk();
+				StaffInfoDto staffInfoDto = consultingMapper.getStaffInfoByPk(staff_pk);
+				
+				map.put("onlineConsultingDto", onlineConsultingDto);
+				map.put("onlineConsultingReplyDto", onlineConsultingReplyDto);
+				map.put("staffInfoDto", staffInfoDto);
+			}
+
+
+			list.add(map);
+		}
+		return list;
+	}
+	
+	//학생 최근 상담 5건
+	public List<Map<String, Object>> getMyOnlineConsultingListNumFive (int student_pk, String isReply){
+		
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		HopeJobDto hopeJobDto = consultingMapper.getLastHopejob(student_pk);		
+		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getMyOnlineConsultingListNumFive(hopeJobDto.getHope_job_pk(), isReply);
 		
 		for(OnlineConsultingDto onlineConsultingDto : onlineConsultingDtoList) {
 			int on_consulting_pk = onlineConsultingDto.getOn_consulting_pk();

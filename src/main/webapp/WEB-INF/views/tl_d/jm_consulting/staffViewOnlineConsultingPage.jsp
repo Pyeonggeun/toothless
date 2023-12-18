@@ -401,7 +401,7 @@
 														
 									<div class="row mt-5">
 										<div class="col ps-0">
-											<a href="./jmTempStaffMainPage">
+											<a href="../common/staffMainPage">
 												<button type="button" class="btn btn-primary">목록</button>
 											</a>
 										</div>

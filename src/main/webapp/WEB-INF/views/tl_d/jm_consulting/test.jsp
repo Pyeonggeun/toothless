@@ -12,11 +12,16 @@
 </head>
 <body>
 
-<c:forEach items="${progressOnlinceConsultingNumFive}" var="e">
-	${e.studentInfoDto.name }하 <br>
-	<c:forEach items="${e.categoryList}" var="d">
-		${d.JOB_FIELD_CATEGORY_NAME}하!
-	</c:forEach>
+<c:forEach items="${getMyOnlineConsultingListNumFive }" var="e">
+	${e.onlineConsultingDto.on_consulting_pk}<br>
+	<c:choose>
+		<c:when test="${e.onlineConsultingReplyDto==null}">
+			미답변
+		</c:when>
+		<c:otherwise>
+			답변
+		</c:otherwise>
+	</c:choose>
 </c:forEach>
 
 

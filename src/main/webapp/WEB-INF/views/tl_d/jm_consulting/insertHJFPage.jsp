@@ -18,7 +18,6 @@
 	
  		//hidden에있는 별점 위치찾기
  		var hjf_score = document.querySelector("#hjf_score"); 
- 		console.log(hjf_score);
  		
  		//별값 클래스 전부호출
  		var starClass = document.querySelectorAll(".starValue");
@@ -34,7 +33,6 @@
  			element.classList.remove("bi-star");
  			element.classList.add("bi-star-fill");
  			hjf_score.value = "1";
- 			console.log(hjf_score.value);
  		}
  		//2점일때
  		if(element==starValue2){
