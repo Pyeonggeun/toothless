@@ -46,7 +46,7 @@
 		INSERT INTO TL_B_MEDICINE_ADD tbma values(
 		TL_B_MEDICINE_ADD_seq.nextval,
 		#{medicine_code_pk},
-		101,
+		#{staff_pk},
 		#{quantity},
 		#{add_at},
 		sysdate
@@ -104,7 +104,7 @@
 		TL_B_MEDICINE_INVENTORY_seq.nextval,
 		#{medicine_code_pk},
 		#{medicine_mgmt_cat_pk},
-		101,
+		#{staff_pk},
 		#{quantity},
 		#{reason},
 		sysdate
