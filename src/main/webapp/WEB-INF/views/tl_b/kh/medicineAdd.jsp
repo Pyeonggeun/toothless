@@ -21,6 +21,8 @@
 		</style>
 
         <script>
+        
+    	type="text/javascript" src="../../resources/js/hn/sideBar.js"
 
             function addInfoSubmit(){
 
@@ -255,8 +257,7 @@
                         <div class="col">
                             <div class="row">
                             	<jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
-                                
-                                <div class="col">
+                                <div class="col pb-5">
                                     <!-- 내가 쓸꺼!!-->
                                     <div class="row mx-3 my-5">
                                         <div class="col">
@@ -315,27 +316,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col py-4" style="background-color: #F2F2F2;">
-                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-4 my-auto">
-                                                    <img class="img-fluid" src="./img/health/health_ci.gif">
-                                                </div>
-                                                <div class="col text-body-tertiary" style="font-size: small;">
-                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
                 </div>
             </div>
         </div>
