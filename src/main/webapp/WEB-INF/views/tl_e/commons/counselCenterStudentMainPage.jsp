@@ -100,51 +100,29 @@
 									<div class="dropdown">
 										<a class="dropdown-toggle fw-bold" data-bs-toggle="dropdown" style="font-size: 1.2em; text-decoration-line: none; color: black">상담 신청</a>
 									  <ul class="dropdown-menu">
-									    <li><a class="dropdown-item" href="#">온라인 상담</a></li>
-									    <li><a class="dropdown-item" href="#">오프라인 상담</a></li>
-									    <li><a class="dropdown-item" href="#">집단 상담</a></li>
+									    <li><a class="dropdown-item" href="../../tl_e/onlineCounsel/onlineCounselMainPage">온라인 상담</a></li>
+									    <li><a class="dropdown-item" href="../../tl_e/offlineCounsel/selectCounselorPage">오프라인 상담</a></li>
+									    <li><a class="dropdown-item" href="../../tl_e/groupcounsel/student/groupCounselListPage">집단 상담</a></li>
 									  </ul>
 									</div>
 								</div>
 								<div class="col text-center">
 									<div class="dropdown">
-										<a class="dropdown-toggle fw-bold" data-bs-toggle="dropdown" style="font-size: 1.2em; text-decoration-line: none; color: black">상담 이력</a>
+										<a class="dropdown-toggle fw-bold" data-bs-toggle="dropdown" style="font-size: 1.2em; text-decoration-line: none; color: black">예약 조회</a>
 									  <ul class="dropdown-menu">
-									    <li><a class="dropdown-item" href="#">온라인 상담</a></li>
-									    <li><a class="dropdown-item" href="#">오프라인 상담</a></li>
-									    <li><a class="dropdown-item" href="#">집단 상담</a></li>
+									    <li><a class="dropdown-item" href="../../tl_e/offlineCounsel/checkOfflineCounselReservationStudentPage">오프라인 상담</a></li>
+									    <li><a class="dropdown-item" href="../../tl_e/groupcounsel/student/readGroupCounselReservationListByStudentPage">집단 상담</a></li>
 									  </ul>
 									</div>
 								</div>
 								<div class="col text-center">
-									<div class="dropdown">
-										<a class="dropdown-toggle fw-bold" data-bs-toggle="dropdown" style="font-size: 1.2em; text-decoration-line: none; color: black">공지사항</a>
-									  <ul class="dropdown-menu">
-									    <li><a class="dropdown-item" href="#">온라인 상담</a></li>
-									    <li><a class="dropdown-item" href="#">오프라인 상담</a></li>
-									    <li><a class="dropdown-item" href="#">집단 상담</a></li>
-									  </ul>
-									</div>
+									<a href="../../tl_e/notice/noticeMainPage_Student" class="fw-bold" style="font-size: 1.2em; text-decoration-line: none; color: black">공지사항</a>
 								</div>
 								<div class="col text-center">
-									<div class="dropdown">
-										<a class="dropdown-toggle fw-bold" data-bs-toggle="dropdown" style="font-size: 1.2em; text-decoration-line: none; color: black">자유게시판</a>
-									  <ul class="dropdown-menu">
-									    <li><a class="dropdown-item" href="#">온라인 상담</a></li>
-									    <li><a class="dropdown-item" href="#">오프라인 상담</a></li>
-									    <li><a class="dropdown-item" href="#">집단 상담</a></li>
-									  </ul>
-									</div>
+									<a href="../../tl_e/freeboardCounsel/freeboardCounselPage" class="fw-bold" style="font-size: 1.2em; text-decoration-line: none; color: black">자유게시판</a>
 								</div>
 								<div class="col text-center">
-									<div class="dropdown">
-										<a class="dropdown-toggle fw-bold" data-bs-toggle="dropdown" style="font-size: 1.2em; text-decoration-line: none; color: black">상담원 정보</a>
-									  <ul class="dropdown-menu">
-									    <li><a class="dropdown-item" href="#">온라인 상담</a></li>
-									    <li><a class="dropdown-item" href="#">오프라인 상담</a></li>
-									    <li><a class="dropdown-item" href="#">집단 상담</a></li>
-									  </ul>
-									</div>
+									<a href="#" class="fw-bold" style="font-size: 1.2em; text-decoration-line: none; color: black">상담원 정보</a>
 								</div>									
 							</div>
 						</div>
