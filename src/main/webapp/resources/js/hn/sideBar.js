@@ -41,6 +41,8 @@ function colorSideBar() {
 	const str = window.location.pathname.slice(window.location.pathname.lastIndexOf("/")+1);
 	
 	if(str == 'medicineInventory') {
+
+		reloadStaffName();
 	
 		document.getElementById("color1").classList.add("text-white");
 		document.getElementById("color1").style.backgroundColor = '#014195';
@@ -50,6 +52,8 @@ function colorSideBar() {
 		
 	}else if(str == 'medicineAdd') {
 	
+		reloadStaffName();
+	
 		document.getElementById("color2").classList.add("text-white");
 		document.getElementById("color2").style.backgroundColor = '#014195';
 		
@@ -57,6 +61,8 @@ function colorSideBar() {
         document.getElementById("collapse1").value = "o1";
 		
 	}else if(str == 'codeRegistPage') {
+	
+		reloadStaffName();
 	
 		document.getElementById("color3").classList.add("text-white");
 		document.getElementById("color3").style.backgroundColor = '#014195';
@@ -66,11 +72,15 @@ function colorSideBar() {
 		
 	}else if(str == 'clinicPage') {
 	
+		reloadStaffName();
+	
 		document.getElementById("color4").classList.add("text-white");
 		document.getElementById("color4").style.backgroundColor = '#014195';
 		
 		
 	}else if(str == 'itemListAndRegistPage') {
+	
+		reloadStaffName();
 	
 		document.getElementById("color5").classList.add("text-white");
 		document.getElementById("color5").style.backgroundColor = '#014195';
@@ -80,6 +90,8 @@ function colorSideBar() {
 		
 	}else if(str == 'staffItemApplyListPage') {
 	
+		reloadStaffName();
+	
 		document.getElementById("color6").classList.add("text-white");
 		document.getElementById("color6").style.backgroundColor = '#014195';
 		
@@ -87,6 +99,8 @@ function colorSideBar() {
         document.getElementById("collapse2").value = "o2";
 		
 	}else if(str == 'eduProgRegisterPage') {
+	
+		reloadStaffName();
 	
 		document.getElementById("color7").classList.add("text-white");
 		document.getElementById("color7").style.backgroundColor = '#014195';
@@ -96,6 +110,8 @@ function colorSideBar() {
 		
 	}else if(str == 'eduMainPageForStaff') {
 	
+		reloadStaffName();
+	
 		document.getElementById("color8").classList.add("text-white");
 		document.getElementById("color8").style.backgroundColor = '#014195';
 		
@@ -103,6 +119,8 @@ function colorSideBar() {
         document.getElementById("collapse3").value = "o3";
 		
 	}else if(str == '0') {
+	
+		reloadStaffName();
 	
 		document.getElementById("color9").classList.add("text-white");
 		document.getElementById("color9").style.backgroundColor = '#014195';
@@ -112,10 +130,14 @@ function colorSideBar() {
 		
 	}else if(window.location.pathname.slice(window.location.pathname.lastIndexOf("/")-2) == 'dy/staffboardPage') {
 	
+		reloadStaffName();
+	
 		document.getElementById("color10").classList.add("text-white");
 		document.getElementById("color10").style.backgroundColor = '#014195';
 		
 	}else if(window.location.pathname.slice(window.location.pathname.lastIndexOf("/")-2) == 'ty/staffboardPage') {
+	
+		reloadStaffName();
 	
 		document.getElementById("color11").classList.add("text-white");
 		document.getElementById("color11").style.backgroundColor = '#014195';
