@@ -12,7 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="../commons/staffTopArea.jsp"></jsp:include>
+	<jsp:include page="../commons/counselorTopArea.jsp"></jsp:include>
 	<div class="container">	
 		<div class="row mt-5" >
 			<div class="col" style="font-weight: bold; font-size: 2.0em;">
