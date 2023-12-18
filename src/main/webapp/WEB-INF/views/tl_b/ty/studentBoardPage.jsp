@@ -63,7 +63,7 @@
                                             </div>
                                             </form>
                                             <div class="row">
-                                                <div class="col text-start" style="font-size: 60%">홈>공지사항</div>
+                                                <div class="col text-start" style="font-size: 60%"><a href="../common/studentMainPage";>홈</a>>공지사항</div>
                                             </div>
 
                                             <div class="row mx-5">
