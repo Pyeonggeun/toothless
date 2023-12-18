@@ -66,13 +66,13 @@ public class RegisterCounselorRestController {
 	@RequestMapping("showCounselorInfoModal")
 	public JinyongRestResponseDto showCounselorInfoModal(int counselorId) {
 		
-		CounselorDto counselorDto =  registerCounselorService.getCounselorInfo(counselorId);
+		Map<String, Object> counselorDetail = registerCounselorService.getCounselorDetailForAJAX(counselorId);
 		
 		
 		JinyongRestResponseDto jinyongRestResponseDto = new JinyongRestResponseDto();
 				
 		jinyongRestResponseDto.setResult("success");
-		jinyongRestResponseDto.setData(counselorDto);
+		jinyongRestResponseDto.setData(counselorDetail);
 		
 		return jinyongRestResponseDto;
 		

@@ -217,10 +217,16 @@ public class RegisterCounselorServiceImpl {
 		CounselorDto counselorDto = registerCounselorSqlMapper.selectCounselorDetailByCounselorId(counselorId);
 		List<Map<String, Object>> counselorTypeList =  registerCounselorSqlMapper.selectCounselorTypeByCounselorId(counselorId);
 		List<LicenseImageDto> counselorLicenseList = registerCounselorSqlMapper.selectLicenseImgByCounselorId(counselorId);
-		// 상담원 전체 카테고리의 총 평점 구해서 가져오기 - 쿼리짜야함
-		// 상담원 전체 카테고리의 상담완료 내역 가져오기 - 쿼리짜야함
+		Map<String, Object> counselorScoreAvg = registerCounselorSqlMapper.selectCounselorAllScoreAvgByCounselorId(counselorId);
+		List<Map<String, Object>> counselList =  registerCounselorSqlMapper.selectCompleteCounselListByCounselorId(counselorId); 
 		
-		return null;
+		counselorDetailForAJAX.put("counselorDto", counselorDto);
+		counselorDetailForAJAX.put("counselorTypeList", counselorTypeList);
+		counselorDetailForAJAX.put("counselorLicenseList", counselorLicenseList);
+		counselorDetailForAJAX.put("counselorScoreAvg", counselorScoreAvg);
+		counselorDetailForAJAX.put("counselList", counselList);
+		
+		return counselorDetailForAJAX;
 	}
 	
 }
