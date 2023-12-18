@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- 좌측메뉴바 -->
-<div class="col-2 text-white px-0 staffleftmenubar" style="background-color: #0C2145; height: 125dvh; box-shadow: 2px 2px 2px gray;">
+<div class="col-2 sticky-top text-white px-0 staffleftmenubar" style="background-color: #0C2145; height: 125dvh; box-shadow: 2px 2px 2px gray;">
 
 	<!-- 접속자 정보 묶음 -->
 	<div class="row text-center my-3">
@@ -61,7 +61,7 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;현장실습과정 등록</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../woojae/staff/ajdksRegistedCompanyPageCCCC'">&gt;&nbsp;현장실습과정 등록</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
@@ -99,22 +99,22 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;교육프로그램 등록</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../guntaek/staff/ajdksRegisterProgram'">&gt;&nbsp;교육프로그램 등록</span>
 					</div>
 				</div>
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;교육프로그램 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../guntaek/staff/ajdksInquiryProgram'">&gt;&nbsp;교육프로그램 조회</span>
 					</div>
 				</div>
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;이수내역 관리</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../guntaek/staff/ajdksManageProgram'">&gt;&nbsp;이수내역 관리</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;리뷰 관리</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../guntaek/staff/ajdksShowProgramReview'">&gt;&nbsp;리뷰 관리</span>
 					</div>
 				</div>
 			</div>

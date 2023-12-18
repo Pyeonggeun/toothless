@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="row">
 	<div class="col">
 		<div class="row text-center">
@@ -8,15 +9,37 @@
                    <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
           	</div>
            	<div class="col-3 ps-0 fw-bold fs-1 text-start ">
-               MK University<span class="fs-6"> | </span> <span class="fs-5">보건센터</span> 
+               MK University<span class="fs-6"> | </span> 
+               <a href="../common/studentMainPage" style="text-decoration-line: none;">
+	               <span class="fs-5 text-black" >
+	               보건센터
+	               </span>
+               </a> 
            	</div>
           	<div class="col-2"></div>
            	<div class="col-1 border-end border-secondary text-end text-secondary mt-5" style="font-size: small">
                포털이용안내
            	</div>
+            
+            
            	<div class="col-1 text-start text-secondary mt-5 "style="font-size: small">
-                <a class="navbar-brand" href="./logoutProcess">로그아웃</a>
+           	<c:choose>
+				<c:when test="${!empty sessionStudentInfo }">
+					<b>${sessionStudentInfo.name }</b><br>
+                	<a class="navbar-brand" href="../../another/student/logoutProcess">로그아웃</a>
+				</c:when>
+				
+				<c:otherwise>
+              	  <a class="navbar-brand" href="../../another/student/loginPage">로그인</a>
+				</c:otherwise>
+			</c:choose>
+			
             </div>
+            
+           	<!-- <div class="col-1 text-start text-secondary mt-5 "style="font-size: small">
+                <a class="navbar-brand" href="./logoutProcess">로그아웃</a>
+            </div> -->
+            
         </div>
 	</div>
 </div>

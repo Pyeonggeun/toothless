@@ -18,10 +18,8 @@
 		</div>
 	 	<%-- 전체 크기 --%>
 		<div class="row">
-			<%-- 왼쪽 여백--%>
-			<div class="col-1"></div>
 			<%-- 취업팀 메뉴 바 --%>
-			<div class="col-1 me-5">
+			<div class="col-2">
 				<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 			</div>
 			<%-- 가운데 여백--%>	
@@ -50,7 +48,14 @@
 						<!-- 기업명 -->
 						<div class="col-2 pe-0">
 							<a class="navbar-brand" href="./companyPostingListForStudentPage?com_pk=${totalInteresting.companyDto.com_pk}">${totalInteresting.companyDto.com_name}</a>
-							<i class="text-danger bi bi-suit-heart"></i>
+							<c:choose>
+								<c:when test="${totalInteresting.interestCompany.contains(totalInteresting.companyDto.com_pk)}">
+									<i class="text-danger bi bi-suit-heart-fill"></i>
+								</c:when>
+								<c:otherwise>
+									<i class="text-danger bi bi-suit-heart"></i>
+								</c:otherwise>
+							</c:choose> 
 						</div>
 						<!-- 공고제목 -->
 						<div class="col-9 ps-0 pt-1">

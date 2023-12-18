@@ -7,10 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +21,8 @@ import com.mkfactory.toothless.b.dto.ItemApplyDto;
 import com.mkfactory.toothless.b.dto.ItemCatDto;
 import com.mkfactory.toothless.b.dto.ItemDto;
 import com.mkfactory.toothless.b.ys.item.service.ItemStaffServiceImpl;
+import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
+import com.mkfactory.toothless.donot.touch.service.StaffServiceImpl;
 
 @Controller
 @RequestMapping("/tl_b/ys/*")
@@ -28,11 +33,7 @@ public class ItemStaffController {
 	
 	@RequestMapping("itemListAndRegistPage")
 	public String itemListAndRegistPage(Model model) {
-	
-		
-		List<Map<String, Object>> list =  itemStaffService.getItemAndCategoryList();
-		
-		
+
 		//테스트 코드
 //		Map<String, Object> map = list.get(0);
 //		
@@ -51,6 +52,8 @@ public class ItemStaffController {
 		//카테고리 리스트
 		model.addAttribute("itemCategoryList",itemStaffService.getCategoryList()); 
 		
+		
+		
 		return "tl_b/ys/itemListAndRegistPage";
 	}
 	
@@ -63,7 +66,7 @@ public class ItemStaffController {
 		
 		if(mainImage != null) {
 			 
-			String rootPath = "C:\\Workspace2\\GitWorkSpace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\healthItem\\";
+			String rootPath = "C:/uploadFiles/mainImage/";
 			
 			// 날짜별 폴더 생성
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
@@ -102,7 +105,8 @@ public class ItemStaffController {
 		}
 	
 	@RequestMapping("itemUpdateAndDeleteDetailPage")
-	public String itemUpdateAndDeleteDetailPage(Model model, int item_pk) {
+	public String itemUpdateAndDeleteDetailPage(Model model, 
+		@RequestParam(name="item_pk", defaultValue = "0") int item_pk) {
 		
 		model.addAttribute("getItem",itemStaffService.getItem(item_pk));
 		
@@ -122,7 +126,7 @@ public class ItemStaffController {
 		System.out.println(params.getImg_link());
 		if(mainImage != null) {
 			 
-			String rootPath = "C:\\Workspace2\\GitWorkSpace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\healthItem\\";
+			String rootPath = "C:/uploadFiles/mainImage/";
 			
 			// 날짜별 폴더 생성
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");

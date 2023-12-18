@@ -12,42 +12,29 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="row">
-		<div class="col"></div>
-		<div class="col-9" style="text-align:center; font-size: 2.2em; color: dark; font-weight: bold">상담 센터</div>
-		<div class="col mt-2" style="text-align: center; font-size: 1.2em; font-weight: bold">
-			상담사 ${sessionExternalInfo.external_id }님
-		</div>
-	</div>
-	<div class="row align-items-center" style="font-weight: bold; font-size: 1.2em; background-color: blue; color:beige; text-align: center;"  >
-		<div class="col-1"></div>		
-		<div class="col">
-			Home
-		</div>
-		<div class="col">
-			공지사항
-		</div>
-		<div class="col">
-			상담
-		</div>
-		<div class="col">
-			<div class="dropdown">
-				<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    	<span style="font-size: 1.4em; font-weight: bold; color: beige;">내 정보</span>
-				</button>
-				<ul class="dropdown-menu" style="background-color: #333;">
-				    <li><a class="dropdown-item" href="#" style="color: beige;">답변 완료 상담</a></li>
-				    <li><a class="dropdown-item" href="#" style="color: beige;">채택 된 상담</a></li>
-				    <li><a class="dropdown-item" href="./logoutProcess" style="color: beige;">로그아웃</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="col-1"></div>
-	</div>
+	<jsp:include page="../commons/staffTopArea.jsp"></jsp:include>
 	<div class="container">	
 		<div class="row mt-5" >
 			<div class="col" style="font-weight: bold; font-size: 2.0em;">
 				상담 목록
+			</div>
+			<div class="col-9"></div>
+			<div class="col">
+				<div class="row" style="font-size: 0.8em; font-weight: bold">
+					<div class="col">
+						<div class="col"><i class="bi bi-check-lg" style="color: red;"></i> : 만족도 조사 미완료</div>
+					</div>
+				</div>
+				<div class="row" style="font-size: 0.8em; font-weight: bold">
+					<div class="col">
+						<div class="col"><i class="bi bi-check-lg" style="color: orange;"></i> : 답변 대기</div>
+					</div>
+				</div>
+				<div class="row" style="font-size: 0.8em; font-weight: bold">
+					<div class="col">
+						<div class="col"><i class="bi bi-check-lg" style="color: green;"></i> : 만족도 조사 완료</div>
+					</div>
+				</div>
 			</div>
 		</div>		
 		<div class="row mt-4">
@@ -76,6 +63,19 @@
 						${mapList.typeCategoryDto.name}
 					</div>
 					<div class="col">
+						<C:if test="${mapList.replyCount ==0 }">
+							<i class="bi bi-check-lg" style="color: orange;"></i>
+						</C:if>
+						<C:if test="${mapList.replyCount > 0 }">
+							<C:choose>
+								<C:when test="${mapList.isSurveyed == 0 }">
+									<i class="bi bi-check-lg" style="color: red;"></i>
+								</C:when>
+								<C:otherwise>
+									<i class="bi bi-check-lg" style="color: green;"></i>
+								</C:otherwise>
+							</C:choose>
+						</C:if>
 						<a style="color: black !important; text-decoration: none !important;" class="link-secondary link-offset-2 link-underline link-underline-opacity-0" href="./counselorOnlineCounselReadCounselPage?counsel_pk=${mapList.onlineCounselBoardDto.id }">
 							${mapList.onlineCounselBoardDto.title }
 							<C:if test="${mapList.replyCount != 0}">

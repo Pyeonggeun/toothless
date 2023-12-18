@@ -18,10 +18,8 @@
 		</div>
 	 	<%-- 전체 크기 --%>
 		<div class="row">
-			<%-- 왼쪽 여백--%>
-			<div class="col-1"></div>
 			<%-- 취업팀 메뉴 바 --%>
-			<div class="col-1 me-5">
+			<div class="col-2">
 				<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 			</div>
 			<%-- 가운데 여백--%>	
@@ -45,7 +43,14 @@
 										<div class="col-1"><span class="badge text-bg-info text-white">Family</span></div>
 									</c:if>
 									<div class="col ps-2">${jobPostingDetailForStudent.companyDto.com_name}
-									<i class="text-danger bi bi-suit-heart"></i></div>
+									<c:choose>
+										<c:when test="${jobPostingDetailForStudent.interestCompany.contains(jobPostingDetailForStudent.companyDto.com_pk)}">
+											<i class="text-danger bi bi-suit-heart-fill"></i>
+										</c:when>
+										<c:otherwise>
+											<i class="text-danger bi bi-suit-heart"></i>
+										</c:otherwise>
+									</c:choose> 
 								</div>
 								<!-- 공고제목 -->
 								<div class="row mt-1">
@@ -190,6 +195,9 @@
 						<c:choose>
 							<c:when test="${jobPostingDetailForStudent.endPostingList.contains(jobPostingDetailForStudent.jobPostingDto.job_posting_pk)}">
 								<button class="btn btn-dark" disabled>채용마감</button>
+							</c:when>
+							<c:when test="${jobPostingDetailForStudent.myApplyPostingList.contains(jobPostingDetailForStudent.jobPostingDto.job_posting_pk)}">
+								<button class="btn btn-dark" disabled>지원완료</button>
 							</c:when>
 							<c:when test="${empty sessionStudentInfo}">
 								<button class="btn btn-dark" disabled>지원하기</button>

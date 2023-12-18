@@ -56,7 +56,396 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 	text-decoration: none;
 	color: #000000;
 }
+/*seoyoung style*/
+.relative-padding {
+	padding-left: 0.5em; /* Adjust the value as needed */
+	padding-right: 0.5em; /* Adjust the value as needed */
+}
+
+.reduce-font-size {
+	font-size: 0.9em; /* Adjust the value as needed */
+}
 </style>
+<!-- Bootstrap JS -->
+
+<script>
+
+const student_pk = ${sessionStudentInfo.student_pk};
+	function reloadcompanyList(){
+        
+        const url = "./companyListBox";
+        //const url = "https://www.naver.com";
+        
+        fetch(url)
+        .then(response => response.json())
+        .then(response => {
+           
+      	  console.log(response);
+           const companyListBox = document.getElementById("companyListBox");
+           companyListBox.innerHTML = "";
+           
+           for(e of response.data){
+              const companyListWrapper = document.querySelector("#companyListTemplete .companyListWrapper").cloneNode(true);
+              
+              const INTERNSHIP_COURSE_PK = companyListWrapper.querySelector(".INTERNSHIP_COURSE_PK");
+              INTERNSHIP_COURSE_PK.innerText = e.INTERNSHIP_COURSE_PK;
+              
+              const COMPANY_CATEGORY_NAME = companyListWrapper.querySelector(".COMPANY_CATEGORY_NAME");
+              COMPANY_CATEGORY_NAME.innerText = e.COMPANY_CATEGORY_NAME;
+              
+              const COMPANY_NAME = companyListWrapper.querySelector(".COMPANY_NAME");
+              COMPANY_NAME.innerText = e.COMPANY_NAME;
+              
+              const ADDRESS = companyListWrapper.querySelector(".ADDRESS");
+              ADDRESS.innerText = e.ADDRESS;
+              
+              const INTERNSHIP_START_DATE = companyListWrapper.querySelector(".INTERNSHIP_START_DATE");
+              const date = new Date(e.INTERNSHIP_START_DATE); 
+              const formattedStartDate = date.getFullYear() + "-" + padZero(date.getMonth() + 1) + "-" + padZero(date.getDate()) +
+                " " + padZero(date.getHours()) + ":" + padZero(date.getMinutes()) + " ~ ";
+              INTERNSHIP_START_DATE.innerText = formattedStartDate;
+              
+              const INTERNSHIP_END_DATE = companyListWrapper.querySelector(".INTERNSHIP_END_DATE");
+              const date2 = new Date(e.INTERNSHIP_END_DATE); 
+              const formattedEndDate = date2.getFullYear() + "-" + padZero(date2.getMonth() + 1) + "-" + padZero(date2.getDate()) +
+                " " + padZero(date2.getHours()) + ":" + padZero(date2.getMinutes());
+              INTERNSHIP_END_DATE.innerText = formattedEndDate;
+              
+              const APPLYING_END_DATE = companyListWrapper.querySelector(".APPLYING_END_DATE");
+              const date3 = new Date(e.APPLYING_END_DATE); 
+              const formattedApplyEndDate = date3.getFullYear() + "-" + padZero(date3.getMonth() + 1) + "-" + padZero(date3.getDate()) +
+                " " + padZero(date3.getHours()) + ":" + padZero(date3.getMinutes());
+                APPLYING_END_DATE.innerText = formattedApplyEndDate;
+
+              function padZero(number) {
+                return number < 10 ? "0" + number : number;
+              }
+
+              const INTERNSHIP_TOTAL_MEMBER = companyListWrapper.querySelector(".INTERNSHIP_TOTAL_MEMBER");
+              INTERNSHIP_TOTAL_MEMBER.innerText = e.INTERNSHIP_TOTAL_MEMBER;
+              
+              
+              const viewButton = companyListWrapper.querySelector(".viewButton");
+              viewButton.innerText = "상세보기";
+              viewButton.classList.add("btn", "btn-sm", "rounded-1", "open-Modal");
+              viewButton.setAttribute("onclick", "openModal("+e.INTERNSHIP_COURSE_PK+")");
+			
+              companyListBox.appendChild(companyListWrapper);
+           }
+        });   
+     }
+	
+	function openModal(itemPk) {
+	
+		const modal = bootstrap.Modal.getOrCreateInstance("#internEvaluationModal");
+        
+        const companyListWrapper = document.querySelector("#internEvaluationModal .companyListWrapper");
+		const aaa = document.querySelector("#internEvaluationModal .aaa");
+        
+		
+        const url = "./companyListModal?pk="+itemPk;
+        fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const modalValues = response.data;
+            console.log(modalValues.INTERNSHIP_COURSE_PK);
+			
+
+            const INTERNSHIP_COURSE_PK = companyListWrapper.querySelector(".INTERNSHIP_COURSE_PK");
+            INTERNSHIP_COURSE_PK.innerText = modalValues.INTERNSHIP_COURSE_PK;
+            
+            const COMPANY_NAME = companyListWrapper.querySelector(".COMPANY_NAME");
+            COMPANY_NAME.innerText = modalValues.COMPANY_NAME;
+            
+            const SEMESTER_QUALIFICATION = companyListWrapper.querySelector(".SEMESTER_QUALIFICATION");
+            SEMESTER_QUALIFICATION.innerText = modalValues.SEMESTER_QUALIFICATION;
+            
+            
+            const COURSE_TITLE = companyListWrapper.querySelector(".COURSE_TITLE");
+            COURSE_TITLE.innerText = modalValues.COURSE_TITLE;
+            
+            const CEO_NAME = companyListWrapper.querySelector(".CEO_NAME");
+            CEO_NAME.innerText = modalValues.CEO_NAME;
+            
+            const INTERNSHIP_TOTAL_MEMBER = companyListWrapper.querySelector(".INTERNSHIP_TOTAL_MEMBER");
+            INTERNSHIP_TOTAL_MEMBER.innerText = modalValues.INTERNSHIP_TOTAL_MEMBER;
+            
+            const ADDRESS = companyListWrapper.querySelector(".ADDRESS");
+            ADDRESS.innerText = modalValues.ADDRESS;
+            
+            const INTERNSHIP_START_DATE = companyListWrapper.querySelector(".INTERNSHIP_START_DATE");
+            const date = new Date(e.INTERNSHIP_START_DATE); 
+            const formattedStartDate = date.getFullYear() + "-" + padZero(date.getMonth() + 1) + "-" + padZero(date.getDate()) +
+              " " + padZero(date.getHours()) + ":" + padZero(date.getMinutes()) + "  ~ ";
+            INTERNSHIP_START_DATE.innerText = formattedStartDate;
+            
+            const INTERNSHIP_END_DATE = companyListWrapper.querySelector(".INTERNSHIP_END_DATE");
+            const date2 = new Date(e.INTERNSHIP_END_DATE); 
+            const formattedEndDate6 = date2.getFullYear() + "-" + padZero(date2.getMonth() + 1) + "-" + padZero(date2.getDate()) +
+              " " + padZero(date2.getHours()) + ":" + padZero(date2.getMinutes());
+            INTERNSHIP_END_DATE.innerText = formattedEndDate6;
+
+            const APPLYING_START_DATE = companyListWrapper.querySelector(".APPLYING_START_DATE");
+            const date3 = new Date(e.APPLYING_START_DATE); 
+            const formattedStartDate2 = date3.getFullYear() + "-" + padZero(date3.getMonth() + 1) + "-" + padZero(date3.getDate()) +
+              " " + padZero(date3.getHours()) + ":" + padZero(date3.getMinutes()) + "  ~ ";
+              APPLYING_START_DATE.innerText = formattedStartDate2;
+            
+            const APPLYING_END_DATE = companyListWrapper.querySelector(".APPLYING_END_DATE");
+            const date4 = new Date(e.APPLYING_END_DATE); 
+            const formattedEndDate3 = date4.getFullYear() + "-" + padZero(date4.getMonth() + 1) + "-" + padZero(date4.getDate()) +
+              " " + padZero(date4.getHours()) + ":" + padZero(date4.getMinutes());
+              APPLYING_END_DATE.innerText = formattedEndDate3;
+            
+            const ANNOUNCEMENT_DATE = companyListWrapper.querySelector(".ANNOUNCEMENT_DATE");
+            const date5 = new Date(e.ANNOUNCEMENT_DATE); 
+            const formattedEndDate4 = date5.getFullYear() + "-" + padZero(date5.getMonth() + 1) + "-" + padZero(date5.getDate()) +
+              " " + padZero(date5.getHours()) + ":" + padZero(date5.getMinutes());
+            ANNOUNCEMENT_DATE.innerText = formattedEndDate4;  
+              
+                
+            const CREATED_AT = companyListWrapper.querySelector(".CREATED_AT");
+            const date6 = new Date(e.CREATED_AT); 
+            const formattedEndDate5 = date6.getFullYear() + "-" + padZero(date6.getMonth() + 1) + "-" + padZero(date6.getDate()) +
+              " " + padZero(date6.getHours()) + ":" + padZero(date6.getMinutes());
+              CREATED_AT.innerText = formattedEndDate5;      
+            
+            function padZero(number) {
+                return number < 10 ? "0" + number : number;
+              }
+            
+            
+            const viewButton = aaa.querySelector(".viewButton2");
+            console.log(viewButton);
+            viewButton.value = "다음";
+            viewButton.classList.add("btn", "btn-primary", "rounded-1", "open-Modal");
+            viewButton.setAttribute("onclick", "openModal2("+e.INTERNSHIP_COURSE_PK+")");
+            
+
+		});
+        //console.log(companyListWrapper);
+        modal.show();
+        
+    	
+    	
+	}
+	
+	function openModal2(itemPk) {
+		const modal = bootstrap.Modal.getOrCreateInstance("#nextModal");
+	  
+        fetch("./companyTF")
+        .then(response => response.json())
+        .then(response => {
+        	console.log(response.data);
+        	const modalValues = response.data;
+        	if (modalValues == "yes") {
+    		    console.log("결과: yes");
+    		    const applyButton = document.getElementById("applyButton");
+    		    applyButton.setAttribute("onclick", "studentApplyProcess("+e.INTERNSHIP_COURSE_PK+")");
+    		} else {
+    		    failModal();
+    		    modal.hide();
+    		    console.log("결과: no");
+    		}
+     
+        });
+        
+		modal.show();
+		//modal.hide();
+	}
+	
+	function studentApplyProcess(itemPk){
+		//const modalValues = response.data;
+       // console.log(modalValues.INTERNSHIP_COURSE_PK);
+		
+		const url = "./insertInternApply"
+			
+			fetch(url,{
+				method: "post",
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded"
+				},
+				body: "student_pk=" + student_pk
+				+ "&internship_course_pk=" + itemPk
+			})
+			.then(response => response.json())
+			.then(response => {
+				
+				
+				reloadcompanyList();
+				
+				alert("신청완료되었습니다.");
+				closeopenModal2();
+
+			})
+			;
+		}
+	function failModal() {
+		const modal = bootstrap.Modal.getOrCreateInstance("#failModal");    
+        const companyListWrapper = document.querySelector("#failModal .companyListWrapper");
+        modal.show();
+        setTimeout(function() {
+            closeModal();
+        }, 0);
+	//	modal.hide();
+	}
+	
+	function searchAppButton(){
+		const modal = bootstrap.Modal.getOrCreateInstance("#searchCompany");
+        
+        const url = "./companyListModal?pk="+itemPk;
+        fetch(url)
+		.then(response => response.json())
+		.then(response => {
+		})
+		;
+	}
+	
+	function searchByCompany(){
+		console.log("searchByCompany() 실행");
+				
+		const inputCategory = document.getElementById("inputCategory").value;	
+		const searchCompanyWord = document.getElementById("searchCompanyWord").value;
+		
+		
+		console.log(inputCategory);
+		console.log(searchCompanyWord);
+		
+		
+		const url = "./searchCompany";
+		const searchOption = {
+				method : "post",
+				headers : {
+					"Content-Type" : "application/x-www-form-urlencoded"
+				},
+				body : "company_category_pk=" +  inputCategory + "&searchCompanyWord=" + searchCompanyWord
+		}
+		fetch(url, searchOption)
+		.then(response => response.json())
+		.then(response =>{			
+			searchData = response.data;
+			console.log(searchData);
+			console.log(response);
+			
+			const companyListBox = document.getElementById("companyListBox");
+	           companyListBox.innerHTML = "";
+	           
+	           for(e of response.data){
+	              const companyListWrapper = document.querySelector("#companyListTemplete .companyListWrapper").cloneNode(true);
+	              
+	              const INTERNSHIP_COURSE_PK = companyListWrapper.querySelector(".INTERNSHIP_COURSE_PK");
+	              INTERNSHIP_COURSE_PK.innerText = e.INTERNSHIP_COURSE_PK;
+	              
+	              const COMPANY_CATEGORY_NAME = companyListWrapper.querySelector(".COMPANY_CATEGORY_NAME");
+	              COMPANY_CATEGORY_NAME.innerText = e.COMPANY_CATEGORY_NAME;
+	              
+	              const COMPANY_NAME = companyListWrapper.querySelector(".COMPANY_NAME");
+	              COMPANY_NAME.innerText = e.COMPANY_NAME;
+	              
+	              const ADDRESS = companyListWrapper.querySelector(".ADDRESS");
+	              ADDRESS.innerText = e.ADDRESS;
+	              
+	              const INTERNSHIP_START_DATE = companyListWrapper.querySelector(".INTERNSHIP_START_DATE");
+	              const date = new Date(e.INTERNSHIP_START_DATE); 
+	              const formattedStartDate = date.getFullYear() + "-" + padZero(date.getMonth() + 1) + "-" + padZero(date.getDate()) +
+	                " " + padZero(date.getHours()) + ":" + padZero(date.getMinutes()) + " ~ ";
+	              INTERNSHIP_START_DATE.innerText = formattedStartDate;
+	              
+	              const INTERNSHIP_END_DATE = companyListWrapper.querySelector(".INTERNSHIP_END_DATE");
+	              const date2 = new Date(e.INTERNSHIP_END_DATE); 
+	              const formattedEndDate = date2.getFullYear() + "-" + padZero(date2.getMonth() + 1) + "-" + padZero(date2.getDate()) +
+	                " " + padZero(date2.getHours()) + ":" + padZero(date2.getMinutes());
+	              INTERNSHIP_END_DATE.innerText = formattedEndDate;
+	              
+	              const APPLYING_END_DATE = companyListWrapper.querySelector(".APPLYING_END_DATE");
+	              const date3 = new Date(e.APPLYING_END_DATE); 
+	              const formattedApplyEndDate = date3.getFullYear() + "-" + padZero(date3.getMonth() + 1) + "-" + padZero(date3.getDate()) +
+	                " " + padZero(date3.getHours()) + ":" + padZero(date3.getMinutes());
+	                APPLYING_END_DATE.innerText = formattedApplyEndDate;
+
+	              function padZero(number) {
+	                return number < 10 ? "0" + number : number;
+	              }
+
+	              const INTERNSHIP_TOTAL_MEMBER = companyListWrapper.querySelector(".INTERNSHIP_TOTAL_MEMBER");
+	              INTERNSHIP_TOTAL_MEMBER.innerText = e.INTERNSHIP_TOTAL_MEMBER;
+	              
+	              
+	              const viewButton = companyListWrapper.querySelector(".viewButton");
+	              viewButton.innerText = "상세보기";
+	              viewButton.classList.add("btn", "btn-sm", "rounded-1", "open-Modal");
+	              viewButton.setAttribute("onclick", "openModal("+e.INTERNSHIP_COURSE_PK+")");
+				
+	              companyListBox.appendChild(companyListWrapper);
+	           }
+			
+		//	processSearchData(searchData);
+		});
+		
+	}
+		
+		
+		
+		function pressEnter(){
+	    	if(window.event.keyCode == 13){
+	    		searchByCompany();
+	    	}
+	    }
+	
+    function closeModal() {
+    	const modal = bootstrap.Modal.getOrCreateInstance("#internEvaluationModal");
+        modal.hide();
+	}
+    
+    function closeModalfail() {
+        const modal = bootstrap.Modal.getOrCreateInstance("#failModal");
+        modal.hide();
+    }
+    
+    function closeopenModal2() {
+    	//closeModal();
+    	const modal = bootstrap.Modal.getOrCreateInstance("#internEvaluationModal");
+    	const modal2 = bootstrap.Modal.getOrCreateInstance("#nextModal");
+        modal.hide();
+        modal2.hide();
+	}
+	
+	
+    function reloadWhichList(){
+    	
+		fetch("./companyListBox")
+		.then(response => response.json())
+		.then(response => {
+			reloadcompanyList();
+		});
+		
+	}
+    
+	function ajdksInterneduApplyPage(){
+		fetch("./ajdksInterneduApplyPage")
+		.then(response => response.json())
+		.then(response => {
+			const studentPk = response.data;
+		});
+	}
+	
+	function CompanyList() {
+		const url = "ajdksInterneduApplyPage" + company_Pk;
+	}
+	
+	function reloadSearchTypeCategory(){
+		
+		
+	}
+	
+
+	window.addEventListener("DOMContentLoaded", () => {
+		reloadcompanyList();
+		//reloadWhichList();
+	});
+
+</script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -89,291 +478,255 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 							</div>
 							<br>
 
-							<form>
-								<nav class="navbar navbar-light">
-									<div class="col">
-										<div class="row ms-3 mt-3 me-3 mb-3">
-											<div class="col-2 px-0">
-												<select class="form-select" id="inputCategory">
-													<option selected>업종 선택</option>
-													<option value="1">제조업</option>
-													<option value="2">건설업</option>
-													<option value="3">정보통신업</option>
-													<option value="4">금융업</option>
-													<option value="5">부동산업</option>
-												</select>
-											</div>
-											<div class="input-group col px-0 ">
-												<input class="form-control" type="search"
-													placeholder="Search" aria-label="Search">
-												<button class="input-group-prepend btn btn-primary btn-outline-light" style="background-color: #CFE2FF;" >
-													<i class="bi bi-search" ></i>
-												</button>
+							<nav class="navbar navbar-light" id="searchCompany"
+								style="background-color: #CFE2FF;">
+								<div class="col">
+									<div class="row ms-3 mt-3 me-3 mb-3">
+										<div class="col-2 px-0">
+											<select class="form-select" id="inputCategory">
+												<option selected value=0>업종 선택</option>
+												<option value=1>제조업</option>
+												<option value=2>건설업</option>
+												<option value=3>정보통신업</option>
+												<option value=4>금융업</option>
+												<option value=5>부동산업</option>
+											</select>
+										</div>
+										<div class="input-group col px-0 ">
+											<input id="searchCompanyWord" onkeyup="pressEnter()"
+												type="text" class="form-control btn-outline-light">
+											<a href="#" onclick="searchByCompany()" role="button"
+												class="btn btn-primary  btn-outline-light"> <i
+												class="bi bi-search"></i></a>
+										</div>
 
+									</div>
+									<div class="row mt-4">
+										<div class="col">
+											<div class="row">
+												<div class="col-auto">
+													<span class="fw-bold align-middle">세부검색</span>
+												</div>
+												<div class="searchCategoryCheckBox col-auto"></div>
 											</div>
-
 										</div>
 									</div>
+								</div>
 
-								</nav>
-							</form>
+							</nav>
+
+
 							<br>
-							<div class="row text-center">
-								<table class="table text-center align-middle ">
-									<thead class="table-primary">
-										<tr>
-											<th scope="col">#</th>
-											<th scope="col">업종</th>
-											<th scope="col">회사명</th>
-											<th scope="col">소재지</th>
-											<th scope="col">실습기간</th>
-											<th scope="col">모집기간</th>
-											<th scope="col">접수마감</th>
-											<th scope="col">자격요건</th>
-											<th scope="col">선발인원</th>
-											<th scope="col">&nbsp;지원</th>
-										</tr>
-									</thead>
-									<tbody>
-
-										<c:forEach items="${list}" var="companyList">
-											<tr>
-												<th scope="row">${companyList.INTERNSHIP_COURSE_PK}</th>
-												<th scope="row">${companyList.COMPANY_CATEGORY_NAME}</th>
-												<th scope="row">${companyList.COMPANY_NAME}</th>
-												<th scope="row">${companyList.ADDRESS}</th>
-												<th><fmt:formatDate
-														value="${companyList.INTERNSHIP_START_DATE}"
-														pattern="yyyy-MM-dd hh:mm" /> ~ <br> <fmt:formatDate
-														value="${companyList.INTERNSHIP_END_DATE}"
-														pattern="yyyy-MM-dd hh:mm" /></th>
-												<th><fmt:formatDate
-														value="${companyList.APPLYING_START_DATE}"
-														pattern="yyyy-MM-dd hh:mm" /> ~ <br> <fmt:formatDate
-														value="${companyList.APPLYING_END_DATE}"
-														pattern="yyyy-MM-dd hh:mm" /></th>
-												<th><fmt:formatDate
-														value="${companyList.ANNOUNCEMENT_DATE}"
-														pattern="yyyy-MM-dd hh:mm" /></th>
-												<th scope="row">${companyList.SEMESTER_QUALIFICATION}학년</th>
-												<th scope="row">${companyList.INTERNSHIP_TOTAL_MEMBER}명</th>
-												<td scope="row">
-													<div class="modal modal-fullscreen"
-														id="exampleModalToggle?internship_course_pk=${companyList.INTERNSHIP_COURSE_PK}"
-														aria-hidden="true"
-														aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-														<div class="modal-dialog modal-fullscreen">
-															<div class="modal-content ">
-																<div class="modal-header">
-																	<h5 class="modal-title" id="exampleModalToggleLabel">현장학습신청</h5>
-																	<button type="button" class="btn-close"
-																		data-bs-dismiss="modal" aria-label="Close"></button>
-																</div>
-																<div class="modal-body">
-																	<div class="card">
-																		<img
-																			src="../../../resources/img/companyImage/company1.jpg"
-																			class="card-img-top" alt="...">
-																		<div class="card-body">
-																			<h4 class="card-title fw-bolder">${companyList.COMPANY_NAME}</h4>
-																			<p class="card-text">
-																			<table class="table">
-																				<thead>
-																					<tr>
-																						<th scope="col">과정명</th>
-																						<td class="text-start"><span
-																							class="text-muted ">${companyList.COURSE_TITLE}</span></td>
-																						<th scope="col">자격조건</th>
-																						<td class="text-start"><span
-																							class="text-muted">${companyList.SEMESTER_QUALIFICATION}
-																								학년 &nbsp;</span></td>
-																					</tr>
-																				</thead>
-																				<tbody>
-																					<tr>
-																						<th scope="col">대표자명</th>
-																						<td class="text-start"><span
-																							class="text-muted ">${companyList.CEO_NAME}</span></td>
-																						<th scope="col">실습인원</th>
-																						<td class="text-start"><span
-																							class="text-muted">${companyList.INTERNSHIP_TOTAL_MEMBER}
-																								명 &nbsp;</span></td>
-																					</tr>
-																					<tr>
-																						<th scope="row">주소</th>
-																						<td class="text-start"><span
-																							class="text-muted">${companyList.ADDRESS}</span></td>
-
-																					</tr>
-																					<tr>
-																						<th scope="col">선발방법</th>
-																						<td class="text-start"><span
-																							class="text-muted">MK 학생만 선발</span></td>
-																					</tr>
-																					<tr>
-																						<th scope="col">운형유형</th>
-																						<td class="text-start"><span
-																							class="text-muted">채용연계형</span></td>
-																					</tr>
-																					<tr>
-																						<th scope="col">실습기간</th>
-																						<td class="text-start"><span
-																							class="text-muted"><fmt:formatDate
-																									value="${companyList.INTERNSHIP_START_DATE}"
-																									pattern="yyyy-MM-dd" /> ~ <fmt:formatDate
-																									value="${companyList.INTERNSHIP_END_DATE}"
-																									pattern="yyyy-MM-dd" /></span></td>
-																						<th scope="col">정규실습 시간</th>
-																						<td class="text-start"><span
-																							class="text-muted"><fmt:formatDate
-																									value="${companyList.INTERNSHIP_START_DATE}"
-																									pattern="hh:mm" /> ~ <fmt:formatDate
-																									value="${companyList.INTERNSHIP_END_DATE}"
-																									pattern="hh:mm" /></span></td>
-																					</tr>
-																					<tr>
-																						<th scope="col">실습요일</th>
-																						<td class="text-start"><span
-																							class="text-muted">주 5일</span></td>
-																					</tr>
-																					<tr>
-																						<th scope="col">전형방법</th>
-																						<td class="text-start"><span
-																							class="text-muted">면접선발</span></td>
-																					</tr>
-																					<tr>
-																						<th scope="col">모집기간</th>
-																						<td class="text-start"><span
-																							class="text-muted"><fmt:formatDate
-																									value="${companyList.APPLYING_START_DATE}"
-																									pattern="yyyy.MM.dd hh:mm" /> ~ <fmt:formatDate
-																									value="${companyList.APPLYING_END_DATE}"
-																									pattern="yyyy-MM-dd hh:mm" /></span></td>
-																					</tr>
-																					<tr>
-																						<th scope="col">선발결과발표일</th>
-																						<td class="text-start"><span
-																							class="text-muted"><fmt:formatDate
-																									value="${companyList.ANNOUNCEMENT_DATE}"
-																									pattern="yyyy-MM-dd hh:mm" /></span></td>
-																					</tr>
-																					<tr>
-																						<th scope="col">등록일자</th>
-																						<td class="text-start"><span
-																							class="text-muted"><fmt:formatDate
-																									value="${companyList.CREATED_AT}"
-																									pattern="yyyy-MM-dd hh:mm" /></span></td>
-																					</tr>
-
-																				</tbody>
-
-																			</table>
-
-																			<p class="card-text">
-																				<small class="text-muted">MK University</small>
-																			</p>
-
-																		</div>
-																	</div>
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-bs-dismiss="modal">닫기</button>
-																	<a class="btn bbtn btn-primary" data-bs-toggle="modal"
-																		href="#exampleModalToggle2?internship_course_pk=${companyList.INTERNSHIP_COURSE_PK}"
-																		role="button">다음</a>
-																</div>
-															</div>
-														</div>
-													</div>
-													<form action="./studentApplyProcess" method="get">
-
-														<input name="internship_course_pk" type="hidden"
-															value="${companyList.INTERNSHIP_COURSE_PK}"> <input
-															name="student_pk" type="hidden"
-															value="${sessionStudentInfo.student_pk}">
-
-														<div class="modal fade"
-															id="exampleModalToggle2?internship_course_pk=${companyList.INTERNSHIP_COURSE_PK}"
-															aria-hidden="true"
-															aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-															<div class="modal-dialog modal-dialog-centered">
-																<div class="modal-content">
-																	<div class="modal-header">
-																		<h5 class="modal-title" id="exampleModalToggleLabel2">현장학습신청</h5>
-																		<button type="button" class="btn-close"
-																			data-bs-dismiss="modal" aria-label="Close"></button>
-																	</div>
-																	<div class="modal-body">
-																		신청하시겠습니까?</br> *신청 하시면 결과 발표 때까지 지원이 불가 합니다.
-																	</div>
-																	<c:if test="${tf eq 'yes'}">
-																		<div class="modal-footer">
-																			<button type="button" class="btn btn-secondary"
-																				data-bs-dismiss="modal">뒤로가기</button>
-																			<button type="submit" class="btn btn-primary">신청</button>
-																		</div>
-																	</c:if>
-																	<c:if test="${tf eq 'no'}">
-																		<div class="modal-footer">
-																			<button type="button" class="btn btn-secondary"
-																				data-bs-dismiss="modal">뒤로가기</button>
-																			<a class="btn btn-primary" data-bs-toggle="modal"
-																				href="#exampleModalToggle3" role="button">신청</a>
-																		</div>
-																	</c:if>
-
-
-																</div>
-
-															</div>
-
-														</div>
-														<div class="modal fade " id="exampleModalToggle3"
-															aria-hidden="true"
-															aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
-															<div class="modal-dialog">
-																<div class="modal-content">
-																	<div class="modal-header">
-																		<h5 class="modal-title" id="exampleModalToggleLabel2">현장학습신청</h5>
-																		<button type="button" class="btn-close"
-																			data-bs-dismiss="modal" aria-label="Close"></button>
-																	</div>
-																	<div class="modal-body">
-																		<p>이미 신청한 내역이 있습니다.</p>
-																	</div>
-																	<div class="modal-footer">
-																		<button type="button" class="btn btn-secondary"
-																			data-bs-dismiss="modal">닫기</button>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<a class="btn btn btn-light" data-bs-toggle="modal"
-															href="#exampleModalToggle?internship_course_pk=${companyList.INTERNSHIP_COURSE_PK}"
-															role="button">상세보기</a>
-													</form>
-												</td>
-											<tr>
-										</c:forEach>
-									</tbody>
-								</table>
-
+							<!-- 컴퍼니 리스트 -->
+							<div class="row mt-2" style="height: 18em">
+								<div class="col border-secondary border-top text-center">
+									<div class="row text-center py-1 border-botton"
+										style="height: 50px; background-color: #CFE2FF; font-weight: bold;">
+										<div class="col align-self-center">#</div>
+										<div class="col-2 align-self-center">업종</div>
+										<div class="col-2 align-self-center">회사명</div>
+										<div class="col-2 align-self-center">소재지</div>
+										<div class="col-2 text-center align-self-center">실습기간</div>
+										<div class="col align-self-center">접수마감</div>
+										<div class="col align-self-center">선발인원</div>
+										<div class="col align-self-center">지원</div>
+									</div>
+									<div class="row">
+										<div id="companyListBox" class="col mt-2 text-center"></div>
+									</div>
+								</div>
 							</div>
-
 						</div>
-
-
-
-
-
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
 
+	<!--컴퍼니 리스트 -->
+	<div id="companyListTemplete" class="d-none">
+
+
+		<div class="companyListWrapper row text-center py-1 border-bottom"
+			style="font-size: 0.95em">
+			<div
+				class="INTERNSHIP_COURSE_PK col align-self-center fw-semibold border-end">
+				INTERNSHIP_COURSE_PK 확인</div>
+			<div
+				class="COMPANY_CATEGORY_NAME col-2 align-self-center fw-semibold border-end relative-padding reduce-font-size">
+				COMPANY_CATEGORY_NAME 확인</div>
+			<div
+				class="COMPANY_NAME col-2 align-self-center border-end relative-padding reduce-font-size">
+				COMPANY_NAME 확인</div>
+			<div
+				class="ADDRESS col-2 align-self-center border-end relative-padding reduce-font-size">
+				ADDRESS 확인</div>
+			<div class="col-2 align-self-center text-center">
+				<div
+					class="INTERNSHIP_START_DATE row d-flex justify-content-center align-items-center relative-padding reduce-font-size">
+					INTERNSHIP_START_DATE</div>
+				<div
+					class="INTERNSHIP_END_DATE row d-flex justify-content-center align-items-center relative-padding reduce-font-size">
+					INTERNSHIP_END_DATE 확인</div>
+			</div>
+			<div class="APPLYING_END_DATE col align-self-center reduce-font-size">
+				ANNOUNCEMENT_DATE 확인</div>
+			<div
+				class="INTERNSHIP_TOTAL_MEMBER col align-self-center reduce-font-size">
+				INTERNSHIP_TOTAL_MEMBER 확인</div>
+			<div class="col">
+				<span class="viewButton"></span>
+			</div>
 		</div>
 
 	</div>
+
+	<!-- 상세 모달 -->
+	<div id="internEvaluationModal" class="modal">
+		<div class=" modal-dialog modal-fullscreen">
+			<div class="modal-content px-3 rounded-0">
+				<div class="modal-header mt-1">
+					<h5 class="modal-title fw-semibold" id="exampleModalToggleLabel">현장학습신청</h5>
+					<span onclick="closeModalfail()" class="close text-secondary fs-4"
+						id="close-modal"><i class="bi bi-x-lg"></i></span>
+				</div>
+				<div class="modal-body">
+					<div class="card">
+						<img src="../../../resources/img/companyImage/company1.jpg"
+							class="card-img-top" alt="...">
+						<div class="companyListWrapper 	card-body">
+							<div
+								class="COMPANY_NAME card-title fw-bolder align-self-center border-end relative-padding reduce-font-size">확인
+							</div>
+							<div></div>
+							<p class="card-text">
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col">과정명</th>
+										<td class="COURSE_TITLE text-start"><span
+											class="text-muted "></span></td>
+										<th scope="col">자격조건</th>
+										<td class="SEMESTER_QUALIFICATION col-1 text-end"></td>
+										<td class="col text-start"><span class="text-muted">학년&nbsp;</span></td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="col">코드번호</th>
+										<td class="INTERNSHIP_COURSE_PK text-start"></td>
+									</tr>
+									<tr>
+										<th scope="col">대표자명</th>
+										<td class="CEO_NAME text-start"></td>
+										<th scope="col">실습인원</th>
+										<td class="INTERNSHIP_TOTAL_MEMBER col text-end"></td>
+										<td class="col text-start"><span class="text-muted">명&nbsp;</span></td>
+									</tr>
+									<tr>
+										<th scope="row">주소</th>
+										<td class="ADDRESS text-start">ADDRESS</td>
+
+									</tr>
+									<tr>
+										<th scope="col">선발방법</th>
+										<td class="text-start"><span class="text-muted">MK
+												학생만 선발</span></td>
+									</tr>
+									<tr>
+										<th scope="col">운형유형</th>
+										<td class="text-start"><span class="text-muted">채용연계형</span></td>
+									</tr>
+									<tr>
+										<th scope="col">실습기간</th>
+										<td class="INTERNSHIP_START_DATE col-3 text-end"></td>
+										<td class="INTERNSHIP_END_DATE col-3 text-start"></td>
+									</tr>
+									<tr>
+										<th scope="col">실습요일</th>
+										<td class="text-start"><span class="text-muted">주
+												5일</span></td>
+									</tr>
+									<tr>
+										<th scope="col">전형방법</th>
+										<td class="text-start"><span class="text-muted">면접선발</span></td>
+									</tr>
+									<tr>
+										<th scope="col">모집기간</th>
+										<td class="APPLYING_START_DATE col text-end"></td>
+										<td class="APPLYING_END_DATE col text-start"></td>
+									</tr>
+									<tr>
+										<th scope="col">선발결과발표일</th>
+										<td class="ANNOUNCEMENT_DATE col text-start"></td>
+									</tr>
+									<tr>
+										<th scope="col">등록일자</th>
+										<td class="CREATED_AT col text-start"></td>
+									</tr>
+								</tbody>
+							</table>
+							<p class="card-text">
+								<small class="text-muted">MK University</small>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="aaa modal-footer text-end">
+					<div class="col text-end">
+						<button type="button" class="btn text-end btn-secondary "
+							data-bs-dismiss="modal">닫기</button>
+						<input type="button" class="viewButton2">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- [다음]버튼 모달 -->
+	<div id="nextModal" class="modal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalToggleLabel2">현장학습신청</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					신청하시겠습니까?<br> *신청 하시면 결과 발표 때까지 지원이 불가 합니다.
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-danger"
+						data-bs-dismiss="modal">취소</button>
+					<button type="button" id="applyButton" class="btn btn-primary">신청</button>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	<!-- 이미 신청 내역 있 모달 -->
+	<div class="modal fade " id="failModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalToggleLabel2">현장학습신청</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>이미 신청한 내역이 있습니다.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">닫기</button>
+				</div>
+				<div class="closeModal"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 서치 -->
+
+
 	<!-- 전체 container 출구 -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

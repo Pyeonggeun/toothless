@@ -60,8 +60,8 @@
 								<li>
 								<div class="col">
 									<div class="form-floating fw-bold text-secondary">
-										<label for="floatingTextarea" style="font-size: 0.7em;">점수를 입력해주세요! <span class="text-danger">(1~100)</span></label>
-										<input name="score" class="form-control rounded-4" type="number" min="1" max="100">
+										<label for="floatingTextarea" style="font-size: 0.7em;">점수를 입력해주세요! <span class="text-danger">(0~5)</span></label>
+										<input name="score" class="form-control rounded-4" type="number" min="0" max="5">
 									</div> 
 								</div>
 							</ul>

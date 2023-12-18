@@ -63,9 +63,10 @@
 			const catWrapper = document.querySelector("#catWrapper");
 			const defaultOption = document.createElement("option");
 		    defaultOption.setAttribute("selected","");
+		    defaultOption.setAttribute("value","0");
 		    defaultOption.innerText = "전체";
 		    catWrapper.appendChild(defaultOption);
-			
+		   
 			for(e of response.data){
 				
 				const newOption = document.createElement("option");
@@ -74,6 +75,7 @@
 			    catWrapper.appendChild(newOption);
 			    
 			}
+			
 			
 			
 		});
@@ -118,6 +120,7 @@
 				
 				
 				companyListBox.appendChild(companyListWrapper);
+				console.log(companyListWrapper);
 				}
 			
 			
@@ -208,8 +211,7 @@
 				</div>
 				<div class="row mt-5">
 					<div class="col">
-						<select onchange="getCompanyListByCategoryPk(this.value)" id="catWrapper" class="form-select" aria-label="Default select example">
-							
+						<select  onchange="getCompanyListByCategoryPk(this.value)" id="catWrapper" class="form-select" aria-label="Default select example">
 						</select>
 					</div>
 					<div class="col-10"></div>
@@ -267,7 +269,7 @@
 					</div>
 				</div>
 				
-				 
+						 
 		
 				
 			</div>
@@ -278,10 +280,7 @@
 
 </div><!-- 전체 container 출구 -->
 				
-				
-				<!-- 카테고리 템플릿 -->
-				
-				
+		
 				
 				<!-- 리스트 템플릿 -->
 				<div id="templete" class="d-none">

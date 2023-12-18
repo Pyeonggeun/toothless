@@ -10,6 +10,144 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <title>Insert title here</title>
+<script>
+	
+	// 전체 리스트
+	function reloadExecutiveList(){
+		
+		const url = "./restGetAllExecutive";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const executiveBox = document.getElementById("executiveBox");
+			executiveBox.innerHTML = "";
+			for(e of response.data){
+				
+				const executiveWrapper = document.querySelector("#templete .executiveWrapper").cloneNode(true);
+				
+				const studentNameSpace = executiveWrapper.querySelector(".studentNameSpace");
+				studentNameSpace.innerText = e.studentInfoDto.name;
+				
+				const buildingNameSpace = executiveWrapper.querySelector(".buildingNameSpace");
+				buildingNameSpace.innerText = e.dormBuildingDto.name;
+				
+				const floorSpace = executiveWrapper.querySelector(".floorSpace");
+				floorSpace.innerText = e.dormRoomDto.dorm_floor;
+				
+				const roomNameSpace = executiveWrapper.querySelector(".roomNameSpace");
+				roomNameSpace.innerText = e.dormRoomDto.room_name;
+				
+				const button = document.createElement('button');
+				button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mx-2");
+				
+				for(i of e.dormRoomListByDormFloorAndDormPkListAndNY){
+					const floorListSpace = executiveWrapper.querySelector(".floorListSpace");
+					floorListSpace.classList.add("d-grid")
+					
+					if(i.isCount == 0){
+						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + "배정"
+						button.classList.add("btn-outline-secondary");
+						button.setAttribute("onclick", "배정함수("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk+")");
+						floorListSpace.appendChild(button);
+					} else {
+						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + "배정 취소"
+						button.classList.add("btn-outline-danger");
+						button.setAttribute("onclick", "배정취소함수("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk+")");
+						floorListSpace.appendChild(button);
+					}
+				}
+				
+				executiveBox.appendChild(executiveWrapper);
+			}
+		})
+	}
+	
+	// dorm_pk별 리스트
+	function reloadExecutiveListByDormPk(dorm_pk){
+		
+		const url = "./restGetExecutiveByDormPk?dorm_pk=" + dorm_pk;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const executiveBox = document.getElementById("executiveBox");
+			executiveBox.innerHTML = "";
+			for(e of response.data){
+				
+				const executiveWrapper = document.querySelector("#templete .executiveWrapper").cloneNode(true);
+				
+				const studentNameSpace = executiveWrapper.querySelector(".studentNameSpace");
+				studentNameSpace.innerText = e.studentInfoDto.name;
+				
+				const buildingNameSpace = executiveWrapper.querySelector(".buildingNameSpace");
+				buildingNameSpace.innerText = e.dormBuildingDto.name;
+				
+				const floorSpace = executiveWrapper.querySelector(".floorSpace");
+				floorSpace.innerText = e.dormRoomDto.dorm_floor;
+				
+				const roomNameSpace = executiveWrapper.querySelector(".roomNameSpace");
+				roomNameSpace.innerText = e.dormRoomDto.room_name;
+				
+				const button = document.createElement('button');
+				button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mb-1", "mx-2");
+				
+				for(i of e.dormRoomListByDormFloorAndDormPkListAndNY){
+					const floorListSpace = executiveWrapper.querySelector(".floorListSpace");
+					floorListSpace.classList.add("d-grid")
+					
+					if(i.isCount == 0){
+						button.innerText += i.dormRoomListByDormFloorAndDormPk.room_name + "배정"
+						button.classList.add("btn-outline-secondary");
+						button.setAttribute("onclick", "배정함수("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk+")");
+						floorListSpace.appendChild(button);
+					} else{
+						button.innerText += i.dormRoomListByDormFloorAndDormPk.room_name + "배정 취소"
+						button.classList.add("btn-outline-danger");
+						button.setAttribute("onclick", "배정취소함수("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk+")");
+						floorListSpace.appendChild(button);
+					}
+				}
+				
+				executiveBox.appendChild(executiveWrapper);
+			}
+		})
+		
+	}
+	
+	// 건물명 반복문
+	function reloadBuildingName(){
+		
+		const url = "./restBuildingList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const buildingListBox = document.getElementById("buildingListBox");
+			buildingListBox.innerHTML = "";
+			for(e of response.data){
+				
+				const buildingNameWrapper = document.querySelector("#buildingTemplete .buildingNameWrapper").cloneNode(true);
+				buildingNameWrapper.setAttribute("onclick", "reloadExecutiveListByDormPk("+e.dorm_pk+")");
+				
+				const buildingName = buildingNameWrapper.querySelector(".buildingName");
+				buildingName.innerText = e.name;
+				
+				buildingListBox.appendChild(buildingNameWrapper);
+			}
+		})
+		
+	}
+
+	window.addEventListener("DOMContentLoaded", () => {
+		reloadExecutiveList();
+		reloadBuildingName();
+	})
+	
+</script>
 </head>
 <body>
 <div class="container-fluid">
@@ -54,23 +192,20 @@
 				</div>
 			</div>
 			
-			<div class="row">
-				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
+			<!-- 미니맵 -->
+			<div id="buildingListBox" class="row">
+				
+			</div>
+			
+			<!-- 반복될 건물명 -->
+			<div id="buildingTemplete" class="d-none">
+				<div class="buildingNameWrapper col-1 border py-4 mx-2 rounded border-dark btn text-center">
 					<div class="row">
-						<div class="col ms-2 fw-bold">
-							A동
+						<div class="buildingName col ms-2 fw-bold">
+							동나오는곳
 						</div>
 					</div>
 				</div>
-				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
-					<div class="row">
-						<div class="col ms-2 fw-bold">
-							B동
-						</div>
-					</div>
-					
-				</div>
-				<div class="col-8"></div>
 			</div>
 
 			<!-- 세부내용 시작 -->
@@ -86,37 +221,22 @@
 								<th scope="col" class="col-2 text-bg-light">각 층 배정 리스트</th>
 							</tr>
 						</thead>
-						<tbody>
-							<c:forEach items="${executiveListMap}" var="executiveListMap">
-								<tr>
-									<td>${executiveListMap.studentInfoDto.name}</td>
-									<td>${executiveListMap.dormBuildingDto.name}</td>
-									<td>${executiveListMap.dormRoomDto.dorm_floor}</td>
-									<td>${executiveListMap.dormRoomDto.room_name}</td>
-									<td>
-										<c:forEach items="${executiveListMap.dormRoomListByDormFloorAndDormPkListAndNY}" var="dormRoomList">
-											<c:choose>
-												<c:when test="${dormRoomList.isCount == 0}">
-													<a href="./jw_executiveRoomassignmentProcess?dorm_room_pk=${dormRoomList.dormRoomListByDormFloorAndDormPk.dorm_room_pk}
-													&executive_pk=${executiveListMap.executiveDto.executive_pk}" class="d-grid mx-2" style="text-decoration: none;">
-													<button type="button" class="btn btn-outline-secondary btn-sm"><span class="text-black">${dormRoomList.dormRoomListByDormFloorAndDormPk.room_name} 배정</span></button> 
-													</a>
-												</c:when>
-												<c:otherwise>
-													<a href="./jw_executiveRoomRemoveProcess?executive_pk=${executiveListMap.executiveDto.executive_pk}
-													&dorm_room_pk=${dormRoomList.dormRoomListByDormFloorAndDormPk.dorm_room_pk}" class="d-grid mx-2" style="text-decoration: none;">
-													<button type="button" class="btn btn-outline-danger btn-sm"><span class="text-black">${dormRoomList.dormRoomListByDormFloorAndDormPk.room_name} 배정취소</span></button> 
-													</a>
-												</c:otherwise>
-											</c:choose>
-										</c:forEach>
-									</td>
-								</tr>
-							</c:forEach>
+						<tbody id="executiveBox">
+
 						</tbody>
 					</table>
 				</div>
 			</div>
+			
+			<table id="templete" class="d-none">
+				<tr class="executiveWrapper">
+					<td class="studentNameSpace">이름나오는곳</td>
+					<td class="buildingNameSpace">기숙사명나오는곳</td>
+					<td class="floorSpace">층나오는곳</td>
+					<td class="roomNameSpace">호나오는곳</td>
+					<td class="floorListSpace"></td>
+				</tr>
+			</table>
 			
 		</div> <!-- 우측내용 끝 -->
             

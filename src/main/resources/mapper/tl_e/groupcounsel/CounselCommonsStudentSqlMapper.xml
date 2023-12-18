@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.e.groupcounsel.mapper.CounselCommonsStudentSqlMapper">
+	
+
+
+	<!-- 학생 별 신청한 집단상담 리스트, 상담날짜 이전 리스트만 -->
+	<select id="getGroupCounselReservationById" resultType="Map">
+		SELECT * FROM 
+		(
+			SELECT b.POSTERIMAGE, b.title, b.counsel_date, TO_CHAR(TO_DATE(b.COUNSEL_DATE, 'YYYY-MM-DD HH24:MI:SS') - TO_DATE(SYSDATE, 'YYYY-MM-DD')) AS d_day
+			FROM CP_GROUP_RESERVATION a
+			JOIN CP_GROUP_COUNSEL b ON b.ID = a.GROUP_COUNSEL_ID
+			WHERE a.STUDENT_PK = 41 AND b.COUNSEL_DATE > SYSDATE
+			ORDER BY b.COUNSEL_DATE
+		)
+		 	<![CDATA[
+		 	WHERE ROWNUM <= 3
+		 	]]>
+	</select>
+	
+	<select id="getNoticeList" resultType="com.mkfactory.toothless.e.dto.NoticeBoardDto">
+		SELECT * FROM
+		(
+			SELECT * 
+			FROM cp_notice
+			ORDER BY CREATED_AT DESC 
+		)
+		 	<![CDATA[
+		 	WHERE ROWNUM <= 4
+		 	]]>
+	</select>
+
+	<select id="getFreeboardList" resultType="com.mkfactory.toothless.e.dto.FreeboardDto">
+		SELECT * FROM
+		(
+			SELECT * FROM cp_student_freeboard
+			ORDER BY CREATED_AT DESC
+		)
+		 	<![CDATA[
+		 	WHERE ROWNUM <= 4
+		 	]]>
+	</select>	
+	
+	<select id="getStaffInfoByStaffPk" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
+		SELECT * FROM TL_JIC_STAFF_INFO
+		WHERE STAFF_PK = #{staff_pk}	
+	</select>
+	
+	<select id="getCountNoticeCommentByNoticeId" resultType="int">
+		SELECT COUNT(*) FROM cp_notice_comment
+		WHERE notice_id = #{notice_id}	
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+

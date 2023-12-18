@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import com.mkfactory.toothless.a.dto.DormRoomDto;
 import com.mkfactory.toothless.a.dto.DormStudentDto;
 import com.mkfactory.toothless.a.dto.SemesterDto;
 import com.mkfactory.toothless.a.staff.dm.service.DormStaffServiceDm;
+import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 
 @Controller
 @RequestMapping("/tl_a/staff/*")
@@ -23,7 +26,13 @@ public class DormStaffControllerDm {
 	public DormStaffServiceDm dormStaffServiceDm;
 	
 	@RequestMapping("dm_readRoomAssignment")
-	public String dm_readRoomAssignment(Model model) {
+	public String dm_readRoomAssignment(Model model, HttpSession session) {
+		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(sessionStaffInfo == null) {
+			
+			
+			return "redirect:../../another/staff/loginPage";
+		}
 		
 		model.addAttribute("dormList", dormStaffServiceDm.allDormStudent());
 		
@@ -31,7 +40,14 @@ public class DormStaffControllerDm {
 	}
 	
 	@RequestMapping("dm_roomAssignment")
-	public String dm_roomAssignment(Model model) {
+	public String dm_roomAssignment(Model model, HttpSession session) {
+		
+		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(sessionStaffInfo == null) {
+			
+			
+			return "redirect:../../another/staff/loginPage";
+		}
 		
 		model.addAttribute("dormList", dormStaffServiceDm.allDormStudent());
 		model.addAttribute("studentAssignmentList", dormStaffServiceDm.studentInfoAllList());
@@ -137,7 +153,7 @@ public class DormStaffControllerDm {
 		//semesterPk 가 Y인 녀석 가져오기
 		SemesterDto semesterDto = dormStaffServiceDm.SemesterCheckY();
 		int semester_pk = semesterDto.getSemester_pk();
-		// Y인 녀석 세팅
+		// Y인 녀석 세팅	
 		dormStudentDto.setSemester_pk(semester_pk);
 		// 사생 배정하기
 		dormStaffServiceDm.dormStudentAssignmentInsert(dormStudentDto);

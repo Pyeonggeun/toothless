@@ -1,5 +1,7 @@
 package com.mkfactory.toothless.e.offlinecounsel.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,6 @@ public class RestOfflineCounselController {
 		
 		restResponseOfflineDto.setResult("success");
 		
-		System.out.println("stPk:"+studentInfoDto.getStudent_pk());
 		restResponseOfflineDto.setData(studentInfoDto.getStudent_pk());
 		
 		return restResponseOfflineDto;
@@ -43,16 +44,14 @@ public class RestOfflineCounselController {
 			@RequestParam(defaultValue = "0", value = "counselorNameValue") String counselorNameValue,
 			@RequestParam(value = "selectDateType") int selectDateType,
 			@RequestParam(defaultValue = "0", value = "datevalue") String datevalueStr,
-			@RequestParam(value = "categoryType") int categoryType,
+			@RequestParam(required = false, value = "categoryValues") List<Integer> categoryValues,
 			@RequestParam(value = "stateType") int stateType
 			){
-		
-		System.out.println("student:"+student_pk);
 		
 		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
 		
 		restResponseOfflineDto.setResult("success");
-		restResponseOfflineDto.setData(offlineCounselService.getCounselReservationList(student_pk, pageNum, counselorNameValue, selectDateType, datevalueStr, categoryType, stateType));
+		restResponseOfflineDto.setData(offlineCounselService.getCounselReservationList(student_pk, pageNum, counselorNameValue, selectDateType, datevalueStr, categoryValues, stateType));
 		
 		return restResponseOfflineDto;
 	}
@@ -103,7 +102,7 @@ public class RestOfflineCounselController {
 			@RequestParam(defaultValue = "0", value = "counselorNameValue") String counselorNameValue,
 			@RequestParam(value = "selectDateType") int selectDateType,
 			@RequestParam(defaultValue = "0", value = "datevalue") String datevalueStr,
-			@RequestParam(value = "categoryType") int categoryType,
+			@RequestParam(required = false, value = "categoryValues") List<Integer> categoryValues,
 			@RequestParam(value = "stateType") int stateType
 			) {
 		
@@ -112,12 +111,116 @@ public class RestOfflineCounselController {
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		
-		restResponseOfflineDto.setData(offlineCounselService.getStudentTotalCounselCount(studentInfoDto.getStudent_pk(), counselorNameValue, selectDateType, datevalueStr, categoryType, stateType));
+		restResponseOfflineDto.setData(offlineCounselService.getStudentTotalCounselCount(studentInfoDto.getStudent_pk(), counselorNameValue, selectDateType, datevalueStr, categoryValues, stateType));
 		
 		return restResponseOfflineDto;
 	}
 	
 	
+	@RequestMapping("getReservationListByCounselor")
+	public RestResponseOfflineDto getReservationListByCounselor(
+			@RequestParam(value = "external_pk") int external_pk, 
+			@RequestParam(value = "pageNum") int pageNum) {
+
+		System.out.println("listPAge: "+pageNum);
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		restResponseOfflineDto.setResult("success");
+		
+		restResponseOfflineDto.setData(offlineCounselService.getReservationListByCounselorId(external_pk, pageNum));
+		
+		return restResponseOfflineDto;
+
+	}
+	
+	@RequestMapping("getCounselReportInfo")
+	public RestResponseOfflineDto getCounselReportInfo(
+			@RequestParam(value = "reservationPk") int reservationPk, 
+			@RequestParam(value = "studentPk") int studentPk, 
+			@RequestParam(value = "categoryPk") int categoryPk) {
+		
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		restResponseOfflineDto.setResult("success");
+		
+		restResponseOfflineDto.setData(offlineCounselService.createReportInfo(reservationPk, studentPk, categoryPk));
+		
+		return restResponseOfflineDto;
+		
+	}
+	
+	@RequestMapping("counselReportRegisterProcess")
+	public RestResponseOfflineDto counselReportRegisterProcess(
+			@RequestParam(value = "id") int id, 
+			@RequestParam(value = "state") String state, 
+			@RequestParam(value = "text") String text,
+			@RequestParam(value = "location") String location
+			) {
+		
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		restResponseOfflineDto.setResult("success");
+
+		offlineCounselService.updateCounselReservationState(id, state);
+		offlineCounselService.insertCounselDocumentInfo(id, text, location);
+		
+		return restResponseOfflineDto;
+		
+	}
+	
+	@RequestMapping("counselorTotalCounselCount")
+	public RestResponseOfflineDto counselorTotalCounselCount(int external_pk) {
+		
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		restResponseOfflineDto.setResult("success");
+		restResponseOfflineDto.setData(offlineCounselService.getReservationCountByCounselorId(external_pk));
+		
+		return restResponseOfflineDto;
+		
+	}
+	
+
+	@RequestMapping("twoWeekStatisticsData")
+	public RestResponseOfflineDto twoWeekStatisticsData(int external_pk) {
+		
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		restResponseOfflineDto.setResult("success");
+		restResponseOfflineDto.setData(offlineCounselService.getTwoWeekStatisticsData(external_pk));
+		
+		return restResponseOfflineDto;
+		
+	}
+	
+	@RequestMapping("twoWeekStatisticsDataByCategory")
+	public RestResponseOfflineDto twoWeekStatisticsDataByCategory(int external_pk) {
+	
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		restResponseOfflineDto.setResult("success");
+		restResponseOfflineDto.setData(offlineCounselService.getTwoWeekStatisticsDataByCategory(external_pk));
+		
+		return restResponseOfflineDto;
+		
+	}
+
+	@RequestMapping("offlineSurveyScoreStatistics")
+	public RestResponseOfflineDto offlineSurveyScoreStatistics(int external_pk) {
+	
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		restResponseOfflineDto.setResult("success");
+		restResponseOfflineDto.setData(offlineCounselService.getOfflineScoreStatistics(external_pk));
+		
+		return restResponseOfflineDto;
+		
+	}
+	
+	@RequestMapping("offlineStatisticsOfDay")
+	public RestResponseOfflineDto offlineStatisticsOfDay(int external_pk) {
+	
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		restResponseOfflineDto.setResult("success");
+		restResponseOfflineDto.setData(offlineCounselService.getOfflineStatisticsOfDay(external_pk));
+		
+		return restResponseOfflineDto;
+		
+	}
+
 	
 	
 }

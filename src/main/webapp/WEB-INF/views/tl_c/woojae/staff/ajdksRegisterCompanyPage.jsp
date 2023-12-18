@@ -50,6 +50,25 @@
 </style>
 <script>
 
+	let staffId = null;
+
+	function getStaffId(){
+		const url = "./getStaffId";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response =>{
+			
+			staffId = response.data;
+			if(staffId == null){
+				if(confirm("로그인 후 이용가능합니다. 로그인페이지로 이동하시겠습니까?")){
+					location.href = "../../../another/staff/loginPage";
+				}
+				return;
+			}
+		});
+	}
+
 	
 	// 사업자등록번호 확인
 	let isCheckedCompanyId = false;
@@ -105,34 +124,35 @@
 		
 	}
 	// 사업자 비밀번호 유효성
-	function checkExternalPassword(){
+	
+	let alreadyAlerted = false;
+	
+	function checkExternalPassword(){	
 		
-		const inputExternalPassword = document.getElementById("inputExternalPassword"); // 사업체 비밀번호
+		const inputExternalPassword = document.getElementById("inputExternalPassword"); // 산업체 비밀번호
+		const externalPasswordValue = inputExternalPassword.value;
+		
 		const externalPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // 비밀번호 정규표현식
-		const inputExternalPasswordValue =  document.getElementById("inputExternalPassword").value; 
 		
-		const url = "./existByExternalId?external_id=" + inputExternalPasswordValue;
-		
-		fetch(url)
-		.then(response => response.json())
-		.then((response)=> {
-			if(!externalPasswordRegex.test(inputExternalPassword.value)){
-				
-				alert("비밀번호를 다시 입력해주세요.");
+		if(!externalPasswordRegex.test(externalPasswordValue)){
+			if(!alreadyAlerted){
+				alert("비밀번호를 대소문자, 숫자, 특수문자를 이용해서 입력해주세요.");
 				inputExternalPassword.value = "";
-				return;
+				inputExternalPassword.focus();
+				alreadyAlerted = true;
 			}
-		});
-		
+			return false;
+		}
+		return true;
 	}
 	
-	
 	// 산업체 등록
-	function registerCompany(){
+	function registerCompany(event){
 		// 로그인 예외처리
+		event.preventDefault();
 		 if(staffId == null){
 			if(confirm("로그인 후 다시 이용해주세요. 로그인페이지로 이동하시겠습니까?")){
-				location.href = "../../another/staffLoginPage";
+				location.href = "../../../another/staff/loginPage";
 			}
 			return;
 		}
@@ -156,7 +176,6 @@
 		const inputCompanyCategory = document.querySelector(".inputCompanyCategory"); // 업종카테고리
 		const inputCompanyCategoryValue = inputCompanyCategory.value; 
 		
-
 		
 		const url = "./registerCompany";
 		
@@ -171,15 +190,17 @@
 		})
 		.then(response => response.json())
 		.then(response =>{
-			
+				
 		});
 		
 	}
 	
 	// 페이지가 로드 되자마자 아이디 줌.
-	/* window.addEventListener("DOMContentLoaded", ()=>{
+	  window.addEventListener("DOMContentLoaded", ()=>{
 		getStaffId();
-	}); */
+	}); 
+	
+	
 </script>
 </head>
 <body>
@@ -307,7 +328,7 @@
 				<div class="row mt-2">
 					<div class="col-8"></div>
 					<div class="col-1 mt-2 me-2 d-flex justify-content-end">
-						<button onclick="registerCompany()" class="btn btn-secondary" style="font-size: 0.9em;" style="font-size: 0.9em;">등록</button>
+						<button onclick="registerCompany(event)" class="btn btn-secondary" style="font-size: 0.9em;" style="font-size: 0.9em;">등록</button>
 					</div>
 					<div class="col"></div>
 				</div>

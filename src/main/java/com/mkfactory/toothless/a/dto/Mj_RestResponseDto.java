@@ -11,8 +11,7 @@ public class Mj_RestResponseDto {
 		public Mj_RestResponseDto() {
 	        this.data = new HashMap<>();
 	    }
-		  
-	
+		
 		public String getResult() {
 			return result;
 		}

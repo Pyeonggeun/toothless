@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/tl_c/eunbi/student/*")
 public class EunbiStudentController {
 
-	@Autowired
-	public String writeInternSatisfactionPage(HttpSession session) {
+	@RequestMapping("gradeInquiryPage")
+	public String gradeInquiryPage(HttpSession session) {
 		
-		return "tl_c/eunbi/external/writeInternSatisfactionPage";
+		return "tl_c/eunbi/student/gradeInquiryPage";
 	}
 }

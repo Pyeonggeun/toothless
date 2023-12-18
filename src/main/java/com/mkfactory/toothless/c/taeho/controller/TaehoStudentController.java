@@ -32,11 +32,11 @@ public class TaehoStudentController {
 		Map<String, Object> internshipCourseInfoMap = taehoStudentService.getInternshipCourseInfoByStudentPk(studentPk);
 		model.addAttribute("internshipCourseInfoMap", internshipCourseInfoMap);
 		
-		List<Map<String, Object>> attendanceCountList = taehoStudentService.getAttendanceCountByStudentPk(studentPk);
-		model.addAttribute("attendanceCountList", attendanceCountList);
+//		List<Map<String, Object>> attendanceCountList = taehoStudentService.getAttendanceCountByStudentPk(studentPk);
+//		model.addAttribute("attendanceCountList", attendanceCountList);
 		
-		List<Map<String, Object>> internReportList = taehoStudentService.getIngInternReportByStudentPk(studentPk);
-		model.addAttribute("internReportList", internReportList);
+//		List<Map<String, Object>> internReportList = taehoStudentService.getIngInternReportByStudentPk(studentPk);
+//		model.addAttribute("internReportList", internReportList);
 		
 		return"tl_c/taeho/student/writeInternReportPage";
 	}
@@ -50,6 +50,18 @@ public class TaehoStudentController {
 				
 		return "redirect:./writeInternReportPage";
 	}
+	
+	@RequestMapping("readMyDetailAttendanceStatusPage")
+	public String readMyDetailAttendanceStatusPage(HttpSession session) {
+		
+		return "tl_c/taeho/student/readMyDetailAttendanceStatusPage";
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

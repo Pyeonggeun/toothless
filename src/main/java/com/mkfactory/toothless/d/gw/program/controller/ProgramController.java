@@ -16,9 +16,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.CompanyManagerDto;
+import com.mkfactory.toothless.d.dto.InterestCompanyDto;
+import com.mkfactory.toothless.d.dto.ProgramApplyDto;
 import com.mkfactory.toothless.d.dto.ProgramDto;
+import com.mkfactory.toothless.d.dto.ProgramReviewDto;
 import com.mkfactory.toothless.d.gw.program.service.ProgramServiceIpml;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @Controller
 @RequestMapping("/tl_d/gw_program/*")
@@ -97,6 +101,7 @@ public class ProgramController {
 	public String programViewDetailsPage(Model model, int program_pk) {
 		
 		model.addAttribute("program", programService.getProgram(program_pk));
+		programService.countApplyProgram(program_pk);
 		
 		return "/tl_d/gw_program/programViewDetailsPage";
 	}
@@ -157,13 +162,136 @@ public class ProgramController {
 	}
 	
 	//기업정보 삭제
-	@RequestMapping("deleteCompanyInfoProcess")
-	public String deleteCompanyInfoProcess(int program_pk) {
+	@RequestMapping("deleteProgramInfoProcess")
+	public String deleteProgramInfoProcess(int program_pk) {
 		
 		programService.deleteProgramInfo(program_pk);
 		
 		return "redirect:./programListPage";
 	}
-
-
+	
+	//학생용 프로그램 목록 페이지
+	@RequestMapping("programListForStudentPage")
+	public String programListForStudentPage(Model model) {
+		
+		model.addAttribute("programList", programService.getProgramList());
+		
+		return "/tl_d/gw_program/programListForStudentPage";
+	}
+	
+	//학생용 프로그램 상세보기 페이지
+	@RequestMapping("programViewDetailsForStudentPage")
+	public String programViewDetailsForStudentPage(Model model, int program_pk, HttpSession session) {
+		
+		StudentInfoDto studentInfoDto=(StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(studentInfoDto !=null) {
+			
+			ProgramApplyDto programApplyDto=new ProgramApplyDto();
+			
+			programApplyDto.setProgram_pk(program_pk);
+			
+			programApplyDto.setStudent_pk(studentInfoDto.getStudent_pk());
+			
+			int myApplyProgram=programService.studentApplyCount(programApplyDto);
+			
+			model.addAttribute("myApplyProgram",myApplyProgram);
+			
+		}
+		
+		model.addAttribute("program", programService.getProgram(program_pk));
+		
+		return "/tl_d/gw_program/programViewDetailsForStudentPage";
+	}
+	
+	//학생 프로그램 신청
+	@RequestMapping("studentApplyProgram")
+	public String studentApplyProgram(Model model,ProgramApplyDto programApplyDto, int program_pk) {
+		
+		model.addAttribute("program", programService.getProgram(program_pk));
+		
+		return "/tl_d/gw_program/studentApplyProgram";
+	}
+	
+	@RequestMapping("studentApplyProcess")
+	public String studentApplyProcess(HttpSession session, ProgramApplyDto programApplyDto, int program_pk) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(studentInfoDto != null) {
+			int studentPk = studentInfoDto.getStudent_pk();
+			programApplyDto.setStudent_pk(studentPk);
+		}
+		
+		programService.studentApplyProgram(programApplyDto);
+		
+		
+		return "redirect:./programViewDetailsForStudentPage?program_pk="+programApplyDto.getProgram_pk();
+	}
+	
+	//학생 신청 프로그램 목록(학생용)
+	@RequestMapping("applyProgramListForStudentPage")
+	public String applyProgramListForStudentPage(Model model) {
+		
+		model.addAttribute("studentApplyProgram", programService.studentApplyProgramList());
+		
+		
+		return "/tl_d/gw_program/applyProgramListForStudentPage";
+	}
+	
+	//학생 신청 프로그램 목록(교직원용)
+	@RequestMapping("applyProgramListForStaffPage")
+	public String applyProgramListForStaffPage(Model model,int program_pk) {
+		
+		model.addAttribute("program", programService.getProgram(program_pk));
+		model.addAttribute("studentApplyProgram", programService.applyProgramList(program_pk));
+		
+		return "/tl_d/gw_program/applyProgramListForStaffPage";
+	}
+	
+	//교직원 출석처리
+	@RequestMapping("studentAttendProcess")
+	public String studentAttendProcess(ProgramApplyDto programApplyDto) {
+		
+		programService.changeStudentAttend(programApplyDto);
+		
+		return "redirect:./applyProgramListForStaffPage?program_pk="+programApplyDto.getProgram_pk();
+	}
+	
+	//교직원 출석취소
+	@RequestMapping("studentUnAttendProcess")
+	public String studentUnAttendProcess(ProgramApplyDto programApplyDto) {
+		
+		programService.changeStudentUnAttend(programApplyDto);
+		
+		return "redirect:./applyProgramListForStaffPage?program_pk="+programApplyDto.getProgram_pk();
+	}
+	
+	
+	//프로그램 리뷰쓰기
+	@RequestMapping("programReviewPage")
+	public String programReviewPage(Model model, int program_apply_pk) {
+		
+		model.addAttribute("program", programService.getApplyProgram(program_apply_pk));
+		
+		return "/tl_d/gw_program/programReviewPage";
+	}
+	
+	@RequestMapping("programReviewProcess")
+	public String programReviewProcess(ProgramReviewDto programReviewDto) {
+		
+		programService.inputProgramReview(programReviewDto);
+		
+		return "redirect:./applyProgramListForStudentPage";
+	}
+	
+	//리뷰목록
+	@RequestMapping("programReviewListPage")
+	public String programReviewListPage(Model model, int program_pk) {
+		
+		model.addAttribute("program", programService.getProgram(program_pk));
+		model.addAttribute("studentApplyProgram", programService.applyProgramList(program_pk));
+		
+		return "/tl_d/gw_program/programReviewListPage";
+	}
 }

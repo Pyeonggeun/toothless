@@ -3,7 +3,10 @@ package com.mkfactory.toothless.a.student.jw.mapper;
 
 import java.util.List;
 
+import com.mkfactory.toothless.a.dto.DiaryDto;
+import com.mkfactory.toothless.a.dto.DormNoticeDto;
 import com.mkfactory.toothless.a.dto.DormStudentDto;
+import com.mkfactory.toothless.a.dto.ExecutiveDto;
 import com.mkfactory.toothless.a.dto.ExitDto;
 import com.mkfactory.toothless.a.dto.PointCategory;
 import com.mkfactory.toothless.a.dto.PointDto;
@@ -20,4 +23,11 @@ public interface DormStudentMapperJw {
 	public PointCategory selectPointCategoryByPointCategoryPk(int point_category_pk);
 	public Integer sumTotalPointByStudentPk(int student_pk);
 	
+	// 일지 작성 페이지
+	public int countDormStudentByStudentAndProgressSemesterAndExecutive(int student_pk);
+	public ExecutiveDto selectDormStudentByStudentAndProgressSemesterAndExecutive(int student_pk);
+	public void insertDiary(DiaryDto diaryDto);
+	
+	// 최근 글 3개 가져오기
+	public List<DormNoticeDto> resentBoardthree();
 }

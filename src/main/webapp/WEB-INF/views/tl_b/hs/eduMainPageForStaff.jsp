@@ -10,6 +10,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <title>교육 교직원 메인</title>
+        
     </head>
     <body>
         <div class="container-fluid">
@@ -62,7 +63,7 @@
                                                                             <div class="col align-self-center text-center" style="text-align: center;">
                                                                                 <span>${edu.studentInfoDto.name }</span>
                                                                             </div>
-                                                                            <div class="col align-self-center text-center" style="text-align: center;">
+                                                                            <div class="col align-self-center text-start" style="text-align: center;">
                                                                                 <span>${edu.eduDto.name }</span>
                                                                             </div>
                                                                             <div class="col align-self-center text-center" style="text-align: center;">
@@ -124,7 +125,7 @@
                                                                     </div>
                                                                     <c:forEach items="${allServeyList }" var="ser">
                                                                     <div class="row py-1 border-bottom">
-                                                                        <div class="col align-self-center text-center" style="text-align: center;">
+                                                                        <div class="col align-self-center text-start" style="text-align: center;">
                                                                             ${ser.eduName }
                                                                         </div>
                                                                         <div class="col align-self-center text-center" style="text-align: center;">
@@ -170,13 +171,55 @@
                                                             교육 프로그램 목록
                                                         </div>
                                                     </div>
-                                                    <div class="row mt-3"> <!--목록 출력-->
+
+                                                    <div class="row">
+                                                        <div class="col justify-content-end">
+                                                            <form action="./eduMainPageForStaff" method="get">
+                                                            <div class="row mt-3 text-end"><!-- 검색  -->
+                                                                <div class="col-8"></div>
+                                                                <div class="col">
+                                                                	<div class="row justify-content-end">
+                                                                		<div class="col-2"></div>
+                                                                		<div class="col-3 px-1 text-end">
+		                                                                    <select name="searchType" class="form-select form-select-sm">
+		                                                                        <option value="eduName" selected>프로그램명</option>
+		                                                                        <option value="name">작성자</option>
+		                                                                        <option value="content">내용</option>
+		                                                                    </select>
+		                                                                </div>
+		                                                                <div class="col px-1">
+		                                                                    <div class="row justify-content-end">
+		                                                                        <div class="col-11 text-end">
+		                                                                            <input  name="searchWord" 
+		                                                                            type="text" 
+		                                                                            class="form-control form-control-sm">
+		                                                                        </div>
+		                                                                        <div class="col text-start p-0 ">
+		                                                                            <button type="submit" 
+		                                                                            class="p-0 btn btn-white btn-sm w-10">
+			                                                                            <i class="bi bi-search-heart"
+			                                                                            style="font-size: 18px;"></i>
+		                                                                            </button>
+		                                                                        </div>
+		                                                                    </div>
+		                                                                </div>	
+                                                                	</div>
+                                                                </div>
+                                                            </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                   
+
+
+                                                    <div class="row mt-4"> <!--목록 출력-->
                                                         <div class="col">
                                                             <div class="row fw-bold pb-1 border-bottom border-dark">
-                                                                <div class="col fw-bold" style="text-align: center;" >
+                                                                <div class="col-1 fw-bold" style="text-align: center;" >
                                                                     <span>글번호</span>
                                                                 </div>
-                                                                <div class="col fw-bold" style="text-align: center;" >
+                                                                <div class="col-4 fw-bold" style="text-align: center;" >
                                                                     <span>프로그램명</span>
                                                                 </div>
                                                                 <div class="col fw-bold" style="text-align: center;" >
@@ -191,14 +234,17 @@
                                                                 <div class="col fw-bold" style="text-align: center;" >
                                                                     <span>작성일</span>
                                                                 </div>
+                                                                <div class="col-1 fw-bold" style="text-align: center;" >
+                                                                    조회
+                                                                </div>
                                                             </div>
                                                             <!-- 프로그램 신청 현황목록 내용 -->
                                                             <c:forEach items="${list }" var="edu">
                                                                 <div class="row py-1 border-bottom">
-                                                                    <div class="col" style="text-align: center;">
+                                                                    <div class="col-1" style="text-align: center;">
                                                                         <span>${edu.eduDto.edu_pk }</span>
                                                                     </div>
-                                                                    <div class="col" style="text-align: center;">
+                                                                    <div class="col-4 text-start sss" style="text-align: center;" >
                                                                         <span>
                                                                         <a href="./readEduProgPage?edu_pk=${edu.eduDto.edu_pk}" class="text-black"
                                                                         style="text-decoration: none;">
@@ -216,6 +262,9 @@
                                                                     </div>
                                                                     <div class="col" style="text-align: center;">
                                                                         <span><fmt:formatDate value="${edu.eduDto.created_at }" pattern="yyyy-MM-dd"/></span>
+                                                                    </div>
+                                                                    <div class="col-1" style="text-align: center;">
+                                                                        <span>10</span>
                                                                     </div>
                                                                 </div>
                                                             </c:forEach>
@@ -283,9 +332,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
-        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>

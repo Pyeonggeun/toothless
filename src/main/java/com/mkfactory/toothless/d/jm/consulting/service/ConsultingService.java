@@ -163,7 +163,7 @@ public class ConsultingService {
 		if(onlineConsultingReplyDto == null) {
 			map.put("onlineConsultingDto", onlineConsultingDto);
 			map.put("onlineConsultingReplyDto", onlineConsultingReplyDto);
-			map.put("staffInfoDto", onlineConsultingReplyDto);
+			map.put("staffInfoDto", onlineConsultingReplyDto); //널값 넣기용
 			map.put("studentInfoDto", studentInfoDto);
 
 		}
@@ -387,12 +387,12 @@ public class ConsultingService {
 	//교직원쪽
 	//온라인상담 오래된순 싹 출력 + 검색 및 정렬 추가
 	//교직원 페이지에서 온라인상담 관련 정보 보기위함
-	public List<Map<String, Object>> getOnlineConsultingListAll(String isReply){
+	public List<Map<String, Object>> getOnlineConsultingList(String isReply, String sortby, String searchType, String searchContents, int pageNum){
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
 		//온라인상담 내역 싹 다 + 검색 및 정렬 추가
-		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getOnlineConsultingListAll(isReply);
+		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getOnlineConsultingList(isReply, sortby,searchType,searchContents, pageNum);
 		
 		
 		for(OnlineConsultingDto onlineConsultingDto : onlineConsultingDtoList) {
@@ -428,22 +428,37 @@ public class ConsultingService {
 		return list;
 	}
 	
+	//온라인상담 글 총 갯수
+	public Map<String, Object> countTotalBoardNumInSOC (String isReply, String sortby, String searchType, String searchContents, int pageNum) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		//글 총갯수
+		int totalBoardNumInSOC = consultingMapper.countTotalBoardNumInSOC(isReply, sortby, searchType, searchContents);
+		
+		//글 총 페이지
+		int totalPageNumInSOC = (int)Math.ceil(totalBoardNumInSOC/(double)10);
+		//화면상 첫/마지막 페이지
+		int startPageNumber = ((pageNum-1)/5)*5+1;
+		int endPageNumber = ((pageNum-1)/5+1)*5;
+		
+		//짜르기
+		if(endPageNumber > totalPageNumInSOC) {
+			endPageNumber = totalPageNumInSOC;
+		}
+		
+		map.put("currentPageNum", pageNum);
+		map.put("totalPageNumInSOC", totalPageNumInSOC);
+		map.put("startPageNumber", startPageNumber);
+		map.put("endPageNumber", endPageNumber);
+		
+		
+		
+		return map;
+	}
 	
-	//교직원 입장에서 온라인상담 미응답/응답 출력
-//	public boolean checkOnConsultingReplyForStaff (int student_pk) {
-//		
-//		OnlineConsultingReplyDto dto = consultingMapper.checkOnConsultingReply(student_pk);
-//		
-//		if(dto==null) {
-//			return false;
-//		}
-//		
-//		else {
-//			return true;
-//		}
-//	}
-//	
-//	
+	
+		
 	//교직원입장에서 구직희망 진행중인 학생 리스트 보기
 	//구직희망 - 학생엮음, 구직희망pk당 학생 정보
 	public List<Map<String, Object>> getHopeJobInfoList(){		

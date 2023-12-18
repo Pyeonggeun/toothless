@@ -15,10 +15,10 @@
 	
 		<div class="row py-2">
             <div class="col-1 pe-2 text-end">
-                <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
+                <a class="navbar-brand" href="../commons/counselCenterStudentMainPage"><img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;"></a>
             </div>
             <div class="col-3 ps-0 pt-2 fw-bold fs-3 text-start ">
-                MK University<span class="fs-6"> | </span> <span class="fs-5">상담센터</span> 
+                <a class="navbar-brand" href="../commons/counselCenterStudentMainPage">MK University<span class="fs-6"> | </span> <span class="fs-5">상담센터</span></a>
             </div>
             <div class="col-2"></div>
             <div class="col">
@@ -135,7 +135,7 @@
 						<!-- 여기서 col 한 개를 반복문 돌려서 출력하면 됨 -->
 						<div class="col-4">
 							<div class="row">
-								<div class="col border border-dark m-2 shadow-sm rounded" style="min-height: 30em;">
+								<div class="col border border-dark m-2 shadow-sm rounded">
 									<div class="row border-bottom">
 										<!-- 나중에 카테고리 리스트 반복문으로 돌릴 때 choose,when으로 ${category_pk == 1} 조건으로 이미지 변경 -->
 										<div class="col-3 py-2">
@@ -165,7 +165,7 @@
 										</div>
 									</div>
 									<div class="row fs-5">
-										<div class="col ps-4">
+										<div class="col ps-4 overflow-auto" style="height: 16em;">
 											<!-- 반복문: 상담원 리스트 -->
 											<c:forEach items="${map.counselorByCategoryList }" var="map2">
 												<div class="row pt-3 pb-2">

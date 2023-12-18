@@ -8,11 +8,13 @@
 	<select id="selectAllMedicineInfo" resultType="com.mkfactory.toothless.b.dto.MedicineCodeDto">
 		SELECT * 
 		FROM TL_B_MEDICINE_CODE_INFO
+		ORDER BY CREATED_AT DESC 
 	</select>
 	<!-- 의약품 카테고리 정보를 모두 가져오는 쿼리 -->
 	<select id="selectAllMedicineCat" resultType="com.mkfactory.toothless.b.dto.MedicineCatDto">
-		SELECT * 
+		SELECT *
 		FROM TL_B_MEDICINE_CAT
+		ORDER BY MEDICINE_CAT_PK ASC 
 	</select>
 	<!-- 카테고리 번호에 의서 선택된 카테고리 정보 -->
 	<select id="selectedMedicineCatByMedicinePk" resultType="com.mkfactory.toothless.b.dto.MedicineCatDto">
@@ -54,6 +56,7 @@
 	<!-- 입고정보 전부 불러오기 -->
 	<select id="selectAllMedicineAddInfo" resultType="com.mkfactory.toothless.b.dto.MedicineAddDto">
 		SELECT * FROM TL_B_MEDICINE_ADD
+		ORDER BY MEDICINE_ADD_PK DESC
 	</select>
 	
 	<select id="selectedMedicineInfoByMedicineCodePk" resultType="com.mkfactory.toothless.b.dto.MedicineCodeDto">
@@ -216,5 +219,205 @@
 		WHERE t1.MEDICINE_CODE_PK = #{medicine_code_pk}
 		ORDER BY t1."DATE" asc
 	</select>
+	
+	<!-- ajax때문에 생성 -->
+	<select id="selectExistMedicineInfoByPk" resultType="com.mkfactory.toothless.b.dto.MedicineCodeDto">
+		SELECT * 
+		FROM TL_B_MEDICINE_CODE_INFO
+		WHERE 1=1
+		AND MEDICINE_CODE_PK = #{medicine_code_pk}
+	</select>
+	
+	<!-- ajax용 코드정렬 -->
+	<select id="RestSelectMedicineInfo" resultType="com.mkfactory.toothless.b.dto.MedicineCodeDto">
+		SELECT * FROM TL_B_MEDICINE_CODE_INFO
+		<if test="orderNumber != null">
+			<choose>
+				<when test="orderNumber == 1">
+				ORDER BY CREATED_AT DESC
+				</when>
+				<when test="orderNumber == 2">
+				ORDER BY CREATED_AT asc
+				</when>
+				<when test="orderNumber == 3">
+				ORDER BY MEDICINE_CODE_PK ASC
+				</when>
+				<when test="orderNumber == 4">
+				ORDER BY MEDICINE_CAT_PK ASC
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<!-- 삭제버튼 지우기용 쿼리 -->
+	<select id="checkAddLog" resultType="int">
+		SELECT count(*) 
+		FROM TL_B_MEDICINE_ADD 
+		WHERE 1=1
+		AND MEDICINE_CODE_PK = #{medicine_code_pk}
+	</select>
+	
+	<select id="RestSelectAllMedicineAddInfo" resultType="com.mkfactory.toothless.b.dto.MedicineAddDto">
+		SELECT * FROM TL_B_MEDICINE_ADD
+		<if test="orderDate != null">
+			<choose>
+				<when test="orderDate == 1">
+					ORDER BY add_at DESC
+				</when>
+				<when test="orderDate == 2">
+					ORDER BY add_at ASC
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<select id="restInventoryStatistics" resultType="map">
+		SELECT t1.* 
+		FROM
+			(SELECT a.MEDICINE_CODE_PK,
+					(SELECT tbmci.NAME 
+					FROM TL_B_MEDICINE_CODE_INFO tbmci
+					WHERE tbmci.MEDICINE_CODE_PK = a.MEDICINE_CODE_PK) AS medi_name,
+					a.QUANTITY, a.add_at AS "DATE", a.staff_pk AS who, 
+					(SELECT tjsi.NAME 
+					FROM TL_JIC_STAFF_INFO tjsi
+					WHERE tjsi.STAFF_PK = a.staff_pk) AS m_name,
+			'입고' AS m_type FROM TL_B_MEDICINE_ADD a
+			UNION
+			SELECT 	b.MEDICINE_CODE_PK,
+					(SELECT tbmci.NAME 
+					FROM TL_B_MEDICINE_CODE_INFO tbmci
+					WHERE tbmci.MEDICINE_CODE_PK = b.MEDICINE_CODE_PK) AS medi_name,
+					b.QUANTITY, b.CREATED_AT AS "DATE", b.staff_pk AS who, 
+					(SELECT tjsi.NAME 
+					FROM TL_JIC_STAFF_INFO tjsi
+					WHERE tjsi.STAFF_PK = b.staff_pk) AS m_name,
+			'재고변경' AS m_type FROM TL_B_MEDICINE_INVENTORY b
+			UNION
+			SELECT 	c.MEDICINE_CODE_PK,
+					(SELECT TBMCI2.NAME 
+					FROM TL_B_MEDICINE_CODE_INFO tbmci2
+					WHERE TBMCI2.MEDICINE_CODE_PK = c.MEDICINE_CODE_PK) AS medi_name,
+					c.QUANTITY, c.CREATED_AT AS "DATE", 
+					(SELECT TBCPL.STAFF_PK  
+					FROM TL_B_CLINIC_PATIENT_LOG tbcpl 
+					WHERE tbcpl.CLINIC_PATIENT_LOG_PK = c.CLINIC_PATIENT_LOG_PK  
+					) AS who,
+					(SELECT TJSI.NAME
+					FROM TL_JIC_STAFF_INFO tjsi 
+					WHERE 
+					tjsi.STAFF_PK = (	SELECT TBCPL.STAFF_PK  
+										FROM TL_B_CLINIC_PATIENT_LOG tbcpl 
+										WHERE tbcpl.CLINIC_PATIENT_LOG_PK = c.CLINIC_PATIENT_LOG_PK	)
+										)AS m_name,
+					'처방' AS m_type 
+					FROM TL_B_PRESCRIPTION_INFO c
+					) t1
+			<if test="orderNumber != null">
+			<choose>
+				<when test="orderNumber == 1">
+					ORDER BY t1."DATE" DESC
+				</when>
+				<when test="orderNumber == 2">
+					ORDER BY t1."DATE" ASC
+				</when>
+				<when test="orderNumber == 3">
+					ORDER BY t1."MEDI_NAME"
+				</when>
+				<when test="orderNumber == 4">
+					ORDER BY t1."M_TYPE"
+				</when>
+			</choose>
+			</if>
+	</select>
+	
+	<select id="restSelectedMedicineInfoByMedicineCodePk" resultType="com.mkfactory.toothless.b.dto.MedicineCodeDto">
+		SELECT * 
+		FROM TL_B_MEDICINE_CODE_INFO
+		WHERE MEDICINE_CODE_PK = #{medicine_code_pk}
+	</select>
+	
+	<select id="restSelectedMedicineMgmtCatInfoByPk" resultType="com.mkfactory.toothless.b.dto.MedicineMgmtCatDto">
+		SELECT * 
+		FROM TL_B_MEDICINE_MGMT_CAT
+		where medicine_mgmt_cat_pk = #{medicine_mgmt_cat_pk} 
+	</select>
+	
+	<!--  데이터 오류 방지를 위해서 연쇄적으로 입고정보까지 삭제 -->
+	<delete id="chainedDeleteAddinfo" >
+		DELETE FROM TL_B_MEDICINE_ADD
+		WHERE MEDICINE_CODE_PK = #{medicine_code_pk}
+	</delete>
+	
+	<delete id="chainedDeleteInventoryInfo">
+		DELETE FROM TL_B_MEDICINE_INVENTORY 
+		WHERE MEDICINE_CODE_PK = #{medicine_code_pk}
+	</delete>
+	
+	<select id="restInventoryInfoByPk" resultType="map">
+		SELECT 	t1.*, ROWNUM AS rnum
+		FROM
+			(	SELECT 	a.MEDICINE_CODE_PK,
+						(	SELECT tbmci.NAME 
+							FROM TL_B_MEDICINE_CODE_INFO tbmci
+							WHERE tbmci.MEDICINE_CODE_PK = a.MEDICINE_CODE_PK
+							) AS medi_name,
+						a.QUANTITY, a.add_at AS "DATE", a.staff_pk AS who, 
+						(	SELECT tjsi.NAME 
+							FROM TL_JIC_STAFF_INFO tjsi
+							WHERE tjsi.STAFF_PK = a.staff_pk
+							) AS m_name,
+						'입고' AS m_type 
+				FROM TL_B_MEDICINE_ADD a
+				UNION
+				SELECT 	b.MEDICINE_CODE_PK,
+						(	SELECT tbmci.NAME 
+							FROM TL_B_MEDICINE_CODE_INFO tbmci
+							WHERE tbmci.MEDICINE_CODE_PK = b.MEDICINE_CODE_PK
+							) AS medi_name,
+						b.QUANTITY, b.CREATED_AT AS "DATE", b.staff_pk AS who, 
+						(	SELECT tjsi.NAME 
+							FROM TL_JIC_STAFF_INFO tjsi
+							WHERE tjsi.STAFF_PK = b.staff_pk
+							) AS m_name,
+						'재고변경' AS m_type 
+				FROM TL_B_MEDICINE_INVENTORY b
+				UNION
+				SELECT 	c.MEDICINE_CODE_PK,
+						(	SELECT TBMCI2.NAME 
+							FROM TL_B_MEDICINE_CODE_INFO tbmci2
+							WHERE TBMCI2.MEDICINE_CODE_PK = c.MEDICINE_CODE_PK
+							) AS medi_name,
+						c.QUANTITY, c.CREATED_AT AS "DATE", 
+						(	SELECT TBCPL.STAFF_PK  
+							FROM TL_B_CLINIC_PATIENT_LOG tbcpl 
+							WHERE tbcpl.CLINIC_PATIENT_LOG_PK = c.CLINIC_PATIENT_LOG_PK
+							) AS who,
+						(	SELECT TJSI.NAME
+							FROM TL_JIC_STAFF_INFO tjsi 
+							WHERE tjsi.STAFF_PK = (	SELECT TBCPL.STAFF_PK  
+													FROM TL_B_CLINIC_PATIENT_LOG tbcpl 
+													WHERE tbcpl.CLINIC_PATIENT_LOG_PK = c.CLINIC_PATIENT_LOG_PK	)
+													)AS m_name,
+						'처방' AS m_type 
+				FROM TL_B_PRESCRIPTION_INFO c
+				) t1
+		WHERE 1=1
+		AND MEDICINE_CODE_PK = #{medicine_code_pk}
+		ORDER BY t1."DATE" DESC
+	</select>
+	
+	<select id="selectCheckBox" resultType="map">
+		SELECT *
+		FROM TL_B_MEDICINE_ADD a
+		JOIN TL_B_MEDICINE_CODE_INFO b ON a.MEDICINE_CODE_PK = b.MEDICINE_CODE_PK  
+		WHERE 1=1
+		AND a.MEDICINE_CODE_PK in 
+		<foreach collection="listOfMedicineCodes" item="medicineCode" open="(" separator="," close=")">
+  			#{medicineCode}
+ 		</foreach>
+		ORDER BY a.CREATED_AT , a.ADD_AT desc
+	</select>
+	
 </mapper>
 

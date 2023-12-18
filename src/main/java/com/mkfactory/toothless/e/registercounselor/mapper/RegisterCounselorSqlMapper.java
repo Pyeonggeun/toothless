@@ -31,7 +31,7 @@ public interface RegisterCounselorSqlMapper {
 	// 상담원 전체 중복제거 리스팅 for AJAX
 	public List<Map<String, Object>> selectAllCounselorForAJAX(			
 			@Param("searchCounselorName") String searchCounselorName,
-			@Param("searchCounselorType") int searchCounselorType,
+			@Param("searchCounselorType") int[] searchCounselorType,
 			@Param("searchGenderOption") String searchGenderOption,
 			@Param("searchScoreOption") String searchScoreOption,
 			@Param("searchOption") Boolean searchOption
@@ -63,6 +63,9 @@ public interface RegisterCounselorSqlMapper {
 	
 	// 상담원PK로 오프라인상담 평점 조회
 	public Object selectOfflineCounselScoreAvg(int counselor_id);
+	
+	// 상담원 신규등록시 ID중복검사
+	public int checkDuplicationExternalId(String inputId);
 	
 	
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mkfactory.toothless.d.dto.CompanyDto;
+import com.mkfactory.toothless.d.dto.InterestCompanyDto;
 import com.mkfactory.toothless.d.dto.InterestPostingDto;
 import com.mkfactory.toothless.d.dto.JobPostingDto;
 import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
@@ -30,15 +31,23 @@ public class PostingController {
 	@Autowired
 	private PostingServiceImpl postingService;
 	
-//	@Autowired
-//	private CompanyServiceIpml companyService;
+	@Autowired
+	private CompanyServiceIpml companyService;
 	
 	
 	// 교직원
 	
 	// 채용공고 등록 페이지
 	@RequestMapping("registerJobPostingPage")
-	public String registerJobPostingPage(Model model) {
+	public String registerJobPostingPage(HttpSession session, Model model) {
+		
+		StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(staffInfo == null) {
+			return "redirect:../../another/staff/loginPage";
+			
+		}
+		
 		model.addAttribute("jobFieldCategory", postingService.getJobFieldCategoryList());
 		return "tl_d/ny_posting/registerJobPostingPage";
 	}
@@ -114,9 +123,9 @@ public class PostingController {
 	
 	// 채용공고 리스트 페이지
 	@RequestMapping("jobPostingListPage")
-	public String jobPostingListPage(Model model) {
+	public String jobPostingListPage(Model model, String searchType, String searchWord) {
 		model.addAttribute("postingCount", postingService.getPostingCount());
-		model.addAttribute("jobPostingList", postingService.getPostingList());
+		model.addAttribute("jobPostingList", postingService.getPostingList(searchType, searchWord));
 		return "tl_d/ny_posting/jobPostingListPage";
 	}
 	
@@ -213,10 +222,31 @@ public class PostingController {
 	
 	// 학생용 채용공고 리스트
 	@RequestMapping("jobPostingListForStudentPage")
-	public String jobPostingListForStudentPage(Model model) {
+	public String jobPostingListForStudentPage(HttpSession session, Model model, InterestCompanyDto params, String searchType, String searchWord) {
 		
-		model.addAttribute("jopPostingForStudentList", postingService.getPostingListForStudent());
+		StudentInfoDto studentInfo = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(studentInfo != null) {
+			int studentPk = studentInfo.getStudent_pk();
+			model.addAttribute("jopPostingForStudentList", postingService.getPostingListForStudent(studentPk, searchType, searchWord));
+		}
 		model.addAttribute("postingCount", postingService.getPostingCount());
+		
+				
+        String searchQueryString = "";
+		
+		// 쿼리 스트링이니까 &붙임
+		if(searchType != null && searchWord != null) {
+			searchQueryString += "&searchType=" + searchType;
+			searchQueryString += "&searchWord=" + searchWord;
+			
+		}
+		
+		model.addAttribute("searchQueryString", searchQueryString);
+		
+		// 검색 칸에 검색 내용 띄워 두기 영상확인!
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchWord", searchWord);
 
 		// 여기서도 찜하는 방법 생각해보기
 		
@@ -235,7 +265,6 @@ public class PostingController {
 	@RequestMapping("jobPostingDetailForStudentPage")
 	public String jobPostingDetailForStudentPage(HttpSession session, Model model, int id, InterestPostingDto params) {
 
-		model.addAttribute("jobPostingDetailForStudent", postingService.getJobPostingDetailForStudentAndCompany(id));
 		
 		params.setJob_posting_pk(id);
 		
@@ -244,6 +273,8 @@ public class PostingController {
 		if(studentInfoDto != null) {
 			int studentPk = studentInfoDto.getStudent_pk();
 			params.setStudent_pk(studentPk);
+			model.addAttribute("jobPostingDetailForStudent",
+					postingService.getJobPostingDetailForStudentAndCompany(/* studentPk, */ id));
 			
 		}
 		
@@ -315,7 +346,7 @@ public class PostingController {
 	public String jobPostingDetailForCompanyPage(Model model, int id) {
 		
 		// 기업 상세
-		model.addAttribute("jobPostingDetailForCompany", postingService.getJobPostingDetailForStudentAndCompany(id));
+		model.addAttribute("jobPostingDetailForCompany", postingService.getJobPostingDetail(id));
 		
 		// 관심공고 학생 리스트
 		model.addAttribute("interestStudentList", postingService.getStudentListByPostingInterest(id));
@@ -324,6 +355,22 @@ public class PostingController {
 		model.addAttribute("applyStudentList", postingService.getApplyStudentList(id));
 		
 		return "tl_d/ny_posting/jobPostingDetailForCompanyPage";
+	}
+	// 기업 지원자 학생 리스트
+	@RequestMapping("myCompanyApplyStudentListPage")
+	public String myCompanyApplyStudentListPage(HttpSession session, Model model) {
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
+		
+		if(externalInfoDto != null) {
+			int externalInfoPk = externalInfoDto.getExternal_pk();
+			
+			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalInfoPk);
+		
+			model.addAttribute("applyStudentList", postingService.getApplyStudentTotalList(companyDto.getCom_pk()));
+			
+		}	
+		return "tl_d/ny_posting/myCompanyApplyStudentListPage";
 	}
 	
 	

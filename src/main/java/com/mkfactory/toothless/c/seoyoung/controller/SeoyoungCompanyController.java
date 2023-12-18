@@ -15,7 +15,7 @@ import com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
 import com.mkfactory.toothless.c.guntaek.service.GuntaekStudentServiceImpl;
 import com.mkfactory.toothless.c.seoyoung.service.SeoyoungCompanyServicempl;
-import com.mkfactory.toothless.c.woojae.service.WoojaeExternalServiceImpl;
+import com.mkfactory.toothless.c.woojae.service.WoojaeStaffServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 

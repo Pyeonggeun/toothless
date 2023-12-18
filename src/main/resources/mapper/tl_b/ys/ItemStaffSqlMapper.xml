@@ -106,4 +106,95 @@
 		WHERE ITEM_APPLY_PK = #{item_apply_pk}
 	</delete>
 	
+	<!-- 검색 쿼리 -->
+	<!--  
+	<select id="searchSelectAll" resultType="map">
+		SELECT tbii.ITEM_PK AS ITEM_PK, 
+		TBIC.NAME AS cat_NAME, 
+		TBII.NAME AS item_name, 
+		tbii.CREATED_AT as created_at
+		FROM TL_B_ITEM_INFO tbii
+		INNER JOIN TL_B_ITEM_CAT tbic ON tbii.ITEM_CAT_PK = tbic.ITEM_CAT_PK
+		WHERE 1=1
+		<if test="searchType != null">
+			<choose>
+				<when test="searchType == 'itemPk'">
+					AND tbii.ITEM_PK LIKE '%' || #{searchWord} || '%'
+					AND tbii.ITEM_CAT_PK  IN
+					<foreach collection="array" item="item_cat_pk" open="(" close=")" separator="," >
+						#{item_cat_pk}
+					</foreach> 
+				</when>
+				<when test="searchType == 'catName'">
+					AND tbic.NAME LIKE '%' || #{searchWord} || '%'
+					AND tbii.ITEM_CAT_PK  IN
+					<foreach collection="array" item="item_cat_pk" open="(" close=")" separator="," >
+						#{item_cat_pk}
+					</foreach>  
+				</when>
+				<when test="searchType == 'itemName'">
+					AND tbii.NAME LIKE '%' || #{searchWord} || '%'
+					AND tbii.ITEM_CAT_PK  IN 
+					<foreach collection="array" item="item_cat_pk" open="(" close=")" separator="," >
+						#{item_cat_pk}
+					</foreach> 
+				</when>
+				<when test="searchType == 'createdAt'">
+					AND tbii.CREATED_AT LIKE '%' || #{searchWord} || '%'
+					AND tbii.ITEM_CAT_PK  IN 
+					<foreach collection="array" item="item_cat_pk" open="(" close=")" separator="," >
+						#{item_cat_pk}
+					</foreach> 
+				</when>
+			</choose>
+		</if>
+		
+	</select>
+	-->
+	<!-- select box 검색 쿼리 -->
+	<select id="searchSelectAll" resultType="map">
+		SELECT tbii.ITEM_PK AS ITEM_PK, 
+		TBIC.NAME AS cat_NAME, 
+		TBII.NAME AS item_name, 
+		tbii.CREATED_AT as created_at
+		FROM TL_B_ITEM_INFO tbii
+		INNER JOIN TL_B_ITEM_CAT tbic ON tbii.ITEM_CAT_PK = tbic.ITEM_CAT_PK
+		WHERE 1=1
+		<!-- 카테고리랑 물품명 둘 다 검색했을 시 -->
+		<if test="searchItemName != 'default' and searchCategory != 0">
+        AND tbii.NAME LIKE '%' || #{searchItemName} || '%'
+        AND tbii.ITEM_CAT_PK = #{searchCategory}
+	    </if>
+	    <!-- 카테고리만 검색했을 시 -->
+	    <if test="searchItemName == 'default' and searchCategory != 0">
+	    AND tbii.ITEM_CAT_PK = #{searchCategory}
+	    </if>
+	    <!-- 물품명만 검색했을 시 --> 
+	    <if test="searchItemName != 'default' and searchCategory == 0">
+	    AND tbii.NAME LIKE '%' || #{searchItemName} || '%'
+	    </if> 
+	    
+	</select>
+	
+	<!-- checkbox 검색 쿼리 -->
+	<select id="searchBycheckBox" resultType="map">
+		SELECT tbii.ITEM_PK AS ITEM_PK, 
+		TBIC.NAME AS cat_NAME, 
+		TBII.NAME AS item_name, 
+		tbii.CREATED_AT as created_at
+		FROM TL_B_ITEM_INFO tbii
+		INNER JOIN TL_B_ITEM_CAT tbic ON tbii.ITEM_CAT_PK = tbic.ITEM_CAT_PK
+		WHERE 1=1
+		
+		<if test="searchItemName != 'default'">
+        AND tbii.NAME LIKE '%' || #{searchItemName} || '%'
+        </if>
+        <if test="searchCategory != null and searchCategory.length > 0">
+		AND tbii.ITEM_CAT_PK IN
+			<foreach collection="searchCategory" item="Category" open="(" close=")" separator="," >
+					#{Category}
+			</foreach> 
+	    </if>
+	</select>
+	
 </mapper>

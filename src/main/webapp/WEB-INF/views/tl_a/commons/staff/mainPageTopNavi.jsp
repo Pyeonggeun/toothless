@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<div class="row py-1 d-flex justify-content-between align-self-center" style="background-color:white">
+<div class="row py-2 mb-1 d-flex justify-content-between align-self-center" style="background-color:white">
 	<div class="col-2 align-self-center">
 		<div class="row">
             <div class="col-2 p-0">
@@ -16,7 +16,7 @@
    	<div class="col-4 align-self-center">
    		<div class="row">
    			<div class="col text-center border-end align-self-center">
-   				<a href="#" style="text-decoration: none; color: black; font-size: 0.8em">업무 게시판</a>
+   				<a href="./jw_dormStaffboardPage" style="text-decoration: none; color: black; font-size: 0.8em">업무 게시판</a>
     		</div>
     		<div class="col text-center border-end align-self-center">
     			<a href="./sj_registerDormInfo" style="text-decoration: none; color: black; font-size: 0.8em">기숙사 정보</a>

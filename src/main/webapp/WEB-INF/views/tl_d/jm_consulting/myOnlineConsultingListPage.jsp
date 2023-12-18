@@ -25,15 +25,32 @@
 		.then(response => response.json())
 		.then(response => {
 			
+			const myOnlineConsultingList = document.getElementById("myOnlineConsultingList");
+			myOnlineConsultingList.innerHTML ="";
+			myOnlineConsultingList.innerText ="";
+			myOnlineConsultingList.classList.add("col");
 			
+			//아직 상담목록 없으면
+			if(response.data.length==0){
+				
+				const myOnlineConsultingList = document.querySelector("#myOnlineConsultingList"); 
+				const spanElement = document.createElement('span');
+	
+				myOnlineConsultingList.classList.add('text-center','py-3');
+				spanElement.classList.add('fw-bold');
+
+				spanElement.innerText ="아직 상담목록이 없습니다."
+				
+				myOnlineConsultingList.appendChild(spanElement);
+				return;
+				
+			}
 			
 			//CSR - 클아이언트 사이드 렌더링
 				//복사할곳을 찾아놓음, id명 myOnlineCounsultiList를 위치로잡음 
-			const myOnlineConsultingList = document.getElementById("myOnlineConsultingList");
 			//for문돌기전 초기화
-			myOnlineConsultingList.innerHTML ="";
 			for(e of response.data){
-			
+
 				
 				//각각의 값 배치				
 				//템플릿 복사함 #templete의 listWrapper를 찾음 그리고 복사(cloneNode)
@@ -65,14 +82,7 @@
 				const date = new Date(e.onlineConsultingDto.created_at);
 				listDate.innerText = date.getFullYear() +"." + (date.getMonth() + 1) + "." + date.getDate();
 				
-				//답변여부
-				//밑코드와 동일
-				//if(e.staffInfoDto==null){
-				//listISReply.innerHTML = '<span class="badge text-bg-danger">미답변</span>';	
-				//}
-				//else{
-				//listISReply.innerHTML = '<span class="badge text-bg-primary">답변완료</span>';					
-				//}				
+				//답변여부			
 				const listISReply = listWrapper.querySelector(".listISReply");
 				const badgeElement = document.createElement('span');
 				

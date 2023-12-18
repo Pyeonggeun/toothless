@@ -15,12 +15,14 @@
 		
 		let myId = ${sessionStudentInfo.student_pk};
 		let pageNum = 1;
-				
-		function reloadReservationList(pageNum, counselorNameValue = '0', selectDateType = 0, datevalue = '0', categoryType = 0, stateType = 0){
+		
+		function reloadReservationList(pageNum, counselorNameValue = 0, selectDateType = 0, datevalue = 0, categoryValues = 0, stateType = 0){
+			
+			console.log("reloadPageNum: "+pageNum);
 			
 			const url = "./getReservationList?student_pk=" + myId + "&pageNum=" + pageNum
 					+ "&counselorNameValue=" + counselorNameValue + "&selectDateType=" + selectDateType
-					+ "&datevalue=" + datevalue + "&categoryType=" + categoryType + "&stateType=" + stateType;
+					+ "&datevalue=" + datevalue + "&categoryValues=" + categoryValues + "&stateType=" + stateType;
 			
 			
 			fetch(url)
@@ -84,7 +86,6 @@
 						createReview.value = "리뷰확인";
 					}else {
 						if(e.offlineReservationDto.state == "완료"){
-							
 							createReview.value = "리뷰작성";
 							createReview.classList.replace("btn-dark", "btn-outline-dark");
 						}else {
@@ -131,27 +132,28 @@
 					const counselorName = writeModalElement.querySelector(".counselorName");
 					counselorName.innerText = modalValues.counselorDto.name;
 					
-					const reviewScore = writeModalElement.querySelector(".reviewScore");
-					reviewScore.value = modalValues.offlineSurveyDto.score;
 					
-					for (let option of reviewScore.options) {
-						if (option.value === modalValues.offlineSurveyDto.score) {
-						    option.selected = true;
-						    break;
+					const reviewScoreBox = writeModalElement.querySelector(".reviewScoreBox");
+					reviewScoreBox.innerHTML = "";
+					reviewScoreBox.classList.add("text-warning");
+
+					for(let i = 1; i <= 5; i++){
+						if(modalValues.offlineSurveyDto.score == i){
+							let a = '★'.repeat(i);
+							reviewScoreBox.innerText = a;
 						}
 					}
 					
 					const categoryName = writeModalElement.querySelector(".categoryName");
 					categoryName.innerText = modalValues.typeCategoryDto.name;
 					
-					const reviewContent = writeModalElement.querySelector(".reviewContent");
-					reviewContent.value = modalValues.offlineSurveyDto.text;
+					const reviewContentBox = writeModalElement.querySelector(".reviewContentBox");
+					reviewContentBox.innerHTML = "";
+					reviewContentBox.innerText = modalValues.offlineSurveyDto.text;
 					
 					reviewRegister.disabled = true;
 					
-				}else {
-					
-					
+				}else{
 					const counselDate = writeModalElement.querySelector(".counselDate");
 					counselDate.innerText = modalValues.offlineReservationDto.counsel_year + "-" + modalValues.offlineReservationDto.counsel_month 
 						+ "-" + modalValues.offlineReservationDto.counsel_date + " " + modalValues.offlineReservationDto.counsel_hour + ":00";
@@ -162,7 +164,55 @@
 					const categoryName = writeModalElement.querySelector(".categoryName");
 					categoryName.innerText = modalValues.typeCategoryDto.name;
 					
-				    reviewRegister.setAttribute("onclick", "save("+modalValues.offlineReservationDto.id+")");
+					const reviewScoreBox = writeModalElement.querySelector(".reviewScoreBox");
+					const reviewScore = document.createElement("select");
+					reviewScore.classList.add(".reviewScore");
+					reviewScore.classList.add("form-select");
+					reviewScore.classList.add("text-warning");
+					reviewScoreBox.appendChild(reviewScore);
+					
+					const option1 = document.createElement("option");
+					option1.setAttribute("value", 5);
+					option1.innerText = "★★★★★";
+					reviewScore.appendChild(option1);
+					
+					const option2 = document.createElement("option");
+					option2.setAttribute("value", 4);
+					option2.innerText = "★★★★";
+					reviewScore.appendChild(option2);
+					
+					const option3 = document.createElement("option");
+					option3.setAttribute("value", 3);
+					option3.innerText = "★★★";
+					reviewScore.appendChild(option3);
+					
+					const option4 = document.createElement("option");
+					option4.setAttribute("value", 2);
+					option4.innerText = "★★";
+					reviewScore.appendChild(option4);
+
+					const option5 = document.createElement("option");
+					option5.setAttribute("value", 1);
+					option5.innerText = "★";
+					reviewScore.appendChild(option5);
+
+					
+					const reviewContentBox = writeModalElement.querySelector(".reviewContentBox");
+					const reviewContent = document.createElement("textarea");
+					reviewContent.classList.add("form-control");
+					reviewContent.classList.add("reviewContent");
+					reviewContent.rows = 5;
+					reviewContentBox.appendChild(reviewContent);
+					
+					reviewRegister.addEventListener("click", function(){
+						
+						const id = modalValues.offlineReservationDto.id;
+						const scoreValue = reviewScore.value;
+						const contentValue = reviewContent.value;
+						
+						save(id, scoreValue, contentValue);
+					});
+					
 				}
 				
 			});
@@ -177,21 +227,18 @@
 			
 		}
 		
-		function save(reservation_id){
-			
-			const writeModalElement = document.querySelector("#writeModal");
-			const writeModal = bootstrap.Modal.getOrCreateInstance("#writeModal");
-			const reviewRegister = writeModalElement.querySelector(".reviewRegister");
-			
-			const scoreValue = writeModalElement.querySelector(".reviewScore").value;
-		    const contentValue = writeModalElement.querySelector(".reviewContent").value;
+		function save(reservation_id, scoreValue, contentValue){
 			
 			const url = "./counselReviewProcess?reservation_id=" + reservation_id + "&score=" + scoreValue + "&text=" + contentValue;
 			
 			fetch(url)
 			.then(response => response.json())
 			.then(response => {
+				
+				search();
+				<%--
 				reloadReservationList(pageNum);
+				--%>
 				closeModal();
 			});
 			
@@ -207,8 +254,8 @@
 			writeModalElement.querySelector(".counselDate").innerText = "";
 			writeModalElement.querySelector(".counselorName").innerText = "";
 			writeModalElement.querySelector(".categoryName").innerText = "";
-			writeModalElement.querySelector(".reviewScore").value = "5";
-			writeModalElement.querySelector(".reviewContent").value = "";
+			writeModalElement.querySelector(".reviewScoreBox").innerHTML = "";
+			writeModalElement.querySelector(".reviewContentBox").innerHTML = "";
 			reviewRegister.disabled = false;
 			
 			modal.hide();
@@ -216,10 +263,10 @@
 		}
 		
 		
-		function createPageNum(pageNum, counselorNameValue = '0', selectDateType = 0, datevalue = '0', categoryType = 0, stateType = 0){
+		function createPageNum(pageNum, counselorNameValue = 0, selectDateType = 0, datevalue = 0, categoryValues = 0, stateType = 0){
 			
 			const url = "./studentTotalCounselCount?counselorNameValue=" + counselorNameValue + "&selectDateType=" + selectDateType
-			+ "&datevalue=" + datevalue + "&categoryType=" + categoryType + "&stateType=" + stateType;
+			+ "&datevalue=" + datevalue + "&categoryValues=" + categoryValues + "&stateType=" + stateType;
 			
 			fetch(url)
 			.then(response => response.json())
@@ -245,7 +292,14 @@
 					startPageNumber.classList.add('bg-secondary-subtle');
 				}else{
 					startPageNumber.classList.remove("bg-secondary-subtle");
-					startPageNumber.setAttribute("onclick", "setPageNum("+(startPageNum - 1)+")");
+					
+					startPageNumber.addEventListener("click", function() {
+	                    setPageNum((startPageNum - 1), counselorNameValue, selectDateType, datevalue, categoryValues, stateType);
+	                });
+					
+					<%--
+					startPageNumber.setAttribute("onclick", "setPageNum("+(startPageNum - 1)+","+counselorNameValue+","+selectDateType+","+datevalue+","+categoryValues+","+stateType+")");
+					--%>
 					
 					for (e of pageNumbers) {
 				        e.remove();
@@ -263,7 +317,19 @@
 	                currentPageNumber.classList.add('page-link', 'text-dark');
 	                currentPageNumber.innerText = i;
 	                
-	                currentPageNumber.setAttribute("onclick", "setPageNum("+i+")");
+	                console.log("상담원명: "+counselorNameValue);
+	                console.log("날짜타입: "+selectDateType);
+	                console.log("날짜값: "+datevalue);
+	                console.log("상태타입: "+stateType);
+	                console.log("카테고리타입: "+categoryValues);
+	                
+	                currentPageNumber.addEventListener("click", function() {
+	                    setPageNum(i, counselorNameValue, selectDateType, datevalue, categoryValues, stateType);
+	                });
+	                
+	                <%--
+	                currentPageNumber.setAttribute("onclick", "setPageNum("+i+","+counselorNameValue+","+selectDateType+","+datevalue+","+categoryValues+","+stateType+")");
+	                --%>
 	                
 	                pageNumWrapper.appendChild(currentPageNumber);
 	                pagination.insertBefore(pageNumWrapper, pagination.querySelector('.endPageNumli'));
@@ -287,7 +353,14 @@
 					endPageNumber.classList.add("bg-secondary-subtle");
 				}else {
 					endPageNumber.classList.remove("bg-secondary-subtle");
-					endPageNumber.setAttribute("onclick", "setPageNum("+(endPageNum + 1)+")");
+					
+					endPageNumber.addEventListener("click", function() {
+	                    setPageNum((endPageNum - 1), counselorNameValue, selectDateType, datevalue, categoryValues, stateType);
+	                });
+
+					<%--
+					endPageNumber.setAttribute("onclick", "setPageNum("+(endPageNum - 1)+","+counselorNameValue+","+selectDateType+","+datevalue+","+categoryValues+","+stateType+")");
+					--%>
 					
 					for (e of pageNumbers) {
 				        e.remove();
@@ -298,34 +371,99 @@
 			
 		}
 		
-		function setPageNum(clickedPage){
+		function setPageNum(clickedPage, counselorNameValue = 0, selectDateType = 0, datevalue = 0, categoryValues = 0, stateType = 0){
 			
 			pageNum = clickedPage;
+			console.log("setPageNum(): "+pageNum);
+			console.log("counselorNameValue(): "+counselorNameValue);
+			console.log("selectDateType(): "+selectDateType);
+			console.log("datevalue(): "+datevalue);
+			console.log("categoryValues(): "+categoryValues);
+			console.log("stateType(): "+stateType);
 			
-			createPageNum(pageNum);
-			reloadReservationList(pageNum);
+			createPageNum(pageNum, counselorNameValue, selectDateType, datevalue, categoryValues, stateType);
+			reloadReservationList(pageNum, counselorNameValue, selectDateType, datevalue, categoryValues, stateType);
+		}
+		
+		
+		function enterKey(){
+			
+	        if (window.event.keyCode == 13) {
+	            search();
+	        }
+
+		}
+		
+		function toggleCheckBoxes(target){
+			
+			const categoryBox = document.getElementById("categoryBox");
+			const selectCategory = categoryBox.querySelectorAll(".selectCategory");
+			
+			const isChecked = target.checked;
+			
+			selectCategory.forEach((checkbox) => {
+			    checkbox.checked = isChecked;
+			});
+			
+		}
+		
+		function toggleCheckSingle(target){
+			
+			const categoryBox = document.getElementById("categoryBox");
+			const selectCategoryAll = categoryBox.querySelector(".selectCategoryAll");
+			const selectCategory = categoryBox.querySelectorAll(".selectCategory");
+			
+			let count = 0;
+			
+			selectCategory.forEach((checkbox) => {
+				if(checkbox.checked == false){
+					count = count + 1;
+				}
+			});
+			
+			if(count > 0){
+				selectCategoryAll.checked = false;
+			}
+			
 		}
 		
 		
 		function search(){
 			
 			const searchCounselorName = document.querySelector(".searchCounselorName");
-			const counselorNameValue = searchCounselorName.value;
-			
+			let counselorNameValue = searchCounselorName.value.trim();
 			const selectSearchDate = document.querySelector(".selectSearchDate");
 			const selectDateType = selectSearchDate.value;
-			
 			const searchDate = document.querySelector(".searchDate");
-			const datevalue = searchDate.value;
-			
-			const selectCategory = document.querySelector(".selectCategory");
-			const categoryType = selectCategory.value;
-			
+			let datevalue = searchDate.value.trim();
+			const selectCategory = document.querySelectorAll(".selectCategory");
+			const categoryValues = [];
 			const selectState = document.querySelector(".selectState");
 			const stateType = selectState.value;
 			
-			reloadReservationList(pageNum, counselorNameValue, selectDateType, datevalue, categoryType, stateType);
-			createPageNum(pageNum, counselorNameValue, selectDateType, datevalue, categoryType, stateType);
+			
+			if(searchCounselorName.value === ''){
+				counselorNameValue = 0;
+			}
+			
+			if(searchDate.value === ''){
+				datevalue = 0;
+			}
+			
+			selectCategory.forEach((checkbox) => {
+				if(checkbox.checked){
+					categoryValues.push(checkbox.value);
+					console.log(checkbox.value);
+				}
+			});
+			
+            console.log("s상담원명: "+counselorNameValue);
+            console.log("s날짜타입: "+selectDateType);
+            console.log("s날짜값: "+datevalue);
+            console.log("s상태타입: "+stateType);
+			
+			reloadReservationList(pageNum, counselorNameValue, selectDateType, datevalue, categoryValues, stateType);
+			createPageNum(pageNum, counselorNameValue, selectDateType, datevalue, categoryValues, stateType);
 			
 		}
 		
@@ -341,12 +479,18 @@
 			const searchDate = document.querySelector(".searchDate");
 			searchDate.value = "";
 			
-			const selectCategory = document.querySelector(".selectCategory");
-			selectCategory.value = "0";
-			
 			const selectState = document.querySelector(".selectState");
 			selectState.value = "0";
 			
+			const selectCategoryAll = document.querySelector(".selectCategoryAll");
+			selectCategoryAll.checked = false;
+			
+			const selectCategory = document.querySelectorAll(".selectCategory");
+			selectCategory.forEach((checkbox) => {
+					checkbox.checked = false;
+			});
+			
+			pageNum = 1;
 			reloadReservationList(pageNum);
 			createPageNum(pageNum);
 			
@@ -366,20 +510,20 @@
 
 	<div class="container-fluid">
 	
-		<div class="row pt-2 pb-3 border-bottom">
+		<div class="row py-2 border-bottom">
             <div class="col-4 ps-5 text-start">
-                <a href="../commons/counselCenterStudentMainPage"><img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;"></a>
-                <span class="fw-bold fs-3 text-start align-middle">MK University</span><span class="fs-6t align-middle">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class="fs-5 fw-bold align-middle">상담센터</span> 
+                <a class="navbar-brand" href="../commons/counselCenterStudentMainPage"><img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
+                <span class="fw-bold fs-3 text-start align-middle">MK University</span><span class="fs-6t align-middle">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class="fs-5 fw-bold align-middle">상담센터</span></a>
             </div>
-            <div class="col-2"></div>
+            <div class="col-1"></div>
             <div class="col">
-            	<div class="row pt-3">
-            		<div class="col-9 d-grid">
-            			<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            		</div>
-            		<div class="col d-grid">
-            			<button class="btn btn-outline-dark" type="submit">Search</button>
-            		</div>
+            	<div class="row pt-3 align-items-center">
+					<div class="col pt-1 pe-4 text-end fs-5">
+						<span class="fw-bold"><a class="navbar-brand" href="../offlineCounsel/offlineCounselReservationCheckPage">오프라인 상담</a></span><span class="fs-5 text-body-tertiary">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+						<span class="fw-bold"><a class="navbar-brand" href="../onlineCounsel/counselorOnlineCounselMainPage">온라인 상담</a></span><span class="fs-5 text-body-tertiary">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+						<span class="fw-bold"><a class="navbar-brand" href="">집단 상담</a></span><span class="fs-5 text-body-tertiary">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+						<span class="fw-bold"><a class="navbar-brand" href="../offlineCounsel/offlineCounselStatisticsPage">통계 자료</a></span>
+					</div>
             	</div>
             </div>
 			<div class="col-1 pt-3 me-0 pe-0 text-center dropdown nav-item">
@@ -387,7 +531,6 @@
 			    <span class="fw-bold">${sessionStudentInfo.student_id }</span>님
 			  </a>
 			  <ul class="dropdown-menu">
-			    <li><a class="dropdown-item" href="#">정보 수정</a></li>
 			    <li><a class="dropdown-item" href="#">마이페이지</a></li>
 			    <li><hr class="dropdown-divider"></li>
 			    <li><a class="dropdown-item" href="#"><span><i class="bi bi-power"></i></span>&nbsp;로그아웃</a></li>
@@ -465,7 +608,7 @@
 										상담사명
 									</div>
 									<div class="col-3">
-										<input class="searchCounselorName form-control" type="text">
+										<input onkeyup="enterKey()" class="searchCounselorName form-control" type="text">
 									</div>
 									<div class="col-1"></div>
 									<div class="col-1 fw-bold">
@@ -486,18 +629,14 @@
 									<div class="col-1 fw-bold">
 										상담종류
 									</div>
-									<div class="col-3">
-										<select class="selectCategory form-select">
-										  <option value="0" selected>전체</option>
-										  <option value="1">성격문제</option>
-										  <option value="2">대인/가족관계</option>
-										  <option value="3">이성문제</option>
-										  <option value="4">우울/불안문제</option>
-										  <option value="5">진로문제</option>
-										  <option value="6">학업문제</option>
-										</select>								
+									<div id="categoryBox" class="col">
+										<span><input onclick="toggleCheckBoxes(this)" class="selectCategoryAll" type="checkbox" value="0"> 전체&nbsp;&nbsp;</span>
+										<c:forEach items="${categoryList }" var="list">
+											<span><input onclick="toggleCheckSingle(this)" class="selectCategory" type="checkbox" value="${list.id }"> ${list.name }&nbsp;&nbsp;</span>
+										</c:forEach>						
 									</div>
-									<div class="col-1"></div>
+								</div>
+								<div class="row pt-3 pb-3 align-items-center border-bottom">
 									<div class="col-1 fw-bold">
 										상담상태
 									</div>
@@ -604,23 +743,22 @@
 	<div id="templete" class="d-none">
 		<div class="reservationDataWrapper row py-3 border-bottom align-items-center">
 			<div class="reservationNo col-1">
-				${fn:length(list) - vs.index}
+
 			</div>
 			<div class="reservationCategoryName col-2">
-				${map.typeCategoryDto.name }
+
 			</div>
 			<div class="reservationCounselorName col-1">
-				${map.counselorDto.name }
+
 			</div>
 			<div class="reservationCreatedAt col-2">
-				<fmt:formatDate value="${map.offlineReservationDto.created_at }" pattern="yyyy-MM-dd"/>
+
 			</div>
 			<div class="reservationState col-1">
-				${map.offlineReservationDto.state }
+
 			</div>
 			<div class="reservationDate col-2">
-				${map.offlineReservationDto.counsel_year }-${map.offlineReservationDto.counsel_month }-${map.offlineReservationDto.counsel_date }&nbsp;
-				${map.offlineReservationDto.counsel_hour }<span>:00</span>
+
 			</div>
 			<div class="col d-grid">
 				<input class="canceledReservation btn btn-danger" type=button value="예약취소">
@@ -683,14 +821,8 @@
 							</div>
 							<div class="col-4 py-3 border-end border-dark">
 								<div class="row">
-									<div class="col">
-										<select name="score" class="reviewScore form-select" style="color: #ffc107;">
-										  <option class="text-warning" value="5">★★★★★</option>
-										  <option class="text-warning" value="4">★★★★</option>
-										  <option class="text-warning" value="3">★★★</option>
-										  <option class="text-warning" value="2">★★</option>
-										  <option class="text-warning" value="1">★</option>
-										</select>								
+									<div class="reviewScoreBox col">
+
 									</div>
 								</div>
 							</div>
@@ -721,8 +853,8 @@
 							</div>
 							<div class="col py-3">
 								<div class="row">
-									<div class="col">
-										<textarea name="text" class="reviewContent form-control" rows="6">${map.offlineSurveyDto.text }</textarea>
+									<div class="reviewContentBox col">
+
 									</div>
 								</div>
 							</div>

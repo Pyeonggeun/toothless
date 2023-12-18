@@ -127,7 +127,7 @@ public class RestDormStaffControllerDm {
 			
 			dormRoomDtos.add((DormRoomDto)map.get("dormRoomDto"));
 			
-		}
+		} 
 		
 		restResponseDto.setResult("success");
 		restResponseDto.setData(dormRoomDtos);

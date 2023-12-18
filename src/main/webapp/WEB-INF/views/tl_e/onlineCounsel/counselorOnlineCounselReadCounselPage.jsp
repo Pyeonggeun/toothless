@@ -133,7 +133,49 @@
 						<div class="form-floating">
 							<textarea class="form-control " placeholder="Leave a comment here" id="floatingTextareaDisabled" disabled></textarea>
 							<label for="floatingTextareaDisabled">
-								상담 평가 점수 <span class="text-danger">1~100</span> : ${targetCounselDto.surveyDto.score }
+								상담 평가 점수 :
+								<c:if test="${targetCounselDto.surveyDto.score == 0}">
+									<i class="bi bi-star"></i>
+									<i class="bi bi-star"></i>
+									<i class="bi bi-star"></i>
+									<i class="bi bi-star"></i>
+									<i class="bi bi-star"></i>
+								</c:if>
+								<c:if test="${targetCounselDto.surveyDto.score == 1}">
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+									<i class="bi bi-star"></i>
+									<i class="bi bi-star"></i>
+									<i class="bi bi-star"></i>
+									<i class="bi bi-star"></i>
+								</c:if>
+								<c:if test="${targetCounselDto.surveyDto.score == 2}">
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+									<i class="bi bi-star"></i>
+									<i class="bi bi-star"></i>
+									<i class="bi bi-star"></i>
+								</c:if>
+								<c:if test="${targetCounselDto.surveyDto.score == 3}">
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+									<i class="bi bi-star"></i>
+									<i class="bi bi-star"></i>
+								</c:if>
+								<c:if test="${targetCounselDto.surveyDto.score == 4}">
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+									<i class="bi bi-star"></i>
+								</c:if>
+								<c:if test="${targetCounselDto.surveyDto.score == 5}">
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+									<i class="bi bi-star-fill" style="color: deepblue;"></i>
+								</c:if>
 							</label>
 						</div>
 					</div>

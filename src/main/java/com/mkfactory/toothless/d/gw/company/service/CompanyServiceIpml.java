@@ -12,6 +12,7 @@ import com.mkfactory.toothless.d.dto.ComScaleCategoryDto;
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.CompanyManagerDto;
 import com.mkfactory.toothless.d.dto.InterestCompanyDto;
+import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.gw.company.mapper.CompanySqlMapper;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.GraduationInfoDto;
@@ -146,4 +147,42 @@ public class CompanyServiceIpml {
 		}
 		return studentList;
 	}
+	
+	public List<Map<String, Object>> mainResumeListForCompany(){
+		
+		List<Map<String, Object>> mainResumeList=new ArrayList<>();
+		
+		List<ResumeDto> mainResumeDtoList=companySqlMapper.resumeListForFamilyCompany();
+		
+		for(ResumeDto resumeDto:mainResumeDtoList) {
+			StudentInfoDto studentInfoDto=companySqlMapper.studentSelectByPk(resumeDto.getStudent_pk());
+			GraduationInfoDto graduationInfoDto=companySqlMapper.studentGraduationInfoSelectByPk(resumeDto.getStudent_pk());
+			
+			Map<String, Object> mainResumeMap=new HashMap<>();
+			
+			mainResumeMap.put("resumeDto", resumeDto);
+			mainResumeMap.put("studentInfoDto", studentInfoDto);
+			mainResumeMap.put("graduationInfoDto", graduationInfoDto);
+			
+			mainResumeList.add(mainResumeMap);
+		}
+		
+		return mainResumeList;
+	}
+	
+	
+	
+	//사업자번호 중복확인
+	public boolean existBusinessNumber(String business_number){
+		
+		return companySqlMapper.countByBusinessNumber(business_number)>0 ? true:false;
+	}
+	
+	//외부인 계정 아이디 중복 확인
+	public boolean existExternalId(String external_id){
+		
+		return companySqlMapper.countByExternalId(external_id)>0 ? true:false;
+	}
+	
+	
 }

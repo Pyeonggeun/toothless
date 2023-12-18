@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mkfactory.toothless.c.dto.AjdksProfessorEvaluationDto;
+import com.mkfactory.toothless.c.eunbi.service.EunbiExternalServiceImpl;
 import com.mkfactory.toothless.c.eunbi.service.EunbiProfessorServiceImpl;
 import com.mkfactory.toothless.c.eunbi.service.EunbiStudentServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
@@ -20,6 +21,8 @@ public class EunbiRestProfessorController {
 	private EunbiProfessorServiceImpl professorService;
 	@Autowired
 	private EunbiStudentServiceImpl studentService;
+	@Autowired
+	private EunbiExternalServiceImpl externalService;
 	
 	@RequestMapping("getProfessorPk")
 	public RestResponseDto getProfessorPk(HttpSession session) {
@@ -74,7 +77,7 @@ public class EunbiRestProfessorController {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
 		
-		restResponseDto.setData(professorService.getApplyingStudentList(internship_course_pk));
+		restResponseDto.setData(studentService.getApplyingStudentList(internship_course_pk));
 		
 		restResponseDto.setResult("Success");
 		
@@ -86,7 +89,7 @@ public class EunbiRestProfessorController {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
 		
-		restResponseDto.setData(professorService.getStudentInternList(internship_course_pk));
+		restResponseDto.setData(studentService.getStudentInternList(internship_course_pk));
 		
 		restResponseDto.setResult("Success");
 		
@@ -98,7 +101,7 @@ public class EunbiRestProfessorController {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
 		
-		restResponseDto.setData(professorService.isNow(internship_course_pk));
+		restResponseDto.setData(externalService.isNow(internship_course_pk));
 		
 		restResponseDto.setResult("Success");
 		

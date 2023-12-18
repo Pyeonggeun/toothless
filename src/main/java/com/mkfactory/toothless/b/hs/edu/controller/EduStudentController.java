@@ -17,6 +17,7 @@ import com.mkfactory.toothless.b.hs.edu.mapper.EduStaffSqlMapper;
 import com.mkfactory.toothless.b.hs.edu.service.EduStaffServiceimpl;
 import com.mkfactory.toothless.b.hs.edu.service.EduStudentServiceimpl;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
+import com.mkfactory.toothless.donot.touch.service.StudentServiceImpl;
 
 @Controller
 @RequestMapping("/tl_b/hs/*")
@@ -28,14 +29,19 @@ public class EduStudentController {
 	@Autowired
 	EduStaffServiceimpl eduStaffService;
 	
-	@Autowired
+	@Autowired 
 	EduStaffSqlMapper eduStaffSqlMapper;
+	
+	@Autowired
+	private StudentServiceImpl studentService;
 	
 	//메인, 스태프 서비스 땡겨씀
 	@RequestMapping("eduMainPageForStudent")
-	public String eduMainPageForStudent(Model model) {
+	public String eduMainPageForStudent(Model model, 
+			String searchType,
+			String searchWord) {
 
-		List<Map<String, Object>> list = eduStaffService.getEduProgList();
+		List<Map<String, Object>> list = eduStaffService.getEduProgList(searchType, searchWord);
 
 		model.addAttribute("list", list);
 		
@@ -63,7 +69,7 @@ public class EduStudentController {
 	
 	//프로그램 신청페이지
 	@RequestMapping("eduApplyPage")
-	public String eduApplyPage(Model model, EduDto eduDto) {
+	public String eduApplyPage(Model model, EduDto eduDto, HttpSession session) {
 		
 		// int, strimg 민방 1
 		// model(teeml)
@@ -71,6 +77,12 @@ public class EduStudentController {
 		// applydto 민방2
 		// model (dto.getNAmet())
 //		int applyStudentCount = eduStaffSqlMapper.selectApplyPkPerEduPkCount(eduDto.getEdu_pk());
+		
+		//인춘쓰
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		Map<String, Object> studentOtherInfo = studentService.getStudentOtherInfo(studentInfoDto);
+		model.addAttribute("studentOtherInfo", studentOtherInfo);
+		
 		
 		model.addAttribute("applyStudentCount", eduStaffSqlMapper.selectApplyPkPerEduPkCount(eduDto.getEdu_pk()));
 		model.addAttribute("edu_pk", eduDto.getEdu_pk());
@@ -91,11 +103,15 @@ public class EduStudentController {
 
 		eduStudentService.eduApply(eduApplyDto);
 		
-		return "redirect:./eduApplyCompletePage";
+		return "redirect:./eduApplyCompletePage?edu_pk=" + eduApplyDto.getEdu_pk();
 	}
+	
 	//신청완료 페이지
 	@RequestMapping("eduApplyCompletePage")
-	public String eduApplyCompletePage() {
+	public String eduApplyCompletePage(Model model, int edu_pk) {
+		
+		model.addAttribute("eduDto", eduStudentService.getEduInfoByEduPk(edu_pk));
+		
 		return "tl_b/hs/eduApplyCompletePage";
 	}
 	

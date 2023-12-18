@@ -1,8 +1,10 @@
 package com.mkfactory.toothless.c.guntaek.mapper;
 
 import java.util.List;
-
 import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
+import com.mkfactory.toothless.c.dto.AjdksInternEduApplying;
+import com.mkfactory.toothless.c.dto.AjdksInternEduProgramDto;
+import com.mkfactory.toothless.c.dto.AjdksInternEduReviewDto;
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionImgDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
@@ -63,4 +65,31 @@ public interface GuntaekStudentSqlMapper {
 	public String getSelfIntroductionFile(int self_introduction_img_pk);
 	
 	
+	// ----------------------------------------여기서 부터 교육프로그램 쿼리 Mapper --------------------------------------------------
+	
+	// 교육프로그램 프로그램 신청하기 insert 
+	public void RegisterProgramProcess(AjdksInternEduApplying EduApplying);
+	
+	// 프로그램이 신청 됬는지 안되었는지 리턴한 값으로 판단할거다
+	public AjdksInternEduApplying programToApply(AjdksInternEduApplying EduApplying);
+	
+	// 프로그램이 마감 됬는지 안되었는지 리턴되면 마감이 된거다.
+	public AjdksInternEduProgramDto deadProgram(int internedu_program_pk);
+
+	// 특정 학생이 신청했던 모든 신청 프로그램 리스트들.
+	public List<AjdksInternEduApplying> applyProgramListByStudent(int student_pk);
+	
+	// 특정 학생이 신청한 모든 프로그램 리스트들.
+	public List<AjdksInternEduProgramDto> programListByStudent(int student_pk);
+	
+	// 특정 프로그램에 신청한 인원 수
+	public int getCountPeopleOfProgram(int internedu_program_pk);
+	
+	// 프로그램 리뷰
+	public void registerProgramReview(AjdksInternEduReviewDto review);
+
+	// 프로그램 신청 고유키 가져오기
+	public int getApplyKey(AjdksInternEduApplying apply);
+	
+	public AjdksInternEduReviewDto getCheckReview(int internedu_applying_pk);
 }

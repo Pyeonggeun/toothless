@@ -17,10 +17,8 @@
 		</div>
 	 	<%-- 전체 크기 --%>
 		<div class="row">
-			<%-- 왼쪽 여백--%>
-			<div class="col-1"></div>
 			<%-- 취업팀 메뉴 바 --%>
-			<div class="col-1 me-5">
+			<div class="col-2">
 				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 			</div>
 			<%-- 가운데 여백--%>	
@@ -30,7 +28,7 @@
 				<form action="./registerJobPostingProcess" method="post" enctype="multipart/form-data">
 				<!-- 채용공고 -->
 				<div class="row">
-					<div class="col fs-4 fw-bold mt-5 text-center">채용공고</div>
+					<div class="col fs-4 fw-bold mt-5 text-center">채용공고등록</div>
 				</div>
 				<!-- 공고 제목 -->
 				<div class="row mt-3">
@@ -120,7 +118,7 @@
 				</div>
 				<div class="row mt-3">
 					<div class="col"><a class="btn btn-secondary" href="./jobPostingListPage">목록으로</a></div>
-					<div class="col-8"></div>
+					<div class="col-7"></div>
 					<div class="col">
 						<c:choose>
 							<c:when test="${empty sessionStaffInfo}">

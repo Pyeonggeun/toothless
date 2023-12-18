@@ -39,21 +39,20 @@
 									      <th scope="col">학번</th>
 									      <th scope="col">신청 날짜</th>
 									      <th scope="col">미답변 온라인상담</th>
-									      <th scope="col">이동하기</th>
+									      <th scope="col">학생 정보</th>
 									    </tr>
 									  </thead>
 									  <tbody>
 									  	<c:forEach items="${hopeJobInfoList}" var="e">
-									    <tr>
-									      <th scope="row">${e.hopeJobDto.hope_job_pk }</th>
-									      <td>${e.studentInfoDto.name }</td>
-									      <td>${e.studentInfoDto.student_id}</td>
-									      <td><fmt:formatDate value="${e.hopeJobDto.created_at }" pattern="yyyy-MM-dd"/></td>
-									      <td> ${e.unAnsweredHJF}건</td>
-									      <td> 
+									    <tr class="pt-3">
+									      <th  class="pt-3" scope="row" style="align-items: center;">${e.hopeJobDto.hope_job_pk }</th>
+									      <td class="pt-3" style="align-items: center;">${e.studentInfoDto.name }</td>
+									      <td class="pt-3" style="align-items: center;">${e.studentInfoDto.student_id}</td>
+									      <td  class="pt-3" style="align-items: center;"><fmt:formatDate value="${e.hopeJobDto.created_at }" pattern="yyyy-MM-dd"/></td>
+									      <td  class="pt-3" style="align-items: center;"> ${e.unAnsweredHJF}건</td>
+									      <td  class="pt-2" > 
 									      <a  href="./viewDetailStudentInfoPage?hope_job_pk=${e.hopeJobDto.hope_job_pk}">
-									    	<span style="height:50% ; width:50%;"> <button  type="button" class="btn btn-info">이동</button></span>
-										
+									    	<span style="height:50%; align-items: center; width:50%;"> <button  type="button" class=" btn btn-primary">이동</button></span>										
 									      </a>
 									      </td>
 									     

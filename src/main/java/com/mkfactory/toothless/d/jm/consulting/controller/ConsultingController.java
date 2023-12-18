@@ -38,7 +38,7 @@ public class ConsultingController {
 	
 	//구직희망 신청서 등록 페이지
 	@RequestMapping("applyHopeJobPage")
-	public String applyHopeJobPage() {
+	public String applyHopeJobPage() {		
 		return "tl_d/jm_consulting/applyHopeJobPage";
 	}
 	
@@ -138,20 +138,20 @@ public class ConsultingController {
 	
 	
 	//교직원 온라인 상담 답글입력 프로세스
-	@RequestMapping("insertOnlineConsultingReply")
-	public String insertOnlineConsultingReply(OnlineConsultingReplyDto par, HttpSession session) {
-		//jsp페이지에서 on_consulting_pk, on_contents_reply받기
-		//staffpk세팅
-		StaffInfoDto staffInfoDto =(StaffInfoDto)session.getAttribute("sessionStaffInfo");
-		int staffPk = staffInfoDto.getStaff_pk();
-		par.setStaff_pk(staffPk);
-		
-		int on_consulting_pk = par.getOn_consulting_pk();
-		
-		consultingService.insertOnlineConsultingReply(par);
-		
-		return"redirect:./staffManageOnlineConsultingPage?onlineConsultingPk="+on_consulting_pk;
-	}
+//	@RequestMapping("insertOnlineConsultingReply")
+//	public String insertOnlineConsultingReply(OnlineConsultingReplyDto par, HttpSession session) {
+//		//jsp페이지에서 on_consulting_pk, on_contents_reply받기
+//		//staffpk세팅
+//		StaffInfoDto staffInfoDto =(StaffInfoDto)session.getAttribute("sessionStaffInfo");
+//		int staffPk = staffInfoDto.getStaff_pk();
+//		par.setStaff_pk(staffPk);
+//		
+//		int on_consulting_pk = par.getOn_consulting_pk();
+//		
+//		consultingService.insertOnlineConsultingReply(par);
+//		
+//		return"redirect:./staffManageOnlineConsultingPage?onlineConsultingPk="+on_consulting_pk;
+//	}
 	
 	
 	
@@ -161,18 +161,26 @@ public class ConsultingController {
 		
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
-
-
-		
+	
 		if(studentInfoDto == null) {
 			return"redirect:../../another/student/loginPage";
 		}
+		int student_pk = studentInfoDto.getStudent_pk();
+		
+		
+		//구직희망 신청중인거 없을때에
+		if(consultingService.getProgressHopejob(student_pk) == null) {
+			return"redirect:./applyHopeJobPage";
+		};
+		
+		
+		
 		
 		
 		
 		//온라인상담 중복확인, true면 가능
 		boolean isOnlineconsulting = consultingService.isOnlineconsulting(studentInfoDto.getStudent_pk());
-		int student_pk = studentInfoDto.getStudent_pk();
+		
 		
 
 		
@@ -199,6 +207,22 @@ public class ConsultingController {
 		model.addAttribute("countUnAnsweredHJF", countUnAnsweredHJF);
 		
 		
+		
+		
+		//미응답 만족도 리스트
+		student_pk = studentInfoDto.getStudent_pk();
+		
+		List<HopeJobDto> hopeJobDtoList = consultingService.getUnAnsweredHJFList(student_pk);
+		
+		if(hopeJobDtoList.size() == 0) {
+			model.addAttribute("hopeJobDtoList", null);
+		}
+		else {
+			model.addAttribute("hopeJobDtoList", hopeJobDtoList);
+		}
+		
+		
+		
 		return"tl_d/jm_consulting/hopeJobConsultingPage";
 	}
 	
@@ -220,20 +244,28 @@ public class ConsultingController {
 	//나중에 페이징처리로 쿼리 변경하자
 	//restapi에서 전체 출력으로 변경	
 	@RequestMapping("myOnlineConsultingListPage")
-	public String viewOnlineConsultingList(HttpSession session, Model model,
-			@RequestParam(value="isReply", defaultValue="all") String isReply
-			) {
-		
-		
-		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
-		int student_pk = studentInfoDto.getStudent_pk();
-		
-		List<Map<String, Object>> list = consultingService.getMyOnlineConsultingList(student_pk, isReply);
-		model.addAttribute("list", list);
-		
-		return"tl_d/jm_consulting/myOnlineConsultingListPage";
-		
+	public String viewOnlineConsultingList() {		
+		return"tl_d/jm_consulting/myOnlineConsultingListPage";		
 	}	
+	
+	
+//	@RequestMapping("myOnlineConsultingListPage")
+//	public String viewOnlineConsultingList(HttpSession session, Model model,
+//			@RequestParam(value="isReply", defaultValue="all") String isReply
+//			) {
+//		
+//		
+//		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+//		int student_pk = studentInfoDto.getStudent_pk();
+//		
+//		List<Map<String, Object>> list = consultingService.getMyOnlineConsultingList(student_pk, isReply);
+//		model.addAttribute("list", list);
+//		
+//		return"tl_d/jm_consulting/myOnlineConsultingListPage";
+//		
+//	}	
+	
+	
 	
 	
 	//만족도조사 하는 페이지	
@@ -251,8 +283,9 @@ public class ConsultingController {
 	public String insertHJFProcess(HopeJobFeedbackDto par) {
 				
 		consultingService.insertHopeJobFeedback(par);
+		System.out.println(par.getHjf_score()+"점수");
 		
-		return"redirect:./myUnAnsweredHJFListPage";
+		return"redirect:./hopeJobConsultingPage";
 	}
 	
 	
@@ -301,17 +334,7 @@ public class ConsultingController {
 		return"tl_d/jm_consulting/insertHJCPage";
 	}
 	
-	//구직관심분야 등록
-	@RequestMapping("insertHopeJobCategory")
-	public String insertHopeJobCategoryProcesss(int[] job_field_category_pk, HttpSession session) {
-		
-		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
-		HopeJobDto hopeJobDto = consultingService.getLastHopejob(studentInfoDto.getStudent_pk());
-		int hopeJobPk = hopeJobDto.getHope_job_pk();
-		
-		consultingService.insertHopeJobCategory(hopeJobPk, job_field_category_pk);
-		return"redirect:./insertHJCPage";
-	}
+
 	
 	//구직관심분야 삭제
 	@RequestMapping("deleteHopeJobCategory")
@@ -339,8 +362,8 @@ public class ConsultingController {
 	
 	//온라인상담 리스트 페이지
 	@RequestMapping("staffViewOnlineConsultingPage")
-	public String staffOnlineConsultingPage(Model model, HttpSession session,
-			@RequestParam(value="isAnswer", defaultValue="all") String isReply
+	public String staffOnlineConsultingPage(Model model, HttpSession session
+			//@RequestParam(value="isAnswer", defaultValue="all") String isReply
 			)
 		 {
 		
@@ -352,11 +375,11 @@ public class ConsultingController {
 		
 		//온라인 상담	//온라인상담 오래된순 싹 출력 + 검색 및 정렬 추가
 
-		List<Map<String, Object>> list = consultingService.getOnlineConsultingListAll(isReply);
-		model.addAttribute("list", list);
-		
-		//현재 정렬값
-		model.addAttribute("isReply", isReply);
+//		List<Map<String, Object>> list = consultingService.getOnlineConsultingListAll(isReply);
+//		model.addAttribute("list", list);
+//		
+//		//현재 정렬값
+//		model.addAttribute("isReply", isReply);
 		
 		return"tl_d/jm_consulting/staffViewOnlineConsultingPage";
 	}
@@ -430,8 +453,8 @@ public class ConsultingController {
 			@RequestParam(value="sortHJFScore", defaultValue="default") String sortHJFScore
 			) {
 		
-		List<Map<String, Object>> list = consultingService.getHopeJobFeedbackListAll(sortHJFScore);
-		model.addAttribute("list", list);
+//		List<Map<String, Object>> list = consultingService.getHopeJobFeedbackListAll(sortHJFScore);
+//		model.addAttribute("list", list);
 		
 		Integer avgScore = consultingService.avgHopeJobFeedbackScore();
 		model.addAttribute("avgScore", avgScore);
@@ -461,12 +484,7 @@ public class ConsultingController {
 		return"tl_d/jm_consulting/updateHopeJobPage";
 	}
 	
-	//구직희망 업데이트 프로세스
-	@RequestMapping("updateHopeJobProcess")
-	public String updateHopeJobProcess(HopeJobDto par) {
-		consultingService.updateHopeJobProcess(par);
-		return"redirect:../../tl_d/jm_consulting/hopeJobConsultingPage";
-	}
+
 	
 	//구직희망 종료하기
 	@RequestMapping("endHopeJobProcess")

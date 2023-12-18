@@ -13,10 +13,30 @@
 			0,
 			sysdate		
 		)
+		
 	</insert>
-
+	<!--마이베티스 동적 쿼리 -->
 	<select id="selectBoardContentsInfo" resultType="com.mkfactory.toothless.b.dto.StaffboardDto">
-		SELECT * FROM tl_b_staffboard ORDER BY staffboard_pk DESC
+		SELECT tbs.* 
+		FROM TL_B_STAFFBOARD tbs 
+		<if test="searchType != null and searchType == 'name'">
+			INNER JOIN TL_JIC_STAFF_INFO tjsi ON TJSI.STAFF_PK = tbs.STAFF_PK
+		</if>
+		WHERE 1=1
+		<if test="searchType != null">
+			<choose>
+				<when test="searchType == 'title'">
+					AND tbs.TITLE LIKE '%' || #{searchWord} || '%'
+				</when>
+				<when test="searchType == 'content'">
+					AND tbs.CONTENT LIKE '%' || #{searchWord} || '%'
+				</when>
+				<when test="searchType == 'name'">
+					AND tjsi.NAME LIKE '%' || #{searchWord} || '%'
+				</when>
+			</choose>
+		</if>
+		ORDER BY tbs.STAFFBOARD_PK DESC		
 	</select>
 
 	<select id="selectStaffInfo" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">

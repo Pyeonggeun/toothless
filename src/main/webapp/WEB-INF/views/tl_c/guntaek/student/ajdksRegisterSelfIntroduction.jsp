@@ -68,12 +68,12 @@
 		<div class="row">
 			
 		
-			<div class="col mx-3">
+			<div class="col mx-5">
 					
 					
 					
 			<!--  이력서 사진 등록 하는 UI -->
-				<div class ="row ms-2" style="margin-top:100px;">
+				<div class ="row ms-2" style="margin-top:6.25em;">
 							
 							<div class="col-4 d-flex align-items-center">
 							<i class="bi bi-person-badge-fill" style="font-size: 2em;"></i> <span style = "font-size: 20pt">&nbsp;이력서 사진 등록</span></div>
@@ -101,7 +101,7 @@
 					<c:choose>
 					
 						<c:when test = "${empty selfIntroductionDto}"> 
-							<div class="col-2 border d-flex align-items-center justify-content-center" style="height:300px;">
+							<div class="col-2 border d-flex align-items-center justify-content-center" style="height:18.75em;">
 								<strong> 자소서 먼저 입력해주세요.</strong>
 							</div>
 						</c:when>
@@ -124,7 +124,7 @@
 						</c:when>
 					<%-- 만약 자격증을 등록했다면!? --%>					
 						<c:when test = "${selfIntroductionDto.self_introduction_img_pk != 0}">
-								<div class= "col-2 border d-flex align-items-center justify-content-center" style="height:300px;">
+								<div class= "col-2 border d-flex align-items-center justify-content-center" style="height:18.75em;">
 												<img class="img-fluid " src="/Git_imageFile/${imageLink}">
 								</div>
 						</c:when>	
@@ -139,32 +139,32 @@
 							
 																
 					<div class="col-3">
-							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px; background-color: #CFE2FF;" >
+							    <div class="row border d-flex align-items-center justify-content-center" style="height:4.7em; background-color: #CFE2FF;" >
 							        학생명/성별 *
 							    </div>
-							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px; background-color: #CFE2FF;">
+							    <div class="row border d-flex align-items-center justify-content-center" style="height:4.7em; background-color: #CFE2FF;">
 							        전화번호/휴대폰 *
 							    </div>
-							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px; background-color: #CFE2FF;">
+							    <div class="row border d-flex align-items-center justify-content-center" style="height:4.7em; background-color: #CFE2FF;">
 							        이메일 *
 							    </div>
-							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px; background-color: #CFE2FF;">
+							    <div class="row border d-flex align-items-center justify-content-center" style="height:4.7em; background-color: #CFE2FF;">
 							        주소 *
 							    </div>
 							</div>
 
 
 						<div class="col-7  text-center">
-								<div class="row border d-flex align-items-center justify-content-center" style="height:75px;">
+								<div class="row border d-flex align-items-center justify-content-center" style="height:4.7em;">
 							        ${loginUser.name} /  ${loginUser.gender} 
 							    </div>
-							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px;">
+							    <div class="row border d-flex align-items-center justify-content-center" style="height:4.7em;">
 							        ${loginUser.phone}
 							    </div>
-							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px;">
+							    <div class="row border d-flex align-items-center justify-content-center" style="height:4.7em;">
 							        ${loginUser.email}
 							    </div>
-							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px;">
+							    <div class="row border d-flex align-items-center justify-content-center" style="height:4.7em;">
 							        ${loginUser.address}
 							    </div>
 						</div>
@@ -216,32 +216,32 @@
 					      <div class="accordion-body">
 												
 							<div class ="row mt-1 ms-2">
-							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 127px; border: 1px solid black; ">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 8em; border: 1px solid black; ">
 										지원동기
 							</div>
 							<div class ="col-9">
-									    <textarea name="answer1" cols="180" style="height: 127px;">${studentIntroductionDto.answer1}</textarea>
+									     <textarea name="answer1" cols="180" style="height: 100%; width: 100%; box-sizing: border-box;">${studentIntroductionDto.answer1}</textarea>
 										
 							</div>
 							
-							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 127px; border: 1px solid black; ">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 8em; border: 1px solid black; ">
 										전공 및 기술 능력
 							</div>
 							<div class ="col-9">
-									    <textarea name="answer2" cols="180" style="height: 127px;">${studentIntroductionDto.answer2}</textarea>
+									     <textarea name="answer2" cols="180" style="height: 100%; width: 100%; box-sizing: border-box;">${studentIntroductionDto.answer2}</textarea>
 							</div>
 							
-							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 127px; border: 1px solid black; ">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 8em; border: 1px solid black; ">
 										주요경력 및 자격사항
 							</div>
 							<div class ="col-9">
-									    <textarea name="answer3" cols="180" style="height: 127px;">${studentIntroductionDto.answer3}</textarea>
+									     <textarea name="answer3" cols="180" style="height: 100%; width: 100%; box-sizing: border-box;">${studentIntroductionDto.answer3}</textarea>
 							</div>
-							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 127px; border: 1px solid black; ">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 8em; border: 1px solid black; ">
 										성격 및 장단점
 							</div>
 							<div class ="col-9 ">
-									    <textarea name="answer4" cols="180" style="height: 127px;">${studentIntroductionDto.answer4}</textarea>
+									    <textarea name="answer4" cols="180" style="height: 100%; width: 100%; box-sizing: border-box;">${studentIntroductionDto.answer4}</textarea>
 							</div>
 							
 		
@@ -293,33 +293,33 @@
 					      <div class="accordion-body">
 												
 							<div class ="row mt-1 ms-2">
-							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 127px; border: 1px solid black; ">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 8em; border: 1px solid black; ">
 										지원동기
 							</div>
 							<div class ="col-9">
 									
-									<textarea name="answer1" cols="180" rows="5"  style="height: 127px;">${studentIntroductionDto.answer1}</textarea>
+									 <textarea name="answer1" cols="180" style="height: 100%; width: 100%; box-sizing: border-box;" placeholder="${selfIntroductionDto.answer1}">${studentIntroductionDto.answer1}</textarea>
 									
 							</div>
 							
-							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 127px; border: 1px solid black; ">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 8em; border: 1px solid black; ">
 										전공 및 기술 능력
 							</div>
 							<div class ="col-9">
-									    <textarea name="answer2" cols="180" style="height: 127px;">${studentIntroductionDto.answer2}</textarea>
+									     <textarea name="answer2" cols="180" style="height: 100%; width: 100%; box-sizing: border-box;" placeholder="${selfIntroductionDto.answer2}">${studentIntroductionDto.answer2}</textarea>
 							</div>
 							
-							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 127px; border: 1px solid black; ">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 8em; border: 1px solid black; ">
 										주요경력 및 자격사항
 							</div>
 							<div class ="col-9">
-									    <textarea name="answer3" cols="180" style="height: 127px;">${studentIntroductionDto.answer3}</textarea>
+									     <textarea name="answer3" cols="180" style="height: 100%; width: 100%; box-sizing: border-box;" placeholder="${selfIntroductionDto.answer3}">${studentIntroductionDto.answer3}</textarea>
 							</div>
-							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 127px; border: 1px solid black; ">
+							<div class="col-3 row align-items-center text-center" style="background-color: #CFE2FF; height: 8em; border: 1px solid black; ">
 										성격 및 장단점
 							</div>
 							<div class ="col-9 ">
-									    <textarea name="answer4" cols="180"style= "height: 127px;">${studentIntroductionDto.answer4}</textarea>
+									     <textarea name="answer4" cols="180" style="height: 100%; width: 100%; box-sizing: border-box;" placeholder="${selfIntroductionDto.answer4}">${studentIntroductionDto.answer4}</textarea>
 							</div>
 							
 		
@@ -364,7 +364,7 @@
  		</c:choose>
 
 	   
-<div class ="row ms-2" style ="margin-top:70px;">
+<div class ="row ms-2" style ="margin-top:4.375em;">
 		<div class="col-4 d-flex align-items-center">
 				<i class="bi bi-postcard-fill" style="font-size: 2em;"></i> <span style = "font-size: 20pt">&nbsp; 자격증 등록</span></div>
 		<div class="col-7"></div>

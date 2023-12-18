@@ -75,16 +75,6 @@ public class EunbiProfessorServiceImpl {
 		return studentSearchFilters;
 	}
 	
-	// 학생 상세정보
-//	public Map<String, Object> viewStudentDetails(int studentPk) {
-//		
-//		List<AjdksCertificationDto> certificationList = studentSqlMapper.getCertifications(studentPk);
-//		
-//		studentsInfo.put("selfIntroductionDto", studentSqlMapper.getSelfIntroduction(studentPk));
-//		studentsInfo.put("certificationList", certificationList);
-//		
-//	}
-	
 	// 교수 담당 현장실습 출력
 	public List<Map<String, Object>> viewChargedInternshipCourse(int professorPk) {
 		
@@ -130,106 +120,6 @@ public class EunbiProfessorServiceImpl {
 		internshipCourseDetail.put("countStudentIntern", studentSqlMapper.countInternBycoursePk(internshipCoursePk));
 		
 		return internshipCourseDetail;
-	
-	}
-	
-	// 해당 과정 지원학생 출력
-	public List<Map<String, Object>> getApplyingStudentList(int internshipCoursePk) {
-		
-		List<Map<String, Object>> applyingStudentInfoList = new ArrayList<>();
-		
-		AjdksInternshipCourseDto internshipCourseDto = externalSqlMapper.getInternshipCourseDetail(internshipCoursePk);
-		
-		Date now = new Date();
-		
-		if(now.after(internshipCourseDto.getApplying_start_date()) == true && now.before(internshipCourseDto.getApplying_end_date()) == true ) {
-			
-			// 신청완료학생
-			List<AjdksStudentApplyingDto> studentApplyingList = studentSqlMapper.getApplyingListByCoursePk(internshipCoursePk);
-			
-			for(AjdksStudentApplyingDto studentApplyingDto : studentApplyingList) {
-				int studentPk = studentApplyingDto.getStudent_pk();
-				
-				StudentInfoDto studentInfoDto = studentSqlMapper.getStudentInfoByStudentPk(studentPk);
-				int studentDepartmentPk = studentInfoDto.getDepartment_pk();
-				int studentProfessorPk = studentInfoDto.getProfessor_pk();
-				
-				Map<String, Object> studentInfo = new HashMap<>();
-				
-				studentInfo.put("studentInfoDto", studentInfoDto);
-				studentInfo.put("studentApplyingDto", studentApplyingDto);
-				studentInfo.put("studentDepartment", studentSqlMapper.getDepartmentByDepartmentPk(studentDepartmentPk));
-				studentInfo.put("studentProfessorInfo", professorSqlMapper.getProfessorInfo(studentProfessorPk));
-				studentInfo.put("countSemester", studentSqlMapper.countSemester(studentPk));
-				
-				applyingStudentInfoList.add(studentInfo);
-			}
-			
-		}else if((now.equals(internshipCourseDto.getAnnouncement_date()) == true || 
-				now.after(internshipCourseDto.getAnnouncement_date())) == true && 
-				now.before(internshipCourseDto.getInternship_start_date()) == true) {
-			
-			// 결과발표학생
-			List<AjdksStudentApplyingDto> announcedStudentList =
-					studentSqlMapper.getAnnouncedStudentListByCoursePk(internshipCoursePk);
-			
-			for(AjdksStudentApplyingDto studentApplyingDto : announcedStudentList) {
-				int studentPk = studentApplyingDto.getStudent_pk();
-				
-				StudentInfoDto studentInfoDto = studentSqlMapper.getStudentInfoByStudentPk(studentPk);
-				int studentDepartmentPk = studentInfoDto.getDepartment_pk();
-				int studentProfessorPk = studentInfoDto.getProfessor_pk();
-				
-				Map<String, Object> studentInfo = new HashMap<>();
-				
-				studentInfo.put("studentInfoDto", studentInfoDto);
-				studentInfo.put("studentApplyingDto", studentApplyingDto);
-				studentInfo.put("studentDepartment", studentSqlMapper.getDepartmentByDepartmentPk(studentDepartmentPk));
-				studentInfo.put("studentProfessorInfo", professorSqlMapper.getProfessorInfo(studentProfessorPk));
-				studentInfo.put("countSemester", studentSqlMapper.countSemester(studentPk));
-				
-				applyingStudentInfoList.add(studentInfo);
-			}
-		}
-		
-		return applyingStudentInfoList;
-	}
-	
-	
-	// 해당과정 실습생 출력
-	public List<Map<String, Object>> getStudentInternList(int internshipCoursePk) {
-			
-		List<Map<String, Object>> studentInternList = new ArrayList<>();
-		
-		List<AjdksStudentInternDto> studentInternDtoList = studentSqlMapper.getStudentInternByCoursePk(internshipCoursePk);
-		
-		for(AjdksStudentInternDto studentInternDto : studentInternDtoList) {
-			int studentPk = studentInternDto.getStudent_pk();
-			int internPk = studentInternDto.getStudent_intern_pk();
-			
-			StudentInfoDto studentInfoDto = studentSqlMapper.getStudentInfoByStudentPk(studentPk);
-			int studentDepartmentPk = studentInfoDto.getDepartment_pk();
-			int studentProfessorPk = studentInfoDto.getProfessor_pk();
-			
-			Map<String, Object> internInfo = new HashMap<>();
-			
-			internInfo.put("studentInfoDto", studentInfoDto);
-			internInfo.put("studentInternDto", studentInternDto);
-			internInfo.put("studentDepartment", studentSqlMapper.getDepartmentByDepartmentPk(studentDepartmentPk));
-			internInfo.put("studentProfessorInfo", professorSqlMapper.getProfessorInfo(studentProfessorPk));
-			internInfo.put("internshipCourseDto", externalSqlMapper.getInternshipCourseDetail(internshipCoursePk));
-			
-			internInfo.put("countAttendance", studentSqlMapper.countAttendance(internPk));
-			internInfo.put("countLate", studentSqlMapper.countLate(internPk));
-			internInfo.put("countEarlyleave", studentSqlMapper.countEarlyleave(internPk));
-			internInfo.put("countAbsent", studentSqlMapper.countAbsent(internPk));
-			
-			internInfo.put("didEvaluateIntern", professorSqlMapper.didEvaluateIntern(internPk));
-			
-			studentInternList.add(internInfo);
-		}
-		
-		return studentInternList;
 	}
 	
 	// 교수평가 입력
@@ -237,19 +127,7 @@ public class EunbiProfessorServiceImpl {
 		professorSqlMapper.insertProfessorEvaluation(professorEvaluationDto);
 	}
 	
-	// 현재 날짜과 현장실습과정 날짜 비교
-	public Map<String, Object> isNow(int internshipCoursePk) {
-		
-		Map<String, Object> isNow = new HashMap<>();
-		
-		isNow.put("isStartApplying", externalSqlMapper.isStartApplying(internshipCoursePk));
-		isNow.put("isEndApplying", externalSqlMapper.isEndApplying(internshipCoursePk));
-		isNow.put("didAnnouncement", externalSqlMapper.didAnnouncement(internshipCoursePk));
-		isNow.put("isStartInternship", externalSqlMapper.isStartInternship(internshipCoursePk));
-		isNow.put("isEndInternship", externalSqlMapper.isEndInternship(internshipCoursePk));
-		
-		return isNow;
-	}
+	
 	
 	
 	

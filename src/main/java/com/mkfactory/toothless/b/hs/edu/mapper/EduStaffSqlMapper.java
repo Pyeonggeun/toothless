@@ -2,6 +2,8 @@ package com.mkfactory.toothless.b.hs.edu.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mkfactory.toothless.b.dto.EduApplyDto;
 import com.mkfactory.toothless.b.dto.EduDto;
 import com.mkfactory.toothless.b.dto.EduStsfcSurveyDto;
@@ -12,7 +14,10 @@ public interface EduStaffSqlMapper {
 	//프로그램 등록
 	public void insert(EduDto eduDto);
 
-	public List<EduDto> selectAll();
+	public List<EduDto> selectAll(	//1개일때도 param 써도됨
+			@Param("searchType") String searchType, 
+			@Param("searchWord") String searchWord
+			);
 	
 	public List<EduApplyDto> selectAllEduApply();
 	

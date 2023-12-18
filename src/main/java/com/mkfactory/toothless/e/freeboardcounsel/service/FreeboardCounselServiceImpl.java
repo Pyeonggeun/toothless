@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.FreeboardCommentDto;
 import com.mkfactory.toothless.e.dto.FreeboardDto;
+import com.mkfactory.toothless.e.dto.FreeboardEmpathyDto;
 import com.mkfactory.toothless.e.dto.FreeboardImageDto;
 import com.mkfactory.toothless.e.freeboardcounsel.mapper.FreeboardCounselSqlMapper;
 
@@ -137,21 +138,54 @@ public class FreeboardCounselServiceImpl {
 		FreeboardDto freeboardPost =  freeboardCounselSqlMapper.selectPostById(id);
 		int student_pk =freeboardPost.getStudent_pk();
 		StudentInfoDto studentInfo = freeboardCounselSqlMapper.selectByStudentId(student_pk);
+		//int freeboard_id = freeboardPost.getId();
+		
 		
 		//이미지 뽑아오기
-		List<FreeboardImageDto> freeboardImageDtoList = freeboardCounselSqlMapper.selectFreeboardImageDto(id);
+		//List<FreeboardImageDto> freeboardImageDtoList = freeboardCounselSqlMapper.selectFreeboardImageDto(freeboard_id);
+		
+		
 		
 		Map<String, Object> combinedMap = new HashMap<>();
 		combinedMap.put("freeboardPost",freeboardPost);
 		combinedMap.put("studentInfo", studentInfo);
-		combinedMap.put("freeboardImageDtoList ", freeboardImageDtoList);
+		//combinedMap.put("freeboardImageDtoList", freeboardImageDtoList);
 		
 		return combinedMap;
 		}
-	
+	//상세게시판 공감 카운트 해서 가져오기 
+	public Map<String, Object> submitAndSelectEmpathy(FreeboardEmpathyDto paraFreeboardEmpathyDto) {
+//		int selectCountedEmpathy = 
+				
+		Map<String, Object> countedEmpathy = new HashMap<>();
+		countedEmpathy.put("countedEmpathy", freeboardCounselSqlMapper.submitAndSelectEmpathy(paraFreeboardEmpathyDto));
+			System.out.println("컨트롤 공감 넣기 paraFreeboardEmpathyDto fi: " +paraFreeboardEmpathyDto.getFreeboard_id());
+			System.out.println("컨트롤 공감 넣기paraFreeboardEmpathyDto sp: " +paraFreeboardEmpathyDto.getStudent_pk());
+		return countedEmpathy;
+	}
+		
+	//상세게시판 공감 넣기 
+	public void insertEmpathy(FreeboardEmpathyDto paraFreeboardEmpathyDto) {
+			System.out.println("컨트롤 공감 넣기 paraFreeboardEmpathyDto fi: " +paraFreeboardEmpathyDto.getFreeboard_id());
+			System.out.println("컨트롤 공감 넣기paraFreeboardEmpathyDto sp: " +paraFreeboardEmpathyDto.getStudent_pk());
+		freeboardCounselSqlMapper.insertEmpathy(paraFreeboardEmpathyDto);
+	}
+		
+	//상세게시판 공감 삭제하기
+	public void deleteEmpathyByIdAndPk (FreeboardEmpathyDto paraFreeboardEmpathyDto){
+			System.out.println("컨트롤 공감 넣기 paraFreeboardEmpathyDto fi: " +paraFreeboardEmpathyDto.getFreeboard_id());
+			System.out.println("컨트롤 공감 넣기paraFreeboardEmpathyDto sp: " +paraFreeboardEmpathyDto.getStudent_pk());
+		freeboardCounselSqlMapper.deleteEmpathyByIdAndPk(paraFreeboardEmpathyDto);
+	}
 	//조회수
 	public void readCount(int id) {
 		freeboardCounselSqlMapper.readCount(id);
+	}
+	
+		//-----//
+		//이미지
+	public List<FreeboardImageDto> getFreeboardImage(int id){
+		return freeboardCounselSqlMapper.selectFreeboardImageDto(id);
 	}
 	
 	//글 삭제
@@ -163,4 +197,9 @@ public class FreeboardCounselServiceImpl {
 	public void updateFreeboardPost(FreeboardDto paraFreeboardDto) {		
 		freeboardCounselSqlMapper.updateFreeboardPost( paraFreeboardDto);	
 	}
+	
+	
+	
+	
+	
 }

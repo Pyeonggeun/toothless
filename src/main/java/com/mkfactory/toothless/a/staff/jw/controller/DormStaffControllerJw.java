@@ -25,16 +25,41 @@ public class DormStaffControllerJw {
 	private DormStaffServiceJw dormStaffServiceJw;
 	
 	@RequestMapping("jw_exitSituationPage")
-	public String jw_exitSituationPage(Model model) {
+	public String jw_exitSituationPage(Model model, HttpSession session) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		
 		model.addAttribute("exitListMap", dormStaffServiceJw.getAllExitSituation());
+		model.addAttribute("dormBuildingList", dormStaffServiceJw.getAllDormBuilding());
 		
 		return "/tl_a/staff/jw_exitSituationPage";
 	}
 	
+	@RequestMapping("jw_exitSituationByDormPkPage")
+	public String jw_exitSituationByDormPkPage(Model model, HttpSession session,int dorm_pk) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
+		
+		model.addAttribute("exitListMap", dormStaffServiceJw.getExitSituationByDormPk(dorm_pk));
+		model.addAttribute("dormBuildingList", dormStaffServiceJw.getAllDormBuilding());
+		
+		return "/tl_a/staff/jw_exitSituationByDormPkPage";
+	}
+	
 	@RequestMapping("jw_callAttendSituationPage")
-	public String jw_callAttendSituationPage(Model model) {
-		    
+	public String jw_callAttendSituationPage(Model model, HttpSession session) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
+		
 		LocalDate now = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		String formatedNow = now.format(formatter);
@@ -47,7 +72,12 @@ public class DormStaffControllerJw {
 	
 	// 상벌코드 목록
 	@RequestMapping("jw_pointCategoryPage")
-	public String jw_pointCategoryPage(Model model) {
+	public String jw_pointCategoryPage(Model model, HttpSession session) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		
 		List<PointCategory> pointCategoryListAll = dormStaffServiceJw.getPointCategory();
 		model.addAttribute("pointCategoryListAll", pointCategoryListAll);
@@ -65,7 +95,12 @@ public class DormStaffControllerJw {
 	}
 	
 	@RequestMapping("jw_pointManagementPage")
-	public String jw_pointManagementPage(Model model) {
+	public String jw_pointManagementPage(Model model, HttpSession session) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		
 		model.addAttribute("pointManagementListMap", dormStaffServiceJw.getAllPointManagementList());
 		
@@ -86,7 +121,12 @@ public class DormStaffControllerJw {
 	}
 	
 	@RequestMapping("jw_pointSituationPage")
-	public String jw_pointSituationPage(Model model) {
+	public String jw_pointSituationPage(Model model, HttpSession session) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		
 		model.addAttribute("pointListMap", dormStaffServiceJw.getAllPointScoreList());
 		
@@ -94,7 +134,12 @@ public class DormStaffControllerJw {
 	}
 	
 	@RequestMapping("jw_executiveAssignmentPage")
-	public String jw_executiveAssignmentPage(Model model) {
+	public String jw_executiveAssignmentPage(Model model, HttpSession session) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		
 		model.addAttribute("dormStudentListMap", dormStaffServiceJw.getAllDormStudentList());
 		
@@ -119,7 +164,12 @@ public class DormStaffControllerJw {
 	}
 	
 	@RequestMapping("jw_executiveRoomAssignmentPage")
-	public String jw_executiveRoomAssignmentPage(Model model) {
+	public String jw_executiveRoomAssignmentPage(Model model, HttpSession session) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		
 		model.addAttribute("executiveListMap", dormStaffServiceJw.getAllExecutiveList());
 		
@@ -143,7 +193,12 @@ public class DormStaffControllerJw {
 	}
 	
 	@RequestMapping("jw_executiveAssignmentSituationPage")
-	public String jw_executiveAssignmentSituationPage(Model model) {
+	public String jw_executiveAssignmentSituationPage(Model model, HttpSession session) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		
 		model.addAttribute("executiveManagemenListMap", dormStaffServiceJw.getAllExecutiveManagementList());
 		
@@ -151,12 +206,24 @@ public class DormStaffControllerJw {
 	}
 	
 	@RequestMapping("jw_diaryManagementPage")
-	public String jw_diaryManagementPage(Model model) {
+	public String jw_diaryManagementPage(Model model, HttpSession session) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		
 		model.addAttribute("getAllDiaryList", dormStaffServiceJw.getAllDiaryList());
 		
 		return "/tl_a/staff/jw_diaryManagementPage";
 	}
 	
+	// 관리자용 업무게시판
+	@RequestMapping("jw_dormStaffboardPage")
+	public String jw_dormStaffboardPage() {
+		// 작업하고 추후에 세션넣기
+		
+		return "/tl_a/staff/jw_dormStaffboardPage";
+	}
 	
 }

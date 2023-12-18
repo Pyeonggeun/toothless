@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.mkfactory.toothless.a.dto.DormNoticeDto;
 import com.mkfactory.toothless.a.dto.JoinDormApplicationDto;
 import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
 import com.mkfactory.toothless.a.dto.PointCategory;
@@ -81,8 +82,19 @@ public interface DormStaffSqlMapper {
 	// 선발인원 중 미납부 리스트
 	public List<JoinDormApplicationDto> selectPaymentNoList();
 	
+	// -----------------------------
+	// 메인페이지 공고리스트
+	public List<DormNoticeDto> selectDormNotice();
 	
+	// 현황
+	public int countExecutive();
+	public int countTodayDiary();
+	public int countPlusPointDormStudent();
+	public int countMinusPointDormStudent();
+	public int countTodayExit();
+	public int countTodayCallAbsence();
 	
-	
-	
+	// 현재 배정 인원 ㅋ왜 나만한개야
+	public int assignedDormStudentCount();
+
 }
