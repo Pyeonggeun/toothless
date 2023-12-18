@@ -96,7 +96,7 @@
                                
                                <div class="col">
                                <div class="dropdown">
-                                   <a class="btn btn-outline-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                   <a class="btn btn-outline-dark rounded-0 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                        <input type="hidden" value="${roomMap.dormRoomDto.dorm_room_pk}">
                                        ${roomMap.dormRoomDto.room_name}
                                    </a>
@@ -105,9 +105,18 @@
 		                            <c:forEach items="${studentList}" var="st">
 		                                <c:if test="${st.roomDto.dorm_room_pk == roomMap.dormRoomDto.dorm_room_pk}">
 		                                    <li>
-		                                        <a class="dropdown-item" href="sj_managePoint?dorm_student_pk=${st.student.dorm_student_pk}">
-		                                            <span class="fw-bold">이름</span> <span class="mz-2">${st.stInfo.name}</span> 
-		                                            <span class="fw-bold">학번</span> <span class="mz-2">${st.student.student_pk}</span>
+		                                        <a class="dropdown-item " style="dropdown-link-hover-bg:#eeeeee;"
+		                                        	href="sj_managePoint?dorm_student_pk=${st.student.dorm_student_pk}">
+		                                            <div class="row">
+		                                            	<div class="col">
+		                                            		<span class="fw-bold" >이름</span> <span class="mz-2">${st.stInfo.name}</span>
+		                                            	</div>
+		                                            	<div class="col">
+		                                            		<span class="fw-bold">학번</span> <span class="mz-2">${st.student.student_pk}</span>
+		                                            	</div>
+		                                            </div>
+		                                             
+		                                            
 		                                            
 		                                        </a>
 		                                    </li>
@@ -125,10 +134,10 @@
                                    ${roomMap.dormRoomDto.gender }
                                </div>
                                <div class="col">
-                                   <a class="btn btn-outline-success" href="./sj_editRoomInfo?dorm_room_pk=${roomMap.dormRoomDto.dorm_room_pk }" role="button">수정하기</a>
+                                   <a class="btn btn-primary rounded-0" href="./sj_editRoomInfo?dorm_room_pk=${roomMap.dormRoomDto.dorm_room_pk }" role="button">수정하기</a>
                                </div>
                                <div class="col">
-                                   <a class="btn btn-outline-danger" href="./deleteForRoomProcess?dorm_room_pk=${roomMap.dormRoomDto.dorm_room_pk }" role="button">삭제하기</a>
+                                   <a class="btn btn-danger rounded-0" href="./deleteForRoomProcess?dorm_room_pk=${roomMap.dormRoomDto.dorm_room_pk }" role="button">삭제하기</a>
                                </div>
                            </div>
                        </div>
