@@ -94,7 +94,7 @@ function colorSideBar() {
 		bootstrap.Collapse.getOrCreateInstance("#collapseExample3").show();
         document.getElementById("collapse3").value = "o3";
 		
-	}else if(str == '0') {
+	}else if(str == 'eduMainPageForStaff') {
 	
 		document.getElementById("color8").classList.add("text-white");
 		document.getElementById("color8").style.backgroundColor = '#014195';
@@ -110,17 +110,37 @@ function colorSideBar() {
 		bootstrap.Collapse.getOrCreateInstance("#collapseExample3").show();
         document.getElementById("collapse3").value = "o3";
 		
-	}else if(str == 'staffboardPage') {
+	}else if(window.location.pathname.slice(window.location.pathname.lastIndexOf("/")-2) == 'dy/staffboardPage') {
 	
 		document.getElementById("color10").classList.add("text-white");
 		document.getElementById("color10").style.backgroundColor = '#014195';
+		
+	}else if(window.location.pathname.slice(window.location.pathname.lastIndexOf("/")-2) == 'ty/staffboardPage') {
+	
+		document.getElementById("color11").classList.add("text-white");
+		document.getElementById("color11").style.backgroundColor = '#014195';
 		
 	}
 
 }
 
+function reloadStaffName() {
+
+	const url = "./getStaffName";
+	
+	fetch(url)
+	.then(response => response.json())
+	.then(response => {
+	
+		document.getElementById("staffName").innerText = response.data;
+	
+	});
+	
+}
+
  window.addEventListener("DOMContentLoaded", () => {
-            	
+
+	reloadStaffName();            	
 	colorSideBar();
 	
 });

@@ -6,7 +6,7 @@
             <div class="modal-header py-1">
                 <div class="row">
                     <div class="col-auto pe-1">
-                        <img class="img-fluid" src="../resources/img/lifeStudent/logo_black.png" style="height: 3.3em;">
+                        <img class="img-fluid" src="../../resources/img/lifeStudent/logo_black.png" style="height: 3.3em;">
                     </div>
                     <div class="mkmk col ps-0 my-auto" style="font-size: 1.5em; font-weight: 600;">
                         MK<span style="color: #4a3187;">평생교육원</span>
@@ -56,4 +56,60 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="testTemplete" class="d-none">
+
+	<div class="testProgressWrapper row">
+	    <div class="col py-4">
+	        <div class="row">
+	            <div class="testProgressQuestionNumber col-auto pe-0">
+	                1.
+	            </div>
+	            <div class="testProgressQuestion col">
+	                관계 데이터베이스에서 하나의 애트리뷰트가 취할 수 있는 같은 타입의 모든 원자값들의 집합을 무엇이라고 하는가?
+	            </div>
+	        </div>
+	        <div class="row">
+	            <div class="testProgressChoiceBox col">
+	                
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<div class="testProgressChoiceWrapper row mt-3">
+	    <div class="col-auto pe-0" style="position: relative; top: -0.15em;">
+	        <input type="radio" class="testProgressRadio btn-check" name="question1" autocomplete="off">
+	        <label class="testProgressChoiceNumber btn btn-outline-dark rounded-circle py-0 px-1" for="asdf" style="font-size: 0.7em;">1</label>
+	    </div>
+	    <div class="col">
+	        <label class="testProgressText form-check-label" for="asdf">
+	            튜플(tuple)
+	        </label>
+	    </div>
+	</div>
+	
+	<div class="testProgressChoiceRightWrapper row">
+	    <div class="testProgressQuestionRightNumber col-2 fw-bold text-center my-auto py-2" style="font-size: 1em; color: #7844ae; background-color: #F3ECFF;">
+	        1
+	    </div>
+	    <div class="col-auto my-auto" style="position: relative; top: -0.15em;">
+	        <input type="radio" class="testProgressRightRadio1 btn-check" name="questionRight1" id="exampleRight1-1" autocomplete="off">
+	        <label class="testProgressChoiceRightNumber1 btn btn-outline-dark rounded-circle py-0 px-1" for="exampleRight1-1" style="font-size: 0.75em;">1</label>
+	    </div>
+	    <div class="col-auto my-auto" style="position: relative; top: -0.15em;">
+	        <input type="radio" class="testProgressRightRadio2 btn-check" name="questionRight1" id="exampleRight1-2" autocomplete="off">
+	        <label class="testProgressChoiceRightNumber2 btn btn-outline-dark rounded-circle py-0 px-1" for="exampleRight1-2" style="font-size: 0.75em;">2</label>
+	    </div>
+	    <div class="col-auto my-auto" style="position: relative; top: -0.15em;">
+	        <input type="radio" class="testProgressRightRadio3 btn-check" name="questionRight1" id="exampleRight1-3" autocomplete="off">
+	        <label class="testProgressChoiceRightNumber3 btn btn-outline-dark rounded-circle py-0 px-1" for="exampleRight1-3" style="font-size: 0.75em;">3</label>
+	    </div>
+	    <div class="col-auto my-auto" style="position: relative; top: -0.15em;">
+	        <input type="radio" class="testProgressRightRadio4 btn-check" name="questionRight1" id="exampleRight1-4" autocomplete="off">
+	        <label class="testProgressChoiceRightNumber4 btn btn-outline-dark rounded-circle py-0 px-1" for="exampleRight1-4" style="font-size: 0.75em;">4</label>
+	    </div>
+	</div>
+	
 </div>

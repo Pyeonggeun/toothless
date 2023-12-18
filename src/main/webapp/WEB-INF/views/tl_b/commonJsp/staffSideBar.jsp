@@ -17,7 +17,7 @@
                     </div>
                     <div class="row">
                         <div class="col text-center">
-                            보건직원 이름 님
+                            <span id="staffName">보건직원 이름</span> 님
                         </div>
                     </div>
                 </div>
@@ -138,11 +138,11 @@
                             </p>
                             <div class="collapse" id="collapseExample3">
                                 <div class="card card-body rounded-0 py-0 border-0 px-0">
+                                    <a id="color8" class="btn btn-transparent text-start rounded-0 px-4" href="../hs/eduMainPageForStaff" style="font-size: small;">
+                                        조회
+                                    </a>
                                     <a id="color7" class="btn btn-transparent text-start rounded-0 px-4" href="../hs/eduProgRegisterPage" style="font-size: small;">
                                         등록
-                                    </a>
-                                    <a id="color8" class="btn btn-transparent text-start rounded-0 px-4" href="#" style="font-size: small;">
-                                        조회
                                     </a>
                                     <a id="color9" class="btn btn-transparent text-start rounded-0 px-4" href="#" style="font-size: small;">
                                         이수자관리
@@ -171,6 +171,21 @@
                             <p class="mb-0">
                             	<a class="d-grid link-underline link-underline-opacity-0" href="../dy/staffboardPage">
                                  <button id="color10" class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button">
+                                     <div class="row py-2 mx-1">
+                                         <div class="col text-start">
+                                             <i class="bi bi-list-ul"></i>&nbsp;&nbsp;직원 게시판
+                                         </div>
+                                     </div>
+                                 </button>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col px-0">
+                            <p class="mb-0">
+                            	<a class="d-grid link-underline link-underline-opacity-0" href="../ty/staffBoardPage">
+                                 <button id="color11" class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button">
                                      <div class="row py-2 mx-1">
                                          <div class="col text-start">
                                              <i class="bi bi-question-octagon"></i>&nbsp;&nbsp;공지사항
