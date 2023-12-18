@@ -19,7 +19,7 @@
 		</div>
 		<div class="row">
 			<div class="col">
-				<img  class="opacity-55" src="../../resources/img/employment/companyBanner.png" style="width: 95rem; height : 30rem;">
+				<img  class="opacity-55" src="../../resources/img/employment/companyBanner.png" style="width: 117rem; height : 30rem;">
 			</div>		
 		</div>
 	 	<%-- 전체 크기 --%>
