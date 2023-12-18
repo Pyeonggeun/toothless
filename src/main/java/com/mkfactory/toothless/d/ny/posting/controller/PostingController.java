@@ -123,7 +123,14 @@ public class PostingController {
 	
 	// 채용공고 리스트 페이지
 	@RequestMapping("jobPostingListPage")
-	public String jobPostingListPage(Model model, String searchType, String searchWord) {
+	public String jobPostingListPage(HttpSession session, Model model, String searchType, String searchWord) {
+		
+		StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(staffInfo == null) {
+			return "redirect:../../another/staff/loginPage";
+		}
+			
 		model.addAttribute("postingCount", postingService.getPostingCount());
 		model.addAttribute("jobPostingList", postingService.getPostingList(searchType, searchWord));
 		return "tl_d/ny_posting/jobPostingListPage";
