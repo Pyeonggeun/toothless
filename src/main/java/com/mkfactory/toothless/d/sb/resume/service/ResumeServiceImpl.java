@@ -307,6 +307,35 @@ public class ResumeServiceImpl {
 		return list;
 	}
 	
+	// 공개된 학생 이력서 정보 가져오기
+	public void getPublicResumeList(){
+		
+		List<ResumeDto> Resumelist = resumeSqlMapper.getMainResumeListByIsPublic();
+		
+		List<Integer> graduationInfoDtoList = postingSqlMapper.selectGraduationList();
+		
+		for(ResumeDto resumeDto : Resumelist) {
+			
+			for(int a : graduationInfoDtoList) {
+				
+				if(resumeDto.getStudent_pk() == a ) {
+									
+				}
+			}
+			
+				
+			
+		}
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 //	-----------------------------------------------------------------------------------------
 	// ajax 
 	

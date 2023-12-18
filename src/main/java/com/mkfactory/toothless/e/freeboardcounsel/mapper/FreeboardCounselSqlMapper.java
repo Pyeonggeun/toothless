@@ -43,6 +43,7 @@ public interface FreeboardCounselSqlMapper {
 	public void insertFreeboardComment(FreeboardCommentDto paraFreeboardCommentDto);
 	
 	public List<FreeboardCommentDto> selectFreeboardComment();
+	public int countComment(int freeboard_id);
 	
 	public StudentInfoDto selectStudentInfoForComment(int student_pk);
 	
@@ -57,6 +58,6 @@ public interface FreeboardCounselSqlMapper {
 
 	public void deleteEmpathyByIdAndPk(FreeboardEmpathyDto paraFreeboardEmpathyDto);
 	
-	public int selectAllEmpathy(int id);
+	public int selectAllEmpathy(int freeboard_id);
 	
 }

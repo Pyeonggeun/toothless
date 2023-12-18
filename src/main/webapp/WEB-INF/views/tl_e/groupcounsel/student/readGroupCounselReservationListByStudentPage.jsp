@@ -24,6 +24,9 @@
 </head>
 <body>
 
+
+<jsp:include page="../../commons/studentTopArea.jsp"></jsp:include>
+
 <div class="container-fluid">
 
 

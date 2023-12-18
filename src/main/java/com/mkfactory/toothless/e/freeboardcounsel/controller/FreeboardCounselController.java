@@ -129,12 +129,6 @@ public class FreeboardCounselController {
 	@RequestMapping("readFreeboardPostPage")
 	public String readFreeboardPostPage(Model model, int id, FreeboardEmpathyDto paraFreeboardEmpathyDto, HttpSession session) {
 			System.out.println("컨트롤 상세글보기 페이지 시작");
-		
-			
-		paraFreeboardEmpathyDto.setFreeboard_id(id);
-		
-		StudentInfoDto aa = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
-		paraFreeboardEmpathyDto.setStudent_pk(aa.getStudent_pk());
 			
 		//조회수 카운트
 		freeboardCounselService.readCount(id);
@@ -145,6 +139,11 @@ public class FreeboardCounselController {
 			System.out.println("컨트롤 상세글 뽑아와서 모델에 넣음");
 
 		//유저정보와 게시글 정보로 공감 카운트 뽑아오기 
+		paraFreeboardEmpathyDto.setFreeboard_id(id);
+		StudentInfoDto aa = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		paraFreeboardEmpathyDto.setStudent_pk(aa.getStudent_pk());	
+			
+			
 		Map<String, Object>	countedEmpathy= freeboardCounselService.submitAndSelectEmpathy(paraFreeboardEmpathyDto);
 			System.out.println("countedEmpathy : "+countedEmpathy);
 		model.addAttribute("countedEmpathy", countedEmpathy);
@@ -164,14 +163,20 @@ public class FreeboardCounselController {
 	
 	//공감 집어넣기
 	@RequestMapping("insertEmpathy")
-	public String insertEmpathy(FreeboardEmpathyDto paraFreeboardEmpathyDto) {
+	public String insertEmpathy(HttpSession session , FreeboardEmpathyDto paraFreeboardEmpathyDto) {
+		
+		StudentInfoDto studentInfo = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		paraFreeboardEmpathyDto.setStudent_pk(studentInfo.getStudent_pk());
 		freeboardCounselService.insertEmpathy(paraFreeboardEmpathyDto);
 		return "redirect: ./readFreeboardPostPage?id=" + paraFreeboardEmpathyDto.getFreeboard_id();
 	}
 	
 	//공감 삭제하기
 	@RequestMapping("deleteEmpathyByIdAndPk")
-	public String deleteEmpathyByIdAndPk(FreeboardEmpathyDto paraFreeboardEmpathyDto) {
+	public String deleteEmpathyByIdAndPk(HttpSession session, FreeboardEmpathyDto paraFreeboardEmpathyDto) {
+		StudentInfoDto studentInfo = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		paraFreeboardEmpathyDto.setStudent_pk(studentInfo.getStudent_pk());
+		
 		freeboardCounselService.deleteEmpathyByIdAndPk(paraFreeboardEmpathyDto);
 		return "redirect: ./readFreeboardPostPage?id=" + paraFreeboardEmpathyDto.getFreeboard_id();
 

@@ -131,6 +131,11 @@ public class RestResumeController {
 		}
 		params.setIs_public("N");
 		
+		List<ResumeDto> list = resumeService.getResumeList(params);
+		if(list.isEmpty()) {
+			params.setMain_resume("Y");
+		}
+		
 		
 		
 		d_RestResponseDto.setResult("success");

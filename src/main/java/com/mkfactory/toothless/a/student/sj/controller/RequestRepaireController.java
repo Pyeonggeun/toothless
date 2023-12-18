@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mkfactory.toothless.a.dto.DormStudentDto;
 import com.mkfactory.toothless.a.dto.RequestRepairDto;
 import com.mkfactory.toothless.a.student.jw.service.DormStudentServiceJw;
 import com.mkfactory.toothless.a.student.sj.service.RequestRepairServiceImpl;
@@ -34,9 +35,8 @@ public class RequestRepaireController {
 	@RequestMapping("sj_requestRepairPage")
 	public String reqeustRepairPage(Model model) {
 		
-		model.addAttribute("repairList", repairService.printingAllRequestRepairArticle());
-		model.addAttribute("dormStudent", repairService.forDormStudentsList());
-		//model.addAttribute("printing", repairService.name());
+
+		model.addAttribute("printing", repairService.printPage());
 		return "/tl_a/student/sj_requestRepairPage";
 	}
 	
@@ -59,9 +59,17 @@ public class RequestRepaireController {
 		
 	}
 	
+	@RequestMapping("sj_requestReadPage")
+	public String requestRepairReadPage(Model model, int request_repair_pk) {
+		model.addAttribute("printing", repairService.printPage());
+		model.addAttribute("one", repairService.printingOne(request_repair_pk));
+		return "tl_a/student/sj_requestReadPage";
+	}
+	
 	@RequestMapping("requestRepairWriteProcess")
 	public String requestWriteProcess(HttpSession session, RequestRepairDto repairDto, 
-						Model model, MultipartFile imgs) {
+						Model model, MultipartFile imgs, int dorm_student_pk) {
+		
 		
 			if (imgs != null && !imgs.isEmpty()) {
 		        String rootPath = "C:/requestRepairImg/";
@@ -100,6 +108,12 @@ public class RequestRepaireController {
 			repairService.insertRequestRepair(repairDto);
 			return "redirect:./sj_requestRepairPage";
 				
+	}
+	
+	@RequestMapping("deleteRequestRepairProcess")
+	public String deleteRequestRepairProcess(int request_repair_pk) {
+		repairService.deleteRequestRepairArticle(request_repair_pk);
+		return "redirect:./sj_requestRepairPage";
 	}
 	
 	

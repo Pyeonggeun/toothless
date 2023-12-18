@@ -224,6 +224,13 @@
 		]]>
 	</select>
 	
+	<!-- 가족기업에서 보는 공개된 학생의 이력서 목록 가져오기 -->
+	<select id="getMainResumeListByIsPublic" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
+		SELECT * FROM tl_d_resume WHERE is_public = 'Y';
+	</select>
+	
+	
+	
 	
 	
 	<!--							 				ajax 									-->

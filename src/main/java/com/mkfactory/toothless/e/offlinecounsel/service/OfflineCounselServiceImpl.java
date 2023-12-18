@@ -591,5 +591,10 @@ public class OfflineCounselServiceImpl {
 		return offlineCounselMapper.selectMainPieChart(counselor_id);
 	}
 	
+	public List<Map<String, Object>> getDateReservationList(){
+		
+		return offlineCounselMapper.selectDateValueReservationList();
+	}
+	
 	
 }
