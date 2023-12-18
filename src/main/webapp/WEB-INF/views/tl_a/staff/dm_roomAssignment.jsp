@@ -63,17 +63,23 @@
 		.then(response => response.json())
 		.then(response => {
 			// 여기 왜 실행이안될까
+			
+			const assigntable = document.querySelector("#assigntable");
+			assigntable.innerHTML = ""; 
+			
+			assignNeedAddListChange();
+			assignNeedCancelList();
+			
+			const modal = bootstrap.Modal.getOrCreateInstance("#modal");
+			modal.hide();
+			
 		});	
 		
-		const assigntable = document.querySelector("#assigntable");
-		assigntable.innerHTML = ""; 
 		
-		assignNeedAddListChange();
-		assignNeedCancelList();
+		
 		
 		// 누르면 완료시키고 창이 리로드 되야하는데 (이건 여기있는게 맞음)
-		const modal = bootstrap.Modal.getOrCreateInstance("#modal");
-		modal.hide();
+		
 		
 		
 	}
@@ -417,6 +423,7 @@
 					//console.log(dddd);
 					change.setAttribute("type","submit");
 					change.setAttribute("value","배정하기");
+					change.setAttribute("class", "rounded-0");
 					// 클릭시 템플릿 노드를 보내서 콜백함수로 받아야함
 					// 여기서 서브밋은 이미 다 반복문이 돌고 난다음에 클릭했을때 값을 보냄
 					// 콜백함수에서 체크된걸 찾아야되서 템플릿노드가 필요함
@@ -461,26 +468,68 @@
 	
 	
 	// 버튼 누를시 모달창이 뜨고 그 다음에 저장하기를 눌렀을경우 => 값들이 날라가야한다,
+	
 	function submitExe(element, student_pk){
-		// 템플릿 자체를 갖고오려면..
-		// 모달출력
-		const aa = element.closest("tr");
 		
+		// 템플릿 자체를 갖고오려면..
+		// 모달출력 value값을 찾아서 
+		const aa = element.closest("tr");
 		const hovalue = aa.querySelector("#hoList > option:checked").value;
 		
+		// 모달 막는거 어디감???
+		const url = "./assignCheck?dorm_room_pk=" + hovalue;
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			if(response.data == false){
+				// false 일경우 버튼이 보이면안됨
+				
+				const modalComplete = document.querySelector("#modal .modalComplete");
+				modalComplete.removeAttribute("onclick");
+				modalComplete.classList.add("d-none");
+				
+				// 내용 조작
+				const modaltemplete = document.querySelector("#modal");
+				modaltemplete.querySelector(".modal-title").innerText = "배정 불가";
+				modaltemplete.querySelector(".modalcontent").innerText = "인원이 꽉차서 배정이 불가합니다. 다시 선택 해주세요.";
+				
+				const modal = bootstrap.Modal.getOrCreateInstance("#modal");
+				modal.show();
+				
+				return;
+				
+			}else{
+				
+				console.log(response.data);
+				// false가 아닐경우 여긴 배정완료 버튼이 보여야됨
+				const modalComplete = document.querySelector("#modal .modalComplete");
+				modalComplete.setAttribute("onclick","assignmentComplete(" + hovalue + "," + student_pk +")");
+				modalComplete.classList.remove("d-none");
+				// 내용 조작
+				const modaltemplete = document.querySelector("#modal");
+				modaltemplete.querySelector(".modal-title").innerText = "배정 하기";
+				modaltemplete.querySelector(".modalcontent").innerText = "정말로 배정하시겠습니까?";
+				
+				const modal = bootstrap.Modal.getOrCreateInstance("#modal");
+				modal.show();
+				
+				
+			}
+			
 		
-		const modalclick = document.querySelector("#modal .modalComplete");
-		modalclick.removeAttribute("onclick");
-		modalclick.setAttribute("onclick","assignmentComplete(" + hovalue + "," + student_pk +")");
+				
+				
+				
+			
+			
+			
+			
+			
+			
+		})
 		
-		
-		const modal = bootstrap.Modal.getOrCreateInstance("#modal");
-		modal.show();
-		
-	
-		
-		return hovalue, student_pk;
-		
+		// element 요소에서 	
 	}
 	
 	
@@ -700,28 +749,28 @@
 			
 			<!-- 미니맵 -->
 			<div class="row">
-				<div id="button1" class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="roomAssignmentAll()" style="background-color: black;">
+				<div id="button1" class="col-1 border py-4 mx-2 rounded border-dark btn text-center" onclick="roomAssignmentAll()" style="background-color: black;">
 					<div class="row">
 						<div class="bbutton1 col ms-2 fw-bold" style="color: white;">
 							전체
 						</div>
 					</div>
 				</div>
-				<div id="button2" class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="roomAssignmentY()">
+				<div id="button2" class="col-1 border py-4 mx-2 rounded border-dark btn text-center" onclick="roomAssignmentY()">
 					<div class="row">
 						<div class="bbutton2 col ms-2 fw-bold">
 							미배정
 						</div>
 					</div>
 				</div>
-                <div id="button3" class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="roomAssignmentN()">
+                <div id="button3" class="col-1 border py-4 mx-2 rounded border-dark btn text-center" onclick="roomAssignmentN()">
 					<div class="row">
 						<div class="bbutton3 col ms-2 fw-bold">
 							배정완료
 						</div>
 					</div>
 				</div>
-				<div class="col-8"></div>
+				
 			</div>
 			
 			<!-- 세부내용 시작 -->			
@@ -747,7 +796,11 @@
             
         
 	</div> <!-- main row 끝 -->
-	<div id="modal" class="modal" tabindex="-1">
+	
+	
+
+</div>
+<div id="modal" class="modal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -755,24 +808,21 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>정말로 배정하시겠습니까?</p>
+          <p class="modalcontent">정말로 배정하시겠습니까?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-          
-          <button onclick="assignmentComplete()" type="button" class="modalComplete btn btn-primary">배정완료</button>
+          <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">닫기</button>
+          <button type="button" class="modalComplete btn btn-primary rounded-0">배정완료</button>
         </div>
       </div>
     </div>
   </div>
-
-</div>
 							<table>
 								<tr id="listTemplete" class="listTemplete d-none">
 									<td id="studentname">이름 (기본 반복문)</td>
 									<td id="dormInfo">동 (반복문안에 반복문 콜백함수사용)</td>	
 	                                <td id="dormroomInfo">호수(반복문안에 반복문 똑같이 콜백함수)</td>
-									<td id="buttonchange"><a onclick="assignCancel()" class="change btn btn-danger" role="button">배정취소</a></td>
+									<td id="buttonchange"><a onclick="assignCancel()" class="change btn btn-danger rounded-0" role="button">배정취소</a></td>
 								</tr>
 							</table>
 							

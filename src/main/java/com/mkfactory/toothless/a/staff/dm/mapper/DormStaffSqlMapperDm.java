@@ -1,6 +1,9 @@
 package com.mkfactory.toothless.a.staff.dm.mapper;
 
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.mkfactory.toothless.a.dto.DormBuildingDto;
 import com.mkfactory.toothless.a.dto.DormCategoryDto;
@@ -41,4 +44,9 @@ public interface DormStaffSqlMapperDm {
 	public void dormStudentAssignmentInsert(DormStudentDto dormStudentDto);
 	
 	public List<DormRoomDto> dormRoomInfoByDormPk(int dorm_pk);
+	
+	//map 으로 리턴받을때 param 붙이자..
+	public List<Map<String, Object>> dormInfoTestByDormPk(@Param("dorm_pk") int dorm_pk);
+	
+	public boolean dormAssignCheckByDormRoomPk(int dorm_room_pk);
 }

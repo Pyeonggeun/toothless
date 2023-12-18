@@ -1,9 +1,6 @@
 package com.mkfactory.toothless.a.staff.dm.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -206,5 +203,46 @@ public class DormStaffServiceDm {
 		return dormStaffSqlMapperDm.dormRoomInfoByDormPk(dorm_pk);
 	}
 	
+	public List<Map<String, Object>> ddormRoomInfoByDormPk(int dorm_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		List<DormRoomDto> dormRoomDto = dormStaffSqlMapperDm.dormRoomInfoByDormPk(dorm_pk);
+		
+		for(DormRoomDto e : dormRoomDto){
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			//dorm빌딩 정보는 유니크 해야함 무조건 하나
+			DormBuildingDto dormBuildingDto = dormStaffSqlMapperDm.dormBuildingInfoByDormPk(dorm_pk);
+			
+			map.put("dormRoomDto", e);
+			map.put("dormBuildingDto", dormBuildingDto);
+			
+			list.add(map);
+			
+			
+		}
+		
+		return list;
+		
+	}
+	
+	public List<Map<String, Object>> dormInfoTestByDormPk(int dorm_pk){
+		
+		
+		return dormStaffSqlMapperDm.dormInfoTestByDormPk(dorm_pk);
+	}
+	
+	public boolean dormAssignCheckByDormRoomPk(int dorm_room_pk) {
+		
+		
+		
+		return dormStaffSqlMapperDm.dormAssignCheckByDormRoomPk(dorm_room_pk);
+	}
 	
 }
+
+
+
+
