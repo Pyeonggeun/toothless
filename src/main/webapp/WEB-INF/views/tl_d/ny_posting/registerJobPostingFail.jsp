@@ -129,7 +129,7 @@
 				<div class="row mt-3">
 					<div class="col"><a class="btn btn-secondary" href="./jobPostingListPage">목록으로</a></div>
 					<div class="col-7"></div>
-					<div class="col">
+					<div class="col ms-5">
 						<c:choose>
 							<c:when test="${empty sessionStaffInfo}">
 								<input class="btn btn-dark d-grid" type="submit" value="공고등록" disabled>
@@ -148,6 +148,13 @@
 			<%-- 오른쪽 --%>	
 			<div class="col"></div>	
 		</div>
+		<div class="row mb-5 pb-5"><div class="col"></div></div>
+		<!-- futter -->
+		<div class="row">
+			<div class="col">
+				<jsp:include page="../common/futter.jsp"></jsp:include>
+			</div>
+		</div>	
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

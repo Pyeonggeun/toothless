@@ -120,6 +120,7 @@ public class PostingServiceImpl {
 			
 			List<JobPostingDto> companyPostingDtoList = postingSqlMapper.selectPostingListByComPk(com_pk);
 			
+			
 			for(JobPostingDto jobPostingDto : companyPostingDtoList) {
 				
 	
@@ -149,6 +150,7 @@ public class PostingServiceImpl {
 				jobPostingMap.put("postingDeadlineList", postingDeadlineList);
 				jobPostingMap.put("endPostingList", endPostingList);
 				jobPostingMap.put("allPostingInterest", allPostingInterest);
+				
 				
 				companypostingList.add(jobPostingMap);
 				
@@ -642,6 +644,11 @@ public class PostingServiceImpl {
 	// 학생 + 학과 
 	public String getStudentDepartmentName(int department_pk) {
 		return postingSqlMapper.selectByDepartmentPk(department_pk);
+	}
+	
+	// 지원한 학생 리스트
+	public List<Integer> getStudentApplyList(int student_pk){
+		return postingSqlMapper.selectMyApplyByStudentPk(student_pk);
 	}
 	
 }

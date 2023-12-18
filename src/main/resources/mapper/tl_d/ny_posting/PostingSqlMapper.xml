@@ -378,7 +378,7 @@
 		WHERE tjdc.DEPARTMENT_PK = #{department_pk}
 	</select>
 	
-	<!-- 지원자 -->
+	<!-- 중복지원 방지용 지원자 -->
 	<select id="selectMyApplyByStudentPk" resultType="int">
 		SELECT tdv.JOB_POSTING_PK 
 		FROM TL_D_VOLUNTEER tdv 
