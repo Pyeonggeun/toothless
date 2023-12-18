@@ -264,7 +264,12 @@
         			}
         		});
         	}
-        
+        	function mouseOver(target) {
+        		target.classList.add("mouseOver");
+			}
+        	function mouseLeave(target){
+        		target.classList.remove("mouseOver");
+        	}
         	
         	
         	
@@ -273,6 +278,8 @@
         		 loadMyNewNotifyCount();
         		 
              });
+        	 
+        	 
         	
         </script>
         
@@ -298,6 +305,10 @@
             .border-main{
                 border-color: #133369;
             }
+            .mouseOver{
+            	background-color: #133369;
+            	color: white;
+            }
         </style>
 
     </head>
@@ -307,46 +318,22 @@
                 <div class="col">
                     <div class="row text-center">
                         <div class="col-4"></div>
-                        <div class="col-1 pe-2 text-end">
-                            <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
+                        <div class="col-1 pe-2 text-end mt-2">
+                            <img src="../../resources/img/another/logo_black.png" alt="" style="height: 2em;">
                         </div>
-                        <div class="col-3 ps-0 fw-bold fs-1 text-start ">
-                            MK University<span class="fs-6"> | </span> <span class="fs-5">학생포털사이트</span> 
+                        <div class="col-3 ps-0 fw-bold fs-3 text-start align-self-center ">
+                            MK University 
                         </div>
                         <div class="col-2"></div>
-                        <div class="col-1 border-end border-secondary text-end text-secondary mt-5" style="font-size: small">
-                            포털이용안내
+                        <div class="col-1 position-relative pb-0 fs-5 align-self-center">
+                            <a class="navbar-brand" href="#" onclick="showNotifyModal()"><i class="bi bi-bell text-balck pe-1">
+                            <span id="reloadNotifyCount" class="position-absolute top-0 start-50 badge rounded-pill bg-danger d-none px-1 py-0" style="font-size: xx-small;">
+                            </span>
+                            </i></a> 
                         </div>
-                        <div class="col-1 text-start text-secondary mt-5 "style="font-size: small">
-                            <a class="navbar-brand" href="./logoutProcess">로그아웃</a>
-                        </div>
+                        <div class="col-1"></div>
                     </div>
                 </div>
-            </div>
-            <div class="row text-center py-1 fw-bold text-light" style="background-color: #133369">
-                <div class="col-2"></div>
-                <div class="col align-self-center">
-                    <a class="navbar-brand" href="../../tl_c/guntaek/student/ajdksRegisterSelfIntroduction">현장실습 지원 센터</a>
-                </div>
-                <div class="col align-self-center">
-                    <a class="navbar-brand" href="../../tl_d/common/employmentMainPage">취업<i class="bi bi-dot"></i>창업 지원 센터</a>
-                </div>
-                <div class="col align-self-center">
-                    <a class="navbar-brand" href="../../tl_e/commons/counselCenterStudentMainPage">상담 센터</a>
-                </div>
-                <div class="col align-self-center">
-                    <a class="navbar-brand" href="../../tl_a/student/jw_mainPage">생활관 관리 센터</a>
-                </div>
-                <div class="col align-self-center">
-                    <a class="navbar-brand" href="../../tl_b/common/studentMainPage">보건 센터</a>
-                </div>
-                <div class="col-1 position-relative pb-0">
-                	<a class="navbar-brand" href="#" onclick="showNotifyModal()"><i class="bi bi-bell-fill pe-1">
-                	<span id="reloadNotifyCount" class="position-absolute top-70 start-50 badge rounded-pill bg-danger d-none px-1 py-0" style="font-size: xx-small;">
-    				</span>
-    				</i></a> 
-                </div>
-                <div class="col-2"></div>
             </div>
             <div class="row">
             	<div class="col">
@@ -382,68 +369,133 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-3">
-                <div class="col-2">
-                    <div class="row border border-2">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col">
-                                    이름 : ${sessionStudentInfo.name }
-                                </div>
-                                <div class="col">
-                                    ${studentOtherInfo.departmentName } <c:if test="${studentOtherInfo.graduationInfo == 0 }">${studentOtherInfo.studentYear } 학년</c:if> 
-                                </div>
-                            </div>
-                            <div class="row">
-                            <c:choose>
-                            	<c:when test="${studentOtherInfo.graduationInfo != 0 }">
-                            		<div class="col">
-                                 		 현재 상태: 졸업생
-                                	</div>
-                            	</c:when>
-                            	<c:otherwise>
-                            		<div class="col">
-                                  		현재 상태: 재학생  
-                                	</div>
-                            	</c:otherwise>
-                            </c:choose>
-                                
-                            </div>
+            <div class="row mt-2">
+                <div class="col px-0">
+                    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                          <div class="carousel-item active">
+                            <img src="../../resources/img/another/mainbanner.png" class="d-block w-100" style="height: 30em;">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="../../resources/img/another/mainbanner.png" class="d-block w-100" style="height: 30em;">
+                          </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row mt-4" style="background-color: #eaf0f6;">
+            
                 <div class="col">
                     <div class="row">
-                        <div class="col text-end">
-                            <img src="../../resources/img/another/iu1.png" alt="" style="height: 8em;">
-                        </div>
-                        <div class="col text-center fs-1 fw-bold">
-                            서울민규 대학교 총장님 말씀
-                        </div>
-                        <div class="col text-start">
-                            <img src="../../resources/img/another/iu2.png" alt=""style="height: 8em;">
+                        <div class="col-1"></div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col" style="font-size: small;" style="color: #133369;">
+                                    MinKyue
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col fs-3 fw-bold" style="color: #133369;">
+                                    POPUP ZONE
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col text-center">
-                            <img src="../../resources/img/another/minkue.png" alt="" style="height: 30em;">
+                        <div class="col-1"></div>
+                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='../../tl_c/guntaek/student/ajdksRegisterSelfIntroduction'" class="col border border-2 mx-1" style="cursor: pointer;">
+                            <div class="row">
+                                <div class="col-3 align-self-center text-center mt-4 fs-2">
+                                    <i class="bi bi-person-workspace"></i>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col ms-2 mt-2 fw-bold align-self-center fs-5">
+                                    현장실습 지원 센터
+                                </div>
+                            </div>
+                            <div class="row mt-5 mb-3">
+                                <div class="col text-start align-self-center rounded-pill">
+                                    바로가기 <i class="bi bi-chevron-right text-secondary"></i>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col text-end">
-                            <img src="../../resources/img/another/iu3.png" alt="" style="height: 8em;">
+                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='../../tl_d/common/employmentMainPage'" class="col border border-2 mx-1" style="cursor: pointer;">
+                            <div class="row">
+                                <div class="col-3 align-self-center text-center mt-4 fs-2">
+                                    <i class="bi bi-briefcase-fill"></i>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col ms-2 mt-2 fw-bold align-self-center fs-5">
+                                    취업 지원 센터
+                                </div>
+                            </div>
+                            <div class="row mt-5 mb-3">
+                                <div class="col text-start align-self-center rounded-pill">
+                                    바로가기 <i class="bi bi-chevron-right text-secondary"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col text-center fs-2 mt-5">
-                            2차 프로젝트 화이팅~! &gt; _ &lt;
+                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='../../tl_e/commons/counselCenterStudentMainPage'" class="col border border-2 mx-1" style="cursor: pointer;">
+                            <div class="row">
+                                <div class="col-3 align-self-center text-center mt-4 fs-2">
+                                    <i class="bi bi-headset"></i>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col ms-2 mt-2 fw-bold align-self-center fs-5">
+                                    상담 지원 센터
+                                </div>
+                            </div>
+                            <div class="row mt-5 mb-3">
+                                <div class="col text-start align-self-center rounded-pill">
+                                    바로가기 <i class="bi bi-chevron-right text-secondary"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col text-start">
-                            <img src="../../resources/img/another/iu4.png" alt="" style="height: 8em;">
+                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='../../tl_a/student/jw_mainPage'" class="col border border-2 mx-1" style="cursor: pointer;">
+                            <div class="row">
+                                <div class="col-3 align-self-center text-center mt-4 fs-2">
+                                    <i class="bi bi-buildings"></i>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col ms-2 mt-2 fw-bold align-self-center fs-5">
+                                   생활관 관리 센터
+                                </div>
+                            </div>
+                            <div class="row mt-5 mb-3">
+                                <div class="col text-start align-self-center rounded-pill">
+                                    바로가기 <i class="bi bi-chevron-right text-secondary"></i>
+                                </div>
+                            </div>
                         </div>
+                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='../../tl_b/common/studentMainPage'" class="col border border-2 mx-1" style="cursor: pointer;">
+                            <div class="row">
+                                <div class="col-3 align-self-center text-center mt-4 fs-2">
+                                    <i class="bi bi-capsule"></i>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col ms-2 mt-2 fw-bold align-self-center fs-5">
+                                    학생 보건 센터
+                                </div>
+                            </div>
+                            <div class="row mt-5 mb-3">
+                                <div class="col text-start align-self-center rounded-pill">
+                                    바로가기 <i class="bi bi-chevron-right text-secondary"></i>
+                                    <!-- <i class="bi bi-chevron-right fw-bold fs-4 text-secondary"></i> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1"></div>
                     </div>
                 </div>
-            </div>    
+            </div>
         </div>
         
+
          <div id="showMyNotifyListModal" class="modal" tabindex="-1">
             <div class="modal-dialog  modal-dialog-scrollable">
               <div class="modal-content" >
@@ -472,11 +524,10 @@
               </div>
             </div>
         </div>
-        <div ></div>
+        
         <div id="notifyTemplete" class="d-none">
 	        <div class="row my-3 unreadNotifyWrapper" style="background-color: rgb(230, 230, 230);">
 	        	<div class="col">
-	        		<a class="navbar-brand link" href="#">
 	             	<div class="row py-2 border rounded">
 	                 	<div class="col-2 fs-1 rounded-circle text-center mt-1 ms-3" >
 	                    	 <i class="centerIcon" style="color: #133369;"></i>
@@ -497,7 +548,6 @@
 	                     	</div>
 	                 	</div>
 		             </div>
-		             </a>
 	        	</div>	
 	        </div>
         </div>
