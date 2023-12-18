@@ -8,9 +8,9 @@
 			<a href="../commons/counselCenterStaffMainPage" class="link-dark link-offset-2 link-underline link-underline-opacity-0">MK University<span class="fs-6 link-dark link-offset-2 link-underline link-underline-opacity-0"> | </span> <span class="fs-5 link-offset-2 link-underline link-underline-opacity-0">상담센터</span></a> 
 		</div>
 		<div class="col-3"></div>
-		<div class="col ps-0 pt-4 text-center text-primary-emphasis" style="font-size: 1.1em; font-weight: bold;">상담원 관리</div>
-		<div class="col ps-0 pt-4 text-center text-primary-emphasis" style="font-size: 1.1em; font-weight: bold;">집단상담</div>
-		<div class="col ps-0 pt-4 text-center text-primary-emphasis" style="font-size: 1.1em; font-weight: bold;">공지사항</div>
+		<div class="col ps-0 pt-4 text-center" style="font-size: 1.1em; font-weight: bold;"> <a href="../registerCounselor/managementCounselor" class="link-offset-2 link-underline link-underline-opacity-0 text-primary-emphasis">상담원 관리</a></div>
+		<div class="col ps-0 pt-4 text-center text-primary-emphasis" style="font-size: 1.1em; font-weight: bold;"><a href="../groupcounsel/staff/groupCounselListPage" class="link-offset-2 link-underline link-underline-opacity-0 text-center text-primary-emphasis">집단상담</a></div>
+		<div class="col ps-0 pt-4 text-center text-primary-emphasis" style="font-size: 1.1em; font-weight: bold;"><a href="../notice/noticeMainPage_Staff" class="link-offset-2 link-underline link-underline-opacity-0 text-center text-primary-emphasis">공지사항</a></div>
 		
 		<div class="col pt-4 dropdown nav-item">
 			<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
