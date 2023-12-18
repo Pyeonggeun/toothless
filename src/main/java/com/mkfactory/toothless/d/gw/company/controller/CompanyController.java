@@ -168,4 +168,22 @@ public class CompanyController {
 			return "/tl_d/gw_company/companyViewStudentInterestPage";
 		}
 		
+		
+		//학생용 학생이 찜한 기업 목록
+		@RequestMapping("interestCompanyListForStudentPage")
+		public String interestCompanyListForStudentPage(HttpSession session, Model model) {
+			StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+			
+			if(studentInfoDto != null) {
+				
+				model.addAttribute("studentInterestCompanyList", companyService.studentCompanyInterestList());
+			}
+			
+			
+			return "/tl_d/gw_company/interestCompanyListForStudentPage";
+		}
+		
+		
+		
+		
 }

@@ -49,7 +49,7 @@
                 <a class="navbar-brand" href="../ny_posting/jobPostingListForStudentPage">채용공고</a>
             </div>
             <div class="col align-self-center">
-                <a class="navbar-brand" href="./mainpage">프로그램</a>
+                <a class="navbar-brand" href="../gw_program/programListForStudentPage">프로그램</a>
             </div>
             <div class="col align-self-center">
                 <a class="navbar-brand" href="../../tl_e/commons/counselCenterStudentMainPage">취업컨설팅</a>

@@ -30,7 +30,7 @@
 </div>
 <div class="row">
 	<a class="col ps-5 mt-2 ms-5 navbar-brand" 
-		href="">&nbsp;관심기업</a>
+		href="../gw_company/interestCompanyListForStudentPage">&nbsp;관심기업</a>
 </div>
 <div class="row">
 	<a class="col ps-5 mt-2 ms-5 navbar-brand" 
