@@ -295,7 +295,7 @@
 
 	<div class="container-fluid"> 
 		<div class="row">
-				<jsp:include page="../common/companyTopNavi.jsp"></jsp:include>	
+				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>	
 		</div>
 		
 			

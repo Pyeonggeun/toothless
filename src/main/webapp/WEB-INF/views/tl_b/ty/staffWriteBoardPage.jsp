@@ -230,9 +230,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col"></div>
+                                <div class="col-8">
                                     <form id="frm" action="./staffWriteProcess" method="post" enctype="multipart/form-data" >
-                                 <div class="row mt-5">
+                                 <div class="row mt-8">
                                     <div class="col border-bottom border-3 fw-bold fs-3">공지사항 글 작성</div>
                                  </div>
                                  <div class="row mt-5">
@@ -259,12 +260,15 @@
                                         이미지 등록: <input name="imageFiles" type="file" accept="image/*" multiple>
                                     </div>
                                     <div class="col mt-2 text-end">
-                                        <input type="button" onclick="formSubmit()" class="btn btn-light" value="등록">
+                                        <input type="button" onclick="formSubmit()" class="btn btn-outline-primary" value="등록">
+                                    	<a href="./staffBoardPage">
+                                    		<input type="button" class="btn btn-outline-primary" value="취소">
+                                    	</a>
                                     </div>
                                  </div>
                                     </form>  
-
                                 </div>
+                                <div class="col"></div>
                             </div>
                         </div>
                     </div>

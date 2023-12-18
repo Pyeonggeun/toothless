@@ -209,9 +209,13 @@
 				
 			    saveBtn.addEventListener("click", function() {
 			        const id = map.offlineReservationDto.id;
+			        console.log("showmodalClick: "+id);
 			        const stateValue = counselState.value;
+			        console.log("showmodalClick: "+stateValue);
 			        const textValue = counselorText.value;
+			        console.log("showmodalClick: "+textValue);
 			        const locationValue = counselLocation.value;
+			        console.log("showmodalClick: "+locationValue);
 
 			        // 필요한 매개변수와 함께 save 함수 호출
 			        save(id, stateValue, textValue, locationValue);
@@ -229,9 +233,9 @@
 		function save(id, state, text, location){
 
 			console.log("reid: "+id);
-			console.log("state: "+id);
-			console.log("text: "+id);
-			console.log("location: "+id);
+			console.log("state: "+state);
+			console.log("text: "+text);
+			console.log("location: "+location);
 			url = "./counselReportRegisterProcess?id=" + id + "&state=" + state + "&text=" + text + "&location=" + location;
 			
 			fetch(url)

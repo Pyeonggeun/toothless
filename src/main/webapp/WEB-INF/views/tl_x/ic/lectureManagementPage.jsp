@@ -628,7 +628,7 @@
      	function insertAttendanceBook(){
      		const open_lecture_key = document.querySelector("#open_lecture_key");
         	const open_lecture_key_value = open_lecture_key.getAttribute("value");
-        	const date_created =document.querySelector("#date_created");
+        	const selectDate =document.querySelector("#selectDate");
      		const study_log = document.querySelector("#study_log");
      		const url = "./insertAttendanceBookProcess";
      		
@@ -637,7 +637,7 @@
      			headers: {
      				"Content-Type": "application/x-www-form-urlencoded"
      			},
-     			body:"open_lecture_key="+open_lecture_key_value+"&date_created="+date_created.value
+     			body:"open_lecture_key="+open_lecture_key_value+"&date_created="+selectDate.value
      	            +"&study_log="+study_log.value
      		})
      		.then(response => response.json())

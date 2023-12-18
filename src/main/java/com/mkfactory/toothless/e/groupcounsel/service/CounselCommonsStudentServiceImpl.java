@@ -56,4 +56,12 @@ public class CounselCommonsStudentServiceImpl {
 		return counselCommonsStudentMapper.getFreeboardList();
 	}
 	
+	public List<Map<String, Object>> getOfflineCounselList(int student_pk){
+		
+		return counselCommonsStudentMapper.getOfflineCounselListByStudentId(student_pk);
+	}
+	
+	
+	
+	
 }

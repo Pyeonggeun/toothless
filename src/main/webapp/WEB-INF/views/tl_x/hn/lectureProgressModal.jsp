@@ -429,3 +429,41 @@
         </div>
     </div>
 </div>
+
+<div id="progressTemplete" class="d-none">
+	
+	<span class="progressComplete px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #4CAF50; background-color: #F1F9F1;">
+		수료
+	</span>
+	
+	<span class="progressPoor px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #FA4D5A; background-color: #FAF1F4;">
+		미수료
+	</span>
+	
+	<div class="testWrapper row py-2 border-bottom">
+        <div class="testNumber col-1 text-center" style="font-size: 0.9em;">1</div>
+        <div class="testName col text-center" style="font-size: 0.9em;">기업현장교사 기본과정 온라인교육(15시간) 이수자를 위한 보충 영상</div>
+        <div class="testDate col text-center" style="font-size: 0.9em;">2023-07-31 00:00~2023-08-31 23:59</div>
+        <div class="col-1 text-center" style="font-size: 0.9em;">20%</div>
+        <div class="testWhether col-1 text-center" style="font-size: 0.9em;">○</div>
+        <div class="col-1 text-center" style="font-size: 0.9em;"><span class="testScore fw-bold">70</span> / 100</div>
+    	<div class="testButtonBox col-1 text-center fw-bold" style="font-size: 0.9em;"></div>
+  	</div>
+      
+    <span class="testComplete px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #4CAF50; background-color: #F1F9F1;">
+		응시완료
+	</span>
+      
+    <span onclick="showTestWarningModal(this)" class="testIng btn px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #7844ae; background-color: #F3ECFF;">
+		응시하기
+	</span>
+      
+    <span class="testPoor px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #B0B0B3; background-color: #f7f7f9;">
+		미응시
+	</span>
+      
+    <span class="testBeforeOpen px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #B0B0B3; background-color: #f7f7f9;">
+		오픈전
+	</span>
+
+</div>

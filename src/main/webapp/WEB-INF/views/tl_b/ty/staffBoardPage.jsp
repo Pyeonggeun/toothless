@@ -231,8 +231,8 @@
                                                     
                                                         <div class="row mt-4">
                                                         <div class="col">
-                                                            <span style="font-size: 120%; font-weight: bold;">Total</span>
-                                                            <span style="font-size: 80%;">${total }개</span> 
+                                                            <span style="font-size: 20px; font-weight: bold;">Total</span>
+                                                            <span style="font-size: 15px;">${total }개</span> 
                                                         </div>
                                                         <div class="col-2">
                                                             <select name="searchType" class="form-select" aria-label="Default select example">
@@ -245,18 +245,24 @@
                                                             <input id="inputComment" name="searchWord" class="form-control" type="text" placeholder="내용을검색하세요">
                                                         </div> 
                                                         <div class="col-1 text-start">
-                                                            <input type="submit" onclick="formSubmit()" class="btn btn-outline-dark" value="검색">
+                                                            <input type="submit" onclick="formSubmit()" class="btn btn-outline-primary" value="검색">
                                                         </div>
                                                     </div>
                                                     </form>
                                                     <div class="row">
-                                                        <div class="col text-start" style="font-size: 60%">홈>공지사항</div>
+                                                        <div class="col text-start" style="font-size: 15px;">
+	                                                        <a href="../common/staffMainPage";
+	                                                        style="text-decoration: none; color:#015A9E;">
+	                                                        	홈
+	                                                        </a>
+	                                                        >공지사항
+                                                        </div>
                                                     </div>
 
                                                     <div class="row mt-4">
                                                         <div class="col">
                                                             <div class="row ">
-                                                                <div class="col fw-bold fs-5 text-center ">[ 인기 게시글 ]</div>
+                                                                <div class="col fw-bold fs-5 text-center " style="color:#015A9E">[ 인기 게시글 ]</div>
                                                             </div>
                                                                 <div class="row mt-3" >
                                                                     <div class="col text-center">
@@ -275,12 +281,6 @@
 		                                                                        	style="text-decoration:none;">
 		                                                                        	${notice.noticeboardDto.title }
 		                                                                        </a>
-                                                                            	<%-- <c:if test="${notice.replyDto !=0 }">
-                                                                        			&nbsp;[${notice.replyDto }]
-                                                                        		</c:if>
-                                                                        		<c:if test="${notice.imgDto !=0}">
-	                                                                        		<i class="bi bi-images"></i>
-	                                                                        	</c:if> --%>
                                                                             	</div>
                                                                             <div class="col-2">${notice.staffDto.name }</div>
                                                                             <div class="col-2">${notice.noticeboardDto.read_count }</div>
@@ -290,14 +290,40 @@
                                                                     </div>
                                                                 </div>  
                                                         </div>
-                                                        <div class="col-7"></div>
+                                                        <div class="col-7 text-center">
+                                                        	<div class="row mt-2">
+                                                        		<div class="col fw-bold fs-5 text-center text-danger ">
+                                                        		<i class="bi bi-asterisk"></i>
+                                                        			필독사항
+                                                        		<i class="bi bi-asterisk"></i>
+                                                        		</div>
+                                                        	</div>
+                                                        	<div class="row mt-3">
+                                                        		<div class="col fw-bold">
+                                                        			건전한 공지사항을 위해 아래항목은 꼭 지켜주세요!!
+                                                        		</div>
+                                                        	</div>
+                                                        	<div class="row mt-3">
+                                                        		<div class="col-2"></div>
+                                                        		<div class="col text-start">
+                                                        			1. 댓글은 공지사항과 관련된 글만 올려주세요
+                                                        			(불건전한 내용은 예고없이 삭제 처리 됩니다.) 
+                                                        		</div>
+                                                        	</div>
+                                                        	<div class="row">
+                                                        		<div class="col-2"></div>
+                                                        		<div class="col text-start">
+                                                        			2. 요청사항 및 건의사항은 aaa@qwer.com으로 보내주세요.
+                                                        		</div>
+                                                        	</div>
+                                                        </div>
                                                     </div>
 
 
                                                     <div class="row mt-5">
                                                         <div class="col">
                                                         	<div class="row">
-                                                        		<div class="col fw-bold fs-5 text-center">[ 공지사항 ]</div>
+                                                        		<div class="col fw-bold fs-5 text-center" style="color:#015A9E">[ 공지사항 ]</div>
                                                         	</div>
                                                             <div class="row mt-3 my-2">
                                                                 <div class="col fw-bold fs-5">
@@ -311,6 +337,24 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                           <%--  <c:forEach items="${readList }" var="notice">
+                                                                        <div class="row border-1 border-bottom text-center">
+                                                                            <div class="col-1 fw-bold text-danger">[인기글]</div>
+                                                                            <div class="col-5" style="text-decoration:none;" >
+                                                                            	<a href="./staffBoardReadPage?id=${notice.noticeboardDto.studentboard_pk }"
+		                                                                        	style="text-decoration:none;">
+		                                                                        	${notice.noticeboardDto.title }
+		                                                                        </a>
+                                                                            	</div>
+                                                                            <div class="col-1">${notice.staffDto.name }</div>
+                                                                            <div class="col">
+		                                                                        <fmt:formatDate value="${notice.noticeboardDto.created_at  }" pattern="yyyy년 MM월 dd일"/>
+		                                                                    </div>
+	                                                                        <div class="col-1">${notice.likeDto }</div>
+                                                                            <div class="col-1">${notice.noticeboardDto.read_count }</div>
+                                                                        </div>
+                                                                        </c:forEach> --%>
+                                                            
                                                             <c:forEach items="${noticeList }" var="notice">
                                                             <div class="row">
                                                                 <div class="col">
@@ -340,7 +384,7 @@
                                                             </c:forEach> 
                                                         </div>
                                                     </div>
-                                                    <div class="row mx-5">
+                                                    <div class="row mt-2">
                                                         <div class="col text-end">
                                                             <a href="./staffWriteBoardPage" style="text-decoration:none;">글쓰기</a>
                                                         </div>

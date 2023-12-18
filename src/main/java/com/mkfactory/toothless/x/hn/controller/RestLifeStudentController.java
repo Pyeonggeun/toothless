@@ -211,5 +211,27 @@ public class RestLifeStudentController {
 		return restResponseDto;
 		
 	}
+	
+	@RequestMapping("getTotalMyLectureCount")
+	public RestResponseDto getTotalMyLectureCount(int life_student_key, int searchType) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(lifeStudentService.getTotalMyLectureCount(life_student_key, searchType));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("getMyLecture")
+	public RestResponseDto getMyLecture(int life_student_key, int pageNumber, int searchType) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(lifeStudentService.getMyLectureInfoList(life_student_key, pageNumber, searchType));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
 
 }

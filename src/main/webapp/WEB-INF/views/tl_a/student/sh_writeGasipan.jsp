@@ -50,17 +50,18 @@
 			
 				<div class="row my-2">
 					<div class="col">
-						<input class="form-control" name="title" type="text" placeholder="제목을 입력하여주세요">
+						<input class="form-control" name="title" type="text" placeholder="제목">
 					</div>
 				</div>
 				<div class="row my-2">
 					<div class="col">
-						<textarea rows="15" name="content" class="form-control" placeholder="내용을 입력해주세요"></textarea>
+						<textarea rows="20" name="content" class="form-control" placeholder="내용"></textarea>
 					</div>
 				</div>
 				<div class="row my-2">
-					<div class="col d-grid">
-						<input type="submit" class="btn btn-primary" value="글 작성">
+					<div class="col-10"></div>
+					<div class="col-2 d-grid">
+						<input type="submit" class="btn" style="background-color:#504528; color:#FFFFFF;"value="글 작성">
 					</div>
 				</div>
 			</div>
