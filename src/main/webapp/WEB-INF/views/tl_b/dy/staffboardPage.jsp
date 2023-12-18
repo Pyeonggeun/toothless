@@ -68,7 +68,7 @@
                                                 <div class="col-md-2 pt-1 d-flex align-items-center text-right">
                                                 	<div class="row d-flex align-items-center">
                                                 		<div class="col align-items-center px-0">
-	                                                		<select name="searchType" class="form-select align-items-center" aria-label="Default select example" style="font-size: small;">
+	                                                		<select name="searchType" class="form-select align-items-center rounded-0" aria-label="Default select example" style="font-size: small;">
 															  <option value="title" ${searchType == 'title' ? 'selected' : null}>제목</option>
 															  <option value="content"${searchType == 'content' ? 'selected' : null}>내용</option>
 															  <option value="name"${searchType == 'name' ? 'selected' : null}>작성자</option>
@@ -79,16 +79,19 @@
                                                 <div class="col-md-6 pt-1 text-left">
                                                 	<div class="row d-flex align-items-center text-end px-0">
                                                 		<div class="col-9 text-end d-flex px-0" role="search">
-                                                			<input name="searchWord" class="form-control d-flex me-1" type="search" placeholder="검색" value="${searchWord}" aria-label="Search" style="font-size: small;">
-        													<button class="btn btn-outline-primary" type="submit" style="font-size: small;"><i class="bi bi-search"></i></button>
+                                                			<input name="searchWord" class="form-control d-flex me-1 rounded-0" type="search" placeholder="검색" value="${searchWord}" aria-label="Search" style="font-size: small;">
+        													<button class="btn btn-outline-primary rounded-0" type="submit" style="font-size: small;"><i class="bi bi-search"></i></button>
                                                 		</div>
                                                 		<div class="col ps-1 px-0 text-center">
                                                 			<c:choose>
 		                                                        <c:when test="${!empty sessionStaffInfo}">
-		                                                            <button type="button" class="btn btn-primary" style="font-size: small;" onclick="location.href='./writeTextPage'">글쓰기</button>
+		                                                            <button type="button" class="btn btn-primary rounded-0" style="font-size: small;" onclick="location.href='./writeTextPage'">글쓰기</button>
 		                                                        </c:when>
 		                                                        <c:otherwise>
-		                                                            <button type="button" class="btn btn-primary" style="font-size: small;" onclick="location.href='../../another/staff/loginPage'">로그인</button>
+		                                                            <script>
+																		alert("로그인 후 이용해주세요");
+																		location.href='../../another/staff/loginPage';
+																	</script>
 		                                                        </c:otherwise>
                                                    			</c:choose>
                                                 		</div>
