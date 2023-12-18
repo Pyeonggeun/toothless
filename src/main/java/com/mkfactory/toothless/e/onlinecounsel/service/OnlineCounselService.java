@@ -184,6 +184,7 @@ public class OnlineCounselService {
 	// 공용 UI 용 메소드
 	public List<NoticeBoardDto> getNoticeListSpecificNum(){
 		
+		
 		return onlineCounselSqlMapper.selectNoticeListSpecificNum();
 	}
 	

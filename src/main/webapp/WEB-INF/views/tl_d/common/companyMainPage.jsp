@@ -178,7 +178,10 @@
 					<!-- 공고 지원한 학생목록 -->
 					<div class="row pb-2 border-bottom border-2">
 						<div class="col fs-5 fw-bold mt-5">이력서 공개 학생의 이력서 목록</div>
-						<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
+						<div class="col fs-5 fw-bold mt-5 text-end">
+						<a class="col fs-5 fw-bold mt-5 text-end navbar-brand" 
+						href="../sb_resume/publicResumeByStudentListPage"><i class="bi bi-plus-lg"></i></a>
+						</div>
 					</div>
 					<div class="row mt-3 mb-1 text-secondary border-bottom">
 					<!-- 이름 -->
@@ -195,13 +198,13 @@
 				<c:forEach items="${mainResumeList}" var="mainResume">
 					<!-- 목록 -->
 						<div class="row my-2 border-bottom">
-							<div class="col-2 ms-3">${mainResume.studentInfoDto.name}</div>
-							<div class="col ps-5">
+							<div class="col ms-4 px-0">${mainResume.studentInfoDto.name}</div>
+							<div class="col ms-4 px-0">
 								<fmt:formatDate value="${mainResume.studentInfoDto.birth}" pattern="yyMMdd"/>
 							</div>
-							<div class="col-1 ps-5">${mainResume.studentInfoDto.gender}</div>
-							<div class="col-4 ps-5 pe-0">${mainResume.studentInfoDto.email}</div>
-							<div class="col ps-0 pe-5">
+							<div class="col px-0">${mainResume.studentInfoDto.gender}</div>
+							<div class="col px-0">${mainResume.studentInfoDto.email}</div>
+							<div class="col px-0">
 								<c:choose>
 									<c:when test="${! mainResume.graduationInfoDtoList.contains(applyList.studentInfoDto.student_pk)}">
 										재학생

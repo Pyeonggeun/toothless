@@ -68,91 +68,10 @@
 </head>
 <body>
 
-<div class="container-fluid">
 
-	<!-- 네비바 -->
-	<div class="row pb-3" style="border-top-style: solid; border-top-width: 7px; border-top-color: #8FBC8F">
-		<div class="col-2 pt-3">
-			<div class="row">
-				<div class="col-3 pe-0 me-0">
-					<img class="img-fluid" style="width: 60px; height: 60px; color:blue;" src="./../../resources/img/groupCounsel/logo_black.png">
-				</div>
-				<div class="col">
-					<div class="row" style="height: 0.55em;"></div>
-					<div class="row">
-						<div class="col ps-0 ms-0">
-							<div class="fw-bold" style="font-size: 1.7em;"> Mk University</div>						
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col">
-			<div class="row">
-				<div class="col">
-					<div class="row" style="height: 2em;"></div>
-					<div class="row">
-						<div class="col-2"></div>
-						<div class="col">
-							<div class="row">
-								<div class="col-2"></div>
-								<div class="col text-center">
-									<div class="dropdown">
-										<a class="dropdown-toggle fw-bold" data-bs-toggle="dropdown" style="font-size: 1.2em; text-decoration-line: none; color: black">상담 신청</a>
-									  <ul class="dropdown-menu">
-									    <li><a class="dropdown-item" href="../../tl_e/onlineCounsel/onlineCounselMainPage">온라인 상담</a></li>
-									    <li><a class="dropdown-item" href="../../tl_e/offlineCounsel/selectCounselorPage">오프라인 상담</a></li>
-									    <li><a class="dropdown-item" href="../../tl_e/groupcounsel/student/groupCounselListPage">집단 상담</a></li>
-									  </ul>
-									</div>
-								</div>
-								<div class="col text-center">
-									<div class="dropdown">
-										<a class="dropdown-toggle fw-bold" data-bs-toggle="dropdown" style="font-size: 1.2em; text-decoration-line: none; color: black">예약 조회</a>
-									  <ul class="dropdown-menu">
-									    <li><a class="dropdown-item" href="../../tl_e/offlineCounsel/checkOfflineCounselReservationStudentPage">오프라인 상담</a></li>
-									    <li><a class="dropdown-item" href="../../tl_e/groupcounsel/student/readGroupCounselReservationListByStudentPage">집단 상담</a></li>
-									  </ul>
-									</div>
-								</div>
-								<div class="col text-center">
-									<a href="../../tl_e/notice/noticeMainPage_Student" class="fw-bold" style="font-size: 1.2em; text-decoration-line: none; color: black">공지사항</a>
-								</div>
-								<div class="col text-center">
-									<a href="../../tl_e/freeboardCounsel/freeboardCounselPage" class="fw-bold" style="font-size: 1.2em; text-decoration-line: none; color: black">자유게시판</a>
-								</div>
-								<div class="col text-center">
-									<a href="../../tl_e/registerCounselor/counselorInfo" class="fw-bold" style="font-size: 1.2em; text-decoration-line: none; color: black">상담원 정보</a>
-								</div>									
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-2">
-					<div class="row">
-						<div class="col-6 text-center">
-							<div class="row" style="height: 2em;"></div>
-							<div class="row">
-								<div class="col">
-									<div class="fw-bold" style="font-size: 1.2em;">[${sessionStudentInfo.name}]님</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-6">
-							<div class="row" style="height: 1.7em;"></div>
-							<div class="row">
-								<div class="col">
-									<i class="bi bi-box-arrow-right" style="font-size:1.6em;"></i>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>	
-	</div>
-	
-	
+<jsp:include page="./studentTopArea.jsp"></jsp:include>
+
+<div class="container-fluid">
 
 	<div class="row">
 		<div class="col">
@@ -186,9 +105,39 @@
 						<div class="col pb-3" style="border-bottom-width: 2px; border-bottom-style: solid; border-color: #dcdcdc;">
 							<div class="row">
 								<div class="col">
-									<span class="fw-bold" style="font-size: 1.5em;">상담일정</span>
+									<span class="fw-bold" style="font-size: 1.5em;">나의 상담일정</span>
 									&nbsp
-									<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">Schedule</span>								
+									<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">Counsel Schedule</span>								
+								</div>
+								<div class="col-2 text-end">
+									<i style="font-size: 1.5em;" class="bi bi-three-dots"></i>
+								</div>
+							</div>
+						</div>
+						<div class="col-1"></div>
+					</div>
+					<div class="row pt-5" style="height: 40em;">
+						<div class="col-1"></div>
+						<div class="col">
+
+								
+
+
+
+						</div>
+						<div class="col-1"></div>
+					</div>
+					
+					
+					<div class="row" style="height: 5em;"></div>
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col pb-3" style="border-bottom-width: 2px; border-bottom-style: solid; border-color: #dcdcdc;">
+							<div class="row">
+								<div class="col">
+									<span class="fw-bold" style="font-size: 1.5em;">프로그램 일정</span>
+									&nbsp
+									<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">Program Schedule</span>								
 								</div>
 								<div class="col-2 text-end">
 									<i style="font-size: 1.5em;" class="bi bi-three-dots"></i>
@@ -226,7 +175,9 @@
 							</div>
 						</div>
 						<div class="col-1"></div>
-					</div>
+					</div>	
+					<div class="row" style="height: 3em;"></div>
+									
 				</div>
 				<div class="col-4 px-3" style="border-width: 0px 2px 0px 0px; border-style: solid; border-color: #dcdcdc;">
 					<div class="row" style="height: 5em;"></div>
@@ -466,234 +417,11 @@
 				</div>
 				<div class="col-1"></div>
 			</div>
-			
-			
-			
-			<!-- -------------------------------------------------------- -->
-			
-			<div class="row" style="height: 20em;"></div>
-			
-			
-			<div class="row">
-				<div class="col">
-					<div class="row" style="height: 3em;"></div>
-					<div class="row mb-5">
-						<div class="col-1"></div>
-						<div class="col">
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-1">
-						</div>
-						<div class="col rounded-4" style="height: 100%;">
-							<div class="row mb-3">
-								<div class="col-6">
-									<div class="row">
-										<div class="col py-4 tp-border me-3" style="height: 20em;">
-											<div class="row pb-3">
-												<div class="col">
-													<div class="fw-bold" style="font-size: 1.5em;">나의 상담 일정</div>
-												</div>
-												<div class="col-2 text-end">
-													<div style="font-size: 1.5em;"><i class="bi bi-three-dots"></i></div>
-												</div>
-											</div>										
-											<div class="row">
-												<div class="col">
-													<c:forEach items="${groupCounselReservationList}" var="list">
-													<div class="row pt-3 pb-2">
-														<div class="col-2 text-center">
-															<button type="button" class="btn btn-danger pt-0" style="height: 1.2em; width: 60%;">
-																<div class="fw-bold" style="font-size: 0.8em;">D-${list.D_DAY}</div>
-															</button>
-														</div>
-														<div class="col-7 ps-0">
-															<div class="text-black text-start" style="font-size:1.2em;">${list.TITLE}</div>
-														</div>
-														<div class="col">
-														<div class="text-secondary text-center" style="font-size:1.2em;"><fmt:formatDate value="${list.COUNSEL_DATE}" pattern="yy.MM.dd"/></div>	
-														</div>
-													</div>				
-													</c:forEach>												
-												</div>
-											</div>
-										</div>
-									</div>								
-								</div>
-								<div class="col">
-									<div class="row">
-										<div class="col tp-border py-4 me-3" style="height: 20em;">
-											<div class="row pb-3">
-												<div class="col">
-													<div class="fw-bold" style="font-size: 1.5em;">공지사항</div>
-												</div>
-												<div class="col-2 text-end">
-													<div style="font-size: 1.5em;"><i class="bi bi-three-dots"></i></div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col">
-													<c:forEach items="${noticeList}" var="list">
-													<div class="row pt-3 pb-2">
-														<div class="col-1">
-															<div class="text-black text-center" style="font-size:1.2em;">⚬</div>
-														</div>
-														<div class="col-5 ms-0 ps-0">
-															<span class="text-black text-start" style="font-size:1.2em;">${list.noticeBoardDto.title}</span>
-															&nbsp
-															<c:if test="${list.countNoticeComment != 0}">
-																<span class="fw-bold" style="font-size:0.9em; color: red;">[${list.countNoticeComment}]</span>															
-															</c:if>
-														</div>
-														<div class="col-2 text-end">
-															<div class="text-secondary" style="font-size:1.2em;">${list.staffInfoDto.name}</div>	
-														</div>
-														<div class="col-2 text-center">
-															<div class="text-secondary" style="font-size:1.2em;">${list.noticeBoardDto.read_count}</div>	
-														</div>																												
-														<div class="col-2 text-start">
-															<div class="text-secondary" style="font-size:1.2em;"><fmt:formatDate value="${list.noticeBoardDto.created_at}" pattern="yy.MM.dd"/></div>	
-														</div>
-													</div>														
-													</c:forEach>												
-												</div>
-											</div>
-										</div>
-									</div>	
-								</div>
-								<div class="col">
-						
-								</div>
-							</div>
-							<div class="row">
-								<div class="col">
-									<!-- 학생 정보 -->
-									<div class="row">
-										<div class="col py-4 rounded-3 me-3" style="height: 20em; background-color: #50508C;">
-											<div class="row">
-												<div class="col text-center">
-													<i class="bi bi-person" style="font-size: 7em;"></i>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col text-center">
-													<div class="fw-bold" style="font-size: 1.2em; color: white;">천평근(202001356)</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col text-center">
-													<div class="fw-bold" style="font-size: 1.0em; color: white;">산업경영공학과</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col">
-									<div class="row">
-										<div class="col tp-border py-4 me-3" style="height: 20em;">
-											<div class="row pb-5">
-												<div class="col">
-													<div class="fw-bold" style="font-size: 1.5em;">웹 메일</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col text-center">
-													<div style="font-size:4.0em;"><i class="bi bi-envelope-paper"></i></div>
-												</div>
-												<div class="col-2 text-center">
-													<div style="font-size: 4em; color: gray; opacity: 0.5;">|</div>
-												</div>
-												<div class="col text-center">
-													<div style="font-size:4.0em;"><i class="bi bi-envelope-x"></i></div>
-												</div>
-											</div>
-											<div class="row pt-3">
-												<div class="col text-center">
-													<span class="fw-bold" style="font-size:1.2em;">받은메일</span><span class="fw-bold" style="font-size:1.4em; color: red;"> 26</span><span class="fw-bold" style="font-size:1.2em;">건</span>
-												</div>
-												<div class="col-2">
-												</div>
-												<div class="col text-center">
-													<span class="fw-bold" style="font-size:1.2em;">미확인메일</span><span class="fw-bold" style="font-size:1.4em; color: red;"> 20</span><span class="fw-bold" style="font-size:1.2em;">건</span>
-												</div>
-											</div>											
-										</div>
-									</div>									
-								</div>
-								<div class="col">
-									<div class="row">
-										<div class="col tp-border py-4 me-3" style="height: 20em;">
-											<div class="row pb-4">
-												<div class="col">
-													<div class="fw-bold" style="font-size: 1.5em;">자기진단검사</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-1"></div>
-												<div class="col">
-													<div class="row">
-														<div class="col mx-1 mb-1 pt-3 text-center circle-border" style="height: 5em; border-top-color: #64CD3C; border-left-color: #64CD3C; border-right-color: #64CD3C">
-															<div class="fw-bold" style="font-size:1.0em;">지식탐구</div>
-															<div class="fw-bold" style="font-size:1.2em; color: #64CD3C;">12</div>
-														</div>
-														<div class="col mx-1 mb-1 pt-3 text-center circle-border" style="height: 5em; border-top-color: #008C8C; border-left-color: #008C8C; border-right-color: #008C8C">
-															<div class="fw-bold" style="font-size:1.0em;">의사소통</div>
-															<div class="fw-bold" style="font-size:1.2em; color: #008C8C;">12</div>
-														</div>
-														<div class="col mx-1 mb-1 pt-3 text-center circle-border" style="height: 5em; border-top-color: #B90000; border-left-color: #B90000; border-right-color: #B90000">
-															<div class="fw-bold" style="font-size:1.0em;">문제해결</div>
-															<div class="fw-bold" style="font-size:1.2em; color: #B90000;">20</div>
-														</div>													
-													</div>
-												</div>
-												<div class="col-1"></div>
-											</div>
-											<div class="row">
-												<div class="col-1"></div>
-												<div class="col">
-													<div class="row">
-														<div class="col mx-1 pt-3 text-center circle-border" style="height: 5em; border-top-color: #D2691E; border-left-color: #D2691E; border-right-color: #D2691E">
-															<div class="fw-bold" style="font-size:1.0em;">창의융합</div>
-															<div class="fw-bold" style="font-size:1.2em; color: #D2691E;">14</div>
-														</div>
-														<div class="col mx-1 pt-3 text-center circle-border" style="height: 5em; border-top-color: #AE5E1A; border-left-color: #AE5E1A; border-right-color: #AE5E1A">
-															<div class="fw-bold" style="font-size:1.0em;">협업인성</div>
-															<div class="fw-bold" style="font-size:1.2em; color: #AE5E1A;">10</div>
-														</div>
-														<div class="col mx-1 pt-3 text-center circle-border" style="height: 5em; border-top-color: #9400D3; border-left-color: #9400D3; border-right-color: #9400D3">
-															<div class="fw-bold" style="font-size:1.0em;">도전창조</div>
-															<div class="fw-bold" style="font-size:1.2em; color: #9400D3;">12</div>
-														</div>													
-													</div>
-												</div>
-												<div class="col-1"></div>
-											</div>
-											<div class="row pt-4">
-												<div class="col text-end">
-													<span class="fw-bold" style="font-size: 1.0em;">나의 점수 </span>
-													<span class="fw-bold" style="font-size: 1.3em; color: red;">80</span><span class="fw-bold" style="font-size: 1.0em;">점</span>
-												</div>
-												<div class="col-1"></div>
-											</div>
-										</div>
-									</div>								
-								</div>
-								<div class="col">
-										
-								</div>															
-							</div>
-						</div>
-						<div class="col-1"></div>
-					</div>
-				</div>			
-			</div>
 		</div>
 	</div>
 
 
 	
-	<div class="row" style="height:20em;"></div>
 	
 	
 </div>

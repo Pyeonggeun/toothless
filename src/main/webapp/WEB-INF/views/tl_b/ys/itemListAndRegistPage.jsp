@@ -10,6 +10,16 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     	
+    	<style>
+        .customColor {
+            border-radius: 0%;
+            color: white;
+            background-color: #014195;
+            }
+   		</style>
+    	
+    	<script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
+    	
     	<script>
     		let loginStaffInfo = null;
     	
@@ -62,6 +72,8 @@
     					createdAt.innerText = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
     					
     					const modifiedButton = itemAndCategoryWrapper.querySelector(".modifiedButton");
+    					
+    					modifiedButton.setAttribute("onclick","modifiedItem("+e.ITEM_PK+")");
     					
     					const deleteButton = itemAndCategoryWrapper.querySelector(".deleteButton"); 
     					
@@ -225,8 +237,6 @@
     					const itemName = itemAndCategoryWrapper.querySelector(".itemName");
     					itemName.innerText = e.ITEM_NAME;
     					
-    					itemName.setAttribute("onclick","getItem("+e.ITEM_PK+")");
-    					
     					const createdAt = itemAndCategoryWrapper.querySelector(".createdAt");
     					const date = new Date(e.CREATED_AT);
     					
@@ -235,6 +245,8 @@
     					const modifiedButton = itemAndCategoryWrapper.querySelector(".modifiedButton");
     					
     					const deleteButton = itemAndCategoryWrapper.querySelector(".deleteButton"); 
+    					
+    					modifiedButton.setAttribute("onclick","modifiedItem("+e.ITEM_PK+")");
     					
     					deleteButton.setAttribute("onclick","deleteItem("+e.ITEM_PK+")");
     					
@@ -302,8 +314,10 @@
 				frm.submit();
 			}
     		
-    		function getItem(itemPk){
+    		function modifiedItem(itemPk){
+    			
     			window.location.href = "./itemUpdateAndDeleteDetailPage?item_pk=" + itemPk;
+    			
     		}
     		
     		function deleteItem(itemPk){
@@ -351,11 +365,11 @@
                                     <form id="frm" action="./itemRegistProcess" method="post" enctype="multipart/form-data">
                                     <div class="row mt-2 ms-2 me-1">
                                         <div class="col ">
-                                            <div class="row mt-2 my-auto border border-dark-subtle">
-                                                <div class="col-1 fw-bold border border-dark-subtle" style="font-size: 0.8em; text-align: center; display: flex; align-items: center; justify-content: center; background-color: #EDEDED">
+                                            <div class="row mt-2 my-auto border">
+                                                <div class="col-1 fw-bold border customColor" style="font-size: 0.8em; text-align: center; display: flex; align-items: center; justify-content: center;">
                                                	  <span>물품카테고리</span>
                                                	 </div>
-                                               	 <div class="col-2 border border-dark-subtle" style="display: flex; align-items: center; justify-content: center;">
+                                               	 <div class="col-2 border" style="display: flex; align-items: center; justify-content: center;">
                                                	 	<select id="inputCategory" name="item_cat_pk" class="form-select form-select-sm d-grid rounded-0" aria-label="Small select example" style="border-color: black;">
                                                         <option class="text-center">---선택해주세요---</option>
                                                         <c:forEach items="${itemCategoryList }" var="itemCategory">
@@ -364,29 +378,29 @@
                                                     </select> 
                                                	 </div>
                                                	 <!-- text-center = text-align: center; -->
-                                                <div class="col-1 fw-bold border border-dark-subtle" style="font-size: 0.8em;  text-align: center; display: flex; align-items: center; justify-content: center; background-color: #EDEDED">
+                                                <div class="col-1 fw-bold border customColor" style="font-size: 0.8em;  text-align: center; display: flex; align-items: center; justify-content: center;">
                                                  <span>물품명</span>
                                                 </div>
-                                                <div class="col-2 border border-dark-subtle" style="text-align: center; display: flex; align-items: center; justify-content: center;">
-                                                    <input id="inputName" name="name" type="text" class="form-control-sm">
+                                                <div class="col-2 border" style="text-align: center; display: flex; align-items: center; justify-content: center;">
+                                                    <input id="inputName" name="name" type="text" class="form-control-sm rounded-0">
                                                 </div>
-                                                <div class="col-1 fw-bold border border-dark-subtle" style="font-size: 0.8em; text-align: center; display: flex; align-items: center; justify-content: center; background-color: #EDEDED">
+                                                <div class="col-1 fw-bold border customColor" style="font-size: 0.8em; text-align: center; display: flex; align-items: center; justify-content: center;">
                                                     <span>물품설명서</span>
                                                 </div>
-                                                <div class="col-2 border border-dark-subtle" style="text-align: center; display: flex; align-items: center; justify-content: center;">
-                                                    <textarea id="inputText" name="content" rows="2" cols="20" class="form-control-sm"></textarea>
+                                                <div class="col-2 border" style="text-align: center; display: flex; align-items: center; justify-content: center;">
+                                                    <textarea id="inputText" name="content" rows="2" cols="20" class="form-control-sm rounded-0"></textarea>
                                                 </div>
-                                                <div class="col-1 fw-bold border border-dark-subtle" style="font-size: 0.8em; text-align: center; display: flex; align-items: center; justify-content: center; background-color: #EDEDED">
+                                                <div class="col-1 fw-bold border customColor" style="font-size: 0.8em; text-align: center; display: flex; align-items: center; justify-content: center;">
                                                     <span>물품이미지</span>
                                                 </div>   
-                                                <div class="col-2 border border-dark-subtle" style="display: flex; align-items: center; justify-content: center;">
-                                                    <input id="inputFile" type="file" name="mainImage" class="form-control-sm py-4" accept="image/*">
+                                                <div class="col-2 border" style="display: flex; align-items: center; justify-content: center;">
+                                                    <input id="inputFile" type="file" name="mainImage" class="form-control-sm py-4 rounded-0" accept="image/*">
                                                 </div>
 											</div>
 												
                                             <div class="row mt-2">
 		                                        <div class="col ps-3 pe-0 text-end">
-		                                            <button  onclick="formSubmit(event)" class="btn btn-primary">등록</button>
+		                                            <button  onclick="formSubmit(event)" class="btn btn-secondary customColor">등록</button>
 		                                        </div>
 		                                    </div>
                                         </div>
@@ -399,7 +413,7 @@
                                             물품검색    
                                         </div>  
                                     </div>
-                                    <div class="row mt-3 ms-2 me-1" style="background-color: #EDEDED">
+                                    <div class="row mt-3 ms-2 me-1 border" style="background-color: #EDEDED; border-color: #014195">
                                     	<div class="col">
                                     		<div class="row mt-4">
 		                                    	<div class="col fw-bold text-center" style="font-size: 0.9em;">
@@ -469,7 +483,7 @@
 		                                    <div class="row mt-2">
 		                                    	<div class="col text-center">
 		                                    		<div class="col">
-													    <input type="text" id="searchItemName" class="form-control-sm" placeholder="검색어를 입력하세요" />
+													    <input type="text" id="searchItemName" class="form-control-sm rounded-0" placeholder="검색어를 입력하세요" />
 			                                        </div>
 		                                    	</div>
 		                                    </div>
@@ -482,8 +496,8 @@
                                     </div>
                                     <div class="row mt-2">
                                     	<div class="col text-center">
-                                    		<button onclick="searchInitialize()" class="btn btn-outline-dark">초&nbsp;기&nbsp;화</button>
-                                    		<button onclick="searchItemList()" class="btn btn-primary">검&nbsp;색</button>
+                                    		<button onclick="searchInitialize()" class="btn btn-outline-dark rounded-0">초&nbsp;기&nbsp;화</button>
+                                    		<button onclick="searchItemList()" class="btn btn-secondary customColor">검&nbsp;색</button>
                                     	</div>
                                     </div>
                                     
@@ -495,7 +509,7 @@
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col">
-                                            <div class="row ms-2 me-1 border border-dark-subtle" style="background-color: #EDEDED">
+                                            <div class="row ms-2 me-1 border border-dark-subtle customColor">
                                                 <div class="col-2 fw-bold" style="text-align: center;">
                                                     물품번호
                                                 </div>
@@ -572,14 +586,14 @@
 			            <span>생성일시</span>
 			        </div>
 			        <div class= "col-3 py-3 my-auto" style="text-align: center; align-items: center;">
-			            <button class="modifiedButton btn btn-primary">수정</button>
-			            <button class="deleteButton btn btn-outline-danger">삭제</button>
+			            <button class="modifiedButton btn btn-secondary customColor">수정</button>
+			            <button class="deleteButton btn btn-outline-danger rounded-0">삭제</button>
 			        </div>
 		    	</div>
     		</div>
     	</div>
     	<div class="searchCategoryOption form-check form-check-inline align-middle" id="" required>                                                
-        	<input class="categoryOption form-check-input" type="checkbox" >
+        	<input class="categoryOption form-check-input rounded-0" type="checkbox" >
         	<label class="categoryLabel form-check-label"></label>                                    	
         </div>
 	</div>   

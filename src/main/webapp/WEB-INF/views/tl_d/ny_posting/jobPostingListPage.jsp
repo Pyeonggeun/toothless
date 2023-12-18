@@ -31,7 +31,7 @@
 					<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">채용공고리스트</div>
 				</div>
 				<div class="row mt-5 pb-3 border-bottom">
-					<div class="col-9 pt-1">
+					<div class="col-10 pt-1">
 						총 <span class="fw-bold">${postingCount}</span>건
 					</div>
 					<div class="col">
@@ -46,7 +46,7 @@
 				<c:forEach items="${jobPostingList}" var="jobPosting">
 				<div class="row border-bottom">
 					<!-- 1번째 기업 + 가족기업 뱃지 칸 -->
-					<div class="col pt-2 ms-2 pe-0">
+					<div class="col-2 pt-2 ms-2 pe-0">
 						<div class="row mt-3">
 							<!-- 기업명 -->
 							<div class="col-2 pe-0">
@@ -63,7 +63,7 @@
 						</div>
 					</div>
 					<!-- 2번째 공고제목 + 태그 -->
-					<div class="col-7 pt-4 pb-2 px-0">
+					<div class="col-8 pt-4 pb-2 px-0">
 						<!-- 공고제목 -->
 						<div class="row">
 							<div class="col">
@@ -92,7 +92,7 @@
 						</div>
 					</div>
 					<!-- 수정 + 삭제 버튼 -->
-					<div class="col py-3 ps-2 pe-3 text-end">
+					<div class="col py-3 ps-5">
 						<c:choose>
 							<c:when test="${empty sessionStaffInfo}">
 								<div class="row">

@@ -4,15 +4,24 @@
 <div class="row mt-3">
 	<div class="col"></div>
 </div>
-<div class="row">
-	<div class="col mt-3"></div>
+<div class="row mt-3">
+	<div class="col"></div>
+</div>
+<div class="row pb-3" style="background-color: #9badca;">
+	<a class="col pt-3 fs-4 ms-5 text-white text-center navbar-brand" href="../common/employmentMainPage"> 
+		<i class="bi bi-house-fill"></i>&nbsp;메인페이지로
+	</a>
 </div>
 <div class="row">
-	<a class="col fs-5 fw-bold ps-5 ms-5 mt-3 navbar-brand"
-		href="../common/studentMyPage">마이페이지</a>
+	<div class="col">
+		<div class="row">
+			<a class="col fs-5 fw-bold ps-5 ms-5 mt-3 navbar-brand"
+				href="../common/studentMyPage"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 마이페이지</span></a>
+		</div>
+	</div>
 </div>
 <div class="row">
-	<a class="col ps-5 mt-2 ms-5 navbar-brand"
+	<a class="col ps-5 mt-3 ms-5 navbar-brand"
 		href="../sb_resume/resumeRegistrationPage">&nbsp;이력서등록</a>
 </div>
 <div class="row">
@@ -37,5 +46,5 @@
 </div>
 <div class="row">
 	<a class="col fs-5 fw-bold ps-5 mt-3 ms-5 navbar-brand"
-		href="#">구직희망</a>
+		href="#"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 구직희망&nbsp;&nbsp;</span></a>
 </div>

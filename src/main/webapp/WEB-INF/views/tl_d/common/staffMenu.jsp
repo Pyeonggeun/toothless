@@ -56,11 +56,11 @@
 	<div class="col fs-5 fw-bold ps-3 mt-3 ms-5">게시판관리</div>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 navbar-brand" 
+	<a class="col ps-4 mt-2 ms-5 navbar-brand" 
 		href="#">만족도조사</a>
 </div>
 <div class="row">
-	<a class="col fs-5 fw-bold ps-3 mt-3 navbar-brand"
+	<a class="col fs-5 fw-bold ps-3 mt-3 ms-5 navbar-brand"
 		href="#">게시판관리</a>
 </div>
 <div class="row">

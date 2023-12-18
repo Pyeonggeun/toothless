@@ -10,6 +10,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
+    <style>
+        .customColor {
+            border-radius: 0%;
+            color: white;
+            background-color: #014195;
+            }
+   	</style>
+    
+    <script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
+    
     <script>
     
 	    let loginStaffInfo = null;
@@ -176,8 +186,7 @@
 		                                            </div>    
 		                                            <div class="row mt-5">
 		                                                 <div class="col text-end pe-2">
-		                                                      <button  onclick="formModify(event)" class="btn btn-primary">수정</button>
-		                                                     <a href="./itemDeleteProcess?item_pk=${getItem.item_pk }" class="btn btn-outline-danger rounded" style="border: solid; border-width: 0.08em; width: fit-content; height: fit-content;">삭제</a>
+		                                                      <button  onclick="formModify(event)" class="btn btn-secondary customColor">수정</button>
 		                                                 </div>
 		                                            </div>
 		                                            </form>

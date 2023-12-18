@@ -47,14 +47,16 @@ public class FreeboardCounselServiceImpl {
 		List<FreeboardDto> NewPostList =freeboardCounselSqlMapper.selectNewPost();
 		
 		for(FreeboardDto elementFreeboardDto : freeboardList) {
-			int student_pk = elementFreeboardDto.getStudent_pk();
-						System.out.println("int student_pk : " + student_pk);
+			int student_pk = elementFreeboardDto.getStudent_pk();	
 			StudentInfoDto studentInfo  = freeboardCounselSqlMapper.selectStudentInfo(student_pk);
-						System.out.println("StudentInfo.getStudent_id : "+studentInfo.getStudent_id());
+			
+			int freeboard_id = elementFreeboardDto.getId();
+			int countPostComment = freeboardCounselSqlMapper.countComment(freeboard_id);
 			
 				Map<String, Object> freeboardMap = new HashMap<>();
 			freeboardMap.put("studentInfo", studentInfo);
 			freeboardMap.put("elementFreeboardDto", elementFreeboardDto);
+			freeboardMap.put("countPostComment", countPostComment);
 			
 			
 			System.out.println("combinedFreeboardList.add 실행 ");
@@ -144,12 +146,15 @@ public class FreeboardCounselServiceImpl {
 		//이미지 뽑아오기
 		//List<FreeboardImageDto> freeboardImageDtoList = freeboardCounselSqlMapper.selectFreeboardImageDto(freeboard_id);
 		
+		//게시글에 대한 총 공감수 가져오기
+		int freeboard_id = freeboardPost.getId();
+		int selectdeEmpathyCount = freeboardCounselSqlMapper.selectAllEmpathy(freeboard_id);
 		
 		
 		Map<String, Object> combinedMap = new HashMap<>();
 		combinedMap.put("freeboardPost",freeboardPost);
 		combinedMap.put("studentInfo", studentInfo);
-		//combinedMap.put("freeboardImageDtoList", freeboardImageDtoList);
+		combinedMap.put("selectdeEmpathyCount",selectdeEmpathyCount);
 		
 		return combinedMap;
 		}

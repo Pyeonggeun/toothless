@@ -43,7 +43,8 @@ public interface ResumeSqlMapper {
 	// 이력서 삭제
 //	public void deleteResumeByResumePk(ResumeDto resumeDto);
 	
-	
+	// 공개된 이력서 목록 가져오기
+	public List<ResumeDto> getMainResumeListByIsPublic();
 	
 	
 	// 경력 카테고리가져오기

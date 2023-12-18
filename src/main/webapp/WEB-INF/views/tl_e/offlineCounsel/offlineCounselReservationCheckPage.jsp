@@ -228,6 +228,10 @@
 		
 		function save(id, state, text, location){
 
+			console.log("reid: "+id);
+			console.log("state: "+id);
+			console.log("text: "+id);
+			console.log("location: "+id);
 			url = "./counselReportRegisterProcess?id=" + id + "&state=" + state + "&text=" + text + "&location=" + location;
 			
 			fetch(url)

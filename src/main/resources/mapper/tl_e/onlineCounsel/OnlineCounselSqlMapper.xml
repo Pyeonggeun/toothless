@@ -121,6 +121,7 @@
 	</select>
 	
 	
+	
 	<!-- 통계 -->
 	<select id="selectLastestReadCountAvg" resultType="double">
 		SELECT AVG(read_count) FROM(

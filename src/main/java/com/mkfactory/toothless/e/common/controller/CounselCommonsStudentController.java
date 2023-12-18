@@ -41,4 +41,17 @@ public class CounselCommonsStudentController {
 		return "tl_e/commons/counselCenterStudentMainPage";
 	}
 
+	
+	@RequestMapping("logoutProcess")
+	public String logoutProcess(HttpSession session) {
+		
+		session.invalidate();
+		
+		return "redirect: ./../another/student/loginPage";
+	}
+	
+	
+	
+	
+	
 }
