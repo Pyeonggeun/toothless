@@ -14,15 +14,15 @@
 </div>
 <div class="row">
 	<a class="col ps-4 mt-3 ms-5 navbar-brand" 
-		href="#">학생목록</a>
+		href="../jm_consulting/viewStudentListPage">학생목록</a>
 </div>
 <div class="row">
 	<a class="col ps-4 mt-2 ms-5 navbar-brand" 
-		href="#">온라인상담</a>
+		href="../jm_consulting/staffViewOnlineConsultingPage">온라인상담</a>
 </div>
 <div class="row">
 	<a class="col ps-4 mt-2 ms-5 navbar-brand" 
-		href="#">만족도조사</a>
+		href="../jm_consulting/FeedbackListPage">만족도조사</a>
 </div>
 <div class="row">
 	<div class="col ps-3 mt-3 ms-5 fs-5 fw-bold">

@@ -283,6 +283,91 @@
 		WHERE EXTERNAL_ID LIKE #{inputId}
 	</select>
 	
+	<!-- 상담원PK로 해당 상담사 전체 카테고리의 평점 -->
+	<select id="selectCounselorAllScoreAvgByCounselorId" resultType="map">
+		SELECT
+			cc.id AS counselorId,
+			nvl(offlineData.offlineAvg,0) AS offAvg,
+			nvl(onlineData.onlineAvg,0) AS onAvg,
+			nvl(groupData.groupAvg,0) AS groupAvg,
+			(nvl(offlineData.offlineAvg,0) + nvl(onlineData.onlineAvg,0) + nvl(groupData.groupAvg,0)) / 3 AS totalAvg
+		FROM CP_COUNSELOR cc 
+		LEFT OUTER JOIN (
+			SELECT 	
+			max(cor.counselor_id) AS counselorId,
+			nvl(avg(cos2.SCORE),0) AS offlineAvg
+			FROM CP_OFFLINE_RESERVATION cor 
+			INNER JOIN CP_OFFLINE_SURVEY cos2 ON cos2.RESERVATION_ID = cor.id
+			WHERE cor.STATE = '완료' 
+			GROUP by cor.counselor_id
+			) offlineData ON cc.ID = offlineData.counselorId
+		LEFT OUTER JOIN (
+			SELECT
+			max(cocr.COUNSELOR_ID) AS counselorId,
+			nvl(avg(cocs.SCORE),0) AS onlineAvg
+			FROM CP_ONLINE_COUNSEL_SURVEY cocs
+			INNER JOIN CP_ONLINE_COUNSEL_BOARD cocb ON cocb.ID = cocs.ONLINE_COUNSEL_BOARD_ID
+			INNER JOIN CP_ONLINE_COUNSEL_REPLY cocr ON cocr.ONLINE_COUNSEL_BOARD_ID = cocb.ID 
+			GROUP BY cocr.COUNSELOR_ID
+			) onlineData ON cc.ID = onlineData.counselorId
+		LEFT OUTER JOIN (
+			SELECT
+			max(cgc2.COUNSELOR_ID) AS counselorId,
+			nvl(avg(cgs.SCORE),0) AS groupAvg
+			FROM CP_GROUP_SURVEY cgs 
+			INNER JOIN CP_GROUP_RESERVATION cgr ON cgr.ID = cgs.GROUP_RESERVATION_ID
+			INNER JOIN CP_GROUP_COUNSEL cgc ON cgc.ID = cgr.group_counsel_id
+			INNER JOIN CP_GROUP_COUNSELOR cgc2 ON cgc2.GROUP_COUNSEL_ID = cgc.ID 
+			GROUP BY cgc2.COUNSELOR_ID 
+			) groupData ON cc.ID = groupData.counselorId
+		WHERE cc.id = #{counselorId}
+	</select>
+	
+	<!-- 상담원PK로 해당 상담사가 완료한 상담리스트 및 참여한 집단상담리스트 -->
+	<select id="selectCompleteCounselListByCounselorId" resultType="map">
+		SELECT
+			cc.id AS counselorId,
+			completeList.boardType AS counselBoardType,
+			completeList.counselNo AS counselNo,
+			completeList.counselType AS counselType,
+			completeList.counselDate AS counselDate
+		FROM CP_COUNSELOR cc
+		INNER JOIN (
+				SELECT
+				1 AS boardType,
+				cor.COUNSELOR_ID AS counselorId, 
+				cor.id AS counselNo,
+				ctc.NAME AS counselType,
+				cor.COUNSEL_YEAR || '-' ||cor.COUNSEL_MONTH || '-' || cor.COUNSEL_DAY AS counselDate
+			FROM CP_OFFLINE_RESERVATION cor
+			INNER JOIN CP_COUNSELOR cc ON cc.id = cor.COUNSELOR_ID
+			INNER JOIN CP_TYPE_CATEGORY ctc ON cor.TYPE_CATEGORY_ID = ctc.ID 
+			WHERE cor.STATE = '완료'
+			UNION 
+			SELECT
+				2 AS boardType,
+				cocr.COUNSELOR_ID AS counselorId,
+				cocb.id AS counselNo,
+				ctc.NAME AS counselType,
+				TO_CHAR(cocb.CREATED_AT, 'yyyy-MM-dd') AS counselDate 
+			FROM CP_ONLINE_COUNSEL_BOARD cocb
+			INNER JOIN CP_ONLINE_COUNSEL_REPLY cocr ON cocr.ONLINE_COUNSEL_BOARD_ID = cocb.ID
+			INNER JOIN CP_TYPE_CATEGORY ctc ON cocb.TYPE_CATEGORY_ID = ctc.ID
+			UNION
+			SELECT
+				3 AS boardType,
+				cgc2.COUNSELOR_ID AS counselorId,
+				cgc.ID AS counselNo,
+				cgc.TITLE AS counselType,
+				TO_CHAR(cgc.COUNSEL_DATE, 'yyyy-mm-dd') AS counselDate  
+			FROM CP_GROUP_RESERVATION cgr
+			INNER JOIN CP_GROUP_COUNSEL cgc ON cgc.ID = cgr.GROUP_COUNSEL_ID
+			INNER JOIN CP_GROUP_COUNSELOR cgc2 on cgc.ID = cgc2.GROUP_COUNSEL_ID
+			) completeList ON completeList.counselorid = cc.ID
+		WHERE id = #{counselorId}
+	</select>
+	
+	
 	
 	
 

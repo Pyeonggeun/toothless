@@ -8,7 +8,7 @@
             </div>
             <div class="modal-footer pb-3 pt-0 border-0 justify-content-center">
                 <button class="btn btn-secondary me-3" style="font-size: 0.8em;" data-bs-dismiss="modal">닫기</button>
-                <button  class="btn text-white fw-bold" style="background-color: #7844ae; font-size: 0.8em;">제출하기</button>
+                <button onclick="hideSubmitWarningModal()" class="btn text-white fw-bold" style="background-color: #7844ae; font-size: 0.8em;">제출하기</button>
             </div>
         </div>
     </div>

@@ -76,15 +76,15 @@
 						</div>
 					</div>
 					<!-- 학생 정보 끝 -->
-					<%-- (예정) 상담이력 --%>	
+					<%-- 상담이력 --%>	
 					<div class="col mx-5 mt-3 px-5 pb-0">
 						<!-- 공고 지원한 학생목록 -->
 						<div class="row border-bottom border-2">
-							<div class="col fs-5 fw-bold mt-5 pb-1">(예정)상담이력</div>
+							<div class="col fs-5 fw-bold mt-5 pb-1">상담이력</div>
 							<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
 						</div>
 					</div>
-					<!-- (예정) 상담이력 -->
+					<!-- 상담이력 -->
 				</div>
 				<div class="row pt-3 ps-0 me-3"><div class="col"></div></div>
 				<div class="row ms-1 pt-0 my-3">
@@ -131,9 +131,7 @@
 								</div>
 							</div>
 						</c:forEach>
-								
-						
-						<!-- (예정)신청한 공고정보 끝 -->
+						<!-- 신청한 공고정보 끝 -->
 					</div>
 					<div class="col mx-5 px-5">
 						<!-- 관심채용정보 -->
@@ -246,20 +244,25 @@
 								</c:if>
 							</c:if>
 						</c:forEach>
-						<!-- (예정)신청한 프로그램 끝 -->
+						<!-- 신청한 프로그램 끝 -->
 					</div>
-					
-					
 					<div class="col mx-5 px-5">
-						<!-- (예정)공지사항 혹은 설문조사 -->
+						<!-- 공지사항 -->
 						<div class="row border-bottom border-2">
-							<div class="col fs-5 fw-bold mt-5 pb-1">(예정)공지사항</div>
+							<div class="col fs-5 fw-bold mt-5 pb-1">공지사항</div>
 							<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
 							
 						</div>
-						<!-- (예정)공지사항 혹은 설문조사 끝 -->
+						<!-- 공지사항 끝 -->
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+		<!-- futter -->
+		<div class="row">
+			<div class="col">
+				<jsp:include page="./futter.jsp"></jsp:include>
 			</div>
 		</div>
 	</div>

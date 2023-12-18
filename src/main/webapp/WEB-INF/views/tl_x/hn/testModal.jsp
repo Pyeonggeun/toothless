@@ -80,11 +80,11 @@
 	
 	<div class="testProgressChoiceWrapper row mt-3">
 	    <div class="col-auto pe-0" style="position: relative; top: -0.15em;">
-	        <input type="radio" class="testProgressRadio btn-check" name="question1" autocomplete="off">
+	        <input onclick="checkSideRadio(this)" type="radio" class="testProgressRadio btn-check" autocomplete="off">
 	        <label class="testProgressChoiceNumber btn btn-outline-dark rounded-circle py-0 px-1" for="asdf" style="font-size: 0.7em;">1</label>
 	    </div>
 	    <div class="col">
-	        <label class="testProgressText form-check-label" for="asdf">
+	        <label onclick="checkSideRadio(this)" class="testProgressText form-check-label" for="asdf">
 	            튜플(tuple)
 	        </label>
 	    </div>
@@ -95,19 +95,19 @@
 	        1
 	    </div>
 	    <div class="col-auto my-auto" style="position: relative; top: -0.15em;">
-	        <input type="radio" class="testProgressRightRadio1 btn-check" name="questionRight1" id="exampleRight1-1" autocomplete="off">
+	        <input onclick="checkRadio(this)" type="radio" class="testProgressRightRadio1 btn-check" name="questionRight1" id="exampleRight1-1" autocomplete="off">
 	        <label class="testProgressChoiceRightNumber1 btn btn-outline-dark rounded-circle py-0 px-1" for="exampleRight1-1" style="font-size: 0.75em;">1</label>
 	    </div>
 	    <div class="col-auto my-auto" style="position: relative; top: -0.15em;">
-	        <input type="radio" class="testProgressRightRadio2 btn-check" name="questionRight1" id="exampleRight1-2" autocomplete="off">
+	        <input onclick="checkRadio(this)" type="radio" class="testProgressRightRadio2 btn-check" name="questionRight1" id="exampleRight1-2" autocomplete="off">
 	        <label class="testProgressChoiceRightNumber2 btn btn-outline-dark rounded-circle py-0 px-1" for="exampleRight1-2" style="font-size: 0.75em;">2</label>
 	    </div>
 	    <div class="col-auto my-auto" style="position: relative; top: -0.15em;">
-	        <input type="radio" class="testProgressRightRadio3 btn-check" name="questionRight1" id="exampleRight1-3" autocomplete="off">
+	        <input onclick="checkRadio(this)" type="radio" class="testProgressRightRadio3 btn-check" name="questionRight1" id="exampleRight1-3" autocomplete="off">
 	        <label class="testProgressChoiceRightNumber3 btn btn-outline-dark rounded-circle py-0 px-1" for="exampleRight1-3" style="font-size: 0.75em;">3</label>
 	    </div>
 	    <div class="col-auto my-auto" style="position: relative; top: -0.15em;">
-	        <input type="radio" class="testProgressRightRadio4 btn-check" name="questionRight1" id="exampleRight1-4" autocomplete="off">
+	        <input onclick="checkRadio(this)" type="radio" class="testProgressRightRadio4 btn-check" name="questionRight1" id="exampleRight1-4" autocomplete="off">
 	        <label class="testProgressChoiceRightNumber4 btn btn-outline-dark rounded-circle py-0 px-1" for="exampleRight1-4" style="font-size: 0.75em;">4</label>
 	    </div>
 	</div>

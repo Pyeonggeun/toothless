@@ -67,6 +67,12 @@ public interface RegisterCounselorSqlMapper {
 	// 상담원 신규등록시 ID중복검사
 	public int checkDuplicationExternalId(String inputId);
 	
+	// 상담원PK로 해당상담원 카테고리별 평점 및 전체 평점
+	public Map<String, Object> selectCounselorAllScoreAvgByCounselorId(int counselorId);
+	
+	// 상담원PK로 해당 상담사가 완료한 상담리스트 및 참여한 집단상담리스트
+	public List<Map<String, Object>> selectCompleteCounselListByCounselorId(int counselorId);
+	
 	
 
 }

@@ -44,7 +44,47 @@
 	<a class="col ps-5 mt-2 ms-5 navbar-brand" 
 		href="../gw_program/applyProgramListForStudentPage">&nbsp;나의프로그램</a>
 </div>
+<%--true면 등록가능 --%>
+
+
+<c:choose>
+	<c:when test="${checkOverlapHopejob}">
+		<div class="row">
+			<a class="col fs-5 fw-bold ps-5 mt-3 ms-5 navbar-brand"
+				href="../jm_consulting/applyHopeJobPage"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 구직희망&nbsp;&nbsp;</span></a>
+		</div>	
+	</c:when>
+	
+	<c:otherwise>
+		<div class="row">
+			<a class="col fs-5 fw-bold ps-5 mt-3 ms-5 navbar-brand"
+				href="../jm_consulting/hopeJobConsultingPage"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 구직희망&nbsp;&nbsp;</span></a>
+		</div>		
+	</c:otherwise>
+
+</c:choose>
+
 <div class="row">
-	<a class="col fs-5 fw-bold ps-5 mt-3 ms-5 navbar-brand"
-		href="#"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 구직희망&nbsp;&nbsp;</span></a>
+	<a class="col fs-5 fw-bold ps-5 ms-5 mt-3 navbar-brand"
+		href="../ny_posting/jobPostingListForStudentPage"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 채용공고&nbsp;&nbsp;</span></a>
 </div>
+<div class="row">
+	<a class="col fs-5 fw-bold ps-5 ms-5 mt-3 navbar-brand"
+		href="../gw_program/programListForStudentPage"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 프로그램&nbsp;&nbsp;</span></a>
+</div>
+<div class="row">
+	<div class="col fs-5 fw-bold ps-5 ms-5 mt-3 navbar-brand"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 공지사항&nbsp;&nbsp;</span></div>
+</div>
+<div class="row">
+	<a class="col ps-5 mt-3 ms-5 navbar-brand" 
+		href="#">&nbsp;공지사항</a>
+</div>
+<div class="row">
+	<a class="col ps-5 mt-2 ms-5 navbar-brand" 
+		href="#">&nbsp;QnA게시판</a>
+</div>
+<div class="row mt-4">
+	<a class="col ps-5 mt-2 ms-5 navbar-brand text-secondary" style="font-size : 0.8rem;"
+		href="../../another/student/mainPage">&nbsp;MK대학 홈페이지<i class="ps-1 bi bi-box-arrow-up-right"></i></a>
+</div>
+

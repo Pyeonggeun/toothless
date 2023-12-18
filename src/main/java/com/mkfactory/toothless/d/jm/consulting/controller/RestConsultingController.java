@@ -307,7 +307,6 @@ public class RestConsultingController {
 		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
 
 		List<Map<String, Object>> list = consultingService.getHopeJobFeedbackListAll(sortHJFScore);
-		
 		d_RestResponseDto.setResult("success");
 		d_RestResponseDto.setData(list);		
 		//Integer avgScore = consultingService.avgHopeJobFeedbackScore();

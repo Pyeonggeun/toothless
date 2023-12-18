@@ -122,6 +122,13 @@ public class PostingController {
 				 
 	}
 	
+	// 채용공고 등록 완료
+	@RequestMapping("registerJobPostingSuccess")
+	public String registerJobPostingSuccess() {
+		
+		return "tl_d/ny_posting/registerJobPostingSuccess";
+	}
+	
 	// 채용공고 리스트 페이지
 	@RequestMapping("jobPostingListPage")
 	public String jobPostingListPage(HttpSession session, Model model, String searchType, String searchWord) {
@@ -237,7 +244,10 @@ public class PostingController {
 		if(studentInfo != null) {
 			int studentPk = studentInfo.getStudent_pk();
 			model.addAttribute("jopPostingForStudentList", postingService.getPostingListForStudent(studentPk, searchType, searchWord));
+		}else {
+			return "redirect:../../another/staff/loginPage";
 		}
+
 		model.addAttribute("postingCount", postingService.getPostingCount());
 		
 				
@@ -263,9 +273,19 @@ public class PostingController {
 	
 	// 학생용 기업별 공고리스트
 	@RequestMapping("companyPostingListForStudentPage")
-	public String companyPostingListForStudentPage(Model model, int com_pk) {
-		model.addAttribute("companyPostingCount", postingService.getCompanyPostingCount(com_pk));
+	public String companyPostingListForStudentPage(HttpSession session, Model model, int com_pk) {
+			
+		StudentInfoDto studentInfo = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(studentInfo != null) {
+			
+			int studentPk = studentInfo.getStudent_pk();
+			model.addAttribute("companyPosting",postingService.getStudentApplyList(studentPk));
+		}
+		
+		
 		model.addAttribute("companyPostingListForStudent", postingService.getCompanyPostingList(com_pk));
+		model.addAttribute("companyPostingCount", postingService.getCompanyPostingCount(com_pk));
 		return "tl_d/ny_posting/companyPostingListForStudentPage";
 	}
 	
@@ -284,6 +304,8 @@ public class PostingController {
 			model.addAttribute("jobPostingDetailForStudent",
 					postingService.getJobPostingDetailForStudentAndCompany(studentPk, id));
 			
+		}else {
+			return "redirect:../../another/staff/loginPage";
 		}
 		
 		model.addAttribute("checkMyInteresting", postingService.checkMyPostingInterestCount(params));
@@ -335,6 +357,7 @@ public class PostingController {
 		
 		ExternalInfoDto externalInfoDto = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
 		
+		
 		if(externalInfoDto != null) {
 			int externalInfoPk = externalInfoDto.getExternal_pk();
 			
@@ -344,6 +367,8 @@ public class PostingController {
 			model.addAttribute("companyPostingCount", postingService.getCompanyPostingCount(companyDto.getCom_pk()));
 			model.addAttribute("companyPostingList", postingService.getCompanyPostingList(companyDto.getCom_pk()));
 			
+		}else {
+			return "redirect:../../another/staff/loginPage";
 		}
 		model.addAttribute("jobFieldCategory", postingService.getJobFieldCategoryList());
 		
@@ -362,6 +387,8 @@ public class PostingController {
 			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalInfoPk);
 			
 			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
+		}else {
+			return "redirect:../../another/staff/loginPage";
 		}
 		
 		// 기업 상세
@@ -390,7 +417,10 @@ public class PostingController {
 			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
 			model.addAttribute("applyStudentList", postingService.getApplyStudentTotalList(companyDto.getCom_pk()));
 			
-		}	
+		} else {
+			return "redirect:../../another/staff/loginPage";
+		}
+		
 		return "tl_d/ny_posting/myCompanyApplyStudentListPage";
 	}
 	
@@ -408,7 +438,9 @@ public class PostingController {
 			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
 			model.addAttribute("interestCompanyTotalList", postingService.getInterestCompanyTotalList(companyDto.getCom_pk()));
 			
-		}	
+		}else {
+			return "redirect:../../another/staff/loginPage";
+		}
 		
 		return "tl_d/ny_posting/myCompanyInterestListPage";
 	}

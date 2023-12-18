@@ -1,5 +1,8 @@
 package com.mkfactory.toothless.d.common.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import com.mkfactory.toothless.d.dto.ProgramDto;
 import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
 import com.mkfactory.toothless.d.gw.program.service.ProgramServiceIpml;
+import com.mkfactory.toothless.d.jm.consulting.service.ConsultingService;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.d.sb.resume.service.ResumeServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
@@ -34,6 +38,9 @@ public class EmploymentCommonController {
 	@Autowired
 	private ProgramServiceIpml programService;
 	
+	@Autowired
+	private ConsultingService consultingService;
+	
 	// 학생용 마이페이지
 	@RequestMapping("studentMyPage")
 	public String studentMyPage(HttpSession session, Model model) {
@@ -51,6 +58,20 @@ public class EmploymentCommonController {
 		
 		return "tl_d/common/studentMyPage";
 	}
+	
+	// 학생 왼쪽 메뉴바
+	@RequestMapping("staffMenu")
+	public String staffMenu(HttpSession session, Model model) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		boolean checkOverlapHopejob = consultingService.checkOverlapHopeJobApply(studentInfoDto.getStudent_pk());
+		model.addAttribute("checkOverlapHopejob", checkOverlapHopejob);
+
+		
+		return "tl_d/common/staffMenu";
+	}
+	
 	
 	// 학생 로그아웃
 	@RequestMapping("studentLogoutProcess")
@@ -117,6 +138,14 @@ public class EmploymentCommonController {
 	//교직원 메인페이지
 	@RequestMapping("staffMainPage")
 	public String staffMainPage(Model model) {
+		
+		
+		//미응답 온라인상담 5건
+		List<Map<String, Object>> progressOnlinceConsultingNumFive = consultingService.getOnConsultingInfoListNumFiveASC();
+		model.addAttribute("progressOnlinceConsultingNumFive", progressOnlinceConsultingNumFive);
+		//구직희망 신청 5건
+		List<Map<String, Object>> getHopeJobInfoNumFive = consultingService.getHopeJobInfoNumFive();
+		model.addAttribute("getHopeJobInfoNumFive", getHopeJobInfoNumFive);
 		
 		
 		

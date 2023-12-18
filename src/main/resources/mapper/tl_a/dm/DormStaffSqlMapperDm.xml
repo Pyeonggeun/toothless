@@ -100,7 +100,38 @@
 	
 	<select id="dormRoomInfoByDormPk" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
 	
-	SELECT * FROM TL_A_DORM_ROOM WHERE dorm_pk = #{dorm_pk}
+		SELECT * FROM TL_A_DORM_ROOM WHERE dorm_pk = #{dorm_pk}
+	
+	</select>
+	
+	<select id="dormInfoTestByDormPk" resultType="map" parameterType="integer"> 
+	
+		SELECT tadb.NAME AS dongname, tadr.ROOM_NAME AS roomname, tjsi.NAME AS studentname FROM TL_A_DORM_BUILDING tadb 
+		INNER JOIN TL_A_DORM_ROOM tadr ON TADB.DORM_PK = TADR.DORM_PK 
+		INNER JOIN TL_A_DORM_STUDENT tads ON TADS.DORM_ROOM_PK = tadr.DORM_ROOM_PK
+		INNER JOIN TL_JIC_STUDENT_INFO tjsi ON TADS.STUDENT_PK = TJSI.STUDENT_PK 
+		WHERE tadb.DORM_PK = ${dorm_pk}
+		
+	</select>
+	
+	<select id="dormAssignCheckByDormRoomPk" resultType="boolean">
+		
+		<![CDATA[
+		SELECT 
+		CASE 
+			WHEN (SELECT COUNT(*) FROM TL_A_DORM_STUDENT tads 
+				INNER JOIN TL_A_DORM_ROOM tadr
+				ON tads.DORM_ROOM_PK = tadr.DORM_ROOM_PK
+				WHERE tads.DORM_ROOM_PK = #{DORM_ROOM_PK})
+				 >=
+				(SELECT DISTINCT DORM_AMOUNT FROM TL_A_DORM_CATEGORY tadc 
+				WHERE DORM_AMOUNT_PK  = (SELECT DORM_AMOUNT_PK FROM TL_A_DORM_ROOM tadr WHERE tadr.DORM_ROOM_PK = #{DORM_ROOM_PK}))
+			THEN 'FALSE'
+			ELSE 'TRUE'
+		END AS boolean
+		FROM dual
+		]]>
+		
 	
 	</select>
 	

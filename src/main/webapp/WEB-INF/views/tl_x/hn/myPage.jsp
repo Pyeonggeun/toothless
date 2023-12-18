@@ -25,6 +25,94 @@
         </style>
         
         <script>
+        
+	        let ingPageNumber = 1;
+	    	let ingTotalPageNumber = 1;
+	    	
+	    	let overPageNumber = 1;
+	    	let overTotalPageNumber = 1;
+	    	
+			let lifeStudentKey = 1;
+	    	
+	    	let lectureStudentKey = 1;
+	    	let openLectureKey = 1;
+	    	let lectureTestKey = 1;
+	    	
+			function getLifeStudentKey() {
+	    		
+	    		const url = "./getLifeStudentKey";
+	    		
+	    		fetch(url)
+	    		.then(response => response.json())
+	    		.then(response => {
+	    			
+	    			lifeStudentKey = response.data;
+	    			
+	    		});
+	    		
+	    	}
+			
+			function previousIngPage() {
+	    		
+				ingPageNumber--;
+	    		
+	    	}
+			
+			function nextIngPage() {
+	    		
+				ingPageNumber++;
+	    		
+	    	}
+			
+			function previousOverPage() {
+	    		
+				overPageNumber--;
+	    		
+	    	}
+			
+			function nextOverPage() {
+	    		
+				overPageNumber++;
+	    		
+	    	}
+			
+			function ingPagination() {
+				
+	 			if(ingPageNumber <= 1) {
+	 				document.getElementById("ingPrevious").classList.add("disabled");
+	 			}else {
+	 				document.getElementById("ingPrevious").classList.remove("disabled");
+	 			}
+	 			
+	 			if(ingPageNumber >= ingTotalPageNumber) {
+	 				document.getElementById("ingNext").classList.add("disabled");
+	 			}else {
+	 				document.getElementById("ingNext").classList.remove("disabled");	
+	 			}
+	 			
+	 			document.getElementById("ingPageNumber").innerText = ingPageNumber;
+	 			document.getElementById("ingTotalPageNumber").innerText = ingTotalPageNumber;
+	 			
+			}
+			
+			function overPagination() {
+				
+	 			if(overPageNumber <= 1) {
+	 				document.getElementById("overPrevious").classList.add("disabled");
+	 			}else {
+	 				document.getElementById("overPrevious").classList.remove("disabled");
+	 			}
+	 			
+	 			if(overPageNumber >= overTotalPageNumber) {
+	 				document.getElementById("overNext").classList.add("disabled");
+	 			}else {
+	 				document.getElementById("overNext").classList.remove("disabled");	
+	 			}
+	 			
+	 			document.getElementById("overPageNumber").innerText = overPageNumber;
+	 			document.getElementById("overTotalPageNumber").innerText = overTotalPageNumber;
+	 			
+			}
         	
 	        function goMyPage() {
 	    		
@@ -198,15 +286,18 @@
                                                                 <div class="col">
                                                                     <nav aria-label="Page navigation example">
                                                                         <ul class="pagination justify-content-end">
-                                                                            <li class="page-item">
-                                                                                <a class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;">
+                                                                            <li id="ingPrevious" class="page-item">
+                                                                                <a onclick="previousIngPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;">
                                                                                     <span aria-hidden="true">&laquo;</span>
                                                                                 </a>
                                                                             </li>
-                                                                            <li class="page-item px-1">
+                                                                            <li class="page-item px-1 my-auto">
+                                                                            	<a class="page-link border-0 link-secondary px-1 fw-bold" style="font-size: 0.9em;">
+                                                                            		<span id="ingPageNumber" style="color: #f7a505">1</span> / <span id="ingTotalPageNumber">10</span>
+                                                                            	</a>
                                                                             </li>
-                                                                            <li class="page-item">
-                                                                                <a class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;">
+                                                                            <li id="ingNext" class="page-item">
+                                                                                <a onclick="nextIngPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;">
                                                                                     <span aria-hidden="true">&raquo;</span>
                                                                                 </a>
                                                                             </li>
@@ -241,15 +332,18 @@
                                                                 <div class="col">
                                                                     <nav aria-label="Page navigation example">
                                                                         <ul class="pagination justify-content-end">
-                                                                            <li class="page-item">
-                                                                                <a class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;">
+                                                                            <li id="overPrevious" class="page-item">
+                                                                                <a onclick="previousOverPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;">
                                                                                     <span aria-hidden="true">&laquo;</span>
                                                                                 </a>
                                                                             </li>
-                                                                            <li class="page-item px-1">
+                                                                            <li class="page-item px-1 my-auto">
+                                                                            	<a class="page-link border-0 link-secondary px-1 fw-bold" style="font-size: 0.9em;">
+                                                                            		<span id="overPageNumber" style="color: #f7a505">1</span> / <span id="overTotalPageNumber">10</span>
+                                                                            	</a>
                                                                             </li>
-                                                                            <li class="page-item">
-                                                                                <a class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;">
+                                                                            <li id="overNext" class="page-item">
+                                                                                <a onclick="nextOverPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;">
                                                                                     <span aria-hidden="true">&raquo;</span>
                                                                                 </a>
                                                                             </li>

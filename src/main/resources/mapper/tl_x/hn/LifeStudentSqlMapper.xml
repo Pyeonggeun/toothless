@@ -22,6 +22,16 @@
 			SYSDATE
 		)
 	</insert>
+		
+	<insert id="insertTestResult">
+		INSERT INTO tl_x_test_result VALUES(
+			tl_x_test_result_seq.nextval,
+			#{lecture_student_key},
+			#{question_choice_key},
+			#{lecture_test_key},
+			SYSDATE
+		)
+	</insert>
 
 	<select id="getReceivingLectureList" resultType="map">
 		SELECT txli.credit, txli.name, txll.name AS lecturer_name, txol.open_lecture_key, txol.max_student FROM tl_x_open_lecture txol
@@ -353,6 +363,62 @@
 			INNER JOIN tl_x_test_question txtq ON t2.test_question_key = txtq.test_question_key
 			GROUP BY t2.lecture_test_key
 		)t3
+	</select>
+	
+	<select id="getTotalTestCount" resultType="int">
+		SELECT COUNT(*) FROM tl_x_lecture_test
+		WHERE open_lecture_key = #{open_lecture_key}
+	</select>
+	
+	<select id="getStudentTotalTestCount" resultType="int">
+		SELECT COUNT(*) FROM (
+		   SELECT lecture_test_key FROM tl_x_test_result
+		   WHERE lecture_student_key = #{lecture_student_key}
+		   GROUP BY lecture_test_key
+		)
+	</select>
+	
+	<select id="getLectureTestInfoByOpenLectureKey" resultType="com.mkfactory.toothless.x.dto.LectureTestDto">
+		SELECT * FROM tl_x_lecture_test
+		WHERE open_lecture_key = #{open_lecture_key}
+		ORDER BY open_test_day ASC
+	</select>
+	
+	<select id="getStudentTestScoreByLectureTestKey" resultType="int">
+		SELECT NVL(SUM(test_point), 0) AS test_point FROM (
+		   SELECT * FROM (
+		      SELECT * FROM tl_x_test_result
+		      WHERE lecture_test_key = #{lecture_test_key}
+		   )t1
+		   INNER JOIN tl_x_question_choice txqc ON t1.question_choice_key = txqc.question_choice_key
+		   WHERE txqc.answer LIKE 'true'
+		)t2
+		INNER JOIN tl_x_test_question txtq ON t2.test_question_key = txtq.test_question_key
+	</select>
+	
+	<select id="isCompleteTest" resultType="int">
+		SELECT COUNT(*) FROM (
+			SELECT lecture_test_key FROM tl_x_test_question
+			GROUP BY lecture_test_key
+		)t1
+		WHERE t1.lecture_test_key = #{lecture_test_key}
+	</select>
+	
+	<select id="getTestNameByLectureTestKey" resultType="String">
+		SELECT test_name FROM tl_x_lecture_test
+		WHERE lecture_test_key = #{lecture_test_key}
+	</select>
+	
+	<select id="getTestQuestionListByLectureTestKey" resultType="com.mkfactory.toothless.x.dto.TestQuestionDto">
+		SELECT * FROM tl_x_test_question
+		WHERE lecture_test_key = #{lecture_test_key}
+		ORDER BY question_number ASC
+	</select>
+	
+	<select id="getTestChoiceListByTestQuestionKey" resultType="com.mkfactory.toothless.x.dto.QuestionChoiceDto">
+		SELECT * FROM tl_x_question_choice
+		WHERE test_question_key = #{test_question_key}
+		ORDER BY DBMS_RANDOM.RANDOM
 	</select>
 
 </mapper>

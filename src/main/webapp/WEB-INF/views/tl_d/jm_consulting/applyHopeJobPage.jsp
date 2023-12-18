@@ -12,20 +12,22 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container-fluid">
 
 
 	<div class="row">
-		<jsp:include page="../common/studentTopNavi.jsp"></jsp:include>
+		<div class="col">
+			<jsp:include page="../common/studentTopNavi.jsp"></jsp:include>
+		</div>
 	</div>
 
 
 	<div class="row">
-		<div class="col-3">
+		<div class="col-2">
 			<jsp:include page="../common/studentMenu.jsp"></jsp:include>			
 		</div>
 		
-		<div class="col-1"></div>
+		<div class="col-1 border-start"></div>
 		
 		
 		<div class="col">		
@@ -139,7 +141,7 @@
 										</div>
 										<div class="row pt-3">
 											<div class="col">
-												<textarea rows="20"  style="width:100%; border:none;"></textarea>
+												<textarea name="requierments" rows="20"  style="width:100%; border:none;"></textarea>
 												<%--<input type="text" name="requierments"  style="width:100%; height:100%; border:none;" class="px-0 py-0"> --%>
 											</div>
 										</div>										
@@ -170,7 +172,7 @@
 				</div>
 		</div>
 		
-		<div class="col-1"></div>
+		<div class="col-2"></div>
 		
 		
 		

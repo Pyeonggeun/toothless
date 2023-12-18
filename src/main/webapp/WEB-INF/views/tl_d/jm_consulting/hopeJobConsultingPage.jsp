@@ -101,10 +101,10 @@
 		//if문, false일때 신청가능하다 = 답변이있다 즉 상담현황은 true일때 새답변 알람끄기 
 		if(check==true){
 			const spanValue = document.createElement('span');
-			spanValue.classList.add('position-absolute','top-0','start-100','translate-middle','p-2','bg-danger','border','border-light','rounded-circle');
+			//spanValue.classList.add('position-absolute','top-0','start-100','translate-middle','p-2','bg-danger','border','border-light','rounded-circle');
 			checkIsNewOnlineConsultingReply.innerText ='';
-			checkIsNewOnlineConsultingReply.innerText ='답변';
-			checkIsNewOnlineConsultingReply.appendChild(spanValue);		
+			checkIsNewOnlineConsultingReply.innerText ='목록보기';
+			//checkIsNewOnlineConsultingReply.appendChild(spanValue);		
 		}
 		else{
 			checkIsNewOnlineConsultingReply.innerText ='';
@@ -437,10 +437,10 @@ function deleteMyHopeJobCategory(){
 
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
 
 
-	<div class="row mt-5">
+	<div class="row">
 		<div class="col">
 
 				<jsp:include page="../common/studentTopNavi.jsp"></jsp:include>
@@ -449,11 +449,11 @@ function deleteMyHopeJobCategory(){
 	</div>
 	
 	
-	<div class="row mt-5">
-		<div class="col-3">
+	<div class="row">
+		<div class="col-2">
 			<jsp:include page="../common/studentMenu.jsp"></jsp:include>	
 		</div>
-		<div class="col-9">
+		<div class="col mt-3">
 		
 			<div class="row">
 				
@@ -965,6 +965,7 @@ function deleteMyHopeJobCategory(){
 		
 		
 	</div>
+	<div class="col-1"></div>
 	
 </div>
 </div>

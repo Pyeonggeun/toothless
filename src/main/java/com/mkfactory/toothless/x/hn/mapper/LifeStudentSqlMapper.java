@@ -9,7 +9,11 @@ import com.mkfactory.toothless.x.dto.LectureCategoryDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
 import com.mkfactory.toothless.x.dto.LectureReviewDto;
 import com.mkfactory.toothless.x.dto.LectureStudentDto;
+import com.mkfactory.toothless.x.dto.LectureTestDto;
 import com.mkfactory.toothless.x.dto.OpenLectureDto;
+import com.mkfactory.toothless.x.dto.QuestionChoiceDto;
+import com.mkfactory.toothless.x.dto.TestQuestionDto;
+import com.mkfactory.toothless.x.dto.TestResultDto;
 
 public interface LifeStudentSqlMapper {
 	
@@ -57,5 +61,17 @@ public interface LifeStudentSqlMapper {
 	public int getAttendanceCountByLectureStudentKey(int lecture_student_key);
 	public int getExceptAttendanceAndAbsentCountByLectureStudentKey(int lecture_student_key);
 	public int getAvgTestScoreByOpenLectureKey(int open_lecture_key);
+	
+	public int getTotalTestCount(int open_lecture_key);
+	public int getStudentTotalTestCount(int lecture_student_key);
+	public List<LectureTestDto> getLectureTestInfoByOpenLectureKey(int open_lecture_key);
+	public int getStudentTestScoreByLectureTestKey(int lecture_test_key);
+	public int isCompleteTest(int lecture_test_key);
+	
+	public String getTestNameByLectureTestKey(int lecture_test_key);
+	public List<TestQuestionDto> getTestQuestionListByLectureTestKey(int lecture_test_key);
+	public List<QuestionChoiceDto> getTestChoiceListByTestQuestionKey(int test_question_key);
+	
+	public void insertTestResult(TestResultDto testResultDto);
 
 }
