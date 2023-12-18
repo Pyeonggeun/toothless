@@ -29,8 +29,6 @@
    		</style>
         <script>
         
-        	type="text/javascript" src="../../resources/js/hn/sideBar.js"
-            
             function formSubmit(){
                 const frm = document.getElementById("frm");
 
@@ -154,7 +152,7 @@
             //약품삭제 + 연쇄로 입고 정보도 삭제 시켜야함
             function deleteMedicine(targerElement, medicine_code_pk){
 
-                let userConfirmed = confirm("정말 삭제 하시겠습니까?\n삭제시 입고,재고와 관련된 모든 정보가 삭제되며 이작업은 되돌릴 수 없습니다.");
+                let userConfirmed = confirm("정말 삭제 하시겠습니까?\n삭제시 입고,재고와 관련된 모든 정보가 삭제됩니다.\n※이작업은 되돌릴 수 없습니다.");
 
                 if (userConfirmed) {
                     console.log("삭제하였습니다.");
@@ -226,13 +224,13 @@
                         const medicineName = medicineWrapper.querySelector(".medicineName");
                         // medicineName.classList.add("text-primary");
                         medicineName.setAttribute("data-bs-toggle","modal");
-                        medicineName.setAttribute("data-bs-target","#"+e.medicineInfo.name+"");                      
+                        medicineName.setAttribute("data-bs-target","#Name"+e.medicineInfo.name+"");                      
                         medicineName.innerText = e.medicineInfo.name;
                         medicineName.setAttribute("onclick","getInventoryInfo("+e.medicineInfo.medicine_code_pk+")");
 
                         //
                         const modalWrapper = document.querySelector(".modalWrapper").cloneNode(true);
-                        modalWrapper.setAttribute("id",""+e.medicineInfo.name+"");
+                        modalWrapper.setAttribute("id","Name"+e.medicineInfo.name+"");
                         
                         medicineName.appendChild(modalWrapper);
 
@@ -341,7 +339,7 @@
             });
 
         </script>
-
+	<script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
     </head>
     <body>
 
@@ -388,7 +386,7 @@
                                                     <div class="col border-end">등록일</div>
                                                     <div class="col-1">삭제</div>
                                                 </div>
-                                                <div class="row mt-1 allMedicineInfoLocation">
+                                                <div class="mt-1 allMedicineInfoLocation">
                                                     <!-- 여기에 반복문 나와야함-->
                                                 </div>
                                                 

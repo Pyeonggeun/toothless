@@ -74,7 +74,7 @@ public interface MedicineSqlMapper {
 	
 	public List<Map<String, Object>> restInventoryInfoByPk(int medicine_code_pk);
 
-	public List<Map<String, Object>> selectCheckBox(int listOfMedicineCodes[]);
+	public List<Map<String, Object>> selectCheckBox(@Param("listOfMedicineCodes") int[] listOfMedicineCodes);
 
 	
 }
