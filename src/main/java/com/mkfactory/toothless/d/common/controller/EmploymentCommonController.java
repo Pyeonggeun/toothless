@@ -98,7 +98,10 @@ public class EmploymentCommonController {
 			model.addAttribute("jobPostingForCompanyMainPage", postingService.getPostingListForCompanyMainPage(companyDto.getCom_pk()));
 			// 기업 지원자 4개 컷
 			model.addAttribute("applyListForMainPage", postingService.getApplyListForCompanyMainPage(companyDto.getCom_pk()));
+		}else {
+			return "redirect:../../another/external/loginPage";
 		}
+			
 		
 		return "tl_d/common/companyMainPage";
 	}
