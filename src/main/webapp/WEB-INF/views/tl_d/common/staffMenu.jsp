@@ -70,9 +70,9 @@
 </div>
 <div class="row">
 	<a class="col ps-4 mt-2 navbar-brand" 
-		href="#">공지사항</a>
+		href="../hc_board/noticeMainPage">공지사항</a>
 </div>
 <div class="row">
 	<a class="col ps-4 mt-2 navbar-brand" 
-		href="#">QnA게시판</a>
+		href="../hc_board/QnABoardPage">QnA게시판</a>
 </div>
