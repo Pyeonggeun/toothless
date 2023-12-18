@@ -118,22 +118,22 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;교육프로그램 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../guntaek/student/ajdksInquiryProgram'">&gt;&nbsp;교육프로그램 조회</span>
 					</div>
 				</div>
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;신청내역 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../guntaek/student/ajdksApplyProgram'">&gt;&nbsp;신청내역 조회</span>
 					</div>
 				</div>
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;이수내역 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../guntaek/student/ajdksCheckProgramComplete'">&gt;&nbsp;이수내역 조회</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;리뷰 작성</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../guntaek/student/ajdksRegisterProgramReview'">&gt;&nbsp;리뷰 작성</span>
 					</div>
 				</div>
 			</div>

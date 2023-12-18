@@ -63,7 +63,7 @@
 	<!-- 본문 : 자유롭게 이용하세요 화이팅 -->	
 		<div class="col">
 			<div class="row">
-				<div class="col mx-3">
+				<div class="col mx-5">
 				<!-- 본문작성공간 (이력서 조회 공간) -->
 				<div class ="row ms-2" style="margin-top:100px;">
 							
@@ -141,17 +141,15 @@
 							        ${Student.studentDto.name} 
 							    </div>
 						</div>
-						<!--  1열 중간 -->
-						<div class="col-2"></div>
-						
-						
+					
+	
 						<!-- 1열 오른쪽 -->
-						<div class="col-2">
+						<div class="col-3">
 								   <div class="row border d-flex align-items-center justify-content-center" style="height:50px; background-color: #CFE2FF;">
 							       	현재학기
 									</div>
 						</div>
-						<div class="col-3">
+						<div class="col-4">
 						 	 	<div class="row border d-flex align-items-center justify-content-center" style="height:50px; ">
 							        ${Student.semester}학기
 							    </div>
@@ -170,16 +168,14 @@
 							        ${Student.departmentName}
 							    </div>
 						</div>
-						
-						<div class="col-2"></div>
-						
+					
 						<!-- 2열 오른쪽 -->
-						<div class="col-2">
+						<div class="col-3">
 								   <div class="row border d-flex align-items-center justify-content-center" style="height:50px; background-color: #CFE2FF;">
 								   취득학점
 								   </div>
 						</div>
-						<div class="col-3">
+						<div class="col-4">
 						 	 	<div class="row border d-flex align-items-center justify-content-center" style="height:50px ;">
 						 	 	전자공학과
 						 	 	</div>
