@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 
 <!-- 좌측메뉴바 -->
-<div class="col-2 px-0 companyleftmenubar" style="background-color: #22212E; color: #E2E2E4; height: 120dvh; box-shadow: 2px 2px 2px gray;">
+<div class="col-2 px-0 companyleftmenubar sticky-top" style="background-color: #22212E; color: #E2E2E4; height: 120dvh; box-shadow: 2px 2px 2px gray;">
 
 	<div class="row pt-2 pb-4" style="font-size: 1.1em;">
 		<div class="col text-white text-center fw-bold">

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- 좌측메뉴바 -->
-<div class="col-2 text-white px-0 professorleftmenubar" style="background-color: #0C2145; height: 137dvh; box-shadow: 2px 2px 2px gray;">
+<div class="col-2 sticky-top text-white px-0 professorleftmenubar" style="background-color: #0C2145; height: 137dvh; box-shadow: 2px 2px 2px gray;">
 
 	<!-- 접속자 정보 묶음 -->
 	<div class="row text-center my-3">
