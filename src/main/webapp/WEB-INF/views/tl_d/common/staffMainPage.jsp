@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +37,7 @@
 						<div class="row fw-bold fs-5 pb-1 border-bottom border-bd-border border-2">
 							<div class="col">진행 구직희망</div>
 							<div class="col text-end fw-bold fs-5">
-								<a href="#" class="btn"><i class="bi bi-plus-lg text-primary"></i></a>	
+								<a href="#" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
 							</div>
 						</div>
 						 
@@ -49,7 +50,7 @@
 						<div class="row fw-bold fs-5 pb-1 border-bottom border-bd-border border-2">
 							<div class="col">구직희망 신청</div>
 							<div class="col text-end fw-bold fs-5">
-								<a href="#" class="btn"><i class="bi bi-plus-lg text-primary"></i></a>	
+								<a href="#" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
 							</div>
 						</div>
 						
@@ -62,7 +63,7 @@
 						<div class="row fw-bold fs-5 pb-1 mb-2 border-bottom border-bd-border border-2">
 							<div class="col">기업</div>
 							<div class="col text-end fw-bold fs-5">
-								<a href="../gw_company/companyManagementPage" class="btn"><i class="bi bi-plus-lg text-primary"></i></a>	
+								<a href="../gw_company/companyManagementPage" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
 							</div>
 						</div>
 						
@@ -105,11 +106,47 @@
 						<div class="row fw-bold fs-5 pb-1 border-bottom border-bd-border border-2">
 							<div class="col">프로그램</div>
 							<div class="col text-end fw-bold fs-5">
-								<a href="#" class="btn"><i class="bi bi-plus-lg text-primary"></i></a>	
+								<a href="../gw_program/programListPage" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
 							</div>
 						</div>
 						
-						<div class="row"></div>
+						<div class="row mt-4"> 
+							<c:set var="currentTime" value="<%= new java.util.Date() %>" />
+							<c:forEach items="${programList}" var="list" varStatus="loop">
+								<c:if test="${loop.index < 4}">
+									<div class="col border border-secondery rounded-4 p-0 m-4">
+										<div class="row"> 
+											<img class="img-fluid" src="../../resources/img/employment/${list.programDto.prg_main_image}" style="height: 10em; weight: 10em;">
+											
+										</div>  
+										<div class="row mt-2">
+											<div class="col">
+												<a class="btn text-truncate fw-bold" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em">${list.programDto.prg_name}</a>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-1"></div>
+											<div class="col border-bottom"></div>
+											<div class="col-1"></div>
+										</div> 
+										<div class="row mt-2 ps-3">
+											<div class="col-4 fw-bold">모집기간</div>
+											<div class="col ps-0">
+												<fmt:formatDate value="${list.programDto.prg_apply_deadline}" pattern="yyyy.MM.dd"/>
+											</div>
+										</div>
+										
+										<div class="row ps-3 pb-4">
+											<div class="col-4 fw-bold">운영기간</div>
+											<div class="col ps-0">
+												<fmt:formatDate value="${list.programDto.prg_schedule}" pattern="yyyy.MM.dd"/>
+											</div>
+										</div>
+										
+									</div>
+								</c:if>
+							</c:forEach> 
+						</div>
 					</div>
 					
 					<div class="col-2"></div>

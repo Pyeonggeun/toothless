@@ -121,6 +121,9 @@ public class EmploymentCommonController {
 		//기업용
 		model.addAttribute("companyList", companyService.getCompanyList());
 		
+		//프로그램 리스트
+		model.addAttribute("programList", programService.getProgramList());
+		
 		return "tl_d/common/staffMainPage";
 	}
 	
