@@ -17,61 +17,11 @@
 	font-family: 'Gowun Dodum', sans-serif;
 	/* font-family: 'Quicksand', sans-serif; */
 	}
+	#headerSize {
+    	font-size: 0.8em;
+    }
 	
 </style>
-<script>
-
-	function reloadNoticeList(){
-		
-		const url = "./getNoticeList";
-		
-		fetch(url)
-		.then(response => response.json())
-		.then(response => {
-			
-			const noticeListBox = document.getElementById("noticeListBox");
-			noticeListBox.innerHTML = "";
-			
-			for(e of response.data){
-				// templete호출
-				const noticeListWrapper = document.querySelector("#templete .noticeListWrapper").cloneNode(true);
-				// 닉네임 호출
-				const noticeNickname = noticeListWrapper.querySelector(".noticeNickname");
-				noticeNickname.innerText = e.staffInfoDto.name;
-				// 날짜 호출
-				const noticeDate = noticeListWrapper.querySelector(".noticeDate");
-				noticeDate.innerText = e.noticeBoardDto.created_at;
-				// 날짜 패턴
-				const date = new Date(e.noticeBoardDto.created_at);
-				noticeDate.innerText = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate();
-				// 공지사항 호출
-				const noticePk = noticeListWrapper.querySelector(".noticePk");
-				noticePk.innerText = e.noticeBoardDto.id;
-				const noticeTitle = noticeListWrapper.querySelector(".noticeTitle");
-				const detailPage = document.createElement("a");
-				
-				detailPage.setAttribute("href", "./readNoticeBoardPage_Staff?id=" + e.noticeBoardDto.id);
-				detailPage.innerText = e.noticeBoardDto.title;
-				detailPage.style.color = "black";
-				detailPage.style.textDecoration = "none";
-				
-				noticeTitle.appendChild(detailPage);
-				
-				const noticeRead_Count = noticeListWrapper.querySelector(".noticeRead_Count");
-				noticeRead_Count.innerText = e.noticeBoardDto.read_count;
-				
-				noticeListBox.appendChild(noticeListWrapper);
-			}
-		
-		});
-		
-	}
-
-	window.addEventListener("DOMContentLoaded", () =>{
-		reloadNoticeList()
-	});
-	
-</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -98,40 +48,49 @@
 									<button class="btn btn-light">검색</button>
 								</div>
 							</div>
-						</form>
+						</form>	
 						<div class="row">
-							<div class="col">
-								<div class="row">
-									<div class="col">
-										<div class="row">
-											<div class="col-1">글번호</div>
-											<div class="col-8">제목</div>
-											<div class="col-1">작성자</div>
-											<div class="col-1">조회수</div>
-											<div class="col-1">작성일</div>
+							<div class="col-11"></div>
+							<div class="col"><a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black;" href="./writeNoticeArticlePage"><i class="bi bi-pencil-fill"></i>&nbsp;&nbsp;글쓰기</a></div>
+						</div>
+						<div class="row fw-bold border-bottom">
+							<div class="col-1"><i class="bi bi-chat-square-text-fill"></i>&nbsp;&nbsp;글번호</div>
+							<div class="col-8"><i class="bi bi-emoji-expressionless-fill"></i>&nbsp;&nbsp;제목</div>
+							<div class="col-1"><i class="bi bi-emoji-heart-eyes-fill"></i>&nbsp;&nbsp;조회수</div>
+							<div class="col-1"><i class="bi bi-person-arms-up"></i>&nbsp;&nbsp;작성자</div>
+							<div class="col-1"><i class="bi bi-calendar-heart-fill"></i>&nbsp;&nbsp;작성일</div>
+						</div>
+						<c:forEach items="${list }" var="list">
+							<div class="row row mt-2 mb-2">
+								<div id="headerSize" class="col-1">${list.noticeBoardDto.id }</div>
+								<div class="col-8 border-bottom">
+									<div class="row">
+										<div class="col-10">
+											<a class="link-offset-2 link-underline link-underline-opacity-0 fw-bold" style="color: black;" href="./readNoticeBoardPage_Staff?id=${list.noticeBoardDto.id }">${list.noticeBoardDto.title }</a>
+											<c:if test="${list.commentCount > 0 }">
+												<span style="font-size: 0.7em; color: red; font-weight: bold;">[${list.commentCount }]</span> 
+											</c:if>
+											<c:if test="${list.imageCount > 0 }">
+												<i class="bi bi-card-image"></i>
+											</c:if>
+										</div>
+										<div class="col-1">
+											<span class="badge text-bg-light" style="font-size: 0.7em; color: red;">추천[${list.likeCount }]</span>
+										</div>
+										<div class="col-1">
+											<span class="badge text-bg-light" style="font-size: 0.7em;">비추[${list.disLikeCount }]</span>
 										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div id="noticeListBox" class="col">
-									
-									</div>
-								</div>
+								<div id="headerSize" class="col-1">${list.noticeBoardDto.read_count }</div>
+								<div id="headerSize" class="col-1">${list.staffInfoDto.name }</div>
+								<div id="headerSize" class="col-1"><fmt:formatDate value="${list.noticeBoardDto.created_at }" pattern="yy.MM.dd"/></div>
 							</div>
-						</div>	
+						</c:forEach>
 					</div>	
 					<div class="col-1"></div>	
 				</div>
 			</div>
-		</div>
-	</div>
-	<div id="templete" class="d-none">
-		<div class="noticeListWrapper row">
-			<div class="noticePk col-1"></div>	
-			<div class="noticeTitle col-8"></div>	
-			<div class="noticeNickname col-1"></div>
-			<div class="noticeRead_Count col-1"></div>
-			<div class="noticeDate col-1"></div>
 		</div>
 	</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
