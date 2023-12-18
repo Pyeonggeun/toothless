@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -185,5 +184,65 @@ public class LifeStudentServiceImpl {
 		
 		lifeStudentSqlMapper.insertLectureReviewInfo(lectureReviewDto);
 	}
+	
+	public int getTotalMyLectureCount(int life_student_key, int searchType) {
+		
+		return lifeStudentSqlMapper.getTotalMyLectureCount(life_student_key, searchType);
+	}
+	
+	public List<Map<String, Object>> getMyLectureInfoList(int life_student_key, int pageNumber, int searchType) {
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<Integer> openLectureKeyList = lifeStudentSqlMapper.getMyOpenLectureKeyList(life_student_key, pageNumber, searchType);
+		
+		for(int e : openLectureKeyList) {
+		
+			Map<String, Object> map = new HashMap<>();
+			
+			OpenLectureDto openLectureDto = lifeStudentSqlMapper.getOpenLectureInfoByOpenLectureKey(e);
+			LectureInfoDto lectureInfoDto = lifeStudentSqlMapper.getLectureInfoByLectureInfoKey(openLectureDto.getLecture_info_key());
+			
+			int lecture_student_key = lifeStudentSqlMapper.getLectureStudentKeyByOpenLectureKeyAndLifeStudentKey(e, life_student_key);
+			
+			boolean isComplete = false;
+			
+			Clac clac = new Clac();
+			double attendanceResult = Double.parseDouble(clac.attendanceClac(
+					lifeStudentSqlMapper.getTotalAttendanceCount(e),
+					lifeStudentSqlMapper.getExceptAttendanceAndAbsentCountByLectureStudentKey(lecture_student_key),
+					lifeStudentSqlMapper.getAttendanceCountByLectureStudentKey(lecture_student_key)));
+			
+			int testResult = lifeStudentSqlMapper.getAvgTestScoreByOpenLectureKey(e);
+			
+			if(lectureInfoDto.getEssential_attendance() <= attendanceResult && lectureInfoDto.getEssential_grade() <= testResult) {
+				
+				isComplete = true;
+			}
+					
+			map.put("openLectureInfo", openLectureDto);
+			map.put("lectureInfo", lectureInfoDto);
+			map.put("round", lifeStudentSqlMapper.getLectureRoundByLectureInfoKeyAndOpenLectrueKey(openLectureDto.getLecture_info_key(), e));
+			map.put("categoryName", lifeStudentSqlMapper.getLectureCategoryNameByLectureCategoryKey(lectureInfoDto.getLecture_category_key()));
+			map.put("isComplete", isComplete);
+			
+			list.add(map);
+			
+		}
+		
+		return list;
+	}
 
+}
+
+class Clac {
+	
+	public String attendanceClac(int totalAttendance, int exceptAttendance, int attendance) {
+		
+		double e = ((attendance - (exceptAttendance/3)) / totalAttendance) * 100;
+		String result = String.format("%.1f", e);
+		
+		return result;
+	}
+	
 }

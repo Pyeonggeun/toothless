@@ -1,5 +1,6 @@
 package com.mkfactory.toothless.b.kh.medicine.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -209,4 +210,16 @@ public class RestMedicineController {
 		
 		return b_RestResponseDto;
 	}
+	//입고 종류 체크
+	@RequestMapping("selectCheckBox")
+	public B_RestResponseDto selectCheckBox(
+			@RequestParam(name = "listOfMedicineCodes") int[] listOfMedicineCodes) {
+	    B_RestResponseDto b_RestResponseDto = new B_RestResponseDto();
+	    
+	    b_RestResponseDto.setResult("success");
+	    b_RestResponseDto.setData(medicineService.selectCheckBox(listOfMedicineCodes));
+	    
+	    return b_RestResponseDto;
+	}
+
 }

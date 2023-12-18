@@ -19,8 +19,6 @@
 
         <script>
         
-    	type="text/javascript" src="../../resources/js/hn/sideBar.js"
-
             let name = null;
 
             function frmInventoryModify(){
@@ -217,6 +215,7 @@
                 reloadInventoryCat();
             });
         </script>
+    <script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
     </head>
     <body>
 
