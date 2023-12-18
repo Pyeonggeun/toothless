@@ -19,7 +19,6 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-1"></div>
 		<!-- 취업팀 메뉴 바 -->
 		<div class="col-2 me-5 border-end">
 			<jsp:include page="../common/staffMenu.jsp"></jsp:include>
