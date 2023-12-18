@@ -42,9 +42,14 @@ public class BuildingController {
 		
 	//기숙사 동 관리페이지
 	@RequestMapping("sj_manageDormInfo")
-	public String buildingPage(Model model) {
+	public String buildingPage(Model model, HttpSession session) {
 		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
 		model.addAttribute("dormAmount", buildingService.dormCategoryList());
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		
 		return "tl_a/staff/sj_manageDormInfo";
 	}
@@ -59,7 +64,7 @@ public class BuildingController {
 	
 	//기숙사 호실 관리 페이지
 	@RequestMapping("sj_manageRoomInfo")
-	public String roomInfo(Model model /*,int student_pk*/ ) {
+	public String roomInfo(Model model, HttpSession session) {
 		
 		List<Map<String, Object>> rooms2 = buildingService.roomList();
 		model.addAttribute("rooms", rooms2);
@@ -68,14 +73,17 @@ public class BuildingController {
 		//stList
 		model.addAttribute("studentList", buildingService.studentList());
 		
-		//test
-//		model.addAttribute("test", buildingService.testPrint(student_pk));
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
+		
 		return "tl_a/staff/sj_manageRoomInfo";
 	}
 	
 	//기숙사 호실 상세 페이지?
 	@RequestMapping("sj_manageRoomInfoReadPage")
-	public String roomInfoReadPage(Model model, int dorm_pk) {
+	public String roomInfoReadPage(Model model, int dorm_pk, HttpSession session) {
 		
 		List<Map<String, Object>> rooms2 = buildingService.roomList();
 		model.addAttribute("rooms", rooms2);
@@ -84,37 +92,57 @@ public class BuildingController {
 		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
 		//model.addAttribute("points", buildingService.pointList());
 		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
+		
 		return "tl_a/staff/sj_manageRoomInfoReadPage";
 	}
 	
 	//기숙사 호실 별 (2/4인실) 이미지 관리 페이지
 	@RequestMapping("sj_manageRoomImages")
-	public String roomImgInfo(Model model, DormCategoryDto categoryDto) {
+	public String roomImgInfo(Model model, DormCategoryDto categoryDto, HttpSession session) {
 		
 		model.addAttribute("dormAmount", buildingService.dormCategoryList());
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		
 		return "tl_a/staff/sj_manageRoomImages";
 	}
 	
 	@RequestMapping("sj_manageRoomImagesReadPage")
-	public String roomImgInfoReadPage() {
+	public String roomImgInfoReadPage(HttpSession session) {
 		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		return "tl_a/staff/sj_manageRoomImagesReadPage";
 	}
 	
 	
 	//기숙사 동 등록페이지
 	@RequestMapping("sj_registerDormInfo")
-	public String dormInfo() {
-		
+	public String dormInfo(HttpSession session) {
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		return "tl_a/staff/sj_registerDormInfo";
 	}
 	
 	//기숙사 호실 등록 페이지
 	
 	@RequestMapping("sj_registerRoomInfo")
-	public String registerRoomInfoPage(Model model) {
-		
+	public String registerRoomInfoPage(Model model, HttpSession session) {
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		model.addAttribute("dormBuilding", buildingService.dormBuildNames());
 		model.addAttribute("dormAmount", buildingService.dormCategoryList());
 		return "tl_a/staff/sj_registerRoomInfo";
@@ -123,8 +151,13 @@ public class BuildingController {
 	
 	//기숙사 동 등록 프로세스
 	@RequestMapping("registerDormProcess")
-	public String registerDormInfoProcess(/*StaffInfoDto params,*/ DormBuildingDto dormbuildingDto, DormRoomDto dormRoomDto,MultipartFile mainImage) {
-		//StaffInfoDto staffInfoDto = staffService.loginByStaffIdAndPassword(params);
+	public String registerDormInfoProcess( DormBuildingDto dormbuildingDto, 
+				DormRoomDto dormRoomDto,MultipartFile mainImage, HttpSession session) {
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		
 		//기숙사 건물(동) 대표 이미지
 		if (mainImage != null && !mainImage.isEmpty()) {
@@ -167,8 +200,12 @@ public class BuildingController {
 	
 	//기숙사 호실 이미지 등록!
 	@RequestMapping("sj_registerRoomImages")
-	public String registerRoomImagesPage(Model model ) {
+	public String registerRoomImagesPage(Model model, HttpSession session ) {
 		model.addAttribute("dormAmount", buildingService.dormCategoryList());
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(staffInfoDto == null) {
+			return "redirect:../../tl_a/staff/loginPage";
+		}
 		return "tl_a/staff/sj_registerRoomImages";
 	}
 	

@@ -45,6 +45,8 @@
 		text-decoration: none;
 		color: #000000;
 	}
+	
+	
 
 </style>
 
@@ -104,7 +106,10 @@
 						if(info.grade === 0){
 							showGrade.setAttribute("style", "font-size:0.95em");
 							showGrade.classList.add("text-secondary", "fw-bold");
-							showGrade.innerText = "아직 평가가 완료되지 않았습니다";
+							showGrade.innerText = "평가 미완료";
+							
+							const noEvaluation = document.getElementById("noEvaluation");
+							noEvaluation.classList.remove("d-none");
 							
 							evaluationDetails.innerText="-"
 						}else{
@@ -112,6 +117,11 @@
 							if(info.didSatisfaction === 0){
 							satisfactionButton.innerText = "만족도평가";
 							satisfactionButton.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1", "open-Modal");
+							
+							const needSatisfaction = document.getElementById("needSatisfaction");
+							needSatisfaction.classList.remove("d-none");
+							const noEvaluation = document.getElementById("noEvaluation");
+							noEvaluation.classList.add("d-none");
 							
 							const inputStudentInternPk = document.getElementById("inputStudentInternPk");
 							inputStudentInternPk.setAttribute("value", info.studentInternPk);
@@ -123,6 +133,11 @@
 							
 							}else if(info.didSatisfaction !== 0){
 								showGrade.setAttribute("style", "font-size:0.95em");
+								
+								const needSatisfaction = document.getElementById("needSatisfaction");
+								needSatisfaction.classList.add("d-none");
+								const noEvaluation = document.getElementById("noEvaluation");
+								noEvaluation.classList.add("d-none");
 								
 								if(info.grade === "fail"){
 									showGrade.classList.add("text-danger-emphasis", "fw-bold");
@@ -159,8 +174,7 @@
     
     function writeSatisfaction(){
     	
-    	const rating = document.querySelector('[data-attribute="checked"]');
-    	
+    	const ratingValue = document.getElementById("ratingValue");
     	const review = document.querySelector(".review");
     	const inputStudentInternPk = document.getElementById("inputStudentInternPk");
     	
@@ -169,15 +183,34 @@
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"
 			},
-			body: "student_intern_pk=" + 
-					"&rating=" + getValue +
+			body: "student_intern_pk=" + inputStudentInternPk.value + 
+					"&rating=" + ratingValue.value +
 					"&review=" + review.value
 		})
 		.then(response => response.json())
 		.then(response => {
 			
-			rating.value = "";
+			const star1 = document.getElementById("star1");
+			const star2 = document.getElementById("star2");
+			const star3 = document.getElementById("star3");
+			const star4 = document.getElementById("star4");
+			const star5 = document.getElementById("star5");
+			
+			star1.classList.remove("bi-star-fill");
+			star1.classList.add("bi-star");
+			star2.classList.remove("bi-star-fill");
+			star2.classList.add("bi-star");
+			star3.classList.remove("bi-star-fill");
+			star3.classList.add("bi-star");
+			star4.classList.remove("bi-star-fill");
+			star4.classList.add("bi-star");
+			star5.classList.remove("bi-star-fill");
+			star5.classList.add("bi-star");
+
+			
+			ratingValue.value = "";
 			review.value = "";
+			
 			
 			const gradeInquiryListBox = document.getElementById("gradeInquiryListBox");
 			gradeInquiryListBox.innerHTML = "";
@@ -187,6 +220,7 @@
 			
 		});
     }
+    
 	
 	function star1(){
 		const star1 = document.getElementById("star1");
@@ -194,12 +228,6 @@
 		const star3 = document.getElementById("star3");
 		const star4 = document.getElementById("star4");
 		const star5 = document.getElementById("star5");
-		
-		star1.setAttribute("checked","");
-		star2.removeAttribute("checked");
-		star3.removeAttribute("checked");
-		star4.removeAttribute("checked");
-		star5.removeAttribute("checked");
 		
 		star1.classList.remove("bi-star");
 		star1.classList.add("bi-star-fill");
@@ -211,6 +239,11 @@
 		star4.classList.add("bi-star");
 		star5.classList.remove("bi-star-fill");
 		star5.classList.add("bi-star");
+		
+		const ratingValue = document.getElementById("ratingValue");
+		ratingValue.removeAttribute("value");
+		ratingValue.setAttribute("value","1");
+		
 	}
 	
 	function star2(){
@@ -219,13 +252,7 @@
 		const star3 = document.getElementById("star3");
 		const star4 = document.getElementById("star4");
 		const star5 = document.getElementById("star5");
-		
-		star1.removeAttribute("checked");
-		star2.setAttribute("checked","");
-		star3.removeAttribute("checked");
-		star4.removeAttribute("checked");
-		star5.removeAttribute("checked");
-		
+
 		star1.classList.remove("bi-star");
 		star1.classList.add("bi-star-fill");
 		star2.classList.remove("bi-star");
@@ -236,6 +263,10 @@
 		star4.classList.add("bi-star");
 		star5.classList.remove("bi-star-fill");
 		star5.classList.add("bi-star");
+		
+		const ratingValue = document.getElementById("ratingValue");
+		ratingValue.removeAttribute("value");
+		ratingValue.setAttribute("value","2");
 	}
 	
 	function star3(){
@@ -244,12 +275,6 @@
 		const star3 = document.getElementById("star3");
 		const star4 = document.getElementById("star4");
 		const star5 = document.getElementById("star5");
-		
-		star1.removeAttribute("checked");
-		star2.removeAttribute("checked");
-		star3.setAttribute("checked","");
-		star4.removeAttribute("checked");
-		star5.removeAttribute("checked");
 		
 		star1.classList.remove("bi-star");
 		star1.classList.add("bi-star-fill");
@@ -261,6 +286,10 @@
 		star4.classList.add("bi-star");
 		star5.classList.remove("bi-star-fill");
 		star5.classList.add("bi-star");
+		
+		const ratingValue = document.getElementById("ratingValue");
+		ratingValue.removeAttribute("value");
+		ratingValue.setAttribute("value","3");
 	}
 	
 	function star4(){
@@ -269,12 +298,6 @@
 		const star3 = document.getElementById("star3");
 		const star4 = document.getElementById("star4");
 		const star5 = document.getElementById("star5");
-		
-		star1.removeAttribute("checked");
-		star2.removeAttribute("checked");
-		star3.removeAttribute("checked");
-		star4.setAttribute("checked","");
-		star5.removeAttribute("checked");
 		
 		star1.classList.remove("bi-star");
 		star1.classList.add("bi-star-fill");
@@ -286,6 +309,10 @@
 		star4.classList.add("bi-star-fill");
 		star5.classList.remove("bi-star-fill");
 		star5.classList.add("bi-star");
+		
+		const ratingValue = document.getElementById("ratingValue");
+		ratingValue.removeAttribute("value");
+		ratingValue.setAttribute("value","4");
 	}
 	
 	function star5(){
@@ -294,12 +321,6 @@
 		const star3 = document.getElementById("star3");
 		const star4 = document.getElementById("star4");
 		const star5 = document.getElementById("star5");
-		
-		star1.removeAttribute("checked");
-		star2.removeAttribute("checked");
-		star3.removeAttribute("checked");
-		star4.removeAttribute("checked");
-		star5.setAttribute("checked","");
 		
 		star1.classList.remove("bi-star");
 		star1.classList.add("bi-star-fill");
@@ -311,6 +332,10 @@
 		star4.classList.add("bi-star-fill");
 		star5.classList.remove("bi-star");
 		star5.classList.add("bi-star-fill");
+		
+		const ratingValue = document.getElementById("ratingValue");
+		ratingValue.removeAttribute("value");
+		ratingValue.setAttribute("value","4");
 	}
 	
 	
@@ -351,11 +376,21 @@
 					</div>
 				</div>
 				
-				<div id="needSatisfaction" class="row mt-4 d-none">
-					<div class="col px-4 py-4" style="background-color:#e6ecf5">
+				<div id="needSatisfaction" class="row mt-3 d-none">
+					<div class="col px-4 py-4 mt-2" style="background-color:#e6ecf5">
 						<div class="row">
 							<div class="col mx-2 py-2">
 								<i class="bi bi-exclamation-triangle"></i>&nbsp;&nbsp;최종 성적은 만족도조사 작성 후 열람하실 수 있습니다.
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div id="noEvaluation" class="row mt-3 d-none">
+					<div class="col px-4 py-4 mt-2" style="background-color:#e6ecf5">
+						<div class="row">
+							<div class="col mx-2 py-2">
+								<i class="bi bi-exclamation-triangle"></i>&nbsp;&nbsp;교수나 산업체 담당자가 아직 평가를 완료하지않았을 경우, '평가미완료'로 표기됩니다.
 							</div>
 						</div>
 					</div>
@@ -372,7 +407,7 @@
 				</div>
 				
 				<div class="row mt-4" style="height:15em">
-					<div class="col border-secondary border-top border-bottom overflow-y-scroll">
+					<div class="col border-secondary border-top border-bottom overflow-y-scroll mt-1">
 						<div class="row text-center bg-body-secondary border-bottom border-secondary py-1 fw-semibold">
 							<div class="col-1 border-end">
 								번호
@@ -399,6 +434,31 @@
 						<div class="row">
 							<div id="gradeInquiryListBox" class="col">
 								
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div id="notice" class="row border mt-5" style="font-size:0.85em">
+					<div class="col px-4 py-4 text-dark-emphasis">
+						<div class="row mt-2">
+							<div class="col fw-semibold">
+								성적 열람시 주의사항
+							</div>
+						</div>
+						<div class="row">
+							<div class="col mt-2">
+								- 현장실습 성적은 "Pass" 와 "Fail"로 표기됩니다.
+							</div>
+						</div>
+						<div class="row">
+							<div class="col mt-2">
+								- 취득 학점에 대한 이의신청은 교수 및 담당 산업체에 문의하여 주시길 바랍니다.
+							</div>
+						</div>
+						<div class="row mb-2">
+							<div class="col mt-2">
+								- 현장실습 만족도 조사를 완료해야 성적을 열람하실 수 있습니다.
 							</div>
 						</div>
 					</div>
@@ -453,11 +513,11 @@
 							<div class="row">
 								<div class="col fw-semibold d-flex">
 									<span class="align-self-center">별점</span>
-									<i id="star1" onclick="star1()" class="bi bi-star fs-2 align-self-center text-warning ms-4" name="rating" data-value="1"></i>&nbsp;&nbsp;
-									<i id="star2" onclick="star2()" class="bi bi-star fs-2 align-self-center text-warning" name="rating" data-value="2"></i>&nbsp;&nbsp;
-									<i id="star3" onclick="star3()" class="bi bi-star fs-2 align-self-center text-warning" name="rating" data-value="3"></i>&nbsp;&nbsp;
-									<i id="star4" onclick="star4()" class="bi bi-star fs-2 align-self-center text-warning" name="rating" data-value="4"></i>&nbsp;&nbsp;
-									<i id="star5" onclick="star5()" class="bi bi-star fs-2 align-self-center text-warning" name="rating" data-value="5"></i>
+									<i id="star1" onclick="star1()" class="radioBtn bi bi-star fs-2 align-self-center text-warning ms-4" name="rating"></i>
+									<i id="star2" onclick="star2()" class="radioBtn bi bi-star fs-2 align-self-center text-warning ms-3" name="rating"></i>
+									<i id="star3" onclick="star3()" class="radioBtn bi bi-star fs-2 align-self-center text-warning ms-3" name="rating"></i>
+									<i id="star4" onclick="star4()" class="bi bi-star fs-2 align-self-center text-warning ms-3" name="rating"></i>
+									<i id="star5" onclick="star5()" class="bi bi-star fs-2 align-self-center text-warning ms-3" name="rating"></i>
 								</div>
 							</div>
 						</div>
@@ -478,6 +538,7 @@
 					</div>
 				</div>
 				<div class="modal-footer border-0 mb-3">
+					<input type="hidden" id="ratingValue">
 					<input type="hidden" id="inputStudentInternPk">
 					<button id="submitButton" onclick="writeSatisfaction()" class="closeModal btn btn-secondary rounded-0">제출</button>
 				</div>

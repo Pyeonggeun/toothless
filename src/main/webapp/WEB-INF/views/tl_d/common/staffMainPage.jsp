@@ -119,7 +119,19 @@
 											<img class="img-fluid" src="../../resources/img/employment/${list.programDto.prg_main_image}" style="height: 10em; weight: 10em;">
 											
 										</div>  
-										<div class="row mt-2">
+										<div class="row mt-2">  
+											<div class="col mt-1 ms-2 ps-3">
+												<c:choose>
+									                <c:when test="${list.programDto.prg_apply_deadline.before(currentTime)}">
+									                	<span class="text-center badge text-bg-secondary">마감</span>
+									                </c:when>
+									                <c:otherwise>
+									                	 <span class="text-center badge text-bg-primary">모집중</span>
+									                </c:otherwise>
+									            </c:choose>
+									          </div>
+								        </div> 
+										<div class="row">
 											<div class="col">
 												<a class="btn text-truncate fw-bold" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em">${list.programDto.prg_name}</a>
 											</div>

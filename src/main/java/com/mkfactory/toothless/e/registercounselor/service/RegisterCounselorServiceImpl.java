@@ -208,4 +208,19 @@ public class RegisterCounselorServiceImpl {
 		
 		return scoreAvg;
 	}
+	
+	public Map<String, Object> getCounselorDetailForAJAX(int counselorId){
+		System.out.println("[ RegisterCounselorServiceImpl] => [ getCounselorDetailForAJAX ] 실행됨");
+		System.out.println("---------------------------------------------------------");
+		Map<String, Object> counselorDetailForAJAX = new HashMap<String, Object>();
+		
+		CounselorDto counselorDto = registerCounselorSqlMapper.selectCounselorDetailByCounselorId(counselorId);
+		List<Map<String, Object>> counselorTypeList =  registerCounselorSqlMapper.selectCounselorTypeByCounselorId(counselorId);
+		List<LicenseImageDto> counselorLicenseList = registerCounselorSqlMapper.selectLicenseImgByCounselorId(counselorId);
+		// 상담원 전체 카테고리의 총 평점 구해서 가져오기 - 쿼리짜야함
+		// 상담원 전체 카테고리의 상담완료 내역 가져오기 - 쿼리짜야함
+		
+		return null;
+	}
+	
 }

@@ -31,30 +31,65 @@
 					<div class="col-1"></div>
 					<div class="col">
 						<div class="row mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">프로그램 목록</div>
-						<div class="row border-bottom border-2 border-black pb-3 mb-3 mt-5">
-							      <div class="col-1 text-center fw-bold">No.</div>
-							      <div class="col text-center fw-bold">프로그램명</div>
-							      <div class="col-3 text-center fw-bold">글쓴이</div>
-							      <div class="col-2 text-center fw-bold">프로그램 현황</div>
-						</div>
-						<c:set var="currentTime" value="<%= new java.util.Date() %>" />
-						<c:forEach items="${programList}" var="list">
-							<div class="row border-bottom border-bs-border pb-3 mb-3">
-								<div class="col-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
-								<div class="col"><a class="btn ms-4" href="./programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a></div>
-								<div class="col-3 text-center pt-1">${list.staffInfoDto.name}</div>
-								<div class="col-3 text-center pt-1">
-									 <c:choose>
-						                <c:when test="${list.programDto.prg_apply_deadline.before(currentTime)}">
-						                	<span class="text-center badge text-bg-secondary">마감</span>
-						                </c:when>
-						                <c:otherwise>
-						                	 <span class="text-center badge text-bg-primary">모집중</span>
-						                </c:otherwise>
-						            </c:choose>
-								</div>
-							</div>
-						</c:forEach> 
+						
+						<div class="row mt-4"> 
+							<c:set var="currentTime" value="<%= new java.util.Date() %>" />
+							<c:forEach items="${programList}" var="list" varStatus="loop">
+							        <c:if test="${loop.index % 4 == 0}">
+							            <div class="row mt-4"></div>
+							        </c:if>
+									<div class="col border border-secondery rounded-4 p-0 m-4">
+										<div class="row"> 
+											<img class="img-fluid" src="../../resources/img/employment/${list.programDto.prg_main_image}" style="height: 10em; weight: 10em;">
+											
+										</div>  
+										<div class="row mt-2"> 
+											<div class="col mt-1 mb-1 ms-2 ps-3">
+												<c:choose>
+									                <c:when test="${list.programDto.prg_apply_deadline.before(currentTime)}">
+									                	<span class="text-center badge text-bg-secondary">마감</span>
+									                </c:when>
+									                <c:otherwise>
+									                	 <span class="text-center badge text-bg-primary">모집중</span>
+									                </c:otherwise>
+									            </c:choose>
+									          </div>
+								        </div>
+										<div class="row">
+											<div class="col">
+												<a class="btn text-truncate fw-bold" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em">${list.programDto.prg_name}</a>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-1"></div>
+											<div class="col border-bottom"></div>
+											<div class="col-1"></div>
+										</div> 
+										<div class="row mt-2 ps-3">
+											<div class="col-5 fw-bold">모집기간</div>
+											<div class="col ps-0">
+												<fmt:formatDate value="${list.programDto.prg_apply_deadline}" pattern="yyyy.MM.dd"/>
+											</div>
+										</div>
+										
+										<div class="row ps-3 pb-4">
+											<div class="col-5 fw-bold">운영기간</div>
+											<div class="col ps-0">
+												<fmt:formatDate value="${list.programDto.prg_schedule}" pattern="yyyy.MM.dd"/>
+											</div>
+										</div>
+										
+									</div>
+									 <c:if test="${loop.index % 4 == 3 || loop.last}">
+						            <c:forEach var="dummy" begin="${loop.index + 1}" end="${loop.index + (3 - loop.index % 4)}">
+						                <div class="col-md-3 dummy"></div>
+						            </c:forEach>
+						        </c:if>
+						        <c:if test="${loop.index % 4 == 3 && !loop.last}">
+						            <div class="row mt-4"></div>
+						        </c:if>
+							</c:forEach> 
+						</div> 
 						
 					</div>
 					<div class="col-2"></div>
