@@ -11,6 +11,20 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     </head>
+    	 <script>
+            function formSubmit(){
+                const frm = document.getElementById("frm");
+
+                const inputComment =document.getElementById("inputComment");
+                    if(inputComment.value ==''){
+                        alert("댓글을 입력해주세요!!")
+                        inputComment.focus;
+                        return;
+
+                    }
+                 frm.submit();
+            }
+        </script>
     <body>
 
         <div class="container-fluid">
@@ -39,13 +53,11 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col fw-bold" style="font-size: 80%;">${read.staffInfoDto.name }</div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-2 text-secondary mx-1" style="font-size: 60%;">
+                                                <div class="col-2 text-secondary mx-1 text-start" style="font-size: 60%;">
                                                 <fmt:formatDate value="${read.noticeboardDto.created_at }" pattern="yy년 MM월 dd일"/>
 												 &nbsp;&nbsp; 조회수: ${read.noticeboardDto.read_count }
 												</div>
-                                                <div class="col-10"></div>
+                                                <div class="col-9"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -80,17 +92,17 @@
                                             </div>
                                             
                                             <c:if test="${!empty sessionStudentInfo }">
-                                            <form action="./studentReplyProcess" method="post">
+                                            <form id="frm" action="./studentReplyProcess" method="post">
                                             <div class="row ">
                                                 <div class="col-10">
                                                     <div class="form-floating">
-                                                        <textarea name="content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:  80px"></textarea>
+                                                        <textarea id="inputComment" name="content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:  80px"></textarea>
                                                         <label for="floatingTextarea2">Comments</label>
                                                         <input name="studentboard_pk" type="hidden" value="${read.noticeboardDto.studentboard_pk }">
                                                     </div>
                                                 </div>    
                                                 <div class="col mt-4 pt-3">
-                                                    <button type="submit" class="btn btn-outline-secondary">작성하기</button>
+                                                    <input type="button" onclick="formSubmit()" class="btn btn-outline-secondary" value="작성하기">
                                                 </div>
                                             </div>
                                             </form>
