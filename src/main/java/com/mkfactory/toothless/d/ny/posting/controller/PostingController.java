@@ -356,6 +356,7 @@ public class PostingController {
 		
 		return "tl_d/ny_posting/jobPostingDetailForCompanyPage";
 	}
+	
 	// 기업 지원자 학생 리스트
 	@RequestMapping("myCompanyApplyStudentListPage")
 	public String myCompanyApplyStudentListPage(HttpSession session, Model model) {
@@ -373,5 +374,21 @@ public class PostingController {
 		return "tl_d/ny_posting/myCompanyApplyStudentListPage";
 	}
 	
-	
+	// 관심기업 학생리스트
+	@RequestMapping("myCompanyInterestListPage")
+	public String myCompanyInterestListPage(HttpSession session, Model model) {
+		
+ExternalInfoDto externalInfoDto = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
+		
+		if(externalInfoDto != null) {
+			int externalInfoPk = externalInfoDto.getExternal_pk();
+			
+			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalInfoPk);
+		
+			model.addAttribute("interestCompanyTotalList", postingService.getInterestCompanyTotalList(companyDto.getCom_pk()));
+			
+		}	
+		
+		return "tl_d/ny_posting/myCompanyInterestListPage";
+	}
 }
