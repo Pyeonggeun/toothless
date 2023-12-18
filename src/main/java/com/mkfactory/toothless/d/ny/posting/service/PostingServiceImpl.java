@@ -56,6 +56,7 @@ public class PostingServiceImpl {
 	    	  postingPreference = StringEscapeUtils.escapeHtml4(postingPreference);
 	    	  postingPreference = postingPreference.replaceAll("\n", "<br>");
 	    	  jobPostingDto.setPreference(postingPreference);
+	    	  
 	      }
 		
 		postingSqlMapper.insertJobPostingInfo(jobPostingDto);
