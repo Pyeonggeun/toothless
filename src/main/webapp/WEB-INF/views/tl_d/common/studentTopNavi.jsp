@@ -4,9 +4,18 @@
 <div class="row">
 	<div class="col">
 		<div class="row bg-body-white border-bottom mt-4 pb-0">
-			<a class="col-1 pe-2 text-end navbar-brand" href="../common/studentMyPage">
-                <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
-            </a>
+			<c:choose>
+				<c:when test="${empty sessionStudentInfo}">
+					<a class="col-1 pe-2 text-end navbar-brand" href="../../another/student/loginPage">
+                		<img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
+            		</a>
+            	</c:when>
+            	<c:otherwise>
+					<a class="col-1 pe-2 text-end navbar-brand" href="../../another/student/mainPage">
+                		<img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
+            		</a>
+            	</c:otherwise>
+            </c:choose>
             <a class="col-4 ps-0 fw-bold fs-1 text-start navbar-brand" href="../common/employmentMainPage">
                 MK University<span class="fs-6"> | </span> <span class="fs-5">취업지원센터</span> 
             </a>
