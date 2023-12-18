@@ -172,27 +172,27 @@
 					reviewScoreBox.appendChild(reviewScore);
 					
 					const option1 = document.createElement("option");
-					option1.setAttribute("value", "★★★★★");
+					option1.setAttribute("value", 5);
 					option1.innerText = "★★★★★";
 					reviewScore.appendChild(option1);
 					
 					const option2 = document.createElement("option");
-					option2.setAttribute("value", "★★★★");
+					option2.setAttribute("value", 4);
 					option2.innerText = "★★★★";
 					reviewScore.appendChild(option2);
 					
 					const option3 = document.createElement("option");
-					option3.setAttribute("value", "★★★");
+					option3.setAttribute("value", 3);
 					option3.innerText = "★★★";
 					reviewScore.appendChild(option3);
 					
 					const option4 = document.createElement("option");
-					option4.setAttribute("value", "★★");
+					option4.setAttribute("value", 2);
 					option4.innerText = "★★";
 					reviewScore.appendChild(option4);
 
 					const option5 = document.createElement("option");
-					option5.setAttribute("value", "★");
+					option5.setAttribute("value", 1);
 					option5.innerText = "★";
 					reviewScore.appendChild(option5);
 
@@ -204,7 +204,15 @@
 					reviewContent.rows = 5;
 					reviewContentBox.appendChild(reviewContent);
 					
-					reviewRegister.setAttribute("onclick", "save("+modalValues.offlineReservationDto.id+")");
+					reviewRegister.addEventListener("click", function(){
+						
+						const id = modalValues.offlineReservationDto.id;
+						const scoreValue = reviewScore.value;
+						const contentValue = reviewContent.value;
+						
+						save(id, scoreValue, contentValue);
+					});
+					
 				}
 				
 			});
@@ -219,14 +227,7 @@
 			
 		}
 		
-		function save(reservation_id){
-			
-			const writeModalElement = document.querySelector("#writeModal");
-			const writeModal = bootstrap.Modal.getOrCreateInstance("#writeModal");
-			const reviewRegister = writeModalElement.querySelector(".reviewRegister");
-			
-			const scoreValue = writeModalElement.querySelector(".reviewScore").value;
-		    const contentValue = writeModalElement.querySelector(".reviewContent").value;
+		function save(reservation_id, scoreValue, contentValue){
 			
 			const url = "./counselReviewProcess?reservation_id=" + reservation_id + "&score=" + scoreValue + "&text=" + contentValue;
 			
@@ -742,23 +743,22 @@
 	<div id="templete" class="d-none">
 		<div class="reservationDataWrapper row py-3 border-bottom align-items-center">
 			<div class="reservationNo col-1">
-				${fn:length(list) - vs.index}
+
 			</div>
 			<div class="reservationCategoryName col-2">
-				${map.typeCategoryDto.name }
+
 			</div>
 			<div class="reservationCounselorName col-1">
-				${map.counselorDto.name }
+
 			</div>
 			<div class="reservationCreatedAt col-2">
-				<fmt:formatDate value="${map.offlineReservationDto.created_at }" pattern="yyyy-MM-dd"/>
+
 			</div>
 			<div class="reservationState col-1">
-				${map.offlineReservationDto.state }
+
 			</div>
 			<div class="reservationDate col-2">
-				${map.offlineReservationDto.counsel_year }-${map.offlineReservationDto.counsel_month }-${map.offlineReservationDto.counsel_date }&nbsp;
-				${map.offlineReservationDto.counsel_hour }<span>:00</span>
+
 			</div>
 			<div class="col d-grid">
 				<input class="canceledReservation btn btn-danger" type=button value="예약취소">

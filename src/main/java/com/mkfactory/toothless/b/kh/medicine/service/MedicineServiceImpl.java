@@ -259,6 +259,12 @@ public class MedicineServiceImpl {
 	}
 
 	
+	//rest 키워드만 골라서 정보 불러오기
+	public List<Map<String, Object>> selectCheckBox(int listOfMedicineCodes[]){
+		
+		return medicineSqlMapper.selectCheckBox(listOfMedicineCodes);
+	}
+
 	
 	
 	
