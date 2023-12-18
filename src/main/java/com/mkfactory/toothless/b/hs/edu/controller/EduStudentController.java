@@ -37,9 +37,17 @@ public class EduStudentController {
 	
 	//메인, 스태프 서비스 땡겨씀
 	@RequestMapping("eduMainPageForStudent")
-	public String eduMainPageForStudent(Model model, 
+	public String eduMainPageForStudent(Model model, HttpSession session,
 			String searchType,
 			String searchWord) {
+		
+		StudentInfoDto sessionstudentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(sessionstudentInfoDto == null) {
+			
+			return "/another/staff/loginPage";
+		}
+		
 
 		List<Map<String, Object>> list = eduStaffService.getEduProgList(searchType, searchWord);
 
@@ -53,7 +61,12 @@ public class EduStudentController {
 	public String readEduProgPageForStudent(HttpSession session, Model model, EduApplyDto eduApplyDto) {
 		
 		StudentInfoDto sessionstudentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
-
+		
+		if(sessionstudentInfoDto == null) {
+			
+			return "/another/staff/loginPage";
+		}
+		
 		int studentPk = sessionstudentInfoDto.getStudent_pk();
 		eduApplyDto.setStudent_pk(studentPk);
 
