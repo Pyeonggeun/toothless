@@ -8,6 +8,39 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    	
+    	    <script>
+            function formSubmit(){
+                const frm = document.getElementById("frm");
+
+                
+                const inputTitle =document.getElementById("inputTitle");
+
+	                if(inputTitle.value =='' ){
+	                    alert("제목을 입력해주세요.");
+	                    inputTitle.focus();
+	                    return;
+	                }
+               
+	                const inputText = document.getElementById("inputText")
+	                if(inputText.value == ''){
+	                    alert("내용을 입력해주세요.")
+	                    inputText.focus();
+	                    return;
+	                }
+	                
+                frm.submit();
+            }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+		</script>    
     </head>
 
     <body>
@@ -198,7 +231,7 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <form action="./staffWriteProcess" method="post" enctype="multipart/form-data" >
+                                    <form id="frm" action="./staffWriteProcess" method="post" enctype="multipart/form-data" >
                                  <div class="row mt-5">
                                     <div class="col border-bottom border-3 fw-bold fs-3">공지사항 글 작성</div>
                                  </div>
@@ -209,14 +242,14 @@
                                  </div>
                                  <div class="row mt-3">
                                     <div class="form-floating">
-                                        <textarea name="title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 30px;"></textarea>
+                                        <textarea id="inputTitle" name="title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 30px;"></textarea>
                                         <label for="floatingTextarea2">제목을 입력하세요</label>
                                     </div>
                                  </div>
                                  <div class="row  mt-3">
                                     <div class="col">
                                         <div class="form-floating">
-                                            <textarea name="content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 300px"></textarea>
+                                            <textarea id="inputText" name="content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 300px"></textarea>
                                             <label for="floatingTextarea2">내용을 입력하세요</label>
                                         </div>
                                     </div>
@@ -226,7 +259,7 @@
                                         이미지 등록: <input name="imageFiles" type="file" accept="image/*" multiple>
                                     </div>
                                     <div class="col mt-2 text-end">
-                                        <button type="submit" class="btn btn-light">등록</button>
+                                        <input type="button" onclick="formSubmit()" class="btn btn-light" value="등록">
                                     </div>
                                  </div>
                                     </form>  

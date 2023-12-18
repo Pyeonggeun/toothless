@@ -318,7 +318,9 @@
 			FROM CP_OFFLINE_RESERVATION cor
 			WHERE cor.COUNSELOR_ID = #{counselor_id}
 		)t1
-		WHERE t1.counsel_date > sysdate - 14
+		<![CDATA[
+		WHERE t1.counsel_date > sysdate - 14 AND t1.counsel_date <= sysdate
+		]]>
 		GROUP BY t1.counsel_date
 		ORDER BY t1.counsel_date ASC
 	</select>
@@ -348,7 +350,7 @@
 		SELECT 2 AS SCORE, 0 AS COUNT 
 		FROM dual
 		WHERE NOT EXISTS (
-		    SELECT 1 
+		    SELECT * 
 		    FROM CP_OFFLINE_SURVEY cos2
 		    INNER JOIN CP_OFFLINE_RESERVATION cor2 ON cos2.reservation_id = cor2.id
 		    WHERE cor2.counselor_id = #{counselor_id} AND cos2.score = 2
@@ -379,6 +381,165 @@
 		        WHEN '7' THEN 7
 		    END
 	</select>
+	
+	<!-- 상담원 메인페이지 오프라인 예약 리스트(오늘) -->
+	<select id="selectOfflineMainList" resultType="com.mkfactory.toothless.e.dto.OfflineReservationDto">
+		SELECT * FROM CP_OFFLINE_RESERVATION cor
+		WHERE TO_DATE(cor.counsel_year || '-' || cor.counsel_month || '-' || cor.counsel_date, 'YYYY-MM-DD') = trunc(sysdate, 'DD')
+		AND cor.COUNSELOR_ID = #{counselor_id}
+		AND cor.state = '신청'
+		ORDER BY cor.counsel_hour
+	</select>
+	
+	<!-- 상담원 메인페이지 오프라인 예약 리스트 개수(오늘) -->
+	<select id="selectOfflineMainListCount" resultType="int">
+		SELECT count(*) FROM CP_OFFLINE_RESERVATION cor
+		WHERE TO_DATE(cor.counsel_year || '-' || cor.counsel_month || '-' || cor.counsel_date, 'YYYY-MM-DD') = trunc(sysdate, 'DD')
+		AND cor.COUNSELOR_ID = #{counselor_id}
+		AND cor.state = '신청'
+		ORDER BY cor.counsel_hour
+	</select>
+	
+	<!-- 상담원 메인페이지 온라인 예약 리스트 -->
+	<select id="selectOnlineMainList" resultType="com.mkfactory.toothless.e.dto.OnlineCounselBoardDto">
+		SELECT cocb.* FROM CP_ONLINE_COUNSEL_BOARD cocb
+		INNER JOIN CP_TYPE_CATEGORY ctc ON cocb.TYPE_CATEGORY_ID = ctc.ID
+		INNER JOIN CP_COUNSELOR_TYPE cct ON ctc.ID = CCT.TYPE_CATEGORY_ID
+		INNER JOIN CP_COUNSELOR cc ON cct.COUNSELOR_ID = cc.ID
+		WHERE cc.ID = #{counselor_id}
+		AND cocb.ID NOT IN (
+			SELECT cocr.ID FROM CP_ONLINE_COUNSEL_REPLY cocr
+		)
+	</select>
 	 
+	<!-- 상담원 메인페이지 온라인 예약 리스트 개수 --> 
+	<select id="selectOnlineMainListCount" resultType="int">
+	 	SELECT count(*) FROM CP_ONLINE_COUNSEL_BOARD cocb
+		INNER JOIN CP_TYPE_CATEGORY ctc ON cocb.TYPE_CATEGORY_ID = ctc.ID
+		INNER JOIN CP_COUNSELOR_TYPE cct ON ctc.ID = CCT.TYPE_CATEGORY_ID
+		INNER JOIN CP_COUNSELOR cc ON cct.COUNSELOR_ID = cc.ID
+		WHERE cc.ID = #{counselor_id}
+		AND cocb.ID NOT IN (
+			SELECT cocr.ID FROM CP_ONLINE_COUNSEL_REPLY cocr
+		)
+	</select>
+	
+	<!-- 상담원 메인페이지 집단상담 예약 리스트 -->
+	<select id="selectGroupMainList" resultType="com.mkfactory.toothless.e.dto.GroupCounselDto">
+		SELECT cgc.* FROM CP_GROUP_COUNSEL cgc
+		INNER JOIN CP_GROUP_COUNSELOR cgcr ON cgc.ID = cgcr.GROUP_COUNSEL_ID
+		WHERE cgcr.COUNSELOR_ID = #{counselor_id}
+		AND cgc.COUNSEL_DATE >= sysdate
+	</select>
+	
+	<!-- 상담원 메인페이지 집단상담 예약 리스트 개수 --> 
+	<select id="selectGroupMainListCount" resultType="int">
+		SELECT count(*) FROM CP_GROUP_COUNSEL cgc
+		INNER JOIN CP_GROUP_COUNSELOR cgcr ON cgc.ID = cgcr.GROUP_COUNSEL_ID
+		WHERE cgcr.COUNSELOR_ID = #{counselor_id}
+		AND cgc.COUNSEL_DATE >= sysdate
+	</select>
+	
+	<!-- 상담원 메인페이지 라인차트 메서트 3개(오프라인, 온라인, 집단) -->
+	<select id="selectMainOfflineLineChart" resultType="map">
+		SELECT date_range.COUNSEL_DATE AS COUNSEL_DATE, nvl(date_value.COUNT, 0) AS COUNT FROM (
+			SELECT TO_CHAR(SYSDATE - LEVEL + 1, 'YYYY-MM-DD') AS COUNSEL_DATE
+			FROM DUAL
+			<![CDATA[
+			CONNECT BY LEVEL <= 14
+			]]>
+		)date_range
+		LEFT OUTER JOIN (
+			SELECT t1.COUNSEL_DATE, count(*) AS COUNT FROM (
+				SELECT 
+					TO_CHAR(TO_DATE(cor.counsel_year || '-' || cor.counsel_month || '-' || cor.counsel_date, 'YYYY-MM-DD'), 'yyyy-MM-dd') AS counsel_date 
+				FROM CP_OFFLINE_RESERVATION cor
+				WHERE cor.COUNSELOR_ID = #{counselor_id}
+				AND cor.state = '완료'
+			)t1
+			<![CDATA[
+			WHERE t1.counsel_date >= sysdate - 14 AND t1.counsel_date <= sysdate
+			]]>
+			GROUP BY t1.counsel_date
+		)date_value ON date_range.COUNSEL_DATE = date_value.COUNSEL_DATE
+		ORDER BY date_range.COUNSEL_DATE
+	</select>
+	
+	<select id="selectMainOnlineLineChart" resultType="map">
+		SELECT date_range.COUNSEL_DATE AS COUNSEL_DATE, nvl(date_value.COUNT, 0) AS COUNT FROM (
+			SELECT TO_CHAR(SYSDATE - LEVEL + 1, 'YYYY-MM-DD') AS COUNSEL_DATE
+			FROM DUAL
+			<![CDATA[
+			CONNECT BY LEVEL <= 14
+			]]>
+		) date_range
+		LEFT OUTER JOIN (
+			SELECT cocr.CREATED_AT AS COUNSEL_DATE, count(*) AS COUNT FROM cp_online_counsel_board cocb
+			INNER JOIN CP_ONLINE_COUNSEL_REPLY cocr ON cocb.ID = cocr.ONLINE_COUNSEL_BOARD_ID
+			WHERE cocr.COUNSELOR_ID = #{counselor_id}
+			GROUP BY cocr.CREATED_AT
+		) date_value ON date_range.COUNSEL_DATE = date_value.COUNSEL_DATE
+		ORDER BY date_range.COUNSEL_DATE
+	</select>
+	
+	<select id="selectMainGroupLineChart" resultType="map">
+		SELECT date_range.COUNSEL_DATE AS COUNSEL_DATE, nvl(date_value.COUNT, 0) AS COUNT FROM (
+			SELECT TO_CHAR(SYSDATE - LEVEL + 1, 'YYYY-MM-DD') AS COUNSEL_DATE
+			FROM DUAL
+			<![CDATA[
+			CONNECT BY LEVEL <= 14
+			]]>
+		)date_range
+		LEFT OUTER JOIN (
+			SELECT TO_CHAR(t1.COUNSEL_DATE, 'YYYY-MM-DD') AS COUNSEL_DATE, count(*) AS COUNT FROM (
+				SELECT DISTINCT cgc.* FROM CP_GROUP_COUNSEL cgc
+				INNER JOIN CP_GROUP_COUNSELOR cgcr ON cgc.ID = cgcr.GROUP_COUNSEL_ID
+				WHERE cgcr.COUNSELOR_ID = #{counselor_id}
+			)t1
+			<![CDATA[
+			WHERE t1.COUNSEL_DATE >= sysdate - 14 AND t1.COUNSEL_DATE <= sysdate
+			]]>
+			GROUP BY t1.COUNSEL_DATE
+		)date_value ON date_range.COUNSEL_DATE = date_value.COUNSEL_DATE
+		ORDER BY date_range.COUNSEL_DATE
+	</select>
+	
+	<!-- 상담원 메인페이지 파이차트(오프라인, 온라인) -->
+	<select id="selectMainPieChart" resultType="map">
+		SELECT t1.NAME AS NAME, NVL(ROUND(RATIO_TO_REPORT(SUM(COUNT)) OVER() * 100, 1),0) AS RATE FROM (
+			SELECT label.NAME AS NAME, NVL(value.COUNT, 0) AS COUNT FROM (
+				SELECT ctc.name AS NAME FROM CP_TYPE_CATEGORY ctc
+				INNER JOIN CP_COUNSELOR_TYPE cct ON ctc.ID = cct.TYPE_CATEGORY_ID
+				WHERE cct.COUNSELOR_ID = #{counselor_id}
+			)label
+			LEFT OUTER JOIN (
+				SELECT ctc.NAME AS NAME, count(*) AS COUNT FROM CP_TYPE_CATEGORY ctc
+				INNER JOIN CP_OFFLINE_RESERVATION cor ON ctc.ID = cor.TYPE_CATEGORY_ID
+				WHERE cor.COUNSELOR_ID = #{counselor_id} AND cor.STATE = '완료'
+				<![CDATA[
+				AND TO_CHAR(TO_DATE(cor.counsel_year || '-' || cor.counsel_month || '-' || cor.counsel_date, 'YYYY-MM-DD'), 'yyyy-MM-dd') >= sysdate - 14 AND TO_CHAR(TO_DATE(cor.counsel_year || '-' || cor.counsel_month || '-' || cor.counsel_date, 'YYYY-MM-DD'), 'yyyy-MM-dd') <= sysdate
+				]]>
+				GROUP BY ctc.name
+			)value ON label.NAME = value.NAME
+			UNION
+			SELECT label.NAME AS NAME, NVL(value.COUNT, 0) AS COUNT FROM (
+				SELECT ctc.name AS NAME FROM CP_TYPE_CATEGORY ctc
+				INNER JOIN CP_COUNSELOR_TYPE cct ON ctc.ID = cct.TYPE_CATEGORY_ID
+				WHERE cct.COUNSELOR_ID = #{counselor_id}
+			)label
+			LEFT OUTER JOIN (
+				SELECT ctc.NAME AS NAME, count(*) AS COUNT FROM CP_ONLINE_COUNSEL_BOARD cocb
+				INNER JOIN CP_ONLINE_COUNSEL_REPLY cocr ON cocb.ID = cocr.ONLINE_COUNSEL_BOARD_ID
+				INNER JOIN CP_TYPE_CATEGORY ctc ON cocb.TYPE_CATEGORY_ID = ctc.ID
+				WHERE cocr.COUNSELOR_ID = #{counselor_id}
+				<![CDATA[
+				AND cocr.CREATED_AT >= SYSDATE - 14 AND cocr.CREATED_AT <= SYSDATE
+				]]>
+				GROUP BY ctc.NAME 
+			)value ON label.NAME = value.NAME
+		)t1
+		GROUP BY t1.NAME
+	</select>
+	
 	
 </mapper>

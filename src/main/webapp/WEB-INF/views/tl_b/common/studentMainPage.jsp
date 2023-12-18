@@ -54,7 +54,8 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col pe-0 d-grid justify-content-center">
-                                            <button class="rounded-circle btn text-white" style="aspect-ratio: 1/1; width: 130%; background-color: #014195;">
+                                            <button class="rounded-circle btn text-white" style="aspect-ratio: 1/1; width: 130%; background-color: #014195;"
+                                            onclick="location.href='../ty/studentBoardPage'">
                                                 <div class="row">
                                                     <div class="col">
                                                         <i class="bi bi-bell" style="font-size: x-large;"></i>

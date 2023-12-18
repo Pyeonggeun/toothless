@@ -10,7 +10,24 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     </head>
+		 
+		 <script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
+		 <script>
+		 
+            function formSubmit(){
+                const frm = document.getElementById("frm");
 
+                const inputComment = document.getElementById("inputComment");
+                console.log(inputComment);
+                    if(inputComment.value == ''){
+                        alert("댓글 입력");
+                        inputComment.focus;
+                        return;
+
+                    }
+           		frm.submit();
+            }
+        </script>
     <body>
 
         <div class="container-fluid">
@@ -210,7 +227,7 @@
 
                                             <div class="row px-5 mx-3">
                                                 <div class="col">
-                                                    <form action="./staffBoardPage" method="get">
+                                                    <form id="frm" action="./staffBoardPage" method="get">
                                                     
                                                         <div class="row mt-4">
                                                         <div class="col">
@@ -225,10 +242,10 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-3 pe-0 text-end">
-                                                            <input name="searchWord" class="form-control " type="text" placeholder="내용을검색하세요">
+                                                            <input id="inputComment" name="searchWord" class="form-control" type="text" placeholder="내용을검색하세요">
                                                         </div> 
                                                         <div class="col-1 text-start">
-                                                            <button type="submit" class="btn btn-outline-dark">검색</button>
+                                                            <input type="submit" onclick="formSubmit()" class="btn btn-outline-dark" value="검색">
                                                         </div>
                                                     </div>
                                                     </form>
@@ -362,27 +379,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col py-4" style="background-color: #F2F2F2;">
-                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-4 my-auto">
-                                                    <img class="img-fluid" src="./img/health/health_ci.gif">
-                                                </div>
-                                                <div class="col text-body-tertiary" style="font-size: small;">
-                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
                 </div>
             </div>
         </div>

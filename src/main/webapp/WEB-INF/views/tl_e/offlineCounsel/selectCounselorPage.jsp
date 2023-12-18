@@ -135,7 +135,7 @@
 						<!-- 여기서 col 한 개를 반복문 돌려서 출력하면 됨 -->
 						<div class="col-4">
 							<div class="row">
-								<div class="col border border-dark m-2 shadow-sm rounded" style="min-height: 30em;">
+								<div class="col border border-dark m-2 shadow-sm rounded">
 									<div class="row border-bottom">
 										<!-- 나중에 카테고리 리스트 반복문으로 돌릴 때 choose,when으로 ${category_pk == 1} 조건으로 이미지 변경 -->
 										<div class="col-3 py-2">
@@ -165,7 +165,7 @@
 										</div>
 									</div>
 									<div class="row fs-5">
-										<div class="col ps-4">
+										<div class="col ps-4 overflow-auto" style="height: 16em;">
 											<!-- 반복문: 상담원 리스트 -->
 											<c:forEach items="${map.counselorByCategoryList }" var="map2">
 												<div class="row pt-3 pb-2">

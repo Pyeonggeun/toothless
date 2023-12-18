@@ -122,6 +122,7 @@ public class RestOfflineCounselController {
 			@RequestParam(value = "external_pk") int external_pk, 
 			@RequestParam(value = "pageNum") int pageNum) {
 
+		System.out.println("listPAge: "+pageNum);
 		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
 		restResponseOfflineDto.setResult("success");
 		

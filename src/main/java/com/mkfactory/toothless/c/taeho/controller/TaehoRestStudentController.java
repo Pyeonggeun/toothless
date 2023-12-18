@@ -31,11 +31,52 @@ public class TaehoRestStudentController {
 		return restResponseDto;
 	}
 	
+	@RequestMapping("getAttendanceCountList")
+	public RestResponseDto getAttendanceCountList(HttpSession session) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int studentPk = studentInfoDto.getStudent_pk();
+		
+		restResponseDto.setData(taehoStudentService.getAttendanceCountByStudentPk(studentPk));
+		
+		return restResponseDto;
+	}
 	
+	@RequestMapping("getDetailAttendanceList")
+	public RestResponseDto getDetailAttendanceList(HttpSession session, String categoryType) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int studentPk = studentInfoDto.getStudent_pk();
+		
+		System.out.println("컨트롤러 : " + categoryType);
+		
+		restResponseDto.setData(taehoStudentService.getDetailAttendanceStatusByStudentPk(studentPk, categoryType));
+		
+		return restResponseDto;
+	}
 	
-	
-	
-	
+	@RequestMapping("getMyInternCourseInfo")
+	public RestResponseDto getMyInternCourseInfo(HttpSession session) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int studentPk = studentInfoDto.getStudent_pk();
+
+		restResponseDto.setData(taehoStudentService.getInternshipCourseInfoByStudentPk(studentPk));
+		
+		return restResponseDto;
+	}
 	
 	
 	
