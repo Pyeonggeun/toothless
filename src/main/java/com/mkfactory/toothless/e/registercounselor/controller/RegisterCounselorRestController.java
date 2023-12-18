@@ -62,7 +62,21 @@ public class RegisterCounselorRestController {
 		return jinyongRestResponseDto;
 		
 	}
-	 
+	
+	@RequestMapping("showCounselorInfoModal")
+	public JinyongRestResponseDto showCounselorInfoModal(int counselorId) {
+		
+		CounselorDto counselorDto =  registerCounselorService.getCounselorInfo(counselorId);
+		
+		
+		JinyongRestResponseDto jinyongRestResponseDto = new JinyongRestResponseDto();
+				
+		jinyongRestResponseDto.setResult("success");
+		jinyongRestResponseDto.setData(counselorDto);
+		
+		return jinyongRestResponseDto;
+		
+	}
 	
 	@RequestMapping("restGetCounselorInfo")	
 	public JinyongRestResponseDto restGetCounselorInfo(

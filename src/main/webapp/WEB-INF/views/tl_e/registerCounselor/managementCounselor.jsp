@@ -24,7 +24,7 @@
 	let searchData = null;
 	
 	
-	
+	// 직원로그인 확인 로직
 	function getStaffInfo(){		
 		fetch("./restGetStaffInfo")
 		.then(response => response.json())
@@ -41,16 +41,18 @@
 				}
 				
 			}
-			else{
+			/* else{
 				const staffInfoBox = document.getElementById("staffInfoBox");
 				
 				staffInfoBox.innerText = loginStaffInfo.name;	
-			}
+			} */
 			
 			
 		});		
 	}
 	
+	
+	// 상담원 목록 DB에서 가져오는 로직
 	function reloadCounselorList(){
 		fetch("./restGetCounselorInfo")
 		.then(response => response.json())
@@ -65,6 +67,7 @@
 		});
 	}
 	
+	// 상담원 목록 CSR로직 
 	function processSearchData(searchData){
 		
 		console.log("processSearchData(searchData) 실행됨");
@@ -80,15 +83,16 @@
 			
 			if(e.PROFILEIMAGE != null){
 				counselorImage.src = "../../resources/img/counselorImage/" + e.PROFILEIMAGE;
-				counselorImageLink.setAttribute("href", "./counselorDetail?id=" + e.COUNSELORID);	
+				counselorImage.setAttribute("value", e.COUNSELORID);
 			}
 			else{
 				counselorImage.src = "../../resources/img/counselorImage/no_image.jpg";
-				counselorImageLink.setAttribute("href", "./counselorDetail?id=" + e.COUNSELORID);
+				counselorImage.setAttribute("value", e.COUNSELORID);
 			}
 			
 			const counselorName = counselorboxWrapper.querySelector(".counselorName");
 			counselorName.innerText = e.NAME;
+			counselorName.setAttribute("value", e.COUNSELORID);
 			
 			counselorListBox.appendChild(counselorboxWrapper);
 			
@@ -96,6 +100,7 @@
 		
 	}
 	
+	// 상담원 검색 - 상담종류 카테고리 리스팅 로직 
 	function getSearchCounselorType(){
 		const searchCategoryValueList = [];
 		
@@ -113,6 +118,8 @@
 		}
 	}
 	
+	
+	// 상담원 검색 로직 
 	function searchCounselor(){
 		
 		console.log("searchCounselor() 실행됨");
@@ -146,6 +153,8 @@
 		
 	}
 	
+	
+	// 검색부분 - 상담종류 '전체'선택시 일괄 체크 및 해제 로직
 	function searchTypeCategoryControl(target){
 		
 		const isChecked = target.checked;
@@ -158,6 +167,7 @@
 		
 	}
 	
+	// 검색부분 - 상담종류 '전체' 자동 체크 및 해제 로직
 	function doUncheck(target){
 		
 		const categoryOptionAll = document.getElementById("categoryOptionAll");
@@ -174,7 +184,7 @@
 		}	
 	}
 	
-	
+	// 검색부분 검색카테고리 구성 및 등록 시 카테고리 구성하는 로직
 	function reloadSearchTypeCategory(){
 		fetch("./reloadSearchTypeCategory")
 		.then(response => response.json())
@@ -250,7 +260,7 @@
 		
 	}
 	
-	
+	// 검색옵션에서 성별 선택값 가져오는 로직
 	function getSelectGender(){
 		
 		const genderOptions = document.getElementsByName("genderOption");
@@ -266,6 +276,7 @@
 	}
 	
 	
+	// 상담원 신규등록시 아이디 중복확인 로직
 	let isCheckId = false;
 	
 	function checkDuplicationId(target){
@@ -347,12 +358,61 @@
 		}
 	}
 	
+	// 상담원 등록 모달
 	function showModal(){
 		// 필요시 여기서 백엔드하고 연동...CSR
         const modal = bootstrap.Modal.getOrCreateInstance("#registerModal");
         modal.show();
         
     }
+	
+	// 상담원 상세정보 조회모달
+	function showCounselorInfoModal(target){
+		const counselorId = target.getAttribute("value");
+		
+		const url = "./showCounselorInfoModal?counselorId=" + counselorId;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const counselorDto = response.data;
+			
+			const counselorPhoto = document.getElementById("counselorPhoto");
+			counselorPhoto.setAttribute("src", "../../resources/img/counselorImage/" + counselorDto.profileImage);
+			
+			const counselorName = document.getElementById("counselorName");
+			counselorName.innerText = counselorDto.name;			
+			
+			const counselorNo = document.getElementById("counselorNo");
+			counselorNo.innerText = counselorDto.id;
+			
+			const counselorAge = document.getElementById("counselorAge");
+			counselorAge.innerText = counselorDto.age;
+			
+			const counselorGender = document.getElementById("counselorGender");
+			if(counselorDto.gender == "M"){
+				counselorGender.innerText = "남"	
+			}else{
+				counselorGender.innerText = "여"
+			}
+			
+			
+			const counselorPhoneNum = document.getElementById("counselorPhoneNum");
+			counselorPhoneNum.innerText = counselorDto.phonenumber;
+			
+			const counselorEmail = document.getElementById("counselorEmail");
+			counselorEmail.innerText = counselorDto.email;
+			
+			const counselorAddress = document.getElementById("counselorAddress");
+			counselorAddress.innerText = counselorDto.email;
+			
+			
+		});
+		
+		const modal = bootstrap.Modal.getOrCreateInstance("#counselorInfoModal");
+        modal.show();
+	}
 
     function resigterCounselorProcess(){
         
@@ -601,12 +661,169 @@
 		</div>
 	</div>
 	
+
+
 <!-- 여기부터 컨테이너 밖 -->
 <!-- 모달, 오프캔버스는 컨테이너 밖으로...(pixed옵션이기 때문에) -->
 
 <!-- 상담원 상세정보 모달 -->
-
-<!-- <div class="counselorDetailModal" class="modal fade" ></div> -->
+	<div id="counselorInfoModal" class="modal fade" area-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">                        
+                    <span class="modal-title fw-bold fs-2 ms-5">상담원 상세정보</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                            
+                </div>
+                <div class="container modal-body">
+                    <div class="row mt-2">
+                        <div class="col-1"></div>
+                        
+                        <!-- 상담사 상세정보 컨텐츠 시작점 -->
+                        <div class="col">
+                        	<div class="row">
+                        		<div class="col">
+                        			
+                        			
+                        			<div class="row">
+                        				<!-- 상담사 사진 출력 -->                        			
+                        				<div class="col-4 text-center">
+                        					<div class="row">
+                        						<div class="col-auto">
+                        							<img id="counselorPhoto" class="img-fluid">
+                        						</div>
+                        					</div>
+                        				</div>
+                        				
+                        				<!-- 상담사 인적사항 -->
+                        				<div class="col-8">
+                        					<!-- 이름 -->
+                        					<div class="row">
+                        						<div class="col">
+                        							<div class="row align-items-center">
+                        								<div class="col-2">
+                        									<span class="fw-bold">이름</span>
+                        								</div>
+                        								<div class="col-auto">
+                        									<span id="counselorName" class="fw-bold fs-4"></span> 상담사
+                        								</div>
+                        							</div>
+                        						</div>
+                        					</div>
+                        					
+                        					<!-- 상담원번호 -->
+                        					<div class="row mt-2">
+                        						<div class="col">
+                        							<div class="row align-items-center">
+                        								<div class="col-2">
+                        									<span class="fw-bold">No.</span>
+                        								</div>
+                        								<div class="col-auto">
+                        									<span id="counselorNo" class=""></span>
+                        								</div>
+                        							</div>
+                        						</div>
+                        					</div>
+                        					
+                        					<!-- 나이 -->
+                        					<div class="row mt-2">
+                        						<div class="col">
+                        							<div class="row align-items-center">
+                        								<div class="col-2">
+                        									<span class="fw-bold">나이</span>
+                        								</div>
+                        								<div class="col-auto">
+                        									<span id="counselorAge" class=""></span>
+                        								</div>
+                        							</div>
+                        						</div>
+                        					</div>
+                        					
+                        					<!-- 성별 -->
+                        					<div class="row mt-2">
+                        						<div class="col">
+                        							<div class="row align-items-center">
+                        								<div class="col-2">
+                        									<span class="fw-bold">성별</span>
+                        								</div>
+                        								<div class="col-auto">
+                        									<span id="counselorGender" class=""></span>
+                        								</div>
+                        							</div>
+                        						</div>
+                        					</div>
+                        					
+                        					<!-- 전화번호 -->
+                        					<div class="row mt-2">
+                        						<div class="col">
+                        							<div class="row align-items-center">
+                        								<div class="col-2">
+                        									<span class="fw-bold">연락처</span>
+                        								</div>
+                        								<div class="col-auto">
+                        									<span id="counselorPhoneNum" class=""></span>
+                        								</div>
+                        							</div>
+                        						</div>
+                        					</div>
+                        					
+                        					<!-- 이메일 -->
+                        					<div class="row mt-2">
+                        						<div class="col">
+                        							<div class="row align-items-center">
+                        								<div class="col-2">
+                        									<span class="fw-bold">이메일</span>
+                        								</div>
+                        								<div class="col-auto">
+                        									<span id="counselorEmail" class=""></span>
+                        								</div>
+                        							</div>
+                        						</div>
+                        					</div>
+                        					
+                        					<!-- 주소 -->
+                        					<div class="row mt-2">
+                        						<div class="col">
+                        							<div class="row align-items-center">
+                        								<div class="col-2">
+                        									<span class="fw-bold">주소</span>
+                        								</div>
+                        								<div class="col-auto">
+                        									<span id="counselorAddress" class=""></span>
+                        								</div>
+                        							</div>
+                        						</div>
+                        					</div>
+                        					
+                        					<!-- 상담분야 -->
+                        					<div class="row mt-2">
+                        						<div class="col">
+                        							<div class="row align-items-center">
+                        								<div class="col-2">
+                        									<span class="fw-bold">상담분야</span>
+                        								</div>
+                        								<div class="col-auto">
+                        									<span id="counselorType" class=""></span>
+                        								</div>
+                        							</div>
+                        						</div>
+                        					</div>
+                        				</div>
+                        				
+                        			</div>
+                        			
+                        		</div>	
+                        	</div>
+                        </div>
+                        
+                        <div class="col-1"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
 
 <!-- 상담원 신규등록 모달 -->
    	<div id="registerModal" class="modal fade" data-bs-backdrop="static" tabindex="-1">
@@ -833,12 +1050,12 @@
 			<div class="row mt-2">				
 				<div class="imageCol col">					
 					<a class="counselorImageLink">
-						<img src="" class="counselorImage img-fluid img-thumbnail">
+						<img src="" class="counselorImage img-fluid img-thumbnail" onclick="showCounselorInfoModal(this)" role="button">
 					</a>						
 				</div>													
 			</div>
 			<div class="row mt-2">
-				<div class="col text-center">					
+				<div class="col text-center" onclick="showCounselorInfoModal(this)" role="button">					
 					<span class="counselorName fw-bold"></span> 상담사					
 				</div>
 			</div>								
