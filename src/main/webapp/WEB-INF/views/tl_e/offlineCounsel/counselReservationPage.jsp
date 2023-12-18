@@ -299,8 +299,8 @@
 			<div class="col-2"></div>
 			<div class="col">
 				<div class="row">
-					<div class="col">
-						<textarea name="text" class="rounded" rows="5" cols="150"></textarea>
+					<div class="col d-grid px-0">
+						<textarea name="text" class="rounded" rows="5"></textarea>
 					</div>
 				</div>
 			</div>
