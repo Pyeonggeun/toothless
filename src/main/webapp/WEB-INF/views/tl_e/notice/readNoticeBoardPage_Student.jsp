@@ -36,23 +36,17 @@
 	function handleClick() {
 	}
 	
-	function formSubmit() {
-		const frm = document.getElementById("frm");
-		const inputComment = document.getElementById("inputComment");
-		
-		if(inputComment.value == ''){
-			alert("값을 입력해야 합니다.");
-			inputComment.focus();
-			return ;
-		}
-		
-		frm.submit();
-	}
-	
 	function writeComment() {
 		
 		const inputComment = document.getElementById("inputComment");
-		const commentValue = inputComment.value;
+	    const commentValue = inputComment.value.trim(); // trim()을 이용해 양 끝 공백을 제거
+
+	    // 댓글이 비어있는지 확인
+	    if (!commentValue) {
+	        alert("값 입력하고 눌러라");
+	        inputComment.focus();
+	        return;
+	    }
 		
 		const url = "./writeComment"
 		
@@ -249,7 +243,7 @@
 			<div class="col-1"></div>
 			<div class="col">
 				<div class="row">
-					<div class="col">댓글&nbsp;(${commentCount })</div>
+					<div class="col">댓글</div>
 				</div>
 				<div id="commentListBox" class="row">
 					<div class="col">
