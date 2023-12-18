@@ -5,11 +5,15 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.mkfactory.toothless.b.dto.StaffboardDto;
+import com.mkfactory.toothless.b.dto.StaffboardImageDto;
 import com.mkfactory.toothless.b.dto.StaffboardLikeDto;
 import com.mkfactory.toothless.b.dto.StaffboardReplyDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 
 public interface StaffboardSqlMapper {
+	
+	public int selectStaffboardPk();
+	
 //글 작성	
 	public void insertStaffboardText(StaffboardDto staffboardDto);
 // 글 리스트 출력	
@@ -55,5 +59,11 @@ public interface StaffboardSqlMapper {
 	
 //댓글 카운트
 	public int selectReplyCount(int staffboard_pk);
+	
+	
+//이미지 관련
+	public void insertImg(StaffboardImageDto staffboardImageDto);
+	
+	public List<StaffboardImageDto> selectTextImgListByStaffboardPk(int staffboard_pk);
 	
 }

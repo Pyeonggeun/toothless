@@ -492,7 +492,7 @@
      	
     </head>
     <body>
-        <div class="container-fluid" style="background-color:  rgb(228, 227, 227); height: 100%">
+        <div class="container-fluid" style="background-color:  rgb(240, 240, 240); height: 100%">
             <div class="row pb-1 mt-2">
                 <div class="col-1 text-end">
                     <img src="../imgForAcademy/logo_black.png" alt="" style="height: 3em;">
@@ -632,7 +632,7 @@
                     </div>
                     <div class="row bg-white border border-black pt-3 px-3 overflow-y-auto" style="height: 20em">
                         <div class="col">
-                            <div class="row fw-bold text-center" style="background-color: rgb(228, 227, 227);">
+                            <div class="row fw-bold text-center" style="background-color: rgb(240, 240, 240);">
                                 <div class="col-1 border align-self-center">
                                     번호
                                 </div>
@@ -680,7 +680,7 @@
                     </div>
                     <div class="row bg-white border border-black pt-3 px-3 overflow-y-auto" style="height: 12em">
                         <div class="col">
-                            <div class="row fw-bold text-center" style="background-color: rgb(228, 227, 227);">
+                            <div class="row fw-bold text-center" style="background-color: rgb(240, 240, 240);">
                                 <div class="col-1 border align-self-center">
                                     번호
                                 </div>

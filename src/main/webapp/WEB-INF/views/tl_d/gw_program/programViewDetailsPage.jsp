@@ -20,18 +20,21 @@
 			</div>
 	</div>
 	<div class="row">
-		<div class="col-1"></div>
 		<!-- 취업팀 메뉴 바 -->
-		<div class="col-2 me-5 border-end">
+		<div class="col-2 pb-0 me-5 border-end">
 			<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 		</div>
 		
 		
 		<div class="col">
-			<div class="row border-bottom border-3 border-bs-border mt-5 mb-3 pb-3 fs-4 fw-bold">
-				<div class="col-3">프로그램 상세정보</div>
+			<div class="row">
+				
+				<div class="col-1"></div>
+				<div class="col border-bottom border-3 border-bs-border mt-5 mb-3 pb-3 fs-4 fw-bold">프로그램 상세정보</div>
+				
 			</div> 
 			<div class="row">
+				<div class="col-1"></div>
 				<div class="col"> 
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">프로그램명</div>
@@ -74,19 +77,23 @@
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">출석체크여부</div>
 						<div class="col p-1 ps-4">${program.programDto.prg_is_attend}</div>
 					</div>
-				</div>
-				<div class="row border-bottom py-3">
-					<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">신청자 수</div>
-					<div class="col p-1 ps-4">${program.applyProgramCount}</div>
-					<div class="col-2 p-1 ps-2 fw-bold">
-						<a class="btn btn-outline-primary" href="./applyProgramListForStaffPage?program_pk=${program.programDto.program_pk}" role="button">신청자 목록보기</a>
+					<div class="row border-bottom py-3">
+						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">신청자 수</div>
+						<div class="col p-1 ps-4">${program.applyProgramCount}</div>
+						<div class="col-2 p-1 ps-2 fw-bold">
+							<a class="btn btn-outline-primary" href="./applyProgramListForStaffPage?program_pk=${program.programDto.program_pk}" role="button">신청자 목록보기</a>
+						</div>
 					</div>
-				</div>
-				<div class="row border-bottom py-3">
-					<div class="col-2 p-1 ps-2 fw-bold">
-						<a class="btn btn-outline-primary" href="./programReviewListPage?program_pk=${program.programDto.program_pk}" role="button">프로그램 리뷰보기</a>
+					<c:set var="currentTime" value="<%= new java.util.Date() %>" />
+					<c:if test="${list.programDto.prg_schedule.after(currentTime)}">
+						<div class="row border-bottom py-3">
+							<div class="col-2 p-1 ps-2 fw-bold">
+								<a class="btn btn-outline-primary" href="./programReviewListPage?program_pk=${program.programDto.program_pk}" role="button">프로그램 리뷰보기</a>
+							</div>
+						</div>
+					</c:if>
 					</div>
-				</div>
+				
 			</div>
 			
 			<!-- 신청 학생수 -->
@@ -94,7 +101,7 @@
 			<!-- 버튼들 여따 -->
 			
 			<div class="row mt-4 mb-5"> 
-				
+				<div class="col-1"></div> 
 				<div class="col-2 mx-0 text-start">
 					<a class="btn btn-primary" href="./updateProgramInfoPage?program_pk=${program.programDto.program_pk}">프로그램 수정</a> 
 				</div>
@@ -110,7 +117,7 @@
 			
 		</div>
 		
-		<div class="col-1"></div>
+		<div class="col-2"></div>
 		
 	</div>
 	

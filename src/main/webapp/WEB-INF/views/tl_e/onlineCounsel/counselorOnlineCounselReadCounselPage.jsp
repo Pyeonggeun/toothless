@@ -12,38 +12,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="row">
-		<div class="col-2"></div>
-		<div class="col text-center" style="font-size: 2.2em; color: dark; font-weight: bold">상담 센터</div>
-		<div class="col-2 mt-3 d-flex justify-content-around">
-			<span class="fw-bold" style="font-size: 1.3em;"> 상담사 ${sessionExternalInfo.external_id }님</span>
-		</div>
-	</div>
-	<div class="row mt-2 align-items-center" style="font-weight: bold; font-size: 1.4em; background-color: blue; color: beige; text-align: center;"  >
-		<div class="col-1"></div>		
-		<div class="col">
-			Home
-		</div>
-		<div class="col">
-			공지사항
-		</div>
-		<div class="col">
-			상담
-		</div>
-		<div class="col">
-			<div class="dropdown">
-				<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    	<span style="font-size: 1.4em; font-weight: bold; color: beige;">내 정보</span>
-				</button>
-				<ul class="dropdown-menu" style="background-color: #333;">
-				    <li><a class="dropdown-item" href="#" style="color: beige;">답변 완료 상담</a></li>
-				    <li><a class="dropdown-item" href="#" style="color: beige;">채택 된 상담</a></li>
-				    <li><a class="dropdown-item" href="./logoutProcess" style="color: beige;">로그아웃</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="col-1"></div>
-	</div>
+
+	<jsp:include page="../commons/counselorTopArea.jsp"></jsp:include>
+	
 	<div class="row mt-4">
 		<div class="col border border-warning-emphasis border-1"></div>
 	</div>

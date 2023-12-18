@@ -55,7 +55,7 @@
                 <a class="navbar-brand" href="../ny_posting/jobPostingListForStudentPage">채용공고</a>
             </div>
             <div class="col align-self-center">
-                <a class="navbar-brand" href="./mainpage">프로그램</a>
+                <a class="navbar-brand" href="../gw_program/programListForStudentPage">프로그램</a>
             </div>
             <div class="col align-self-center">
                 <a class="navbar-brand" href="../../tl_e/commons/counselCenterStudentMainPage">취업컨설팅</a>
@@ -90,20 +90,39 @@
 				</div>
 			</div>
 			<!-- 프로그램 -->
-			<div class="col-3 mx-3">
-				<div class="row border-bottom border-2">
+			<div class="col-3 mx-3 mb-5">
+				<div class="row border-bottom border-2 mb-3">
 					<div class="col fs-5 fw-bold mt-5 pb-1">프로그램</div>
 					<div class="col fs-5 fw-bold mt-5 text-end">
-						<a class="navbar-brand" href="#">
+						<a class="navbar-brand" href="../gw_program/programListForStudentPage">
 							<i class="bi bi-plus-lg"></i>
 						</a>	
 					</div>
 				</div>
+				<c:set var="currentTime" value="<%= new java.util.Date() %>" />
+				<c:forEach items="${programList}" var="list" varStatus="loop">
+					<c:if test="${loop.index < 5}">
+						<div class="row border-bottom border-bs-border pb-2 mb-2">
+							<div class="col-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
+							<div class="col"><a class="btn" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a></div>
+							<div class="col-3 text-center pt-1">
+								<c:choose>
+						                <c:when test="${list.programDto.prg_apply_deadline.before(currentTime)}">
+						                	<span class="text-center badge text-bg-secondary">마감</span>
+						                </c:when>
+						                <c:otherwise>
+						                	 <span class="text-center badge text-bg-primary">모집중</span>
+						                </c:otherwise>
+						            </c:choose>
+							</div>
+						</div>
+					</c:if>
+				</c:forEach> 
 			</div>
 			<!-- 캘린더 -->
 			<div class="col-3 ms-3">
-				<div class="row mt-4">
-					<div class="col">
+				<div class="row mt-5">
+					<div class="col mt-3">
 						<img class="img-fluid" src="../../resources/img/employment/calender.png">
 					</div>
 				</div>

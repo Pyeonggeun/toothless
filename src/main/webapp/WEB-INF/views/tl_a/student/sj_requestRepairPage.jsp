@@ -51,60 +51,52 @@
                        
                     </div>
                 </div>
-                <div class="row my-2">
-                	<div class="col-9"></div>
-                	<div class="col">
-                		<nav class="navbar bg-body-tertiary">
-						  <div class="container-fluid">
-						    <form class="d-flex" role="search">
-						      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-						      <button class="btn btn-outline-success" type="submit">Search</button>
-						    </form>
-						  </div>
-						</nav>
-                	</div>
-                </div>
+            
                 
                 <!-- 게시판 ㄱㄱ -->
-                <div class="row border-top border-bottom text-center fs-5 fw-bold my-2  "><!-- 게시판 ㄲ --> 
+                
+                 <div class="row"><!--여기가 안에 들어갈 내용들-->
                     <div class="col">
-                    	No
-                    </div>
-                    <div class="col">
-                    	제목
-                    </div>
-                    <div class="col">
-                    	작성자
-                    </div>
-                    <div class="col">
-                    	날짜
+                        <div class="row">
+                            <div class="col-2 pb-3 text-center fw-bold" style="font-size: large;">
+                                글번호
+                            </div>
+                            <div class="col text-center fw-bold" style="font-size: large;">
+                                제목
+                            </div>
+                            <div class="col-2 text-center fw-bold" style="font-size: large;">
+                                작성자
+                            </div>
+                            <div class="col-2 text-center fw-bold" style="font-size: large;">
+                                작성일
+                            </div>
+                        </div>
                     </div>
                 </div>
+                
+                
+                
                 <!-- 게시판 우하하 -->
-                <c:forEach items="${repairList }" var="repair">
-                <div class="row text-center my-4 border-top border-bottom "><!-- 게시판 ㄲ --> 
-                    <div class="col">
-                    	${repair.request_repair_pk }
+                <c:forEach items="${printing }" var="repair">
+                <div class="row" style="border-top: 0.03em solid black;"><!-- 게시판 ㄲ --> 
+                    <div class="col-2 py-3 text-center" style="font-size: large;">
+                    	${repair.REQUEST_PK }
                     </div>
-                    <div class="col">
-                    	${repair.title }
+                    <div class="col py-3 text-center" style="font-size: large;">
+                    	<a class="navbar-brand" href="./sj_requestReadPage?request_repair_pk=${repair.REQUEST_PK }">${repair.TITLE }</a>
                     </div>
-                    <div class="col">
-                   	 	<%-- <c:if test="${(repair.dorm_student_pk == dormStudent.dorm_student_pk) &&
-                   	 		dormStudent.studnt_pk ==printing.student_pk  }">
-                   	 		${printing.NAME }
-                   	 	</c:if>
-                   	 	--%>
+                    <div class="col-2 py-3 text-center" style="font-size: large;">
+						${repair.NAME }
                     </div>
-                    <div class="col">
-                    	<fmt:formatDate value="${repair.request_date }" pattern="yyyy.MM.dd"/>  
+                    <div class="col-2 py-3 text-center" style="font-size: large;">
+                    	<fmt:formatDate value="${repair.REQUEST_DATE }" pattern="yyyy.MM.dd"/>  
                     </div>
                 </div>
                 </c:forEach>
                 <div class="row">
-                	<div class="col-6"></div>
+                	
                 	<div class="col d-flex justify-content-end my-2">
-                		<a class="btn btn-outline-danger" href="./sj_requestWritePage" role="button">수리접수</a>
+                		<a class="btn btn-danger rounded-0" href="./sj_requestWritePage" role="button">수리접수</a>
                 		
                 	</div>
                 </div>

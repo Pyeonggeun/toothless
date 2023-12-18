@@ -42,7 +42,7 @@
 									<c:if test="${jobPostingDetailForStudent.companyDto.is_family_company ne null and jobPostingDetailForStudent.companyDto.is_family_company eq 'Y'}">
 										<div class="col-1"><span class="badge text-bg-info text-white">Family</span></div>
 									</c:if>
-									<div class="col ps-2">${jobPostingDetailForStudent.companyDto.com_name}
+									<div class="col ps-2">${jobPostingDetailForStudent.companyDto.com_name}</div>
 									<c:choose>
 										<c:when test="${jobPostingDetailForStudent.interestCompany.contains(jobPostingDetailForStudent.companyDto.com_pk)}">
 											<i class="text-danger bi bi-suit-heart-fill"></i>
@@ -189,7 +189,7 @@
 					</div>
 				</div>
 				<div class="row mt-2">
-					<div class="col"><a class="btn btn-secondary" href="./jobPostingListForStudentPage">목록으로</a></div>
+					<div class="col"><a class="btn btn-outline-secondary" href="./jobPostingListForStudentPage">목록으로</a></div>
 					<div class="col-7"></div>
 					<div class="col-2 d-grid">
 						<c:choose>

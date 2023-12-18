@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
     	<style>
             div.no1title{
                 font-weight: 700;
@@ -110,6 +111,12 @@
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
                                 <div class="col bg-body-tertiary">
                                 	<!--여기서 부터 -->
+                                	<c:if test="${empty sessionStaffInfo }">
+										<script>
+											alert("로그인 후 이용해주세요");
+											location.href='../../another/staff/loginPage';
+										</script>
+									</c:if>
                                 	<div class="row"></div>
                                 	<div class="row box bg-white text-dark">
                                 		<div class="col">
@@ -117,7 +124,7 @@
                                 				<div class="col-md-3 d-flex align-items-center">직원 게시판</div>
                                 				<div class="col-md-6"></div>
                                 				<div class="col-md-3 text-end">
-													<button type="button" class="btn btn-secondary" style="font-size: smaller; background-color: whitesmoke; color: black; border: none;" onclick="location.href='./staffboardPage'">목록</button>
+													<button type="button" class="btn btn-secondary rounded-0" style="font-size: smaller; background-color: whitesmoke; color: black; border: none;" onclick="location.href='./staffboardPage'">목록</button>
 												</div>
                                 			</div>
                                 		</div>
@@ -143,14 +150,21 @@
                                                 <div class="col contentBox">${readText.staffboardDto.content}</div>
                                             </div>
                                             <div class="row">
+                                            	<div class="col">
+                                            		<c:forEach items="${readText.staffboardImageDtoList}" var="staffboardImageDto">
+                                            			<img class="img img-fluid" src="/uploadFiles/${staffboardImageDto.img_link}">
+                                            		</c:forEach>
+                                            	</div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col likeBox bg-white text-dark text-center">
                                                     <c:if test="${!empty sessionStaffInfo }">
                                                         <c:choose>
                                                             <c:when test="${count == 1}">
-                                                                <button type="button" class="btn btn-primary" onclick="location.href='./canselLikeProcess?staff_pk=${sessionStaffInfo.staff_pk }&staffboard_pk=${readText.staffboardDto.staffboard_pk}'"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;${likeCount}</button>
+                                                                <button type="button" class="btn btn-primary rounded-0" style="background-color: #005EAD; border-style: none" onclick="location.href='./canselLikeProcess?staff_pk=${sessionStaffInfo.staff_pk }&staffboard_pk=${readText.staffboardDto.staffboard_pk}'"><i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;${likeCount}</button>
                                                             </c:when>
                                                             <c:otherwise>
-                                                                <button type="button" class="btn btn-primary" onclick="location.href='./addLikeProcess?staff_pk=${sessionStaffInfo.staff_pk }&staffboard_pk=${readText.staffboardDto.staffboard_pk}'"><i class="bi bi-hand-thumbs-up"></i>&nbsp;${likeCount}</button>
+                                                                <button type="button" class="btn btn-primary rounded-0" style="background-color: #005EAD; border-style: none" onclick="location.href='./addLikeProcess?staff_pk=${sessionStaffInfo.staff_pk }&staffboard_pk=${readText.staffboardDto.staffboard_pk}'"><i class="bi bi-hand-thumbs-up"></i>&nbsp;${likeCount}</button>
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </c:if>
@@ -161,8 +175,8 @@
                                     <div class="row box bg-white text-dark">
                                         <div class="col text-end bg-white text-dark">
                                             <c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == readText.staffboardDto.staff_pk}">
-                                                <button type="button" class="btn btn-outline-light" style="color: #000000ba; font-size: smaller; font-weight: 600;" onclick="location.href='./deleteTextProcess?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">삭제</button>
-                                                <button type="button" class="btn btn-outline-light" style="color: #000000ba; font-size: smaller; font-weight: 600" onclick="location.href='./modifyTextPage?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">수정</button>
+                                                <button type="button" class="btn btn-outline-light rounded-0" style="color: #000000ba; font-size: smaller; font-weight: 600;" onclick="location.href='./deleteTextProcess?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">삭제</button>
+                                                <button type="button" class="btn btn-outline-light rounded-0" style="color: #000000ba; font-size: smaller; font-weight: 600" onclick="location.href='./modifyTextPage?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">수정</button>
                                             </c:if>
                                         </div>
                                     </div>
@@ -186,7 +200,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col text-end"><input class="mt-1 btn btn-primary" style="font-size: small; font-weight: 700;" type="submit" value="댓글쓰기"></div>
+                                                            <div class="col text-end"><input class="mt-1 btn btn-primary rounded-0" style="font-size: small; font-weight: 700; background-color: #005EAD; border-style: none" type="submit" value="댓글쓰기"></div>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -211,8 +225,8 @@
                                                 <div class="col" style="font-size: 15px;">${map.staffboardReplyDto.content}</div>
                                                 <div class="col text-end">
                                                     <c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == map.staffboardReplyDto.staff_pk}">
-                                                        <button type="button" class="btn btn-outline-light" style="color: #000000ba; font-size: smaller; font-weight: 600" onclick="location.href='./modifyReplyPage?staffboard_reply_pk=${map.staffboardReplyDto.staffboard_reply_pk}'">수정</button>
-                                                        <button type="button" class="btn btn-outline-light" style="color: #000000ba; font-size: smaller; font-weight: 600" onclick="location.href='./deleteReplyProcess?staffboard_reply_pk=${map.staffboardReplyDto.staffboard_reply_pk}&staffboard_pk=${map.staffboardReplyDto.staffboard_pk}&staff_pk=${sessionStaffInfo.staff_pk}'">삭제</button>
+                                                        <button type="button" class="btn btn-outline-light rounded-0" style="color: #000000ba; font-size: smaller; font-weight: 600" onclick="location.href='./modifyReplyPage?staffboard_reply_pk=${map.staffboardReplyDto.staffboard_reply_pk}'">수정</button>
+                                                        <button type="button" class="btn btn-outline-light rounded-0" style="color: #000000ba; font-size: smaller; font-weight: 600" onclick="location.href='./deleteReplyProcess?staffboard_reply_pk=${map.staffboardReplyDto.staffboard_reply_pk}&staffboard_pk=${map.staffboardReplyDto.staffboard_pk}&staff_pk=${sessionStaffInfo.staff_pk}'">삭제</button>
                                                     </c:if>
                                                 </div>
                                             </div>
@@ -224,27 +238,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col py-4" style="background-color: #F2F2F2;">
-                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-4 my-auto">
-                                                    <img class="img-fluid" src="./img/health/health_ci.gif">
-                                                </div>
-                                                <div class="col text-body-tertiary" style="font-size: small;">
-                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
                 </div>
             </div>
         </div>

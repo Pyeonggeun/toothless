@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
 		<title>교육 교직원 상세페이지</title>
     </head>
     <body>
@@ -21,13 +22,13 @@
                         <div class="col">
                             <div class="row">
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
-                                <div class="col">
+                                <div class="col pb-5">
                                     <!-- 여기 안에만 사용하면 됨 -->
                                     <div class="row mt-4">
                                         
                                          <div class="col-8" >
                                              <div class="row border-bottom border-dark border-2">
-                                                <div class="col fw-bold" style="font-size: 1.5em;">교육프로그램 정보</div>
+                                                <div class="col text-white" style="font-size: 1.5em; background-color: #014195;">교육프로그램 정보</div>
                                             </div>
                                             <div class="row border-bottom ">
                                                 <div class="col-3 align-self-center my-3">
@@ -145,8 +146,10 @@
                                                             <div class="row mt-1">
                                                                 <div class="col fw-semibold text-secondary"
                                                                 style="font-size: 18px; color: #535D66;">
-                                                                    *신청방법<br>
-                                                                    *강사<br>
+                                                                    *신청방법<br> 
+                                                                    MK대학교 보건센터 > 교육프로그램 > 수강신청 <br>
+                 													(전화접수는 12.31일부터 가능)<br>
+                                                                    *강사 이민규 <br>
                                                                     <br>
                                                                     상세교육 내용<br>
                                                                     ${qwer.eduDto.content }<br>
@@ -198,18 +201,18 @@
                                                     <!---->
                                                     <div class="row mt-5 justify-content-end"> 
                                                         <div class="col text-end">
-                                                            <button class="btn fw-bold" 
+                                                            <button class="btn rounded-0" 
                                                                     style="background-color: #EFF0F2;" 
                                                                     onclick="location.href='./eduMainPageForStaff'">
                                                                     목록
                                                             </button>
                                                            
-                                                            <button class="btn fw-bold text-white" 
+                                                            <button class="btn text-white rounded-0" 
                                                                     style="background-color: #014195;" 
                                                                     onclick="location.href='./updateEduProgPage?edu_pk=${qwer.eduDto.edu_pk }'">
                                                                 글 수정
                                                             </button>
-                                                            <button class="btn fw-bold text-white" 
+                                                            <button class="btn text-white rounded-0" 
                                                                     style="background-color: #B8312F;" 
                                                                     onclick="location.href='./deleteEduProgProcess?edu_pk=${qwer.eduDto.edu_pk}'">
                                                                 글 삭제
@@ -232,30 +235,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-5">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col py-4" style="background-color: #F2F2F2;">
-                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-1 my-auto">
-                                                    <img class="img-fluid" src="../../resources/img/another/logo_black.png">
-                                                </div>
-                                                <div class="col-3 ps-0 my-auto" style="font-size: x-large">
-                                                    MK University | 보건센터
-                                                </div>
-                                                <div class="col text-body-tertiary my-auto" style="font-size: small;">
-                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
+
                 </div>
             </div>
         </div>

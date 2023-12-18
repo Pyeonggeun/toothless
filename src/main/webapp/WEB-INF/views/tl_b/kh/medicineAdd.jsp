@@ -221,6 +221,7 @@
 
                         const checkBoxNameValue = checkBoxName.querySelector(".checkBoxNameValue");
                         checkBoxNameValue.setAttribute("value",""+e.medicineInfo.medicine_code_pk+"");
+                        checkBoxNameValue.setAttribute("onclick","getAddInfoByCheckBox("+e.medicineInfo.medicine_code_pk+")")
                         checkBoxNameValue.setAttribute("id","linkFor"+e.medicineInfo.medicine_code_pk+"")
                         const checkBoxNameLabel = checkBoxName.querySelector(".checkBoxNameLabel");
                         checkBoxNameLabel.setAttribute("for","linkFor"+e.medicineInfo.medicine_code_pk+"");
@@ -234,6 +235,90 @@
                 })
             };
 
+            let myArray = [];
+            function getAddInfoByCheckBox(medicine_code_pk){
+                //배열로 받음
+                const index = myArray.indexOf(medicine_code_pk);
+
+                if (index !== -1) {
+                    // 중복된 값이 있으면 제거
+                    myArray.splice(index, 1);
+                } else {
+                    // 중복된 값이 없으면 추가
+                    myArray.push(medicine_code_pk);
+                }
+                if(myArray.length !== 0){
+                    const url = "./selectCheckBox?listOfMedicineCodes="+myArray;
+
+                    fetch(url)
+                    .then(response => response.json())
+                    .then(response => {
+
+                    const allAddInfoLocation = document.querySelector(".allAddInfoLocation");
+                    allAddInfoLocation.innerHTML = "";
+
+                    for (e of response.data){
+
+                        console.log(e.MEDICINE_ADD_PK);
+                        const addWrapper = document.querySelector("#templete .addWrapper").cloneNode(true);
+
+                        const addNumber = addWrapper.querySelector(".addNumber");
+                        addNumber.innerHTML = e.MEDICINE_ADD_PK;
+
+                        const medicineName = addWrapper.querySelector(".medicineName");
+                        medicineName.innerHTML = e.MEDICINE_NAME;
+
+                        const addQuantity = addWrapper.querySelector(".addQuantity");
+                        addQuantity.innerHTML = e.QUANTITY;
+
+                        const addPerson = addWrapper.querySelector(".addPerson");
+                        addPerson.innerHTML = e.STAFF_NAME;
+
+                        const addDate = addWrapper.querySelector(".addDate");
+                        const date = new Date(e.ADD_AT);
+                        addDate.innerHTML = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
+
+                        //모달 부분
+                        const showAddModal = addWrapper.querySelector(".showAddModal");
+                        showAddModal.innerHTML = "";
+                        const addApplybutton = document.querySelector("#templete #addApplybutton").cloneNode(true);
+                        addApplybutton.setAttribute("data-bs-target","#"+e.MEDICINE_NAME+"");
+                        addApplybutton.setAttribute("onclick","reloadAddMedicineInfo()")
+                        const modalWrapper = document.querySelector(".modalWrapper").cloneNode(true);
+                        modalWrapper.setAttribute("id",""+e.MEDICINE_NAME+"");
+                        
+                        const modalBody = modalWrapper.querySelector(".modal-body");
+                        modalBody.innerText = "";
+                        // const addMedicineName = document.querySelector("#addMedicineName");
+                        // addMedicineName.innerText = "";
+                        // addMedicineName.innerText = e.medicineInfo.name;
+                        showAddModal.appendChild(addApplybutton);
+                        showAddModal.appendChild(modalWrapper);
+
+                        //신청양식 불러오기
+                        const addApplyForm = document.querySelector("#addApplyForm").cloneNode(true);
+                        modalBody.appendChild(addApplyForm);
+
+                        const addMedicineInfo = addApplyForm.querySelector("#addMedicineInfo");
+                        
+                        
+
+
+
+
+
+                        allAddInfoLocation.appendChild(addWrapper)
+
+                    }
+
+
+                    });
+                }else{
+                    const allAddInfoLocation = document.querySelector(".allAddInfoLocation");
+                    allAddInfoLocation.innerHTML = "";
+                }
+            }
+
 
             window.addEventListener("DOMContentLoaded", () => {
                 // reloadAddinfo();
@@ -244,6 +329,7 @@
                 document.getElementById('maxDate').setAttribute('max', maxToday); // max 속성을 동적으로 설정
             });
         </script>
+        <script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
     </head>
     <body>
 
@@ -315,34 +401,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col py-4" style="background-color: #F2F2F2;">
-                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-4 my-auto">
-                                                    <img class="img-fluid" src="./img/health/health_ci.gif">
-                                                </div>
-                                                <div class="col text-body-tertiary" style="font-size: small;">
-                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                        <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
+
                 </div>
             </div>
         </div>
         
 
         <div id = "templete" class="d-none">
-            <div class="row my-3 py-3 addWrapper text-center border-bottom border-primary ">
+            <div class="row my-3 addWrapper text-center border-bottom border-primary ">
                 <div class="col-2 addNumber align-items-center">입고번호</div>
                 <div class="col-2 medicineName">의약품이름</div>
                 <div class="col-2 addQuantity">수량</div>

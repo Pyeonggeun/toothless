@@ -87,23 +87,23 @@
 							</div>
 							
 							<c:forEach items="${list }" var="map">
-							<div class="row  border-bottom">
-								<div class="col-1 align-self-center text-center"><!--글번호 -->
+							<div class="row my-0 border-bottom">
+								<%-- <div class="col-1 align-self-center text-center"><!--글번호 -->
 									${map.eduDto.edu_pk }
-								</div>
+								</div> --%>
 								
 								<div class="col-2 align-self-center fw-bold" ><!-- 이미지 -->
 									
 									<a href="./readEduProgPageForStudent?edu_pk=${map.eduDto.edu_pk}">
 										<img class="img img-fluid"
 										src="../../resources/img/healthRoom/edu/${map.eduDto.img_link }"
-										style="max-height: 220px; width: 180px;" >
+										style="max-height: 200px; width: 160px;" >
 									</a>	
 
 								</div>
 
 								<!-- 프로그램 간단 정보 -->
-								<div class="col my-5 ps-5">
+								<div class="col my-4 ps-5">
 
 									<div class="row">
 										<div class="col">
@@ -140,43 +140,47 @@
 
 									
 									
-									<div class="row">
-										<div class="col fw-bold align-self-center text-start"
+									<div class="row mt-2">
+										<div class="col align-self-center text-start"
 										style="font-size: 16px; color: #535D66;">
 											<span>신청기간</span>
-											<span><fmt:formatDate
+											<span class="fw-bold ms-2"><fmt:formatDate
 											value="${map.eduDto.apply_start_date}"
-											pattern="yy. MM. dd"/></span>
+											pattern="yy년 MM월 dd일"/></span>
 											~
-											<span><fmt:formatDate
+											<span class="fw-bold"><fmt:formatDate
 											value="${map.eduDto.apply_end_date}"
-											pattern="yy. MM. dd"/></span>
+											pattern="yy년 MM월 dd일"/></span>
 										</div>
 									</div>
 									
 									<div class="row">
-										<div class="col fw-bold align-self-center text-start"
+										<div class="col align-self-center text-start"
 										style="font-size: 16px; color: #535D66;">
 											<span>교&nbsp;육&nbsp;&nbsp;일</span>
-											<span><fmt:formatDate
+											<span class="fw-bold ms-2"><fmt:formatDate
 											value="${map.eduDto.edu_date}"
-											pattern="yy. MM. dd"/></span>
+											pattern="yy년 MM월 dd일"/></span>
 										</div>
 									</div>
 									
 									<div class="row">
-										<div class="col fw-bold align-self-center text-start"
+										<div class="col align-self-center text-start"
 										style="font-size: 16px; color: #535D66;">
 											<span>모집인원</span>
-											<span>${map.eduDto.capacity }</span>
+											<span class="fw-bold ms-2">
+											${map.eduDto.capacity }명
+											</span>
 										</div>
 									</div>
 
 									<div class="row">
-										<div class="col fw-bold align-self-center text-start"
+										<div class="col align-self-center text-start"
 										style="font-size: 16px; color: #535D66;">
 											<span>조&nbsp;회&nbsp;&nbsp;수</span>
-											<span>10</span>
+											<span class="fw-bold ms-2">
+											10
+											</span>
 										</div>
 									</div>
 									
@@ -207,39 +211,13 @@
 			
 			<div class="row my-5"></div>
 		
-			<pre>
 			
 			
 			
-			
-			
-			</pre>
 			
             <!-- 푸터 시작 -->
-            <div class="row">
-                <div class="col">
-                    <div class="row">
-                        <div class="col py-4" style="background-color: #F2F2F2;">
-                            <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                <div class="col">
-                                    <div class="row">
-                                        <div class="col-1 my-auto">
-                                            <img class="img-fluid" src="../../resources/img/another/logo_black.png">
-                                        </div>
-                                        <div class="col-3 ps-0 my-auto" style="font-size: x-large">
-                                            MK University | 보건센터
-                                        </div>
-                                        <div class="col text-body-tertiary my-auto" style="font-size: small;">
-                                            <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                            <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+             <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
+
             <!-- 푸터 끝 -->
                     
         </div>

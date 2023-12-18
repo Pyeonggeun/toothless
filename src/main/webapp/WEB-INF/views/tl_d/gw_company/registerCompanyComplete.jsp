@@ -13,10 +13,15 @@
 	<div class="container-fluid">
 	
 		<div class="row">
-				<jsp:include page="../common/companyTopNavi.jsp"></jsp:include>	
+				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>	
 		</div>
 		
 		<div class="row">
+			<!-- 취업팀 메뉴 바 -->
+			<div class="col-2 border-end pb-0">
+				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
+			</div>
+			
 			<div class="col"></div>
 			<div class="col">
 				기업등록이 완료되었습니다.

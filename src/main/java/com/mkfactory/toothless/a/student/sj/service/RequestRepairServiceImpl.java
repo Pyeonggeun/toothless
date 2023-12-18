@@ -1,5 +1,6 @@
 package com.mkfactory.toothless.a.student.sj.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,8 +31,33 @@ public class RequestRepairServiceImpl {
 		return requestRepairSqlMapper.dormStudents();
 	}
 	
-//	public List<Map<String, Object>> name() {
-//		return requestRepairSqlMapper.name();
-//	}
+	public List<Map<String, Object>> printPage() {
+		return requestRepairSqlMapper.printingPage();
+	}
+	
+	public Map<String, Object> printingOne(int id){
+		Map<String, Object> repairMap =new HashMap<>();
+		
+		RequestRepairDto repairDto = requestRepairSqlMapper.selectArticle(id);//repair_pk
+		
+		int dormstudent_pk = repairDto.getDorm_student_pk();
+		DormStudentDto dormStudentDto = requestRepairSqlMapper.selectDormStudentPk(dormstudent_pk);
+		
+		int student_pk = dormStudentDto.getStudent_pk();
+		StudentInfoDto studentInfo = requestRepairSqlMapper.studentPk(student_pk);
+		
+		repairMap.put("dormStudentDto", dormStudentDto);
+		repairMap.put("repairDto", repairDto);
+		repairMap.put("studentInfo", studentInfo);
+		
+		return repairMap;
+	}
+	
+	public void deleteRequestRepairArticle(int request_repair_pk) {
+		
+		requestRepairSqlMapper.deleteRequestRepair(request_repair_pk);
+	}
+	
+
 	
 }

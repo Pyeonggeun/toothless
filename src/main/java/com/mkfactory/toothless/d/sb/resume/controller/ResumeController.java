@@ -21,8 +21,10 @@ import com.mkfactory.toothless.d.dto.JobPostingDto;
 import com.mkfactory.toothless.d.dto.LicenseDto;
 import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.dto.VolunteerDto;
+import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.d.sb.resume.service.ResumeServiceImpl;
+import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -34,6 +36,10 @@ public class ResumeController {
 	private ResumeServiceImpl resumeService;
 	@Autowired
 	private PostingServiceImpl postingService;
+	// 나연. 회사이름가져오려고 사용
+	@Autowired
+	private CompanyServiceIpml companyService;
+	
 	
 	// 이력서 등록 페이지
 	@RequestMapping("resumeRegistrationPage")
@@ -299,9 +305,9 @@ public class ResumeController {
 		resumeDto.setStudent_pk(studentInfoDto.getStudent_pk());
 		List<ResumeDto> resumeList =  resumeService.getResumeList(resumeDto);
 		model.addAttribute("resumeList", resumeList);
-		
+		int studentPk = studentInfoDto.getStudent_pk();
 		int postingPk = params.getJob_posting_pk();
-		model.addAttribute("jobPostingDetailForStudent", postingService.getJobPostingDetailForStudentAndCompany(postingPk));
+		model.addAttribute("jobPostingDetailForStudent", postingService.getJobPostingDetailForStudentAndCompany(studentPk ,postingPk));
 		
 		// 관심 공고
 		interestPostingDto.setJob_posting_pk(params.getJob_posting_pk());
@@ -309,7 +315,7 @@ public class ResumeController {
 		
 		
 		if(studentInfoDto != null) {
-			int studentPk = studentInfoDto.getStudent_pk();
+			studentPk = studentInfoDto.getStudent_pk();
 			interestPostingDto.setStudent_pk(studentPk);
 			
 		}
@@ -398,7 +404,24 @@ public class ResumeController {
 		return "redirect:./postApplyListPage";
 	}
 	
-	
+	// 공개한 학생들의 이력서 보는 페이지
+	@RequestMapping("publicResumeByStudentListPage")
+	public String publicResumeByStudentListPage(HttpSession session, Model model) {
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
+		
+		if(externalInfoDto != null) {
+			int externalInfoPk = externalInfoDto.getExternal_pk();
+			
+			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalInfoPk);
+			
+			//나연. 회사이름 가져오는 용으로 사용
+			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
+			model.addAttribute("applyStudentList", postingService.getApplyStudentTotalList(companyDto.getCom_pk()));
+			model.addAttribute("resumeList", resumeService.getPublicResumeList());
+		}	
+		return "tl_d/sb_resume/publicResumeByStudentListPage";
+	}
 	
 	
 	

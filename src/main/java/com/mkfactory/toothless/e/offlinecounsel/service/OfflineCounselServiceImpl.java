@@ -20,9 +20,11 @@ import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.CounselDocumentDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
+import com.mkfactory.toothless.e.dto.GroupCounselDto;
 import com.mkfactory.toothless.e.dto.ImpossibleDateDto;
 import com.mkfactory.toothless.e.dto.OfflineReservationDto;
 import com.mkfactory.toothless.e.dto.OfflineSurveyDto;
+import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 import com.mkfactory.toothless.e.offlinecounsel.mapper.OfflineCounselMapper;
 
@@ -224,11 +226,14 @@ public class OfflineCounselServiceImpl {
 		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfoByExternalPk(external_pk);
 		int counselor_id = counselorDto.getId();
 		
+		System.out.println("sevicePAgeu=Num: "+pageNum);
 		List<OfflineReservationDto> reservationList = offlineCounselMapper.selectReservationListByCounselorId(counselor_id, pageNum);
+		System.out.println("리스트 개수: "+reservationList.size());
 		
 		for(OfflineReservationDto offlineReservationDto : reservationList) {
 			
 			int reservationPk = offlineReservationDto.getId();
+			System.out.println("repk: "+reservationPk);
 			CounselDocumentDto counselDocumentDto = offlineCounselMapper.selectCounselDocumentInfoByReservationId(reservationPk);
 			
 			int studentPk = offlineReservationDto.getStudent_pk();
@@ -481,5 +486,115 @@ public class OfflineCounselServiceImpl {
 		
 		return offlineCounselMapper.selectTypeCategoryDtoList();
 	}
+	
+	public List<Map<String, Object>> getOfflineMainList(int external_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfoByExternalPk(external_pk);
+		int counselor_id = counselorDto.getId();
+		
+		List<OfflineReservationDto> reservationList = offlineCounselMapper.selectOfflineMainList(counselor_id);
+		
+		for(OfflineReservationDto offlineReservationDto : reservationList) {
+			
+			int studentPk = offlineReservationDto.getStudent_pk();
+			StudentInfoDto studentInfoDto = offlineCounselMapper.selectStudentInfoByStudentPk(studentPk);
+			
+			int categoryPk = offlineReservationDto.getType_category_id();
+			TypeCategoryDto typeCategoryDto = offlineCounselMapper.selectTypeCategoryDtoById(categoryPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("offlineReservationDto", offlineReservationDto);
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("typeCategoryDto", typeCategoryDto);
+			
+			list.add(map);
+		}
+		return list;
+		
+	}
+	
+	public Map<String, Object> getMainListCount(int external_pk){
+
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfoByExternalPk(external_pk);
+		int counselor_id = counselorDto.getId();
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("offlineCount", offlineCounselMapper.selectOfflineMainListCount(counselor_id));
+		map.put("onlineCount", offlineCounselMapper.selectOnlineMainListCount(counselor_id));
+		map.put("groupCount", offlineCounselMapper.selectGroupMainListCount(counselor_id));
+		
+		return map;
+		
+	}
+	
+	public List<Map<String, Object>> getOnlineMainList(int external_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfoByExternalPk(external_pk);
+		int counselor_id = counselorDto.getId();
+		
+		List<OnlineCounselBoardDto> reservationList = offlineCounselMapper.selectOnlineMainList(counselor_id);
+		
+		for(OnlineCounselBoardDto onlineCounselBoardDto : reservationList) {
+			
+			int studentPk = onlineCounselBoardDto.getStudent_id();
+			StudentInfoDto studentInfoDto = offlineCounselMapper.selectStudentInfoByStudentPk(studentPk);
+			
+			int categoryPk = onlineCounselBoardDto.getType_category_id();
+			TypeCategoryDto typeCategoryDto = offlineCounselMapper.selectTypeCategoryDtoById(categoryPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("onlineCounselBoardDto", onlineCounselBoardDto);
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("typeCategoryDto", typeCategoryDto);
+			
+			list.add(map);
+		}
+		return list;
+
+	}
+	
+	public List<GroupCounselDto> getGroupMainList(int external_pk){
+		
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfoByExternalPk(external_pk);
+		int counselor_id = counselorDto.getId();
+		
+		List<GroupCounselDto> reservationList = offlineCounselMapper.selectGroupMainList(counselor_id);
+		
+		return reservationList;
+
+	}
+	
+	public Map<String, Object> getMainLineChart(int external_pk){
+
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfoByExternalPk(external_pk);
+		int counselor_id = counselorDto.getId();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("offlineData", offlineCounselMapper.selectMainOfflineLineChart(counselor_id));
+		map.put("onlineData", offlineCounselMapper.selectMainOnlineLineChart(counselor_id));
+		map.put("groupData", offlineCounselMapper.selectMainGroupLineChart(counselor_id));
+		
+		return map;
+	}
+	
+	public List<Map<String, Object>> getMainPieChart(int external_pk){
+		
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfoByExternalPk(external_pk);
+		int counselor_id = counselorDto.getId();
+		
+		return offlineCounselMapper.selectMainPieChart(counselor_id);
+	}
+	
+	public List<Map<String, Object>> getDateReservationList(){
+		
+		return offlineCounselMapper.selectDateValueReservationList();
+	}
+	
 	
 }

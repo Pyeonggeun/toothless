@@ -11,9 +11,11 @@ import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.CounselDocumentDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
+import com.mkfactory.toothless.e.dto.GroupCounselDto;
 import com.mkfactory.toothless.e.dto.ImpossibleDateDto;
 import com.mkfactory.toothless.e.dto.OfflineReservationDto;
 import com.mkfactory.toothless.e.dto.OfflineSurveyDto;
+import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
 import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 
 public interface OfflineCounselMapper {
@@ -133,6 +135,35 @@ public interface OfflineCounselMapper {
 	
 	// 카테고리 리스트
 	public List<TypeCategoryDto> selectTypeCategoryDtoList();
+	
+	// 상담원 메인페이지 오프라인 예약 리스트
+	public List<OfflineReservationDto> selectOfflineMainList(int counselor_id);
+	
+	// 상담원 메인페이지 오프라인 예약 리스트 개수
+	public int selectOfflineMainListCount(int counselor_id);
+	
+	// 상담원 메인페이지 온라인 예약 리스트
+	public List<OnlineCounselBoardDto> selectOnlineMainList(int counselor_id);
+	
+	// 상담원 메인페이지 온라인 예약 리스트 개수
+	public int selectOnlineMainListCount(int counselor_id);
+	
+	// 상담원 메인페이지 집단상담 예약 리스트
+	public List<GroupCounselDto> selectGroupMainList(int counselor_id);
+	
+	// 상담원 메인페이지 집단상담 예약 리스트 개수
+	public int selectGroupMainListCount(int counselor_id);
+	
+	// 상담원 메인페이지 라인차트 메서트 3개(오프라인, 온라인, 집단)
+	public List<Map<String, Object>> selectMainOfflineLineChart(int counselor_id);
+	public List<Map<String, Object>> selectMainOnlineLineChart(int counselor_id);
+	public List<Map<String, Object>> selectMainGroupLineChart(int counselor_id);
+	
+	// 상담원 메인페이지 파이차트(오프라인, 온라인)
+	public List<Map<String, Object>> selectMainPieChart(int counselor_id);
+	
+	// 상담 예약 중복 확인
+	public List<Map<String, Object>> selectDateValueReservationList();
 	
 	
 }

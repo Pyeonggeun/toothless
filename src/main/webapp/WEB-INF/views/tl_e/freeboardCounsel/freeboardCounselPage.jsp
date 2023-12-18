@@ -69,11 +69,29 @@
 			</div>
 			
 			
-				<!-- 상단배너 이미지 넣는  로우 시작 -->
-			<div class= "row p-0 m-0">
-				<div class="col d-grid p-0 m-0"> 
-					<img class="img-fluid" src="../../resources/img/offlineCounsel/offlineCounselBanner5.jpg">
-				</div>
+		<!-- 상단배너 이미지 넣는  로우 시작 -->
+			<div class="row mx-0 px-0">
+				<div class="col mx-0 px-0">
+						<div class="row">
+							<div class="col mx-0 px-0" style="height: 35em;">
+								<img class="banner img-fluid" src="./../../resources/img/groupCounsel/fff.jpg" style="width:100%; height: 100%;">
+							
+								<div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height:100%; position: relative; bottom: 100%;"></div>
+								<!-- 
+								<div class="title-text fw-bold" style="font-size: 3.5em; color: white; top: 70%;">Mk University | 상담센터</div>
+								<!--<div class="title-text" style="font-size: 1.5em; color: white; top: 42%;"></div> -->
+								<div style="color: white; position: relative; font-size: 4em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 18.5%;">MKU 상담센터</div>
+								<div style="color: white; position: relative; font-size: 5em; bottom: 154%; transform: translate(-50%, -50%); text-align: center; left: -18%; border-top:1px; border-top-style: solid; border-top-color: white;"></div>
+								<div style="color: white; position: relative; font-size: 1.4em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 19.6%;">상담센터 자유게시판</div>
+								<div style="color: white; position: relative; font-size: 1.4em; bottom: 147%; transform: translate(-50%, -50%); text-align: center; left: 24.3%;"></div>		
+								<div style="height:13em; width:14em; border-radius: 0px 50px 0px 0px; background-color: #679467; opacity:0.9; position: relative; font-size: 1.4em; bottom: 155.2%; transform: translate(-50%, -50%); text-align: center; left: 86.7%;"></div>				
+								<div style="font-weight:900; color: #464646; position: relative; font-size: 1.5em; bottom: 225%; transform: translate(-50%, -50%); text-align: center; left: 84%;">Contact Us</div>
+								<div style="font-weight:900; color: white; position: relative; font-size: 2.8em; bottom: 212%; transform: translate(-50%, -50%); text-align: center; left: 86.3%;">1544-3054</div>
+								<div style="color: white; position: relative; font-size: 0.9em; bottom: 215%; transform: translate(-50%, -50%); text-align: center; left: 85.5%;">E-mail. mkmk@naver.com</div>
+								<div style="color: white; position: relative; font-size: 0.9em; bottom: 214%; transform: translate(-50%, -50%); text-align: center; left: 84.5%;">Tel. 010-4097-3054</div>
+							</div>
+						</div>
+					</div>
 			<!-- 상단배너 이미지 넣는  로우 끝 -->
 			</div>
 			
@@ -194,10 +212,7 @@
 						
 						<div class="row text-center my-1 mx-1 p-1  border-bottom border-dark-subtle">
 							<div class="col-1 ">${List.elementFreeboardDto.id}</div>
-							<div class="col-2 fw-bold text-start"><a class="link-dark link-underline link-underline-opacity-0" href="./readFreeboardPostPage?id=${List.elementFreeboardDto.id}">${List.elementFreeboardDto.title}</a></div>
-							<!-- 최근게시물에 아이콘 붙이기 -->
-							<div class="col-5 text-start">
-								${List.elementFreeboardDto.text}
+							<div class="col-2 fw-bold text-start">
 								<c:forEach items="${newPostList}" var="brand">
 									<c:choose>
 										<c:when test="${brand.id == List.elementFreeboardDto.id }">
@@ -205,6 +220,13 @@
 										</c:when>
 									</c:choose>
 								</c:forEach>
+								<a class="link-dark link-underline link-underline-opacity-0" href="./readFreeboardPostPage?id=${List.elementFreeboardDto.id}">
+								${List.elementFreeboardDto.title}
+								</a><span class="fw-light"> [${List.countPostComment}]</span></div>
+							<!-- 최근게시물에 아이콘 붙이기 -->
+							<div class="col-5 text-start">
+								${List.elementFreeboardDto.text}
+							
 							</div>
 							<div class="col-1">${List.elementFreeboardDto.read_count}</div>
 							<div class="col-1 fw-bold">${List.studentInfo.name}</div>
@@ -238,8 +260,33 @@
 		
 		<!-- 중요한 내용이 들어가는 로우와 콜 끝 > 상시 변동 가능 -->
 	</div>
-
-
+	
+		<!-- 바텀 -->
+		<div class="row" style="background-color: #5a5a5a; height: 14em;">
+				<div class="col-1"></div>
+				<div class="col">
+					<div class="row" style="height: 4em;"></div>
+					<div class="row">
+						<div class="col">
+							<span style="font-size: 1.4em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
+							<span style="font-size: 1.2em; color: white; font-weight: 500;">▪</span>
+							<span style="font-size: 1.2em; color: white; font-weight: 500;">이메일무단수집거부</span>
+						</div>
+					</div>
+					<div class="row pt-4">
+						<div class="col">
+							<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
+						</div>
+					</div>
+					<div class="row pt-2">
+						<div class="col">
+							<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
+						</div>
+					</div>
+					<div class="row pt-4" style="border-bottom-style: solid; border-bottom-color: gray; border-bottom-width: 1px;"></div>
+				</div>
+				<div class="col-1"></div>
+			</div>
 
 
 

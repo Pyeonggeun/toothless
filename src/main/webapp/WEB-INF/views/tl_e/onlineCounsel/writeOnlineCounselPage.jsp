@@ -11,43 +11,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="row">
-		<div class="col-2"></div>
-		<div class="col text-center" style="font-size: 2.5em; color: dark; font-weight: bold;">
-			상담 센터
-		</div>
-		<div class="col-2 mt-3 d-flex justify-content-around">
-			<span style="font-weight: bold; font-size: 1.3em;" >${sessionStudentInfo.name } 님</span>
-		</div>
-	</div>
-	<div class="row mt-2 align-items-center" style="font-weight: bold; font-size: 1.4em; background-color: orange; text-align: center;"  >
-		<div class="col-1"></div>		
-		<div class="col">
-			Home
-		</div>
-		<div class="col">
-			공지사항
-		</div>
-		<div class="col">
-			상담
-		</div>
-		<div class="col">
-			<div class="dropdown">
-				<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    	<span style="font-size: 1.4em; font-weight: bold;">내 정보</span>
-				</button>
-				<ul class="dropdown-menu" style="background-color: #333;">
-				    <li><a class="dropdown-item" href="#" style="color: orange">답변 완료 상담</a></li>
-				    <li><a class="dropdown-item" href="#" style="color: orange">채택 된 상담</a></li>
-				    <li><a class="dropdown-item" href="./logoutProcess" style="color: orange">로그아웃</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="col-1"></div>
-	</div>
+
+	<jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
+	
 	<div class="container">
 		<div class="row mt-4">
-			<div class="col border border-danger border-1"></div>
+			<div class="col border border-primary border-1"></div>
 		</div>
 		<div class="row">
 			<div class="col mt-4" style="font-weight: bold; font-size: 1.9em; text-align: center;">

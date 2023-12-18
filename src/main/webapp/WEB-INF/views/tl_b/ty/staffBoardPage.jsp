@@ -10,7 +10,24 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     </head>
+		 
+		 <script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
+		 <script>
+		 
+            function formSubmit(){
+                const frm = document.getElementById("frm");
 
+                const inputComment = document.getElementById("inputComment");
+                console.log(inputComment);
+                    if(inputComment.value == ''){
+                        alert("댓글 입력");
+                        inputComment.focus;
+                        return;
+
+                    }
+           		frm.submit();
+            }
+        </script>
     <body>
 
         <div class="container-fluid">
@@ -210,12 +227,12 @@
 
                                             <div class="row px-5 mx-3">
                                                 <div class="col">
-                                                    <form action="./staffBoardPage" method="get">
+                                                    <form id="frm" action="./staffBoardPage" method="get">
                                                     
                                                         <div class="row mt-4">
                                                         <div class="col">
-                                                            <span style="font-size: 120%; font-weight: bold;">Total</span>
-                                                            <span style="font-size: 80%;">${total }개</span> 
+                                                            <span style="font-size: 20px; font-weight: bold;">Total</span>
+                                                            <span style="font-size: 15px;">${total }개</span> 
                                                         </div>
                                                         <div class="col-2">
                                                             <select name="searchType" class="form-select" aria-label="Default select example">
@@ -225,21 +242,27 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-3 pe-0 text-end">
-                                                            <input name="searchWord" class="form-control " type="text" placeholder="내용을검색하세요">
+                                                            <input id="inputComment" name="searchWord" class="form-control" type="text" placeholder="내용을검색하세요">
                                                         </div> 
                                                         <div class="col-1 text-start">
-                                                            <button type="submit" class="btn btn-outline-dark">검색</button>
+                                                            <input type="submit" onclick="formSubmit()" class="btn btn-outline-primary" value="검색">
                                                         </div>
                                                     </div>
                                                     </form>
                                                     <div class="row">
-                                                        <div class="col text-start" style="font-size: 60%">홈>공지사항</div>
+                                                        <div class="col text-start" style="font-size: 15px;">
+	                                                        <a href="../common/staffMainPage";
+	                                                        style="text-decoration: none; color:#015A9E;">
+	                                                        	홈
+	                                                        </a>
+	                                                        >공지사항
+                                                        </div>
                                                     </div>
 
                                                     <div class="row mt-4">
                                                         <div class="col">
                                                             <div class="row ">
-                                                                <div class="col fw-bold fs-5 text-center ">[ 인기 게시글 ]</div>
+                                                                <div class="col fw-bold fs-5 text-center " style="color:#015A9E">[ 인기 게시글 ]</div>
                                                             </div>
                                                                 <div class="row mt-3" >
                                                                     <div class="col text-center">
@@ -258,12 +281,6 @@
 		                                                                        	style="text-decoration:none;">
 		                                                                        	${notice.noticeboardDto.title }
 		                                                                        </a>
-                                                                            	<%-- <c:if test="${notice.replyDto !=0 }">
-                                                                        			&nbsp;[${notice.replyDto }]
-                                                                        		</c:if>
-                                                                        		<c:if test="${notice.imgDto !=0}">
-	                                                                        		<i class="bi bi-images"></i>
-	                                                                        	</c:if> --%>
                                                                             	</div>
                                                                             <div class="col-2">${notice.staffDto.name }</div>
                                                                             <div class="col-2">${notice.noticeboardDto.read_count }</div>
@@ -273,14 +290,40 @@
                                                                     </div>
                                                                 </div>  
                                                         </div>
-                                                        <div class="col-7"></div>
+                                                        <div class="col-7 text-center">
+                                                        	<div class="row mt-2">
+                                                        		<div class="col fw-bold fs-5 text-center text-danger ">
+                                                        		<i class="bi bi-asterisk"></i>
+                                                        			필독사항
+                                                        		<i class="bi bi-asterisk"></i>
+                                                        		</div>
+                                                        	</div>
+                                                        	<div class="row mt-3">
+                                                        		<div class="col fw-bold">
+                                                        			건전한 공지사항을 위해 아래항목은 꼭 지켜주세요!!
+                                                        		</div>
+                                                        	</div>
+                                                        	<div class="row mt-3">
+                                                        		<div class="col-2"></div>
+                                                        		<div class="col text-start">
+                                                        			1. 댓글은 공지사항과 관련된 글만 올려주세요
+                                                        			(불건전한 내용은 예고없이 삭제 처리 됩니다.) 
+                                                        		</div>
+                                                        	</div>
+                                                        	<div class="row">
+                                                        		<div class="col-2"></div>
+                                                        		<div class="col text-start">
+                                                        			2. 요청사항 및 건의사항은 aaa@qwer.com으로 보내주세요.
+                                                        		</div>
+                                                        	</div>
+                                                        </div>
                                                     </div>
 
 
                                                     <div class="row mt-5">
                                                         <div class="col">
                                                         	<div class="row">
-                                                        		<div class="col fw-bold fs-5 text-center">[ 공지사항 ]</div>
+                                                        		<div class="col fw-bold fs-5 text-center" style="color:#015A9E">[ 공지사항 ]</div>
                                                         	</div>
                                                             <div class="row mt-3 my-2">
                                                                 <div class="col fw-bold fs-5">
@@ -294,6 +337,24 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                           <%--  <c:forEach items="${readList }" var="notice">
+                                                                        <div class="row border-1 border-bottom text-center">
+                                                                            <div class="col-1 fw-bold text-danger">[인기글]</div>
+                                                                            <div class="col-5" style="text-decoration:none;" >
+                                                                            	<a href="./staffBoardReadPage?id=${notice.noticeboardDto.studentboard_pk }"
+		                                                                        	style="text-decoration:none;">
+		                                                                        	${notice.noticeboardDto.title }
+		                                                                        </a>
+                                                                            	</div>
+                                                                            <div class="col-1">${notice.staffDto.name }</div>
+                                                                            <div class="col">
+		                                                                        <fmt:formatDate value="${notice.noticeboardDto.created_at  }" pattern="yyyy년 MM월 dd일"/>
+		                                                                    </div>
+	                                                                        <div class="col-1">${notice.likeDto }</div>
+                                                                            <div class="col-1">${notice.noticeboardDto.read_count }</div>
+                                                                        </div>
+                                                                        </c:forEach> --%>
+                                                            
                                                             <c:forEach items="${noticeList }" var="notice">
                                                             <div class="row">
                                                                 <div class="col">
@@ -323,7 +384,7 @@
                                                             </c:forEach> 
                                                         </div>
                                                     </div>
-                                                    <div class="row mx-5">
+                                                    <div class="row mt-2">
                                                         <div class="col text-end">
                                                             <a href="./staffWriteBoardPage" style="text-decoration:none;">글쓰기</a>
                                                         </div>
@@ -362,27 +423,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col py-4" style="background-color: #F2F2F2;">
-                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-4 my-auto">
-                                                    <img class="img-fluid" src="./img/health/health_ci.gif">
-                                                </div>
-                                                <div class="col text-body-tertiary" style="font-size: small;">
-                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
                 </div>
             </div>
         </div>

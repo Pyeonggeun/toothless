@@ -1,6 +1,11 @@
 package com.mkfactory.toothless.b.dy.staffboard.controller;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mkfactory.toothless.b.dto.StaffboardDto;
+import com.mkfactory.toothless.b.dto.StaffboardImageDto;
 import com.mkfactory.toothless.b.dto.StaffboardLikeDto;
 import com.mkfactory.toothless.b.dto.StaffboardReplyDto;
 import com.mkfactory.toothless.b.dy.staffboard.service.StaffboardServiceImpl;
@@ -44,7 +51,56 @@ public class StaffboardController {
 	}
 	//글 작성 프로세스
 	@RequestMapping("writeTextProcess")
-	public String writeTextProcess(HttpSession session, StaffboardDto params) {
+	public String writeTextProcess(HttpSession session, StaffboardDto params, MultipartFile[] imgFiles) {
+		
+		List<StaffboardImageDto> staffboardImageDtoList = new ArrayList<>();
+		
+		//파일저장
+		if(imgFiles != null) {
+			for(MultipartFile multipartFile : imgFiles) {
+				if(multipartFile.isEmpty()) {
+					continue;
+				}
+				
+		//날짜별 폴더 생성
+				
+				String rootPath = "/Users/doxhi/uploadFiles/";
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+				String todayPath = sdf.format(new Date()); 
+				
+				File todayFolderForCreate = new File(rootPath + todayPath); 
+				
+				if(!todayFolderForCreate.exists()) {		
+					todayFolderForCreate.mkdirs();			
+				}
+				
+				
+				String originalFileName = multipartFile.getOriginalFilename();
+		//파일충돌회피
+				String uuid = UUID.randomUUID().toString();
+				long currentTime = System.currentTimeMillis();
+				String fileName = uuid + "_" + currentTime; 
+				
+		//확장자
+				String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+				fileName += ext;	
+				
+				try {
+					multipartFile.transferTo(new File(rootPath+todayPath+fileName));
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+				
+				StaffboardImageDto staffboardImageDto = new StaffboardImageDto();
+				staffboardImageDto.setImg_link(todayPath + fileName);
+				staffboardImageDto.setOriginal_link(originalFileName);
+				
+				staffboardImageDtoList.add(staffboardImageDto);
+				
+			}
+		}
+		
 		
 		System.out.println(params.getTitle());
 		
@@ -54,7 +110,7 @@ public class StaffboardController {
 		
 		params.setStaff_pk(staffPk);
 		
-		staffboardService.StaffboardText(params);
+		staffboardService.writeStaffboardText(params, staffboardImageDtoList); //파라메터에 추가로 삼미지DtoList 추
 		
 		return "redirect:./staffboardPage";
 	}
@@ -69,8 +125,10 @@ public class StaffboardController {
 		
 		List<Map<String, Object>> replyList = staffboardService.getContentReplyInfo(staffboard_pk);
 		
+		
 		model.addAttribute("readText", readText);
 		model.addAttribute("replyList", replyList);
+//		model.addAttribute("qwer", map);
 		
 		//좋아요
 		
@@ -79,6 +137,8 @@ public class StaffboardController {
 		likeDto.setStaffboard_pk(staffboard_pk);
 		
 		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(sessionStaffInfo != null) {
+			
 		
 		int staffPk = sessionStaffInfo.getStaff_pk();
 		
@@ -99,6 +159,9 @@ public class StaffboardController {
 		model.addAttribute("replyCountInContent", replyCountInContent);
 		
 		return "tl_b/dy/readTextPage";
+		}else {
+			return "tl_b/dy/staffboardPage";
+		}
 	}
 	// 작성 글 삭제
 	@RequestMapping("deleteTextProcess")

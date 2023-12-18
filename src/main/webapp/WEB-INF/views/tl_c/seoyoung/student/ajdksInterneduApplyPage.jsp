@@ -303,8 +303,6 @@ const student_pk = ${sessionStudentInfo.student_pk};
 	}
 	
 	function searchByCompany(){
-		console.log("searchByCompany() 실행");
-				
 		const inputCategory = document.getElementById("inputCategory").value;	
 		const searchCompanyWord = document.getElementById("searchCompanyWord").value;
 		
@@ -435,9 +433,19 @@ const student_pk = ${sessionStudentInfo.student_pk};
 	}
 	
 	function reloadSearchTypeCategory(){
+		console.log("reloadSearchTypeCategory() 실행");
+		
+		const inputCategory = document.getElementById("searchCategoryCheckBox").value;	
+	//	const searchCompanyWord = document.getElementById("searchCompanyWord").value;
+		
+		
+		console.log(inputCategory);
+		console.log(searchCompanyWord);
+		
 		
 		
 	}
+	
 	
 
 	window.addEventListener("DOMContentLoaded", () => {
@@ -464,12 +472,10 @@ const student_pk = ${sessionStudentInfo.student_pk};
 			<!-- 본문 : 자유롭게 이용하세요 화이팅 -->
 			<div class="col">
 				<div class="row">
-					<div class="col mx-4">
+					<div class="col mx-5">
 
 						<!-- 본문작성공간 -->
 						<br> <br>
-						<div class="container">
-
 							<div class="row">
 								<h2>
 									<span class="fw-bolder"><i class="bi bi-calendar-check"></i>&nbsp;현장실습
@@ -499,23 +505,49 @@ const student_pk = ${sessionStudentInfo.student_pk};
 												class="btn btn-primary  btn-outline-light"> <i
 												class="bi bi-search"></i></a>
 										</div>
-
 									</div>
-									<div class="row mt-4">
-										<div class="col">
+									<div class="row mt-4 mx-3">
+										<div class="col ">
 											<div class="row">
-												<div class="col-auto">
+												<div class="col-2 mx-3 mb-2">
 													<span class="fw-bold align-middle">세부검색</span>
+												</div>
+												<div class="col form-check mx-3">
+													<input class="form-check-input" type="checkbox" value=1
+														id="flexCheckDefault" checked> <label
+														class="form-check-label" for="flexCheckChecked">
+														제조업 </label>													
+												</div>
+												<div class="col form-check mx-3">
+													<input class="form-check-input" type="checkbox" value=2
+														id="flexCheckDefault" checked> <label
+														class="form-check-label" for="flexCheckChecked">
+														건설업 </label>	
+												</div>
+												<div class="col form-check mx-3">
+													<input class="form-check-input" type="checkbox" value=3
+														id="flexCheckDefault" checked> <label
+														class="form-check-label" for="flexCheckChecked">
+														정보통신업 </label>
+												</div>
+												<div class="col form-check mx-3">
+													<input class="form-check-input" type="checkbox" value=4
+														id="flexCheckDefault" checked> <label
+														class="form-check-label" for="flexCheckChecked">
+														금융업 </label>
+												</div>
+												<div class="col form-check mx-3">
+													<input class="form-check-input" type="checkbox" value=5
+														id="flexCheckDefault" checked> <label
+														class="form-check-label" for="flexCheckChecked">
+														부동산업 </label>
 												</div>
 												<div class="searchCategoryCheckBox col-auto"></div>
 											</div>
 										</div>
 									</div>
 								</div>
-
 							</nav>
-
-
 							<br>
 							<!-- 컴퍼니 리스트 -->
 							<div class="row mt-2" style="height: 18em">
@@ -536,7 +568,6 @@ const student_pk = ${sessionStudentInfo.student_pk};
 									</div>
 								</div>
 							</div>
-						</div>
 					</div>
 				</div>
 			</div>

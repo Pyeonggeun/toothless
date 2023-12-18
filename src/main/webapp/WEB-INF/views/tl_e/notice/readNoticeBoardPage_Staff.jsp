@@ -243,9 +243,9 @@
 	<div id="templete" class="d-none">
 		<div class="commentWrapper row">
 			<div class="col border-bottom"><i class="bi bi-chat-dots"></i></div>
-			<div class="commentText col border-bottom">댓글내용</div>
-			<div class="commentNickname col border-bottom">댓글작성자</div>
-			<div class="commentDate col border-bottom">작성일</div>
+			<div class="commentText col border-bottom"></div>
+			<div class="commentNickname col border-bottom"></div>
+			<div class="commentDate col border-bottom"></div>
 		</div>		
 	</div>
 	

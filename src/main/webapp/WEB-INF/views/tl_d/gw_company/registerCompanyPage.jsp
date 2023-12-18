@@ -295,185 +295,208 @@
 
 	<div class="container-fluid"> 
 		<div class="row">
-				<jsp:include page="../common/companyTopNavi.jsp"></jsp:include>	
+				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>	
 		</div>
 		
-		<!-- 기업 정보 입력 -->
-		<div class="row mt-5 mb-2">
-			<div class="col fs-5 text-center fw-bold">기업 소재</div>
-		</div>
+			
+		<div class="row">
 		
-		<form id="companySubmit" action="./registerCompanyProcess" method="post">
-			<div class="row">
-				<div class="col"></div>
-				<div class="col mt-3 border-light-subtle">
-					
-					<!-- 기업 규모 입력 -->
-					<div class="row mt-3"> 
-						<div class="col"> 
-							<div class="row mb-1">기업규모</div>
-							<select id="comScale" class="form-select" name="com_scale_category_pk">
-							  <option disabled selected>기업규모를 선택해주세요</option>
-							  <c:forEach items="${comScaleList}" var="scale">
-							  	<option value="${scale.com_scale_category_pk}">${scale.com_scale_category_name}</option>
-							  </c:forEach>
-							</select>
-						</div>
-					</div>
-					
-					<!-- 사업자 등록번호 입력 -->
-					<div class="row mt-3">
-						<div class="col">
-							<div class="row mb-1">
-								사업자 등록번호
-							</div>
-							<div class="row">
-								<input onblur="checkBusinessNumberFetch()" id="businessNumber" type="text" name="business_number" class="form-control" placeholder="000-00-00000">
-								<div id="checkBusinessNumberBox"></div>
-							</div>
-						</div>
-					</div>
-					
-					<!-- 회사명 입력 -->
-					<div class="row mt-3">
-						<div class="col">
-							<div class="row mb-1">
-								회사명
-							</div>
-							<div class="row">
-								<input id="comName" type="text" name="com_name" class="form-control" placeholder="회사명을 입력해주세요.">
-							</div>
-						</div>
-					</div>
-					
-					<!-- 대표자 명 입력 -->
-					<div class="row mt-3">
-						<div class="col">
-							<div class="row mb-1">
-								대표자 명 
-							</div>
-							<div class="row">
-								<input id="comBossname" type="text" name="com_bossname" class="form-control" placeholder="대표자명을 입력해주세요.">
-							</div>
-						</div>
-					</div>
-					
-					<!-- 기업 주소 입력 -->
-					<div class="row mt-3">
-						<div class="col">
-							<div class="row">
-								주소 
-							</div>
-							<div class="row mb-3">
-								<input id="comAddress" type="text" name="com_address" class="form-control" placeholder="주소를 입력해주세요.">
-							</div>
-						</div>
-					</div>
-					
+			<!-- 취업팀 메뉴 바 -->
+			<div class="col-2 border-end pb-0">
+				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
+			</div>
+			
+			<div class="col">
+			
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">기업 등록</div>
+					<div class="col-1"></div>
 				</div>
 				
+				<!-- 기업 정보 입력 -->
+				<div class="row mt-3 mb-2">
+						<div class="col-3"></div>
+						<div class="col fs-5 border-bottom pb-3 mt-5 fw-bold">기업 소재</div>
+						<div class="col-4"></div>
+					</div>
 				
-				<div class="col"></div>
-			</div>
-			
-			<!-- 기업 담당자 입력 -->
-			<div class="row mt-3">
-				<div class="col fs-5 text-center fw-bold">기업 담당자 등록</div>
-			</div>
-			
-			
-			<div class="row">
-				<div class="col"></div>
-				<div class="col mt-3 border-light-subtle">
-					
-					<!-- 담당자 이름 입력 -->
-					<div class="row mt-3">
-						<div class="col">
-							담당자 이름 <input id="comManagerName" type="text" name="com_manager_name" class="form-control" placeholder="담당자 명을 입력해주세요.">
+				<form id="companySubmit" action="./registerCompanyProcess" method="post">
+					<div class="row">
+						<div class="col-3"></div>
+						<div class="col mt-3 border-light-subtle">
+							
+							<!-- 기업 규모 입력 -->
+							<div class="row mt-3"> 
+								<div class="col"> 
+									<div class="row mb-1">기업규모</div>
+									<select id="comScale" class="form-select" name="com_scale_category_pk">
+									  <option disabled selected>기업규모를 선택해주세요</option>
+									  <c:forEach items="${comScaleList}" var="scale">
+									  	<option value="${scale.com_scale_category_pk}">${scale.com_scale_category_name}</option>
+									  </c:forEach>
+									</select>
+								</div>
+							</div>
+							
+							<!-- 사업자 등록번호 입력 -->
+							<div class="row mt-3">
+								<div class="col">
+									<div class="row mb-1">
+										사업자 등록번호
+									</div>
+									<div class="row">
+										<input onblur="checkBusinessNumberFetch()" id="businessNumber" type="text" name="business_number" class="form-control" placeholder="000-00-00000">
+										<div id="checkBusinessNumberBox"></div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 회사명 입력 -->
+							<div class="row mt-3">
+								<div class="col">
+									<div class="row mb-1">
+										회사명
+									</div>
+									<div class="row">
+										<input id="comName" type="text" name="com_name" class="form-control" placeholder="회사명을 입력해주세요.">
+									</div>
+								</div>
+							</div>
+							
+							<!-- 대표자 명 입력 -->
+							<div class="row mt-3">
+								<div class="col">
+									<div class="row mb-1">
+										대표자 명 
+									</div>
+									<div class="row">
+										<input id="comBossname" type="text" name="com_bossname" class="form-control" placeholder="대표자명을 입력해주세요.">
+									</div>
+								</div>
+							</div>
+							
+							<!-- 기업 주소 입력 -->
+							<div class="row mt-3">
+								<div class="col">
+									<div class="row">
+										주소 
+									</div>
+									<div class="row mb-3">
+										<input id="comAddress" type="text" name="com_address" class="form-control" placeholder="주소를 입력해주세요.">
+									</div>
+								</div>
+							</div>
+							
 						</div>
+						
+						
+						<div class="col-4"></div>
 					</div>
 					
-					<!-- 담당자 이메일 입력 -->
-					<div class="row mt-3">
-						<div class="col">
-							이메일 <input id="comManagerEmail" type="text" name="com_manager_email" class="form-control" placeholder="이메일을 입력해주세요.">
-						</div>
+					<!-- 기업 담당자 입력 -->
+					<div class="row mt-3 mb-2">
+						<div class="col-3"></div>
+						<div class="col fs-5 border-bottom pb-3 mt-3 fw-bold">기업 담당자 등록</div>
+						<div class="col-4"></div>
 					</div>
 					
-					<!-- 담당자 부서명 입력 -->
-					<div class="row mt-3">
-						<div class="col">
-							부서명 <input id="comManagerDepartment" type="text" name="com_manager_department" class="form-control" placeholder="주소를 입력해주세요.">
+					
+					<div class="row">
+						<div class="col-3"></div>
+						<div class="col mt-3 border-light-subtle">
+							
+							<!-- 담당자 이름 입력 -->
+							<div class="row mt-3">
+								<div class="col">
+									담당자 이름 <input id="comManagerName" type="text" name="com_manager_name" class="form-control" placeholder="담당자 명을 입력해주세요.">
+								</div>
+							</div>
+							
+							<!-- 담당자 이메일 입력 -->
+							<div class="row mt-3">
+								<div class="col">
+									이메일 <input id="comManagerEmail" type="text" name="com_manager_email" class="form-control" placeholder="이메일을 입력해주세요.">
+								</div>
+							</div>
+							
+							<!-- 담당자 부서명 입력 -->
+							<div class="row mt-3">
+								<div class="col">
+									부서명 <input id="comManagerDepartment" type="text" name="com_manager_department" class="form-control" placeholder="주소를 입력해주세요.">
+								</div>
+							</div>
+							
+							<!-- 담당자 직위 입력 -->
+							<div class="row mt-3">
+								<div class="col">
+									직위 <input id="comManagerPosition" type="text" name="com_manager_position" class="form-control" placeholder="직위를 입력해주세요.">
+								</div>
+							</div>
+							
+							<!-- 담당자 사무실 전화번호 입력 -->
+							<div class="row mt-3">
+								<div class="col">
+									사무실 전화번호 <input id="comDirectNumber" type="text" name="com_direct_number" class="form-control" placeholder="사무실 전화번호를 입력해주세요.">
+								</div>
+							</div>
+							
+							<!-- 담당자 휴대폰번호 입력 -->
+							<div class="row mt-3">
+								<div class="col mb-3">
+									핸드폰번호 <input id="comManagerPhone" type="text" name="com_manager_phone" class="form-control" placeholder="휴대폰 번호를 입력해주세요.">
+								</div>
+							</div>
+							
 						</div>
+						
+						<div class="col-4"></div>
 					</div>
 					
-					<!-- 담당자 직위 입력 -->
-					<div class="row mt-3">
-						<div class="col">
-							직위 <input id="comManagerPosition" type="text" name="com_manager_position" class="form-control" placeholder="직위를 입력해주세요.">
-						</div>
+					<!-- 여백 줄려고 -->
+					<div class="row"></div>
+					
+					<!-- 취업지원센터에서 사용할 아이디, 비밀번호 입력 -->
+					<div class="row mt-3 mb-2">
+						<div class="col-3"></div>
+						<div class="col fs-5 border-bottom pb-3 mt-3 fw-bold">기업 계정 가입 정보</div>
+						<div class="col-4"></div>
 					</div>
 					
-					<!-- 담당자 사무실 전화번호 입력 -->
-					<div class="row mt-3">
-						<div class="col">
-							사무실 전화번호 <input id="comDirectNumber" type="text" name="com_direct_number" class="form-control" placeholder="사무실 전화번호를 입력해주세요.">
+					<div class="row">
+						<div class="col-3"></div>
+						<div class="col mt-3 border-light-subtle">
+							
+							<div class="row mt-2">
+								 
+								<div class="row">
+									ID <input onblur="checkExternalIdFetch()" id="externalId" type="text" name="external_id" class="form-control" placeholder="로그인시 사용할 ID를 입력해주세요.">
+									<div id="checkExternalIdResultBox"></div>
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="row mb-3">
+									PW <input id="password" type="text" name="password" class="form-control" placeholder="로그인시 사용할 password를 입력해주세요.">
+								</div>
+							</div>
+							
 						</div>
+						
+						<div class="col-4"></div>
 					</div>
 					
-					<!-- 담당자 휴대폰번호 입력 -->
-					<div class="row mt-3">
-						<div class="col mb-3">
-							핸드폰번호 <input id="comManagerPhone" type="text" name="com_manager_phone" class="form-control" placeholder="휴대폰 번호를 입력해주세요.">
-						</div>
-					</div>
+					<div class="row mt-3 mb-2">
 					
-				</div>
-				
-				<div class="col"></div>
-			</div>
-			
-			<!-- 여백 줄려고 -->
-			<div class="row"></div>
-			
-			<!-- 취업지원센터에서 사용할 아이디, 비밀번호 입력 -->
-			<div class="row mt-3 mb-2">
-				<div class="col fs-5 text-center fw-bold">기업 계정 가입 정보</div>
-			</div>
-			
-			<div class="row">
-				<div class="col"></div>
-				<div class="col mt-3 border-light-subtle">
-					
-					<div class="row mt-2">
 						 
-						<div class="row">
-							ID <input onblur="checkExternalIdFetch()" id="externalId" type="text" name="external_id" class="form-control" placeholder="로그인시 사용할 ID를 입력해주세요.">
-							<div id="checkExternalIdResultBox"></div>
-						</div>
-					</div>
-					<div class="row mt-3">
-						<div class="row mb-3">
-							PW <input id="password" type="text" name="password" class="form-control" placeholder="로그인시 사용할 password를 입력해주세요.">
-						</div>
+						<div class="col-3"></div>
+						<div class="col d-grid"><input class="btn btn-primary" onclick="companyFormSubmit()" value="가입하기"></div>
+						<div class="col-4"></div>
+						
 					</div>
 					
-				</div>
-				
-				<div class="col"></div>
+				</form>
 			</div>
-			
-			<div class="row mt-3 mb-2">
-			
-				
-				<div class="col"></div>
-				<div class="col d-grid"><input class="btn btn-primary" onclick="companyFormSubmit()" value="가입하기"></div>
-				<div class="col"></div>
-				
-			</div>
-			
-		</form>
-		
+		</div>
 	</div>
 	
 	

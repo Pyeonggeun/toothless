@@ -628,7 +628,7 @@
      	function insertAttendanceBook(){
      		const open_lecture_key = document.querySelector("#open_lecture_key");
         	const open_lecture_key_value = open_lecture_key.getAttribute("value");
-        	const date_created =document.querySelector("#date_created");
+        	const selectDate =document.querySelector("#selectDate");
      		const study_log = document.querySelector("#study_log");
      		const url = "./insertAttendanceBookProcess";
      		
@@ -637,7 +637,7 @@
      			headers: {
      				"Content-Type": "application/x-www-form-urlencoded"
      			},
-     			body:"open_lecture_key="+open_lecture_key_value+"&date_created="+date_created.value
+     			body:"open_lecture_key="+open_lecture_key_value+"&date_created="+selectDate.value
      	            +"&study_log="+study_log.value
      		})
      		.then(response => response.json())
@@ -782,7 +782,7 @@
      	
     </head>
     <body>
-        <div class="container-fluid" style="background-color:  rgb(228, 227, 227); height: 100%">
+        <div class="container-fluid" style="background-color:  rgb(240, 240, 240); height: 100%">
             <div class="row pb-1 mt-2">
                 <div class="col-1 text-end">
                     <img src="../imgForAcademy/logo_black.png" alt="" style="height: 3em;">
@@ -915,7 +915,7 @@
                     </div>
                     <div class="row bg-white border border-black pt-3 px-3">
                         <div class="col">
-                            <div class="row fw-bold text-center" style="background-color: rgb(228, 227, 227);">
+                            <div class="row fw-bold text-center" style="background-color: rgb(240, 240, 240);">
                                 <div class="col-1 border align-self-center">
                                     번호
                                 </div>
@@ -1044,7 +1044,7 @@
                             </div>
                             <div class="row bg-white overflow-y-auto" style="height: 12em;">
                                 <div class="col border mx-3 my-3">
-                                    <div class="row text-center  fw-bold" style="background-color: rgb(228, 227, 227);">
+                                    <div class="row text-center  fw-bold" style="background-color: rgb(240, 240, 240)">
                                         <div class="col-3 border align-self-center">
                                             날짜
                                         </div>
@@ -1080,7 +1080,7 @@
                             </div>
                             <div class="row bg-white overflow-y-auto" style="height: 12em;">
                                 <div class="col border mx-3 my-3 ">
-                                    <div class="row text-center fw-bold" style="background-color: rgb(228, 227, 227);">
+                                    <div class="row text-center fw-bold" style="background-color: rgb(240, 240, 240);">
                                         <div class="col-3 border align-self-center">
                                             등록번호
                                         </div>
@@ -1120,7 +1120,7 @@
                     </div>
                     <div class="row bg-white border border-black py-3 px-3">
                         <div class="col my-0">
-                            <div class="row fw-bold text-center" style="background-color: rgb(228, 227, 227);">
+                            <div class="row fw-bold text-center" style="background-color: rgb(240, 240, 240);">
                                 <div class="col-1 border align-self-center border py-2">
                                     시험번호
                                 </div>
@@ -1320,7 +1320,7 @@
                     <div class="col-1"></div>
                     <div class="col">
                        <div class="row">
-                           <div class="col-2 border text-center align-self-center py-3" style="background-color: rgb(228, 227, 227);">
+                           <div class="col-2 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
                                 시험명
                            </div>
                            <div class="col text-start border py-1 align-self-center">
@@ -1334,7 +1334,7 @@
                     <div class="col-1"></div>
                     <div class="col">
                         <div class="row">
-                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(228, 227, 227);">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
                                 평가 시작일
                             </div>
                             <div class="col-8 text-start border py-2">
@@ -1344,7 +1344,7 @@
                     </div>
                     <div class="col">
                         <div class="row">
-                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(228, 227, 227);">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
                                 평가 종료일
                             </div>
                             <div class="col-8 text-start border py-2">
@@ -1358,7 +1358,7 @@
                     <div class="col-1"></div>
                     <div class="col">
                         <div class="row">
-                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(228, 227, 227);">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
                                 평가 내용(카테고리)
                             </div>
                             <div id="studyCategory" class="col-8 text-start border py-3">
@@ -1368,7 +1368,7 @@
                     </div>
                     <div class="col">
                         <div class="row">
-                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(228, 227, 227);">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
                                 훈련교사
                             </div>
                             <div id="testOpenLecturerName" class="col-8 text-start border py-3">
@@ -1382,7 +1382,7 @@
                     <div class="col-1"></div>
                     <div class="col">
                         <div class="row">
-                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(228, 227, 227);">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
                                 능력단위 요소
                             </div>
                             <div class="col-8 text-start border py-3">
@@ -1392,7 +1392,7 @@
                     </div>
                     <div class="col">
                         <div class="row">
-                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(228, 227, 227);">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
                                 평가 시간
                             </div>
                             <div class="col-8 text-start border py-3">
@@ -1406,7 +1406,7 @@
                  <div class="col-1"></div>
                  <div class="col">
                     <div class="row">
-                        <div class="col-2 border text-center align-self-center py-3" style="background-color: rgb(228, 227, 227);">
+                        <div class="col-2 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
                             성취 수준
                         </div>
                         <div class="col text-start border py-1">
@@ -1414,22 +1414,22 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col-1"></div>
-                                        <div class="col border text-center align-self-center" style="background-color: rgb(228, 227, 227);">
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
                                             수준
                                         </div>
-                                        <div class="col border text-center align-self-center" style="background-color: rgb(228, 227, 227);">
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
                                             5수준
                                         </div>
-                                        <div class="col border text-center align-self-center" style="background-color: rgb(228, 227, 227);">
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
                                             4수준
                                         </div>
-                                        <div class="col border text-center align-self-center" style="background-color: rgb(228, 227, 227);">
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
                                             3수준
                                         </div>
-                                        <div class="col border text-center align-self-center" style="background-color: rgb(228, 227, 227);">
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
                                            2수준
                                         </div>
-                                        <div class="col border text-center align-self-center" style="background-color: rgb(228, 227, 227);">
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
                                            1수준
                                         </div>
                                         <div class="col-1"></div>
@@ -1463,7 +1463,7 @@
                  </div>
                  <div class="col-1"></div>
               </div>
-              <div class="row text-center fw-bold mt-4" style="background-color: rgb(228, 227, 227);">
+              <div class="row text-center fw-bold mt-4" style="background-color: rgb(240, 240, 240);">
                  <div class="col">
                     평가 내용 출제
                  </div>

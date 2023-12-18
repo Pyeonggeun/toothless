@@ -28,6 +28,13 @@ public class NoticeController {
 	
 	@Autowired
 	private NoticeServiceImpl noticeService;
+	
+	// 아무거나
+	@RequestMapping("exercise")
+	public String exercise() {
+		return "tl_e/notice/exercise";
+	}
+	
 	// 공지사항 직원 메인페이지
 	@RequestMapping("noticeMainPage_Staff")
 	public String noticeMainPage_Staff(Model model, String searchType, String searchWord) {	
@@ -173,7 +180,7 @@ public class NoticeController {
 	@RequestMapping("updateNoticeArticleProcess")
 	public String updateNoticeArticleProcess(NoticeBoardDto noticeBoardDto) {
 		noticeService.updateNoticeArticle(noticeBoardDto);
-		return "redirect:./readNoticeBoardPage?id=" + noticeBoardDto.getId();
+		return "redirect:./readNoticeBoardPage_Staff?id=" + noticeBoardDto.getId();
 	}
 	// 공지사항 댓글 작성
 	@RequestMapping("writeNoticeCommentProcess")
@@ -191,17 +198,17 @@ public class NoticeController {
 	@RequestMapping("insertNoticeLike")
 	public String insertNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeService.insertThumb(noticeBoardLikeDto);
-		return "redirect:./readNoticeBoardPage?id=" + noticeBoardLikeDto.getNotice_id();
+		return "redirect:./readNoticeBoardPage_Student?id=" + noticeBoardLikeDto.getNotice_id();
 	}
 	// 공지사항 추천 삭제
 	@RequestMapping("deleteNoticeLike")
 	public String deleteNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeService.deleteNoticeLike(noticeBoardLikeDto);
-		return "redirect:./readNoticeBoardPage?id=" + noticeBoardLikeDto.getNotice_id();
+		return "redirect:./readNoticeBoardPage_Student?id=" + noticeBoardLikeDto.getNotice_id();
 	}
 	@RequestMapping("deleteNoticeDisLike")
 	public String deleteNoticeDisLike(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeService.deleteNoticeDisLike(noticeBoardLikeDto);
-		return "redirect:./readNoticeBoardPage?id=" + noticeBoardLikeDto.getNotice_id();
+		return "redirect:./readNoticeBoardPage_Student?id=" + noticeBoardLikeDto.getNotice_id();
 	}
 }

@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
         <style>
             div.no1title{
                 font-weight: 700;
@@ -67,7 +68,7 @@
                                                 <div class="col-md-2 pt-1 d-flex align-items-center text-right">
                                                 	<div class="row d-flex align-items-center">
                                                 		<div class="col align-items-center px-0">
-	                                                		<select name="searchType" class="form-select align-items-center" aria-label="Default select example" style="font-size: small;">
+	                                                		<select name="searchType" class="form-select align-items-center rounded-0" aria-label="Default select example" style="font-size: small;">
 															  <option value="title" ${searchType == 'title' ? 'selected' : null}>제목</option>
 															  <option value="content"${searchType == 'content' ? 'selected' : null}>내용</option>
 															  <option value="name"${searchType == 'name' ? 'selected' : null}>작성자</option>
@@ -78,16 +79,19 @@
                                                 <div class="col-md-6 pt-1 text-left">
                                                 	<div class="row d-flex align-items-center text-end px-0">
                                                 		<div class="col-9 text-end d-flex px-0" role="search">
-                                                			<input name="searchWord" class="form-control d-flex me-1" type="search" placeholder="검색" value="${searchWord}" aria-label="Search" style="font-size: small;">
-        													<button class="btn btn-outline-primary" type="submit" style="font-size: small;"><i class="bi bi-search"></i></button>
+                                                			<input name="searchWord" class="form-control d-flex me-1 rounded-0" type="search" placeholder="검색" value="${searchWord}" aria-label="Search" style="font-size: small;">
+        													<button class="btn btn-outline-primary rounded-0" type="submit" style="font-size: small;"><i class="bi bi-search"></i></button>
                                                 		</div>
                                                 		<div class="col ps-1 px-0 text-center">
                                                 			<c:choose>
 		                                                        <c:when test="${!empty sessionStaffInfo}">
-		                                                            <button type="button" class="btn btn-primary" style="font-size: small;" onclick="location.href='./writeTextPage'">글쓰기</button>
+		                                                            <button type="button" class="btn btn-primary rounded-0" style="font-size: small;" onclick="location.href='./writeTextPage'">글쓰기</button>
 		                                                        </c:when>
 		                                                        <c:otherwise>
-		                                                            <button type="button" class="btn btn-primary" style="font-size: small;" onclick="location.href='../../another/staff/loginPage'">로그인</button>
+		                                                            <script>
+																		alert("로그인 후 이용해주세요");
+																		location.href='../../another/staff/loginPage';
+																	</script>
 		                                                        </c:otherwise>
                                                    			</c:choose>
                                                 		</div>
@@ -120,27 +124,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col py-4" style="background-color: #F2F2F2;">
-                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-4 my-auto">
-                                                    <img class="img-fluid" src="./img/health/health_ci.gif">
-                                                </div>
-                                                <div class="col text-body-tertiary" style="font-size: small;">
-                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
                 </div>
             </div>
         </div>

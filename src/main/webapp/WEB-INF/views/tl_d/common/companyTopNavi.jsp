@@ -5,10 +5,10 @@
 <div class="row">
 	<div class="col">
 		<div class="row bg-body-white border-bottom mt-4 pb-0">
-			<a class="col-1 pe-2 text-end navbar-brand" href="./companyMainPage">
+			<a class="col-1 pe-2 text-end navbar-brand" href="../common/companyMainPage">
                 <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
             </a>
-            <a class="col-4 ps-0 fw-bold fs-1 text-start navbar-brand" href="./employmentMainPage">
+            <a class="col-4 ps-0 fw-bold fs-1 text-start navbar-brand" href="../common/companyMainPage">
                 MK University<span class="fs-6"> | </span> <span class="fs-5">취업지원센터</span> 
             </a>
 	    	<div class="col"></div>
@@ -34,5 +34,21 @@
 			</div>
 	    	<div class="col-1 px-0"></div>
    		</div>
+   		<div class="row text-center py-2 fw-bold text-light" style="background-color: #133369">
+            <div class="col-2"></div>
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="../ny_posting/myCompanyInterestListPage">관심기업체크목록</a>
+            </div>
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="../ny_posting/myCompanyApplyStudentListPage">기업지원자목록</a>
+            </div>
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="../ny_posting/jobPostingListForCompanyPage">채용공고목록</a>
+            </div>
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="./employmentMainPage">취업지원센터</a>
+            </div>
+            <div class="col-2"></div>
+        </div>
 	</div>	
 </div>

@@ -28,6 +28,8 @@
 					
 				let index = 1;
 				
+				console.log("reloadlistPageNum: "+pageNum);
+				
 				const reservationListBox = document.getElementById("reservationListBox");
 				reservationListBox.innerHTML = "";
 				
@@ -38,6 +40,13 @@
 					const reservationNo = reservationWrapper.querySelector(".reservationNo");
 					reservationNo.innerText = index;
 					index++;
+					
+					if(e.offlineReservationDto.state == '취소' && e.counselDocumentDto == null){
+						const cancelBadge = document.createElement('span');
+						cancelBadge.classList.add("badge", "bg-danger");
+						cancelBadge.innerText = "취소";
+						reservationNo.appendChild(cancelBadge);
+					}
 					
 					const reservationCategoryName = reservationWrapper.querySelector(".reservationCategoryName");
 					reservationCategoryName.innerText = e.typeCategoryDto.name;
@@ -112,7 +121,7 @@
 					}
 					--%>
 				}else{
-					const counselState = document.createElement("select");
+					counselState = document.createElement("select");
 					counselState.classList.add(".counselState");
 					counselState.classList.add("form-select");
 					stateBox.appendChild(counselState);
@@ -166,7 +175,7 @@
 					counselorTextBox.innerHTML = "";
 					counselorTextBox.innerText = map.counselDocumentDto.text;
 				}else{
-					const counselorText = document.createElement("textarea");
+					counselorText = document.createElement("textarea");
 					counselorText.classList.add("form-control");
 					counselorText.classList.add("counselorText");
 					counselorTextBox.appendChild(counselorText);
@@ -178,7 +187,7 @@
 					locationBox.innerHTML = "";
 					locationBox.innerText = map.counselDocumentDto.location;
 				}else{
-					const counselLocation = document.createElement("input");
+					counselLocation = document.createElement("input");
 					counselLocation.classList.add("form-control");
 					counselLocation.classList.add("counselLocation");
 					locationBox.appendChild(counselLocation);
@@ -197,8 +206,21 @@
 				if(map.counselDocumentDto != null){
 					saveBtn.disabled = true;
 				}
-				saveBtn.setAttribute("onclick", "save("+map.offlineReservationDto.id+")");
 				
+			    saveBtn.addEventListener("click", function() {
+			        const id = map.offlineReservationDto.id;
+			        console.log("showmodalClick: "+id);
+			        const stateValue = counselState.value;
+			        console.log("showmodalClick: "+stateValue);
+			        const textValue = counselorText.value;
+			        console.log("showmodalClick: "+textValue);
+			        const locationValue = counselLocation.value;
+			        console.log("showmodalClick: "+locationValue);
+
+			        // 필요한 매개변수와 함께 save 함수 호출
+			        save(id, stateValue, textValue, locationValue);
+			    });
+
 				const xClose = writeModalElement.querySelector(".xClose");
 				xClose.setAttribute("onclick", "closeModal()");
 				
@@ -208,12 +230,12 @@
 		}
 		
 		
-		function save(id){
-			
-			const writeModalElement = document.querySelector("#writeModal");
-			const state = writeModalElement.querySelector(".stateBox .counselState").value;
-			const text = writeModalElement.querySelector(".counselorTextBox .counselorText").value;
-			const location = writeModalElement.querySelector(".locationBox .counselLocation").value;
+		function save(id, state, text, location){
+
+			console.log("reid: "+id);
+			console.log("state: "+state);
+			console.log("text: "+text);
+			console.log("location: "+location);
 			url = "./counselReportRegisterProcess?id=" + id + "&state=" + state + "&text=" + text + "&location=" + location;
 			
 			fetch(url)
@@ -340,6 +362,7 @@
 		
 		function setPageNum(clickedPageNum){
 			
+			console.log("setPageNum: "+clickedPageNum);
 			pageNum = clickedPageNum;
 			createPageNum(pageNum);
 			reloadReservationList(pageNum);
@@ -821,7 +844,7 @@
            </div>
            <div class="modal-footer">
              <input onclick="closeModal()" type="button" class="closeBtn btn btn-dark" data-bs-dismiss="modal" value="닫기">
-             <input onclick="save()" type="button" class="saveBtn btn btn-primary" value="작성완료">
+             <input type="button" class="saveBtn btn btn-primary" value="작성완료">
            </div>
          </div>
        </div>

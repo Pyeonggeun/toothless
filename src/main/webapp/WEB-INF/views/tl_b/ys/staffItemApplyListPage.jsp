@@ -10,6 +10,18 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 	
+	<style>
+        .customColor {
+            border-radius: 0%;
+            color: white;
+            background-color: #014195;
+            }
+   	</style>
+	
+	
+	<script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
+	
+	
 	<script>
     	
 		let loginStaffInfo = null;
@@ -87,7 +99,8 @@
 					}
 				    if(e.STATUS == 'N'){
 					    itemButton.setAttribute("onclick","itemRental(this,"+e.ITEM_APPLY_PK+")");
-					    itemButton.classList.add("btn-primary");
+					    itemButton.classList.add("btn-secondary");
+					    itemButton.classList.add("customColor");
 					    itemButton.innerText = "대여";
 				    }
 				    
@@ -105,7 +118,8 @@
 			const itemButton = itemApplyWrapper.querySelector(".itemButton");
 			//itemButton.removeAttribute("onclick");
 			itemButton.setAttribute("onclick","itemReturn("+itemApplyPk+")");
-			itemButton.classList.remove("btn-primary");
+			itemButton.classList.remove("btn-secondary");
+			itemButton.classList.remove("customColor");
 			itemButton.classList.add("btn-outline-secondary");	
 			itemButton.innerText = "반납";
 			const url = "./restRentalProcess";
@@ -164,7 +178,7 @@
                                             물품대여&nbsp;현황관리   
                                         </div>  
                                     </div>
-                                    <div  class="row ms-1 mt-4 me-1 border border-dark-subtle" style="background-color: #EDEDED">
+                                    <div  class="row ms-1 mt-4 me-1 border-dark-subtle border customColor">
                                     	<div  class="studentId col-1 fw-bold" style="text-align: center; font-size: 0.9em;">
                                             <span>학번</span>
                                         </div>
@@ -238,13 +252,13 @@
 	                  <div class="itemPk col-1 my-auto text-center">
 	                      <span>물품번호</span>
 	                  </div>
-	                  <div class="catName col-1 my-auto text-center">
+	                  <div class="catName col-1 fw-bold my-auto text-center" style="font-size: 0.8em;">
 	                      <span>카테고리명</span>
 	                  </div>
 	                  <div class="itemName col-1 my-auto text-center" >
 	                      <span>물품명</span>
 	                  </div>
-	                  <div class="reason col-2 my-auto text-center">
+	                  <div class="reason col-2 fw-bold my-auto text-center" style="font-size: 0.8em;">
 	                      <span>대여사유</span>
 	                  </div>
 	                  <div class="rentalDate col-2 my-auto text-center">
@@ -254,7 +268,7 @@
 	                      <span>반납일</span>
 	                  </div>
 	                  <div class="status col-2 my-auto text-center">
-	                     	<button class="itemButton btn"></button>
+	                     	<button class="itemButton btn rounded-0"></button>
 	                     			
 	                  </div>
              	</div>

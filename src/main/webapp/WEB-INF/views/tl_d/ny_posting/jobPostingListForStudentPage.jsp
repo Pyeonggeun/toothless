@@ -348,7 +348,7 @@
 	 	<%-- 전체 크기 --%>
 		<div class="row">
 			<%-- 취업팀 메뉴 바 --%>
-			<div class="col-2 ps-0">
+			<div class="col-2">
 				<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 			</div>
 			<%-- 가운데 여백--%>	
@@ -365,7 +365,7 @@
 						<div class="row mt-1">
 							<div class="col-4 border p-3">
 								<select class="form-select form-select-sm border-0 pe-0">
-						    		<option selected>분야선택</option>
+						    		<option class="text-secondary" selected>분야선택</option>
 						    		<option value="1">개발</option>
 						    		<option value="2">마케팅</option>
 						    		<option value="3">판매</option>
@@ -403,7 +403,9 @@
 				</div>
 				<div class="row mt-5 pb-1 border-bottom">
 					<div class="col-1 pt-1 mt-3">
-						총 <span class="fw-bold">${postingCount}</span>건
+						<c:if test="${!empty sessionStudentInfo}">
+							총 <span class="fw-bold">${postingCount}</span>건
+						</c:if>
 					</div>
 		            <div class="col-9 px-0"></div>
 					<div class="col px-0 mt-2">
@@ -436,7 +438,6 @@
 				<div class="row">
 					<!-- 기업명 -->
 					<div class="postingCompanyName col pe-0"></div>
-					<div class="col ms-3 mb-1"></div>
 				</div>
 				<div class="row">
 					<!-- 가족기업여부 -->
