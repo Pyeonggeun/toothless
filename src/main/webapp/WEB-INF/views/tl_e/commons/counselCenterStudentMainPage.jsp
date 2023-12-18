@@ -116,19 +116,49 @@
 						</div>
 						<div class="col-1"></div>
 					</div>
-					<div class="row pt-5" style="height: 40em;">
+					<div class="row pt-5" style="height: 38em;">
 						<div class="col-1"></div>
 						<div class="col">
+							<c:forEach items="${offlineCounselList}" var="list">
+							<div class="row">
+								<div class="col border border-1 border-secondary-subtle rounded-4 mb-4 py-3" style="height: 10em;">
+									<div class="row">
+										<div class="col-4">
+											<div class="row">
+												<div class="col-1"></div>
+												<div class="col-5 me-0 pe-0 text-center">
+													<button type="button" class="btn btn-outline-success pt-1 pb-1 fw-bold" style="font-size: 0.7em;">오프라인</button>
+												</div>
+												<div class="col-5 ms-0 ps-0 text-start">
+													<button type="button" class="btn btn-outline-danger px-3 pt-1 pb-1 fw-bold" style="font-size: 0.7em;">D-${list.D_DAY }</button>
+												</div>
+												<div class="col-1"></div>
+											</div>
+										</div>
+										<div class="col"></div>
+									</div>
+									<div class="row pt-3">
+										<div class="col-4">
+											<div class="row">
+												<div class="col-2"></div>
+												<div class="col">
+													<div class="fw-bold" style="font-size: 1.1em;">상담 종류</div>
+												</div>
+												<div class="col-5">
+													<div class="fw-bold pt-1" style="font-size : 0.9em;">취업상담</div>
+												</div>
+											</div>
+										</div>
+										<div class="col"></div>
+									</div>
 
-								
 
-
-
+								</div>
+							</div>	
+							</c:forEach>						
 						</div>
 						<div class="col-1"></div>
 					</div>
-					
-					
 					<div class="row" style="height: 5em;"></div>
 					<div class="row">
 						<div class="col-1"></div>

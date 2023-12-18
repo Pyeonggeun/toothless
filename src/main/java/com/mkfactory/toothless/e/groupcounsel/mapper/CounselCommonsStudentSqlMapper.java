@@ -19,7 +19,7 @@ public interface CounselCommonsStudentSqlMapper {
 	
 	public int getCountNoticeCommentByNoticeId(int notice_id);
 	
-	
+	public List<Map<String, Object>> getOfflineCounselListByStudentId(int student_pk);
 	
 	
 }
