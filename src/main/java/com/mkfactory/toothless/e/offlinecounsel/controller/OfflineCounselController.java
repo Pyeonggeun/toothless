@@ -53,6 +53,7 @@ public class OfflineCounselController {
 	@RequestMapping("counselReservationProcess")
 	public String counselReservationProcess(
 			Model model,
+			HttpSession session,
 			OfflineReservationDto params, 
 			String reservationDate) {
 		
@@ -61,7 +62,14 @@ public class OfflineCounselController {
 		Map<String, Object> map = offlineCounselService.insertOfflineReservationInfo(params, reservationDate);
 		model.addAttribute("map", map);
 		
-		return "tl_e/offlineCounsel/counselReservationCompletedPage";
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(studentInfoDto != null) {
+			return "tl_e/offlineCounsel/counselReservationCompletedPage";
+		}else {
+			return "redirect:../../another/student/loginPage";
+		}
+		
 	}
 	
 	@RequestMapping("offlineCounselReservationCheckPage")

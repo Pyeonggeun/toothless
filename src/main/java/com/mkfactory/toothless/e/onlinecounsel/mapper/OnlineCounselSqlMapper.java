@@ -6,6 +6,7 @@ import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
 import com.mkfactory.toothless.e.dto.FreeboardDto;
+import com.mkfactory.toothless.e.dto.FreeboardEmpathyDto;
 import com.mkfactory.toothless.e.dto.GroupCounselDto;
 import com.mkfactory.toothless.e.dto.NoticeBoardDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
@@ -56,6 +57,7 @@ public interface OnlineCounselSqlMapper {
 	
 	
 	
+	
 	//		***		공용 UI용		***
 	
 	public List<NoticeBoardDto> selectNoticeListSpecificNum();
@@ -63,6 +65,7 @@ public interface OnlineCounselSqlMapper {
 	public List<FreeboardDto> selectFreeboardListSpecificNum();
 	
 	public List<GroupCounselDto> selectGroupCounselListSpecificNum();
+
 	
 	
 	//		***		통계		***

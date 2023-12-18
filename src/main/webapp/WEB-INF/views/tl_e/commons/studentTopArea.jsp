@@ -5,7 +5,7 @@
 		<div class="col-2 pt-3">
 			<div class="row">
 				<div class="col-3 pe-0 me-0">
-					<img class="img-fluid" style="width: 60px; height: 60px; color:blue;" src="./../../resources/img/groupCounsel/logo_black.png">
+					<a href="/toothless/tl_e/commons/counselCenterStudentMainPage"><img class="img-fluid" style="width: 60px; height: 60px; color:blue;" src="./../../resources/img/groupCounsel/logo_black.png"></a>
 				</div>
 				<div class="col">
 					<div class="row" style="height: 0.55em;"></div>
@@ -72,7 +72,7 @@
 							<div class="row" style="height: 1.7em;"></div>
 							<div class="row">
 								<div class="col">
-									<i class="bi bi-box-arrow-right" style="font-size:1.6em;"></i>
+									<a href="/toothless/another/student/logoutProcess"><i class="bi bi-box-arrow-right" style="font-size:1.6em; color: black;"></i></a>
 								</div>
 							</div>
 						</div>

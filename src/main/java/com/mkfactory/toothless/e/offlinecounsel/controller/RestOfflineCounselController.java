@@ -157,7 +157,8 @@ public class RestOfflineCounselController {
 		
 		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
 		restResponseOfflineDto.setResult("success");
-
+		
+		System.out.println("일지등록reservationID: "+id);
 		offlineCounselService.updateCounselReservationState(id, state);
 		offlineCounselService.insertCounselDocumentInfo(id, text, location);
 		
@@ -216,6 +217,18 @@ public class RestOfflineCounselController {
 		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
 		restResponseOfflineDto.setResult("success");
 		restResponseOfflineDto.setData(offlineCounselService.getOfflineStatisticsOfDay(external_pk));
+		
+		return restResponseOfflineDto;
+		
+	}
+		
+	
+	@RequestMapping("isPossibleReservation")
+	public RestResponseOfflineDto isPossibleReservation() {
+		
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		restResponseOfflineDto.setResult("success");
+		restResponseOfflineDto.setData(offlineCounselService.getDateReservationList());
 		
 		return restResponseOfflineDto;
 		

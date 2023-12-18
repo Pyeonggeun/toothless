@@ -114,6 +114,11 @@
 		WHERE student_pk = #{student_pk}
 	</select>
 	
+	<select id="countComment" resultType='int'>
+	SELECT count(*) FROM CP_FREEBOARD_COMMENT 
+	WHERE FREEBOARD_ID = #{FREEBOARD_ID}
+	</select>
+	
 	<insert id = "insertImage">
 		INSERT INTO cp_freeboard_image VALUES(
 			cp_freeboard_image_seq.nextval,
@@ -139,7 +144,7 @@
 		)
 	</insert>
 	
-	<select id="selectAllEmpathy" resultType="com.mkfactory.toothless.e.dto.FreeboardEmpathyDto">
+	<select id="selectAllEmpathy" resultType="int">
 		SELECT count(*) FROM cp_freeboard_empathy
 		WHERE FREEBOARD_ID = #{freeboard_id}
 	</select>

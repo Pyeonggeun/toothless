@@ -4,9 +4,13 @@
 
 <mapper namespace="com.mkfactory.toothless.b.dy.staffboard.mapper.StaffboardSqlMapper">
 					
+	<select id="selectStaffboardPk" resultType="int">
+		select tl_b_STAFFBOARD_seq.nextval FROM Dual
+	</select>				
+					
 	<insert id="insertStaffboardText">
 		INSERT INTO TL_B_STAFFBOARD values(
-			TL_B_STAFFBOARD_seq.nextval,
+			#{staffboard_pk},
 			#{staff_pk},
 			#{title},
 			#{content},
@@ -110,6 +114,22 @@
 
 	<select id="selectReplyCount" resultType="int">
 		SELECT COUNT(*) FROM TL_B_STAFFBOARD_REPLY WHERE STAFFBOARD_PK = #{staffboard_pk}
+	</select>
+
+<!--이미지 -->
+ 	<insert id="insertImg">
+		INSERT INTO tl_b_staffboard_image values(
+			TL_B_STUDENTBOARD_IMAGE_seq.nextval,
+			#{staffboard_pk},
+			#{img_link},
+			#{original_link},
+			sysdate
+		)
+		
+	</insert>
+ 	<select id="selectTextImgListByStaffboardPk" resultType="com.mkfactory.toothless.b.dto.StaffboardImageDto">
+		SELECT * FROM tl_b_staffboard_image tbsi WHERE tbsi.staffboard_pk = #{staffboard_pk} ORDER BY tbsi.staffboard_image_pk ASC
+		
 	</select>
 
 </mapper>

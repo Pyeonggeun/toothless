@@ -162,5 +162,8 @@ public interface OfflineCounselMapper {
 	// 상담원 메인페이지 파이차트(오프라인, 온라인)
 	public List<Map<String, Object>> selectMainPieChart(int counselor_id);
 	
+	// 상담 예약 중복 확인
+	public List<Map<String, Object>> selectDateValueReservationList();
+	
 	
 }

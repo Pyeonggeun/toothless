@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.mkfactory.toothless.b.dto.StaffboardDto;
+import com.mkfactory.toothless.b.dto.StaffboardImageDto;
 import com.mkfactory.toothless.b.dto.StaffboardLikeDto;
 import com.mkfactory.toothless.b.dto.StaffboardReplyDto;
 import com.mkfactory.toothless.b.dy.staffboard.mapper.StaffboardSqlMapper;
@@ -22,9 +23,19 @@ public class StaffboardServiceImpl {
 	@Autowired
 	private StaffboardSqlMapper staffboardSqlMapper;
 	
-	public void StaffboardText(StaffboardDto staffboardDto) {
+	public void writeStaffboardText(StaffboardDto staffboardDto, List<StaffboardImageDto> staffboardImageDtoList) { 
 		
+		 int staffboardPk = staffboardSqlMapper.selectStaffboardPk();
+		 
+		staffboardDto.setStaffboard_pk(staffboardPk);
 		staffboardSqlMapper.insertStaffboardText(staffboardDto);
+		
+		for(StaffboardImageDto staffboardImageDto : staffboardImageDtoList){
+			staffboardImageDto.setStaffboard_pk(staffboardPk);
+			staffboardSqlMapper.insertImg(staffboardImageDto);
+		}
+		
+		
 	}
 	
 	public List<Map<String, Object>> getBoardContentsInfo(String searchType, String searchWord) {
@@ -62,8 +73,15 @@ public class StaffboardServiceImpl {
 		int userPk = staffboardDto.getStaff_pk();
 		StaffInfoDto staffInfoDto = staffboardSqlMapper.selectStaffInfo(userPk);
 		
+		//이미지
+		List<StaffboardImageDto> staffboardImageDtoList  = staffboardSqlMapper.selectTextImgListByStaffboardPk(staffboard_pk);
+		
+		
+		
 		map.put("staffboardDto", staffboardDto);
 		map.put("staffInfoDto", staffInfoDto);
+		map.put("staffboardImageDtoList", staffboardImageDtoList);
+		
 		
 		return map;
 	}

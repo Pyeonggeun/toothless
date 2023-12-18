@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
     	<style>
             div.no1title{
                 font-weight: 700;
@@ -143,6 +144,13 @@
                                                 <div class="col contentBox">${readText.staffboardDto.content}</div>
                                             </div>
                                             <div class="row">
+                                            	<div class="col">
+                                            		<c:forEach items="${readText.staffboardImageDtoList}" var="staffboardImageDto">
+                                            			<img src="/uploadFiles/${staffboardImageDto.img_link}">
+                                            		</c:forEach>
+                                            	</div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col likeBox bg-white text-dark text-center">
                                                     <c:if test="${!empty sessionStaffInfo }">
                                                         <c:choose>
@@ -224,27 +232,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col py-4" style="background-color: #F2F2F2;">
-                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-4 my-auto">
-                                                    <img class="img-fluid" src="./img/health/health_ci.gif">
-                                                </div>
-                                                <div class="col text-body-tertiary" style="font-size: small;">
-                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
                 </div>
             </div>
         </div>
