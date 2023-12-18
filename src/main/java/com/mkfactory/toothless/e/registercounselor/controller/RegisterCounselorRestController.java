@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.JinyongRestResponseDto;
 import com.mkfactory.toothless.e.dto.LicenseImageDto;
@@ -46,6 +47,22 @@ public class RegisterCounselorRestController {
 		return jinyongRestResponseDto;
 		
 	}
+	
+	@RequestMapping("getStudentInfo")
+	public JinyongRestResponseDto getStudentInfo(HttpSession session) {
+		
+		
+		StudentInfoDto sessionStudentInfo = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		JinyongRestResponseDto jinyongRestResponseDto = new JinyongRestResponseDto();
+				
+		jinyongRestResponseDto.setResult("success");
+		jinyongRestResponseDto.setData(sessionStudentInfo);
+		
+		return jinyongRestResponseDto;
+		
+	}
+	 
 	
 	@RequestMapping("restGetCounselorInfo")	
 	public JinyongRestResponseDto restGetCounselorInfo(
