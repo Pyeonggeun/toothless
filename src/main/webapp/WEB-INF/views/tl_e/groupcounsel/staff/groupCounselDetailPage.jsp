@@ -13,14 +13,213 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gowun+Dodum&family=Quicksand:wght@300&display=swap" rel="stylesheet">
-	<style>
-		*{
-			font-family: 'Gowun Dodum', sans-serif;
-		}
+
+
+<style>
+	*{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
+	
+</style>
+
+
+<script>
+	
+	
+	const groupCounselId = ${groupCounselDetail.groupCounselDto.id };
+	
+	
+	
+	
+	function reloadStudentListByGroupCounselId(){
 		
-	</style>
+		const url="./getStudentListByGroupCounselId?group_counsel_id=" + groupCounselId;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const studentListBox = document.getElementById("studentListBox");
+			studentListBox.innerHTML = "";
+			
+			for(e of response.data.studentInfoList){
+				const studentWrapper = document.querySelector("#templete .studentWrapper").cloneNode(true);
+				
+				const studentDepartment = studentWrapper.querySelector(".studentDepartment");
+				studentDepartment.innerText = e.departmentCategoryDto.name;
+				
+				const studentName = studentWrapper.querySelector(".studentName");
+				studentName.innerText = e.studentInfoDto.name;
+				
+				const studentGender = studentWrapper.querySelector(".studentGender");
+				studentGender.innerText = e.studentInfoDto.gender;
+				
+				const studentPhone = studentWrapper.querySelector(".studentPhone");
+				studentPhone.innerText = e.studentInfoDto.phone;				
+				
+				const checkAttendanceButton = studentWrapper.querySelector(".checkAttendanceButton");
+				checkAttendanceButton.setAttribute("onclick", "toggleAttendance(this, "+e.groupCounselReservationDto.id+")")
+				
+				if(e.groupCounselReservationDto.isAttend == "Y"){
+					checkAttendanceButton.style.cssText = "color:red;";
+					
+				}else{
+					checkAttendanceButton.style.cssText = "color:black;";
+				}
+				
+				
+				studentListBox.appendChild(studentWrapper);
+			}
+			
+		});
+		
+	}
+
+	
+	function toggleAttendance(targetElement, groupCounselReservationId){
+		
+		fetch("./toggleAttendanceCheck?group_reservation_id=" + groupCounselReservationId)
+		.then(response => response.json())
+		.then(response => {
+			
+			reloadStudentListByGroupCounselId();
+		});		
+		
+	}
+	
+	
+	function reloadGroupCounselCounselorByGroupCounselId(){
+		
+		const url = "./getCounselorListByGroupCounselId?group_counsel_id=" + groupCounselId;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const counselorListBox = document.getElementById("counselorListBox");
+			counselorListBox.innerHTML = "";
+			
+			for(e of response.data.counselorList){
+				
+				const counselorWrapper = document.querySelector("#templete .counselorWrapper").cloneNode(true);
+				
+				const counselorName = counselorWrapper.querySelector(".counselorName");
+				counselorName.innerText = e.counselorDto.name;
+
+				const counselorGender = counselorWrapper.querySelector(".counselorGender");
+				counselorGender.innerText = e.counselorDto.gender;
+
+				const counselorPhone = counselorWrapper.querySelector(".counselorPhone");
+				counselorPhone.innerText = e.counselorDto.phonenumber;
+
+				counselorListBox.appendChild(counselorWrapper);
+			}
+			
+		});
+	}
+	
+	
+	function showModal(){
+		
+		const writeModal = bootstrap.Modal.getOrCreateInstance("#writeModal");
+		const writeModalElement = document.querySelector("#writeModal");
+		
+		const url = "./getCounselorList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const allCounseolorListBox = document.getElementById("allCounseolorListBox");
+			allCounseolorListBox.innerHTML= "";
+			
+			for(e of response.data){
+				
+				const allCounselorWrapper = document.querySelector("#templete .allCounselorWrapper").cloneNode(true);
+				
+				const counselorName = allCounselorWrapper.querySelector(".counselorName");
+				counselorName.innerText = e.name;
+
+				const counselorGender = allCounselorWrapper.querySelector(".counselorGender");
+				counselorGender.innerText = e.gender;
+
+				const counselorPhone = allCounselorWrapper.querySelector(".counselorPhone");
+				counselorPhone.innerText = e.phonenumber;				
+				
+				
+				const checkBox = allCounselorWrapper.querySelector(".checkBox");
+				checkBox.value = e.id;
+				
+				allCounseolorListBox.appendChild(allCounselorWrapper);
+			}
+			
+			
+			
+		});
+		
+		writeModal.show();
+		
+	}
+	
+	
+	function isCheck(){
+		
+		const allCounseolorListBox = document.querySelector("#allCounseolorListBox");
+		const checkBoxList = allCounseolorListBox.querySelectorAll(".checkBox");
+		
+		
+		for(checkBox of checkBoxList){
+			
+			if(checkBox.checked == true){
+				register(checkBox.value);
+			}else{
+				continue;
+			}
+		}
+		closeModal();
+		reloadGroupCounselCounselorByGroupCounselId();
+	}
+	
+	
+	function register(counselorId){
+		
+		const url = "./registerCounselor?group_counsel_id=" + groupCounselId + "&counselor_id=" + counselorId;
+		
+		fetch(url)
+		.then(response => response)
+		.then(response => {
+			
+			
+		})
+		
+	}
+	
+	function closeModal() {
+		
+		const modal = bootstrap.Modal.getOrCreateInstance("#writeModal");
+		
+		modal.hide();
+		
+	}
+		
+	
+	
+	
+	
+	
+	window.addEventListener("DOMContentLoaded", () => {
+		
+		reloadStudentListByGroupCounselId();
+		reloadGroupCounselCounselorByGroupCounselId();
+	});
 
 
+
+</script>
+
+
+
+	
 
 </head>
 <body>
@@ -30,7 +229,19 @@
 
 	<div class="row pb-3 border-bottom border-dark-subtle">
 		<div class="col-2 pt-3">
-			<div class="fw-bold" style="font-size: 1.5em;"><img class="img-fluid" style="width: 60px; height: 60px; color:blue;" src="../../../resources/img/groupCounsel/logo_black.png"> Mk University</div>
+			<div class="row">
+				<div class="col-3 pe-0 me-0">
+					<img class="img-fluid" style="width: 60px; height: 60px; color:blue;" src="../../../resources/img/groupCounsel/logo_black.png">
+				</div>
+				<div class="col">
+					<div class="row" style="height: 0.55em;"></div>
+					<div class="row">
+						<div class="col ps-0 ms-0">
+							<div class="fw-bold" style="font-size: 1.7em;"> Mk University</div>						
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="col">
 			<div class="row">
@@ -41,7 +252,7 @@
 						<div class="col-6 pt-2 text-center">
 							<div class="fw-bold" style="font-size: 1.2em;">[${sessionStaffInfo.name}]님</div>
 						</div>
-						<div class="col-6 pt-1	">
+						<div class="col-6 pt-1">
 							<i class="bi bi-box-arrow-right" style="font-size:1.6em;"></i>						
 						</div>
 					</div>
@@ -333,36 +544,21 @@
 								</div>
 							</div>							
 							
-							<c:forEach items="${groupCounselDetail.studentInfoList}" var="list">
 							
-							<div class="row border-bottom py-2">
-								<div class="col-4 text-center">
-									<div style="font-size:0.9em;">${list.departmentCategoryDto.name }</div>
+							<div class="row">
+							
+								<div class="col" id="studentListBox">
+								
+									
+									
+									
 								</div>
-								<div class="col-2 text-center">
-									<div style="font-size:0.9em;">${list.studentInfoDto.name }</div>
-								</div>
-								<div class="col-2 text-center">
-									<div style="font-size:0.9em;">${list.studentInfoDto.gender }</div>
-								</div>
-								<div class="col-4 text-center">
-									<div class="row">
-										<div class="col-9">
-											<div style="font-size:0.9em;">${list.studentInfoDto.phone }</div>
-										</div>
-										<div class="col px-0">
-											<c:if test="${list.groupCounselReservationDto.isAttend=='N'}">
-												<a href="./studentIsAttendCheckProcess?id=${list.groupCounselReservationDto.id}&group_counsel_id=${groupCounselDetail.groupCounselDto.id}"><i class="bi bi-check-square" style="color:black;"></i></a>
-											</c:if>
-											<c:if test="${list.groupCounselReservationDto.isAttend=='Y'}">
-												<a href="./studentIsAttendCheckProcess?id=${list.groupCounselReservationDto.id}&group_counsel_id=${groupCounselDetail.groupCounselDto.id}"><i class="bi bi-check-square-fill" style="color:red;"></i></a>
-											</c:if>
-										</div>
-									</div>
-								</div>
-							</div>					
-						
-							</c:forEach>
+								
+							</div>		
+										
+							
+							
+							
 						</div>
 						<div class="col-1"></div>
 					</div>
@@ -375,7 +571,7 @@
 									<div class="fw-bold" style="font-size:1.9em; color: #07355e;">상담원 정보</div>
 								</div>
 								<div class="col-2 pt-1 text-end">
-									<a href="./counselorAddPage?group_counsel_id=${groupCounselDetail.groupCounselDto.id }"><i class="bi bi-plus-square" style="font-size:1.6em; color:black;"></i></a>
+									<a onclick="showModal()"><i class="bi bi-plus-square" style="font-size:1.6em; color:black;"></i></a>
 								</div>
 							</div>
 							<div class="row border-top border-2 border-black pb-2 text-bg-light">
@@ -398,23 +594,14 @@
 								</div>
 							</div>							
 							
-							<c:forEach items="${groupCounselDetail.counselorList}" var="list">
 							
-							<div class="row border-bottom py-2">
-								<div class="col-4 text-center">
-									<div style="font-size:0.9em;"></div>
-								</div>
-								<div class="col-2 text-center">
-									<div style="font-size:0.9em;">${list.counselorDto.name }</div>
-								</div>
-								<div class="col-2 text-center">
-									<div style="font-size:0.9em;">${list.counselorDto.gender}</div>
-								</div>
-								<div class="col-4 text-center">
-									<div style="font-size:0.9em;">${list.counselorDto.phonenumber }</div>
+							<div class="row">
+								<div class="col" id="counselorListBox">
+
+
 								</div>
 							</div>					
-							</c:forEach>
+							
 						</div>
 						<div class="col-1"></div>
 					</div>
@@ -430,28 +617,152 @@
 	</div>
 
 
-
-
-
-
-	
-
-	
-	
-
-	
-
-	
-	
-
-	
-	
-	
-	
-	
 	
 	<div class="row" style="height:20em;"></div>
 </div>
+
+
+<!-- 템플릿 -->
+<div id="templete" class="d-none">
+
+	<div class="row studentWrapper border-bottom py-2">
+		<div class="col-4 text-center">
+			<div class="studentDepartment" style="font-size:0.9em;"></div>
+		</div>
+		<div class="col-2 text-center">
+			<div class="studentName" style="font-size:0.9em;"></div>
+		</div>
+		<div class="col-2 text-center">
+			<div class="studentGender" style="font-size:0.9em;"></div>
+		</div>
+		<div class="col-4 text-center">
+			<div class="row">
+				<div class="col-9">
+					<div class="studentPhone" style="font-size:0.9em;"></div>
+				</div>
+				<div class="col px-0">
+					<i class="checkAttendanceButton bi bi-check-square" style="color:black;"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="row counselorWrapper border-bottom py-2">
+		<div class="col-4 text-center">
+			<div style="font-size:0.9em;"></div>
+		</div>
+		<div class="col-2 text-center">
+			<div class="counselorName" style="font-size:0.9em;"></div>
+		</div>
+		<div class="col-2 text-center">
+			<div class="counselorGender" style="font-size:0.9em;"></div>
+		</div>
+		<div class="col-4 text-center">
+			<div class="counselorPhone" style="font-size:0.9em;"></div>
+		</div>
+	</div>
+	
+	<div class="row allCounselorWrapper border-bottom py-2">
+		<div class="col-1"></div>
+		<div class="col-2 text-center">
+			<div style="font-size:0.9em;">
+				<input type="checkbox" class="checkBox">
+			</div>
+		</div>
+		<div class="col-2 text-center">
+			<div class="counselorName" style="font-size:0.9em;"></div>
+		</div>
+		<div class="col-2 text-center">
+			<div class="counselorGender" style="font-size:0.9em;"></div>
+		</div>
+		<div class="col-4 text-center">
+			<div class="counselorPhone" style="font-size:0.9em;"></div>
+		</div>
+		<div class="col-1"></div>
+	</div>	
+	
+</div>
+
+
+<!-- 모달창 -->
+
+<div id="writeModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <div class="modal-title fw-bold" style="font-size:2em;">상담원 목록</div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            	<div class="row">
+            		<div class="col-2">
+						<div class="dropdown">
+						  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						    전체
+						  </button>
+						  <ul class="dropdown-menu">
+						    <li><a class="dropdown-item" onclick="reloadModalByCategoryId()">성격문제</a></li>
+						    <li><a class="dropdown-item">대인/가족관계</a></li>
+						    <li><a class="dropdown-item">이성문제</a></li>
+						    <li><a class="dropdown-item">우울/불안문제</a></li>
+						    <li><a class="dropdown-item">진로문제</a></li>
+						    <li><a class="dropdown-item">학업문제</a></li>
+						  </ul>
+						</div>
+            		</div>
+            		<div class="col"></div>
+            	</div>
+            	
+            	<div class="row" style="height: 1em;"></div>
+            	
+				<div class="row border-top border-2 border-black pb-2 text-bg-light">
+					<div class="col"></div>
+				</div>            
+				<div class="row border-bottom pb-2 text-bg-light">
+					<div class="col-1"></div>
+					<div class="col-2 text-center">
+						<div class="fw-bold" style="font-size:1.0em;"></div>
+					</div>
+					<div class="col-2 text-center">
+						<div class="fw-bold" style="font-size:1.0em;">이름</div>
+					</div>
+					<div class="col-2 text-center">
+						<div class="fw-bold" style="font-size:1.0em;">성별</div>
+					</div>
+					<div class="col-4 text-center">
+						<div class="fw-bold" style="font-size:1.0em;">전화번호</div>
+					</div>
+					<div class="col-1"></div>
+				</div>	            
+            
+				<div class="row">
+					<div class="col" id= "allCounseolorListBox">
+							
+					
+					
+					</div>
+				</div>   
+
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            <button onclick="isCheck()" type="button" class="btn" style="background-color:white; color: black; border-color: black;">등록</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
 
 
 

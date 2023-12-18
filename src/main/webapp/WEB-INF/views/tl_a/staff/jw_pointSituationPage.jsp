@@ -10,6 +10,105 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <title>Insert title here</title>
+<script>
+	
+	// 전체 리스트
+	function reloadPointSituationList(){
+		
+		const url = "./restGetAllPointSituationList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const pointSituationBox = document.getElementById("pointSituationBox");
+			pointSituationBox.innerHTML = "";
+			for(e of response.data){
+				
+				const pointSituationWrapper = document.querySelector("#pointTemplete .pointSituationWrapper").cloneNode(true);
+				
+				const studentNameSpace = pointSituationWrapper.querySelector(".studentNameSpace");
+				studentNameSpace.innerText = e.studentInfoDto.name;
+				
+				const buildingNameSpace = pointSituationWrapper.querySelector(".buildingNameSpace");
+				buildingNameSpace.innerText = e.dormBuildingDto.name;
+				
+				const roomNameSpace = pointSituationWrapper.querySelector(".roomNameSpace");
+				roomNameSpace.innerText = e.dormRoomDto.room_name;
+				
+				const totalPointSpace = pointSituationWrapper.querySelector(".totalPointSpace");
+				totalPointSpace.innerText = e.intSumPointValue;
+				
+				pointSituationBox.appendChild(pointSituationWrapper);
+			
+			}
+		})
+	}
+	
+	function reloadPointSituationListByDormPk(dorm_pk){
+		
+		const url = "./restGetPointSituationListByDormPk?dorm_pk=" + dorm_pk;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const pointSituationBox = document.getElementById("pointSituationBox");
+			pointSituationBox.innerHTML = "";
+			for(e of response.data){
+				
+				const pointSituationWrapper = document.querySelector("#pointTemplete .pointSituationWrapper").cloneNode(true);
+				
+				const studentNameSpace = pointSituationWrapper.querySelector(".studentNameSpace");
+				studentNameSpace.innerText = e.studentInfoDto.name;
+				
+				const buildingNameSpace = pointSituationWrapper.querySelector(".buildingNameSpace");
+				buildingNameSpace.innerText = e.dormBuildingDto.name;
+				
+				const roomNameSpace = pointSituationWrapper.querySelector(".roomNameSpace");
+				roomNameSpace.innerText = e.dormRoomDto.room_name;
+				
+				const totalPointSpace = pointSituationWrapper.querySelector(".totalPointSpace");
+				totalPointSpace.innerText = e.intSumPointValue;
+				
+				pointSituationBox.appendChild(pointSituationWrapper);
+			
+			}
+		})
+	}
+	
+	function reloadBuildingName(){
+		
+		const url = "./restBuildingList"
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const buildingListBox = document.getElementById("buildingListBox");
+			buildingListBox.innerHTML = "";
+			
+			for(e of response.data){
+				
+				const buildingNameWrapper = document.querySelector("#buildingTemplete .buildingNameWrapper").cloneNode(true);
+				buildingNameWrapper.setAttribute("onclick", "reloadPointSituationListByDormPk("+e.dorm_pk+")");
+				
+				const buildingName = buildingNameWrapper.querySelector(".buildingName");
+				buildingName.innerText = e.name;
+				
+				buildingListBox.appendChild(buildingNameWrapper);
+			}
+			
+		})
+		
+	}
+	
+	window.addEventListener("DOMContentLoaded", () => {
+		reloadPointSituationList();
+		reloadBuildingName();
+	})
+	
+</script>
 </head>
 <body>
 <div class="container-fluid">
@@ -39,7 +138,7 @@
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					<ul class="nav nav-tabs">
 						<li class="nav-item">
-							<a class="nav-link text-black" href="./mj_pointCategoryPage">상벌 코드</a>
+							<a class="nav-link text-black" href="./jw_pointCategoryPage">상벌 코드</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-black" href="./jw_pointManagementPage">상벌 관리</a>
@@ -51,25 +150,19 @@
 				</div>
 			</div>
 			
-			<div class="row">
-				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
-					<div class="row">
-						<div class="col ms-2 fw-bold">
-							A동
-						</div>
-					</div>
-				</div>
-				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
-					<div class="row">
-						<div class="col ms-2 fw-bold">
-							B동
-						</div>
-					</div>
-					
-				</div>
-				<div class="col-8"></div>
+			<div id="buildingListBox" class="row">
+				
 			</div>
-
+			
+			<div id="buildingTemplete" class="d-none">
+				<div class="buildingNameWrapper col-1 border py-4 mx-2 rounded border-dark btn text-center">
+					<div class="row">
+						<div class="buildingName col ms-2 fw-bold">
+							동나오는곳
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- 세부내용 시작 -->			
 			<div class="row">
 				<div class="col">
@@ -98,20 +191,23 @@
 										<th scope="col" class="col-6 text-bg-light">총 점수</th>
 									</tr>
 								</thead>
-								<tbody>
-									<!-- 값 반복 예정 -->
-									<c:forEach items="${pointListMap}" var="pointListMap">
-									<tr>
-										<td>${pointListMap.studentInfoDto.name}</td>
-										<td>${pointListMap.dormBuildingDto.name}</td>
-										<td>${pointListMap.dormRoomDto.room_name}</td>
-										<td>${pointListMap.intSumPointValue}</td>
-									</tr>
-									</c:forEach>	
+								<tbody id="pointSituationBox">
+
 								</tbody>
 							</table>
 						</div>
 					</div>
+					
+					<table id="pointTemplete" class="d-none">
+						<tr class="pointSituationWrapper">
+							<td class="studentNameSpace">학생이름나오는곳</td>
+							<td class="buildingNameSpace">기숙사명나오는곳</td>
+							<td class="roomNameSpace">호나오는곳</td>
+							<td class="totalPointSpace">총점수나오는곳</td>
+						</tr>
+					</table>
+					
+					
 				</div>
 			</div>
 			

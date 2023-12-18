@@ -299,17 +299,17 @@
 																				<div class="accordion" id="accordionExample">
 																					<div class="accordion-item">
 																						<h2 class="accordion-header">
-																		
-																								<button class="accordion-button collapsed"
-																									type="button" data-bs-toggle="collapse"
-																									data-bs-target="#collapseTwo"
-																									aria-expanded="false"
-																									aria-controls="collapseTwo"
-																									style="background-color: #CFE2FF;"
-																									onclick="certificationForm()">
-																									<i class="bi bi-bookmarks "></i> &nbsp; 자격증
-																								</button>
-																							
+
+																							<button class="accordion-button collapsed"
+																								type="button" data-bs-toggle="collapse"
+																								data-bs-target="#collapseTwo"
+																								aria-expanded="false"
+																								aria-controls="collapseTwo"
+																								style="background-color: #CFE2FF;"
+																								onclick="certificationForm()">
+																								<i class="bi bi-bookmarks "></i> &nbsp; 자격증
+																							</button>
+
 																						</h2>
 																						<div id="collapseTwo"
 																							class="accordion-collapse collapse"
@@ -321,16 +321,18 @@
 																											<th scope="col">#</th>
 																											<th scope="col">자격증</th>
 																											<th scope="col">취득일</th>
-																										</tr>																		
+																										</tr>
 																									</thead>
 																									<tbody>
-																										<c:forEach items="${CertificationList}" var="CertificationList" varStatus="loopStatus">
+																										<c:forEach items="${CertificationList}"
+																											var="CertificationList"
+																											varStatus="loopStatus">
 																											<tr>
 																												<td class="text-center">${loopStatus.index + 1}</td>
 																												<td class="text-center">${CertificationList.CERTIFICATION_NAME}</td>
 																												<td class="text-center">${CertificationList.CERTIFICATION_ACQUISITION_DATE}</td>
 																											</tr>
-																										</c:forEach>	
+																										</c:forEach>
 																									</tbody>
 																								</table>
 																							</div>
@@ -395,10 +397,25 @@
 																			<br>
 																			<div class="row"></div>
 																			<div class="modal-footer">
-																				<a href="./updateSelectInternProcess?status=불합격&student_pk=${selectionStudent.STUDENT_PK}&internship_course_pk=${selectionStudent.INTERNSHIP_COURSE_PK}" class="btn bbtn btn-secondary"
-																					data-bs-toggle="modal" role="button">불합격</a>													
-																				<a href="./updateSelectInternProcess?status=합격&student_pk=${selectionStudent.STUDENT_PK}&internship_course_pk=${selectionStudent.INTERNSHIP_COURSE_PK}" class="btn bbtn btn-primary"
-																					data-bs-toggle="modal" role="button">합격</a>
+																				<a
+																					href="./updateSelectInternProcess?status=불합격&student_pk=${selectionStudent.STUDENT_PK}&internship_course_pk=${selectionStudent.INTERNSHIP_COURSE_PK}"
+																					class="btn bbtn btn-secondary"
+																					data-bs-toggle="modal" role="button">불합격 
+																					
+																					
+																				</a> <a
+																					href="./updateSelectInternProcess?status=합격&student_pk=${selectionStudent.STUDENT_PK}&internship_course_pk=${selectionStudent.INTERNSHIP_COURSE_PK}"
+																					class="btn bbtn btn-primary" data-bs-toggle="modal"
+																					role="button">합격
+																					
+																					<input
+																					name="internship_course_pk" type="hidden"
+																					value="${companyList.INTERNSHIP_COURSE_PK}"><input
+																					name="student_pk" type="hidden"
+																					value="${companyList.STUDENT_PK}">
+																					
+																					
+																					</a>
 																			</div>
 
 																		</div>
@@ -406,8 +423,6 @@
 
 																</div>
 																</div> <a class="btn btn btn-light" data-bs-toggle="modal"
-																
-																	  
 																href="#exampleModalToggle?student_pk=${selectionStudent.STUDENT_PK}"
 																role="button"> ${selectionStudent.NAME}</a>
 															</td>

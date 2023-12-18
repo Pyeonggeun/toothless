@@ -73,9 +73,9 @@
 <div class="row">
 	<div class="col">
 
-		<div class="row pt-5 pb-2 px-5">
-			<div class="col border-bottom fw-bold pb-2">
-				<i class="bi bi-check2-circle fs-4"></i>&nbsp;현재 진행 과정
+		<div class="row pt-4 pb-3 px-5">
+			<div class="col border-bottom fw-bold pb-2" style="font-size: 1.1em;">
+				<i class="bi bi-check2-circle fs-5"></i>&nbsp;현재 진행 과정
 			</div>
 		</div>
 				
@@ -83,7 +83,7 @@
 			<c:forEach items="${ingInternshipCourseList }" var="ingInternshipCourseMap">
 				<div class="col py-3">
 					<div class="card" style="height: 13em; cursor: pointer;" onclick="location.href='./writeCompanyTimecardPage?internshipCoursePk=${ingInternshipCourseMap.INTERNSHIP_COURSE_PK}'">
-					  <div class="card-header" style="background-color: #BEB8FF; border-color: #BEB8FF;">
+					  <div class="card-header text-center" style="background-color: #F5F2FC; border-color: #F5F2FC;">
 					    ${ingInternshipCourseMap.COURSE_TITLE }
 					  </div>
 					  <div class="card-body py-0">

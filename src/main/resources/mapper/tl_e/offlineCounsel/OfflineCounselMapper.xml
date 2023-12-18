@@ -58,6 +58,13 @@
 		WHERE ID = #{id}
 	</select>
 	
+	<!-- 카테고리Dto 추출 -->
+	<select id="selectTypeCategoryDtoList" resultType="com.mkfactory.toothless.e.dto.TypeCategoryDto">
+		SELECT * FROM CP_TYPE_CATEGORY
+		ORDER BY id
+	</select>
+	
+	
 	<!-- 상담원별 예약된 날짜 리스트 -->
 	<select id="selectReservationDateInfoByCounselorId" resultType="string">
 		SELECT (cor.COUNSEL_YEAR||'.'||cor.COUNSEL_MONTH||'.'||cor.COUNSEL_DATE||'.'||cor.COUNSEL_HOUR) AS addDate FROM CP_OFFLINE_RESERVATION cor
@@ -66,9 +73,21 @@
 	
 	<!-- 상담원별 예약 리스트 -->
 	<select id="selectReservationListByCounselorId" resultType="com.mkfactory.toothless.e.dto.OfflineReservationDto">
-		SELECT * FROM CP_OFFLINE_RESERVATION
-		WHERE COUNSELOR_ID = #{counselor_id}
-		ORDER BY id DESC
+		SELECT t2.* FROM(
+			SELECT t1.*, ROWNUM AS rnum FROM(
+				SELECT cor.* FROM CP_OFFLINE_RESERVATION cor
+				WHERE cor.COUNSELOR_ID = #{counselor_id}
+				ORDER BY cor.id DESC
+			)t1
+		)t2
+		<![CDATA[
+		WHERE t2.rnum >= (#{pageNum}-1)*10+1 AND t2.rnum <= #{pageNum}*10
+		]]>
+	</select>
+	
+	<select id="selectReservationCountByCounselorId" resultType="int">
+		SELECT count(*) FROM CP_OFFLINE_RESERVATION
+		WHERE COUNSELOR_ID  = #{counselor_id}
 	</select>
 	
 	<!-- 학생Dto 출력 -->
@@ -89,6 +108,7 @@
 			cp_counsel_document_seq.nextval,
 			#{reservation_id},
 			#{text},
+			#{location},
 			SYSDATE
 		)
 	</select>
@@ -117,7 +137,7 @@
 				WHERE 1 = 1
 				AND cor.student_pk = #{student_pk}
 				<if test="counselorNameValue != &quot;0&quot;">
-					AND cc.name = #{counselorNameValue}
+					AND cc.name LIKE '%' || #{counselorNameValue} || '%'
 				</if>
 				<if test="selectDateType != 0">
 					<choose>
@@ -137,27 +157,11 @@
 						</when>
 					</choose>
 				</if>
-				<if test="categoryType != 0">
-					<choose>
-						<when test="categoryType == 1">
-							AND cor.type_category_id = 1
-						</when>
-						<when test="categoryType == 2">
-							AND cor.type_category_id = 2
-						</when>
-						<when test="categoryType == 3">
-							AND cor.type_category_id = 3
-						</when>
-						<when test="categoryType == 4">
-							AND cor.type_category_id = 4
-						</when>
-						<when test="categoryType == 5">
-							AND cor.type_category_id = 5
-						</when>
-						<when test="categoryType == 6">
-							AND cor.type_category_id = 6
-						</when>
-					</choose>
+				<if test="categoryValues != null and categoryValues.size() > 0">
+					AND cor.type_category_id IN
+				    <foreach item="id" collection="categoryValues" open="(" separator="," close=")">
+				        #{id}
+				    </foreach>
 				</if>
 				<if test="stateType != 0">
 					<choose>
@@ -193,7 +197,7 @@
 		WHERE 1 = 1
 		AND cor.student_pk = #{student_pk}
 		<if test="counselorNameValue != &quot;0&quot;">
-			AND cc.name = #{counselorNameValue}
+			AND cc.name LIKE '%' || #{counselorNameValue} || '%'
 		</if>
 		<if test="selectDateType != 0">
 			<choose>
@@ -213,27 +217,11 @@
 				</when>
 			</choose>
 		</if>
-		<if test="categoryType != 0">
-			<choose>
-				<when test="categoryType == 1">
-					AND cor.type_category_id = 1
-				</when>
-				<when test="categoryType == 2">
-					AND cor.type_category_id = 2
-				</when>
-				<when test="categoryType == 3">
-					AND cor.type_category_id = 3
-				</when>
-				<when test="categoryType == 4">
-					AND cor.type_category_id = 4
-				</when>
-				<when test="categoryType == 5">
-					AND cor.type_category_id = 5
-				</when>
-				<when test="categoryType == 6">
-					AND cor.type_category_id = 6
-				</when>
-			</choose>
+		<if test="categoryValues != null and categoryValues.size() > 0">
+			AND cor.type_category_id IN
+		    <foreach item="id" collection="categoryValues" open="(" separator="," close=")">
+		        #{id}
+		    </foreach>
 		</if>
 		<if test="stateType != 0">
 			<choose>
@@ -321,9 +309,76 @@
 		WHERE counselor_id = #{counselor_id}
 	</select>
 	
-	<!-- 학생의 상담리스트 검색 -->
-	<select id="selectOfflineCounselListOfStudent" resultType="com.mkfactory.toothless.e.dto.OfflineReservationDto">
-		
+	
+	<!-- 2주간 상담원 상담 통계 -->
+	<select id="twoWeekStatisticsData" resultType="map">
+		SELECT COUNSEL_DATE, SUM(COUNT(*)) OVER (ORDER BY t1.counsel_date ASC) AS COUNT FROM (
+			SELECT 
+				TO_CHAR(TO_DATE(cor.counsel_year || '-' || cor.counsel_month || '-' || cor.counsel_date, 'YYYY-MM-DD'), 'yyyy/MM/dd') AS counsel_date 
+			FROM CP_OFFLINE_RESERVATION cor
+			WHERE cor.COUNSELOR_ID = #{counselor_id}
+		)t1
+		WHERE t1.counsel_date > sysdate - 14
+		GROUP BY t1.counsel_date
+		ORDER BY t1.counsel_date ASC
 	</select>
+	
+	<!-- 2주간 카테고리별 상담 통계 -->
+	<select id="twoWeekStatisticsDataByCategory" resultType="map">
+		SELECT t1.name AS CATEGORYNAME, ROUND(RATIO_TO_REPORT(COUNT(*)) OVER() * 100, 0) AS RATE FROM (
+			SELECT 
+				ctc.name AS name,
+				TO_CHAR(TO_DATE(cor.counsel_year || '-' || cor.counsel_month || '-' || cor.counsel_date, 'YYYY-MM-DD'), 'yyyy/MM/dd') AS counsel_date 
+			FROM CP_OFFLINE_RESERVATION cor
+			INNER JOIN CP_TYPE_CATEGORY ctc ON cor.TYPE_CATEGORY_ID = ctc.ID
+			WHERE cor.COUNSELOR_ID = #{counselor_id}
+		)t1
+		WHERE t1.counsel_date > sysdate - 14
+		GROUP BY t1.name
+	</select>
+	
+	<!-- 오프라인 상담 별점 통계 -->
+	<select id="selectOfflineScoreStatistics" resultType="map">
+		SELECT cos1.score AS SCORE, count(*) AS COUNT 
+		FROM CP_OFFLINE_SURVEY cos1
+		INNER JOIN CP_OFFLINE_RESERVATION cor ON cos1.reservation_id = cor.id
+		WHERE cor.counselor_id = #{counselor_id}
+		GROUP BY cos1.score
+		UNION
+		SELECT 2 AS SCORE, 0 AS COUNT 
+		FROM dual
+		WHERE NOT EXISTS (
+		    SELECT 1 
+		    FROM CP_OFFLINE_SURVEY cos2
+		    INNER JOIN CP_OFFLINE_RESERVATION cor2 ON cos2.reservation_id = cor2.id
+		    WHERE cor2.counselor_id = #{counselor_id} AND cos2.score = 2
+		)
+		ORDER BY SCORE
+	</select>
+	
+	<!-- 오프라인 상담 요일별 통계 -->
+	<select id="selectOfflineStatisticsOfDay" resultType="map">
+		SELECT t1.day_of_week AS DAYWEEK, COUNT(*) AS COUNT
+		FROM (
+		    SELECT 
+		        TO_CHAR(TO_DATE(cor.counsel_year || '-' || cor.counsel_month || '-' || cor.counsel_date, 'YYYY-MM-DD'), 'D') AS day_of_week_num,
+		        TO_CHAR(TO_DATE(cor.counsel_year || '-' || cor.counsel_month || '-' || cor.counsel_date, 'YYYY-MM-DD'), 'Dy') AS day_of_week
+		    FROM CP_OFFLINE_RESERVATION cor
+		    WHERE cor.COUNSELOR_ID = #{counselor_id}
+		    AND TO_DATE(cor.counsel_year || '-' || cor.counsel_month || '-' || cor.counsel_date, 'YYYY-MM-DD') > sysdate - 14
+		) t1
+		GROUP BY t1.day_of_week, t1.day_of_week_num
+		ORDER BY 
+		    CASE t1.day_of_week_num
+		        WHEN '1' THEN 1
+		        WHEN '2' THEN 2
+		        WHEN '3' THEN 3
+		        WHEN '4' THEN 4
+		        WHEN '5' THEN 5
+		        WHEN '6' THEN 6
+		        WHEN '7' THEN 7
+		    END
+	</select>
+	 
 	
 </mapper>

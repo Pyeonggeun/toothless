@@ -219,9 +219,6 @@
 				readInternReport.classList.add("btn", "btn-outline-secondary", "btn-sm", "rounded-1");
 				readInternReport.setAttribute("href", "./viewInternReport?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
 				
-				console.log(now);
-				console.log(internshipEndDate);
-				
 				if(now <= internshipEndDate){
 					const internEvaluation = internWrapper.querySelector(".internEvaluation");
 					internEvaluation.setAttribute("style", "font-size:0.95em");
@@ -229,13 +226,15 @@
 					internEvaluation.innerText = "평가입력기간이 아닙니다";
 					
 				}else if(now > internshipEndDate){
-					console.log(intern.didProfessorEvaluateIntern);
 					if(intern.didProfessorEvaluateIntern === 0){
 						const evaluationButton = internWrapper.querySelector(".evaluationButton");
 						evaluationButton.innerText = "평가하기";
 						evaluationButton.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1", "open-Modal");
 						
 						evaluationButton.setAttribute("onclick", "openModal()");
+						
+						const inputStudentInternPk = document.getElementById("inputStudentInternPk");
+						inputStudentInternPk.setAttribute("value",intern.studentInternDto.student_intern_pk);
 						
 					}else if(intern.didProfessorEvaluateIntern !== 0){
 						const internEvaluation = internWrapper.querySelector(".internEvaluation");
@@ -274,6 +273,7 @@
 		const coorporation_score = document.querySelector('input[name="coorporation_score"]:checked');
 		const achievement_score = document.querySelector('input[name="achievement_score"]:checked');
 		const inputReview = document.getElementById("inputReview");
+		const inputStudentInternPk = document.getElementById("inputStudentInternPk");
 		
 		fetch("./writeInternEvaluation", {
 			method: "post",
@@ -284,7 +284,8 @@
 					"&responsibility_score=" + responsibility_score.value +
 					"&coorporation_score=" + coorporation_score.value +
 					"&achievement_score=" + achievement_score.value +
-					"&review=" + inputReview.value
+					"&review=" + inputReview.value + 
+					"&student_intern_pk=" + inputStudentInternPk.value
 		})
 		.then(response => response.json())
 		.then(response => {

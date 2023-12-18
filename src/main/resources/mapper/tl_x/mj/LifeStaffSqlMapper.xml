@@ -4,6 +4,382 @@
 
 <mapper namespace="com.mkfactory.toothless.x.mj.mapper.LifeStaffSqlMapper">
 
+	<!-- 교육과정 목록(카테고리) 리스트 -->
+	<select id="selectLectureCategory" resultType="com.mkfactory.toothless.x.dto.LectureCategoryDto">
+		SELECT * FROM TL_X_LECTURE_CATEGORY
+		ORDER BY LECTURE_CATEGORY_KEY asc
+	</select>
+	
+	<!-- 아직 강사등록 안된 사람들 -->
+	<select id="selectNotYetTeacher" resultType="com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto">
+		SELECT * FROM tl_jic_external_info
+		WHERE EXTERNAL_CATEGORY  = 4
+		AND EXTERNAL_PK NOT IN (
+			SELECT EXTERNAL_PK FROM tl_x_life_lecturer
+		)
+		ORDER BY EXTERNAL_ID asc
+	</select>
+	
+	<!-- 강사pk 강제생성 -->
+	<select id="createTeacherPk" resultType="int">
+		SELECT tl_x_life_lecturer_seq.nextval FROM Dual
+	</select>
+	
+	<!-- 강사정보등록 -->
+	<insert id="insertTeacherInfo">
+		INSERT INTO tl_x_life_lecturer VALUES( 
+		   #{lecturer_key},
+		   #{external_pk},
+		   #{name},
+		   #{resident_id},
+		   #{birth},
+		   #{gender},
+		   #{address},
+		   #{phone},
+		   #{email},
+		   #{entered_at},
+		   SYSDATE
+		)
+	</insert>
+	
+	<!-- 강사별 가능한 강의 정보등록 -->
+	<insert id="insertPossibleLecture">
+		INSERT INTO tl_x_possible_lecture VALUES( 
+		   tl_x_possible_lecture_seq.nextval,
+		   #{lecturer_key},
+		   #{lecture_category_key},
+		   SYSDATE
+		)
+	</insert>
+	
+	<!-- 전체 강사 목록 -->
+	<select id="selectAllTeacherList" resultType="com.mkfactory.toothless.x.dto.LifeLecturerDto">
+		SELECT * FROM tl_x_life_lecturer
+		ORDER BY LECTURER_KEY desc
+	</select>
+	
+	<!-- 강사별 가능한 과목 리스트 -->
+	<select id="selectPossibleLectuer" resultType="com.mkfactory.toothless.x.dto.LectureCategoryDto">
+		SELECT * FROM tl_x_lecture_category
+		WHERE LECTURE_CATEGORY_KEY IN (
+			SELECT LECTURE_CATEGORY_KEY FROM tl_x_possible_lecture
+			WHERE LECTURER_KEY = #{lecturer_key}
+		)
+	</select>
+	
+	<!-- 강사별 정보 -->
+	<select id="selectSomeTeacher" resultType="com.mkfactory.toothless.x.dto.LifeLecturerDto">
+		SELECT * FROM tl_x_life_lecturer
+		WHERE LECTURER_KEY = #{lecturer_key}
+	</select>
+
+	<!-- 특정강사의 외부인 회원가입 정보 -->
+	<select id="selectSomeTeacherExternalInfo" resultType="com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto">
+		SELECT * FROM tl_jic_external_info
+		WHERE EXTERNAL_PK = (
+			SELECT EXTERNAL_PK FROM tl_x_life_lecturer
+			WHERE LECTURER_KEY = #{lecturer_key}
+		)
+	</select>
+	
+	<!-- 강사 정보 수정 -->
+	<update id="updateTeacherInfo">
+		UPDATE tl_x_life_lecturer
+		SET NAME = #{name},
+		RESIDENT_ID = #{resident_id},
+		BIRTH = #{birth},
+		GENDER = #{gender},
+		ADDRESS = #{address},
+		PHONE = #{phone},
+		EMAIL = #{email},
+		ENTERED_AT = #{entered_at},
+		EXTERNAL_PK = #{external_pk}
+		WHERE LECTURER_KEY = #{lecturer_key}
+	</update>
+	
+	<!-- 강사별 가능한 과목 수정(그냥 삭제하고 인서트할래) -->
+	<update id="deletePossibleLecture">
+		DELETE FROM tl_x_possible_lecture
+		WHERE LECTURER_KEY = #{lecturer_key}
+	</update>
+	
+	<!-- 강사 정보 삭제 -->
+	<delete id="deleteTeacherInfo">
+		DELETE FROM tl_x_life_lecturer
+		WHERE LECTURER_KEY = #{lecturer_key}
+	</delete>
+	
+	
+	<!-- @@@@@@ 여기부터 학생 관련 @@@@@@@@@-->
+	
+	
+	<!-- 아직 학생등록 안된 사람들 -->
+	<select id="selectNotYetStudent" resultType="com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto">
+		SELECT * FROM tl_jic_external_info
+		WHERE EXTERNAL_CATEGORY  = 5
+		AND EXTERNAL_PK NOT IN (
+			SELECT EXTERNAL_PK FROM tl_x_life_Student
+		)
+		ORDER BY EXTERNAL_ID asc
+	</select>
+	
+	<!-- 학생정보등록 -->
+	<insert id="insertStudentInfo">
+		INSERT INTO tl_x_life_Student VALUES( 
+		   tl_x_life_Student_seq.nextval,
+		   #{external_pk},
+		   #{name},
+		   #{resident_id},
+		   #{birth},
+		   #{gender},
+		   #{address},
+		   #{phone},
+		   #{email},
+		   #{entered_at},
+		   SYSDATE
+		)
+	</insert>
+	
+	<!-- 전체 학생목록 -->
+	<select id="selectAllStudentList" resultType="com.mkfactory.toothless.x.dto.LifeStudentDto">
+		SELECT * FROM tl_x_life_Student 
+		ORDER BY LIFE_STUDENT_KEY DESC
+	</select>
+	
+	<!-- 학생별 정보 -->
+	<select id="selectSomeStudentInfo" resultType="com.mkfactory.toothless.x.dto.LifeStudentDto">
+		SELECT * FROM tl_x_life_Student
+		WHERE LIFE_STUDENT_KEY = #{life_student_key}
+	</select>
+
+	<!-- 특정학생의 외부인 회원가입 정보 -->
+	<select id="selectSomeStudentExternalInfo" resultType="com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto">
+		SELECT * FROM tl_jic_external_info
+		WHERE EXTERNAL_PK = (
+			SELECT EXTERNAL_PK FROM tl_x_life_Student
+			WHERE LIFE_STUDENT_KEY = #{life_student_key}
+		)
+	</select>
+	
+	<!-- 학생 정보 수정 -->
+	<update id="updateStudentInfo">
+		UPDATE tl_x_life_Student
+		SET NAME = #{name},
+		RESIDENT_ID = #{resident_id},
+		BIRTH = #{birth},
+		GENDER = #{gender},
+		ADDRESS = #{address},
+		PHONE = #{phone},
+		EMAIL = #{email},
+		ENTERED_AT = #{entered_at},
+		EXTERNAL_PK = #{external_pk}
+		WHERE LIFE_STUDENT_KEY = #{life_student_key}
+	</update>
+
+	<!-- 학생 정보 삭제 -->
+	<delete id="deleteStudentInfo">
+		DELETE FROM tl_x_life_Student
+		WHERE LIFE_STUDENT_KEY = #{life_student_key}
+	</delete>
+	
+	
+	
+	
+	
+	
+		
+	<!-- @@@@@@ 여기부터 학생 관련 @@@@@@@@@-->
+	
+	<!-- 학생정보등록 -->
+	<insert id="insertLectureInfo">
+		INSERT INTO tl_x_lecture_info VALUES( 
+		   tl_x_lecture_info_seq.nextval,
+		   #{lecture_category_key},
+		   #{name},
+		   #{total_hour},
+		   #{credit},
+		   #{essential_attendance},
+		   #{essential_grade},
+		   #{study_target},
+		   #{need_knowledge},
+		   #{study_goal},
+		   #{study_content},
+		   SYSDATE
+		)
+	</insert>
+	
+	<!-- 전체 교육과정목록 -->
+	<select id="selectAllLectureInfoList" resultType="com.mkfactory.toothless.x.dto.LectureInfoDto">
+		SELECT * FROM TL_X_LECTURE_INFO
+		ORDER BY LECTURE_INFO_KEY desc
+	</select>
+	
+	<!-- 특정 강의 정보 -->
+	<select id="selectSomeLectureInfo" resultType="com.mkfactory.toothless.x.dto.LectureInfoDto">
+		SELECT * FROM TL_X_LECTURE_INFO
+		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
+	</select>
+
+	
+	<!-- 강의정보 수정 -->
+	<update id="updateLectureInfo">
+		UPDATE TL_X_LECTURE_INFO
+		SET NAME = #{name},
+		LECTURE_CATEGORY_KEY = #{lecture_category_key},
+		TOTAL_HOUR = #{total_hour},
+		CREDIT = #{credit},
+		ESSENTIAL_ATTENDANCE = #{essential_attendance},
+		ESSENTIAL_GRADE = #{essential_grade},
+		STUDY_TARGET = #{study_target},
+		NEED_KNOWLEDGE = #{need_knowledge},
+		STUDY_GOAL = #{study_goal},
+		STUDY_CONTENT = #{study_content}
+		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
+	</update>
+	
+	<!-- 강의정보 삭제 -->
+	<delete id="deleteLectureInfo">
+		DELETE FROM TL_X_LECTURE_INFO
+		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
+	</delete>
+
+	<!-- 강의별 수강신청 조건 -->
+	<select id="selectConditionListByLectureKey" resultType="com.mkfactory.toothless.x.dto.ApplyConditionDto">
+		SELECT * FROM tl_x_apply_condition
+		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
+	</select>
+	
+	<!-- 강의별 수강신청 조건 삭제 -->
+	<delete id="deleteConditionList">
+		DELETE FROM tl_x_apply_condition
+		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
+	</delete>
+	
+	<!-- 강의별 수강신청 조건 등록 -->
+	<insert id="insertConditionInfo">
+		INSERT INTO tl_x_apply_condition VALUES( 
+		   tl_x_apply_condition_seq.nextval,
+		   #{lecture_info_key},
+		   #{condition_lecture_key},
+		   SYSDATE
+		)
+	</insert>
+	
+	<!-- 교육과정 카테고리 등록 -->
+	<insert id="insertCategory">
+		INSERT INTO tl_x_lecture_category VALUES( 
+		   tl_x_lecture_category_seq.nextval,
+		   #{category_name}
+		)
+	</insert>
+	
+	<!-- 교육과정 카테고리 삭제 -->
+	<delete id="deleteCategory">
+		DELETE FROM TL_X_LECTURE_CATEGORY
+	WHERE LECTURE_CATEGORY_KEY = #{lecture_category_key}
+	</delete>
+	
+	<!-- 교육과정 카테고리 정보 삭제되면 그 카테고리 수업들도 삭제 -->
+	<delete id="deleteLectureListByCategoryKey">
+		DELETE FROM TL_X_LECTURE_INFO
+		WHERE LECTURE_CATEGORY_KEY = #{lecture_category_key}
+	</delete>
+	
+	<!-- 교육과정 카테고리 정보 삭제되면 그 카테고리 가능하다했떤 정보들도 삭제 -->
+	<delete id="deletePossibleByCategoryKey">
+		DELETE FROM TL_X_POSSIBLE_LECTURE
+		WHERE LECTURE_CATEGORY_KEY = #{lecture_category_key}
+	</delete>
+	
+	
+	<!-- 카테고리별 강의리스트 -->
+	<select id="getLectureListByCategory" resultType="com.mkfactory.toothless.x.dto.LectureInfoDto">
+		SELECT * FROM TL_X_LECTURE_INFO
+		WHERE LECTURE_CATEGORY_KEY = #{lecture_category_key}
+		ORDER BY TOTAL_HOUR ASC, CREDIT ASC, LECTURE_INFO_KEY asc
+	</select>
+	
+	
+	<!-- 카테고리별 강사 리스트 -->
+	<select id="getTeacherListByCategory" resultType="com.mkfactory.toothless.x.dto.LifeLecturerDto">
+		SELECT * FROM TL_X_LIFE_LECTURER ll
+		WHERE LECTURER_KEY IN (
+			SELECT LECTURER_KEY FROM TL_X_POSSIBLE_LECTURE pl
+			WHERE LECTURE_CATEGORY_KEY = #{lecture_category_key}
+		)
+		ORDER BY name ASC, LECTURER_KEY ASC
+	</select>
+	
+	<!-- 신규 강의 개설 -->
+	<insert id="insertOpenLecture">
+		INSERT INTO tl_x_open_lecture VALUES( 
+		   tl_x_open_lecture_seq.nextval,
+		   #{lecture_info_key},
+		   #{lecturer_key},
+		   #{max_student},
+		   #{start_apply},
+		   #{end_apply},
+		   #{open_date},
+		   #{close_date},
+		   SYSDATE
+		)
+	</insert>
+	
+	<!-- 개설강의 리스트 -->
+	<select id="selectAllOpenLecture" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+		SELECT * FROM tl_x_open_lecture
+		ORDER BY OPEN_LECTURE_KEY DESC
+	</select>
+	
+	<!-- 특정 개설강의 정보 -->
+	<select id="selectSomeOpenLectureInfo" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+		SELECT * FROM tl_x_open_lecture
+		WHERE OPEN_LECTURE_KEY = #{open_lecture_key}
+	</select>
+	
+	<!-- 개설강의 수정 --> 
+	<update id="updateOpenLectureInfo">
+		UPDATE tl_x_open_lecture
+		SET LECTURER_KEY = #{lecturer_key},
+		MAX_STUDENT = #{max_student},
+		START_APPLY = #{start_apply},
+		OPEN_DATE = #{open_date},
+		CLOSE_DATE = #{close_date}
+		WHERE OPEN_LECTURE_KEY = #{open_lecture_key}
+	</update>
+	
+	<!-- 개설강의 삭제 -->
+	<delete id="deleteOpenLectureInfo">
+		DELETE FROM tl_x_open_lecture
+		WHERE OPEN_LECTURE_KEY = #{open_lecture_key}
+	</delete>
+	
+	<!-- 특정 강의정보가 삭제되면 개설강의 삭제 -->
+	<delete id="deleteOpenLectureInfoByLecKey">
+		DELETE FROM tl_x_open_lecture
+		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 </mapper>

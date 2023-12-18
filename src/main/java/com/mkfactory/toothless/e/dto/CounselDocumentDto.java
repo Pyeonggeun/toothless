@@ -7,17 +7,19 @@ public class CounselDocumentDto {
 	private int id;
 	private int reservation_id;
 	private String text;
+	private String location;
 	private Date created_at;
 	
 	public CounselDocumentDto() {
 		super();
 	}
 
-	public CounselDocumentDto(int id, int reservation_id, String text, Date created_at) {
+	public CounselDocumentDto(int id, int reservation_id, String text, String location, Date created_at) {
 		super();
 		this.id = id;
 		this.reservation_id = reservation_id;
 		this.text = text;
+		this.location = location;
 		this.created_at = created_at;
 	}
 
@@ -45,6 +47,14 @@ public class CounselDocumentDto {
 		this.text = text;
 	}
 
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 	public Date getCreated_at() {
 		return created_at;
 	}
@@ -52,6 +62,5 @@ public class CounselDocumentDto {
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
 	}
-	
 	
 }

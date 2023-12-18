@@ -186,13 +186,68 @@
 				<div class="col"></div> 
 			</div>
 			
-			<!-- 글수정 삭제 글목록 돌아가기 버튼 -->
+			<!-- 공감 /  글목록 돌아가기 버튼 -->
 			<div class="row py-2 border-top border-secondary">
 				
-				<div class="col-1 border border-secondary rounded text-center"> 공감 추가 예정</div>
+				<!-- 공감 -->
+				<div class="col-2"> 
+					<!-- 공감 두개칸 전체 시작 -->
+					<div class="row">
+					
+						<!-- 공감 따봉칸 시작 -->
+						<div class="col">
+						<!-- freeboard_id와 student_pk를 넘겨주는 폼 액션 이를 통해 조건에 맞는 공감dto 가져온다 -->
+						<form action="./submitAndSelectEmpathy" method=post>
+							<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id}">
+							<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk}">
+						
+						</form>
+						
+						<!-- 0이면 공감 누를 수 있게 1이면 삭제하게 하기   -->
+						ttt: ${countedEmpathy.countedEmpathy}
+						<c:choose>
+							<c:when test="${countedEmpathy.countedEmpathy == 0}">
+								 <form action="./insertEmpathy" method=post>
+									<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id}">
+									<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk}">
+									<input type="submit" value="공감하기">
+								</form>
+							</c:when>
+								
+							<c:otherwise>
+							
+							<form action="./deleteEmpathyByIdAndPk" method=post>
+								<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id}">
+								<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk}">
+								<input type="submit" value="공감취소">
+							</form>
+							</c:otherwise>
+						</c:choose>
+						
+						
+
+
+
+
+
+
+
+
+					
+					
+						<!-- 공감 따봉칸 끝 -->
+						</div>
+						
+						<!-- 공감 수량 카운트 칸 -->
+						<div class="row"><div class="col"></div></div>
+						
+					<!-- 공감 두개칸 전체 끝 -->
+					</div>
+				</div>
 				
 				<div class="col"></div>
 				
+				<!-- 글 목록 돌아가기 -->
 				<div class="col-2 text-end">
 					<a role="button" class="btn text-white" style="background-color: #133369;" type="button" href="./freeboardCounselPage"> 글 목록 </a>
 				</div>
@@ -210,7 +265,7 @@
 			<!-- 본 댓글창 col -->
 				<div class="col">
 				
-				<!-- 댓글입력창 +버튼 기타 -->
+				<!-- 댓글입력창 +버튼 기타 시작 -->
 					<div class="row">
 						<div class="col border border-black rounded"> 
 						
@@ -226,15 +281,13 @@
 								</div>
 								<div class="row m-1">
 									<input name="text" type="text" placeholder="최대 100글자까지 작성가능합니다.">
-									<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id } ">
-									<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk } ">
-									
+									<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id } ">									
 								</div>
 								
 								
 								
 							</form>
-					<!-- 댓글입력창 +버튼 기타 -->
+					<!-- 댓글입력창 +버튼 기타 끝 -->
 						</div>
 					</div>
 					

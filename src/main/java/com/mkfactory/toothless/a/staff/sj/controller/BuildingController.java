@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mkfactory.toothless.a.dto.DormBuildingDto;
@@ -36,6 +37,8 @@ public class BuildingController {
 	
 	@Autowired
 	private StaffServiceImpl staffService;
+	
+
 		
 	//기숙사 동 관리페이지
 	@RequestMapping("sj_manageDormInfo")
@@ -108,6 +111,7 @@ public class BuildingController {
 	}
 	
 	//기숙사 호실 등록 페이지
+	
 	@RequestMapping("sj_registerRoomInfo")
 	public String registerRoomInfoPage(Model model) {
 		

@@ -12,8 +12,140 @@
 		<title>교육프로그램 신청</title>
 	</head>
 	<body>
-		<jsp:include page="../hs/eduStudentTopBanner.jsp"></jsp:include>
-		<h1>프로그램 신청 페이지입니다</h1>
+		<div class="container-fluid">
+			<jsp:include page="../hs/eduStudentTopBanner.jsp"></jsp:include>
+
+			<div class="row">
+                <div class="col">
+                    <div class="row">
+						<div class="col"></div>
+						<div class="col-8 text-start">
+							<a href="./eduMainPageForStudent" class="btn btn-sm fw-bold" 
+							style="color: #4c4a4c;">메인페이지</a>
+							<a href="./eduMyPageForStudent" class="btn btn-sm fw-bold"
+							style="color: #4c4a4c;">마이페이지</a>
+						</div>
+						<div class="col"></div>
+					</div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col"></div>
+
+                <div class="col-6" >
+					<form action="./eduApplyProcess" method="get">
+                 	<div class="row border-bottom border-dark border-2">
+                        <div class="col mb-3 fw-bold text-center" style="font-size: 1.5em;">
+							교육프로그램 신청
+						</div>
+                    </div>
+                    <div class="row border-bottom ">
+                        <div class="col"></div>
+                        <div class="col-8 px-0 mt-3">
+                            
+
+                            <div class="row">
+                                <div class="col fw-bold" 
+								style="font-size: 24px;
+                                color: #2969B0;">
+                                    ${name }
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col fw-bold">
+                                    <span style="font-size: 18px;">
+                                        신청자 &nbsp;
+                                    </span> 
+                                    <span style="font-size: 18px;">
+                                        ${sessionStudentInfo.name}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row my-2">
+                                <div class="col fw-bold">
+                                    <span style="font-size: 18px;">
+                                        학&nbsp;&nbsp;&nbsp;번 &nbsp;
+                                    </span> 
+                                    <span style="font-size: 18px;">
+										${sessionStudentInfo.student_id}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row my-2">
+                                <div class="col fw-bold" style="font-size: 18px;">
+                                    <span>
+                                        학&nbsp;&nbsp;&nbsp;과 &nbsp;
+                                    </span> 
+                                    <span>
+                                        ${studentOtherInfo.departmentName } 
+                                        <c:if test="${studentOtherInfo.graduationInfo == 0 }">
+                                        ${studentOtherInfo.studentYear }학년
+                                        </c:if> 
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div class="row my-2">
+                                <div class="col fw-bold" style="font-size: 18px;">
+                                    <span>
+                                        연락처 &nbsp;
+                                    </span> 
+                                    <span>
+                                        ${sessionStudentInfo.phone}
+                                    </span>
+                                </div>
+								<input name="edu_pk" type="hidden" value="${edu_pk}" >	
+                            </div>
+                        </div>
+						<div class="col"></div>
+                    </div>
+
+					<!-- 신청 버튼 -->
+					<div class="row mt-3">
+						<div class="col"></div>
+						<div class="col-8 text-center">
+							<c:choose>
+								<c:when test="${applyStudentCount < eduDto.capacity}">
+									<button class="btn fw-bold text-white" 
+											style="background-color: #014195;" 
+											type="submit">
+										프로그램 신청
+									</button>
+								</c:when>
+							
+								<c:otherwise>
+									<button class="btn fw-bold" style="background-color: #a6abb2;" disabled>
+										프로그램 신청
+									</button>
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<div class="col"></div>
+					</div>
+
+					</form>
+				</div>
+				<!-- col-8 끝나는곳 -->
+				<div class="col"></div>
+			</div>	
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<!-- <h1>프로그램 신청 페이지입니다</h1>
 		
 		<form action="./eduApplyProcess" method="get">
 		
@@ -39,13 +171,13 @@
 		            </button>
 	            </c:otherwise>
 	        </c:choose>
-		</form>
+		</form> -->
 		
 		
 		
 		
 		
-					<div class="row">
+					<div class="row mt-5">
                         <div class="col">
                             <div class="row">
                                 <div class="col py-4" style="background-color: #F2F2F2;">

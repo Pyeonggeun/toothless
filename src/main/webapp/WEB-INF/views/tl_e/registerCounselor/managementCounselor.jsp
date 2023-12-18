@@ -29,13 +29,25 @@
 		fetch("./restGetStaffInfo")
 		.then(response => response.json())
 		.then(response => {
-			console.log("AJAX 리스폰 성공 진입함")
+			
+			const staffLoginUrl = "http://localhost:8181/toothless/another/staff/loginPage";
 			
 			loginStaffInfo = response.data;
+			if(loginStaffInfo == null){
+				const moveToLoginPage = confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?");
+				
+				if(moveToLoginPage){
+					window.location.href = staffLoginUrl;
+				}
+				
+			}
+			else{
+				const staffInfoBox = document.getElementById("staffInfoBox");
+				
+				staffInfoBox.innerText = loginStaffInfo.name;	
+			}
 			
-			const staffInfoBox = document.getElementById("staffInfoBox");
 			
-			staffInfoBox.innerText = loginStaffInfo.name;
 		});		
 	}
 	
@@ -48,9 +60,8 @@
 			
 			//const counselorList = [...response.data];
 			searchData = response.data;
-			console.log("reloadCounselorList()결과 : " + searchData);
-			searchCounselor();
-			
+			console.log("reloadCounselorList()결과 : " + searchData);			
+			processSearchData(searchData);
 		});
 	}
 	
@@ -85,12 +96,31 @@
 		
 	}
 	
+	function getSearchCounselorType(){
+		const searchCategoryValueList = [];
+		
+		const searchCategoryValue = document.getElementsByClassName("categoryOption");
+		
+		for(let e = 0 ; e < searchCategoryValue.length ; e++){
+			if(searchCategoryValue[e].checked && searchCategoryValue[e].value !== "0" && searchCategoryValue[e].value !== "on"){
+				searchCategoryValueList.push(searchCategoryValue[e].value);
+			}
+		}
+		if(searchCategoryValueList.length > 0){
+			return searchCategoryValueList;			
+		}else{
+			return [];	
+		}
+	}
+	
 	function searchCounselor(){
 		
 		console.log("searchCounselor() 실행됨");
 		
-		const searchCounselorName = document.getElementById("searchByCounselorName").value;
-		const searchCounselorType = document.getElementById("searchCategorySelectBox").value;
+		
+		
+		const searchCounselorType = getSearchCounselorType();
+		const searchCounselorName = document.getElementById("searchByCounselorName").value;		
 		const searchScoreOption = document.getElementById("searchScoreOption").value;		
 		const searchGenderOption = getSelectGender();
 		
@@ -116,65 +146,108 @@
 		
 	}
 	
+	function searchTypeCategoryControl(target){
+		
+		const isChecked = target.checked;
+		
+		const selectOptionList = document.querySelectorAll(".searchCategoryOption .categoryOption:not(#categoryOptionAll)");
+		
+		selectOptionList.forEach((e)=>{
+			e.checked = isChecked;
+		});
+		
+	}
+	
+	function doUncheck(target){
+		
+		const categoryOptionAll = document.getElementById("categoryOptionAll");
+		const selectOptionList = document.querySelectorAll(".searchCategoryOption .categoryOption:not(#categoryOptionAll)");
+		
+		const isAllChecked = Array.from(selectOptionList).every(option => option.checked);
+		
+		if(target.checked == false){			
+			categoryOptionAll.checked = false;
+		}else{
+			if(isAllChecked){
+				categoryOptionAll.checked = true;
+			}
+		}	
+	}
+	
 	
 	function reloadSearchTypeCategory(){
 		fetch("./reloadSearchTypeCategory")
 		.then(response => response.json())
 		.then(response=>{
 			
-			console.log(response.data);
-			const searchCategorySelectBox = document.querySelector("#searchCategorySelectBox");
-			searchCategorySelectBox.innerHTML = "";
+			console.log("reloadSearchTypeCategory()실행됨 : " + response.data);
+			const searchCategoryCheckBoxCol = document.querySelector(".searchCategoryCheckBoxCol");
+			searchCategoryCheckBoxCol.innerHTML = "";
 			
-			const createHTMLElement = tagName => document.createElement(tagName);
-			const newSelectOption = createHTMLElement("option");
-			newSelectOption.innerText = "카테고리 선택";
-			newSelectOption.setAttribute("selected", "");
-			newSelectOption.setAttribute("disabled", "");
-			newSelectOption.setAttribute("value", "");
+			const selectOptionAll = document.querySelector("#templete .searchCategoryOption").cloneNode(true);
+			const categoryOption = selectOptionAll.querySelector(".categoryOption");
+			categoryOption.setAttribute("id", "categoryOptionAll");
+			categoryOption.setAttribute("value", "0");
+			categoryOption.setAttribute("onclick", "searchTypeCategoryControl(this)");
 			
-			searchCategorySelectBox.appendChild(newSelectOption);
+			const categoryLabel = selectOptionAll.querySelector(".categoryLabel");				
+			categoryLabel.setAttribute("for", "categoryOptionAll");			
+			categoryLabel.innerText = "전체";
+			
+			selectOptionAll.appendChild(categoryOption);
+			selectOptionAll.appendChild(categoryLabel);
+			
+			searchCategoryCheckBoxCol.appendChild(selectOptionAll);
 			
 			for(e of response.data){
 				
 				const searchCategoryOption = document.querySelector("#templete .searchCategoryOption").cloneNode(true);
 				
-				searchCategoryOption.innerText = e.name;
+				const categoryOption = searchCategoryOption.querySelector(".categoryOption");
+				categoryOption.setAttribute("id", "categoryOption" + e.id);			
+				categoryOption.setAttribute("value", e.id);
+				categoryOption.setAttribute("onclick", "doUncheck(this)");
 				
-				searchCategoryOption.setAttribute("value", e.id);
+				const categoryLabel = searchCategoryOption.querySelector(".categoryLabel");				
+				categoryLabel.setAttribute("for", "categoryOption" + e.id);				
+				categoryLabel.innerText = e.name;
 				
-				searchCategorySelectBox.appendChild(searchCategoryOption);
+				searchCategoryOption.appendChild(categoryOption);
+				searchCategoryOption.appendChild(categoryLabel);
+				
+				searchCategoryCheckBoxCol.appendChild(searchCategoryOption);
+				
 				
 			}
-			/* <input name="type_category_id" class="form-check-input" type="checkbox" id="typeCategory" value="">
-            <label class="form-check-label" for="typeCategory"></label> */
 			
-			
-			const typeCategoryInModal = document.querySelector(".typeCategoryInModal");
-			typeCategoryInModal.innerHTML = "";
-			
-			const typeSelectBoxInModal = createHTMLElement("input");
-			typeSelectBoxInModal.setAttribute("name", "type_category_id");
-			typeSelectBoxInModal.setAttribute("class", "form-check-input");
-			typeSelectBoxInModal.setAttribute("type", "checkbox");
-			
-			
-			const typeLabelInModal = createHTMLElement("label");
-			typeLabelInModal.setAttribute("class", "form-check-label");
-			typeLabelInModal.setAttribute("for", "위에 아이디랑 맞춰주기");
+			const typeCategoryColInModal = document.querySelector(".typeCategoryColInModal");
+	    	typeCategoryColInModal.innerHTML = "";			
 			
 			for(e of response.data){
 				
-				typeSelectBoxInModal.setAttribute("id", "typeCategory" + e.id);
-				typeSelectBoxInModal.setAttribute("value", "e.id");
+				console.log("카테고리 반복문 진입");
 				
-				typeLabelInModal.setAttribute("for", "typeCategory" + e.id);
-				typeLabelInModal.innerText = e.name;
 				
-				typeCategoryInModal.appendChild(typeSelectBoxInModal);
-				typeCategoryInModal.appendChild(typeLabelInModal);
+				const typeCheckBoxInModal = document.querySelector("#templete .typeCheckBoxInModal").cloneNode(true);
+				
+				const typeCheckBox = typeCheckBoxInModal.querySelector(".typeCheckBox");
+				
+				typeCheckBox.setAttribute("id", "typeCategory" + e.id);
+				typeCheckBox.setAttribute("value", e.id);
+				
+				const typeCheckBoxLabel = typeCheckBoxInModal.querySelector(".typeCheckBoxLabel");				
+				
+				typeCheckBoxLabel.setAttribute("for", "typeCategory" + e.id);
+				typeCheckBoxLabel.innerText = e.name;
+				
+				typeCheckBoxInModal.appendChild(typeCheckBox);
+				typeCheckBoxInModal.appendChild(typeCheckBoxLabel);
+				
+				typeCategoryColInModal.appendChild(typeCheckBoxInModal);
 			}
+			
 		});
+		
 	}
 	
 	
@@ -192,25 +265,197 @@
 		return selectGender || "";
 	}
 	
+	
+	let isCheckId = false;
+	
+	function checkDuplicationId(target){
+		
+		console.log("checkDuplicationId() 실행됨");
+		console.log("클릭전 inputId : " + target.value);
+		const inputId = target.value;
+		console.log("클릭후 inputId : " + inputId);
+		
+		if(inputId == ""){
+			
+			const checkDuplicateId_col = document.querySelector("#checkDuplicateId_col");
+			
+			checkDuplicateId_col.innerHTML="";
+			
+			const isAvailableID = document.createElement("span");
+			
+			isAvailableID.innerHTML="";
+			
+			isAvailableID.innerText = "ID는 필수 입력항목입니다.";
+			
+			isAvailableID.classList.add("fw-bold", "text-danger");
+			
+			checkDuplicateId_col.appendChild(isAvailableID);
+			
+			target.value = "";
+			target.focus();
+			return;
+		}
+		
+		if(inputId != undefined){
+			const url = "./checkDuplicationId";
+			const inputValue = {
+					method : "post",
+					headers : {
+						"Content-Type" : "application/x-www-form-urlencoded"
+					},
+					body : "inputId=" + inputId
+			}
+			
+			fetch(url, inputValue)
+			.then(response => response.json())
+			.then(response => {
+				
+				if(response.data == true){
+					
+					isCheckId = true;
+					
+					const checkDuplicateId_col = document.querySelector("#checkDuplicateId_col");
+					
+					checkDuplicateId_col.innerHTML="";
+					
+					const isAvailableID = document.createElement("span");
+					
+					isAvailableID.innerText = "사용 가능한 ID입니다.";
+					
+					isAvailableID.classList.add("fw-bold", "text-primary");
+					
+					checkDuplicateId_col.appendChild(isAvailableID);
+					
+				}
+				else{
+					
+					isCheckId = false;
+					
+					const checkDuplicateId_col = document.querySelector("#checkDuplicateId_col");
+					
+					checkDuplicateId_col.innerHTML="";
+					
+					const isAvailableID = document.createElement("span");
+					
+					isAvailableID.innerText = "이미 사용중인 ID입니다.";
+					
+					isAvailableID.classList.add("fw-bold", "text-danger");
+					
+					checkDuplicateId_col.appendChild(isAvailableID);
+				}
+			});		
+		}
+	}
+	
 	function showModal(){
-        // 필요시 여기서 백엔드하고 연동...CSR
+		// 필요시 여기서 백엔드하고 연동...CSR
         const modal = bootstrap.Modal.getOrCreateInstance("#registerModal");
         modal.show();
+        
     }
 
     function resigterCounselorProcess(){
-        // 필요시 여기서 백엔드하고 연동...CSR
-        const modal = bootstrap.Modal.getOrCreateInstance("#registerModal");
-        modal.hide();
+        
+    	const categoryValueList = [];
+    	
+    	const categoryValue = document.getElementsByClassName("typeCheckBox");    	    	
+    	
+    	for(let e = 0 ; e < categoryValue.length ; e++){
+    		if(categoryValue[e].checked){
+    			categoryValueList.push(categoryValue[e].value);
+    		}
+    	}
+    	
+    	console.log(categoryValueList);
+    	
+    	const external_id = document.getElementById("external_id").value;
+    	const password = document.getElementById("password").value;    	
+    	const name = document.getElementById("name").value;
+    	const age = document.getElementById("age").value;
+    	const gender = document.querySelector('input[name="gender"]:checked').value;
+    	const phonenumber = document.getElementById("phonenumber").value;
+    	const email = document.getElementById("email").value;
+    	const address = document.getElementById("address").value;
+    	const career = document.getElementById("career").value;
+    	
+    	
+    	const profile_ImageInput = document.getElementById("profile_Image");    	
+    	const licenseInput = document.getElementById("license");
+    	
+    	const formData = new FormData();
+    	
+    	formData.append("external_id", external_id);
+    	formData.append("password", password);
+    	formData.append("name", name);
+    	formData.append("age", age);
+    	formData.append("gender", gender);
+    	formData.append("phonenumber", phonenumber);
+    	formData.append("email", email);
+    	formData.append("address", address);
+    	formData.append("career", career);
+    	formData.append("type_category_id", categoryValueList);
+    	
+    	formData.append("profile_Image", profile_ImageInput.files[0]);
+    	
+    	for(let e = 0 ; e < licenseInput.length ; e++){
+    		formData.append("license", licenseInput[e]);
+    	}
+    	
+    	
+    	const url = "./resigterCounselorProcess";
+    	
+    	fetch(url, {method : "post", body : formData})
+    	.then(response => response.json())
+    	.then(response =>{
+    		
+    		if(response.result == "success"){
+    			
+    			alert("신규 상담원 등록이 정상적으로 처리되었습니다.");
+    			
+    			const modal = bootstrap.Modal.getOrCreateInstance("#registerModal");
+                modal.hide();
+                reloadCounselorList();
+    		}
+    		
+    		if(response.result == "fail"){
+    			alert("정상적으로 처리되지 않았습니다. 작성내용을 확인해주시기 바랍니다.");
+    		}
+    	});
+    	
+        
+    	/* 아래 코드 가능한거 확인만 함! 
+    	
+    	const regCounselorData = new Map(); 
+        
+        regCounselorData.set("external_id", external_id);
+        regCounselorData.set("password", password);
+        regCounselorData.set("type_category_id", categoryValueList);
+        regCounselorData.set("name", name);
+        regCounselorData.set("age", age);
+        regCounselorData.set("gender", gender);
+        regCounselorData.set("phonenumber", phonenumber);
+        regCounselorData.set("email", email);
+        regCounselorData.set("address", address);
+        regCounselorData.set("career", career);
+        regCounselorData.set("profile_Image", profile_Image);
+        regCounselorData.set("license", license);
+        
+        console.log(regCounselorData); */
+        
+    	
+    	
     }
-	
-	
+    
+    function pressEnter(){
+    	if(window.event.keyCode == 13){
+    		searchCounselor();
+    	}
+    }
 	
 	window.addEventListener("DOMContentLoaded", ()=>{
 		getStaffInfo()
 		reloadCounselorList()
-		reloadSearchTypeCategory()		
-		
+		reloadSearchTypeCategory()
 	});
 	
 </script>
@@ -218,61 +463,15 @@
 </head>
 <body>
 	
-	<div class="container">
+	<jsp:include page="../commons/staffTopArea.jsp"></jsp:include>
 	
-		<div class="row border-bottom">
-			<div class="col-10"></div>
-			<div class="col py-2 me-0 pe-0 text-center dropdown nav-item">
-			  <a class="nav-link pt-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    <span id="staffInfoBox" class="fw-bold"></span>님
-			  </a>
-			  <ul class="dropdown-menu">
-			    <li><a class="dropdown-item" href="#">정보 수정</a></li>
-			    <li><a class="dropdown-item" href="#">마이페이지</a></li>
-			    <li><hr class="dropdown-divider"></li>
-			    <li><a class="dropdown-item" href="#"><span><i class="bi bi-power"></i></span>&nbsp;로그아웃</a></li>
-			  </ul>
-			</div>
-		</div>
-
+	<div class="container">
+		
 		<div class="row"></div>
-		<div class="row">
-			<div class="col ms-4">
-				<div class="row pt-5">
-					<div class="col fw-bold fs-3">
-						<a href="../commons/counselCenterStaffMainPage" role="button" class="btn btn-white">
-							<span class="fw-bold fs-3">MENU</span>
-						</a>
-					</div>
-				</div>
-				<div class="row pt-5">
-					<div class="col fs-5">
-						<div class="dropend">
-							<button class="btn btn-white dropdown-toggle navbar-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-							상담원 관리
-							</button>
-							<ul class="dropdown-menu">
-							    <li><a class="dropdown-item" href="../registerCounselor/registerPage">상담원 등록</a></li>
-						   		<li><a class="dropdown-item" href="../registerCounselor/counselorInfo">상담원 조회</a></li>
-						   		<li><a class="dropdown-item" href="../registerCounselor/managementCounselor">상담원 관리(JS)</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="row pt-4">
-					<div class="col fs-5">
-						<a class="navbar-brand" href="#">공지사항</a>
-					</div>
-				</div>
-				<div class="row pt-4">
-					<div class="col fs-5">
-						<a class="navbar-brand" href="#">집단상담</a>
-					</div>
-				</div>
-			</div>
+		<div class="row">	
 			
 			<!-- 여기부터 레이아웃 -->
-			<div class="col-10">
+			<div class="col">
 				<div class="row mt-5">
 					<div class="col">
 						<span class="fw-bold fs-2">상담원 관리</span>
@@ -296,12 +495,12 @@
 									<div class="col">
 										<div class="row">
 											<div class="col-3">
-												<span class="fw-bold align-middle">상담원 이름</span>
+												<span class="fw-bold align-middle">이름</span>
 											</div>
 											<div class="col-auto">
-												<input id="searchByCounselorName" type="text" class="form-control">
+												<input id="searchByCounselorName" onkeyup="pressEnter()" type="text" class="form-control">
 											</div>
-										</div>
+										</div>										
 									</div>
 									
 									<div class="col">
@@ -326,19 +525,6 @@
 										</div>
 									</div>
 									
-								</div>
-								<div class="row mt-2">
-									<div class="col">
-										<div class="row">
-											<div class="col-3">
-												<span class="fw-bold align-middle">상담종류</span>	
-											</div>
-											<div class="col-auto">
-												<select id="searchCategorySelectBox" class="form-select">
-												</select>
-											</div>
-										</div>										
-									</div>
 									<div class="col">
 										<div class="row">
 											<div class="col-2">
@@ -346,13 +532,25 @@
 											</div>
 											<div class="col-auto">
 												<select id="searchScoreOption" class="form-select">													
-													<option selected disabled value="">-선택-</option>
-													<option value="scoreDESC">평점 높은순</option>
-													<option value="scoreASC">평점 낮은순</option>
+													<option selected value="">-선택-</option>
+													<option value="scoreDESC">평점 낮은순</option>
+													<option value="scoreASC">평점 높은순</option>
 												</select>
 											</div>
 										</div>										
-									</div>									
+									</div>
+									
+								</div>
+								<div class="row mt-4">
+									<div class="col">
+										<div class="row">
+											<div class="col-auto">
+												<span class="fw-bold align-middle">상담종류</span>	
+											</div>
+											<div class="searchCategoryCheckBoxCol col-auto">												
+											</div>
+										</div>										
+									</div>																		
 								</div>
 								
 								<div class="row mt-4 mb-3 justify-content-center">
@@ -372,8 +570,12 @@
 				<div class="row mt-5">
 					<div class="col">
 						<div class="row">
-							<div class="col border-bottom">
-								<span class="fw-bold fs-2">상담원 목록</span>	
+							<div class="col">
+								<div class="row">
+									<div class="col border-bottom pb-2">
+										<span class="fw-bold fs-2">상담원 목록</span>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="row">
@@ -409,14 +611,17 @@
                                 <div class="col-auto">
                                     <div class="row">
                                         <div class="col">
-                                            <label for="external_id" class="fw-bold form-label">상담원아이디</label>
+                                            <label for="`" class="fw-bold form-label">상담원아이디</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-auto">
-                                            <input name="external_id" type="text" id="external_id" class="form-control" required>                                                    
+                                            <input name="external_id" onblur="checkDuplicationId(this)" type="text" id="external_id" class="form-control" required>                                                    
                                         </div>																		
-                                    </div>								
+                                    </div>
+                                    <div class="row mt-2">
+										<div id="checkDuplicateId_col" class="col-auto"></div>										
+									</div>									
                                 </div>
                                 
                                 <!-- 비밀번호 -->
@@ -443,11 +648,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-auto">                                                    
-                                            <div class="typeCategoryInModal form-check form-check-inline" id="type_category_id" required>
-                                                <input name="type_category_id" class="form-check-input" type="checkbox" id="typeCategory" value="">
-                                                <label class="form-check-label" for="typeCategory"></label>
-                                            </div>
+                                        <div class="typeCategoryColInModal col-auto">
                                         </div>
                                     </div>								
                                 </div>							
@@ -466,7 +667,7 @@
                                         <div class="col-auto">
                                             <input name="name" type="text" id="name" class="form-control" required>                                                    
                                         </div>																		
-                                    </div>								
+                                    </div>                                    							
                                 </div>
                                 
                                 <!-- 나이 -->
@@ -627,7 +828,17 @@
 			</div>								
 		</div>
 		
-		<option class="searchCategoryOption"></option>
+		
+		<div class="searchCategoryOption form-check form-check-inline align-middle" id="" required>                                                
+        	<input class="categoryOption form-check-input" type="checkbox" >
+        	<label class="categoryLabel form-check-label"></label>                                    	
+        </div>
+		
+		<div class="typeCheckBoxInModal form-check form-check-inline" id="type_category_id" required>                                                
+        	<input class="typeCheckBox form-check-input" type="checkbox" >
+        	<label class="typeCheckBoxLabel form-check-label"></label>                                    	
+        </div>
+		
 		
 	</div>
 

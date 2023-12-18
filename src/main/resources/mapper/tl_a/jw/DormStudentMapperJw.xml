@@ -16,6 +16,21 @@
 			WHERE tas.PROGRESS_STATE = 'Y'
 		)
 	</select>
+	
+	<!-- 로그인 한 학생을 현재 진행중인 학기의 임원정보에서 검증한 사생정보 Count값 -->
+	<select id="countDormStudentByStudentAndProgressSemesterAndExecutive" resultType="int">
+		SELECT count(*) FROM TL_A_DORM_STUDENT tads
+		WHERE tads.STUDENT_PK = (
+			SELECT STUDENT_PK FROM TL_JIC_STUDENT_INFO 
+			WHERE STUDENT_PK = #{STUDENT_PK}
+		) AND tads.DORM_STUDENT_PK IN (
+			SELECT tads.DORM_STUDENT_PK FROM TL_A_SEMESTER tas 
+			JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK 
+			WHERE tas.PROGRESS_STATE = 'Y'
+		) AND tads.DORM_STUDENT_PK IN (
+			SELECT tae.DORM_STUDENT_PK FROM TL_A_EXECUTIVE tae
+		)
+	</select>
 
 	<!-- 로그인 한 학생을 현재 진행중인 학기의 사생정보에서 검증한 사생정보 -->
 	<select id="selectDormStudentByStudentAndProgressSemester" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
@@ -27,6 +42,22 @@
 			SELECT tads.DORM_STUDENT_PK FROM TL_A_SEMESTER tas 
 			JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK 
 			WHERE tas.PROGRESS_STATE = 'Y'
+		)
+	</select>
+	
+	<!-- 로그인 한 학생을 현재 진행중인 학기의 임원정보에서 검증한 사생정보 -->
+	<select id="selectDormStudentByStudentAndProgressSemesterAndExecutive" resultType="com.mkfactory.toothless.a.dto.ExecutiveDto">
+		SELECT tae.* FROM TL_A_DORM_STUDENT tads
+		JOIN TL_A_EXECUTIVE tae ON tads.DORM_STUDENT_PK = tae.DORM_STUDENT_PK
+		WHERE tads.STUDENT_PK = (
+			SELECT STUDENT_PK FROM TL_JIC_STUDENT_INFO 
+			WHERE STUDENT_PK = #{STUDENT_PK}
+		) AND tads.DORM_STUDENT_PK IN (
+			SELECT tads.DORM_STUDENT_PK FROM TL_A_SEMESTER tas 
+			JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK 
+			WHERE tas.PROGRESS_STATE = 'Y'
+		) AND tads.DORM_STUDENT_PK IN (
+			SELECT tae.DORM_STUDENT_PK FROM TL_A_EXECUTIVE tae
 		)
 	</select>
 	
@@ -80,6 +111,27 @@
 			)
 		)
 	</select>
+	
+	<!-- 일지 작성 -->
+	<insert id="insertDiary">
+		INSERT INTO tl_a_diary VALUES(
+			tl_a_diary_seq.nextval,
+			#{executive_pk},
+			#{content},
+			sysdate
+		)
+	</insert>
+	
+	<select id="resentBoardthree" resultType="com.mkfactory.toothless.a.dto.DormNoticeDto">
+	
+		<![CDATA[ SELECT t2.dorm_notice_pk, t2.staff_pk, t2.title, t2.content, t2.created_at 
+		FROM (SELECT t1.*, Rownum rnum FROM (SELECT * FROM TL_A_DORM_NOTICE tadn) t1
+		ORDER BY DORM_NOTICE_PK desc) t2
+		WHERE t2.rnum < 4 ]]>
+	
+	</select>
+	
+	
 	
 	
 </mapper>

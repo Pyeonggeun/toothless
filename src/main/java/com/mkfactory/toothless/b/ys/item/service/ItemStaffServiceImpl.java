@@ -46,6 +46,17 @@ public class ItemStaffServiceImpl {
 		
 		return itemStaffSqlMapper.selectItemJoinCategoryList();
 	}
+	//select-box 검색 쿼리 
+//	public List<Map<String,Object>> getSearchItemList(String searchItemName, int searchCategory){
+//		
+//		return itemStaffSqlMapper.searchSelectAll(searchItemName, searchCategory);
+//	}
+	
+	//check-box 검색 쿼리
+	public List<Map<String,Object>> getSearchItemList(String searchItemName, int[] searchCagtegory){
+		
+		return itemStaffSqlMapper.searchBycheckBox(searchItemName, searchCagtegory);
+	}
 	
 	//물품 상세 정보
 	public ItemDto getItem(int item_pk) {

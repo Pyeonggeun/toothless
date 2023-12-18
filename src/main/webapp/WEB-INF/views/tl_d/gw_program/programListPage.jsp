@@ -39,6 +39,8 @@
 							      <div class="col-2 text-center fw-bold">프로그램 현황</div>
 						</div>
 						
+						<c:set var="currentTime" value="<%= new java.util.Date() %>" />
+						
 						<c:forEach items="${programList}" var="list">
 							<div class="row border-bottom border-bs-border pb-3 mb-3">
 								<div class="col-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
@@ -46,12 +48,11 @@
 								<div class="col-3 text-center pt-1">${list.staffInfoDto.name}</div>
 								<div class="col-3 text-center pt-1">
 									 <c:choose>
-						                <c:when test="${list.programDto.prg_apply_deadline lt now}">
+						                <c:when test="${list.programDto.prg_apply_deadline.before(currentTime)}">
 						                	<span class="text-center badge text-bg-secondary">마감</span>
-						                	
 						                </c:when>
 						                <c:otherwise>
-						                     <span class="text-center badge text-bg-primary">모집중</span>
+						                	 <span class="text-center badge text-bg-primary">모집중</span>
 						                </c:otherwise>
 						            </c:choose>
 								</div>

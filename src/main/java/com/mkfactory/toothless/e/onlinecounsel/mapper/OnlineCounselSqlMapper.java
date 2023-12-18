@@ -5,6 +5,9 @@ import java.util.List;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
+import com.mkfactory.toothless.e.dto.FreeboardDto;
+import com.mkfactory.toothless.e.dto.GroupCounselDto;
+import com.mkfactory.toothless.e.dto.NoticeBoardDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselReplyDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselSurveyDto;
@@ -53,16 +56,23 @@ public interface OnlineCounselSqlMapper {
 	
 	
 	
+	//		***		공용 UI용		***
 	
-//	public CounselorDto selectCounselorInfo(int externalPk);
-//	
-//	public List<CounselorTypeDto> selectCounselorTypeInfo(int id);
-//	
-//	public List<OnlineCounselBoardDto> selectCounselBoardInfo(int typeCategoryId);
+	public List<NoticeBoardDto> selectNoticeListSpecificNum();
+	
+	public List<FreeboardDto> selectFreeboardListSpecificNum();
+	
+	public List<GroupCounselDto> selectGroupCounselListSpecificNum();
 	
 	
+	//		***		통계		***
+	public double selectLastestReadCountAvg();
 	
+	public List<NoticeBoardDto> selectTop3ReadCountNotice();
 	
+	public List<FreeboardDto> selectTop3ReadCountFreeboard();
+	
+	public List<CounselorDto> selectAllCounselor();
 	
 	
 }

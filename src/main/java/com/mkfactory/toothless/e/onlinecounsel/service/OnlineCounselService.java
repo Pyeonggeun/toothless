@@ -12,6 +12,9 @@ import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.CounselorTypeDto;
+import com.mkfactory.toothless.e.dto.FreeboardDto;
+import com.mkfactory.toothless.e.dto.GroupCounselDto;
+import com.mkfactory.toothless.e.dto.NoticeBoardDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselBoardDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselReplyDto;
 import com.mkfactory.toothless.e.dto.OnlineCounselSurveyDto;
@@ -64,6 +67,7 @@ public class OnlineCounselService {
 			
 			
 			
+			map.put("isSurveyed", onlineCounselSqlMapper.isSurveyed(onlineCounselBoardDto.getId()));
 			map.put("replyCount", onlineCounselSqlMapper.getReplyCount(onlineCounselBoardDto.getId()));
 			map.put("studentDto", onlineCounselSqlMapper.getStudentInfo(onlineCounselBoardDto.getStudent_id()));
 			map.put("onlineCounselBoardDto", onlineCounselBoardDto);
@@ -118,6 +122,7 @@ public class OnlineCounselService {
 				
 				
 				Map<String, Object> map = new HashMap<>();
+				map.put("isSurveyed", onlineCounselSqlMapper.isSurveyed(onlineCounselBoardDto.getId()));
 				map.put("replyCount", onlineCounselSqlMapper.getReplyCount( onlineCounselBoardDto.getId()));
 				map.put("typeCategoryDto", typeCategoryDto);
 				map.put("studentInfoDto", studentInfoDto);
@@ -173,33 +178,42 @@ public class OnlineCounselService {
 	
 	
 	
-//
-//	
-//
-//	public CounselorDto getCounselorInfo(int externalPk) {
-//		
-//		return onlineCounselSqlMapper.selectCounselorInfo(externalPk);
-//		
-//		
-//	}
-//	
-//	public List<CounselorTypeDto> getCounselorTypeInfo (int id){
-//		
-//		return onlineCounselSqlMapper.selectCounselorTypeInfo(id);
-//		
-//	}
-//	
-//	
-//	public List<OnlineCounselBoardDto> getCounselBoardInfo(int typeCategoryId){
-//		
-//		
-//		return onlineCounselSqlMapper.selectCounselBoardInfo(typeCategoryId);
-//	}
-//	
-//	public StudentInfoDto getStudentInfo(int studentPk){
-//		
-//		return onlineCounselSqlMapper.getStudentInfo(studentPk);
-//		
-//	}
 	
+	
+	
+	// 공용 UI 용 메소드
+	public List<NoticeBoardDto> getNoticeListSpecificNum(){
+		
+		return onlineCounselSqlMapper.selectNoticeListSpecificNum();
+	}
+	
+	public List<FreeboardDto> getFreeboardListSpecificNum(){
+		
+		return onlineCounselSqlMapper.selectFreeboardListSpecificNum();
+	}
+	
+	public List<GroupCounselDto> getGroupCounselListSpecificNum(){
+		
+		return onlineCounselSqlMapper.selectGroupCounselListSpecificNum();
+	}
+	
+	public double getLastestReadCountAvg() {
+		
+		return onlineCounselSqlMapper.selectLastestReadCountAvg();
+	}
+	
+	public List<NoticeBoardDto> getTop3ReadCountNotice(){
+		
+		return onlineCounselSqlMapper.selectTop3ReadCountNotice();
+	}
+	
+	public List<FreeboardDto> getTop3ReadCountFreeboard(){
+		
+		return onlineCounselSqlMapper.selectTop3ReadCountFreeboard();
+	}
+	
+	public List<CounselorDto> getAllCounselor(){
+		
+		return onlineCounselSqlMapper.selectAllCounselor();
+	}
 }

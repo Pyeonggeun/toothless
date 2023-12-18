@@ -16,9 +16,13 @@ import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 public interface DormStaffMapperJw {
 
-	// 외출/외박 신청
+	// 방 전체 리스트
+	public List<DormBuildingDto> selectAllDormBuildingList();
+	
+	// 외출/외박 신청 리스트
 	public List<ExitDto> selectExitList();
-//	
+	public List<ExitDto> selectExitListByDormPk(int dorm_pk);
+	
 	// 특정 학생정보(by 사생키)
 	public StudentInfoDto selectStudentInfoByProgressSemesterDormStudentPk(int dorm_student_pk);
 	
@@ -28,8 +32,10 @@ public interface DormStaffMapperJw {
 	// 특정 학생 동정보
 	public DormBuildingDto selectDormByDormPk(int dorm_pk);
 	
-	// 전체 사생정보
+	// 사생정보
 	public List<DormStudentDto> selectAllDormStudentList();
+	public List<DormStudentDto> selectDormStudentListByDormPk(int dorm_pk);
+	
 	
 	// 진행중인 학기의 사생정보
 	public List<DormStudentDto> selectDormStudentByProgressSemester();
@@ -42,6 +48,7 @@ public interface DormStaffMapperJw {
 	public ExecutiveDto  selectExecutiveByExecutivePk(int executive_pk);
 	public void deleteExecutiveByDormStudentPk(int dorm_student_pk);
 	public List<ExecutiveDto> selectAllExecutiveList();
+	public List<ExecutiveDto> selectExecutiveListByDormPk(int dorm_pk);
 	
 	// 임원 방배정
 	public List<DormRoomDto> selectDormRoomListByDormFloorAndDormPk(int dorm_floor, int dorm_pk);
@@ -54,20 +61,28 @@ public interface DormStaffMapperJw {
 	
 	// 일지 관리
 	public List<DiaryDto> selectAllDiaryList();
+	public List<DiaryDto> selectDiaryListByDormPk(int dorm_pk);
 	
 	// 상벌점
 	public void insertPoint(PointDto pointDto);
 	public List<PointCategory> selectAllPointCategory();
 	public Integer sumPointByDormStudentPk(int dorm_student_pk);
+	public List<DormStudentDto> selectDormStudentExceptExecuteByProgressSemesterAndDormPk(int dorm_pk);
 	
-	// 상벌코드 등록
+	// 상벌코드
 	public void insertPointCategory(PointCategory pointCategory);
+	public void deletePointCategory(int point_category_pk);
+	public void updatePointCategory(PointCategory pointCategory);
 	
-	// 상벌코드 목록 - 전체
+	// 상벌코드 목록
 	public List<PointCategory> selectPointCategoryAll();
+	public List<PointCategory> selectPointCategoryPlus();
+	public List<PointCategory> selectPointCategoryMinus();
+	
 	
 	// 점호 불참
 	public List<CallAbsenceDto> selectAllCallAbsenceList();
 	public List<DormStudentDto> selectCallAbsenceDormStudentList();
+	public List<DormStudentDto> selectCallAbsenceDormStudentListByDormPk(int dorm_pk);
 	
 }

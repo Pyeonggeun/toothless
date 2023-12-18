@@ -120,7 +120,6 @@ public class EunbiProfessorServiceImpl {
 		internshipCourseDetail.put("countStudentIntern", studentSqlMapper.countInternBycoursePk(internshipCoursePk));
 		
 		return internshipCourseDetail;
-	
 	}
 	
 	// 교수평가 입력

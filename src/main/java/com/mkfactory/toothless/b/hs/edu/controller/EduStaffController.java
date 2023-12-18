@@ -28,9 +28,11 @@ public class EduStaffController {
 	EduStaffServiceimpl eduStaffService; 
 	//교육 메인
 	@RequestMapping("eduMainPageForStaff")
-	public String eduMainPageForStaff(Model model) {
+	public String eduMainPageForStaff(Model model,
+			String searchType,
+			String searchWord) {
 		
-		List<Map<String, Object>> list = eduStaffService.getEduProgList();
+		List<Map<String, Object>> list = eduStaffService.getEduProgList(searchType, searchWord);
 		List<Map<String, Object>> eduApplyList = eduStaffService.getEduApplyList();
 		List<Map<String, Object>> allServeyList = eduStaffService.getAllServeyList();
 		
@@ -52,7 +54,7 @@ public class EduStaffController {
 	public String eduProgRegisterProcess(HttpSession session, EduDto eduDto, MultipartFile eduImage) {
 		
 		if(eduImage != null) {
-			String rootPath = "C:/uploadFiles/eduImage/";
+			String rootPath = "C:\\workspace\\GitWorkSpace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\edu\\";
 			
 			// 날짜별 폴더 생성
 	         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
