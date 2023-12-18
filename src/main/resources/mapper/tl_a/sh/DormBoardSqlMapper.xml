@@ -16,7 +16,7 @@
 	</insert>
 	
 	<select id="selectAll" resultType="com.mkfactory.toothless.a.dto.DormFreeboardDto">
-		SELECT * FROM tl_a_dorm_freeboard ORDER BY student_pk DESC
+		SELECT * FROM tl_a_dorm_freeboard ORDER BY dorm_freeboard_pk DESC
 	</select>	
 	
 	<select id="selectByBoardId" resultType="com.mkfactory.toothless.a.dto.DormFreeboardDto">
