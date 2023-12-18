@@ -77,7 +77,7 @@
 							<div class="col fs-3">경력</div>
 							<div class="col-1"><a href="./careerDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
 						</div>
-						<div class="row  border-bottom">
+						<div class="row  border-bottom text-light" style="background-color: #133369">
 							<div class="col fs-5">카테고리</div>
 							<div class="col-10  border-start fs-5 text-center">내용</div>
 						</div>
@@ -96,7 +96,7 @@
 							<div class="col fs-3">자격증</div>
 							<div class="col-1"><a href="./licenseDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
 						</div>
-						<div class="row  border-bottom">
+						<div class="row  border-bottom text-light" style="background-color: #133369">
 							<div class="col">자격증 명</div>
 							<div class="col">취득 년도</div>
 							<div class="col">취득 월</div>
