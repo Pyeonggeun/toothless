@@ -309,7 +309,7 @@ public class ResumeController {
 		
 		
 		if(studentInfoDto != null) {
-			int studentPk = studentInfoDto.getStudent_pk();
+			studentPk = studentInfoDto.getStudent_pk();
 			interestPostingDto.setStudent_pk(studentPk);
 			
 		}
