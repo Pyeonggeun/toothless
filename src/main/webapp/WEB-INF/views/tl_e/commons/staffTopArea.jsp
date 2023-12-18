@@ -21,7 +21,7 @@
 				<li><a class="dropdown-item" href="#">정보 수정</a></li>
 				<li><a class="dropdown-item" href="#">마이페이지</a></li>
 				<li><hr class="dropdown-divider"></li>
-				<li><a class="dropdown-item" href="../../another/staff/logoutProcess"><span><i class="bi bi-power"></i></span>&nbsp;로그아웃</a></li>
+				<li><a class="dropdown-item" href="/toothless/another/staff/logoutProcess"><span><i class="bi bi-power"></i></span>&nbsp;로그아웃</a></li>
 			</ul>
 		</div>
 	</div>

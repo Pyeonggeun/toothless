@@ -232,5 +232,127 @@
 	<select id="getLectureReviewInfoByLectureStudentKey" resultType="com.mkfactory.toothless.x.dto.LectureReviewDto">
 		SELECT * FROM tl_x_lecture_review WHERE lecture_student_key = #{lecture_student_key}
 	</select>
+	
+	<select id="getLectureStudentKeyByOpenLectureKeyAndLifeStudentKey" resultType="int">
+		SELECT lecture_student_key FROM tl_x_lecture_student
+		WHERE open_lecture_key = #{open_lecture_key}
+		AND life_student_key = #{life_student_key}
+	</select>
+	
+	<select id="getTotalMyLectureCount" resultType="int">
+		SELECT COUNT(*) FROM (
+		   SELECT * FROM tl_x_lecture_student
+		   WHERE life_student_key = #{life_student_key}
+		)t1
+		INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
+		WHERE 1=1
+		<if test="searchType != null and searchType != 0">
+			<if test="searchType == 2">
+				<![CDATA[
+					AND TO_CHAR(SYSDATE, 'yyyy-MM-dd') < TO_CHAR(txol.open_date, 'yyyy-MM-dd')
+				]]>
+			</if>
+			<if test="searchType == 1">
+				AND TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+				BETWEEN TO_CHAR(txol.open_date, 'yyyy-MM-dd')
+				AND TO_CHAR(txol.close_date, 'yyyy-MM-dd')
+			</if>
+			<if test="searchType == 3">
+				<![CDATA[
+					AND TO_CHAR(txol.close_date, 'yyyy-MM-dd') < TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+				]]>
+			</if>
+		</if>
+	</select>
+	
+	<select id="getMyOpenLectureKeyList" resultType="int">
+		SELECT t2.open_lecture_key FROM (
+		   SELECT t1.*, rownum rnum FROM (
+		      SELECT t1.* FROM (
+		         SELECT * FROM tl_x_lecture_student
+		         WHERE life_student_key = #{life_student_key}
+		      )t1
+		      INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
+		      WHERE 1=1
+			<if test="searchType != null and searchType != 0">
+				<if test="searchType == 2">
+					<![CDATA[
+						AND TO_CHAR(SYSDATE, 'yyyy-MM-dd') < TO_CHAR(txol.open_date, 'yyyy-MM-dd')
+					]]>
+				</if>
+				<if test="searchType == 1">
+					AND TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+					BETWEEN TO_CHAR(txol.open_date, 'yyyy-MM-dd')
+					AND TO_CHAR(txol.close_date, 'yyyy-MM-dd')
+				</if>
+				<if test="searchType == 3">
+					<![CDATA[
+						AND TO_CHAR(txol.close_date, 'yyyy-MM-dd') < TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+					]]>
+				</if>
+			</if>
+		   )t1
+		)t2
+		<![CDATA[
+			WHERE t2.rnum >= (#{pageNumber}-1)*5 + 1 AND t2.rnum <= #{pageNumber}*5
+		]]>
+	</select>
+	
+	<select id="getTotalAttendanceCount" resultType="int">
+		SELECT COUNT(*) FROM (
+			SELECT CASE WHEN TO_CHAR(TO_DATE(DT),'D') IN ('1','7')
+		    	THEN '0'
+		        ELSE '1' END AS WEEK_DAY,
+		        DT
+			FROM (
+		    	SELECT TO_CHAR(TO_DATE(ST_DT, 'YYYY-MM-DD') + LEVEL - 1, 'YYYY-MM-DD') AS DT
+		    	FROM (
+		    		SELECT
+			        	(SELECT TO_CHAR(open_date, 'YYYYMMDD')
+			        	FROM tl_x_open_lecture
+			       		WHERE open_lecture_key = #{open_lecture_key}) 
+		         	AS ST_DT,             
+		            	(SELECT TO_CHAR(close_date, 'YYYYMMDD')
+		            	FROM tl_x_open_lecture
+		           		WHERE open_lecture_key = #{open_lecture_key})
+		            AS END_DT
+		            FROM DUAL )
+		        <![CDATA[
+		        	CONNECT BY LEVEL <=  TO_DATE(END_DT, 'YYYYMMDD') - TO_DATE(ST_DT, 'YYYYMMDD') + 1
+		        ]]>
+		   )
+		)t1
+		WHERE t1.week_day = 1
+	</select>
+	
+	<select id="getAttendanceCountByLectureStudentKey" resultType="int">
+		SELECT COUNT(*) FROM tl_x_attendance_status
+		WHERE lecture_student_key = #{lecture_student_key}
+		AND status LIKE '출석'	
+	</select>
+	
+	<select id="getExceptAttendanceAndAbsentCountByLectureStudentKey" resultType="int">
+		SELECT COUNT(*) FROM tl_x_attendance_status
+		WHERE lecture_student_key = #{lecture_student_key}
+		AND status NOT IN ('결석', '출석')
+	</select>
+	
+	<select id="getAvgTestScoreByOpenLectureKey" resultType="int">
+		SELECT NVL(FLOOR(AVG(t3.test_point)), 0) FROM (
+			SELECT t2.lecture_test_key, NVL(SUM(test_point), 0) AS test_point FROM (
+				SELECT * FROM (
+					SELECT * FROM tl_x_test_result
+					WHERE lecture_test_key IN (
+						SELECT lecture_test_key FROM tl_x_lecture_test
+						WHERE open_lecture_key = #{open_lecture_key}
+					)
+				)t1
+				INNER JOIN tl_x_question_choice txqc ON t1.question_choice_key = txqc.question_choice_key
+				WHERE txqc.answer LIKE 'true'
+			)t2
+			INNER JOIN tl_x_test_question txtq ON t2.test_question_key = txtq.test_question_key
+			GROUP BY t2.lecture_test_key
+		)t3
+	</select>
 
 </mapper>

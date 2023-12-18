@@ -47,5 +47,15 @@ public interface LifeStudentSqlMapper {
 	public int isReviewRegister(int lecture_student_key);
 	public LectureReviewDto getLectureReviewInfoByLectureStudentKey(int lecture_student_key);
 	public void insertLectureReviewInfo(LectureReviewDto lectureReviewDto);
+	
+	public int getLectureStudentKeyByOpenLectureKeyAndLifeStudentKey(
+			@Param("open_lecture_key") int open_lecture_key, @Param("life_student_key") int life_student_key);
+	public int getTotalMyLectureCount(@Param("life_student_key") int life_student_key, @Param("searchType") int searchType);
+	public List<Integer> getMyOpenLectureKeyList(
+			@Param("life_student_key") int life_student_key, @Param("pageNumber") int pageNumber, @Param("searchType") int searchType);
+	public int getTotalAttendanceCount(int open_lecture_key);
+	public int getAttendanceCountByLectureStudentKey(int lecture_student_key);
+	public int getExceptAttendanceAndAbsentCountByLectureStudentKey(int lecture_student_key);
+	public int getAvgTestScoreByOpenLectureKey(int open_lecture_key);
 
 }

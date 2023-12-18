@@ -51,6 +51,30 @@
 	    	let totalPageNumber = 1;
 	    	let startPageNumber = 1;
 	    	let endPageNumber = 1;
+
+	    	let searchType = 0;
+	    	
+	    	let lifeStudentKey = 1;
+	    	
+	    	let lectureStudentKey = 1;
+	    	let openLectureKey = 1;
+	    	let lectureTestKey = 1;
+	    	
+	    	function getLifeStudentKey() {
+	    		
+	    		const url = "./getLifeStudentKey";
+	    		
+	    		fetch(url)
+	    		.then(response => response.json())
+	    		.then(response => {
+	    			
+	    			lifeStudentKey = response.data;
+	    			
+	    			reloadTotalMyLectureCount();
+	    			
+	    		});
+	    		
+	    	}
 	    	
 			function previousPage() {
 	    		
@@ -118,6 +142,124 @@
 	 				document.getElementById("pageNumberBox" + (i - parseInt((pageNumber-1)/5)*5)).appendChild(pageNumberLink);
 	 				
 	 			}
+				
+			}
+			
+			function search() {
+				
+				searchType = Number(document.getElementById("searchType").value);
+				
+				reloadTotalMyLectureCount();
+				
+			}
+			
+			function reloadTotalMyLectureCount() {
+				
+				const url = "./getTotalMyLectureCount?life_student_key=" + lifeStudentKey + "&searchType=" + searchType;
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					document.getElementById("totalCount").innerText = response.data;
+					
+					totalPageNumber = Math.ceil(response.data/5);
+					
+					reloadMyLecture();
+					
+				});
+				
+			}
+			
+			function reloadMyLecture() {
+				
+				const url = "./getMyLecture?life_student_key=" + lifeStudentKey + "&pageNumber=" + pageNumber + "&searchType=" + searchType;
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					pagination();
+					
+					const lectureBox = document.getElementById("lectureBox");
+					lectureBox.innerHTML = "";
+					
+					if(totalPageNumber == 0) {
+						
+						const noApplyLectureWrapper = document.querySelector("#templete .noApplyLectureWrapper").cloneNode(true);
+						lectureBox.appendChild(noApplyLectureWrapper);
+						
+						return;
+						
+					}
+					
+					for(e of response.data) {
+						
+						const openDate = new Date(e.openLectureInfo.open_date);
+						const closeDate = new Date(e.openLectureInfo.close_date);
+						const sysdate = new Date();
+						
+						const lectureWrapper = document.querySelector("#templete .lectureWrapper").cloneNode(true);
+						
+						lectureWrapper.querySelector(".round").innerText = e.round;
+						
+						const statusBox = lectureWrapper.querySelector(".statusBox");
+						statusBox.innerHTML = "";
+						const buttonBox = lectureWrapper.querySelector(".buttonBox");
+						buttonBox.innerHTML = "";
+						
+						if(openDate > sysdate) {
+							const wait = document.querySelector("#templete .wait").cloneNode(true);
+							statusBox.appendChild(wait);
+							const lectureProgress = document.querySelector("#templete .lectureProgress").cloneNode(true);
+							lectureProgress.querySelector(".lectureProgressButton").value = e.openLectureInfo.open_lecture_key;
+							const information = document.querySelector("#templete .information").cloneNode(true);
+							buttonBox.appendChild(lectureProgress);
+							buttonBox.appendChild(information);
+						}else if(openDate < sysdate && closeDate > sysdate) {
+							const ing = document.querySelector("#templete .ing").cloneNode(true);
+							statusBox.appendChild(ing);
+							const lectureProgress = document.querySelector("#templete .lectureProgress").cloneNode(true);
+							lectureProgress.querySelector(".lectureProgressButton").value = e.openLectureInfo.open_lecture_key;
+							const information = document.querySelector("#templete .information").cloneNode(true);
+							buttonBox.appendChild(lectureProgress);
+							buttonBox.appendChild(information);
+						}else{
+							
+							if(e.isComplete) {
+								const complete = document.querySelector("#templete .complete").cloneNode(true);
+								statusBox.appendChild(complete);
+								const certificateOutput = document.querySelector("#templete .certificateOutput").cloneNode(true);
+								const lectureProgress = document.querySelector("#templete .lectureProgress").cloneNode(true);
+								lectureProgress.querySelector(".lectureProgressButton").value = e.openLectureInfo.open_lecture_key;
+								const information = document.querySelector("#templete .information").cloneNode(true);
+								buttonBox.appendChild(certificateOutput);
+								buttonBox.appendChild(lectureProgress);
+								buttonBox.appendChild(information);
+							}else {
+								const poor = document.querySelector("#templete .poor").cloneNode(true);
+								statusBox.appendChild(poor);
+								const lectureProgress = document.querySelector("#templete .lectureProgress").cloneNode(true);
+								lectureProgress.querySelector(".lectureProgressButton").value = e.openLectureInfo.open_lecture_key;
+								const information = document.querySelector("#templete .information").cloneNode(true);
+								buttonBox.appendChild(lectureProgress);
+								buttonBox.appendChild(information);
+							}
+							
+						}
+						
+						lectureWrapper.querySelector(".category").innerText = e.categoryName;
+						lectureWrapper.querySelector(".name").innerText = e.lectureInfo.name;
+						lectureWrapper.querySelector(".lectureDate").innerText =
+	        				openDate.getFullYear() + "." + ("0" + (openDate.getMonth() + 1)).slice(-2) + "." + ("0" + openDate.getDate()).slice(-2) + "~" +
+	        				closeDate.getFullYear() + "." + ("0" + (closeDate.getMonth() + 1)).slice(-2) + "." + ("0" + closeDate.getDate()).slice(-2);
+						lectureWrapper.querySelector(".totalHour").innerText = e.lectureInfo.total_hour + "시간";
+						
+						lectureBox.appendChild(lectureWrapper);
+						
+					}
+					
+				});
 				
 			}
 
@@ -192,7 +334,7 @@
 	    	window.addEventListener("DOMContentLoaded", () => {
 	    		
 	    		/* getMyPk(); */
-	    		showLectureProgressModal();
+	    		getLifeStudentKey();
 	    	});
 
         </script>
@@ -393,6 +535,25 @@
 	            </div>
 	        </div>
 	        
+	        <div class="noApplyLectureWrapper row mt-2">
+	       		<div class="col rounded border" style="height: 20em">
+	       			<div class="row align-items-center" style="height: 20em">
+	       				<div class="col">
+	       					<div class="row">
+	                            <div class="col text-center">
+	                                <i class="bi bi-chat-dots-fill" style="color: #EEEEEE; font-size: 2.5em;"></i>
+	                            </div>
+	                        </div>
+	                        <div class="row mt-2">
+	                            <div class="col text-center" style="font-size: 0.9em;">
+	                            	강의가 없습니다
+	                            </div>
+	                        </div>
+	       				</div>
+	       			</div>
+	       		</div>
+	       	</div>
+	        
 	        <span class="complete ms-2 px-3 py-1 fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #4CAF50; background-color: #F1F9F1;">
 	        	수료
 	        </span>
@@ -408,92 +569,6 @@
         	<span class="wait ms-2 px-3 py-1 fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #FF9100; background-color: #FFFAEB;">
             	학습대기
             </span>
-            
-            <span class="progressComplete px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #4CAF50; background-color: #F1F9F1;">
-            	수료
-            </span>
-            
-            <span class="progressPoor px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #FA4D5A; background-color: #FAF1F4;">
-            	미수료
-            </span>
-            
-            <div class="testWrapper row py-2 border-bottom">
-	            <div class="testNumber col-1 text-center" style="font-size: 0.9em;">1</div>
-	            <div class="testName col text-center" style="font-size: 0.9em;">기업현장교사 기본과정 온라인교육(15시간) 이수자를 위한 보충 영상</div>
-	            <div class="testDate col text-center" style="font-size: 0.9em;">2023-07-31 00:00~2023-08-31 23:59</div>
-	            <div class="col-1 text-center" style="font-size: 0.9em;">20%</div>
-	            <div class="testWhether col-1 text-center" style="font-size: 0.9em;">○</div>
-	            <div class="col-1 text-center" style="font-size: 0.9em;"><span class="testScore fw-bold">70</span> / 100</div>
-	            <div class="testButtonBox col-1 text-center fw-bold" style="font-size: 0.9em;"></div>
-	        </div>
-            
-            <span class="testComplete px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #4CAF50; background-color: #F1F9F1;">
-		    	응시완료
-		    </span>
-            
-            <span onclick="showTestWarningModal(this)" class="testIng btn px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #7844ae; background-color: #F3ECFF;">
-		    	응시하기
-		    </span>
-            
-            <span class="testPoor px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #B0B0B3; background-color: #f7f7f9;">
-		    	미응시
-		    </span>
-            
-            <span class="testBeforeOpen px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #B0B0B3; background-color: #f7f7f9;">
-		    	오픈전
-		    </span>
-		    
-		    <div class="testProgressWrapper row">
-	            <div class="col py-4">
-	                <div class="row">
-	                    <div class="testProgressQuestionNumber col-auto pe-0">
-	                        1.
-	                    </div>
-	                    <div class="testProgressQuestion col">
-	                        관계 데이터베이스에서 하나의 애트리뷰트가 취할 수 있는 같은 타입의 모든 원자값들의 집합을 무엇이라고 하는가?
-	                    </div>
-	                </div>
-	                <div class="row">
-	                    <div class="testProgressChoiceBox col">
-	                        
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	        
-	        <div class="testProgressChoiceWrapper row mt-3">
-	            <div class="col-auto pe-0" style="position: relative; top: -0.15em;">
-	                <input type="radio" class="testProgressRadio btn-check" name="question1" autocomplete="off">
-	                <label class="testProgressChoiceNumber btn btn-outline-dark rounded-circle py-0 px-1" for="asdf" style="font-size: 0.7em;">1</label>
-	            </div>
-	            <div class="col">
-	                <label class="testProgressText form-check-label" for="asdf">
-	                    튜플(tuple)
-	                </label>
-	            </div>
-	        </div>
-	        
-	        <div class="testProgressChoiceRightWrapper row">
-	            <div class="testProgressQuestionRightNumber col-2 fw-bold text-center my-auto py-2" style="font-size: 1em; color: #7844ae; background-color: #F3ECFF;">
-	                1
-	            </div>
-	            <div class="col-auto my-auto" style="position: relative; top: -0.15em;">
-	                <input type="radio" class="testProgressRightRadio1 btn-check" name="questionRight1" id="exampleRight1-1" autocomplete="off">
-	                <label class="testProgressChoiceRightNumber1 btn btn-outline-dark rounded-circle py-0 px-1" for="exampleRight1-1" style="font-size: 0.75em;">1</label>
-	            </div>
-	            <div class="col-auto my-auto" style="position: relative; top: -0.15em;">
-	                <input type="radio" class="testProgressRightRadio2 btn-check" name="questionRight1" id="exampleRight1-2" autocomplete="off">
-	                <label class="testProgressChoiceRightNumber2 btn btn-outline-dark rounded-circle py-0 px-1" for="exampleRight1-2" style="font-size: 0.75em;">2</label>
-	            </div>
-	            <div class="col-auto my-auto" style="position: relative; top: -0.15em;">
-	                <input type="radio" class="testProgressRightRadio3 btn-check" name="questionRight1" id="exampleRight1-3" autocomplete="off">
-	                <label class="testProgressChoiceRightNumber3 btn btn-outline-dark rounded-circle py-0 px-1" for="exampleRight1-3" style="font-size: 0.75em;">3</label>
-	            </div>
-	            <div class="col-auto my-auto" style="position: relative; top: -0.15em;">
-	                <input type="radio" class="testProgressRightRadio4 btn-check" name="questionRight1" id="exampleRight1-4" autocomplete="off">
-	                <label class="testProgressChoiceRightNumber4 btn btn-outline-dark rounded-circle py-0 px-1" for="exampleRight1-4" style="font-size: 0.75em;">4</label>
-	            </div>
-	        </div>
         	
         	<a onclick="movePage(this)" class="pageNumberLink page-link border-0 text-black px-4" href="#" style="font-size: 1.1em;">1</a>
         	
@@ -503,36 +578,9 @@
 
         <jsp:include page="./testModal.jsp"></jsp:include>
         
-        <div id="testWarningModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body text-center fw-bold pt-4" style="font-size: 0.9em;">
-                        <p class="mb-0">※ 응시하기 버튼을 누르면 시험이 바로 시작됩니다</p>
-                        <p class="mb-0">※ 시험이 시작되면 제출하기 전까지 뒤로 갈 수 없습니다</p>
-                        <p class="mb-0">※ 답안 제출 후 점수가 바로 채점됩니다</p>
-                        <p class="mt-4 mb-0">시험을 응시하시겠습니까?</p>
-                    </div>
-                    <div class="modal-footer pb-3 border-0 justify-content-center">
-                        <button class="btn btn-secondary me-3" style="font-size: 0.8em;" data-bs-dismiss="modal">닫기</button>
-                        <button onclick="showTestModal()" class="btn text-white fw-bold" style="background-color: #7844ae; font-size: 0.8em;">응시하기</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <jsp:include page="./testWarningModal.jsp"></jsp:include>
 
-        <div id="submitWarningModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-sm">
-                <div class="modal-content">
-                    <div class="modal-body text-center fw-bold pt-4" style="font-size: 0.9em;">
-                        제출하시겠습니까?
-                    </div>
-                    <div class="modal-footer pb-3 pt-0 border-0 justify-content-center">
-                        <button class="btn btn-secondary me-3" style="font-size: 0.8em;" data-bs-dismiss="modal">닫기</button>
-                        <button  class="btn text-white fw-bold" style="background-color: #7844ae; font-size: 0.8em;">제출하기</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <jsp:include page="./submitWarningModal.jsp"></jsp:include>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>

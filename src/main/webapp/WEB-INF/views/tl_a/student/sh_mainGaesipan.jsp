@@ -36,25 +36,29 @@
                     </div>
                 </div>
 			<div class="row fw-bold my-3">
-				<div class="col">글 번호</div>
-				<div class="col-8">제목</div>
-				<div class="col">작성자</div>
-				<div class="col">작성일</div>
+				<div class="col-2 pb-1 text-center fw-bold" style="font-size: large;">
+					글 번호</div>
+				 <div class="col text-center fw-bold" style="font-size: large;">
+				 	제목</div>
+				<div class="col-2 text-center fw-bold" style= "font-size: large;">
+					작성자</div>
+				<div class="col-2 text-center fw-bold" style= "font-size: large">
+				작성일</div>
 			</div>
 		<c:forEach items="${list }" var="map">
 			<div class="row border-bottom my-1">
-				<div class="col">${map.dormFreeboardDto.dorm_freeboard_pk}</div>
-				<div class="col-8"><a href="./readGasipan?id=${map.dormFreeboardDto.dorm_freeboard_pk}">${map.dormFreeboardDto.title}</a></div>
-				<div class="col">${map.studentInfoDto.name}</div>
-				<div class="col"><fmt:formatDate value="${map.dormFreeboardDto.created_at}" pattern="yy.MM.dd" /></div>
+				<div class="col-2  py-2 text-center" style="font-size: large">${map.dormFreeboardDto.dorm_freeboard_pk}</div>
+				<div class="col py-2 text-center" style="font-size: large" > <a style=text-decoration:none; href="./readGasipan?id=${map.dormFreeboardDto.dorm_freeboard_pk}">${map.dormFreeboardDto.title}</a></div>
+				<div class="col-2 py-2 text-center" style="font-size: large">${map.studentInfoDto.name}</div>
+				<div class="col-2 py-2 text-center" style="font-size: large"><fmt:formatDate value="${map.dormFreeboardDto.created_at}" pattern="yy.MM.dd" /></div>
 			</div>
 		</c:forEach>
 		
 			<div class="row mt-3">
 				
 			<c:if test="${!empty sessionStudentInfo}">
-			<div class="col text-end ms-auto d-grid">
-				<a class="btn btn-primary" href="./writeGasipan">글쓰기</a>
+			<div class="col-2 text-end ms-auto d-grid">
+				<a class="btn" style="background-color:#504528; color:#FFFFFF;" href="./writeGasipan">글쓰기</a>
 			</div>
 			</c:if>
 		</div>

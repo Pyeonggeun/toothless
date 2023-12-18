@@ -21,6 +21,12 @@
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
                                 <div class="col bg-body-tertiary">
                                     <!--여기서 부터-->
+                                    <c:if test="${empty sessionStaffInfo }">
+										<script>
+											alert("로그인 후 이용해주세요");
+											location.href='../../another/staff/loginPage';
+										</script>
+									</c:if>
                                     <div class="row mt-5 mb-5">
                                     	<div class="col">
                                     	<form action="./modifyTextProcess" method="post">
@@ -48,8 +54,8 @@
                                     				<div class="row">
                                     					<div class="col border bg-white text-dark">
                                     						<div class="row mt-3 pb-3">
-                                    							<div class="col text-center"><input class="btn btn-primary px-5" type="submit" value="수정완료"></div>
-                                    							<div class="col text-center"><button class="btn btn-primary px-5" type="button" onclick="location.href='./readTextPage?staffboard_pk=${readText.staffboardDto.staffboard_pk }'">취 &nbsp;&nbsp;&nbsp;&nbsp; 소</button></div>
+                                    							<div class="col text-center"><input class="btn btn-primary px-5 rounded-0" type="submit" style="background-color: #005EAD; border-style: none" value="수정완료"></div>
+                                    							<div class="col text-center"><button class="btn btn-primary px-5 rounded-0" type="button" style="background-color: #005EAD; border-style: none" onclick="location.href='./readTextPage?staffboard_pk=${readText.staffboardDto.staffboard_pk }'">취 &nbsp;&nbsp;&nbsp;&nbsp; 소</button></div>
                                     						</div>
                                     					</div>
                                     				</div>

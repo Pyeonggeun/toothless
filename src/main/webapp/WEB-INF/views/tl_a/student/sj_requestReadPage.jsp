@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,55 +50,43 @@
                        
                     </div>
                 </div>
-            
                 
-                <!-- 게시판 ㄱㄱ -->
-                
-                 <div class="row"><!--여기가 안에 들어갈 내용들-->
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-2 pb-3 text-center fw-bold" style="font-size: large;">
-                                글번호
-                            </div>
-                            <div class="col text-center fw-bold" style="font-size: large;">
-                                제목
-                            </div>
-                            <div class="col-2 text-center fw-bold" style="font-size: large;">
-                                작성자
-                            </div>
-                            <div class="col-2 text-center fw-bold" style="font-size: large;">
-                                작성일
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                
-                
-                <!-- 게시판 우하하 -->
-                <c:forEach items="${printing }" var="repair">
-                <div class="row" style="border-top: 0.03em solid black;"><!-- 게시판 ㄲ --> 
-                    <div class="col-2 py-3 text-center" style="font-size: large;">
-                    	${repair.REQUEST_PK }
-                    </div>
-                    <div class="col py-3 text-center" style="font-size: large;">
-                    	<a class="navbar-brand" href="./sj_requestReadPage?request_repair_pk=${repair.REQUEST_PK }">${repair.TITLE }</a>
-                    </div>
-                    <div class="col-2 py-3 text-center" style="font-size: large;">
-						${repair.NAME }
-                    </div>
-                    <div class="col-2 py-3 text-center" style="font-size: large;">
-                    	<fmt:formatDate value="${repair.REQUEST_DATE }" pattern="yyyy.MM.dd"/>  
-                    </div>
-                </div>
-                </c:forEach>
-                <div class="row">
+                <div class="row my-2">
+                	<div class="col">
                 	
-                	<div class="col d-flex justify-content-end my-2">
-                		<a class="btn btn-danger rounded-0" href="./sj_requestWritePage" role="button">수리접수</a>
-                		
-                	</div>
+                		<div class="my-3">
+						  	<label for="exampleFormControlInput1" class="form-label">제목</label>
+						  	
+						  	<input class="form-control" type="text" value="${one.repairDto.title }" readonly>
+						</div>
+						<div class="my-3">
+							<label for="exampleFormControlInput1" class="form-label">작성자</label>
+							<input class="form-control" type="text" value="${one.studentInfo.name }" readonly>
+						</div>
+						<div class="my-3">
+						 	<label for="exampleFormControlTextarea1" class="form-label">내용</label>
+						  	<input class="form-control my-3 py-5 " type="text" value="${one.repairDto.content}" aria-label="readonly input example" readonly>
+
+						</div>
+						<div class="mb-3">
+						  <label for="formFileMultiple" class="form-label">파손시설 사진</label><br>
+						  <img src="/requestRepairImg/${one.repairDto.image_link }" class="img-fluid">
+						  
+						</div>
+						<c:if test="${!empty sessionStudentInfo && sessionStudentInfo.student_pk == one.dormStudentDto.student_pk }">						
+							<div class="row">
+								<div class="col d-flex justify-content-end my-2">
+	                				<a class="btn btn-danger rounded-0" href="./deleteRequestRepairProcess?request_repair_pk=${one.repairDto.request_repair_pk }" role="button">삭제하기</a>
+	                			</div>
+							</div>
+						</c:if>
+		            </div>
+                	
                 </div>
+            
+               
+               
+           
             </div>
             </div>
         </div>

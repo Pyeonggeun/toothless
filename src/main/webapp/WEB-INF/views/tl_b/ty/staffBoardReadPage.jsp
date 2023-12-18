@@ -199,33 +199,41 @@
                                     </div>
                                 </div>
                                 <div class="col">
-
-                                    <div class="row">
-                      				  <div class="col">
-
-                                    <div class="row mt-5">
-                                        <div class="col fw-bold fs-2">공지사항</div>
+                                	<div class="row mx-1 my-3 ">
+                                        <div class="col ms-1 " style="font-size: 15px;">
+                                        	<a href="../common/staffMainPage"; 
+                                        	style="text-decoration: none; color:#015A9E;">
+                                        	홈
+                                        	</a>>
+                                        	<a href="./staffBoardPage"; 
+                                        	style="text-decoration: none; color:#015A9E;">
+                                        	공지사항
+                                        	<a/>>
+                                        	상세글
+                                        </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col ms-1 " style="font-size: 60%">홈>공지사항</div>
-                                    </div>
-                                    <div class="row mt-3 border-4 border-bottom"></div>
+
+                                    <div class="row mx-3 my-3  border">
+                      				 <div class="col">
+
                                     
                                     
-                                    <div class="row mt-2">
+                                    
+                                    <div class="row mt-2  ">
                                         <div class="col">
                                             <div class="row">
-                                                <div class="col fw-bold fs-4">[제목]&nbsp;&nbsp; ${read.noticeboardDto.title }</div>
+                                                <div class="col fw-bold" style="font-size: 26px;"><span style="color:#015A9E">[공지]</span>&nbsp;&nbsp; ${read.noticeboardDto.title }</div>
                                             </div>
                                             <div class="row">
-                                                <div class="col fw-bold" style="font-size: 80%;">${read.staffInfoDto.name }</div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-2 text-secondary mx-1" style="font-size: 60%;">
-                                                <fmt:formatDate value="${read.noticeboardDto.created_at }" pattern="yy년 MM월 dd일"/>
-												 &nbsp;&nbsp; 조회수: ${read.noticeboardDto.read_count }
-												</div>
-                                                <div class="col-10"></div>
+                                                <div class="col fw-bold" style="font-size: 13px;">
+                                                	${read.staffInfoDto.name } &nbsp;&nbsp;
+                                                	<span style="font-size: 12px; color:rgb(110, 106, 106)">
+                                                		<fmt:formatDate value="${read.noticeboardDto.created_at }" pattern="yy년 MM월 dd일"/>
+													 	&nbsp;&nbsp; | 조회수: ${read.noticeboardDto.read_count }
+													 	&nbsp;&nbsp; | <i class="bi bi-heart-fill"></i>${likeCount }
+													 	<i class="bi bi-chat-dots-fill"></i>${replyCount}
+													</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -237,6 +245,7 @@
                                         <div class="col">
                                         	<c:forEach items="${read.boardImageDtoList }" var="boardImageDto">
                                         	<img src="/uploadFiles/${boardImageDto.img_link }">
+                                        	
                                         </c:forEach>
                                         </div>
                                     </div>
@@ -264,7 +273,12 @@
                                                     <div class="row">
                                                     	<div class="col" style="text-dacoration: none; font-size: 80%">
                                                     		<fmt:formatDate value="${boardReply.replyDto.created_at }" pattern="yy년 MM월 dd일 "/>
-                                                    		<a href="./replyDeleteProcess?id=${boardReply.replyDto.studentboard_reply_pk }&deleteId=${boardReply.studentDto.student_pk}&boardPk=${read.noticeboardDto.studentboard_pk}">삭제</a>
+                                                    		<a href="./replyDeleteProcess?id=${boardReply.replyDto.studentboard_reply_pk }
+	                                                    		&deleteId=${boardReply.studentDto.student_pk}
+	                                                    		&boardPk=${read.noticeboardDto.studentboard_pk}"
+	                                                    		style="text-decoration: none; color:#015A9E;">
+	                                                    		삭제
+                                                    		</a>
                                                     	</div>
                                                     </div>
                                                 </div>
@@ -278,17 +292,17 @@
 									<div class="row">
                                     <div class="col pe-0 ">
                                         <a href="./staffBoardPage">
-                                            <input type='button' class='btn' value='목록'  >
-                                        </a>
-                                    </div>
-                                    <div class="col ps-0 ">
-                                        <a href="./noticeDeleteProcess?id=${read.noticeboardDto.studentboard_pk }">
-                                            <input type='button' class='btn' value='삭제'  >
+                                            <input type='button' class='btn btn-outline-primary' value='목록'  >
                                         </a>
                                     </div>
                                     <div class="col ps-0">
                                         <a href="./noticeUpdatePage?id=${read.noticeboardDto.studentboard_pk }">
-                                            <input type='button' class='btn' value='수정' >
+                                            <input type='button' class='btn btn-outline-primary' value='수정' >
+                                        </a>
+                                    </div>
+                                    <div class="col ps-0 ">
+                                        <a href="./noticeDeleteProcess?id=${read.noticeboardDto.studentboard_pk }">
+                                            <input type='button' class='btn btn-outline-danger' value='삭제'  >
                                         </a>
                                     </div>
                                     <div class="col-10"></div>
@@ -296,9 +310,9 @@
  									
  									
  									
-                                    <div class="row mt-5">
+                                    <div class="row mt-5 border">
                                         <div class="col">
-                                            <div class="row border-1 border-bottom">
+                                            <div class="row border-bottom border-black ">
                                                 <div class="col-1 fw-bold fs-5">이전 글</div>
                                                 <div class="col">손씻기 방법</div>
                                             </div>
@@ -310,9 +324,9 @@
                                     </div>
 
 
-
-                                </div>
-                            </div> 
+		
+		                                </div>
+		                            </div> 
 
 
                                 </div>

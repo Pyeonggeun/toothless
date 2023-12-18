@@ -137,6 +137,8 @@ public class StaffboardController {
 		likeDto.setStaffboard_pk(staffboard_pk);
 		
 		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		if(sessionStaffInfo != null) {
+			
 		
 		int staffPk = sessionStaffInfo.getStaff_pk();
 		
@@ -157,6 +159,9 @@ public class StaffboardController {
 		model.addAttribute("replyCountInContent", replyCountInContent);
 		
 		return "tl_b/dy/readTextPage";
+		}else {
+			return "tl_b/dy/staffboardPage";
+		}
 	}
 	// 작성 글 삭제
 	@RequestMapping("deleteTextProcess")

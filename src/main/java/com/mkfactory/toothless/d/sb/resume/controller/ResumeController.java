@@ -23,6 +23,7 @@ import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.dto.VolunteerDto;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.d.sb.resume.service.ResumeServiceImpl;
+import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -398,7 +399,22 @@ public class ResumeController {
 		return "redirect:./postApplyListPage";
 	}
 	
-	
+	// 공개한 학생들의 이력서 보는 페이지
+	@RequestMapping("publicResumeByStudentListPage")
+	public String publicResumeByStudentListPage(HttpSession session, Model model) {
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
+		
+		if(externalInfoDto != null) {
+			int externalInfoPk = externalInfoDto.getExternal_pk();
+			
+			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalInfoPk);
+		
+			model.addAttribute("applyStudentList", postingService.getApplyStudentTotalList(companyDto.getCom_pk()));
+			
+		}	
+		return "tl_d/sb_resume/publicResumeByStudentListPage";
+	}
 	
 	
 	
