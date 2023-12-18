@@ -20,18 +20,19 @@
 		<div class="row">
 			<!-- 왼쪽 여백 -->
 			<%-- 학생 메뉴 바 --%>
-			<div class="col-2">
+			<div class="col-2"> 
 				<jsp:include page="./studentMenu.jsp"></jsp:include>
 			</div>
 			<!-- 메인기능쪽 -->
 			<div class="col ps-5 pe-4 border-start">
-				<div class="row">
-				<!-- 가운데 여백 -->
-					<%-- 학생 정보 --%>
+				<div class="row"> 
+				<!-- 가운데 여백 --> 
+					<%-- 학생 정보 --%>  
 					<div class="col-4 p-0 me-4">
-						<div class="row p-3 mt-5">
-							<!-- 사진 -->
-							<div class="col ps-5 pe-0 mt-2 fs-4 text-secondary">
+						<div class="row ps-0 pe-1 pt-4 pb-4 ms-3 mt-5 mb-3 border rounded-3">
+							<div class="col-1"></div>
+							<!-- 사진 --> 
+							<div class="col pe-0 mt-2 fs-4 text-secondary">
 								<img class="img-fluid" src="../../resources/img/employment/user.png">
 							</div>
 							<!-- 학생정보(나중에 추가하려면 추가하기) -->
@@ -71,11 +72,12 @@
 									<a class="col mt-1 ms-2 me-5 btn btn-secondary btn-sm" href="#">구직희망중</a>
 								</div>
 							</div>
+							<div class="col-1"></div>
 						</div>
 					</div>
 					<!-- 학생 정보 끝 -->
 					<%-- (예정) 상담이력 --%>	
-					<div class="col mx-5 mt-3 px-5 pb-0 border-start">
+					<div class="col mx-5 mt-3 px-5 pb-0">
 						<!-- 공고 지원한 학생목록 -->
 						<div class="row border-bottom border-2">
 							<div class="col fs-5 fw-bold mt-5 pb-1">(예정)상담이력</div>
@@ -84,8 +86,8 @@
 					</div>
 					<!-- (예정) 상담이력 -->
 				</div>
-				<div class="row pt-3 ps-0 me-3 border-bottom"><div class="col"></div></div>
-				<div class="row pt-0 my-3">
+				<div class="row pt-3 ps-0 me-3"><div class="col"></div></div>
+				<div class="row ms-1 pt-0 my-3">
 					<div class="col-4 me-4 ps-3">
 						<!-- (예정)신청한 공고정보 -->
 						<div class="row border-bottom border-2">
@@ -133,7 +135,7 @@
 						
 						<!-- (예정)신청한 공고정보 끝 -->
 					</div>
-					<div class="col mx-5 px-5 border-start">
+					<div class="col mx-5 px-5">
 						<!-- 관심채용정보 -->
 						<div class="row border-bottom border-2">
 							<div class="col fs-5 fw-bold mt-5 pb-1">관심채용정보</div>
@@ -216,23 +218,44 @@
 						<!-- 관심채용정보 끝 -->
 					</div>
 				</div>
-				<div class="row pt-3 ps-0 me-3 border-bottom"><div class="col"></div></div>
-				<div class="row pt-0 my-3">
+				<div class="row pt-3 ps-0 me-3"><div class="col"></div></div>
+				<div class="row ms-1 pt-0 my-3">
 					<div class="col-4 me-4 ps-3">
 						<!-- (예정)신청한 프로그램 -->
-						<div class="row border-bottom border-2">
+						<div class="row border-bottom border-2 mb-3">
 							<div class="col fs-5 fw-bold mt-5 pb-1">이수예정 프로그램</div>
-							<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
+							<div class="col fs-5 fw-bold mt-5 text-end">
+								<a class="navbar-brand" href="../gw_program/applyProgramListForStudentPage">
+									<i class="bi bi-plus-lg"></i>
+								</a>
+							</div>
 						</div>
+						<c:set var="currentTime" value="<%= new java.util.Date() %>" />
+						<c:forEach items="${applyProgramListForMyPage}" var="list"> 
+							<c:if test="${list.programApplyDto.student_pk==sessionStudentInfo.student_pk }">
+								<c:if test="${list.programDto.prg_schedule.before(currentTime)}">
+									<div class="row border-bottom border-bs-border pb-3 mb-3">
+										<div class="col-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
+										<div class="col">
+											<a class="btn ms-4" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a>
+										</div>
+										<div class="col-4 text-center mt-2">
+											<span class="border border-0 py-2 px-3 mb-0 text-white fw-bold bg-primary rounded-3" style="font-size: 1em;"><fmt:formatDate value="${list.programDto.prg_schedule}" pattern="MM.dd"/>&nbsp;개강</span>
+										</div> 
+									</div> 
+								</c:if>
+							</c:if>
+						</c:forEach>
 						<!-- (예정)신청한 프로그램 끝 -->
 					</div>
 					
 					
-					<div class="col mx-5 px-5 border-start ">
+					<div class="col mx-5 px-5">
 						<!-- (예정)공지사항 혹은 설문조사 -->
 						<div class="row border-bottom border-2">
-							<div class="col fs-5 fw-bold mt-5 pb-1">(예정)공지사항 혹은 설문조사</div>
+							<div class="col fs-5 fw-bold mt-5 pb-1">(예정)공지사항</div>
 							<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
+							
 						</div>
 						<!-- (예정)공지사항 혹은 설문조사 끝 -->
 					</div>

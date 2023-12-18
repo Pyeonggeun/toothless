@@ -82,24 +82,24 @@
 			<!-- 버튼들 여따 -->
 			<c:set var="currentTime" value="<%= new java.util.Date() %>" />
 			<div class="row mt-4 mb-5"> 
-				<div class="col-1"></div>
-				<div class="col-2 mx-0 text-start">
-				<c:choose>
-	                <c:when test="${program.programDto.prg_apply_deadline.before(currentTime)}">
-	                	<span class="text-center badge text-bg-secondary fw-normal py-1" style="font-size: 1em">신청마감</span>
-	                </c:when>
-	                <c:otherwise>
-	                	<c:choose>
-	                		<c:when test="${myApplyProgram==0 }">
-	                			 <a class="btn btn-primary" href="./studentApplyProgram?program_pk=${program.programDto.program_pk}">프로그램 신청하기</a> 
-	                		</c:when>
-	                		<c:when test="${myApplyProgram>0 }">
-	                			 <span class="border border-0 py-2 px-3 text-white bg-secondary rounded-2">신청완료</span> 
-	                		</c:when>
-	                	</c:choose>
-	                    
-	                </c:otherwise>
-	            </c:choose>
+				<div class="col-2"></div>
+				<div class="col-2 mx-0 text-center">
+					<c:choose>
+		                <c:when test="${program.programDto.prg_apply_deadline.before(currentTime)}">
+		                	<span class="border border-0 py-2 px-3 text-white bg-secondary rounded-2">신청마감</span>
+		                </c:when>
+		                <c:otherwise>
+		                	<c:choose>
+		                		<c:when test="${myApplyProgram==0 }">
+		                			 <a class="btn btn-primary" href="./studentApplyProgram?program_pk=${program.programDto.program_pk}">프로그램 신청하기</a> 
+		                		</c:when>
+		                		<c:when test="${myApplyProgram>0 }">
+		                			 <span class="border border-0 py-2 px-3 text-white bg-secondary rounded-2">신청완료</span> 
+		                		</c:when>
+		                	</c:choose>
+		                    
+		                </c:otherwise>
+		            </c:choose>
 					
 				</div>
 				<!-- 여백용 -->
