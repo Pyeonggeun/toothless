@@ -34,5 +34,25 @@
 			</div>
 	    	<div class="col-1 px-0"></div>
    		</div>
+   		<div class="row text-center py-2 fw-bold text-light" style="background-color: #8fc2db">
+            <div class="col-2"></div>
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="../ny_posting/jobPostingListForStudentPage">채용공고</a>
+            </div>
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="./mainpage">프로그램</a>
+            </div>
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="../../tl_e/commons/counselCenterStudentMainPage">취업컨설팅</a>
+            </div>
+            <!-- 드롭다운 만들 예정 -->
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="../../tl_a/student/jw_mainPage">게시판</a>
+            </div>
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="../../tl_a/student/jw_mainPage">공지사항</a>
+            </div>
+            <div class="col-2"></div>
+        </div>
 	</div>	
 </div>

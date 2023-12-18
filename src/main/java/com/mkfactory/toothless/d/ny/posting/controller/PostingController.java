@@ -274,7 +274,7 @@ public class PostingController {
 			int studentPk = studentInfoDto.getStudent_pk();
 			params.setStudent_pk(studentPk);
 			model.addAttribute("jobPostingDetailForStudent",
-					postingService.getJobPostingDetailForStudentAndCompany(/* studentPk, */ id));
+					postingService.getJobPostingDetailForStudentAndCompany(studentPk, id));
 			
 		}
 		
