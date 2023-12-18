@@ -32,8 +32,10 @@ public interface DormStaffMapperJw {
 	// 특정 학생 동정보
 	public DormBuildingDto selectDormByDormPk(int dorm_pk);
 	
-	// 전체 사생정보
+	// 사생정보
 	public List<DormStudentDto> selectAllDormStudentList();
+	public List<DormStudentDto> selectDormStudentListByDormPk(int dorm_pk);
+	
 	
 	// 진행중인 학기의 사생정보
 	public List<DormStudentDto> selectDormStudentByProgressSemester();
@@ -46,6 +48,7 @@ public interface DormStaffMapperJw {
 	public ExecutiveDto  selectExecutiveByExecutivePk(int executive_pk);
 	public void deleteExecutiveByDormStudentPk(int dorm_student_pk);
 	public List<ExecutiveDto> selectAllExecutiveList();
+	public List<ExecutiveDto> selectExecutiveListByDormPk(int dorm_pk);
 	
 	// 임원 방배정
 	public List<DormRoomDto> selectDormRoomListByDormFloorAndDormPk(int dorm_floor, int dorm_pk);
@@ -58,6 +61,7 @@ public interface DormStaffMapperJw {
 	
 	// 일지 관리
 	public List<DiaryDto> selectAllDiaryList();
+	public List<DiaryDto> selectDiaryListByDormPk(int dorm_pk);
 	
 	// 상벌점
 	public void insertPoint(PointDto pointDto);
@@ -79,5 +83,6 @@ public interface DormStaffMapperJw {
 	// 점호 불참
 	public List<CallAbsenceDto> selectAllCallAbsenceList();
 	public List<DormStudentDto> selectCallAbsenceDormStudentList();
+	public List<DormStudentDto> selectCallAbsenceDormStudentListByDormPk(int dorm_pk);
 	
 }

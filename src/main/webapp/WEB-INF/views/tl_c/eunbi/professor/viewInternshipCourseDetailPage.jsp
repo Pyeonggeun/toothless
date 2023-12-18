@@ -219,9 +219,6 @@
 				readInternReport.classList.add("btn", "btn-outline-secondary", "btn-sm", "rounded-1");
 				readInternReport.setAttribute("href", "./viewInternReport?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
 				
-				console.log(now);
-				console.log(internshipEndDate);
-				
 				if(now <= internshipEndDate){
 					const internEvaluation = internWrapper.querySelector(".internEvaluation");
 					internEvaluation.setAttribute("style", "font-size:0.95em");
@@ -229,7 +226,6 @@
 					internEvaluation.innerText = "평가입력기간이 아닙니다";
 					
 				}else if(now > internshipEndDate){
-					console.log(intern.didProfessorEvaluateIntern);
 					if(intern.didProfessorEvaluateIntern === 0){
 						const evaluationButton = internWrapper.querySelector(".evaluationButton");
 						evaluationButton.innerText = "평가하기";

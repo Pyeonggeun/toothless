@@ -167,7 +167,7 @@
 									<!-- 공고제목 -->
 									<div class="col ms-1 ps-0 pt-1">
 										<!-- 링크 더 좋은 방법 생각해보기 -->
-										<a class="navbar-brand" href="./jobPostingDetailForStudentPage?id=${interestPosting.jobPostingDto.job_posting_pk}">
+										<a class="navbar-brand" href="../ny_posting/jobPostingDetailForStudentPage?id=${interestPosting.jobPostingDto.job_posting_pk}">
 										<span class="d-inline-block text-truncate" style="max-width: 500px;">
 											${interestPosting.jobPostingDto.posting_name}
 										</span>

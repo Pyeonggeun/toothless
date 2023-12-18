@@ -29,6 +29,7 @@
 	
 	}
 	
+
 	.tp-borderx{
 		border-width: 4px 4px 4px 4px;
 		border-style: solid;

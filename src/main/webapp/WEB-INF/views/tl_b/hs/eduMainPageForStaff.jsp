@@ -10,6 +10,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <title>교육 교직원 메인</title>
+        
     </head>
     <body>
         <div class="container-fluid">
@@ -62,7 +63,7 @@
                                                                             <div class="col align-self-center text-center" style="text-align: center;">
                                                                                 <span>${edu.studentInfoDto.name }</span>
                                                                             </div>
-                                                                            <div class="col align-self-center text-center" style="text-align: center;">
+                                                                            <div class="col align-self-center text-start" style="text-align: center;">
                                                                                 <span>${edu.eduDto.name }</span>
                                                                             </div>
                                                                             <div class="col align-self-center text-center" style="text-align: center;">
@@ -124,7 +125,7 @@
                                                                     </div>
                                                                     <c:forEach items="${allServeyList }" var="ser">
                                                                     <div class="row py-1 border-bottom">
-                                                                        <div class="col align-self-center text-center" style="text-align: center;">
+                                                                        <div class="col align-self-center text-start" style="text-align: center;">
                                                                             ${ser.eduName }
                                                                         </div>
                                                                         <div class="col align-self-center text-center" style="text-align: center;">
@@ -243,7 +244,7 @@
                                                                     <div class="col-1" style="text-align: center;">
                                                                         <span>${edu.eduDto.edu_pk }</span>
                                                                     </div>
-                                                                    <div class="col-4" style="text-align: center;">
+                                                                    <div class="col-4 text-start sss" style="text-align: center;" >
                                                                         <span>
                                                                         <a href="./readEduProgPage?edu_pk=${edu.eduDto.edu_pk}" class="text-black"
                                                                         style="text-decoration: none;">

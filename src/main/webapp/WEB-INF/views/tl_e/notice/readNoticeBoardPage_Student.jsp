@@ -11,6 +11,24 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&amp;family=Gowun+Dodum&amp;family=Quicksand:wght@300&amp;display=swap" rel="stylesheet">
+<style>
+	*{
+	/* font-family: 'Dongle', sans-serif; */
+	font-family: 'Gowun Dodum', sans-serif;
+	/* font-family: 'Quicksand', sans-serif; */
+	}
+    .icon-button {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        outline: none;
+    }
+    #headerSize {
+    	font-size: 0.8em;
+    }
+</style>
+
 <script>
 
 	const notice_id = ${list.noticeBoardDto.id};
@@ -112,23 +130,6 @@
 	
 	
 </script>
-<style>
-	*{
-	/* font-family: 'Dongle', sans-serif; */
-	font-family: 'Gowun Dodum', sans-serif;
-	/* font-family: 'Quicksand', sans-serif; */
-	}
-    .icon-button {
-        background: none;
-        border: none;
-        padding: 0;
-        cursor: pointer;
-        outline: none;
-    }
-    #headerSize {
-    	font-size: 0.8em;
-    }
-</style>
 <title>Insert title here</title>
 </head>
 <body>
@@ -139,9 +140,6 @@
 				<div class="row">
 					<div class="col-1 mt-3 mb-1 fw-bold">공지사항</div>
 					<div class="col"></div>
-					<c:if test="${!empty sessionStaffInfo }">
-						<div class="col-1 mt-3 mb-1 fw-bold">${sessionStaffInfo.name }님</div>
-					</c:if>
 					<c:if test="${!empty sessionStudentInfo }">
 						<div class="col-1 mt-3 mb-1 fw-bold">${sessionStudentInfo.name }님</div>
 					</c:if>
@@ -238,7 +236,7 @@
 				</div>
 				<div class="row">
 					<div class="col">
-						<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black;" href="./noticeMainPage"><i class="bi bi-card-list"></i>&nbsp;&nbsp;목록</a>
+						<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black;" href="./noticeMainPage_Student"><i class="bi bi-card-list"></i>&nbsp;&nbsp;목록</a>
 					</div>
 				</div>
 			</div>

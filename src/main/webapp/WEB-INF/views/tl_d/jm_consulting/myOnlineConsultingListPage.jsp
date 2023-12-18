@@ -25,15 +25,20 @@
 		.then(response => response.json())
 		.then(response => {
 			
+			const myOnlineConsultingList = document.getElementById("myOnlineConsultingList");
+			myOnlineConsultingList.innerHTML ="";
+			myOnlineConsultingList.innerText ="";
+			myOnlineConsultingList.classList.add("col");
 			
 			//아직 상담목록 없으면
 			if(response.data.length==0){
 				
 				const myOnlineConsultingList = document.querySelector("#myOnlineConsultingList"); 
 				const spanElement = document.createElement('span');
-				
+	
 				myOnlineConsultingList.classList.add('text-center','py-3');
 				spanElement.classList.add('fw-bold');
+
 				spanElement.innerText ="아직 상담목록이 없습니다."
 				
 				myOnlineConsultingList.appendChild(spanElement);
@@ -43,11 +48,9 @@
 			
 			//CSR - 클아이언트 사이드 렌더링
 				//복사할곳을 찾아놓음, id명 myOnlineCounsultiList를 위치로잡음 
-			const myOnlineConsultingList = document.getElementById("myOnlineConsultingList");
 			//for문돌기전 초기화
-			myOnlineConsultingList.innerHTML ="";
 			for(e of response.data){
-			
+
 				
 				//각각의 값 배치				
 				//템플릿 복사함 #templete의 listWrapper를 찾음 그리고 복사(cloneNode)

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -140,6 +142,96 @@
 
 		    window.location.href = link;
 		}
+	    
+	    // Notice 리스트 반복문 출력
+	    
+	    function Listprint(){
+	    	
+	    	const url = "./threeList";
+	    	
+	    	fetch(url)
+	    	.then(response => response.json())
+	    	.then(response => {
+	    		
+	    		// paddingcount는 
+	    		let count = 0;
+	    		let paddingcount = 0;
+	    		
+	    		for(e of response.data){
+	    			count++;
+	    			if(count == 3){
+	    				const wrapper = document.querySelector("#templete .wrapper").cloneNode(true);
+		    			wrapper.classList.remove("d-none");
+		    			wrapper.classList.remove("border-end");
+		    			wrapper.classList.add("ps-5");
+		    			const wrappertitle = wrapper.querySelector(".wrapper-title");
+		    			wrappertitle.innerText = e.title;
+		    			
+		    			const wrappertime = wrapper.querySelector(".wrapper-time");
+		    			// 시간 데이터 변경
+		    			const createDate = e.created_at;
+		    			const changeDate = new Date(createDate);
+		    			let dateEnd = changeDate.getFullYear();
+		    			dateEnd += ".";
+		    			dateEnd += changeDate.getMonth() + 1;
+		    			dateEnd += ".";
+		    			dateEnd += changeDate.getDate();
+		    			
+		    			
+		    			const wrapperlink = wrapper.querySelector(".wrapper-link");
+		    			wrapperlink.setAttribute("href","./dm_NoticeArticlePage?dorm_notice_pk="+ e.dorm_notice_pk);
+		    			
+		    			
+		    			const templete = document.querySelector("#templete");
+		    			templete.appendChild(wrapper);
+	    				
+		    			return;
+	    			}
+	    			
+	    			const wrapper = document.querySelector("#templete .wrapper").cloneNode(true);
+	    			wrapper.classList.remove("d-none");
+	    			if(paddingcount == 0){
+	    				paddingcount++;
+	    			}else{
+	    				wrapper.classList.add("ps-5");
+	    			}
+	    			const wrappertitle = wrapper.querySelector(".wrapper-title");
+	    			wrappertitle.innerText = e.title;
+	    			
+	    			const wrappertime = wrapper.querySelector(".wrapper-time");
+	    			// 시간 데이터 변경
+	    			const createDate = e.created_at;
+	    			const changeDate = new Date(createDate);
+	    			let dateEnd = changeDate.getFullYear();
+	    			dateEnd += ".";
+	    			dateEnd += changeDate.getMonth() + 1;
+	    			dateEnd += ".";
+	    			dateEnd += changeDate.getDate();
+	    			
+	    			
+	    			const wrapperlink = wrapper.querySelector(".wrapper-link");
+	    			wrapperlink.setAttribute("href","./dm_NoticeArticlePage?dorm_notice_pk="+ e.dorm_notice_pk);
+	    			
+	    			
+	    			const templete = document.querySelector("#templete");
+	    			templete.appendChild(wrapper);
+	    			
+	    			
+	    			
+	    			
+	    		}
+	    		
+	    	});
+	    	
+	    }
+	   	
+	    window.addEventListener("DOMContentLoaded", ()=> {
+			//바로실행
+			Listprint();
+			
+			
+			
+		});
 	    
 
 	    
@@ -499,8 +591,9 @@
 							<i class="fs-3 px-3 bi bi-plus-lg btn"></i>
 						</div>
 					</div>
-					<div class="row my-3 mt-4">
-						<div class="col pe-5">
+					<div id="templete" class="row my-3 mt-4">
+						<!-- 반복문 돌릴곳 최근거 3개만 -->
+						<div class="wrapper col border-end d-none">
 							<div class="row">
 								<div class="col">
 									<span style="font-size: 0.8em;">공지사항</span>
@@ -508,73 +601,30 @@
 							</div>
 							<div class="row">
 								<div class="col pb-5">
-									<span class="text-over-cut">2023학년도 2학기 생활관 상시 추가모집 안내</span>
+									<span class="wrapper-title text-over-cut">2023학년도 2학기 생활관 상시 추가모집 안내</span>
+								</div>
+								<div class="col-1">
+									<br>
+									<br>
+									<br>
+									<br>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col pb-2">
-									<span style="color: #999999;">2023.11.30</span>
+									<span class="wrapper-time" style="color: #999999;">2023.12.16</span>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col">
-									<a class="px-3 py-2 rounded-0 btn btn-sm btn-outline-secondary border-secondary-subtle" style="font-size: 0.8em;">
+									<a class="wrapper-link px-3 py-2 rounded-0 btn btn-sm btn-outline-secondary border-secondary-subtle" style="font-size: 0.8em;">
 										<span class="text-black me-2">자세히 보기</span>  
 										<i class="bi bi-arrow-right"></i>
 									</a>
 								</div>
 							</div>
 						</div>
-						<div class="col px-5 border-start border-end">
-							<div class="row">
-								<div class="col">
-									<span style="font-size: 0.8em;">공지사항</span>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col pb-5">
-									<span class="text-over-cut">2023학년도 2학기 생활관 상시 추가모집 안내</span>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col pb-2">
-									<span style="color: #999999;">2023.11.30</span>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col">
-									<a class="px-3 py-2 rounded-0 btn btn-sm btn-outline-secondary border-secondary-subtle" style="font-size: 0.8em;">
-										<span class="text-black me-2">자세히 보기</span>  
-										<i class="bi bi-arrow-right"></i>
-									</a>
-								</div>
-							</div>
-						</div>
-						<div class="col px-5">
-							<div class="row">
-								<div class="col">
-									<span style="font-size: 0.8em;">공지사항</span>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col pb-5">
-									<span class="text-over-cut">2023학년도 2학기 생활관 상시 추가모집 안내</span>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col pb-2">
-									<span style="color: #999999;">2023.11.30</span>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col">
-									<a class="px-3 py-2 rounded-0 btn btn-sm btn-outline-secondary border-secondary-subtle" style="font-size: 0.8em;">
-										<span class="text-black me-2">자세히 보기</span>  
-										<i class="bi bi-arrow-right"></i>
-									</a>
-								</div>
-							</div>
-						</div>
+						<!--  여기까지 -->
 					</div>
 				</div>
 				<div class="col-5">

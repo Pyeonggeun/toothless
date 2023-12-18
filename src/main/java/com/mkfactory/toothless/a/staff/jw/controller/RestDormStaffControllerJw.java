@@ -27,6 +27,7 @@ public class RestDormStaffControllerJw {
 		return restResponseDto;
 	}
 	
+	// rest 건물 list
 	@RequestMapping("restBuildingList")
 	public RestResponseDto restBuildingList() {
 		RestResponseDto restResponseDto = new RestResponseDto();
@@ -36,6 +37,7 @@ public class RestDormStaffControllerJw {
 		return restResponseDto;
 	}
 	
+	// 상/벌점
 	@RequestMapping("restRegisterPointCategory")
 	public RestResponseDto registerPointCategory(PointCategory params) {
 		RestResponseDto restResponseDto = new RestResponseDto();
@@ -98,7 +100,7 @@ public class RestDormStaffControllerJw {
 		return restResponseDto;
 	}
 	
-	// 전체 외출 현황 Listmap
+	// 금일 외출 현황 Listmap
 	@RequestMapping("restGetAllExitSituationList")
 	public RestResponseDto restGetAllExitSituationList() {
 		RestResponseDto restResponseDto = new RestResponseDto();
@@ -121,6 +123,28 @@ public class RestDormStaffControllerJw {
 		restResponseDto.setData(dormPkExitList);
 		restResponseDto.setResult("success");
 		
+		return restResponseDto;
+	}
+	
+	// 금일 점호 불참
+	@RequestMapping("restGetAllCallAbsenceList")
+	public RestResponseDto restGetAllCallAbsenceList() {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		List<Map<String, Object>> allCallAbsenceList = dormStaffServiceJw.getAllCallAbsence();
+		
+		restResponseDto.setData(allCallAbsenceList);
+		restResponseDto.setResult("success");
+		return restResponseDto;
+	}
+	
+	// 호실별 금일 점호 불참
+	@RequestMapping("restGetCallAbsenceListByDormPk")
+	public RestResponseDto restGetCallAbsenceListByDormPk(int dorm_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		List<Map<String, Object>> dormPkCallAbsenceList = dormStaffServiceJw.getCallAbsenceByDormPk(dorm_pk);
+		
+		restResponseDto.setData(dormPkCallAbsenceList);
+		restResponseDto.setResult("success");
 		return restResponseDto;
 	}
 	
@@ -149,4 +173,126 @@ public class RestDormStaffControllerJw {
 		
 		return restResponseDto;
 	}
+	
+	// 임원 배정 페이지 - 사생 현황
+	@RequestMapping("restGetAllDormStudent")
+	public RestResponseDto restGetAllDormStudent() {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> allDormList = dormStaffServiceJw.getAllDormStudentList();
+		
+		restResponseDto.setData(allDormList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	// 임원별 호실 배정 - 임원 리스트
+	@RequestMapping("restGetAllExecutive")
+	public RestResponseDto restGetAllExecutive() {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> allExecutiveList = dormStaffServiceJw.getAllExecutiveList();
+		
+		restResponseDto.setData(allExecutiveList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	// 호실별 + 임원별 호실 배정 - 임원 리스트
+	@RequestMapping("restGetExecutiveByDormPk")
+	public RestResponseDto restGetExecutiveByDormPk(int dorm_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> dormPkExecutiveList = dormStaffServiceJw.getExecutiveListByDormPk(dorm_pk);
+		
+		restResponseDto.setData(dormPkExecutiveList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	// 임원별 호실 배정 관리 현황
+	@RequestMapping("restGetAllExecutiveManagementList")
+	public RestResponseDto restGetAllExecutiveeManagementList() {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> allExecutiveManagementList = dormStaffServiceJw.getAllExecutiveManagementList();
+		
+		restResponseDto.setData(allExecutiveManagementList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	// 호실별 + 임원별 호실 배정 관리 현황
+	@RequestMapping("restGetExecutiveManagementListByDormPk")
+	public RestResponseDto restGetExecutiveeManagementListByDormPk(int dorm_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> dormPkExecutiveManagementList = dormStaffServiceJw.getExecutiveManagementListByDormPk(dorm_pk);
+		
+		restResponseDto.setData(dormPkExecutiveManagementList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	// 호실별 사생 현황
+	@RequestMapping("restGetAllDormStudentByDormPk")
+	public RestResponseDto restGetAllDormStudentByDormPk(int dorm_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> dormPkDormList = dormStaffServiceJw.getAllDormStudentListByDormPk(dorm_pk);
+		
+		restResponseDto.setData(dormPkDormList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("restRegisterExecutiveProcess")
+	public RestResponseDto restRegisterExecutiveProcess(int dorm_student_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		dormStaffServiceJw.registerExecutive(dorm_student_pk);
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;
+	}
+	
+	@RequestMapping("restdeleteExecutiveProcess")
+	public RestResponseDto restdeleteExecutiveProcess(int dorm_student_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		dormStaffServiceJw.deleteExecutive(dorm_student_pk);
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;
+	}
+	
+	// 일지
+	@RequestMapping("restGetAllDiary")
+	public RestResponseDto restGetAllDiary() {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> diaryList = dormStaffServiceJw.getAllDiaryList();
+		
+		restResponseDto.setData(diaryList);
+		restResponseDto.setResult("success");
+		return restResponseDto;
+	}
+	
+	@RequestMapping("restGetAllDiaryByDormPk")
+	public RestResponseDto restGetAllDiaryByDormPk(int dorm_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> dormPkDiaryList = dormStaffServiceJw.getDiaryListByDormPk(dorm_pk);
+		
+		restResponseDto.setData(dormPkDiaryList);
+		restResponseDto.setResult("success");
+		return restResponseDto;
+	}
+	
 }

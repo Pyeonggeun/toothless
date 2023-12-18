@@ -22,6 +22,10 @@
             overflow: hidden; /* 너비를 벗어나는 부분을 숨김 */
             text-overflow: ellipsis; /* 초과된 텍스트를 ...으로 대체 */
         	}
+            .noUserCursorPointer {
+            cursor: pointer; /* 이 부분이 마우스를 올렸을 때 손가락 모양으로 변경하는 부분입니다. */
+            }
+
    		</style>
         <script>
             
@@ -65,7 +69,6 @@
                     return;
                 }
 
-                console.log("aaa");
                 frm.submit();
             }
 
@@ -146,9 +149,17 @@
                 })
             }
 
-            //약품삭제
+            //약품삭제 + 연쇄로 입고 정보도 삭제 시켜야함
             function deleteMedicine(targerElement, medicine_code_pk){
-                console.log(medicine_code_pk);
+
+                let userConfirmed = confirm("정말 삭제 하시겠습니까?\n삭제시 입고,재고와 관련된 모든 정보가 삭제되며 이작업은 되돌릴 수 없습니다.");
+
+                if (userConfirmed) {
+                    console.log("삭제하였습니다.");
+                } else {
+                    console.log("취소하였습니다.");
+                    return;
+                }
 
                 const url = "./deletMedicineInfo?medicine_code_pk="+medicine_code_pk;
 
@@ -158,6 +169,7 @@
                     orderedByMedicineList(1);
                 })
             }
+
             //의약품코드 중복 체크
 
             let isCheckedMedicineCodePk = false;
@@ -192,7 +204,6 @@
 
             function orderedByMedicineList(obj){
 
-                console.log(obj);
                 const url = "./orderedByMedicineList?orderNumber="+obj;
 
                 fetch(url)
@@ -209,8 +220,35 @@
                         const medicinecodeNumber = medicineWrapper.querySelector(".medicinecodeNumber");
                         medicinecodeNumber.innerText = e.medicineInfo.medicine_code_pk;
 
+                        //이름 + 상세정보 modal
                         const medicineName = medicineWrapper.querySelector(".medicineName");
+                        // medicineName.classList.add("text-primary");
+                        medicineName.setAttribute("data-bs-toggle","modal");
+                        medicineName.setAttribute("data-bs-target","#"+e.medicineInfo.name+"");                      
                         medicineName.innerText = e.medicineInfo.name;
+                        medicineName.setAttribute("onclick","getInventoryInfo("+e.medicineInfo.medicine_code_pk+")");
+
+                        //
+                        const modalWrapper = document.querySelector(".modalWrapper").cloneNode(true);
+                        modalWrapper.setAttribute("id",""+e.medicineInfo.name+"");
+                        
+                        medicineName.appendChild(modalWrapper);
+
+                        const inventoryWrapperStation = modalWrapper.querySelector(".inventoryWrapperStation");
+
+                        inventoryWrapperStation.classList.remove("Pk"+e.medicineInfo.medicine_code_pk+"");
+                        inventoryWrapperStation.classList.add("Pk"+e.medicineInfo.medicine_code_pk+"");
+                        inventoryWrapperStation.innerHTML = "";
+
+                        //modal내용
+                        const modalBody = modalWrapper.querySelector(".modal-body");
+                        const titleName = modalBody.querySelector("#titleName");
+                        titleName.innerText = e.medicineInfo.name;
+                        // const inventoryWrapper = modalBody.querySelector("#inventoryWrapper");
+                        // const inventoryDate = inventoryWrapper.querySelector("#inventoryDate");
+                        // inventoryDate.innerText = "알랄라";
+                        
+                        //
 
                         const medicineKind = medicineWrapper.querySelector(".medicineKind");
                         medicineKind.innerText = e.medicineCatInfo.name;
@@ -223,7 +261,7 @@
 
                         const medicineprecaution = medicineWrapper.querySelector(".medicineprecaution");
                         medicineprecaution.innerText = e.medicineInfo.precaution;
-                        medicineprecaution.setAttribute("onclick", "showDetailPrecaution(this, "+e.medicineInfo.medicine_code_pk+")");
+                        // medicineprecaution.setAttribute("onclick", "showDetailPrecaution(this, "+e.medicineInfo.medicine_code_pk+")");
 
                         const medicineCreatedAt = medicineWrapper.querySelector(".medicineCreatedAt");
                         const date = new Date(e.medicineInfo.created_at);
@@ -242,6 +280,58 @@
                 }
 
                 //////////////////////////////////////////////////////////////////////
+
+            function getInventoryInfo(medicine_code_pk){
+
+                const url = "./restInventoryInfoByPk?medicine_code_pk="+ medicine_code_pk;
+
+                fetch(url)
+                .then(response => response.json())
+                .then(response => {
+
+                    const classCodePk = document.querySelector(".Pk"+medicine_code_pk+"");
+                    classCodePk.innerHTML = "";
+
+                    let nowQuantity = 0;
+                    //수량 확인용 Id ... 오우마이갓...
+                    let idName = null;
+                    //포문~
+                    for(e of response.data){
+                        
+                        const inventoryWrapper = document.querySelector("#templete .inventoryWrapper").cloneNode(true);
+
+                        // if(response.data == null){
+                        //     const inventoryWrapper = document.querySelector(".inventoryWrapper");
+                        //     inventoryWrapper.innerHTML = "재고 변경된 이력 없음";
+                        // }
+
+                        const inventoryDate = inventoryWrapper.querySelector(".inventoryDate");
+                        const date = new Date(e.DATE);
+                        inventoryDate.innerHTML = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
+                        const inventoryPerson = inventoryWrapper.querySelector(".inventoryPerson");
+                        inventoryPerson.innerText = e.M_NAME;
+                        const inventoryReason = inventoryWrapper.querySelector(".inventoryReason");
+                        inventoryReason.innerText = e.M_TYPE;
+                        const inventoryQuantityChange = inventoryWrapper.querySelector(".inventoryQuantityChange");
+                        inventoryQuantityChange.innerText = e.QUANTITY;
+
+                        nowQuantity += e.QUANTITY;
+                        
+                        classCodePk.appendChild(inventoryWrapper);
+
+                        idName = ""+e.MEDI_NAME+""
+                        
+                    }
+                    console.log(idName);
+                    const getMediName = document.querySelector("#idName");
+                    console.log(getMediName);
+                    const nowQuantityStation = getMediName.querySelector(".nowQuantityStation");
+                    nowQuantityStation.innerText = "남은 수량 호로로";
+
+                });
+                
+
+            }
 
             window.addEventListener("DOMContentLoaded", () => {
             	orderedByMedicineList(1);
@@ -272,7 +362,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-10"></div>
+                                                    <div class="col-2"></div>
+                                                    <div class="col-8 text-primary text-center">
+                                                        ※ 이름을 누르면 현재 재고량, 변동사항을 알 수 있습니다.
+                                                    </div>
                                                     <div class="col-2 text-end">
                                                         <select id="orderByMedicineInfo" class="form-select rounded-0" aria-label="Default select example" 
                                                         onchange="orderedByMedicineList(this.value)">
@@ -287,18 +380,22 @@
                                                     <div class="col-1 border-end border-primary">코드번호</div>
                                                     <div class="col-1 border-end border-primary">의약품명</div>
                                                     <div class="col-1 border-end border-primary">약품종류</div>
-                                                    <div class="col-2 border-end border-primary">회사</div>
+                                                    <div class="col-1 border-end border-primary">회사</div>
                                                     <div class="col-2 border-end border-primary">효능</div>
-                                                    <div class="col-2 border-end border-primary">주의사항</div>
+                                                    <div class="col-3 border-end border-primary">주의사항</div>
                                                     <div class="col border-end">등록일</div>
-                                                    <div class="col">삭제</div>
+                                                    <div class="col-1">삭제</div>
                                                 </div>
                                                 <div class="row mt-1 allMedicineInfoLocation">
                                                     <!-- 여기에 반복문 나와야함-->
                                                 </div>
                                                 
                                                 <%-- 약품등록 라인 --%>
-                                                
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="fw-bold mt-5">&lt;의약품 등록&gt;</div>
+                                                    </div>
+                                                </div>
                                                 <div class="row">
                                                     <form id="frm" action="./codeRegistProcess" method="get">
                                                     <div class="col">
@@ -395,23 +492,75 @@
         </script>
 
         <div id = "templete" class="d-none">
+            
             <div class="row mt-3 medicineWrapper text-center border-bottom pb-3 border-primary">
                 <div class="col-1 medicinecodeNumber ">코드번호</div>
                 <div class="col-1 medicineName">의약품명</div>
                 <div class="col-1 medicineKind">약품종류</div>
-                <div class="col-2 medicineCompany ellipsis-container">회사</div>
-                <div class="col-2 medicineEfficacy ellipsis-container">효능</div>
-                <div class="col-2 medicineprecaution ellipsis-container">주의사항</div>
-                <div class="col medicineCreatedAt text-left">등록일</div>
-                <div class="col text-right">&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="col-1 medicineCompany ">회사</div>
+                <div class="col-2 medicineEfficacy ">효능</div>
+                <div class="col-3 medicineprecaution ">주의사항</div>
+                <div class="col medicineCreatedAt">등록일</div>
+                <div class="col-1 text-right">
                 	<i class="medicineDelete py-0 px-0 btn bi bi-x-square text-danger"></i>
                 </div>
             </div>
 
-            <%-- 이부분은 임시.. 귀찮아서 일단 번호로 해버림 --%>
-            <option class="medicineCategoryInfo">알러지</option>
+            <!-- Modal --> 
+            <button id="addApplybutton" type="button" class="btn btn-sm btn-outline-primary customColor" data-bs-toggle="modal" data-bs-target="#abc">
+                입고하기
+            </button>
+              
+              <div class="modal fade modalWrapper" id="abc" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5 text-center fw-bold" id="exampleModalLabel">상세정보</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row pb-1">
+                                <div class="col text-center">
+                                    <h4 id="titleName"></h4>
+                                </div>
+                            </div>
+                            <div class="row pb-1">
+                                <div class="col text-center">
+                                    <span class="nowQuantityStation fw-bold">
+                                        &lt; 남은 수량 : &gt;
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mt-3 mb-1 pb-3 fw-bold text-center border-bottom border-3 border-primary">
+                                <div class="col-3 border-end border-primary">변동일</div>
+                                <div class="col-3 border-end border-primary">관리자</div>
+                                <div class="col-3 border-end border-primary">변동사유</div>
+                                <div class="col-3 border-start border-primary">변동수량</div>
+                            </div>
+                            <div class="row">
+                                <div class="col inventoryWrapperStation">
+                                    <div class="inventoryWrapper row mt-3 mb-1 pb-3 text-center border-bottom border-1 border-primary">
+                                        <div class="inventoryDate col-3 border-primary">변동일</div>
+                                        <div class="inventoryPerson col-3 border-primary">관리자</div>
+                                        <div class="inventoryReason col-3 border-primary">변동사유</div>
+                                        <div class="inventoryQuantityChange col-3 border-primary">변동수량</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">취소</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
+              <!-- 모달 body에 들어갈 재고?-->
 
         </div>
+       
+
     </body>
 </html>

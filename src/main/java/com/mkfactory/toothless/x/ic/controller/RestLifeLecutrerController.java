@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mkfactory.toothless.donot.touch.dto.RestResponseDto;
 import com.mkfactory.toothless.x.dto.AttendanceBookDto;
 import com.mkfactory.toothless.x.dto.AttendanceStatusDto;
+import com.mkfactory.toothless.x.dto.LectureTestDto;
 import com.mkfactory.toothless.x.dto.LifeLecturerDto;
+import com.mkfactory.toothless.x.dto.QuestionChoiceDto;
+import com.mkfactory.toothless.x.dto.TestQuestionDto;
 import com.mkfactory.toothless.x.ic.service.LifeLecturerServiceImpl;
 
 @RestController
@@ -105,7 +108,68 @@ public class RestLifeLecutrerController {
 		
 		return responseDto;
 	}
-	
+	@RequestMapping("getAttendanceInfoList")
+	public RestResponseDto getAttendanceInfoList(int open_lecture_key) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> list = lifeLecturerService.lectureAttendanceBookList(open_lecture_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(list);
+		
+		return responseDto;
+		
+	}
+	@RequestMapping("getTotalStudyingInfo")
+	public RestResponseDto getTotalStudyingInfo(int open_lecture_key) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		Map<String, Object> map = lifeLecturerService.totalStudyingInfo(open_lecture_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(map);
+		
+		return responseDto;
+		
+	}
+	@RequestMapping("insertLectureTestAndGetTestPk")
+	public RestResponseDto insertLectureTestAndGetTestPk(LectureTestDto lectureTestDto) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		int lecutre_test_key = lifeLecturerService.insertLecutreTestInfoAndReturnPk(lectureTestDto);
+		
+		responseDto.setResult("success");
+		responseDto.setData(lecutre_test_key);
+		
+		return responseDto;
+		
+	}
+	@RequestMapping("insertTestQuestionAndGetQuestionPk")
+	public RestResponseDto insertTestQuestionAndGetQuestionPk(TestQuestionDto testQuestionDto) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		int test_question_key = lifeLecturerService.insertTestQuestionInfoAndReturnPk(testQuestionDto);
+		
+		responseDto.setResult("success");
+		responseDto.setData(test_question_key);
+		
+		return responseDto;
+	}
+	@RequestMapping("insertQuestionChoice")
+	public void insertQuestionChoice(QuestionChoiceDto questionChoiceDto) {
+		lifeLecturerService.insertQuestionChoiceInfo(questionChoiceDto);
+	}
+	@RequestMapping("getLectureTestList")
+	public RestResponseDto getLectureTestList(int open_lecture_key) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> list = lifeLecturerService.lectureTestList(open_lecture_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(list);
+		
+		return responseDto;
+	}
 	
 	
 	

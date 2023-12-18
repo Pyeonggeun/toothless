@@ -207,10 +207,6 @@ public class ProgramServiceIpml {
 		programSqlMapper.studentReviewCount(program_apply_pk);
 	}
 	
-	
-	
-	
-	
-	
+
 
 }

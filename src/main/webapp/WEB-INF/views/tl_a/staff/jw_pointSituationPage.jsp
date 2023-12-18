@@ -99,14 +99,10 @@
 				buildingListBox.appendChild(buildingNameWrapper);
 			}
 			
-		});
-		
-		
+		})
 		
 	}
 	
-	
-
 	window.addEventListener("DOMContentLoaded", () => {
 		reloadPointSituationList();
 		reloadBuildingName();

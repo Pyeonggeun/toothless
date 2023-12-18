@@ -343,6 +343,81 @@
 		where medicine_mgmt_cat_pk = #{medicine_mgmt_cat_pk} 
 	</select>
 	
+	<!--  데이터 오류 방지를 위해서 연쇄적으로 입고정보까지 삭제 -->
+	<delete id="chainedDeleteAddinfo" >
+		DELETE FROM TL_B_MEDICINE_ADD
+		WHERE MEDICINE_CODE_PK = #{medicine_code_pk}
+	</delete>
+	
+	<delete id="chainedDeleteInventoryInfo">
+		DELETE FROM TL_B_MEDICINE_INVENTORY 
+		WHERE MEDICINE_CODE_PK = #{medicine_code_pk}
+	</delete>
+	
+	<select id="restInventoryInfoByPk" resultType="map">
+		SELECT 	t1.*, ROWNUM AS rnum
+		FROM
+			(	SELECT 	a.MEDICINE_CODE_PK,
+						(	SELECT tbmci.NAME 
+							FROM TL_B_MEDICINE_CODE_INFO tbmci
+							WHERE tbmci.MEDICINE_CODE_PK = a.MEDICINE_CODE_PK
+							) AS medi_name,
+						a.QUANTITY, a.add_at AS "DATE", a.staff_pk AS who, 
+						(	SELECT tjsi.NAME 
+							FROM TL_JIC_STAFF_INFO tjsi
+							WHERE tjsi.STAFF_PK = a.staff_pk
+							) AS m_name,
+						'입고' AS m_type 
+				FROM TL_B_MEDICINE_ADD a
+				UNION
+				SELECT 	b.MEDICINE_CODE_PK,
+						(	SELECT tbmci.NAME 
+							FROM TL_B_MEDICINE_CODE_INFO tbmci
+							WHERE tbmci.MEDICINE_CODE_PK = b.MEDICINE_CODE_PK
+							) AS medi_name,
+						b.QUANTITY, b.CREATED_AT AS "DATE", b.staff_pk AS who, 
+						(	SELECT tjsi.NAME 
+							FROM TL_JIC_STAFF_INFO tjsi
+							WHERE tjsi.STAFF_PK = b.staff_pk
+							) AS m_name,
+						'재고변경' AS m_type 
+				FROM TL_B_MEDICINE_INVENTORY b
+				UNION
+				SELECT 	c.MEDICINE_CODE_PK,
+						(	SELECT TBMCI2.NAME 
+							FROM TL_B_MEDICINE_CODE_INFO tbmci2
+							WHERE TBMCI2.MEDICINE_CODE_PK = c.MEDICINE_CODE_PK
+							) AS medi_name,
+						c.QUANTITY, c.CREATED_AT AS "DATE", 
+						(	SELECT TBCPL.STAFF_PK  
+							FROM TL_B_CLINIC_PATIENT_LOG tbcpl 
+							WHERE tbcpl.CLINIC_PATIENT_LOG_PK = c.CLINIC_PATIENT_LOG_PK
+							) AS who,
+						(	SELECT TJSI.NAME
+							FROM TL_JIC_STAFF_INFO tjsi 
+							WHERE tjsi.STAFF_PK = (	SELECT TBCPL.STAFF_PK  
+													FROM TL_B_CLINIC_PATIENT_LOG tbcpl 
+													WHERE tbcpl.CLINIC_PATIENT_LOG_PK = c.CLINIC_PATIENT_LOG_PK	)
+													)AS m_name,
+						'처방' AS m_type 
+				FROM TL_B_PRESCRIPTION_INFO c
+				) t1
+		WHERE 1=1
+		AND MEDICINE_CODE_PK = #{medicine_code_pk}
+		ORDER BY t1."DATE" DESC
+	</select>
+	
+	<select id="selectCheckBox" resultType="map">
+		SELECT *
+		FROM TL_B_MEDICINE_ADD a
+		JOIN TL_B_MEDICINE_CODE_INFO b ON a.MEDICINE_CODE_PK = b.MEDICINE_CODE_PK  
+		WHERE 1=1
+		AND a.MEDICINE_CODE_PK in 
+		<foreach collection="listOfMedicineCodes" item="medicineCode" open="(" separator="," close=")">
+  			#{medicineCode}
+ 		</foreach>
+		ORDER BY a.CREATED_AT , a.ADD_AT desc
+	</select>
 	
 </mapper>
 

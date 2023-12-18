@@ -30,6 +30,11 @@ public class EduStudentServiceimpl {
 		eduStudentSqlMapper.apply(eduApplyDto);
 	}
 	
+	public EduDto getEduInfoByEduPk(int edu_pk) {
+		
+		return  eduStudentSqlMapper.selectEduInfoByEduPk(edu_pk);
+	}
+	
 	//나의 프로그램 리스트
 	public List<Map<String, Object>> getMyEduList(int studentPk){
 		
