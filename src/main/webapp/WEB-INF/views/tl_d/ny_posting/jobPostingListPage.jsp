@@ -44,9 +44,9 @@
 					</div>
 				</div>
 				<c:forEach items="${jobPostingList}" var="jobPosting">
-				<div class="row border-bottom">
+				<div class="row pb-1 border-bottom">
 					<!-- 1번째 기업 + 가족기업 뱃지 칸 -->
-					<div class="col-2 pt-2 ms-2 pe-0">
+					<div class="col-2 pt-2 ms-4 pe-0">
 						<div class="row mt-3">
 							<!-- 기업명 -->
 							<div class="col-2 pe-0">
@@ -63,7 +63,7 @@
 						</div>
 					</div>
 					<!-- 2번째 공고제목 + 태그 -->
-					<div class="col-8 pt-4 pb-2 px-0">
+					<div class="col-7 pt-4 pb-2 px-0">
 						<!-- 공고제목 -->
 						<div class="row">
 							<div class="col">
@@ -92,29 +92,25 @@
 						</div>
 					</div>
 					<!-- 수정 + 삭제 버튼 -->
-					<div class="col py-3 ps-5">
+					<div class="col-2 ms-5 pt-3 mt-3">
 						<c:choose>
 							<c:when test="${empty sessionStaffInfo}">
 								<div class="row">
-									<div class="col pb-1">
+									<div class="col text-end">
 										<button class="btn btn-outline-dark" disabled>수정</button>
 									</div>
-								</div>
-								<div class="row">
-									<div class="col">
+									<div class="col ps-0">
 										<button class="btn btn-dark" disabled>삭제</button>
 									</div>
 								</div>
 							</c:when>
 							<c:otherwise>
 								<div class="row">
-									<div class="col pb-1">
+									<div class="col pe-1 text-end">
 										<a class="btn btn-outline-dark" href="./modifyJobPostingPage?id=${jobPosting.jobPostingDto.job_posting_pk}">수정</a>
 									</div>										
-								</div>
-								<div class="row">
-									<div class="col">
-										<a class="btn btn-dark" href="./removeJobPostingProcess?id=${jobPosting.jobPostingDto.job_posting_pk}">삭제</a>
+									<div class="col ps-0">
+										<a class="btn btn-danger" href="./removeJobPostingProcess?id=${jobPosting.jobPostingDto.job_posting_pk}">삭제</a>
 									</div>
 								</div>
 							</c:otherwise>
