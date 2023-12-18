@@ -22,6 +22,16 @@
 			SYSDATE
 		)
 	</insert>
+		
+	<insert id="insertTestResult">
+		INSERT INTO tl_x_test_result VALUES(
+			tl_x_test_result_seq.nextval,
+			#{lecture_student_key},
+			#{question_choice_key},
+			#{lecture_test_key},
+			SYSDATE
+		)
+	</insert>
 
 	<select id="getReceivingLectureList" resultType="map">
 		SELECT txli.credit, txli.name, txll.name AS lecturer_name, txol.open_lecture_key, txol.max_student FROM tl_x_open_lecture txol
@@ -392,6 +402,23 @@
 			GROUP BY lecture_test_key
 		)t1
 		WHERE t1.lecture_test_key = #{lecture_test_key}
+	</select>
+	
+	<select id="getTestNameByLectureTestKey" resultType="String">
+		SELECT test_name FROM tl_x_lecture_test
+		WHERE lecture_test_key = #{lecture_test_key}
+	</select>
+	
+	<select id="getTestQuestionListByLectureTestKey" resultType="com.mkfactory.toothless.x.dto.TestQuestionDto">
+		SELECT * FROM tl_x_test_question
+		WHERE lecture_test_key = #{lecture_test_key}
+		ORDER BY question_number ASC
+	</select>
+	
+	<select id="getTestChoiceListByTestQuestionKey" resultType="com.mkfactory.toothless.x.dto.QuestionChoiceDto">
+		SELECT * FROM tl_x_question_choice
+		WHERE test_question_key = #{test_question_key}
+		ORDER BY DBMS_RANDOM.RANDOM
 	</select>
 
 </mapper>

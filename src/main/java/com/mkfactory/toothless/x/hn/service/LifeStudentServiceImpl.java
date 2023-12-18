@@ -15,6 +15,8 @@ import com.mkfactory.toothless.x.dto.LectureReviewDto;
 import com.mkfactory.toothless.x.dto.LectureStudentDto;
 import com.mkfactory.toothless.x.dto.LectureTestDto;
 import com.mkfactory.toothless.x.dto.OpenLectureDto;
+import com.mkfactory.toothless.x.dto.TestQuestionDto;
+import com.mkfactory.toothless.x.dto.TestResultDto;
 import com.mkfactory.toothless.x.hn.mapper.LifeStudentSqlMapper;
 
 @Service
@@ -287,6 +289,47 @@ public class LifeStudentServiceImpl {
 		map.put("testList", testList);
 		
 		return map;
+	}
+	
+	public Map<String, Object> getTestInfo(int lecture_test_key) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		List<TestQuestionDto> list = lifeStudentSqlMapper.getTestQuestionListByLectureTestKey(lecture_test_key);
+		List<Map<String, Object>> questionList = new ArrayList<>();
+		
+		for(TestQuestionDto testQuestionDto : list) {
+			
+			Map<String, Object> questionMap = new HashMap<>();
+			
+			questionMap.put("qeustionInfo", testQuestionDto);
+			questionMap.put("choiceList", lifeStudentSqlMapper.getTestChoiceListByTestQuestionKey(testQuestionDto.getTest_question_key()));
+			
+			questionList.add(questionMap);
+		}
+		
+		map.put("testName", lifeStudentSqlMapper.getTestNameByLectureTestKey(lecture_test_key));
+		map.put("questionList", questionList);
+		
+		return map;
+	}
+	
+	public void insertTestResult(int[] results, int lecture_student_key, int lecture_test_key) {
+		
+		if(results.length != 0) {
+			for(int x = 0 ; x < results.length ; x++) {
+				
+				TestResultDto testResultDto = new TestResultDto();
+				
+				testResultDto.setLecture_student_key(lecture_student_key);
+				testResultDto.setQuestion_choice_key(results[x]);
+				testResultDto.setLecture_test_key(lecture_test_key);
+				
+				lifeStudentSqlMapper.insertTestResult(testResultDto);
+				
+			}
+		}
+		
 	}
 
 }

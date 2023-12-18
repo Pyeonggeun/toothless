@@ -388,6 +388,136 @@
 				
 			}
 			
+			function reloadTest() {
+				/* 이놈 */
+				const url = "./getTestInfo?lecture_test_key=" + lectureTestKey;
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					document.getElementById("testProgressName").innerText = response.data.testName;
+					
+					const testProgressBox = document.getElementById("testProgressBox");
+					
+					for(e of response.data.questionList) {
+						
+						const testProgressWrapper = document.querySelector("#testTemplete .testProgressWrapper").cloneNode(true);
+						
+						let questionNumber = e.qeustionInfo.question_number;
+						
+						testProgressWrapper.querySelector(".testProgressQuestionNumber").innerText = questionNumber;
+						testProgressWrapper.querySelector(".testProgressQuestion").innerText = e.qeustionInfo.question;
+						
+						const testProgressChoiceBox = testProgressWrapper.querySelector(".testProgressWrapper");
+						
+						let count = 1;
+						
+						for(ae of e.choiceList) {
+							
+							const testProgressChoiceWrapper = document.querySelector("#testTemplete .testProgressChoiceWrapper").cloneNode(true);
+							
+							const testProgressRadio = testProgressChoiceWrapper.querySelector(".testProgressRadio");
+							const testProgressChoiceNumber = testProgressChoiceWrapper.querySelector(".testProgressChoiceNumber");
+							const testProgressText = testProgressChoiceWrapper.querySelector(".testProgressText");
+							
+							testProgressRadio.value = ae.question_choice_key;
+							testProgressRadio.setAttribute("id", "example" + questionNumber + "-" + count);
+							testProgressRadio.setAttribute("name", "question" + questionNumber);
+							
+							testProgressChoiceNumber.innerText = count;
+							testProgressChoiceNumber.setAttribute("for", "example" + questionNumber + "-" + count);
+							
+							testProgressText.innerText = ae.choice;
+							testProgressText.setAttribute("for", "example" + questionNumber + "-" + count);
+							
+							testProgressChoiceBox.appendChild(testProgressChoiceWrapper);
+							
+						}
+						
+						testProgressBox.appendChild(testProgressWrapper);
+						
+						const testProgressChoiceRightBox = document.getElementById("testProgressChoiceRightBox");
+						
+						const testProgressChoiceRightWrapper = document.querySelector(".testProgressChoiceRightWrapper").cloneNode(true);
+						
+						testProgressChoiceRightWrapper.querySelector(".testProgressQuestionRightNumber").innerText = questionNumber;
+						
+						for(let i = 1 ; i <= 4 ; i++) {
+							
+							const testProgressRightRadio = testProgressChoiceRightWrapper.querySelector(".testProgressRightRadio" + i);
+							const testProgressChoiceRightNumber = testProgressChoiceRightWrapper.querySelector(".testProgressChoiceRightNumber" + i);
+							
+							testProgressRightRadio.setAttribute("id", "exampleRight" + questionNumber + "-" + i);
+							testProgressRightRadio.setAttribute("name", "questionRight" + questionNumber);
+							
+							testProgressChoiceRightNumber.setAttribute("for", "exampleRight" + questionNumber + "-" + i);
+							
+						}
+						
+						testProgressChoiceRightBox.appendChild(testProgressChoiceRightWrapper);
+						
+					}
+					
+				});
+				
+			}
+			
+			function checkSideRadio(target) {
+				/* 이놈 */
+				const radio = target.closest(".testProgressChoiceWrapper").querySelector(".testProgressRadio");
+				const common = radio.id.slice(7);
+				
+				if(radio.checked == true) {
+					document.getElementById("exampleRight" + common).checked = true;
+				}else {
+					document.getElementById("exampleRight" + common).checked = false;
+				}
+				
+			}
+			
+			function checkRadio(target) {
+				/* 이놈 */
+				const common = target.id.slice(12);
+				
+				if(target.checked == true) {
+					document.getElementById("example" + common).checked = true;
+				}else {
+					document.getElementById("example" + common).checked = false;
+				}
+				
+			}
+			
+			function addResult() {
+				/* 이놈 */
+				const testProgressRadio = document.getElementsByClassName("testProgressRadio");
+				const results = [];
+				
+				for(let i = 0 ; i < testProgressRadio.length ; i++) {
+					if(testProgressRadio[i].checked == true) {
+						
+						results.push(Number(testProgressRadio[i].value));
+						
+					}	
+				}
+				resetLectureProgressModal();
+				saveResult(results);	
+			}
+			
+			function saveResult(results) {
+				/* 이놈 */
+				const url = "./insertTestResult?results=" + results + "&lecture_student_key=" + lectureStudentKey + "&lecture_test_key=" + lectureTestKey;
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					reloadLectureProgress();
+					
+				});
+				
+			}
+			
             function showLectureProgressModal(target) {
             	/* 이놈 */
             	openLectureKey = Number(target.value);
@@ -400,20 +530,37 @@
             }
             
             function showTestModal() {
+            	/* 이놈 */
+            	resetTestModal();
+            	reloadTest();
+            	
                 const modal = bootstrap.Modal.getOrCreateInstance("#testModal");
                 const warnModal = bootstrap.Modal.getOrCreateInstance("#testWarningModal");
                 warnModal.hide();
                 modal.show();
             }
             
-            function showTestWarningModal() {
+            function showTestWarningModal(target) {
+            	/*  이놈 */
+            	lectureTestKey = Number(target.value);
+            	
                 const modal = bootstrap.Modal.getOrCreateInstance("#testWarningModal");
                 modal.show();
             }
 
             function showSubmitWarningModal() {
+            	/* 이놈 */
                 const modal = bootstrap.Modal.getOrCreateInstance("#submitWarningModal");
                 modal.show();
+            }
+            
+            function hideSubmitWarningModal() {
+            	/* 이놈 */
+                const modal = bootstrap.Modal.getOrCreateInstance("#submitWarningModal");
+                const testModal = bootstrap.Modal.getOrCreateInstance("#testModal");
+                addResult();
+                modal.hide();
+                testModal.hide();
             }
             
             function resetLectureProgressModal() {
@@ -434,6 +581,15 @@
             	document.getElementById("testCondition").innerText = "";
             	document.getElementById("totalScore").innerText = "";
             	document.getElementById("testBox").innerHTML = "";
+            	
+            }
+            
+            function resetTestModal() {
+            	/* 이놈 */
+            	document.getElementById("testProgressName").innerText = "";
+            	document.getElementById("testProgressBox").innerHTML = "";
+            	document.getElementById("testProgressChoiceBox").innerHTML = "";
+            	document.getElementById("testProgressChoiceRightBox").innerHTML = "";
             	
             }
             

@@ -255,5 +255,27 @@ public class RestLifeStudentController {
 		
 		return restResponseDto;
 	}
+	
+	@RequestMapping("getTestInfo")
+	public RestResponseDto getTestInfo(int lecture_test_key) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(lifeStudentService.getTestInfo(lecture_test_key));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("insertTestResult")
+	public RestResponseDto insertTestResult(int[] results, int lecture_student_key, int lecture_test_key) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		lifeStudentService.insertTestResult(results, lecture_student_key, lecture_test_key);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
 
 }
