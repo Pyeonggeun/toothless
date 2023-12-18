@@ -134,4 +134,7 @@ public interface PostingSqlMapper {
 	
 	// 학생 + 학과
 	public String selectByDepartmentPk(int department_pk);
+	
+	// 지원자
+	public List<Integer> selectMyApplyByStudentPk(int student_pk);
 }

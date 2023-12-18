@@ -62,8 +62,7 @@
 		SELECT * 
 		FROM TL_D_JOB_POSTING tdjp 
 		WHERE 1 = 1
-		<if test="searchType != null"
-		>
+		<if test="searchType != null">
 			<choose>
 				<when test="searchType == 'posting_name'">
 					AND tdjp.POSTING_NAME  LIKE '%' || #{searchWord} ||'%' 
@@ -358,10 +357,26 @@
 		    ]]>
 		) t1
 	</select>
+	
 	<!-- 학생 + 학과  -->
 	<select id="selectByDepartmentPk" resultType="String">
 		SELECT tjdc.name FROM TL_JIC_DEPARTMENT_CATEGORY tjdc 
 		WHERE tjdc.DEPARTMENT_PK = #{department_pk}
+	</select>
+	
+	<!-- 지원자 -->
+	<select id="selectMyApplyByStudentPk" resultType="int">
+		SELECT tdv.JOB_POSTING_PK 
+		FROM TL_D_VOLUNTEER tdv 
+		WHERE tdv.RESUME_PK  IN (
+			SELECT tdr.RESUME_PK 
+			FROM TL_D_RESUME tdr 
+			WHERE tdr.STUDENT_PK IN (
+				SELECT tjsi.STUDENT_PK 
+				FROM TL_JIC_STUDENT_INFO tjsi 	
+				WHERE tjsi.STUDENT_PK = #{student_pk}
+			)
+		)
 	</select>
 	
 	

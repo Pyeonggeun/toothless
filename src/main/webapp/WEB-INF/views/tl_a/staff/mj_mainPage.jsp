@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 
@@ -22,6 +23,16 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <title>Insert title here</title>
+<style>
+    .word {
+        width: 1rem;
+        font-size: 1rem;
+        font-weight: !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+</style>
+
 </head>
 <body>
 <div class="container-fluid">
@@ -61,13 +72,27 @@
                                         <div class="col bg-white rounded-4 border border-light-subtle" style="height: 190px;">
                                             <div class="row ms-3 mt-3">
                                                 <div class="col fs-4 fw-bold align-middle">
-                                                    공고 목록
+                                                    공지사항 목록
                                                 </div>
+		                                    	<div class="col text-end me-3">
+				                                    <a class="btn fw-bold" href="../student/dm_dormNoticePage" role="button" style="background-color: rgb(219, 241, 248);">공지사항 등록하기</a>
+		                                    	</div>
                                             </div>
-		                                    <div class="row me-3 mb-2 text-end">
+		                                    <div class="row my-2 me-3">
 		                                    	<div class="col">
-				                                    <a class="btn fw-bold" href="#" role="button" style="background-color: rgb(219, 241, 248);">공고 등록하기</a>
-		                                    	</div>                          
+		                                    		<div class="row my-3 text-center">
+		                                    			<div class="col"><span class="fw-bold">제목</span></div>
+		                                    			<div class="col"><span class="fw-bold">내용</span></div>
+		                                    			<div class="col-2"><span class="fw-bold">작성일</span></div>
+		                                    		</div>
+		                                    		<c:forEach items="${dormNoticeList}" var="dormNoticeList">
+		                                    			<div class="row my-2">
+		                                    				<div class="col ms-4">${dormNoticeList.title}</div>
+		                                    				<div class="word col">${dormNoticeList.content}</div>
+		                                    				<div class="col-2 text-center"><fmt:formatDate value="${dormNoticeList.created_at}" pattern="yyyy-MM-dd" /></div>
+		                                    			</div>
+		                                    		</c:forEach>
+		                                    	</div>
 		                                    </div>
                                         </div>
                                     </div>
@@ -82,7 +107,7 @@
                                                     선발 현황
                                                 </div>
                                             </div>
-                                            <div class="row mt-4 fs-4 fw-bold text-center">
+                                            <div class="row pt-2 mt-4 fs-4 fw-bold text-center">
                                                 <div class="col-1"></div>
                                                 <div class="col">
                                                     <a href="./mj_readApplyDormInfoPage" class="text-black" style="text-decoration: none;">
@@ -100,8 +125,8 @@
                                                     </a>
                                                 </div>
                                                 <div class="col">
-                                                    <a href="#" class="text-black" style="text-decoration: none;">
-                                                    x
+                                                    <a href="./dm_roomAssignment" class="text-black" style="text-decoration: none;">
+                                                    ${assignedDormStudentCount }
                                                     </a>
                                                 </div>
                                                 <div class="col-1"></div>
@@ -121,7 +146,7 @@
                                                     납부완료</a>
                                                 </div>
                                                 <div class="col">
-                                                    <a href="#" class="text-black" style="text-decoration: none;">
+                                                    <a href="./dm_roomAssignment" class="text-black" style="text-decoration: none;">
                                                     배정완료</a>
                                                 </div>
                                                 <div class="col-1"></div>
@@ -139,31 +164,31 @@
                         	<div class="row">
                         		<div class="col ps-5 pt-2 pe-2">
 		                            <div class="col bg-white rounded-4 border border-light-subtle" style="height: 220px;">
-		                                <div class="row ms-3 mt-3">
+		                                <div class="row ms-4 mt-4">
 		                                	<div class="col fs-5 fw-bold">
 		                                		임원 관리
 		                                	</div>
 		                                </div>
-                                        <div class="row ms-3 mt-1">
+                                        <div class="row ms-4 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
-		                                		 <%= formattedDate %> 기준
+		                                		 ${thisSemester.semester_year} ${thisSemester.semester} <%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
-		                                <div class="row mt-4">
+		                                <div class="row pt-2">
 		                                	<div class="col">
-		                                		<div class="row justify-content-between">
+		                                		<div class="row mt-4 justify-content-between">
 		                                			<div class="col-1"></div>
 		                                			<div class="col fw-lighter text-start align-self-center">임원 현황</div>
-		                                			<div class="col fw-bold fs-4 text-end">7
-		                                				<span class="fw-lighter" style="font-size: 0.9rem"> <i class="bi bi-chevron-right"></i> </span>
+		                                			<div class="col fw-bold fs-4 text-end">${countExecutive}
+		                                				<span class="fw-lighter" style="font-size: 0.9rem"><a href="./jw_executiveAssignmentPage"><i class="bi bi-chevron-right"></i></a> </span>
 		                                			</div>
 		                                			<div class="col-2"></div>
 		                                		</div>
 		                                		<div class="row justify-content-between">
 		                                			<div class="col-1"></div>
 		                                			<div class="col fw-lighter text-start align-self-center">일지 관리</div>
-		                                			<div class="col fw-bold fs-4 text-end">11 
-		                                				<span class="fw-lighter" style="font-size: 0.9rem"> <i class="bi bi-chevron-right"></i> </span>
+		                                			<div class="col fw-bold fs-4 text-end">${countTodayDiary}
+		                                				<span class="fw-lighter" style="font-size: 0.9rem"><a href="./jw_diaryManagementPage"><i class="bi bi-chevron-right"></i></a></span>
 		                                			</div>
 		                                			<div class="col-2"></div>
 		                                		</div>
@@ -173,31 +198,31 @@
 		                        </div>
                         		<div class="col ps-2 pb-2 pt-2 pe-2">
 		                            <div class="col bg-white rounded-4 border border-light-subtle" style="height: 220px;">
-		                                <div class="row ms-3 mt-3">
+		                                <div class="row ms-4 mt-4">
 		                                	<div class="col fs-5 fw-bold">
 		                                		상/벌점 관리
 		                                	</div>
 		                                </div>
-		                                <div class="row ms-3 mt-1">
+		                                <div class="row ms-4 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
-		                                		<%= formattedDate %> 기준
+		                                		${thisSemester.semester_year} ${thisSemester.semester} <%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
-                                        <div class="row mt-4">
+                                        <div class="row pt-2">
 		                                	<div class="col">
-		                                		<div class="row justify-content-between">
+		                                		<div class="row mt-4 justify-content-between">
 		                                			<div class="col-1"></div>
 		                                			<div class="col fw-lighter text-start align-self-center">장학금 대상</div>
-		                                			<div class="col fw-bold fs-4 text-end">7
-		                                				<span class="fw-lighter" style="font-size: 0.9rem"> <i class="bi bi-chevron-right"></i> </span>
+		                                			<div class="col fw-bold fs-4 text-end">${countPlusPointDormStudent}
+		                                				<span class="fw-lighter" style="font-size: 0.9rem"><a href="./jw_pointSituationPage"><i class="bi bi-chevron-right"></i></a></span>
 		                                			</div>
 		                                			<div class="col-2"></div>
 		                                		</div>
 		                                		<div class="row justify-content-between">
 		                                			<div class="col-1"></div>
 		                                			<div class="col fw-lighter text-start align-self-center">징계 대상</div>
-		                                			<div class="col fw-bold fs-4 text-end text-danger">11 
-		                                				<span class="fw-lighter text-black" style="font-size: 0.9rem"> <i class="bi bi-chevron-right"></i> </span>
+		                                			<div class="col fw-bold fs-4 text-end text-danger">${countMinusPointDormStudent}
+		                                				<span class="fw-lighter text-black" style="font-size: 0.9rem"><a href="./jw_pointSituationPage"><i class="bi bi-chevron-right"></i></a></span>
 		                                			</div>
 		                                			<div class="col-2"></div>
 		                                		</div>
@@ -211,31 +236,23 @@
                         	<div class="row">
                         		<div class="col ps-2 pb-4 pt-2 pe-2">
 		                            <div class="col bg-white rounded-4 border border-light-subtle" style="height: 220px;">
-		                                <div class="row ms-3 mt-3">
+		                                <div class="row ms-4 mt-4">
 		                                	<div class="col fs-5 fw-bold">
 		                                		외출/외박 현황
 		                                	</div>
 		                                </div>
-		                                <div class="row ms-3 mt-1">
+		                                <div class="row ms-4 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
-		                                		<%= formattedDate %> 기준
+		                                		${thisSemester.semester_year} ${thisSemester.semester} <%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
-		                                <div class="row mt-4">
+		                                <div class="row pt-2">
 		                                	<div class="col">
-		                                		<div class="row justify-content-between">
+		                                		<div class="row mt-4 justify-content-between">
 		                                			<div class="col-1"></div>
-		                                			<div class="col fw-lighter text-start align-self-center">외출 인원</div>
-		                                			<div class="col fw-bold fs-4 text-end">7
-		                                				<span class="fw-lighter" style="font-size: 0.9rem"> <i class="bi bi-chevron-right"></i> </span>
-		                                			</div>
-		                                			<div class="col-2"></div>
-		                                		</div>
-		                                		<div class="row justify-content-between">
-		                                			<div class="col-1"></div>
-		                                			<div class="col fw-lighter text-start align-self-center">외박 인원</div>
-		                                			<div class="col fw-bold fs-4 text-end">11 
-		                                				<span class="fw-lighter" style="font-size: 0.9rem"> <i class="bi bi-chevron-right"></i> </span>
+		                                			<div class="col fw-lighter text-start align-self-center">외출/외박 인원</div>
+		                                			<div class="col fw-bold fs-4 text-end">${countTodayExit}
+		                                				<span class="fw-lighter" style="font-size: 0.9rem"><a href="./jw_exitSituationPage"><i class="bi bi-chevron-right"></i></a></span>
 		                                			</div>
 		                                			<div class="col-2"></div>
 		                                		</div>
@@ -245,30 +262,25 @@
 		                        </div>
                         		<div class="col ps-2 pb-2 pt-2 pe-5">
 		                            <div class="col bg-white rounded-4 border border-light-subtle" style="height: 220px;">
-		                                <div class="row ms-3 mt-3">
+		                                <div class="row ms-4 mt-4">
 		                                	<div class="col fs-5 fw-bold">
 		                                		점호 참석 현황
 		                                	</div>
 		                                </div>
-		                                <div class="row ms-3 mt-1">
+		                                <div class="row ms-4 mt-1">
 		                                	<div class="col fw-lighter" style="font-size: 0.9rem">
-		                                		<%= formattedDate %> 기준
+		                                		${thisSemester.semester_year} ${thisSemester.semester} <%= formattedDate %> 기준
 		                                	</div>
 		                                </div>
-		                                <div class="row mt-4">
+		                                <div class="row pt-2">
 		                                	<div class="col">
-		                                		<div class="row justify-content-between">
+		                                		<div class="row mt-4 justify-content-between">
 		                                			<div class="col-1"></div>
 		                                			<div class="col fw-lighter text-start align-self-center">
-		                                				<a href="#" class="text-black" style="text-decoration: none;">
-			                                				불참 인원		                                				
-		                                				</a>		                                				
+			                                				불참 인원
 		                                			</div>
-		                                			<div class="col fw-bold fs-4 text-end">
-														<a href="#" class="text-danger" style="text-decoration: none;">
-			                                				7                                				
-		                                				</a>
-		                                				<span class="fw-lighter" style="font-size: 0.9rem"> <i class="bi bi-chevron-right"></i> </span>
+		                                			<div class="col fw-bold fs-4 text-end text-danger">${countTodayCallAbsence}
+		                                				<span class="fw-lighter" style="font-size: 0.9rem"><a href="./jw_callAttendSituationPage"><i class="bi bi-chevron-right"></i></a></span>
 		                                			</div>
 		                                			<div class="col-2"></div>
 		                                		</div>

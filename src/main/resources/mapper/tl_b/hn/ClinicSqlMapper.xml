@@ -43,7 +43,7 @@
 			tl_b_prescription_info_seq.nextval,
 			#{clinic_patient_log_pk},
 			#{medicine_code_pk},
-			#{quantity},
+			-#{quantity},
 			SYSDATE
 		)
 	</insert>
@@ -172,5 +172,16 @@
 		UPDATE tl_b_clinic_patient_wait SET status = 'Y'
 		WHERE clinic_patient_pk = #{clinic_patient_pk}
 	</update>
+	
+	<select id="isAlreadyWaiting" resultType="int">
+		SELECT COUNT(*) FROM tl_b_clinic_patient_wait
+		WHERE clinic_patient_pk = #{clinic_patient_pk}
+		AND status LIKE 'N'
+	</select>
+	
+	<select id="isAlreadyPatient" resultType="int">
+		SELECT COUNT(*) FROM tl_b_clinic_patient_info
+		WHERE resident_id = #{resident_id}
+	</select>
 	
 </mapper>

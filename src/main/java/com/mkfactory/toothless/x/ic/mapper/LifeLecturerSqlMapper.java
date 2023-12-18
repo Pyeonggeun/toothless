@@ -2,14 +2,19 @@ package com.mkfactory.toothless.x.ic.mapper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.x.dto.AttendanceBookDto;
 import com.mkfactory.toothless.x.dto.AttendanceStatusDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
 import com.mkfactory.toothless.x.dto.LectureStudentDto;
+import com.mkfactory.toothless.x.dto.LectureTestDto;
 import com.mkfactory.toothless.x.dto.LifeLecturerDto;
 import com.mkfactory.toothless.x.dto.LifeStudentDto;
 import com.mkfactory.toothless.x.dto.OpenLectureDto;
+import com.mkfactory.toothless.x.dto.QuestionChoiceDto;
+import com.mkfactory.toothless.x.dto.TestQuestionDto;
 
 public interface LifeLecturerSqlMapper {
 	
@@ -41,5 +46,27 @@ public interface LifeLecturerSqlMapper {
 	
 	public LifeLecturerDto selectLecturerDto(int lecturer_key);
 	
+	public List<Map<String, Object>> selectCurrentStudyDay(int open_lecture_key);
+	
+	public int selectLateStudentCount(int attendance_book_key);
+	public int selectAbsenceStudentCount(int attendance_book_key);
+	
+	public int selectLectureStudentLateCount(int lecture_student_key);
+	public int selectLectureStudentAbsenceCount(int lecture_student_key);
+	
+	public ExternalInfoDto selectLifeStudentExternalId(int external_pk);
+	
+	public String selectOpenLectureCategoryName(int lecture_category_key);
+	
+	public int selectLectureTestKey();
+	public void insertLectureTestInfo(LectureTestDto lectureTestDto);
+	
+	public int selectTestQuestionKey();
+	public void insertTestQuestionInfo(TestQuestionDto testQuestionDto);
+	public void insertQuestionChoiceInfo(QuestionChoiceDto questionChoiceDto);
+	
+	public List<LectureTestDto> selectLectureTestList(int open_lecture_key);
+	
+	public int selectTestingStudentCount(int lecture_test_key);
 	
 }

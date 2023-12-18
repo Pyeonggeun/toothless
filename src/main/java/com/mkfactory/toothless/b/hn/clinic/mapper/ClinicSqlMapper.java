@@ -47,4 +47,7 @@ public interface ClinicSqlMapper {
 	public void insertPrescriptionInfo(PrescriptionDto prescriptionDto);
 	
 	public void updateWaitingStatus(int clinic_patient_pk);
+	
+	public int isAlreadyWaiting(int clinic_patient_pk);
+	public int isAlreadyPatient(String resident_id);
 }

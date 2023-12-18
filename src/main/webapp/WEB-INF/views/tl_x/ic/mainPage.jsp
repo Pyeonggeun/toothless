@@ -23,6 +23,13 @@
     		});
 			
 		}
+     	function getOpenLecutreDto() {
+     		sessionStorage.setItem()
+     		
+		}
+     	function lectureManagementPageMove(open_lecture_key) {
+     	   location.href = "lectureManagementPage?open_lecture_key="+open_lecture_key;
+		}
      	
      	
      	function loadMyOpenLectureList(lecturer_key) {
@@ -41,7 +48,15 @@
     				open_lecture_key.innerText = e.openLectureDto.open_lecture_key;
     				
     				const name = openLectureWrapper.querySelector(".name");
-					name.innerText = e.lectureInfoDto.name;
+    				name.innerText ="";
+    				const nameAtag = document.createElement("a");
+    				nameAtag.setAttribute("href", "./lectureManagementPage?open_lecture_key="+e.openLectureDto.open_lecture_key);
+    				
+    				nameAtag.classList.add("navbar-brand");
+    				
+    				nameAtag.innerText = e.lectureInfoDto.name;
+    				name.appendChild(nameAtag);
+
 					
 					const roundCount = openLectureWrapper.querySelector(".roundCount");
 					roundCount.innerText = e.roundCount;
@@ -60,12 +75,9 @@
 					const max_student = openLectureWrapper.querySelector(".max_student");
 					max_student.innerText = e.openLectureDto.max_student;
 					
-					const studentList = openLectureWrapper.querySelector(".studentList");
-					studentList.setAttribute("onclick", "showLectureStudentListModal("+e.openLectureDto.open_lecture_key+")");
-					
-					const write_attendance = openLectureWrapper.querySelector(".write_attendance");
-					write_attendance.setAttribute("onclick", "showAttendacneModal("+e.openLectureDto.open_lecture_key+")");
-					
+					const moveManagementPage = openLectureWrapper.querySelector(".moveManagementPage");
+					moveManagementPage.setAttribute("onclick", "lectureManagementPageMove("+e.openLectureDto.open_lecture_key+")");
+
 					openLectureListBox.appendChild(openLectureWrapper);
     			}
     			
@@ -86,7 +98,7 @@
     				const lectureStudentListBox =document.querySelector(".lectureStudentListBox");
     				
     				const name = openLectureWrapper.querySelector(".name");
-    				name.innerText = e.name;
+    				name.innerText = e.lifeStudentDto.name;
     				
     				lectureStudentListBox.appendChild(openLectureWrapper);
     				
@@ -105,7 +117,7 @@
      		const open_lecture_key = document.querySelector("#open_lecture_key");
 			
 			open_lecture_key.setAttribute("value" , openLectureKey);
-     		
+     		console.log(date_created);
 			openLectureInfo(openLectureKey);
      		checkAttendanceBook(date_created);
      		
@@ -451,7 +463,32 @@
      	
      	</script>
      	
-     	
+     	<style>
+            .chart {
+                position: relative;
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                transition: 0.3s;
+                background:lightgray;
+                display:inline-block;
+            }
+
+            .chart:after{
+                content:'';
+                background: #fff;
+                position: absolute;
+                top:50%; left:50%;
+                width:50px; height: 50px;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .chart-bar{
+                width: inherit;
+                height: inherit;
+                border-radius: 50%;
+            }
+        </style>
      	
     </head>
     <body>
@@ -479,91 +516,121 @@
             		<a class="" href="../../another/external/loginPage">로그아웃</a>
             	</div>
             </div>
-            
-            <div class="row">
-                <div class="col-2 me-5 text-light" style="background-color: #133369;" >
-                    <div class="row">
-                        <div class="accordion accordion-flush">
-						  <div class="accordion-item">
-						      <a class="accordion-button collapsed text-light navbar-brand mt-5 fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" style="background-color: #133369;">
-						        학적부
-						      </a>
-						    <div id="flush-collapseOne" class="accordion-collapse collapse">
-						      <div class="accordion-body text-light"  style="background-color: #133369;">
-						      	<div class="row">
-						      		<div class="col ms-3">
-						      			수강생 관리
-						      		</div>
-						      	</div>
-						      	<div class="row">
-						      		<div class="col mt-2 ms-3">
-						      			출석 관리
-						      		</div>
-						      	</div>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-                    </div>
-                    <div class="row">
-                        <div class="accordion accordion-flush">
-						  <div class="accordion-item">
-						      <a class="accordion-button collapsed text-light navbar-brand fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" style="background-color: #133369;">
-						        강의 관리
-						      </a>
-						    <div id="flush-collapseTwo" class="accordion-collapse collapse">
-						      <div class="accordion-body text-light"  style="background-color: #133369;">
-						      	<div class="row">
-						      		<div class="col">
-						      			공지사항
-						      		</div>
-						      	</div>
-						      	<div class="row">
-						      		<div class="col">
-						      			시험/평가
-						      		</div>
-						      	</div>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-                    </div>
-                    <div class="row">
-                        <div class="accordion accordion-flush">
-						  <div class="accordion-item">
-						      <a class="accordion-button collapsed text-light navbar-brand fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" style="background-color: #133369;">
-						        강의 관리
-						      </a>
-						    <div id="flush-collapseTwo" class="accordion-collapse collapse">
-						      <div class="accordion-body text-light"  style="background-color: #133369;">
-						      	<div class="row">
-						      		<div class="col">
-						      			공지사항
-						      		</div>
-						      	</div>
-						      	<div class="row">
-						      		<div class="col">
-						      			시험/평가
-						      		</div>
-						      	</div>
-						      </div>
-						    </div>
-						  </div>
-						</div>
+            <div class="row mt-5">
+                <div class="col-1"></div>
+                <div class="col">
+                    <div class="row border-bottom border-2 border-primary">
+                        <div class="col fw-bold fs-3 mt-1">강의 진행 현황</div>
                     </div>
                 </div>
+                <div class="col-1"></div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-1"></div>
+                <div class="col mt-2">
+                    <div class="row">
+                        <div class="col fw-bold  text-center number" style="font-size: xx-large;">
+                            3
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col fw-bold text-center">
+                           진행중인 강의
+                        </div>
+                    </div>
+                </div>
+                <div class="col mt-2">
+                    <div class="row ">
+                        <div class="col fw-bold text-center number" style="font-size: xx-large;">
+                            5
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col fw-bold text-center">
+                           진행완료 강의
+                        </div>
+                    </div>
+                </div>
+                <div class="col mt-2">
+                    <div class="row">
+                        <div class="col-3 fw-bold text-center">
+                            <div class="chart">
+                              	<div id="chartPercent" class="chart-bar" style="background: conic-gradient(#1273ce 94%, #d1cecb 0% 100%);"></div>
+                            </div>
+                        </div>
+                        <div class="col mt-2">
+                        	<div class="row">
+                            	<div class="col fw-bold text-start">
+                         	  		전체 학생중 만족도 평균
+                        		</div>
+                            </div>
+                            <div class="row">
+                            	<div class="col fw-bold text-start">
+                         	  		4.7점
+                        		</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col mt-2">
+                    <div class="row">
+                        <div class="col-3 fw-bold text-center">
+                            <div class="chart">
+                              	<div id="chartPercent" class="chart-bar" style="background: conic-gradient(#3d1cb5 92.3%, #d1cecb 0% 100%);"></div>
+                            </div>
+                        </div>
+                        <div class="col mt-2">
+                        	<div class="row">
+                            	<div class="col fw-bold text-start"	>
+                         	  		전체 학생중 92.3% 학생
+                        		</div>
+                            </div>
+                            <div class="row">
+                            	<div class="col fw-bold text-start">
+                         	  		수료 완료
+                        		</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-1 mt-2 border-start border-black text-secondary fs-5 text-center number">
+                    <div class="row ">
+                        <div class="col ">
+                             
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col">
+                            
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            
+            
+            
+            <div class="row">
+            	<div class="col-1"></div>
                 <div class="col mt-5">
                     <div class="row">
                         <div class="col">
-                            home > 학적부 > 훈련생 현황
+                            home > 강의 진행 현황
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col fw-bold fs-3 text-light" style="background-color: #133369;">
-                            훈련생 현황
+                            강의 진행 현황
                         </div>
                     </div>
-                    <div class="row bg-white border border-black pt-3 px-3">
+                    <div class="row bg-white border border-black pt-3 px-3 overflow-y-auto" style="height: 20em">
                         <div class="col">
                             <div class="row fw-bold text-center" style="background-color: rgb(228, 227, 227);">
                                 <div class="col-1 border align-self-center">
@@ -603,50 +670,100 @@
                 </div>
                 <div class="col-1"></div>
             </div>
-			<pre>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			</pre>
-
-
-
-
+            <div class="row">
+            	<div class="col-1"></div>
+                <div class="col mt-5">
+                    <div class="row mt-2">
+                        <div class="col fw-bold fs-3 text-light" style="background-color: #133369;">
+                            신규 개설 강의
+                        </div>
+                    </div>
+                    <div class="row bg-white border border-black pt-3 px-3 overflow-y-auto" style="height: 12em">
+                        <div class="col">
+                            <div class="row fw-bold text-center" style="background-color: rgb(228, 227, 227);">
+                                <div class="col-1 border align-self-center">
+                                    번호
+                                </div>
+                                <div class="col-3 border align-self-center">
+                                    과정명
+                                </div>
+                                <div class="col-1 border align-self-center">
+                                    회차
+                                </div>
+                                <div class="col-1 border align-self-center">
+                                    개강 예정일
+                                </div>
+                                <div class="col-1 border align-self-center">
+                                    종강 예정일
+                                </div>
+                                <div class="col-1 border align-self-center">
+                                    모집 예정 인원
+                                </div>
+                                <div class="col-1 border align-self-center">
+                                    수강 신청 인원
+                                </div>
+                                <div class="col-3 border align-self-center">
+                                    관리
+                                </div>
+                            </div>
+                            <!-- 반복문 구간-->
+                            <div class="row">       
+		                         <div id="" class="col">
+		                         	<div class="row  text-center">
+                                <div class="col-1 border align-self-center">
+                                    28
+                                </div>
+                                <div class="col-3 border align-self-center">
+                                   	데이터베이스 이해와 활용
+                                </div>
+                                <div class="col-1 border align-self-center">
+                                    2회차
+                                </div>
+                                <div class="col-1 border align-self-center">
+                                    2024.02.27
+                                </div>
+                                <div class="col-1 border align-self-center">
+                                    2024.08.17
+                                </div>
+                                <div class="col-1 border align-self-center">
+                                   	40명
+                                </div>
+                                <div class="col-1 border align-self-center">
+                                    0명
+                                </div>
+                                <div class="col-3 border align-self-center">
+                                    <button class="btn btn-primary">상세정보</button>
+                                </div>
+                            </div>
+		                         
+		                         </div>
+ 							</div>
+                         </div> 
+                     </div>     
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <div class="row">
+            	<div class="col">
+            		
+            	</div>
+            </div>
+            
+		<pre>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		</pre>
 
 
 
@@ -678,12 +795,9 @@
 	           <div class="col-1 py-3 border align-self-center max_student">
 	               30
 	           </div>
-	           <div class="col-3 py-2 border align-self-center">
-	               <button class="btn btn-primary studentList"  style="font-size: small;">
-	                   수강생 현황
-	               </button>
-	               <button class="btn btn-primary write_attendance" style="font-size: small;">
-	                   일지작성
+	           <div class="col-3 py-3 border align-self-center">
+	               <button class="btn btn-primary moveManagementPage py-0">
+	                   상세관리
 	               </button>
 	           </div>
 	       </div>
@@ -719,7 +833,7 @@
 		      	</div>
 		      	<div class="row">
 		      		<div class="col lectureStudentListBox">
-		      		
+		      			
 		      		</div>
 		      	</div>
 		      </div>
@@ -741,7 +855,7 @@
 	      		<div class="col name">
 	      			이름
 	      		</div>
-	      		<div class="col ">
+	      		<div class="col absenceStatus">
 	      			출석현황
 	      		</div>
 	      		<div class="col ">

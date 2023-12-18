@@ -11,7 +11,24 @@
 <title>Insert title here</title>
 		
 		<script>
-			const student_pk = ${sessionStudentInfo.student_pk};
+		
+			function getStudentInfo(){		
+	    		fetch("./restStudentInfo")
+	    		.then(response => response.json())
+	    		.then(response => {
+	    			
+	    			const studentLoginPageUrl = "http://localhost:8181/toothless/another/student/loginPage";
+	    			
+	    			loginStudentInfo = response.data;
+	    			console.log(response.data);
+	    			if(loginStudentInfo == null){
+	    				
+	    				window.location.href = studentLoginPageUrl;
+	    				
+	    			}
+	    		});		
+	    	}
+ 
 		
 			function reloadItemList(){
 				const url = "./restGetItemAndItemApplyList";
@@ -28,7 +45,7 @@
 						const studentItemListWrapper = document.querySelector("#templete .studentItemListWrapper").cloneNode(true);
 						
 						const imgLink = studentItemListWrapper.querySelector(".imgLink");
-						imgLink.querySelector("img").src = "/healthItem/" + e.itemDto.img_link;
+						imgLink.querySelector("img").src = "/uploadFiles/mainImage/" + e.itemDto.img_link;
 						
 						const catName = studentItemListWrapper.querySelector(".catName");
 						catName.innerText = e.itemCatDto.name;
@@ -64,7 +81,6 @@
 			}
 
 			
-			
 			function showModal(itemPk){
 		            //필요시 여기서 백엔드하고 연동... CSR
 				const inputReason = document.getElementById("inputReason");
@@ -74,6 +90,7 @@
 			
 			
 				const inputReturnDate = document.getElementById("inputReturnDate");
+				
 		            
 	            const modal = bootstrap.Modal.getOrCreateInstance("#writeModal");
 	            
@@ -107,6 +124,25 @@
 			
 			const inputReturnDate = document.getElementById("inputReturnDate");
 			
+			if(inputReason.value == ''){
+				alert("대여사유를 입력해주셔야 합니다.");
+				inputReason.focus();
+				return ;
+			}
+			
+			if(inputRentalDate.value == ''){
+				alert("대여시작일를 입력해주셔야 합니다.");
+				inputRentalDate.focus();
+				return ;
+				
+			}
+			
+			if(inputReturnDate.value == ''){
+				alert("대여종료일를 입력해주셔야 합니다.");
+				inputReturnDate.focus();
+				return ;
+				
+			}
 			
 			const url = "./reststudentItemApply"
 		
@@ -132,7 +168,8 @@
 
 			
 			window.addEventListener("DOMContentLoaded", () => {
-				reloadItemList();				
+				reloadItemList();
+				getStudentInfo();
 			});
 			
 			

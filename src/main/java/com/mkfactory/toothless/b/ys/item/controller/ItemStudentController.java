@@ -2,6 +2,8 @@ package com.mkfactory.toothless.b.ys.item.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,8 @@ public class ItemStudentController {
 	
 		//model.addAttribute("itemList",itemStaffService.getItemList()); 
 		model.addAttribute("itemList",itemStudentService.getItemAndItemApplyList());
+		
+		
 		
 		return "tl_b/ys/studentItemListPage";
 	}

@@ -227,6 +227,12 @@
         					endButton.innerText = "채용마감";
         					endButton.disabled = true;
         					applyPosting.appendChild(endButton); 
+        				}else if (e.myApplyPostingList.includes(e.jobPostingDto.job_posting_pk)){
+        					const applyEndButton = document.createElement("button");
+        					applyEndButton.classList.add("btn", "btn-dark", "btn-sm");
+        					applyEndButton.innerText = "지원완료";
+        					applyEndButton.disabled = true;
+        					applyPosting.appendChild(applyEndButton); 
         				}else if (studentId != null){
 	        				const applyLink = document.createElement("a");
         					applyLink.href="../sb_resume/applyJobPostingPage?job_posting_pk=" + e.jobPostingDto.job_posting_pk;
@@ -341,10 +347,8 @@
 		</div>
 	 	<%-- 전체 크기 --%>
 		<div class="row">
-			<%-- 왼쪽 여백--%>
-			<div class="col-1"></div>
 			<%-- 취업팀 메뉴 바 --%>
-			<div class="col-1 me-5">
+			<div class="col-2 ps-0">
 				<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 			</div>
 			<%-- 가운데 여백--%>	
@@ -353,30 +357,55 @@
 			<div class="col">
 				<!-- 채용공고 -->
 				<div class="row">
-					<div class="col fs-4 fw-bold mt-5 text-center">채용공고리스트</div>
+					<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">채용공고리스트</div>
+				</div>
+				<!-- 검색 바 -->
+				<div class="row mt-3 p-2">
+					<div class="col">
+						<div class="row mt-1">
+							<div class="col-4 border p-3">
+								<select class="form-select form-select-sm border-0 pe-0">
+						    		<option selected>분야선택</option>
+						    		<option value="1">개발</option>
+						    		<option value="2">마케팅</option>
+						    		<option value="3">판매</option>
+						    		<option value="4">인사</option>
+						    		<option value="5">금융</option>
+						    		<option value="6">디자인</option>
+						    		<option value="7">의료</option>
+						    		<option value="8">제조</option>
+								</select>
+							</div>
+							<div class="col-4 border p-3">
+								<input type="text" class="form-control border-0" placeholder="직무검색"> 
+							</div>
+							<div class="col-4 border p-3">
+								<input type="text" class="form-control border-0" placeholder="지역검색"> 
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-2 border p-3">
+								<select class="searchType form-select border-0">
+									<option value="posting_name">제목</option>
+									<option value="posting_contents">내용</option>
+								</select>				
+							</div>
+							<div class="col-8 border p-3">
+								 <input type="text" class="searchWord form-control border-0" placeholder="검색내용을 입력해주세요"> 
+							</div>
+							<div class="col border p-3">
+								<button onclick="search()" class="form-control bg-white border-0">
+									<span class="fw-bold text-secondary">검색</span>
+								</button>
+							</div>						
+						</div>
+					</div>
 				</div>
 				<div class="row mt-5 pb-1 border-bottom">
 					<div class="col-1 pt-1 mt-3">
 						총 <span class="fw-bold">${postingCount}</span>건
 					</div>
-					<div class="col-2 mt-2">
-						<select class="searchType form-select">
-							<option value="posting_name">제목</option>
-							<option value="job_position">직무</option>
-							<option value="posting_contents">내용</option>
-						</select>				
-					</div>
-					 <div class="col-7 rounded-pill bg-white border border-secondary border-sm pt-1 mb-3">
-		                <div class="row">
-		                    <div class="col-6">
-		                       <input type="text" class="searchWord form-control border-0"> 
-		                    </div>
-		                    <div class="col pt-1 text-end">
-		                        <button onclick="search()" class="bg-white border-0"><i class="bi bi-search"></i></button>
-		                    </div>
-		                </div>
-		            </div>
-		            <div class="col px-0"></div>
+		            <div class="col-9 px-0"></div>
 					<div class="col px-0 mt-2">
 						<select class="form-select form-select-sm">
 						    <option selected>정확도순</option>

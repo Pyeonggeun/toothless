@@ -15,7 +15,7 @@
 	// 전체 리스트
 	function reloadCallSituationList(){
 		
-		const url = "./restGetAllExitSituationList";
+		const url = "./restGetAllCallAbsenceList";
 		
 		fetch(url)
 		.then(response => response.json())
@@ -45,7 +45,7 @@
 	// dorm_pk별 리스트
 	function reloadCallSituationListByDormPk(dorm_pk){
 		
-		const url = "./restGetExitSituationListByDormPk?dorm_pk=" + dorm_pk;
+		const url = "./restGetCallAbsenceListByDormPk?dorm_pk=" + dorm_pk;
 		
 		fetch(url)
 		.then(response => response.json())
@@ -104,8 +104,6 @@
 	})
 	
 </script>
-
-
 </head>
 <body>
 <div class="container-fluid">

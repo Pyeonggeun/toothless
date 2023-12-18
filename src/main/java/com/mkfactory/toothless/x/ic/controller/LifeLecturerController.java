@@ -13,5 +13,10 @@ public class LifeLecturerController {
 		
 		return "tl_x/ic/mainPage";
 	}
+	@RequestMapping("lectureManagementPage")
+	public String lectureManagementPage(int open_lecture_key) {
+		
+		return "tl_x/ic/lectureManagementPage";
+	}
 
 }

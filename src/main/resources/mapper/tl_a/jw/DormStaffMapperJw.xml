@@ -4,9 +4,14 @@
 
 <mapper namespace="com.mkfactory.toothless.a.staff.jw.mapper.DormStaffMapperJw">
 
-	<!-- 전체 외출현황 -->
+	<!-- 금일부터 외출현황 -->
 	<select id="selectExitList" resultType="com.mkfactory.toothless.a.dto.ExitDto">
-		SELECT * FROM tl_a_exit ORDER BY DORM_STUDENT_PK ASC
+		SELECT * FROM TL_A_EXIT
+		<![CDATA[
+		WHERE TO_CHAR(EXIT_DATE, 'YYYYMMDD') >=
+		]]> 
+		TO_CHAR(SYSDATE, 'YYYYMMDD')
+		ORDER BY EXIT_DATE ASC
 	</select>
 	
 	<!-- ?동 외출현황 -->
@@ -20,7 +25,11 @@
 				JOIN TL_A_DORM_BUILDING tadb ON tadr.DORM_PK = tadb.DORM_PK 
 				WHERE tadb.DORM_PK = #{DORM_PK}
 			)
-		)
+		) <![CDATA[
+		AND TO_CHAR(EXIT_DATE, 'YYYYMMDD') >= 
+		]]> 
+		TO_CHAR(SYSDATE, 'YYYYMMDD')
+		ORDER BY EXIT_DATE ASC
 	</select>
 	
 	<!-- 방 리스트 -->
@@ -46,6 +55,24 @@
 				WHERE TO_CHAR(CREATED_AT, 'YYYYMMDD') = 
 				TO_CHAR(SYSDATE, 'YYYYMMDD')
 			)
+		)
+	</select>
+	
+	<!-- 금일 점호 불참한 호실별 사생정보 List -->
+	<select id="selectCallAbsenceDormStudentListByDormPk" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT tads.* FROM TL_A_DORM_STUDENT tads 
+		WHERE tads.DORM_STUDENT_PK IN (
+		SELECT taem.DORM_STUDENT_PK FROM TL_A_CALL_ABSENCE taca 
+		JOIN TL_A_EXECUTIVE_MANAGEMENT taem ON taca.EXECUTIVE_MANAGEMENT_PK = taem.EXECUTIVE_MANAGEMENT_PK
+			WHERE taca.CALL_ABSENCE_PK IN (
+				SELECT TL_A_CALL_ABSENCE.CALL_ABSENCE_PK FROM TL_A_CALL_ABSENCE
+				WHERE TO_CHAR(CREATED_AT, 'YYYYMMDD') = 
+				TO_CHAR(SYSDATE, 'YYYYMMDD')
+			)
+		) AND tads.DORM_ROOM_PK IN (
+			SELECT tadr.DORM_ROOM_PK FROM TL_A_DORM_ROOM tadr 
+			JOIN TL_A_DORM_BUILDING tadb ON tadr.DORM_PK = tadb.DORM_PK 
+			WHERE tadb.DORM_PK = #{DORM_PK}
 		)
 	</select>
 	
@@ -79,9 +106,31 @@
 		ORDER BY DORM_STUDENT_PK ASC
 	</select>
 	
-	<!-- 전체 임원정보 -->
+	<!-- 호실별 사생정보 -->
+	<select id="selectDormStudentListByDormPk" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
+		SELECT * FROM TL_A_DORM_STUDENT
+		WHERE DORM_ROOM_PK IN (
+			SELECT tadr.DORM_ROOM_PK FROM TL_A_DORM_ROOM tadr 
+			JOIN TL_A_DORM_BUILDING tadb ON tadr.DORM_PK = tadb.DORM_PK 
+			WHERE tadb.DORM_PK = #{DORM_PK}
+		)
+	</select>
+	
+	<!-- 전체 임원 리스트 -->
 	<select id="selectAllExecutiveList" resultType="com.mkfactory.toothless.a.dto.ExecutiveDto">
 		SELECT * FROM TL_A_EXECUTIVE ORDER BY DORM_STUDENT_PK ASC
+	</select>
+	
+	<!-- 호실별 임원 리스트 -->
+	<select id="selectExecutiveListByDormPk" resultType="com.mkfactory.toothless.a.dto.ExecutiveDto">
+		SELECT tae.* FROM TL_A_EXECUTIVE tae
+		JOIN TL_A_DORM_STUDENT tads ON tae.DORM_STUDENT_PK = tads.DORM_STUDENT_PK 
+		WHERE tads.DORM_ROOM_PK IN (
+			SELECT tadr.DORM_ROOM_PK FROM TL_A_DORM_ROOM tadr 
+			JOIN TL_A_DORM_BUILDING tadb ON tadr.DORM_PK = tadb.DORM_PK 
+			WHERE tadb.DORM_PK = #{DORM_PK}
+		)
+		ORDER BY tads.DORM_STUDENT_PK ASC
 	</select>
 	
 	<!-- 진행 중인 학기의 사생정보 -->
@@ -178,6 +227,22 @@
 	<!-- 일지 -->
 	<select id="selectAllDiaryList" resultType="com.mkfactory.toothless.a.dto.DiaryDto">
 		SELECT * FROM TL_A_DIARY
+		ORDER BY CREATED_AT ASC
+	</select>
+	
+	<!-- 호실별 일지 -->
+	<select id="selectDiaryListByDormPk" resultType="com.mkfactory.toothless.a.dto.DiaryDto">
+		SELECT tad.* FROM TL_A_DIARY tad
+		JOIN TL_A_EXECUTIVE tae ON tad.EXECUTIVE_PK = tae.EXECUTIVE_PK
+		WHERE tae.DORM_STUDENT_PK IN (
+			SELECT tads.DORM_STUDENT_PK FROM TL_A_DORM_STUDENT tads
+			WHERE DORM_ROOM_PK IN (
+				SELECT tadr.DORM_ROOM_PK FROM TL_A_DORM_ROOM tadr 
+				JOIN TL_A_DORM_BUILDING tadb ON tadr.DORM_PK = tadb.DORM_PK 
+				WHERE tadb.DORM_PK = #{DORM_PK}
+			)
+		)
+		ORDER BY tad.CREATED_AT ASC
 	</select>
 	
 	<!-- 상벌점 -->

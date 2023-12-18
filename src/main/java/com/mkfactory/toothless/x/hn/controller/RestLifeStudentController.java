@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.RestResponseDto;
+import com.mkfactory.toothless.x.dto.LectureReviewDto;
 import com.mkfactory.toothless.x.dto.LectureStudentDto;
 import com.mkfactory.toothless.x.hn.service.LifeStudentServiceImpl;
 
@@ -83,6 +84,20 @@ public class RestLifeStudentController {
 		return restResponseDto;
 	}
 	
+	@RequestMapping("isOverlapDate")
+	public RestResponseDto isOverlapDate(HttpSession session, int open_lecture_key) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		int life_student_key = lifeStudentService.getLifeStudentKey(externalInfoDto.getExternal_pk());
+		
+		restResponseDto.setData(lifeStudentService.isOverlapDate(open_lecture_key, life_student_key));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
 	@RequestMapping("insertLectureStudentInfo")
 	public RestResponseDto insertLectureStudentInfo(HttpSession session, int open_lecture_key) {
 		
@@ -135,6 +150,66 @@ public class RestLifeStudentController {
 		restResponseDto.setResult("success");
 		
 		return restResponseDto;
+	}
+	
+	@RequestMapping("getLifeStudentKey")
+	public RestResponseDto getLifeStudentKey(HttpSession session) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		int life_student_key = lifeStudentService.getLifeStudentKey(externalInfoDto.getExternal_pk());
+		
+		restResponseDto.setData(life_student_key);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("getReviewLectureList")
+	public RestResponseDto getReviewLectureList(int pageNumber, int life_student_key) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(lifeStudentService.getReviewLectureList(pageNumber, life_student_key));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("getTotalReviewLectureCount")
+	public RestResponseDto getTotalReviewLectureCount(int life_student_key) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(lifeStudentService.getTotalReviewLectureCount(life_student_key));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("getLectureReviewInfo")
+	public RestResponseDto getLectureReviewInfo(int lecture_student_key) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(lifeStudentService.getLectureReviewInfo(lecture_student_key));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("insertLectureReviewInfo")
+	public RestResponseDto insertLectureReviewInfo(LectureReviewDto params) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		lifeStudentService.insertLectureReviewInfo(params);
+		
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+		
 	}
 
 }
