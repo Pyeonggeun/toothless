@@ -440,10 +440,12 @@
         regCounselorData.set("profile_Image", profile_Image);
         regCounselorData.set("license", license);
         
-        console.log(regCounselorData); */
-        
+        console.log(regCounselorData); */        
+    }
+    
+    function refreshPage(){
     	
-    	
+    	location.reload();
     }
     
     function pressEnter(){
@@ -540,6 +542,14 @@
 										</div>										
 									</div>
 									
+									<div class="col">
+										<div class="row justify-content-end">
+											<div class="col-auto" role="button" onclick="refreshPage()">
+												<span class="fw-bold align-middle">선택초기화<i class="bi bi-arrow-clockwise"></i></span>	
+											</div>											
+										</div>										
+									</div>
+									
 								</div>
 								<div class="row mt-4">
 									<div class="col">
@@ -591,8 +601,14 @@
 		</div>
 	</div>
 	
-<!-- 여긴 컨테이너 밖이당 -->
+<!-- 여기부터 컨테이너 밖 -->
 <!-- 모달, 오프캔버스는 컨테이너 밖으로...(pixed옵션이기 때문에) -->
+
+<!-- 상담원 상세정보 모달 -->
+
+<!-- <div class="counselorDetailModal" class="modal fade" ></div> -->
+
+<!-- 상담원 신규등록 모달 -->
    	<div id="registerModal" class="modal fade" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

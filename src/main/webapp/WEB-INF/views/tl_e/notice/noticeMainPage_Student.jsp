@@ -25,14 +25,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="../commons/counselorTopArea.jsp"></jsp:include>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col">
 				<div class="row">
 					<div class="col-1"></div>
 					<div class="col">
-						<form action="./noticeMainPage_Staff" method="get">
+						<form action="./noticeMainPage_Student" method="get">
 							<div class="row mb-3">
 								<div class="col-2">
 									<select name="searchType" class="form-select">
@@ -62,7 +61,7 @@
 								<div class="col-8 border-bottom">
 									<div class="row">
 										<div class="col-10">
-											<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black;" href="./readNoticeBoardPage_Student?id=${list.noticeBoardDto.id }">${list.noticeBoardDto.title }</a>
+											<a class="link-offset-2 link-underline link-underline-opacity-0 fw-bold" style="color: black;" href="./readNoticeBoardPage_Student?id=${list.noticeBoardDto.id }">${list.noticeBoardDto.title }</a>
 											<c:if test="${list.commentCount > 0 }">
 												<span style="font-size: 0.7em; color: red; font-weight: bold;">[${list.commentCount }]</span> 
 											</c:if>

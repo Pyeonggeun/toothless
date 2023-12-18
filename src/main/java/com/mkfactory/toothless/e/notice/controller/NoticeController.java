@@ -198,17 +198,17 @@ public class NoticeController {
 	@RequestMapping("insertNoticeLike")
 	public String insertNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeService.insertThumb(noticeBoardLikeDto);
-		return "redirect:./readNoticeBoardPage?id=" + noticeBoardLikeDto.getNotice_id();
+		return "redirect:./readNoticeBoardPage_Student?id=" + noticeBoardLikeDto.getNotice_id();
 	}
 	// 공지사항 추천 삭제
 	@RequestMapping("deleteNoticeLike")
 	public String deleteNoticeLike(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeService.deleteNoticeLike(noticeBoardLikeDto);
-		return "redirect:./readNoticeBoardPage?id=" + noticeBoardLikeDto.getNotice_id();
+		return "redirect:./readNoticeBoardPage_Student?id=" + noticeBoardLikeDto.getNotice_id();
 	}
 	@RequestMapping("deleteNoticeDisLike")
 	public String deleteNoticeDisLike(NoticeBoardLikeDto noticeBoardLikeDto) {
 		noticeService.deleteNoticeDisLike(noticeBoardLikeDto);
-		return "redirect:./readNoticeBoardPage?id=" + noticeBoardLikeDto.getNotice_id();
+		return "redirect:./readNoticeBoardPage_Student?id=" + noticeBoardLikeDto.getNotice_id();
 	}
 }
