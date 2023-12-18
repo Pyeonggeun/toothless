@@ -72,155 +72,154 @@
 
 			<div class="col">
 				<div class="row">
-					<div class="col mx-4">
+					<div class="col mx-5	">
 
 						<!-- 본문작성공간 -->
 						<br> <br>
-						<div class="container">
 
-							<div class="row">
-								<h2>
-									<span class="fw-bolder"><i class="bi bi-calendar-check"></i>&nbsp;신청내역
-										조회</span>
-								</h2>
-							</div>
 
-							<br>
-							<div class="row ps-3">
+						<div class="row">
+							<h2>
+								<span class="fw-bolder"><i class="bi bi-calendar-check"></i>&nbsp;신청내역
+									조회</span>
+							</h2>
+						</div>
 
-								<table class="table text-center align-middle ">
-									<thead class="table-primary">
-										<tr>
-											<th scope="col">#</th>
-											<th scope="col">기관명</th>
-											<th scope="col">소재지</th>
-											<th scope="col">실습기간</th>
-											<th scope="col">결과발표일</th>
-											<th scope="col">선발인원</th>
-											<th scope="col">선발여부</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach items="${list}" var="companyList">
-											<th scope="row">${companyList.INTERNSHIP_COURSE_PK}</th>
-											<th scope="row">${companyList.COMPANY_NAME}</th>
-											<th scope="row">${companyList.ADDRESS}</th>
-											<th><fmt:formatDate
-													value="${companyList.INTERNSHIP_START_DATE}"
-													pattern="yyyy-MM-dd hh:mm" /> ~ <br> <fmt:formatDate
-													value="${companyList.INTERNSHIP_END_DATE}"
-													pattern="yyyy-MM-dd hh:mm" /></th>
-											<th><fmt:formatDate
-													value="${companyList.ANNOUNCEMENT_DATE}"
-													pattern="yyyy-MM-dd hh:mm" /></th>
-											<th scope="row">${companyList.INTERNSHIP_TOTAL_MEMBER}명</th>
-											<th scope="row">${companyList.STATUS}</th>
-										</c:forEach>
-									</tbody>
-								</table>
+						<br>
+						<div class="row ps-3">
 
-							</div>
-							<br>
-							<div class="row text-center">
-								<div class="accordion" id="accordionExample">
-									<div class="accordion-item">
-										<h2 class="accordion-header">
-											<button class="accordion-button fw-bolder" " type="button"
-												data-bs-toggle="collapse" data-bs-target="#collapseOne"
-												aria-expanded="true" aria-controls="collapseOne">
-												<i class="bi bi-bookmarks "></i> &nbsp;지원이력서
-											</button>
-										</h2>
-										<div id="collapseOne" class="accordion-collapse collapse show"
-											data-bs-parent="#accordionExample">
-											<div class="accordion-body">
-												<div class="row">
-													<table class="table">
-														<thead>
-															<tr>
-																<th class="col-md-3">#</th>
-																<th class="span10">내용</th>
+							<table class="table text-center align-middle ">
+								<thead class="table-primary">
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">기관명</th>
+										<th scope="col">소재지</th>
+										<th scope="col">실습기간</th>
+										<th scope="col">결과발표일</th>
+										<th scope="col">선발인원</th>
+										<th scope="col">선발여부</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${list}" var="companyList">
+										<th scope="row">${companyList.INTERNSHIP_COURSE_PK}</th>
+										<th scope="row">${companyList.COMPANY_NAME}</th>
+										<th scope="row">${companyList.ADDRESS}</th>
+										<th><fmt:formatDate
+												value="${companyList.INTERNSHIP_START_DATE}"
+												pattern="yyyy-MM-dd hh:mm" /> ~ <br> <fmt:formatDate
+												value="${companyList.INTERNSHIP_END_DATE}"
+												pattern="yyyy-MM-dd hh:mm" /></th>
+										<th><fmt:formatDate
+												value="${companyList.ANNOUNCEMENT_DATE}"
+												pattern="yyyy-MM-dd hh:mm" /></th>
+										<th scope="row">${companyList.INTERNSHIP_TOTAL_MEMBER}명</th>
+										<th scope="row">${companyList.STATUS}</th>
+									</c:forEach>
+								</tbody>
+							</table>
 
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<th>지원 동기</th>
-																<td>${selfIntroduction.answer1}</td>
-															</tr>
-															<tr>
-																<th>전공 및 기술 능력</th>
-																<td>${selfIntroduction.answer2}</td>
-															</tr>
-															<tr>
-																<th>주요경력 및 자격사항</th>
-																<td>${selfIntroduction.answer3}</td>
-															</tr>
-															<tr>
-																<th>성격 및 장단점</th>
-																<td>${selfIntroduction.answer4}</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-												<div class="row text-end">
-													<p class="fst-italic  fs-6">* 신청 결과가 나오기 전까지 자기소개서 수정이
-														불가 합니다.</p>
+						</div>
+						<br>
+						<div class="row text-center">
+							<div class="accordion" id="accordionExample">
+								<div class="accordion-item">
+									<h2 class="accordion-header">
+										<button class="accordion-button fw-bolder" " type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseOne"
+											aria-expanded="true" aria-controls="collapseOne">
+											<i class="bi bi-bookmarks "></i> &nbsp;지원이력서
+										</button>
+									</h2>
+									<div id="collapseOne" class="accordion-collapse collapse show"
+										data-bs-parent="#accordionExample">
+										<div class="accordion-body">
+											<div class="row">
+												<table class="table">
+													<thead>
+														<tr>
+															<th class="col-md-3">#</th>
+															<th class="span10">내용</th>
 
-												</div>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th>지원 동기</th>
+															<td>${selfIntroduction.answer1}</td>
+														</tr>
+														<tr>
+															<th>전공 및 기술 능력</th>
+															<td>${selfIntroduction.answer2}</td>
+														</tr>
+														<tr>
+															<th>주요경력 및 자격사항</th>
+															<td>${selfIntroduction.answer3}</td>
+														</tr>
+														<tr>
+															<th>성격 및 장단점</th>
+															<td>${selfIntroduction.answer4}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="row text-end">
+												<p class="fst-italic  fs-6">* 신청 결과가 나오기 전까지 자기소개서 수정이
+													불가 합니다.</p>
+
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<br>
-							<div class="row text-center">
-								<div class="accordion" id="accordionExample">
-									<div class="accordion-item">
-										<h2 class="accordion-header">
-											<button class="accordion-button fw-bolder" " type="button"
-												data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-												aria-expanded="true" aria-controls="collapseOne">
-												<i class="bi bi-bookmarks "></i> &nbsp;이전신청내역
-											</button>
-										</h2>
-										<div id="collapseTwo" class="accordion-collapse collapse show"
-											data-bs-parent="#accordionExample">
-											<div class="accordion-body">
-												<table class=" table text-center align-middle ">
-													<thead class="table-secondary">
+						</div>
+						<br>
+						<div class="row text-center">
+							<div class="accordion" id="accordionExample">
+								<div class="accordion-item">
+									<h2 class="accordion-header">
+										<button class="accordion-button fw-bolder" " type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+											aria-expanded="true" aria-controls="collapseOne">
+											<i class="bi bi-bookmarks "></i> &nbsp;이전신청내역
+										</button>
+									</h2>
+									<div id="collapseTwo" class="accordion-collapse collapse show"
+										data-bs-parent="#accordionExample">
+										<div class="accordion-body">
+											<table class=" table text-center align-middle ">
+												<thead class="table-secondary">
+													<tr>
+														<th scope="col">#</th>
+														<th scope="col">기관명</th>
+														<th scope="col">소재지</th>
+														<th scope="col">실습기간</th>
+														<th scope="col">결과발표일</th>
+														<th scope="col">선발인원</th>
+														<th scope="col">선발여부</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items="${list2}" var="companyList"
+														varStatus="loopStatus">
 														<tr>
-															<th scope="col">#</th>
-															<th scope="col">기관명</th>
-															<th scope="col">소재지</th>
-															<th scope="col">실습기간</th>
-															<th scope="col">결과발표일</th>
-															<th scope="col">선발인원</th>
-															<th scope="col">선발여부</th>
+															<th class="text-center">${loopStatus.index + 1}</th>
+															<th scope="row">${companyList.COMPANY_NAME}</th>
+															<th scope="row">${companyList.ADDRESS}</th>
+															<th><fmt:formatDate
+																	value="${companyList.INTERNSHIP_START_DATE}"
+																	pattern="yyyy-MM-dd hh:mm" /> ~ <br> <fmt:formatDate
+																	value="${companyList.INTERNSHIP_END_DATE}"
+																	pattern="yyyy-MM-dd hh:mm" /></th>
+															<th><fmt:formatDate
+																	value="${companyList.ANNOUNCEMENT_DATE}"
+																	pattern="yyyy-MM-dd hh:mm" /></th>
+															<th scope="row">${companyList.INTERNSHIP_TOTAL_MEMBER}명</th>
+															<th scope="row">${companyList.STATUS}</th>
 														</tr>
-													</thead>
-													<tbody>
-														<c:forEach items="${list2}" var="companyList"
-															varStatus="loopStatus">
-															<tr>
-																<th class="text-center">${loopStatus.index + 1}</th>
-																<th scope="row">${companyList.COMPANY_NAME}</th>
-																<th scope="row">${companyList.ADDRESS}</th>
-																<th><fmt:formatDate
-																		value="${companyList.INTERNSHIP_START_DATE}"
-																		pattern="yyyy-MM-dd hh:mm" /> ~ <br> <fmt:formatDate
-																		value="${companyList.INTERNSHIP_END_DATE}"
-																		pattern="yyyy-MM-dd hh:mm" /></th>
-																<th><fmt:formatDate
-																		value="${companyList.ANNOUNCEMENT_DATE}"
-																		pattern="yyyy-MM-dd hh:mm" /></th>
-																<th scope="row">${companyList.INTERNSHIP_TOTAL_MEMBER}명</th>
-																<th scope="row">${companyList.STATUS}</th>
-															</tr>
-														</c:forEach>
-													</tbody>
-												</table>
-											</div>
+													</c:forEach>
+												</tbody>
+											</table>
 										</div>
 									</div>
 								</div>
@@ -228,10 +227,11 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
+
 		</div>
 	</div>
+
 	<!-- 전체 container 출구 -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
