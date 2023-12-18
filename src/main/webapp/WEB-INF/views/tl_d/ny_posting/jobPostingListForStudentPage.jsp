@@ -348,7 +348,7 @@
 	 	<%-- 전체 크기 --%>
 		<div class="row">
 			<%-- 취업팀 메뉴 바 --%>
-			<div class="col-2 ps-0">
+			<div class="col-2">
 				<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 			</div>
 			<%-- 가운데 여백--%>	

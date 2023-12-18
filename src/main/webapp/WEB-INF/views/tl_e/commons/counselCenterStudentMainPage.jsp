@@ -122,7 +122,7 @@
 									<a href="../../tl_e/freeboardCounsel/freeboardCounselPage" class="fw-bold" style="font-size: 1.2em; text-decoration-line: none; color: black">자유게시판</a>
 								</div>
 								<div class="col text-center">
-									<a href="#" class="fw-bold" style="font-size: 1.2em; text-decoration-line: none; color: black">상담원 정보</a>
+									<a href="../../tl_e/registerCounselor/counselorInfo" class="fw-bold" style="font-size: 1.2em; text-decoration-line: none; color: black">상담원 정보</a>
 								</div>									
 							</div>
 						</div>
