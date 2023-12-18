@@ -105,9 +105,39 @@
 						<div class="col pb-3" style="border-bottom-width: 2px; border-bottom-style: solid; border-color: #dcdcdc;">
 							<div class="row">
 								<div class="col">
-									<span class="fw-bold" style="font-size: 1.5em;">상담일정</span>
+									<span class="fw-bold" style="font-size: 1.5em;">나의 상담일정</span>
 									&nbsp
-									<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">Schedule</span>								
+									<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">Counsel Schedule</span>								
+								</div>
+								<div class="col-2 text-end">
+									<i style="font-size: 1.5em;" class="bi bi-three-dots"></i>
+								</div>
+							</div>
+						</div>
+						<div class="col-1"></div>
+					</div>
+					<div class="row pt-5" style="height: 40em;">
+						<div class="col-1"></div>
+						<div class="col">
+
+								
+
+
+
+						</div>
+						<div class="col-1"></div>
+					</div>
+					
+					
+					<div class="row" style="height: 5em;"></div>
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col pb-3" style="border-bottom-width: 2px; border-bottom-style: solid; border-color: #dcdcdc;">
+							<div class="row">
+								<div class="col">
+									<span class="fw-bold" style="font-size: 1.5em;">프로그램 일정</span>
+									&nbsp
+									<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">Program Schedule</span>								
 								</div>
 								<div class="col-2 text-end">
 									<i style="font-size: 1.5em;" class="bi bi-three-dots"></i>
@@ -145,7 +175,9 @@
 							</div>
 						</div>
 						<div class="col-1"></div>
-					</div>
+					</div>	
+					<div class="row" style="height: 3em;"></div>
+									
 				</div>
 				<div class="col-4 px-3" style="border-width: 0px 2px 0px 0px; border-style: solid; border-color: #dcdcdc;">
 					<div class="row" style="height: 5em;"></div>

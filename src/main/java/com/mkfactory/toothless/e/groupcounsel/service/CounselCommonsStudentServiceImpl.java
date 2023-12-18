@@ -23,13 +23,6 @@ public class CounselCommonsStudentServiceImpl {
 	public List<Map<String, Object>> getGroupCounselList(int student_pk){
 		List<Map<String, Object>> list = counselCommonsStudentMapper.getGroupCounselReservationById(student_pk);
 
-		for(Map<String, Object> e : list) {
-			System.out.println(e.get("D_DAY"));
-			System.out.println(e);
-			
-		}
-		
-		
 		return counselCommonsStudentMapper.getGroupCounselReservationById(student_pk);
 	}
 	

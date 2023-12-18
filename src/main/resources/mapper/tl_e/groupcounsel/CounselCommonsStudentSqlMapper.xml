@@ -54,7 +54,7 @@
 		WHERE notice_id = #{notice_id}	
 	</select>
 	
-	
+
 </mapper>
 
 
