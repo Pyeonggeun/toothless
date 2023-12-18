@@ -93,4 +93,7 @@ public interface CompanySqlMapper {
 	
 	//외부인계정 아이디 중복확인
 	public int countByExternalId(String external_id);
+	
+	//학생이 어디 기업 찜했나 볼려고
+	//public InterestCompanyDto interestComponySelectByStudentPk(int student_pk);
 }

@@ -102,6 +102,7 @@ public class PostingController {
 		List<CompanyDto> companyDtoList = postingService.getCompanyList();
 		
 		boolean businessNumberMatched = false;
+		
 		// 사업자 번호 찾기
 		for (CompanyDto companyDto : companyDtoList) {
 		    if (companyDto.getBusiness_number().equals(param.getBusiness_number())) {
@@ -330,7 +331,7 @@ public class PostingController {
 	
 	// 기업용 공고 리스트
 	@RequestMapping("jobPostingListForCompanyPage")
-	public String jobPostingListForCompanyPage(Model model, HttpSession session) {
+	public String jobPostingListForCompanyPage(HttpSession session, Model model) {
 		
 		ExternalInfoDto externalInfoDto = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
 		
@@ -339,6 +340,7 @@ public class PostingController {
 			
 			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalInfoPk);
 			
+			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
 			model.addAttribute("companyPostingCount", postingService.getCompanyPostingCount(companyDto.getCom_pk()));
 			model.addAttribute("companyPostingList", postingService.getCompanyPostingList(companyDto.getCom_pk()));
 			
@@ -350,7 +352,17 @@ public class PostingController {
 	
 	// 기업용 상세 리스트
 	@RequestMapping("jobPostingDetailForCompanyPage")
-	public String jobPostingDetailForCompanyPage(Model model, int id) {
+	public String jobPostingDetailForCompanyPage(HttpSession session, Model model, int id) {
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
+		
+		if(externalInfoDto != null) {
+			int externalInfoPk = externalInfoDto.getExternal_pk();
+			
+			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalInfoPk);
+			
+			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
+		}
 		
 		// 기업 상세
 		model.addAttribute("jobPostingDetailForCompany", postingService.getJobPostingDetail(id));
@@ -374,7 +386,8 @@ public class PostingController {
 			int externalInfoPk = externalInfoDto.getExternal_pk();
 			
 			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalInfoPk);
-		
+			
+			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
 			model.addAttribute("applyStudentList", postingService.getApplyStudentTotalList(companyDto.getCom_pk()));
 			
 		}	
@@ -385,13 +398,14 @@ public class PostingController {
 	@RequestMapping("myCompanyInterestListPage")
 	public String myCompanyInterestListPage(HttpSession session, Model model) {
 		
-ExternalInfoDto externalInfoDto = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
 		
 		if(externalInfoDto != null) {
 			int externalInfoPk = externalInfoDto.getExternal_pk();
 			
 			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalInfoPk);
-		
+			
+			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
 			model.addAttribute("interestCompanyTotalList", postingService.getInterestCompanyTotalList(companyDto.getCom_pk()));
 			
 		}	
