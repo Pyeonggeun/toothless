@@ -350,12 +350,25 @@
 		    WHERE tjsi.STUDENT_PK IN (
 		        SELECT tdic.STUDENT_PK
 		        FROM TL_D_INTEREST_COMPANY tdic
-		        WHERE tdic.COM_PK = 41
+		        WHERE tdic.COM_PK = #{com_pk}
 		    )
 		    <![CDATA[
 		    AND ROWNUM <= 4
 		    ]]>
 		) t1
+	</select>
+	
+	<!-- 관심기업학생 리스트 -->
+	<select id="selectMyCompanyInterestTotalList" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT *
+		FROM (
+		    SELECT tjsi.*
+		    FROM TL_JIC_STUDENT_INFO tjsi
+		    WHERE tjsi.STUDENT_PK IN (
+		        SELECT tdic.STUDENT_PK
+		        FROM TL_D_INTEREST_COMPANY tdic
+		        WHERE tdic.COM_PK = #{com_pk} 
+		)
 	</select>
 	
 	<!-- 학생 + 학과  -->

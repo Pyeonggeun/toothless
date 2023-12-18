@@ -28,7 +28,7 @@
 			<div class="col">
 				<!-- 채용공고 -->
 				<div class="row">
-					<div class="col fs-4 fw-bold mt-5 text-center">관심공고리스트</div>
+					<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">관심공고리스트</div>
 				</div>
 				<div class="row mt-5 pb-3 border-bottom">
 					<div class="col-9 pt-1">

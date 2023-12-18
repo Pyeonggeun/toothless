@@ -593,6 +593,28 @@ public class PostingServiceImpl {
 		
 	}
 	
+	// 관심기업 리스트
+	public List<Map<String, Object>> getInterestCompanyTotalList(int com_pk){
+		
+			List<Map<String, Object>> interestCompanyTotalList = new ArrayList<>();
+		
+		List<StudentInfoDto> studentInfoDtoList = postingSqlMapper.selectMyCompanyInterestTotalList(com_pk);
+		
+		for(StudentInfoDto studentInfoDto : studentInfoDtoList) {
+			
+			List<Integer> graduationInfoDtoList = postingSqlMapper.selectGraduationList();
+			
+			Map<String, Object> interestCompanyTotalMap = new HashMap<>();
+			
+			interestCompanyTotalMap.put("studentInfoDto", studentInfoDto);
+			interestCompanyTotalMap.put("graduationInfoDtoList", graduationInfoDtoList);
+			
+			interestCompanyTotalList.add(interestCompanyTotalMap);
+			
+		}
+		return interestCompanyTotalList;
+	}
+	
 	// 기업 지원한 학생 총 리스트
 	public List<Map<String, Object>> getApplyStudentTotalList(int com_pk){
 		
