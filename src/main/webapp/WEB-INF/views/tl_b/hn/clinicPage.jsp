@@ -9,7 +9,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
+		
+		<script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
+		
         <script>
 
     		let searchWord = "";
@@ -23,14 +25,33 @@
         	let startWaitingPageNumber = 1;
         	let endWaitingPageNumber = 1;
         	
-        	function reset() {
+        	let forIdCount = 1;
+        	let clinicPatientKey = 1;
+        	let clinicPatientLogKey = 1;
+        	
+        	let isAlreadyWaiting = true;
+        	let isAlreadyPatient = true;
+        	
+        	function resetClinicPage() {
         		
         		clinicPageNumber = 1;
         		searchWord = "";
         		document.getElementById("searchWord").value = "";
         		
+        	}
+        	
+        	function reset() {
+        		
+        		resetClinicPage();
         		reloadClinicTotalPageNumber();
-        		reloadClinicPatientList();
+        		
+        	}
+        	
+        	function resetClick() {
+        		
+        		resetClinicPage();
+        		reloadClinicTotalPageNumber();
+        		resetClinicPaitentLogInfo();
         		
         	}
         	
@@ -39,7 +60,6 @@
         		searchWord = document.getElementById("searchWord").value;
         		
         		reloadClinicTotalPageNumber();
-        		reloadClinicPatientList();
         		
         	}
         	
@@ -254,6 +274,8 @@
         		.then(response => {
         			
         			totalClinicPageNumber = response.data;
+
+            		reloadClinicPatientList();
         			
         		});
         		
@@ -269,11 +291,20 @@
         			
         			totalWaitingPageNumber = response.data;
         			
+        			reloadWaitingClinicPatientList();
+        			
         		});
         		
         	}
 			
 			function addWaiting() {
+				
+				if(isAreadyWaiting) {
+					
+					showAlreadyWaitingModal();
+					
+					return;
+				}
 				
 				const checkBoxList = document.getElementsByClassName("checkBox");
 				
@@ -290,10 +321,26 @@
 							
 							reset();
 							reloadWaitingClinicTotalPageNumber();
-			            	reloadWaitingClinicPatientList();
 							
 						});
 						
+						break;
+					}
+				}
+				
+			}
+			
+			function directShowLog() {
+				
+				const checkBoxList = document.getElementsByClassName("checkBox");
+				
+				for(let x = 0 ; x < checkBoxList.length ; x++) {
+					if(checkBoxList[x].checked == true) {
+						
+						resetClinicPaitentLogInfo();
+		        		getClinicPatientLogInfo(checkBoxList[x].value);
+						
+						break;
 					}
 				}
 				
@@ -305,15 +352,60 @@
         	
         	function onMouseLeave(e) {
         		e.target.classList.remove("bg-primary-subtle");
-        	}        	
+        	}
+        	
+        	function isWaiting(clinicPatientPk) {
+        		
+        		const url = "./isAreadyWaiting?clinic_patient_pk=" + clinicPatientPk;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			isAreadyWaiting = response.data;
+        			
+        		});
+        		
+        	}
 
         	function checkTheBox(target) {
         		
-        		if(target.querySelector(".checkBox").checked == true) {
-        			target.querySelector(".checkBox").checked = false;
+        		if(target.closest(".clinicPatientWrapper").querySelector(".checkBox").checked == true) {
+        			target.closest(".clinicPatientWrapper").querySelector(".checkBox").checked = false;
         		}else {
-        			target.querySelector(".checkBox").checked = true;
+        			target.closest(".clinicPatientWrapper").querySelector(".checkBox").checked = true;
+            		isWaiting(Number(target.closest(".clinicPatientWrapper").querySelector(".checkBox").value));
         		}
+        		
+        	}
+        	
+        	function resetAddInfo() {
+        		
+        		document.getElementById("inputName").value = "";
+            	document.getElementById("inputBirth").value = "";
+            	document.getElementById("inputFirstPhone").value = "";
+            	document.getElementById("inputSecondPhone").value = "";
+            	document.getElementById("inputThirdPhone").value = "";
+            	document.getElementById("inputAddress").value = "";
+        		document.getElementById("checkResidentIdBox").innerHTML = "";
+        		document.getElementById("fillBox").innerText = "";
+        		
+        	}
+        	
+        	function isPatient(residentId) {
+        		
+        		const url = "./isAlreadyPatient?resident_id=" + residentId;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			isAlreadyPatient = response.data;
+        			
+        			getNewPatientInfo(residentId);
+        			
+        		});
+        		
         	}
 			
 			function checkResidentIdFetch() {
@@ -324,68 +416,61 @@
 				if(firstResidentId.length != 0 && secondResidentId.length != 0) {
 					
 					const residentId = firstResidentId + "-" + secondResidentId;
-					const url = "./getNewClinicPatientInfo?resident_id=" + residentId;
-					
-					fetch(url)
-					.then(response => response.json())
-					.then(response => {
-						
-						const inputName = document.getElementById("inputName");
-						const inputBirth = document.getElementById("inputBirth");
-						const inputFirstPhone = document.getElementById("inputFirstPhone");
-						const inputSecondPhone = document.getElementById("inputSecondPhone");
-						const inputThirdPhone = document.getElementById("inputThirdPhone");
-						const inputAddress = document.getElementById("inputAddress");
-						const checkResidentIdBox = document.getElementById("checkResidentIdBox");
-						
-						if(response.data.classify != '외부인') {
-							
-							inputName.value = "";
-							inputBirth.value = "";
-							inputFirstPhone.value = "";
-							inputSecondPhone.value = "";
-							inputThirdPhone.value = "";
-							inputAddress.value = "";
-							checkResidentIdBox.innerHTML = "";
-							
-							inputName.value = response.data.clinicPatientInfo.name;
-							const birth = new Date(response.data.clinicPatientInfo.birth);
-							inputBirth.value =
-								birth.getFullYear().toString() + "-" + ("0" + (birth.getMonth() + 1)).slice(-2) + "-" + ("0" + birth.getDate()).slice(-2);
-							const phone = response.data.clinicPatientInfo.phone;
-			            	inputFirstPhone.value = phone.slice(0, phone.indexOf("-"));
-							inputSecondPhone.value = phone.slice(phone.indexOf("-")+1, phone.lastIndexOf("-"));
-							inputThirdPhone.value = phone.slice(phone.lastIndexOf("-")+1);
-							inputAddress.value = response.data.clinicPatientInfo.address;							
-							checkResidentIdBox.innerText = "※ " + response.data.classify;
-							checkResidentIdBox.style.color = "green";
-							
-						}else {
-							
-							inputName.value = "";
-							inputBirth.value = "";
-							inputFirstPhone.value = "";
-							inputSecondPhone.value = "";
-							inputThirdPhone.value = "";
-							inputAddress.value = "";
-							checkResidentIdBox.innerHTML = "";
-							
-							checkResidentIdBox.innerText = "※ 외부인";
-							checkResidentIdBox.style.color = "red";
-						}
-						
-					});
+					isPatient(residentId);
 					
 				}else {
-					document.getElementById("inputName").value = "";
-	            	document.getElementById("inputBirth").value = "";
-	            	document.getElementById("inputFirstPhone").value = "";
-	            	document.getElementById("inputSecondPhone").value = "";
-	            	document.getElementById("inputThirdPhone").value = "";
-	            	document.getElementById("inputAddress").value = "";
-            		document.getElementById("checkResidentIdBox").innerHTML = "";
+					
+					resetAddInfo();
+					
 					return;
 				}
+				
+			}
+			
+			function getNewPatientInfo(residentId) {
+				
+				if(isAlreadyPatient) {
+					
+					resetAddInfo();
+					
+					checkResidentIdBox.innerText = "※ 이미 등록된 환자입니다";
+					checkResidentIdBox.style.color = "red";
+					
+					return;
+					
+				}
+				
+				const url = "./getNewClinicPatientInfo?resident_id=" + residentId;
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					if(response.data.classify != '외부인') {
+						
+						resetAddInfo();
+						
+						inputName.value = response.data.clinicPatientInfo.name;
+						const birth = new Date(response.data.clinicPatientInfo.birth);
+						inputBirth.value =
+							birth.getFullYear().toString() + "-" + ("0" + (birth.getMonth() + 1)).slice(-2) + "-" + ("0" + birth.getDate()).slice(-2);
+						const phone = response.data.clinicPatientInfo.phone;
+		            	inputFirstPhone.value = phone.slice(0, phone.indexOf("-"));
+						inputSecondPhone.value = phone.slice(phone.indexOf("-")+1, phone.lastIndexOf("-"));
+						inputThirdPhone.value = phone.slice(phone.lastIndexOf("-")+1);
+						inputAddress.value = response.data.clinicPatientInfo.address;							
+						checkResidentIdBox.innerText = "※ " + response.data.classify;
+						checkResidentIdBox.style.color = "green";
+						
+					}else {
+						
+						resetAddInfo();
+						
+						checkResidentIdBox.innerText = "※ 외부인";
+						checkResidentIdBox.style.color = "green";
+					}
+					
+				});
 				
 			}
 			
@@ -397,6 +482,23 @@
 				const phone = document.getElementById("inputFirstPhone").value + "-" +
 					document.getElementById("inputSecondPhone").value + "-" + document.getElementById("inputThirdPhone").value;
 				const address = document.getElementById("inputAddress").value;
+				
+				if(birth == "" || document.getElementById("inputFirstResidentId").value == "" || document.getElementById("inputSecondResidentId").value == ""
+						|| name ==  "" || document.getElementById("inputFirstPhone").value == "" || document.getElementById("inputSecondPhone").value == "" || document.getElementById("inputThirdPhone").value == "" || address == "") {
+					
+					document.getElementById("fillBox").innerText = "! 빈칸을 전부 채워주세요";
+					
+					return;
+					
+				}
+				
+
+				if(isAlreadyPatient) {
+					
+					return;
+					
+				}
+				
 				
 				const url = "./insertNewClinicPatientInfo?resident_id=" + residentId + "&name=" + name +
 						"&birth=" + birth + "&phone=" + phone + "&address=" + address;
@@ -412,7 +514,6 @@
 	                
 					reset();
 					reloadWaitingClinicTotalPageNumber();
-	            	reloadWaitingClinicPatientList();
 					
 				});
 				
@@ -420,15 +521,17 @@
         	
         	function showLog(target) {
         		
+        		clinicPatientKey = target.querySelector(".waitingClinicPatientPk").innerText;
+        		
         		resetClinicPaitentLogInfo();
-        		getClinicPatientLogInfo(target.querySelector(".waitingClinicPatientPk").innerText);
+        		getClinicPatientLogInfo(clinicPatientKey);
         		
         	}
         	
         	function getClinicPatientLogInfo(clinicPatientPk) {
         		
 				url = "./getClinicPatientLogInfo?clinic_patient_pk=" + clinicPatientPk;
-        		
+				
         		fetch(url)
         		.then(response => response.json())
         		.then(response => {
@@ -438,6 +541,7 @@
         			const logAge = document.getElementById("logAge");
         			const logAddress = document.getElementById("logAddress");
         			const logPhone = document.getElementById("logPhone");
+        			const logButton = document.getElementById("logButton");
         			const clinicPatientLogListBox = document.getElementById("clinicPatientLogListBox");
         			
         			logName.innerText = response.data.clinicPatientInfo.name;
@@ -445,6 +549,7 @@
         			logAge.innerText = response.data.clinicPatientInfo.age;
         			logAddress.innerText = response.data.clinicPatientInfo.address;
         			logPhone.innerText = response.data.clinicPatientInfo.phone;
+        			logButton.value = response.data.clinicPatientInfo.clinic_patient_pk;
         			
         			for(e of response.data.clinicPatientLogInfoList) {
         				
@@ -462,8 +567,8 @@
         				const logDisease = clinicPatientLogWrapper.querySelector(".logDisease");
         				logDisease.innerText = e.clinicPatientLogInfo.disease_code_pk + " " + e.diseaseName;
         				
-        				const logButton = clinicPatientLogWrapper.querySelector(".logButton");
-        				logButton.value = e.clinicPatientLogInfo.clinic_patient_log_pk;
+        				const detailButton = clinicPatientLogWrapper.querySelector(".detailButton");
+        				detailButton.value = e.clinicPatientLogInfo.clinic_patient_log_pk;
         				
         				clinicPatientLogListBox.appendChild(clinicPatientLogWrapper);
         				
@@ -497,7 +602,7 @@
         				detailMedicine.innerText = e.prescriptionInfo.medicine_code_pk + " " + e.medicineName;
         				
         				const detailQuantity = datailPrescriptionWrapper.querySelector(".detailQuantity");
-        				detailQuantity.innerText - e.prescriptionInfo.quantity;
+        				detailQuantity.innerText = -e.prescriptionInfo.quantity;
         				
         				datailPrescriptionBox.appendChild(datailPrescriptionWrapper);
         				
@@ -507,22 +612,222 @@
         		
         	}
         	
+        	function getDiseaseCodeInfo() {
+        		
+        		const url = "./getDiseaseCodeInfoList";
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			const diseaseDataListOptionsBox = document.getElementById("diseaseDataListOptionsBox");
+        			
+        			for(e of response.data) {
+        				
+        				const option = document.createElement("option");
+        				option.value = e.disease_code_pk + " " + e.name;
+        				
+        				diseaseDataListOptionsBox.appendChild(option);
+        				
+        			}
+        			
+        		});
+        		
+        	}
+        	
+        	function getMedicineCodeInfo() {
+        		
+        		const writeMedicine = document.getElementsByClassName("writeMedicine");
+        		const selectMedicines = [];
+        		
+        		for(e of writeMedicine) {
+        			selectMedicines.push(Number(e.value.slice(0, e.value.indexOf(" "))));
+        		}
+        		
+        		const url = "./getMedicineCodeInfoList?selectMedicines=" + selectMedicines;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			const medicineDataListOptionsBox = document.getElementsByClassName("medicineDataListOptionsBox");
+        			
+        			for(box of medicineDataListOptionsBox) {
+        				
+        				box.innerHTML = "";
+        				
+        				for(e of response.data) {
+            				
+            				const option = document.createElement("option");
+            				option.value = e.medicine_code_pk + " " + e.name;
+            				
+            				box.appendChild(option);
+            				
+            			}
+        			}
+        			
+        		});
+        		
+        	}
+        	
+        	function getMedicineMaxQuantity(target) {
+        		
+        		const selectMedicineCodePk = Number(target.value.slice(0, target.value.indexOf(" ")));
+        		
+        		const url = "./getMedicineMaxQuantity?medicine_code_pk=" + selectMedicineCodePk;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			const wrtiePrescriptionWrapper = target.closest(".wrtiePrescriptionWrapper");
+    	       		const writeQuantity = wrtiePrescriptionWrapper.querySelector(".writeQuantity");
+    	       		
+    	       		writeQuantity.setAttribute("max", response.data);
+    	       		writeQuantity.setAttribute("min", "0");
+    	       		writeQuantity.value = "0";
+    	       		
+        		});
+        		
+        	}
+        	
+        	function addPrescription() {
+        		
+        		const wrtiePrescriptionWrapper = document.querySelector("#templete .wrtiePrescriptionWrapper").cloneNode(true);
+        		
+        		wrtiePrescriptionWrapper.querySelector(".writeMedicine").setAttribute("list", "optionsBox" + forIdCount);
+        		wrtiePrescriptionWrapper.querySelector(".medicineDataListOptionsBox").setAttribute("id", "optionsBox" + forIdCount);
+        		
+        		forIdCount++;
+        		
+        		document.getElementById("writePrescriptionBox").appendChild(wrtiePrescriptionWrapper);
+        		
+        		getMedicineCodeInfo();
+        		
+        	}
+        	
+        	function checkListAndQuantityFetch(target) {
+	       		
+	       		getMedicineCodeInfo();
+	       		getMedicineMaxQuantity(target);
+        		
+        	}
+        	
+        	function addLog() {
+        		
+        		const diseaseCodePk = document.getElementById("writeDisease").value
+        			.slice(0, document.getElementById("writeDisease").value.indexOf(" "));
+        		const content = document.getElementById("writeContent").value;
+        		
+        		if(document.getElementById("writeDisease").value == "" || content == "") {
+        			
+					document.getElementById("fillLogBox").innerText = "! 빈칸을 전부 채워주세요";
+					
+					return;
+        			
+        		}
+        		
+         		const clinicPatientPk = document.getElementById("logButton").value;
+        		
+        		const writeMedicine = document.getElementsByClassName("writeMedicine");
+        		const writeQuantity = document.getElementsByClassName("writeQuantity");
+        		
+         		const medicineCodePkList = [];
+        		const QuantityList = [];
+        		
+        		for(e of writeMedicine) {
+        			medicineCodePkList.push(Number(e.value.slice(0, e.value.indexOf(" "))));
+        		}
+        		for(e of writeQuantity) {
+        			QuantityList.push(Number(e.value));
+        		}
+        		
+        		const url = "./insertClinicPatientLog?disease_code_pk=" + diseaseCodePk + "&content=" + content +
+        				"&clinic_patient_pk=" + clinicPatientPk +
+        				"&medicineCodePkList=" + medicineCodePkList + "&quantityList=" + QuantityList;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			const modal = bootstrap.Modal.getOrCreateInstance("#writeClinicPatientLog");
+        			modal.hide();
+
+        			updateWaitingStatus(clinicPatientPk);
+        			
+        		});
+        		
+        	}
+        	
+        	function updateWaitingStatus(clinicPatientPk) {
+        		const url = "./updateWaitingStatus?clinic_patient_pk=" + clinicPatientPk;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+
+        			reset();
+        			resetClinicPaitentLogInfo();
+            		getClinicPatientLogInfo(clinicPatientPk);
+        			reloadWaitingClinicTotalPageNumber();
+                	
+        		});
+        	}
+        	
             function showAddClinicPatientModal() {
-                const modal = bootstrap.Modal.getOrCreateInstance("#addNewClinicPatient");
+
                 resetAddClinicPatientModal();
+            	
+                const modal = bootstrap.Modal.getOrCreateInstance("#addNewClinicPatient");
                 modal.show();
             }
 
             function showWriteClinicPatientLogModal() {
+            	
+            	if(document.getElementById("logName").innerText == "") {
+            		
+            		showGetClinicInfoModal();
+            		
+            		return;
+            		
+            	}
+            	
                 const modal = bootstrap.Modal.getOrCreateInstance("#writeClinicPatientLog");
+                forIdCount = 1;
+                resetWriteLogInfo();
+                getDiseaseCodeInfo();
                 modal.show();
             }
-
+            
             function showDetailClinicPatientLogModal(target) {
+            	
+            	clinicPatientLogKey = target.value;
+            	
                 const modal = bootstrap.Modal.getOrCreateInstance("#detailClinicPatientLog");
                 resetDetailLogInfo();
-                getClinicPatientDetailLogInfo(target.value);
+                getClinicPatientDetailLogInfo(clinicPatientLogKey);
                 modal.show();
+            }
+            
+            function showAlreadyWaitingModal() {
+            	
+                const modal = bootstrap.Modal.getOrCreateInstance("#alreadyWaitingModal");
+                modal.show();
+            }
+            
+			function showGetClinicInfoModal() {
+            	
+                const modal = bootstrap.Modal.getOrCreateInstance("#getClinicInfoModal");
+                modal.show();
+            }
+            
+            function hideAlreadyWaitingModal() {
+            	
+            	const modal = bootstrap.Modal.getOrCreateInconstance("#alreadyWaitingModal");
+                modal.hide();
+                
+                reset();
+            	
             }
             
             function resetAddClinicPatientModal() {
@@ -536,6 +841,7 @@
             	document.getElementById("inputThirdPhone").value = "";
             	document.getElementById("inputAddress").value = "";
             	document.getElementById("checkResidentIdBox").innerHTML = "";
+            	document.getElementById("fillBox").innerText = "";
             	
             }
             
@@ -546,6 +852,7 @@
     			document.getElementById("logAge").innerText = "";
     			document.getElementById("logAddress").innerText = "";
     			document.getElementById("logPhone").innerText = "";
+    			document.getElementById("logButton").value = "";
     			document.getElementById("clinicPatientLogListBox").innerHTML = "";
     			
             }
@@ -558,16 +865,24 @@
             	
             }
             
+            function resetWriteLogInfo() {
+            	
+            	document.getElementById("diseaseDataListOptionsBox").innerHTML = "";
+            	document.getElementById("writeDisease").value = "";
+            	document.getElementById("writeContent").value = "";
+            	document.getElementById("writePrescriptionBox").innerHTML = "";
+            	document.getElementById("fillLogBox").innerText = "";
+            	
+            }
+            
             window.addEventListener("DOMContentLoaded", () => {
             	
             	reloadClinicTotalPageNumber();
-            	reloadClinicPatientList();
             	reloadWaitingClinicTotalPageNumber();
-            	reloadWaitingClinicPatientList();
             	resetClinicPaitentLogInfo();
             	
             });
-
+            
         </script>
 
     </head>
@@ -580,184 +895,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="row">
-                                <div class="col col-auto border-end">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="row mt-4">
-                                                        <div class="col text-center" style="font-size: xx-large;">
-                                                            MENU
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col text-center">
-                                                            <i class="bi bi-person-lines-fill" style="font-size: 4em;"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col text-center">
-                                                            보건직원 이름 님
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col">
-                                                    <div class="row">
-                                                        <div class="col text-center" style="font-size: small;">
-                                                            마이페이지&nbsp;&nbsp;|&nbsp;&nbsp;로그아웃
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="col">
-                                            <div class="row mt-2">
-                                                <div class="col">
-                                                    <div class="row">
-                                                        <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-capsule"></i>&nbsp;&nbsp;의약품관리
-                                                                        </div>
-                                                                        <div class="col-1 me-3 text-end pe-0">
-                                                                            &or;
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </p>
-                                                            <div class="collapse" id="collapseExample1">
-                                                                <div class="card card-body rounded-0 py-0 border-0">
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        재고관리
-                                                                    </a>
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        입고관리
-                                                                    </a>
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        코드관리
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold text-white" style="font-size: small; background-color: #014195;" type="button">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-ui-checks"></i>&nbsp;&nbsp;진료관리
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-person-exclamation"></i>&nbsp;&nbsp;요보호학생관리
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-box-seam"></i>&nbsp;&nbsp;물품관리
-                                                                        </div>
-                                                                        <div class="col-1 me-3 text-end pe-0">
-                                                                            &or;
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </p>
-                                                            <div class="collapse" id="collapseExample2">
-                                                                <div class="card card-body rounded-0 py-0 border-0">
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        등록
-                                                                    </a>
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        현황관리
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-highlighter"></i>&nbsp;&nbsp;교육프로그램관리
-                                                                        </div>
-                                                                        <div class="col-1 me-3 text-end pe-0">
-                                                                            &or;
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </p>
-                                                            <div class="collapse" id="collapseExample3">
-                                                                <div class="card card-body rounded-0 py-0 border-0">
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        등록
-                                                                    </a>
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        조회
-                                                                    </a>
-                                                                    <a class="btn btn-transparent text-start" href="#" style="font-size: small;">
-                                                                        이수자관리
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-calendar-check"></i>&nbsp;&nbsp;일정관리
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col px-0">
-                                                            <p class="d-grid mb-0">
-                                                                <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button">
-                                                                    <div class="row py-2 mx-1">
-                                                                        <div class="col text-start">
-                                                                            <i class="bi bi-question-octagon"></i>&nbsp;&nbsp;공지사항
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            	<jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
                                 <div class="col">
                                     <div class="row">
                                         <div class="col">
@@ -811,11 +949,14 @@
                                                     <div class="row mt-2">
                                                         <div class="col">
                                                             <div class="row">
-                                                                <div class="col d-grid justify-content-start ps-2">
-                                                                    <button onclick="reset()" class="btn rounded-0 py-1" style="border-color: #014195; font-size: 0.7em;">초기화</button>
+                                                                <div class="col d-grid pe-0">
+                                                                    <button onclick="resetClick()" class="btn rounded-0 py-1" style="border-color: #014195; font-size: 0.7em;">초기화</button>
                                                                 </div>
-                                                                <div class="col d-grid justify-content-end">
-                                                                    <button onclick="addWaiting()" class="btn text-white rounded-0 py-1" style="background-color: #014195; font-size: 0.7em;">대기 추가</button>
+                                                                <div class="col d-grid pe-0">
+                                                                    <button onclick="directShowLog()" class="btn text-white rounded-0 py-1 px-0" style="background-color: #014195; font-size: 0.7em;">진료보기</button>
+                                                                </div>
+                                                                <div class="col d-grid">
+                                                                    <button onclick="addWaiting()" class="btn text-white rounded-0 py-1 px-0" style="background-color: #014195; font-size: 0.7em;">대기 추가</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -984,11 +1125,11 @@
                                                                             진료내역
                                                                         </div>
                                                                         <div class="col d-grid justify-content-end">
-                                                                            <button onclick="showWriteClinicPatientLogModal()" class="btn text-white rounded-0" style="font-size: 0.8em; background-color: #014195;">진료보기</button>
+                                                                            <button onclick="showWriteClinicPatientLogModal()" id="logButton" class="btn text-white rounded-0" style="font-size: 0.8em; background-color: #014195;">진료보기</button>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row mb-4 mt-2">
-                                                                        <div id="clinicPatientLogListBox" class="col overflow-auto" style="height: 34em; background-image: url(./img/health/cutebaduck.gi); background-repeat: no-repeat; background-size: contain; background-position: center;">
+                                                                        <div id="clinicPatientLogListBox" class="col overflow-auto" style="height: 34em; background-image: url(../../resources/img/healthRoom/cutebaduck.gif); background-repeat: no-repeat; background-size: contain; background-position: center;">
                                                                             
                                                                             <!-- 진료내역 clinicPatientLogWrapper -->
 
@@ -1006,30 +1147,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col py-4" style="background-color: #F2F2F2;">
-                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-1 my-auto">
-                                                    <img class="img-fluid" src="../../resources/img/another/logo_black.png">
-                                                </div>
-                                                <div class="col-3 ps-0 my-auto" style="font-size: x-large">
-                                                    MK University | 보건센터
-                                                </div>
-                                                <div class="col text-body-tertiary my-auto" style="font-size: small;">
-                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
                 </div>
             </div>
         </div>
@@ -1039,7 +1157,7 @@
         	<div onclick="checkTheBox(this)" class="clinicPatientWrapper row">
 	            <div class="col-1 d-grid justify-content-center">
 	                <div class="form-check">
-	                    <input class="checkBox form-check-input rounded-0" type="checkbox" value="" style="font-size: 0.7em; position: relative; top: 0.35em">
+	                    <input onclick="checkTheBox(this)" class="checkBox form-check-input rounded-0" name="clinicPatientRadioBox" type="radio" value="" style="font-size: 0.7em; position: relative; top: 0.35em">
 	                </div>
 	            </div>
 	            <div class="clinicPatientPk col-2 mx-auto px-0 my-auto text-center" style="font-size: 0.7em;">
@@ -1087,7 +1205,7 @@
 	                <div class="row mt-2">
 	                    <div class="logDisease col my-auto" style="font-size: 0.85em;">10527 질병명</div>
 	                    <div class="col my-auto d-grid justify-content-end">
-	                        <button onclick="showDetailClinicPatientLogModal(this)" class="logButton btn rounded-0 py-0" style="font-size: 0.8em; border-color: #014195;">상세보기</button>
+	                        <button onclick="showDetailClinicPatientLogModal(this)" class="detailButton btn rounded-0 py-0" style="font-size: 0.8em; border-color: #014195;">상세보기</button>
 	                    </div>
 	                </div>
 	                <div>
@@ -1111,12 +1229,12 @@
 	        
 	        <div class="wrtiePrescriptionWrapper row mt-2">
 		    	<div class="col">
-		        	<input class="form-control rounded-0" list="datalistOptions" placeholder="처방할 의약품을 입력해주세요" style="font-size: 0.7em;">
+		        	<input onblur="checkListAndQuantityFetch(this)" class="writeMedicine form-control rounded-0" placeholder="처방할 의약품을 입력해주세요" style="font-size: 0.7em;">
 		            <datalist class="medicineDataListOptionsBox">
 		            </datalist>
 		        </div>
 		        <div class="col-1">
-		        	<input type="number" class="writeQuantity form-control rounded-0" style="font-size: 0.7em;" value="1" min="1">
+		        	<input type="number" class="writeQuantity form-control rounded-0" style="font-size: 0.7em;" value="0" min="0" max="0">
 		        </div>
 		    </div>
 	        
@@ -1189,6 +1307,11 @@
                         </div>
                     </div>
                     <div class="modal-footer py-2 border-0">
+                    	<div class="row">
+                    		<div id="fillBox" class="col text-danger" style="font-size: 0.8em;">
+                    			
+                    		</div>
+                    	</div>
                         <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal" style="font-size: 0.8em;">취소</button>
                         <button onclick="addNewClinicPatientInfo()" class="btn rounded-0  text-white" style="font-size: 0.8em; background-color: #014195;">등록하기</button>
                     </div>
@@ -1216,7 +1339,7 @@
                                         
                                         <div class="row mt-2">
                                             <div class="col">
-                                                <input class="form-control rounded-0" id="exampleDataList" placeholder="질병사유를 입력해주세요" style="font-size: 0.7em;">
+                                                <input class="form-control rounded-0" list="diseaseDataListOptionsBox" id="writeDisease" placeholder="질병사유를 입력해주세요" style="font-size: 0.7em;">
                                                 <datalist id="diseaseDataListOptionsBox">
                                                 </datalist>
                                             </div>
@@ -1261,6 +1384,11 @@
                         </div>
                     </div>
                     <div class="modal-footer py-2 border-0">
+                    	<div class="row">
+                    		<div id="fillLogBox" class="col text-danger" style="font-size: 0.8em;">
+                    			
+                    		</div>
+                    	</div>
                         <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal" style="font-size: 0.8em;">취소</button>
                         <button onclick="addLog()" class="btn rounded-0  text-white" style="font-size: 0.8em; background-color: #014195;">등록하기</button>
                     </div>
@@ -1333,6 +1461,32 @@
                     </div>
                     <div class="modal-footer py-1 border-0">
                         <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal" style="font-size: 0.8em;">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="alreadyWaitingModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-0">
+                    <div class="modal-body text-center fw-bold pt-5" style="font-size: 0.9em;">
+                        이미 대기중인 환자입니다
+                    </div>
+                    <div class="modal-footer py-1 border-0">
+                        <button onclick="hideAlreadyWaitingModal()" class="btn btn-secondary" style="font-size: 0.8em;" data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="getClinicInfoModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-0">
+                    <div class="modal-body text-center fw-bold pt-5" style="font-size: 0.9em;">
+                        환자 정보를 불러와주세요
+                    </div>
+                    <div class="modal-footer py-1 border-0">
+                        <button class="btn btn-secondary" style="font-size: 0.8em;" data-bs-dismiss="modal">닫기</button>
                     </div>
                 </div>
             </div>

@@ -102,9 +102,25 @@ public interface ConsultingMapper {
 	//교직원 온라인상담 답글입력
 	public void insertOnlineConsultingReply(OnlineConsultingReplyDto par);
 	
-	//온라인상담 오래된순 전체출력 + 검색 및 정렬 기능 추가
-	public List<OnlineConsultingDto> getOnlineConsultingListAll(
-			@Param("isReply") String isReply);
+	//온라인상담 오래된순 출력 + 검색 및 정렬 기능 추가
+	public List<OnlineConsultingDto> getOnlineConsultingList(
+			@Param("isReply") String isReply,
+			@Param("sortby") String sortby,
+			@Param("searchType") String searchType,
+			@Param("searchContentes") String searchContentes,
+			@Param("pageNum") int pageNum
+			);
+	//온라인상담 글 총 갯수
+	public int countTotalBoardNumInSOC(
+			@Param("isReply") String isReply,
+			@Param("sortby") String sortby,
+			@Param("searchType") String searchType,
+			@Param("searchContentes") String searchContentes
+			);
+	
+	
+	
+	
 	
 	//구직희망pk로 학생정보 뽑기
 	public StudentInfoDto getStudentInfoByHopeJobPk(int HOPE_JOB_PK);
@@ -134,4 +150,8 @@ public interface ConsultingMapper {
 	public void updateHopeJobProcess(HopeJobDto par);
 	//구직희망 종료
 	public void endHopeJobProcess(int hope_job_pk);
+	
+	
+
+	
 }

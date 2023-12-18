@@ -56,29 +56,49 @@
                         <div class="col">
                             <div class="row">
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
-                                <div class="col">
+                                <div class="col bg-body-tertiary">
                                     <!--여기서 부터 -->
                                     <div class="row"></div>
-                                    <div class="row box">
+                                    <div class="row box bg-white text-dark">
                                     	<div class="col">
+                                    	<form action="./staffboardPage" method="get">
 	                                    	<div class="row">
-                                                <div class="col-md-3 no1title">직원 게시판</div>
-                                                <div class="col-md-6"></div>
-                                                <div class="col-md-3 pt-1 text-end">
-                                                    <c:choose>
-                                                        <c:when test="${!empty sessionStaffInfo}">
-                                                            <button type="button" class="btn btn-primary" onclick="location.href='./writeTextPage'">글쓰기</button>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <button type="button" class="btn btn-primary" onclick="location.href='../../another/staff/loginPage'">로그인</button>
-                                                        </c:otherwise>
-                                                    </c:choose>
+                                                <div class="col-md-4 no1title">직원 게시판</div>
+                                                <div class="col-md-2 pt-1 d-flex align-items-center text-right">
+                                                	<div class="row d-flex align-items-center">
+                                                		<div class="col align-items-center px-0">
+	                                                		<select name="searchType" class="form-select align-items-center" aria-label="Default select example" style="font-size: small;">
+															  <option value="title" ${searchType == 'title' ? 'selected' : null}>제목</option>
+															  <option value="content"${searchType == 'content' ? 'selected' : null}>내용</option>
+															  <option value="name"${searchType == 'name' ? 'selected' : null}>작성자</option>
+															</select>
+														</div>	
+                                                	</div>
+                                                </div>
+                                                <div class="col-md-6 pt-1 text-left">
+                                                	<div class="row d-flex align-items-center text-end px-0">
+                                                		<div class="col-9 text-end d-flex px-0" role="search">
+                                                			<input name="searchWord" class="form-control d-flex me-1" type="search" placeholder="검색" value="${searchWord}" aria-label="Search" style="font-size: small;">
+        													<button class="btn btn-outline-primary" type="submit" style="font-size: small;"><i class="bi bi-search"></i></button>
+                                                		</div>
+                                                		<div class="col ps-1 px-0 text-center">
+                                                			<c:choose>
+		                                                        <c:when test="${!empty sessionStaffInfo}">
+		                                                            <button type="button" class="btn btn-primary" style="font-size: small;" onclick="location.href='./writeTextPage'">글쓰기</button>
+		                                                        </c:when>
+		                                                        <c:otherwise>
+		                                                            <button type="button" class="btn btn-primary" style="font-size: small;" onclick="location.href='../../another/staff/loginPage'">로그인</button>
+		                                                        </c:otherwise>
+                                                   			</c:choose>
+                                                		</div>
+                                                	</div>
                                                 </div>
                                             </div>
+                                            </form>
                                     	</div>
                                     </div>
                                     <c:forEach items="${list}" var="map">
-                                    <div class="row box">
+                                    <div class="row box bg-white text-dark">
                                         <div class="col">
                                             <div class="row title">
                                             	<div class="col">

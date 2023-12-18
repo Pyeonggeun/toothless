@@ -17,45 +17,48 @@
 				<jsp:include page="../common/companyTopNavi.jsp"></jsp:include>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col">
+				<img  class="opacity-55" src="../../resources/img/employment/companyBanner.png" style="width: 95rem; height : 30rem;">
+			</div>		
+		</div>
 	 	<%-- 전체 크기 --%>
 		<div class="row">
-			<%-- 왼쪽 여백--%>
-			<div class="col-1"></div>
 			<%-- 가운데 여백--%>	
-			<div class="col-1"></div>
+			<div class="col-2"></div>
 			<%-- 채용공고 리스트 양식 --%>
 			<div class="col">
 				<!-- 채용공고 -->
 				<div class="row">
-					<div class="col fs-4 fw-bold mt-5 text-center">기업지원학생리스트</div>
+					<div class="col fs-4 fw-bold mt-4 pb-3 border-bottom border-3">기업지원학생리스트</div>
 				</div>
 			<%-- 	<div class="row mt-4 pb-3 border-bottom border-3 border-dark">
 					<div class="col-1 pt-1">
 						총 <span class="fw-bold"></span>건
 					</div>
 				</div> --%>
-				<div class="row mt-3 ps-5 mb-1 text-secondary border-bottom">
+				<div class="row mt-3 mb-1 text-secondary border-bottom border-dark border-2">
 					<!-- 이름 -->
-					<div class="col ms-4 px-0">이름</div>
+					<div class="col">이름</div>
 					<!-- 생년월일 -->
-					<div class="col ms-4 px-0">생년월일</div>
+					<div class="col">생년월일</div>
 					<!-- 성별 -->
-					<div class="col px-0">성별</div>
+					<div class="col">성별</div>
 					<!-- 이메일 -->
-					<div class="col px-0">이메일</div>
+					<div class="col">이메일</div>
 					<!-- 졸업여부 -->
-					<div class="col px-0">졸업여부</div>
+					<div class="col">졸업여부</div>
 					<!-- <div class="col px-0">지원한공고보기</div> -->
 				</div>
 				<c:forEach items="${applyStudentList}" var="applyStudent" >
 					<!-- 목록 -->
-					<div class="row my-2 pe-5 border-bottom">
-						<div class="col ps-5 ms-4">${applyStudent.studentInfoDto.name}</div>
+					<div class="row my-2 border-bottom">
+						<div class="col">${applyStudent.studentInfoDto.name}</div>
 						<div class="col">
 						<fmt:formatDate value="${applyStudent.studentInfoDto.birth}" pattern="yyMMdd"/> </div>
-						<div class="col ps-0">${applyStudent.studentInfoDto.gender}</div>
-						<div class="col px-0">${applyStudent.studentInfoDto.email}</div>
-						<div class="col px-0">
+						<div class="col">${applyStudent.studentInfoDto.gender}</div>
+						<div class="col">${applyStudent.studentInfoDto.email}</div>
+						<div class="col">
 							<c:choose>
 								<c:when test="${! applyStudent.graduationInfoDtoList.contains(applyStudent.studentInfoDto.student_pk)}">
 									재학생
@@ -71,8 +74,9 @@
 				</c:forEach>
 			</div>
 			<%-- 오른쪽 --%>	
-			<div class="col-3"></div>	
+			<div class="col-2"></div>	
 		</div>
+		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

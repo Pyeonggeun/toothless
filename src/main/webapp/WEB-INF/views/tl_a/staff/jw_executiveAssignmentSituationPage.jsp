@@ -10,6 +10,120 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <title>Insert title here</title>
+<script>
+	
+	// 전체 리스트
+	function reloadExecutiveManagementSituationList(){
+		
+		const url = "./restGetAllExecutiveManagementList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const executiveAssignmentSituationBox = document.getElementById("executiveAssignmentSituationBox");
+			executiveAssignmentSituationBox.innerHTML = "";
+			for(e of response.data){
+				
+				const executiveAssignmentSituationWrapper = document.querySelector("#templete .executiveAssignmentSituationWrapper").cloneNode(true);
+				
+				const studentNameSpace = executiveAssignmentSituationWrapper.querySelector(".studentNameSpace");
+				studentNameSpace.innerText = e.studentInfoDto.name;
+				
+				const buildingNameSpace = executiveAssignmentSituationWrapper.querySelector(".buildingNameSpace");
+				buildingNameSpace.innerText = e.dormBuildingDto.name;
+				
+				const floorSpace = executiveAssignmentSituationWrapper.querySelector(".floorSpace");
+				floorSpace.innerText = e.dormRoomDto.dorm_floor;
+				
+				const roomNameSpace = executiveAssignmentSituationWrapper.querySelector(".roomNameSpace");
+				roomNameSpace.innerText = e.dormRoomDto.room_name;
+				
+				for(i of e.personalExecutiveRoomList){
+					const roomAssignmentSpace = executiveAssignmentSituationWrapper.querySelector(".roomAssignmentSpace");
+					const dorm_floor = i.dorm_floor;
+					const room_name = i.room_name;
+					roomAssignmentSpace.innerText += dorm_floor + "층" + ' ' + room_name + ' ';
+				}
+				
+				executiveAssignmentSituationBox.appendChild(executiveAssignmentSituationWrapper);
+			
+			}
+		})
+	}
+	
+	// dorm_pk별 리스트
+	function reloadExecutiveManagementSituationListByDormPk(dorm_pk){
+		
+		const url = "./restGetExecutiveManagementListByDormPk?dorm_pk=" + dorm_pk;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const executiveAssignmentSituationBox = document.getElementById("executiveAssignmentSituationBox");
+			executiveAssignmentSituationBox.innerHTML = "";
+			for(e of response.data){
+				
+				const executiveAssignmentSituationWrapper = document.querySelector("#templete .executiveAssignmentSituationWrapper").cloneNode(true);
+				
+				const studentNameSpace = executiveAssignmentSituationWrapper.querySelector(".studentNameSpace");
+				studentNameSpace.innerText = e.studentInfoDto.name;
+				
+				const buildingNameSpace = executiveAssignmentSituationWrapper.querySelector(".buildingNameSpace");
+				buildingNameSpace.innerText = e.dormBuildingDto.name;
+				
+				const floorSpace = executiveAssignmentSituationWrapper.querySelector(".floorSpace");
+				floorSpace.innerText = e.dormRoomDto.dorm_floor;
+				
+				const roomNameSpace = executiveAssignmentSituationWrapper.querySelector(".roomNameSpace");
+				roomNameSpace.innerText = e.dormRoomDto.room_name;
+				
+				for(i of e.personalExecutiveRoomList){
+					const roomAssignmentSpace = executiveAssignmentSituationWrapper.querySelector(".roomAssignmentSpace");
+					const dorm_floor = i.dorm_floor;
+					const room_name = i.room_name;
+					roomAssignmentSpace.innerText += dorm_floor + "층" + ' ' + room_name + ' ';
+				}
+				
+				executiveAssignmentSituationBox.appendChild(executiveAssignmentSituationWrapper);
+			
+			}
+		})
+		
+	}
+	
+	// 건물명 반복문
+	function reloadBuildingName(){
+		
+		const url = "./restBuildingList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const buildingListBox = document.getElementById("buildingListBox");
+			buildingListBox.innerHTML = "";
+			for(e of response.data){
+				
+				const buildingNameWrapper = document.querySelector("#buildingTemplete .buildingNameWrapper").cloneNode(true);
+				buildingNameWrapper.setAttribute("onclick", "reloadExecutiveManagementSituationListByDormPk("+e.dorm_pk+")");
+				
+				const buildingName = buildingNameWrapper.querySelector(".buildingName");
+				buildingName.innerText = e.name;
+				
+				buildingListBox.appendChild(buildingNameWrapper);
+			}
+		})
+		
+	}
+
+	window.addEventListener("DOMContentLoaded", () => {
+		reloadExecutiveManagementSituationList();
+		reloadBuildingName();
+	})
+	
+</script>
 </head>
 <body>
 <div class="container-fluid">
@@ -54,23 +168,20 @@
 				</div>
 			</div>
 			
-			<div class="row">
-				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
+			<!-- 미니맵 -->
+			<div id="buildingListBox" class="row">
+				
+			</div>
+			
+			<!-- 반복될 건물명 -->
+			<div id="buildingTemplete" class="d-none">
+				<div class="buildingNameWrapper col-1 border py-4 mx-2 rounded border-dark btn text-center">
 					<div class="row">
-						<div class="col ms-2 fw-bold">
-							A동
+						<div class="buildingName col ms-2 fw-bold">
+							동나오는곳
 						</div>
 					</div>
 				</div>
-				<div class="col border py-4 mx-2 rounded border-dark btn text-center" onclick="location.href='#'">
-					<div class="row">
-						<div class="col ms-2 fw-bold">
-							B동
-						</div>
-					</div>
-					
-				</div>
-				<div class="col-8"></div>
 			</div>
 
 			<!-- 세부내용 시작 -->
@@ -86,26 +197,22 @@
 								<th scope="col" class="col text-bg-light">배정 리스트</th>
 							</tr>
 						</thead>
-						<tbody>
-							<c:forEach items="${executiveManagemenListMap}" var="executiveManagemenListMap">
-								<tr>
-									<td>${executiveManagemenListMap.studentInfoDto.name}</td>
-									<td>${executiveManagemenListMap.dormBuildingDto.name}</td>
-									<td>${executiveManagemenListMap.dormRoomDto.dorm_floor}</td>
-									<td>${executiveManagemenListMap.dormRoomDto.room_name}</td>
-									<td>
-										<c:forEach items="${executiveManagemenListMap.personalExecutiveRoomList}" var="personalExecutiveRoomList">
-											<span class="text-black">
-												${personalExecutiveRoomList.dorm_floor}층 ${personalExecutiveRoomList.room_name}
-											</span> 
-										</c:forEach>
-									</td>
-								</tr>
-							</c:forEach>
+						<tbody id="executiveAssignmentSituationBox">
+
 						</tbody>
 					</table>
 				</div>
 			</div>
+			
+			<table id="templete" class="d-none">
+				<tr class="executiveAssignmentSituationWrapper">
+					<td class="studentNameSpace">이름나오는곳</td>
+					<td class="buildingNameSpace">기숙사명나오는곳</td>
+					<td class="floorSpace">기숙사명나오는곳</td>
+					<td class="roomNameSpace">호나오는곳</td>
+					<td class="roomAssignmentSpace"></td>
+				</tr>
+			</table>
 			
 		</div> <!-- 우측내용 끝 -->
             

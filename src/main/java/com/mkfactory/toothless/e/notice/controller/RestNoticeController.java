@@ -18,6 +18,16 @@ public class RestNoticeController {
 	@Autowired
 	private NoticeServiceImpl noticeService;
 	
+	// 공지사항 리스트 출력
+	@RequestMapping("getNoticeList")
+	public RestResponseDto getNoticeList() {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		restResponseDto.setData(noticeService.getNoticeList(null, null));
+		return restResponseDto;
+	}
+	
 	// 댓글쓰기
 	@RequestMapping("writeComment")
 	public RestResponseDto writeComment(HttpSession session, NoticeCommentDto noticeCommentDto) {

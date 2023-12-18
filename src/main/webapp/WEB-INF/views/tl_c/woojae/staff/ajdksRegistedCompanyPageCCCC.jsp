@@ -53,7 +53,166 @@
 	
 	
 	
+	// 카테고리 리스트 체크박스
 	
+	
+	function companyCategoryList(){
+		
+		const url = "./companyCategoryList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response =>{
+			
+			const catBox = document.getElementById("catBox");
+			for(e of response.data){
+				// 체크박스 생성
+                const checkBox = document.createElement("input");
+                checkBox.setAttribute("type", "checkbox");
+                checkBox.classList.add("sType");	
+                checkBox.setAttribute("value", e.company_category_pk);
+                
+                
+                // span 같은거
+                const textNode = document.createTextNode(e.company_category_name + " ");
+                catBox.appendChild(checkBox);
+                catBox.appendChild(textNode);
+                
+           /*      console.log(e.company_category_pk);
+                console.log(catBox);
+                console.log(checkBox.value);
+                console.log("======"); */
+                
+			}
+			
+		});
+		
+	}
+	
+	
+	
+	// 카테고리 + 검색 리스트
+	
+	
+	let searchTypeData = [];
+	let searchWordData = null;
+	
+	function categorizedCompanyList(typeData,wordData){
+		
+		
+		// 검색
+		const searchWordValue = document.getElementById("searchWord").value;
+		console.log(searchWordValue);
+		
+		// 카테고리 체크박스
+		const checkboxes = document.querySelectorAll('.sType:checked'); // 체크된 체크박스들 선택
+	   
+	    const checkedValues = Array.from(checkboxes).map(checkbox => checkbox.value);
+	    // 각 체크된 체크박스의 value 값을 배열로 가져옴
+	    
+	    
+	    typeData.push(checkedValues);
+	    console.log(typeData);
+	    
+	    console.log(checkedValues);
+	    console.log(searchWordValue); // 달 담기는데 왜 안돼
+		
+		
+		const url = "./categorizedCompanyList?searchType=" + checkedValues + "&searchWord=" + searchWordValue;
+		
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			
+			
+			const companyListBox = document.getElementById("companyListBox");
+			companyListBox.innerHTML = "";
+			
+			for(e of response.data){
+				
+				const companyListWrapper = document.querySelector("#templete .companyListWrapper").cloneNode(true);
+				
+				const companyPk = companyListWrapper.querySelector(".companyPk");
+				companyPk.innerText = e.company_pk;
+				
+				const companyCategoryName = companyListWrapper.querySelector(".companyCategoryName");
+				companyCategoryName.innerText = e.company_category_name;
+				
+				const companyName = companyListWrapper.querySelector(".companyName");
+				companyName.innerText = e.company_name;
+				
+				const ceoName = companyListWrapper.querySelector(".ceoName");
+				ceoName.innerText = e.ceo_name;
+				
+				const compamyAddress = companyListWrapper.querySelector(".compamyAddress");
+				compamyAddress.innerText = e.address;
+				
+				const companyPhone = companyListWrapper.querySelector(".companyPhone");
+				companyPhone.innerText = e.phone;
+				
+				companyListBox.appendChild(companyListWrapper);
+				
+				
+			}
+			
+		});
+	}
+	
+	// 버튼 눌렀을 때 실행
+	document.addEventListener("DOMContentLoaded", ()=>{
+		const searchButton = document.getElementById("searchButton");
+		searchButton.addEventListener("click", () => {
+		    categorizedCompanyList(searchTypeData, searchWordData); // 검색 버튼을 클릭할 때 categorizedCompanyList 함수 호출
+		});
+	});
+	
+	
+	
+	// 전체리스트
+	function registedCompanyList(){
+		
+		const url = "./registedCompanyList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const companyListBox = document.getElementById("companyListBox");
+			
+			for(e of response.data){
+				
+				const companyListWrapper = document.querySelector("#templete .companyListWrapper").cloneNode(true);
+				
+				const companyPk = companyListWrapper.querySelector(".companyPk");
+				companyPk.innerText = e.ajdksCompanyInfoDto.company_pk;
+				
+				const companyCategoryName = companyListWrapper.querySelector(".companyCategoryName");
+				companyCategoryName.innerText = e.ajdksCompanyCategoryDto.company_category_name;
+				
+				const companyName = companyListWrapper.querySelector(".companyName");
+				companyName.innerText = e.ajdksCompanyInfoDto.company_name;
+				
+				const ceoName = companyListWrapper.querySelector(".ceoName");
+				ceoName.innerText = e.ajdksCompanyInfoDto.ceo_name;
+				
+				const compamyAddress = companyListWrapper.querySelector(".compamyAddress");
+				compamyAddress.innerText = e.ajdksCompanyInfoDto.address;
+				
+				const companyPhone = companyListWrapper.querySelector(".companyPhone");
+				companyPhone.innerText = e.ajdksCompanyInfoDto.phone;
+				
+				companyListBox.appendChild(companyListWrapper);
+			}
+			
+		});
+	}
+	
+	
+	window.addEventListener("DOMContentLoaded", () =>{
+		companyCategoryList();
+	})
 
 
 
@@ -88,20 +247,18 @@
 				</div>
 				<form action="./ajdksRegistedCompanyPageCCCC" method="get">
 				<div class="row mt-5">
-					<div class="col-4 mt-2">
-						<div class="form-check">
-							<c:forEach items="${categoryList}" var="CL">
-								<input name="searchType" type="checkbox" value="${CL.company_category_pk}">${CL.company_category_name}
-							</c:forEach>
-						</div>
+					<div id="catBox" class="col mt-2">
+						<%-- <c:forEach items="${categoryList}" var="CL"> --%>
+							 <!-- <input name="searchType" type="checkbox"> -->
+						<%-- </c:forEach> --%>
 					</div>
-					<div class="col-5">
-						<input name="searchWord" type="text" class="form-control">
+					<div class="col-4">
+						<input id="searchWord" type="text" class="form-control">
 					</div>
-					<div class="col">
-						<button class="btn btn-secondary">검색</button>
+					<div class="col-1 d-grid">
+						<button id="searchButton" class="btn btn-secondary">검색</button>
 					</div>
-					<div class="col"></div>
+					<div class="col-1"></div>
 				</div>
 				</form>
 				<div class="row mt-4">
@@ -115,18 +272,11 @@
 					<div class="col">주소</div>
 					<div class="col-2">전화번호</div>
 				</div>
-					<c:forEach items="registedCompanyList" var="cList">
-						 <div class="row">
-					 		<div class="col-1">${cList.ajdksCompanyInfoDto.company_pk}</div>
-							<div class="col-2">${cList.ajdksCompanyCategoryDto.company_category_name}</div>
-							<div class="col-2">${cList.ajdksCompanyInfoDto.company_name}</div>
-							<div class="col-1">${cList.ajdksCompanyInfoDto.ceo_name}</div>
-							<div class="col">${cList.ajdksCompanyInfoDto.address}</div>
-							<div class="col-2">${cList.ajdksCompanyInfoDto.phone}</div>
-						 </div>
-					</c:forEach> 
-			
+				<div class="row mt-1">
+					<div id="companyListBox" class="col"></div>
+				</div>
 				
+					
 				<div class="row mt-2">
 					<div class="col"></div>
 					<div class="col-1">
@@ -145,12 +295,11 @@
 
 </div><!-- 전체 container 출구 -->
 				
-			
-				
-											
+			<!-- 체크박스 리스트 -->
 				
 				
-				<!-- 리스트 템플릿
+				
+				
 				<div id="templete" class="d-none">
 					<div class="companyListWrapper row">
 						<div class="col">
@@ -168,8 +317,14 @@
 						</div>
 					</div>
 				</div> 
- -->
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<%--
+	<c:if test="${!empty sessionStaffInfo}">
+	
+	</c:if>
+ --%>

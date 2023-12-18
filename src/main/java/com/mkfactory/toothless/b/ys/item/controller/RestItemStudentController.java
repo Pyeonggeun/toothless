@@ -3,6 +3,8 @@ package com.mkfactory.toothless.b.ys.item.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,6 +14,8 @@ import com.mkfactory.toothless.b.dto.B_RestResponseDto;
 import com.mkfactory.toothless.b.dto.ItemApplyDto;
 import com.mkfactory.toothless.b.ys.item.service.ItemStaffServiceImpl;
 import com.mkfactory.toothless.b.ys.item.service.ItemStudentServiceImpl;
+import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @RestController
 @RequestMapping("/tl_b/ys/*")
@@ -22,6 +26,20 @@ public class RestItemStudentController {
 	
 	@Autowired
 	private ItemStaffServiceImpl itemStaffService;
+	
+	@RequestMapping("restStudentInfo")
+	public B_RestResponseDto restStudentInfo(HttpSession session) {
+		
+		StudentInfoDto sessionStudentInfo = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		B_RestResponseDto restResponseDto = new B_RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		restResponseDto.setData(sessionStudentInfo);
+		
+		return restResponseDto;
+		
+	}
 	
 	@RequestMapping("restGetItemAndItemApplyList")
 	public B_RestResponseDto restGetItemAndItemApplyList() {

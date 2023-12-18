@@ -47,9 +47,60 @@
 	}
 
 </style>
+<script>
+	
+	function formSubmit(){
+		const reportForm = document.getElementById("reportForm");
+		
+		const inputReportContent = document.getElementById("inputReportContent")
+		const reportContentRegex = /^.{1,1000}$/;
+		
+		if(!reportContentRegex.test(inputReportContent.value)){
+			alert("내용을 작성해야 제출 가능합니다");
+			inputReportContent.focus();
+			return;
+		}
+
+		reportForm.submit();		
+		
+	}	
+	
+	function reloadReportList(){
+		
+		const url = "./getInternReportList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+		const internReportListBox = document.getElementById("internReportListBox");
+		internReportListBox.innerHTML = "";
+		
+			for(e of response.data){			
+				const reportWrapper = document.querySelector("#reportTemplate .reportWrapper").cloneNode(true); 
+				
+				const reportDate = document.querySelector(".reportDate");
+				const date = new Date(e.REPORT_DATE);
+				reportDate.innerText = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+				
+				const reportContent = reportWrapper.querySelector(".reportContent");
+				reportContent.innerText = e.REPORT_CONTENT;
+				
+				internReportListBox.appendChild(reportWrapper);
+			}
+		
+		});
+	}
+	
+	window.addEventListener("DOMContentLoaded", () => {
+		reloadReportList();
+		
+	});
+	
+</script>
 </head>
 <body>
-<div class="container-fluid"><!-- 전체 container 입구 -->
+<div class="container-fluid"><!-- 전체 container 입구 --> 
 
 <div class="row">
 	<div class="col">
@@ -154,13 +205,13 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      
-				      <form action="./writeInternReportProcess" method="get">
+				      <form id="reportForm" action="./writeInternReportProcess" method="get">
 					    <div class="modal-body">
 					    <input name="student_intern_pk" type="hidden" value="${internshipCourseInfoMap.STUDENT_INTERN_PK }">
-						<textarea name="report_content" rows="10" cols="59"></textarea>
+						<textarea id="inputReportContent" name="report_content" rows="10" cols="59"></textarea>
 					    </div>
 					    <div class="modal-footer">
-					      <button type="submit" class="btn btn-primary btn-sm">제출하기</button>
+					      <input type="button" class="btn btn-primary btn-sm" onclick="formSubmit()" value="제출하기">
 					    </div>
 				      </form>
 				      
@@ -170,23 +221,33 @@
 				
 		</div>
 	</div>
+
 	
-	<div class="row row-cols-5 px-3">
-		<c:forEach items="${internReportList }" var="internReportMap">
-			<div class="col py-2">
-				<div class="card" style="height: 13em">
-				  <div class="card-header">
-				    <fmt:formatDate value="${internReportMap.REPORT_DATE }" pattern="yyyy-MM-dd"/> 
-				  </div>
-				  <div class="card-body">
-				    <p class="card-text">
-						${internReportMap.REPORT_CONTENT }				    
-				    </p>
-				  </div>
+	<!-- AJAX 카드 들어가는 공간 -->
+	<div id="internReportListBox" class="row row-cols-5 px-3">
+		<!-- 여기에 AJAX 카드 들어갈 예정 -->
+	</div>
+
+
+	<!-- 탬플릿 -->	
+	<div id="reportTemplate" class="d-none">
+		<div class="reportWrapper col pt-3">
+			
+			<div class="card" style="height: 13em;">
+				<div class="reportDate card-header ps-3">
+					<!-- 날짜 -->
+				</div>
+				
+				<div class="card-body">
+					<p class="reportContent card-text">
+						<!-- 보고서 내용 -->
+					</p>					
 				</div>
 			</div>
-		</c:forEach>	
+			
+		</div>
 	</div>
+
 
 </div><!-- 본문 출구 -->
 	

@@ -30,7 +30,7 @@
 
 	<!-- 학생Pk로 인턴쉽 과정 진행중인 학생목록 조회 -->
 	<select id="getStudentInternHistory" resultType="com.mkfactory.toothless.c.dto.AjdksStudentInternDto">
-		SELECT * FROM TL_C_STUDENT_INTERN
+		SELECT * FROM tl_c_student_intern
 		WHERE student_pk = #{student_pk}
 	</select>
 	
@@ -131,10 +131,49 @@
 		WHERE student_pk = #{student_pk}
 	</select>
 
+	<select id="getEndInternshipCourseByStudentPk" resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
+		SELECT tcic.* FROM tl_c_student_intern tcsi
+		INNER JOIN tl_c_internship_course tcic
+		ON tcsi.internship_course_pk = tcic.internship_course_pk
+		<![CDATA[
+		WHERE TO_CHAR(tcic.internship_end_date, 'yyyyMMdd') <= SYSDATE
+		]]>
+		AND tcsi.student_pk = #{student_pk}
+		ORDER BY tcic.internship_course_pk DESC
+	</select>
+	
+	<select id="getInternPkByStudentPkAndCoursePk" resultType="int" parameterType="hashMap">
+		SELECT student_intern_pk FROM tl_c_student_intern
+		WHERE student_pk = #{param1}
+		AND internship_course_pk = #{param2}
+	</select>
 
+	<!-- 학생 만족도 조사 했는지 안했는지 -->
+	<select id="didSatisfaction" resultType="int">
+		SELECT COUNT(*) FROM tl_c_intern_satisfaction
+		WHERE student_intern_pk = #{student_intern_pk}
+	</select>
 
-
-
+	<select id="calculateGrade" resultType="String">
+		SELECT
+		  DECODE(
+		    SIGN(gradeAvg - 3), 1, 'Pass',
+		    -1, 'Fail',
+		    null
+		  ) AS result
+		FROM (
+		  SELECT
+		    (
+		      (tcpe.diligence_score + tcpe.responsibility_score + tcpe.coorporation_score + tcpe.achievement_score) / 4 +
+		      (tcce.diligence_score + tcce.responsibility_score + tcce.coorporation_score + tcce.achievement_score) / 4
+		    ) / 2 AS gradeAvg
+		  FROM
+		    tl_c_professor_evaluation tcpe
+		    INNER JOIN tl_c_company_evaluation tcce ON tcpe.student_intern_pk = tcce.student_intern_pk
+		  WHERE
+		    tcpe.student_intern_pk = #{student_intern_pk}
+		)
+	</select>
 
 
 

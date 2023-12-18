@@ -186,15 +186,71 @@
 		ORDER BY DORM_APPLICATION_PK desc
 	</select>
 	
+	<!-- ============================================================ -->
+	<!-- 메인페이지 최근 2개 공고리스트 -->
+	<select id="selectDormNotice" resultType="com.mkfactory.toothless.a.dto.DormNoticeDto">
+		SELECT * FROM (
+			SELECT t1.*, ROWNUM rnum FROM 
+				(SELECT * FROM TL_A_DORM_NOTICE
+				ORDER BY created_at ASC
+			) t1
+		) t2
+		<![CDATA[
+		WHERE t2.rnum > ((SELECT count(*) FROM TL_A_DORM_NOTICE) - 2)
+		]]>
+	</select>
 	
+	<!-- 임원 현황 -->
+	<select id="countExecutive" resultType="int">
+		SELECT count(*) FROM TL_A_EXECUTIVE
+	</select>
 	
+	<!-- 금일 일지 현황 -->
+	<select id="countTodayDiary" resultType="int">
+		SELECT count(*) FROM TL_A_DIARY
+		WHERE TO_CHAR(CREATED_AT, 'YYYYMMDD') = 
+		TO_CHAR(SYSDATE, 'YYYYMMDD')
+	</select>
 	
+	<!-- 장학금 대상 현황 -->
+	<select id="countPlusPointDormStudent" resultType="int">
+		SELECT count(*) FROM (
+			SELECT tap.DORM_STUDENT_PK FROM TL_A_POINT tap 
+			JOIN TL_A_POINT_CATEGORY tapc ON tap.POINT_CATEGORY_PK = tapc.POINT_CATEGORY_PK
+		<![CDATA[ 
+			GROUP BY tap.DORM_STUDENT_PK HAVING SUM(tapc.POINT) > 0)
+		]]>
+	</select>
 	
+	<!-- 징계 대상 현황 -->
+	<select id="countMinusPointDormStudent" resultType="int">
+		SELECT count(*) FROM (
+			SELECT tap.DORM_STUDENT_PK FROM TL_A_POINT tap 
+			JOIN TL_A_POINT_CATEGORY tapc ON tap.POINT_CATEGORY_PK = tapc.POINT_CATEGORY_PK
+		<![CDATA[ 
+			GROUP BY tap.DORM_STUDENT_PK HAVING SUM(tapc.POINT) < 0)
+		]]>
+	</select>
 	
+	<!-- 금일 외출/외박 현황 -->
+	<select id="countTodayExit" resultType="int">
+		SELECT count(*) FROM TL_A_EXIT
+		WHERE TO_CHAR(EXIT_DATE, 'YYYYMMDD') = 
+		TO_CHAR(SYSDATE, 'YYYYMMDD')
+	</select>
 	
+	<!-- 금일 점호 불참 현황 -->
+	<select id="countTodayCallAbsence" resultType="int">
+		SELECT count(*) FROM TL_A_CALL_ABSENCE
+		WHERE TO_CHAR(CREATED_AT, 'YYYYMMDD') = 
+		TO_CHAR(SYSDATE, 'YYYYMMDD')
+	</select>
+	<!-- 현재 배정 현황 -->
 	
+	<select id="assignedDormStudentCount" resultType="int">
 	
+		SELECT count(*) FROM TL_A_DORM_STUDENT
 	
-
+	</select>
 
 </mapper>

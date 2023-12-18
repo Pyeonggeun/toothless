@@ -108,10 +108,10 @@
                         <div class="col">
                             <div class="row">
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
-                                <div class="col">
+                                <div class="col bg-body-tertiary">
                                 	<!--여기서 부터 -->
                                 	<div class="row"></div>
-                                	<div class="row box">
+                                	<div class="row box bg-white text-dark">
                                 		<div class="col">
                                 			<div class="row">
                                 				<div class="col-md-3 d-flex align-items-center">직원 게시판</div>
@@ -122,7 +122,7 @@
                                 			</div>
                                 		</div>
                                 	</div>
-                                	<div class="row box">
+                                	<div class="row box bg-white text-dark">
                                 		<div class="col">
                                 			<div class="row pt-3">
                                 				<div class="col no1title">${readText.staffboardDto.title}</div>
@@ -130,20 +130,20 @@
                                 			<div class="row pt-2 pb-3">
                                 				<div class="col">
                                 					<div class="row d-flex align-items-center">
-                                						<div><span class="col name text-start">${readText.staffInfoDto.name}</span>&nbsp;&nbsp;&nbsp;<span class="col writerInfo text-start"><fmt:formatDate value="${readText.staffboardDto.created_at}" pattern="yyyy/MM/dd HH:mm"/>&nbsp;&nbsp;|&nbsp;&nbsp;조회 ${readText.staffboardDto.read_count}</span></div>
+                                						<div><span class="col name text-start">${readText.staffInfoDto.name}</span>&nbsp;&nbsp;&nbsp;<span class="col writerInfo text-start"><fmt:formatDate value="${readText.staffboardDto.created_at}" pattern="yyyy/MM/dd HH:mm"/>&nbsp;&nbsp;|&nbsp;&nbsp;조회 ${readText.staffboardDto.read_count}</span><span class="col writerInfo text-start">&nbsp;&nbsp;|&nbsp;&nbsp;댓글 ${replyCountInContent}</span><span class="col writerInfo text-start">&nbsp;&nbsp;|&nbsp;&nbsp;추천 ${likeCount}</span></div>
                                 						<div class="col"></div>
                                 					</div>
                                                 </div>
                                 			</div>
                                 		</div>
                                 	</div>
-                                	<div class="row box">
+                                	<div class="row box bg-white text-dark">
                                         <div class="col">
                                             <div class="row">
                                                 <div class="col contentBox">${readText.staffboardDto.content}</div>
                                             </div>
                                             <div class="row">
-                                                <div class="col likeBox text-center">
+                                                <div class="col likeBox bg-white text-dark text-center">
                                                     <c:if test="${!empty sessionStaffInfo }">
                                                         <c:choose>
                                                             <c:when test="${count == 1}">
@@ -158,20 +158,20 @@
                                             </div>
                                         </div>
                                 	</div>
-                                    <div class="row box">
-                                        <div class="col text-end">
+                                    <div class="row box bg-white text-dark">
+                                        <div class="col text-end bg-white text-dark">
                                             <c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == readText.staffboardDto.staff_pk}">
                                                 <button type="button" class="btn btn-outline-light" style="color: #000000ba; font-size: smaller; font-weight: 600;" onclick="location.href='./deleteTextProcess?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">삭제</button>
                                                 <button type="button" class="btn btn-outline-light" style="color: #000000ba; font-size: smaller; font-weight: 600" onclick="location.href='./modifyTextPage?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">수정</button>
                                             </c:if>
                                         </div>
                                     </div>
-                                    <div class="row boxEmptyLine2"></div>
-                                    <div class="row box">
+                                    <div class="row boxEmptyLine2  bg-white text-dark"></div>
+                                    <div class="row box  bg-white text-dark">
                                         <div class="col title d-flex align-items-center">댓글쓰기</div>
                                     </div>
                                     <div class="row boxEmptyLine1"></div>
-                                    <div class="row box">
+                                    <div class="row box  bg-white text-dark">
                                         <c:if test="${!empty sessionStaffInfo}">
                                         <div class="col">
                                             <div class="row">
@@ -196,11 +196,11 @@
                                     </div>
                                     <div class="row"></div>
                                     <div class="row boxEmptyLine3"></div>
-                                    <div class="row box">
+                                    <div class="row box bg-white text-dark">
                                         <div class="col title d-flex align-items-center">댓글</div>
                                     </div>
                                     <c:forEach items="${replyList}" var="map">
-                                    <div class="row box">
+                                    <div class="row box bg-white text-dark">
                                         <div class="col">
                                             <div class="row">
                                                 <div class="col-md-2 pe-0 name text-start">${map.staffInfo.name}</div>

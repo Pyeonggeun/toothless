@@ -18,10 +18,8 @@
 		</div>
 	 	<%-- 전체 크기 --%>
 		<div class="row">
-			<%-- 왼쪽 여백--%>
-			<div class="col-1"></div>
 			<%-- 취업팀 메뉴 바 --%>
-			<div class="col-1 me-5">
+			<div class="col-2">
 				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 			</div>
 			<%-- 가운데 여백--%>	
@@ -30,7 +28,7 @@
 			<div class="col">
 				<!-- 채용공고 -->
 				<div class="row">
-					<div class="col fs-4 fw-bold mt-5 text-center">채용공고리스트</div>
+					<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">채용공고리스트</div>
 				</div>
 				<div class="row mt-5 pb-3 border-bottom">
 					<div class="col-9 pt-1">
@@ -77,7 +75,7 @@
 						</div>
 						<div class="row mt-1 pb-2">
 						<!-- 분야/지역/기간 태그  -->
-							<div class="col-7 ">
+							<div class="col-7">
 								<a class="navbar-brand" href="./jobPostingDetailPage?id=${jobPosting.jobPostingDto.job_posting_pk}">
 								<span class="text-secondary">#&nbsp;${jobPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${jobPosting.jobPostingDto.job_position}
 								#&nbsp;${jobPosting.companyDto.com_address} #&nbsp;<fmt:formatDate value="${jobPosting.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>

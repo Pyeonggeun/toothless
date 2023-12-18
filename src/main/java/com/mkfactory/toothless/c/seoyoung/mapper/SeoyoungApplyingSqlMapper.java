@@ -30,4 +30,9 @@ public interface SeoyoungApplyingSqlMapper {
 	public List<Map<String, Object>> searchCompanyCategori();
 
 	public Map<String, Object> selectApplyCompanyModal(int INTERNSHIP_COURSE_PK);
+
+	//검색
+	public List<Map<String, Object>> searchCompanyName(
+			@Param("COMPANY_CATEGORY_PK") int COMPANY_CATEGORY_PK,
+			@Param("searchWord") String searchWord);
 }

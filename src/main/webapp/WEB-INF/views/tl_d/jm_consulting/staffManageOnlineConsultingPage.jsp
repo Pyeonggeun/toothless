@@ -63,11 +63,11 @@
 							</div>
 							<div class="row py-1">
 								<div class="col">
-									<span class="fw-bold" style="font-size:0.8em;">${onlineConsultingInfo.studentInfoDto.name}</span> 상담자
+									<span style="font-size:0.8em;">상담자</span> <span class="fw-bold">${onlineConsultingInfo.studentInfoDto.name}</span> 
 								</div>
 								
 								<div class="col">
-									<span class="fw-bold" style="font-size:0.8em;">${onlineConsultingInfo.studentInfoDto.student_id}</span> 학번
+									<span style="font-size:0.8em;">학번</span> <span class="fw-bold"">${onlineConsultingInfo.studentInfoDto.student_id}</span>
 								</div>
 								
 								<div class="col-8"></div>

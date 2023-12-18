@@ -19,58 +19,18 @@
                             <div class="row">
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
                                 <div class="col">
-                                    <h1>작성 글 보기</h1>
-                                    제목 ${readText.staffboardDto.title }
+                                    <h1>작성 글 수정</h1>
+                                    <form action="./modifyTextProcess" method="post">
+                                    제목 <input name="title" type="text" value="${readText.staffboardDto.title }">
                                     <br>
-                                    작성자 ${readText.staffInfoDto.name}
-                                    <br>
-                                    조회수 ${readText.staffboardDto.read_count}
+                                    작성자 ${sessionStaffInfo.name}
                                     <br>
                                     내용 <br>
-                                    ${readText.staffboardDto.content}
-                                    <br>
-                                    <c:if test="${!empty sessionStaffInfo }">
-                                    	<c:choose>
-                                    		<c:when test="${count == 1}">
-                                    			<button type="button" onclick="location.href='./canselLikeProcess?staff_pk=${sessionStaffInfo.staff_pk }&staffboard_pk=${readText.staffboardDto.staffboard_pk}'"><i class="bi bi-hand-thumbs-up-fill"></i></button>
-                                    		</c:when>
-                                    		<c:otherwise>
-                                    			<button type="button" onclick="location.href='./addLikeProcess?staff_pk=${sessionStaffInfo.staff_pk }&staffboard_pk=${readText.staffboardDto.staffboard_pk}'"><i class="bi bi-hand-thumbs-up"></i></button>
-                                    		</c:otherwise>
-                                    	</c:choose>
-                                    </c:if>
-									${likeCount}
-                                    <br>
-                                    <button type="button" onclick="location.href='./staffboardPage'">목록으로</button>
-                                    <c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == readText.staffboardDto.staff_pk}">
-	                                    <button type="button" onclick="location.href='./deleteTextProcess?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">삭제</button>
-	                                    <button type="button" onclick="location.href='./modifyTextPage?staffboard_pk=${readText.staffboardDto.staffboard_pk}'">수정</button>
-									</c:if>
-									<br>
-									<h3>댓글</h3>
-									<table>
-                                    	<c:forEach items="${replyList}" var="map">
-	                                    	<tr>
-                                                <td>${map.staffboardReplyDto.content}</td>
-	                                    		<td>${map.staffInfo.name}</td>
-	                                    		<td>${map.staffboardReplyDto.created_at}</td>
-                                                <td>
-                                                    <c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == map.staffboardReplyDto.staff_pk}">
-                                                        <button type="button" onclick="location.href='./modifyReplyPage?staffboard_reply_pk=${map.staffboardReplyDto.staffboard_reply_pk}'">수정</button>
-                                                        <button type="button" onclick="location.href='./deleteReplyProcess?staffboard_reply_pk=${map.staffboardReplyDto.staffboard_reply_pk}&staffboard_pk=${map.staffboardReplyDto.staffboard_pk}&staff_pk=${sessionStaffInfo.staff_pk}'">삭제</button>
-                                                    </c:if>
-                                                </td>
-	                                    	</tr>
-                                    	</c:forEach>
-                                    </table>
-									<c:if test="${!empty sessionStaffInfo}">
-									<form action="./writeReplyProcess?staffboard_pk=${readText.staffboardDto.staffboard_pk}" method="post">
-									댓글자 ${sessionStaffInfo.name}
-									<br>
-									<textarea name="content" rows='3' cols='60'></textarea>
-									<input type="submit" value="댓글등록">
-									</form>
-									</c:if>
+                                    <textarea name="content" rows='20' cols='60'>${readText.staffboardDto.content}</textarea>
+                                    <input name="staffboard_pk" type="hidden" value="${readText.staffboardDto.staffboard_pk }">
+                                    <input type="submit" value="수정완료">
+                                    </form>
+                                   <button type="button" onclick="location.href='./readTextPage?staffboard_pk=${readText.staffboardDto.staffboard_pk }'">취소</button>
                                 </div>
                             </div>
                         </div>

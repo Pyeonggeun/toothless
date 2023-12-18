@@ -67,7 +67,14 @@ public interface MedicineSqlMapper {
 	public MedicineCodeDto restSelectedMedicineInfoByMedicineCodePk(int medicine_code_pk);
 	
 	public MedicineMgmtCatDto restSelectedMedicineMgmtCatInfoByPk(int medicine_mgmt_cat_pk);
+	
+	public void chainedDeleteAddinfo(int medicine_code_pk);
+	
+	public void chainedDeleteInventoryInfo(int medicine_code_pk);
+	
+	public List<Map<String, Object>> restInventoryInfoByPk(int medicine_code_pk);
 
+	public List<Map<String, Object>> selectCheckBox(int listOfMedicineCodes[]);
 
 	
 }

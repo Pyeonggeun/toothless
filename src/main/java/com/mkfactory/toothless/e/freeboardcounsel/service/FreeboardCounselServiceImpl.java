@@ -140,8 +140,11 @@ public class FreeboardCounselServiceImpl {
 		StudentInfoDto studentInfo = freeboardCounselSqlMapper.selectByStudentId(student_pk);
 		//int freeboard_id = freeboardPost.getId();
 		
+		
 		//이미지 뽑아오기
 		//List<FreeboardImageDto> freeboardImageDtoList = freeboardCounselSqlMapper.selectFreeboardImageDto(freeboard_id);
+		
+		
 		
 		Map<String, Object> combinedMap = new HashMap<>();
 		combinedMap.put("freeboardPost",freeboardPost);
@@ -179,8 +182,6 @@ public class FreeboardCounselServiceImpl {
 		freeboardCounselSqlMapper.readCount(id);
 	}
 	
-	
-		
 		//-----//
 		//이미지
 	public List<FreeboardImageDto> getFreeboardImage(int id){

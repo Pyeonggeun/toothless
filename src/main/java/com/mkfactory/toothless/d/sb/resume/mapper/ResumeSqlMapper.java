@@ -41,7 +41,8 @@ public interface ResumeSqlMapper {
 	public void updateResumeDtoByResumePk(ResumeDto resumeDto);
 	
 	// 이력서 삭제
-	public void deleteResumeByResumePk(ResumeDto resumeDto);
+//	public void deleteResumeByResumePk(ResumeDto resumeDto);
+	
 	
 	
 	
@@ -99,9 +100,20 @@ public interface ResumeSqlMapper {
 	// 학생 마이페이지에 지원한 공고목록 4줄 요약
 	public List<JobPostingDto> getApplyListByStudentPkToMyPage(int student_pk);
 	
+// 	ajax
 	
+
+	//학생의 일반 이력서 목록 가져오기
+	public List<ResumeDto> getGeneralResumeListByStudentPk(int student_pk);
 	
+	// 학생 메인 이력서 가져오기
+	public ResumeDto getMainResumeDtoByStudentPk(int student_pk);
 	
+	// 학생 이력서 삭제
+	public void deleteResumeByResumePk(int resume_pk);
+	
+	// 이력서 미리보기
+	public ResumeDto getResumeDtoByResumePk(int resume_pk);
 	
 	
 }

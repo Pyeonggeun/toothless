@@ -67,6 +67,51 @@
 	
 	// 정보 등록
 	function registerStudentInfo(){
+		
+		// 미입력 필드를 담을 배열
+	    const emptyFields = [];
+
+	    // 값이 비어있는지 확인
+	    if (!document.getElementById("studentName").value.trim()) {
+	        emptyFields.push("이름을 입력해주세요.");
+	    }
+	    // ** radio
+	    if (!document.querySelector('input[name="gender"]:checked')) {
+		    emptyFields.push("성별을 선택해주세요.");
+		}
+	    if (!document.getElementById("birth").value.trim()) {
+	        emptyFields.push("생년월일 입력해주세요.");
+	    }
+	    if (!document.getElementById("resident_id").value.trim()) {
+	        emptyFields.push("주민등록번호를 입력해주세요.");
+	    }
+	    // ** selectBox의 index 0번이 선택해주세요 placeholder인데 저거일때도 알림!
+	    if (document.getElementById("external_pk").selectedIndex == 0) {
+	        emptyFields.push("외부아이디를 선택해주세요.");
+	    }
+	    if (!document.getElementById("external_pk").value.trim()) {
+	        emptyFields.push("외부아이디를 선택해주세요.");
+	    }
+	    if (!document.getElementById("address").value.trim()) {
+	        emptyFields.push("주소를 입력해주세요.");
+	    }
+	    if (!document.getElementById("phone").value.trim()) {
+	        emptyFields.push("전화번호를 입력해주세요.");
+	    }
+	    if (!document.getElementById("email").value.trim()) {
+	        emptyFields.push("이메일을 입력해주세요.");
+	    }
+	    if (!document.getElementById("entered_at").value.trim()) {
+	        emptyFields.push("입학일을 입력해주세요.");
+	    }
+
+	    
+	    // 미입력 필드가 있다면 알림 표시
+	    if (emptyFields.length > 0) {
+		    const missingFieldsMessage = emptyFields[0];
+		    alert(missingFieldsMessage);
+		    return;
+		}
 
 		// 입력된 값 모으기(body로 간결하게 보내보자) == map이랑 비슷한뎅?
 		const inputStudentInfo = new FormData();
@@ -1004,7 +1049,7 @@
 				
 			
         </div>
-        <div class="modal-footer d-flex justify-content-between">
+        <div class="modal-footer d-flex justify-content-between mx-3">
             <button id="deleteBtn" type="button" class="btn btn-danger rounded-0">삭제하기</button>
             <div>
                 <button id="updateBtn" type="button" class="btn btn-primary rounded-0 text-white" style="background-color: #003399;">수정완료</button>

@@ -45,6 +45,13 @@ public class ExternalController {
 			
 			return "redirect: ../../tl_e/commons/counselCenterCounselorMainPage";
 			
+		}else if(externalInfoDto.getExternal_category() == 4){
+			
+			return "redirect: ../../tl_x/ic/mainPage";
+		
+		}else if(externalInfoDto.getExternal_category() == 5){
+			
+			return "redirect: ../../tl_x/ic/mainPage";
 		}else {
 			
 			return "redirect: ./loginPage";

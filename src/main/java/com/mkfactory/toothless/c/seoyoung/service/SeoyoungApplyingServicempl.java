@@ -60,4 +60,10 @@ public class SeoyoungApplyingServicempl {
 		
 	}
 	
+	//검색
+	public List<Map<String, Object>> getSearchCompanyName(int COMPANY_CATEGORY_PK, String searchWord){
+		return (List<Map<String, Object>>) seoyoungApplyingSqlMapper.searchCompanyName(COMPANY_CATEGORY_PK,searchWord);
+		
+	}
+	
 }

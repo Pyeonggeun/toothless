@@ -18,6 +18,8 @@
         </style>
 
         <script>
+        
+    	type="text/javascript" src="../../resources/js/hn/sideBar.js"
 
             let name = null;
 
@@ -89,10 +91,10 @@
                         const QUANTITY = inventoryWrapper.querySelector(".QUANTITY");
                         QUANTITY.innerHTML = e.QUANTITY;
 
-                        const isQuantity = inventoryWrapper.querySelector(".isQuantity");
-                        if(e.isQuantity === undefined){
-                        isQuantity.innerHTML = "";
-                        }
+                        // const isQuantity = inventoryWrapper.querySelector(".isQuantity");
+                        // if(e.isQuantity === undefined){
+                        // isQuantity.innerHTML = "";
+                        // }
 
                         const M_NAME = inventoryWrapper.querySelector(".M_NAME");
                         M_NAME.innerHTML = e.M_NAME;
@@ -226,8 +228,7 @@
                         <div class="col">
                             <div class="row">
                              	<jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
-
-                                <div class="col">
+                                <div class="col pb-5">
                                     <!-- 내가 쓸꺼!!-->
                                     <div class="row mx-3 my-5">
                                         <div class="col">
@@ -306,15 +307,14 @@
                                                 </div>
                                                 <div class="container">
 	                                                <div class="row mt-3 mb-1 pb-3 fw-bold text-center border-bottom border-3 border-primary">
-	                                                    <div class="col border-end border-primary">약품코드</div>
-	                                                    <div class="col border-end border-primary">의약품명</div>
-	                                                    <div class="col border-end border-primary">변동사유</div>
-	                                                    <div class="col border-end border-primary">변동수량</div>
-	                                                    <div class="col border-end border-primary">현재수량</div>
-	                                                    <div class="col border-end border-primary">재고관리자</div>
-	                                                    <div class="col border-primary">재고변경일</div>
+	                                                    <div class="col-2 border-end border-primary">약품코드</div>
+	                                                    <div class="col-2 border-end border-primary">의약품명</div>
+	                                                    <div class="col-2 border-end border-primary">변동사유</div>
+	                                                    <div class="col-2 border-end border-primary">변동수량</div>
+	                                                    <div class="col-2 border-end border-primary">재고관리자</div>
+	                                                    <div class="col-2 border-primary">재고변경일</div>
 	                                                </div>
-	                                                <div class="row mt-1 allInventoryLocation">
+	                                                <div class="mt-1 allInventoryLocation">
 	                                                    <!-- 여기에 반복문 나와야함-->
 	                                                </div>
                                                 </div>
@@ -325,40 +325,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col py-4" style="background-color: #F2F2F2;">
-                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-4 my-auto">
-                                                    <img class="img-fluid" src="./img/health/health_ci.gif">
-                                                </div>
-                                                <div class="col text-body-tertiary" style="font-size: small;">
-                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
                 </div>
             </div>
         </div>
         
         <div id = "templete" class="d-none">
             <div class="row mt-3 inventoryWrapper text-center border-bottom pb-3 border-primary">
-                <div class="col MEDICINE_CODE_PK">약품코드</div>
-                <div class="col MEDI_NAME">의약품명</div>
-                <div class="col M_TYPE">변동사유</div>
-                <div class="col QUANTITY">변동수량</div>
-                <div class="col isQuantity">현재수량</div>
-                <div class="col M_NAME">재고관리자</div>
-                <div class="col DATE text-right">재고변경일</div>
+                <div class="col-2 MEDICINE_CODE_PK">약품코드</div>
+                <div class="col-2 MEDI_NAME">의약품명</div>
+                <div class="col-2 M_TYPE">변동사유</div>
+                <div class="col-2 QUANTITY">변동수량</div>
+                <div class="col-2 M_NAME">재고관리자</div>
+                <div class="col-2 DATE text-right">재고변경일</div>
             </div>
         </div>
         
