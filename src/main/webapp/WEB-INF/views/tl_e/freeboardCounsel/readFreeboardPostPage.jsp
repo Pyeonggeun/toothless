@@ -7,6 +7,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+	<script>
+		function formSubmit(){
+			const formComment = document.getElementById("formComment");
+			
+			const inputComment = document.getElementById("inputComment");
+			const inputCommentRegex =/^([a-zA-Z0-9_-]{2,})$/;
+			if(!inputCommentRegex.test ==(inputComment.value)){
+				alert("댓글란이 비어있습니다. 내용을 작성해주세요");
+				inputComment.focus();
+				return;
+			}
+						
+			formComment.submit(); 
+			
+		}
+	
+	</script>
+
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
@@ -289,17 +309,17 @@
 						<div class="col border border-black rounded"> 
 						
 						<!-- 댓글작성 시작-->
-						<form action="./insertFreeboardComment" method=post>
+						<form id="formComment" action="./insertFreeboardComment" method=post>
 								<div class="row pt-2">
 									<div class="col-8 text-start ms-1 "> 
 										댓글을 남겨주세요
 									</div>
 									<div class="col text-end me-1"> 
-										<input class="form-controller" type="submit" value="댓글 달기">
+										<input class="form-controller" type="button" onclick="formSubmit()" value="댓글 달기">
 									</div>
 								</div>
 								<div class="row m-1">
-									<input name="text" type="text" placeholder="최대 100글자까지 작성가능합니다.">
+									<input id="inputComment" name="text" type="text" placeholder="최대 100글자까지 작성가능합니다.">
 									<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id } ">									
 								</div>
 								
