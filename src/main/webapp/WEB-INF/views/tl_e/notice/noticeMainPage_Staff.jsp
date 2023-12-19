@@ -66,7 +66,7 @@
 								<div class="col-8 border-bottom">
 									<div class="row">
 										<div class="col-10">
-											<a class="link-offset-2 link-underline link-underline-opacity-0 fw-bold" style="color: black;" href="./readNoticeBoardPage_Staff?id=${list.noticeBoardDto.id }">${list.noticeBoardDto.title }</a>
+											<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black;" href="./readNoticeBoardPage_Staff?id=${list.noticeBoardDto.id }">${list.noticeBoardDto.title }</a>
 											<c:if test="${list.commentCount > 0 }">
 												<span style="font-size: 0.7em; color: red; font-weight: bold;">[${list.commentCount }]</span> 
 											</c:if>
