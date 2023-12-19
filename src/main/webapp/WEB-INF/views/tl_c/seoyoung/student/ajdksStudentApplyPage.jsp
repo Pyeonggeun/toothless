@@ -105,7 +105,7 @@
 						</div>
 
 						<br>
-						<div class="row ps-3">
+						<div class="row ps-3 me-1">
 
 							<table class="table text-center align-middle ">
 								<thead class="table">

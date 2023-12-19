@@ -68,12 +68,12 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 
 /*accordion*/
 .accordion { -
-	-bs-accordion-btn-focus-border-color: #CDCDD3;
-	-bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem #CDCDD3;
+	-bs-accordion-btn-focus-border-color: #f2f5f7;
+	-bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem #f2f5f7;
 }
 
 .accordion-button:not(.collapsed) {
-	background-color: #CDCDD3;
+	background-color: #f2f5f7;
 }
 
 .accordion { -
