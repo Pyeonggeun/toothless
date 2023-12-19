@@ -125,7 +125,7 @@ public class GuntaekStudentController {
 	public String ajdksDeleteCertification(AjdksCertificationDto certificationDto) {
 		guntaekStudentService.deleteCertificationByFile(certificationDto.getCertification_file());
 		
-		return "redirect:./ajdksRegisterCertification";
+		return "redirect:./ajdksRegisterSelfIntroduction";
 	}
 
 	// 자격증 추가 프로세스
@@ -174,7 +174,7 @@ public class GuntaekStudentController {
 		}			
 		guntaekStudentService.registerCertification(certificationDto);
 		// 서비스 호출하여 자격증 Dto Insert 해준다.
-		return "redirect:./ajdksRegisterCertification";
+		return "redirect:./ajdksRegisterSelfIntroduction";
 	}
 	// 자격증 추가하는 페이지 포워딩 (이력서 포워딩이랑 똑같음)
 	@RequestMapping("ajdksRegisterCertification")
@@ -219,6 +219,7 @@ public class GuntaekStudentController {
 		return "tl_c/guntaek/student/ajdksShowCertification";
 	}
 	// 이력서 조회 포워딩
+	
 	@RequestMapping("ajdksResumeInquiry")
 	public String ajdksResumeInquiry(HttpSession session, Model model) {
 		
@@ -248,6 +249,8 @@ public class GuntaekStudentController {
 		// 특정 학생의 자격증 Dto List 를 가져온다. 이거 Map에 넣어줄겅미
 		List<AjdksCertificationDto> CertificationDtoList = guntaekStudentService.getCertificationByStudentPk(student_pk);
 	
+		
+		Student.put("introductionDto",guntaekStudentService.getselfIntroductionDto(student_pk));
 		Student.put("studentDto", loginUser);
 		Student.put("departmentName", departmentName);
 		Student.put("proffessorName", proffessorName);
@@ -257,12 +260,15 @@ public class GuntaekStudentController {
 		
 		model.addAttribute("Student",Student);
 		return "tl_c/guntaek/student/ajdksResumeInquiry";
-	}	
+	}
+	
+	
+	
+	
 	// 이력서 이미지 insert 
 	@RequestMapping("ajdksRegisterIntroductionImage")
 	public String ajdksRegisterIntroductionImage(MultipartFile imageLink, AjdksSelfIntroductionImgDto ImageDto
-			,HttpSession session
-			) {
+			,HttpSession session) {
 
 		StudentInfoDto loginUser = (StudentInfoDto) session.getAttribute("sessionStudentInfo");
 		// 로그인한 유저를 얻어온다.
