@@ -46,8 +46,7 @@
             span.replyCount{
             	color: #005EAD;
             }
-            
-            </style>
+    	</style>
     </head>
     <body>
         <div class="container-fluid">

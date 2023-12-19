@@ -98,7 +98,28 @@
             }
 
 
-            </style>
+    	</style>
+        <c:if test="${empty sessionStaffInfo }">
+			<script>
+				alert("로그인 후 이용해주세요");
+				location.href='../../another/staff/loginPage';
+			</script>
+		</c:if>
+		<script>
+			function formSubmit(){
+				const frm = document.getElementById("frm");
+
+				const inputReply = document.getElementById("inputReply");
+
+				if(inputReply.value == ''){
+					alert("댓글을 입력하세요.")
+					return ;
+				}
+				frm.submit();
+				<%-- Submit 클릭 중복 방지--%>
+				document.querySelector(".avoidRedundancy").setAttribute("disabled", "true");
+			}
+		</script>
     </head>
     <body>
         <div class="container-fluid">
@@ -111,12 +132,6 @@
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
                                 <div class="col bg-body-tertiary">
                                 	<!--여기서 부터 -->
-                                	<c:if test="${empty sessionStaffInfo }">
-										<script>
-											alert("로그인 후 이용해주세요");
-											location.href='../../another/staff/loginPage';
-										</script>
-									</c:if>
                                 	<div class="row"></div>
                                 	<div class="row box bg-white text-dark">
                                 		<div class="col">
@@ -193,14 +208,14 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col">
-                                                    <form action="./writeReplyProcess?staffboard_pk=${readText.staffboardDto.staffboard_pk}" method="post">
+                                                    <form id="frm" action="./writeReplyProcess?staffboard_pk=${readText.staffboardDto.staffboard_pk}" method="post">
                                                         <div class="row">
                                                             <div class="col">
-                                                                <textarea class="form-control" style="border: none; font-size: small;" name="content" placeholder="댓글을 입력해주세요."></textarea>
+                                                                <textarea id="inputReply" class="form-control" style="border: none; font-size: small;" maxlength="413" name="content" placeholder="댓글을 입력해주세요."></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col text-end"><input class="mt-1 btn btn-primary rounded-0" style="font-size: small; font-weight: 700; background-color: #005EAD; border-style: none" type="submit" value="댓글쓰기"></div>
+                                                            <div class="col text-end"><input class="avoidRedundancy mt-1 btn btn-primary rounded-0" style="font-size: small; font-weight: 700; background-color: #005EAD; border-style: none" type="button" value="댓글쓰기" onclick="formSubmit()"></div>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -223,7 +238,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col" style="font-size: 15px;">${map.staffboardReplyDto.content}</div>
-                                                <div class="col text-end">
+                                                <div class="col-md-3 text-end">
                                                     <c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == map.staffboardReplyDto.staff_pk}">
                                                         <button type="button" class="btn btn-outline-light rounded-0" style="color: #000000ba; font-size: smaller; font-weight: 600" onclick="location.href='./modifyReplyPage?staffboard_reply_pk=${map.staffboardReplyDto.staffboard_reply_pk}'">수정</button>
                                                         <button type="button" class="btn btn-outline-light rounded-0" style="color: #000000ba; font-size: smaller; font-weight: 600" onclick="location.href='./deleteReplyProcess?staffboard_reply_pk=${map.staffboardReplyDto.staffboard_reply_pk}&staffboard_pk=${map.staffboardReplyDto.staffboard_pk}&staff_pk=${sessionStaffInfo.staff_pk}'">삭제</button>

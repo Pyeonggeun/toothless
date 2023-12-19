@@ -128,7 +128,6 @@ public class StaffboardController {
 		
 		model.addAttribute("readText", readText);
 		model.addAttribute("replyList", replyList);
-//		model.addAttribute("qwer", map);
 		
 		//좋아요
 		
