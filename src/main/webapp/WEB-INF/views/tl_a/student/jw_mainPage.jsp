@@ -463,7 +463,7 @@
 							</div>
 						</div>
 						<div id="box5" class="box box5 col border-end" 
-						onclick="toLink('#')"
+						onclick="toLink('./sj_requestRepairPage')"
 						onmouseover="changeColor(5)" onmouseout="restoreColor(5)">
 							<!-- 이모티콘 -->
 							<div class="row mt-4 ms-3">
