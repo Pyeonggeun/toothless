@@ -78,9 +78,9 @@
 						<br> <br>
 
 
-						<div class="row">
+						<div class="row ">
 							<h2>
-								<span class="fw-bolder"><i class="bi bi-calendar-check"></i>&nbsp;신청내역
+								<span class="fw-bolder border-bottom"><i class="bi bi-calendar-check"></i>&nbsp;신청내역
 									조회</span>
 							</h2>
 						</div>
