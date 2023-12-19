@@ -213,6 +213,28 @@ public class RestDormStaffControllerJw {
 		return restResponseDto;
 	}
 	
+	@RequestMapping("restRegisterExecutiveManagementRoom")
+	public RestResponseDto restRegisterExecutiveManagementRoom(int dorm_room_pk, int executive_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		dormStaffServiceJw.assignmentExecutiveRoom(dorm_room_pk, executive_pk);
+		
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("restRemoveExecutiveManagementRoom")
+	public RestResponseDto restRemoveExecutiveManagementRoom(int dorm_room_pk, int executive_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		dormStaffServiceJw.removeExecutivePerRoom(dorm_room_pk, executive_pk);
+		
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
 	// 임원별 호실 배정 관리 현황
 	@RequestMapping("restGetAllExecutiveManagementList")
 	public RestResponseDto restGetAllExecutiveeManagementList() {

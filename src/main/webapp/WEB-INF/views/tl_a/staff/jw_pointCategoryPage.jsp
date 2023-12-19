@@ -291,13 +291,13 @@
 					<!-- 제출 -->
 					<div class="row mt-3 mb-5 mx-0">
 						<div class="col px-0">
-							<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary me-1"> &nbsp;&nbsp; 취소 &nbsp;&nbsp;</button>
-							<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary me-1">미리보기</button>
+							<button type="button" class="rounded-0 fw-bold btn btn-lg btn-danger me-1"> &nbsp;&nbsp; 취소 &nbsp;&nbsp;</button>
+							<button type="button" class="rounded-0 fw-bold btn btn-lg btn-secondary me-1">미리보기</button>
 						</div>			
 						<div class="col-5"></div>
 		                <div class="col px-0 text-end">
-							<button type="button" class="rounded-0 fw-bold btn btn-lg btn-outline-secondary">임시 저장</button>
-		                    <button onclick="registerCategory()" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">코드 등록</button>
+							<button type="button" class="rounded-0 fw-bold btn btn-lg btn-secondary">임시 저장</button>
+		                    <button onclick="registerCategory()" class="rounded-0 fw-bold btn btn-lg btn-primary text-white ms-1">코드 등록</button>
 		                </div>                    
 		             </div>
 				</div>

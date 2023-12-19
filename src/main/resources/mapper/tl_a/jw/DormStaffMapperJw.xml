@@ -143,14 +143,16 @@
 		ORDER BY tads.DORM_STUDENT_PK ASC
 	</select>
 	
-	<!-- 진행 중인 학기의 사생 정보 중 같은 호실인 사생  -->
+	<!-- 진행 중인 학기의 임원을 제외한 사생 정보 중 같은 호실인 사생  -->
 	<select id="selectDormStudentByProgressSemesterAndDormRoom" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
 		SELECT tads.*
 		FROM TL_A_SEMESTER tas
 		JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK
 		WHERE tas.PROGRESS_STATE = 'Y'
 		AND tads.DORM_ROOM_PK = #{DORM_ROOM_PK}
-		ORDER BY tads.DORM_STUDENT_PK ASC
+		MINUS
+		SELECT tads.* FROM TL_A_EXECUTIVE tae 
+		JOIN TL_A_DORM_STUDENT tads ON tae.DORM_STUDENT_PK = tads.DORM_STUDENT_PK
 	</select>
 	
 	<!-- 임원 -->
@@ -199,8 +201,8 @@
 			SELECT taem.EXECUTIVE_MANAGEMENT_PK FROM TL_A_EXECUTIVE_MANAGEMENT taem
 			INNER JOIN TL_A_DORM_STUDENT tads ON TADS.DORM_STUDENT_PK = taem.DORM_STUDENT_PK
 			INNER JOIN TL_A_DORM_ROOM tadr ON TADR.DORM_ROOM_PK = TADS.DORM_ROOM_PK 
-			WHERE taem.EXECUTIVE_PK = #{param1}
-			AND tadr.DORM_ROOM_PK = #{param2}
+			WHERE tadr.DORM_ROOM_PK = #{param1}
+			AND taem.EXECUTIVE_PK = #{param2}
 		)
 	</delete>
 	
