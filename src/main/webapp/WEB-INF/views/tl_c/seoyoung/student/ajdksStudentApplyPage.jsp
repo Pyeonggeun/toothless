@@ -60,7 +60,7 @@
 }
 
 .accordion-button:not(.collapsed) {
-	background-color: #CDCDD3;
+	background-color: #f2f5f7;
 }
 
 .accordion { -
@@ -109,7 +109,7 @@
 
 							<table class="table text-center align-middle ">
 								<thead class="table">
-									<tr  style="background-color: #CDCDD3;">
+									<tr  style="background-color: #f2f5f7;">
 										<th scope="col">#</th>
 										<th scope="col">기관명</th>
 										<th scope="col">소재지</th>
@@ -142,13 +142,13 @@
 						<br>
 						<div class="row text-center">
 							<div class="accordion accordion-secondary	"
-								id="accordionExample bg-primary" style="-bs-accent: #CDCDD3;">
+								id="accordionExample bg-primary" style="-bs-accent: #f2f5f7;">
 								<div class="accordion-item">
 									<h2 class="accordion-header">
 										<button class="accordion-button fw-bolder " type="button"
 											data-bs-toggle="collapse" data-bs-target="#collapseOne"
 											aria-expanded="true" aria-controls="collapseOne"
-											style="-bs-accent: #CDCDD3;">
+											style="-bs-accent: #f2f5f7;">
 											<i class="bi bi-bookmarks "></i> &nbsp;지원이력서
 										</button>
 									</h2>
@@ -158,7 +158,7 @@
 											<div class="row">
 												<table class="table">
 													<thead>
-														<tr style="background-color: #CDCDD3;">
+														<tr style="background-color: #f2f5f7;">
 															<th class="col-md-3">#</th>
 															<th class="span10">내용</th>
 
@@ -210,7 +210,7 @@
 										<div class="accordion-body">
 											<table class=" table text-center align-middle ">
 												<thead class="table">
-													<tr style="background-color: #CDCDD3;">
+													<tr style="background-color: #f2f5f7;">
 														<th scope="col">#</th>
 														<th scope="col">기관명</th>
 														<th scope="col">소재지</th>
