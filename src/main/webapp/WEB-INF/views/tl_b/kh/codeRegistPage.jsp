@@ -11,6 +11,12 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         
         <style>
+        .element-with-pointer-cursor {
+            cursor: pointer;
+            /* 추가적인 스타일 지정 가능 */
+            color: blue;
+            font-weight: bold;
+        }
         .customColor {
             border-radius: 0%;
             color: white;
@@ -226,6 +232,8 @@
                         medicineName.setAttribute("data-bs-toggle","modal");
                         medicineName.setAttribute("data-bs-target","#Name"+e.medicineInfo.name+"");                      
                         medicineName.innerText = e.medicineInfo.name;
+                        medicineName.classList.add("text-primary");
+                        medicineName.classList.add("element-with-pointer-cursor");
                         medicineName.setAttribute("onclick","getInventoryInfo("+e.medicineInfo.medicine_code_pk+")");
 
                         //
@@ -322,11 +330,19 @@
                         idName = ""+e.MEDI_NAME+""
                         
                     }
-                    console.log(idName);
-                    const getMediName = document.querySelector("#idName");
-                    console.log(getMediName);
-                    const nowQuantityStation = getMediName.querySelector(".nowQuantityStation");
-                    nowQuantityStation.innerText = "남은 수량 호로로";
+                    if(idName != null){
+                        console.log(idName);
+                        const getMediName = document.querySelector("#Name"+idName+"");
+                        console.log(nowQuantity);
+                        const nowQuantityStation = getMediName.querySelector(".nowQuantityStation");
+                        
+                        nowQuantityStation.innerText = "현재수량 : " + nowQuantity;
+                    }else{
+                        const nowQuantityStation = document.querySelector(".nowQuantityStation");
+                        console.log(nowQuantityStation);
+                        nowQuantityStation.innerText = "현재수량 : 0 ";
+                    }
+                    
 
                 });
                 
@@ -496,9 +512,10 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <h1 class="modal-title fs-5 text-center fw-bold" id="exampleModalLabel">상세정보</h1>
+                      <span class="mx-5 text-danger">※ 현재 수량이 표기되지않는 것은 재고가 0 입니다.</span>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body text-dark">
                         <div class="container">
                             <div class="row pb-1">
                                 <div class="col text-center">
@@ -508,7 +525,7 @@
                             <div class="row pb-1">
                                 <div class="col text-center">
                                     <span class="nowQuantityStation fw-bold">
-                                        &lt; 남은 수량 : &gt;
+                                        
                                     </span>
                                 </div>
                             </div>
@@ -520,7 +537,7 @@
                             </div>
                             <div class="row">
                                 <div class="col inventoryWrapperStation">
-                                    <div class="inventoryWrapper row mt-3 mb-1 pb-3 text-center border-bottom border-1 border-primary">
+                                    <div class="inventoryWrapper row mt-3 mb-1 pb-3 text-center border-bottom border-1 border-primary text-dark">
                                         <div class="inventoryDate col-3 border-primary">변동일</div>
                                         <div class="inventoryPerson col-3 border-primary">관리자</div>
                                         <div class="inventoryReason col-3 border-primary">변동사유</div>
