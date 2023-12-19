@@ -6,6 +6,33 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script>
+		function formSubmit(){
+			const formText = document.getElementById("formText");
+			
+			const inputTitle = document.getElementById("inputTitle");
+			const inputTitleRegex =/^([a-zA-Z0-9_-]{2,})$/;
+			if(!inputTitleRegex.test ==(inputTitle.value)){
+				alert("게시글의 제목을 두글자 이상 입력하셔야 합니다.");
+				inputTitle.focus();
+				return;
+			}
+				
+			const inputText = document.getElementById("inputText");
+			const inputTextRegex =/^([a-zA-Z0-9_-]{2,})$/;
+			if(!inputTextRegex.test ==(inputText.value)){
+				alert("내용을 두 글자 이상 입력하셔야 합니다.")
+				inputText.focus();
+				return;
+			}
+						
+			formText.submit(); 
+			
+		}
+	
+	</script>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
@@ -124,7 +151,7 @@
 			<!--내용을 제외한 주요 정보들 -->
 			
 			<!-- 폼 액션 시작 -->
-			<form action="./updateFreeboardPostProcess" method=post>
+			<form id="formText"action="./updateFreeboardPostProcess" method=post>
 			<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk}">
 			<input name="id" type="hidden" value="${pickpostMap.freeboardPost.id}">
 				<div class="row">
@@ -140,7 +167,8 @@
 					<!-- 제목 입력 받을 칸 (향후에 손보기-->
 					<div class="row fs-5 border border-start-0 border-end-0 border-2 border-black py-2 px-3"> 
 						
-						 	<input name = "title" type="text" placeholder="이 공간에 제목을 입력하시면 됩니다...">
+						 	<input id="inputTitle" name = "title" type="text" placeholder="${pickpostMap.freeboardPost.title}">
+						 	${pickpostMap.freeboardPost.title}
 					
 					</div>
 					
@@ -151,13 +179,14 @@
 				<!-- 글 내용 -->
 				<div class="row pt-3">
 					<div class="col">
-						<textarea name = "text" cols=150 rows=20 placeholder="이 공간에 원하는 내용을 입력하시면 됩니다..."></textarea>
+						<textarea id="inputText" name = "text" cols=150 rows=20 placeholder="${pickpostMap.freeboardPost.text}"></textarea>
+						${pickpostMap.freeboardPost.text}
 					</div>
 				</div>
 			
 				<div class="row py-2">
 					<div class="col-5"></div>
-					<div class="col"  ><input type="submit" class="fw-semibold text-white py-1 rounded" style="background-color:#133369;" value="글 수정 완료"></div>
+					<div class="col"  ><input type="button" onclick="formSubmit()" class="fw-semibold text-white py-1 rounded" style="background-color:#133369;" value="글 수정 완료"></div>
 					<div class="col-5"></div>
 				</div>
 			<!-- 폼액션 끝 -->
