@@ -289,8 +289,8 @@
 			cc.id AS counselorId,
 			nvl(offlineData.offlineAvg,0) AS offAvg,
 			nvl(onlineData.onlineAvg,0) AS onAvg,
-			nvl(groupData.groupAvg,0) AS groupAvg,
-			(nvl(offlineData.offlineAvg,0) + nvl(onlineData.onlineAvg,0) + nvl(groupData.groupAvg,0)) / 3 AS totalAvg
+			nvl(TRUNC(groupData.groupAvg, 2),0) AS groupAvg,
+			TRUNC((nvl(offlineData.offlineAvg,0) + nvl(onlineData.onlineAvg,0) + nvl(groupData.groupAvg,0)) / 3, 2) AS totalAvg
 		FROM CP_COUNSELOR cc 
 		LEFT OUTER JOIN (
 			SELECT 	

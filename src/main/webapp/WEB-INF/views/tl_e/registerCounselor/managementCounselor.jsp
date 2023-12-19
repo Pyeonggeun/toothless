@@ -20,11 +20,19 @@
 }
 </style>
 <script>
-	let loginStaffInfo = null;
+
+	window.addEventListener("DOMContentLoaded", ()=>{		
+		reloadCounselorList()
+		reloadSearchTypeCategory()
+		
+	});
+	
+	
 	let searchData = null;
-	
-	
-	// 직원로그인 확인 로직
+	const curruntPageStaffUser = document.getElementById("sessionStaffName");
+	const userid = curruntPageStaffUser.getAttribute("value");
+	console.log(userid);
+	/* // 직원로그인 확인 로직
 	function getStaffInfo(){		
 		fetch("./restGetStaffInfo")
 		.then(response => response.json())
@@ -41,15 +49,9 @@
 				}
 				
 			}
-			/* else{
-				const staffInfoBox = document.getElementById("staffInfoBox");
-				
-				staffInfoBox.innerText = loginStaffInfo.name;	
-			} */
-			
 			
 		});		
-	}
+	} */
 	
 	
 	// 상담원 목록 DB에서 가져오는 로직
@@ -376,22 +378,22 @@
 		.then(response => response.json())
 		.then(response => {
 			
-			const counselorDto = response.data;
+			const counselorDetail = response.data;
 			
 			const counselorPhoto = document.getElementById("counselorPhoto");
-			counselorPhoto.setAttribute("src", "../../resources/img/counselorImage/" + counselorDto.profileImage);
+			counselorPhoto.setAttribute("src", "../../resources/img/counselorImage/" + counselorDetail.counselorDto.profileImage);
 			
 			const counselorName = document.getElementById("counselorName");
-			counselorName.innerText = counselorDto.name;			
+			counselorName.innerText = counselorDetail.counselorDto.name;			
 			
 			const counselorNo = document.getElementById("counselorNo");
-			counselorNo.innerText = counselorDto.id;
+			counselorNo.innerText = counselorDetail.counselorDto.id;
 			
 			const counselorAge = document.getElementById("counselorAge");
-			counselorAge.innerText = counselorDto.age;
+			counselorAge.innerText = counselorDetail.counselorDto.age;
 			
 			const counselorGender = document.getElementById("counselorGender");
-			if(counselorDto.gender == "M"){
+			if(counselorDetail.counselorDto.gender == "M"){
 				counselorGender.innerText = "남"	
 			}else{
 				counselorGender.innerText = "여"
@@ -399,16 +401,59 @@
 			
 			
 			const counselorPhoneNum = document.getElementById("counselorPhoneNum");
-			counselorPhoneNum.innerText = counselorDto.phonenumber;
+			counselorPhoneNum.innerText = counselorDetail.counselorDto.phonenumber;
 			
 			const counselorEmail = document.getElementById("counselorEmail");
-			counselorEmail.innerText = counselorDto.email;
+			counselorEmail.innerText = counselorDetail.counselorDto.email;
 			
 			const counselorAddress = document.getElementById("counselorAddress");
-			counselorAddress.innerText = counselorDto.email;
+			counselorAddress.innerText = counselorDetail.counselorDto.address;
+			
+			const counselorTypeRow = document.getElementById("counselorTypeRow");
+			counselorTypeRow.innerHTML ="";
+			const counselorTypeList = [...counselorDetail.counselorTypeList];
+			for(e of counselorTypeList){				
+				const counselorType = document.createElement("div");
+				counselorType.setAttribute("class", "col-auto");
+				counselorType.innerText = e.CATEGORYNAME;
+				counselorTypeRow.appendChild(counselorType);
+				
+			}
+			
+			const counselorCareer = document.getElementById("counselorCareer");
+			counselorCareer.innerText = counselorDetail.counselorDto.career;
+			
+			const counselorLicenseRow = document.getElementById("counselorLicenseRow");
+			const counselorLicenseList = [...counselorDetail.counselorLicenseList];
+			if(counselorLicenseList.length > 0){
+				for(e of counselorLicenseList){
+					const counselorLicenseWrapper = document.querySelector("#templete #counselorLicenseWrapper").cloneNode(true);
+					const counselorLicense = counselorLicenseWrapper.querySelector("#counselorLicense");
+					counselorLicense.setAttribute("src", "/toothless/resources/img/counselorImage/license/" + e.license);
+					counselorLicenseRow.appendChild(counselorLicenseWrapper);
+				}
+			}
+			else{
+				const counselorLicenseWrapper = document.querySelector("#templete #counselorLicenseWrapper").cloneNode(true);
+				counselorLicenseWrapper.innerHTML ="";
+				const licenseNotExist = document.createElement("span");
+				licenseNotExist.innerText = "- 등록된 자격증 정보가 없습니다. -"
+				licenseNotExist.setAttribute("class", "fs-4");
+				counselorLicenseWrapper.appendChild(licenseNotExist);
+				counselorLicenseRow.appendChild(counselorLicenseWrapper);
+			}
+			
+			const counselorScoreAvg = document.getElementById("counselorScoreAvg");
+			counselorScoreAvg.innerText = counselorDetail.counselorScoreAvg.TOTALAVG;
 			
 			
 		});
+		
+/* 		CounselorDto counselorDto = registerCounselorSqlMapper.selectCounselorDetailByCounselorId(counselorId);
+		List<Map<String, Object>> counselorTypeList =  registerCounselorSqlMapper.selectCounselorTypeByCounselorId(counselorId);
+		List<LicenseImageDto> counselorLicenseList = registerCounselorSqlMapper.selectLicenseImgByCounselorId(counselorId);
+		Map<String, Object> counselorScoreAvg = registerCounselorSqlMapper.selectCounselorAllScoreAvgByCounselorId(counselorId);
+		List<Map<String, Object>> counselList =  registerCounselorSqlMapper.selectCompleteCounselListByCounselorId(counselorId); */	
 		
 		const modal = bootstrap.Modal.getOrCreateInstance("#counselorInfoModal");
         modal.show();
@@ -514,11 +559,9 @@
     	}
     }
 	
-	window.addEventListener("DOMContentLoaded", ()=>{
-		getStaffInfo()
-		reloadCounselorList()
-		reloadSearchTypeCategory()
-	});
+	
+	
+	
 	
 </script>
 <title>상담원 등록 페이지</title>
@@ -658,7 +701,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>		
 	</div>
 	
 
@@ -683,13 +726,13 @@
                         	<div class="row">
                         		<div class="col">
                         			
-                        			
+                        			<!-- 상담사정보 상단로우 -->
                         			<div class="row">
                         				<!-- 상담사 사진 출력 -->                        			
                         				<div class="col-4 text-center">
                         					<div class="row">
                         						<div class="col-auto">
-                        							<img id="counselorPhoto" class="img-fluid">
+                        							<img id="counselorPhoto" class="img-fluid align-middle">
                         						</div>
                         					</div>
                         				</div>
@@ -798,17 +841,92 @@
                         					<div class="row mt-2">
                         						<div class="col">
                         							<div class="row align-items-center">
-                        								<div class="col-2">
-                        									<span class="fw-bold">상담분야</span>
-                        								</div>
                         								<div class="col-auto">
-                        									<span id="counselorType" class=""></span>
-                        								</div>
+                        									<span class="fw-bold">상담분야</span>
+                        								</div>                        								
+                        							</div>
+                        							<div id="counselorTypeRow" class="row align-items-center">                        								
+                        								
                         							</div>
                         						</div>
                         					</div>
                         				</div>
                         				
+                        			</div>
+                        			
+                        			<!-- 상담사 정보조회 중간로우 -->
+                        			<div class="row mt-3">
+                        				<div class="col">
+                        					<!-- 상담사 경력사항 -->
+                        					<div class="row">                        						
+                        						<div class="col">
+                        							<div class="row">
+                        								<div class="col">
+                        									<span class="fw-bold fs-4">경력사항</span>
+                        								</div>
+                        							</div>
+                        							<div class="row mt-2">
+                        								<div class="col border rounded">
+                        									<div class="row mt-2 mb-2">
+                        										<div id="counselorCareer" class="col">
+                        										
+                        										</div>
+                        									</div>                        								
+                        								</div>
+                        							</div>
+                        						</div>
+                        					</div>
+                        					
+                        					<!-- 상담사 자격정보 -->
+                        					<div class="row mt-3">                        						
+                        						<div class="col">
+                        							<div class="row">
+                        								<div class="col">
+                        									<span class="fw-bold fs-4">상담원 자격정보</span>
+                        								</div>
+                        							</div>
+                        							<div id="counselorLicenseRow" class="row mt-2">
+                        								
+                        							</div>
+                        						</div>
+                        					</div>
+                        					
+                        					<!-- 상담사 평점 -->
+                        					<div class="row mt-3">                        						
+                        						<div class="col">
+                        							<div class="row">
+                        								<div class="col">
+                        									<span class="fw-bold fs-4">상담원 평점</span>
+                        								</div>
+                        							</div>
+                        							<div class="row mt-2">
+                        								<div class="col border rounded">
+                        									<div class="row mt-2 mb-2">
+                        										<div class="col-2">
+                        											<span class="fw-bold">평균 만족도</span>
+                        										</div>
+                        										<div class="col-auto">
+                        											<span id="counselorScoreAvg"></span>
+                        										</div>
+                        									</div>
+                        									<div class="row mt-2 mb-2">
+                        										<div class="col-2">
+                        											<span class="fw-bold">만족도 현황</span>
+                        										</div>
+                        										<div class="col">
+                        											<div class="row">
+                        												<div class="col">
+                        													
+                        												</div>
+                        											</div>
+                        										</div>
+                        									</div>
+                        								</div>
+                        							</div>
+                        						</div>
+                        					</div>
+                        					
+                        				</div>
                         			</div>
                         			
                         		</div>	
@@ -1071,6 +1189,14 @@
         	<input class="typeCheckBox form-check-input" type="checkbox" >
         	<label class="typeCheckBoxLabel form-check-label"></label>                                    	
         </div>
+        
+        <div id="counselorLicenseWrapper" class="col-12 border rounded text-center">
+			<div class="row mt-2 mb-2 text-center">
+				<div class="col">
+					<img id="counselorLicense" src="" class="img-fluid">
+				</div>
+			</div>                        								
+		</div>
 		
 		
 	</div>
