@@ -28,7 +28,6 @@
 		text-align: center;
 	
 	}
-	
 
 	.tp-borderx{
 		border-width: 4px 4px 4px 4px;
@@ -53,7 +52,6 @@
 	  image-rendering: -webkit-optimize-contrast; /* chrome(비표준) */
 	  image-rendering: crisp-edges;
 	}	
-	
 	
 	
 	
@@ -96,13 +94,23 @@
 				
 				groupCounselCounselDate.innerText = date.getFullYear() + "."  + (date.getMonth() + 1) + "." + date.getDate();
 				
-				
-				
-			 	
-				
-				
 				const groupCounselDDay = groupCounselWrapper.querySelector(".groupCounselDDay");
 				groupCounselDDay.innerText = "D-" + e.D_DAY;
+				
+				groupCounselImage.addEventListener('mouseover', function(){
+
+					groupCounselImage.style.cssText = "border-style: solid; border-width: 5px; border-color: #8FBC8F;";
+					groupCounselDDay.style.cssText = "font-size: 1.4em; color: #0A6E0A; text-decoration : underline;";
+					groupCounselTitle.style.cssText = "font-size: 1em; color: black;";
+				});
+				groupCounselImage.addEventListener('mouseout', function(){
+					
+					groupCounselImage.style.cssText = "border-style: solid; border-width: 2px; border-color: #8FBC8F; opacity: 0.8;";
+					groupCounselDDay.style.cssText = "font-size: 1.3em; color: #0A6E0A; text-decoration : none;";
+					groupCounselTitle.style.cssText = "font-size: 0.9em; color: black;";
+				});
+				
+				
 				
 				groupCounselListBox.appendChild(groupCounselWrapper);
 				
@@ -112,7 +120,19 @@
 		});
 		
 	}
-
+	
+	function onblurGroupCounselImage(targetElement){
+		
+		const groupCounselWrapper = target.Element.closest(".groupCounselWrapper");
+		
+		const groupCounselDDay = groupCounselWrapper.querySelector(".groupCounselDDay");
+		
+		groupCounselDDay.style.cssText = "text-decoration : underline;";
+		
+	}
+	
+	
+	
 
 	window.addEventListener("DOMContentLoaded", () => {
 		reloadGroupCounselList();
@@ -137,7 +157,7 @@
 		<div class="col">
 			<div class="row">
 				<div class="col mx-0 px-0" style="height: 35em;">
-					<img class="banner img-fluid" src="./../../resources/img/groupCounsel/fff.jpg" style="width:100%; height: 100%;">
+					<img class="banner img-fluid" src="/toothless/resources/img/groupCounsel/fff.jpg" style="width:100%; height: 100%;">
 				
 					<div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height:100%; position: relative; bottom: 100%;"></div>
 					<!-- 
@@ -446,7 +466,7 @@
 	<div class="col groupCounselWrapper">
 		<div class="row">
 			<div class="col">
-				<img class="groupCounselImage img-fluid rounded-2" style="border-style: solid; border-width: 2px; border-color: #8FBC8F">
+				<img class="groupCounselImage img-fluid rounded-2" style="border-style: solid; border-width: 2px; border-color: #8FBC8F; opacity: 0.8;">
 			</div>
 		</div>
 		<div class="row pt-2">
