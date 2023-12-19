@@ -198,11 +198,11 @@
 	<!-- 본문 : 자유롭게 이용하세요 화이팅 -->
 	<div class="col">
 		<div class="row">
-			<div class="col mx-4">
+			<div class="col mx-5">
 			
 			<!-- 본문작성공간 -->
 				<div class="row mt-5">
-					<div class="col fw-bold">
+					<div class="col fw-bold" style="font-size: 1.6em;">
 						산업체 등록 내역
 					</div>
 				</div>
@@ -230,45 +230,6 @@
 				<div class="row mt-1">
 					<div id="companyListBox" class="col border-bottom border-secondary-subtle"></div>
 				</div>
-				 <%--  <c:choose>
-					<c:when test="${empty getCompanyListByCategoryPk}">
-						<c:forEach items="${registedCompanyList}" var="qqq">
-							<div class="row mt-3 text-center" style="font-size: 0.8em;">
-								<div class="col-1">${qqq.ajdksCompanyInfoDto.company_pk}</div>
-								<div class="col-2">${qqq.ajdksCompanyCategoryDto.company_category_name}</div>
-								<div class="col-2">${qqq.ajdksCompanyInfoDto.company_name}</div>
-								<div class="col-1">${qqq.ajdksCompanyInfoDto.ceo_name}</div>
-								<div class="col">${qqq.ajdksCompanyInfoDto.address}</div>
-								<div class="col-2">${qqq.ajdksCompanyInfoDto.phone}</div>
-							</div>
-							<div class="row mt-3">
-								<div class="col border border-secondary-subtle"></div>
-							</div>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						 <c:forEach items="${getCompanyListByCategoryPk}" var="qqq">
-							<div class="row mt-3 text-center" style="font-size: 0.8em;">
-								<div class="col-1">${qqq.ajdksCompanyInfoDto.company_pk}</div>
-								<div class="col-2">${qqq.ajdksCompanyCategoryDto.company_category_name}</div>
-								<div class="col-2">${qqq.ajdksCompanyInfoDto.company_name}</div>
-								<div class="col-1">${qqq.ajdksCompanyInfoDto.ceo_name}</div>
-								<div class="col">${qqq.ajdksCompanyInfoDto.address}</div>
-								<div class="col-2">${qqq.ajdksCompanyInfoDto.phone}</div>
-							</div>
-							<div class="row mt-3">
-								<div class="col border border-secondary-subtle"></div>
-							</div>
-						</c:forEach> 
-					</c:otherwise>
-				</c:choose>   --%>
-				<div class="row mt-2">
-					<div class="col"></div>
-					<div class="col-1">
-						<a class="btn btn-secondary" href="./ajdksStaffMainPage">메인</a>
-					</div>
-				</div>
-				
 						 
 		
 				
@@ -295,7 +256,7 @@
 								<div class="companyPhone col-2">ㄹ댜댜댜더ㅓ러</div>
 							</div>
 							<div class="row mt-3">
-								<div class="col border border-secondary-subtle"></div>
+								<div class="col border-bottom border-secondary-subtle"></div>
 							</div>
 						</div>
 					</div>

@@ -52,9 +52,12 @@
 	
 	
 	
-	
-	// 카테고리 리스트 체크박스
-	
+	function formsubmit() {
+		
+		const frm = document.getElementById("frm");
+		frm.submit();
+		
+	}
 	
 	function companyCategoryList(){
 		
@@ -115,7 +118,7 @@
 	    console.log(typeData);
 	    
 	    console.log(checkedValues);
-	    console.log(searchWordValue); // 달 담기는데 왜 안돼
+	    console.log(searchWordValue); 
 		
 		
 		const url = "./categorizedCompanyList?searchType=" + checkedValues + "&searchWord=" + searchWordValue;
@@ -132,25 +135,26 @@
 			
 			for(e of response.data){
 				
+				
 				const companyListWrapper = document.querySelector("#templete .companyListWrapper").cloneNode(true);
 				
 				const companyPk = companyListWrapper.querySelector(".companyPk");
-				companyPk.innerText = e.company_pk;
+				companyPk.innerText = e.COMPANY_PK;
 				
 				const companyCategoryName = companyListWrapper.querySelector(".companyCategoryName");
-				companyCategoryName.innerText = e.company_category_name;
+				companyCategoryName.innerText = e.COMPANY_CATEGORY_NAME;
 				
 				const companyName = companyListWrapper.querySelector(".companyName");
-				companyName.innerText = e.company_name;
+				companyName.innerText = e.COMPANY_NAME;
 				
 				const ceoName = companyListWrapper.querySelector(".ceoName");
-				ceoName.innerText = e.ceo_name;
+				ceoName.innerText = e.CEO_NAME;
 				
 				const compamyAddress = companyListWrapper.querySelector(".compamyAddress");
-				compamyAddress.innerText = e.address;
+				compamyAddress.innerText = e.ADDRESS;
 				
 				const companyPhone = companyListWrapper.querySelector(".companyPhone");
-				companyPhone.innerText = e.phone;
+				companyPhone.innerText = e.PHONE;
 				
 				companyListBox.appendChild(companyListWrapper);
 				
@@ -160,13 +164,7 @@
 		});
 	}
 	
-	// 버튼 눌렀을 때 실행
-	document.addEventListener("DOMContentLoaded", ()=>{
-		const searchButton = document.getElementById("searchButton");
-		searchButton.addEventListener("click", () => {
-		    categorizedCompanyList(searchTypeData, searchWordData); // 검색 버튼을 클릭할 때 categorizedCompanyList 함수 호출
-		});
-	});
+	
 	
 	
 	
@@ -212,6 +210,7 @@
 	
 	window.addEventListener("DOMContentLoaded", () =>{
 		companyCategoryList();
+		registedCompanyList();
 	})
 
 
@@ -245,7 +244,6 @@
 				<div class="row mt-3">
 					<div class="col border border-2"></div>
 				</div>
-				<form action="./ajdksRegistedCompanyPageCCCC" method="get">
 				<div class="row mt-5">
 					<div id="catBox" class="col mt-2">
 						<%-- <c:forEach items="${categoryList}" var="CL"> --%>
@@ -256,11 +254,10 @@
 						<input id="searchWord" type="text" class="form-control">
 					</div>
 					<div class="col-1 d-grid">
-						<button id="searchButton" class="btn btn-secondary">검색</button>
+						<button onclick="categorizedCompanyList(searchTypeData, searchWordData)" class="btn btn-secondary">검색</button>
 					</div>
 					<div class="col-1"></div>
 				</div>
-				</form>
 				<div class="row mt-4">
 					<div class="col border border-1 border-dark"></div>
 				</div>
