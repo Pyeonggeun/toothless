@@ -92,7 +92,7 @@
 								</h4>
 							</div>
 							<nav class="navbar navbar-light py-2 ms-5 me-5 mb-3"
-								id="searchCompany" style="background-color: #CDCDD3;">
+								id="searchCompany" style="background-color: #f2f5f7;">
 								<div class="col py-2 ms-5 me-5 mb-3">
 									<div class="row ms-3 mt-3 me-3 mb-3">
 										<div class="input-group col px-0 ">
@@ -109,7 +109,7 @@
 							</nav>
 							<div
 								class="row py-2 ms-5 me-5 mb-3 border-1 border-dark align-self-center border-bottom border-top text-center border-secondary fs-5 fw-semibold"
-								style="background-color: #CDCDD3;">
+								style="background-color: #f2f5f7;">
 								<div class="col align-self-center text-center">#</div>
 								<div class="col-6 align-self-center">제목</div>
 								<div class="col align-self-center text-center">등록자</div>
