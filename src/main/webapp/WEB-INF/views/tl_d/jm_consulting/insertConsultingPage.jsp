@@ -85,6 +85,7 @@
 									<input name="staff_pk" type="hidden" value="${sessionStaffInfo.staff_pk}">
 									<input name="hope_job_pk" type="hidden" value="${hope_job_pk}">
 									
+									<button value="등록"></button>
 									<input type="submit" value="등록">
 								</div>							
 							</div>	
