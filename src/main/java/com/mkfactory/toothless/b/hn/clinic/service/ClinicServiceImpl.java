@@ -137,12 +137,6 @@ public class ClinicServiceImpl {
 		
 		ClinicPatientLogDto clinicPatientLogDto = clinicSqlMapper.getClinicPatientLogInfoByClinicPatientLogPk(clinic_patient_log_pk);
 		
-		String content = clinicPatientLogDto.getContent();
-		
-		content = StringEscapeUtils.escapeHtml4(content);
-		content = content.replaceAll("<br>", "\n");
-		clinicPatientLogDto.setContent(content);
-		
 		List<Map<String, Object>> list = new ArrayList<>();
 		List<PrescriptionDto> prescriptionList = clinicSqlMapper.getPrescriptionInfoListByClinicPatientLogPk(clinic_patient_log_pk);
 		
@@ -153,7 +147,6 @@ public class ClinicServiceImpl {
 			prescriptionMap.put("prescriptionInfo", prescriptionDto);
 			prescriptionMap.put("medicineName", clinicSqlMapper.getMedicineNameByMedicineCodePk(prescriptionDto.getMedicine_code_pk()));
 			
-			list.add(prescriptionMap);
 		}
 		
 		map.put("clinicPatientLogInfo", clinicPatientLogDto);
@@ -196,12 +189,6 @@ public class ClinicServiceImpl {
 				
 			}
 		}
-		
-		String content = clinicPatientLogDto.getContent();
-		
-		content = StringEscapeUtils.escapeHtml4(content);
-		content = content.replaceAll("\n", "<br>");
-		clinicPatientLogDto.setContent(content);
 		
 		clinicSqlMapper.insertClinicPatientLogInfo(clinicPatientLogDto);
 		

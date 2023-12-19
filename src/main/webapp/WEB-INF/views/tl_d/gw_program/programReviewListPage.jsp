@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<title>프로그램 신청 학생 목록</title>
+<title>프로그램 리뷰</title>
 </head>
 <body>
 	<!-- 취업팀용 페이지 -->
@@ -31,22 +31,44 @@
 				<div class="row">
 					<div class="col-1"></div>
 					<div class="col">
-						<div class="row mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">프로그램 리뷰</div>
-						<div class="row border-bottom border-2 border-black pb-3 mb-3 mt-5">
+						<div class="row mt-5">
+							<div class="col ps-0 ms-0">
+								<a class="btn" href="./programViewDetailsPage?program_pk=${program.programDto.program_pk}">${program.programDto.prg_name}</a>
+							</div>
+							<div class="col"></div>
+						</div>
+						<div class="row mb-2 ps-2 border-bottom border-3 border-bs-border pb-3 mb-3">
+							<div class="col-2 ps-0 ms-0 fw-bold fs-4">프로그램 리뷰</div>
+							<!-- 평점 평균 들어갈곳 -->
+							<div class="col ps-0 ms-0 pt-1 fs-5">평균 66점</div>
+							
+						</div>
+						<!-- <div class="row border-bottom border-2 border-black pb-3 mb-3 mt-5">
 						      <div class="col-2 text-center fw-bold">평점</div>
 						      <div class="col text-center fw-bold">평가</div>
-						</div>
+						</div> -->
 						
 						<c:forEach items="${studentApplyProgram}" var="list">
+							<c:if test="${!empty list.programReviewDto.prg_score}">
 								<div class="row border-bottom border-bs-border pb-3 mb-3">
 									
-								    <div class="col-2 text-center">
-										${list.programReviewDto.prg_score}
+								    <div class="col-2">
+								    	<div class="row mb-3">
+								    		<div class="col fw-bold">평점</div>
+								    		<div class="col">${list.programReviewDto.prg_score}</div>
+								    	</div> 
+								    	<div class="row mb-3"> 
+								    		<div class="col fw-bold">참여자</div>
+								    		<div class="col">${list.studentInfoDto.name}</div>
+								    	</div>
+								    	<div class="row mb-3">
+								    		<div class="col fw-bold">개선사항</div>
+								    		<div class="col">${list.programReviewDto.prg_comment}</div>
+								    		
+								    	</div>
 									</div>
-									<div class="col text-center">
-					    				${list.programReviewDto.prg_comment}
-									</div>
-								</div>		
+								</div>	
+							</c:if>		
 						</c:forEach>
 						
 						<div class="row">
@@ -63,6 +85,13 @@
 			</div>
 			
 			
+		</div>
+		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+		<!-- futter -->
+		<div class="row">
+			<div class="col">
+				<jsp:include page="../common/futter.jsp"></jsp:include>
+			</div>
 		</div>
 	</div>
 	

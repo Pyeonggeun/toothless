@@ -25,12 +25,12 @@
            </div>
 		<div class="col-1 pt-3 me-4 text-center dropdown nav-item">
 		  <a class="nav-link pt-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		    <span class="fw-bold">${sessionExternalInfo.external_id }</span>님
+		    <span class="checkSession fw-bold"></span>님
 		  </a>
 		  <ul class="dropdown-menu">
 		    <li><a class="dropdown-item" href="#">마이페이지</a></li>
 		    <li><hr class="dropdown-divider"></li>
-		    <li><a class="dropdown-item" href="../../logoutProcess"><span><i class="bi bi-power"></i></span>&nbsp;로그아웃</a></li>
+		    <li><a class="dropdown-item" href="/toothless/another/external/logoutProcess"><span><i class="bi bi-power"></i></span>&nbsp;로그아웃</a></li>
 		  </ul>
 		</div>
 	</div>

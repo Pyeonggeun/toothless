@@ -218,12 +218,4 @@ public class DormStaffControllerJw {
 		return "/tl_a/staff/jw_diaryManagementPage";
 	}
 	
-	// 관리자용 업무게시판
-	@RequestMapping("jw_dormStaffboardPage")
-	public String jw_dormStaffboardPage() {
-		// 작업하고 추후에 세션넣기
-		
-		return "/tl_a/staff/jw_dormStaffboardPage";
-	}
-	
 }

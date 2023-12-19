@@ -8,8 +8,34 @@
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
-<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<title>호실별 이미지 등록</title>
+<script>
+	function roomImgSubmit(){
+		
+		const imageForm = document.getElementById("imageForm");
+		const personnel2 = document.getElementById("personnel2");
+		const personnel4 = document.getElementById("personnel4");
+		const imgs = document.getElementById("imgs");
+		
+		if (!personnel2.checked && !personnel4.checked) {
+		  //2인실과 4인실이 체크되지 않았다면~!
+	        alert("정원을 선택하지 않았습니다.");
+	        return;
+		}
+		
+		if(imgs.value==""){
+			alert("이미지가 선택되지 않았습니다.");
+			imgs.focus();
+			return;
+		}
+		  
+		  
+			
+		imageForm.submit();
+	}
+	
+</script>
 </head>
 <body>
 <div class="container-fluid">
@@ -35,7 +61,7 @@
 				</div>
 			</div>
 			
-			<form action="./registeRoomImagesProcess" method="post" enctype="multipart/form-data">
+			<form action="./registeRoomImagesProcess" id="imageForm" method="post" enctype="multipart/form-data">
              	<!-- <input type="hidden" name="staff_pk" value="${sessionStaffInfo.staff_pk }"> -->
 			
 			
@@ -49,10 +75,10 @@
 					</div>
 					<div class="row">
 						<div class="col-1 fs-6 fw-bold my-1">
-							<input type="radio" name="dorm_amount" value="2">2인실
+							<input type="radio" name="dorm_amount" value="2" id="personnel2">2인실
 						</div>
 						<div class="col-1 fs-6 fw-bold my-1">
-							<input type="radio" name="dorm_amount" value="4">4인실
+							<input type="radio" name="dorm_amount" value="4" id="personnel4">4인실
 						</div>
 					</div>
 					
@@ -75,7 +101,7 @@
                      		상세이미지
                      	</div>
                         <div class="col align-self-center">
-                     		<input class="form-control" name="roomImgs" type="file" accept="image/*" multiple>
+                     		<input class="form-control" id="imgs" name="roomImgs" type="file" accept="image/*" multiple>
                      	</div>
                      </div>
 				</div>
@@ -86,7 +112,7 @@
 				<div class="col-5"></div>
                 <div class="col px-0 text-end">
 					
-                    <button type="submit" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
+                    <button type="button" onclick ="roomImgSubmit()" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
                 </div>                    
              </div>
         	</form>

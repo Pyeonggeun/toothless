@@ -232,10 +232,10 @@
 				const gainYear = licenseWrapper.querySelector(".gainYear");
 				gainYear.innerText = e.lic_gain_year;
 				
-				const gainMonth = licenseWrapper.querySelector("gainMonth");
+				const gainMonth = licenseWrapper.querySelector(".gainMonth");
 				gainMonth.innerText = e.lic_gain_month;
 				
-				const center = licenseWrapper.querySelector("center");
+				const center = licenseWrapper.querySelector(".center");
 				center.innerText = e.lic_center;
 				
 				licenseBox.appendChild(licenseWrapper);
@@ -323,7 +323,7 @@
 		const cover_letter = document.getElementById('cover_letter');
 		cover_letter.value = "";
 		
-        const modal = bootstrap.Modal.getOrCreateInstance("#addResumebutton");
+        const modal = bootstrap.Modal.getOrCreateInstance("#addResume");
         modal.show();
         // show 하면 뜨고 hide 하면 닫힘
     }
@@ -331,7 +331,7 @@
 	function save(){
         //  필요시 여기서 백엔드하고 연동... CSR
 
-        const modal = bootstrap.Modal.getOrCreateInstance("#addResumebutton");
+        const modal = bootstrap.Modal.getOrCreateInstance("#addResume");
         addResume();
         modal.hide();
         
@@ -343,7 +343,7 @@
 		const resume_title = document.getElementById('resume_title');
 		resume_title.innerText = "";
 		document.getElementById('cover_letter').value = '';
-		const modal = bootstrap.Modal.getOrCreateInstance("#addResumebutton");
+		const modal = bootstrap.Modal.getOrCreateInstance("#addResume");
 		modal.hide();
 	   
 	 }
@@ -467,11 +467,16 @@
 		</div>
 			
 	</div>
+
 	
 	<div class="container">
 		<div style="height: 200px;"></div>
 	</div>
-	
+	<div class="row">
+		<div class="col">
+			<jsp:include page="../common/futter.jsp"></jsp:include>
+		</div>
+	</div>
 	
 	<div id="templeteGeneral" class="d-none">
 		<div class="generalResumeWrapper row border-top">
@@ -510,7 +515,7 @@
 	</div>
 	
 <!--이력서 추가 Modal -->
-<div class="modal fade" id="addResumebutton" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="addResume" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -728,7 +733,7 @@
 			<div class="row">
 				<div class="licenseName col">자격증 명</div>
 				<div class="gainYear col">취득 년</div>
-				<div class="gianMonth col">취득 월</div>
+				<div class="gainMonth col">취득 월</div>
 				<div class="center col">발급 기관</div>
 			</div>
 		</div>

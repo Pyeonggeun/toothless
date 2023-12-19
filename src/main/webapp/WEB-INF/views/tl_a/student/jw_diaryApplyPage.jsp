@@ -23,7 +23,7 @@
 
     <div class="container mt-3">
         <div class="row">
-           <jsp:include page="../commons/student/leftButtons4.jsp"></jsp:include>
+           <jsp:include page="../commons/student/leftButtons5.jsp"></jsp:include>
             <!-- 왼쪽 목차 끝 -->
             <div class="col">
                 <div class="row">
@@ -40,7 +40,7 @@
                        
                     </div>
                 </div>
-                <form class="row" action="./jw_diartApplyProcess" method="post">
+                <form class="row" action="./jw_diaryApplyProcess" method="post" onsubmit="alert('일지 작성이 완료되었습니다!');">
                     <div class="col">
                     	<div class="row mt-2">
                     		<div class="col-2 py-3 fw-bold" style="font-size: 1.1rem;">
@@ -60,8 +60,9 @@
 							</div>
                         </div>
                         <div class="row my-3">
-							<div class="col py-3 fw-bold d-md-flex justify-content-md-end" style="font-size: 1.1rem;">
-								<input type="submit" class="btn btn-secondary">
+                        	<div class="col"></div>
+							<div class="col-2 d-grid py-3 fw-bold" style="font-size: 1.1rem;">
+								<input type="submit" class="btn btn-primary rounded-0" value="작성">
 							</div>
                         </div>
                     </div>

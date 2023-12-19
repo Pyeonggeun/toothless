@@ -8,8 +8,53 @@
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <title>Insert title here</title>
+<script>
+	function roomSubmit(){
+		const roomRegister = document.getElementById("roomRegister");
+		const choiceRoomName = document.getElementById("choiceRoomName");
+		const personnel2 = document.getElementById("personnel2");
+		const personnel4 = document.getElementById("personnel4");
+		const floor = document.getElementById("floor");
+		const choiceGenderW = document.getElementById("choiceGenderW");
+		const choiceGenderM = document.getElementById("choiceGenderM");
+		
+		if(choiceRoomName.value == ""){
+			alert("호실 이름을 입력하지 않았습니다.");
+			choiceRoomName.focus();
+			return;
+		}
+		
+	  if (!personnel2.checked && !personnel4.checked) {
+		  //2인실과 4인실이 체크되지 않았다면~!
+	        alert("정원을 선택하지 않았습니다.");
+	        personnel2.focus();
+	        return;
+	    }
+		
+	  
+	  if(floor.value==""){
+		  alert("층수가 입력되지 않았습니다.");
+		  floor.value="";
+		  floor.focus();
+		  return;
+	  }
+	  
+	  if(!choiceGenderW.checked && !choiceGenderM.checked){
+		  alert("성별을 입력하지 않았습니다.");
+		  choiceGenderM.focus();
+		  return;
+	  }
+	  
+	  
+		
+		roomRegister.submit();
+	}
+	
+	
+</script>
 </head>
 <body>
 <div class="container-fluid">
@@ -35,113 +80,108 @@
 				</div>
 			</div>
 			
-			<form action="./registerRoomProcess" method="post" enctype="multipart/form-data">
-             	<input type="hidden" name="seller_id" value="${sessionSeller.id }">
+			
+             	
 			
 			<!-- 기숙사명 -->
-			<div class="row border rounded p-3">
-				<div class="col">
-					<div class="row">
-						<div class="col fs-5 fw-bold">
-							기숙사명
-						</div>
-					</div>
-					<div class="row">
-                		<div class="col my-2">
-                    		<select class="form-select" name="dorm_pk" aria-label="기숙사 동을 선택하세요">
-                        		<c:forEach items="${dormBuilding}" var="dorm">						
-                            		<option value="${dorm.dorm_pk}">${dorm.name}</option>
-                        		</c:forEach>
-                    		</select>
-                		</div>
-            		</div>
-				</div>
-			</div>
-			
-			 
-			
-			<!-- 호실명 -->
-			<div class="row mt-3 border rounded p-3">
-				<div class="col">
-					<div class="row">
-						<div class="col fs-5 fw-bold">
-							호실명
-						</div>
-					</div>
-					<div class="row">
-						<div class="col my-2">
-							<input class="form-control" name="room_name" type="text" placeholder="호실명을 입력해주세요.">
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<!-- 정원 -->
-			<div class="row mt-3 border rounded p-3">
-				<div class="col">
-					<div class="row">
-						<div class="col">
-							<span class="fs-5 fw-bold my-1">정원</span>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-1 fs-6 fw-bold my-1">
-							<input type="radio" name="dorm_amount_pk" value="2">2인실
-						</div>
-						<div class="col-1 fs-6 fw-bold my-1">
-							<input type="radio" name="dorm_amount_pk" value="4">4인실
-						</div>
-					</div>
-					
-					
-				</div>
-			</div>
-			
-			<!-- 호실명 -->
-			<div class="row mt-3 border rounded p-3">
-				<div class="col">
-					<div class="row">
-						<div class="col fs-5 fw-bold">
-							층수
-						</div>
-					</div>
-					<div class="row">
-						<div class="col my-2">
-							<input class="form-control" name="dorm_floor" type="number" placeholder="몇 층인지 입력해주세요." min="1" max="10">
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<!-- 성별 -->
-			<div class="row mt-3 border rounded p-3">
-				<div class="col">
-					<div class="row">
-						<div class="col fs-5 fw-bold">
-							성별
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-1">
-							<input type="radio" name="gender" value="M">남
-						</div>
-						<div class="col-1">
-							<input type="radio" name="gender" value="F">여
-						</div>
-					</div>
-				</div>
-				</div>
-			</div>
-			
-			<div class="row mt-3">
-						
-				<div class="col-5"></div>
-                <div class="col px-0 text-end">
-				
-                    <button type="submit" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
-                </div>                    
-             </div>
-        	</form>
+			<form action="./registerRoomProcess" id="roomRegister" method="post" enctype="multipart/form-data">
+		    <div class="row border rounded p-3">
+		        <div class="col">
+		            <div class="row">
+		                <div class="col fs-5 fw-bold">
+		                    기숙사명
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col my-2">
+		                    <select class="form-select" name="dorm_pk" id="choiceDorm" aria-label="기숙사 동을 선택하세요">
+		                        <c:forEach items="${dormBuilding}" var="dorm">						
+		                            <option value="${dorm.dorm_pk}">${dorm.name}</option>
+		                        </c:forEach>
+		                    </select>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		
+		    <!-- 호실명 -->
+		    <div class="row mt-3 border rounded p-3">
+		        <div class="col">
+		            <div class="row">
+		                <div class="col fs-5 fw-bold">
+		                    호실명
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col my-2">
+		                    <input class="form-control" id="choiceRoomName" name="room_name" type="text" placeholder="호실명을 입력해주세요.">
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		
+		    <!-- 정원 -->
+		    <div class="row mt-3 border rounded p-3">
+		        <div class="col">
+		            <div class="row">
+		                <div class="col">
+		                    <span class="fs-5 fw-bold my-1">정원</span>
+		                </div>
+		            </div>
+		            <div class="row">   
+		                <div class="col-1 fs-6 fw-bold my-1">
+		                    <input type="radio" name="dorm_amount_pk" value="2" id="personnel2">2인실
+		                </div>
+		                <div class="col-1 fs-6 fw-bold my-1">
+		                    <input type="radio" name="dorm_amount_pk" value="4" id="personnel4">4인실
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		
+		    <!-- 층수 -->
+		    <div class="row mt-3 border rounded p-3">
+		        <div class="col">
+		            <div class="row">
+		                <div class="col fs-5 fw-bold">
+		                    층수
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col my-2">
+		                    <input class="form-control" id="floor" name="dorm_floor" type="number" placeholder="몇 층인지 입력해주세요." min="1" max="10">
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		
+		    <!-- 성별 -->
+		    <div class="row mt-3 border rounded p-3">
+		        <div class="col">
+		            <div class="row">
+		                <div class="col fs-5 fw-bold">
+		                    성별
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col-1">
+		                    <input type="radio" name="gender" value="M" id="choiceGenderM">남
+		                </div>
+		                <div class="col-1">
+		                    <input type="radio" name="gender" value="F" id="choiceGenderW">여
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		
+		    <div class="row mt-3">
+		        <div class="col-5"></div>
+		        <div class="col px-0 text-end">
+		            <button type="button" onclick="roomSubmit()" class="rounded-0 fw-bold btn btn-lg btn-secondary text-white ms-1">정보 등록</button>
+		        </div>
+		    </div>
+		</form>
+
 			
 			
 			<pre>

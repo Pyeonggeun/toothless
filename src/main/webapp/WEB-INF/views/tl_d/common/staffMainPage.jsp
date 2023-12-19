@@ -32,7 +32,7 @@
 					<div class="col me-4">
 					
 						<div class="row fw-bold fs-5 pb-1 mb-2 border-bottom border-bd-border border-2">
-							<div class="col">진행 구직희망</div>
+							<div class="col">미답변 온라인 상담</div>
 							<div class="col text-end fw-bold fs-5">
 								<a href="../jm_consulting/staffViewOnlineConsultingPage" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
 							</div>
@@ -43,7 +43,7 @@
 								<c:forEach items="${progressOnlinceConsultingNumFive}" var="e">
 										<div class="row border-bottom border-bs-border pb-2 mb-2">
 											<div class="col-1 text-center fw-bold pt-1">${e.onlineConsultingDto.on_consulting_pk}</div>
-											<div class="col"><a class="btn ms-4" href="../jm_consulting/viewDetailStudentInfoPage?hope_job_pk=${e.HOPE_JOB_PK}">${e.studentInfoDto.name}</a></div>
+											<div class="col"><a class="btn ms-4" href="../jm_consulting/viewDetailStudentInfoPage?hope_job_pk=${e.hopeJobDto.hope_job_pk}">${e.studentInfoDto.name}</a></div>
 											<div class="col-3 text-center pt-1">
 												${e.studentInfoDto.student_id}									
 											</div>
@@ -57,7 +57,7 @@
 					<!-- 구직희망 신청 -->
 					<div class="col me-4">
 						<div class="row fw-bold fs-5 pb-1 mb-2 border-bottom border-bd-border border-2">
-							<div class="col">구직희망 신청</div>
+							<div class="col">구직희망 신청 리스트</div>
 							<div class="col text-end fw-bold fs-5">
 								<a href="../jm_consulting/viewStudentListPage" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
 							</div>
@@ -154,7 +154,7 @@
 								        </div> 
 										<div class="row">
 											<div class="col">
-												<a class="btn text-truncate fw-bold" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em">${list.programDto.prg_name}</a>
+												<a class="btn text-truncate fw-bold" href="../gw_program/programViewDetailsPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em">${list.programDto.prg_name}</a>
 											</div>
 										</div>
 										<div class="row">

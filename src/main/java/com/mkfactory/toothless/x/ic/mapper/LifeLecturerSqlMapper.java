@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.x.dto.AttendanceBookDto;
 import com.mkfactory.toothless.x.dto.AttendanceStatusDto;
@@ -15,6 +17,7 @@ import com.mkfactory.toothless.x.dto.LifeStudentDto;
 import com.mkfactory.toothless.x.dto.OpenLectureDto;
 import com.mkfactory.toothless.x.dto.QuestionChoiceDto;
 import com.mkfactory.toothless.x.dto.TestQuestionDto;
+import com.mkfactory.toothless.x.dto.TestResultDto;
 
 public interface LifeLecturerSqlMapper {
 	
@@ -69,4 +72,18 @@ public interface LifeLecturerSqlMapper {
 	
 	public int selectTestingStudentCount(int lecture_test_key);
 	
+	public String selectTestStatus(int lecture_test_key);
+	
+	public List<LifeStudentDto> selectTestStudentList(int lecture_test_key);
+	
+	public int selectTestingStatus(@Param("life_student_key") int life_student_key,
+									@Param("lecture_test_key") int lecture_test_key);
+	
+	public List<TestResultDto> selectStudentTestResultList(int life_student_key);
+	
+	public QuestionChoiceDto selectQuestionChoiceDto(int question_choice_key);
+	
+	public int selectAnswerTestPoint(int test_question_key);
+	
+	public LectureTestDto selectLectureTestDto(int lecture_test_key);
 }

@@ -31,6 +31,31 @@ public class StaffBoardController {
 
 	@Autowired
 	private StaffBoardServiceImpl staffBoardService;
+	@RequestMapping("staffBoardImgPage")
+	public String staffBoardImgPage(Model model, StudentboardLikeDto likeDto, StudentboardDto params,HttpSession session,
+			   String searchType,
+			   String searchWord
+				) {
+		StaffInfoDto sessionStaffInfo =(StaffInfoDto) session.getAttribute("sessionStaffInfo");
+		int staffPk = sessionStaffInfo.getStaff_pk(); 
+		params.setStaff_pk(staffPk);
+		
+		int total = staffBoardService.totalList(params);
+		int aa = staffBoardService.upAndDownCount(likeDto);
+		
+		List<Map<String, Object>>list=staffBoardService.boardNoticeList(searchType, searchWord);
+		List<Map<String, Object>>readList = staffBoardService.bestRead();
+		
+		
+		model.addAttribute("aa" , aa);
+		model.addAttribute("noticeList", list);
+		model.addAttribute("total", total);
+		model.addAttribute("readList", readList);
+		
+		return "tl_b/ty/staffBoardImgPage";
+		
+		
+	}
 	
 	@RequestMapping("staffBoardPage")
 	public String staffBoardPage(Model model, StudentboardLikeDto likeDto, StudentboardDto params,HttpSession session,
@@ -63,10 +88,40 @@ public class StaffBoardController {
 		return"tl_b/ty/staffWriteBoardPage";
 	}
 	@RequestMapping("staffWriteProcess")
-	public String staffWriteProcess(HttpSession session, StudentboardDto params, MultipartFile[] imageFiles ) {
+	public String staffWriteProcess(HttpSession session, StudentboardDto params, MultipartFile imageFile, MultipartFile[] imageFiles ) {
 		
 		List<StudentboardImageDto> boardImageDtoList = new ArrayList<>();
-		
+		if(imageFile != null) {
+			// 경로 수정
+			String rootPath = "C:\\workspace\\GitWorkspace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\TY\\";
+			
+	         
+	         File FolderForCreate = new File(rootPath);
+	         if(!FolderForCreate.exists()) {
+	        	 FolderForCreate.mkdirs();
+	         }
+	         
+	         String originalFileName = imageFile.getOriginalFilename();
+	         
+	         String uuid = UUID.randomUUID().toString();
+	         long currentTime = System.currentTimeMillis();
+	         String fileName = uuid + "_" + currentTime;
+	         
+	         // 확장자 추출
+	         String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+	         
+	         fileName += ext;
+	         
+	         try {
+	        	 imageFile.transferTo(new File(rootPath + fileName));
+	         } catch (Exception e) {
+	            e.printStackTrace();
+	         }
+	         
+	         params.setImg_link(fileName);
+	         
+	         
+		}
 		
 		//파일 저장 로직
 		  if(imageFiles != null) { 
@@ -75,16 +130,13 @@ public class StaffBoardController {
 					  continue; 
 					}
 				  
-				  String rootPath = "C:/uploadFiles/";
+				  String rootPath = "C:\\workspace\\GitWorkspace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\TY\\";
 				  
-				  //날짜별 폴더 생성
-				  SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
-				  String todayPath = sdf.format(new Date());
 
-				  File todayFolderForCreate = new File(rootPath + todayPath);
+				  File FolderForCreate = new File(rootPath);
 				  
-				  if(!todayFolderForCreate.exists()) {
-					  todayFolderForCreate.mkdirs();
+				  if(!FolderForCreate.exists()) {
+					  FolderForCreate.mkdirs();
 				  }
 				  String originalFileName = multipartFile.getOriginalFilename();
 				  
@@ -98,12 +150,12 @@ public class StaffBoardController {
 				  fileName += ext;
 				  
 				  try {
-					  multipartFile.transferTo(new File(rootPath +todayPath + fileName));  
+					  multipartFile.transferTo(new File(rootPath + fileName));  
 				  }catch(Exception e) { 
 					e.printStackTrace();  
 				  }
 				  StudentboardImageDto boardImageDto = new  StudentboardImageDto();
-				  boardImageDto.setImg_link(todayPath + fileName);
+				  boardImageDto.setImg_link(fileName);
 				  
 				  boardImageDtoList.add(boardImageDto);
 				  
@@ -121,8 +173,12 @@ public class StaffBoardController {
 		return"redirect:./staffBoardPage";
 	}
 	@RequestMapping("staffBoardReadPage")
-	public String staffBoardReadPage(Model model, int id) {
+	public String staffBoardReadPage(Model model, int id, StudentboardDto params, HttpSession session) {
 		staffBoardService.increaseCount(id);
+		
+		StaffInfoDto sessionStaffInfo =(StaffInfoDto) session.getAttribute("sessionStaffInfo");
+		int staffPk = sessionStaffInfo.getStaff_pk();
+		params.setStaff_pk(staffPk);
 		
 		List<Map<String, Object>> list = staffBoardService.replyList(id);
 		Map<String, Object> map = staffBoardService.viewDtls(id);
@@ -151,14 +207,88 @@ public class StaffBoardController {
 		return"tl_b/ty/noticeUpdatePage";
 	}
 	@RequestMapping("noticeUpdateProcess")
-	public String noticeUpdateProcess(StudentboardDto params, HttpSession session) {
+	public String noticeUpdateProcess(StudentboardDto params, HttpSession session,MultipartFile imageFile, MultipartFile[] imageFiles) {
 		staffBoardService.update(params);
 		
-		StaffInfoDto sessionStaffInfo =(StaffInfoDto) session.getAttribute("sessionStaffInfo");
-		int staffPk = sessionStaffInfo.getStaff_pk();
-		params.setStaff_pk(staffPk);
+		List<StudentboardImageDto> boardImageDtoList = new ArrayList<>();
+		if(imageFile != null) {
+			// 경로 수정
+			String rootPath = "C:\\workspace\\GitWorkspace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\TY\\";
+			
+	         
+	         File FolderForCreate = new File(rootPath);
+	         if(!FolderForCreate.exists()) {
+	        	 FolderForCreate.mkdirs();
+	         }
+	         
+	         String originalFileName = imageFile.getOriginalFilename();
+	         
+	         String uuid = UUID.randomUUID().toString();
+	         long currentTime = System.currentTimeMillis();
+	         String fileName = uuid + "_" + currentTime;
+	         
+	         // 확장자 추출
+	         String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+	         
+	         fileName += ext;
+	         
+	         try {
+	        	 imageFile.transferTo(new File(rootPath + fileName));
+	         } catch (Exception e) {
+	            e.printStackTrace();
+	         }
+	         
+	         params.setImg_link(fileName);
+	         
+	         
+		}
 		
-		System.out.println(params.getStudentboard_pk());
+		//파일 저장 로직
+		  if(imageFiles != null) { 
+			  for(MultipartFile multipartFile : imageFiles) {
+				  if(multipartFile.isEmpty()) {
+					  continue; 
+					}
+				  
+				  String rootPath = "C:\\workspace\\GitWorkspace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\TY\\";
+				  
+
+				  File FolderForCreate = new File(rootPath);
+				  
+				  if(!FolderForCreate.exists()) {
+					  FolderForCreate.mkdirs();
+				  }
+				  String originalFileName = multipartFile.getOriginalFilename();
+				  
+				  //파일명 충돌 회피 - 랜덤, 시간 조합
+				  String uuid = UUID.randomUUID().toString();
+				  long currentTime = System.currentTimeMillis();
+				  String fileName = uuid + "_" + currentTime;
+				  
+				  //확장자 추출
+				  String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+				  fileName += ext;
+				  
+				  try {
+					  multipartFile.transferTo(new File(rootPath + fileName));  
+				  }catch(Exception e) { 
+					e.printStackTrace();  
+				  }
+				  StudentboardImageDto boardImageDto = new  StudentboardImageDto();
+				  boardImageDto.setImg_link(fileName);
+				  
+				  boardImageDtoList.add(boardImageDto);
+				  
+			  	}
+			  }
+		 
+			
+			StaffInfoDto sessionStaffInfo =(StaffInfoDto) session.getAttribute("sessionStaffInfo");
+			int staffPk = sessionStaffInfo.getStaff_pk();
+			params.setStaff_pk(staffPk);
+			
+			staffBoardService.staffWrite(params, boardImageDtoList);
+		
 		
 		return"redirect:./staffBoardReadPage?id="+params.getStudentboard_pk();
 	}

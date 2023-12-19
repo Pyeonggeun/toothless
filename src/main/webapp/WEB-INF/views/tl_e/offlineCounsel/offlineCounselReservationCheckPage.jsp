@@ -15,8 +15,37 @@
 
 	<script>
 		
-		let myId = ${sessionExternalInfo.external_pk};
 		let pageNum = 1;
+		
+		let myId = null;
+		
+		function getSessionInfo(){
+			
+			const url = "/toothless/tl_e/commons/getSessionExternalInfo";
+			
+			fetch(url)
+			.then(response => response.json())
+			.then(response => {
+				
+				myId = response.data.external_pk;
+				console.log(myId);
+				
+				if(myId == null){
+					if(confirm("로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+						location.href="/toothless/another/external/loginPage";
+						return;
+					}
+				}else{
+					const checkSession = document.querySelector(".checkSession");
+					checkSession.innerText = response.data.external_id;
+				}
+				
+				reloadReservationList(pageNum);
+				createPageNum(pageNum);
+	
+			});
+		}
+
 		
 		function reloadReservationList(pageNum){
 			
@@ -161,7 +190,11 @@
 				studentPhoneNumber.innerText = map.studentInfoDto.phone;
 				
 				const studentText = writeModalElement.querySelector(".studentText");
-				studentText.innerText = map.offlineReservationDto.text;
+				if(map.offlineReservationDto.text == null){
+					studentText.innerText = "";
+				}else {
+					studentText.innerText = map.offlineReservationDto.text;
+				}
 				
 				const contentBox = writeModalElement.querySelector(".contentBox");
 				if(map.counselDocumentDto != null){
@@ -176,7 +209,11 @@
 				const counselorTextBox = writeModalElement.querySelector(".counselorTextBox");
 				if(map.counselDocumentDto != null){
 					counselorTextBox.innerHTML = "";
-					counselorTextBox.innerText = map.counselDocumentDto.text;
+					if(map.counselDocumentDto.text == null){
+						counselorTextBox.innerText = "";
+					}else{
+						counselorTextBox.innerText = map.counselDocumentDto.text;
+					}
 				}else{
 					counselorText = document.createElement("textarea");
 					counselorText.classList.add("form-control");
@@ -188,7 +225,11 @@
 				const locationBox = writeModalElement.querySelector(".locationBox");
 				if(map.counselDocumentDto != null){
 					locationBox.innerHTML = "";
-					locationBox.innerText = map.counselDocumentDto.location;
+					if(map.counselDocumentDto.location == null){
+						locationBox.innerText = "";
+					}else{
+						locationBox.innerText = map.counselDocumentDto.location;
+					}
 				}else{
 					counselLocation = document.createElement("input");
 					counselLocation.classList.add("form-control");
@@ -426,8 +467,7 @@
 		}
 		
 		window.addEventListener("DOMContentLoaded", () => {
-			reloadReservationList(pageNum);
-			createPageNum(pageNum);
+			getSessionInfo()
 		});
 
 		
@@ -591,18 +631,36 @@
 			</div>
 			<div class="col-1"></div>
 		</div>
-		
 		<pre>
 		
 		
 		
-		
-		
-		
-		
 		</pre>
-	
-	
+		<div class="row mt-5" style="background-color: #686868; height: 14em;">
+			<div class="col-1"></div>
+			<div class="col">
+				<div class="row" style="height: 4em;"></div>
+				<div class="row">
+					<div class="col">
+						<span style="font-size: 1.1em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
+						<span style="font-size: 0.9em; color: white; font-weight: 500;">▪</span>
+						<span style="font-size: 0.9em; color: white; font-weight: 500;">이메일무단수집거부</span>
+					</div>
+				</div>
+				<div class="row pt-4">
+					<div class="col">
+						<div style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
+					</div>
+				</div>
+				<div class="row pt-2">
+					<div class="col">
+						<div style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
+					</div>
+				</div>
+				<div class="row pt-4" style="border-bottom-style: solid; border-bottom-color: gray; border-bottom-width: 1px;"></div>
+			</div>
+			<div class="col-1"></div>
+		</div>
 	</div>
 	
 	<!-- 템플릿!!! -->

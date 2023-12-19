@@ -28,7 +28,6 @@
 		text-align: center;
 	
 	}
-	
 
 	.tp-borderx{
 		border-width: 4px 4px 4px 4px;
@@ -56,10 +55,91 @@
 	
 	
 	
-	
 </style>
 
+	
 
+
+
+<script>
+
+	
+	const studentId = ${sessionStudentInfo.student_pk};
+
+
+
+	function reloadGroupCounselList(){
+		
+		const url="./getGroupCounselList?student_id=" + studentId;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const groupCounselListBox = document.getElementById("groupCounselListBox");
+			groupCounselListBox.innerHTML = "";
+			
+			for(e of response.data){
+				
+				const groupCounselWrapper = document.querySelector("#templete .groupCounselWrapper").cloneNode(true);
+				
+				const groupCounselImage = groupCounselWrapper.querySelector(".groupCounselImage");
+				groupCounselImage.setAttribute("src", "/uploadFiles/" + e.POSTERIMAGE);
+				
+				const groupCounselTitle = groupCounselWrapper.querySelector(".groupCounselTitle");
+				groupCounselTitle.innerText = e.TITLE;
+				
+				const groupCounselCounselDate = groupCounselWrapper.querySelector(".groupCounselCounselDate");
+				const date = new Date(e.COUNSEL_DATE);
+				
+				groupCounselCounselDate.innerText = date.getFullYear() + "."  + (date.getMonth() + 1) + "." + date.getDate();
+				
+				const groupCounselDDay = groupCounselWrapper.querySelector(".groupCounselDDay");
+				groupCounselDDay.innerText = "D-" + e.D_DAY;
+				
+				groupCounselImage.addEventListener('mouseover', function(){
+
+					groupCounselImage.style.cssText = "border-style: solid; border-width: 5px; border-color: #8FBC8F;";
+					groupCounselDDay.style.cssText = "font-size: 1.4em; color: #0A6E0A; text-decoration : underline;";
+					groupCounselTitle.style.cssText = "font-size: 1em; color: black;";
+				});
+				groupCounselImage.addEventListener('mouseout', function(){
+					
+					groupCounselImage.style.cssText = "border-style: solid; border-width: 2px; border-color: #8FBC8F; opacity: 0.8;";
+					groupCounselDDay.style.cssText = "font-size: 1.3em; color: #0A6E0A; text-decoration : none;";
+					groupCounselTitle.style.cssText = "font-size: 0.9em; color: black;";
+				});
+				
+				
+				
+				groupCounselListBox.appendChild(groupCounselWrapper);
+				
+			}
+			
+			
+		});
+		
+	}
+	
+	function onblurGroupCounselImage(targetElement){
+		
+		const groupCounselWrapper = target.Element.closest(".groupCounselWrapper");
+		
+		const groupCounselDDay = groupCounselWrapper.querySelector(".groupCounselDDay");
+		
+		groupCounselDDay.style.cssText = "text-decoration : underline;";
+		
+	}
+	
+	
+	
+
+	window.addEventListener("DOMContentLoaded", () => {
+		reloadGroupCounselList();
+	});
+
+
+</script>
 
 
 
@@ -77,7 +157,7 @@
 		<div class="col">
 			<div class="row">
 				<div class="col mx-0 px-0" style="height: 35em;">
-					<img class="banner img-fluid" src="./../../resources/img/groupCounsel/fff.jpg" style="width:100%; height: 100%;">
+					<img class="banner img-fluid" src="/toothless/resources/img/groupCounsel/fff.jpg" style="width:100%; height: 100%;">
 				
 					<div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height:100%; position: relative; bottom: 100%;"></div>
 					<!-- 
@@ -105,9 +185,9 @@
 						<div class="col pb-3" style="border-bottom-width: 2px; border-bottom-style: solid; border-color: #dcdcdc;">
 							<div class="row">
 								<div class="col">
-									<span class="fw-bold" style="font-size: 1.5em;">나의 상담일정</span>
+									<span class="fw-bold" style="font-size: 1.5em;">나의 상담 일정</span>
 									&nbsp
-									<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">Counsel Schedule</span>								
+									<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">Schedule</span>								
 								</div>
 								<div class="col-2 text-end">
 									<i style="font-size: 1.5em;" class="bi bi-three-dots"></i>
@@ -116,93 +196,18 @@
 						</div>
 						<div class="col-1"></div>
 					</div>
-					<div class="row pt-5" style="height: 38em;">
+					<div class="row pt-5 mt-3">
 						<div class="col-1"></div>
 						<div class="col">
-							<c:forEach items="${offlineCounselList}" var="list">
-							<div class="row">
-								<div class="col border border-1 border-secondary-subtle rounded-4 mb-4 py-3" style="height: 10em;">
-									<div class="row">
-										<div class="col-4">
-											<div class="row">
-												<div class="col-1"></div>
-												<div class="col-5 me-0 pe-0 text-center">
-													<button type="button" class="btn btn-outline-success pt-1 pb-1 fw-bold" style="font-size: 0.7em;">오프라인</button>
-												</div>
-												<div class="col-5 ms-0 ps-0 text-start">
-													<button type="button" class="btn btn-outline-danger px-3 pt-1 pb-1 fw-bold" style="font-size: 0.7em;">D-${list.D_DAY }</button>
-												</div>
-												<div class="col-1"></div>
-											</div>
-										</div>
-										<div class="col"></div>
-									</div>
-									<div class="row pt-3">
-										<div class="col-4">
-											<div class="row">
-												<div class="col-2"></div>
-												<div class="col">
-													<div class="fw-bold" style="font-size: 1.1em;">상담 종류</div>
-												</div>
-												<div class="col-5">
-													<div class="fw-bold pt-1" style="font-size : 0.9em;">취업상담</div>
-												</div>
-											</div>
-										</div>
-										<div class="col"></div>
-									</div>
+						
+						
+							<div id="groupCounselListBox" class="row row-cols-3">
 
 
-								</div>
-							</div>	
-							</c:forEach>						
-						</div>
-						<div class="col-1"></div>
-					</div>
-					<div class="row" style="height: 5em;"></div>
-					<div class="row">
-						<div class="col-1"></div>
-						<div class="col pb-3" style="border-bottom-width: 2px; border-bottom-style: solid; border-color: #dcdcdc;">
-							<div class="row">
-								<div class="col">
-									<span class="fw-bold" style="font-size: 1.5em;">프로그램 일정</span>
-									&nbsp
-									<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">Program Schedule</span>								
-								</div>
-								<div class="col-2 text-end">
-									<i style="font-size: 1.5em;" class="bi bi-three-dots"></i>
-								</div>
+
 							</div>
-						</div>
-						<div class="col-1"></div>
-					</div>
-					<div class="row pt-5">
-						<div class="col-1"></div>
-						<div class="col">
-							<div class="row row-cols-3">
-								<c:forEach items="${groupCounselReservationList}" var="list">
-								<div class="col">
-									<div class="row">
-										<div class="col">
-											<img style=" border-style: solid; border-width: 3px; border-color: #8FBC8F" class="img-fluid rounded-3" src="/uploadFiles/${list.POSTERIMAGE }">
-										</div>
-									</div>
-									<div class="row pt-2">
-										<div class="col ps-3">
-											<div class="fw-bold" style="font-size: 0.9em; color: black;">[${list.TITLE }]</div>
-										</div>
-										<div class="col-3 text-center ps-0 ms-0">
-											<div class="fw-bold text-secondary" style="font-size: 0.8em;"><fmt:formatDate value="${list.COUNSEL_DATE}" pattern="yy.MM.dd"/></div>
-										</div>
-									</div>
-									<div class="row pt-1">
-										<div class="col text-start ps-3">
-											<div class="fw-bold" style="font-size: 1.3em; color: #0A6E0A;">D-${list.D_DAY }</div>
-										</div>
-									</div>
-								</div>
-								</c:forEach>
-							</div>
+							
+							
 						</div>
 						<div class="col-1"></div>
 					</div>	
@@ -449,18 +454,42 @@
 			</div>
 		</div>
 	</div>
-
-
-	
-	
-	
 </div>
 
 
 
 
 
+<div id="templete" class="d-none">
 
+
+	<div class="col groupCounselWrapper">
+		<div class="row">
+			<div class="col">
+				<img class="groupCounselImage img-fluid rounded-2" style="border-style: solid; border-width: 2px; border-color: #8FBC8F; opacity: 0.8;">
+			</div>
+		</div>
+		<div class="row pt-2">
+			<div class="col ps-3">
+				<div class="groupCounselTitle fw-bold" style="font-size: 0.9em; color: black;"></div>
+			</div>
+			<div class="col-3 text-center ps-0 ms-0 pe-3 me-3">
+				<div class="groupCounselCounselDate fw-bold text-secondary" style="font-size: 0.8em;"></div>
+			</div>
+		</div>
+		<div class="row pt-1">
+			<div class="col text-start ps-3">
+				<div class="groupCounselDDay fw-bold" style="font-size: 1.3em; color: #0A6E0A;"></div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+</div>
 
 
 

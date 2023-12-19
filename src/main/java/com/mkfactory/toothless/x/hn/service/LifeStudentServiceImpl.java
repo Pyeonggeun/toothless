@@ -272,9 +272,9 @@ public class LifeStudentServiceImpl {
 			
 			boolean isCompleteTest = lifeStudentSqlMapper.isCompleteTest(lectureTestDto.getLecture_test_key()) > 0 ? true : false;
 			
-			map.put("lectureTestInfo", lectureTestDto);
-			map.put("testScore", lifeStudentSqlMapper.getStudentTestScoreByLectureTestKey(lectureTestDto.getLecture_test_key()));
-			map.put("isCompleteTest", isCompleteTest);
+			testMap.put("lectureTestInfo", lectureTestDto);
+			testMap.put("testScore", lifeStudentSqlMapper.getStudentTestScoreByLectureTestKey(lectureTestDto.getLecture_test_key()));
+			testMap.put("isCompleteTest", isCompleteTest);
 			
 			testList.add(testMap);
 		}
@@ -331,6 +331,80 @@ public class LifeStudentServiceImpl {
 		}
 		
 	}
+	
+	public Map<String, Object> getTotalCount(int life_student_key) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("ingTotalCount", lifeStudentSqlMapper.getTotalingCount(life_student_key));
+		map.put("waitTotalCount", lifeStudentSqlMapper.getTotalWaitCount(life_student_key));
+		map.put("completeTotalCount", lifeStudentSqlMapper.getTotalCompleteCount(life_student_key));
+		
+		return map;
+	}
+	
+	public List<Map<String, Object>> getIngOpenLectureInfo(int life_student_key) {
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		List<OpenLectureDto> openLectureList = lifeStudentSqlMapper.getIngOpenLectureInfo(life_student_key);
+		
+		for(OpenLectureDto openLectureDto : openLectureList) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			LectureInfoDto lectureInfoDto = lifeStudentSqlMapper.getLectureInfoByLectureInfoKey(openLectureDto.getLecture_info_key());
+			
+			map.put("openLectureInfo", openLectureDto);
+			map.put("lectureInfo", lectureInfoDto);
+			map.put("round", lifeStudentSqlMapper.getLectureRoundByLectureInfoKeyAndOpenLectrueKey(openLectureDto.getLecture_info_key(), openLectureDto.getOpen_lecture_key()));
+			map.put("categoryName", lifeStudentSqlMapper.getLectureCategoryNameByLectureCategoryKey(lectureInfoDto.getLecture_category_key()));
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
+	public List<Map<String, Object>> getCompleteOpenLectureInfo(int life_student_key) {
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		List<OpenLectureDto> openLectureList = lifeStudentSqlMapper.getCompleteOpenLectureInfo(life_student_key);
+		
+		for(OpenLectureDto openLectureDto : openLectureList) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			LectureInfoDto lectureInfoDto = lifeStudentSqlMapper.getLectureInfoByLectureInfoKey(openLectureDto.getLecture_info_key());
+			
+			int lecture_student_key = lifeStudentSqlMapper.getLectureStudentKeyByOpenLectureKeyAndLifeStudentKey(openLectureDto.getOpen_lecture_key(), life_student_key);
+			
+			boolean isComplete = false;
+			
+			Clac clac = new Clac();
+			double attendanceResult = Double.parseDouble(clac.attendanceClac(
+					lifeStudentSqlMapper.getTotalAttendanceCount(openLectureDto.getOpen_lecture_key()),
+					lifeStudentSqlMapper.getExceptAttendanceAndAbsentCountByLectureStudentKey(lecture_student_key),
+					lifeStudentSqlMapper.getAttendanceCountByLectureStudentKey(lecture_student_key)));
+			
+			int testResult = lifeStudentSqlMapper.getAvgTestScoreByOpenLectureKey(openLectureDto.getOpen_lecture_key());
+			
+			if(lectureInfoDto.getEssential_attendance() <= attendanceResult && lectureInfoDto.getEssential_grade() <= testResult) {
+				
+				isComplete = true;
+			}
+			
+			map.put("openLectureInfo", openLectureDto);
+			map.put("lectureInfo", lectureInfoDto);
+			map.put("round", lifeStudentSqlMapper.getLectureRoundByLectureInfoKeyAndOpenLectrueKey(openLectureDto.getLecture_info_key(), openLectureDto.getOpen_lecture_key()));
+			map.put("categoryName", lifeStudentSqlMapper.getLectureCategoryNameByLectureCategoryKey(lectureInfoDto.getLecture_category_key()));
+			map.put("isComplete", isComplete);
+			
+			list.add(map);
+			
+		}
+		
+		return list;
+	} 
 
 }
 

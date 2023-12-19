@@ -10,19 +10,28 @@
 
 	<!-- 산업체의 현장실습 전체 목록 -->
 	<select id="selectCompanyList" resultType="Map">
-		SELECT * FROM
+		SELECT
+		CASE
+		WHEN TO_DATE(SYSDATE, 'YYYY-MM-DD') BETWEEN TO_DATE(APPLYING_START_DATE,
+		'YYYY-MM-DD') AND TO_DATE(APPLYING_END_DATE, 'YYYY-MM-DD') THEN 'yes'
+		ELSE 'no'
+		END AS date_check,
+		TL_JIC_EXTERNAL_INFO.*,
+		TL_C_COMPANY_INFO.*,
+		tl_c_internship_course.*
+		FROM
 		TL_JIC_EXTERNAL_INFO
-		JOIN TL_C_COMPANY_INFO ON
-		TL_JIC_EXTERNAL_INFO.EXTERNAL_PK = TL_C_COMPANY_INFO.EXTERNAL_PK
 		JOIN
-		tl_c_internship_course ON TL_C_COMPANY_INFO.company_pk =
-		tl_c_internship_course.company_pk
-		WHERE tl_c_company_info.EXTERNAL_PK =
-		#{COMPANY_PK}
+		TL_C_COMPANY_INFO ON TL_JIC_EXTERNAL_INFO.EXTERNAL_PK = TL_C_COMPANY_INFO.EXTERNAL_PK
+		JOIN
+		tl_c_internship_course ON TL_C_COMPANY_INFO.company_pk = tl_c_internship_course.company_pk
+		WHERE
+		TL_C_COMPANY_INFO.EXTERNAL_PK =
+		#{EXTERNAL_PK}
 	</select>
 
 	<!-- 산업체의 진행중인지 모집중인지 확인 -->
-	<select id="companyIngTF" resultType="String">
+	<select id="companyIngTF" resultType="Map">
 		SELECT CASE
 		WHEN
 		TO_DATE(SYSDATE, 'YYYY-MM-DD') BETWEEN TO_DATE(APPLYING_START_DATE,
@@ -37,7 +46,7 @@
 		tl_c_internship_course ON TL_C_COMPANY_INFO.company_pk =
 		tl_c_internship_course.company_pk
 		WHERE tl_c_company_info.EXTERNAL_PK =
-		#{COMPANY_PK}
+		#{EXTERNAL_PK}
 	</select>
 
 	<!-- 신청 학생 정보 확인 -->
@@ -49,29 +58,49 @@
 		TL_JIC_STUDENT_SEMESTER.*,
 		TL_JIC_PROFESSOR_INFO.NAME AS PROFFESSORNAME,
 		TL_JIC_DEPARTMENT_CATEGORY.NAME AS DEPARTMENTNAME
-		FROM tl_c_student_applying
-		JOIN tl_c_internship_course ON tl_c_internship_course.INTERNSHIP_COURSE_PK = tl_c_student_applying.INTERNSHIP_COURSE_PK
-		JOIN TL_JIC_STUDENT_INFO ON tl_c_student_applying.STUDENT_PK = TL_JIC_STUDENT_INFO.STUDENT_PK
-		JOIN TL_JIC_STUDENT_SEMESTER ON TL_JIC_STUDENT_SEMESTER.STUDENT_PK = TL_JIC_STUDENT_INFO.STUDENT_PK
-		JOIN TL_JIC_PROFESSOR_INFO ON TL_JIC_PROFESSOR_INFO.PROFESSOR_PK = TL_JIC_STUDENT_INFO.PROFESSOR_PK
-		JOIN TL_JIC_DEPARTMENT_CATEGORY ON TL_JIC_DEPARTMENT_CATEGORY.DEPARTMENT_PK = TL_JIC_PROFESSOR_INFO.DEPARTMENT_PK
-		WHERE tl_c_student_applying.internship_course_pk = #{internship_course_pk}
+		FROM
+		tl_c_student_applying
+		JOIN tl_c_internship_course ON
+		tl_c_internship_course.INTERNSHIP_COURSE_PK =
+		tl_c_student_applying.INTERNSHIP_COURSE_PK
+		JOIN TL_JIC_STUDENT_INFO ON
+		tl_c_student_applying.STUDENT_PK = TL_JIC_STUDENT_INFO.STUDENT_PK
+		JOIN
+		TL_JIC_STUDENT_SEMESTER ON TL_JIC_STUDENT_SEMESTER.STUDENT_PK =
+		TL_JIC_STUDENT_INFO.STUDENT_PK
+		JOIN TL_JIC_PROFESSOR_INFO ON
+		TL_JIC_PROFESSOR_INFO.PROFESSOR_PK = TL_JIC_STUDENT_INFO.PROFESSOR_PK
+		JOIN TL_JIC_DEPARTMENT_CATEGORY ON
+		TL_JIC_DEPARTMENT_CATEGORY.DEPARTMENT_PK =
+		TL_JIC_PROFESSOR_INFO.DEPARTMENT_PK
+		WHERE
+		tl_c_student_applying.internship_course_pk = #{internship_course_pk}
 		AND TL_JIC_STUDENT_SEMESTER.SEMESTER_PK = (
-			SELECT MAX(SEMESTER_PK) AS max_se
-			FROM TL_JIC_STUDENT_SEMESTER
-			WHERE TL_JIC_STUDENT_SEMESTER.STUDENT_PK = TL_JIC_STUDENT_INFO.STUDENT_PK
-			GROUP BY TL_JIC_STUDENT_SEMESTER.STUDENT_PK
+		SELECT MAX(SEMESTER_PK) AS
+		max_se
+		FROM TL_JIC_STUDENT_SEMESTER
+		WHERE
+		TL_JIC_STUDENT_SEMESTER.STUDENT_PK = TL_JIC_STUDENT_INFO.STUDENT_PK
+		GROUP BY TL_JIC_STUDENT_SEMESTER.STUDENT_PK
 		)
 	</select>
 
 	<!-- 자격증 -->
 	<select id="selectCertificationProcess" resultType="Map">
-		SELECT * FROM TL_C_COMPANY_INFO
-		JOIN tl_c_internship_course ON TL_C_COMPANY_INFO.COMPANY_PK = tl_c_internship_course.COMPANY_PK
-		JOIN tl_c_student_applying ON tl_c_internship_course.INTERNSHIP_COURSE_PK = tl_c_student_applying.INTERNSHIP_COURSE_PK
-		JOIN TL_JIC_STUDENT_INFO ON tl_c_student_applying.STUDENT_PK = TL_JIC_STUDENT_INFO.STUDENT_PK
-		JOIN tl_c_certification ON TL_JIC_STUDENT_INFO.STUDENT_PK = tl_c_certification.STUDENT_PK
-		WHERE tl_c_company_info.EXTERNAL_PK = #{COMPANY_PK}
+		SELECT * FROM
+		TL_C_COMPANY_INFO
+		JOIN tl_c_internship_course ON
+		TL_C_COMPANY_INFO.COMPANY_PK = tl_c_internship_course.COMPANY_PK
+		JOIN
+		tl_c_student_applying ON tl_c_internship_course.INTERNSHIP_COURSE_PK =
+		tl_c_student_applying.INTERNSHIP_COURSE_PK
+		JOIN TL_JIC_STUDENT_INFO ON
+		tl_c_student_applying.STUDENT_PK = TL_JIC_STUDENT_INFO.STUDENT_PK
+		JOIN
+		tl_c_certification ON TL_JIC_STUDENT_INFO.STUDENT_PK =
+		tl_c_certification.STUDENT_PK
+		WHERE tl_c_company_info.EXTERNAL_PK =
+		#{COMPANY_PK}
 	</select>
 
 
@@ -79,23 +108,24 @@
 	<update id="updateSelectionStudent">
 		UPDATE tl_c_student_applying
 		SET status = #{status}
-		WHERE student_pk = #{student_pk}
+		WHERE student_pk = #{student_pk} AND internship_course_pk =
+		#{internship_course_pk}
 	</update>
-	
+
 	<!-- 실습생 정보 db 추가 -->
 	<insert id="insertStudentIntern">
-	INSERT INTO tl_c_student_intern VALUES(
+		INSERT INTO tl_c_student_intern VALUES(
 		tl_c_student_intern_seq.nextval,
 		#{STUDENT_INTERN_PK} ,
-		#{INTERNSHIP_COURSE_PK},  
+		#{INTERNSHIP_COURSE_PK},
 		#{STUDENT_PK},
-		
+
 		SYSDATE
-	)
-		
+		)
+
 	</insert>
-	
-	
+
+
 
 	<!-- 밑에부터잘안씀 -->
 	<select id="selectionGrade" resultType="Map">
@@ -116,9 +146,9 @@
 		tl_c_student_applying.internship_course_pk = #{internship_course_pk}
 	</select>
 
- 
- 
- 
+
+
+
 
 
 	<!--AjdksStudentApplyingDto -->

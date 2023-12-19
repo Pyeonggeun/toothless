@@ -497,6 +497,14 @@
 				</form>
 			</div>
 		</div>
+		
+		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+		<!-- futter -->
+		<div class="row">
+			<div class="col">
+				<jsp:include page="../common/futter.jsp"></jsp:include>
+			</div>
+		</div>
 	</div>
 	
 	

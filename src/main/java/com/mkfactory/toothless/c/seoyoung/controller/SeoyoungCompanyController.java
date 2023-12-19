@@ -1,5 +1,6 @@
 package com.mkfactory.toothless.c.seoyoung.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,17 +36,27 @@ public class SeoyoungCompanyController {
 	
 		ExternalInfoDto sessionCompanyInfo = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
 		model.addAttribute("sessionCompanyInfo", sessionCompanyInfo);
+//		System.out.println("-------------------------------------------");
 		
+//		System.out.println(sessionCompanyInfo.getExternal_pk());
+//		System.out.println("-------------------------------------------");
 		List<Map<String, Object>> map = (List<Map<String, Object>>) seoyoungCompanyService.companyList(sessionCompanyInfo.getExternal_pk());
 		model.addAttribute("list", map);
 		
 		
-		String tf = seoyoungCompanyService.companyIngTF(sessionCompanyInfo.getExternal_pk());
-		if(tf==null) {
-			 tf = "yes";
-		}
+		List<Map<String, Object>> tf = (List<Map<String, Object>>) seoyoungCompanyService.companyIngTF(sessionCompanyInfo.getExternal_pk());
+//		for (int i = 0; i < tf.size(); i++) {
+//		    Map<String, Object> map2 = tf.get(i);
+//		    
+//		    if (map2 == null) {
+//		        map2 = new HashMap<>();
+//		        map2.put("key", "yes");	        
+//		        tf.set(i, map2);
+//		    }
+//		    System.out.println(tf);
+//		} -> 쿼리 변경
+
 		model.addAttribute("tf", tf);
-		System.out.println(tf);
 		
 		//학기
 //		List<Map<String, Object>> map4 = (List<Map<String, Object>>) seoyoungCompanyService.selectionGrade(sessionCompanyInfo.getExternal_pk());
@@ -63,7 +74,7 @@ public class SeoyoungCompanyController {
 
 		List<Map<String, Object>> map = (List<Map<String, Object>>) seoyoungCompanyService.companyList(sessionCompanyInfo.getExternal_pk());
 		model.addAttribute("list", map);
-		System.out.println(sessionCompanyInfo.getExternal_pk());
+		//System.out.println(sessionCompanyInfo.getExternal_pk());
 		//신청 학생 정보 확인
 		int internId=pramse.getInternship_course_pk();
 		List<Map<String, Object>> map2 =  (List<Map<String, Object>>)  seoyoungCompanyService.selectionStudent(internId);

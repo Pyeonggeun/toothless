@@ -49,4 +49,6 @@ public interface DormStaffSqlMapperDm {
 	public List<Map<String, Object>> dormInfoTestByDormPk(@Param("dorm_pk") int dorm_pk);
 	
 	public boolean dormAssignCheckByDormRoomPk(int dorm_room_pk);
+	
+	public List<Map<String, Object>> searchListBySearchWordAndSearchType(@Param("searchWord") String searchWord, @Param("searchType") String searchType);
 }

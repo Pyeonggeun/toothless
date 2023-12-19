@@ -241,6 +241,12 @@ public class DormStaffServiceDm {
 		return dormStaffSqlMapperDm.dormAssignCheckByDormRoomPk(dorm_room_pk);
 	}
 	
+	public List<Map<String, Object>> searchListBySearchWordAndSearchType(String searchWord, String searchType){
+		
+		
+		return dormStaffSqlMapperDm.searchListBySearchWordAndSearchType(searchWord, searchType);
+	}
+	
 }
 
 

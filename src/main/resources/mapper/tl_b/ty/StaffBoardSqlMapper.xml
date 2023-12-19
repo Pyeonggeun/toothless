@@ -16,7 +16,7 @@
 		#{title},
 		#{content},
 		0,
-		null,
+		#{img_link},
 		sysdate
 	)
 	</insert>

@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -56,6 +57,25 @@
 	text-decoration: none;
 	color: #000000;
 }
+
+/*accordion*/
+.accordion { -
+	-bs-accordion-btn-focus-border-color: #f2f5f7;
+	-bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem #f2f5f7;
+}
+
+.accordion-button:not(.collapsed) {
+	background-color: #f2f5f7;
+}
+
+.accordion { -
+	-bs-accordion-btn-focus-box-shadow: none;
+}
+
+/*table*/
+.table { -
+	-bs-table-bg: none;
+}
 </style>
 <script>
 	function updateFormAction() {
@@ -98,205 +118,203 @@
 					<div class="col mx-5">
 
 						<!-- 본문작성공간 -->
-						<div class="col">
-							<div class="row">
-								<div class="col mx-4">
 
-									<!-- 본문작성공간 -->
-									<br> <br>
-									<div class="container">
+						<div class="row">
+							<div class="col mx-4">
 
-										<div class="row">
-											<h2>
-												<span class="fw-bolder"><i
-													class="bi bi-building-check"></i>&nbsp;실습생 선발 </span>
-											</h2>
-										</div>
-										<br>
-										<div class="row ps-3">
-											<table class="table text-center align-middle ">
-												<thead class="table-primary">
+								<!-- 본문작성공간 -->
+								<br> <br>
+								<div class="container">
+
+									<div class="row">
+										<h2>
+											<span class="fw-bolder"><i
+												class="bi bi-building-check"></i>&nbsp;실습생 선발 </span>
+										</h2>
+									</div>
+									<br>
+									<div class="row ps-3">
+										<table class="table text-center align-middle ">
+											<thead class="table">
+												<tr style="background-color: #f2f5f7;">
+													<th scope="col">#</th>
+													<th scope="col">학번</th>
+													<th scope="col">이름</th>
+													<th scope="col">성별</th>
+													<th scope="col">전화번호</th>
+													<th scope="col">이메일</th>
+													<th scope="col">신청일</th>
+													<th scope="col">선발여부</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${list2}" var="selectionStudent">
 													<tr>
-														<th scope="col">#</th>
-														<th scope="col">학번</th>
-														<th scope="col">이름</th>
-														<th scope="col">성별</th>
-														<th scope="col">전화번호</th>
-														<th scope="col">이메일</th>
-														<th scope="col">신청일</th>
-														<th scope="col">선발여부</th>
-													</tr>
-												</thead>
-												<tbody>
-													<c:forEach items="${list2}" var="selectionStudent">
-														<tr>
-															<th scope="row">${selectionStudent.STUDENT_APPLYING_PK}</th>
-															<td scope="row">${selectionStudent.STUDENT_ID}</td>
-															<td scope="row">
-																<div class="modal modal-fullscreen "
-																	id="exampleModalToggle?student_pk=${selectionStudent.STUDENT_PK}"
-																	aria-hidden="true"
-																	aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+														<th scope="row">${selectionStudent.STUDENT_APPLYING_PK}</th>
+														<td scope="row">${selectionStudent.STUDENT_ID}</td>
+														<td scope="row">
+															<div
+																class="modal modal-fullscreen  modal-dialog-scrollable"
+																id="exampleModalToggle?student_pk=${selectionStudent.STUDENT_PK}"
+																aria-hidden="true"
+																aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 
-																	<div class="modal-dialog modal-fullscreen">
-																		<div class="modal-content">
-																			<div class="modal-header">
-																				<br>
-																				<h5 class="modal-title text-start"
-																					id="exampleModalToggleLabel">
-																					<span class="fw-bolder"><i
-																						class="bi bi-calendar-check"></i>&nbsp; 신청내역 조회</span>
+																<div
+																	class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<br>
+																			<h5 class="modal-title text-start"
+																				id="exampleModalToggleLabel">
+																				<span class="fw-bolder"><i
+																					class="bi bi-calendar-check"></i>&nbsp; 신청내역 조회</span>
+																			</h5>
+																			<button type="button" class="btn-close"
+																				data-bs-dismiss="modal" aria-label="Close"></button>
+																		</div>
+																		<div class="modal-body px-5" style="overflow-y: auto">
+																			<br>
+																			<div class="row text-start mb-3">
+																				<h5>
+																					<i class="bi bi-bookmarks"></i> &nbsp; <span
+																						class="fw-bold">기본정보</span>
 																				</h5>
-																				<button type="button" class="btn-close"
-																					data-bs-dismiss="modal" aria-label="Close"></button>
 																			</div>
-																			<div class="modal-body px-5"
-																				style="overflow-y: hidden">
-																				<br>
-																				<div class="row text-start mb-3">
-																					<h5>
-																						<i class="bi bi-bookmarks"></i> &nbsp; <span
-																							class="fw-bold">기본정보</span>
-																					</h5>
-																				</div>
 
-																				<div class="row mx-3 pe-3">
+																			<div class="row mx-3 pe-3">
 
-																					<div class="col-2 text-center">
-																						<div class="row border" style="height: 300px;">
-																							<img src="C:\images\증명사진.jpg">
-																						</div>
-																					</div>
-																					<div class="col-3">
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
-																							학생명/성별 *</div>
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
-																							전화번호/휴대폰 *</div>
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
-																							이메일 *</div>
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
-																							주소 *</div>
-																					</div>
-
-
-																					<div class="col-7  text-center ">
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px;">
-																							${selectionStudent.NAME} /
-																							${selectionStudent.GENDER}</div>
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px;">
-																							${selectionStudent.PHONE}</div>
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px;">
-																							${selectionStudent.EMAIL}</div>
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px;">
-																							${selectionStudent.ADDRESS}</div>
-																					</div>
-																					<hr
-																						style="border-top: 2px solid; margin-bottom: 0;">
-																				</div>
-																				<br>
-																				<div class="row text-start mb-3">
-																					<h5>
-																						<i class="bi bi-bookmarks"></i> &nbsp; <span
-																							class="fw-bold">학적정보</span>
-																					</h5>
-																				</div>
-																				<!-- 1열-->
-																				<div class="row  px-4">
-																					<div class="col-2">
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
-																							이름</div>
-																					</div>
-																					<div class="col-4">
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px;">
-																							${selectionStudent.NAME}</div>
-																					</div>
-
-																					<div class="col-2">
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
-																							현재학기</div>
-																					</div>
-																					<div class="col-4 pe-4">
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px;">
-																							${selectionStudent.SEMESTER_PK}학기</div>
+																				<div class="col-2 text-center">
+																					<div class="row border" style="height: 300px;">
+																						<img src="C:\images\증명사진.jpg">
 																					</div>
 																				</div>
-
-																				<!--  2열 왼쪽 -->
-																				<div class="row  px-4">
-																					<div class="col-2">
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
-																							전공</div>
-																					</div>
-																					<div class="col-4">
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px;">
-																							${selectionStudent.DEPARTMENTNAME}</div>
-																					</div>
-
-
-																					<!-- 2열 오른쪽 -->
-																					<div class="col-2">
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
-																							취득학점</div>
-																					</div>
-																					<div class="col-4 pe-4">
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px;">전자공학과</div>
-																					</div>
+																				<div class="col-3">
+																					<div
+																						class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																						style="height: 75px; background-color: #f2f5f7; font-weight: bold;">
+																						학생명/성별 *</div>
+																					<div
+																						class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																						style="height: 75px; background-color: #f2f5f7; font-weight: bold;">
+																						전화번호/휴대폰 *</div>
+																					<div
+																						class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																						style="height: 75px; background-color: #f2f5f7; font-weight: bold;">
+																						이메일 *</div>
+																					<div
+																						class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																						style="height: 75px; background-color: #f2f5f7; font-weight: bold;">
+																						주소 *</div>
 																				</div>
 
-																				<!-- 3열 왼쪽  -->
-																				<div class="row px-4">
-																					<div class="col-2">
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
-																							담당교수</div>
-																					</div>
-																					<div class="col-4">
-																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px;">
-																							${selectionStudent.PROFFESSORNAME}</div>
-																					</div>
 
+																				<div class="col-7  text-center ">
+																					<div
+																						class="row border d-flex align-items-center justify-content-center"
+																						style="height: 75px;">
+																						${selectionStudent.NAME} /
+																						${selectionStudent.GENDER}</div>
+																					<div
+																						class="row border d-flex align-items-center justify-content-center"
+																						style="height: 75px;">
+																						${selectionStudent.PHONE}</div>
+																					<div
+																						class="row border d-flex align-items-center justify-content-center"
+																						style="height: 75px;">
+																						${selectionStudent.EMAIL}</div>
+																					<div
+																						class="row border d-flex align-items-center justify-content-center"
+																						style="height: 75px;">
+																						${selectionStudent.ADDRESS}</div>
 																				</div>
-
-																				<!-- 학적 정보 row 끝 -->
+																				<hr style="border-top: 2px solid; margin-bottom: 0;">
 																			</div>
 																			<br>
-																			<div class="row  text-center  px-5">
-																				<div class="accordion" id="accordionExample">
+																			<div class="row text-start mb-3">
+																				<h5>
+																					<i class="bi bi-bookmarks"></i> &nbsp; <span
+																						class="fw-bold">학적정보</span>
+																				</h5>
+																			</div>
+																			<!-- 1열-->
+																			<div class="row  px-4">
+																				<div class="col-2">
+																					<div
+																						class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																						style="height: 50px; background-color: #CFE2FF; font-weight: bold;">
+																						이름</div>
+																				</div>
+																				<div class="col-4">
+																					<div
+																						class="row border d-flex align-items-center justify-content-center"
+																						style="height: 50px;">
+																						${selectionStudent.NAME}</div>
+																				</div>
+
+																				<div class="col-2">
+																					<div
+																						class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																						style="height: 50px; background-color: #f2f5f7; font-weight: bold;">
+																						현재학기</div>
+																				</div>
+																				<div class="col-4 pe-4">
+																					<div
+																						class="row border d-flex align-items-center justify-content-center"
+																						style="height: 50px;">
+																						${selectionStudent.SEMESTER_PK}학기</div>
+																				</div>
+																			</div>
+
+																			<!--  2열 왼쪽 -->
+																			<div class="row  px-4">
+																				<div class="col-2">
+																					<div
+																						class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																						style="height: 50px; background-color: #f2f5f7; font-weight: bold;">
+																						전공</div>
+																				</div>
+																				<div class="col-4">
+																					<div
+																						class="row border d-flex align-items-center justify-content-center"
+																						style="height: 50px;">
+																						${selectionStudent.DEPARTMENTNAME}</div>
+																				</div>
+
+
+																				<!-- 2열 오른쪽 -->
+																				<div class="col-2">
+																					<div
+																						class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																						style="height: 50px; background-color: #f2f5f7; font-weight: bold;">
+																						취득학점</div>
+																				</div>
+																				<div class="col-4 pe-4">
+																					<div
+																						class="row border d-flex align-items-center justify-content-center"
+																						style="height: 50px;">전자공학과</div>
+																				</div>
+																			</div>
+
+																			<!-- 3열 왼쪽  -->
+																			<div class="row px-4">
+																				<div class="col-2">
+																					<div
+																						class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																						style="height: 50px; background-color: #f2f5f7; font-weight: bold;">
+																						담당교수</div>
+																				</div>
+																				<div class="col-4">
+																					<div
+																						class="row border d-flex align-items-center justify-content-center"
+																						style="height: 50px;">
+																						${selectionStudent.PROFFESSORNAME}</div>
+																				</div>
+
+																			</div>
+																			<br>
+																			<div class="row">
+																				<div class="accordion" id="accordionExample"
+																					style="-bs-accent: #f2f5f7;">
 																					<div class="accordion-item">
 																						<h2 class="accordion-header">
 
@@ -305,7 +323,7 @@
 																								data-bs-target="#collapseTwo"
 																								aria-expanded="false"
 																								aria-controls="collapseTwo"
-																								style="background-color: #CFE2FF;"
+																								style="background-color: #f2f5f7;"
 																								onclick="certificationForm()">
 																								<i class="bi bi-bookmarks "></i> &nbsp; 자격증
 																							</button>
@@ -313,11 +331,12 @@
 																						</h2>
 																						<div id="collapseTwo"
 																							class="accordion-collapse collapse"
-																							data-bs-parent="#accordionExample">
+																							data-bs-parent="#accordionExample"
+																							style="-bs-accent: #f2f5f7;">
 																							<div class="accordion-body">
 																								<table class="table text-center align-middle ">
-																									<thead class="table-primary">
-																										<tr>
+																									<thead class="table">
+																										<tr style="background-color: #f2f5f7;">
 																											<th scope="col">#</th>
 																											<th scope="col">자격증</th>
 																											<th scope="col">취득일</th>
@@ -339,19 +358,18 @@
 																						</div>
 																					</div>
 																				</div>
-
-
 																			</div>
-																			<br> <br>
-																			<div class="row text-center  px-5	">
-																				<div class="accordion" id="accordionExample">
+																			<br>
+																			<div class="row">
+																				<div class="accordion" id="accordionExample"
+																					style="-bs-accent: #f2f5f7;">
 																					<div class="accordion-item">
 																						<h1 class="accordion-header">
 																							<button class="accordion-button" type="button"
 																								data-bs-toggle="collapse"
 																								data-bs-target="#collapseOne"
 																								aria-expanded="true" aria-controls="collapseOne"
-																								style="background-color: #CFE2FF;">
+																								style="background-color: #f2f5f7;">
 																								<i class="bi bi-bookmarks "></i> &nbsp; 지원이력서
 																							</button>
 																						</h1>
@@ -394,64 +412,58 @@
 																					</div>
 																				</div>
 																			</div>
-																			<br>
-																			<div class="row"></div>
+																			<!-- 학적 정보 row 끝 -->
+																		</div>
+																		<br>
+																		<div class="row">
 																			<div class="modal-footer">
 																				<a
 																					href="./updateSelectInternProcess?status=불합격&student_pk=${selectionStudent.STUDENT_PK}&internship_course_pk=${selectionStudent.INTERNSHIP_COURSE_PK}"
 																					class="btn bbtn btn-secondary"
-																					data-bs-toggle="modal" role="button">불합격 
-																					
-																					
-																				</a> <a
+																					data-bs-toggle="modal" role="button">불합격 </a> <a
 																					href="./updateSelectInternProcess?status=합격&student_pk=${selectionStudent.STUDENT_PK}&internship_course_pk=${selectionStudent.INTERNSHIP_COURSE_PK}"
 																					class="btn bbtn btn-primary" data-bs-toggle="modal"
-																					role="button">합격
-																					
-																					<input
+																					role="button">합격 <input
 																					name="internship_course_pk" type="hidden"
 																					value="${companyList.INTERNSHIP_COURSE_PK}"><input
 																					name="student_pk" type="hidden"
 																					value="${companyList.STUDENT_PK}">
-																					
-																					
-																					</a>
+																				</a>
 																			</div>
-
 																		</div>
 																	</div>
-
 																</div>
-																</div> <a class="btn btn btn-light" data-bs-toggle="modal"
-																href="#exampleModalToggle?student_pk=${selectionStudent.STUDENT_PK}"
-																role="button"> ${selectionStudent.NAME}</a>
-															</td>
-															<td scope="row">${selectionStudent.GENDER}</td>
-															<td scope="row">${selectionStudent.PHONE}</td>
-															<td scope="row">${selectionStudent.EMAIL}</td>
-															<td scope="row">${selectionStudent.CREATED_AT}</td>
-															<td scope="row">${selectionStudent.STATUS}</td>
-															<td scope="row">
-														</tr>
-													</c:forEach>
 
-												</tbody>
-											</table>
+															</div> <a class="btn btn btn-light" data-bs-toggle="modal"
+															href="#exampleModalToggle?student_pk=${selectionStudent.STUDENT_PK}"
+															role="button"> ${selectionStudent.NAME}</a>
+														</td>
+														<td scope="row">${selectionStudent.GENDER}</td>
+														<td scope="row">${selectionStudent.PHONE}</td>
+														<td scope="row">${selectionStudent.EMAIL}</td>
+														<td scope="row">${selectionStudent.CREATED_AT}</td>
+														<td scope="row">${selectionStudent.STATUS}</td>
+														<td scope="row">
+													</tr>
+												</c:forEach>
 
-										</div>
+											</tbody>
+										</table>
 
 									</div>
+
 								</div>
 							</div>
-
 						</div>
+
 					</div>
 				</div>
-
 			</div>
 
 		</div>
+
 	</div>
+
 
 	<!-- 전체 container 출구 -->
 	<script

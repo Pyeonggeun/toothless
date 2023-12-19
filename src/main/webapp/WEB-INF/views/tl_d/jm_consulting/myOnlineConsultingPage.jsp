@@ -17,7 +17,7 @@
 	<div class="row">
 		<div class="col">
 			<div class="row">
-				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>
+				<jsp:include page="../common/studentTopNavi.jsp"></jsp:include>
 			</div>			
 		</div>
 	</div>
@@ -25,11 +25,11 @@
 
 	<div class="row">
 		<div class="col-3">
-			<jsp:include page="../common/staffMenu.jsp"></jsp:include>
+			<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 		</div>
 				<div class="col">
 					<div class="row my-5">
-						<div class="col" style="font-size:1.5em;">
+						<div class="col fw-bold" style="font-size:1.5em;">
 							<span>내 온라인 상담 내역</span>
 						</div>
 					</div>

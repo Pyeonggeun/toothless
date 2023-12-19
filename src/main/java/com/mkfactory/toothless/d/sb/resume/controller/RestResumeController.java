@@ -183,8 +183,35 @@ public class RestResumeController {
 		d_RestResponseDto.setData(resumeService.getLicenseDtoList(licenseDto));
 		return d_RestResponseDto;
 	}
-
 	
+	@RequestMapping("getStudentInfoByResume")
+	public D_RestResponseDto getStudentInfoByResume(ResumeDto params) {
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+		d_RestResponseDto.setResult("success");
+		ResumeDto resumeDto = resumeService.getResume(params);
+		int student_pk = resumeDto.getStudent_pk();
+		StudentInfoDto student = resumeService.getStudentDtoByResumePk(student_pk);
+		d_RestResponseDto.setData(student);
+		
+		return d_RestResponseDto;
+	}
+	
+	// 공개된 이력서 목록 가져오기
+	@RequestMapping("getIsPublicResumeList")
+	public D_RestResponseDto getIsPublicResumeList (int department_pk) {
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+		d_RestResponseDto.setResult("success");
+		
+		
+		if(department_pk == 0) {
+			d_RestResponseDto.setData(resumeService.getPublicResumeList());
+		}else {
+			d_RestResponseDto.setData(resumeService.getResumeDtoListByDepartmentPk(department_pk));
+		}
+		
+		return d_RestResponseDto;
+	}
+
 	
 	
 	

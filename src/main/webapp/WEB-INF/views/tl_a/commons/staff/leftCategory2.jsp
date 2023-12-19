@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 
-
     <div class="col-2 p-0 border-end">
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item">
@@ -87,13 +86,11 @@
                     <ul style="list-style: none;">
                         <li class="my-2 text-body-secondary" style="font-size: 0.7rem;">관련사이트</li>
                         <li class="my-2" style="font-size: 0.8rem;">기숙사 홈페이지
-                           <a href="../student/jw_mainPage" class="navbar-brand"> <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;" ></i></a>
-                            </li>
-                        <li class="my-2" style="font-size: 0.8rem;">대학메인 포털
-                            <a href="../../another/student/mainPage" class="navbar-brand"><i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></a>
-                            </li>
-                        <li class="my-2" style="font-size: 0.8rem;">뭘 넣어야 될까
-                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
+                           <a href="../student/jw_mainPage" class="navbar-brand"> <i class="bi bi-box-arrow-up-right ps-1" style="font-size: 0.7rem;" ></i></a>
+                        </li>
+                        <li class="my-2" style="font-size: 0.8rem;">대학메인 포털 로그인
+                            <a href="../../another/student/loginPage" class="navbar-brand"><i class="bi bi-box-arrow-up-right ps-1" style="font-size: 0.7rem;"></i></a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -102,8 +99,8 @@
                     <ul style="list-style: none;">
                         <li class="my-2 text-body-secondary" style="font-size: 0.7rem;">기타서비스</li>
                         <li class="my-2" style="font-size: 0.8rem;">모바일 앱 다운로드
-                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
-                        <li class="my-2" style="font-size: 0.8rem;">그림그림뭐라도넣겠지</li>
+                            <i class="bi bi-box-arrow-up-right ps-1" style="font-size: 0.7rem;"></i>
+                        </li>
                     </ul>
                 </div>
             </div>

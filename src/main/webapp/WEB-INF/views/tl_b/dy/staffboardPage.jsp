@@ -22,10 +22,10 @@
             div.box{
                 padding-top: 8px;
                 padding-bottom: 8px;
-                width: 60%;
                 border: 0.1px solid gainsboro;
                 float: left;
                 border-top-style: none;
+                width: 100%;
 
             }
             a{
@@ -46,7 +46,7 @@
             span.replyCount{
             	color: #005EAD;
             }
-            </style>
+    	</style>
     </head>
     <body>
         <div class="container-fluid">
@@ -59,8 +59,11 @@
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
                                 <div class="col bg-body-tertiary">
                                     <!--여기서 부터 -->
-                                    <div class="row"></div>
-                                    <div class="row box bg-white text-dark">
+                                    
+                                    <div class="row">
+                                    	<div class="col-md-7 pe-0">
+                                    
+                                    <div class="row box bg-white text-dark"> <!--  -->
                                     	<div class="col">
                                     	<form action="./staffboardPage" method="get">
 	                                    	<div class="row">
@@ -102,13 +105,13 @@
                                     	</div>
                                     </div>
                                     <c:forEach items="${list}" var="map">
-                                    <div class="row box bg-white text-dark">
+                                    <div class="row box bg-white text-dark"> <!--  -->
                                         <div class="col">
                                             <div class="row title">
                                             	<div class="col">
                                             		<a href="./readTextPage?staffboard_pk=${map.staffboardDto.staffboard_pk}">${map.staffboardDto.title}
                                                 	</a>
-                                                	<span class="replyCount"><c:if test="${0 <map.staffboardReplyDto}">(${map.staffboardReplyDto})</c:if></span>
+                                                	<span class="replyCount"><c:if test="${0 < map.staffboardReplyDto}">(${map.staffboardReplyDto})</c:if></span>
                                             	</div>
                                             </div>
                                             <div class="row"></div>
@@ -119,6 +122,15 @@
                                         <div class="col-md-1 text-end d-flex align-items-center"><i class="bi bi-hand-thumbs-up-fill icon "></i>&nbsp;${map.staffboardLikeDto}</div>
                                     </div>
                                     </c:forEach>
+                                    	
+                                    	</div>
+                                    	<div class="col-md-5 ps-0">
+                                    		<!-- 사진 자리 -->
+                                    		<img class="img img-fluid" src="../../resources/img/healthRoom/staffboard/bamboo.jpeg">
+                                    	</div>
+                                    	
+                                    </div>
+                                    
                                 </div>
                                 <!-- 여기 까지-->
                             </div>
