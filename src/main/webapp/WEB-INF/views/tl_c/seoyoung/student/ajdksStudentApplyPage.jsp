@@ -52,6 +52,25 @@
 	text-decoration: none;
 	color: #000000;
 }
+
+/*accordion*/
+.accordion { -
+	-bs-accordion-btn-focus-border-color: #CDCDD3;
+	-bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem #CDCDD3;
+}
+
+.accordion-button:not(.collapsed) {
+	background-color: #CDCDD3;
+}
+
+.accordion { -
+	-bs-accordion-btn-focus-box-shadow: none;
+}
+
+/*table*/
+.table{
+	--bs-table-bg:none;
+}
 </style>
 </head>
 <body>
@@ -80,17 +99,17 @@
 
 						<div class="row ">
 							<h2>
-								<span class="fw-bolder border-bottom"><i class="bi bi-calendar-check"></i>&nbsp;신청내역
-									조회</span>
+								<span class="fw-bolder border-bottom"><i
+									class="bi bi-calendar-check"></i>&nbsp;신청내역 조회</span>
 							</h2>
 						</div>
 
 						<br>
 						<div class="row ps-3">
 
-							<table class="table text-center align-middle " >
-								<thead class="table-secondary" >
-									<tr>
+							<table class="table text-center align-middle ">
+								<thead class="table">
+									<tr  style="background-color: #CDCDD3;">
 										<th scope="col">#</th>
 										<th scope="col">기관명</th>
 										<th scope="col">소재지</th>
@@ -122,12 +141,14 @@
 						</div>
 						<br>
 						<div class="row text-center">
-							<div class="accordion accordion-secondary	" id="accordionExample bg-primary" style="--bs-accent: #CDCDD3;">
+							<div class="accordion accordion-secondary	"
+								id="accordionExample bg-primary" style="-bs-accent: #CDCDD3;">
 								<div class="accordion-item">
 									<h2 class="accordion-header">
 										<button class="accordion-button fw-bolder " type="button"
 											data-bs-toggle="collapse" data-bs-target="#collapseOne"
-											aria-expanded="true" aria-controls="collapseOne" style="--bs-accent: #CDCDD3;">
+											aria-expanded="true" aria-controls="collapseOne"
+											style="-bs-accent: #CDCDD3;">
 											<i class="bi bi-bookmarks "></i> &nbsp;지원이력서
 										</button>
 									</h2>
@@ -137,7 +158,7 @@
 											<div class="row">
 												<table class="table">
 													<thead>
-														<tr>
+														<tr style="background-color: #CDCDD3;">
 															<th class="col-md-3">#</th>
 															<th class="span10">내용</th>
 
@@ -185,17 +206,17 @@
 										</button>
 									</h2>
 									<div id="collapseTwo" class="accordion-collapse collapse show"
-										data-bs-parent="#accordionExample" >
+										data-bs-parent="#accordionExample">
 										<div class="accordion-body">
 											<table class=" table text-center align-middle ">
-												<thead class="table-secondary">
-													<tr>
+												<thead class="table">
+													<tr style="background-color: #CDCDD3;">
 														<th scope="col">#</th>
 														<th scope="col">기관명</th>
 														<th scope="col">소재지</th>
 														<th scope="col">실습기간</th>
 														<th scope="col">결과발표일</th>
-														<th scope="col">선발인원</th>
+														<th scope="col">선발인원</th>	
 														<th scope="col">선발여부</th>
 													</tr>
 												</thead>

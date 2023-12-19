@@ -65,6 +65,25 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 .reduce-font-size {
 	font-size: 0.9em; /* Adjust the value as needed */
 }
+
+/*accordion*/
+.accordion { -
+	-bs-accordion-btn-focus-border-color: #CDCDD3;
+	-bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem #CDCDD3;
+}
+
+.accordion-button:not(.collapsed) {
+	background-color: #CDCDD3;
+}
+
+.accordion { -
+	-bs-accordion-btn-focus-box-shadow: none;
+}
+
+/*table*/
+.table{
+	--bs-table-bg:none;
+}
 </style>
 <!-- Bootstrap JS -->
 
@@ -502,7 +521,7 @@ const student_pk = ${sessionStudentInfo.student_pk};
 											<input id="searchCompanyWord" onkeyup="pressEnter()"
 												type="text" class="form-control btn-outline-light">
 											<a href="#" onclick="searchByCompany()" role="button"
-												class="btn btn-primary  btn-outline-light"> <i
+												class="btn btn-secondary  btn-outline-light"> <i
 												class="bi bi-search"></i></a>
 										</div>
 									</div>
