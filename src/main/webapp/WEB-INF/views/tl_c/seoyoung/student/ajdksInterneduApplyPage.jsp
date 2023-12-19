@@ -65,6 +65,25 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 .reduce-font-size {
 	font-size: 0.9em; /* Adjust the value as needed */
 }
+
+/*accordion*/
+.accordion { -
+	-bs-accordion-btn-focus-border-color: #CDCDD3;
+	-bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem #CDCDD3;
+}
+
+.accordion-button:not(.collapsed) {
+	background-color: #CDCDD3;
+}
+
+.accordion { -
+	-bs-accordion-btn-focus-box-shadow: none;
+}
+
+/*table*/
+.table{
+	--bs-table-bg:none;
+}
 </style>
 <!-- Bootstrap JS -->
 
@@ -485,7 +504,7 @@ const student_pk = ${sessionStudentInfo.student_pk};
 							<br>
 
 							<nav class="navbar navbar-light" id="searchCompany"
-								style="background-color: #CFE2FF;">
+								style="background-color: #f2f5f7;">
 								<div class="col">
 									<div class="row ms-3 mt-3 me-3 mb-3">
 										<div class="col-2 px-0">
@@ -502,7 +521,7 @@ const student_pk = ${sessionStudentInfo.student_pk};
 											<input id="searchCompanyWord" onkeyup="pressEnter()"
 												type="text" class="form-control btn-outline-light">
 											<a href="#" onclick="searchByCompany()" role="button"
-												class="btn btn-primary  btn-outline-light"> <i
+												class="btn btn-secondary  btn-outline-light"> <i
 												class="bi bi-search"></i></a>
 										</div>
 									</div>
@@ -550,10 +569,10 @@ const student_pk = ${sessionStudentInfo.student_pk};
 							</nav>
 							<br>
 							<!-- 컴퍼니 리스트 -->
-							<div class="row mt-2" style="height: 18em">
+							<div class="row mt-2" style="height: 18em" >
 								<div class="col border-secondary border-top text-center">
 									<div class="row text-center py-1 border-botton"
-										style="height: 50px; background-color: #CFE2FF; font-weight: bold;">
+										style="height: 50px; background-color: #f2f5f7; font-weight: bold;">
 										<div class="col align-self-center">#</div>
 										<div class="col-2 align-self-center">업종</div>
 										<div class="col-2 align-self-center">회사명</div>

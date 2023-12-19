@@ -39,6 +39,39 @@
 <body>
 
 
+<jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
+
+<!-- 전체 컨테이너 시작-->
+	<div class="container-fluid">
+	
+			<!-- 상단 이미지 배너 -->
+			<div class="row mx-0 px-0">
+				<div class="col mx-0 px-0">
+						<div class="row">
+							<div class="col mx-0 px-0" style="height: 35em;">
+								<img class="banner img-fluid" src="./../../resources/img/groupCounsel/fff.jpg" style="width:100%; height: 100%;">
+							
+								<div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height:100%; position: relative; bottom: 100%;"></div>
+								<!-- 
+								<div class="title-text fw-bold" style="font-size: 3.5em; color: white; top: 70%;">Mk University | 상담센터</div>
+								<!--<div class="title-text" style="font-size: 1.5em; color: white; top: 42%;"></div> -->
+								<div style="color: white; position: relative; font-size: 4em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 18.5%;">MKU 상담센터</div>
+								<div style="color: white; position: relative; font-size: 5em; bottom: 154%; transform: translate(-50%, -50%); text-align: center; left: -18%; border-top:1px; border-top-style: solid; border-top-color: white;"></div>
+								<div style="color: white; position: relative; font-size: 1.4em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 19.6%;">상담센터 자유게시판</div>
+								<div style="color: white; position: relative; font-size: 1.4em; bottom: 147%; transform: translate(-50%, -50%); text-align: center; left: 24.3%;"></div>		
+								<div style="height:13em; width:14em; border-radius: 0px 50px 0px 0px; background-color: #679467; opacity:0.9; position: relative; font-size: 1.4em; bottom: 155.2%; transform: translate(-50%, -50%); text-align: center; left: 86.7%;"></div>				
+								<div style="font-weight:900; color: #464646; position: relative; font-size: 1.5em; bottom: 225%; transform: translate(-50%, -50%); text-align: center; left: 84%;">Contact Us</div>
+								<div style="font-weight:900; color: white; position: relative; font-size: 2.8em; bottom: 212%; transform: translate(-50%, -50%); text-align: center; left: 86.3%;">1544-3054</div>
+								<div style="color: white; position: relative; font-size: 0.9em; bottom: 215%; transform: translate(-50%, -50%); text-align: center; left: 85.5%;">E-mail. mkmk@naver.com</div>
+								<div style="color: white; position: relative; font-size: 0.9em; bottom: 214%; transform: translate(-50%, -50%); text-align: center; left: 84.5%;">Tel. 010-4097-3054</div>
+							</div>
+						</div>
+					</div>
+			<!-- 상단배너 이미지 넣는  로우 끝 -->
+			</div>
+	</div>
+
+
 <!-- 전체 컨테이너 시작-->
 	<div class="container-fluid">
 	
@@ -168,7 +201,7 @@
 					<div class="row fs-5 border border-start-0 border-end-0 border-2 border-black py-2 px-3"> 
 						
 						 	<input id="inputTitle" name = "title" type="text" placeholder="${pickpostMap.freeboardPost.title}">
-						 	${pickpostMap.freeboardPost.title}
+						 
 					
 					</div>
 					
@@ -179,8 +212,7 @@
 				<!-- 글 내용 -->
 				<div class="row pt-3">
 					<div class="col">
-						<textarea id="inputText" name = "text" cols=150 rows=20 placeholder="${pickpostMap.freeboardPost.text}"></textarea>
-						${pickpostMap.freeboardPost.text}
+						<textarea id="inputText" name ="text" cols=150 rows=20 placeholder="${pickpostMap.freeboardPost.text}"></textarea>
 					</div>
 				</div>
 			

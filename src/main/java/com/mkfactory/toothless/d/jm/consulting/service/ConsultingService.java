@@ -225,17 +225,36 @@ public class ConsultingService {
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
-		HopeJobDto hopeJobDto = consultingMapper.getLastHopejob(student_pk);		
+		HopeJobDto hopeJobDto = consultingMapper.getLastHopejob(student_pk);
+		if (hopeJobDto==null) {
+			return null;
+		}
 		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getMyOnlineConsultingListNumFive(hopeJobDto.getHope_job_pk(), isReply);
 		
+		if (onlineConsultingDtoList==null) {
+			return null;
+		}
+		
 		for(OnlineConsultingDto onlineConsultingDto : onlineConsultingDtoList) {
-			int on_consulting_pk = onlineConsultingDto.getOn_consulting_pk();
-			OnlineConsultingReplyDto onlineConsultingReplyDto = consultingMapper.getOnConsultingReplyByOnPk(on_consulting_pk);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
+//			if(onlineConsultingDto==null) {
+//				map.put("onlineConsultingDto", null);
+//				map.put("onlineConsultingReplyDto", null);
+//				map.put("staffInfoDto", null);	
+//				System.out.println("날1ㅂ");
+//				continue;
+//
+//			}
+			
+			System.out.println("널2");
+			int on_consulting_pk = onlineConsultingDto.getOn_consulting_pk();
+			OnlineConsultingReplyDto onlineConsultingReplyDto = consultingMapper.getOnConsultingReplyByOnPk(on_consulting_pk);
+
 			
 			//상담 답글 안달렸을때에
 			if(onlineConsultingReplyDto==null) {
+
 				map.put("onlineConsultingDto", onlineConsultingDto);
 				map.put("onlineConsultingReplyDto", onlineConsultingReplyDto);
 				map.put("staffInfoDto", null);

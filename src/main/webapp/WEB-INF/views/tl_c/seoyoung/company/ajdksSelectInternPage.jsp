@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -56,6 +56,8 @@
 	text-decoration: none;
 	color: #000000;
 }
+
+
 </style>
 <script>
 	function updateFormAction() {
@@ -115,7 +117,7 @@
 										<br>
 										<div class="row ps-3">
 											<table class="table text-center align-middle ">
-												<thead class="table-primary">
+												<thead class="table-secondary">
 													<tr>
 														<th scope="col">#</th>
 														<th scope="col">학번</th>
@@ -169,20 +171,20 @@
 																					</div>
 																					<div class="col-3">
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 75px; background-color: #CFE2FF; font-weight: bold;">
 																							학생명/성별 *</div>
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 75px; background-color: #CFE2FF; font-weight: bold;">
 																							전화번호/휴대폰 *</div>
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 75px; background-color: #CFE2FF; font-weight: bold;">
 																							이메일 *</div>
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 75px; background-color: #CFE2FF; font-weight: bold;">
 																							주소 *</div>
 																					</div>
 
@@ -220,8 +222,8 @@
 																				<div class="row  px-4">
 																					<div class="col-2">
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 50px; background-color: #CFE2FF; font-weight: bold;">
 																							이름</div>
 																					</div>
 																					<div class="col-4">
@@ -233,8 +235,8 @@
 
 																					<div class="col-2">
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 50px; background-color: #CFE2FF; font-weight: bold;">
 																							현재학기</div>
 																					</div>
 																					<div class="col-4 pe-4">
@@ -249,8 +251,8 @@
 																				<div class="row  px-4">
 																					<div class="col-2">
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 50px; background-color: #CFE2FF; font-weight: bold;">
 																							전공</div>
 																					</div>
 																					<div class="col-4">
@@ -264,8 +266,8 @@
 																					<!-- 2열 오른쪽 -->
 																					<div class="col-2">
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 50px; background-color: #CFE2FF; font-weight: bold;">
 																							취득학점</div>
 																					</div>
 																					<div class="col-4 pe-4">
@@ -279,8 +281,8 @@
 																				<div class="row px-4">
 																					<div class="col-2">
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 50px; background-color: #CFE2FF; font-weight: bold;">
 																							담당교수</div>
 																					</div>
 																					<div class="col-4">
@@ -316,7 +318,7 @@
 																							data-bs-parent="#accordionExample">
 																							<div class="accordion-body">
 																								<table class="table text-center align-middle ">
-																									<thead class="table-primary">
+																									<thead class="table-secondary">
 																										<tr>
 																											<th scope="col">#</th>
 																											<th scope="col">자격증</th>

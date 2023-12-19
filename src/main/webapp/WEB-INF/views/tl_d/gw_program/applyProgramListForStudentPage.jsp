@@ -40,7 +40,7 @@
 							<c:if test="${list.programApplyDto.student_pk==sessionStudentInfo.student_pk}">
 								<div class="row border-bottom border-bs-border pb-3 mb-3">
 									<div class="col"><a class="btn ms-4" href="./programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a></div>
-									<div class="col-5 text-center pt-1">
+									<div class="col-3 text-center pt-1">
 										<c:choose>
 										
 							                <c:when test="${list.programDto.prg_schedule.before(currentTime)}">

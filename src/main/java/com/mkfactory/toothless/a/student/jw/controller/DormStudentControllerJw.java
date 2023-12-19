@@ -84,8 +84,8 @@ public class DormStudentControllerJw {
 		}
 	}
 	
-	@RequestMapping("jw_diartApplyPage")
-	public String jw_diartApplyPage(HttpSession session, Model model) {
+	@RequestMapping("jw_diaryApplyPage")
+	public String jw_diaryApplyPage(HttpSession session, Model model) {
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		if(studentInfoDto == null) {
@@ -101,16 +101,16 @@ public class DormStudentControllerJw {
 			model.addAttribute("studentInfoDto", studentInfoDto);
 			model.addAttribute("dormStudentDto", dormStudentServiceJw.getDormStudentByStudentPk(studentPk));
 			model.addAttribute("executiveDto", dormStudentServiceJw.getDormStudentByStudentPkAndExecutive(studentPk));
-			return "/tl_a/student/jw_diartApplyPage";
+			return "/tl_a/student/jw_diaryApplyPage";
 		}
 	}
 	
-	@RequestMapping("jw_diartApplyProcess")
-	public String jw_diartApplyProcess(DiaryDto params) {
+	@RequestMapping("jw_diaryApplyProcess")
+	public String jw_diaryApplyProcess(DiaryDto params) {
 		
 		dormStudentServiceJw.registerDiary(params);
 		
-		return "redirect:/tl_a/student/jw_diartApplyPage";
+		return "redirect:/tl_a/student/jw_diaryApplyPage";
 	}
 	
 	@RequestMapping("jw_callAbsenceManagementPage")

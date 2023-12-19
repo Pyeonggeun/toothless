@@ -11,6 +11,7 @@ import com.mkfactory.toothless.d.dto.JobPostingDto;
 import com.mkfactory.toothless.d.dto.LicenseDto;
 import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.dto.VolunteerDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 public interface ResumeSqlMapper {
 
@@ -46,6 +47,11 @@ public interface ResumeSqlMapper {
 	// 공개된 이력서 목록 가져오기
 	public List<ResumeDto> getMainResumeListByIsPublic();
 	
+	// 공개된 이력서의 학생 정보 가져오기
+	public StudentInfoDto getStudentDtoByResumePk(int student_pk);
+	
+	// 공개된 이력서의 학생 과 정보 가져오기
+	public String getStudentDepartmentNameByResumePk(int resume_pk);
 	
 	// 경력 카테고리가져오기
 	public List<CareerCategoryDto> getCareerCategoryList();

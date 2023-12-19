@@ -87,13 +87,14 @@
 							</div>
 
 							<div class="row p-3 ms-5 me-5">
-								<div class="col">
+								<div class="col px-3 py-3">
 									<img
 										src="../../../resources/img/studentMainPageimg/supt_info_main_img.jpg"
 										class="img-fluid" alt="...">
 								</div>
-								<div class="col">
-									<h5>
+								<div class="col mt-3 py-3 lh-base">
+									<h6>
+										<p class="lh-sm">
 										안녕하십니까? <br>현장실습지원팀은 학생들이 재학 중 국내·외 다양한 기업이나 기관에서 실습교육을
 										통해 전공실무능력 향상, 진로적성 파악, 업무 이해능력 습득 등의 현장 실무 체험을 지원하고 있습니다. 이러한
 										학생들의 직무적성 및 진로 탐색 기회를 체계적으로 지원하고자 2023년 조직 개편으로 신설 하였습니다.<br>
@@ -102,7 +103,8 @@
 										후 진로 설계 역량이 높아집니다. <br> <br> 현장실습지원팀은 지속적인 현장실습 참여
 										기업 및 기관 발굴과 희망 학생 매칭을 통해 재학생들의 진로탐색, 취업역량 강화에 도움이 되도록 지원하고자
 										합니다. 다양한 현장실습 프로그램이 운영되고 있으니 학생 여러분들의 적극적인 참여를 바랍니다.
-									</h5>
+										</p>
+									</h6>
 								</div>
 
 							</div>
@@ -115,7 +117,7 @@
 
 									<div
 										class="row fs-5 pb-1 border-bottom border-bd-border border-2">
-										<div class="col ms-5 fw-bold">
+										<div class="col ms-5 fw-bold" >
 											<i class="bi bi-bookmark-check"></i> 공지사항
 										</div>
 										<div class="col-1 text-end fs-5 me-1">

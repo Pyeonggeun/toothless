@@ -50,7 +50,6 @@
 		});
 	}
 	
-	//얘 하면 실행하고 뭐 안해도 바로 출력되게 하는거임!!
 	window.addEventListener("DOMContentLoaded", () => {
 		reloadCompanyList();
 		
@@ -77,7 +76,7 @@
 				<div class="row">
 					<div class="col-1"></div>
 					<div class="col">
-						<div class="row mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">기업 목록</div>
+						<div class="row mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">기업 관리</div>
 						<div class="row border-bottom border-2 border-black pb-3 mb-3 mt-5">
 							      <div class="col-1 text-center fw-bold">기업번호</div>
 							      <div class="col text-center fw-bold">기업명</div>
@@ -94,7 +93,7 @@
 								<div class="comPk col-1 text-center fw-bold pt-1">회사번호</div>
 								<div class="comName col">회사 이름</div>
 								<div class="comManagerName col-3 text-center pt-1">담당자명</div>
-								<div class="isFamilyCompany col-2 text-center pt-1">가족기업 여부</div>
+								<div class="isFamilyCompany col-3 text-center pt-1">가족기업 여부</div>
 							</div>
 						</div>
 						

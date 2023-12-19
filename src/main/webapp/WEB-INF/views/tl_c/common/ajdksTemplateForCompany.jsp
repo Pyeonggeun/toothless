@@ -57,7 +57,7 @@
 			<div class="content text-white-50">
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../seoyoung/company/ajdksStudentinternPage'">&gt;&nbsp;실습생 선발</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/company/ajdksStudentinternPage'">&gt;&nbsp;실습생 선발</span>
 					</div>
 				</div>
 			</div>

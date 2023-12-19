@@ -92,9 +92,13 @@
 				groupCounselTitle.innerText = e.TITLE;
 				
 				const groupCounselCounselDate = groupCounselWrapper.querySelector(".groupCounselCounselDate");
-				groupCounselCounselDate.innerText = e.COUNSEL_DATE;
+				const date = new Date(e.COUNSEL_DATE);
 				
-			 	new date로 받아줘야됨
+				groupCounselCounselDate.innerText = date.getFullYear() + "."  + (date.getMonth() + 1) + "." + date.getDate();
+				
+				
+				
+			 	
 				
 				
 				const groupCounselDDay = groupCounselWrapper.querySelector(".groupCounselDDay");
@@ -442,20 +446,20 @@
 	<div class="col groupCounselWrapper">
 		<div class="row">
 			<div class="col">
-				<img class="groupCounselImage img-fluid rounded-2" style="border-style: solid; border-width: 2px; border-color: #8FBC8F" src="/uploadFiles/${list.POSTERIMAGE }">
+				<img class="groupCounselImage img-fluid rounded-2" style="border-style: solid; border-width: 2px; border-color: #8FBC8F">
 			</div>
 		</div>
 		<div class="row pt-2">
 			<div class="col ps-3">
-				<div class="groupCounselTitle fw-bold" style="font-size: 0.9em; color: black;">[${list.TITLE }]</div>
+				<div class="groupCounselTitle fw-bold" style="font-size: 0.9em; color: black;"></div>
 			</div>
-			<div class="col-3 text-center ps-0 ms-0">
-				<div class="groupCounselCounselDate fw-bold text-secondary" style="font-size: 0.8em;"><fmt:formatDate value="${list.COUNSEL_DATE}" pattern="yy.MM.dd"/></div>
+			<div class="col-3 text-center ps-0 ms-0 pe-3 me-3">
+				<div class="groupCounselCounselDate fw-bold text-secondary" style="font-size: 0.8em;"></div>
 			</div>
 		</div>
 		<div class="row pt-1">
 			<div class="col text-start ps-3">
-				<div class="groupCounselDDay fw-bold" style="font-size: 1.3em; color: #0A6E0A;">D-${list.D_DAY }</div>
+				<div class="groupCounselDDay fw-bold" style="font-size: 1.3em; color: #0A6E0A;"></div>
 			</div>
 		</div>
 	</div>
