@@ -290,22 +290,18 @@
 	<select id="selectPostingListForCompanyMainPage" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
 		SELECT tdjp.* 
 		FROM TL_D_JOB_POSTING tdjp 
+		LEFT OUTER JOIN (
+		    SELECT t1.JOB_POSTING_PK 
+		    FROM (
+		        SELECT tdv.JOB_POSTING_PK, RANK() OVER (ORDER BY COUNT(*) DESC) as rnk
+		        FROM TL_D_VOLUNTEER tdv 
+		        GROUP BY tdv.JOB_POSTING_PK 
+		    ) t1
+		    <![CDATA[
+		    WHERE t1.rnk <= 4
+		    ]]>
+		) t2 ON tdjp.JOB_POSTING_PK = t2.JOB_POSTING_PK
 		WHERE tdjp.COM_PK = #{com_pk}
-		AND tdjp.JOB_POSTING_PK IN (
-			SELECT t2.JOB_POSTING_PK 
-			FROM(
-				SELECT t1.JOB_POSTING_PK 
-				FROM (
-					SELECT tdv.job_posting_pk 
-					FROM TL_D_VOLUNTEER tdv 
-					GROUP BY tdv.JOB_POSTING_PK 
-					ORDER BY count(*) DESC  
-				)t1
-				<![CDATA[
-				WHERE ROWNUM <= 4
-				]]>
-			)t2
-		)
 		ORDER BY tdjp.POSTING_DEADLINE ASC
 	</select>
 	

@@ -78,9 +78,10 @@
 
 <div class="row mt-4">
 	<a class="col ps-5 ms-3 navbar-brand text-secondary" style="font-size : 0.8rem;"
-		href="../common/employmentMainPage">&nbsp;취업지원센터<i class="ps-1 bi bi-box-arrow-up-right"></i></a>
+		href="../../another/student/loginPage">&nbsp;MK대학 대표홈페이지<i class="ps-1 bi bi-box-arrow-up-right"></i></a>
 </div>
 <div class="row mt-1">
 	<a class="col ps-5 ms-3 navbar-brand text-secondary" style="font-size : 0.8rem;"
-		href="../../another/student/mainPage">&nbsp;MK대학 홈페이지<i class="ps-1 bi bi-box-arrow-up-right"></i></a>
+		href="../common/employmentMainPage">&nbsp;취업지원센터 홈페이지<i class="ps-1 bi bi-box-arrow-up-right"></i></a>
 </div>
+

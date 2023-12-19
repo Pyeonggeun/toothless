@@ -83,8 +83,18 @@
 	<a class="col ps-5 mt-2 ms-5 navbar-brand" 
 		href="#">&nbsp;QnA게시판</a>
 </div>
-<div class="row mt-4">
-	<a class="col ps-5 mt-2 ms-5 navbar-brand text-secondary" style="font-size : 0.8rem;"
-		href="../../another/student/mainPage">&nbsp;MK대학 홈페이지<i class="ps-1 bi bi-box-arrow-up-right"></i></a>
-</div>
+<c:choose>
+	<c:when test="${empty sessionStudentInfo}">
+		<div class="row mt-4">
+			<a class="col ps-5 mt-2 ms-5 navbar-brand text-secondary" style="font-size : 0.8rem;"
+				href="../../another/student/loginPage">&nbsp;MK대학 홈페이지<i class="ps-1 bi bi-box-arrow-up-right"></i></a>
+		</div>
+	</c:when>
+	<c:otherwise>
+		<div class="row mt-4">
+			<a class="col ps-5 mt-2 ms-5 navbar-brand text-secondary" style="font-size : 0.8rem;"
+				href="../../another/student/mainPage">&nbsp;MK대학 홈페이지<i class="ps-1 bi bi-box-arrow-up-right"></i></a>
+		</div>
+	</c:otherwise>
+</c:choose>
 

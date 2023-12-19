@@ -85,19 +85,18 @@
 				<!-- 검색 바 -->
 				<div class="row mt-3 p-2">
 					<div class="col">
-						<div class="row mt-1">
-							<div class="col-4 border p-3">
-								<select class="form-select form-select-sm border-0 pe-0">
-						    		<option selected>전체</option>
-								    <c:forEach items="${jobFieldCategory}" var="jobField">
-									    <option value="${jobField.job_field_category_pk}">${jobField.job_field_category_name}</option>
-								    </c:forEach>
-								</select>
-							</div>
-							<div class="col-4 border p-3">
+						<div class="row">
+							<div class="col text-secondary border p-3">
+								<c:forEach items="${jobFieldCategory}" var="jobField">
+									 <input name="job_field_category_pk" value="${jobField.job_field_category_pk}" type="checkbox">${jobField.job_field_category_name}&nbsp; 
+								</c:forEach> 
+							</div>  
+						</div>
+						<div class="row">
+							<div class="col-6 border p-3">
 								<input type="text" class="searchWord form-control border-0" placeholder="직무검색"> 
 							</div>
-							<div class="col-4 border p-3">
+							<div class="col-6 border p-3">
 								<input type="text" class="searchWord form-control border-0" placeholder="지역검색"> 
 							</div>
 						</div>
@@ -120,9 +119,11 @@
 					</div>
 				</div>
 				<div class="row mt-5 pb-3 border-bottom border-3 border-dark">
-					<div class="col-1 pt-1">
-						총 <span class="fw-bold">${companyPostingCount}</span>건
-					</div>
+					<c:if test="${!empty sessionExternalInfo}">
+						<div class="col-1 pt-1">
+							총 <span class="fw-bold">${companyPostingCount}</span>건
+						</div>
+					</c:if>
 					<!-- 기능 구현하기 -->
 					<div class="col-8"></div>
 					<div class="col-3 btn-group btn-group-sm">
