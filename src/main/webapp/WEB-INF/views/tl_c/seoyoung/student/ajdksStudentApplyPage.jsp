@@ -88,8 +88,8 @@
 						<br>
 						<div class="row ps-3">
 
-							<table class="table text-center align-middle ">
-								<thead class="table-primary">
+							<table class="table text-center align-middle " >
+								<thead class="table-secondary" >
 									<tr>
 										<th scope="col">#</th>
 										<th scope="col">기관명</th>
@@ -102,19 +102,19 @@
 								</thead>
 								<tbody>
 									<c:forEach items="${list}" var="companyList">
-										<th scope="row">${companyList.INTERNSHIP_COURSE_PK}</th>
-										<th scope="row">${companyList.COMPANY_NAME}</th>
-										<th scope="row">${companyList.ADDRESS}</th>
-										<th><fmt:formatDate
+										<td scope="row">${companyList.INTERNSHIP_COURSE_PK}</td>
+										<td scope="row">${companyList.COMPANY_NAME}</td>
+										<td scope="row">${companyList.ADDRESS}</td>
+										<td><fmt:formatDate
 												value="${companyList.INTERNSHIP_START_DATE}"
 												pattern="yyyy-MM-dd hh:mm" /> ~ <br> <fmt:formatDate
 												value="${companyList.INTERNSHIP_END_DATE}"
-												pattern="yyyy-MM-dd hh:mm" /></th>
-										<th><fmt:formatDate
+												pattern="yyyy-MM-dd hh:mm" /></td>
+										<td><fmt:formatDate
 												value="${companyList.ANNOUNCEMENT_DATE}"
-												pattern="yyyy-MM-dd hh:mm" /></th>
-										<th scope="row">${companyList.INTERNSHIP_TOTAL_MEMBER}명</th>
-										<th scope="row">${companyList.STATUS}</th>
+												pattern="yyyy-MM-dd hh:mm" /></td>
+										<td scope="row">${companyList.INTERNSHIP_TOTAL_MEMBER}명</td>
+										<td scope="row">${companyList.STATUS}</td>
 									</c:forEach>
 								</tbody>
 							</table>
@@ -122,12 +122,12 @@
 						</div>
 						<br>
 						<div class="row text-center">
-							<div class="accordion" id="accordionExample">
+							<div class="accordion accordion-secondary	" id="accordionExample bg-primary" style="--bs-accent: #CDCDD3;">
 								<div class="accordion-item">
 									<h2 class="accordion-header">
-										<button class="accordion-button fw-bolder" " type="button"
+										<button class="accordion-button fw-bolder " type="button"
 											data-bs-toggle="collapse" data-bs-target="#collapseOne"
-											aria-expanded="true" aria-controls="collapseOne">
+											aria-expanded="true" aria-controls="collapseOne" style="--bs-accent: #CDCDD3;">
 											<i class="bi bi-bookmarks "></i> &nbsp;지원이력서
 										</button>
 									</h2>
@@ -185,7 +185,7 @@
 										</button>
 									</h2>
 									<div id="collapseTwo" class="accordion-collapse collapse show"
-										data-bs-parent="#accordionExample">
+										data-bs-parent="#accordionExample" >
 										<div class="accordion-body">
 											<table class=" table text-center align-middle ">
 												<thead class="table-secondary">
@@ -203,19 +203,19 @@
 													<c:forEach items="${list2}" var="companyList"
 														varStatus="loopStatus">
 														<tr>
-															<th class="text-center">${loopStatus.index + 1}</th>
-															<th scope="row">${companyList.COMPANY_NAME}</th>
-															<th scope="row">${companyList.ADDRESS}</th>
-															<th><fmt:formatDate
+															<td class="text-center">${loopStatus.index + 1}</td>
+															<td scope="row">${companyList.COMPANY_NAME}</td>
+															<td scope="row">${companyList.ADDRESS}</td>
+															<td><fmt:formatDate
 																	value="${companyList.INTERNSHIP_START_DATE}"
 																	pattern="yyyy-MM-dd hh:mm" /> ~ <br> <fmt:formatDate
 																	value="${companyList.INTERNSHIP_END_DATE}"
-																	pattern="yyyy-MM-dd hh:mm" /></th>
-															<th><fmt:formatDate
+																	pattern="yyyy-MM-dd hh:mm" /></td>
+															<td><fmt:formatDate
 																	value="${companyList.ANNOUNCEMENT_DATE}"
-																	pattern="yyyy-MM-dd hh:mm" /></th>
-															<th scope="row">${companyList.INTERNSHIP_TOTAL_MEMBER}명</th>
-															<th scope="row">${companyList.STATUS}</th>
+																	pattern="yyyy-MM-dd hh:mm" /></td>
+															<td scope="row">${companyList.INTERNSHIP_TOTAL_MEMBER}명</td>
+															<td scope="row">${companyList.STATUS}</td>
 														</tr>
 													</c:forEach>
 												</tbody>

@@ -485,7 +485,7 @@ const student_pk = ${sessionStudentInfo.student_pk};
 							<br>
 
 							<nav class="navbar navbar-light" id="searchCompany"
-								style="background-color: #CFE2FF;">
+								style="background-color: #f2f5f7;">
 								<div class="col">
 									<div class="row ms-3 mt-3 me-3 mb-3">
 										<div class="col-2 px-0">
@@ -550,10 +550,10 @@ const student_pk = ${sessionStudentInfo.student_pk};
 							</nav>
 							<br>
 							<!-- 컴퍼니 리스트 -->
-							<div class="row mt-2" style="height: 18em">
+							<div class="row mt-2" style="height: 18em" >
 								<div class="col border-secondary border-top text-center">
 									<div class="row text-center py-1 border-botton"
-										style="height: 50px; background-color: #CFE2FF; font-weight: bold;">
+										style="height: 50px; background-color: #f2f5f7; font-weight: bold;">
 										<div class="col align-self-center">#</div>
 										<div class="col-2 align-self-center">업종</div>
 										<div class="col-2 align-self-center">회사명</div>
