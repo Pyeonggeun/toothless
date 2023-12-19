@@ -51,8 +51,8 @@
 	
 	<div class="row">
 		<div class="col">
-			<input type="checkbox" id="title1"/>
-			<label class="pt-3 pb-2 ps-3" for="title1"><i class="bi bi-file-earmark-ruled"></i>&nbsp;이력서 관리</label>			
+			<input type="checkbox" id="title7"/>
+			<label class="pt-3 pb-2 ps-3" for="title7"><i class="bi bi-file-earmark-ruled"></i>&nbsp;이력서 관리</label>			
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">

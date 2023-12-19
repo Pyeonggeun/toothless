@@ -94,7 +94,7 @@
 									</p>
 								</div>
 								<div class="col mt-2  mb-5" style="color: #7B4F42">
-									<h4>현장실습(인턴십) 학점인정 기준과 참여방법은 어떻게 되나요?</h4	>
+									<h4>현장실습(인턴십) 학점인정 기준과 참여방법은 어떻게 되나요?</h4>
 								</div>
 
 							</div>
@@ -170,26 +170,24 @@
 							<div class="row"></div>
 							<div class="row ms-5 mt-3 mb-1 lh-base">
 								<div class="col-2"></div>
-								<div class="col me-5">
+								<div class="col">
 									<h5>
 										<span class="h2 "><i class="bi bi-chat-right-quote"></i></span>
 										&nbsp; 재학 중 장기(학기중) 현장실습의 학점인정 가능 횟수는 1회입니다. <br>
 									</h5>
 								</div>
 							</div>
-							<div
-								class="row ms-5 mt-3 mb-1 lh-base">
+							<div class="row ms-5 mb-1 lh-base">
 								<div class="col-2"></div>
 								<div class="col ms-5 me-5 lh-base">
-									<h5>단, IPP를 포함할 경우
-										2회까지 가능하도록 제도화 되어있습니다.</h5>
+									<h5>&nbsp;단, IPP를 포함할 경우 2회까지 가능하도록 제도화 되어있습니다.</h5>
 								</div>
 							</div>
 							<div class="row"></div>
-							<div class="row ms-5  mb-4 me-4 me-5 align-items-center">
+							<div class="row ms-5 px-1 mb-4 me-4 me-5 align-items-center">
 								<div class="col-2"></div>
 								<div class="col ms-5 mb-5 me-5 lh-base">
-									<h5>&nbsp; 단기(방학중) 현장실습은 2회까지 학점인정 가능합니다.</h5>
+									<h5>&nbsp;단기(방학중) 현장실습은 2회까지 학점인정 가능합니다.</h5>
 								</div>
 							</div>
 						</div>
