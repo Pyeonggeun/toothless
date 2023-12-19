@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.OfflineSurveyDto;
 import com.mkfactory.toothless.e.dto.RestResponseOfflineDto;
@@ -21,8 +22,8 @@ public class RestOfflineCounselController {
 	@Autowired
 	private OfflineCounselServiceImpl offlineCounselService;
 	
-	@RequestMapping("getSessionInfo")
-	public RestResponseOfflineDto getSessionInfo(HttpSession session) {
+	@RequestMapping("getSessionStudentInfo")
+	public RestResponseOfflineDto getSessionStudentInfo(HttpSession session) {
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		

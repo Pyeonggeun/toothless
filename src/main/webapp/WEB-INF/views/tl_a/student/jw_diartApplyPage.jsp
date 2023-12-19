@@ -23,7 +23,7 @@
 
     <div class="container mt-3">
         <div class="row">
-           <jsp:include page="../commons/student/leftButtons4.jsp"></jsp:include>
+           <jsp:include page="../commons/student/leftButtons5.jsp"></jsp:include>
             <!-- 왼쪽 목차 끝 -->
             <div class="col">
                 <div class="row">

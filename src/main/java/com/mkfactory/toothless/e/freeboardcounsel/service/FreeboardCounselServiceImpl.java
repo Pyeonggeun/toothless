@@ -56,7 +56,8 @@ public class FreeboardCounselServiceImpl {
 				Map<String, Object> freeboardMap = new HashMap<>();
 			freeboardMap.put("studentInfo", studentInfo);
 			freeboardMap.put("elementFreeboardDto", elementFreeboardDto);
-			freeboardMap.put("countPostComment", countPostComment);
+			freeboardMap.put("countPostComment",countPostComment);
+					
 			
 			
 			System.out.println("combinedFreeboardList.add 실행 ");
