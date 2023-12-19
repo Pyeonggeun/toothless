@@ -60,7 +60,7 @@
                         </div>
                         <div class="row my-4 border">
                         	<div class="col">
-                        		<div class="row py-2 align-middle text-center border border-bottom-1 border-start-0 border-top-0 border-end-0">
+                        		<div class="row py-2 align-middle mb-0 text-center border border-bottom-1 border-start-0 border-top-1 border-end-0 text-white" style="background-color: #8C7430;">
                         				<div class="col fw-bold border border-bottom-0 border-start-0 border-top-0 border-end-1">상/벌점 Category</div>
                         				<div class="col fw-bold border border-bottom-0 border-start-0 border-top-0 border-end-1">사유</div>
                         				<div class="col-1 fw-bold border border-bottom-0 border-start-0 border-top-0 border-end-1">점수</div>

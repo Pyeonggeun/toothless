@@ -123,15 +123,69 @@
 	</insert>
 	
 	<select id="resentBoardthree" resultType="com.mkfactory.toothless.a.dto.DormNoticeDto">
-	
 		<![CDATA[ SELECT t2.dorm_notice_pk, t2.staff_pk, t2.title, t2.content, t2.created_at 
 		FROM (SELECT t1.*, Rownum rnum FROM (SELECT * FROM TL_A_DORM_NOTICE tadn) t1
 		ORDER BY DORM_NOTICE_PK desc) t2
 		WHERE t2.rnum < 4 ]]>
-	
 	</select>
 	
+	<!-- 임원별 관리 현황 -->
+	<select id="selectExecutiveManagementByExecutivePk" resultType="com.mkfactory.toothless.a.dto.ExecutiveManagementDto">
+		SELECT * FROM TL_A_EXECUTIVE_MANAGEMENT taem 
+		WHERE EXECUTIVE_PK = #{EXECUTIVE_PK}
+	</select>
 	
+	<!-- 금일 점호 불참여부 Count, count가 0이면 참석 1이면 불참 -->
+	<select id="countTodayCallAbsence" resultType="int">
+		SELECT count(*) FROM TL_A_CALL_ABSENCE taca
+		WHERE EXECUTIVE_MANAGEMENT_PK = #{EXECUTIVE_MANAGEMENT_PK}
+		AND TO_CHAR(CREATED_AT, 'YYYYMMDD') = 
+		TO_CHAR(SYSDATE, 'YYYYMMDD')
+	</select>
+	
+	<insert id="insertCallAbsence">
+		INSERT INTO tl_a_call_absence VALUES(
+			tl_a_call_absence_seq.nextval,
+			#{executive_management_pk},
+			sysdate
+		)
+	</insert>
+	
+	<!-- 금일 점호 불참 취소 -->
+	<delete id="deleteTodayCallAbsenceByExecutiveManagementPk">
+		DELETE FROM TL_A_CALL_ABSENCE
+		WHERE EXECUTIVE_MANAGEMENT_PK = #{EXECUTIVE_MANAGEMENT_PK}
+		AND TO_CHAR(CREATED_AT, 'YYYYMMDD') = 
+		TO_CHAR(SYSDATE, 'YYYYMMDD')
+	</delete>
+	
+	<select id="selectStudentInfoByDormStudentPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT tjsi.* FROM TL_JIC_STUDENT_INFO tjsi
+		JOIN TL_A_DORM_STUDENT tads ON tads.STUDENT_PK = tjsi.STUDENT_PK
+		WHERE tads.DORM_STUDENT_PK = #{DORM_STUDENT_PK}
+	</select>
+	
+	<select id="selectDormRoomByDormStudentPk" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
+		SELECT tadr.* FROM TL_A_DORM_ROOM tadr 
+		JOIN TL_A_DORM_STUDENT tads ON TADS.DORM_ROOM_PK = TADR.DORM_ROOM_PK 
+		WHERE TADS.DORM_STUDENT_PK = #{DORM_STUDENT_PK}
+	</select>
+	
+	<select id="selectDormByDormPk" resultType="com.mkfactory.toothless.a.dto.DormBuildingDto">
+		SELECT * FROM TL_A_DORM_BUILDING tadb 
+		WHERE tadb.DORM_PK = #{DORM_PK}
+	</select>
+	
+	<!-- 학생 pk의 임원 정보 -->
+	<select id="selectExecutiveInfoByStudentPk" resultType="com.mkfactory.toothless.a.dto.ExecutiveDto">
+		SELECT tae.* FROM TL_A_EXECUTIVE tae 
+		JOIN TL_A_DORM_STUDENT tads ON tae.DORM_STUDENT_PK = tads.DORM_STUDENT_PK 
+		WHERE tads.DORM_STUDENT_PK IN (
+			SELECT tads.DORM_STUDENT_PK FROM TL_A_DORM_STUDENT tads 
+			JOIN TL_JIC_STUDENT_INFO tjsi ON tads.STUDENT_PK = tjsi.STUDENT_PK 
+			WHERE tjsi.STUDENT_PK = #{STUDENT_PK}
+		)
+	</select>
 	
 	
 </mapper>

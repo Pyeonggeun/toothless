@@ -154,7 +154,7 @@
 								        </div> 
 										<div class="row">
 											<div class="col">
-												<a class="btn text-truncate fw-bold" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em">${list.programDto.prg_name}</a>
+												<a class="btn text-truncate fw-bold" href="../gw_program/programViewDetailsPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em">${list.programDto.prg_name}</a>
 											</div>
 										</div>
 										<div class="row">

@@ -84,14 +84,14 @@
 							<a class="btn btn-outline-primary" href="./applyProgramListForStaffPage?program_pk=${program.programDto.program_pk}" role="button">신청자 목록보기</a>
 						</div>
 					</div>
-					<c:set var="currentTime" value="<%= new java.util.Date() %>" />
-					<c:if test="${list.programDto.prg_schedule.after(currentTime)}">
-						<div class="row border-bottom py-3">
-							<div class="col-2 p-1 ps-2 fw-bold">
-								<a class="btn btn-outline-primary" href="./programReviewListPage?program_pk=${program.programDto.program_pk}" role="button">프로그램 리뷰보기</a>
-							</div>
+					<%-- <c:set var="currentTime" value="<%= new java.util.Date() %>" />
+					<c:if test="${list.programDto.prg_schedule >currentTime}">--%>
+					<div class="row border-bottom py-3">
+						<div class="col-2 p-1 ps-2 fw-bold"> 
+							<a class="btn btn-outline-primary" href="./programReviewListPage?program_pk=${program.programDto.program_pk}" role="button">프로그램 리뷰보기</a>
 						</div>
-					</c:if>
+					</div>
+					<%--</c:if>--%>  
 					</div>
 				
 			</div>
@@ -120,7 +120,13 @@
 		<div class="col-2"></div>
 		
 	</div>
-	
+	<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+	<!-- futter -->
+	<div class="row">
+		<div class="col">
+			<jsp:include page="../common/futter.jsp"></jsp:include>
+		</div>
+	</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>	

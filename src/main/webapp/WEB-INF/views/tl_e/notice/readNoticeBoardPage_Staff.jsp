@@ -55,9 +55,9 @@
 				commentNickname.innerText = e.studentInfoDto.name;
 				// 날짜 호출
 				const commentDate = commentWrapper.querySelector(".commentDate");
-				commentDate.innerText = e.noticeCommentDto.created_at;
-				// 날짜 원하는대로 출력 pattern(yy.MM.dd)
+				// 날짜 원하는대로 출력 pattern(yy-MM-dd)
 				const date = new Date(e.noticeCommentDto.created_at);
+				const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
 				commentDate.innerText = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate();
 				// 댓글 내용 호출
 				const commentText = commentWrapper.querySelector(".commentText");

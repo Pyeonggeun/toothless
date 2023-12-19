@@ -36,13 +36,11 @@ public class ItemStudentController {
 		return "tl_b/ys/studentItemListPage";
 	}
 	
-	@RequestMapping("studentItemApplyPage")
-	public String studentItemApplyPage(Model model, int item_pk) {
+	@RequestMapping("studentItemApplyInformationPage")
+	public String studentItemApplyInformationPage() {
+	
 		
-		ItemDto getItem = itemStaffService.getItem(item_pk);
-		model.addAttribute("getItem",getItem);
-		
-		return "tl_b/ys/studentItemApplyPage";
+		return "tl_b/ys/studentItemApplyInformationPage";
 	}
 	
 	@RequestMapping("studentItemApplyProcess")

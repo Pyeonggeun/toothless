@@ -59,19 +59,28 @@
 	<a class="col ps-4 mt-2 ms-5 navbar-brand" 
 		href="../gw_program/programListPage">프로그램목록</a>
 </div>
-<div class="row">
+<!-- <div class="row">
 	<a class="col ps-4 mt-2 ms-5 navbar-brand" 
 		href="#">만족도조사</a>
-</div>
+</div> -->
 <div class="row">
 	<a class="col fs-5 fw-bold ps-3 mt-3 ms-5 navbar-brand"
 		href="#"><span class="border-bottom border-3 pb-1 pe-5 me-2">게시판관리&nbsp;&nbsp;</span></a>
 </div>
 <div class="row">
-	<a class="col ps-4 mt-2 ms-5 navbar-brand" 
+	<a class="col ps-4 mt-3 ms-5 navbar-brand" 
 		href="../hc_board/noticeMainPage">공지사항</a>
 </div>
 <div class="row">
 	<a class="col ps-4 mt-2 ms-5 navbar-brand" 
 		href="../hc_board/QnABoardPage">QnA게시판</a>
+</div>
+
+<div class="row mt-4">
+	<a class="col ps-5 ms-3 navbar-brand text-secondary" style="font-size : 0.8rem;"
+		href="../common/employmentMainPage">&nbsp;취업지원센터<i class="ps-1 bi bi-box-arrow-up-right"></i></a>
+</div>
+<div class="row mt-1">
+	<a class="col ps-5 ms-3 navbar-brand text-secondary" style="font-size : 0.8rem;"
+		href="../../another/student/mainPage">&nbsp;MK대학 홈페이지<i class="ps-1 bi bi-box-arrow-up-right"></i></a>
 </div>

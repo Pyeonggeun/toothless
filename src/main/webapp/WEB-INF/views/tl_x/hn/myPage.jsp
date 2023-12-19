@@ -247,7 +247,7 @@
                                                                 <div class="col my-auto fw-semibold" style="font-size: 1em;">
                                                                     학습 중
                                                                 </div>
-                                                                <div class="col text-end my-auto fw-bold" style="font-size: 2em; color: #7844ae;">
+                                                                <div id="ingTotalCount" class="col text-end my-auto fw-bold" style="font-size: 2em; color: #7844ae;">
                                                                     0
                                                                 </div>
                                                             </div>
@@ -257,7 +257,7 @@
                                                                 <div class="col my-auto fw-semibold" style="font-size: 1em;">
                                                                     학습 대기
                                                                 </div>
-                                                                <div class="col text-end my-auto fw-bold" style="font-size: 2em; color: #FF9100;">
+                                                                <div id="waitTotalCount" class="col text-end my-auto fw-bold" style="font-size: 2em; color: #FF9100;">
                                                                     0
                                                                 </div>
                                                             </div>
@@ -267,7 +267,7 @@
                                                                 <div class="col my-auto fw-semibold" style="font-size: 1em;">
                                                                     학습 완료
                                                                 </div>
-                                                                <div class="col text-end my-auto fw-bold" style="font-size: 2em; color: #4CAF50;">
+                                                                <div id="completeTotalCount" class="col text-end my-auto fw-bold" style="font-size: 2em; color: #4CAF50;">
                                                                     0
                                                                 </div>
                                                             </div>
@@ -307,6 +307,7 @@
                                                             </div>
                                                             <div class="row mt-1">
                                                                 <div class="col rounded border px-3 py-4" style="height: 18.78em;">
+                                                                    
                                                                     <div class="row align-items-center" style="height: 15.78em;">
                                                                         <div class="col">
                                                                             <div class="row">
@@ -321,6 +322,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -353,6 +355,7 @@
                                                             </div>
                                                             <div class="row mt-1">
                                                                 <div class="col rounded border px-3 py-4" style="height: 18.78em;">
+                                                                    
                                                                     <div class="row align-items-center" style="height: 15.78em;">
                                                                         <div class="col">
                                                                             <div class="row">
@@ -418,6 +421,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>

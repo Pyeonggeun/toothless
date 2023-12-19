@@ -37,8 +37,13 @@
                     return;
                 }
                 const inputQuantity = document.getElementById("inputQuantity");
-                if(inputQuantity.value == 0){
-                    alert("0은 입력할 수 없습니다.");
+                const inputValue = parseInt(inputQuantity.value,10);
+                if((inputValue + sum) < 0){
+                    alert("보유재고보다 많은량을 변경할 수는 없습니다.");
+                    inputQuantity.focus();
+                    return;
+                }else if(inputValue == 0){
+                    alert("개수를 입력해주세요.");
                     inputQuantity.focus();
                     return;
                 }
@@ -134,13 +139,28 @@
 
                 });
             }
-
+            let sum = 0;
             function getMedicineCodePk(medicine_code_pk){
 
                 const inputCodePk = document.querySelector("#inputCodePk");
                 inputCodePk.innerText="";
                 inputCodePk.innerText=""+medicine_code_pk+"";
                 inputCodePk.value = medicine_code_pk;
+
+                const url = "./restInventoryInfoByPk?medicine_code_pk="+medicine_code_pk;
+
+                
+                fetch(url)
+                .then(response => response.json())
+                .then(response => {
+                    sum = 0;
+                    for(e of response.data){
+                        sum += e.QUANTITY;
+                    }
+
+                    const nowQuantity = document.querySelector(".nowQuantity");
+                    nowQuantity.innerText = "남은수량 : " + sum;
+                })
             }
             //재고카테고리 가져오기
             function reloadInventoryCat(){
@@ -263,6 +283,10 @@
 															  <span class="input-group-text customColor" id="basic-addon1">변경수량</span>
 															  <input id="inputQuantity" name="quantity" type="number" class="form-control rounded-0" placeholder="변경수량" aria-label="Username" aria-describedby="basic-addon1" min="-5" max="5">
 															</div>
+                                                            <div class="row">
+                                                                <div class="nowQuantity col text-center text-danger">
+                                                                </div>
+                                                            </div>
 	                                                    </div>
 	                                                    <div class="col">
 	                                                    <select id="medicineMgmtCatPk" name="medicine_mgmt_cat_pk" class="form-select rounded-0" aria-label="Default select example"

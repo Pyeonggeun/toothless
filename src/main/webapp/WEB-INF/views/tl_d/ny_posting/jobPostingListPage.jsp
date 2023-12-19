@@ -110,7 +110,7 @@
 										<a class="btn btn-outline-dark" href="./modifyJobPostingPage?id=${jobPosting.jobPostingDto.job_posting_pk}">수정</a>
 									</div>										
 									<div class="col ps-0">
-										<a class="btn btn-danger" href="./removeJobPostingProcess?id=${jobPosting.jobPostingDto.job_posting_pk}">삭제</a>
+										<a class="btn btn-dark" href="./removeJobPostingProcess?id=${jobPosting.jobPostingDto.job_posting_pk}">삭제</a>
 									</div>
 								</div>
 							</c:otherwise>
