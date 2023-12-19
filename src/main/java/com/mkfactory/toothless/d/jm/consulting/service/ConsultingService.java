@@ -225,7 +225,10 @@ public class ConsultingService {
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
-		HopeJobDto hopeJobDto = consultingMapper.getLastHopejob(student_pk);		
+		HopeJobDto hopeJobDto = consultingMapper.getLastHopejob(student_pk);
+		if (hopeJobDto==null) {
+			return null;
+		}
 		List<OnlineConsultingDto> onlineConsultingDtoList = consultingMapper.getMyOnlineConsultingListNumFive(hopeJobDto.getHope_job_pk(), isReply);
 		
 		if (onlineConsultingDtoList==null) {
