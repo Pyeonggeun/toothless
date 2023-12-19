@@ -20,7 +20,7 @@
 	
 	<!-- 건물 전체 -->
 	<select id="dormBuildings" resultType="com.mkfactory.toothless.a.dto.DormBuildingDto">
-		SELECT * FROM tl_a_dorm_building ORDER BY DORM_PK asc
+		SELECT * FROM tl_a_dorm_building ORDER BY NAME
 	</select>
 	
 	<!-- 건물 선택 -->
@@ -42,7 +42,7 @@
 	
 	<!-- 호실 조회 -->
 	<select id="selectRooms" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
-		SELECT * FROM TL_A_DORM_ROOM tadr ORDER BY DORM_PK, ROOM_NAME  asc
+		SELECT * FROM TL_A_DORM_ROOM tadr ORDER BY DORM_PK, DORM_FLOOR  asc
 	</select>
 	
 	<!-- 호실 삭제 -->
