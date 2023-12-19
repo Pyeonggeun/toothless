@@ -110,6 +110,12 @@
 				
 				const buildingNameWrapper = document.querySelector("#buildingTemplete .buildingNameWrapper").cloneNode(true);
 				buildingNameWrapper.setAttribute("onclick", "reloadExitSituationListByDormPk("+e.dorm_pk+")");
+				buildingNameWrapper.addEventListener('click', function() {
+				      this.classList.toggle('selected');
+				      this.classList.add('fw-bold', 'text-white');
+				      this.style.backgroundColor = 'black';
+				      
+				});
 				
 				const buildingName = buildingNameWrapper.querySelector(".buildingName");
 				buildingName.innerText = e.name;
@@ -117,6 +123,21 @@
 				buildingListBox.appendChild(buildingNameWrapper);
 			}
 		})
+		
+	}
+	
+	function clickEvent(dorm_pk){
+		
+		const buildingListBox = document.getElementById("buildingListBox");
+		
+		buildingListBox.addEventListener('click', function() {
+		      this.classList.toggle('selected');
+		      this.classList.add('fw-bold', 'text-white');
+		      this.style.backgroundColor = 'black';
+		});
+		
+		
+		
 		
 	}
 
