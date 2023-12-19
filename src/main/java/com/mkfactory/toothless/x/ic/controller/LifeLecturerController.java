@@ -18,5 +18,15 @@ public class LifeLecturerController {
 		
 		return "tl_x/ic/lectureManagementPage";
 	}
-
+	@RequestMapping("testInfoListPage")
+	public String testInfoPage(int open_lecture_key) {
+		
+		return "tl_x/ic/testInfoListPage";
+	}
+	
+	@RequestMapping("testStudentListPage")
+	public String testStudentListPage(int lecture_test_key) {
+		
+		return "tl_x/ic/testStudentListPage";
+	}
 }

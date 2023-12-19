@@ -51,7 +51,7 @@ public class ExternalController {
 		
 		}else if(externalInfoDto.getExternal_category() == 5){
 			
-			return "redirect: ../../tl_x/ic/mainPage";
+			return "redirect: ../../tl_x/hn/mainPage";
 		}else {
 			
 			return "redirect: ./loginPage";
