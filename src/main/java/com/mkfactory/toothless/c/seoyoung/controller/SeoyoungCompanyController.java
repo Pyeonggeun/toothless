@@ -45,6 +45,7 @@ public class SeoyoungCompanyController {
 			 tf = "yes";
 		}
 		model.addAttribute("tf", tf);
+		//
 		System.out.println(tf);
 		
 		//학기
@@ -63,7 +64,7 @@ public class SeoyoungCompanyController {
 
 		List<Map<String, Object>> map = (List<Map<String, Object>>) seoyoungCompanyService.companyList(sessionCompanyInfo.getExternal_pk());
 		model.addAttribute("list", map);
-		System.out.println(sessionCompanyInfo.getExternal_pk());
+		//System.out.println(sessionCompanyInfo.getExternal_pk());
 		//신청 학생 정보 확인
 		int internId=pramse.getInternship_course_pk();
 		List<Map<String, Object>> map2 =  (List<Map<String, Object>>)  seoyoungCompanyService.selectionStudent(internId);

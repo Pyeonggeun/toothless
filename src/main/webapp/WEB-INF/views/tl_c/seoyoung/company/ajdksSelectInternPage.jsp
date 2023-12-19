@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -55,6 +55,25 @@
 .nolinenoblue>a {
 	text-decoration: none;
 	color: #000000;
+}
+
+/*accordion*/
+.accordion { -
+	-bs-accordion-btn-focus-border-color: #f2f5f7;
+	-bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem #f2f5f7;
+}
+
+.accordion-button:not(.collapsed) {
+	background-color: #f2f5f7;
+}
+
+.accordion { -
+	-bs-accordion-btn-focus-box-shadow: none;
+}
+
+/*table*/
+.table{
+	--bs-table-bg:none;
 }
 </style>
 <script>
@@ -115,8 +134,8 @@
 										<br>
 										<div class="row ps-3">
 											<table class="table text-center align-middle ">
-												<thead class="table-primary">
-													<tr>
+												<thead class="table">
+													<tr style="background-color: #f2f5f7;"> 
 														<th scope="col">#</th>
 														<th scope="col">학번</th>
 														<th scope="col">이름</th>
@@ -169,20 +188,20 @@
 																					</div>
 																					<div class="col-3">
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 75px; background-color: #f2f5f7; font-weight: bold;">
 																							학생명/성별 *</div>
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 75px; background-color: #f2f5f7; font-weight: bold;">
 																							전화번호/휴대폰 *</div>
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 75px; background-color: #f2f5f7; font-weight: bold;">
 																							이메일 *</div>
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 75px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 75px; background-color: #f2f5f7; font-weight: bold;">
 																							주소 *</div>
 																					</div>
 
@@ -220,8 +239,8 @@
 																				<div class="row  px-4">
 																					<div class="col-2">
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 50px; background-color: #CFE2FF; font-weight: bold;">
 																							이름</div>
 																					</div>
 																					<div class="col-4">
@@ -233,8 +252,8 @@
 
 																					<div class="col-2">
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 50px; background-color: #f2f5f7; font-weight: bold;">
 																							현재학기</div>
 																					</div>
 																					<div class="col-4 pe-4">
@@ -249,8 +268,8 @@
 																				<div class="row  px-4">
 																					<div class="col-2">
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 50px; background-color: #f2f5f7; font-weight: bold;">
 																							전공</div>
 																					</div>
 																					<div class="col-4">
@@ -264,8 +283,8 @@
 																					<!-- 2열 오른쪽 -->
 																					<div class="col-2">
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 50px; background-color: #f2f5f7; font-weight: bold;">
 																							취득학점</div>
 																					</div>
 																					<div class="col-4 pe-4">
@@ -279,8 +298,8 @@
 																				<div class="row px-4">
 																					<div class="col-2">
 																						<div
-																							class="row border d-flex align-items-center justify-content-center"
-																							style="height: 50px; background-color: #CFE2FF; color: #7C0A02; font-weight: bold;">
+																							class="row border d-flex align-items-center justify-content-center bg-secondary bg-opacity-10"
+																							style="height: 50px; background-color: #f2f5f7; font-weight: bold;">
 																							담당교수</div>
 																					</div>
 																					<div class="col-4">
@@ -296,7 +315,7 @@
 																			</div>
 																			<br>
 																			<div class="row  text-center  px-5">
-																				<div class="accordion" id="accordionExample">
+																				<div class="accordion" id="accordionExample"  style="-bs-accent: #f2f5f7;">
 																					<div class="accordion-item">
 																						<h2 class="accordion-header">
 
@@ -305,7 +324,7 @@
 																								data-bs-target="#collapseTwo"
 																								aria-expanded="false"
 																								aria-controls="collapseTwo"
-																								style="background-color: #CFE2FF;"
+																								style="background-color: #f2f5f7;"
 																								onclick="certificationForm()">
 																								<i class="bi bi-bookmarks "></i> &nbsp; 자격증
 																							</button>
@@ -313,11 +332,11 @@
 																						</h2>
 																						<div id="collapseTwo"
 																							class="accordion-collapse collapse"
-																							data-bs-parent="#accordionExample">
+																							data-bs-parent="#accordionExample"  style="-bs-accent: #f2f5f7;">
 																							<div class="accordion-body">
 																								<table class="table text-center align-middle ">
-																									<thead class="table-primary">
-																										<tr>
+																									<thead class="table">
+																										<tr style="background-color: #f2f5f7;">
 																											<th scope="col">#</th>
 																											<th scope="col">자격증</th>
 																											<th scope="col">취득일</th>
@@ -344,14 +363,14 @@
 																			</div>
 																			<br> <br>
 																			<div class="row text-center  px-5	">
-																				<div class="accordion" id="accordionExample">
+																				<div class="accordion" id="accordionExample" style="-bs-accent: #f2f5f7;">
 																					<div class="accordion-item">
 																						<h1 class="accordion-header">
 																							<button class="accordion-button" type="button"
 																								data-bs-toggle="collapse"
 																								data-bs-target="#collapseOne"
 																								aria-expanded="true" aria-controls="collapseOne"
-																								style="background-color: #CFE2FF;">
+																								style="background-color: #f2f5f7;">
 																								<i class="bi bi-bookmarks "></i> &nbsp; 지원이력서
 																							</button>
 																						</h1>

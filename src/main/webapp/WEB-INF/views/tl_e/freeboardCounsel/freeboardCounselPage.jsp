@@ -163,8 +163,9 @@
 											</div>
 											
 											<div class="row">
-												<div class="col-6 text-center"> <br> <span class="text-danger fs-3"> ${countedPost}</span> <br> <span class="fs-6">총 게시글 수</span></i></div>
-												<div class="col-6 text-center"> <a class="btn text-center" role="button"  href="./createFreeboardPostsPage"><i class="bi bi-keyboard-fill fs-1"></i> <br> <span class="fs-6">게시글 <br> 작성하기</span></a></i></div>
+												<div class="col-5 text-center"> <br> <span class="text-danger fs-3"> ${countedPost}</span> <br> <span class="fs-6">총 게시글 수</span></i></div>
+												<div class="col-2"></div> 
+												<div class="col-5 text-start"> <a class="btn text-center" role="button"  href="./createFreeboardPostsPage"><i class="bi bi-keyboard-fill fs-1"></i> <br> <span class="fs-5 fw-bold">게시글 <br> 작성하기</span></a></i></div>
 											
 											</div>
 										<!-- 정보창 1의 중요 부분 시작(제목과 내용) 끝-->

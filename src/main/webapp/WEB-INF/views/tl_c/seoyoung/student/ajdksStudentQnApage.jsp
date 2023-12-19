@@ -184,7 +184,7 @@
 								</div>
 							</div>
 							<div class="row"></div>
-							<div class="row ms-5 px-1 mb-4 me-4 me-5 align-items-center">
+							<div class="row ms-5 mb-4 me-4 me-5 align-items-center">
 								<div class="col-2"></div>
 								<div class="col ms-5 mb-5 me-5 lh-base">
 									<h5>&nbsp;단기(방학중) 현장실습은 2회까지 학점인정 가능합니다.</h5>

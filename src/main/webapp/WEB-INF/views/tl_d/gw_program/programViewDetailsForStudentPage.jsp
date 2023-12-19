@@ -82,9 +82,9 @@
 			<!-- 버튼들 여따 -->
 			<c:set var="currentTime" value="<%= new java.util.Date() %>" />
 			<div class="row mt-4 mb-5"> 
-				<div class="col-2"></div>
-				<div class="col-2 mx-0 text-center">
-					<c:choose>
+				<div class="col-1"></div>
+				<div class="col-2 mx-0">
+					<c:choose>  
 		                <c:when test="${program.programDto.prg_apply_deadline.before(currentTime)}">
 		                	<span class="border border-0 py-2 px-3 text-white bg-secondary rounded-2">신청마감</span>
 		                </c:when>

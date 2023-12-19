@@ -370,6 +370,23 @@ public class RestConsultingController {
 	}
 	
 	
+	//구직희망 등록 학생정보 리스트
+	@RequestMapping("viewStudentList")
+	public D_RestResponseDto viewStudentList() {
+		
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+
+		
+		List<Map<String, Object>> hopeJobInfoList = consultingService.getHopeJobInfoList();
+		
+		d_RestResponseDto.setResult("success");
+		d_RestResponseDto.setData(hopeJobInfoList);
+
+		
+		return d_RestResponseDto;
+	}	
+	
+	
 	
 }	
 	

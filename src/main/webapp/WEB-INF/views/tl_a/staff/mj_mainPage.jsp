@@ -50,58 +50,40 @@
                     <!-- 상단 -->
                     <div class="row">
                         <div class="col">
-                            <div class="row pe-2 pt-4 ps-5">
-                                <div class="col bg-white rounded-4 border border-light-subtle" style="height: 396px;">
-                                    <div class="row ms-3 mt-3">
-	                                	<div class="col fs-4 fw-bold align-middle">
-	                                		업무 게시판
-	                                	</div>
-	                                </div>
-                                    <div class="row ms-3 mt-5">
-                                    	<div class="col mt-3">
-		                                    <a class="btn btn-lg fw-bold" href="#" role="button" style="background-color: rgb(219, 241, 248);">글 등록하기</a>
-                                    	</div>                          
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        	<div class="row pe-2 pt-4 ps-5">
+                            	<div class="col bg-white rounded-4 border border-light-subtle" style="height: 200px;">
+                                       <div class="row ms-3 mt-3">
+                                            <div class="col fs-4 fw-bold align-middle">
+                                                공지사항 목록
+                                            </div>
+		                                   	<div class="col text-end me-3">
+			                                    <a class="btn fw-bold" href="../student/dm_dormNoticePage" role="button" style="background-color: rgb(219, 241, 248);">공지사항 등록하기</a>
+		                                   	</div>
+                                        </div>
+	                                   <div class="row my-2 me-3">
+                                  		<div class="col">
+	                                   		<div class="row my-3 text-center">
+	                                   			<div class="col"><span class="fw-bold">제목</span></div>
+	                                   			<div class="col"><span class="fw-bold">내용</span></div>
+	                                   			<div class="col-2"><span class="fw-bold">작성일</span></div>
+	                                   		</div>
+	                                   		<c:forEach items="${dormNoticeList}" var="dormNoticeList">
+	                                   			<div class="row my-2">
+	                                   				<div class="col ms-4">${dormNoticeList.title}</div>
+	                                   				<div class="word col">${dormNoticeList.content}</div>
+	                                   				<div class="col-2 text-center"><fmt:formatDate value="${dormNoticeList.created_at}" pattern="yyyy-MM-dd" /></div>
+	                                   			</div>
+	                                   		</c:forEach>
+	                                   	</div>
+	                                   </div>
+                              	</div>
+                              </div>
+                         </div>
                         <div class="col">
                             <div class="row">
                                 <div class="col">
                                     <div class="row ps-2 pb-2 pt-4 pe-5">
-                                        <div class="col bg-white rounded-4 border border-light-subtle" style="height: 190px;">
-                                            <div class="row ms-3 mt-3">
-                                                <div class="col fs-4 fw-bold align-middle">
-                                                    공지사항 목록
-                                                </div>
-		                                    	<div class="col text-end me-3">
-				                                    <a class="btn fw-bold" href="../student/dm_dormNoticePage" role="button" style="background-color: rgb(219, 241, 248);">공지사항 등록하기</a>
-		                                    	</div>
-                                            </div>
-		                                    <div class="row my-2 me-3">
-		                                    	<div class="col">
-		                                    		<div class="row my-3 text-center">
-		                                    			<div class="col"><span class="fw-bold">제목</span></div>
-		                                    			<div class="col"><span class="fw-bold">내용</span></div>
-		                                    			<div class="col-2"><span class="fw-bold">작성일</span></div>
-		                                    		</div>
-		                                    		<c:forEach items="${dormNoticeList}" var="dormNoticeList">
-		                                    			<div class="row my-2">
-		                                    				<div class="col ms-4">${dormNoticeList.title}</div>
-		                                    				<div class="word col">${dormNoticeList.content}</div>
-		                                    				<div class="col-2 text-center"><fmt:formatDate value="${dormNoticeList.created_at}" pattern="yyyy-MM-dd" /></div>
-		                                    			</div>
-		                                    		</c:forEach>
-		                                    	</div>
-		                                    </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="row ps-2 pb-2 pt-2 pe-5">
-                                        <div class="col bg-white rounded-4 border border-light-subtle" style="height: 190px;">
+                                        <div class="col bg-white rounded-4 border border-light-subtle" style="height: 200px;">
                                             <div class="row ms-3 mt-3">
                                                 <div class="col fs-4 fw-bold align-middle">
                                                     선발 현황

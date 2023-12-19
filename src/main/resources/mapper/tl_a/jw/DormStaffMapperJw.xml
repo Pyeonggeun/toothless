@@ -35,6 +35,7 @@
 	<!-- 방 리스트 -->
 	<select id="selectAllDormBuildingList" resultType="com.mkfactory.toothless.a.dto.DormBuildingDto">
 		SELECT * FROM TL_A_DORM_BUILDING
+		ORDER by name ASC
 	</select>
 	
 	<!-- 점호 불참 -->

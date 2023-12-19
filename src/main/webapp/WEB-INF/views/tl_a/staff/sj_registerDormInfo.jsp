@@ -27,7 +27,7 @@
 		if(dormAddress.value ==''){
 			alert("기숙사 주소가 입력되지 않았습니다.");
 			dormAddress.value="";
-			dormAddress.focust();
+			dormAddress.focus();
 			return;
 		}
 		
