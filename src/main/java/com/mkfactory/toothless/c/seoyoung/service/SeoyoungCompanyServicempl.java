@@ -29,7 +29,7 @@ public class SeoyoungCompanyServicempl {
 	}
 	
 	//산업체의 진행중인지 모집중인지 확인
-	public String companyIngTF(int sessionCompanyInfo) {
+	public List<Map<String, Object>> companyIngTF(int sessionCompanyInfo) {
 		return seoyoungCompanyMapper.companyIngTF(sessionCompanyInfo);
 	}	
 	
@@ -47,32 +47,5 @@ public class SeoyoungCompanyServicempl {
 	public void updateSelectionArticle(AjdksStudentApplyingDto ajdksStudentApplyingDto) {
 		seoyoungCompanyMapper.updateSelectionStudent(ajdksStudentApplyingDto);
 	}
-//	
-//	public List<Map<String, Object>> getArticleList(int pageNum, String searchType, String searchWord) {
-//
-//		List<Map<String, Object>> list = new ArrayList<>();
-//
-//		
-//		List<AjdksInternshipCourseDto> studentinternshipDto = seoyoungCompanyMapper.studentinternshipDto();
-//
-//		for (AjdksInternshipCourseDto ajdksInternshipCourseDto : studentinternshipDto) {
-//			int internship_course_pk = ajdksInternshipCourseDto.getInternship_course_pk();
-//			AjdksStudentApplyingDto ajdksStudentApplyingDto = seoyoungCompanyMapper.studentApplyingDto(internship_course_pk);
-//
-//			
-//			int student_pk = ajdksInternshipCourseDto.getInternship_course_pk();
-//			AjdksSelfIntroductionDto ajdksSelfIntroductionDto = seoyoungCompanyMapper.selfIntroductionDto(student_pk);
-//
-//			
-//			
-//			Map<String, Object> map = new HashMap<>();
-//			map.put("ajdksStudentApplyingDto", ajdksStudentApplyingDto);
-//			map.put("ajdksInternshipCourseDto", ajdksInternshipCourseDto);
-//
-//			list.add(map);
-//		}
-//
-//		return list;
-//	}
-	
+
 }
