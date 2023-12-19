@@ -9,6 +9,44 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <title>Insert title here</title>
+
+<script>
+
+
+	//취업상담 내용 등록
+	function insertConsulting(){
+		const templeteWrapper = document.querySelector("#templeteWrapper");
+		const consulting_contents = templeteWrapper.querySelector(".consulting_contents").value;
+		const consulting_date = templeteWrapper.querySelector(".consulting_date").value;
+		const hope_job_pk = templeteWrapper.querySelector(".hope_job_pk").value;
+		if(consulting_contents=="" || consulting_date==""){
+			
+			alert("값을 입력해 주세요!");
+			return;
+		}
+		
+		
+		
+		url = "./insertConsulting?hope_job_pk=" + hope_job_pk +"&consulting_contents=" + consulting_contents +"&consulting_date=" + consulting_date ;
+		fetch(url)
+		.then(response => response.json())
+		.then(response =>{
+			
+			
+		});	
+	}
+
+
+
+
+</script>
+	
+
+
+
+
+
+
 </head>
 <body>
 
@@ -164,7 +202,9 @@
 									${viewStudentDetailPageStats.countUnAnsweredFeedback} 건
 								</div>	
 								<div class="col-6 fw-bold text-right" style="text-align:right; color:blue">
-									<a class="navbar-brand text-right" style="align-itmes:right" href="./insertConsultingPage?hope_job_pk=${viewStudentDetailPageStats.hopeJobDto.hope_job_pk}"> 취업상담 내용 등록하기</a>
+									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+									  취업상담 내용 등록
+									</button>
 								</div>																	
 							</div>																																		
 						</div>			
@@ -181,15 +221,152 @@
 				<div class="col-1"></div>
 				
 			</div>
+			
+			
+			
+			
+			
 		</div>		
 	</div>
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+      
+        <div id="templeteWrapper" class="row mt-3">
+						<div class="col">
+							<div class="row">
+								<div class="col-3 fw-bold">
+									교직원 이름
+								</div>
+								<div class="col-9 staff_name">
+									${sessionStaffInfo.name}
+								</div>								
+							</div>
+							
+							<form action="insertConsultingProcess" method="post">
+							<div class="row">
+								<div class="col">
+									<div class="row mt-3">
+										<div class="col fw-bold">
+											상담내용
+										</div>
+									</div>
+		
+									<div class="row mt-1">
+										<div class="col border ms-3" style="height:10em;" >
+											<textarea class="consulting_contents" style="border:none; width:100%; height:100%; outline:none;" name="consulting_contents"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							
+							<div class="row mt-3">
+								<div class="col-4 fw-bold">
+									상담날짜
+								</div>
+								<div class="col-6 border">
+									<input class="consulting_date" style="border:none; outline:none; width:100%; height:100%" type="date" name="consulting_date">
+								</div>		
+								
+								<div class="col">
+									
+								</div>															
+							</div>								
+							
+							<div class="row mt-3">
+								<div class="col">
+									<input class="hope_job_pk" name="hope_job_pk" type="hidden" value="${viewStudentDetailPageStats.hopeJobDto.hope_job_pk}">
+									
+																	
+								</div>							
+							</div>	
+							</form>						
+						</div>
+					</div>
+					
+					
+					
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button onclick="insertConsulting()" data-bs-dismiss="modal" type="button"  class="btn btn-primary"> 등록 </button>	
+      </div>
+    </div>
+  </div>
+</div>
+
+<%--
+<div class="d-none" id="insertConsultingTemplete">
+
+					<div id="templeteWrapper" class="row mt-3">
+						<div class="col">
+							<div class="row">
+								<div class="col-3 fw-bold">
+									교직원 이름
+								</div>
+								<div class="col-9 staff_name">
+									${sessionStaffInfo.name}
+								</div>								
+							</div>
+							
+							<form action="insertConsultingProcess" method="post">
+							<div class="row">
+								<div class="col">
+									<div class="row mt-3">
+										<div class="col fw-bold">
+											상담내용
+										</div>
+									</div>
+		
+									<div class="row mt-1">
+										<div class="col border ms-3" style="height:10em;" >
+											<textarea class="consulting_contents" style="border:none; width:100%; height:100%; outline:none;" name="consulting_contents"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							
+							<div class="row mt-3">
+								<div class="col-2 fw-bold">
+									상담날짜
+								</div>
+								<div class="col-6 border">
+									<input class="consulting_date" style="border:none; outline:none; width:100%; height:100%" type="date" name="consulting_date">
+								</div>		
+								
+								<div class="col-4">
+									
+								</div>															
+							</div>								
+							
+							<div class="row mt-3">
+								<div class="col">
+									<input class="hope_job_pk" name="hope_job_pk" type="hidden" value="${viewStudentDetailPageStats.hopeJobDto.hope_job_pk}">
+									
+									
+									<input type="submit" value="등록">
+								</div>							
+							</div>	
+							</form>						
+						</div>
+					</div>
 
 
+</div>
 
-
+ --%>
 
 
 

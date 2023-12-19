@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mkfactory.toothless.d.dto.ConsultingDto;
 import com.mkfactory.toothless.d.dto.D_RestResponseDto;
 import com.mkfactory.toothless.d.dto.HopeJobCategoryDto;
 import com.mkfactory.toothless.d.dto.HopeJobDto;
@@ -347,6 +348,24 @@ public class RestConsultingController {
 		
 		d_RestResponseDto.setResult("success");
 		
+		return d_RestResponseDto;
+	}
+	
+	
+	//취업상담 내용 등록
+	@RequestMapping("insertConsulting")
+	public D_RestResponseDto insertConsulting(ConsultingDto par, HttpSession session) {
+	
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+
+		StaffInfoDto staffInfoDto =(StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		par.setStaff_pk(staffInfoDto.getStaff_pk());
+		
+	
+		consultingService.insertConsultingInfo(par);
+		
+		d_RestResponseDto.setResult("success");
+
 		return d_RestResponseDto;
 	}
 	

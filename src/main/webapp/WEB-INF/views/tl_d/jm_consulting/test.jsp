@@ -13,17 +13,31 @@
 <body>
 
 <c:forEach items="${getMyOnlineConsultingListNumFive }" var="e">
-	${e.onlineConsultingDto.on_consulting_pk}<br>
-	<c:choose>
-		<c:when test="${e.onlineConsultingReplyDto==null}">
-			미답변
-		</c:when>
-		<c:otherwise>
-			답변
-		</c:otherwise>
-	</c:choose>
-</c:forEach>
 
+	<div class="row my-3 border-bottom">
+		<div class="col-4">
+			<!-- 상담 번호 -->
+			<div class="row">
+				<div class="col ms-2">No.<span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
+				<div class="col ms-2">
+					${sessionStudentInfo.name}				
+				</div>
+				<div class="col ms-2">
+					<c:choose>
+						<c:when test="${e.onlineConsultingReplyDto==null}">
+							<span class="badge text-bg-danger">미답변</span>
+						</c:when>
+						<c:otherwise>
+							<a href="myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="badge text-bg-primary">답변</span></a>
+						</c:otherwise>
+					</c:choose>		
+				</div>			
+			</div>
+			<!-- 이름 -->
+		
+		</div>
+	</div>
+</c:forEach>
 
 
 

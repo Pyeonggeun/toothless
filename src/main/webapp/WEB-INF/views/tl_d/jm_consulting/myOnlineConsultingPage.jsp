@@ -29,7 +29,7 @@
 		</div>
 				<div class="col">
 					<div class="row my-5">
-						<div class="col" style="font-size:1.5em;">
+						<div class="col fw-bold" style="font-size:1.5em;">
 							<span>내 온라인 상담 내역</span>
 						</div>
 					</div>
