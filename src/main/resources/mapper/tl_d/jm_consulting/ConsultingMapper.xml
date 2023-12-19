@@ -349,73 +349,82 @@ AND HOPE_JOB_PK  = #{hope_job_pk}
 
 <!-- 오래된순 온라인상담 전체 꺼내오기 + 검색 및 정렬기능 추가-->
 <select id="getOnlineConsultingList" resultType="com.mkfactory.toothless.d.dto.OnlineConsultingDto">
-SELECT t1.* from
-	(SELECT a.*, rownum rnum FROM TL_D_ONLINE_CONSULTING a 		
-		where 1=1
-		and a.hope_job_pk in (
-		SELECT hope_job_pk FROM TL_D_HOPE_JOB
-		WHERE IS_END_HOPE_JOB = 'N'
-		)<!-- 추가부분 -->
-		<if test="isReply != null">
-			<choose>
-				<when test="isReply == 'all'">
-					AND 1=1		
-				</when>
-				<when test="isReply == 'reply'">
-					AND a.ON_CONSULTING_PK in 
-					(
-						select b.ON_CONSULTING_PK
-						from TL_D_ONLINE_CONSULTING_REPLY b
-					)				 
-				</when>
-				<when test="isReply == 'unReply'">
-					AND a.ON_CONSULTING_PK not in
-					(
-						select c.ON_CONSULTING_PK
-						from TL_D_ONLINE_CONSULTING_REPLY c
-					)		
-				</when>
-			</choose>
-		</if>
-		<!-- 검색 -->
-		<if test="searchType != null">
-			<choose>
-				<when test="searchType  == 'student_name'">
-					AND a.HOPE_JOB_PK  IN
-					(
-						SELECT HOPE_JOB_PK FROM TL_D_HOPE_JOB c
-						WHERE c.STUDENT_PK IN
-						(
-							SELECT tjsi.STUDENT_PK  FROM TL_JIC_STUDENT_INFO tjsi 
-							WHERE tjsi.NAME  LIKE '%' || #{searchContentes} || '%'
-						)
-					)
-				</when>
-				<when test="searchType  == 'online_consulting_pk'">
-					AND a.ON_CONSULTING_PK LIKE '%' || #{searchContentes} || '%'		 
-				</when>
-				<otherwise>
-					AND 1=1
-				</otherwise>
-			</choose>
-		</if>	
-	<if test="sortby != null">
-		<choose>
-			<when test="sortby == 'latest'">
-				ORDER BY CREATED_AT DESC
-			</when>
-			<when test="sortby == 'earliest'">
-				ORDER BY CREATED_AT ASC	 
-			</when>
-			<otherwise>
-				ORDER BY CREATED_AT DESC		 
-			</otherwise>
-		</choose>
-	</if>
-	)t1
+select t4.* from
+	(
+	select t3.*, rownum rnum from
+		(
+		select t2.* from
+			(
+			SELECT t1.* from
+				(SELECT a.* FROM TL_D_ONLINE_CONSULTING a 		
+					where 1=1
+					and a.hope_job_pk in (
+					SELECT hope_job_pk FROM TL_D_HOPE_JOB
+					WHERE IS_END_HOPE_JOB = 'N'
+					)<!-- 추가부분 -->
+					<if test="isReply != null">
+						<choose>
+							<when test="isReply == 'all'">
+								AND 1=1		
+							</when>
+							<when test="isReply == 'reply'">
+								AND a.ON_CONSULTING_PK in 
+								(
+									select b.ON_CONSULTING_PK
+									from TL_D_ONLINE_CONSULTING_REPLY b
+								)				 
+							</when>
+							<when test="isReply == 'unReply'">
+								AND a.ON_CONSULTING_PK not in
+								(
+									select c.ON_CONSULTING_PK
+									from TL_D_ONLINE_CONSULTING_REPLY c
+								)		
+							</when>
+						</choose>
+					</if>
+					<!-- 검색 -->
+					<if test="searchType != null">
+						<choose>
+							<when test="searchType  == 'student_name'">
+								AND a.HOPE_JOB_PK  IN
+								(
+									SELECT HOPE_JOB_PK FROM TL_D_HOPE_JOB c
+									WHERE c.STUDENT_PK IN
+									(
+										SELECT tjsi.STUDENT_PK  FROM TL_JIC_STUDENT_INFO tjsi 
+										WHERE tjsi.NAME  LIKE '%' || #{searchContentes} || '%'
+									)
+								)
+							</when>
+							<when test="searchType  == 'online_consulting_pk'">
+								AND a.ON_CONSULTING_PK LIKE '%' || #{searchContentes} || '%'		 
+							</when>
+							<otherwise>
+								AND 1=1
+							</otherwise>
+						</choose>
+					</if>	
+				)t1
+			)t2
+			<if test="sortby != null">
+				<choose>
+					<when test="sortby == 'latest'">
+						ORDER BY t2.CREATED_AT DESC
+					</when>
+					<when test="sortby == 'earliest'">
+						ORDER BY t2.CREATED_AT ASC	 
+					</when>
+					<otherwise>
+						ORDER BY t2.CREATED_AT DESC		 
+					</otherwise>
+				</choose>
+			</if>
+		)t3
+)t4		
 <![CDATA[		
-WHERE t1.rnum >= (#{pageNum}-1)*10+1 AND t1.rnum <= #{pageNum}*10
-]]>		
+WHERE rnum >= (#{pageNum}-1)*10+1 AND rnum <= #{pageNum}*10
+]]>	
 </select>
 
 
