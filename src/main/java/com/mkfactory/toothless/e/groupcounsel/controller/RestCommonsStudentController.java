@@ -1,9 +1,13 @@
 package com.mkfactory.toothless.e.groupcounsel.controller;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.e.dto.RestResponseGroupCounselDto;
 import com.mkfactory.toothless.e.groupcounsel.service.CounselCommonsStudentServiceImpl;
 
@@ -26,6 +30,21 @@ public class RestCommonsStudentController {
 		return restResponseGroupCounselDto;
 	}
 	
+	@RequestMapping("getStudentInfo")
+	public RestResponseGroupCounselDto getStudentInfo(HttpSession session) {
+		RestResponseGroupCounselDto restResponseGroupCounselDto = new RestResponseGroupCounselDto();
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		
+		restResponseGroupCounselDto.setData(studentInfoDto);
+		restResponseGroupCounselDto.setResult("success");
+		
+		return restResponseGroupCounselDto;
+	}
+		
+	
+	
 	
 	
 	public RestResponseGroupCounselDto templete() {
@@ -37,7 +56,6 @@ public class RestCommonsStudentController {
 		
 		return restResponseGroupCounselDto;
 	}
-	
 	
 	
 	
