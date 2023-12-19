@@ -101,6 +101,9 @@
                         <li class="my-2" style="font-size: 0.8rem;">모바일 앱 다운로드
                             <i class="bi bi-box-arrow-up-right ps-1" style="font-size: 0.7rem;"></i>
                         </li>
+                        <li class="my-2" style="font-size: 0.8rem;">간편 정보확인 사이트
+                            <a href="../student/dm_subPage" class="navbar-brand"><i class="bi bi-box-arrow-up-right ps-1" style="font-size: 0.7rem;"></i></a>
+                        </li>
                     </ul>
                 </div>
             </div>
