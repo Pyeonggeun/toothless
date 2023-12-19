@@ -22,7 +22,7 @@
 
 </style>
 <script>
-	let loginStudentInfo = null;
+	/* let loginStudentInfo = null;
 
 	function getStudentInfo(){		
 		fetch("./getStudentInfo")
@@ -48,7 +48,7 @@
 			
 			
 		});		
-	}
+	} */
 
 function reloadCounselorList(){
 	fetch("./restGetCounselorInfo")
@@ -249,8 +249,7 @@ function pressEnter(){
 	}
 }
 
-window.addEventListener("DOMContentLoaded", ()=>{
-	getStudentInfo()
+window.addEventListener("DOMContentLoaded", ()=>{	
 	reloadCounselorList()
 	reloadSearchTypeCategory()
 });

@@ -216,15 +216,17 @@ public class RegisterCounselorServiceImpl {
 		
 		CounselorDto counselorDto = registerCounselorSqlMapper.selectCounselorDetailByCounselorId(counselorId);
 		List<Map<String, Object>> counselorTypeList =  registerCounselorSqlMapper.selectCounselorTypeByCounselorId(counselorId);
-		List<LicenseImageDto> counselorLicenseList = registerCounselorSqlMapper.selectLicenseImgByCounselorId(counselorId);
-		Map<String, Object> counselorScoreAvg = registerCounselorSqlMapper.selectCounselorAllScoreAvgByCounselorId(counselorId);
-		List<Map<String, Object>> counselList =  registerCounselorSqlMapper.selectCompleteCounselListByCounselorId(counselorId); 
+		List<LicenseImageDto> counselorLicenseList = registerCounselorSqlMapper.selectLicenseImgByCounselorId(counselorId);		
+		List<Map<String, Object>> counselList =  registerCounselorSqlMapper.selectCompleteCounselListByCounselorId(counselorId);
+		Map<String, Object> totalScoreInfo = registerCounselorSqlMapper.selectTotalScoreInfoByCounselorId(counselorId);
+		
 		
 		counselorDetailForAJAX.put("counselorDto", counselorDto);
 		counselorDetailForAJAX.put("counselorTypeList", counselorTypeList);
-		counselorDetailForAJAX.put("counselorLicenseList", counselorLicenseList);
-		counselorDetailForAJAX.put("counselorScoreAvg", counselorScoreAvg);
+		counselorDetailForAJAX.put("counselorLicenseList", counselorLicenseList);		
 		counselorDetailForAJAX.put("counselList", counselList);
+		counselorDetailForAJAX.put("totalScoreInfo", totalScoreInfo);
+		
 		
 		return counselorDetailForAJAX;
 	}
