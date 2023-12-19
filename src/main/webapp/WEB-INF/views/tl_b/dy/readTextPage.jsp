@@ -167,7 +167,7 @@
                                             <div class="row">
                                             	<div class="col">
                                             		<c:forEach items="${readText.staffboardImageDtoList}" var="staffboardImageDto">
-                                            			<img class="img img-fluid" src="/uploadFiles/${staffboardImageDto.img_link}">
+                                            			<img class="img img-fluid" src="../../resources/img/healthRoom/staffboard/${staffboardImageDto.img_link}">
                                             		</c:forEach>
                                             	</div>
                                             </div>
