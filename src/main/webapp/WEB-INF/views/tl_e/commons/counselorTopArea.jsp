@@ -5,6 +5,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+	<script>
+		
+		let myId = null;
+		
+		function getSessionInfo(){
+			
+			url = "./getSessionExternalInfo";
+			
+			fetch(url)
+			.then(response => response.json())
+			.then(response => {
+				
+				myId = response.data;
+			});
+		}
+		
+		function checkSession(){
+			
+			const checkSession = document.querySelector(".checkSession");
+			checkSession.innerText = myId;
+			console.log("myId: "+myId);
+			
+			if(myId == null){
+				if(confirm("로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+					location.href="/toothless/another/external/loginPage";
+				}
+				return;
+			}
+			
+		}
+		
+		window.addEventListener("DOMContentLoaded", () => {
+			getSessionInfo();
+			checkSession();
+		});
+		
+	
+	</script>
+
 </head>
 <body>
 	<div class="row py-2 border-bottom">
@@ -25,12 +65,12 @@
            </div>
 		<div class="col-1 pt-3 me-4 text-center dropdown nav-item">
 		  <a class="nav-link pt-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		    <span class="fw-bold">${sessionExternalInfo.external_id }</span>님
+		    <span class="checkSession fw-bold"></span>님
 		  </a>
 		  <ul class="dropdown-menu">
 		    <li><a class="dropdown-item" href="#">마이페이지</a></li>
 		    <li><hr class="dropdown-divider"></li>
-		    <li><a class="dropdown-item" href="../../logoutProcess"><span><i class="bi bi-power"></i></span>&nbsp;로그아웃</a></li>
+		    <li><a class="dropdown-item" href="/toothless/another/external/logoutProcess"><span><i class="bi bi-power"></i></span>&nbsp;로그아웃</a></li>
 		  </ul>
 		</div>
 	</div>
