@@ -108,10 +108,12 @@
 										<c:forEach items="${list}" var="companyList">
 											<div class="card w-50 mb-3 text-center" >
 												<c:if test="${tf eq 'yes'}" >
-													<div class="card-header" style="background-color: #CFE2FF;">진행중</div>
+													<div class="card-header bg-secondary bg-opacity-25" style="background-color: #CFE2FF;">진행중</div>
 												</c:if>	
 												<c:if test="${tf eq 'no'}">
-													<div class="card-header"  style="background-color: #CFE2FF;">종료</div>
+												<div class="card-header bg-secondary bg-opacity-25" style="background-color: #CFE2FF;">종료</div>
+
+
 												</c:if>
 												<div class="card-body">
 													<h5 class="card-title">
@@ -136,7 +138,7 @@
 															pattern="yyyy-MM-dd hh:mm" />
 													</p>
 													<a href="./ajdksSelectInternPage?internship_course_pk=${companyList.INTERNSHIP_COURSE_PK}"
-													 class="d-grid btn" style="background-color:	#CFE2FF; outline-color:#CFE2FF;">상세보기</a>
+													 class="d-grid btn bg-secondary bg-opacity-10" style="background-color:	#CFE2FF; outline-color:#CFE2FF;">상세보기</a>
 												</div>
 											</div>
 										</c:forEach>
