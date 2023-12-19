@@ -12,8 +12,7 @@
    	</div>
    	<div class="col-4 align-self-center">
    		<div class="row">
-   			<div class="col text-center border-end align-self-center">
-   				<a href="./jw_dormStaffboardPage" style="text-decoration: none; color: black; font-size: 0.8em">업무 게시판</a>
+   			<div class="col">
     		</div>
     		<div class="col text-center border-end align-self-center">
     			<a href="./sj_registerDormInfo" style="text-decoration: none; color: black; font-size: 0.8em">기숙사 정보</a>

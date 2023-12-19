@@ -81,7 +81,7 @@
    </div>
    <div id="rowbox3"  class="row" style="border-bottom: 0.01em solid #161313;">
        <div id="colbox3" class="col py-3" style="font-size: large;">
-       <a href="./jw_checkDormStudentPointPage" style="text-decoration: none;" onmouseover="changeColor(3)" onmouseout="restoreColor(3)">
+       <a href="./jw_exitApplyPage" style="text-decoration: none;" onmouseover="changeColor(3)" onmouseout="restoreColor(3)">
            <span class="navimenu3" style="color: black;">외박 및 외출신청</span></a>
        </div>
    </div>
@@ -99,13 +99,7 @@
    </div>
    <div id="rowbox6"  class="row" style="border-bottom: 0.01em solid #161313;">
        <div id="colbox6" class="col py-3" style="font-size: large;">
-       <a href="./jw_diartApplyPage" style="text-decoration: none;" onmouseover="changeColor(6)" onmouseout="restoreColor(6)">
-           <span class="navimenu6" style="color: black;">일지 등록</span></a>
-       </div>
-   </div>
-   <div id="rowbox7"  class="row" style="border-bottom: 0.01em solid #161313;">
-       <div id="colbox7" class="col py-3" style="font-size: large;">
-       <a href="./dm_FAQ" style="text-decoration: none;" onmouseover="changeColor(7)" onmouseout="restoreColor(7)">
+       <a href="./dm_FAQ" style="text-decoration: none;" onmouseover="changeColor(6)" onmouseout="restoreColor(6)">
            <span class="navimenu7" style="color: black;">FAQ</span></a>
         </div>
     </div>

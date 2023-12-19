@@ -22,8 +22,6 @@ public class DormStudentControllerJw {
 	@RequestMapping("jw_mainPage")
 	public String jw_mainPage() {
 		
-		
-		
 		return "/tl_a/student/jw_mainPage";
 	}
 	
@@ -113,6 +111,28 @@ public class DormStudentControllerJw {
 		dormStudentServiceJw.registerDiary(params);
 		
 		return "redirect:/tl_a/student/jw_diartApplyPage";
+	}
+	
+	@RequestMapping("jw_callAbsenceManagementPage")
+	public String jw_callAbsenceManagementPage(HttpSession session, Model model) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		if(studentInfoDto == null) {
+			return "redirect:../../tl_a/student/loginPageJw";
+		}
+		int studentPk = studentInfoDto.getStudent_pk();
+		 
+		if(session.getAttribute("sessionStudentInfo") != null && dormStudentServiceJw.checkDormStudentExecutive(studentPk) == 0) {
+			// 로그인 한 사생이 임원이 아니면 반환 (임원페이지) 	
+			// ---> 일단 로그인하게하긴했는데 사감만 작성할수있다고 alert하는것도 나쁘지 않을듯??
+			return "redirect:../../tl_a/student/loginPageJw";
+		} else {
+			model.addAttribute("studentInfoDto", studentInfoDto);
+			model.addAttribute("dormStudentDto", dormStudentServiceJw.getDormStudentByStudentPk(studentPk));
+			model.addAttribute("executiveDto", dormStudentServiceJw.getDormStudentByStudentPkAndExecutive(studentPk));
+			return "/tl_a/student/jw_callAbsenceManagementPage";
+		}
+		
 	}
 	
 }
