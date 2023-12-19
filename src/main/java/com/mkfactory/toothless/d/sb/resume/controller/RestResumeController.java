@@ -196,6 +196,22 @@ public class RestResumeController {
 		return d_RestResponseDto;
 	}
 	
+	// 공개된 이력서 목록 가져오기
+	@RequestMapping("getIsPublicResumeList")
+	public D_RestResponseDto getIsPublicResumeList (int department_pk) {
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+		d_RestResponseDto.setResult("success");
+		
+		
+		if(department_pk == 0) {
+			d_RestResponseDto.setData(resumeService.getPublicResumeList());
+		}else {
+			d_RestResponseDto.setData(resumeService.getResumeDtoListByDepartmentPk(department_pk));
+		}
+		
+		return d_RestResponseDto;
+	}
+
 	
 	
 	

@@ -245,9 +245,18 @@
 		)	
 	</select>
 	
+	<select id="getDepartmentCategory" resultType="com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto">
+		SELECT * FROM TL_JIC_DEPARTMENT_CATEGORY tjdc 
+	</select>
 	
 	
-	
+	<select id="getResumeDtoListByDepartmentPk" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
+		SELECT * FROM TL_D_RESUME tdr 
+		WHERE STUDENT_PK IN (
+			SELECT STUDENT_PK  FROM TL_JIC_STUDENT_INFO tjsi
+			WHERE DEPARTMENT_PK = #{department_pk}
+		) AND IS_PUBLIC ='Y'	
+	</select>
 	
 	
 	
