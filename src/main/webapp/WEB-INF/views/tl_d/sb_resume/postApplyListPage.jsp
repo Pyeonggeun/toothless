@@ -96,11 +96,16 @@
 			<%-- 내용 끝 --%>				
 			<div class="col-3"></div>
 		</div>
-		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>	
+			
 	</div>
 	
 	<div class="container">
 		<div style="height: 200px;"></div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<jsp:include page="../common/futter.jsp"></jsp:include>
+		</div>
 	</div>
 
 

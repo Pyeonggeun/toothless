@@ -18,6 +18,7 @@ import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.dto.VolunteerDto;
 import com.mkfactory.toothless.d.ny.posting.mapper.PostingSqlMapper;
 import com.mkfactory.toothless.d.sb.resume.mapper.ResumeSqlMapper;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @Service
 public class ResumeServiceImpl {
@@ -311,12 +312,18 @@ public class ResumeServiceImpl {
 	public List<ResumeDto> getPublicResumeList(){
 		
 		List<ResumeDto> ResumeList = resumeSqlMapper.getMainResumeListByIsPublic();
+		
 		return ResumeList;
 		
 	}
 	
-	
-	
+	public StudentInfoDto getStudentDtoByResumePk(int student_pk) {
+		
+		StudentInfoDto student = resumeSqlMapper.getStudentDtoByResumePk(student_pk);
+		
+		return student;
+		
+	}
 	
 	
 	

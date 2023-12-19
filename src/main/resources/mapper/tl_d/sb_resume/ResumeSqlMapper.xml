@@ -229,7 +229,9 @@
 		SELECT * FROM tl_d_resume WHERE is_public = 'Y'
 	</select>
 	
-	
+	<select id="getStudentDtoByResumePk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_info WHERE STUDENT_PK = #{student_pk}
+	</select>
 	
 	
 	
