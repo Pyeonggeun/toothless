@@ -131,7 +131,7 @@ public class PostingController {
 	
 	// 채용공고 리스트 페이지
 	@RequestMapping("jobPostingListPage")
-	public String jobPostingListPage(HttpSession session, Model model, String searchType, String searchWord) {
+	public String jobPostingListPage(HttpSession session, Model model, String searchType, String searchWord, String searchPosition) {
 		
 		StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
 		
@@ -140,7 +140,7 @@ public class PostingController {
 		}
 			
 		model.addAttribute("postingCount", postingService.getPostingCount());
-		model.addAttribute("jobPostingList", postingService.getPostingList(searchType, searchWord));
+		model.addAttribute("jobPostingList", postingService.getPostingList(searchType, searchWord, searchPosition));
 		return "tl_d/ny_posting/jobPostingListPage";
 	}
 	
@@ -151,6 +151,7 @@ public class PostingController {
 		model.addAttribute("companyPostingList", postingService.getCompanyPostingList(com_pk));
 		return "tl_d/ny_posting/companyPostingListPage";
 	}	
+	
 	// 공고 상세 페이지
 	@RequestMapping("jobPostingDetailPage")
 	public String jobPostingDetailPage(Model model, int id) {
@@ -183,6 +184,7 @@ public class PostingController {
 		
 		return "tl_d/ny_posting/modifyJobPostingPage";
 	}
+	
 	@RequestMapping("modifyJobPostingProcess")
 	public String modifyJobPostingProcess(HttpSession session, JobPostingDto params, MultipartFile modifyimage) {
 		
@@ -237,26 +239,28 @@ public class PostingController {
 	
 	// 학생용 채용공고 리스트
 	@RequestMapping("jobPostingListForStudentPage")
-	public String jobPostingListForStudentPage(HttpSession session, Model model, InterestCompanyDto params, String searchType, String searchWord) {
+	public String jobPostingListForStudentPage(HttpSession session, Model model, InterestCompanyDto params, String searchType, String searchWord, String searchPosition) {
 		
 		StudentInfoDto studentInfo = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		
 		if(studentInfo != null) {
 			int studentPk = studentInfo.getStudent_pk();
-			model.addAttribute("jopPostingForStudentList", postingService.getPostingListForStudent(studentPk, searchType, searchWord));
+			model.addAttribute("jobPostingForStudentList", postingService.getPostingListForStudent(studentPk, searchType, searchWord, searchPosition));
 		}else {
 			return "redirect:../../another/staff/loginPage";
 		}
-
+		model.addAttribute("jobFieldList", postingService.getJobFieldCategoryList());
 		model.addAttribute("postingCount", postingService.getPostingCount());
 		
-				
+		
+		// 페이징할때 링크 남기는 방법		
         String searchQueryString = "";
 		
 		// 쿼리 스트링이니까 &붙임
-		if(searchType != null && searchWord != null) {
+		if(searchType != null && searchWord != null && searchPosition != null && searchPosition != null) {
 			searchQueryString += "&searchType=" + searchType;
 			searchQueryString += "&searchWord=" + searchWord;
+			searchQueryString += "&searchPosition=" + searchPosition;
 			
 		}
 		
@@ -265,6 +269,7 @@ public class PostingController {
 		// 검색 칸에 검색 내용 띄워 두기 영상확인!
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("searchPosition", searchPosition);
 
 		// 여기서도 찜하는 방법 생각해보기
 		
