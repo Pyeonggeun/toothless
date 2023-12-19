@@ -229,7 +229,8 @@ function getStudentInfoByResume(resume_pk){
 				<div class="row py-2 text-secondary border-bottom border-dark border-2 text-light"  style="background-color: #133369">
 					
 					<div class="col-1"></div>
-					<div class="col-8  fw-bold ">이력서 제목</div>
+					<div class="col-7  fw-bold ">이력서 제목</div>
+					<div class="col ms-1 fw-bold">학과</div>
 					<div class="col ms-1 fw-bold">상세보기</div>
 					<div class="col-1"></div>
 				</div>
@@ -238,11 +239,12 @@ function getStudentInfoByResume(resume_pk){
 						<c:forEach items="${resumeList }" var="list">
 							<div class="row border-bottom">
 								<div class="col-1"></div>
-								<div class="col-8 p-3 fw-bold fs-4">
-									${list.resume_title }
+								<div class="col-7 p-3 fw-bold fs-4">
+									${list.resumeDto.resume_title }
 								</div>
+								<div class="col p-3 fw-bold"> ${list.department }</div>
 								<div class="col p-3 ms-1">
-									<button onclick="showResume(${list.resume_pk})" type="button" class="btn btn-outline-dark">선택</button>
+									<button onclick="showResume(${list.resumeDto.resume_pk})" type="button" class="btn btn-outline-dark">선택</button>
 								</div>
 								<div class="col-1"></div>
 							</div> 

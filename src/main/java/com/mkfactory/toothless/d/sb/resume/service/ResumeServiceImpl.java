@@ -309,14 +309,27 @@ public class ResumeServiceImpl {
 	}
 	
 	// 공개된 학생 이력서 정보 가져오기
-	public List<ResumeDto> getPublicResumeList(){
+	public List<Map<String,Object>>  getPublicResumeList(){
 		
-		List<ResumeDto> ResumeList = resumeSqlMapper.getMainResumeListByIsPublic();
+		List<Map<String,Object>> resumeList = new ArrayList<Map<String,Object>>();
 		
-		return ResumeList;
+		List<ResumeDto> list = resumeSqlMapper.getMainResumeListByIsPublic();
+		
+		for(ResumeDto resumeDto : list ) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			int resume_pk = resumeDto.getResume_pk();
+			String departmentName = resumeSqlMapper.getStudentDepartmentNameByResumePk(resume_pk);
+			
+			map.put("resumeDto", resumeDto);
+			map.put("department", departmentName );
+			
+			resumeList.add(map);
+		}
+		
+		return resumeList;
 		
 	}
-	
+	// 공개된 이력서의 학생 정보 가져오기
 	public StudentInfoDto getStudentDtoByResumePk(int student_pk) {
 		
 		StudentInfoDto student = resumeSqlMapper.getStudentDtoByResumePk(student_pk);
@@ -325,7 +338,7 @@ public class ResumeServiceImpl {
 		
 	}
 	
-	
+
 	
 //	-----------------------------------------------------------------------------------------
 	// ajax 
