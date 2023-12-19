@@ -99,7 +99,7 @@
 	                                            <ul class="dropdown-menu">
 	                                                <li><a class="dropdown-item disabled">임원 전용</a></li>
 	                                                    <li><hr class="dropdown-divider"></li>
-	                                              <li><a class="dropdown-item" href="./jw_diartApplyPage">일지 작성</a></li>
+	                                              <li><a class="dropdown-item" href="./jw_diaryApplyPage">일지 작성</a></li>
 	                                              <li><a class="dropdown-item" href="./jw_callAbsenceManagementPage">점호 관리</a></li>
                                             </ul>
                                           </li>

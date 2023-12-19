@@ -44,6 +44,18 @@ public class SeoyoungApplyingController {
 		return "/tl_c/seoyoung/student/ajdksStudentMainPage";
 	}
 
+	// 공지페이지-qna
+	@RequestMapping("ajdksStudentQnApage")
+	public String ajdksStudentQnApage() {
+		return "/tl_c/seoyoung/student/ajdksStudentQnApage";
+	}
+
+	// 공지페이지-자유게시판
+	@RequestMapping("ajdksStudentFreePostingPage")
+	public String ajdksStudentFreePostingPage() {
+		return "/tl_c/seoyoung/student/ajdksStudentFreePostingPage";
+	}
+
 	// 학생 지원신청 페이지, 산업체 조회 확인
 	@RequestMapping("ajdksInterneduApplyPage")
 	public String ajdksInterneduApplyPage(Model model, HttpSession session, AjdksStudentApplyingDto params) {

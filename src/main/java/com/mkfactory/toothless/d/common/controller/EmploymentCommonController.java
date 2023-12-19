@@ -54,6 +54,18 @@ public class EmploymentCommonController {
 			model.addAttribute("applyProgramListForMyPage", programService.studentApplyProgramList());
 			model.addAttribute("studentDepartmentName", postingService.getStudentDepartmentName(studentInfoDto.getDepartment_pk()));
 		}
+		//학생 최근 온라인상담 5건
+		if(studentInfoDto != null) {
+			int student_pk = studentInfoDto.getStudent_pk();	
+			String isReply = "all";
+			System.out.println("전");
+			List<Map<String, Object>> getMyOnlineConsultingListNumFive = consultingService.getMyOnlineConsultingListNumFive(student_pk, isReply);
+			System.out.println("후");
+			model.addAttribute("getMyOnlineConsultingListNumFive", getMyOnlineConsultingListNumFive);	
+		}
+		
+
+	
 		
 		
 		return "tl_d/common/studentMyPage";

@@ -68,7 +68,7 @@
     </div>
     <div id="rowbox1" class="row" style="border-bottom: 0.01em solid #161313;" onmouseover="changeColor(1)" onmouseout="restoreColor(1)">
         <div id="colbox1" class="col py-3" style="font-size: large;">
-        	<a href="./jw_diartApplyPage" style="text-decoration: none;">
+        	<a href="./jw_diaryApplyPage" style="text-decoration: none;">
             <span class="navimenu1" style="color: black;">일지 작성</span></a>
         </div>
     </div>

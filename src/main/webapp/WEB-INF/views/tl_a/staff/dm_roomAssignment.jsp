@@ -489,6 +489,9 @@
 				modalComplete.removeAttribute("onclick");
 				modalComplete.classList.add("d-none");
 				
+				// 여기도 테스트
+				
+				
 				// 내용 조작
 				const modaltemplete = document.querySelector("#modal");
 				modaltemplete.querySelector(".modal-title").innerText = "배정 불가";
@@ -506,6 +509,10 @@
 				const modalComplete = document.querySelector("#modal .modalComplete");
 				modalComplete.setAttribute("onclick","assignmentComplete(" + hovalue + "," + student_pk +")");
 				modalComplete.classList.remove("d-none");
+				
+				//잠깐 테스트
+				
+				
 				// 내용 조작
 				const modaltemplete = document.querySelector("#modal");
 				modaltemplete.querySelector(".modal-title").innerText = "배정 하기";
@@ -703,8 +710,9 @@
 		assignNeedCancelList();
 		
 		
-		
 	});
+	
+	
 	
 	
 </script>
@@ -749,14 +757,14 @@
 			
 			<!-- 미니맵 -->
 			<div class="row">
-				<div id="button1" class="col-1 border py-4 mx-2 rounded border-dark btn text-center" onclick="roomAssignmentAll()" style="background-color: black;">
+				<div id="button1" class="col-1 border py-4 mx-2 rounded border-dark btn text-center"  onclick="roomAssignmentAll()" style="background-color: black;">
 					<div class="row">
 						<div class="bbutton1 col ms-2 fw-bold" style="color: white;">
 							전체
 						</div>
 					</div>
 				</div>
-				<div id="button2" class="col-1 border py-4 mx-2 rounded border-dark btn text-center" onclick="roomAssignmentY()">
+				<div id="button2" class="col-1 border py-4 mx-2 rounded border-dark btn text-center"  onclick="roomAssignmentY()">
 					<div class="row">
 						<div class="bbutton2 col ms-2 fw-bold">
 							미배정

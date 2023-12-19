@@ -135,6 +135,27 @@
 	
 	</select>
 	
+	<select id="searchListBySearchWordAndSearchType" resultType="map">
+		
+		SELECT tadb.NAME AS dongname, tadr.ROOM_NAME AS roomname, tjsi.NAME AS studentname FROM TL_A_DORM_BUILDING tadb 
+		INNER JOIN TL_A_DORM_ROOM tadr ON TADB.DORM_PK = TADR.DORM_PK 
+		INNER JOIN TL_A_DORM_STUDENT tads ON TADS.DORM_ROOM_PK = tadr.DORM_ROOM_PK
+		INNER JOIN TL_JIC_STUDENT_INFO tjsi ON TADS.STUDENT_PK = TJSI.STUDENT_PK 
+		WHERE 1=1
+		<if test="searchType != null">
+			<if test="searchType == 'dongname'">
+			AND tadb.NAME LIKE '%' || #{searchWord} || '%'
+			</if>
+			<if test="searchType == 'roomname'">
+			AND tadr.ROOM_NAME LIKE '%' || #{searchWord} || '%'
+			</if>
+			<if test="searchType == 'studentname'">
+			AND tjsi.NAME LIKE '%' || #{searchWord} || '%'
+			</if>
+		</if>
+		
+	</select>
+	
 	
 	
 	
