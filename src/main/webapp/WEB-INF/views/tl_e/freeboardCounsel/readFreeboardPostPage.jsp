@@ -210,7 +210,7 @@
 								
 								<form action="./deleteEmpathyByIdAndPk" method=post>
 									<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id}">
-									<button class="bi bi-hand-thumbs-up-fill rounded fs-5" type="submit" >
+									<button class="bi bi-hand-thumbs-up-fill rounded fs-3" type="submit" style="border: none; background: none;" >
 								</form>
 								</c:otherwise>
 							</c:choose>

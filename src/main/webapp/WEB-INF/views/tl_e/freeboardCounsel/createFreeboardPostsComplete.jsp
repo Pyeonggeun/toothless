@@ -53,39 +53,29 @@
 		<!-- 중간 중요 내용공간 시작 -->
 		<div class="col">
 		
-			<div class="row"> 
-				<div class="col fs-4">
-					상담센터 <span class="fs-4"> > 자유게시판 </span>  <span class="fs-3 fw-bold"> > 게시물 작성 </span>
-				</div> 
-			</div>
+			<div class="row"><div class="col py-4"></div></div>
 		
 		
 			<div class="row py-3">
 				<div class="col text-center ">
-					<span class="fw-bold fs-2">글 작성이 완료됐습니다.</span>
+					<span class="fw-bold fs-3">상담센터 자유게시판에 게시물 작성이 완료됐습니다.</span>
 				</div>
 			</div>
 		
 		
 			<div class="row py-3">
-				<div class="col-1 fs-1 text-end">
-					<i class="bi bi-exclamation-circle"></i>
-				</div>
-				<div class="col fs-5 text-conter">
-					상업성광고, 정치적 목적 게시물, 특정단체나 개인의 명예훼손 게시물, 음란물 등 미풍양속에 어긋나는 게시물 게시자는
-					<span class="fw-bold text-danger">학사 징계</span>와 함께 <span class="fw-bold text-danger">
-					민형사상 불이익</span>을 받을 수 있습니다
+				<div class="col text-center">
+					<i class="bi bi-check-circle" style="font-size: 5em; font-color: #8FBC8F;"></i>
 				</div>
 			</div>
 		
 			<div class="row py-3">
 				<div class="col text-center ">
-					<a class="btn text-white" role="button" href="freeboardCounselPage" style="background-color: #133369 ;">글 목록으로 돌아가기</a>
-				
+					<a class="btn fw-bold text-white" role="button" href="freeboardCounselPage" style="background-color:#8FBC8F; font-size: 1.5em;">글 목록으로 돌아가기</a>
 				</div>
-				
-				
 			</div>
+			
+			<div class="row"><div class="col py-4"></div></div>
 			
 		<!-- 중간 중요 내용공간 끝 -->
 		</div>

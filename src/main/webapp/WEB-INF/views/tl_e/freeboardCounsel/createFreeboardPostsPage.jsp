@@ -75,7 +75,7 @@
 			<!-- 메인이 되는 내용(두개로 쪼갤 예정) -->
 			<div class="row">
 			
-				<div class="col-1"><!-- 왼쪽 빈공간 주는 콜 --></div>
+				<div class="col-2"><!-- 왼쪽 빈공간 주는 콜 --></div>
 			
 				<!-- 메인이 되는 콜 -->			
 				<div class="col">
@@ -83,7 +83,7 @@
 					<!-- 경고창 로우 -->
 					<div class="row">
 					
-					<div class="col-1"></div>
+					
 					
 						<div class="col">
 							<div class="row border-botttom border-black py-4 my-2">
@@ -101,7 +101,7 @@
 							</div>
 						</div>
 						
-						<div class="col-1"></div>
+						
 					<!--경고창 로우 끝  -->
 					</div>	
 					
@@ -116,8 +116,9 @@
 						<!--제목과 내용 입력칸  -->
 						
 						<div class="col-9">
-							<div class="row"><div class="col">	<input id="inputTitle" name="title" type="text" placeholder="이 공간에 제목을 입력하시면 됩니다..."> </div></div>
-							<div class="row"><div class="col"> <textarea id="inputText" name = "text" cols=160 rows=20 placeholder="이 공간에 원하는 내용을 입력하시면 됩니다..."></textarea> </div></div>
+							<div class="row py-2"><div class="col">	<input id="inputTitle" name="title" type="text" style="width:100%; height:2em; border-start: none; border-end: none;" placeholder="이 공간에 제목을 입력하시면 됩니다..."> </div></div>
+							<div class="row"><div class="col"> <textarea id="inputText" name ="text" style="width:100%; height:20em; border-top: none; border-bottom: none;" placeholder="이 공간에 원하는 내용을 입력하시면 됩니다..."></textarea> </div></div>
+							<div class="row"><div class="col"> <input name="imgFiles" type="file" accept="image/*" multiple> </div></div>
 						</div>
 						
 						<!-- 각종 버튼  -->
@@ -134,9 +135,13 @@
 									<span class="fs-3">${sessionStudentInfo.name} 님</span>
 								</div>
 							</div>
-							<div class="row py-3"><div class="col"> <!--공간주는--> </div></div>
-							<div class="row"><div class="col"> <i> <input class="bi bi-person-vcard" name="imgFiles" type="file" accept="image/*" multiple></i> </div></div>
-							<div class="row py-3"><div class="col"> <!--공간주는--> </div></div>
+							
+							<div class="row"><div class="col my-6">1 <!--공간주는--> </div></div>
+							<div class="row"><div class="col my-6">2 <!--공간주는--> </div></div>
+							<div class="row"><div class="col my-6">3<!--공간주는--> </div></div>
+							<div class="row"><div class="col my-6">4<!--공간주는--> </div></div>
+							
+							
 							<div class="row"><div class="col"> <i class="bi bi-floppy"></i> <input type="button" onclick="formSubmit()" class="btn fs-3 py-1 rounded" value="글 작성 완료"> </div></div>
 						</div>
 					</div>
@@ -146,7 +151,7 @@
 				<!-- 메인이 되는 콜 끝 -->		
 				</div>
 				
-				<div class="col-1"><!-- 오른쪽 빈공간 주는 콜 --></div>
+				<div class="col-2"><!-- 오른쪽 빈공간 주는 콜 --></div>
 			</div>
 			
 			<div class="row py-3"><div class="col"> <!--공간주는--> </div></div>
