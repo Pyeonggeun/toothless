@@ -51,6 +51,18 @@
 				</div>
 			</div>
 		</div>
+		<!-- 여백용 -->
+			<div class="row">
+				<div class="col p-5">
+				</div>
+			</div>
+		
+		<!-- futter -->
+		<div class="row">
+			<div class="col">
+				<jsp:include page="../common/futter.jsp"></jsp:include>
+			</div>
+		</div>	
 	</div>
 	
 
