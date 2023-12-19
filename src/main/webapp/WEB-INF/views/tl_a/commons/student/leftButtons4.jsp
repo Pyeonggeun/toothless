@@ -93,7 +93,7 @@
    </div>
    <div id="rowbox5"  class="row" style="border-bottom: 0.01em solid #161313;">
        <div id="colbox5" class="col py-3" style="font-size: large;">
-       <a href="#" style="text-decoration: none;" onmouseover="changeColor(5)" onmouseout="restoreColor(5)">
+       <a href="./sj_requestRepairPage" style="text-decoration: none;" onmouseover="changeColor(5)" onmouseout="restoreColor(5)">
            <span class="navimenu5" style="color: black;">고장수리요청</span></a>
        </div>
    </div>

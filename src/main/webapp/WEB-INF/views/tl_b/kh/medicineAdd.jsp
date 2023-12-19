@@ -26,7 +26,7 @@
 
                 const addInfoSubmit = document.getElementById("addInfoSubmit");
 
-                const addMedicineInfo = document.querySelector("#addMedicineInfo");
+                const addMedicineInfo = document.querySelector(".addMedicineInfo");
                 
                 if(addMedicineInfo.value === '의약품종류'){
                     alert("의약품종류를 선택해 주세요");
@@ -130,41 +130,41 @@
                     addQuantity.innerHTML = e.addInfo.quantity;
 
                     const addPerson = addWrapper.querySelector(".addPerson");
+                    if(e.staffInfo == null || e.staffInfo.name == null){
+                    addPerson.innerHTML = "?";
+                    }else{
                     addPerson.innerHTML = e.staffInfo.name;
+                    }
 
                     const addDate = addWrapper.querySelector(".addDate");
                     const date = new Date(e.addInfo.add_at);
                     addDate.innerHTML = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
 
                     //모달 부분
-                    const showAddModal = addWrapper.querySelector(".showAddModal");
-                    showAddModal.innerHTML = "";
-                    const addApplybutton = document.querySelector("#templete #addApplybutton").cloneNode(true);
-                    addApplybutton.setAttribute("data-bs-target","#"+e.medicineInfo.name+"");
-                    addApplybutton.setAttribute("onclick","reloadAddMedicineInfo()")
-                    const modalWrapper = document.querySelector(".modalWrapper").cloneNode(true);
-                    modalWrapper.setAttribute("id",""+e.medicineInfo.name+"");
+
+                    // //입고하기 버튼생성후 showAddmodal에 append
+                    // const showAddModal = addWrapper.querySelector(".showAddModal");
+                    // showAddModal.innerHTML = "";
+                    // const addApplybutton = document.querySelector("#templete #addApplybutton").cloneNode(true);
+                    // addApplybutton.setAttribute("data-bs-target","#db"+e.medicineInfo.name+"");
+                    // addApplybutton.setAttribute("onclick","reloadAddMedicineInfo()");
+                    // showAddModal.appendChild(addApplybutton);
+
+                    // //modal생성후 showAddmodal에 append
+                    // const modalWrapper = document.querySelector(".modalWrapper").cloneNode(true);
+                    // modalWrapper.setAttribute("id","db"+e.medicineInfo.name+"");
+                    // const modalBody = modalWrapper.querySelector(".modal-body");
+                    // modalBody.innerText = "";
+                    // showAddModal.appendChild(modalWrapper);
+
+                    // //신청양식 불러오기
+                    // const addApplyForm = document.querySelector("#addApplyForm").cloneNode(true);
+                    // const addMedicineInfo = addApplyForm.querySelector(".addMedicineInfo");
                     
-                    const modalBody = modalWrapper.querySelector(".modal-body");
-                    modalBody.innerText = "";
-                    // const addMedicineName = document.querySelector("#addMedicineName");
-                    // addMedicineName.innerText = "";
-                    // addMedicineName.innerText = e.medicineInfo.name;
-                    showAddModal.appendChild(addApplybutton);
-                    showAddModal.appendChild(modalWrapper);
-
-                    //신청양식 불러오기
-                    const addApplyForm = document.querySelector("#addApplyForm").cloneNode(true);
-                    modalBody.appendChild(addApplyForm);
-
-                    const addMedicineInfo = addApplyForm.querySelector("#addMedicineInfo");
+                    // addMedicineInfo.appendChild(reloadAddMedicineInfo());
+                    // modalBody.appendChild(addApplyForm);
                     
-                    
-
-
-
-
-
+                    // 각 col 정보 + showAddmodal에 추가한 정보 붙이기
                     allAddInfoLocation.appendChild(addWrapper)
 
                 }
@@ -183,26 +183,25 @@
                 .then(response => response.json())
                 .then(response => {
 
-                    const addMedicineInfo = document.querySelector("#addMedicineInfo");
-                    addMedicineInfo.innerHTML = "";
+                    const selectInfo = document.querySelector(".selectInfo");
 
                     const defaultOption = document.createElement("option");
                     defaultOption.setAttribute("selected","");
                     defaultOption.innerText = "의약품종류";
-                    addMedicineInfo.appendChild(defaultOption);
+                    selectInfo.appendChild(defaultOption);
 
                     for(e of response.data){
                         
                         const option = document.createElement("option");
                         option.setAttribute("value", ""+e.medicine_code_pk+"");
                         option.innerText = e.name;
-                        addMedicineInfo.appendChild(option);
+                        selectInfo.appendChild(option);
 
 
                     }
-
-                })
-
+                    console.log(selectInfo);
+                    return selectInfo;
+                });
             }
 
             function reloadCheckBoxName(){
@@ -259,7 +258,6 @@
 
                     for (e of response.data){
 
-                        console.log(e.MEDICINE_ADD_PK);
                         const addWrapper = document.querySelector("#templete .addWrapper").cloneNode(true);
 
                         const addNumber = addWrapper.querySelector(".addNumber");
@@ -279,27 +277,27 @@
                         addDate.innerHTML = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
 
                         //모달 부분
-                        const showAddModal = addWrapper.querySelector(".showAddModal");
-                        showAddModal.innerHTML = "";
-                        const addApplybutton = document.querySelector("#templete #addApplybutton").cloneNode(true);
-                        addApplybutton.setAttribute("data-bs-target","#"+e.MEDICINE_NAME+"");
-                        addApplybutton.setAttribute("onclick","reloadAddMedicineInfo()")
-                        const modalWrapper = document.querySelector(".modalWrapper").cloneNode(true);
-                        modalWrapper.setAttribute("id",""+e.MEDICINE_NAME+"");
+                        // const showAddModal = addWrapper.querySelector(".showAddModal");
+                        // showAddModal.innerHTML = "";
+                        // const addApplybutton = document.querySelector("#templete #addApplybutton").cloneNode(true);
+                        // addApplybutton.setAttribute("data-bs-target","#"+e.MEDICINE_NAME+"");
+                        // addApplybutton.setAttribute("onclick","reloadAddMedicineInfo()")
+                        // const modalWrapper = document.querySelector(".modalWrapper").cloneNode(true);
+                        // modalWrapper.setAttribute("id",""+e.MEDICINE_NAME+"");
                         
-                        const modalBody = modalWrapper.querySelector(".modal-body");
-                        modalBody.innerText = "";
-                        // const addMedicineName = document.querySelector("#addMedicineName");
-                        // addMedicineName.innerText = "";
-                        // addMedicineName.innerText = e.medicineInfo.name;
-                        showAddModal.appendChild(addApplybutton);
-                        showAddModal.appendChild(modalWrapper);
+                        // const modalBody = modalWrapper.querySelector(".modal-body");
+                        // modalBody.innerText = "";
+                        // // const addMedicineName = document.querySelector("#addMedicineName");
+                        // // addMedicineName.innerText = "";
+                        // // addMedicineName.innerText = e.medicineInfo.name;
+                        // showAddModal.appendChild(addApplybutton);
+                        // showAddModal.appendChild(modalWrapper);
 
-                        //신청양식 불러오기
-                        const addApplyForm = document.querySelector("#addApplyForm").cloneNode(true);
-                        modalBody.appendChild(addApplyForm);
+                        // //신청양식 불러오기
+                        // const addApplyForm = document.querySelector("#addApplyForm").cloneNode(true);
+                        // modalBody.appendChild(addApplyForm);
 
-                        const addMedicineInfo = addApplyForm.querySelector("#addMedicineInfo");
+                        // const addMedicineInfo = addApplyForm.querySelector("#addMedicineInfo");
                         
                         
 
@@ -314,8 +312,7 @@
 
                     });
                 }else{
-                    const allAddInfoLocation = document.querySelector(".allAddInfoLocation");
-                    allAddInfoLocation.innerHTML = "";
+                    orderDate(1);
                 }
             }
 
@@ -349,19 +346,23 @@
                                             <div class="container">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="fw-bold">&lt;입고 관리&gt;</div>
+                                                        <div class="fw-bold"></div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div id="checkBoxNameStation" class="row my-3">
-                                                            
+                                                        <div id="checkBoxNameStation" class="row py-2 my-3">
+                                                            <div class="row my-2">
+                                                                <div class="col fw-bold">
+                                                                    &lt; 입고된 의약품 목록 &gt;
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col text-end">
                                                             
-                                                                <input onchange="orderDate(this.value)" name="orderDate" type="radio" value="1">최신순
-                                                                <input onchange="orderDate(this.value)" name="orderDate" type="radio" value="2">오래된순
+                                                                <input onchange="orderDate(this.value)" name="orderDate" type="radio" value="1">&nbsp;최신순&nbsp;
+                                                                <input onchange="orderDate(this.value)" name="orderDate" type="radio" value="2">&nbsp;오래된순&nbsp;
                                                                 
                                                             </div>
                                                         </div>
@@ -370,8 +371,73 @@
                                                             <div class="col-2 border-end border-primary">의약품이름</div>
                                                             <div class="col-2 border-end border-primary">수량</div>
                                                             <div class="col-2 border-end border-primary">입고자</div>
-                                                            <div class="col-2 border-primary">입고일</div>
-                                                            <div class="col-2">입고하기</div>
+                                                            <div class="col-2 border-end border-primary">입고일</div>
+                                                            <div class="col-2">
+                                                                <button id="addApplybutton" type="button" class="btn btn-sm btn-outline-primary customColor" data-bs-toggle="modal" data-bs-target="#kkk"
+                                                                onclick="reloadAddMedicineInfo()">
+                                                                    입고하기
+                                                                </button>
+                                                    
+                                                                <!-- Modal --> 
+                                                                  
+                                                                  <div class="modal fade modalWrapper" id="kkk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                      <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                          <h1 class="modal-title fs-5 text-center fw-bold" id="exampleModalLabel">의약품 입고</h1>
+                                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+
+                                                                            <div id="addApplyForm" class="col">
+                                                                                <form id="addInfoSubmit" action="./medicineAddProcess" method="get">
+                                                                                <div class="row">
+                                                                                    <div class="col text-center">
+                                                                                        <span id="addMedicineName" class="fw-bold "></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row mt-5">
+                                                                                    <div class="col addMedicineInfo">
+                                                                                        <select name="medicine_code_pk" class="selectInfo form-select rounded-0" aria-label="Default select example">
+                                                                                            <!--약품 카테고리 반복문 나오는곳 -->
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row mt-3">
+                                                                                    <div class="col-3">
+                                                                                        <span class="form-control border border-0">수량 : </span>
+                                                                                    </div>
+                                                                                    <div class="col">
+                                                                                        <input id="addQuantity" class="rounded-0 form-control" name="quantity" type="number" min="1" max="10">
+                                                                                    </div>
+                                                                                    <div class="col-auto">
+                                                                                        <span class="form-control text-danger border border-0">※최대 10개</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row mt-3">
+                                                                                    <div class="col-3">
+                                                                                        <span class="form-control border border-0">입고일:</span>
+                                                                                    </div>
+                                                                                    <div class="col">
+                                                                                        <input id="maxDate" class="rounded-0 form-control" name="add_at" type="date">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row mt-3">
+                                                                                    <div class="col d-grid">
+                                                                                        <input type="button" class="btn btn-secondary customColor" onclick="addInfoSubmit()" value="입고하기">
+                                                                                    </div>
+                                                                                </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                          <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">취소</button>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+
+                                                            </div>
                                                         </div>
                                                         <div class="mt-1 allAddInfoLocation">
                                                             <!-- 여기에 반복문 나와야함-->
@@ -409,7 +475,7 @@
         
 
         <div id = "templete" class="d-none">
-            <div class="row my-3 addWrapper text-center border-bottom border-primary ">
+            <div class="row my-3 pb-3 addWrapper text-center border-bottom border-primary ">
                 <div class="col-2 addNumber align-items-center">입고번호</div>
                 <div class="col-2 medicineName">의약품이름</div>
                 <div class="col-2 addQuantity">수량</div>
@@ -442,8 +508,8 @@
               </div>
 
 
-              <!-- 신청 폼 -->
-              <div id="addApplyForm" class="col">
+            <!-- 신청 폼 -->
+            <div id="addApplyForm" class="col">
                 <form id="addInfoSubmit" action="./medicineAddProcess" method="get">
                 <div class="row">
                     <div class="col text-center">
@@ -451,8 +517,8 @@
                     </div>
                 </div>
                 <div class="row mt-5">
-                    <div class="col">
-                        <select id="addMedicineInfo" name="medicine_code_pk" class="form-select rounded-0" aria-label="Default select example">
+                    <div class="col addMedicineInfo">
+                        <select name="medicine_code_pk" class="selectInfo form-select rounded-0" aria-label="Default select example">
                             <!--약품 카테고리 반복문 나오는곳 -->
                         </select>
                     </div>
