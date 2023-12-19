@@ -30,6 +30,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
+
+<jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
+
 <!-- 전체 컨테이너 시작 -->
 <div class="container-fluid">
 	<!--컨테이너 안에서 감싸는 로우, 콜 시작  -->
@@ -47,7 +50,7 @@
 								<!-- 
 								<div class="title-text fw-bold" style="font-size: 3.5em; color: white; top: 70%;">Mk University | 상담센터</div>
 								<!--<div class="title-text" style="font-size: 1.5em; color: white; top: 42%;"></div> -->
-								<div style="color: white; position: relative; font-size: 4em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 18.5%;">MKU 상담센터</div>
+								<div style="color: white; position: relative; font-size: 3em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 18.5%;">MKU 상담센터 자유게시판</div>
 								<div style="color: white; position: relative; font-size: 5em; bottom: 154%; transform: translate(-50%, -50%); text-align: center; left: -18%; border-top:1px; border-top-style: solid; border-top-color: white;"></div>
 								<div style="color: white; position: relative; font-size: 1.4em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 19.6%;">상담센터 자유게시판</div>
 								<div style="color: white; position: relative; font-size: 1.4em; bottom: 147%; transform: translate(-50%, -50%); text-align: center; left: 24.3%;"></div>		
@@ -70,41 +73,13 @@
 				<!-- 양쪽 여백을 준 뒤 중요 내용 들어가는 콜 (안에서 로우 주기) 시작 -->
 				<div class="col">
 				
-					<div class="row"><div class="col-3 pt-2 border-bottom"> <span class="fs-4">상담센터 </span> > <span class="fw-bold fs-3">자유게시판</span> </div> <div class="col"></div></div>
+					<div class="row ps-2"><div class="col-3 pt-3 pb-2 border-bottom" style="border-color:#dcdcdc;"> <span class="fs-4">상담센터 </span> > <span class="fw-bold fs-3">자유게시판</span> </div> <div class="col"></div></div>
 					<div class="row"><div class="col py-2 "><!-- 패딩과 마진으로 공간 벌리기 --></div></div>
 					
 					<!-- 양옆으로 갈리는...?  -->
 					<div class="row">
 						<!-- 왼쪽 콜 시작 -->
 						<div class="col-5"> 
-						
-							<!-- 정보창1 시작  -->
-							<div class="row">
-								<div class="col">
-									<div class="row">
-										<div class="col-1"><!-- 왼쪽 사이드 여백 --></div>
-										<!-- 정보창 1의 중요 부분 시작(제목과 내용) 시작-->
-										<div class="col">
-											<div class="row ">
-												<div class="col border-1 border-bottom"><span class="fs-4 fw-bold">상담센터 자유게시판</span><span class="text-danger">Consultation center freeboard status</span></div>
-											</div>
-											
-											<div class="row">
-												<div class="col-4 text-center"><i class="bi bi-chat-left-text fs-3"> <br> <span class=""></span> <br><span class="fs-6">오늘의 게시글</span></i></div>
-												<div class="col-4 text-center"><i class="bi bi-hand-thumbs-up-fill fs-3"><br> <span class=""></span> <br><span class="fs-6">오늘의 추천수</span></i></div>
-												<div class="col-4 text-center"><i class="bi bi-chat-right-dots fs-3"><br> <span class=""></span>  <br><span class="fs-6">오늘의 댓글수</span></i></div>
-											</div>
-										<!-- 정보창 1의 중요 부분 시작(제목과 내용) 끝-->
-										</div>
-										<div class="col-1"><!-- 오른쪽 사이드 여백 --></div>
-									</div>
-								</div>
-							<!-- 정보창1 끝  -->
-							</div>
-							
-							
-							
-							<div class="row"><div class="col py-4"><!-- 패딩과 마진으로 공간 벌리기 --></div></div>
 							
 							<!-- 정보창 2 시작 -->
 							<div class="row">
@@ -116,7 +91,7 @@
 										<div class="row">
 											<div class="col">
 											
-												<div class="row my-2"> <div class="col border-bottom"> <span class="fs-4 fw-bold">오늘의 게시물</span> <span class="text-danger">today's posts</span></div></div>
+												<div class="row my-2"> <div class="col border-bottom style="border-color:#dcdcdc;"> <span class="fs-4 fw-bold">인기 게시물</span> <span style="font-size: 1.2em; color: #8FBC8F">popular posts</span></div></div>
 													
 													<c:forEach items="${bestFreeboardPostList}" var="best">
 														<div class="row text-center py-2 rounded-1"> 
@@ -130,13 +105,11 @@
 												</div>
 											<!--조회수 기준 베스트 게시물 끝-->
 											</div>
-									
-									
-									
-									
 								</div>
 								<div class="col-1"><!-- 오른쪽 사이드 여백 --></div>
-								<!-- 정보창 2 끝 -->
+								
+								
+							<!-- 정보창 2 끝 -->
 							</div>
 							
 							<div class="row"><div class="col py-4 "><!-- 패딩과 마진으로 공간 벌리기 --></div></div>
@@ -148,8 +121,8 @@
 									<div class="row">
 										<div class="col">
 															<div class="row">
-																<div class="col border-bottom">
-																	<span class="fs-4 fw-bold">검색</span> <span class="text-danger">Search</span>
+																<div class="col border-bottom  style="border-color:#dcdcdc;">
+																	<span class="fs-4 fw-bold">검색</span> <span style="font-size: 1.2em; color: #8FBC8F">Search</span>
 																</div>
 															</div>	
 										
@@ -178,6 +151,34 @@
 							<!-- 정보창 3 끝 -->
 							</div>
 							
+							<div class="row"><div class="col py-4"><!-- 패딩과 마진으로 공간 벌리기 --></div></div>
+							
+							<!-- 정보창1 시작  -->
+							<div class="row">
+								<div class="col">
+									<div class="row">
+										<div class="col-1"><!-- 왼쪽 사이드 여백 --></div>
+										<!-- 정보창 1의 중요 부분 시작(제목과 내용) 시작-->
+										<div class="col">
+											<div class="row ">
+												<div class="col border-1 border-bottom"><span class="fs-4 fw-bold">기록</span> <span style="font-size: 1.2em; color: #8FBC8F">record</span></div>
+											</div>
+											
+											<div class="row">
+												<div class="col-5 text-center"> <br> <span class="text-danger fs-3"> ${countedPost}</span> <br> <span class="fs-6">총 게시글 수</span></i></div>
+												<div class="col-5 text-center"> <a class="btn text-center" role="button"  href="./createFreeboardPostsPage"><i class="bi bi-keyboard-fill fs-1"></i> <br> <span class="fs-6">게시글 <br> 작성하기</span></a></i></div>
+											
+											</div>
+										<!-- 정보창 1의 중요 부분 시작(제목과 내용) 끝-->
+										</div>
+										<div class="col-1"><!-- 오른쪽 사이드 여백 --></div>
+									</div>
+								</div>
+							<!-- 정보창1 끝  -->
+							</div>
+							
+							<div class="row"><div class="col py-4"><!-- 패딩과 마진으로 공간 벌리기 --></div></div>
+							
 							
 						<!-- 왼쪽 콜 끝 -->
 						</div>
@@ -195,7 +196,7 @@
 										
 										<!-- 중간 시작 -->
 										<div class="col">
-											<div class="row"><div class="col fs-4 border-bottom"> 자유게시판 전체 글 목록</div></div>
+											<div class="row ps-2 pb-2"><div class="col fs-4 border-bottom  style="border-color:#dcdcdc;"> <span class="fw-bold">자유게시판 전체 글 목록 </span> <span style="font-size: 0.8em; color: #8FBC8F">list of freeboard</span></div></div>
 													
 											<!-- 오버플로우 주기 위함 -->
 											<div class="row">
