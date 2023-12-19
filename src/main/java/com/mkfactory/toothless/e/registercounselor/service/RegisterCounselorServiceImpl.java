@@ -208,4 +208,25 @@ public class RegisterCounselorServiceImpl {
 		
 		return scoreAvg;
 	}
+	
+	public Map<String, Object> getCounselorDetailForAJAX(int counselorId){
+		System.out.println("[ RegisterCounselorServiceImpl] => [ getCounselorDetailForAJAX ] 실행됨");
+		System.out.println("---------------------------------------------------------");
+		Map<String, Object> counselorDetailForAJAX = new HashMap<String, Object>();
+		
+		CounselorDto counselorDto = registerCounselorSqlMapper.selectCounselorDetailByCounselorId(counselorId);
+		List<Map<String, Object>> counselorTypeList =  registerCounselorSqlMapper.selectCounselorTypeByCounselorId(counselorId);
+		List<LicenseImageDto> counselorLicenseList = registerCounselorSqlMapper.selectLicenseImgByCounselorId(counselorId);
+		Map<String, Object> counselorScoreAvg = registerCounselorSqlMapper.selectCounselorAllScoreAvgByCounselorId(counselorId);
+		List<Map<String, Object>> counselList =  registerCounselorSqlMapper.selectCompleteCounselListByCounselorId(counselorId); 
+		
+		counselorDetailForAJAX.put("counselorDto", counselorDto);
+		counselorDetailForAJAX.put("counselorTypeList", counselorTypeList);
+		counselorDetailForAJAX.put("counselorLicenseList", counselorLicenseList);
+		counselorDetailForAJAX.put("counselorScoreAvg", counselorScoreAvg);
+		counselorDetailForAJAX.put("counselList", counselList);
+		
+		return counselorDetailForAJAX;
+	}
+	
 }

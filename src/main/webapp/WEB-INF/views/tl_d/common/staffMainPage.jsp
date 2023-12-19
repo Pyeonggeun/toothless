@@ -19,14 +19,11 @@
 				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>
 			</div>
 		</div>
-		
 		<div class="row">
 			<!-- 취업팀 메뉴 바 -->
 			<div class="col-2">
 				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 			</div>
-			
-			
 			<div class="col border-start">
 				<!-- 이제 여따가 진행 구직희망, 구직희망 신청,기업 -->
 				<div class="row ms-5 mt-5 pt-3">
@@ -34,27 +31,51 @@
 					<!-- 진행 구직희망 -->
 					<div class="col me-4">
 					
-						<div class="row fw-bold fs-5 pb-1 border-bottom border-bd-border border-2">
+						<div class="row fw-bold fs-5 pb-1 mb-2 border-bottom border-bd-border border-2">
 							<div class="col">진행 구직희망</div>
 							<div class="col text-end fw-bold fs-5">
-								<a href="#" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
+								<a href="../jm_consulting/staffViewOnlineConsultingPage" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
 							</div>
 						</div>
 						 
-						<div class="row"></div>
+						<div class="row">
+							<div class="col">
+								<c:forEach items="${progressOnlinceConsultingNumFive}" var="e">
+										<div class="row border-bottom border-bs-border pb-2 mb-2">
+											<div class="col-1 text-center fw-bold pt-1">${e.onlineConsultingDto.on_consulting_pk}</div>
+											<div class="col"><a class="btn ms-4" href="../jm_consulting/viewDetailStudentInfoPage?hope_job_pk=${e.HOPE_JOB_PK}">${e.studentInfoDto.name}</a></div>
+											<div class="col-3 text-center pt-1">
+												${e.studentInfoDto.student_id}									
+											</div>
+										</div>
+								</c:forEach> 							
+							</div>						
+						</div>
 					</div>
 					
 					
 					<!-- 구직희망 신청 -->
 					<div class="col me-4">
-						<div class="row fw-bold fs-5 pb-1 border-bottom border-bd-border border-2">
+						<div class="row fw-bold fs-5 pb-1 mb-2 border-bottom border-bd-border border-2">
 							<div class="col">구직희망 신청</div>
 							<div class="col text-end fw-bold fs-5">
-								<a href="#" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
+								<a href="../jm_consulting/viewStudentListPage" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
 							</div>
 						</div>
 						
-						<div class="row"></div>
+						<div class="row">
+							<div class="col">
+								<c:forEach items="${getHopeJobInfoNumFive}" var="e">
+										<div class="row border-bottom border-bs-border pb-2 mb-2">
+											<div class="col-1 text-center fw-bold pt-1">${e.HOPE_JOB_PK}</div>
+											<div class="col"><a class="btn ms-4" href="../jm_consulting/viewDetailStudentInfoPage?hope_job_pk=${e.HOPE_JOB_PK}">${e.NAME}</a></div>
+											<div class="col-3 text-center pt-1" style="font-size:0.8em;">
+												<fmt:formatDate pattern="yyyy-MM-dd" value="${e.CREATED_AT}"/>											
+											</div>
+										</div>
+								</c:forEach> 							
+							</div>												
+						</div>
 					</div>
 					
 					 
@@ -119,9 +140,21 @@
 											<img class="img-fluid" src="../../resources/img/employment/${list.programDto.prg_main_image}" style="height: 10em; weight: 10em;">
 											
 										</div>  
-										<div class="row mt-2">
+										<div class="row mt-2">  
+											<div class="col mt-1 ms-2 ps-3">
+												<c:choose>
+									                <c:when test="${list.programDto.prg_apply_deadline.before(currentTime)}">
+									                	<span class="text-center badge text-bg-secondary">마감</span>
+									                </c:when>
+									                <c:otherwise>
+									                	 <span class="text-center badge text-bg-primary">모집중</span>
+									                </c:otherwise>
+									            </c:choose>
+									          </div>
+								        </div> 
+										<div class="row">
 											<div class="col">
-												<a class="btn text-truncate fw-bold" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em">${list.programDto.prg_name}</a>
+												<a class="btn text-truncate fw-bold" href="../gw_program/programViewDetailsPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em">${list.programDto.prg_name}</a>
 											</div>
 										</div>
 										<div class="row">
@@ -148,16 +181,18 @@
 							</c:forEach> 
 						</div>
 					</div>
-					
 					<div class="col-2"></div>
 				</div>
-				
 			</div>
-			
+		</div>
+		<div class="row mb-5 pb-5"><div class="col"></div></div>
+		<!-- futter -->
+		<div class="row">
+			<div class="col">
+				<jsp:include page="./futter.jsp"></jsp:include>
+			</div>
 		</div>	
 	</div>
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

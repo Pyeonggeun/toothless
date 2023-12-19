@@ -29,7 +29,7 @@
 	    		});		
 	    	}
  
-		
+			
 			function reloadItemList(){
 				const url = "./restGetItemAndItemApplyList";
 				
@@ -180,33 +180,78 @@
 <body>
 	<div class="container-fluid">
 		<div class="row">
-		    <div class="col">
-		        <div class="row" style="background-color: #014195">
-		            <div class="col py-2 fw-bold text-white" >
-		                <a href="../common/studentMainPage" class="link-underline link-underline-opacity-0 link-dark">
-		                	<img class="img-fluid" src="../../resources/img/another/logo_black.png" style="width: 4%;">
-		                </a>	
-		                	<span style="font-size: 1em; word-spacing: -0.25em">MK University</span>&nbsp;|<span style="font-size: 1em"> 보건센터</span>&nbsp;|<span style="font-size: 1em"> 물품신청</span>    
-		               
-	            	</div>
-	        	</div>
-	    	</div>
-		</div>
-		<div class="row mt-5">
-			<div class="col-4"></div>
-			<div class="col-4">
-				<div class="row bg-secondary-subtle shadow rounded-box py-3" style="border-radius: 100%;">
-					<div class="fst-italic col text-center text-primary-emphasis fw-bold" style="font-size: 2em;">
-						물품 리스트
+            <div class="col">
+                <div class="row text-center">
+                    <div class="col-4"></div>
+                    <div class="col-1 pe-2 text-end">
+                        <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
+                    </div>
+                    <div class="col-3 ps-0 fw-bold fs-1 text-start ">
+                        MK University<span class="fs-6"> | </span> <span class="fs-5">보건센터</span> 
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-1 border-end border-secondary text-end text-secondary mt-5" style="font-size: small">
+                        포털이용안내
+                    </div>
+                    <div class="col-1 text-start text-secondary mt-5 "style="font-size: small">
+                        <a class="navbar-brand" href="../../another/student/logoutProcess">로그아웃</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center py-1 fw-bold text-light mt-3" style="background-color: #133369">
+            <div class="col-2"></div>
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="../../tl_c/guntaek/student/ajdksRegisterSelfIntroduction">공지사항</a>
+            </div>
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="../../tl_d/common/employmentMainPage">진료안내</a>
+            </div>
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="../../tl_e/commons/counselCenterStudentMainPage">진료신청</a>
+            </div>
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="./studentItemApplyInformationPage">물품신청</a>
+            </div>
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="../../tl_b/common/studentMainPage">교육신청</a>
+            </div>
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="../../tl_b/common/studentMainPage">오시는길</a>
+            </div>
+            <div class="col-1 position-relative pb-0">
+            	<a class="navbar-brand" href="#" onclick="showNotifyModal()"><i class="bi bi-bell-fill pe-1">
+            	<span id="reloadNotifyCount" class="position-absolute top-70 start-50 badge rounded-pill bg-danger d-none px-1 py-0" style="font-size: xx-small;">
+				</span>
+				</i></a> 
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <div class="row" style="margin-left: 16%; margin-right: 16%;">
+        	<div class="col">
+        		<div class="row mt-2">
+		            <div class="col text-end">
+		                <a href="../common/studentMainPage" style="text-decoration-line : none; color: black;"><span style="font-size: 0.8em; opacity: 70%;">HOME</span></a>&nbsp;<span style="opacity: 70%;">></span>&nbsp;<a href="./studentItemApplyInformationPage" style="text-decoration-line : none; color: black;"><span style="font-size: 0.8em; opacity: 70%;">물품신청안내</span></a>&nbsp;<span style="opacity: 70%;">></span>&nbsp;<span class="fw-bold" style="font-size: 0.8em;">물품신청</span> 
+		            </div>
+		        </div>
+				<div class="row mt-5">
+					<div class="col-4"></div>
+					<div class="col-4">
+						<div class="row bg-secondary-subtle shadow rounded-box py-3" style="border-radius: 100%;">
+							<div class="fst-italic col text-center text-primary-emphasis fw-bold" style="font-size: 2em;">
+								물품 리스트
+							</div>
+						</div>
 					</div>
+					<div class="col-4"></div>
 				</div>
-			</div>
-			<div class="col-4"></div>
-		</div>
-		
-		<div id="studentItemListBox" class="row mt-4 mb-5" style="margin-left: 16%; margin-right: 16%;">
-			
-		</div>
+				
+				<div id="studentItemListBox" class="row mt-4 mb-5">
+					
+				</div>
+        	</div>
+        </div>
+        
 		<div class="row">
                <div class="col">
                    <div class="row">

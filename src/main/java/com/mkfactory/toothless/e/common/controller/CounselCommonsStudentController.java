@@ -38,6 +38,9 @@ public class CounselCommonsStudentController {
 		List<FreeboardDto> freeboardList = counselCommonsStudentService.getFreeboardList();
 		model.addAttribute("freeboardList", freeboardList);
 		
+		List<Map<String, Object>> offlineCounselList = counselCommonsStudentService.getOfflineCounselList(student_pk);
+		model.addAttribute("offlineCounselList", offlineCounselList);
+		
 		return "tl_e/commons/counselCenterStudentMainPage";
 	}
 

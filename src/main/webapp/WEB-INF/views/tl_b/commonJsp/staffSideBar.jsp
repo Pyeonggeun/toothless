@@ -17,7 +17,7 @@
                     </div>
                     <div class="row">
                         <div class="col text-center">
-                            <span id="staffName">보건직원 이름</span> 님
+                            <span id="staffName"></span> 님
                         </div>
                     </div>
                 </div>

@@ -368,6 +368,7 @@
 		        SELECT tdic.STUDENT_PK
 		        FROM TL_D_INTEREST_COMPANY tdic
 		        WHERE tdic.COM_PK = #{com_pk} 
+			)
 		)
 	</select>
 	
@@ -377,11 +378,11 @@
 		WHERE tjdc.DEPARTMENT_PK = #{department_pk}
 	</select>
 	
-	<!-- 지원자 -->
+	<!-- 중복지원 방지용 지원자 -->
 	<select id="selectMyApplyByStudentPk" resultType="int">
 		SELECT tdv.JOB_POSTING_PK 
 		FROM TL_D_VOLUNTEER tdv 
-		WHERE tdv.RESUME_PK  IN (
+		WHERE tdv.RESUME_PK IN (
 			SELECT tdr.RESUME_PK 
 			FROM TL_D_RESUME tdr 
 			WHERE tdr.STUDENT_PK IN (

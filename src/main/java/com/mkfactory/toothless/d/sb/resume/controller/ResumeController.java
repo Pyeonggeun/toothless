@@ -21,6 +21,7 @@ import com.mkfactory.toothless.d.dto.JobPostingDto;
 import com.mkfactory.toothless.d.dto.LicenseDto;
 import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.dto.VolunteerDto;
+import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.d.sb.resume.service.ResumeServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
@@ -35,6 +36,10 @@ public class ResumeController {
 	private ResumeServiceImpl resumeService;
 	@Autowired
 	private PostingServiceImpl postingService;
+	// 나연. 회사이름가져오려고 사용
+	@Autowired
+	private CompanyServiceIpml companyService;
+	
 	
 	// 이력서 등록 페이지
 	@RequestMapping("resumeRegistrationPage")
@@ -409,9 +414,11 @@ public class ResumeController {
 			int externalInfoPk = externalInfoDto.getExternal_pk();
 			
 			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalInfoPk);
-		
-			model.addAttribute("applyStudentList", postingService.getApplyStudentTotalList(companyDto.getCom_pk()));
 			
+			//나연. 회사이름 가져오는 용으로 사용
+			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
+			model.addAttribute("applyStudentList", postingService.getApplyStudentTotalList(companyDto.getCom_pk()));
+			model.addAttribute("resumeList", resumeService.getPublicResumeList());
 		}	
 		return "tl_d/sb_resume/publicResumeByStudentListPage";
 	}

@@ -205,5 +205,10 @@
 	<select id="countByExternalId" resultType="int">
 		SELECT COUNT(*) FROM tl_jic_external_info WHERE external_id=#{external_id}
 	</select>
+	
+	<!--  <select id="interestComponySelectByStudentPk" resultType="com.mkfactory.toothless.d.dto.InterestCompanyDto">
+		SELECT * FROM tl_d_interest_company
+		WHERE student_pk=#{student_pk}
+	</select>-->
 
 </mapper>

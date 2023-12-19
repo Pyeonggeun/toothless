@@ -474,10 +474,10 @@
 			]]>
 		) date_range
 		LEFT OUTER JOIN (
-			SELECT cocr.CREATED_AT AS COUNSEL_DATE, count(*) AS COUNT FROM cp_online_counsel_board cocb
+			SELECT TRUNC(cocr.CREATED_AT,'DD') AS COUNSEL_DATE, count(*) AS COUNT FROM cp_online_counsel_board cocb
 			INNER JOIN CP_ONLINE_COUNSEL_REPLY cocr ON cocb.ID = cocr.ONLINE_COUNSEL_BOARD_ID
 			WHERE cocr.COUNSELOR_ID = #{counselor_id}
-			GROUP BY cocr.CREATED_AT
+			GROUP BY TRUNC(cocr.CREATED_AT,'DD') 
 		) date_value ON date_range.COUNSEL_DATE = date_value.COUNSEL_DATE
 		ORDER BY date_range.COUNSEL_DATE
 	</select>
@@ -545,7 +545,7 @@
 		SELECT 
 			cor.counsel_year || '.' || cor.counsel_month || '.' || cor.counsel_date || '.' || cor.counsel_hour || '.' || cor.counsel_day AS DATE_VALUE 
 		FROM CP_OFFLINE_RESERVATION cor
-		WHERE cor.STATE = '신청' OR cor.STATE = '취소'
+		WHERE cor.STATE = '신청'
 	</select>
 	
 	

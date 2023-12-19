@@ -11,6 +11,7 @@
 
 <title>Insert title here</title>
 <script>
+
 	function adongClick(callBackFuc){
 
 		//A동 클릭버튼 속성 조작
@@ -85,6 +86,7 @@
 		callBackFuc();
 		
 	}
+	
 	// ★★★★★★★★★★★ 여기 내용 수정하는거 Adong 엘리먼트에서 값을받아와서 파라미터로 값넘겨줘서  
 	function contentUpdate2(){
 		// restAPI 사용해서 리스트를 끌어올거임..
@@ -123,6 +125,138 @@
 		
 	}
 	
+	// 동리스트 버튼 일반 출력 
+	function dongListSequence(){
+		
+		
+		
+		const url = "./buildingInfoList";
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			let count = 0;
+			for(e of response.data){
+				
+				//카운트 이거 동이름으로 sequence네임 만들려고
+				count++;
+				const Wrapper = document.querySelector("#Wrapper").cloneNode(true);
+				Wrapper.classList.remove("d-none");
+				
+				//마우스 오버
+				Wrapper.setAttribute("onmouseover","mouseoverChangeColor()");
+				
+				//마우스 버튼
+				Wrapper.setAttribute("onclick", "dongListSequenceButton(" + e.dorm_pk + ",this" + ")");
+				Wrapper.querySelector(".dongName").innerText = e.name;
+				
+				console.log(Wrapper);
+				
+				document.querySelector("#dongWrapper").appendChild(Wrapper);
+				
+				
+				
+			}
+			
+			
+			
+		});
+		
+	}
+	
+	// 버튼을 눌렀을때 리스트 출력
+	function dongListSequenceButton(dorm_pk, element){
+		
+		
+		// 버튼 리스트 초기화시키고 다시로드 시켜야됨 왜냐면 버튼 색 문제
+		
+		
+		
+		// 이미 색상을 바꿈 
+		const dongWrapper = document.querySelectorAll(".dongName"); 
+		for(e of dongWrapper){
+			e.style.color = "black";
+		}
+		const bgdong = document.querySelectorAll(".bgdong");
+		for(e of bgdong){
+			e.style.backgroundColor = "white";
+		}
+		
+		element.querySelector(".dongName").style.color = "white";
+		element.style.backgroundColor = "black";
+		
+		
+		
+		// 리스트 초기화 먼저 때려줘야됨 		
+		document.querySelector("#templete").innerHTML = "";
+		
+		const url = "./selectListTest?dorm_pk=" + dorm_pk;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			for(e of response.data){
+				
+				const HoWrapper = document.querySelector("#HoWrapper").cloneNode(true);
+				HoWrapper.querySelector(".buildname").innerText = e.DONGNAME;
+				HoWrapper.querySelector(".roomname").innerText = e.ROOMNAME;
+				HoWrapper.querySelector(".studentname").innerText = e.STUDENTNAME;
+				
+				document.querySelector("#templete").appendChild(HoWrapper);
+								
+			}
+			
+		})
+		
+		
+	}
+	
+	// 마우스 오버시 색상 변경 
+	function mouseoverChangeColor(){
+		
+	}
+	
+	// 마우스 클릭시 버튼 색깔 변경
+	function mouseclickChangeButtonColor(){
+		
+		
+		
+	}
+	
+	
+	// 기본적으로 전체 배정현황이 나와야함 
+	function allDormStudentAssignList(){
+		
+		document.querySelector("#templete").innerHTML = "";
+		
+		const url = "./allDormStudent";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			for(e of response.data){
+				
+				const HoWrapper = document.querySelector("#HoWrapper").cloneNode(true);
+				HoWrapper.querySelector(".buildname").innerText = e.dormBuildingDto.name;
+				HoWrapper.querySelector(".roomname").innerText = e.dormRoomDto.room_name;
+				HoWrapper.querySelector(".studentname").innerText = e.studentInfoDto.name;
+				
+				document.querySelector("#templete").appendChild(HoWrapper);
+			}
+			
+			
+		})
+		
+	}
+	
+	window.addEventListener("DOMContentLoaded", () => {
+		
+		dongListSequence();
+		allDormStudentAssignList();
+	});
+	
+	
 	
 </script>
 
@@ -157,6 +291,7 @@
 					  <li class="nav-item">
 					    <a class="nav-link text-black" href="./dm_roomAssignment">호실 배정</a>
 					  </li>
+					  <!--  여기 배정현황은 링크가 아닌 온클릭 전체리스트출력으로 해야됨 -->
 					  <li class="nav-item">
 					    <a class="nav-link active text-black" href="./dm_readRoomAssignment">배정 현황</a>
 					  </li>
@@ -164,8 +299,8 @@
 				</div>
 			</div>
 			<div class="row" id="dongWrapper">
-				<div class="adong col border py-4 mx-2 rounded border-dark btn text-center" onclick="adongClick(contentUpdate)">
-					<div class="row"><!-- 여기를 뜯어내야함 버튼을 눌렀을 때 -->
+				<!--  <div class="adong col border py-4 mx-2 rounded border-dark btn text-center" onclick="adongClick(contentUpdate)">
+					<div class="row">
 							<div class="col ms-2 fw-bold">
 								A동
 							</div>
@@ -178,8 +313,8 @@
 							</div>
 					</div>
 					
-				</div>
-				<div class="col-8"></div>
+				</div>-->
+				
 			</div>
 
 			
@@ -194,15 +329,7 @@
 							</tr>
 						</thead>
 						<tbody id="templete">
-							<c:if test="${!empty dormList}">
-							<c:forEach items="${dormList }" var="dormList">
-							<tr class="HoWrapper">
-								<td id="buildname">${dormList.dormBuildingDto.name }</td>
-								<td id="roomname">${dormList.dormRoomDto.room_name }</td>
-								<td id="studentname">${dormList.studentInfoDto.name }</td>
-							</tr>
-							</c:forEach>
-							</c:if>
+							
 						</tbody>
 					</table>
 				</div>
@@ -231,6 +358,22 @@
   </div>
 
 </div>
+							<!-- 호리스트 출력 -->
+							<table class="d-none">
+							<tr id="HoWrapper">
+								<td class="buildname"></td>
+								<td class="roomname"></td>
+								<td class="studentname"></td>
+							</tr>
+							</table>
+							<!-- 동출력 먼저. -->
+							<div id="Wrapper" class="bgdong col-1 border py-4 mx-2 rounded border-dark btn text-center d-none" onclick="dongListSequenceButton(this)">
+								<div class="row"><!-- 여기를 뜯어내야함 버튼을 눌렀을 때 -->
+									<div class="dongName col ms-2 fw-bold">
+										A동
+									</div>
+								</div>
+							</div>  
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
  integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

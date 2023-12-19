@@ -41,17 +41,29 @@
 								<div class="row border-bottom border-gray">
 									<div class="col fs-3">인적사항</div>
 								</div>
+								<div class="row ms-2 mt-1">
+							
+									<div class="col">이름 : ${sessionStudentInfo.name }</div>
+									<div class="col">성별 : ${sessionStudentInfo.gender }</div>
+									<div class="col">
+										생일 : <fmt:formatDate value="${sessionStudentInfo.birth }" pattern="yyyy-MM-dd"/>
+									</div>
+									
+									<div class="col-1"></div>
+								</div>
+								<div class="row ms-2 mt-2">
+									<div class="col">핸드폰 번호 : ${sessionStudentInfo.phone }</div>
+									<div class="col">이메일 주소 : ${sessionStudentInfo.email }</div>
+									<div class="col"></div>
+									<div class="col-1"></div>
+								</div>
+								<div class="row ms-2 mt-2 mb-2">
+									<div class="col">주소 : ${sessionStudentInfo.address }</div>
+									<div class="col-1"></div>
+								</div>
+								
 							</div>
-							<div class="row">
-								<div class="col">이름 : ${sessionStudentInfo.name }</div>
-								<div class="col">생일 : <fmt:formatDate value="${sessionStudentInfo.birth}" pattern="yy.MM.dd"/></div>
-								<div class="col">성별 : ${sessionStudentInfo.gender }</div>
-								<div class="col">이메일 : ${sessionStudentInfo.email }</div>
-							</div>
-							<div class="row">
-								<div class="col">전화번호 : ${sessionStudentInfo.phone }</div>
-								<div class="col">주소 : ${sessionStudentInfo.address }</div>
-							</div>
+							
 						</div>
 					</div>	
 				</div>
@@ -66,7 +78,7 @@
 									<div class="col fs-3">메인 이력서 선택</div>
 								</div>
 								<div class="row mt-2">
-									<div class="col">
+									<div class="col ms-2">
 										<input name="main_resume" type="radio" value="Y"> 메인이력서
 										<input name="main_resume" type="radio" value="N"> 추가이력서 <br>
 										

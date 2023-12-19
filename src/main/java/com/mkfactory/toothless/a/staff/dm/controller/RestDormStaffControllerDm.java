@@ -56,7 +56,9 @@ public class RestDormStaffControllerDm {
 	}
 	
 	@RequestMapping("assignmentAdd")
-	public void assignmentAddProcess(DormStudentDto dormStudentDto) {
+	public RestResponseDto assignmentAddProcess(DormStudentDto dormStudentDto) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
 		//semesterPk 가 Y인 녀석 가져오기
 		SemesterDto semesterDto = dormStaffServiceDm.SemesterCheckY();
 		int semester_pk = semesterDto.getSemester_pk();
@@ -64,6 +66,10 @@ public class RestDormStaffControllerDm {
 		dormStudentDto.setSemester_pk(semester_pk);
 		// 사생 배정하기
 		dormStaffServiceDm.dormStudentAssignmentInsert(dormStudentDto);
+		
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
 		
 	}
 	
@@ -141,6 +147,51 @@ public class RestDormStaffControllerDm {
 		
 		restResponseDto.setResult("success");
 		restResponseDto.setData(dormStaffServiceDm.dormRoomInfoByDormPk(dorm_pk));
+		
+		return restResponseDto;
+	}
+	
+	// 바꾸는거.. 리스트에 해당하는 호수랑 
+	@RequestMapping("sselectList")
+	public RestResponseDto sselectList(int dorm_pk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		restResponseDto.setData(dormStaffServiceDm.ddormRoomInfoByDormPk(dorm_pk));
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("selectListTest")
+	public RestResponseDto selectListTest(int dorm_pk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		restResponseDto.setData(dormStaffServiceDm.dormInfoTestByDormPk(dorm_pk));
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("assignCheck")
+	public RestResponseDto assignCheck(int dorm_room_pk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		restResponseDto.setData(dormStaffServiceDm.dormAssignCheckByDormRoomPk(dorm_room_pk));
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("allDormStudent")
+	public RestResponseDto allDormStudent() {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		restResponseDto.setData(dormStaffServiceDm.allDormStudent());
 		
 		return restResponseDto;
 	}

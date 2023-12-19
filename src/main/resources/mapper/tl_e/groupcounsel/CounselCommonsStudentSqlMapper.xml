@@ -54,6 +54,38 @@
 		WHERE notice_id = #{notice_id}	
 	</select>
 	
+	<select id="getOfflineCounselListByStudentId" resultType="Map">
+		SELECT *
+		FROM (
+		    SELECT
+		        a.student_pk,
+		        a.counselor_id,
+		        a.type_category_id,
+		        a.counsel_hour,
+		        TO_CHAR(TO_DATE(TO_CHAR(a.counsel_year) || '.' || TO_CHAR(a.counsel_month) || '.' || TO_CHAR(a.counsel_date), 'YYYY.MM.DD'), 'YYYY.MM.DD') AS counsel_date,
+		        TO_CHAR(TO_DATE(TO_CHAR(a.counsel_year) || '.' || TO_CHAR(a.counsel_month) || '.' || TO_CHAR(a.counsel_date), 'YYYY.MM.DD') - TO_DATE(TO_CHAR(SYSDATE, 'YYYY.MM.DD'), 'YYYY.MM.DD')) AS d_day,
+		        a.state
+		    FROM cp_offline_reservation a
+		    WHERE STUDENT_PK = 41 AND state='신청'
+		    ORDER BY COUNSEL_YEAR, COUNSEL_MONTH, COUNSEL_DATE, COUNSEL_HOUR
+		)
+		 	<![CDATA[
+		 	WHERE ROWNUM <= 3
+		 	]]>
+	</select>
+	
+	<select id="getCounselorInfoById" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
+		SELECT * FROM CP_COUNSELOR cc 
+		WHERE id = #{id}
+	</select>
+	
+	<select id="getCounselorType" resultType="com.mkfactory.toothless.e.dto.TypeCategoryDto">
+		SELECT * FROM CP_TYPE_CATEGORY ctc 
+		WHERE id = #{id}	
+	</select>
+	
+	
+	
 
 </mapper>
 

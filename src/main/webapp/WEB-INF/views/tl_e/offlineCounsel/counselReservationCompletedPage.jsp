@@ -12,90 +12,30 @@
 	
 	<div class="container-fluid">
 	
-		<div class="row py-2">
-            <div class="col-1 pe-2 text-end">
-                <a class="navbar-brand" href="../commons/counselCenterStudentMainPage"><img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;"></a>
-            </div>
-            <div class="col-3 ps-0 pt-2 fw-bold fs-3 text-start ">
-                <a class="navbar-brand" href="../commons/counselCenterStudentMainPage">MK University<span class="fs-6"> | </span> <span class="fs-5">상담센터</span></a>
-            </div>
-            <div class="col-2"></div>
-            <div class="col">
-            	<div class="row pt-3">
-            		<div class="col-9 d-grid">
-            			<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            		</div>
-            		<div class="col d-grid">
-            			<button class="btn btn-outline-dark" type="submit">Search</button>
-            		</div>
-            	</div>
-            </div>
-			<div class="col-1 pt-3 me-0 pe-0 text-center dropdown nav-item">
-			  <a class="nav-link pt-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    <span class="fw-bold">${sessionStudentInfo.name }</span>님
-			  </a>
-			  <ul class="dropdown-menu">
-			    <li><a class="dropdown-item" href="#">정보 수정</a></li>
-			    <li><a class="dropdown-item" href="#">마이페이지</a></li>
-			    <li><hr class="dropdown-divider"></li>
-			    <li><a class="dropdown-item" href="#"><span><i class="bi bi-power"></i></span>&nbsp;로그아웃</a></li>
-			  </ul>
-			</div>
-			<div class="col-1"></div>
-		</div>
-		
-		<!-- 상단 내비게이션 -->
-		<div class="row fw-bold" style="background-color: #133369;">
-			<div class="col ms-5">
-				<ul class="nav nav-pills">
-				  <li class="nav-item dropdown">
-				    <a class="nav-link dropdown-toggle fw-bold text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">상담신청</a>
-				    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">온라인 상담신청</a></li>
-                        <li><a class="dropdown-item" href="./selectCounselorPage">오프라인 상담신청</a></li>
-                        <li><a class="dropdown-item" href="#">집단 상담신청</a></li>
-                    </ul>
-				  </li>
-				</ul>
-			</div>
+		<div class="row">
 			<div class="col">
-				<ul class="nav nav-pills">
-				  <li class="nav-item dropdown">
-				    <a class="nav-link fw-bold text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">공지사항</a>
-				  </li>
-				</ul>
+				<jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
 			</div>
-			<div class="col">
-				<ul class="nav nav-pills">
-				  <li class="nav-item dropdown">
-				    <a class="nav-link fw-bold text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">자유게시판</a>
-				  </li>
-				</ul>
-			</div>
-			<div class="col">
-				<ul class="nav nav-pills">
-				  <li class="nav-item dropdown">
-				    <a class="nav-link fw-bold text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">상담원 정보</a>
-				  </li>
-				</ul>
-			</div>
-			<div class="col">
-				<ul class="nav nav-pills">
-				  <li class="nav-item dropdown">
-				    <a class="nav-link dropdown-toggle fw-bold text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">마이페이지</a>
-				    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="./checkOfflineCounselReservationStudentPage">예약 조회</a></li>
-                        <li><a class="dropdown-item" href="#">상담이력 조회</a></li>
-                    </ul>
-				  </li>
-				</ul>
-			</div>
-		</div>
+		</div>	
 		
 		<!-- 상단 배너 -->
 		<div class="row">
-			<div class="col d-grid px-0">
-				<img class="img-fluid" src="../../resources/img/offlineCounsel/offlineCounselBanner5.jpg">
+			<div class="col mx-0 px-0" style="height: 35em;">
+				<img class="banner img-fluid" src="./../../resources/img/groupCounsel/fff.jpg" style="width:100%; height: 100%;">
+			
+				<div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height:100%; position: relative; bottom: 100%;"></div>
+				<!-- 
+				<div class="title-text fw-bold" style="font-size: 3.5em; color: white; top: 70%;">Mk University | 상담센터</div>
+				<!--<div class="title-text" style="font-size: 1.5em; color: white; top: 42%;"></div> -->
+				<div style="color: white; position: relative; font-size: 4em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 20.5%;">MKU 상담센터</div>
+				<div style="color: white; position: relative; font-size: 5em; bottom: 154%; transform: translate(-50%, -50%); text-align: center; left: -18%; border-top:1px; border-top-style: solid; border-top-color: white;"></div>
+				<div style="color: white; position: relative; font-size: 1.4em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 19.6%;">너와 나 그리고 우리를 위한 마음을 위한 치료</div>
+				<div style="color: white; position: relative; font-size: 1.4em; bottom: 147%; transform: translate(-50%, -50%); text-align: center; left: 24.3%;">마음도 관리가 필요합니다</div>		
+				<div style="height:13em; width:14em; border-radius: 0px 50px 0px 0px; background-color: #679467; opacity:0.9; position: relative; font-size: 1.4em; bottom: 155.2%; transform: translate(-50%, -50%); text-align: center; left: 86.7%;"></div>				
+				<div style="font-weight:900; color: #464646; position: relative; font-size: 1.5em; bottom: 225%; transform: translate(-50%, -50%); text-align: center; left: 84%;">Contact Us</div>
+				<div style="font-weight:900; color: white; position: relative; font-size: 2.8em; bottom: 212%; transform: translate(-50%, -50%); text-align: center; left: 86.3%;">1544-3054</div>
+				<div style="color: white; position: relative; font-size: 0.9em; bottom: 215%; transform: translate(-50%, -50%); text-align: center; left: 85.5%;">E-mail. mkmk@naver.com</div>
+				<div style="color: white; position: relative; font-size: 0.9em; bottom: 214%; transform: translate(-50%, -50%); text-align: center; left: 84.5%;">Tel. 010-4097-3054</div>
 			</div>
 		</div>
 	

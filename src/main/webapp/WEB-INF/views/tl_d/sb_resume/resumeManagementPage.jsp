@@ -318,7 +318,11 @@
 	function showModal(){
         // 필요시 여기서 백엔드하고 연동... CSR
 
-
+		const resume_title = document.getElementById('resume_title');
+		resume_title.value = "";
+		const cover_letter = document.getElementById('cover_letter');
+		cover_letter.value = "";
+		
         const modal = bootstrap.Modal.getOrCreateInstance("#addResumebutton");
         modal.show();
         // show 하면 뜨고 hide 하면 닫힘
@@ -332,10 +336,12 @@
         modal.hide();
         
     }
+	
     // 모달 내용 초기화 안됨..
 	function closeModal() {
 		document.getElementById('main_resume').value = '';
-		document.getElementById('resume_title').value = '';
+		const resume_title = document.getElementById('resume_title');
+		resume_title.innerText = "";
 		document.getElementById('cover_letter').value = '';
 		const modal = bootstrap.Modal.getOrCreateInstance("#addResumebutton");
 		modal.hide();
@@ -397,7 +403,7 @@
 						<div class="row border-bottom border-gray">
 							<div class="col fs-3">메인 이력서</div>
 						</div>
-						<div class="row border-bottom border-gray">
+						<div class="row border-bottom border-gray text-light" style="background-color: #133369">
 							<div class="col-6 fs-5">제목</div>
 							<div class="col fs-5 text-center">작성일</div>
 							<div class="col fs-5 text-center">공개 선택</div>
@@ -415,13 +421,13 @@
 				
 				<div class="row border border-top mt-4">
 					<div class="col p-3 ms-2">
-						<div class="row border-bottom border-gray">
+						<div class="row border-bottom border-gray" >
 							<div class="col fs-3">이력서</div>
 						</div>
-						<div class="row border-bottom border-gray">
+						<div class="row border-bottom border-gray text-light" style="background-color: #133369">
 							<div class="col-6 fs-5">제목</div>
 							<div class="col fs-5 text-center">작성일</div>
-							<div class="col"></div>
+							
 							<div class="col fs-5 text-center">메인이력서로 변경</div>
 							<div class="col fs-5 text-center">이력서 삭제</div>
 						</div>
@@ -471,9 +477,9 @@
 		<div class="generalResumeWrapper row border-top">
 			<div class="col">
 				<div class="row my-3">
-					<div class="generalResumeTitle col-6">이력서 제목</div>
-					<div class="generalResumeDate col text-center">2023.12.07</div>
-					<div class="col"></div>
+					<div class="generalResumeTitle col-6 mt-1">이력서 제목</div>
+					<div class="generalResumeDate col text-center mt-1">2023.12.07</div>
+					
 					<div class="generalResumeSelectMain col text-center">
 						<button type="button" class="btn btn-outline-dark">선택</button>
 					</div>
@@ -489,10 +495,8 @@
 		<div class="mainResumeWrapper row">
 			<div class="col">
 				<div class="row my-3">
-					<div class="mainResumeTitle col-6">
-						
-					</div>
-					<div class="mainResumeDate col text-center">2023.12.07</div>
+					<div class="mainResumeTitle col-6 mt-1"> 이력서 제목</div>
+					<div class="mainResumeDate col text-center mt-1">2023.12.07</div>
 					<div class="mainResumeSelectPublic col text-center">
 						
 					</div>
@@ -624,19 +628,25 @@
 				<div class="row border-bottom border-gray">
 					<div class="resumeTitle col fs-1">이력서 제목</div>
 				</div>
-				<div class="row mt-1">
+				<div class="row ms-2 mt-1">
+							
 					<div class="col">이름 : ${sessionStudentInfo.name }</div>
 					<div class="col">성별 : ${sessionStudentInfo.gender }</div>
 					<div class="col">
 						생일 : <fmt:formatDate value="${sessionStudentInfo.birth }" pattern="yyyy-MM-dd"/>
 					</div>
+					
+					<div class="col-1"></div>
 				</div>
-				<div class="row">
-					<div class="col">주소 : ${sessionStudentInfo.address }</div>
-				</div>
-				<div class="row">
+				<div class="row ms-2 mt-2">
 					<div class="col">핸드폰 번호 : ${sessionStudentInfo.phone }</div>
 					<div class="col">이메일 주소 : ${sessionStudentInfo.email }</div>
+					<div class="col"></div>
+					<div class="col-1"></div>
+				</div>
+				<div class="row ms-2 mt-2 mb-2">
+					<div class="col">주소 : ${sessionStudentInfo.address }</div>
+					<div class="col-1"></div>
 				</div>
 			</div>
 		</div>
@@ -657,7 +667,7 @@
 				<div class="row border-bottom border-gray">
 					<div class="col fs-3">경력</div>
 				</div>
-				<div class="row  border-bottom">
+				<div class="row  border-bottom text-light"  style="background-color: #133369">
 					<div class="col fs-5">카테고리</div>
 					<div class="col-10  border-start fs-5 text-center">내용</div>
 				</div>
@@ -674,7 +684,7 @@
 				<div class="row border-bottom border-gray">
 					<div class="col fs-3">자격증</div>
 				</div>
-				<div class="row  border-bottom">
+				<div class="row  border-bottom text-light" style="background-color: #133369">
 					<div class="col">자격증 명</div>
 					<div class="col">취득 년도</div>
 					<div class="col">취득 월</div>

@@ -31,7 +31,7 @@
 					<div class="col fs-5 fw-bold mt-5">채용정보</div>
 				</div>
 				<!-- 기업정보 -->
-				<div class="row border-bottom border-dark"></div>
+				<div class="row border-bottom border-dark border-3"></div>
 				<div class="row border border-top">
 					<!-- 간략한 채용정보 -->
 					<div class="col p-4 ms-2 mt-2">
@@ -42,15 +42,16 @@
 									<c:if test="${jobPostingDetailForStudent.companyDto.is_family_company ne null and jobPostingDetailForStudent.companyDto.is_family_company eq 'Y'}">
 										<div class="col-1"><span class="badge text-bg-info text-white">Family</span></div>
 									</c:if>
-									<div class="col ps-2">${jobPostingDetailForStudent.companyDto.com_name}</div>
-									<c:choose>
-										<c:when test="${jobPostingDetailForStudent.interestCompany.contains(jobPostingDetailForStudent.companyDto.com_pk)}">
-											<i class="text-danger bi bi-suit-heart-fill"></i>
-										</c:when>
-										<c:otherwise>
-											<i class="text-danger bi bi-suit-heart"></i>
-										</c:otherwise>
-									</c:choose> 
+									<div class="col-3 ps-2">${jobPostingDetailForStudent.companyDto.com_name}
+										<c:choose>
+											<c:when test="${jobPostingDetailForStudent.interestCompany.contains(jobPostingDetailForStudent.companyDto.com_pk)}">
+												<i class="text-danger bi bi-suit-heart-fill"></i>
+											</c:when>
+											<c:otherwise>
+												<i class="text-danger bi bi-suit-heart"></i>
+											</c:otherwise>
+										</c:choose> 
+									</div>
 								</div>
 								<!-- 공고제목 -->
 								<div class="row mt-1">
@@ -103,28 +104,28 @@
 					</div>
 					<!-- 기업정보 -->
 					<div class="col-3 p-3 border-start my-2">
-						<div class="row">
+						<div class="row ms-1">
 							<div class="col text-secondary">기업정보</div>
 						</div>
 						<!-- 기업명 -->						
-						<div class="row">
+						<div class="row ms-1">
 							<div class="col fs-5 fw-bold mt-1">
 								${jobPostingDetailForStudent.companyDto.com_name}
 							</div>
 						</div>
 						<!-- 기업규모 -->
-						<div class="row">
+						<div class="row ms-1">
 							<div class="col mt-1">
 								<span class="text-secondary">기업형태</span>&nbsp;${jobPostingDetailForStudent.comScaleCategoryDto.com_scale_category_name}
 							</div>
 						</div>
 						<!-- 채용담당자 -->
-						<div class="row">
+						<div class="row ms-1">
 							<div class="col mt-1">
 								<span class="text-secondary">대표자</span>&nbsp;${jobPostingDetailForStudent.companyDto.com_bossname}
 							</div>
 						</div>
-						<div class="row">
+						<div class="row ms-1">
 							<!-- 기업정보 -->
 							<div class="col-4 mt-1">
 								<a class="navbar-brand badge bg-outline-dark text-secondary rounded-0 border"
@@ -132,7 +133,8 @@
 							</div>
 							<!-- 채용공고보기(기능구현은 나중에) -->
 							<div class="col mt-1">
-								<span class="badge bg-outline-dark text-secondary rounded-0 border">진행중인 채용보기 ></span>
+								<a class="navbar-brand badge bg-outline-dark text-secondary rounded-0 border"
+									href="../ny_posting/companyPostingListForStudentPage?com_pk=${jobPostingDetailForStudent.companyDto.com_pk}">진행중인 채용보기 ></a>
 							</div> 
 						</div> 
 					</div>
@@ -143,7 +145,7 @@
 				</div>
 				<div class="row border">
 					<div class="col">
-						<div class="row border-top border-dark">
+						<div class="row border-top border-dark border-3">
 							<div class="col-2 px-5 pt-5">
 								<img src="../../resources/img/employment/${jobPostingDetailForStudent.jobPostingDto.posting_mainimage}">
 							</div>
@@ -157,7 +159,7 @@
 					</div>
 				</div>
 				<!-- 채용내용 -->
-				<div class="row mt-3 border-bottom border-dark">
+				<div class="row mt-3 border-bottom border-dark border-3">
 					<div class="col fs-5 fw-bold">우대사항</div>
 				</div>
 				<!-- 우대사항 -->
@@ -167,7 +169,7 @@
 					</div>
 				</div>
 				<!-- 채용인원 -->
-				<div class="row mt-3 border-bottom border-dark">
+				<div class="row mt-3 border-bottom border-dark border-3">
 					<div class="col fs-5 fw-bold">채용인원</div>
 				</div>
 				<div class="row border">
@@ -189,7 +191,7 @@
 					</div>
 				</div>
 				<div class="row mt-2">
-					<div class="col"><a class="btn btn-secondary" href="./jobPostingListForStudentPage">목록으로</a></div>
+					<div class="col"><a class="btn btn-outline-secondary" href="./jobPostingListForStudentPage">목록으로</a></div>
 					<div class="col-7"></div>
 					<div class="col-2 d-grid">
 						<c:choose>
@@ -209,11 +211,17 @@
 						</c:choose>
 					</div>
 				</div>
-				<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
 			</div>
 			<%-- 오른쪽 --%>	
 			<div class="col-2"></div>	
 		</div>
+		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+		<!-- futter -->
+		<div class="row">
+			<div class="col">
+				<jsp:include page="../common/futter.jsp"></jsp:include>
+			</div>
+		</div>	
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

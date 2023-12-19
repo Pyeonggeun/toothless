@@ -318,18 +318,22 @@
                 <div class="col">
                     <div class="row text-center">
                         <div class="col-4"></div>
-                        <div class="col-1 pe-2 text-end mt-2">
-                            <img src="../../resources/img/another/logo_black.png" alt="" style="height: 2em;">
+                        <div class="col ms-5">
+                        	<div class="row">
+                        		<div class="col-3 pe-2 text-end mt-2">
+		                            <img src="../../resources/img/another/logo_black.png" alt="" style="height: 2em;">
+		                        </div>
+		                        <div class="col-9 ps-0 fw-bold fs-3 text-start align-self-center ">
+		                            MK University 
+		                        </div>
+                        	</div>
                         </div>
-                        <div class="col-3 ps-0 fw-bold fs-3 text-start align-self-center ">
-                            MK University 
-                        </div>
-                        <div class="col-2"></div>
-                        <div class="col-1 position-relative pb-0 fs-5 align-self-center">
-                            <a class="navbar-brand" href="#" onclick="showNotifyModal()"><i class="bi bi-bell text-balck pe-1">
-                            <span id="reloadNotifyCount" class="position-absolute top-0 start-50 badge rounded-pill bg-danger d-none px-1 py-0" style="font-size: xx-small;">
+                        <div class="col-1"></div>
+                        <div class="col-1 position-relative pe-0 pb-0 fs-4 text-end align-self-center">
+                            <button class="navbar-brand border-0" onclick="showNotifyModal()"><i class="bi bi-bell text-balck pe-1">
+                            <span id="reloadNotifyCount" class="position-absolute top-0 start-60 badge rounded-pill bg-danger d-none px-1 py-0" style="font-size: small;">
                             </span>
-                            </i></a> 
+                            </i></button> 
                         </div>
                         <div class="col-1"></div>
                     </div>

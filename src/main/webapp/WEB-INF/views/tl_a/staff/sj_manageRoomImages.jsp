@@ -56,10 +56,12 @@
 				<div class="col fs-4 fw-bold my-4">
 					인실 별 이미지
 				</div>
-			</div>			
-			<div class="row border rounded-0 py-3">
+			</div>	
+			
+					
+			<div class="row border rounded-0 ">
 				<div class="col">
-					<div class="row text-center fw-bold my-3 fs-5 border-bottom pb-4">
+					<div class="row text-center fw-bold py-3 fs-5 border-bottom " style="background-color: #eeeeee;">
 						<div class="col ">
 							인실
 						</div>
@@ -80,8 +82,8 @@
 								<img src="/uploadRoomImgs/${ct.dorm_imgs }" class="img-fluid img-thumbnail">
 							</div>
 							<div class="col my-4">
-                                   <a class="btn btn-outline-danger" href="./deleteForRoomDatailProcess?dorm_amount_pk=${ct.dorm_amount_pk }" role="button">삭제하기</a>
-                               </div>
+                                   <a class="btn btn-danger rounded-0" href="./deleteForRoomDatailProcess?dorm_amount_pk=${ct.dorm_amount_pk }" role="button">삭제하기</a>
+                              </div>
 						</div>
 					</c:forEach>
 				    

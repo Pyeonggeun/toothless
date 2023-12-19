@@ -59,13 +59,13 @@
                                             <div class="col-auto fw-bold" style="font-size: 0.8em;">
                                                 인정학점
                                             </div>
-                                            <div class="col-auto" style="font-size: 0.8em;">
+                                            <div class="col-auto text-secondary" style="font-size: 0.8em;">
                                                 <span id="progressCredit" class="fw-bold" style="color: #f7a505;">3</span> 학점
                                             </div>
                                             <div class="col-auto fw-bold" style="font-size: 0.8em;">
                                                 시험
                                             </div>
-                                            <div class="col" style="font-size: 0.8em;">
+                                            <div class="col text-secondary" style="font-size: 0.8em;">
                                                 <span id="studentTotalTestCount" class=" fw-bold" style="color: #f7a505;">1</span> / <span id="totalTestCount">10</span>
                                             </div>
                                         </div>
@@ -120,7 +120,7 @@
                                                                                             <div id="attendanceRate" class="progress-bar" style="width: 100%; background-color: #f7a505;"></div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div id="attendanceRatePer" class="col-auto my-auto fw-bold" style="font-size: 0.9em; color: #f7a505;">
+                                                                                    <div id="attendanceRatePer" class="col-1 my-auto fw-bold px-0 text-center" style="font-size: 0.9em; color: #f7a505;">
                                                                                         100%
                                                                                     </div>
                                                                                 </div>
@@ -137,7 +137,7 @@
                                                                                             <div class="progress-bar" style="width: 100%; background-color: #f7a505;"></div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="col-auto my-auto fw-bold" style="font-size: 0.9em; color: #f7a505;">
+                                                                                    <div class="col-1 my-auto fw-bold px-0 text-center" style="font-size: 0.9em; color: #f7a505;">
                                                                                         100%
                                                                                     </div>
                                                                                 </div>
@@ -167,7 +167,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
-                                                                            <div class="col text-center fw-semibold" style="font-size: 1.5em; color: #7844ae;">
+                                                                            <div id="totalLeftScore" class="col text-center fw-semibold" style="font-size: 1.5em; color: #7844ae;">
                                                                                 94.0
                                                                             </div>
                                                                         </div>
@@ -189,9 +189,9 @@
                                                                     <div class="col py-2">시험</div>
                                                                 </div>
                                                                 <div class="row border-bottom border-start">
-                                                                    <div class="col py-2 border-end" style="background-color: #f7f7f9;">평가비율&#40;%&#41;</div>
-                                                                    <div class="col py-2 border-end">80</div>
-                                                                    <div class="col py-2">20</div>
+                                                                    <div class="col py-2 border-end" style="background-color: #f7f7f9;">총점비율&#40;%&#41;</div>
+                                                                    <div class="col py-2 border-end">50</div>
+                                                                    <div class="col py-2">50</div>
                                                                 </div>
                                                                 <div class="row border-bottom border-start">
                                                                     <div class="col py-2 border-end" style="background-color: #f7f7f9;">취득점수&#40;점&#41;</div>
@@ -206,7 +206,7 @@
                                                                 <div class="row border-bottom border-start">
                                                                     <div class="col-4 py-2 border-end" style="background-color: #f7f7f9;">수료조건</div>
                                                                     <div class="col py-2">
-                                                                    	총점 : 85점 이상 / 과락 기준 : 진도율 <span id="attendanceCondition">90</span>점 이상, 시험 <span id="testCondition">60</span>점 이상
+                                                                    	진도율 <span id="attendanceCondition">90</span>점 이상, 시험 <span id="testCondition">60</span>점 이상
                                                                     </div>
                                                                 </div>
                                                                 <div class="row border-start">
@@ -440,6 +440,14 @@
 		미수료
 	</span>
 	
+	<span class="progressIng px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #7844ae; background-color: #F3ECFF;">
+		학습중
+	</span>
+	
+	<span class="progressWaite px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #FF9100; background-color: #FFFAEB;">
+		학습대기
+	</span>
+	
 	<div class="testWrapper row py-2 border-bottom">
         <div class="testNumber col-1 text-center" style="font-size: 0.9em;">1</div>
         <div class="testName col text-center" style="font-size: 0.9em;">기업현장교사 기본과정 온라인교육(15시간) 이수자를 위한 보충 영상</div>
@@ -454,9 +462,9 @@
 		응시완료
 	</span>
       
-    <span onclick="showTestWarningModal(this)" class="testIng btn px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #7844ae; background-color: #F3ECFF;">
+    <button onclick="showTestWarningModal(this)" class="testIng btn px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #7844ae; background-color: #F3ECFF;">
 		응시하기
-	</span>
+	</button>
       
     <span class="testPoor px-3 py-0 text-center fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #B0B0B3; background-color: #f7f7f9;">
 		미응시

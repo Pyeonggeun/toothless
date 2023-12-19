@@ -32,7 +32,21 @@ public class ConsultingController {
 	
 
 	@RequestMapping("test")
-	public String tes() {
+	public String tes(Model model, HttpSession session) {
+		//미응답 온라인상담 5건
+		List<Map<String, Object>> progressOnlinceConsultingNumFive = consultingService.getOnConsultingInfoListNumFiveASC();
+		model.addAttribute("progressOnlinceConsultingNumFive", progressOnlinceConsultingNumFive);
+		//구직희망 신청 5건
+		List<Map<String, Object>> getHopeJobInfoNumFive = consultingService.getHopeJobInfoNumFive();
+		model.addAttribute("getHopeJobInfoNumFive", getHopeJobInfoNumFive);
+		//학생 최근 온라인상담 5건
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int student_pk = studentInfoDto.getStudent_pk();	
+		String isReply = "all";
+		List<Map<String, Object>> getMyOnlineConsultingListNumFive = consultingService.getMyOnlineConsultingListNumFive(student_pk, isReply);
+		model.addAttribute("getMyOnlineConsultingListNumFive", getMyOnlineConsultingListNumFive);
+		
+		
 		return "tl_d/jm_consulting/test";
 	}
 	
@@ -492,6 +506,16 @@ public class ConsultingController {
 			consultingService.endHopeJobProcess(hope_job_pk);
 		return"redirect:../../another/student/mainPage";
 	}
+	
+	
+	//스태프 메인페이지 출력용
+	
+//	public String qqqqq(Model model) {
+//		
+//		List<Map<String, Object>> progressOnlinceConsultingNumFive = consultingService.getOnConsultingInfoListNumFiveASC();
+//
+//		model.addAttribute("progressOnlinceConsultingNumFive", progressOnlinceConsultingNumFive);
+//	}
 	
 	
 }

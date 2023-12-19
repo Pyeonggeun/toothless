@@ -59,7 +59,63 @@
 	
 </style>
 
+	
 
+
+
+<script>
+
+	
+	const studentId = ${sessionStudentInfo.student_pk};
+
+
+
+	function reloadGroupCounselList(){
+		
+		const url="./getGroupCounselList?student_id=" + studentId;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const groupCounselListBox = document.getElementById("groupCounselListBox");
+			groupCounselListBox.innerHTML = "";
+			
+			for(e of response.data){
+				
+				const groupCounselWrapper = document.querySelector("#templete .groupCounselWrapper").cloneNode(true);
+				
+				const groupCounselImage = groupCounselWrapper.querySelector(".groupCounselImage");
+				groupCounselImage.setAttribute("src", "/uploadFiles/" + e.POSTERIMAGE);
+				
+				const groupCounselTitle = groupCounselWrapper.querySelector(".groupCounselTitle");
+				groupCounselTitle.innerText = e.TITLE;
+				
+				const groupCounselCounselDate = groupCounselWrapper.querySelector(".groupCounselCounselDate");
+				groupCounselCounselDate.innerText = e.COUNSEL_DATE;
+				
+			 	new date로 받아줘야됨
+				
+				
+				const groupCounselDDay = groupCounselWrapper.querySelector(".groupCounselDDay");
+				groupCounselDDay.innerText = "D-" + e.D_DAY;
+				
+				groupCounselListBox.appendChild(groupCounselWrapper);
+				
+			}
+			
+			
+		});
+		
+	}
+
+
+	window.addEventListener("DOMContentLoaded", () => {
+		reloadGroupCounselList();
+	});
+
+
+</script>
 
 
 
@@ -105,9 +161,9 @@
 						<div class="col pb-3" style="border-bottom-width: 2px; border-bottom-style: solid; border-color: #dcdcdc;">
 							<div class="row">
 								<div class="col">
-									<span class="fw-bold" style="font-size: 1.5em;">나의 상담일정</span>
+									<span class="fw-bold" style="font-size: 1.5em;">나의 상담 일정</span>
 									&nbsp
-									<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">Counsel Schedule</span>								
+									<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">Schedule</span>								
 								</div>
 								<div class="col-2 text-end">
 									<i style="font-size: 1.5em;" class="bi bi-three-dots"></i>
@@ -116,63 +172,18 @@
 						</div>
 						<div class="col-1"></div>
 					</div>
-					<div class="row pt-5" style="height: 40em;">
+					<div class="row pt-5 mt-3">
 						<div class="col-1"></div>
 						<div class="col">
+						
+						
+							<div id="groupCounselListBox" class="row row-cols-3">
 
-								
 
 
-
-						</div>
-						<div class="col-1"></div>
-					</div>
-					
-					
-					<div class="row" style="height: 5em;"></div>
-					<div class="row">
-						<div class="col-1"></div>
-						<div class="col pb-3" style="border-bottom-width: 2px; border-bottom-style: solid; border-color: #dcdcdc;">
-							<div class="row">
-								<div class="col">
-									<span class="fw-bold" style="font-size: 1.5em;">프로그램 일정</span>
-									&nbsp
-									<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">Program Schedule</span>								
-								</div>
-								<div class="col-2 text-end">
-									<i style="font-size: 1.5em;" class="bi bi-three-dots"></i>
-								</div>
 							</div>
-						</div>
-						<div class="col-1"></div>
-					</div>
-					<div class="row pt-5">
-						<div class="col-1"></div>
-						<div class="col">
-							<div class="row row-cols-3">
-								<c:forEach items="${groupCounselReservationList}" var="list">
-								<div class="col">
-									<div class="row">
-										<div class="col">
-											<img style=" border-style: solid; border-width: 3px; border-color: #8FBC8F" class="img-fluid rounded-3" src="/uploadFiles/${list.POSTERIMAGE }">
-										</div>
-									</div>
-									<div class="row pt-2">
-										<div class="col ps-3">
-											<div class="fw-bold" style="font-size: 0.9em; color: black;">[${list.TITLE }]</div>
-										</div>
-										<div class="col-3 text-center ps-0 ms-0">
-											<div class="fw-bold text-secondary" style="font-size: 0.8em;"><fmt:formatDate value="${list.COUNSEL_DATE}" pattern="yy.MM.dd"/></div>
-										</div>
-									</div>
-									<div class="row pt-1">
-										<div class="col text-start ps-3">
-											<div class="fw-bold" style="font-size: 1.3em; color: #0A6E0A;">D-${list.D_DAY }</div>
-										</div>
-									</div>
-								</div>
-								</c:forEach>
-							</div>
+							
+							
 						</div>
 						<div class="col-1"></div>
 					</div>	
@@ -419,18 +430,42 @@
 			</div>
 		</div>
 	</div>
-
-
-	
-	
-	
 </div>
 
 
 
 
 
+<div id="templete" class="d-none">
 
+
+	<div class="col groupCounselWrapper">
+		<div class="row">
+			<div class="col">
+				<img class="groupCounselImage img-fluid rounded-2" style="border-style: solid; border-width: 2px; border-color: #8FBC8F" src="/uploadFiles/${list.POSTERIMAGE }">
+			</div>
+		</div>
+		<div class="row pt-2">
+			<div class="col ps-3">
+				<div class="groupCounselTitle fw-bold" style="font-size: 0.9em; color: black;">[${list.TITLE }]</div>
+			</div>
+			<div class="col-3 text-center ps-0 ms-0">
+				<div class="groupCounselCounselDate fw-bold text-secondary" style="font-size: 0.8em;"><fmt:formatDate value="${list.COUNSEL_DATE}" pattern="yy.MM.dd"/></div>
+			</div>
+		</div>
+		<div class="row pt-1">
+			<div class="col text-start ps-3">
+				<div class="groupCounselDDay fw-bold" style="font-size: 1.3em; color: #0A6E0A;">D-${list.D_DAY }</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+</div>
 
 
 

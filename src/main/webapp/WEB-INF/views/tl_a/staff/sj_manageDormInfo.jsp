@@ -52,79 +52,28 @@
 			
 			<!-- 세부내용 시작 -->
 			
-			<!-- 기숙사명 -->
-			<div class="row border rounded-0 p-3">
-				<div class="col">
-					<div class="row text-center fw-bold my-3 fs-5 border-bottom ">
-						<div class="col">
-					<div class="row mb-4">
-						<div class="col text-center fw-bold fs-5">
-							기숙사명
-						</div>
-					</div>
-					
-				</div>
-				<div class="col">
-					<div class="row mb-4">
-						<div class="col text-center fw-bold fs-5">
-							주소
-						</div>
-					</div>
-					
-				</div>
-				<div class="col">
-					<div class="row mb-4">
-						<div class="col text-center fw-bold fs-5">
-							기숙사 대표 이미지
-						</div>
-					</div>
-					
-				</div>
-				<div class="col">
-					<div class="row mb-4">
-						<div class="col text-center">
-							삭제
-						</div>
-					</div>
-				</div>
-					</div>
-					<c:forEach items="${dormBuilding }" var="dorm">
-						<input type="hidden" value="${dorm.dorm_pk }">
-						<div class="row my-4 border-bottom rounded-0">
-							<div class="col">
-								<div class="row">
-									<div class="col text-center py-5 my-5">
-										${dorm.name }
-									</div>
-								</div>
-							</div>
-							<div class="col">
-								<div class="row">
-									<div class="col text-center py-5 my-5">
-										${dorm.address }
-									</div>
-								</div>
-							</div>
-							<div class="col">
-								<div class="row">
-									<div class="col my-3">
-										<img src="/uploadDormMainImg/${dorm.main_img }" class="d-grid img-fluid">
-									</div>
-								</div>
-							</div>
-							<div class="col">
-								<div class="row">
-									<div class="col d-grid py-5 my-3">
-										<a href="./deleteForDormInfoProcess?dorm_pk=${dorm.dorm_pk }" class="btn btn-outline-danger py-3" role="button">삭제하기</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</c:forEach>
-				</div>
+			<!-- 기숙사 start -->
+			<div class="row">
+				<c:forEach items="${dormBuilding }" var="dorm">
 				
-				
+					<div class="col my-3">
+						<div class="card" style="width: 18rem;">
+			
+							<img src="/uploadDormMainImg/${dorm.main_img }" class="d-grid img-fluid card-img-top" style="height:11em;">
+							<div class="card-body">
+							    <h5 class="card-title fw-bold">${dorm.name }</h5>
+							    <p class="card-text">${dorm.address }</p>
+							    <p>수용가능 인원 :</p>
+							    <p>현재 인원 :</p>
+						   		<a href="./deleteForDormInfoProcess?dorm_pk=${dorm.dorm_pk }" class="btn btn-outline-danger rounded-3 d-grid">삭제</a>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
+			<!-- 기숙사 end -->
+			
+			
 			
 			
 		</div> <!-- 우측내용 col 끝 -->

@@ -33,23 +33,28 @@
 				<div class="row border-bottom border-dark"></div>
 				<div class="row border border-top">
 					<div class="col p-3 ms-2">
-						
 						<div class="row border-bottom border-gray">
 							<div class="col fs-1">${resumeDto.resume_title }</div>
 						</div>
-						<div class="row mt-1">
+						<div class="row ms-2 mt-1">
+							
 							<div class="col">이름 : ${sessionStudentInfo.name }</div>
 							<div class="col">성별 : ${sessionStudentInfo.gender }</div>
 							<div class="col">
 								생일 : <fmt:formatDate value="${sessionStudentInfo.birth }" pattern="yyyy-MM-dd"/>
 							</div>
+							
+							<div class="col-1"></div>
 						</div>
-						<div class="row">
-							<div class="col">주소 : ${sessionStudentInfo.address }</div>
-						</div>
-						<div class="row">
+						<div class="row ms-2 mt-2">
 							<div class="col">핸드폰 번호 : ${sessionStudentInfo.phone }</div>
 							<div class="col">이메일 주소 : ${sessionStudentInfo.email }</div>
+							<div class="col"></div>
+							<div class="col-1"></div>
+						</div>
+						<div class="row ms-2 mt-2 mb-2">
+							<div class="col">주소 : ${sessionStudentInfo.address }</div>
+							<div class="col-1"></div>
 						</div>
 					</div>
 				</div>
@@ -72,7 +77,7 @@
 							<div class="col fs-3">경력</div>
 							<div class="col-1"><a href="./careerDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
 						</div>
-						<div class="row  border-bottom">
+						<div class="row  border-bottom text-light" style="background-color: #133369">
 							<div class="col fs-5">카테고리</div>
 							<div class="col-10  border-start fs-5 text-center">내용</div>
 						</div>
@@ -91,7 +96,7 @@
 							<div class="col fs-3">자격증</div>
 							<div class="col-1"><a href="./licenseDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
 						</div>
-						<div class="row  border-bottom">
+						<div class="row  border-bottom text-light" style="background-color: #133369">
 							<div class="col">자격증 명</div>
 							<div class="col">취득 년도</div>
 							<div class="col">취득 월</div>

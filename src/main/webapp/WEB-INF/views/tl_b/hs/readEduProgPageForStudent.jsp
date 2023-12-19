@@ -48,7 +48,7 @@
 					</div>
                 </div>
             </div>
-            <div class="row mt-4">
+            <div class="row mt-4 pb-4">
                 <div class="col"></div>
                 
                  <div class="col-8" >
@@ -61,7 +61,7 @@
                             src="../../resources/img/healthRoom/edu/${qwer.eduDto.img_link }"
                             style="max-height: 350px; width: 290px;" >
                         </div>
-                        <div class="col px-0 mt-3">
+                        <div class="col ms-2 px-0 mt-3 ">
                             <div class="row">
                                 <h5>
                                     <span class="badge px-3 text-white" 
@@ -71,11 +71,6 @@
                                     style="background-color: #F3AD12;">학생
                                     </span>
                                 </h5>
-                                <!-- <h5 class="d-inline-block">
-                                    <span class="badge px-3 text-white" 
-                                    style="background-color: #F3AD12;">학생
-                                    </span>
-                                </h5> -->
                             </div>
 
                             <div class="row">
@@ -83,6 +78,17 @@
                                     ${qwer.eduDto.name }
                                 </div>
                             </div>
+                            
+                            
+                            <div class="row">
+                            	<div class="col-1 border-bottom border-dark border-2
+                            	ms-2 mt-2"></div>
+                            	<div class="col"></div>
+                            	<div class="col"></div>
+                            </div>
+                            
+                            
+                            
                             <div class="row my-2">
                                 <div class="col fw-bold">
                                     <span style="font-size: 18px;">
@@ -258,40 +264,14 @@
                         </div>
                     </div>
 
-                    <!-- 재미용 -->
-                    <div class="row mt-5">
-                        <img src="../../resources/img/healthRoom/edu/벨링엄 중거리.gif">
-                    </div>    
                 
                 </div><!--콜 8 끝나는거  -->
                  <div class="col"></div>
             </div>
         </div>
 			
-                    <div class="row mt-5">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col py-4" style="background-color: #F2F2F2;">
-                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-1 my-auto">
-                                                    <img class="img-fluid" src="../../resources/img/another/logo_black.png">
-                                                </div>
-                                                <div class="col-3 ps-0 my-auto" style="font-size: x-large">
-                                                    MK University | 보건센터
-                                                </div>
-                                                <div class="col text-body-tertiary my-auto" style="font-size: small;">
-                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    	<jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
+
           
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
