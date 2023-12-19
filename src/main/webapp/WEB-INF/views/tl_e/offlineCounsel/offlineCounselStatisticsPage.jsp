@@ -14,8 +14,36 @@
 
 	<script>
 		
-		let myId = ${sessionExternalInfo.external_pk};
-		
+	let myId = null;
+	
+		function getSessionInfo(){
+			
+			const url = "/toothless/tl_e/commons/getSessionExternalInfo";
+			
+			fetch(url)
+			.then(response => response.json())
+			.then(response => {
+				
+				myId = response.data.external_pk;
+				console.log(myId);
+				
+				if(myId == null){
+					if(confirm("로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+						location.href="/toothless/another/external/loginPage";
+						return;
+					}
+				}else{
+					const checkSession = document.querySelector(".checkSession");
+					checkSession.innerText = response.data.external_id;
+				}
+				
+				lineChart();
+				pieChart();
+				barChart();
+				barChart2();
+	
+			});
+		}
 		
 		function lineChart(){
 			
@@ -441,10 +469,7 @@
 		
 		
 		window.addEventListener("DOMContentLoaded", () => {
-			lineChart();
-			pieChart();
-			barChart();
-			barChart2();
+			getSessionInfo();
 		});
 	
 	</script>

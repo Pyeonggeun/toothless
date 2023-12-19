@@ -216,5 +216,12 @@ public class OfflineCounselController {
 		return "tl_e/offlineCounsel/offlineCounselStatisticsPage";
 	}
 	
+	@RequestMapping("offlineCounselCalendarReservation")
+	public String offlineCounselCalendarReservation() {
+		
+		
+		return "tl_e/offlineCounsel/offlineCounselCalendarReservation";
+	}
+	
 	
 }

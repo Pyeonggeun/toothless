@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.D_RestResponseDto;
 import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
 
@@ -32,6 +33,21 @@ public class RestCompanyController {
 		
 		d_RestResponseDto.setResult("success");
 		d_RestResponseDto.setData(companyService.existExternalId(external_id));
+		
+		return d_RestResponseDto;
+	}
+	
+	@RequestMapping("getCompanyList")
+	public D_RestResponseDto getCompanyList() {
+		
+		D_RestResponseDto d_RestResponseDto=new D_RestResponseDto();
+		
+		
+		
+		d_RestResponseDto.setResult("success");
+		d_RestResponseDto.setData(companyService.getCompanyList());
+		
+		System.out.println(d_RestResponseDto.getData());
 		
 		return d_RestResponseDto;
 	}
