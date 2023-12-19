@@ -37,27 +37,38 @@
                                         <div class="col-11 pe-0 text-end">${sessionStudentInfo.name }님 환영합니다</div>
                                         <div class="col text-start"><a href="./StudentlogoutProcess">로그아웃</a></div>
                                     </div>
-                                    <div class="row mt-5">
-                                        <div class="col fw-bold fs-2">공지사항</div>
+                                    <div class="row mx-1 my-3 ">
+                                        <div class="col ms-1 " style="font-size: 15px;">
+                                        	<a href="../common/studentMainPage"; 
+                                        	style="text-decoration: none; color:#015A9E;">
+                                        	홈
+                                        	</a>>
+                                        	<a href="./studentAndStaffBoardReadPage"; 
+                                        	style="text-decoration: none; color:#015A9E;">
+                                        	공지사항
+                                        	<a/>>
+                                        	상세글
+                                        </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col ms-1 " style="font-size: 60%">홈>공지사항</div>
-                                    </div>
-                                    <div class="row mt-3 border-4 border-bottom"></div>
+                                   <div class="row mx-3 my-3  border">
+                      				 <div class="col">
                                     
                                     
-                                    <div class="row mt-2">
+                                      <div class="row mt-2 ">
                                         <div class="col">
                                             <div class="row">
-                                                <div class="col fw-bold fs-4">[제목]&nbsp;&nbsp; ${read.noticeboardDto.title }</div>
+                                                <div class="col fw-bold" style="font-size: 26px;"><span style="color:#015A9E">[공지]</span>&nbsp;&nbsp; ${read.noticeboardDto.title }</div>
                                             </div>
                                             <div class="row">
-                                                <div class="col fw-bold" style="font-size: 80%;">${read.staffInfoDto.name }</div>
-                                                <div class="col-2 text-secondary mx-1 text-start" style="font-size: 60%;">
-                                                <fmt:formatDate value="${read.noticeboardDto.created_at }" pattern="yy년 MM월 dd일"/>
-												 &nbsp;&nbsp; 조회수: ${read.noticeboardDto.read_count }
-												</div>
-                                                <div class="col-9"></div>
+                                                <div class="col fw-bold" style="font-size: 13px;">
+                                                	${read.staffInfoDto.name } &nbsp;&nbsp;
+                                                	<span style="font-size: 12px; color:rgb(110, 106, 106)">
+                                                		<fmt:formatDate value="${read.noticeboardDto.created_at }" pattern="yy년 MM월 dd일"/>
+													 	&nbsp;&nbsp; | 조회수: ${read.noticeboardDto.read_count }
+													 	&nbsp;&nbsp; | <i class="bi bi-heart-fill"></i>${aa }
+													 	<i class="bi bi-chat-dots-fill"></i>${replyCount}
+													</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -68,7 +79,7 @@
                                     <div class="row mt-5">
                                         <div class="col">
                                         	<c:forEach items="${read.boardImageDtoList }" var="boardImageDto">
-	                                        	<img src="/uploadFiles/${boardImageDto.img_link }">
+	                                        	<img src="../../resources/img/healthRoom/TY/${boardImageDto.img_link }">
 	                                        </c:forEach>
                                         </div>
                                     </div>
@@ -94,7 +105,7 @@
                                             <c:if test="${!empty sessionStudentInfo }">
                                             <form id="frm" action="./studentReplyProcess" method="post">
                                             <div class="row ">
-                                                <div class="col-10">
+                                                <div class="col-5">
                                                     <div class="form-floating">
                                                         <textarea id="inputComment" name="content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height:  80px"></textarea>
                                                         <label for="floatingTextarea2">Comments</label>
@@ -102,7 +113,7 @@
                                                     </div>
                                                 </div>    
                                                 <div class="col mt-4 pt-3">
-                                                    <input type="button" onclick="formSubmit()" class="btn btn-outline-secondary" value="작성하기">
+                                                    <input type="button" onclick="formSubmit()" class="btn btn-outline-primary" value="작성하기">
                                                 </div>
                                             </div>
                                             </form>
@@ -110,7 +121,7 @@
                                             
                                             
                                             <c:forEach items="${reply }" var="boardReply">
-                                            <div class="row border-1 border-bottom">
+                                            <div class="row mt-3 border-bottom">
                                                 <div class="col">
                                                     <div class="row ">
                                                         <div class="col fw-bold">작성자: ${boardReply.studentDto.name }</div>
@@ -122,7 +133,12 @@
                                                     	<div class="col text-secondary" style="font-size: 80%">
                                                     		<fmt:formatDate value="${boardReply.replyDto.created_at }" pattern="yy년 MM월 dd일 "/>
                                                     		<c:if test="${sessionStudentInfo.student_pk == boardReply.replyDto.student_pk }">
-                                                    			<a href="./studentReplyDeleteProcess?id=${boardReply.replyDto.studentboard_reply_pk }&deleteId=${boardReply.studentDto.student_pk}&boardPk=${read.noticeboardDto.studentboard_pk}">삭제</a>
+                                                    			<a href="./studentReplyDeleteProcess?id=${boardReply.replyDto.studentboard_reply_pk }
+	                                                    			&deleteId=${boardReply.studentDto.student_pk}
+	                                                    			&boardPk=${read.noticeboardDto.studentboard_pk}"
+	                                                    			style="text-decoration: none; color:#015A9E;">
+	                                                    			삭제
+                                                    			</a>
                                                     		</c:if>
                                                     	</div>
                                                     </div>
@@ -136,8 +152,8 @@
  									
 									<div class="row">
                                       <div class="col pe-0 ">
-                                          <a href="./studentBoardPage">
-                                              <input type='button' class='btn' value='목록'  >
+                                          <a href="./studentBoardPage" >
+                                              <input type='button' class='btn btn-outline-primary' value='목록'>
                                           </a>
                                       </div>
                                     </div>
@@ -156,8 +172,8 @@
                                             </div>
                                         </div>
                                     </div>
-
-
+									</div>
+								</div>
 
                                 </div>
                             </div>   
