@@ -58,7 +58,9 @@ public class EmploymentCommonController {
 		if(studentInfoDto != null) {
 			int student_pk = studentInfoDto.getStudent_pk();	
 			String isReply = "all";
+			System.out.println("전");
 			List<Map<String, Object>> getMyOnlineConsultingListNumFive = consultingService.getMyOnlineConsultingListNumFive(student_pk, isReply);
+			System.out.println("후");
 			model.addAttribute("getMyOnlineConsultingListNumFive", getMyOnlineConsultingListNumFive);	
 		}
 		

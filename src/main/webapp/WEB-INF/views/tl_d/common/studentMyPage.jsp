@@ -83,35 +83,47 @@
 							<div class="col fs-5 fw-bold mt-5 pb-1">상담이력</div>
 							<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
 						</div>
-						<c:forEach items="${getMyOnlineConsultingListNumFive }" var="e">
 						
-							<div class="row my-3 border-bottom">
-								<div class="col">
-									<!-- 상담 번호 -->
-									<div class="row pb-2">
-										<div class="col-3 ms-2">No.<span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
-										<div class="col ms-2">
-											${sessionStudentInfo.name}				
-										</div>
-										<div class="col ms-2">
-											<c:choose>
-												<c:when test="${e.onlineConsultingReplyDto==null}">
-													<span class="badge text-bg-danger">미답변</span>
-												</c:when>
-												<c:otherwise>
-													<a href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="badge text-bg-primary">답변완료</span></a>
-												</c:otherwise>
-											</c:choose>		
-										</div>
-										<div class="col-2">
-											<fmt:formatDate pattern="yyyy-MM-dd" value="${e.onlineConsultingDto.created_at}"/>
-										</div>			
-									</div>
-									<!-- 이름 -->
+						<c:choose>
+							<c:when test="${getMyOnlineConsultingListNumFive!=null}">
+								<c:forEach items="${getMyOnlineConsultingListNumFive }" var="e">
 								
-								</div>
-							</div>
-						  </c:forEach>						
+									<div class="row my-3 border-bottom">
+										<div class="col">
+											<!-- 상담 번호 -->
+											<div class="row pb-2">
+												<div class="col-3 ms-2">No.<span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
+												<div class="col ms-2">
+													${sessionStudentInfo.name}				
+												</div>
+												<div class="col ms-2">
+													<c:choose>
+														<c:when test="${e.onlineConsultingReplyDto==null}">
+															<span class="badge text-bg-danger">미답변</span>
+														</c:when>
+														<c:otherwise>
+															<a href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="badge text-bg-primary">답변완료</span></a>
+														</c:otherwise>
+													</c:choose>		
+												</div>
+												<div class="col-2">
+													<fmt:formatDate pattern="yyyy-MM-dd" value="${e.onlineConsultingDto.created_at}"/>
+												</div>			
+											</div>
+											<!-- 이름 -->
+										
+										</div>
+									</div>
+								  </c:forEach>								
+							</c:when>
+							
+							<c:otherwise>
+								<span class="fw-bold mt-3">상담이력이 없습니다!</span>
+							</c:otherwise>
+							
+						</c:choose>
+						
+					
 					</div>
 					<!-- 상담이력 -->
 				</div>
