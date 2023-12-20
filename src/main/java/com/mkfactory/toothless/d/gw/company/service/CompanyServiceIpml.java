@@ -154,11 +154,13 @@ public class CompanyServiceIpml {
 		
 		for(InterestCompanyDto interestCompanyDto:interestCompanyDtoList) {
 			CompanyDto companyDto=companySqlMapper.companySelectByPk(interestCompanyDto.getCom_pk());
+			CompanyManagerDto companyManagerDto=companySqlMapper.companyManagerSelectByPk(companyDto.getCom_manager_pk());
 			StudentInfoDto studentInfoDto=companySqlMapper.studentSelectByPk(interestCompanyDto.getStudent_pk());
 			GraduationInfoDto graduationInfoDto=companySqlMapper.studentGraduationInfoSelectByPk(interestCompanyDto.getStudent_pk());
 			
 			Map<String, Object> interestCompanyMap=new HashMap<>();
 			interestCompanyMap.put("interestCompanyDto", interestCompanyDto);
+			interestCompanyMap.put("companyManagerDto", companyManagerDto);
 			interestCompanyMap.put("companyDto", companyDto);
 			interestCompanyMap.put("studentInfoDto", studentInfoDto);
 			interestCompanyMap.put("graduationInfoDto", graduationInfoDto);

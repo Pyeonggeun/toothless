@@ -139,13 +139,21 @@
 						</div>
 						<div class="col me-3 text-end">
 							<c:choose>
+								<c:when test="${companyPostingForStudent.endPostingList.contains(companyPostingForStudent.jobPostingDto.job_posting_pk)}">
+									<button class="btn btn-dark btn-sm" disabled>채용마감</button>
+								</c:when>
+								<c:when test="${companyPostingForStudent.myApplyPostingList.contains(companyPostingForStudent.jobPostingDto.job_posting_pk)}">
+									<button class="btn btn-dark btn-sm" disabled>지원완료</button>
+								</c:when>
 								<c:when test="${empty sessionStudentInfo}">
 									<button class="btn btn-dark btn-sm" disabled>지원하기</button>
 								</c:when>
 								<c:otherwise>
-									<button class="btn btn-dark btn-sm">지원하기</button>
+									<a class="btn btn-dark btn-sm"
+										href="../sb_resume/applyJobPostingPage?job_posting_pk=${companyPostingForStudent.jobPostingDto.job_posting_pk}">지원하기</a>
 								</c:otherwise>
 							</c:choose>
+							
 						</div>
 					</div>
 					</c:forEach> 
