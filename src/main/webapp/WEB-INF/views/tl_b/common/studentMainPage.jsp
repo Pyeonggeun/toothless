@@ -66,8 +66,13 @@
     </script>
 
     <script>
-        function changeColor(){
-            console.log("1");
+        function changeColor(targetElement) {
+        // 원하는 배경색으로 변경하십시오
+        targetElement.style.backgroundColor = 'orange';
+        }
+        // 마우스가 벗어났을 때 원래의 배경색으로 복원하는 함수
+        function changeColorReset(targetElement) {
+            targetElement.style.backgroundColor = ''; // 빈 문자열로 설정하여 기본 스타일로 복원
         }
 
     </script>
@@ -116,7 +121,7 @@
             <div class="row px-5 text-center mt-4 py-3 rounded-5" style="background-color: #FCF5E1;">
                 <div class="col-3">
                     <div class="row">
-                        <button class="btn" onclick="location.href=''" onmouseover ="changeColor()" style="background-color: black;">
+                        <button class="btn rounded-pill" onclick="location.href=''" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
                             <div class="col img-fluid">
                                 <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link02.png">
                             </div>
@@ -127,7 +132,7 @@
 
                 <div class="col-3">
                     <div class="row">
-                        <button class="btn" onclick="location.href='../ys/studentItemApplyInformationPage'">
+                        <button class="btn rounded-pill" onclick="location.href='../ys/studentItemApplyInformationPage'" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
                             <div class="col img-fluid">
                                 <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link03.png">
                             </div>
@@ -138,7 +143,7 @@
 
                 <div class="col-3">
                     <div class="row">
-                        <button class="btn" onclick="location.href='../hs/eduMainPageForStudent'">
+                        <button class="btn rounded-pill" onclick="location.href='../hs/eduMainPageForStudent'" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
                         <div class="col img-fluid">
                             <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link04.png">
                         </div>
@@ -149,9 +154,9 @@
 
                 <div class="col-3">
                     <div class="row">
-                        <button class="btn" onclick="location.href=''">
+                        <button class="btn rounded-pill" onclick="location.href=''" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
                         <div class="col img-fluid">
-                            <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link01.png">
+                            <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link01.png" >
                         </div>
                         <div class="col fw-bold fs-5 pt-3">정보마당</div>
                         </button>
