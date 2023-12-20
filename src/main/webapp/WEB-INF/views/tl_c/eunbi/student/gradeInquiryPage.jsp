@@ -175,7 +175,7 @@
     function writeSatisfaction(){
     	
     	const ratingValue = document.getElementById("ratingValue");
-    	const review = document.querySelector(".review");
+    	const review = document.getElementById("review");
     	const inputStudentInternPk = document.getElementById("inputStudentInternPk");
     	
     	fetch("./writeSatisfaction", {
