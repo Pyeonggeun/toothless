@@ -55,4 +55,8 @@
 		DELETE FROM TL_A_REQUEST_REPAIR tarr WHERE REQUEST_REPAIR_PK = #{request_repair_pk}
 	</delete>
 	
+	<update id ="editRequestRepair">
+		UPDATE TL_A_REQUEST_REPAIR SET  TITLE =#{title}, CONTENT =#{content} WHERE REQUEST_REPAIR_PK = #{request_repair_pk}
+	</update>
+	
 </mapper>

@@ -143,14 +143,14 @@
 				Wrapper.classList.remove("d-none");
 				
 				//마우스 오버
-				Wrapper.setAttribute("onmouseover","mouseoverChangeColor(this)");
-				Wrapper.setAttribute("onmouseout","mouseoutChangeColor(this)");
+				//Wrapper.setAttribute("onmouseover","mouseoverChangeColor(this)");
+				//Wrapper.setAttribute("onmouseout","mouseoutChangeColor(this)");
 				
 				//마우스 버튼
 				Wrapper.setAttribute("onclick", "dongListSequenceButton(" + e.dorm_pk + ",this" + ")");
 				Wrapper.querySelector(".dongName").innerText = e.name;
 				
-				console.log(Wrapper);
+				
 				
 				document.querySelector("#dongWrapper").appendChild(Wrapper);
 				
@@ -163,12 +163,13 @@
 		});
 		
 	}
-	
+	// 클릭시 해당요소를 가져와서 해당요소 백그라운드 컬러를 블랙으로 바꾸고 나머지 백그라운드는 다 흰색으로 바꿔야함
 	// 버튼을 눌렀을때 리스트 출력
 	function dongListSequenceButton(dorm_pk, element){
 		
 		
 		// 버튼 리스트 초기화시키고 다시로드 시켜야됨 왜냐면 버튼 색 문제
+		
 		
 		
 		
@@ -180,15 +181,18 @@
 		
 		const bgdong = document.querySelectorAll(".bgdong");
 		for(e of bgdong){
-			e.style.backgroundColor = "white";
+			e.setAttribute("style","background-color: white");
 		}
 		
-		element.querySelector(".dongName").style.color = "white";
-		element.style.backgroundColor = "black";
+		//엘리먼트요소를 배경을 검은색으로
+		element.querySelector(".dongName").style.color = "white"; // 이것도왜안먹음?
+		element.setAttribute("style","background-color: black;");
+		console.log(element);
 		
 		
 		
-		// 리스트 초기화 먼저 때려줘야됨 		
+		
+		// 리스트 초기화 먼저 때려줘야됨 	이건 리스트 출력 버튼이랑 별개	
 		document.querySelector("#templete").innerHTML = "";
 		
 		const url = "./selectListTest?dorm_pk=" + dorm_pk;
@@ -210,11 +214,10 @@
 			
 		})
 		
-		
 	}
 	
 	// 마우스 오버시 색상 변경 
-	function mouseoverChangeColor(element){
+	/*function mouseoverChangeColor(element){
 		
 		element.style.backgroundColor = "black";
 		element.querySelector(".dongName").style.color = "white";
@@ -226,7 +229,7 @@
 		element.style.backgroundColor = "white";
 		element.querySelector(".dongName").style.color = "black";
 		
-	}
+	}*/
 	
 	
 	

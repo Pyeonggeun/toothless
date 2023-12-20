@@ -105,7 +105,7 @@ public class BuildingController {
 	public String roomImgInfo(Model model, DormCategoryDto categoryDto, HttpSession session) {
 		
 		model.addAttribute("dormAmount", buildingService.dormCategoryList());
-		
+		model.addAttribute("category", buildingService.choiceCategory());
 		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
 		if(staffInfoDto == null) {
 			return "redirect:../../tl_a/staff/loginPage";
@@ -114,16 +114,15 @@ public class BuildingController {
 		return "tl_a/staff/sj_manageRoomImages";
 	}
 	
-	@RequestMapping("sj_manageRoomImagesReadPage")
-	public String roomImgInfoReadPage(HttpSession session) {
+	@RequestMapping("sj_manageRoomImagesPesonelPage")
+	public String roomImgRead2(Model model) {
 		
-		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
-		if(staffInfoDto == null) {
-			return "redirect:../../tl_a/staff/loginPage";
-		}
-		return "tl_a/staff/sj_manageRoomImagesReadPage";
+		model.addAttribute("dormAmount", buildingService.dormCategoryList());
+		model.addAttribute("category", buildingService.choiceCategory());
+		return "tl_a/staff/sj_manageRoomImagesPesonelPage";
 	}
 	
+
 	
 	//기숙사 동 등록페이지
 	@RequestMapping("sj_registerDormInfo")
@@ -327,6 +326,7 @@ public class BuildingController {
 	
 	@RequestMapping("deleteForRoomDatailProcess")
 	public String deleteForRoomDatailProcess(int dorm_amount_pk, DormCategoryDto categoryDto) {
+		buildingService.deleteCategoryImg(dorm_amount_pk);
 		return "redirect:./sj_manageRoomImages";
 	}
 	

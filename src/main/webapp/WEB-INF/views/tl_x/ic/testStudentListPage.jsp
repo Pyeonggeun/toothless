@@ -62,15 +62,6 @@
 	    			const close_test_day = document.querySelector("#close_test_day");
 	    			close_test_day.innerText = close_day;
 	    			
-	    
-	    			
-	    			
-	    			
-	    			
-	    			
-	    			
-	    			
-	    			
 	    			
 	    			const studyCategory = document.querySelector("#studyCategory");
 	    			studyCategory.innerText = response.data.categoryName;

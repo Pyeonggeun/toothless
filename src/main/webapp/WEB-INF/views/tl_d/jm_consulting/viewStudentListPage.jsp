@@ -96,9 +96,11 @@ window.addEventListener("DOMContentLoaded", () => {
 			</div>
 			
 			
+			
+			
 			<div class="row border mt-5 py-2">
 
-				<div class="col fw-bold">
+				<div class="col fw-bold text-center" style="font-size:1.2em;">
 					<div class="row">
 						<div class="col">
 							No.
@@ -122,7 +124,7 @@ window.addEventListener("DOMContentLoaded", () => {
 				</div>
 		
 			</div>
-			<div class="row">
+			<div class="row text-center">
 				<div id="viewListLocation" class="col">
 					
 				</div>
@@ -157,13 +159,15 @@ window.addEventListener("DOMContentLoaded", () => {
 <div id="listTemplete" class="d-none">
 	<div id="templeteWrapper" class="row border">
 		<div class="col">
-			<div class="row py-2" style="display: flex; align-items: center; justify-content: center;">
+			<div class="row py-2" style="font-size:0.9em; display: flex; align-items: center; justify-content: center;">
 				<div class="col border-end list_pk">No.</div>
 				<div class="col border-end list_name">학생 이름</div>
 				<div class="col border-end list_id">학번</div>
 				<div class="col border-end list_created_at">신청 날짜</div>
 				<div class="col border-end list_un_answered_reply">미답변 온라인상담</div>
-				<div class="col border-end list_student_info"></div>
+				<div class="col border-end list_student_info">
+					<i class="bi bi-info-square"></i>
+				</div>
 			</div>
 		</div>
 	

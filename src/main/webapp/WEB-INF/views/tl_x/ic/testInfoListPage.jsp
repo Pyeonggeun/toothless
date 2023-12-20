@@ -83,7 +83,7 @@
 	        			}
 	        			
 	        			const testStudentPageButton = testListWrapper.querySelector(".testStudentPageButton");
-	        			testStudentPageButton.setAttribute("onclick", "location.href='../../tl_x/ic/testStudentListPage?lecture_test_key="+e.lecture_test_key);
+	        			testStudentPageButton.setAttribute("onclick", "location.href='./testStudentListPage?lecture_test_key="+e.lectureTestDto.lecture_test_key+"'");
 	        			
 	        			lectureTestListBox.appendChild(testListWrapper);
 	    			}

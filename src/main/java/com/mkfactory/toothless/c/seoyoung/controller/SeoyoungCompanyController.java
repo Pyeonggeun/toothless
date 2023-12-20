@@ -36,10 +36,9 @@ public class SeoyoungCompanyController {
 	
 		ExternalInfoDto sessionCompanyInfo = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
 		model.addAttribute("sessionCompanyInfo", sessionCompanyInfo);
-//		System.out.println("-------------------------------------------");
-		
-//		System.out.println(sessionCompanyInfo.getExternal_pk());
-//		System.out.println("-------------------------------------------");
+		System.out.println("-------------------------------------------");
+		System.out.println(sessionCompanyInfo.getExternal_pk());
+		System.out.println("-------------------------------------------");
 		List<Map<String, Object>> map = (List<Map<String, Object>>) seoyoungCompanyService.companyList(sessionCompanyInfo.getExternal_pk());
 		model.addAttribute("list", map);
 		
@@ -135,5 +134,19 @@ public class SeoyoungCompanyController {
 		
 	}
 	
+	@RequestMapping("ajdksCompanyFreeboardPostingPage")
+	public String ajdksCompanyFreeboardPostingPage() {
+
+		return "tl_c/seoyoung/company/ajdksCompanyFreeboardPostingPage";
 	
+		
+	}
+	
+	@RequestMapping("ajdksCompanyQnApage")
+	public String ajdksCompanyQnApage() {
+
+		return "tl_c/seoyoung/company/ajdksCompanyQnApage";
+	
+		
+	}
 }

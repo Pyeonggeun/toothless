@@ -13,6 +13,7 @@ import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
 import com.mkfactory.toothless.a.dto.SemesterDto;
 import com.mkfactory.toothless.a.student.dm.mapper.DormStudentSqlMapperDm;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @Service
 public class DormStudentServiceDm {
@@ -73,6 +74,18 @@ public class DormStudentServiceDm {
 	public void deleteDormNoticeInfoByDormNoticePk(int dorm_notice_pk) {
 		
 		dormStudentSqlMapperDm.deleteDormNoticeInfoByDormNoticePk(dorm_notice_pk);
+	}
+	
+	public List<StudentInfoDto> studentListAll(){
+		
+		
+		return dormStudentSqlMapperDm.studentListAll();
+	}
+	
+	public StudentInfoDto studentInfoByStudentPk(int student_pk) {
+		
+		
+		return dormStudentSqlMapperDm.studentInfoByStudentPk(student_pk);
 	}
 	
 }

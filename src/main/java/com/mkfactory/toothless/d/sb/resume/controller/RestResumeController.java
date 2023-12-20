@@ -213,7 +213,17 @@ public class RestResumeController {
 	}
 
 	
-	
+	// 해당 공고에 지원한 학생들의 정보와 이력서 가져오기
+	@RequestMapping("getResumeListByApplyStudent")
+	public D_RestResponseDto getResumeListByApplyStudent (int job_posting_pk) {
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+		d_RestResponseDto.setResult("success");
+		
+		d_RestResponseDto.setData(resumeService.getResumeDtoListAndStudentInfoByJobPostingPk(job_posting_pk));
+		
+		
+		return d_RestResponseDto;
+	}
 	
 	
 

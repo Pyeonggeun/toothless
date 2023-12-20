@@ -64,8 +64,6 @@ public class WoojaeRestStaffController {
 		int staffPk = sessionStaffInfo.getStaff_pk();
 		ajdksCompanyInfoDto.setStaff_pk(staffPk);
 		
-		restResponseDto.setData(woojaeStaffService.companyCategoryList());
-		
 		woojaeStaffService.registerCompanyInfo(ajdksCompanyInfoDto, externalInfoDto);
 		
 		restResponseDto.setResult("success");

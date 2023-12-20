@@ -81,6 +81,26 @@ public class CompanyServiceIpml {
 		return companyList;
 	}
 	
+	//서치 되는 companyList
+//	public List<Map<String, Object>> getCompanyListSearch(String searchType, String searchWord){
+//		
+//		List<Map<String, Object>> companyList=new ArrayList<>();
+//		
+//		List<CompanyDto> companyDtoList=companySqlMapper.selectCompanyAllSearch(searchType, searchWord);
+//		
+//		for(CompanyDto companyDto:companyDtoList) {
+//			CompanyManagerDto companyManagerDto=companySqlMapper.companyManagerSelectByPk(companyDto.getCom_manager_pk());
+//			
+//			Map<String, Object> map=new HashMap<>();
+//			map.put("companyDto", companyDto);
+//			map.put("companyManagerDto", companyManagerDto);
+//			
+//			companyList.add(map);
+//		}
+//		
+//		return companyList;
+//	}
+	
 	//가족기업으로 변환
 	public void changeFamilyCompany(int companyPK) {
 		companySqlMapper.changeFamilyCompany(companyPK);
@@ -183,6 +203,7 @@ public class CompanyServiceIpml {
 		
 		return companySqlMapper.countByExternalId(external_id)>0 ? true:false;
 	}
+
 	
 	
 }

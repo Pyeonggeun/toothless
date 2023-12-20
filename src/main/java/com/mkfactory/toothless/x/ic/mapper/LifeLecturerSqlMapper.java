@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.NotificationDto;
 import com.mkfactory.toothless.x.dto.AttendanceBookDto;
 import com.mkfactory.toothless.x.dto.AttendanceStatusDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
@@ -42,7 +43,7 @@ public interface LifeLecturerSqlMapper {
 	public List<AttendanceStatusDto> selectAttendanceStatusByBookPk(int attendance_book_key);
 	public LectureStudentDto selectLectureStudentDto(int lecture_student_key);
 	
-	public String selectOpenLectureName(int open_lecture_key);
+	public LectureInfoDto selectLectureInfoDto(int open_lecture_key);
 	public int selectLectureCount(int lecture_info_key);
 	
 	public int lectureRoundCount(OpenLectureDto openLectureDto);
@@ -86,4 +87,21 @@ public interface LifeLecturerSqlMapper {
 	public int selectAnswerTestPoint(int test_question_key);
 	
 	public LectureTestDto selectLectureTestDto(int lecture_test_key);
+	
+	public int selectTotalLateCount(int open_lecture_key);
+	public int selectTotalAbsenceCount(int open_lecture_key);
+	
+	public List<AttendanceStatusDto> selectAttendanceDtoList(int open_lecture_key);
+	
+	public int selectStudentLateCount(int lecture_student_key);
+	public int selectStudentAbsenceCount(int lecture_student_key);
+	
+	public int selectStudentTestScoreAvg(@Param("open_lecture_key") int open_lecture_key,
+													@Param("lecture_student_key") int lecture_student_key);
+	
+	public int selectStudentTestingCount(@Param("open_lecture_key") int open_lecture_key,
+										@Param("lecture_student_key") int lecture_student_key);
+	
+	public void insertNotificationDto(NotificationDto notificationDto);
+	
 }

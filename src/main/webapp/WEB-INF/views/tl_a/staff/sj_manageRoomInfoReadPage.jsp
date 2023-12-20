@@ -44,7 +44,8 @@
 					<li class="nav-item ta">
 					    <a class="nav-link  text-black" href="./sj_manageRoomInfo">전체보기</a>
 					  </li>
-					  	<!-- 세지야 여기 수정했어!!! - MJ -->
+					  	<!-- 세지야 여기 수정했어!!! - MJ  -->
+					  	<!-- 넘모 고마워용!!! SJ -->
 						<c:forEach items="${dormBuilding}" var="dorm">
 						    <c:set var="uri" value="${pageContext.request.requestURI}" />
 						    <c:set var="dormUri" value="./sj_manageRoomInfoReadPage?dorm_pk=${dorm.dorm_pk}" />

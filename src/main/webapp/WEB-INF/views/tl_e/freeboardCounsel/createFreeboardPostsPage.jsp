@@ -8,7 +8,9 @@
 <title>Insert title here</title>
 	<script>
 		function formSubmit(){
+			
 			const formText = document.getElementById("formText");
+			
 			
 			const inputTitle = document.getElementById("inputTitle");
 			const inputTitleRegex =/^([a-zA-Z0-9_-]{2,})$/;
@@ -27,7 +29,7 @@
 			}
 						
 			formText.submit(); 
-			
+			document.querySelector(".qwer").setAttribute("disabled", "true");
 		}
 	
 	</script>
@@ -83,17 +85,17 @@
 					<!-- 경고창 로우 -->
 					<div class="row">
 					
-					
+						<div class="col-1"><!-- 왼쪽 공간주는 로우 --></div>
 					
 						<div class="col">
-							<div class="row border-botttom border-black py-4 my-2">
+							<div class="row border-botttom border-black pt-4 my-2">
 			
 								<div class="col-1 text-center">
-									<i class="bi bi-exclamation-circle fs-1"></i>
+									<i class="bi bi-exclamation-circle pt-1 ps-2" style="font-size: 2.9em;"></i>
 								</div>	
 							
 								<div class="col-11 fs-5">
-								자유게시판은 학생들의 글과 의견을 자유롭게 제시할 수 있는 게시판입니다.
+								자유게시판은 학생들의 글과 의견을 자유롭게 제시할 수 있는 게시판입니다.<br>
 								상업성광고, 정치적 목적 게시물, 특정단체나 개인의 명예훼손 게시물, 음란물 등 미풍양속에 어긋나는 게시물 게시자는 
 								<span class="fw-bold text-danger">학사 징계</span>와 함께 <span class="fw-bold text-danger">민형사상 불이익</span>을 받을 수 있으니 게시판 성격에 맞는 내용만 게시하시기 바랍니다.
 								</div>
@@ -101,6 +103,7 @@
 							</div>
 						</div>
 						
+						<div class="col-1"><!-- 왼쪽 공간주는 로우 --></div>
 						
 					<!--경고창 로우 끝  -->
 					</div>	
@@ -109,41 +112,26 @@
 					<div class="row"><div class="col text-center"> -현재 상담자유게시판에 <span class="fw-bold">게시글을 작성</span> 하는 페이지 입니다. - </div></div>
 					<div class="row py-2"><div class="col"> <!--공간주는--> </div></div>
 					
-					<!-- 두개로 쪼개질 로우 왼쪽은 제목과 비용 오른쪽은 각종 버튼 + 폼 액션으로 감쌀 예정 -->
+					<!--중요내용 폼 -->
 					<form id="formText" action="./createFreeboardPostsProcess" method=post enctype="multipart/form-data">
 					<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk}">
+					
+					<!--제목과 내용 입력칸 로우 시작 -->
 					<div class="row">
-						<!--제목과 내용 입력칸  -->
 						
-						<div class="col-9">
-							<div class="row py-2"><div class="col">	<input id="inputTitle" name="title" type="text" style="width:100%; height:2em; border-start: none; border-end: none;" placeholder="이 공간에 제목을 입력하시면 됩니다..."> </div></div>
-							<div class="row"><div class="col"> <textarea id="inputText" name ="text" style="width:100%; height:20em; border-top: none; border-bottom: none;" placeholder="이 공간에 원하는 내용을 입력하시면 됩니다..."></textarea> </div></div>
-							<div class="row"><div class="col"> <input name="imgFiles" type="file" accept="image/*" multiple> </div></div>
+						<div class="col-1"><!-- 왼쪽 공간주는 로우 --></div>
+						
+						<div class="col-10">
+							<div class="row py-2"><div class="col">	<input id="inputTitle" class="form-control" name="title" type="text" style="width:100%; height:2em; border-start: none; border-end: none;" maxlength="1000" placeholder="이 공간에 제목을 입력하시면 됩니다..."> </div></div>
+								<div class="row text-start pt-1 pb-2 ps-1"><div class="col"><i class="bi bi-person-vcard fs-5"></i>  <span class="fs-6">현재 작성자</span> <span class="fs-5">${sessionStudentInfo.name}</span> <span class="fs-6">님</span> </div></div>
+							<div class="row"><div class="col"> <textarea id="inputText" class="form-control" name ="text" style="width:100%; height:25em;" maxlength="3000" placeholder="이 공간에 원하는 내용을 입력하시면 됩니다..."></textarea> </div></div>
+							<div class="row py-2"><div class="col-8"> <input name="imgFiles" type="file" accept="image/*" multiple> </div><div class="col-4"> <span class="text-danger fw-bold">주의</span>) 이미지는 수정기능이 제공되지 않습니다.</div></div>
+							<div class="row text-center"><div class="col"> <input type="button" onclick="formSubmit()" class="btn fs-5 py-1 rounded text-white qwer" style="--bs-border-opacity: .7; background-color: #8FBC8F;" value="게시글 올리기"> </div></div>						
 						</div>
 						
-						<!-- 각종 버튼  -->
-						<div class="col-3">
+						<div class="col-1"><!-- 왼쪽 공간주는 로우 --></div>
 						
-							<div class="row py-3"><div class="col"> <!--공간주는--> </div></div>
-						
-							<div class="row">
-								<div class="col-3 text-end"> 
-									<i class="bi bi-person-vcard fs-1"></i>   
-								</div>
-								<div class="col-9"> 
-									<span class="fs-6">현재 작성자</span> <br> 
-									<span class="fs-3">${sessionStudentInfo.name} 님</span>
-								</div>
-							</div>
-							
-							<div class="row"><div class="col my-6">1 <!--공간주는--> </div></div>
-							<div class="row"><div class="col my-6">2 <!--공간주는--> </div></div>
-							<div class="row"><div class="col my-6">3<!--공간주는--> </div></div>
-							<div class="row"><div class="col my-6">4<!--공간주는--> </div></div>
-							
-							
-							<div class="row"><div class="col"> <i class="bi bi-floppy"></i> <input type="button" onclick="formSubmit()" class="btn fs-3 py-1 rounded" value="글 작성 완료"> </div></div>
-						</div>
+					<!--제목과 내용 입력칸 로우 끝 -->	
 					</div>
 					<!-- 폼액션 끝 -->
 					</form>

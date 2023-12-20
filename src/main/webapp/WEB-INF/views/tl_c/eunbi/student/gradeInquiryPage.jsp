@@ -103,15 +103,17 @@
 						
 						internshipPeroid.innerText = internshipStartDate + " - " + internshipEndDate;
 						
-						if(info.grade === 0){
+						if(info.grade == 0){
 							showGrade.setAttribute("style", "font-size:0.95em");
 							showGrade.classList.add("text-secondary", "fw-bold");
 							showGrade.innerText = "평가 미완료";
 							
+							evaluationDetails.innerText=""
+							
 							const noEvaluation = document.getElementById("noEvaluation");
 							noEvaluation.classList.remove("d-none");
 							
-							evaluationDetails.innerText="-"
+							evaluationDetails.innerText="ㅡ"
 						}else{
 							
 							if(info.didSatisfaction === 0){
@@ -145,7 +147,7 @@
 									showGrade.classList.add("text-primary-emphasis", "fw-bold");
 								}
 								
-								showGrade.innerText = "grade";
+								showGrade.innerText = info.grade;
 							}
 						}
 						
@@ -175,7 +177,7 @@
     function writeSatisfaction(){
     	
     	const ratingValue = document.getElementById("ratingValue");
-    	const review = document.querySelector(".review");
+    	const review = document.getElementById("review");
     	const inputStudentInternPk = document.getElementById("inputStudentInternPk");
     	
     	fetch("./writeSatisfaction", {
@@ -390,7 +392,7 @@
 					<div class="col px-4 py-4 mt-2" style="background-color:#e6ecf5">
 						<div class="row">
 							<div class="col mx-2 py-2">
-								<i class="bi bi-exclamation-triangle"></i>&nbsp;&nbsp;교수나 산업체 담당자가 아직 평가를 완료하지않았을 경우, '평가미완료'로 표기됩니다.
+								<i class="bi bi-exclamation-triangle"></i>&nbsp;&nbsp;교수나 산업체 담당자가 아직 평가를 완료하지않았을 경우, '평가 미완료'로 표기됩니다.
 							</div>
 						</div>
 					</div>
@@ -491,7 +493,7 @@
 			
 			</div>
 			<div class="col-1 align-self-center d-grid px-2 border-end">
-				<a class="evaluationDetails"></a>
+				<span class="evaluationDetails"></span>
 			</div>
 			<div class="showGrade col-1 align-self-center d-grid px-2">
 				<span class="satisfactionButton"></span>
