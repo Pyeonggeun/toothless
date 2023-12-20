@@ -49,6 +49,27 @@
 			sysdate		
 		)
 	</insert>
+	
+	<select id="selectMyCompanyInformationByExternalPk" resultType="Map">
+		SELECT
+		tcci.company_id AS company_id,
+		tcci.COMPANY_NAME AS company_name,
+		tcci.CEO_NAME AS company_ceo,
+		tcci.ADDRESS AS company_address,
+		tcci.PHONE AS company_phone,
+		tcci.url AS company_url,
+		tccc.company_category_name AS company_category,
+		tjei.external_id AS company_loginid,
+		tjei.password AS company_password,
+		tjsi.name AS staff_name,
+		tjsi.phone AS staff_phone,
+		tjsi.email AS staff_email
+		FROM TL_C_COMPANY_INFO tcci 
+		INNER JOIN TL_C_COMPANY_CATEGORY tccc ON tcci.COMPANY_CATEGORY_PK  = tccc.COMPANY_CATEGORY_PK 
+		INNER JOIN TL_JIC_EXTERNAL_INFO tjei ON tcci.EXTERNAL_PK = tjei.EXTERNAL_PK 
+		INNER JOIN TL_JIC_STAFF_INFO tjsi ON tcci.STAFF_PK = tjsi.STAFF_PK 
+		WHERE tcci.EXTERNAL_PK = #{external_pk}
+	</select>
 
 
 

@@ -23,8 +23,133 @@
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
                                 <div class="col">
                                     <!-- 여기 안에만 사용하면 됨 -->
-                                	
-                                	<form action="./updateEduProgProcess" method="get">
+                                    
+                                    <div class="row mt-4">
+                                        <div class="col">
+                                            <div class="row">
+                                                
+                                                <div class="col"></div>
+                                                <div class="col-10 fw-bold pb-2 px-0" style="font-size: 1.7em;  border-bottom-color: #014195;   border-bottom-style: solid; border-bottom-width: 0.12em;">
+                                                    교육프로그램 수정
+                                                </div>
+                                                <div class="col"></div>
+                                                
+                                            </div>
+
+                                            <form action="./eduProgRegisterProcess" method="get">
+                                            
+                                             <div class="row">
+                                             	<div class="col"></div>
+                                                <div class="col-10 px-0">
+                                                
+                                                    
+
+                                                    
+                    
+                                                    <div class="form-group mt-4">
+                                                        <label for="name" class="form-label">프로그램명</label>
+                                                        <input type="text" class="form-control" id="name" name="name" value="${update.eduDto.name }" required>
+                                                    </div>
+                    
+                                                    <div class="form-group mt-4">
+                                                        <label for="content" class="form-label">내용</label>
+                                                        <textarea class="form-control" id="content" name="content" rows="15" cols="10" required>${update.eduDto.content }</textarea>
+                                                    </div>
+                                                
+                                                    <div class="form-group mt-4">
+                                                        <label for="img_link" class="form-label">포스터</label><br>
+                                                        
+                                                        <input type="file" class="form-control-file"
+                                                        id="img_link" name="img_link"
+                                                        accept="image/*" multiple required>
+                                                    </div>
+
+                                                    
+                                                    <div class="row mt-3">
+                                                        <div class="col-2">
+                                                            <div class="form-group">
+                                                                <label for="apply_start_date" class="form-label">신청기간</label>
+                                                                <input type="date" class="form-control" id="apply_start_date" name="apply_start_date" value="${update.apply_start_date }" required>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="col-2 mt-2">
+                                                            <div class="form-group">
+                                                                <label for="apply_end_date" class="form-label"></label>
+                                                                <input type="date" class="form-control" id="apply_end_date" name="apply_end_date" value="${update.apply_end_date }" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="row mt-3">
+                                                        <div class="col-2">
+                                                            <div class="form-group">
+                                                                <label for="edu_date" class="form-label">교육일</label>
+                                                                <input type="date" class="form-control" id="edu_date" name="edu_date" value="${update.edu_date }" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            
+                                                    
+                                                    <div class="row mt-3">
+                                                        <div class="col-2">
+                                                            <div class="form-group">
+                                                                <label for="capacity" class="form-label">모집인원</label>
+                                                                <input type="number" class="form-control"
+                                                                id="capacity" name="capacity" 
+                                                                value="${update.eduDto.capacity }" min="1"
+                                                                required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="row mt-3">
+                                                        <div class="col-4">
+                                                            <div class="form-group">
+                                                                <label for="place" class="form-label">장소</label>
+                                                                <input type="text" class="form-control" id="place" name="place"  value="${update.eduDto.place }" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                        
+                                                    <div class="row mt-5">
+                                                        <div class="form-group">
+                                                            <span>작성자</span>
+                                                            ${sessionStaffInfo.name}
+                                                            <!-- <label for="title" class="form-label">작성자</label>
+                                                            <input type="text" class="form-control" id="title" name="title" placeholder="게시글 제 입력하세요" required> -->
+                                                        </div>
+                                                    </div>
+                    
+                                                    <div class="row my-5">
+                                                    	
+                                                        <div class="col-5"></div>
+                                                        <div class="col-2">
+                                                        	<button type="submit" class="btn text-white rounded-0" style="background-color: #014195;">
+                                                                게시글 수정
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-5">
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col"></div>
+                                            </div> 
+                                            </form>
+
+
+
+
+
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                	<!-- <form action="./updateEduProgProcess" method="get">
 										작성자: ${sessionStaffInfo.name}<br>
 										제목: <input name="name" type="text" value="${update.eduDto.name }"><br>
 										내용:<br>
@@ -38,7 +163,7 @@
 										<input name="edu_pk" type="hidden" value="${update.eduDto.edu_pk }">
 										
 										<input type="submit" value="글 수정">
-									</form>
+									</form> -->
                                 	
                                 </div>
                             </div>

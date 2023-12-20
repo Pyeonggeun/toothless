@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 import com.mkfactory.toothless.c.dto.AjdksProfessorEvaluationDto;
+import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
 import com.mkfactory.toothless.donot.touch.dto.ProfessorInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
@@ -24,7 +25,8 @@ public interface EunbiProfessorSqlMapper {
 	// 교수info
 	public ProfessorInfoDto getProfessorInfo(int professor_pk);
 	
-	
+	// 교수키로 담당 현장학습의 실습생 구하기
+	public List<AjdksStudentInternDto> getInternByProfessorPk(int professor_pk);
 	
 	
 	

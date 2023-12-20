@@ -14,21 +14,21 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<!-- 취업팀 상단 네비 바 -->
+			<%-- 취업팀 상단 네비 바 --%>
 			<div class="col">
 				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>
 			</div>
 		</div>
 		<div class="row">
-			<!-- 취업팀 메뉴 바 -->
+			<%-- 취업팀 메뉴 바 --%>
 			<div class="col-2">
 				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 			</div>
 			<div class="col border-start">
-				<!-- 이제 여따가 진행 구직희망, 구직희망 신청,기업 -->
+				<%-- 이제 여따가 진행 구직희망, 구직희망 신청,기업 --%>
 				<div class="row ms-5 mt-5 pt-3">
 					
-					<!-- 진행 구직희망 -->
+					<%-- 진행 구직희망 --%>
 					<div class="col me-4">
 					
 						<div class="row fw-bold fs-5 pb-1 mb-2 border-bottom border-bd-border border-2">
@@ -69,7 +69,7 @@
 					</div>
 					
 					
-					<!-- 구직희망 신청 -->
+					<%-- 구직희망 신청 --%>
 					<div class="col me-4">
 						<div class="row fw-bold fs-5 pb-1 mb-2 border-bottom border-bd-border border-2">
 							<div class="col-9">구직희망 신청 리스트</div>
@@ -111,7 +111,7 @@
 					</div>
 					
 					 
-					<!-- 기업 -->
+					<%-- 기업 --%>
 					<div class="col me-4">
 						<div class="row fw-bold fs-5 pb-1 mb-2 border-bottom border-bd-border border-2">
 							<div class="col">기업</div>
@@ -152,7 +152,7 @@
 				</div>
 				
 				
-				<!-- 프로그램 -->
+				<%-- 프로그램 --%>
 				<div class="row ms-5 mt-5 pt-3">
 				
 					<div class="col me-4">
@@ -218,7 +218,7 @@
 			</div>
 		</div>
 		<div class="row mb-5 pb-5"><div class="col"></div></div>
-		<!-- futter -->
+		<%-- futter --%>
 		<div class="row">
 			<div class="col">
 				<jsp:include page="./futter.jsp"></jsp:include>

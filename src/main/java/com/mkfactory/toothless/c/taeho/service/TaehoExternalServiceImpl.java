@@ -48,6 +48,10 @@ public class TaehoExternalServiceImpl {
 		
 	}
 	
+	public Map<String, Object> getMyCompanyInformationByExternalPk(int externalPk){
+		
+		return taehoExternalSqlMapper.selectMyCompanyInformationByExternalPk(externalPk);
+	}
 	
 	
 	

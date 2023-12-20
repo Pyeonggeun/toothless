@@ -65,6 +65,9 @@ public class EmploymentCommonController {
 			model.addAttribute("applyProgramListForMyPage", programService.studentApplyProgramList());
 			model.addAttribute("studentDepartmentName", postingService.getStudentDepartmentName(studentInfoDto.getDepartment_pk()));
 		}
+		
+		model.addAttribute("noticeList", boardService.getNoticeBordRowNum());
+		
 		//학생 최근 온라인상담 5건
 		if(studentInfoDto != null) {
 			int student_pk = studentInfoDto.getStudent_pk();	

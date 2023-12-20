@@ -300,8 +300,13 @@ public class DormStaffServiceImpl {
 	// 사생 배정 현황 끌고오는 ~ing
 	public int assignedDormStudentCount() {
 		
-		return staffSqlMapper.assignedDormStudentCount();
-				
+		return staffSqlMapper.assignedDormStudentCount();	
+	}
+	
+	// 특정날짜 일지리스트
+	public List<Map<Object, String>> selectSomeDayDiaryList(int month, int day) {
+		
+		return staffSqlMapper.selectSomeDayDiaryList(month, day);
 	}
 	
 	

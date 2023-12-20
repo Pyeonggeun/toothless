@@ -64,7 +64,7 @@
 				<span>&#035;&nbsp;${ajdksCompanyInfoDto.company_name } 님 환영합니다</span>
 			</div>	
 			<div class="col pe-2 text-end nolinenoblue">
-				<a href="./ajdksCompanyLogoutProcess">로그아웃</a>
+				<a href="../../taeho/external/ajdksCompanyLogoutProcess">로그아웃</a>
 			</div>	
 		</div>
 		
@@ -111,7 +111,7 @@
 					<!-- 무언가 버튼 -->
 					<div class="row ps-5 pt-5">
 						<div class="col ps-1">
-							<span class="text-center text-white border border-white rounded px-3 py-3" style="background-color: #635199; cursor: pointer;">현장실습과정 신청&nbsp;<i class="bi bi-caret-right-fill"></i></span>
+							<span class="text-center text-white border border-white rounded px-3 py-3" style="background-color: #635199; cursor: pointer;" onclick="location.href='./applyInternshipCoursePage'">현장실습과정 신청&nbsp;<i class="bi bi-caret-right-fill"></i></span>
 						</div>
 					</div>
 				

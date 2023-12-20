@@ -7,52 +7,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     
+    <script src="../../resources/js/hn/topBanner.js"></script>
 </head>
 <body>
 
-    <div class="container-fluid">
-		<div class="row">
-            <div class="col">
-                <div class="row text-center">
-                    <div class="col-4"></div>
-                    <div class="col-1 pe-2 text-end">
-                        <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
-                    </div>
-                    <div class="col-3 ps-0 fw-bold fs-1 text-start ">
-                        MK University<span class="fs-6"> | </span> <span class="fs-5">보건센터</span> 
-                    </div>
-                    <div class="col-2"></div>
-                    <div class="col-1 border-end border-secondary text-end text-secondary mt-5" style="font-size: small">
-                        포털이용안내
-                    </div>
-                    <div class="col-1 text-start text-secondary mt-5 "style="font-size: small">
-                        <a class="navbar-brand" href="../../another/student/logoutProcess">로그아웃</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row text-center py-1 fw-bold text-light mt-3" style="background-color: #133369">
-            <div class="col-2"></div>
-            <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_c/guntaek/student/ajdksRegisterSelfIntroduction">공지사항</a>
-            </div>
-            <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_d/common/employmentMainPage">보건소&nbsp;안내</a>
-            </div>
-            <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_a/student/jw_mainPage">물품신청</a>
-            </div>
-            <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_b/common/studentMainPage">교육신청</a>
-            </div>
-            <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_b/common/studentMainPage">오시는길</a>
-            </div>
-            <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_b/common/studentMainPage">정보마당</a>
-            </div>
-            <div class="col-2"></div>
-        </div>
+	<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
+	<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
+    <div class="container-fluid">		
         <div class="row mt-2 ps-5" style="margin-left: 16%; margin-right: 16%;">
             <div class="col">
                 <div class="row">
@@ -419,26 +380,7 @@
         </div>
         <div class="row mt-5">
             <div class="col">
-                <div class="row">
-                    <div class="col py-4" style="background-color: #F2F2F2;">
-                        <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col-1 my-auto">
-                                            <img class="img-fluid" src="../../resources/img/another/logo_black.png">
-                                    </div>
-                                   	<div class="col-3 ps-0 my-auto" style="font-size: x-large">
-                                            MK University | 보건센터
-                                   	</div>
-                                    <div class="col text-body-tertiary" style="font-size: small;">
-                                        <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                        <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
             </div>
         </div>
     </div>

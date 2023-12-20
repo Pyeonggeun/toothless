@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.c.eunbi.service.EunbiExternalServiceImpl;
+import com.mkfactory.toothless.c.eunbi.service.EunbiStudentServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 
 @Controller
@@ -16,6 +17,8 @@ public class EunbiExternalController {
 
 	@Autowired
 	private EunbiExternalServiceImpl externalService;
+	@Autowired
+	private EunbiStudentServiceImpl studentService;
 	
 	@RequestMapping("viewEvaluationCourseListPage")
 	public String viewEvaluationCourseListPage(HttpSession session, Model model) {
@@ -27,4 +30,23 @@ public class EunbiExternalController {
 		
 		return "tl_c/eunbi/external/viewEvaluationCourseListPage";
 	}
+	
+	@RequestMapping("viewInternTimeCard")
+	public String viewInternTimeCard(HttpSession session, Model model, int student_intern_pk) {
+		
+		model.addAttribute("timecatedReport", studentService.viewTimeCard(student_intern_pk));
+		model.addAttribute("internReport", studentService.getInternReport(student_intern_pk));
+		model.addAttribute("countTimecard", studentService.countTimecard(student_intern_pk));
+		
+		return "tl_c/eunbi/external/viewInternTimeCard";
+	}
+	
+	@RequestMapping("viewStudentDetailPage")
+	public String viewStudentDetailPage(HttpSession session, Model model, int student_pk) {
+		
+		model.addAttribute("student_pk", student_pk);
+		
+		return "tl_c/eunbi/external/viewStudentDetailPage";
+	}
+	
 }

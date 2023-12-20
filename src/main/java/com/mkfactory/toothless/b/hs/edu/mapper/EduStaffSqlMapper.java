@@ -19,9 +19,16 @@ public interface EduStaffSqlMapper {
 			@Param("searchWord") String searchWord
 			);
 	
-	public List<EduApplyDto> selectAllEduApply();
+	public List<EduApplyDto> selectAllEduApply(@Param("searchType") String searchType, 
+			@Param("searchWord") String searchWord);
 	
-	public List<EduStsfcSurveyDto> selectAllServeyList();
+	public List<EduStsfcSurveyDto> selectAllServeyList(@Param("searchType") String searchType, 
+			@Param("searchWord") String searchWord);
+	
+	public List<EduDto> selectProgListMain();
+	public List<EduApplyDto> selectApplyListMain();
+	public List<EduStsfcSurveyDto> selectServeyListMain();
+	
 	
 	public StudentInfoDto selectServeyStudent(int edu_apply_pk);
 	

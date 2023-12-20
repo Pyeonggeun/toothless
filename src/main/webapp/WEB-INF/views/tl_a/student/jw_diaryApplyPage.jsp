@@ -26,48 +26,71 @@
            <jsp:include page="../commons/student/leftButtons5.jsp"></jsp:include>
             <!-- 왼쪽 목차 끝 -->
             <div class="col">
-                <div class="row">
-                    <div class="col">
-                        <div class="row my-3">
-                            <div class="col pb-2">
-                                <span class="fw-bold" style="font-size: xx-large;">일지 등록</span>
-                            </div>
-                            <div class="col text-end pt-3">
-                                <span class="bi bi-house-door-fill" style="color: #999897;"></span><span style="color: #7A8082;"> > 기숙사 커뮤니티 </span> <span style="color: #999897;"> > </span><span class="fw-bold" style="color: #767575;">일지 등록</span>
-                            </div>
-                            <span class="border-bottom  border-dark border-4 mt-2"></span>
-                        </div>
-                       
-                    </div>
-                </div>
-                <form class="row" action="./jw_diaryApplyProcess" method="post" onsubmit="alert('일지 작성이 완료되었습니다!');">
-                    <div class="col">
-                    	<div class="row mt-2">
-                    		<div class="col-2 py-3 fw-bold" style="font-size: 1.1rem;">
-                    			<span>이름</span>
-                    		</div>
-                    		<div class="col py-3 text-start" style="font-size: 1.0rem;">
-                    			${sessionStudentInfo.name}
-                    		</div>
-                    	</div>
-                    	<input type="hidden" name="executive_pk" value="${executiveDto.executive_pk}">
-                        <div class="row mt-3">
-                        	<div class="col-2 fw-bold" style="font-size: 1.1rem;">
-								<span>내용</span>
-							</div>
-							<div class="col" style="font-size: 1.0rem;">
-								<textarea name="content" style="height:20rem; width:45rem"></textarea>
-							</div>
-                        </div>
-                        <div class="row my-3">
+               
+            	
+            	<div class="row">
+            		<div class="col fw-bold fs-5 my-4 text-center">
+            			임 원 일 지 양 식
+            		</div>
+            	</div>
+            	<form action="./jw_diaryApplyProcess" method="post" onsubmit="alert('일지 작성이 완료되었습니다!');">
+            	<div class="row">
+            		<div class="col">
+            			<div class="row text-center border border-black ">
+            				<div class="col py-3 border-end border-black" style="background:#eeeeee;">
+            					담당 부서
+            				</div>
+            				<div class="col py-3 border-end border-black">
+            					생활관관리센터 팀
+            				</div>
+            				
+            				<div class="col py-3 border-end border-black" style="background:#eeeeee;">
+            					담당자 연락처
+            				</div>
+            				<div class="col py-3 border-end border-black">
+            					010-7630-1172
+            				</div>
+            			</div>
+            			<div class="row text-center border border-top-0 border-black">
+            				<div class="col py-3 border-end border-black" style="background:#eeeeee;">
+            					작성자
+            				</div>
+            				<input type="hidden" name="executive_pk" value="${executiveDto.executive_pk}">
+            				<div class="col py-3 border-end border-black">
+            					<input class="form-control text-center" type="text" placeholder="${sessionStudentInfo.name}" style="border:none;" readonly >
+            				</div>
+            				<div class="col py-3 border-end border-black" style="background:#eeeeee;">
+            					작성시간
+            				</div>
+            				<div class="col py-3 border-end text-secondary border-black">
+            					자동저장
+            				</div>
+            			</div>
+            			<div class="row text-center border border-top-0 border-black">
+            				<div class="col py-3 border-end border-black" style="background:#eeeeee;">
+            					보고사항
+            				</div>
+            			</div>
+            			<div class="row text-center border border-top-0 border-black">
+            				<div class="col py-3 border-end border-black">
+            					<textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="25" placeholder="보고사항을 작성하십시오." style="border:none;"></textarea>
+            				</div>
+            			</div>
+            			<div class="row my-3">
                         	<div class="col"></div>
 							<div class="col-2 d-grid py-3 fw-bold" style="font-size: 1.1rem;">
 								<input type="submit" class="btn btn-primary rounded-0" value="작성">
 							</div>
                         </div>
-                    </div>
+            			
+            		</div>
+            	</div>
             	</form>
+            	
               </div>
+              <pre></pre>
+              <pre></pre>
+              <pre></pre>
                 <!-- 공고 끝 -->
             </div>
         </div>

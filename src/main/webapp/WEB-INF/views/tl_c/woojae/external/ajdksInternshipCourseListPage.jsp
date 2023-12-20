@@ -128,10 +128,10 @@
 		<!-- 안내문구 -->
 		<div class="row py-2" style="box-shadow: 2px 2px 2px gray; font-size: 0.9em;">
 			<div class="col ps-2">
-				<span>&#035;&nbsp;ㅇㅇㅇ 님 환영합니다</span>
+				<span>&#035;&nbsp;${ajdksCompanyInfoDto.company_name } 님 환영합니다</span>
 			</div>	
 			<div class="col pe-2 text-end nolinenoblue">
-				<a href="./ajdksCompanyLogoutProcess">로그아웃</a>
+				<a href="../../taeho/external/ajdksCompanyLogoutProcess">로그아웃</a>
 			</div>	
 		</div>
 		

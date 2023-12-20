@@ -44,7 +44,6 @@
         }
         .element-with-pointer-cursor {
             cursor: pointer;
-            color: blue;
             font-weight: bold;
         }
         .bi-plus-circle-fill:hover{
@@ -52,35 +51,16 @@
             line-height: 30px;
             color:cadetblue;
         }
+        .rotateRight {
+        transform: rotate(90deg);
+        transition: all ease 1s;
+     	}
+        .rotateLeft {
+        transform: rotate(-90deg);
+        transition: all ease 1s;
+     	}
         
     </style>
-
-    <script>
-        $(document).ready(function() {
-            $('#calendar').fullCalendar({
-            header: {
-            left: 'prev',
-            center: 'title',
-            right: 'next'
-            },
-            defaultDate: '2023-01-01', // 시작 날짜
-            editable: true,
-            eventLimit: true, // 한 날에 이벤트가 많을 경우 '더 보기' 버튼 표시
-            events: [
-            { 
-                title: '이벤트 1',
-                start: '2023-01-01'
-            },    
-            { 
-                title: '이벤트 2',
-                start: '2023-01-05',
-                end: '2023-01-07'
-            } ,
-                // 추가적인 이벤트들을 원하는 만큼 추가할 수 있습니다.
-            ]
-        });   
-        });
-    </script>
 
     <script>
         function changeColor(targetElement) {
@@ -91,13 +71,47 @@
         function changeColorReset(targetElement) {
             targetElement.style.backgroundColor = ''; // 빈 문자열로 설정하여 기본 스타일로 복원
         }
-        function rotateIcon(element, rotate = true) {
-            console.log('rotateIcon 함수 호출됨'); // 디버깅을 위한 로그 추가
-            var rotationValue = rotate ? 'rotate(90deg)' : 'rotate(0deg)';
-            element.style.transform = rotationValue;
+        function rotateRight(element) {
+            var img = document.getElementById("plus");
+            element.setAttribute ("class","rotateRight");
         }
+        function rotateLeft(element){
+            var img = document.getElementById("plus");
+            element.setAttribute ("class","rotateLeft");
+        }
+        
+        function borderChange(element){
+            var border = document.querySelector(".borderChange");
+            element.classList.toggle("border-primary");
+        }
+    </script>
 
-
+    
+    <script>
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+            header: {
+            left: 'prev',
+            center: 'title',
+            right: 'next'
+            },
+            defaultDate: '2023-12-01', // 시작 날짜
+            editable: true,
+            eventLimit: true, // 한 날에 이벤트가 많을 경우 '더 보기' 버튼 표시
+            events: [
+            { 
+                title: '대동제',
+                start: '2023-12-13'
+            },    
+            { 
+                title: '크리스마스연휴',
+                start: '2023-12-23',
+                end: '2023-12-25'
+            } ,
+                // 추가적인 이벤트들을 원하는 만큼 추가할 수 있습니다.
+            ]
+        });   
+        });
     </script>
     
 </head>
@@ -146,7 +160,7 @@
             <div class="row px-5 text-center mt-4 py-3 rounded-5" style="background-color: #FCF5E1;">
                 <div class="col-3">
                     <div class="row">
-                        <button class="btn rounded-pill" onclick="location.href='../ys/healthCenterInfoPage'" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
+                        <button id="aaa" class="btn rounded-pill" onclick="location.href='../ys/healthCenterInfoPage'" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
                             <div class="col img-fluid">
                                 <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link02.png">
                             </div>
@@ -193,24 +207,9 @@
                 <div class="col-4 me-5 d-flex justify-content-center align-items-center rounded-5 text-center py-3" style="background-color: #FFE7EB;">
                     <div class="row">
                     	<div class="col">
-                    		<div class="row my-3">
+                    		<div class="row my-1">
 		                        <div class="col fw-bold fs-6">
 		                            진료시간
-		                        </div>
-		                    </div>
-		                    <div class="row">
-		                        <div class="col">
-		                            월~금요일 : 09:00~18:00
-		                        </div>
-		                    </div>
-		                    <div class="row">
-		                        <div class="col">
-		                            (점심시간 : 12:00~13:00)
-		                        </div>
-		                    </div>
-		                    <div class="row my-3">
-		                        <div class="col fw-bold fs-6">
-		                            아무개 정보
 		                        </div>
 		                    </div>
 		                    <div class="row">
@@ -223,6 +222,26 @@
 		                            (점심시간 : 12:00~13:00)
 		                        </div>
 		                    </div>
+		                    <div class="row border-top border-2 border-danger ">
+		                        <div class="col fw-bold fs-6 pt-1 mt-3">
+		                            간호사 근무시간
+		                        </div>
+		                    </div>
+		                    <div class="row">
+		                        <div class="col">
+		                            월~금요일 : 09:00~18:00
+		                        </div>
+		                    </div>
+		                    <div class="row">
+		                        <div class="col">
+		                            (점심시간 : 12:00~13:00)
+		                        </div>
+		                    </div>
+		                    <div class="row mb-3">
+		                        <div class="col text-secondary fw-bold">
+		                            비상연락망 : 010-1004-1004
+		                        </div>
+		                    </div>
                     	</div>
                     </div>
                 </div>
@@ -232,15 +251,19 @@
                         <div class="col-10 d-flex align-items-center fw-bold fs-5">
                             공지사항
                         </div>
-                        <div class="col-2 text-end">
-                            <i class="bi bi-plus-circle-fill abc:hover fw-bold fs-2 text-white element-with-pointer-cursor" onclick="location.href='../ty/studentBoardPage'" onmouseover="rotateIcon(this, 90)"
-                            onmouseout="rotateIcon(this, 0)"></i>
+                        <div class="col-2 text-end fs-6 element-with-pointer-cursor">
+                            <!-- <i class="bi bi-plus-circle-fill abc:hover fw-bold fs-2 text-white element-with-pointer-cursor" onclick="location.href='../ty/studentBoardPage'" onmouseover="rotateIcon(this, 90)"
+                            onmouseout="rotateIcon(this, 0)"></i> -->
+                            <svg id="plus" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16"
+                            onmouseover="rotateRight(this)" onmouseout="rotateLeft(this)" onclick="location.href='../ty/studentBoardPage'">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                            </svg>
                         </div>
                     </div>
                     <div class="row mt-3" >
-                        <div class="col ps-3 me-3 border border-2 rounded-5" style="background-color: #F7FBFF;">
+                        <div onmouseover="borderChange(this)" onmouseout="borderChange(this)" class="borderChange col ps-3 me-3 border border-2 rounded-5" style="background-color: #F7FBFF;">
                             <div class="row my-3">
-                                <div class="col fw-bold fs-6">
+                                <div class="col fw-bold fs-6 text-center">
                                     보건실을 이용하는 모든 학생들에게
                                 </div>
                             </div>
@@ -251,14 +274,14 @@
                                 </div>
                             </div>
                             <div class="row my-3">
-                                <div class="col">
+                                <div class="col text-center">
                                     2023.12.20 보건소장
                                 </div>
                             </div>  
                         </div>
-                        <div class="col ps-3 ms-3 border border-2 rounded-5 "style="background-color: #F7FBFF;">
+                        <div onmouseover="borderChange(this)" onmouseout="borderChange(this)" class="borderChange col ps-3 ms-3 border border-2 rounded-5 "style="background-color: #F7FBFF;">
                             <div class="row my-3">
-                                <div class="col fw-bold fs-6">
+                                <div class="col fw-bold fs-6 text-center">
                                     보건실을 이용하는 모든 학생들에게
                                 </div>
                             </div>
@@ -269,7 +292,7 @@
                                 </div>
                             </div>
                             <div class="row my-3">
-                                <div class="col">
+                                <div class="col text-center">
                                     2023.12.20 보건소장
                                 </div>
                             </div> 
@@ -285,24 +308,30 @@
                         </div>
                         <div class="col-6 my-0 text-center">
                             <div class="row my-3 rounded-5 py-1" style="background-color: #133369;">
-                                <div class="col fw-bold text-center fs-5 text-white">
+                                <div class="col fw-bold text-start fs-5 text-white ps-3">
                                     Event
                                 </div>
-                            </div>
-                            <div class="row my-2 py-2 border-bottom border-2">
-                                <div class="col-4 border-end">
-                                    2023.11.28
-                                </div>
-                                <div class="col-8">
-                                    이런저러한일을해야합니다
+                                <div class="col fw-bold text-end fs-5 text-white pb-1 element-with-pointer-cursor">
+                                    <svg id="plus2" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16"
+                                    onmouseover="rotateRight(this)" onmouseout="rotateLeft(this)" onclick="location.href='../ty/studentBoardPage'">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                                    </svg>
                                 </div>
                             </div>
                             <div class="row my-2 py-2 border-bottom border-2">
                                 <div class="col-4 border-end">
-                                    2023.11.28
+                                    2023.12.22
                                 </div>
                                 <div class="col-8">
-                                    이런저러한일을해야합니다
+                                    대동제
+                                </div>
+                            </div>
+                            <div class="row my-2 py-2 border-bottom border-2">
+                                <div class="col-4 border-end">
+                                    2023.12.23
+                                </div>
+                                <div class="col-8">
+                                    크리스마스 연휴
                                 </div>
                             </div>
                         </div>

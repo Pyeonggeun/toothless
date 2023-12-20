@@ -11,6 +11,32 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
         <title>교육 교직원 글 등록</title>
+        <style>
+        	.btn-upload {
+	           width: 150px;
+	           aspect-ratio: 1/1;
+	           background-image: url("../../resources/img/healthRoom/edu/이미지 등록 캡쳐.png");
+	           background-position: center;
+	           border: 0.1em solid rgb(77,77,77);
+	           border-radius: 0px;
+	           border-color: #DEE2E6;
+	           font-weight: 500;
+	           cursor: pointer;
+	           display: flex;
+	           align-items: center;
+	           justify-content: center;
+	        }
+         	/* #file {
+           visibility: hidden;
+
+			} */
+			
+			input[type=file]::file-selector-button {
+          	 display: none;
+        	}
+         
+        </style>
+        
     </head>
     <body>
         <div class="container-fluid">
@@ -28,7 +54,7 @@
                                             <div class="row">
                                                 
                                                 <div class="col"></div>
-                                                <div class="col-10 fw-bold pb-2" style="font-size: 1.7em;  border-bottom-color: #014195;   border-bottom-style: solid; border-bottom-width: 0.12em;">
+                                                <div class="col-10 fw-bold pb-2 px-0" style="font-size: 1.7em;  border-bottom-color: #014195;   border-bottom-style: solid; border-bottom-width: 0.12em;">
                                                     교육프로그램 등록
                                                 </div>
                                                 <div class="col"></div>
@@ -39,9 +65,21 @@
                                             
                                              <div class="row">
                                              	<div class="col"></div>
-                                                <div class="col-10">
+                                                <div class="col-10 px-0">
                                                 
-                                                    
+                                                    <div class="form-group mt-4">
+                                                        <!-- <label for="img_link" class="form-label">포스터</label><br>
+                                                        
+                                                        <input type="file" class="form-control-file"
+                                                        id="img_link" name="img_link"
+                                                        accept="image/*" multiple required> -->
+                                                        
+                                                        <label for="file" class="btn-upload">
+														</label>
+														    
+														<input type="file" name="img_link" id="file">
+                                                        
+                                                    </div>
 
                                                     
                     
@@ -55,13 +93,14 @@
                                                         <textarea class="form-control" id="content" name="content" rows="15" cols="10" placeholder="신청방법, 강사 상세교육 내용을 입력하세요" required></textarea>
                                                     </div>
                                                 
-                                                    <div class="form-group mt-4">
-                                                        <label for="img_link" class="form-label">포스터</label>
-                                                        <input type="file" class="form-control-file"
-                                                        id="img_link" name="img_link"
-                                                        accept="image/*" multiple required>
-                                                    </div>
-
+                                                    
+                                                    
+                                                    
+												
+							
+                                                    
+                                                    
+                                                    
                                                     
                                                     <div class="row mt-3">
                                                         <div class="col-2">
@@ -120,13 +159,16 @@
                                                     </div>
                     
                                                     <div class="row my-5">
+                                                    	
                                                         <div class="col-5"></div>
-                                                        <div class="col-2 text-center">
-                                                            <button type="submit" class="btn text-white rounded-0" style="background-color: #014195;">
+                                                        <div class="col-2">
+                                                        	<button type="submit" class="btn text-white rounded-0" style="background-color: #014195;">
                                                                 게시글 작성
                                                             </button>
                                                         </div>
-                                                        <div class="col-5"></div>
+                                                        <div class="col-5">
+                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="col"></div>

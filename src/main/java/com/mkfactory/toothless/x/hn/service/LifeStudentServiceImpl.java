@@ -84,16 +84,36 @@ public class LifeStudentServiceImpl {
 	
 	public boolean isConditionSatisfaction(int open_lecture_key, int life_student_key) {
 		
-		List<Integer> list = lifeStudentSqlMapper.isConditionSatisfaction(open_lecture_key, life_student_key);
+		List<Map<String, Object>> list = lifeStudentSqlMapper.isConditionSatisfaction(open_lecture_key, life_student_key);
 		
 		boolean isSatisfaction = true;
 		
-		for(int e : list) {
+		for(Map<String, Object> map : list) {
 			
-			if(e == 0) {
+			int lectureInfoKey = ((BigDecimal)map.get("LECTURE_INFO_KEY")).intValue();
+			
+			if(lectureInfoKey == 0) {
+				isSatisfaction = false;
+				break;
+			}
+
+			int openLectureKey = ((BigDecimal)map.get("OPEN_LECTURE_KEY")).intValue();
+			int lectureStudentKey = ((BigDecimal)map.get("LECTURE_STUDENT_KEY")).intValue();
+			
+			LectureInfoDto lectureInfoDto = lifeStudentSqlMapper.getLectureInfoByLectureInfoKey(lectureInfoKey);
+			Clac clac = new Clac();
+			double attendanceResult = Double.parseDouble(clac.attendanceClac(
+					lifeStudentSqlMapper.getTotalAttendanceCount(openLectureKey),
+					lifeStudentSqlMapper.getExceptAttendanceAndAbsentCountByLectureStudentKey(lectureStudentKey),
+					lifeStudentSqlMapper.getAttendanceCountByLectureStudentKey(lectureStudentKey)));
+			
+			int testResult = lifeStudentSqlMapper.getAvgTestScoreByOpenLectureKey(openLectureKey);
+			
+			if(lectureInfoDto.getEssential_attendance() > attendanceResult || lectureInfoDto.getEssential_grade() > testResult) {
 				
 				isSatisfaction = false;
 				
+				break;
 			}
 			
 		}
@@ -250,11 +270,14 @@ public class LifeStudentServiceImpl {
 		
 		boolean isComplete = false;
 		
+		int totalAttendance = lifeStudentSqlMapper.getTotalAttendanceCount(open_lecture_key);
+		int exceptAttendance = lifeStudentSqlMapper.getExceptAttendanceAndAbsentCountByLectureStudentKey(lecture_student_key);
+		int attendance = lifeStudentSqlMapper.getAttendanceCountByLectureStudentKey(lecture_student_key);
+		int absent = lifeStudentSqlMapper.getAbsentCountByLectureStudentKey(lecture_student_key);
+		
 		Clac clac = new Clac();
-		double attendanceResult = Double.parseDouble(clac.attendanceClac(
-				lifeStudentSqlMapper.getTotalAttendanceCount(open_lecture_key),
-				lifeStudentSqlMapper.getExceptAttendanceAndAbsentCountByLectureStudentKey(lecture_student_key),
-				lifeStudentSqlMapper.getAttendanceCountByLectureStudentKey(lecture_student_key)));
+		double attendanceResult = Double.parseDouble(clac.attendanceClac(totalAttendance, exceptAttendance, attendance));
+		double attendanceScore = Double.parseDouble(clac.attendanceScore(totalAttendance, exceptAttendance, absent));
 		
 		int testResult = lifeStudentSqlMapper.getAvgTestScoreByOpenLectureKey(open_lecture_key);
 		
@@ -284,6 +307,7 @@ public class LifeStudentServiceImpl {
 		map.put("studentTotalTestCount", lifeStudentSqlMapper.getStudentTotalTestCount(lecture_student_key));
 		map.put("totalTestCount", lifeStudentSqlMapper.getTotalTestCount(open_lecture_key));
 		map.put("attendanceResult", attendanceResult);
+		map.put("attendanceScore", attendanceScore);
 		map.put("isComplete", isComplete);
 		map.put("testResult", testResult);
 		map.put("testList", testList);
@@ -413,6 +437,14 @@ class Clac {
 	public String attendanceClac(int totalAttendance, int exceptAttendance, int attendance) {
 		
 		double e = ((attendance - (exceptAttendance/3)) / totalAttendance) * 100;
+		String result = String.format("%.1f", e);
+		
+		return result;
+	}
+	
+	public String attendanceScore(int totalAttendance, int exceptAttendance, int absent) {
+		
+		double e = 100 - (100/totalAttendance)*((exceptAttendance/3) + absent);
 		String result = String.format("%.1f", e);
 		
 		return result;

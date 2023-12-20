@@ -75,7 +75,7 @@
 					<div class="col fs-5 fw-bold mt-5">채용정보</div>
 				</div>
 				<%-- 기업정보 --%>
-				<div class="row border-bottom border-dark"></div>
+				<div class="row border-bottom border-3 border-dark"></div>
 				<div class="row border border-top">
 					<%-- 간략한 채용정보 --%>
 					<div class="col p-4 ms-2">
@@ -161,7 +161,7 @@
 				</div>
 				<div class="row border">
 					<div class="col">
-						<div class="row border-top border-dark">
+						<div class="row border-top border-3 border-dark">
 							<div class="col-2 px-5 pt-5">
 								<img src="../../resources/img/employment/${jobPostingDetailForCompany.jobPostingDto.posting_mainimage}">
 							</div>
@@ -175,7 +175,7 @@
 					</div>
 				</div>
 				<%-- 우대사항 --%>
-				<div class="row mt-3 border-bottom border-dark">
+				<div class="row mt-3 border-bottom border-3 border-dark">
 					<div class="col fs-5 fw-bold">우대사항</div>
 				</div>
 				<div class="row border">
@@ -184,7 +184,7 @@
 					</div>
 				</div>
 				<%-- 채용인원 --%>
-				<div class="row mt-3 border-bottom border-dark">
+				<div class="row mt-3 border-bottom border-3 border-dark">
 					<div class="col fs-5 fw-bold">채용인원</div>
 				</div>
 				<div class="row border">

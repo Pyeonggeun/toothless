@@ -242,6 +242,7 @@
 </head>
 <body>
 <!-- 상단 common Navi -->
+<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
 <jsp:include page="../commons/student/topNavi.jsp"></jsp:include>
 
 <!-- 캐러셀 이미지 -->
