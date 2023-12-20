@@ -3,6 +3,7 @@ package com.mkfactory.toothless.d.common.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.mkfactory.toothless.d.jm.consulting.service.ConsultingService;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.d.sb.resume.service.ResumeServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @Controller
@@ -163,7 +165,15 @@ public class EmploymentCommonController {
 	
 	//교직원 메인페이지
 	@RequestMapping("staffMainPage")
-	public String staffMainPage(Model model) {
+	public String staffMainPage(Model model, HttpSession session) {
+		
+		//로그인 확인
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");		
+		if(staffInfoDto==null) {
+			
+			return "redirect:../../another/staff/loginPage";
+		}
+
 		
 		
 		//미응답 온라인상담 5건
