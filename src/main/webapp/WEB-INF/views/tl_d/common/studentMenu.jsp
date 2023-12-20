@@ -77,11 +77,11 @@
 </div>
 <div class="row mt-1">
 	<a class="col ps-5 mt-3 ms-5 navbar-brand" 
-		href="#">&nbsp;공지사항</a>
+		href="../tl_d/hc_board/noticeMainPageForStudent">&nbsp;공지사항</a>
 </div>
 <div class="row">
 	<a class="col ps-5 mt-2 ms-5 navbar-brand" 
-		href="#">&nbsp;QnA게시판</a>
+		href="../tl_d/hc_board/QnABoardPageForStudent">&nbsp;QnA게시판</a>
 </div>
 <c:choose>
 	<c:when test="${empty sessionStudentInfo}">

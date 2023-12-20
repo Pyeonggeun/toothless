@@ -58,10 +58,10 @@
             </div>
             <!-- 드롭다운 만들 예정 -->
             <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_a/student/jw_mainPage">QnA게시판</a>
+                <a class="navbar-brand" href="../tl_d/hc_board/QnABoardPageForStudent">QnA게시판</a>
             </div>
             <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_a/student/jw_mainPage">공지사항</a>
+                <a class="navbar-brand" href="../tl_d/hc_board/noticeMainPageForStudent">공지사항</a>
             </div>
             <div class="col-2"></div>
         </div>
