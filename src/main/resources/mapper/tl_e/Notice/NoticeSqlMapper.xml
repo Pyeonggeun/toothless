@@ -96,6 +96,7 @@
 	<select id="selectCommentByNotice_Id" resultType="com.mkfactory.toothless.e.dto.NoticeCommentDto">
 		SELECT * FROM cp_notice_comment
 		WHERE notice_id = #{notice_id}
+		ORDER BY id
 	</select>
 	<select id="selectStudentInfoByStudent_Pk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
 		SELECT * FROM tl_jic_student_info

@@ -280,38 +280,38 @@
 		<div class="row mt-3">
 			<div class="col-1"></div>
 			<div class="col">
-				<div class="row fw-bold" style="background-color: silver;">
-					<div id="headerSize" class="col-1 border"><i class="bi bi-caret-right-fill"></i>&nbsp;&nbsp;글번호</div>
-					<div id="headerSize" class="col-8 border"><i class="bi bi-book-fill"></i>&nbsp;&nbsp;제목</div>
-					<div id="headerSize" class="col-1 border"><i class="bi bi-person-arms-up"></i>&nbsp;&nbsp;작성자</div>
-					<div id="headerSize" class="col-1 border"><i class="bi bi-mouse-fill"></i>&nbsp;&nbsp;조회수</div>
-					<div id="headerSize" class="col-1 border"><i class="bi bi-calendar-fill"></i>&nbsp;&nbsp;작성일</div>
+				<div class="row fw-bold">
+					<div id="headerSize" class="col-1"><i class="bi bi-chat-square-text-fill"></i>&nbsp;&nbsp;글번호</div>
+					<div id="headerSize" class="col-8"><i class="bi bi-emoji-expressionless-fill"></i>&nbsp;&nbsp;제목</div>
+					<div id="headerSize" class="col-1"><i class="bi bi-emoji-heart-eyes-fill"></i>&nbsp;&nbsp;작성자</div>
+					<div id="headerSize" class="col-1"><i class="bi bi-person-arms-up"></i>&nbsp;&nbsp;조회수</div>
+					<div id="headerSize" class="col-1"><i class="bi bi-calendar-heart-fill"></i>&nbsp;&nbsp;작성일</div>
 				</div>
 				<div class="row">
 					<c:forEach items="${mainList }" var="mainList">
-						<div id="headerSize" class="col-1 border"><i class="bi bi-caret-right-fill"></i>${mainList.noticeBoardDto.id }</div>
-						<div class="col-8 border">
+						<div id="headerSize" class="col-1">${mainList.noticeBoardDto.id }</div>
+						<div class="col-8 border-bottom">
 							<div class="row">
 								<div class="col-10">
 									<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./readNoticeBoardPage_Student?id=${mainList.noticeBoardDto.id }">${mainList.noticeBoardDto.title }</a>
 									<c:if test="${mainList.commentCount > 0 }">
-										<span style="font-size: 0.7em; color: red; font-weight: bold;">[${mainList.commentCount }]</span> 
+										<span class="fw-bold text-danger" style="font-size:0.7em;">[${mainList.commentCount }]</span> 
 									</c:if>
 									<c:if test="${mainList.imageCount > 0 }">
 										<i class="bi bi-card-image"></i>
 									</c:if>
 								</div>
 								<div class="col-1">
-									<span class="badge text-bg-light" style="font-size: 0.7em; color: red;">추천[${mainList.likeCount }]</span>
+									<span class="fw-bold" style="font-size:0.7em;">추천[${mainList.likeCount }]</span>
 								</div>
 								<div class="col-1">
-									<span class="badge text-bg-light" style="font-size: 0.7em;">비추[${mainList.disLikeCount }]</span>
+									<span class="fw-bold" style="font-size:0.7em;">비추[${mainList.disLikeCount }]</span>
 								</div>
 							</div>
 						</div>
-						<div id="headerSize" class="col-1 border">${mainList.staffInfoDto.name }</div>
-						<div id="headerSize" class="col-1 border">${mainList.noticeBoardDto.read_count }</div>
-						<div id="headerSize" class="col-1 border"><fmt:formatDate value="${mainList.noticeBoardDto.created_at }" pattern="yy-MM-dd"/></div>
+						<div id="headerSize" class="col-1 text-center">${mainList.staffInfoDto.name }</div>
+						<div id="headerSize" class="col-1 text-center">${mainList.noticeBoardDto.read_count }</div>
+						<div id="headerSize" class="col-1 text-center"><fmt:formatDate value="${mainList.noticeBoardDto.created_at }" pattern="yy-MM-dd"/></div>
 					</c:forEach>
 				</div>
 			</div>
