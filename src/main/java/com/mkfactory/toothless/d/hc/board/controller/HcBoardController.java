@@ -157,5 +157,50 @@ public class HcBoardController {
 		
 		return "redirect:./noticeMainPage";
 	}
+	@RequestMapping("noticeMainPageForStudent")
+	public String StudentPage(Model model) {
+		List<Map<String, Object>> list = hcBoardService.noticeList();
+		model.addAttribute("noticelist", list);
+		
+	return "tl_d/hc_board/noticeMainPageForStudent";
+			
+	}
+	
+	@RequestMapping("readNoticePageForStudent")
+	public String readNoticePageForStudent(Model model, int id) {
+		
+		Map<String, Object> map = hcBoardService.getnotice(id);
+		
+		model.addAttribute("hoho", map);
+		
+		return "tl_d/hc_board/readNoticePageForStudent";
+	}
+	
+	@RequestMapping("QnABoardPageForStudent")
+	public String QnABoardPageForStudent(Model model) {
+		List<Map<String, Object>> list = hcBoardService.getArticleList();
+		model.addAttribute("list", list);
+		return "tl_d/hc_board/QnABoardPageForStudent";
+	}
+	
+	@RequestMapping("readPageForStudent")
+	public String readPageForStudent(Model model, int board_pk) {
+		
+		
+		Map<String, Object> map = hcBoardService.getArticle(board_pk);
+		
+		model.addAttribute("roman", map);
+		
+		return "tl_d/hc_board/readPageForStudent";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

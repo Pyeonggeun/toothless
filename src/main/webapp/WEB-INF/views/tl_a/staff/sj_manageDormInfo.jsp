@@ -56,10 +56,12 @@
 			<div class="row">
 				<c:forEach items="${dormBuilding }" var="dorm">
 				
-					<div class="col my-3">
+					<div class="col-md-3 my-3">
 						<div class="card" style="width: 18rem;">
 			
-							<img src="/uploadDormMainImg/${dorm.main_img }" class="d-grid img-fluid card-img-top" style="height:11em;">
+							<img src="../../resources/img/dormitory/uploadDormMaingImg/${dorm.main_img }" class="d-grid img-fluid card-img-top" style="height:11em;">
+							<!-- /uploadDormMainImg/${dorm.main_img } -->
+							
 							<div class="card-body">
 							    <h5 class="card-title fw-bold">${dorm.name }</h5>
 							    <p class="card-text">${dorm.address }</p>

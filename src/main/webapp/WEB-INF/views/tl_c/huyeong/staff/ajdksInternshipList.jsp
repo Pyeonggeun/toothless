@@ -122,7 +122,7 @@ body {
 				<div class="row mt-3 mb-3 ">
 					<div class="col">
 						<div class="row">
-							<div class="col">
+							<div class="col mt-3">
 
 								<!-- 상단 텍스트 -->
 								<h3 class="jb-700 fontcolor2">
@@ -134,53 +134,49 @@ body {
 					</div>
 				</div>
 
-				<!-- 선 -->
-				<div class="row mt-3">
-					<div class="col-10 border border-secondary-subtle"></div>
-				</div>
-
 				<!-- 본문 작성 공간 -->
-				<form class="row mt-4 mb-4">
-
-					<!-- 반복문 -->
-					<c:forEach items="${list }" var="map">
-						<div class="col-3 m-3">
-
-							<div class="card border-black shadow mb-3">
-								<div class="card-body text">
-									<h5 class="card-title fw-bold nolinenoblue">
-										<a
-											href="ajdksInternshipDtl?
-									internship_course_pk=${map.AjdksInternshipCourseDto.internship_course_pk}
-									&company_pk=${map.AjdksInternshipCourseDto.company_pk}
-									&professor_pk=${map.AjdksInternshipCourseDto.professor_pk}
-									&department_pk=${map.AjdksInternshipCourseDto.department_pk}">
-											${map.AjdksInternshipCourseDto.course_title}</a>
-									</h5>
-									<p class="card-text" style="font-size: 0.9em;">
-										선발결과 발표일 <br>
-										<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
-											value="${map.AjdksInternshipCourseDto.announcement_date}"></fmt:formatDate>
-									</p>
+				<div class="row">
+					<div class="col">
+						<!-- 반복문 -->
+						<div class="row row-cols-4">
+							<c:forEach items="${list}" var="map">
+								<div class="col">
+									<div class="card border-black shadow mb-3" style="height:11em">
+										<div class="card-body text">
+											<h5 class="card-title fw-bold nolinenoblue">
+												<a href="ajdksInternshipDtl?
+											internship_course_pk=${map.AjdksInternshipCourseDto.internship_course_pk}
+											&company_pk=${map.AjdksInternshipCourseDto.company_pk}
+											&professor_pk=${map.AjdksInternshipCourseDto.professor_pk}
+											&department_pk=${map.AjdksInternshipCourseDto.department_pk}">
+													${map.AjdksInternshipCourseDto.course_title}</a>
+											</h5>
+											<p class="card-text" style="font-size: 0.9em;">
+												선발결과 발표일 <br>
+												<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
+													value="${map.AjdksInternshipCourseDto.announcement_date}"></fmt:formatDate>
+											</p>
+										</div>
+		
+										<div class="card-footer labelcolor jb-700" style="font-size: 0.9em;">${map.company_name}</div>
+									</div>
 								</div>
-
-								<div class="card-footer labelcolor jb-700"
-									style="font-size: 0.9em;">${map.company_name}</div>
-
-							</div>
-
+							</c:forEach>
 						</div>
-					</c:forEach>
-
-				</form>
-
-				<!-- 하단 버튼 -->
-				<div class="btn-group m-3 border shadow" role="group"
-					aria-label="Default button group">
-					<a href="./ajdksInternshipRegForm" class="btn labelcolor"> <i
-						class="bi bi-pencil-square"></i> 등록페이지
-					</a> <a href="./ajdksInternshipList" onclick="javascript:fn_reg();"
-						class="btn labelcolor"><i class="bi bi-list-ul"></i> 목록으로</a>
+					</div>
+				</div>
+				
+				<div class="row mt-2 text-end">
+					<div class="col">
+						<!-- 하단 버튼 -->
+						<div class="btn-group m-3 border shadow" role="group"
+							aria-label="Default button group">
+							<a href="./ajdksInternshipRegForm" class="btn labelcolor"> <i
+								class="bi bi-pencil-square"></i> 등록페이지
+							</a> <a href="./ajdksInternshipList" onclick="javascript:fn_reg();"
+								class="btn labelcolor"><i class="bi bi-list-ul"></i> 목록으로</a>
+						</div>
+					</div>
 				</div>
 
 			</div>

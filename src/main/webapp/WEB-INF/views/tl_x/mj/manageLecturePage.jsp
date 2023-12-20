@@ -891,6 +891,7 @@
             
         
 	</div> <!-- main row 끝 -->
+	<jsp:include page="../commons/staff/footer.jsp"></jsp:include>
 </div>
 
 <!-- 공통 제목/탭 -->

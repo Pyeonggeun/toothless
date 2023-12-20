@@ -269,8 +269,15 @@
 											<div class="col text-center" style="font-size:0.95em">이서영</div>
 											<div class="col-2  text-center" style="font-size:0.9em">직원</div>
 											<div class="col-4" style="font-size:0.9em">
-												대학평가 및 국고사업 총괄<br>국내/외 장단기 현장실습 운영<br>교육과정 현장실습 운영<br>정부지원사업
-												수주<br>규정 관리
+												대학평가 및 국고사업 총괄<br>국내/외 장단기 현장실습 운영<br>교육과정 현장실습 운영
+											</div>
+											<div class="col-3  text-center" style="font-size:0.95em">02-940-5606</div>
+										</div>
+										<div class="row fs-6 pb-1 my-1">
+											<div class="col text-center" style="font-size:0.95em">이건택</div>
+											<div class="col-2  text-center" style="font-size:0.9em">직원</div>
+											<div class="col-4" style="font-size:0.9em">
+												정부지원사업수주<br>규정 관리<br>국내 장단기 현장실습 운영
 											</div>
 											<div class="col-3  text-center" style="font-size:0.95em">02-940-5606</div>
 										</div>
@@ -278,11 +285,12 @@
 											<div class="col text-center" style="font-size:0.95em">김우재</div>
 											<div class="col-2  text-center" style="font-size:0.9em">직원</div>
 											<div class="col-4" style="font-size:0.9em">
-												현장실습 대학정보공시 관리<br>현장실습온라인시스템 운영<br>국내 장단기 현장실습 운영
+												현장실습 대학정보공시 관리<br>현장실습온라인시스템 운영
 												<br>현장실습 설명회 운영<br>우수인재 추천
 											</div>
 											<div class="col-3 text-center" style="font-size:0.95em">02-940-5606</div>
 										</div>
+									
 									</div>
 
 								</div>
