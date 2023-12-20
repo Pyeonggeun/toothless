@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.CompanyManagerDto;
 import com.mkfactory.toothless.d.dto.InterestCompanyDto;
+import com.mkfactory.toothless.d.dto.InterestPostingDto;
 import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
