@@ -52,39 +52,51 @@
                 </div>
                 <div class="row"><!--여기가 안에 들어갈 내용들-->
                     <div class="col">
-                        <div class="row">
-                            <div class="col-2 pb-3 text-center fw-bold" style="font-size: large;">
+                        <div class="row mt-1">
+                            <div class="col-1 pb-3 text-center fw-bold" style="font-size: large;">
                                 글번호
                             </div>
-                            <div class="col text-center fw-bold" style="font-size: large;">
+                            <div class="col-5 text-center fw-bold" style="font-size: large;">
                                 제목
                             </div>
-                            <div class="col-2 text-center fw-bold" style="font-size: large;">
+                            <div class="col text-center fw-bold" style="font-size: large;">
                                 작성자
                             </div>
-                            <div class="col-2 text-center fw-bold" style="font-size: large;">
+                            <div class="col text-center fw-bold" style="font-size: large;">
                                 작성일
                             </div>
                         </div>
                     </div>
                 </div><!-- 여기까지-->
+                
                 <!-- row col 반복문 돌릴곳, 제목 클릭시 게시판 상세내용-->
-                <c:forEach items="${noticeList}" var="NList">
-                <div class="row">
-                    <div class="col">
-                        <div class="row" style="border-top: 0.03em solid black;">
-                            <div class="col-2 py-3 text-center" style="font-size: large;">${NList.dormNoticeDto.dorm_notice_pk }</div>
-                            <div class="col py-3 text-center" style="font-size: large;"><a href="./dm_NoticeArticlePage?dorm_notice_pk=${NList.dormNoticeDto.dorm_notice_pk }" style="text-decoration: none; color: black;">${NList.dormNoticeDto.title }</a></div>
-                            <div class="col-2 py-3 text-center" style="font-size: large;">${NList.staffInfoDto.name }</div>
-                            <div class="col-2 py-3 text-center" style="font-size: large;"><fmt:formatDate value="${NList.dormNoticeDto.created_at }"/></div>
-                        </div>
-                    </div>
-                </div>
+                <c:forEach items="${noticeList }" var="NList">
+	                 <div class="row mb-2">
+			            <div class="col">
+							<div class="row border rounded-2 py-3 text-center shadow-sm  bg-body-tertiar">
+								<div class="col-1">
+									${NList.dormNoticeDto.dorm_notice_pk }
+								</div>
+								<div class="col-5">
+									<a class="navbar-brand" href="./dm_NoticeArticlePage?dorm_notice_pk=${NList.dormNoticeDto.dorm_notice_pk }">${NList.dormNoticeDto.title }</a> 
+								</div>
+								<div class="col">
+									<i class="bi bi-person-circle"> </i> ${NList.staffInfoDto.name }
+								</div>
+								<div class="col">
+									<fmt:formatDate value="${NList.dormNoticeDto.created_at }" pattern="yyyy.MM.dd"/>
+								</div>
+								
+							</div>
+			            </div>
+			        </div>
                 </c:forEach>
+                
                 <!-- 반복문 여기까지 게시판 내용 + 사생정보 내용 -->
                 <div class="row">
                     <div class="col">
-                        <div class="row" style="border-top: 0.03em solid black;">
+                    <!-- border-top 뭔가 묘하게 거슬려서 빼놨어요 style="border-top: 0.03em solid black;" -->
+                        <div class="row"> 
                            
                         </div>
                     </div>
