@@ -220,14 +220,14 @@
 			)t2
 		)t3
 		<![CDATA[
-			WHERE t3.rnum >= (#{pageNumber}-1)*10 + 1 AND t3.rnum <= #{pageNumber}*10
+			WHERE t3.rnum >= (#{pageNumber}-1)*5 + 1 AND t3.rnum <= #{pageNumber}*5
 		]]>
 	</select>
 	
 	<select id="getToTalReviewLectureCount" resultType="int">
 		SELECT COUNT(*) FROM (
 			SELECT * FROM tl_x_lecture_student
-			WHERE life_student_key = 21
+			WHERE life_student_key = #{life_student_key}
 		)t1
 		INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
 		<![CDATA[
