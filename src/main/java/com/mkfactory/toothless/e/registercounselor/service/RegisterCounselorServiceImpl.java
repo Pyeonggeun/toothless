@@ -136,7 +136,7 @@ public class RegisterCounselorServiceImpl {
 		
 		
 		String career = StringEscapeUtils.escapeHtml4(counselorDto.getCareer());
-		career = career.replaceAll("\n", "<br>");
+		career = career.replaceAll("\n", "<br>");		
 		
 		counselorDto.setCareer(career);
 		
@@ -229,6 +229,12 @@ public class RegisterCounselorServiceImpl {
 		
 		
 		return counselorDetailForAJAX;
+	}
+	
+	// 전체상담원 상담형태별 상담완료리스팅
+	public List<Map<String, Object>> getAllCompleteCounselList(){
+		
+		return registerCounselorSqlMapper.selectAllCompleteCounselList();
 	}
 	
 }

@@ -3,8 +3,8 @@
 <script>	
 	function getSessionStaffInfo() {
 		
-		const fixedUrl = "http://localhost:8181/toothless/tl_e/commons/getSessionStaffInfo"
-		const staffLoginUrl = "http://localhost:8181/toothless/another/staff/loginPage";
+		const fixedUrl = "/toothless/tl_e/commons/getSessionStaffInfo"
+		const staffLoginUrl = "/toothless/another/staff/loginPage";
 		
 		fetch(fixedUrl)
 		.then(response => response.json())

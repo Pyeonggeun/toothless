@@ -80,8 +80,7 @@ public class RequestRepaireController {
 		
 		
 			if (imgs != null && !imgs.isEmpty()) {
-		        String rootPath = "C:/requestRepairImg/";
-
+		        String rootPath = "C:\\workspace\\GitWorkSpace\\toothless\\src\\main\\webapp\\resources\\img\\dormitory\\requestRepairImg\\";
 		        // 날짜별 폴더 생성.
 		        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
 		        String todayPath = sdf.format(new Date());
