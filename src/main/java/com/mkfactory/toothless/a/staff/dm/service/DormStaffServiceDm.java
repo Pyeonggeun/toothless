@@ -200,7 +200,7 @@ public class DormStaffServiceDm {
 		
 		int student_pk = dormStudentDto.getStudent_pk();
 		
-		alarmApi.sendAlarm(student_pk, "기숙사 방 배정이 완료되었습니다.", "/toothless/tl_a/student/jw_mainPage");
+		alarmApi.sendAlarm(student_pk, 4,"기숙사 방 배정이 완료되었습니다.", "/toothless/tl_a/student/jw_mainPage");
 		
 		
 		dormStaffSqlMapperDm.dormStudentAssignmentInsert(dormStudentDto);
