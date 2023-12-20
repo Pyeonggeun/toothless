@@ -136,16 +136,16 @@
                                         	<div class="col">
                                         		<div class="row bg-main pb-1">
                                         			 <div class="col-3 d-grid px-0">
-                                                		<a class="navbar-brand bg-main text-white" href="../student/loginPage">학생</a>
+                                                		<a class="navbar-brand bg-main text-white" href="/toothless/another/student/loginPage">학생</a>
                                             		</div>
                                             		<div class="col-3 d-grid px-0">
-                                                		<a class="navbar-brand border border-2 bg-white" href="../staff/loginPage">교직원</a>
+                                                		<a class="navbar-brand border border-2 bg-white" href="/toothless/another/staff/loginPage">교직원</a>
                                             		</div>
 		                                            <div class="col-3 d-grid px-0">
-		                                                <a class="navbar-brand border border-2 bg-white" href="../professor/loginPage">교수</a>
+		                                                <a class="navbar-brand border border-2 bg-white" href="/toothless/another/professor/loginPage">교수</a>
 		                                            </div>
 		                                            <div class="col-3 d-grid px-0">
-		                                                <a class="navbar-brand border border-2 bg-white" href="../external/loginPage">외부인</a>
+		                                                <a class="navbar-brand border border-2 bg-white" href="/toothless/another/external/loginPage">외부인</a>
 		                                            </div>	
                                         		</div>
                                         	</div>
