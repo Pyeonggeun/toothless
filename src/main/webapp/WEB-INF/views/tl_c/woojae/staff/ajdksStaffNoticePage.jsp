@@ -23,7 +23,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-2">공지사항</div>
-						<div class="col-2">자주하는 질문</div>
+						<div class="col-2 text-secondary">자주하는 질문</div>
 					</div>
 				</div>
 			</div>
@@ -195,7 +195,7 @@
 					<br>
 					<br>
 					<br>
-					5) 지원일정 : 2023. 12. 20.(수) 까지, 첨부된 지원서 및 개인정보 수집·이용 동의서 양식 서명 후 이메일 제출 (제출처: rbattery@gachon.ac.kr)
+					5) 지원일정 : 2023. 12. 20.(수) 까지, 첨부된 지원서 및 개인정보 수집·이용 동의서 양식 서명 후 이메일 제출 (제출처: qwer@mku.ac.kr)
 					<br>
 					<br>
 					<br>

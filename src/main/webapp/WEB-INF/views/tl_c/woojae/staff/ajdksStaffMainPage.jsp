@@ -161,7 +161,9 @@
 							      <div class="p-3">
 							      	<div class="row bg-body-secondary">
 							      		<div class="col mt-1 text-center fw-bold d-flex justify-content-start" style="font-size: 1.2em;">학사공지</div>
-							      		<div class="col-2 fw-bold" style="font-size: 1.2em;">+more</div>
+							      		<div class="col-2 fw-bold" style="font-size: 1.2em;">
+							      			<a class="link-offset-2 link-underline link-underline-opacity-0 text-black" href="./ajdksStaffNoticePage">+more</a>
+							      		</div>
 							      	</div>
 							      	<div class="row mt-2">
 							      		<div class="col d-flex justify-content-start">
@@ -286,9 +288,9 @@
 											<div class="row bg-white border-top border-start">
 												<div class="col mt-2">
 											     	<ul>
-														<li>신입생 오리엔테이션...</li>
-														<li>새학기 수강신청 안내...</li>
-														<li>재학생 방학특강 신청 안내</li>
+														<li>2024학년도 1학기 제 1생활관 외국인..</li>
+														<li>2023-2학기 동계방학 국가근로 장학생</li>
+														<li>2023-2학기 국가우수 추가 선발 안내..</li>
 														<li>현장실습 신청일자 </li>
 														<li>현장실습 교육프로그램 안내..</li>
 														<li>겨울 워크샵 공지</li>
