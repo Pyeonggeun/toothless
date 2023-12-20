@@ -342,6 +342,8 @@ public class PostingController {
 			int studentPk = studentInfoDto.getStudent_pk();
 			model.addAttribute("totalInterestPostingList", postingService.getInterestPostingTotalList(studentPk));
 			model.addAttribute("totalInterestPostingCount", postingService.getTotalInterestPostingCount(studentPk));
+		}else {
+			return "redirect:../../another/student/loginPage";
 		}
 		
 		return "tl_d/ny_posting/interestPostingListForStudentPage";

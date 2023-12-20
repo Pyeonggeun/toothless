@@ -12,7 +12,6 @@
 <body>
 	<div class="container-fluid">
 		<div class="row">
-			<!-- 가족기업 뱃지 달기 -->
 			<div class="col">
 				<div class="row bg-body-white border-bottom mt-4 pb-0">
 					<a class="col-1 pe-2 text-end navbar-brand" href="../common/companyMainPage">
@@ -22,10 +21,22 @@
 		                MK University<span class="fs-6"> | </span> <span class="fs-5">취업지원센터</span> 
 		            </a>
 			    	<div class="col"></div>
-			    	<div class="col-1 mt-5 pb-2 pe-0 text-secondary text-end">
+			    	<div class="col-1 mt-5 me-5 pb-2 pe-0 text-secondary text-end">
 						<%-- mainPage --%>
 						<c:choose>
-							<c:when test="${!empty sessionExternalInfo}">
+							<c:when test="${!empty sessionExternalInfo and company.companyDto.is_family_company=='Y'}">
+								<li style="list-style-type: none;" class="nav-item dropdown ms-auto"><a
+									class="fw-bold nav-link dropdown-toggle" href="../../another/external/loginPage" role="button"
+									data-bs-toggle="dropdown" aria-expanded="false">
+										<span class="badge text-bg-info text-white me-1">Family</span>
+										${company.companyDto.com_name} 님</a>
+									<ul class="dropdown-menu">
+										<li><a href="../common/companyLogoutProcess"
+											class="dropdown-item">로그아웃</a></li>
+									</ul>
+								</li>
+							</c:when>
+							<c:when test="${!empty sessionExternalInfo and company.companyDto.is_family_company=='N'}">
 								<li style="list-style-type: none;" class="nav-item dropdown ms-auto"><a
 									class="fw-bold nav-link dropdown-toggle" href="../../another/external/loginPage" role="button"
 									data-bs-toggle="dropdown" aria-expanded="false">
@@ -68,8 +79,8 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col">
-				<img  class="opacity-55" src="../../resources/img/employment/companyBanner.png" style="width: 117rem; height : 30rem;">
+			<div class="col ps-0">
+				<img  class="opacity-55" src="../../resources/img/employment/companyBanner.png" style="width: 119rem; height : 30rem;">
 			</div>		
 		</div>
 	 	<%-- 전체 크기 --%>

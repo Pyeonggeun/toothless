@@ -25,7 +25,7 @@
 			<%-- 가운데 여백--%>	
 			<div class="col-1 border-start"></div>
 			<%-- 공고상세 --%>
-			<div class="col-8">
+			<div class="col-7">
 				<!-- 채용정보 -->
 				<div class="row">
 					<div class="col fs-5 fw-bold mt-5">채용정보</div>

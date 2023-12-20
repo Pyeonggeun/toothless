@@ -59,38 +59,20 @@
 	
 	<!-- 공고리스트 출력(검색 포함) -->
  	<select id="selectPostingList" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
-		SELECT * FROM TL_D_JOB_POSTING tdjp
-		
-		<!-- <if test="searchAddress != null"> 
-			INNER JOIN TL_D_COMPANY tdc ON tdjp.COM_PK = tdc.COM_PK
-		</if>
-		<if test="searchField != null"> 
-			INNER JOIN TL_D_JOB_FIELD_CATEGORY tdjfc ON tdjp.JOB_FIELD_CATEGORY_PK = tdjfc.JOB_FIELD_CATEGORY_PK
-		</if>  -->
+		SELECT * 
+		FROM TL_D_JOB_POSTING tdjp 
 		WHERE 1 = 1
-		
+		<if test="searchType != null">
 		<choose>
-			<when test="searchType != null and searchType == 'posting_name'">
-				AND tdjp.POSTING_NAME LIKE '%' || #{searchWord} || '%'
+			<when test="searchType == 'posting_name'">
+				AND tdjp.POSTING_NAME LIKE '%' || #{searchWord} ||'%' 
 			</when>
-			<when test="searchType != null and searchType == 'posting_contents'">
+			<when test="searchType == 'content'">
 				AND tdjp.POSTING_CONTENTS LIKE '%' || #{searchWord} || '%'
 			</when>
-			<when test="searchPosition != null">
-				AND tdjp.JOB_POSITION LIKE '%' || #{searchPosition} || '%'
-			</when>
-			<!-- <when test="searchAddress != null">
-				AND tdc.COM_ADDRESS LIKE '%' || #{searchAddress} || '%'
-			</when>
-			<when test="searchField != null">
-				 AND (
-                <foreach collection="searchField" item="fieldCategory" separator=" OR ">
-                    tdjfc.JOB_FIELD_CATEGORY_NAME LIKE '%' || #{fieldCategory} || '%'
-                </foreach>
-            )
-			</when> -->
 		</choose>
-		ORDER BY tdjp.CREATED_AT DESC
+		</if>
+		ORDER BY tdjp.CREATED_AT DESC  
 	</select> 
 	
 	

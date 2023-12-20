@@ -25,7 +25,19 @@
 			    	<div class="col-1 mt-5 pb-2 pe-0 text-secondary text-end">
 						<%-- mainPage --%>
 						<c:choose>
-							<c:when test="${!empty sessionExternalInfo}">
+							<c:when test="${!empty sessionExternalInfo and company.companyDto.is_family_company=='Y'}">
+								<li style="list-style-type: none;" class="nav-item dropdown ms-auto"><a
+									class="fw-bold nav-link dropdown-toggle" href="../../another/external/loginPage" role="button"
+									data-bs-toggle="dropdown" aria-expanded="false">
+										<span class="badge text-bg-info text-white me-1">Family</span>
+										${company.companyDto.com_name} 님</a>
+									<ul class="dropdown-menu">
+										<li><a href="../common/companyLogoutProcess"
+											class="dropdown-item">로그아웃</a></li>
+									</ul>
+								</li>
+							</c:when>
+							<c:when test="${!empty sessionExternalInfo and company.companyDto.is_family_company=='N'}">
 								<li style="list-style-type: none;" class="nav-item dropdown ms-auto"><a
 									class="fw-bold nav-link dropdown-toggle" href="../../another/external/loginPage" role="button"
 									data-bs-toggle="dropdown" aria-expanded="false">
