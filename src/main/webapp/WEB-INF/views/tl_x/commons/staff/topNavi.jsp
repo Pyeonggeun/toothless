@@ -27,7 +27,7 @@
     		</div>
     		<div class="col-5 mx-2 text-center align-self-center">
 				<div class="row text-center align-self-center">
-					<div class="col text-center px-0">
+					<div class="col align-self-center text-center px-0">
 						<!-- 가능하면 알림 기능 -->
 						<i class="fs-5 bi bi-bell"></i>
 					</div>

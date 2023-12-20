@@ -287,7 +287,21 @@ public class RestDormStaffControllerMj {
 		return restResponseDto;
 		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)		
 	}
-
+	
+	
+	@RequestMapping("selectSomeDayDiaryList")
+	public Mj_RestResponseDto selectSomeDayDiaryList(int month, int day) {
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+		
+		List<Map<Object, String>> diaryList = staffService.selectSomeDayDiaryList(month, day);
+		restResponseDto.addData("daliyDiaryList", diaryList);
+		
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)		
+	}
 	
 	
 	

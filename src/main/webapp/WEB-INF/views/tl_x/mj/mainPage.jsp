@@ -247,7 +247,7 @@
 						<div class="col shadow bg-white text-center">
 							<div class="row border-bottom py-2" style="background-color: #E5EFF6">
 								<div class="col">
-									<span class="fs-5 fw-bold" style="color:#0061AA">이민지</span>님 환영합니다.
+									<span class="fs-5 fw-bold" style="color:#0061AA">${sessionStaffInfo.name }</span>님 환영합니다.
 								</div>
 							</div>
 							<div class="row border-bottom text-secondary py-2" style="background-color: #E5EFF6">
