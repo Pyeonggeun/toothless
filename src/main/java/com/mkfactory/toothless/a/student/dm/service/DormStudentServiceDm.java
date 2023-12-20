@@ -88,4 +88,88 @@ public class DormStudentServiceDm {
 		return dormStudentSqlMapperDm.studentInfoByStudentPk(student_pk);
 	}
 	
+	public int studentListCount() {
+		
+		return dormStudentSqlMapperDm.studentListCount();
+		
+	}
+	
+	public int assignPeopleCount() {
+		
+		return dormStudentSqlMapperDm.assignPeopleCount();
+		
+	}
+	
+	public int assignPeopleNeedCount() {
+		
+		return dormStudentSqlMapperDm.assignPeopleNeedCount();
+	}
+	
+	public int executiveCount() {
+		
+		
+		return dormStudentSqlMapperDm.executiveCount();
+	}
+	
+	public int diaryTodayCount() {
+		
+		
+		return dormStudentSqlMapperDm.diaryTodayCount();
+	}
+	
+	public int todayOutingCount() {
+		
+		
+		return dormStudentSqlMapperDm.todayOutingCount();
+	}
+	
+	public int dongCount() {
+		
+		
+		return dormStudentSqlMapperDm.dongCount();
+	}
+	
+	public SemesterDto semesterName() {
+		
+		return dormStudentSqlMapperDm.semesterName();
+	}
+	
+	public int selectionStatusN() {
+		
+		return dormStudentSqlMapperDm.selectionStatusN();
+	}
+	
+	public int unpaidCount() {
+		
+		return dormStudentSqlMapperDm.unpaidCount();
+	}
+	public int pointListCount() {
+		
+		return dormStudentSqlMapperDm.pointListCount();
+	}
+	public int todayPointCreditCount() {
+		
+		return dormStudentSqlMapperDm.todayPointCreditCount();
+	}
+	public int roomCount() {
+		return dormStudentSqlMapperDm.roomCount();
+	}
+	public int noticeCount() {
+		return dormStudentSqlMapperDm.noticeCount();
+	}
+	public String noticeRecentWriteTitle() {
+		return dormStudentSqlMapperDm.noticeRecentWriteTitle();
+	}
+	public int freeboardCount() {
+		return dormStudentSqlMapperDm.freeboardCount();
+	}
+	public String freeboardRecentWriteTitle() {
+		return dormStudentSqlMapperDm.freeboardRecentWriteTitle();
+	}
+	public int requestCount() {
+		return dormStudentSqlMapperDm.requestCount();
+	}
+	public int todayRequestCount() {
+		return dormStudentSqlMapperDm.todayRequestCount();
+	}
 }
