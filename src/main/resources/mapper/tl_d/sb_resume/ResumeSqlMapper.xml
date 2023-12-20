@@ -55,6 +55,12 @@
 		DELETE FROM tl_d_resume WHERE resume_pk = #{resume_pk}
 	</delete>
 
+	<!-- 이력서 삭제시 해당 이력서로 지원한 공고 취소하기 -->
+	<delete id="cancleApplyByResumePk">
+		DELETE FROM TL_D_VOLUNTEER tdv WHERE resume_pk = #{resume_pk}
+	</delete>
+
+
 	<!-- 이력서 상세보기  -->
 	<select id="getThisResumeDtoByResumePk" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
 		SELECT * FROM tl_d_resume WHERE resume_pk = #{resume_pk}	
@@ -257,6 +263,31 @@
 			WHERE DEPARTMENT_PK = #{department_pk}
 		) AND IS_PUBLIC ='Y'	
 	</select>
+	
+	<!-- 해당공고에 지원한 이력서 목록 가져오기 -->
+	<select id="getResumeListByJobPostingPk" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
+		SELECT * FROM TL_D_RESUME tdr 
+		WHERE RESUME_PK in(
+			SELECT RESUME_PK  FROM TL_D_VOLUNTEER tdv 
+			WHERE JOB_POSTING_PK = #{job_posting_pk}
+		)	
+	</select>
+	
+	<!-- 해당 공고에 지원한 학생의 정보 가져오기 -->
+	<select id="getStudentInfoByJobPostingPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO tjsi 
+		WHERE STUDENT_PK IN (
+			SELECT STUDENT_PK  FROM TL_D_RESUME tdr 
+			WHERE RESUME_PK in(
+				SELECT RESUME_PK  FROM TL_D_VOLUNTEER tdv 
+				WHERE JOB_POSTING_PK = #{job_posting_pk}
+			)
+		)	
+	</select>
+	
+	
+
+	
 	
 	
 	

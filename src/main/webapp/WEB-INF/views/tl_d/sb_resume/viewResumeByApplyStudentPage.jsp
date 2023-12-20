@@ -11,10 +11,9 @@
 
 <script>
 
-var abc = 0;
+var job_posting_pk = ${job_posting_pk};
 
-
-// 이력서 가져오기
+//이력서 가져오기
 function getResumeDto(resume_pk){
 	const url = "./getResumeDto?resume_pk="+ resume_pk;
 	
@@ -142,38 +141,39 @@ function getStudentInfoByResume(resume_pk){
 	});
 }
 
-function getIsPublicResumeList(department_pk){
-	console.log(department_pk);
-	const url = "./getIsPublicResumeList?department_pk="+department_pk;
+
+function getResumeListByApplyStudent(job_posting_pk){
+	console.log(job_posting_pk);
+	const url = "./getResumeListByApplyStudent?job_posting_pk=" + job_posting_pk;
 	fetch(url)
 	.then(response => response.json())
 	.then(response => {
 		
-		const publicResumeListBox = document.getElementById("publicResumeListBox");
-		publicResumeListBox.innerHTML = "";
+		const applyResumeListBox = document.getElementById("applyResumeListBox");
+		applyResumeListBox.innerHTML = "";
 		
 		if(response.data.length ==0){
-			publicResumeListBox.innerText = " 공개된  이력서가 없습니다.";
+			applyResumeListBox.innerText = " 현재 공고에 지원한 이력서가 없습니다.";
 			return;
 		}
 		for(e of response.data){
 			
-			const publicResumeWrapper = document.querySelector("#resumeListTemplete .publicResumeWrapper").cloneNode(true);
+			const applyResumeWrapper = document.querySelector("#resumeListTemplete .applyResumeWrapper").cloneNode(true);
 			
 			
-			const modal_resume_title = publicResumeWrapper.querySelector(".modal_resume_title");
-			
+			const modal_resume_title = applyResumeWrapper.querySelector(".modal_resume_title");		
 			modal_resume_title.innerText = e.resumeDto.resume_title;
 			
-			const modal_department = publicResumeWrapper.querySelector(".modal_department");
+			const modal_student_name = applyResumeWrapper.querySelector(".modal_student_name");
+			modal_student_name.innerText = e.studentDto.name;
 			
+			const modal_department = applyResumeWrapper.querySelector(".modal_department");
 			modal_department.innerText = e.department;
 			
-			const modal_select_resume = publicResumeWrapper.querySelector(".modal_select_resume");
-			
+			const modal_select_resume = applyResumeWrapper.querySelector(".modal_select_resume");
 			modal_select_resume.setAttribute("onclick","showResume("+e.resumeDto.resume_pk+")")
 			
-			publicResumeListBox.appendChild(publicResumeWrapper);
+			applyResumeListBox.appendChild(applyResumeWrapper);
 			
 			
 			
@@ -181,10 +181,13 @@ function getIsPublicResumeList(department_pk){
 	});
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-	getIsPublicResumeList(abc);	
-});
 
+
+
+
+window.addEventListener("DOMContentLoaded", () => {
+	getResumeListByApplyStudent(job_posting_pk);	
+});
 
 </script>
 
@@ -273,43 +276,26 @@ window.addEventListener("DOMContentLoaded", () => {
 			<div class="col-2"></div>
 			<%-- 채용공고 리스트 양식 --%>
 			<div class="col">
-				<!-- 채용공고 -->
 				<div class="row">
-					<div class="col fs-4 fw-bold mt-4 pb-3 border-bottom border-3">공개된 이력서 목록</div>
-					<div class="col-3 mt-4 pb-3">
-						<select class="form-select" onchange="getIsPublicResumeList(this.value)">
-							
-							<option value="0">전체보기</option>
-							<c:forEach items="${departmentCategory }" var="category">
-								<option value="${category.department_pk }">${category.name }</option>
-							</c:forEach>
-							
-						</select>
-					</div>
+					<div class="col fs-4 fw-bold mt-4 pb-3 border-bottom border-3">지원한 이력서 목록</div>
 					
 				</div>
-			<%-- 	<div class="row mt-4 pb-3 border-bottom border-3 border-dark">
-					<div class="col-1 pt-1">
-						총 <span class="fw-bold"></span>건
-					</div>
-				</div> --%>
+				
 				<div class="row py-2 text-secondary border-bottom border-dark border-2 text-light"  style="background-color: #133369">
 					
 					<div class="col-1"></div>
-					<div class="col-7  fw-bold ">이력서 제목</div>
+					<div class="col-6  fw-bold ">이력서 제목</div>
+					<div class="col ms-1 fw-bold">이름</div>
 					<div class="col ms-1 fw-bold">학과</div>
 					<div class="col ms-1 fw-bold">상세보기</div>
 					<div class="col-1"></div>
 				</div>
+					
 				<div class="row border mb-4">
-					<div class="col" id="publicResumeListBox">
+					<div class="col" id="applyResumeListBox">
 						<%-- 이력서 리스트 나오는 자리 --%>	
 					</div>
 				</div>
-				
-					
-				
-				
 				
 				
 			</div>
@@ -328,6 +314,19 @@ window.addEventListener("DOMContentLoaded", () => {
 		</div>
 	</div>
 	
+<div id="resumeListTemplete" class="d-none">
+	<div class="applyResumeWrapper row border-bottom">
+		<div class="col-1"></div>
+		<div class="modal_resume_title col-6 p-3 fw-bold fs-5 ">이력서제목</div>
+		<div class="modal_student_name col p-3 ms-1 ">학생이름</div>
+		<div class="modal_department col p-3 ms-1 ">학과이름</div>
+		<div class="col p-3 ms-1">
+		<button  type="button" class="modal_select_resume btn btn-outline-dark">상세보기</button>
+		</div>
+		<div class="col-1"></div>
+	</div> 
+</div>						
+					
 <!--이력서 미리보기 Modal -->
 <div class="modal fade" id="previewResume" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
@@ -446,20 +445,6 @@ window.addEventListener("DOMContentLoaded", () => {
 		</div>
 	</div>
 </div>	
-
-<div id="resumeListTemplete" class="d-none">
-	<div class="publicResumeWrapper row border-bottom">
-		<div class="col-1"></div>
-		<div class="modal_resume_title col-7 p-3 fw-bold fs-4">
-			이력서 제목
-		</div>
-		<div class="modal_department col p-3 fw-bold">학과이름</div>
-		<div class="col p-3 ms-1">
-		<button  type="button" class="modal_select_resume btn btn-outline-dark">선택</button>
-		</div>
-		<div class="col-1"></div>
-	</div> 
-</div>						
 	
 	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

@@ -271,6 +271,7 @@
 									<div class="col">
 										<input type="hidden" name="job_posting_pk" value="${jobPostingDetailForStudent.jobPostingDto.job_posting_pk}">
 										<c:if test="${not empty resumeDto.resume_pk }">
+											<input type="hidden" name="resume_pk" value="${resumeDto.resume_pk }">
 											<button type="submit" class="btn btn-success">지원하기</button>
 										</c:if>
 										<c:if test="${empty resumeDto.resume_pk }">
