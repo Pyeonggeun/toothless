@@ -14,6 +14,7 @@ import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
 import com.mkfactory.toothless.a.dto.SemesterDto;
 import com.mkfactory.toothless.a.staff.dm.mapper.DormStaffSqlMapperDm;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
+import com.mkfactory.toothless.donot.touch.service.AlarmApi;
 
 @Service
 public class DormStaffServiceDm {
@@ -21,6 +22,8 @@ public class DormStaffServiceDm {
 	@Autowired
 	public DormStaffSqlMapperDm dormStaffSqlMapperDm;
 	
+	@Autowired
+	public AlarmApi alarmApi;
 	
 	public List<Map<String, Object>> allDormStudent(){
 		
@@ -192,7 +195,13 @@ public class DormStaffServiceDm {
 		return dormStaffSqlMapperDm.SemesterCheckY();
 	}
 	
+	// 배정되었을때 알람가야하니까 ..!
 	public void dormStudentAssignmentInsert(DormStudentDto dormStudentDto) {
+		
+		int student_pk = dormStudentDto.getStudent_pk();
+		
+		alarmApi.sendAlarm(student_pk, "기숙사 방 배정이 완료되었습니다.", "/toothless/tl_a/student/jw_mainPage");
+		
 		
 		dormStaffSqlMapperDm.dormStudentAssignmentInsert(dormStudentDto);
 		
