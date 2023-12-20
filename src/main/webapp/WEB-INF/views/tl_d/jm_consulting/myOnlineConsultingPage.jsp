@@ -111,7 +111,7 @@
 							
 							<div class="row mt-5">
 								<div class="col">
-									<a href="./hopeJobConsultingPage"><button type="button" class="btn btn-primary">목록으로</button>
+									<a href="./myOnlineConsultingListPage"><button type="button" class="btn btn-primary">목록으로</button>
 									</a>
 								</div>
 							</div>												
@@ -123,6 +123,13 @@
 			
 			</div>
 	</div>
+		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+		<!-- futter -->
+		<div class="row">
+			<div class="col">
+				<jsp:include page="../common/futter.jsp"></jsp:include>
+			</div>
+		</div>	
 </div>
 </body>
 </html>

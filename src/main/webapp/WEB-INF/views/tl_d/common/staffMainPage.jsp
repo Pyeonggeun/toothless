@@ -38,18 +38,33 @@
 							</div>
 						</div>
 						 
-						<div class="row">
-							<div class="col">
-								<c:forEach items="${progressOnlinceConsultingNumFive}" var="e">
-										<div class="row border-bottom border-bs-border pb-2 mb-2">
-											<div class="col-1 text-center fw-bold pt-1">${e.onlineConsultingDto.on_consulting_pk}</div>
-											<div class="col"><a class="btn ms-4" href="../jm_consulting/viewDetailStudentInfoPage?hope_job_pk=${e.hopeJobDto.hope_job_pk}">${e.studentInfoDto.name}</a></div>
-											<div class="col-3 text-center pt-1">
-												${e.studentInfoDto.student_id}									
-											</div>
-										</div>
-								</c:forEach> 							
-							</div>						
+						<div class="row">						
+							<c:choose>
+								<c:when test="${progressOnlinceConsultingNumFive.size()==0}">
+									<div class="col fw-bold text-center">
+										미응답 온라인 상담이 없습니다!
+									</div>
+								</c:when>
+								<c:when test="${progressOnlinceConsultingNumFive==null}">
+									<div class="col fw-bold text-center">
+										미응답 온라인 상담이 없습니다!
+									</div>															
+								</c:when>								
+								<c:otherwise>
+									<div class="col">												
+										<c:forEach items="${progressOnlinceConsultingNumFive}" var="e">
+												<div class="row border-bottom border-bs-border pb-2 mb-2" style=" display: flex; align-items: center; justify-content: center;">
+													<div class="col-1 text-center fw-bold">${e.onlineConsultingDto.on_consulting_pk}</div>
+													<div class="col"><a class="btn ms-4" href="../jm_consulting/viewDetailStudentInfoPage?hope_job_pk=${e.hopeJobDto.hope_job_pk}">${e.studentInfoDto.name}</a></div>
+													<div class="col-3 text-center text-secondary" style="font-size:0.8em">
+														<fmt:formatDate pattern="yyyy-MM-dd" value="${e.onlineConsultingDto.created_at}"/>								
+													</div>
+												</div>
+										</c:forEach> 							
+									</div>
+								</c:otherwise>
+							</c:choose>
+																		
 						</div>
 					</div>
 					
@@ -64,17 +79,34 @@
 						</div>
 						
 						<div class="row">
-							<div class="col">
-								<c:forEach items="${getHopeJobInfoNumFive}" var="e">
-										<div class="row border-bottom border-bs-border pb-2 mb-2">
-											<div class="col-1 text-center fw-bold pt-1">${e.HOPE_JOB_PK}</div>
-											<div class="col"><a class="btn ms-4" href="../jm_consulting/viewDetailStudentInfoPage?hope_job_pk=${e.HOPE_JOB_PK}">${e.NAME}</a></div>
-											<div class="col-3 text-center pt-1" style="font-size:0.8em;">
-												<fmt:formatDate pattern="yyyy-MM-dd" value="${e.CREATED_AT}"/>											
-											</div>
-										</div>
-								</c:forEach> 							
-							</div>												
+						
+							<c:choose>
+								<c:when test="${getHopeJobInfoNumFive.size()==0}">
+									<div class="col fw-bold text-center">
+										미응답 온라인 상담이 없습니다!
+									</div>
+								</c:when>
+								<c:when test="${getHopeJobInfoNumFive==null}">
+									<div class="col fw-bold text-center">
+										미응답 온라인 상담이 없습니다!
+									</div>															
+								</c:when>								
+								<c:otherwise>
+									<div class="col">
+										<c:forEach items="${getHopeJobInfoNumFive}" var="e" varStatus="loop">
+											<c:if test="${loop.index < 5}">									
+												<div class="row border-bottom border-bs-border pb-2 mb-2" style=" display: flex; align-items: center; justify-content: center;">
+													<div class="col-1 text-center fw-bold">${e.HOPE_JOB_PK}</div>
+													<div class="col"><a class="btn ms-4" href="../jm_consulting/viewDetailStudentInfoPage?hope_job_pk=${e.HOPE_JOB_PK}">${e.NAME}</a></div>
+													<div class="col-3 text-center text-secondary" style="font-size:0.8em;">
+														<fmt:formatDate pattern="yyyy-MM-dd" value="${e.CREATED_AT}"/>											
+													</div>
+												</div>
+											</c:if>
+										</c:forEach> 							
+									</div>	
+								</c:otherwise>
+							</c:choose>																															
 						</div>
 					</div>
 					

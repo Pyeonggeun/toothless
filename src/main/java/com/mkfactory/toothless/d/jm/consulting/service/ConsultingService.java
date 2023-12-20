@@ -1,6 +1,5 @@
 package com.mkfactory.toothless.d.jm.consulting.service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +19,7 @@ import com.mkfactory.toothless.d.jm.consulting.mapper.ConsultingMapper;
 import com.mkfactory.toothless.d.ny.posting.mapper.PostingSqlMapper;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
+import com.mkfactory.toothless.donot.touch.service.AlarmApi;
 
 @Service
 public class ConsultingService {
@@ -28,6 +28,9 @@ public class ConsultingService {
 	private ConsultingMapper consultingMapper ;
 	@Autowired
 	private PostingSqlMapper postingSqlMapper ;
+	
+	@Autowired
+	private AlarmApi alarmApi; 
 	
 	
 	//학생 pk로 학생정보뽑기
@@ -46,6 +49,7 @@ public class ConsultingService {
 			isboolean = false;
 			//false가 진행 가능
 		}
+			//true면 구직희망신청 해야함
 		else if(checkOverlap==1) {
 			isboolean = true;
 		}
@@ -354,6 +358,7 @@ public class ConsultingService {
 	//교직원 온라인상담 답글입력
 	public void insertOnlineConsultingReply(OnlineConsultingReplyDto par) {
 		consultingMapper.insertOnlineConsultingReply(par);
+		alarmApi.sendAlarm(42, 4, "알람왔어요", "/toothless/tl_d/jm_consulting/hopeJobConsultingPage");
 	}
 	//구직관심 등록 및 등록 페이지 관련
 	//채용분야 카테고리 출력

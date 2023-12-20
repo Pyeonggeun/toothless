@@ -69,14 +69,22 @@
 			<div class="row">
 				<div class="col-1"></div>
 				<div class="col">
-					<div class="row border pt-2 mt-2">
-						<div class="col">				
+					
+					<div class="row">
+						<div class="col mt-1 border-bottom border-3 border-secondary-subtle pb-3 mb-3 fw-bold fs-4">
+							학생 정보 페이지
+						</div>
+					</div>
+				
+				
+					<div class="row mt-3">
+						<div class="col py-3">				
 							<div class="row mt-2 fw-bold" style="font-size:1.2em;">
 								<div class="col">
 									학생정보
 								</div>						
 							</div>
-							<div class="row mt-3 pt-2 border-top">
+							<div class="row mt-3 pt-4 border-top border-black">
 								<div class="col-3 fw-bold">
 									학번
 								</div>	
@@ -111,19 +119,19 @@
 						</div>
 					</div>
 					
-					<div class="row border pt-2 mt-2">
-						<div class="col">				
+					<div class="row mt-3">
+						<div class="col py-3">				
 							<div class="row mt-2 fw-bold" style="font-size:1.2em;">
 								<div class="col">
 									구직희망정보
 								</div>						
 							</div>
-							<div class="row mt-3 pt-2 border-top">
+							<div class="row mt-3 pt-4 border-top border-black">
 								<div class="col-3 fw-bold">
 									희망연봉
 								</div>	
 								<div class="col-9">
-									${viewStudentDetailPageStats.hopeJobDto.hope_salary }
+									${viewStudentDetailPageStats.hopeJobDto.hope_salary } <span style="font-size:0.9em;">원</span>
 								</div>												
 							</div>
 							<div class="row mt-3">
@@ -152,10 +160,15 @@
 							</div>
 							<div class="row mt-3">
 								<div class="col-3 fw-bold">
-									구직관심 분야 리스트
+									관심 채용 분야
 								</div>	
 								<div class="col-9">
 									<div class="row">
+										
+										
+										<c:if test="${getHopeJobCategoryList.size()==0}">
+											<span class="fw-bold">관심 분야가 없습니다!</span>
+										</c:if>
 										
 										<c:forEach items="${getHopeJobCategoryList}" var="e">
 											<div class="col">
@@ -171,14 +184,14 @@
 						</div>
 					</div>			
 		
-					<div class="row border pt-2 mt-2">
-						<div class="col">				
+					<div class="row mt-3">
+						<div class="col pt-3">				
 							<div class="row mt-2 fw-bold" style="font-size:1.2em;">
 								<div class="col">
 									상담 및 내역
 								</div>						
 							</div>
-							<div class="row mt-3 border-top pt-2">
+							<div class="row mt-3 pt-4 border-top border-black">
 								<div class="col-3 fw-bold">
 									취업상담내역
 								</div>	
@@ -194,21 +207,22 @@
 									${viewStudentDetailPageStats.countOnConsultingByHopeJobPk} 건
 								</div>												
 							</div>
-							<div class="row mt-3">
+							<div class="row mt-3 pb-3">
 								<div class="col-3 fw-bold">
 									미응답 만족도조사 내역
 								</div>	
-								<div class="col-3">
+								<div class="col">
 									${viewStudentDetailPageStats.countUnAnsweredFeedback} 건
-								</div>	
-								<div class="col-6 fw-bold text-right" style="text-align:right; color:blue">
-									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-									  취업상담 내용 등록
-									</button>
 								</div>																	
 							</div>																																		
 						</div>			
 					</div>	
+					
+					<div class="fw-bold" style="text-align:right; color:blue">
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						  취업상담 내용 등록
+						</button>
+					</div>						
 					
 					<div class="row mt-5">
 						<div class="col fw-bold">
@@ -228,6 +242,16 @@
 			
 		</div>		
 	</div>
+
+	<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+	<!-- futter -->
+	<div class="row">
+		<div class="col">
+			<jsp:include page="../common/futter.jsp"></jsp:include>
+		</div>
+	</div>	
+	
+	
 </div>
 
 
@@ -236,7 +260,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">취업상담 내용 등록</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
