@@ -125,6 +125,7 @@
 											</div>
 										</div>
 										<br>
+										<div class="row row-cols-1 row-cols-md-2 g-4">
 										<c:forEach items="${list}" var="companyList">
 											<div class="card w-50 mb-3 text-center" >
 												<c:if test="${companyList.DATE_CHECK eq 'yes'}" >
@@ -162,6 +163,7 @@
 												</div>
 											</div>
 										</c:forEach>
+									</div>
 									</div>
 
 								</div>
