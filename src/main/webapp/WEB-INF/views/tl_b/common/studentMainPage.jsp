@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+    <script src="../../resources/js/hn/topBanner.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메인페이지</title>
@@ -79,11 +80,13 @@
     
 </head>
 <body>
+	<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
+	<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
     <div class="container-fluid">
 
         <div class="row">
-            <div class="col">
-                <img class="rounded-5 img-fluid" src="../../resources/img/healthRoom/mainPage/adhy-savala-zbpgmGe27p8-unsplash.jpg">
+            <div class="col px-0">
+                <img class="img-fluid" src="../../resources/img/healthRoom/mainPage/adhy-savala-zbpgmGe27p8-unsplash.jpg">
             </div>
         </div>
 
@@ -201,8 +204,9 @@
                     	</div>
                     </div>
                 </div>
+                
                 <div class="col">
-                    <div class="row bg-info text-white rounded-5 py-3 px-3 " style="background-color: #3DB4F8;">
+                    <div class="row text-white rounded-5 py-3 px-3 " style="background-color:#133369;">
                         <div class="col-10 d-flex align-items-center fw-bold fs-5">
                             공지사항
                         </div>
@@ -257,33 +261,24 @@
                             <div id="calendar"></div>
                         </div>
                         <div class="col-6 my-0 text-center">
-                            <div class="row my-3 rounded-5 py-1" style="background-color: #1976D2;">
+                            <div class="row my-3 rounded-5 py-1" style="background-color: #133369;">
                                 <div class="col fw-bold text-center fs-5 text-white">
                                     Event
                                 </div>
                             </div>
-                            <div class="row my-2 py-2 border-bottom">
-                                <div class="col">
+                            <div class="row my-2 py-2 border-bottom border-2">
+                                <div class="col-4 border-end">
+                                    2023.11.28
+                                </div>
+                                <div class="col-8">
                                     이런저러한일을해야합니다
                                 </div>
                             </div>
-                            <div class="row my-2 py-2 border-bottom">
-                                <div class="col">
-                                    이런저러한일을해야합니다
+                            <div class="row my-2 py-2 border-bottom border-2">
+                                <div class="col-4 border-end">
+                                    2023.11.28
                                 </div>
-                            </div>
-                            <div class="row my-2 py-2 border-bottom">
-                                <div class="col">
-                                    이런저러한일을해야합니다
-                                </div>
-                            </div>
-                            <div class="row my-2 py-2 border-bottom">
-                                <div class="col">
-                                    이런저러한일을해야합니다
-                                </div>
-                            </div>
-                            <div class="row my-2 py-2 border-bottom">
-                                <div class="col">
+                                <div class="col-8">
                                     이런저러한일을해야합니다
                                 </div>
                             </div>
