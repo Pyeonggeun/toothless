@@ -12,34 +12,65 @@
 </head>
 <body>
 
-<c:forEach items="${getMyOnlineConsultingListNumFive }" var="e">
-
-	<div class="row my-3 border-bottom">
-		<div class="col-4">
-			<!-- 상담 번호 -->
-			<div class="row">
-				<div class="col ms-2">No.<span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
-				<div class="col ms-2">
-					${sessionStudentInfo.name}				
-				</div>
-				<div class="col ms-2">
-					<c:choose>
-						<c:when test="${e.onlineConsultingReplyDto==null}">
-							<span class="badge text-bg-danger">미답변</span>
-						</c:when>
-						<c:otherwise>
-							<a href="myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="badge text-bg-primary">답변</span></a>
-						</c:otherwise>
-					</c:choose>		
-				</div>			
-			</div>
-			<!-- 이름 -->
-		
-		</div>
-	</div>
-</c:forEach>
-
-
+										<div class="row mt-4">
+											<div class="col">	
+											 
+												<div class="row" style="font-size:0.8em;">																					
+													<div class="col ps-0">									
+														<select class="form-select" aria-label="Default select example" onchange="reloadOnlineConsultingList(this.value,shared_sortby,searchCategory.value,searchContents.value, shared_pageNum)">
+														  <option value="all" ${isReply == 'all' ? 'checked' : null }>전체</option>
+														  <option value="reply" ${isReply == 'Reply' ? 'checked' : null }>답변</option>
+														  <option value="unReply" ${isReply == 'unReply' ? 'checked' : null }>미답변</option>										  
+														</select>										
+													</div>
+													<div class="col-6"></div>															
+													
+													<div class="col">
+														<div class="row pt-3" style="font-size:0.9em; display:flex; text-align:right;">
+															<div id="getOnlineConsultingListLatest" onclick="reloadOnlineConsultingList(shared_isReply,'latest',searchCategory.value,searchContents.value, currentPageNum.value)" class="col pe-0">
+																<span onmouseover="cursorChangeLikeLink(this)">최신순</span>
+															</div>
+															<div id="getOnlineConsultingListEarliest" onclick="reloadOnlineConsultingList(shared_isReply,'earliest',searchCategory.value,searchContents.value, currentPageNum.value)" class="col pe-2">
+																<span onmouseover="cursorChangeLikeLink(this)">오래된순</span>
+															</div>
+														</div>
+													</div>
+												</div>
+				
+											</div>
+									  </div>
+									
+									
+									<div class="row mt-3">
+										<div class="col">
+											<div class="row border" style="align-items:center;">
+											
+																	
+												<div class="col-3">
+													<select id="searchCategory" class="ps-0 form-select" aria-label="Default select example" style="border:none; outline:none; font-size:0.9em;">
+													  <option value="all">선택</option>
+													  <option value="student_name">학생 이름</option>
+													  <option value="online_consulting_pk">신청번호</option>
+													</select>							
+												</div>
+												<div class="col-9">
+													<div class="row">
+														<div class="col-11">
+															<input id="searchContents" type="text" style="border:none; outline:none; width:100%; font-size:0.7em;">
+														</div>								
+														<div class="col-1">
+															<button onclick="reloadOnlineConsultingList(shared_isReply,shared_sortby,searchCategory.value,searchContents.value, currentPageNum.value)"  style="border:none; background:none; cursor:pointer;"><i class="bi bi-search"></i>
+															</button>
+														</div>
+				
+													</div>									
+												</div>										
+				
+																	
+											</div>
+				
+										</div>
+									</div>
 
 
 

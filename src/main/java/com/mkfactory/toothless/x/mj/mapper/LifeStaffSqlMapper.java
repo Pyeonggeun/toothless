@@ -124,8 +124,12 @@ public interface LifeStaffSqlMapper {
 	// 카테고리별 강의 리스트
 	public List<LectureInfoDto> getLectureListByCategory(int lecture_category_key);
 	
-	// 카테고리별 강사 리스트
-	public List<LifeLecturerDto> getTeacherListByCategory(int lecture_category_key);
+	// 카테고리별 강사 리스트 中 개강일~종강일 사이에 수업없는 애들
+	public List<LifeLecturerDto> getTeacherListByCategory(
+			@Param("lecture_category_key") int lecture_category_key,
+			@Param("insertOpenDate") String insertOpenDate,
+			@Param("insertCloseDate") String insertCloseDate
+			);
 	
 	// 신규강의 개설
 	public void insertOpenLecture(OpenLectureDto openLectureDto);

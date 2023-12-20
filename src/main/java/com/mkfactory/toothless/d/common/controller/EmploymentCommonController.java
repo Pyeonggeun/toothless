@@ -47,6 +47,12 @@ public class EmploymentCommonController {
 			
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		
+		//로그인 안되어 있으면 로그인페이지로 
+		if(studentInfoDto == null) {	
+			return "redirect:../../another/student/loginPage";
+		}
+		
+		
 		if(studentInfoDto != null) {
 			int studentPk = studentInfoDto.getStudent_pk();
 			model.addAttribute("interestpostingForMyPage", postingService.getInterestPostingListForMyPage(studentPk));
@@ -58,9 +64,7 @@ public class EmploymentCommonController {
 		if(studentInfoDto != null) {
 			int student_pk = studentInfoDto.getStudent_pk();	
 			String isReply = "all";
-			System.out.println("전");
 			List<Map<String, Object>> getMyOnlineConsultingListNumFive = consultingService.getMyOnlineConsultingListNumFive(student_pk, isReply);
-			System.out.println("후");
 			model.addAttribute("getMyOnlineConsultingListNumFive", getMyOnlineConsultingListNumFive);	
 		}
 		
@@ -72,7 +76,7 @@ public class EmploymentCommonController {
 	}
 	
 	// 학생 왼쪽 메뉴바
-	@RequestMapping("staffMenu")
+	@RequestMapping("studentMenu")
 	public String staffMenu(HttpSession session, Model model) {
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
@@ -81,7 +85,7 @@ public class EmploymentCommonController {
 		model.addAttribute("checkOverlapHopejob", checkOverlapHopejob);
 
 		
-		return "tl_d/common/staffMenu";
+		return "tl_d/common/studentMenu";
 	}
 	
 	

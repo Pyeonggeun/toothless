@@ -60,7 +60,7 @@ public class StaffController {
 				
 			}else if(staffInfoDto.getCenter_pk() == 7){
 				
-				return "redirect: ../../tl_x/mj/mainPage";
+				return "redirect: ../../tl_x/mj/manageLecturePage";
 				
 			}else{
 				return "redirect: ./anotherMainPage";
