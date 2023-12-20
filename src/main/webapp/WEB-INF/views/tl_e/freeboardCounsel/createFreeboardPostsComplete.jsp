@@ -6,6 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script>
+	window.addEventListener("beforeunload", function(event) {
+	});
+	
+	function beforeunload() {
+		// 중복 업로드를 방지할 요소의 disabled 속성을 true로 설정
+		document.querySelector(".doubleclick").setAttribute("disabled", "true");
+	}
+	
+	
+</script>
+	
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
@@ -71,7 +84,7 @@
 		
 			<div class="row py-3">
 				<div class="col text-center ">
-					<a class="btn fw-bold text-white" role="button" href="freeboardCounselPage" style="background-color:#8FBC8F; font-size: 1.5em;">글 목록으로 돌아가기</a>
+					<a class="btn fw-bold text-white doubleclick" role="button" href="freeboardCounselPage" style="background-color:#8FBC8F; font-size: 1.5em;">글 목록으로 돌아가기</a>
 				</div>
 			</div>
 			
