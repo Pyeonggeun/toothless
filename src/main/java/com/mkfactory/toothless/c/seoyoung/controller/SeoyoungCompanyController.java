@@ -36,10 +36,10 @@ public class SeoyoungCompanyController {
 	
 		ExternalInfoDto sessionCompanyInfo = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
 		model.addAttribute("sessionCompanyInfo", sessionCompanyInfo);
-//		System.out.println("-------------------------------------------");
+		System.out.println("-------------------------------------------");
 		
-//		System.out.println(sessionCompanyInfo.getExternal_pk());
-//		System.out.println("-------------------------------------------");
+		System.out.println(sessionCompanyInfo.getExternal_pk());
+		System.out.println("-------------------------------------------");
 		List<Map<String, Object>> map = (List<Map<String, Object>>) seoyoungCompanyService.companyList(sessionCompanyInfo.getExternal_pk());
 		model.addAttribute("list", map);
 		
