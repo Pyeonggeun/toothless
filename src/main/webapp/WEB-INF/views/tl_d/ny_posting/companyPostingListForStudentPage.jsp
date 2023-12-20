@@ -26,7 +26,7 @@
 			<div class="col-1 border-start"></div>
 			<%-- 채용공고 리스트 양식 --%>
 			<div class="col">
-				<!-- 채용공고 -->
+				<%-- 채용공고 --%>
 				<div class="row">
 					<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">기업별 공고리스트</div>
 				</div>
@@ -47,13 +47,13 @@
 					<div class="row mt-3 pb-2 border-bottom">
 						<div class="col">
 							<div class="row">
-								<!-- 기업명 -->
+								<%-- 기업명 --%>
 								<div class="col pe-0">
 									${companyPostingForStudent.companyDto.com_name}
 								</div>
 							</div>
 							<div class="row">
-								<!-- 가족기업여부 -->
+								<%-- 가족기업여부 --%>
 								<div class="col  ms-1">
 									<c:if test="${companyPostingForStudent.companyDto.is_family_company ne null and companyPostingForStudent.companyDto.is_family_company eq 'Y'}">
 										<span class="badge text-bg-info text-white">Family</span>
@@ -61,7 +61,7 @@
 								</div>
 							</div>
 						</div>
-						<!-- 공고제목 -->
+						<%-- 공고제목 --%>
 						<div class="col-8 ps-0 pt-1">
 							<div class="row">
 								<a class="text-dark navbar-brand" href="./jobPostingDetailForStudentPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
@@ -69,7 +69,7 @@
 								</a>
 							</div>
 							<div class="row">
-								<!-- 분야/지역/기간 태그  -->
+								<%-- 분야/지역/기간 태그 --%>
 								<div class="col-7 ps-0">
 									<a class="text-dark navbar-brand" href="./jobPostingDetailPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
 										<span class="text-secondary">#&nbsp;${companyPostingForStudent.jobFieldCategoryDto.job_field_category_name} #&nbsp;${companyPostingForStudent.jobPostingDto.job_position}
@@ -86,7 +86,6 @@
 								</div>
 							</div>
 						</div>
-						<!-- 별 크기 생각해보기 -->
 						<div class="col">
 							<div class="row">
 								<div class="col ms-3 pb-1">
@@ -127,7 +126,7 @@
 			<div class="col-2"></div>	
 		</div>
 		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
-		<!-- futter -->
+		<%-- futter --%>
 		<div class="row">
 			<div class="col">
 				<jsp:include page="../common/futter.jsp"></jsp:include>

@@ -195,7 +195,12 @@
 							<div class="col-1"></div>
 							<div class="col">
 								<div id=frm>
-									<div class="row mb-3">
+									<div class="row mt-5">
+										<div class="col-4 mt-3">
+											<span>HOME &gt; </span>
+											<span>상담 지원 센터 &gt; </span>
+											<span>공지사항</span>
+										</div>
 										<div class="col-2">
 											<select id="searchType" name="searchType" class="form-select">
 												<option value="title" selected>제목</option>
@@ -203,7 +208,7 @@
 												<option value="name">작성자</option>
 											</select>
 										</div>
-										<div class="col-8">
+										<div class="col-4">
 											<input id="searchWord" name="searchWord" type="text" class="form-control">
 										</div>
 										<div class="col-2 d-grid">
@@ -213,7 +218,7 @@
 								</div>
 								<div class="row">
 									<div class="col"></div>
-									<div class="col-2 d-grid">
+									<div class="col-2 d-grid mt-2">
 										<!-- Button trigger modal -->
 										<button type="button" class="btn btn-light text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
 									  		<i class="bi bi-pencil-fill"></i>글쓰기
@@ -279,7 +284,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="row fw-bold">
+								<div class="row fw-bold mt-2">
 									<div class="col-1"><i class="bi bi-chat-square-text-fill"></i>&nbsp;글번호</div>
 									<div class="col-8"><i class="bi bi-emoji-expressionless-fill"></i>&nbsp;제목</div>
 									<div class="col-1"><i class="bi bi-emoji-heart-eyes-fill"></i>&nbsp;조회수</div>
@@ -298,6 +303,33 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	
+	<!-- 풋터 -->
+	<div class="row mt-5" style="background-color: #5a5a5a;">
+		<div class="col-1"></div>
+		<div class="col">
+			<div class="row" style="height: 4em;"></div>
+			<div class="row">
+				<div class="col">
+					<span style="font-size: 1.4em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
+					<span style="font-size: 1.2em; color: white; font-weight: 500;">▪</span>
+					<span style="font-size: 1.2em; color: white; font-weight: 500;">이메일무단수집거부</span>
+				</div>
+			</div>
+			<div class="row pt-4">
+				<div class="col">
+					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
+				</div>
+			</div>
+			<div class="row pt-2">
+				<div class="col">
+					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
+				</div>
+			</div>
+			<div class="row pt-4" style="border-bottom-style: solid; border-bottom-color: gray; border-bottom-width: 1px;"></div>
+		</div>
+		<div class="col-1"></div>
 	</div>
 	
 	<div id="templete" class="row">

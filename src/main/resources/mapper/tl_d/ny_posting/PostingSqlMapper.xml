@@ -35,7 +35,7 @@
 		ORDER BY tdjfc.JOB_FIELD_CATEGORY_PK ASC
 	</select>
 	
-	<!-- 사업자번호 조회 -->
+	<!-- 사업자번호 조회(회사명으로 pk출력) -->
 	<select id="selectComPkByBusinessNumber" resultType="int">
 		SELECT tdc.COM_PK FROM TL_D_COMPANY tdc 
 		WHERE tdc.BUSINESS_NUMBER LIKE #{BUSINESS_NUMBER}
@@ -51,61 +51,24 @@
 		SELECT count(*) FROM tl_d_job_posting tdjp
 	</select>
 	
-	<!-- 공고 리스트 출력  -->
-<!-- 	<select id="selectPostingList" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
-		SELECT * FROM TL_D_JOB_POSTING tdjp
-		ORDER BY tdjp.CREATED_AT DESC
-	</select> -->
-	
-	<!-- 공고리스트 출력(검색 포함) -->
+	<!-- 공고리스트 출력(+검색) -->
  	<select id="selectPostingList" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
-		SELECT * FROM TL_D_JOB_POSTING tdjp
-		
-		<!-- <if test="searchAddress != null"> 
-			INNER JOIN TL_D_COMPANY tdc ON tdjp.COM_PK = tdc.COM_PK
-		</if>
-		<if test="searchField != null"> 
-			INNER JOIN TL_D_JOB_FIELD_CATEGORY tdjfc ON tdjp.JOB_FIELD_CATEGORY_PK = tdjfc.JOB_FIELD_CATEGORY_PK
-		</if>  -->
+		SELECT * 
+		FROM TL_D_JOB_POSTING tdjp 
 		WHERE 1 = 1
-		
+		<if test="searchType != null">
 		<choose>
-			<when test="searchType != null and searchType == 'posting_name'">
-				AND tdjp.POSTING_NAME LIKE '%' || #{searchWord} || '%'
+			<when test="searchType == 'posting_name'">
+				AND tdjp.POSTING_NAME LIKE '%' || #{searchWord} ||'%' 
 			</when>
-			<when test="searchType != null and searchType == 'posting_contents'">
+			<when test="searchType == 'content'">
 				AND tdjp.POSTING_CONTENTS LIKE '%' || #{searchWord} || '%'
 			</when>
-			<when test="searchPosition != null">
-				AND tdjp.JOB_POSITION LIKE '%' || #{searchPosition} || '%'
-			</when>
-			<!-- <when test="searchAddress != null">
-				AND tdc.COM_ADDRESS LIKE '%' || #{searchAddress} || '%'
-			</when>
-			<when test="searchField != null">
-				 AND (
-                <foreach collection="searchField" item="fieldCategory" separator=" OR ">
-                    tdjfc.JOB_FIELD_CATEGORY_NAME LIKE '%' || #{fieldCategory} || '%'
-                </foreach>
-            )
-			</when> -->
 		</choose>
-		ORDER BY tdjp.CREATED_AT DESC
+		</if>
+		ORDER BY tdjp.CREATED_AT DESC  
 	</select> 
-	
-	
-	<!-- 기업 + 채용공고  -->
-	<select id="selectByCompanyPk" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
-		SELECT * FROM TL_D_COMPANY tdc 
-		WHERE tdc.COM_PK = #{com_pk}
-	</select>
-	
-	<!-- 채용분야 + 채용공고  -->
-	<select id="selectByJobFieldCategoryPk" resultType="com.mkfactory.toothless.d.dto.JobFieldCategoryDto">
-		SELECT * FROM TL_D_JOB_FIELD_CATEGORY tdjfc 
-		WHERE tdjfc.JOB_FIELD_CATEGORY_PK = #{job_field_category_pk}
-	</select>
-	
+
 	<!-- 마감임박 채용공고 -->
 	<select id="selectPostingDeadline" resultType="int">
 		SELECT tdjp.JOB_POSTING_PK FROM TL_D_JOB_POSTING tdjp 
@@ -120,13 +83,21 @@
 		]]>
 	</select>
 	
+	<!-- 디데이 -->
+	<select id="selectPostingDeadlineDDay" resultType="int">
+		SELECT CEIL((tdjp.POSTING_DEADLINE - SYSDATE)) FROM TL_D_JOB_POSTING tdjp 
+		WHERE 1 = 1 
+		AND tdjp.POSTING_DEADLINE BETWEEN (SYSDATE) AND (SYSDATE + (72/24))
+		AND tdjp.JOB_POSTING_PK = #{job_posting_pk}
+	</select>
+	
 	<!-- 기업별 공고 수 -->
 	<select id="selectCompanyPostingCount" resultType="int">
 		SELECT count(*) FROM TL_D_JOB_POSTING tdjp 
 		WHERE tdjp.COM_PK = #{com_pk}
 	</select>
 	
-	<!-- 기업별 채용공고 -->
+	<!-- 기업별 채용 공고 리스트 -->
 	<select id="selectPostingListByComPk" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
 		SELECT * FROM TL_D_JOB_POSTING tdjp
 		WHERE tdjp.com_pk = #{com_pk}
@@ -137,26 +108,6 @@
 	<select id="selectPostingDetailByJobPostingPk" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
 		SELECT * FROM TL_D_JOB_POSTING tdjp 
 		WHERE tdjp.JOB_POSTING_PK = #{job_posting_pk}
-	</select>
-	
-	<!-- 기업담당자 + 기업 -->
-	<select id="selectByComManagerPk" resultType="com.mkfactory.toothless.d.dto.CompanyManagerDto">
-		SELECT * FROM TL_D_COMPANY_MANAGER tdcm 
-		WHERE tdcm.COM_MANAGER_PK = #{com_manager_pk}
-	</select>	
-	
-	<!-- 기업규모 + 기업 -->
-	<select id="selectByComScaleCategoryPk" resultType="com.mkfactory.toothless.d.dto.ComScaleCategoryDto">
-		SELECT * FROM TL_D_COM_SCALE_CATEGORY tdcsc 
-		WHERE tdcsc.COM_SCALE_CATEGORY_PK = #{com_scale_category_pk}
-	</select>
-	
-	<!-- 디데이 -->
-	<select id="selectPostingDeadlineDDay" resultType="int">
-		SELECT CEIL((tdjp.POSTING_DEADLINE - SYSDATE)) FROM TL_D_JOB_POSTING tdjp 
-		WHERE 1 = 1 
-		AND tdjp.POSTING_DEADLINE BETWEEN (SYSDATE) AND (SYSDATE + (72/24))
-		AND tdjp.JOB_POSTING_PK = #{job_posting_pk}
 	</select>
 	
 	<!-- 채용공고 삭제 -->
@@ -182,10 +133,35 @@
 		WHERE job_posting_pk = #{job_posting_pk}
 	</update>
 	
+	<!-- 기업 + 채용공고  -->
+	<select id="selectByCompanyPk" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
+		SELECT * FROM TL_D_COMPANY tdc 
+		WHERE tdc.COM_PK = #{com_pk}
+	</select>
+	
+	<!-- 채용분야 + 채용공고  -->
+	<select id="selectByJobFieldCategoryPk" resultType="com.mkfactory.toothless.d.dto.JobFieldCategoryDto">
+		SELECT * FROM TL_D_JOB_FIELD_CATEGORY tdjfc 
+		WHERE tdjfc.JOB_FIELD_CATEGORY_PK = #{job_field_category_pk}
+	</select>
+
+	<!-- 기업담당자 + 기업 -->
+	<select id="selectByComManagerPk" resultType="com.mkfactory.toothless.d.dto.CompanyManagerDto">
+		SELECT * FROM TL_D_COMPANY_MANAGER tdcm 
+		WHERE tdcm.COM_MANAGER_PK = #{com_manager_pk}
+	</select>	
+	
+	<!-- 기업규모 + 기업 -->
+	<select id="selectByComScaleCategoryPk" resultType="com.mkfactory.toothless.d.dto.ComScaleCategoryDto">
+		SELECT * FROM TL_D_COM_SCALE_CATEGORY tdcsc 
+		WHERE tdcsc.COM_SCALE_CATEGORY_PK = #{com_scale_category_pk}
+	</select>
+	
+	
 	
 	<!-- 학생 -->
 	
-	<!-- 학생 마이페이지용 관심공고 목록(4개 컷 + 채용마감일순) -->
+	<!-- 학생 마이페이지용 관심공고 목록(채용마감일 순으로 4개) -->
 	<select id="selectInterestPostingListForMyPage" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
 		SELECT * 
 		FROM (
@@ -215,31 +191,27 @@
 		ORDER BY tdjp.POSTING_DEADLINE ASC 
 	</select>
 	
-	<!-- 학생이 단 관심공고 수 -->
+	<!-- 학생이 스크랩한 관심공고 수 -->
 	<select id="selectTotalInterestPostingCount" resultType="int">
 		SELECT count(*) FROM TL_D_INTEREST_POSTING tdip  
 		WHERE tdip.STUDENT_PK = #{student_pk}
 	</select>
 
-	<!-- 학생 공고리스트용 관심기업 -->
+	<!-- 학생이 스크랩한 관심기업리스트 -->
 	<select id="selectInterestCompanyByStudentPk" resultType="int">
 		SELECT tdic.COM_PK FROM TL_D_INTEREST_COMPANY tdic
 		WHERE tdic.STUDENT_PK = #{student_pk}
 	</select>
 	
+	<!-- 학생이 공고스크랩했는지 체크 -->
+	<select id="selectMyPostingInterestCount" resultType="int">
+		SELECT count(*) FROM TL_D_INTEREST_POSTING 
+		WHERE job_posting_pk = #{job_posting_pk}
+		AND student_pk = #{student_pk} 
+	</select>
+	
 	
 	<!-- 기업 -->
-	
-	<!-- 기업 + 외부인 -->
-	<select id="selectByExternalPk" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
-		SELECT tdc.* 
-		FROM TL_D_COMPANY tdc
-		WHERE tdc.COM_MANAGER_PK IN (
-			SELECT tdcm.COM_MANAGER_PK 
-			FROM TL_D_COMPANY_MANAGER tdcm
-			WHERE tdcm.EXTERNAL_PK = #{external_pk}
-		)
-	</select>
 	
 	<!-- 공고스크랩 추가 -->
 	<insert id="insertInterestPosting">
@@ -257,14 +229,7 @@
 		AND student_pk = #{student_pk}
 	</delete>
 	
-	<!-- 공고스크랩 했던가? -->
-	<select id="selectMyPostingInterestCount" resultType="int">
-		SELECT count(*) FROM TL_D_INTEREST_POSTING 
-		WHERE job_posting_pk = #{job_posting_pk}
-		AND student_pk = #{student_pk} 
-	</select>
-	
-	<!-- 총 공고스크랩 -->
+	<!-- 총 공고스크랩 수-->
 	<select id="selectAllInterestPosting" resultType="int">
 		SELECT count(*) FROM TL_D_INTEREST_POSTING 
 		WHERE job_posting_pk = #{job_posting_pk}
@@ -305,7 +270,7 @@
 		ORDER BY tdjp.POSTING_DEADLINE ASC
 	</select>
 	
-	<!-- 공고별 지원한 학생 -->
+	<!-- 공고별 지원한 학생리스트 -->
 	<select id="selectApplyStudentList" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
 		SELECT * 
 		FROM TL_JIC_STUDENT_INFO tjsi 
@@ -320,7 +285,7 @@
 		)
 	</select>
 	
-	<!-- 기업 메인페이지용 지원 학생 -->
+	<!-- 기업 메인페이지용 지원 학생리스트 4개 -->
 	<select id="selectApplyStudentListForCompany" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
 		SELECT *
 		FROM (
@@ -338,9 +303,8 @@
 		]]>
 	</select>
 	
-	<!-- 지원학생 리스트 카운트 -->
-	
-	<!-- 지원학생 리스트 -->
+
+	<!-- 지원학생 총 리스트 -->
 	<select id="selectApplyStudentTotalList" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
 		SELECT tjsi.* 
 		FROM TL_JIC_STUDENT_INFO tjsi
@@ -352,7 +316,7 @@
 		ORDER BY tdjp.POSTING_DEADLINE ASC 
 	</select>
 	
-	<!-- 기업 메인페이지용 관심기업 학생 -->
+	<!-- 기업 메인페이지용 관심기업 체크한 학생 4개-->
 	<select id="selectMyCompanyInterestStudentList" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
 		SELECT *
 		FROM (
@@ -369,7 +333,7 @@
 		) t1
 	</select>
 	
-	<!-- 관심기업학생 리스트 -->
+	<!-- 관심기업학생 총 리스트 -->
 	<select id="selectMyCompanyInterestTotalList" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
 		SELECT *
 		FROM (
@@ -383,13 +347,7 @@
 		)
 	</select>
 	
-	<!-- 학생 + 학과  -->
-	<select id="selectByDepartmentPk" resultType="String">
-		SELECT tjdc.name FROM TL_JIC_DEPARTMENT_CATEGORY tjdc 
-		WHERE tjdc.DEPARTMENT_PK = #{department_pk}
-	</select>
-	
-	<!-- 중복지원 방지용 지원자 -->
+	<!-- 중복지원 방지용 지원자 확인 -->
 	<select id="selectMyApplyByStudentPk" resultType="int">
 		SELECT tdv.JOB_POSTING_PK 
 		FROM TL_D_VOLUNTEER tdv 
@@ -402,6 +360,23 @@
 				WHERE tjsi.STUDENT_PK = #{student_pk}
 			)
 		)
+	</select>
+	
+	<!-- 기업 + 외부인 -->
+	<select id="selectByExternalPk" resultType="com.mkfactory.toothless.d.dto.CompanyDto">
+		SELECT tdc.* 
+		FROM TL_D_COMPANY tdc
+		WHERE tdc.COM_MANAGER_PK IN (
+			SELECT tdcm.COM_MANAGER_PK 
+			FROM TL_D_COMPANY_MANAGER tdcm
+			WHERE tdcm.EXTERNAL_PK = #{external_pk}
+		)
+	</select>
+	
+	<!-- 학생 + 학과  -->
+	<select id="selectByDepartmentPk" resultType="String">
+		SELECT tjdc.name FROM TL_JIC_DEPARTMENT_CATEGORY tjdc 
+		WHERE tjdc.DEPARTMENT_PK = #{department_pk}
 	</select>
 	
 	

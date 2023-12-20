@@ -337,5 +337,18 @@
 		WHERE lecture_student_key = #{lecture_student_key})
 		AND open_lecture_key = #{open_lecture_key}
 	</select>
+	
+	<insert id="insertNotificationDto">
+		INSERT INTO tl_jic_notification values(
+			tl_jic_notification_seq.nextval,
+			#{student_pk},
+			#{center_pk},
+			#{message},
+			#{pageLink},
+			'N',
+			'N',
+			SYSDATE
+		)
+	</insert>
 
 </mapper>

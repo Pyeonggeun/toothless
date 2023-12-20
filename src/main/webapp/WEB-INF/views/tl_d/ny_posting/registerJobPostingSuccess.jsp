@@ -42,11 +42,11 @@
 						</div>
 						<div class="row mt-5 pb-2" >
 							<div class="col ms-5">
-								<input class="btn btn-outline-secondary d-grid" type="submit" value="목록확인">
+								<a class="btn btn-outline-secondary d-grid" href="./jobPostingListPage">목록확인</a>
 							</div>
 							<div class="col"></div>
-							<div class="col">
-								<input class="btn btn-info d-grid" type="submit" value="추가등록하기">
+							<div class="col me-5">
+								<a class="btn btn-primary text-white d-grid" href="./registerJobPostingPage">추가등록하기</a>
 							</div>
 						</div>
 					</div>
@@ -56,7 +56,7 @@
 			<div class="col"></div>	
 		</div>
 		<div class="row mb-5 pb-5"><div class="col"></div></div>
-		<!-- futter -->
+		<%-- futter --%>
 		<div class="row">
 			<div class="col">
 				<jsp:include page="../common/futter.jsp"></jsp:include>

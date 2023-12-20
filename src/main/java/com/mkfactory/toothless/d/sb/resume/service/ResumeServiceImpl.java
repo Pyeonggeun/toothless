@@ -370,6 +370,38 @@ public class ResumeServiceImpl {
 		return resumeList;
 	}
 	
+	public List<Map<String, Object>> getResumeDtoListAndStudentInfoByJobPostingPk(int job_posting_pk) {
+		
+		List<Map<String, Object>> dtoList = new ArrayList<Map<String,Object>>();
+		
+		List<ResumeDto> resumeList = resumeSqlMapper.getResumeListByJobPostingPk(job_posting_pk);
+		List<StudentInfoDto> studentList = resumeSqlMapper.getStudentInfoByJobPostingPk(job_posting_pk);
+		for(ResumeDto resumeDto : resumeList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			for(StudentInfoDto studentDto : studentList) {
+				if(resumeDto.getStudent_pk() == studentDto.getStudent_pk()) {
+					int resume_pk = resumeDto.getResume_pk();
+					String departmentName = resumeSqlMapper.getStudentDepartmentNameByResumePk(resume_pk);
+					map.put("resumeDto", resumeDto);
+					map.put("studentDto", studentDto);
+					map.put("department", departmentName );
+					dtoList.add(map);
+				}
+				
+			}
+			
+		}
+		
+		return dtoList;
+		
+	}
+	
+
+	
+	
+	
+	
+	
 
 	
 //	-----------------------------------------------------------------------------------------
@@ -394,7 +426,9 @@ public class ResumeServiceImpl {
 	
 	// 학생 이력서 삭제
 	public void deleteResume(int resume_pk) {
+		System.out.println(resume_pk);
 		resumeSqlMapper.deleteResumeByResumePk(resume_pk);
+		resumeSqlMapper.cancleApplyByResumePk(resume_pk);
 	}
 	
 	// 이력서 미리보기

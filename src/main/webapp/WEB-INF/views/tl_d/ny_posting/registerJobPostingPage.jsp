@@ -26,23 +26,23 @@
 			<%-- 채용공고 등록 양식 --%>
 			<div class="col">
 				<form action="./registerJobPostingProcess" method="post" enctype="multipart/form-data">
-				<!-- 채용공고 -->
+				<%-- 채용공고 --%>
 				<div class="row">
 					<div class="col fs-4 fw-bold mt-5 text-center">채용공고등록</div>
 				</div>
-				<!-- 공고 제목 -->
+				<%-- 공고 제목 --%>
 				<div class="row mt-3">
 					<div class="col">
 						<input class="form-control form-control-sm border-black" name="posting_name" type="text" placeholder="공고제목">
 					</div>
 				</div>
-				<!-- 사업자번호 -->
+				<%-- 사업자번호 --%>
 				<div class="row mt-3">
 					<div class="col">
 						<input class="form-control form-control-sm border-black" name="business_number" type="text" placeholder="사업자번호 000-00-00000">
 					</div>
 				</div>
-				<!-- 채용분야 -->
+				<%-- 채용분야 --%>
 				<div class="row mt-3">
 					<div class="col">
 						<select class="form-select py-0 border-dark" name="job_field_category_pk">
@@ -54,19 +54,19 @@
 					</div>
 					<div class="col-7"></div>
 				</div>
-				<!-- 구인직무 -->
+				<%-- 구인직무 --%>
 				<div class="row mt-3">
 					<div class="col">
 						<input class="form-control form-control-sm border-black" name="job_position" type="text" placeholder="구인직무">
 					</div>
 				</div>
-				<!-- 메인이미지 -->
+				<%-- 메인이미지 --%>
 				<div class="row my-4">
 					<div class="col">
 						<input class="form-control border-dark" name="imageFile" type="file" accept="image/*">
 					</div>
 				</div>
-				<!-- 채용내용 -->
+				<%-- 채용내용 --%>
 				<div class="row mt-3">
 					<div class="col fw-bold">
 						채용내용
@@ -77,7 +77,7 @@
 						<textarea class="form-control border-dark" name="posting_contents" rows="10"></textarea>						
 					</div>
 				</div>
-				<!-- 우대사항 -->
+				<%-- 우대사항 --%>
 				<div class="row mt-3">
 					<div class="col fw-bold">
 						우대사항
@@ -88,7 +88,7 @@
 						<textarea class="form-control border-dark" name="preference" rows="10"></textarea>						
 					</div>
 				</div>
-				<!-- 채용인원 -->
+				<%-- 채용인원 --%>
 				<div class="row mt-3">
 					<div class="col fw-bold">
 						채용인원
@@ -105,7 +105,7 @@
 					</div>
 					<div class="col-8"></div>
 				</div>
-				<!-- 채용마감일 -->
+				<%-- 채용마감일 --%>
 				<div class="row mt-3">
 					<div class="col fw-bold">
 						채용마감일
@@ -139,7 +139,7 @@
 			<div class="col"></div>	
 		</div>
 		<div class="row mb-5 pb-5"><div class="col"></div></div>
-		<!-- futter -->
+		<%-- futter --%>
 		<div class="row">
 			<div class="col">
 				<jsp:include page="../common/futter.jsp"></jsp:include>

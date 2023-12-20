@@ -241,6 +241,33 @@
 		</div>
 	</div>
 	
+	<!-- 풋터 -->
+	<div class="row mt-5" style="background-color: #5a5a5a;">
+		<div class="col-1"></div>
+		<div class="col">
+			<div class="row" style="height: 4em;"></div>
+			<div class="row">
+				<div class="col">
+					<span style="font-size: 1.4em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
+					<span style="font-size: 1.2em; color: white; font-weight: 500;">▪</span>
+					<span style="font-size: 1.2em; color: white; font-weight: 500;">이메일무단수집거부</span>
+				</div>
+			</div>
+			<div class="row pt-4">
+				<div class="col">
+					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
+				</div>
+			</div>
+			<div class="row pt-2">
+				<div class="col">
+					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
+				</div>
+			</div>
+			<div class="row pt-4" style="border-bottom-style: solid; border-bottom-color: gray; border-bottom-width: 1px;"></div>
+		</div>
+		<div class="col-1"></div>
+	</div>
+	
 	<div id="templete" class="d-none">
 		<div class="commentWrapper row">
 			<div class="col border-bottom"><i class="bi bi-chat-dots"></i></div>
