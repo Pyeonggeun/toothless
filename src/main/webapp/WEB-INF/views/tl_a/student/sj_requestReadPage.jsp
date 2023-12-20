@@ -85,12 +85,12 @@
 							<div class="row">
 							
 								<div class="col d-flex justify-content-start my-2">
-	                				<a class="btn btn-primary rounded-0" href="./sj_requestRepairPage">목록으로</a>
+	                				<a class="btn btn-success rounded-0" href="./sj_requestRepairPage">목록으로</a>
 	                			</div>
 	                		
 	                		<c:if test="${!empty sessionStudentInfo && sessionStudentInfo.student_pk == one.dormStudentDto.student_pk }">
 	                			<div class="col d-flex justify-content-end my-2">
-	                				<a class="btn btn-success rounded-0 me-2" href="./sj_requestEditPage?request_repair_pk=${one.repairDto.request_repair_pk }" role="button">수정하기</a>
+	                				<a class="btn btn-primary rounded-0 me-2" href="./sj_requestEditPage?request_repair_pk=${one.repairDto.request_repair_pk }" role="button">수정하기</a>
 	                				<a class="btn btn-danger rounded-0" href="./deleteRequestRepairProcess?request_repair_pk=${one.repairDto.request_repair_pk }" role="button">삭제하기</a>
 	                				
 	                			</div>

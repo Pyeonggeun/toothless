@@ -111,7 +111,7 @@
                 <div class="row">
                 	
                 	<div class="col d-flex justify-content-end my-2">
-                		<a class="btn btn-danger rounded-0" href="./sj_requestWritePage" role="button">수리접수</a>
+                		<a class="btn btn-primary rounded-0" href="./sj_requestWritePage" role="button">수리접수</a>
                 		
                 	</div>
                 </div>

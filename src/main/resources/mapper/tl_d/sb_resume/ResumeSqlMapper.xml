@@ -285,6 +285,10 @@
 		)	
 	</select>
 	
+	<!-- 해당 공고 정보 -->
+	<select id="getApplyJobPostingDto" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
+		SELECT * FROM TL_D_JOB_POSTING tdjp WHERE JOB_POSTING_PK = #{job_posting_pk}
+	</select>
 	
 
 	
