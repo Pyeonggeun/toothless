@@ -92,6 +92,7 @@ public class StaffBoardController {
 		
 		List<StudentboardImageDto> boardImageDtoList = new ArrayList<>();
 		if(imageFile != null) {
+			
 			// 경로 수정
 			String rootPath = "C:\\workspace\\GitWorkspace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\TY\\";
 			
