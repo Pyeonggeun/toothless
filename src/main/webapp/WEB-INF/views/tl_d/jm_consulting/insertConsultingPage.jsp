@@ -85,6 +85,7 @@
 									<input name="staff_pk" type="hidden" value="${sessionStaffInfo.staff_pk}">
 									<input name="hope_job_pk" type="hidden" value="${hope_job_pk}">
 									
+									<button value="등록"></button>
 									<input type="submit" value="등록">
 								</div>							
 							</div>	
@@ -104,7 +105,11 @@
 			
 			
 			
-			
+	<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+	<!-- futter -->
+	<div class="row">
+		<div class="col">
+			<jsp:include page="../common/futter.jsp"></jsp:include>
 		</div>
 	</div>
 

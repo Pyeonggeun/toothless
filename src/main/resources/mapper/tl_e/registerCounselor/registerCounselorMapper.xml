@@ -150,8 +150,7 @@
 				</if>
 				<if test="!searchGenderOption.equals('default')">
 					AND gender = #{searchGenderOption}
-				</if>								
-				
+				</if>
 				<!-- <if test="searchOption == true and !searchCounselorName.equals('default')">
 					and rn = 1
 				</if>
@@ -196,7 +195,10 @@
 	
 	<!-- 상담원 PK로 상담원정보 조회 -->
 	<select id="selectCounselorDetailByCounselorId" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
-		SELECT * FROM CP_COUNSELOR WHERE id = #{id}
+		SELECT
+		* 
+		FROM CP_COUNSELOR
+		WHERE id = #{id}
 	</select>
 	
 	<!-- 상담카테고리 리스팅 -->
@@ -283,46 +285,6 @@
 		WHERE EXTERNAL_ID LIKE #{inputId}
 	</select>
 	
-	<!-- 상담원PK로 해당 상담사 전체 카테고리의 평점 -->
-	<select id="selectCounselorAllScoreAvgByCounselorId" resultType="map">
-		SELECT
-			cc.id AS counselorId,
-			nvl(offlineData.offlineAvg,0) AS offAvg,
-			nvl(onlineData.onlineAvg,0) AS onAvg,
-			nvl(groupData.groupAvg,0) AS groupAvg,
-			(nvl(offlineData.offlineAvg,0) + nvl(onlineData.onlineAvg,0) + nvl(groupData.groupAvg,0)) / 3 AS totalAvg
-		FROM CP_COUNSELOR cc 
-		LEFT OUTER JOIN (
-			SELECT 	
-			max(cor.counselor_id) AS counselorId,
-			nvl(avg(cos2.SCORE),0) AS offlineAvg
-			FROM CP_OFFLINE_RESERVATION cor 
-			INNER JOIN CP_OFFLINE_SURVEY cos2 ON cos2.RESERVATION_ID = cor.id
-			WHERE cor.STATE = '완료' 
-			GROUP by cor.counselor_id
-			) offlineData ON cc.ID = offlineData.counselorId
-		LEFT OUTER JOIN (
-			SELECT
-			max(cocr.COUNSELOR_ID) AS counselorId,
-			nvl(avg(cocs.SCORE),0) AS onlineAvg
-			FROM CP_ONLINE_COUNSEL_SURVEY cocs
-			INNER JOIN CP_ONLINE_COUNSEL_BOARD cocb ON cocb.ID = cocs.ONLINE_COUNSEL_BOARD_ID
-			INNER JOIN CP_ONLINE_COUNSEL_REPLY cocr ON cocr.ONLINE_COUNSEL_BOARD_ID = cocb.ID 
-			GROUP BY cocr.COUNSELOR_ID
-			) onlineData ON cc.ID = onlineData.counselorId
-		LEFT OUTER JOIN (
-			SELECT
-			max(cgc2.COUNSELOR_ID) AS counselorId,
-			nvl(avg(cgs.SCORE),0) AS groupAvg
-			FROM CP_GROUP_SURVEY cgs 
-			INNER JOIN CP_GROUP_RESERVATION cgr ON cgr.ID = cgs.GROUP_RESERVATION_ID
-			INNER JOIN CP_GROUP_COUNSEL cgc ON cgc.ID = cgr.group_counsel_id
-			INNER JOIN CP_GROUP_COUNSELOR cgc2 ON cgc2.GROUP_COUNSEL_ID = cgc.ID 
-			GROUP BY cgc2.COUNSELOR_ID 
-			) groupData ON cc.ID = groupData.counselorId
-		WHERE cc.id = #{counselorId}
-	</select>
-	
 	<!-- 상담원PK로 해당 상담사가 완료한 상담리스트 및 참여한 집단상담리스트 -->
 	<select id="selectCompleteCounselListByCounselorId" resultType="map">
 		SELECT
@@ -363,10 +325,207 @@
 			FROM CP_GROUP_RESERVATION cgr
 			INNER JOIN CP_GROUP_COUNSEL cgc ON cgc.ID = cgr.GROUP_COUNSEL_ID
 			INNER JOIN CP_GROUP_COUNSELOR cgc2 on cgc.ID = cgc2.GROUP_COUNSEL_ID
-			) completeList ON completeList.counselorid = cc.ID
+			) completeList ON completeList.counselorid = cc.ID		
 		WHERE id = #{counselorId}
 	</select>
 	
+	<!-- 미친짓 : 상담사PK기준 카테고리별 평균평점+전체평균평점+별점항목별 갯수 카운팅 -->
+	<select id="selectTotalScoreInfoByCounselorId" resultType="map">
+		SELECT
+			cc2.ID AS counselorId,
+			nvl(mainView.offAvg,0) AS offAvg,
+			nvl(mainView.onAvg,0) AS onAvg,
+			nvl(mainView.groupAvg,0) AS groupAvg,
+			nvl(mainView.totalAvg,0) AS totalAvg,
+			starRateView.score1 AS score1,
+			starRateView.score2 AS score2,
+			starRateView.score3 AS score3,
+			starRateView.score4 AS score4,
+			starRateView.score5 AS score5
+		FROM CP_COUNSELOR cc2
+		LEFT OUTER JOIN (
+			SELECT 
+				totalAvgView.counselorID AS counselorId,
+				AVG(categoryAvgView.offavg) AS offAvg,
+				AVG(categoryAvgView.onAvg) AS onAvg,
+				AVG(categoryAvgView.groupAvg) AS groupAvg,
+				TRUNC(AVG(totalAvgView.score),2) AS totalAvg
+			FROM (
+				SELECT 	
+					cor.counselor_id AS counselorId,
+					cos2.SCORE AS score
+				FROM CP_OFFLINE_RESERVATION cor 
+				INNER JOIN CP_OFFLINE_SURVEY cos2 ON cos2.RESERVATION_ID = cor.id
+				WHERE cor.STATE = '완료'
+				UNION ALL 
+				SELECT
+					cocr.COUNSELOR_ID AS counselorId,
+					cocs.SCORE AS score
+				FROM CP_ONLINE_COUNSEL_SURVEY cocs
+				INNER JOIN CP_ONLINE_COUNSEL_BOARD cocb ON cocb.ID = cocs.ONLINE_COUNSEL_BOARD_ID
+				INNER JOIN CP_ONLINE_COUNSEL_REPLY cocr ON cocr.ONLINE_COUNSEL_BOARD_ID = cocb.ID 
+				UNION ALL  
+				SELECT
+					cgc2.COUNSELOR_ID AS counselorId,
+					cgs.SCORE AS score
+				FROM CP_GROUP_SURVEY cgs 
+				INNER JOIN CP_GROUP_RESERVATION cgr ON cgr.ID = cgs.GROUP_RESERVATION_ID
+				INNER JOIN CP_GROUP_COUNSEL cgc ON cgc.ID = cgr.group_counsel_id
+				INNER JOIN CP_GROUP_COUNSELOR cgc2 ON cgc2.GROUP_COUNSEL_ID = cgc.ID
+				) totalAvgView
+			INNER JOIN (
+				SELECT
+					cc.id AS counselorId,
+					nvl(offlineData.offlineAvg,0) AS offAvg,
+					nvl(onlineData.onlineAvg,0) AS onAvg,
+					nvl(TRUNC(groupData.groupAvg, 2),0) AS groupAvg	
+				FROM CP_COUNSELOR cc 
+				LEFT OUTER JOIN (
+					SELECT 	
+					max(cor.counselor_id) AS counselorId,
+					nvl(avg(cos2.SCORE),0) AS offlineAvg
+					FROM CP_OFFLINE_RESERVATION cor 
+					INNER JOIN CP_OFFLINE_SURVEY cos2 ON cos2.RESERVATION_ID = cor.id
+					WHERE cor.STATE = '완료' 
+					GROUP by cor.counselor_id
+					) offlineData ON cc.ID = offlineData.counselorId
+				LEFT OUTER JOIN (
+					SELECT
+					max(cocr.COUNSELOR_ID) AS counselorId,
+					nvl(avg(cocs.SCORE),0) AS onlineAvg
+					FROM CP_ONLINE_COUNSEL_SURVEY cocs
+					INNER JOIN CP_ONLINE_COUNSEL_BOARD cocb ON cocb.ID = cocs.ONLINE_COUNSEL_BOARD_ID
+					INNER JOIN CP_ONLINE_COUNSEL_REPLY cocr ON cocr.ONLINE_COUNSEL_BOARD_ID = cocb.ID 
+					GROUP BY cocr.COUNSELOR_ID
+					) onlineData ON cc.ID = onlineData.counselorId
+				LEFT OUTER JOIN (
+					SELECT
+					max(cgc2.COUNSELOR_ID) AS counselorId,
+					nvl(avg(cgs.SCORE),0) AS groupAvg
+					FROM CP_GROUP_SURVEY cgs 
+					INNER JOIN CP_GROUP_RESERVATION cgr ON cgr.ID = cgs.GROUP_RESERVATION_ID
+					INNER JOIN CP_GROUP_COUNSEL cgc ON cgc.ID = cgr.group_counsel_id
+					INNER JOIN CP_GROUP_COUNSELOR cgc2 ON cgc2.GROUP_COUNSEL_ID = cgc.ID 
+					GROUP BY cgc2.COUNSELOR_ID 
+					) groupData ON cc.ID = groupData.counselorId
+				) categoryAvgView ON categoryAvgView.counselorId = totalAvgView.counselorId
+			GROUP BY totalAvgView.counselorId
+			ORDER BY totalAvgView.counselorId ASC
+			) mainView ON mainView.counselorId = cc2.ID 
+		INNER JOIN (
+			SELECT
+				cc.ID AS counselorID,
+				nvl(sum(rateBoard.score1),0) AS score1,
+				nvl(sum(rateBoard.score2),0) AS score2,
+				nvl(sum(rateBoard.score3),0) AS score3,
+				nvl(sum(rateBoard.score4),0) AS score4,
+				nvl(sum(rateBoard.score5),0) AS score5
+			FROM CP_COUNSELOR cc 
+			LEFT OUTER JOIN (
+				SELECT
+					cgc2.COUNSELOR_ID AS counselorId,
+					COUNT(CASE WHEN cgs.SCORE=1 THEN 1 END) AS SCORE1, 
+					COUNT(CASE WHEN cgs.SCORE=2 THEN 1 END) AS SCORE2, 
+					COUNT(CASE WHEN cgs.SCORE=3 THEN 1 END) AS SCORE3, 
+					COUNT(CASE WHEN cgs.SCORE=4 THEN 1 END) AS SCORE4, 
+					COUNT(CASE WHEN cgs.SCORE=5 THEN 1 END) AS SCORE5 
+				FROM CP_GROUP_SURVEY cgs
+				INNER JOIN CP_GROUP_RESERVATION cgr ON cgs.GROUP_RESERVATION_ID = cgr.ID 
+				INNER JOIN CP_GROUP_COUNSEL cgc ON cgc.ID = cgr.GROUP_COUNSEL_ID 
+				INNER JOIN CP_GROUP_COUNSELOR cgc2 ON cgc2.GROUP_COUNSEL_ID = cgc.ID
+				GROUP BY cgc2.COUNSELOR_ID 
+				UNION 
+				SELECT
+					cocr.COUNSELOR_ID AS counselorId,
+					COUNT(CASE WHEN cocs.SCORE=1 THEN 1 END) AS score1,
+					COUNT(CASE WHEN cocs.SCORE=2 THEN 1 END) AS score2,
+					COUNT(CASE WHEN cocs.SCORE=3 THEN 1 END) AS score3,
+					COUNT(CASE WHEN cocs.SCORE=4 THEN 1 END) AS score4,
+					COUNT(CASE WHEN cocs.SCORE=5 THEN 1 END) AS score5
+				FROM CP_ONLINE_COUNSEL_SURVEY cocs
+				INNER JOIN CP_ONLINE_COUNSEL_BOARD cocb ON cocb.ID = cocs.ONLINE_COUNSEL_BOARD_ID 
+				INNER JOIN CP_ONLINE_COUNSEL_REPLY cocr ON cocr.ONLINE_COUNSEL_BOARD_ID = cocb.ID
+				GROUP BY cocr.COUNSELOR_ID 
+				UNION 
+				SELECT
+					cor.COUNSELOR_ID AS counselorId,
+					COUNT(CASE WHEN cos2.SCORE=1 THEN 1 END) AS score1,
+					COUNT(CASE WHEN cos2.SCORE=2 THEN 1 END) AS score2,
+					COUNT(CASE WHEN cos2.SCORE=3 THEN 1 END) AS score3,
+					COUNT(CASE WHEN cos2.SCORE=4 THEN 1 END) AS score4,
+					COUNT(CASE WHEN cos2.SCORE=5 THEN 1 END) AS score5
+				FROM CP_OFFLINE_SURVEY cos2
+				INNER JOIN CP_OFFLINE_RESERVATION cor ON cor.ID = cos2.RESERVATION_ID
+				GROUP BY cor.COUNSELOR_ID
+				)rateBoard ON rateBoard.counselorId = cc.ID
+			GROUP BY cc.ID
+			) starRateView ON starRateView.counselorId = cc2.ID 
+		WHERE cc2.ID = #{counselorId}
+	</select>
+	
+	<!-- 상담원 전체 상담분류별 상담완료실적 -->
+	<select id="selectAllCompleteCounselList" resultType="map">
+		SELECT
+			RANK() OVER (ORDER BY mainView.totalcount DESC NULLS LAST) AS totalRank,
+			cc.id AS id,
+			cc.name AS name,
+			NVL(mainView.offcount,0) AS offcount,
+			NVL(mainView.oncount,0) AS oncount,
+			NVL(mainView.groupcount,0) AS groupcount,
+			NVL(mainView.totalCount,0) AS totalCount
+		FROM CP_COUNSELOR cc 
+		LEFT OUTER JOIN (
+			SELECT
+				COUNSELORID,
+				COUNT(CASE WHEN counselboardtype=1 THEN 1 end) AS offCount,
+				COUNT(CASE WHEN counselboardtype=2 THEN 1 end) AS onCount,
+				COUNT(CASE WHEN counselboardtype=3 THEN 1 end) AS groupCount,
+				COUNT(counselboardtype) AS totalCount
+			FROM (
+				SELECT
+					cc.id AS counselorId,
+					completeList.boardType AS counselBoardType,
+					completeList.counselNo AS counselNo,
+					completeList.counselType AS counselType,
+					completeList.counselDate AS counselDate
+				FROM CP_COUNSELOR cc
+				INNER JOIN (
+						SELECT
+						1 AS boardType,
+						cor.COUNSELOR_ID AS counselorId, 
+						cor.id AS counselNo,
+						ctc.NAME AS counselType,
+						cor.COUNSEL_YEAR || '-' ||cor.COUNSEL_MONTH || '-' || cor.COUNSEL_DAY AS counselDate
+					FROM CP_OFFLINE_RESERVATION cor
+					INNER JOIN CP_COUNSELOR cc ON cc.id = cor.COUNSELOR_ID
+					INNER JOIN CP_TYPE_CATEGORY ctc ON cor.TYPE_CATEGORY_ID = ctc.ID 
+					WHERE cor.STATE = '완료'
+					UNION 
+					SELECT
+						2 AS boardType,
+						cocr.COUNSELOR_ID AS counselorId,
+						cocb.id AS counselNo,
+						ctc.NAME AS counselType,
+						TO_CHAR(cocb.CREATED_AT, 'yyyy-MM-dd') AS counselDate 
+					FROM CP_ONLINE_COUNSEL_BOARD cocb
+					INNER JOIN CP_ONLINE_COUNSEL_REPLY cocr ON cocr.ONLINE_COUNSEL_BOARD_ID = cocb.ID
+					INNER JOIN CP_TYPE_CATEGORY ctc ON cocb.TYPE_CATEGORY_ID = ctc.ID
+					UNION
+					SELECT
+						3 AS boardType,
+						cgc2.COUNSELOR_ID AS counselorId,
+						cgc.ID AS counselNo,
+						cgc.TITLE AS counselType,
+						TO_CHAR(cgc.COUNSEL_DATE, 'yyyy-mm-dd') AS counselDate  
+					FROM CP_GROUP_RESERVATION cgr
+					INNER JOIN CP_GROUP_COUNSEL cgc ON cgc.ID = cgr.GROUP_COUNSEL_ID
+					INNER JOIN CP_GROUP_COUNSELOR cgc2 on cgc.ID = cgc2.GROUP_COUNSEL_ID
+					) completeList ON completeList.counselorid = cc.ID
+				)
+			GROUP BY COUNSELORID
+			ORDER BY totalcount DESC  
+			)mainView ON mainview.counselorid = cc.ID
+	</select>
 	
 	
 	

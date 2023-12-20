@@ -45,7 +45,7 @@
 								<div class="col-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
 								<div class="col"><a class="btn ms-4" href="./programViewDetailsPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a></div>
 								<div class="col-3 text-center pt-1">${list.staffInfoDto.name}</div>
-								<div class="col-3 text-center pt-1">
+								<div class="col-2 text-center pt-1">
 									 <c:choose>
 						                <c:when test="${list.programDto.prg_apply_deadline.before(currentTime)}">
 						                	<span class="text-center badge text-bg-secondary">마감</span>
@@ -66,6 +66,13 @@
 					</div>
 					<div class="col-2"></div>
 				</div>
+			</div>
+		</div>
+		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+		<!-- futter -->
+		<div class="row">
+			<div class="col">
+				<jsp:include page="../common/futter.jsp"></jsp:include>
 			</div>
 		</div>
 	</div>

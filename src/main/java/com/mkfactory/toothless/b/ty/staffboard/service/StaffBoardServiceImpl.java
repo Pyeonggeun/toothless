@@ -77,15 +77,18 @@ public class StaffBoardServiceImpl {
 			int likeDto = staffBoardSqlMapper.boardLikeCountList(boardPk);
 			int imgDto = staffBoardSqlMapper.imageView(boardPk);
 			
+			List<StudentboardImageDto> boardImageDtoList =
+					staffBoardSqlMapper.getArticleImageList(boardPk);
+			
 			int replyCommentCount = noticeboardDto.getStudentboard_pk();
 			int replyDto = staffBoardSqlMapper.readReplyCount(replyCommentCount);
-			
 			Map<String, Object> map = new HashMap<>();
 			map.put("noticeboardDto", noticeboardDto);
 			map.put("staffDto", staffDto);
 			map.put("likeDto", likeDto);
 			map.put("replyDto", replyDto);
 			map.put("imgDto", imgDto);
+			map.put("boardImageDtoList",boardImageDtoList);
 			
 			list.add(map); 
 		}

@@ -43,8 +43,8 @@
 										<div class="row border-bottom border-bs-border pb-3 mb-3">
 											<div class="col-1 text-center fw-bold pt-1">${list.companyDto.com_pk}</div>
 											<div class="col"><a class="btn ms-4" href="./studentViewDetailCompanyPage?com_pk=${list.companyDto.com_pk}">${list.companyDto.com_name}</a></div>
-											<div class="col-3 text-center pt-1">${list.companyManagerDto.com_manager_name}</div>
-											<div class="col-3 text-center pt-1">${list.companyDto.is_family_company}</div>
+											<div class="col-3 ps-0 text-center pt-1">${list.companyManagerDto.com_manager_name}</div>
+											<div class="col-2 text-center pt-1">${list.companyDto.is_family_company}</div>
 										</div>
 									</c:if>
 								</c:forEach>
@@ -54,6 +54,13 @@
 						<div class="col-2"></div>
 					</div>
 				</div>
+		</div>
+		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+		<!-- futter -->
+		<div class="row">
+			<div class="col">
+				<jsp:include page="../common/futter.jsp"></jsp:include>
+			</div>
 		</div>
 	</div>
 

@@ -18,6 +18,7 @@ import com.mkfactory.toothless.a.student.mj.mapper.DormStudnetSqlMapper;
 import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.donot.touch.mapper.StudentSqlMapper;
+import com.mkfactory.toothless.donot.touch.service.AlarmApi;
 
 @Service
 public class DormStaffServiceImpl {
@@ -31,7 +32,9 @@ public class DormStaffServiceImpl {
 	@Autowired
 	private StudentSqlMapper commonStudentSqlMapper;
 	
-
+	@Autowired
+	private AlarmApi alarmApi;
+	
 	
 	// 학년도/학기 등록
 	public void registerYear(SemesterDto semesterDto) {
@@ -169,6 +172,11 @@ public class DormStaffServiceImpl {
 	public void updateSelectionStatus(String selection_status, int dorm_application_pk) {
 		
 		staffSqlMapper.updateSelectionStatus(selection_status, dorm_application_pk);
+	}
+	
+	// 알람보낼애들 pk
+	public JoinDormApplicationDto selectStudentPkForAlram(int dorm_application_pk) {
+		return staffSqlMapper.selectStudentPkForAlram(dorm_application_pk);
 	}
 	
 

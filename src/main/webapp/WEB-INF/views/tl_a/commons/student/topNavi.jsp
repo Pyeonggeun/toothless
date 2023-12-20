@@ -40,7 +40,7 @@
                                       <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
                                         <ul class="navbar-nav">
                                             <li class="nav-item dropdown mx-4"  style="text-align: right;">
-                                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a class="nav-link" href="./dm_dormIntroduction" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <span class="fw-bold" style="color: #190D0F; font-size: large;">기숙사 소개</span>
                                                 </a>
                                                 <ul class="dropdown-menu">
@@ -52,7 +52,7 @@
                                                 </ul>
                                               </li>
                                             <li class="nav-item dropdown mx-4">
-                                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a class="nav-link" href="./dm_dormCapacity" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                   <span class="fw-bold" style="color: #190D0F; font-size: large;">기숙시설</span>
                                                 </a>
                                                 <ul class="dropdown-menu">
@@ -63,7 +63,7 @@
                                                 </ul>
                                               </li>
                                             <li class="nav-item dropdown mx-4">
-                                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a class="nav-link" href="./mj_dormPosted" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <span style="color: #190D0F; font-size: large;">모집 안내</span>
                                                 </a>
                                                 <ul class="dropdown-menu">
@@ -78,7 +78,7 @@
                                             </li>
                                           
                                           <li class="nav-item dropdown mx-4">
-                                            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <a class="nav-link" href="./dm_dormNoticePage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <span style="color: #190D0F; font-size: large;">기숙사 커뮤니티</span>
                                             </a>
                                             <ul class="dropdown-menu">
@@ -89,8 +89,18 @@
                                               <li><a class="dropdown-item" href="./jw_exitApplyPage">외박 및 외출신청</a></li>
                                               <li><a class="dropdown-item" href="./jw_checkDormStudentPointPage">상벌점 확인</a></li>
                                               <li><a class="dropdown-item" href="./sj_requestRepairPage">고장수리요청</a></li>
-                                              <li><a class="dropdown-item" href="./jw_diartApplyPage">일지 등록</a></li>
                                               <li><a class="dropdown-item" href="./dm_FAQ">FAQ</a></li>
+                                            </ul>
+                                          </li>
+                                          	<li class="nav-item dropdown mx-4">
+	                                            <a class="nav-link" href="./jw_diartApplyPage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	                                                <span style="color: #190D0F; font-size: large;">임원 전용</span>
+	                                            </a>
+	                                            <ul class="dropdown-menu">
+	                                                <li><a class="dropdown-item disabled">임원 전용</a></li>
+	                                                    <li><hr class="dropdown-divider"></li>
+	                                              <li><a class="dropdown-item" href="./jw_diaryApplyPage">일지 작성</a></li>
+	                                              <li><a class="dropdown-item" href="./jw_callAbsenceManagementPage">점호 관리</a></li>
                                             </ul>
                                           </li>
                                         </ul>

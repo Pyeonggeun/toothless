@@ -47,6 +47,10 @@ public class BuildingServieImpl {
 		return buildingSqlMapper.dormCategory();
 	}
 	
+	public List<DormCategoryDto> choiceCategory(){
+		return buildingSqlMapper.choiceCategory();
+	}
+	
 	//호실 리스트
 	public List<DormRoomDto> dormRoomList(){
 		return buildingSqlMapper.selectRooms();
@@ -212,6 +216,11 @@ public class BuildingServieImpl {
 	//기숙사 호실 삭제
 	public void deleteForRoomProcess(int room_pk) {
 		buildingSqlMapper.deleteRoom(room_pk);
+	}
+	
+	//기숙사 상세 이미지 삭제
+	public void deleteCategoryImg(int dorm_amount_pk) {
+		buildingSqlMapper.deleteCategoryImg(dorm_amount_pk);
 	}
 	
 

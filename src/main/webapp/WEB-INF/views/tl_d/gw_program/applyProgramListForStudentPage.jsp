@@ -40,7 +40,7 @@
 							<c:if test="${list.programApplyDto.student_pk==sessionStudentInfo.student_pk}">
 								<div class="row border-bottom border-bs-border pb-3 mb-3">
 									<div class="col"><a class="btn ms-4" href="./programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a></div>
-									<div class="col-5 text-center pt-1">
+									<div class="col-3 text-center pt-1">
 										<c:choose>
 										
 							                <c:when test="${list.programDto.prg_schedule.before(currentTime)}">
@@ -50,7 +50,7 @@
 							                		<c:when test="${list.programApplyDto.prg_is_student_attend=='Y'}">
 							                			<c:choose>
 								                			<c:when test="${list.programReviewCount!=0}">
-							                					<span class="text-center border border-0 py-2 px-3 text-white bg-secondary rounded-2">리뷰 작성완료</span>
+							                					<span class="text-center border border-0 py-2 px-3 bg-primary-subtle rounded-2">리뷰 작성완료</span>
 							                				</c:when>
 							                				<c:otherwise>
 							                					<a class="text-center btn btn-primary" href="./programReviewPage?program_apply_pk=${list.programApplyDto.program_apply_pk}">리뷰쓰기</a>
@@ -59,9 +59,9 @@
 							                				
 							                			</c:choose>
 													</c:when>
-													
+													 
 							                		<c:otherwise>
-							                			<span class="text-center border border-0 py-2 px-3 text-white bg-secondary rounded-2">미수료</span>
+							                			<span class="text-center border border-0 py-2 px-3 mt-2 bg-secondary-subtle rounded-2">미수료</span>
 													</c:otherwise>
 													
 							                	</c:choose>
@@ -69,7 +69,7 @@
 							                
 							                <c:otherwise>
 							                
-							  					<span class="text-center border border-0 py-2 px-3 text-white bg-secondary rounded-2">진행 전</span>                 
+							  					<span class="text-center border border-0 py-2 px-3 bg-secondary-subtle rounded-2">진행 전</span>                 
 							                	
 							                </c:otherwise>
 							                
@@ -87,6 +87,13 @@
 					</div>
 					<div class="col-2"></div>
 				</div>
+			</div>
+		</div>
+		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+		<!-- futter -->
+		<div class="row">
+			<div class="col">
+				<jsp:include page="../common/futter.jsp"></jsp:include>
 			</div>
 		</div>
 	</div>

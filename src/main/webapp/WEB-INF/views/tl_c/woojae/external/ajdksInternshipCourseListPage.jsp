@@ -48,11 +48,71 @@
 </style>
 <script>
 
+	
+	/* yyyy-mm-dd  */
+	function formatDate(dateString) {
+	    const date = new Date(dateString);
+	    const year = date.getFullYear();
+	    let month = (1 + date.getMonth()).toString().padStart(2, '0');
+	    let day = date.getDate().toString().padStart(2, '0');
+	
+	    return year + "-" + month + "-" + day;
+	}
+	
+
 	function internshipCourseList(){
 		 
+		const url = "./internshipCourseList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const courseListBox = document.getElementById("courseListBox");
+			
+			for(e of response.data){
+				const courseListWrapper = document.querySelector("#templete .courseListWrapper").cloneNode(true);
+				
+				const courseTitle = courseListWrapper.querySelector(".courseTitle");
+				courseTitle.innerText = e.course_title;
+				
+				const semesterQualification = courseListWrapper.querySelector(".semesterQualification");
+				semesterQualification.innerText = e.semester_qualification + "학기 이상";
+				
+				const internshipTotalMember = courseListWrapper.querySelector(".internshipTotalMember");
+				internshipTotalMember.innerText = e.internship_total_member;
+				
+				const internshipStartDate = formatDate(e.internship_start_date);
+				const internshipEndDate = formatDate(e.internship_end_date);
+				const internshipDate = courseListWrapper.querySelector(".internshipDate");
+				internshipDate.innerText = internshipStartDate+ " ~ " + internshipEndDate;
+				
+				const applyingStartDate = formatDate(e.applying_start_date);
+				const applyingEndDate = formatDate(e.applying_end_date);
+				const applyingDate = courseListWrapper.querySelector(".applyingDate");
+				applyingDate.innerText = applyingStartDate + " ~ " + applyingEndDate;
+				
+				const announceDateFormmated = formatDate(e.announcement_date);
+				const announceDate = courseListWrapper.querySelector(".announceDate");
+				announceDate.innerText = announceDateFormmated;
+				
+				courseListBox.appendChild(courseListWrapper);
+			}
+			
+		});
+		
 	}
-
-
+		
+	
+	
+	
+	
+	
+	
+	window.addEventListener("DOMContentLoaded", () =>{
+		internshipCourseList();
+	});
+	
 </script>
 </head>
 <body>
@@ -79,11 +139,11 @@
 		
 		<div class="col">
 		<div class="row">
-			<div class="col mx-4">
+			<div class="col mx-5">
 			
 			<!-- 본문작성공간 -->
 				<div class="row mt-5">
-					<div class="col fw-bold">
+					<div class="col fw-bold" style="font-size: 1.5em;">
 						현장실습과정 조회
 					</div>
 				</div>
@@ -91,38 +151,19 @@
 					<div class="col border border-2"></div>
 				</div>
 				
-				<div class="row mt-4">
+				<div class="row mt-5">
 					<div class="col border border-1 border-dark"></div>
 				</div>
-				<div class="row mt-3 pb-3  border-2 text-center fw-bold" style="font-size: 0.9em;">
-					<div class="col-1">No</div>
-					<div class="col-4">과정제목</div>
+				<div class="row mt-3 pb-3 border-bottom border-2 text-center fw-bold" style="font-size: 0.9em;">
+					<div class="col">과정제목</div>
+					<div class="col-1">자격조건</div>
 					<div class="col-1">실습인원</div>
-					<div class="col-3">실습 기간</div>
-					<div class="col">선발 발표일</div>
-					<div class="col">등록일자</div>
+					<div class="col-2">실습기간</div>
+					<div class="col-2">모집기간</div>
+					<div class="col-2">발표일</div>
 				</div>
 				<div class="row mt-1">
-					<div class="col border-bottom border-secondary-subtle"></div>
-				</div>
-				<c:forEach items="${list}" var="il">
-					<div class="row mt-3 text-center" style="font-size: 0.8em;">
-						<div class="col-1">${il.internship_course_pk}</div>
-						<div class="col-4">${il.course_title}</div>
-						<div class="col-1">${il.internship_total_member}</div>
-						<div class="col-3">${il.applying_start_date - li.applying_end_date}</div>
-						<div class="col">${il.announcement_date}</div>
-						<div class="col">${il.created_at}</div>
-					</div>
-					<div class="row mt-3">
-						<div class="col border border-secondary-subtle"></div>
-					</div>
-				</c:forEach>
-				<div class="row mt-2">
-					<div class="col"></div>
-					<div class="col-1">
-						<a class="btn btn-secondary" href="../../eunbi/external/viewEvaluationCourseListPage">메인</a>
-					</div>
+					<div id="courseListBox" class="col border-bottom border-secondary-subtle"></div>
 				</div>
 			</div>
 		</div>
@@ -132,6 +173,56 @@
 </div>
 
 </div><!-- 전체 container 출구 -->
+			
+		<!-- 템플릿 -->
+		<div id="templete" class="d-none">
+			<div class="courseListWrapper row">
+				<div class="col">
+					<div class="row mt-3 text-center" style="font-size: 0.9em;">
+						<div class="courseTitle col">과정제목</div>
+						<div class="semesterQualification col-1">자격조건</div>
+						<div class="internshipTotalMember col-1">실습인원</div>
+						<div class="internshipDate col-2">실습기간</div>
+						<div class="applyingDate col-2">모집기간</div>
+						<div class="announceDate col-2">발표일</div>
+					</div>
+					<div class="row mt-3">
+						<div class="col border-bottom border-secondary-subtle"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<!-- Modal -->
+		<div id="templete" class="d-none">
+			<div class="row">
+				<!-- Vertically centered scrollable modal -->
+				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					      </div>
+					      <div class="modal-body">
+					        ....
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					        <button type="button" class="btn btn-primary">Save changes</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

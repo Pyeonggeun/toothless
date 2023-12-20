@@ -35,6 +35,13 @@
 			const generalResumeListBox = document.getElementById("generalResumeListBox");
 			generalResumeListBox.innerHTML = "";
 			
+			if(response.data.length ==0){
+				generalResumeListBox.innerText ="등록된  이력서가 없습니다.";
+				return;
+			}
+			
+			
+			
 			for(e of response.data){
 				
 				const generalResumeWrapper = document.querySelector("#templeteGeneral .generalResumeWrapper").cloneNode(true);
@@ -76,9 +83,14 @@
 		.then(response => {
 			
 			const resumeDto = response.data;
-			
 			const mainResumeBox = document.getElementById("mainResumeBox");
 			mainResumeBox.innerHTML = "";
+			if(resumeDto == null){
+				mainResumeBox.innerText ="등록된 메인 이력서가 없습니다.";
+				return;
+			}
+			
+			
 			
 			const mainResumeWrapper = document.querySelector("#templeteMain .mainResumeWrapper").cloneNode(true);
 			
@@ -232,10 +244,10 @@
 				const gainYear = licenseWrapper.querySelector(".gainYear");
 				gainYear.innerText = e.lic_gain_year;
 				
-				const gainMonth = licenseWrapper.querySelector("gainMonth");
+				const gainMonth = licenseWrapper.querySelector(".gainMonth");
 				gainMonth.innerText = e.lic_gain_month;
 				
-				const center = licenseWrapper.querySelector("center");
+				const center = licenseWrapper.querySelector(".center");
 				center.innerText = e.lic_center;
 				
 				licenseBox.appendChild(licenseWrapper);
@@ -323,7 +335,7 @@
 		const cover_letter = document.getElementById('cover_letter');
 		cover_letter.value = "";
 		
-        const modal = bootstrap.Modal.getOrCreateInstance("#addResumebutton");
+        const modal = bootstrap.Modal.getOrCreateInstance("#addResume");
         modal.show();
         // show 하면 뜨고 hide 하면 닫힘
     }
@@ -331,7 +343,7 @@
 	function save(){
         //  필요시 여기서 백엔드하고 연동... CSR
 
-        const modal = bootstrap.Modal.getOrCreateInstance("#addResumebutton");
+        const modal = bootstrap.Modal.getOrCreateInstance("#addResume");
         addResume();
         modal.hide();
         
@@ -343,7 +355,7 @@
 		const resume_title = document.getElementById('resume_title');
 		resume_title.innerText = "";
 		document.getElementById('cover_letter').value = '';
-		const modal = bootstrap.Modal.getOrCreateInstance("#addResumebutton");
+		const modal = bootstrap.Modal.getOrCreateInstance("#addResume");
 		modal.hide();
 	   
 	 }
@@ -394,45 +406,43 @@
 			<%-- 내용 시작 --%>
 			<div class="col">
 				<div class="row">
-					<div class="col fs-5 fw-bold mt-5">이력서 목록</div>
+					<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">이력서 목록</div>
 				</div>
 				
-				<div class="row border-bottom border-dark"></div>
-				<div class="row border border-top">
-					<div class="col p-3 ms-2">
-						<div class="row border-bottom border-gray">
-							<div class="col fs-3">메인 이력서</div>
+				<div class="row">
+					<div class="col">
+						<div class="row border-bottom border-2 border-black pb-3 mt-5">
+							<div class="col-6 fw-bold">제목(메인 이력서)</div>
+							<div class="col fw-bold text-center">작성일</div>
+							<div class="col fw-bold text-center">공개 여부</div>
+							<div class="col fw-bold text-center">공개 선택</div>
+							<div class="col fw-bold text-center">이력서 삭제</div>
 						</div>
-						<div class="row border-bottom border-gray text-light" style="background-color: #133369">
-							<div class="col-6 fs-5">제목</div>
-							<div class="col fs-5 text-center">작성일</div>
-							<div class="col fs-5 text-center">공개 선택</div>
-							<div class="col fs-5 text-center">공개 여부</div>
-							<div class="col fs-5 text-center">이력서 삭제</div>
-						</div>
-						<div class="row mt-3">
-							<div id="mainResumeBox" class="col">
-								<%-- 메인 이력서 나오는 위치 --%>
-							</div>	
-						</div>	
 					</div>
 				</div>
 				
 				
-				<div class="row border border-top mt-4">
-					<div class="col p-3 ms-2">
-						<div class="row border-bottom border-gray" >
-							<div class="col fs-3">이력서</div>
-						</div>
-						<div class="row border-bottom border-gray text-light" style="background-color: #133369">
-							<div class="col-6 fs-5">제목</div>
-							<div class="col fs-5 text-center">작성일</div>
+				<div class="row border-bottom ">
+					<div id="mainResumeBox" class="col">
+						<%-- 메인 이력서 나오는 위치 --%>
+
+					</div>	
+				</div>	
+			
+				
+				
+				<div class="row">
+					<div class="col ">
+						
+						<div class="row border-bottom border-2 border-black pb-3 mt-5">
+							<div class="col-6 fw-bold">제목(추가 이력서)</div>
+							<div class="col fw-bold text-center">작성일</div>
 							
-							<div class="col fs-5 text-center">메인이력서로 변경</div>
-							<div class="col fs-5 text-center">이력서 삭제</div>
+							<div class="col fw-bold text-center">메인이력서로 변경</div>
+							<div class="col fw-bold text-center">이력서 삭제</div>
 						</div>
 						
-						<div class="row">
+						<div class="row border-bottom">
 							<div id="generalResumeListBox" class="col">
 								<%-- 이력서 목록 출력될 위치 --%>
 							
@@ -442,12 +452,12 @@
 					</div>	
 				</div>
 				
-				<div class="row mt-2">
+				<div class="row mt-3">
 					<div class="col-9"></div>
 					<div class="col">
 						<form action="../common/studentMyPage" method="post">
 							<input type="hidden" name="student_pk" value="${sessionStudentInfo.student_pk }">
-							<button type="submit" class="btn btn-secondary">돌아가기</button>
+							<button type="submit" class="btn btn-outline-secondary">돌아가기</button>
 						</form>
 					</div>
 					<div class="col">
@@ -467,11 +477,16 @@
 		</div>
 			
 	</div>
+
 	
 	<div class="container">
 		<div style="height: 200px;"></div>
 	</div>
-	
+	<div class="row">
+		<div class="col">
+			<jsp:include page="../common/futter.jsp"></jsp:include>
+		</div>
+	</div>
 	
 	<div id="templeteGeneral" class="d-none">
 		<div class="generalResumeWrapper row border-top">
@@ -497,10 +512,8 @@
 				<div class="row my-3">
 					<div class="mainResumeTitle col-6 mt-1"> 이력서 제목</div>
 					<div class="mainResumeDate col text-center mt-1">2023.12.07</div>
-					<div class="mainResumeSelectPublic col text-center">
-						
-					</div>
 					<div class="currentPublicStatus col text-center"></div>
+					<div class="mainResumeSelectPublic col text-center"></div>
 					<div class="resumeDelete col text-center">
 						<button type="button" class="btn btn-outline-danger">삭제</button>
 					</div> 
@@ -510,7 +523,7 @@
 	</div>
 	
 <!--이력서 추가 Modal -->
-<div class="modal fade" id="addResumebutton" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="addResume" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -728,7 +741,7 @@
 			<div class="row">
 				<div class="licenseName col">자격증 명</div>
 				<div class="gainYear col">취득 년</div>
-				<div class="gianMonth col">취득 월</div>
+				<div class="gainMonth col">취득 월</div>
 				<div class="center col">발급 기관</div>
 			</div>
 		</div>

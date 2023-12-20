@@ -55,9 +55,9 @@
 				commentNickname.innerText = e.studentInfoDto.name;
 				// 날짜 호출
 				const commentDate = commentWrapper.querySelector(".commentDate");
-				commentDate.innerText = e.noticeCommentDto.created_at;
-				// 날짜 원하는대로 출력 pattern(yy.MM.dd)
+				// 날짜 원하는대로 출력 pattern(yy-MM-dd)
 				const date = new Date(e.noticeCommentDto.created_at);
+				const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
 				commentDate.innerText = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate();
 				// 댓글 내용 호출
 				const commentText = commentWrapper.querySelector(".commentText");
@@ -202,44 +202,72 @@
 		<div class="row mt-3">
 			<div class="col-1"></div>
 			<div class="col">
-				<div class="row fw-bold" style="background-color: silver;">
-					<div id="headerSize" class="col-1 border"><i class="bi bi-caret-right-fill"></i>&nbsp;&nbsp;글번호</div>
-					<div id="headerSize" class="col-8 border"><i class="bi bi-book-fill"></i>&nbsp;&nbsp;제목</div>
-					<div id="headerSize" class="col-1 border"><i class="bi bi-person-arms-up"></i>&nbsp;&nbsp;작성자</div>
-					<div id="headerSize" class="col-1 border"><i class="bi bi-mouse-fill"></i>&nbsp;&nbsp;조회수</div>
-					<div id="headerSize" class="col-1 border"><i class="bi bi-calendar-fill"></i>&nbsp;&nbsp;작성일</div>
+				<div class="row fw-bold">
+					<div id="headerSize" class="col-1"><i class="bi bi-chat-square-text-fill"></i>&nbsp;&nbsp;글번호</div>
+					<div id="headerSize" class="col-8"><i class="bi bi-emoji-expressionless-fill"></i>&nbsp;&nbsp;제목</div>
+					<div id="headerSize" class="col-1"><i class="bi bi-emoji-heart-eyes-fill"></i>&nbsp;&nbsp;작성자</div>
+					<div id="headerSize" class="col-1"><i class="bi bi-person-arms-up"></i>&nbsp;&nbsp;조회수</div>
+					<div id="headerSize" class="col-1"><i class="bi bi-calendar-heart-fill"></i>&nbsp;&nbsp;작성일</div>
 				</div>
 				<div class="row">
 					<c:forEach items="${mainList }" var="mainList">
-						<div id="headerSize" class="col-1 border"><i class="bi bi-caret-right-fill"></i>${mainList.noticeBoardDto.id }</div>
-						<div class="col-8 border">
+						<div id="headerSize" class="col-1">${mainList.noticeBoardDto.id }</div>
+						<div class="col-8 border-bottom">
 							<div class="row">
 								<div class="col-10">
 									<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./readNoticeBoardPage_Staff?id=${mainList.noticeBoardDto.id }">${mainList.noticeBoardDto.title }</a>
 									<c:if test="${mainList.commentCount > 0 }">
-										<span style="font-size: 0.7em; color: red; font-weight: bold;">[${mainList.commentCount }]</span> 
+										<span class="fw-bold text-danger" style="font-size:0.7em;">[${mainList.commentCount }]</span> 
 									</c:if>
 									<c:if test="${mainList.imageCount > 0 }">
 										<i class="bi bi-card-image"></i>
 									</c:if>
 								</div>
 								<div class="col-1">
-									<span class="badge text-bg-light" style="font-size: 0.7em; color: red;">추천[${mainList.likeCount }]</span>
+									<span class="fw-bold" style="font-size:0.7em;">추천[${mainList.likeCount }]</span>
 								</div>
 								<div class="col-1">
-									<span class="badge text-bg-light" style="font-size: 0.7em;">비추[${mainList.disLikeCount }]</span>
+									<span class="fw-bold" style="font-size:0.7em;">비추[${mainList.disLikeCount }]</span>
 								</div>
 							</div>
 						</div>
-						<div id="headerSize" class="col-1 border">${mainList.staffInfoDto.name }</div>
-						<div id="headerSize" class="col-1 border">${mainList.noticeBoardDto.read_count }</div>
-						<div id="headerSize" class="col-1 border"><fmt:formatDate value="${mainList.noticeBoardDto.created_at }" pattern="yy-MM-dd"/></div>
+						<div id="headerSize" class="col-1 text-center">${mainList.staffInfoDto.name }</div>
+						<div id="headerSize" class="col-1 text-center">${mainList.noticeBoardDto.read_count }</div>
+						<div id="headerSize" class="col-1 text-center"><fmt:formatDate value="${mainList.noticeBoardDto.created_at }" pattern="yy-MM-dd"/></div>
 					</c:forEach>
 				</div>
 			</div>
 			<div class="col-1"></div>
 		</div>
 	</div>
+	
+	<!-- 풋터 -->
+	<div class="row mt-5" style="background-color: #5a5a5a;">
+		<div class="col-1"></div>
+		<div class="col">
+			<div class="row" style="height: 4em;"></div>
+			<div class="row">
+				<div class="col">
+					<span style="font-size: 1.4em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
+					<span style="font-size: 1.2em; color: white; font-weight: 500;">▪</span>
+					<span style="font-size: 1.2em; color: white; font-weight: 500;">이메일무단수집거부</span>
+				</div>
+			</div>
+			<div class="row pt-4">
+				<div class="col">
+					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
+				</div>
+			</div>
+			<div class="row pt-2">
+				<div class="col">
+					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
+				</div>
+			</div>
+			<div class="row pt-4" style="border-bottom-style: solid; border-bottom-color: gray; border-bottom-width: 1px;"></div>
+		</div>
+		<div class="col-1"></div>
+	</div>
+	
 	<div id="templete" class="d-none">
 		<div class="commentWrapper row">
 			<div class="col border-bottom"><i class="bi bi-chat-dots"></i></div>

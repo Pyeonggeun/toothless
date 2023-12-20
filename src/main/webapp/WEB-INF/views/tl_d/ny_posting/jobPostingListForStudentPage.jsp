@@ -24,6 +24,7 @@
         		});
         	}
         	
+        	
         	// 공고 리스트 출력
         	function reloadJobPostingList(searchType, searchWord){
         		
@@ -38,6 +39,7 @@
         		.then(response => response.json())
         		.then(response => {
 
+        			
        				const postingListBox = document.getElementById("postingListBox");
        				
        				// 초기화 필요
@@ -46,6 +48,28 @@
         			// 리스트 반복문
         			for(e of response.data){
         				
+        				/* const selectBox = document.querySelector(".selectBox")
+        				
+        				const categoryList = [
+        				    {id: e.fieldCategoryList.job_field_category_pk, categoryName: e.fieldCategoryList.job_field_category_name}
+        				];
+
+        				categoryList.forEach(category => {
+        				    // 체크박스 생성
+        				    const checkBox = document.createElement("input");
+        				    checkBox.name = "categoryId"; 
+        				    checkBox.value = category.id;
+        				    checkBox.type = "checkbox"; 
+
+        				    // 라벨 생성(체크박스 내용?)
+        				    const label = document.createElement("label");
+        				    label.innerText = category.categoryName;
+
+        				    // 부모 요소에 추가
+        				    selectBox.appendChild(checkBox);
+        				    selectBox.appendChild(label);
+        				    selectBox.appendChild(document.createTextNode("\u00A0"));
+        				}); */
         				
         				// 딱 1개의 클래스를 가져옴 + cloneNode(true)로 안쪽까지 모두 복사
         				const postingWrapper = document.querySelector("#templete .postingWrapper").cloneNode(true);
@@ -117,9 +141,9 @@
         				const date = new Date(e.jobPostingDto.posting_deadline);
         				
         				// 요일 변환
-        				var week = new Array('일', '월', '화', '수', '목', '금', '토');  
-        				var theDay = date.getDay();    
-        				var dayLabel = week[theDay];   
+        				let week = new Array('일', '월', '화', '수', '목', '금', '토');  
+        				let theDay = date.getDay();    
+        				let dayLabel = week[theDay];   
         				
         				postingLink.innerText = "#" + e.jobFieldCategoryDto.job_field_category_name + " " 
         				+ "#" + e.jobPostingDto.job_position + " " + "#" + e.companyDto.com_address + " "
@@ -355,31 +379,26 @@
 			<div class="col-1 px-0 border-start"></div>
 			<%-- 채용공고 리스트 양식 --%>
 			<div class="col">
-				<!-- 채용공고 -->
+				<%-- 채용공고 --%>
 				<div class="row">
 					<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">채용공고리스트</div>
 				</div>
-				<!-- 검색 바 -->
+				<%-- 검색 바 --%>
 				<div class="row mt-3 p-2">
 					<div class="col">
-						<div class="row mt-1">
-							<div class="col-4 border p-3">
-								<select class="form-select form-select-sm border-0 pe-0">
-						    		<option class="text-secondary" selected>분야선택</option>
-						    		<option value="1">개발</option>
-						    		<option value="2">마케팅</option>
-						    		<option value="3">판매</option>
-						    		<option value="4">인사</option>
-						    		<option value="5">금융</option>
-						    		<option value="6">디자인</option>
-						    		<option value="7">의료</option>
-						    		<option value="8">제조</option>
-								</select>
-							</div>
-							<div class="col-4 border p-3">
+						<div class="row">
+							<%-- 분야 체크박스 --%>
+							<div class="col text-secondary border p-3">
+								<c:forEach items="${jobFieldList}" var="jobField">
+									 <input name="job_field_category_pk" value="${jobField.job_field_category_pk}" type="checkbox">${jobField.job_field_category_name}&nbsp; 
+								</c:forEach> 
+							</div>  
+						</div>
+						<div class="row">
+							<div class="col-6 border p-3">
 								<input type="text" class="form-control border-0" placeholder="직무검색"> 
 							</div>
-							<div class="col-4 border p-3">
+							<div class="col-6 border p-3">
 								<input type="text" class="form-control border-0" placeholder="지역검색"> 
 							</div>
 						</div>
@@ -425,7 +444,7 @@
 			<div class="col-2"></div>	
 		</div>
 		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
-		<!-- futter -->
+		<%-- futter --%>
 		<div class="row">
 			<div class="col">
 				<jsp:include page="../common/futter.jsp"></jsp:include>
@@ -435,55 +454,55 @@
 	
 	
 	
-	<!-- 클론 -->
-	<!-- 안쪽에 id 절대 넣지 못함! -->
-	<div id="templete" class="d-none">
-		<div class="postingWrapper row border-bottom py-2">
-			<!-- 1번째 칸 -->
-			<div class="col-2 mt-2 ps-4">
-				<div class="row">
-					<!-- 기업명 -->
-					<div class="postingCompanyName col pe-0"></div>
-				</div>
-				<div class="row">
-					<!-- 가족기업여부 -->
-					<div class="isFamilyCompany col ms-1"></div>
+<%-- 클론 --%>
+<%-- 안쪽에 id 절대 넣지 못함! --%>
+<div id="templete" class="d-none">
+	<div class="postingWrapper row border-bottom py-2">
+		<%-- 1번째 칸 --%>
+		<div class="col-2 mt-2 ps-4">
+			<div class="row">
+				<%-- 기업명 --%>
+				<div class="postingCompanyName col pe-0"></div>
+			</div>
+			<div class="row">
+				<%-- 가족기업여부 --%>
+				<div class="isFamilyCompany col ms-1"></div>
+			</div>
+		</div>
+		<%-- 2번째 칸 --%>
+		<%-- 공고제목 --%>
+		<div class="col-8 ps-4 pt-2">
+			<div class="row">
+				<div class="jobPostingName col"></div>
+			</div>
+			<div class="row">
+				<%-- 분야/지역/기간 태그  --%>
+				<div class="jobPostingCondition col"></div>
+			</div>
+		</div>
+		<%-- 3번째 칸 --%>
+		<div class="col-2">	
+			<div class="row">
+				<%-- 관심공고 별 --%>
+				<div class="interestPosting col ms-3 mb-1">
+					<%-- <i onclick="interestBox()" class="starBox text-warning bi bi-star"></i> --%>
+					<%-- <c:choose>
+						<c:when test="${jobPostingForStudent.allPostingInterest == 0}">
+							<i class="text-warning bi bi-star"></i>
+						</c:when>
+						<c:otherwise>
+							<i class="text-warning bi bi-star-fill"></i>
+						</c:otherwise>
+					</c:choose>
+					<span>${jobPostingForStudent.allPostingInterest}</span>	 --%>
 				</div>
 			</div>
-			<!-- 2번째 칸 -->
-			<!-- 공고제목 -->
-			<div class="col-8 ps-4 pt-2">
-				<div class="row">
-					<div class="jobPostingName col"></div>
-				</div>
-				<div class="row">
-					<!-- 분야/지역/기간 태그  -->
-					<div class="jobPostingCondition col"></div>
-				</div>
-			</div>
-			<!-- 3번째 칸 -->
-			<div class="col-2">	
-				<div class="row">
-					<!-- 관심공고 별 -->
-					<div class="interestPosting col ms-3 mb-1">
-						<!-- <i onclick="interestBox()" class="starBox text-warning bi bi-star"></i> -->
-						<%-- <c:choose>
-							<c:when test="${jobPostingForStudent.allPostingInterest == 0}">
-								<i class="text-warning bi bi-star"></i>
-							</c:when>
-							<c:otherwise>
-								<i class="text-warning bi bi-star-fill"></i>
-							</c:otherwise>
-						</c:choose>
-						<span>${jobPostingForStudent.allPostingInterest}</span>	 --%>
-					</div>
-				</div>
-				<div class="row">
-					<div class="applyPosting col"></div>
-				</div>
+			<div class="row">
+				<div class="applyPosting col"></div>
 			</div>
 		</div>
 	</div>
+</div>
 	
 	
 	

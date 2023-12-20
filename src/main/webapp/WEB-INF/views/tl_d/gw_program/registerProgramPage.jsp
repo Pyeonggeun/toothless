@@ -30,7 +30,7 @@
 				
 				<div class="row mt-5 mb-2">
 					<div class="col-2"></div>
-					<div class="col fw-bold fs-3 pb-2 border-bottom border-light-subtle">프로그램 등록하기</div>
+					<div class="col fw-bold fs-3 pb-2 border-bottom border-3 border-light-subtle">프로그램 등록하기</div>
 					<div class="col-3"></div>
 				</div>
 		
@@ -177,6 +177,13 @@
 			</div>
 			
 		</div>	
+		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+		<!-- futter -->
+		<div class="row">
+			<div class="col">
+				<jsp:include page="../common/futter.jsp"></jsp:include>
+			</div>
+		</div>
 	</div>
 
 

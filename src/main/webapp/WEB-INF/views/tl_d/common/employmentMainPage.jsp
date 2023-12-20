@@ -14,61 +14,12 @@
 	<div class="container-fluid">
 		<!-- 상단바 -->
 		<div class="row">
-            <div class="col">
-                <div class="row my-1 pt-4 text-center">
-                    <div class="col-1 pe-2 text-end">
-                        <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
-                    </div>
-                    <div class="col-3 ps-0 fw-bold fs-1 text-start ">
-                        MK University<span class="fs-6"> | </span> <span class="fs-5">취업지원센터</span> 
-                    </div>
-                    <div class="col-6"></div>
-                    <div class="col-1 mt-5 pb-2 text-secondary text-end">
-						<%-- mainPage --%>
-						<c:choose>
-							<c:when test="${!empty sessionStudentInfo}">
-								<li style="list-style-type: none;" class="nav-item dropdown ms-auto"><a
-									class="fw-bold nav-link dropdown-toggle" href="#" role="button"
-									data-bs-toggle="dropdown" aria-expanded="false">
-										${sessionStudentInfo.name} 님</a>
-									<ul class="dropdown-menu">
-										<li><a href="../common/studentMyPage"
-											class="dropdown-item">마이페이지</a></li>
-										<li><a href="../common/studentLogoutProcessForMain"
-											class="dropdown-item">로그아웃</a></li>
-									</ul>
-								</li>
-							</c:when>
-							<c:otherwise>
-								<li style="list-style-type: none;" class="nav-item"><a href="../../another/student/loginPage"
-									class="nav-link">로그인</a></li>
-							</c:otherwise>
-						</c:choose>
-					</div>
-                </div>
-            </div>
-        </div>
+			<div class="col">
+				<jsp:include page="../common/studentTopNavi.jsp"></jsp:include>
+			</div>
+		</div>
         <!-- 상단부 : 메뉴 -->
-        <div class="row text-center py-2 fw-bold text-light" style="background-color: #133369">
-            <div class="col-2"></div>
-            <div class="col align-self-center">
-                <a class="navbar-brand" href="../ny_posting/jobPostingListForStudentPage">채용공고</a>
-            </div>
-            <div class="col align-self-center">
-                <a class="navbar-brand" href="../gw_program/programListForStudentPage">프로그램</a>
-            </div>
-            <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_e/commons/counselCenterStudentMainPage">취업컨설팅</a>
-            </div>
-            <!-- 드롭다운 만들 예정 -->
-            <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_a/student/jw_mainPage">게시판</a>
-            </div>
-            <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_a/student/jw_mainPage">공지사항</a>
-            </div>
-            <div class="col-2"></div>
-        </div>
+
         <!-- 중앙부 : 단일 배너 -->
         <div class="row">
         	<div class="col px-0">
@@ -83,11 +34,25 @@
 				<div class="row border-bottom border-2">
 					<div class="col fs-5 fw-bold mt-5 pb-1">공지사항</div>
 					<div class="col fs-5 fw-bold mt-5 text-end">
-						<a class="navbar-brand" href="#">
+						<a class="navbar-brand" href="../hc_board/noticeMainPageForStudent">
 							<i class="bi bi-plus-lg"></i>
 						</a>	
 					</div>
 				</div>
+				<c:forEach items="${noticeList }" var="list">
+					<div class="row border-bottom border-bs-border pb-2 mb-2">
+						
+						<div class="col-1"></div>
+						<div class="col fw-bold pt-3">
+							<a class="navbar-brand" href="../hc_board/readNoticePageForStudent?id=${list.notice_board_pk }">${list.notice_title }</a>	
+						</div>
+						<div class="col-2 pt-3">
+							<fmt:formatDate value="${list.created_at }" pattern="yy.MM.dd"/>
+						</div>
+						<div class="col-1"></div>
+					</div>
+				</c:forEach>
+				
 			</div>
 			<!-- 프로그램 -->
 			<div class="col-3 mx-3 mb-5">

@@ -277,5 +277,38 @@ public class RestLifeStudentController {
 		
 		return restResponseDto;
 	}
+	
+	@RequestMapping("getTotalCount")
+	public RestResponseDto getTotalCount(int life_student_key) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(lifeStudentService.getTotalCount(life_student_key));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("getIngOpenLectureInfo")
+	public RestResponseDto getIngOpenLectureInfo(int life_student_key) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(lifeStudentService.getIngOpenLectureInfo(life_student_key));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("getCompleteOpenLectureInfo")
+	public RestResponseDto getCompleteOpenLectureInfo(int life_student_key) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(lifeStudentService.getCompleteOpenLectureInfo(life_student_key));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
 
 }

@@ -25,28 +25,28 @@
 			<%-- 가운데 여백--%>	
 			<div class="col-1 border-start"></div>
 			<%-- 공고상세 --%>
-			<div class="col">
-				<!-- 채용정보 -->
+			<div class="col-7">
+				<%-- 채용정보 --%>
 				<div class="row">
 					<div class="col fs-5 fw-bold mt-5">채용정보</div>
 				</div>
-				<!-- 기업정보 -->
+				<%-- 기업정보 --%>
 				<div class="row border-bottom border-dark"></div>
 				<div class="row border border-top">
-					<!-- 간략한 채용정보 -->
+					<%-- 간략한 채용정보 --%>
 					<div class="col p-4 ms-2">
-						<!-- 기업명 + 가족기업 여부 -->
+						<%-- 기업명 + 가족기업 여부 --%>
 						<div class="row">
 							<c:if test="${jobPostingDetail.companyDto.is_family_company ne null and jobPostingDetail.companyDto.is_family_company eq 'Y'}">
 								<div class="col-1"><span class="badge text-bg-info text-white">Family</span></div>
 							</c:if>
 							<div class="col ps-2">${jobPostingDetail.companyDto.com_name}</div>
 						</div>
-						<!-- 공고제목 -->
+						<%-- 공고제목 --%>
 						<div class="row">
 							<div class="col fs-4">${jobPostingDetail.jobPostingDto.posting_name}</div>
 						</div>
-						<!-- 분야 / 지역  -->
+						<%-- 분야 / 지역 --%>
 						<div class="row">
 							<div class="col">
 								<span class="text-secondary">#&nbsp;${jobPostingDetail.jobFieldCategoryDto.job_field_category_name} 
@@ -54,7 +54,7 @@
 								#&nbsp;${jobPostingDetail.companyDto.com_address}</span>
 							</div>
 						</div>
-						<!-- 마감일 -->
+						<%-- 마감일 --%>
 						<div class="row">
 							<div class="col-1 me-5 text-secondary">
 								#&nbsp;<fmt:formatDate value="${jobPostingDetail.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/>
@@ -71,24 +71,24 @@
 							</div>
 						</div>
 					</div>
-					<!-- 기업정보 -->
+					<%-- 기업정보 --%>
 					<div class="col-3 p-3 border-start my-2">
 						<div class="row">
 							<div class="col text-secondary">기업정보</div>
 						</div>
-						<!-- 기업명 -->						
+						<%-- 기업명 --%>						
 						<div class="row">
 							<div class="col fs-5 fw-bold mt-1">
 								${jobPostingDetail.companyDto.com_name}
 							</div>
 						</div>
-						<!-- 기업규모 -->
+						<%-- 기업규모 --%>
 						<div class="row">
 							<div class="col mt-1">
 								<span class="text-secondary">기업형태</span>&nbsp;${jobPostingDetail.comScaleCategoryDto.com_scale_category_name}
 							</div>
 						</div>
-						<!-- 채용담당자 -->
+						<%-- 채용담당자 --%>
 						<div class="row">
 							<div class="col mt-1">
 								<span class="text-secondary">대표자</span>&nbsp;${jobPostingDetail.companyDto.com_bossname}
@@ -96,7 +96,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- 이미지 -->
+				<%-- 이미지 --%>
 				<div class="row mt-3">
 					<div class="col fs-5 fw-bold">상세요강</div>
 				</div>
@@ -115,17 +115,17 @@
 						</div>
 					</div>
 				</div>
-				<!-- 채용내용 -->
+				<%-- 채용내용 --%>
 				<div class="row mt-3 border-bottom border-dark">
 					<div class="col fs-5 fw-bold">우대사항</div>
 				</div>
-				<!-- 우대사항 -->
+				<%-- 우대사항 --%>
 				<div class="row border">
 					<div class="col p-3 ms-3">
 						${jobPostingDetail.jobPostingDto.preference}	
 					</div>
 				</div>
-				<!-- 채용인원 -->
+				<%-- 채용인원 --%>
 				<div class="row mt-3 border-bottom border-dark">
 					<div class="col fs-5 fw-bold">채용인원</div>
 				</div>
@@ -134,7 +134,7 @@
 						&nbsp;&nbsp;${jobPostingDetail.jobPostingDto.hire_number} 명	
 					</div>
 				</div>
-				<!-- 채용마감일 까지 -->
+				<%-- 채용마감일 까지 --%>
 				<div class="row mt-3">
 					<div class="col fs-4 fw-bold text-center">
 						<c:choose>
@@ -164,10 +164,10 @@
 				</div>
 			</div>
 			<%-- 오른쪽 --%>	
-			<div class="col-2"></div>	
+			<div class="col-1"></div>	
 		</div>
 		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
-		<!-- futter -->
+		<%-- futter --%>
 		<div class="row">
 			<div class="col">
 				<jsp:include page="../common/futter.jsp"></jsp:include>

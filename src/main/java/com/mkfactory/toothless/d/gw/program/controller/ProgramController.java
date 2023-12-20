@@ -32,7 +32,15 @@ public class ProgramController {
 	private ProgramServiceIpml programService;
 
 	@RequestMapping("registerProgramPage")
-	public String registerProgramPage(Model model) {
+	public String registerProgramPage(HttpSession session,Model model) {
+		
+		StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(staffInfo == null) {
+			return "redirect:../../another/staff/loginPage";
+			
+		}
+
 		
 		model.addAttribute("programCategory", programService.programCategory());
 		
@@ -44,6 +52,8 @@ public class ProgramController {
 		
 		// 교직원 pk 입력
 		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		
 		
 		if(staffInfoDto != null) {
 			int staffPk = staffInfoDto.getStaff_pk();
@@ -89,7 +99,14 @@ public class ProgramController {
 	
 	//프로그램 목록페이지
 	@RequestMapping("programListPage")
-	public String programListPage(Model model) {
+	public String programListPage(HttpSession session,Model model) {
+		
+		StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(staffInfo == null) {
+			return "redirect:../../another/staff/loginPage";
+			
+		}
 		
 		model.addAttribute("programList", programService.getProgramList());
 		
@@ -98,7 +115,14 @@ public class ProgramController {
 	
 	//프로그램 상세보기 페이지(교직원용)
 	@RequestMapping("programViewDetailsPage")
-	public String programViewDetailsPage(Model model, int program_pk) {
+	public String programViewDetailsPage(HttpSession session,Model model, int program_pk) {
+		
+		StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(staffInfo == null) {
+			return "redirect:../../another/staff/loginPage";
+			
+		}
 		
 		model.addAttribute("program", programService.getProgram(program_pk));
 		programService.countApplyProgram(program_pk);
@@ -185,6 +209,7 @@ public class ProgramController {
 		
 		StudentInfoDto studentInfoDto=(StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		
+		
 		if(studentInfoDto !=null) {
 			
 			ProgramApplyDto programApplyDto=new ProgramApplyDto();
@@ -206,7 +231,14 @@ public class ProgramController {
 	
 	//학생 프로그램 신청
 	@RequestMapping("studentApplyProgram")
-	public String studentApplyProgram(Model model,ProgramApplyDto programApplyDto, int program_pk) {
+	public String studentApplyProgram(HttpSession session,Model model,ProgramApplyDto programApplyDto, int program_pk) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(studentInfoDto == null) {
+			return "redirect:../../another/student/loginPage";
+			
+		}
 		
 		model.addAttribute("program", programService.getProgram(program_pk));
 		
@@ -231,7 +263,14 @@ public class ProgramController {
 	
 	//학생 신청 프로그램 목록(학생용)
 	@RequestMapping("applyProgramListForStudentPage")
-	public String applyProgramListForStudentPage(Model model) {
+	public String applyProgramListForStudentPage(HttpSession session, Model model) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(studentInfoDto == null) {
+			return "redirect:../../another/student/loginPage";
+			
+		}
 		
 		model.addAttribute("studentApplyProgram", programService.studentApplyProgramList());
 		
@@ -270,7 +309,14 @@ public class ProgramController {
 	
 	//프로그램 리뷰쓰기
 	@RequestMapping("programReviewPage")
-	public String programReviewPage(Model model, int program_apply_pk) {
+	public String programReviewPage(HttpSession session, Model model, int program_apply_pk) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(studentInfoDto == null) {
+			return "redirect:../../another/student/loginPage";
+			
+		}
 		
 		model.addAttribute("program", programService.getApplyProgram(program_apply_pk));
 		
@@ -294,4 +340,6 @@ public class ProgramController {
 		
 		return "/tl_d/gw_program/programReviewListPage";
 	}
+	
+
 }

@@ -28,17 +28,17 @@
 			<div class="col">
 				<form action="./modifyJobPostingProcess" method="post" enctype="multipart/form-data">
 				<input name="job_posting_pk" type="hidden" value="${modifyJobPosting.jobPostingDto.job_posting_pk}">
-				<!-- 채용공고 -->
+				<%-- 채용공고 --%>
 				<div class="row">
 					<div class="col fs-4 fw-bold mt-5 text-center">채용공고수정</div>
 				</div>
-				<!-- 공고 제목 -->
+				<%-- 공고 제목 --%>
 				<div class="row mt-3">
 					<div class="col">
 						<input class="form-control form-control-sm border-black" name="posting_name" type="text" value="${modifyJobPosting.jobPostingDto.posting_name}">
 					</div>
 				</div>
-				<!-- 채용분야 -->
+				<%-- 채용분야 --%>
 				<div class="row mt-3">
 					<div class="col">
 						<select class="form-select py-0 border-dark" name="job_field_category_pk">
@@ -51,13 +51,13 @@
 					</div>
 					<div class="col-9"></div>
 				</div>
-				<!-- 구인직무 -->
+				<%-- 구인직무 --%>
 				<div class="row mt-3">
 					<div class="col">
 						<input class="form-control form-control-sm border-black" name="job_position" type="text" value="${modifyJobPosting.jobPostingDto.job_position}">
 					</div>
 				</div>
-				<!-- 메인이미지 -->
+				<%-- 메인이미지 --%>
 				<div class="row my-4">
 					<div class="col">
 						<input class="form-control border-dark" name="modifyimage" type="file" accept="image/*">
@@ -68,7 +68,7 @@
 						<img src="../../resources/img/employment/${modifyJobPosting.jobPostingDto.posting_mainimage}">
 					</div>				
 				</div>
-				<!-- 채용내용 -->
+				<%-- 채용내용 --%>
 				<div class="row mt-3">
 					<div class="col fw-bold">
 						채용내용
@@ -79,7 +79,7 @@
 						<textarea class="form-control border-dark" name="posting_contents" rows="10">${modifyJobPosting.jobPostingDto.posting_contents}</textarea>						
 					</div>
 				</div>
-				<!-- 우대사항 -->
+				<%-- 우대사항 --%>
 				<div class="row mt-3">
 					<div class="col fw-bold">
 						우대사항
@@ -90,7 +90,7 @@
 						<textarea class="form-control border-dark" name="preference" rows="10">${modifyJobPosting.jobPostingDto.preference}</textarea>						
 					</div>
 				</div>
-				<!-- 채용인원 -->
+				<%-- 채용인원 --%>
 				<div class="row mt-3">
 					<div class="col fw-bold">
 						채용인원
@@ -107,13 +107,13 @@
 					</div>
 					<div class="col-9"></div>
 				</div>
-				<!-- 채용 마감일 -->
+				<%-- 채용 마감일 --%>
 				<div class="row mt-3">
 					<div class="col">
 						<span class="fw-bold">기존 채용마감일</span> &nbsp;&nbsp;<fmt:formatDate value="${modifyJobPosting.jobPostingDto.posting_deadline}" pattern="yyyy-MM-dd"/>
 					</div>
 				</div> 
-				<!-- 채용마감일 -->
+				<%-- 채용마감일 --%>
 				<div class="row mt-3">
 					<div class="col">
 						<input class="form-control form-control-sm border-black" name="posting_deadline" type="date" value="<fmt:formatDate value="${modifyJobPosting.jobPostingDto.posting_deadline}" pattern="yyyy-MM-dd"/>">
@@ -142,7 +142,7 @@
 			<div class="col"></div>	
 		</div>
 		<div class="row mb-5 pb-5"><div class="col"></div></div>
-		<!-- futter -->
+		<%-- futter --%>
 		<div class="row">
 			<div class="col">
 				<jsp:include page="../common/futter.jsp"></jsp:include>

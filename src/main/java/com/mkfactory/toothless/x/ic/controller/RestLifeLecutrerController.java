@@ -170,10 +170,64 @@ public class RestLifeLecutrerController {
 		
 		return responseDto;
 	}
+	@RequestMapping("loadTestStudentList")
+	public RestResponseDto loadTestStudentList(int lecture_test_key) {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> list = lifeLecturerService.getTestStudentList(lecture_test_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(list);
+		
+		return responseDto;
+		
+	}
+	@RequestMapping("loadTestInfo")
+	public RestResponseDto loadTestInfo(int lecture_test_key) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		Map<String, Object> map = lifeLecturerService.testAndLecturerInfo(lecture_test_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(map);
+		
+		return responseDto;
+	}
+	@RequestMapping("loadAttendanceInfo")
+	public RestResponseDto loadAttendanceInfo(int open_lecture_key) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		Map<String, Object> map = lifeLecturerService.openLectureAttendanceInfo(open_lecture_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(map);
+		
+		return responseDto;
+	}
+	@RequestMapping("loadAttendanceStudentList")
+	public RestResponseDto loadAttendanceStudentList(int open_lecture_key) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> list = lifeLecturerService.attendanceStudentList(open_lecture_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(list);
+		
+		return responseDto;
+	}
 	
-	
-	
-	
+	@RequestMapping("loadLectureStudentTotalInfoList")
+	public RestResponseDto loadLectureStudentTotalInfoList(int open_lecture_key) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> list = lifeLecturerService.getLectureStudentTotalInfoList(open_lecture_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(list);
+		
+		return responseDto;
+	}
 	
 	
 }

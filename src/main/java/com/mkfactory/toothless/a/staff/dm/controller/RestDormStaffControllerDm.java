@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -192,6 +193,17 @@ public class RestDormStaffControllerDm {
 		
 		restResponseDto.setResult("success");
 		restResponseDto.setData(dormStaffServiceDm.allDormStudent());
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("searchList")
+	public RestResponseDto searchList(String searchWord, String searchType) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		restResponseDto.setData(dormStaffServiceDm.searchListBySearchWordAndSearchType(searchWord, searchType));
 		
 		return restResponseDto;
 	}

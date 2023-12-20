@@ -2,6 +2,8 @@ package com.mkfactory.toothless.d.gw.company.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mkfactory.toothless.d.dto.ComScaleCategoryDto;
 import com.mkfactory.toothless.d.dto.CompanyDto;
 import com.mkfactory.toothless.d.dto.CompanyManagerDto;
@@ -41,6 +43,16 @@ public interface CompanySqlMapper {
 	
 	public List<CompanyManagerDto> selectCompanyManagerAll();
 	
+	//회사리스트 서치 가능한 버전
+//	public List<CompanyDto> selectCompanyAllSearch(
+//			@Param("searchType") String searchType,
+//			@Param("searchWord") String searchWord
+//			);
+//	
+//	public List<CompanyManagerDto> selectCompanyManagerAllSearch(
+//			@Param("searchType") String searchType,
+//			@Param("searchWord") String searchWord
+//			);
 	
 	//가족기업으로 업데이트
 	public void changeFamilyCompany(int com_pk);

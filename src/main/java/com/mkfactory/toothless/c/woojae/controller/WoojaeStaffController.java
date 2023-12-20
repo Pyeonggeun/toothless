@@ -104,5 +104,11 @@ public class WoojaeStaffController {
 		return"tl_c/woojae/staff/ajdksRegistedCompanyPageCCCC";
 	}
 	
+	//공지사항
+	@RequestMapping("ajdksStaffNoticePage")
+	public String ajdksStaffNoticePage() {
+		
+		return"tl_c/woojae/staff/ajdksStaffNoticePage";
+	}
 
 }

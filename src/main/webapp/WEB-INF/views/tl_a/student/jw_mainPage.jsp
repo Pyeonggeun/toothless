@@ -463,7 +463,7 @@
 							</div>
 						</div>
 						<div id="box5" class="box box5 col border-end" 
-						onclick="toLink('#')"
+						onclick="toLink('./sj_requestRepairPage')"
 						onmouseover="changeColor(5)" onmouseout="restoreColor(5)">
 							<!-- 이모티콘 -->
 							<div class="row mt-4 ms-3">
@@ -588,7 +588,7 @@
 						<div class="col text-end me-3">
 							<i class="fs-5 px-3 bi bi-arrow-left btn" style="color: #B2B2B2;"></i>
 							<i class="fs-5 px-3 bi bi-arrow-right btn" style="color: #B2B2B2;"></i>
-							<i class="fs-3 px-3 bi bi-plus-lg btn"></i>
+							<i class="fs-3 px-3 bi bi-plus-lg btn" onclick = "location.href = './dm_dormNoticePage'"></i>
 						</div>
 					</div>
 					<div id="templete" class="row my-3 mt-4">
@@ -639,8 +639,9 @@
 					<div class="row my-3">
 						<div class="col">
 							<div class="row my-3 d-flex">
-								<button class="button-with-background col px-0 border-0 position-relative" 
-								        style="height: 200px; background: url('../../resources/img/dormitory/location1.jpg') center center no-repeat; background-size: cover; width: 200px;">
+								<button class="button-with-background col px-0 border-0 position-relative"  
+								        style="height: 200px; background: url('../../resources/img/dormitory/location1.jpg') center center no-repeat; background-size: cover; width: 200px;"
+								        onclick = "location.href = './dm_dormSearchMap'">
 								    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6);"></div>
 								    <div class="row">
 									    <div class="col text-white text-start" style="font-size:1.1em; position: absolute; top: 30%; left: 57%; transform: translate(-50%, -50%);">

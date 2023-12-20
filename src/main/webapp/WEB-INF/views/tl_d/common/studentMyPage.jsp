@@ -81,8 +81,52 @@
 						<!-- 공고 지원한 학생목록 -->
 						<div class="row border-bottom border-2">
 							<div class="col fs-5 fw-bold mt-5 pb-1">상담이력</div>
-							<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
+							<div class="col fs-5 fw-bold mt-5 text-end"><a href="../jm_consulting/myOnlineConsultingListPage"><i class="bi bi-plus-lg"></i></a></div>
 						</div>
+						
+						<c:choose>
+							<c:when test="${getMyOnlineConsultingListNumFive.size()==0}">
+								<span class="fw-bold mt-3 text-center">상담이력이 없습니다!</span>
+							</c:when>
+							
+							<c:when test="${getMyOnlineConsultingListNumFive==null}">
+								<span class="fw-bold mt-3 text-center">상담이력이 없습니다!</span>
+							</c:when>							
+							
+							<c:otherwise>
+								<c:forEach items="${getMyOnlineConsultingListNumFive }" var="e">
+									
+									<div class="row my-3 border-bottom">
+										<div class="col">
+											<!-- 상담 번호 -->
+											<div class="row pb-2">
+												<div class="col-3 ms-2">No.<span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
+												<div class="col ms-2">
+												</div>
+												<div class="col ms-2">
+													<c:choose>
+														<c:when test="${e.onlineConsultingReplyDto==null}">
+															<span class="badge text-bg-danger">미답변</span>
+														</c:when>
+														<c:otherwise>
+															<a href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="badge text-bg-primary">답변완료</span></a>
+														</c:otherwise>
+													</c:choose>		
+												</div>
+												<div class="col-2">
+													<fmt:formatDate pattern="yyyy-MM-dd" value="${e.onlineConsultingDto.created_at}"/>
+												</div>			
+											</div>
+											
+										
+										</div>
+									</div>
+								  </c:forEach>																
+							</c:otherwise>
+							
+						</c:choose>
+						
+					
 					</div>
 					<!-- 상담이력 -->
 				</div>
@@ -100,7 +144,7 @@
 						</div>
 						<c:forEach items="${applyPostListForMyPage }" var="list">
 							<div class="row my-3 border-bottom">
-								<div class="col-4">
+								<div class="col-3">
 									<!-- 회사 이름 -->
 									<div class="row">
 										<div class="col ms-2">${list.companyDto.com_name }</div>
@@ -117,7 +161,7 @@
 								<div class="col">
 									<!-- 공고 제목 -->
 									<div class="row">
-										<div class="col">
+										<div class="col sd-inline-block text-truncate" style="max-width: 330px;">
 											${list.postDto.posting_name }
 										</div>
 									</div>
@@ -139,80 +183,91 @@
 							<div class="col fs-5 fw-bold mt-5 pb-1">관심채용정보</div>
 							<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
 						</div>
-						<c:forEach items="${interestpostingForMyPage}" var="interestPosting">
-						<div class="row mt-3  border-bottom">
-							<!-- 1번째 칸 -->
-							<div class="col-2">
-								<div class="row">
-									<!-- 기업명 -->
-									<div class="col pe-0 pt-1 text-truncate">
-										<a class="navbar-brand" href="./companyPostingListForStudentPage?com_pk=${interestPosting.companyDto.com_pk}">
-											${interestPosting.companyDto.com_name}
-										</a>
-		<!-- 								<i class="text-danger bi bi-suit-heart"></i>
-		 -->						</div>
-								</div>
-								<div class="row">
-									<!-- 가족기업여부 -->
-									<div class="col ms-1">
-										<c:if test="${interestPosting.companyDto.is_family_company ne null and interestPosting.companyDto.is_family_company eq 'Y'}">
-											<span class="badge text-bg-info text-white">Family</span>
-										</c:if>						
+						<c:choose>
+							<c:when test="${empty interestpostingForMyPage}">
+								<div class="row mt-3">
+									<div class="col fw-bold text-center">
+										스크랩한 채용공고가 없습니다
 									</div>
 								</div>
-							</div>
-							<!-- 2번째 칸 -->
-							<div class="col-8 mt-1 pb-3">
-								<div class="row">
-									<!-- 공고제목 -->
-									<div class="col ms-1 ps-0 pt-1">
-										<!-- 링크 더 좋은 방법 생각해보기 -->
-										<a class="navbar-brand" href="../ny_posting/jobPostingDetailForStudentPage?id=${interestPosting.jobPostingDto.job_posting_pk}">
-										<span class="d-inline-block text-truncate" style="max-width: 500px;">
-											${interestPosting.jobPostingDto.posting_name}
-										</span>
-										</a>
+							</c:when>
+							<c:otherwise>
+							<c:forEach items="${interestpostingForMyPage}" var="interestPosting">
+								<div class="row mt-3 border-bottom">
+									<!-- 1번째 칸 -->
+									<div class="col-2">
+										<div class="row">
+											<!-- 기업명 -->
+											<div class="col pe-0 pt-1 text-truncate">
+												<a class="navbar-brand" href="./companyPostingListForStudentPage?com_pk=${interestPosting.companyDto.com_pk}">
+													${interestPosting.companyDto.com_name}
+												</a>
+				<!-- 								<i class="text-danger bi bi-suit-heart"></i>
+				 -->						</div>
+										</div>
+										<div class="row">
+											<!-- 가족기업여부 -->
+											<div class="col ms-1">
+												<c:if test="${interestPosting.companyDto.is_family_company ne null and interestPosting.companyDto.is_family_company eq 'Y'}">
+													<span class="badge text-bg-info text-white">Family</span>
+												</c:if>						
+											</div>
+										</div>
+									</div>
+									<!-- 2번째 칸 -->
+									<div class="col-8 mt-1 pb-3">
+										<div class="row">
+											<!-- 공고제목 -->
+											<div class="col ms-1 ps-0 pt-1">
+												<!-- 링크 더 좋은 방법 생각해보기 -->
+												<a class="navbar-brand" href="../ny_posting/jobPostingDetailForStudentPage?id=${interestPosting.jobPostingDto.job_posting_pk}">
+												<span class="d-inline-block text-truncate" style="max-width: 500px;">
+													${interestPosting.jobPostingDto.posting_name}
+												</span>
+												</a>
+											</div>
+										</div>
+										<div class="row">
+											<!-- 분야/지역/기간 태그  -->
+											<div class="col ps-0">
+												<a class="navbar-brand" href="./jobPostingDetailPage?id=${interestPosting.jobPostingDto.job_posting_pk}">
+												<span class="text-secondary">#&nbsp;${interestPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${interestPosting.jobPostingDto.job_position}
+												#&nbsp;${interestPosting.companyDto.com_address} #&nbsp;<fmt:formatDate value="${interestPosting.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
+												<c:choose>
+													<c:when test="${interestPosting.postingDeadlineList.contains(interestPosting.jobPostingDto.job_posting_pk)}">
+														<span class="badge text-bg-danger">마감임박!</span>
+													</c:when>
+													<c:when test="${interestPosting.endPostingList.contains(interestPosting.jobPostingDto.job_posting_pk)}">
+														<span class="badge text-bg-secondary">채용마감</span>
+													</c:when>
+												</c:choose>
+												</a>
+											</div>
+										</div>
+									</div>
+									<!-- 3번째 칸 -->
+									<div class="col pt-3">
+										<div class="row">
+											<div class="col">
+												<c:choose>
+													<c:when test="${interestPosting.endPostingList.contains(interestPosting.jobPostingDto.job_posting_pk)}">
+														<button class="btn btn-dark btn-sm" disabled>채용마감</button>
+													</c:when>
+													<c:when test="${empty sessionStudentInfo}">
+														<button class="btn btn-dark btn-sm" disabled>지원하기</button>
+													</c:when>
+													<c:otherwise>
+														<a class="btn btn-dark btn-sm" 
+															href="../sb_resume/applyJobPostingPage?job_posting_pk=${interestPosting.jobPostingDto.job_posting_pk}">지원하기</a>
+													</c:otherwise>
+												</c:choose>
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="row">
-									<!-- 분야/지역/기간 태그  -->
-									<div class="col ps-0">
-										<a class="navbar-brand" href="./jobPostingDetailPage?id=${interestPosting.jobPostingDto.job_posting_pk}">
-										<span class="text-secondary">#&nbsp;${interestPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${interestPosting.jobPostingDto.job_position}
-										#&nbsp;${interestPosting.companyDto.com_address} #&nbsp;<fmt:formatDate value="${interestPosting.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
-										<c:choose>
-											<c:when test="${interestPosting.postingDeadlineList.contains(interestPosting.jobPostingDto.job_posting_pk)}">
-												<span class="badge text-bg-danger">마감임박!</span>
-											</c:when>
-											<c:when test="${interestPosting.endPostingList.contains(interestPosting.jobPostingDto.job_posting_pk)}">
-												<span class="badge text-bg-secondary">채용마감</span>
-											</c:when>
-										</c:choose>
-										</a>
-									</div>
-								</div>
-							</div>
-							<!-- 3번째 칸 -->
-							<div class="col pt-3">
-								<div class="row">
-									<div class="col">
-										<c:choose>
-											<c:when test="${interestPosting.endPostingList.contains(interestPosting.jobPostingDto.job_posting_pk)}">
-												<button class="btn btn-dark btn-sm" disabled>채용마감</button>
-											</c:when>
-											<c:when test="${empty sessionStudentInfo}">
-												<button class="btn btn-dark btn-sm" disabled>지원하기</button>
-											</c:when>
-											<c:otherwise>
-												<a class="btn btn-dark btn-sm" 
-													href="../sb_resume/applyJobPostingPage?job_posting_pk=${interestPosting.jobPostingDto.job_posting_pk}">지원하기</a>
-											</c:otherwise>
-										</c:choose>
-									</div>
-								</div>
-							</div>
-						</div>
-						</c:forEach>
+							</c:forEach>
+						</c:otherwise>
+						</c:choose>
 						<!-- 관심채용정보 끝 -->
 					</div>
 				</div>
@@ -228,22 +283,24 @@
 								</a>
 							</div>
 						</div>
-						<c:set var="currentTime" value="<%= new java.util.Date() %>" />
-						<c:forEach items="${applyProgramListForMyPage}" var="list"> 
-							<c:if test="${list.programApplyDto.student_pk==sessionStudentInfo.student_pk }">
-								<c:if test="${list.programDto.prg_schedule.before(currentTime)}">
-									<div class="row border-bottom border-bs-border pb-3 mb-3">
-										<div class="col-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
-										<div class="col">
-											<a class="btn ms-4" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a>
-										</div>
-										<div class="col-4 text-center mt-2">
-											<span class="border border-0 py-2 px-3 mb-0 text-white fw-bold bg-primary rounded-3" style="font-size: 1em;"><fmt:formatDate value="${list.programDto.prg_schedule}" pattern="MM.dd"/>&nbsp;개강</span>
-										</div> 
-									</div> 
-								</c:if>
-							</c:if>
-						</c:forEach>
+						
+								<c:set var="currentTime" value="<%= new java.util.Date() %>" />
+								<c:forEach items="${applyProgramListForMyPage}" var="list"> 
+									<c:if test="${list.programApplyDto.student_pk==sessionStudentInfo.student_pk }">
+										<c:if test="${list.programDto.prg_schedule.before(currentTime)}">
+											<div class="row border-bottom border-bs-border pb-3 mb-3">
+												<div class="col-1 mt-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
+												<div class="col">
+													<a class="btn ms-4" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a>
+												</div>
+												<div class="col-4 text-center mt-2">
+													<span class="border ms-5 border-0 pt-1 pb-2 px-2 fw-bold mb-0 text-white rounded-3" style="font-size: 0.9em; background-color: #9badca;"><fmt:formatDate value="${list.programDto.prg_schedule}" pattern="MM.dd"/>&nbsp;개강</span>
+												</div> 
+											</div> 
+										</c:if>
+									</c:if>
+								</c:forEach>
+							
 						<!-- 신청한 프로그램 끝 -->
 					</div>
 					<div class="col mx-5 px-5">

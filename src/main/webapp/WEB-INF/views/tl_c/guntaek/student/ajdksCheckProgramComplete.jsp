@@ -96,16 +96,16 @@
 				<!-- 다시 -->
 					<c:forEach items="${programList}" var="a">
 							<div class="row mt-3 d-flex align-items-center text-center" style="font-size: 0.8em; height:2.3em;" >
-								<div class="col-1">${a.internedu_program_pk}</div>
+								<div class="col-1">${a.EduProgramDto.internedu_program_pk}</div>
 								<div class="col-3">
 									${a.title}
 								
 								</div>								
-								<div class="col-1">${a.lecturer}</div>
-								<div class="col-2">${a.place}</div>
-								<div class="col"><fmt:formatDate pattern = "yyyy/MM/dd" value="${a.deadline_date}"/></div>
+								<div class="col-1">${a.EduProgramDto.lecturer}</div>
+								<div class="col-2">${a.EduProgramDto.place}</div>
+								<div class="col"><fmt:formatDate pattern = "yyyy/MM/dd" value="${a.EduProgramDto.deadline_date}"/></div>
 								<div class="col">
-								${a.progress_date}
+								${a.EduProgramDto.progress_date}
 								</div>
 								
 								<div class="col">

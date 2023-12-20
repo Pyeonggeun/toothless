@@ -65,194 +65,203 @@
 			<div class="row">
 				<div class="col mx-5">
 				<!-- 본문작성공간 (이력서 조회 공간) -->
-				<div class ="row ms-2" style="margin-top:100px;">
+				<div class ="row ms-2 mt-5">
+							
+		
+    
+					
+		
+					
+					<!-- 학생 정보 조회-->
+					<div class ="row">
 							
 							<div class="col-4 d-flex align-items-center">
-							<i class="bi bi-person-badge-fill" style="font-size: 2em;"></i> <span style = "font-size: 20pt">&nbsp; 개인 정보</span></div>
-							<div class="col-7"></div>
-							
-							<br>
-							  <hr style="border-top:2px solid; margin-bottom: 0;">
-    				</div>
-					
-			
-					<div class="row ms-2">
-							<div class= "col-2 border d-flex align-items-center justify-content-center" style="height:300px;">
-												<img class="img-fluid " src="/Git_imageFile/${imageLink}">
-							</div>							
-							<div class="col-3">
-							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px; background-color: #CFE2FF;">
-							        학생명/성별 *
-							    </div>
-							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px; background-color: #CFE2FF;">
-							        전화번호/휴대폰 *
-							    </div>
-							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px; background-color: #CFE2FF;">
-							        이메일 *
-							    </div>
-							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px; background-color: #CFE2FF;">
-							        주소 *
-							    </div>
-							</div>
-
-
-						<div class="col-7  text-center">
-								<div class="row border d-flex align-items-center justify-content-center" style="height:75px;">
-							        ${Student.studentDto.name} /  ${Student.studentDto.gender} 
-							    </div>
-							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px;">
-							        ${Student.studentDto.phone}
-							    </div>
-							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px;">
-							        ${Student.studentDto.email}
-							    </div>
-							    <div class="row border d-flex align-items-center justify-content-center" style="height:75px;">
-							        ${Student.studentDto.address}
-							    </div>
-						</div>
-						 <hr style="border-top:2px solid; margin-bottom: 0;">	
-					</div>
-					
-					<div class="row ms-2" style="margin-top:85px;" ><hr style="border:2px solid;"></div>
-					
-									<div class ="row ms-2" style="margin-top:100px;">
-							
-							<div class="col-4 d-flex align-items-center">
-							<i class="bi bi-mortarboard-fill" style="font-size: 2em;"></i> <span style = "font-size: 20pt">&nbsp; 학생 정보</span></div>
-							<div class="col-7"></div>
-							
-							<br>
+							<i class="bi bi-mortarboard-fill" style="font-size: 2em;"></i> <span style = "font-size: 16pt">&nbsp; 학생 정보</span></div>
+							<div class="col-8"></div>
 							  <hr style="border-top:2px solid; margin-bottom: 0;">
     				</div>
 
 				
-					<div class="row ms-2">
-						
-						
-						
-						<!--  1열  왼쪽--> 
-						<div class="col-2">
-							   <div class="row border d-flex align-items-center justify-content-center" style="height:50px; background-color: #CFE2FF;" >
-							        이름
-							    </div>
-						</div>
-						<div class="col-3">
-							   <div class="row border d-flex align-items-center justify-content-center" style="height:50px;">
-							        ${Student.studentDto.name} 
-							    </div>
-						</div>
-					
-	
-						<!-- 1열 오른쪽 -->
-						<div class="col-3">
-								   <div class="row border d-flex align-items-center justify-content-center" style="height:50px; background-color: #CFE2FF;">
-							       	현재학기
-									</div>
-						</div>
-						<div class="col-4">
-						 	 	<div class="row border d-flex align-items-center justify-content-center" style="height:50px; ">
-							        ${Student.semester}학기
-							    </div>
-						</div>
-					</div>
-					
-					<!--  2열 왼쪽 -->
-						<div class="row ms-2">
-						<div class="col-2">
-							   <div class="row border d-flex align-items-center justify-content-center" style="height:50px; background-color: #CFE2FF;">
-							        전공
-							    </div>
-						</div>
-						<div class="col-3">
-							   <div class="row border d-flex align-items-center justify-content-center" style="height:50px;">
-							        ${Student.departmentName}
-							    </div>
-						</div>
-					
-						<!-- 2열 오른쪽 -->
-						<div class="col-3">
-								   <div class="row border d-flex align-items-center justify-content-center" style="height:50px; background-color: #CFE2FF;">
-								   취득학점
-								   </div>
-						</div>
-						<div class="col-4">
-						 	 	<div class="row border d-flex align-items-center justify-content-center" style="height:50px ;">
-						 	 	전자공학과
-						 	 	</div>
-						</div>
-					</div>
-					
-					<!-- 3열 왼쪽  -->
-						<div class="row ms-2">
-						<div class="col-2">
-							   <div class="row border d-flex align-items-center justify-content-center" style="height:50px; background-color: #CFE2FF;">
-							    담당교수
-							   </div>
-						</div>
-						<div class="col-3">
-							   <div class="row border d-flex align-items-center justify-content-center" style="height:50px;">
-							  	${Student.proffessorName}
-							  	
-							   </div>	
-						</div>		
-						<hr style="border-top:2px solid; margin-top: 0;">	
-					
-					</div>
-						
-					<!-- 학적 정보 row 끝 -->
-					<div class ="row ms-2" style="margin-top:100px;">
-							
-							<div class="col-4 d-flex align-items-center">
-							<i class="bi bi-postcard-fill" style="font-size: 2em;"></i> <span style = "font-size: 20pt">&nbsp; 자격증 정보</span></div>
-							<div class="col-7"></div>
-							
-							<br>
-							  <hr style="border-top:2px solid; margin-bottom: 0;">
-    				</div>
+					<div class="row">
+                        <div class="col-2 d-flex justify-content-center align-items-center border" style ="height: 12em;">
+                            <div class="row border border-end border-start border-bottom">
+                            	<div class="col border">
+                                	<img class="img-fluid " src="/Git_imageFile/${imageLink}" style ="height:8em">
+                                </div>
+                            </div>
+                                
 
+                        </div>
+                        <div class="col-5">
+                            <div class="row" style ="height: 3em;">
+                                <div class="col-4 d-flex justify-content-center align-items-center border-bottom border-end" style ="background-color:#F8F8F8">이름</div>
+                                <div class="col-8 d-flex justify-content-center align-items-center border-bottom border-end"> ${Student.studentDto.name}</div>
+                            </div>
+                            <div class="row" style ="height: 3em;">
+                                <div class="col-4 d-flex justify-content-center align-items-center border-bottom border-end" style ="background-color:#F8F8F8">학번</div>
+                                <div class="col-8 d-flex justify-content-center align-items-center border-bottom border-end"> ${Student.studentDto.student_id}</div>
+                            </div>
+                            <div class="row" style ="height: 3em;">
+                                <div class="col-4 d-flex justify-content-center align-items-center border-bottom border-end" style ="background-color:#F8F8F8">이메일</div>
+                                <div class="col-8 d-flex justify-content-center align-items-center border-bottom border-end">${Student.studentDto.email}</div>
+                            </div>
+                            <div class="row" style ="height: 3em;">
+                                <div class="col-4 d-flex justify-content-center align-items-center  border-end" style ="background-color:#F8F8F8">주소</div>
+                                <div class="col-8 d-flex justify-content-center align-items-center border-end">${Student.studentDto.address}</div>
+                            </div>  
+                        </div>
+
+                        <div class="col-5">
+                            <div class="row" style ="height: 3em;">
+                                <div class="col-4 d-flex justify-content-center align-items-center border-bottom border-end" style ="background-color:#F8F8F8">주민번호</div>
+                                <div class="col-8 d-flex justify-content-center align-items-center border-bottom border-end">${Student.studentDto.resident_id}</div>
+                            </div>
+                            <div class="row" style ="height: 3em;">
+                                <div class="col-4 d-flex justify-content-center align-items-center border-bottom border-end"style ="background-color:#F8F8F8" >생년월일</div>
+                                
+                                <div class="col-8 d-flex justify-content-center align-items-center border-bottom border-end">
+                            			<fmt:formatDate pattern = "yyyy-MM-dd" value ="${Student.studentDto.birth}"/></div>
+                            </div>
+                            <div class="row" style ="height: 3em;">
+                                <div class="col-4 d-flex justify-content-center align-items-center border-bottom border-end" style ="background-color:#F8F8F8">성별</div>
+                                <div class="col-8 d-flex justify-content-center align-items-center border-bottom border-end">${Student.studentDto.gender}</div>
+                            </div>
+                             <div class="row" style ="height: 3em;">
+                                <div class="col-4"style ="background-color:#F8F8F8"></div>
+                                <div class="col-8 border-end" style ="background-color:#F8F8F8"></div>
+                                
+                            </div>
+                       	  
+                        </div>
+                        <hr style="border-top:2px solid; margin-bottom: 0;">
+					</div>
+
+		
+					    				
+					<!-- 지원 동기, 그런 이력서 나오게 하기 -->
+					    				
+					<div class ="row mt-5">
+							<div class="col-4 d-flex align-items-center">
+							<i class="bi bi-person-vcard"  style="font-size: 2em;"></i> <span style = "font-size: 16pt">&nbsp; 자기소개서</span></div>
+							<div class="col-8"></div>
+							  
+    				</div>
 					
-					<div class="row ms-2">
+					<div class="row">
+						<div class="col-3">
+                            <div class="row">
+                                <div class="col d-flex justify-content-center align-items-center border" style="height:8em; background-color: #F8F8F8;">지원동기</div>
+                            </div>
+						
+						</div>
+						<div class="col-9">
+                            <div class="row">
+                                <div class="col border-top border-bottom border-end justify-content-center align-items-center" style="height:8em;">${Student.introductionDto.answer1}</div>
+                            </div>    
+                        </div>
+                        
+					</div>	
+					
+					<div class="row">
+						<div class="col-3">
+                            <div class="row">
+                                <div class="col d-flex justify-content-center align-items-center border-start border-end border-bottom" style="height:8em; background-color: #F8F8F8;">전공 및 기술 능력</div>
+                            </div>
+						
+						</div>
+						<div class="col-9">
+                            <div class="row">
+                                <div class="col border-bottom border-end justify-content-center align-items-center" style="height:8em;">${Student.introductionDto.answer2}</div>
+                            </div>    
+                        </div>
+                        
+					</div>
+					
+					<div class="row">
+						<div class="col-3">
+                            <div class="row">
+                                <div class="col d-flex justify-content-center align-items-center border-bottom border-start border-end" style="height:8em; background-color: #F8F8F8;">주요경력 및 자격사항
+								</div>
+                            </div>
+						
+						</div>
+						<div class="col-9">
+                            <div class="row">
+                                <div class="col  border-bottom border-end justify-content-center align-items-center" style="height:8em;">${Student.introductionDto.answer3}</div>
+                            </div>    
+                        </div>
+                        
+					</div>
+					
+					<div class="row">
+						<div class="col-3">
+                            <div class="row">
+                                <div class="col d-flex justify-content-center align-items-center border-bottom border-start border-end" style="height:8em; background-color: #F8F8F8;"> 성격 및 장단점
+								</div>
+                            </div>
+						
+						</div>
+						<div class="col-9">
+                            <div class="row">
+                                <div class="col  border-bottom border-end justify-content-center align-items-center" style="height:8em;">${Student.introductionDto.answer4}</div>
+                            </div>    
+                        </div>
+                        
+					</div>
 				
-					<!--맨 위 제목 -->
 				
-							<div class="col-6 border d-flex align-items-center justify-content-center" style="height:50px; background-color: #CFE2FF; ">
+				
+					<!-- 자격증 맨 위 제목 -->
+					<div class ="row mt-5">
+							<div class="col-4 d-flex align-items-center">
+							<i class="bi bi-postcard-fill" style="font-size: 2em;"></i> <span style = "font-size: 16pt">&nbsp; 자격증 정보</span></div>
+							<div class="col-8"></div>
+							  
+    				</div>
+					<div class="row">
+							<div class="col-6 border d-flex align-items-center justify-content-center" style="height:3em;background-color: #F8F8F8 ">
 							         자격증 사진   
 							</div>
 									
-							<div class="col-3 border d-flex align-items-center justify-content-center" style="height:50px; background-color: #CFE2FF;">
-							    
+							<div class="col-3 border-top border-bottom d-flex align-items-center justify-content-center" style="height:3em; background-color: #F8F8F8 ">
 							        자격증명
 							</div>
 
 
-						<div class="col-3 border d-flex align-items-center justify-content-center" style="height:50px; background-color: #CFE2FF;">	 	
+						<div class="col-3 border d-flex align-items-center justify-content-center" style="height:3em; background-color: #F8F8F8;">	 	
 							        
 							        취득일자
 						</div>
 						 	
 					</div>
 					
+					<c:forEach items="${Student.certificationDtoList}" var="certificationDtoList">
+						<div class="row">
+							<div class="col-6 border-start border-end border-bottom d-flex align-items-center justify-content-center" style="height:3em;">
+							         <a style ="color:black;" href = "./ajdksShowCertification?imageLink=${certificationDtoList.certification_file}">${certificationDtoList.certification_name}</a>
+							</div>
+									
+							<div class="col-3  border-bottom d-flex align-items-center justify-content-center" style="height:3em; ">
+							        ${certificationDtoList.certification_name}
+							</div>
+
+
+						<div class="col-3 border-start border-end border-bottom d-flex align-items-center justify-content-center" style="height:3em;">	 	
+							        
+							        ${certificationDtoList.certification_acquisition_date}
+						</div>
+						 	
+						</div>
+					</c:forEach>
+					
+										
+					
 					
 					<!-- 자격증 Dto 리스트를 통해서 이 학생이 취득한 자격증들을 다 나열한다.	 -->					
-					<div class="row ms-2"> 
+		
 					
-						<c:forEach items="${Student.certificationDtoList}" var="certificationDtoList">
-						<div class="col-6 border d-flex align-items-center justify-content-center" style="height:50px;">
-											
-											<a style ="color:black;" href = "./ajdksShowCertification?imageLink=${certificationDtoList.certification_file}">${certificationDtoList.certification_name}
-											</a>
-											
-											
-						</div>
-						<div class="col-3 border d-flex align-items-center justify-content-center" style="height:50px;">
-											${certificationDtoList.certification_name}
-						</div>
-						<div class="col-3 border d-flex align-items-center justify-content-center" style="height:50px;">
-											${certificationDtoList.certification_acquisition_date}
-						</div>
-						</c:forEach>
-					</div>
-					<hr style="border-top:2px solid; margin-top: 0;">
+					
+				
 				</div>
 			</div>
 		</div>

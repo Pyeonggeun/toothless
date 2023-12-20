@@ -27,7 +27,14 @@ public class CounselCommonsStudentController {
 	public String counselCenterStudentMainPage(HttpSession session, Model model) {
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(studentInfoDto == null) {
+			return "redirect: /toothless/another/student/loginPage";
+		}
+		
+		
 		int student_pk = studentInfoDto.getStudent_pk();
+		
 		
 		List<Map<String, Object>> groupCounselReservationList = counselCommonsStudentService.getGroupCounselList(student_pk);
 		model.addAttribute("groupCounselReservationList", groupCounselReservationList);
@@ -41,7 +48,10 @@ public class CounselCommonsStudentController {
 		List<Map<String, Object>> offlineCounselList = counselCommonsStudentService.getOfflineCounselList(student_pk);
 		model.addAttribute("offlineCounselList", offlineCounselList);
 		
+
+		
 		return "tl_e/commons/counselCenterStudentMainPage";
+		
 	}
 
 	

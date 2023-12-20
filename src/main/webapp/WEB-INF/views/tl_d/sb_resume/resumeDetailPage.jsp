@@ -81,12 +81,27 @@
 							<div class="col fs-5">카테고리</div>
 							<div class="col-10  border-start fs-5 text-center">내용</div>
 						</div>
-						<c:forEach items="${careerList }" var="list">
-							<div class="row">
-								<div class="col">${list.careerName.career_category_name }</div>
-								<div class="col-10 border-start">${list.careerDto.career_contents }</div>
-							</div>
-						</c:forEach>
+						<c:choose>
+							<c:when test="${empty careerList }">
+								<div class="row">
+									<div class="col text-center fs-4">
+										등록된 경력이 없습니다.
+									</div>
+								</div>
+							</c:when>
+							
+							<c:otherwise>
+								<c:forEach items="${careerList }" var="list">
+								<div class="row">
+									<div class="col">${list.careerName.career_category_name }</div>
+									<div class="col-10 border-start">${list.careerDto.career_contents }</div>
+								</div>
+								</c:forEach>
+							</c:otherwise>
+							
+						</c:choose>
+						
+						
 					</div>
 				</div>
 				
@@ -102,14 +117,29 @@
 							<div class="col">취득 월</div>
 							<div class="col">발급 기관</div>
 						</div>
-						<c:forEach items="${licenseList }" var="list">
-							<div class="row">
-								<div class="col">${list.lic_name }</div>
-								<div class="col">${list.lic_gain_year } 년</div>
-								<div class="col">${list.lic_gain_month }월</div>
-								<div class="col">${list.lic_center }</div>
-							</div>
-						</c:forEach>
+						
+						<c:choose>
+							<c:when test="${empty licenseList }">
+								<div class="row">
+									<div class="col text-center fs-4">
+										등록된 자격증이 없습니다.
+									</div>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${licenseList }" var="list">
+									<div class="row">
+										<div class="col">${list.lic_name }</div>
+										<div class="col">${list.lic_gain_year } 년</div>
+										<div class="col">${list.lic_gain_month }월</div>
+										<div class="col">${list.lic_center }</div>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+							
+						</c:choose>
+						
+
 					</div>
 				</div>
 				
@@ -131,6 +161,11 @@
 	
 	<div class="container">
 		<div style="height: 200px;"></div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<jsp:include page="../common/futter.jsp"></jsp:include>
+		</div>
 	</div>
 
 	

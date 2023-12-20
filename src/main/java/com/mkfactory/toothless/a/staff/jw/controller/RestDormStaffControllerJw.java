@@ -3,14 +3,17 @@ package com.mkfactory.toothless.a.staff.jw.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mkfactory.toothless.a.dto.PointCategory;
+import com.mkfactory.toothless.a.dto.PointDto;
 import com.mkfactory.toothless.a.staff.jw.service.DormStaffServiceJw;
 import com.mkfactory.toothless.donot.touch.dto.RestResponseDto;
+import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 
 @RestController
 @RequestMapping("/tl_a/staff/*")
@@ -24,6 +27,7 @@ public class RestDormStaffControllerJw {
 		RestResponseDto restResponseDto = new RestResponseDto();
 		
 		restResponseDto.setResult("success");
+		
 		return restResponseDto;
 	}
 	
@@ -34,6 +38,7 @@ public class RestDormStaffControllerJw {
 		
 		restResponseDto.setData(dormStaffServiceJw.getAllDormBuilding());
 		restResponseDto.setResult("success");
+		
 		return restResponseDto;
 	}
 	
@@ -100,6 +105,47 @@ public class RestDormStaffControllerJw {
 		return restResponseDto;
 	}
 	
+	// 상벌점 관리(부여) 리스트
+	@RequestMapping("restGetAllPointManagementList")
+	public RestResponseDto restGetAllPointManagementList() {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> allPointManagementList = dormStaffServiceJw.getAllPointManagementList();
+		
+		restResponseDto.setData(allPointManagementList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("restGetPointManagementListByDormPk")
+	public RestResponseDto restGetPointManagementListByDormPk(int dorm_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> dormPkPointManagementList = dormStaffServiceJw.getPointManagementListByDormPk(dorm_pk);
+		
+		restResponseDto.setData(dormPkPointManagementList);
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	// 상벌점 부여
+	@RequestMapping("restRegisterPoint")
+	public RestResponseDto restRegisterPoint(PointDto pointDto, HttpSession session) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		int staffPk = staffInfoDto.getStaff_pk();
+		pointDto.setStaff_pk(staffPk);
+		
+		dormStaffServiceJw.registerPoint(pointDto);
+		
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
 	// 금일 외출 현황 Listmap
 	@RequestMapping("restGetAllExitSituationList")
 	public RestResponseDto restGetAllExitSituationList() {
@@ -134,6 +180,7 @@ public class RestDormStaffControllerJw {
 		
 		restResponseDto.setData(allCallAbsenceList);
 		restResponseDto.setResult("success");
+		
 		return restResponseDto;
 	}
 	
@@ -145,6 +192,7 @@ public class RestDormStaffControllerJw {
 		
 		restResponseDto.setData(dormPkCallAbsenceList);
 		restResponseDto.setResult("success");
+		
 		return restResponseDto;
 	}
 	
@@ -213,6 +261,28 @@ public class RestDormStaffControllerJw {
 		return restResponseDto;
 	}
 	
+	@RequestMapping("restRegisterExecutiveManagementRoom")
+	public RestResponseDto restRegisterExecutiveManagementRoom(int dorm_room_pk, int executive_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		dormStaffServiceJw.assignmentExecutiveRoom(dorm_room_pk, executive_pk);
+		
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("restRemoveExecutiveManagementRoom")
+	public RestResponseDto restRemoveExecutiveManagementRoom(int dorm_room_pk, int executive_pk) {
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		dormStaffServiceJw.removeExecutivePerRoom(dorm_room_pk, executive_pk);
+		
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
+	
 	// 임원별 호실 배정 관리 현황
 	@RequestMapping("restGetAllExecutiveManagementList")
 	public RestResponseDto restGetAllExecutiveeManagementList() {
@@ -259,6 +329,7 @@ public class RestDormStaffControllerJw {
 		dormStaffServiceJw.registerExecutive(dorm_student_pk);
 		
 		restResponseDto.setResult("success");
+		
 		return restResponseDto;
 	}
 	
@@ -269,6 +340,7 @@ public class RestDormStaffControllerJw {
 		dormStaffServiceJw.deleteExecutive(dorm_student_pk);
 		
 		restResponseDto.setResult("success");
+		
 		return restResponseDto;
 	}
 	
@@ -281,6 +353,7 @@ public class RestDormStaffControllerJw {
 		
 		restResponseDto.setData(diaryList);
 		restResponseDto.setResult("success");
+		
 		return restResponseDto;
 	}
 	
@@ -292,6 +365,7 @@ public class RestDormStaffControllerJw {
 		
 		restResponseDto.setData(dormPkDiaryList);
 		restResponseDto.setResult("success");
+		
 		return restResponseDto;
 	}
 	

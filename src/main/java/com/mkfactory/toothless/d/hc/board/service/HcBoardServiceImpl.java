@@ -87,9 +87,9 @@ public class HcBoardServiceImpl {
 		
 		for(NoticeStaffBoardDto noticeStaffBoardDto   : noticeDtolist) {
 			//글번호확인
-			System.out.println("전");
+			
 			int staff_pk = noticeStaffBoardDto.getStaff_pk();
-			System.out.println(staff_pk+"승태pk");
+			
 			StaffInfoDto staffInfoDto = hcBoardSqlMapper.selectBynoticepk(staff_pk);	
 			
 			//맵생성
@@ -123,4 +123,11 @@ public class HcBoardServiceImpl {
 		hcBoardSqlMapper.updateno(noticeStaffBoardDto);
 		
 	}
+	
+	public List<NoticeStaffBoardDto> getNoticeBordRowNum(){
+		List<NoticeStaffBoardDto> list = hcBoardSqlMapper.getNoticeBordRowNum();
+		
+		return list;
+	}
+	
 }

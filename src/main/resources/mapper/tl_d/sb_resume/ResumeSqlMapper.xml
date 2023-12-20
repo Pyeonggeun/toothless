@@ -55,6 +55,12 @@
 		DELETE FROM tl_d_resume WHERE resume_pk = #{resume_pk}
 	</delete>
 
+	<!-- 이력서 삭제시 해당 이력서로 지원한 공고 취소하기 -->
+	<delete id="cancleApplyByResumePk">
+		DELETE FROM TL_D_VOLUNTEER tdv WHERE resume_pk = #{resume_pk}
+	</delete>
+
+
 	<!-- 이력서 상세보기  -->
 	<select id="getThisResumeDtoByResumePk" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
 		SELECT * FROM tl_d_resume WHERE resume_pk = #{resume_pk}	
@@ -228,7 +234,63 @@
 	<select id="getMainResumeListByIsPublic" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
 		SELECT * FROM tl_d_resume WHERE is_public = 'Y'
 	</select>
+	<!-- 공개된 이력서의 학생 정보 가져오기 -->
+	<select id="getStudentDtoByResumePk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_info WHERE STUDENT_PK = #{student_pk}
+	</select>
 	
+	<!-- 공개된 이력서의 학생 과정보 가져오기  -->
+	<select id="getStudentDepartmentNameByResumePk" resultType="String">
+		SELECT name FROM TL_JIC_DEPARTMENT_CATEGORY tjdc 
+		WHERE DEPARTMENT_PK IN (
+			SELECT department_pk FROM TL_JIC_STUDENT_INFO tjsi 
+			WHERE STUDENT_PK  in(
+				SELECT STUDENT_PK  FROM TL_D_RESUME tdr 
+				WHERE RESUME_PK = #{resume_pk}
+			)
+		)	
+	</select>
+	
+	<select id="getDepartmentCategory" resultType="com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto">
+		SELECT * FROM TL_JIC_DEPARTMENT_CATEGORY tjdc 
+	</select>
+	
+	
+	<select id="getResumeDtoListByDepartmentPk" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
+		SELECT * FROM TL_D_RESUME tdr 
+		WHERE STUDENT_PK IN (
+			SELECT STUDENT_PK  FROM TL_JIC_STUDENT_INFO tjsi
+			WHERE DEPARTMENT_PK = #{department_pk}
+		) AND IS_PUBLIC ='Y'	
+	</select>
+	
+	<!-- 해당공고에 지원한 이력서 목록 가져오기 -->
+	<select id="getResumeListByJobPostingPk" resultType="com.mkfactory.toothless.d.dto.ResumeDto">
+		SELECT * FROM TL_D_RESUME tdr 
+		WHERE RESUME_PK in(
+			SELECT RESUME_PK  FROM TL_D_VOLUNTEER tdv 
+			WHERE JOB_POSTING_PK = #{job_posting_pk}
+		)	
+	</select>
+	
+	<!-- 해당 공고에 지원한 학생의 정보 가져오기 -->
+	<select id="getStudentInfoByJobPostingPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO tjsi 
+		WHERE STUDENT_PK IN (
+			SELECT STUDENT_PK  FROM TL_D_RESUME tdr 
+			WHERE RESUME_PK in(
+				SELECT RESUME_PK  FROM TL_D_VOLUNTEER tdv 
+				WHERE JOB_POSTING_PK = #{job_posting_pk}
+			)
+		)	
+	</select>
+	
+	<!-- 해당 공고 정보 -->
+	<select id="getApplyJobPostingDto" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
+		SELECT * FROM TL_D_JOB_POSTING tdjp WHERE JOB_POSTING_PK = #{job_posting_pk}
+	</select>
+	
+
 	
 	
 	

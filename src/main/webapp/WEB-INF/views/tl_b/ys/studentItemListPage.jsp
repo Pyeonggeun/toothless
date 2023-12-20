@@ -11,6 +11,7 @@
 <title>Insert title here</title>
 		
 		<script>
+			let student_pk = "";	
 		
 			function getStudentInfo(){		
 	    		fetch("./restStudentInfo")
@@ -19,8 +20,8 @@
 	    			
 	    			const studentLoginPageUrl = "http://localhost:8181/toothless/another/student/loginPage";
 	    			
-	    			loginStudentInfo = response.data;
-	    			console.log(response.data);
+	    			loginStudentInfo = response.data;	    			
+	    			student_pk = response.data.student_pk;
 	    			if(loginStudentInfo == null){
 	    				
 	    				window.location.href = studentLoginPageUrl;
@@ -202,28 +203,25 @@
         <div class="row text-center py-1 fw-bold text-light mt-3" style="background-color: #133369">
             <div class="col-2"></div>
             <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_c/guntaek/student/ajdksRegisterSelfIntroduction">공지사항</a>
+                <a class="navbar-brand" href="../ty/studentBoardPage">공지사항</a>
             </div>
             <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_d/common/employmentMainPage">진료안내</a>
+                <a class="navbar-brand" href="../../tl_d/common/employmentMainPage">보건소&nbsp;소개</a>
             </div>
             <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_e/commons/counselCenterStudentMainPage">진료신청</a>
+                <a class="navbar-brand" href="../../tl_e/commons/counselCenterStudentMainPage">진료안내</a>
             </div>
             <div class="col align-self-center">
                 <a class="navbar-brand" href="./studentItemApplyInformationPage">물품신청</a>
             </div>
             <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_b/common/studentMainPage">교육신청</a>
+                <a class="navbar-brand" href="../hs/eduMainPageForStudent">교육신청</a>
             </div>
             <div class="col align-self-center">
                 <a class="navbar-brand" href="../../tl_b/common/studentMainPage">오시는길</a>
             </div>
-            <div class="col-1 position-relative pb-0">
-            	<a class="navbar-brand" href="#" onclick="showNotifyModal()"><i class="bi bi-bell-fill pe-1">
-            	<span id="reloadNotifyCount" class="position-absolute top-70 start-50 badge rounded-pill bg-danger d-none px-1 py-0" style="font-size: xx-small;">
-				</span>
-				</i></a> 
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="../../tl_b/common/studentMainPage">정보마당</a>
             </div>
             <div class="col-2"></div>
         </div>
@@ -237,8 +235,8 @@
 				<div class="row mt-5">
 					<div class="col-4"></div>
 					<div class="col-4">
-						<div class="row bg-secondary-subtle shadow rounded-box py-3" style="border-radius: 100%;">
-							<div class="fst-italic col text-center text-primary-emphasis fw-bold" style="font-size: 2em;">
+						<div class="row bg-secondary-subtle rounded-box py-3" style="border-radius: 100%;">
+							<div class=" col text-center text-primary-emphasis fw-bold" style="font-size: 2em;">
 								물품 리스트
 							</div>
 						</div>

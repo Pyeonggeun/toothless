@@ -3,6 +3,7 @@ package com.mkfactory.toothless.d.common.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,12 @@ import com.mkfactory.toothless.d.dto.ProgramDto;
 import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
 import com.mkfactory.toothless.d.gw.program.service.ProgramServiceIpml;
+import com.mkfactory.toothless.d.hc.board.service.HcBoardServiceImpl;
 import com.mkfactory.toothless.d.jm.consulting.service.ConsultingService;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.d.sb.resume.service.ResumeServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @Controller
@@ -40,12 +43,20 @@ public class EmploymentCommonController {
 	
 	@Autowired
 	private ConsultingService consultingService;
+	@Autowired
+	private HcBoardServiceImpl boardService;
 	
 	// 학생용 마이페이지
 	@RequestMapping("studentMyPage")
 	public String studentMyPage(HttpSession session, Model model) {
 			
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		//로그인 안되어 있으면 로그인페이지로 
+		if(studentInfoDto == null) {	
+			return "redirect:../../another/student/loginPage";
+		}
+		
 		
 		if(studentInfoDto != null) {
 			int studentPk = studentInfoDto.getStudent_pk();
@@ -54,13 +65,23 @@ public class EmploymentCommonController {
 			model.addAttribute("applyProgramListForMyPage", programService.studentApplyProgramList());
 			model.addAttribute("studentDepartmentName", postingService.getStudentDepartmentName(studentInfoDto.getDepartment_pk()));
 		}
+		//학생 최근 온라인상담 5건
+		if(studentInfoDto != null) {
+			int student_pk = studentInfoDto.getStudent_pk();	
+			String isReply = "all";
+			List<Map<String, Object>> getMyOnlineConsultingListNumFive = consultingService.getMyOnlineConsultingListNumFive(student_pk, isReply);
+			model.addAttribute("getMyOnlineConsultingListNumFive", getMyOnlineConsultingListNumFive);	
+		}
+		
+
+	
 		
 		
 		return "tl_d/common/studentMyPage";
 	}
 	
 	// 학생 왼쪽 메뉴바
-	@RequestMapping("staffMenu")
+	@RequestMapping("studentMenu")
 	public String staffMenu(HttpSession session, Model model) {
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
@@ -69,7 +90,7 @@ public class EmploymentCommonController {
 		model.addAttribute("checkOverlapHopejob", checkOverlapHopejob);
 
 		
-		return "tl_d/common/staffMenu";
+		return "tl_d/common/studentMenu";
 	}
 	
 	
@@ -85,7 +106,12 @@ public class EmploymentCommonController {
 	public String employMainPage(Model model) {
 		
 		model.addAttribute("programList", programService.getProgramList());
+		
+		// 공고 4개 컷
+		model.addAttribute("noticeList", boardService.getNoticeBordRowNum());
+		
 		return "tl_d/common/employmentMainPage";
+		
 	}
 	
 	// 메인페이지 로그아웃
@@ -119,6 +145,8 @@ public class EmploymentCommonController {
 			model.addAttribute("jobPostingForCompanyMainPage", postingService.getPostingListForCompanyMainPage(companyDto.getCom_pk()));
 			// 기업 지원자 4개 컷
 			model.addAttribute("applyListForMainPage", postingService.getApplyListForCompanyMainPage(companyDto.getCom_pk()));
+
+			
 		}else {
 			return "redirect:../../another/external/loginPage";
 		}
@@ -137,7 +165,15 @@ public class EmploymentCommonController {
 	
 	//교직원 메인페이지
 	@RequestMapping("staffMainPage")
-	public String staffMainPage(Model model) {
+	public String staffMainPage(Model model, HttpSession session) {
+		
+		//로그인 확인
+		StaffInfoDto staffInfoDto = (StaffInfoDto)session.getAttribute("sessionStaffInfo");		
+		if(staffInfoDto==null) {
+			
+			return "redirect:../../another/staff/loginPage";
+		}
+
 		
 		
 		//미응답 온라인상담 5건

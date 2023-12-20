@@ -214,12 +214,13 @@
 										</div>
 									</c:when>
 									<c:when test="${resumeDto.main_resume eq 'Y' }">
+										
 										<div class="row mt-3">
 											<div class="col">
 												이력서 제목 
 											</div>
 										</div>
-										<div class="row">
+										<div class="row mt-5">
 											<div class="col-3">
 												<span class="badge text-bg-success">메인 이력서</span>
 											</div>
@@ -229,12 +230,13 @@
 										</div>	
 									</c:when>
 									<c:otherwise>
+										
 										<div class="row mt-3">
 											<div class="col">
 												이력서 제목 
 											</div>
 										</div>
-										<div class="row">
+										<div class="row mt-5">
 											<div class="col-3"></div>
 											<div class="col">
 												${resumeDto.resume_title }
@@ -243,8 +245,10 @@
 									</c:otherwise>
 								</c:choose>	
 											
-								
-								<div class="row mt-3">
+								<div class="row mt-5">
+									<div class="col"></div>
+								</div>
+								<div class="row mt-5">
 									<div class="col">
 										전화번호 
 									</div>
@@ -255,7 +259,8 @@
 										<input type="text" name="vol_phone" value="${sessionStudentInfo.phone }">
 									</div>
 								</div>
-								<div class="row mt-2">
+								
+								<div class="row mt-3">
 									<div class="col">
 										이메일
 									</div>
@@ -266,11 +271,15 @@
 										<input type="text" name="vol_email" value="${sessionStudentInfo.email }">
 									</div>
 								</div>
+								<div class="row mt-5">
+									<div class="col"></div>
+								</div>
 								<div class="row mt-2">
 									<div class="col-8"></div>
 									<div class="col">
 										<input type="hidden" name="job_posting_pk" value="${jobPostingDetailForStudent.jobPostingDto.job_posting_pk}">
 										<c:if test="${not empty resumeDto.resume_pk }">
+											<input type="hidden" name="resume_pk" value="${resumeDto.resume_pk }">
 											<button type="submit" class="btn btn-success">지원하기</button>
 										</c:if>
 										<c:if test="${empty resumeDto.resume_pk }">
@@ -315,6 +324,11 @@
 	
 	<div class="container">
 		<div style="height: 200px;"></div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<jsp:include page="../common/futter.jsp"></jsp:include>
+		</div>
 	</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

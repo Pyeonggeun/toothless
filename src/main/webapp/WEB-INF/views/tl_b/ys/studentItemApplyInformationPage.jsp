@@ -36,28 +36,25 @@
         <div class="row text-center py-1 fw-bold text-light mt-3" style="background-color: #133369">
             <div class="col-2"></div>
             <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_c/guntaek/student/ajdksRegisterSelfIntroduction">공지사항</a>
+                <a class="navbar-brand" href="../ty/studentBoardPage">공지사항</a>
             </div>
             <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_d/common/employmentMainPage">진료안내</a>
+                <a class="navbar-brand" href="../../tl_d/common/employmentMainPage">보건소&nbsp;소개</a>
             </div>
             <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_e/commons/counselCenterStudentMainPage">진료 신청</a>
+                <a class="navbar-brand" href="../../tl_e/commons/counselCenterStudentMainPage">진료안내</a>
             </div>
             <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_a/student/jw_mainPage">물품 신청</a>
+                <a class="navbar-brand" href="./studentItemApplyInformationPage">물품신청</a>
             </div>
             <div class="col align-self-center">
-                <a class="navbar-brand" href="../../tl_b/common/studentMainPage">교육 신청</a>
+                <a class="navbar-brand" href="../hs/eduMainPageForStudent">교육신청</a>
             </div>
             <div class="col align-self-center">
                 <a class="navbar-brand" href="../../tl_b/common/studentMainPage">오시는길</a>
             </div>
-            <div class="col-1 position-relative pb-0">
-            	<a class="navbar-brand" href="#" onclick="showNotifyModal()"><i class="bi bi-bell-fill pe-1">
-            	<span id="reloadNotifyCount" class="position-absolute top-70 start-50 badge rounded-pill bg-danger d-none px-1 py-0" style="font-size: xx-small;">
-				</span>
-				</i></a> 
+            <div class="col align-self-center">
+                <a class="navbar-brand" href="../../tl_b/common/studentMainPage">정보마당</a>
             </div>
             <div class="col-2"></div>
         </div>
@@ -203,14 +200,9 @@
                 </div>
                 <div class="row mt-1 ms-2">
                     <div class="col">
-                        <span>행사&nbsp;1일전&nbsp;물품&nbsp;담당&nbsp;학생은&nbsp;보건진료소를&nbsp;방문하여&nbsp;간단한&nbsp;응급처치&nbsp;및&nbsp;의약품&nbsp;사용방법,&nbsp;그리고&nbsp;사용대장&nbsp;기록방법&nbsp;등을&nbsp;<span class="fw-bold" style="color: red;">약&nbsp;10분간</span>&nbsp;교육받은&nbsp;후</span>
+                        <span>행사&nbsp;1일전&nbsp;물품&nbsp;담당&nbsp;학생은&nbsp;보건진료소를&nbsp;방문하여&nbsp;간단한&nbsp;응급처치&nbsp;및&nbsp;의약품&nbsp;사용방법,&nbsp;그리고&nbsp;사용대장&nbsp;기록방법&nbsp;등을&nbsp;<span class="fw-bold" style="color: red;">약&nbsp;10분간</span>&nbsp;교육받은&nbsp;후&nbsp;물품&nbsp;대여<span class="fw-bold" style="color: red; position: relative; bottom: 9%;">(</span><span class="fw-bold" style="color: red;">보증금 1만원</span><span class="fw-bold" style="color: red; position: relative; bottom: 9%;">)</span></span>
                     </div>
-                </div>
-                <div class="row mt-1 ms-2">
-                    <div class="col">
-                        <span>물품&nbsp;대여<span class="fw-bold" style="color: red; position: relative; bottom: 9%;">(</span><span class="fw-bold" style="color: red;">보증금 1만원</span><span class="fw-bold" style="color: red; position: relative; bottom: 9%;">)</span></span>
-                    </div>
-                </div>
+                </div>                
                 <div class="row mt-1 ms-2">
                     <div class="col">
                         <span>물품&nbsp;담당학생은&nbsp;환자&nbsp;발생&nbsp;시&nbsp;약품을&nbsp;사용하고,&nbsp;그&nbsp;사용에&nbsp;대해서는&nbsp;대장에&nbsp;기록하고,&nbsp;기록지와&nbsp;사용&nbsp;후&nbsp;남은&nbsp;의약품은&nbsp;행사가&nbsp;끝나는&nbsp;즉시&nbsp;반납</span>

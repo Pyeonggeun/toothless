@@ -69,7 +69,7 @@
         					applyButton.classList.remove("btn-secondary", "disabled");
         					applyButton.style.backgroundColor = "#7844ae";
         					applyButton.innerText = "수강신청";
-        					applyBytton.setAttribute("onclick" , "goDetailPage(this)");
+        					applyButton.setAttribute("onclick" , "goDetailPage(this)");
         					
         				}else {
         					

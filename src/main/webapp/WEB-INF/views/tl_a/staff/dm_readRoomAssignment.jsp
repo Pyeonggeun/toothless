@@ -143,13 +143,14 @@
 				Wrapper.classList.remove("d-none");
 				
 				//마우스 오버
-				Wrapper.setAttribute("onmouseover","mouseoverChangeColor()");
+				//Wrapper.setAttribute("onmouseover","mouseoverChangeColor(this)");
+				//Wrapper.setAttribute("onmouseout","mouseoutChangeColor(this)");
 				
 				//마우스 버튼
 				Wrapper.setAttribute("onclick", "dongListSequenceButton(" + e.dorm_pk + ",this" + ")");
 				Wrapper.querySelector(".dongName").innerText = e.name;
 				
-				console.log(Wrapper);
+				
 				
 				document.querySelector("#dongWrapper").appendChild(Wrapper);
 				
@@ -162,7 +163,7 @@
 		});
 		
 	}
-	
+	// 클릭시 해당요소를 가져와서 해당요소 백그라운드 컬러를 블랙으로 바꾸고 나머지 백그라운드는 다 흰색으로 바꿔야함
 	// 버튼을 눌렀을때 리스트 출력
 	function dongListSequenceButton(dorm_pk, element){
 		
@@ -171,22 +172,27 @@
 		
 		
 		
+		
 		// 이미 색상을 바꿈 
 		const dongWrapper = document.querySelectorAll(".dongName"); 
 		for(e of dongWrapper){
 			e.style.color = "black";
 		}
+		
 		const bgdong = document.querySelectorAll(".bgdong");
 		for(e of bgdong){
-			e.style.backgroundColor = "white";
+			e.setAttribute("style","background-color: white");
 		}
 		
-		element.querySelector(".dongName").style.color = "white";
-		element.style.backgroundColor = "black";
+		//엘리먼트요소를 배경을 검은색으로
+		element.querySelector(".dongName").style.color = "white"; // 이것도왜안먹음?
+		element.setAttribute("style","background-color: black;");
+		console.log(element);
 		
 		
 		
-		// 리스트 초기화 먼저 때려줘야됨 		
+		
+		// 리스트 초기화 먼저 때려줘야됨 	이건 리스트 출력 버튼이랑 별개	
 		document.querySelector("#templete").innerHTML = "";
 		
 		const url = "./selectListTest?dorm_pk=" + dorm_pk;
@@ -208,20 +214,23 @@
 			
 		})
 		
-		
 	}
 	
 	// 마우스 오버시 색상 변경 
-	function mouseoverChangeColor(){
+	/*function mouseoverChangeColor(element){
+		
+		element.style.backgroundColor = "black";
+		element.querySelector(".dongName").style.color = "white";
 		
 	}
+	// 마우스 아웃시 색상 변경 (기본값으로 할거임)
+	function mouseoutChangeColor(element){
+		
+		element.style.backgroundColor = "white";
+		element.querySelector(".dongName").style.color = "black";
+		
+	}*/
 	
-	// 마우스 클릭시 버튼 색깔 변경
-	function mouseclickChangeButtonColor(){
-		
-		
-		
-	}
 	
 	
 	// 기본적으로 전체 배정현황이 나와야함 
@@ -247,6 +256,41 @@
 			
 			
 		})
+		
+	}
+	
+	// 검색했을시 리스트가 뽑일거임 지금리스트 전체 삭제하고 리로드시키면됨 이것도 쿼리가 중요
+	function searchList(funcClick){
+		
+		const searchTemplete = funcClick.closest(".searchTemplete");
+		const searchType = searchTemplete.querySelector(".searchType").value;
+		const searchWord = searchTemplete.querySelector(".searchWord").value;
+		
+		const url = "./searchList?searchWord=" + searchWord + "&searchType=" + searchType;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const templete = document.querySelector("#templete");
+			templete.innerHTML = "";
+			
+			for(e of response.data){
+				
+				const HoWrapper = document.querySelector("#HoWrapper").cloneNode(true);
+				HoWrapper.querySelector(".buildname").innerText = e.DONGNAME;
+				HoWrapper.querySelector(".roomname").innerText = e.ROOMNAME;
+				HoWrapper.querySelector(".studentname").innerText = e.STUDENTNAME;
+				
+				templete.appendChild(HoWrapper);
+				
+			}
+			
+			
+		})
+		
+		
+		
 		
 	}
 	
@@ -316,8 +360,21 @@
 				</div>-->
 				
 			</div>
-
-			
+			<div id="searchTemplete" class="searchTemplete row mt-4">
+				<div class="searchWrapper col-2">
+					<select id="searchType" class="searchType form-select" aria-label="Default select example">	
+					  <option value="studentname" selected>학생이름</option>
+					  <option value="dongname">동</option>
+					  <option value="roomname">호수</option>
+					</select>
+				</div>
+				<div class="col">
+					<input id="searchWord" type="text" class="searchWord form-control">
+				</div>
+				<div class="col-2 d-grid ps-4">
+					<i class="bi bi-search" role="button" onclick="searchList(this)" style="font-size: 1.6em"></i>
+				</div>
+			</div>
 			<div class="row my-3 py-3">
 				<div class="col">
 					<table class="table table-bordered text-center align-middle">
@@ -373,7 +430,10 @@
 										A동
 									</div>
 								</div>
-							</div>  
+							</div>
+							
+							 
+							 
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
  integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

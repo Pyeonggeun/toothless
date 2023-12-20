@@ -11,6 +11,32 @@
         <script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
         <style>
         </style>
+		<!--로그인 하지않으면 직원용 게시판 이용 불가-->
+        <c:if test="${empty sessionStaffInfo }">
+			<script>
+				alert("로그인 후 이용해주세요");
+				location.href='../../another/staff/loginPage';
+			</script>
+		</c:if>
+		<!--제목있어야 글작성 가능-->
+		<script>
+			function formSubmit(){
+				const frm = document.getElementById("frm");
+
+				const inputId = document.getElementById("inputId");
+
+				if(inputId.value == ''){
+					alert("제목을 입력하세요.")
+					return ;
+				}
+				frm.submit();
+				<%-- Submit 클릭 중복 방지--%>
+				document.querySelector(".avoidRedundancy").setAttribute("disabled", "true");
+			}
+		</script>
+		<script>
+
+		</script>
     </head>
     <body>
         <div class="container-fluid">
@@ -23,15 +49,9 @@
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
                                 <div class="col  bg-body-tertiary">
                                     <!--여기서 부터-->
-                                    <c:if test="${empty sessionStaffInfo }">
-										<script>
-											alert("로그인 후 이용해주세요");
-											location.href='../../another/staff/loginPage';
-										</script>
-									</c:if>
                                     <div class="row mt-5 mb-5">
                                     	<div class="col">
-                                    	<form action="./writeTextProcess" method="post" enctype="multipart/form-data">
+                                    	<form id="frm" action="./writeTextProcess" method="post" enctype="multipart/form-data">
                                     		<div class="row ms-5 mb-5">
                                     			<div class="col-md-5 me-4 border bg-white text-dark">
                                     				<div class="row">
@@ -41,12 +61,12 @@
                                     						</div>
                                     						<div class="row">
                                     							<div class="col my-4">
-                                    								<textarea name="title" class="form-control" style="height: 40px" placeholder="제목을 입력해주세요."></textarea>
+                                    								<textarea id="inputId" name="title" class="form-control" style="height: 40px" maxlength="99" placeholder="제목을 입력해주세요."></textarea>
                                     							</div>
                                     						</div>
                                     						<div class="row mb-4">
                                     							<div class="col mb-2">
-																	<textarea name="content" class="form-control" style="height: 400px;" placeholder="내용을 입력해주세요."></textarea>
+																	<textarea name="content" class="form-control" style="height: 400px;" maxlength="1300" placeholder="내용을 입력해주세요."></textarea>
 																</div>
                                     						</div>
                                     						<div class="row">
@@ -61,7 +81,7 @@
                                     				<div class="row">
                                     					<div class="col border bg-white text-dark">
                                     						<div class="row mt-3 pb-3">
-                                    							<div class="col text-center "><input class="btn btn-primary px-5 rounded-0" type="submit" value="작성완료"></div>
+                                    							<div class="col text-center"><input class="avoidRedundancy btn btn-primary px-5 rounded-0" type="button" onclick="formSubmit()" value="작성완료"></div>
                                     							<div class="col text-center"><button class="btn btn-primary px-5 rounded-0" type="button" onclick="location.href='./staffboardPage'">취 &nbsp;&nbsp;&nbsp;&nbsp; 소</button></div>
                                     						</div>
                                     					</div>

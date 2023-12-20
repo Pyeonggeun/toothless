@@ -21,8 +21,31 @@
             .mkmk {
                 font-family: 'Jal_Onuel';
             }
+            
+            .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+
+                color: #f7a505;
+                background-color: #fff;
+                border-bottom: solid;
+                border-color: #f7a505;
+
+            }
+
+            .nav-link {
+
+                color: #909294;
+
+            }
+
+            .nav-link:focus, .nav-link:hover {
+
+                color: #f7a505;
+
+            }
 
         </style>
+        
+        <script src="../../resources/js/hn/lecture.js"></script>
         
         <script>
         
@@ -48,70 +71,238 @@
 	    			
 	    			lifeStudentKey = response.data;
 	    			
+	    			reloadTotalCount();
+	    			
 	    		});
 	    		
 	    	}
 			
 			function previousIngPage() {
 	    		
-				ingPageNumber--;
+				if(ingPageNumber <= 1) {
+					
+					ingPageNumber = ingTotalPageNumber;
+					
+				}else {
+					ingPageNumber--;
+				}
 	    		
 	    	}
 			
 			function nextIngPage() {
 	    		
-				ingPageNumber++;
+				if(ingPageNumber >= ingTotalPageNumber) {
+					
+					ingPageNumber = 1;
+					
+				}else {
+					ingPageNumber++;
+				}
 	    		
 	    	}
 			
 			function previousOverPage() {
 	    		
-				overPageNumber--;
+				if(overPageNumber <= 1) {
+					
+					overPageNumber = overTotalPageNumber;
+					
+				}else {
+					overPageNumber--;
+				}
 	    		
 	    	}
 			
 			function nextOverPage() {
 	    		
-				overPageNumber++;
+				if(overPageNumber >= overTotalPageNumber) {
+					
+					overPageNumber = 1;
+					
+				}else {
+					overPageNumber++;
+				}
 	    		
 	    	}
 			
 			function ingPagination() {
-				
-	 			if(ingPageNumber <= 1) {
-	 				document.getElementById("ingPrevious").classList.add("disabled");
-	 			}else {
-	 				document.getElementById("ingPrevious").classList.remove("disabled");
-	 			}
-	 			
-	 			if(ingPageNumber >= ingTotalPageNumber) {
-	 				document.getElementById("ingNext").classList.add("disabled");
-	 			}else {
-	 				document.getElementById("ingNext").classList.remove("disabled");	
-	 			}
 	 			
 	 			document.getElementById("ingPageNumber").innerText = ingPageNumber;
-	 			document.getElementById("ingTotalPageNumber").innerText = ingTotalPageNumber;
+	 			
+	 			if(ingTotalPageNumber == 0){
+	 				document.getElementById("ingTotalPageNumber").innerText = 1;
+	 			}else{
+	 				document.getElementById("ingTotalPageNumber").innerText = ingTotalPageNumber;
+	 			}
 	 			
 			}
 			
 			function overPagination() {
 				
-	 			if(overPageNumber <= 1) {
-	 				document.getElementById("overPrevious").classList.add("disabled");
-	 			}else {
-	 				document.getElementById("overPrevious").classList.remove("disabled");
+				document.getElementById("overPageNumber").innerText = overPageNumber;
+	 			
+	 			if(overTotalPageNumber == 0){
+	 				document.getElementById("overTotalPageNumber").innerText = 1;
+	 			}else{
+	 				document.getElementById("overTotalPageNumber").innerText = overTotalPageNumber;
 	 			}
 	 			
-	 			if(overPageNumber >= overTotalPageNumber) {
-	 				document.getElementById("overNext").classList.add("disabled");
-	 			}else {
-	 				document.getElementById("overNext").classList.remove("disabled");	
-	 			}
-	 			
-	 			document.getElementById("overPageNumber").innerText = overPageNumber;
-	 			document.getElementById("overTotalPageNumber").innerText = overTotalPageNumber;
-	 			
+			}
+			
+			function reloadTotalCount() {
+				
+				const url = "./getTotalCount?life_student_key=" + lifeStudentKey;
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					document.getElementById("ingTotalCount").innerText = response.data.ingTotalCount;
+					document.getElementById("waitTotalCount").innerText = response.data.waitTotalCount;
+					document.getElementById("completeTotalCount").innerText = response.data.completeTotalCount;
+					
+					ingTotalPageNumber = response.data.ingTotalCount;
+					overTotalPageNumber = response.data.completeTotalCount;
+					
+					reloadIngLecture();
+					reloadCompleteLecture();
+					
+				});
+				
+			}
+			
+			function reloadIngLecture() {
+				
+				const url = "./getIngOpenLectureInfo?life_student_key=" + lifeStudentKey;
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					ingPagination();
+					
+					const ingLectureBox = document.getElementById("ingLectureBox");
+					ingLectureBox.innerHTML = "";
+					
+					if(ingTotalPageNumber == 0) {
+						
+						const noLectureWrapper = document.querySelector("#templete .noLectureWrapper").cloneNode(true);
+						ingLectureBox.appendChild(noLectureWrapper);
+						
+						return;
+						
+					}
+					
+					for(const [index, e] of response.data.entries()) {
+						
+						const carouselWrapper = document.querySelector("#templete .carouselWrapper").cloneNode(true);
+						
+						if(index === 0) {
+							carouselWrapper.classList.add("active");
+						}
+						
+						carouselWrapper.querySelector(".round").innerText = e.round;
+						carouselWrapper.querySelector(".category").innerText = e.categoryName;
+						carouselWrapper.querySelector(".name").innerText = e.lectureInfo.name;
+						
+						const openDate = new Date(e.openLectureInfo.open_date);
+						const closeDate = new Date(e.openLectureInfo.close_date);
+						
+						carouselWrapper.querySelector(".lectureDate").innerText =
+	        				openDate.getFullYear() + "." + ("0" + (openDate.getMonth() + 1)).slice(-2) + "." + ("0" + openDate.getDate()).slice(-2) + "~" +
+	        				closeDate.getFullYear() + "." + ("0" + (closeDate.getMonth() + 1)).slice(-2) + "." + ("0" + closeDate.getDate()).slice(-2);
+						
+						carouselWrapper.querySelector(".credit").innerText = e.lectureInfo.credit + "학점";
+						
+						const bottonBox = carouselWrapper.querySelector(".bottonBox");
+						bottonBox.innerHTML = "";
+						const lectureProgress = document.querySelector("#templete .lectureProgress").cloneNode(true);
+						lectureProgress.querySelector(".progressButton").value = e.openLectureInfo.open_lecture_key;
+						bottonBox.appendChild(lectureProgress);
+						
+						ingLectureBox.appendChild(carouselWrapper);
+						
+					}
+					
+				});
+				
+			}
+			
+			function reloadCompleteLecture() {
+				
+				const url = "./getCompleteOpenLectureInfo?life_student_key=" + lifeStudentKey;
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					overPagination();
+					
+					const completeLectureBox = document.getElementById("completeLectureBox");
+					completeLectureBox.innerHTML = "";
+					
+					if(overTotalPageNumber == 0) {
+						
+						const noLectureWrapper = document.querySelector("#templete .noLectureWrapper").cloneNode(true);
+						completeLectureBox.appendChild(noLectureWrapper);
+						
+						return;
+						
+					}
+					
+					for(const [index, e] of response.data.entries()) {
+
+						const carouselWrapper = document.querySelector("#templete .carouselWrapper").cloneNode(true);
+						
+						if(index === 0) {
+							carouselWrapper.classList.add("active");
+						}
+						
+						carouselWrapper.querySelector(".round").innerText = e.round;
+						carouselWrapper.querySelector(".category").innerText = e.categoryName;
+						
+						const openDate = new Date(e.openLectureInfo.open_date);
+						const closeDate = new Date(e.openLectureInfo.close_date);
+						
+						carouselWrapper.querySelector(".lectureDate").innerText =
+	        				openDate.getFullYear() + "." + ("0" + (openDate.getMonth() + 1)).slice(-2) + "." + ("0" + openDate.getDate()).slice(-2) + "~" +
+	        				closeDate.getFullYear() + "." + ("0" + (closeDate.getMonth() + 1)).slice(-2) + "." + ("0" + closeDate.getDate()).slice(-2);
+						
+						carouselWrapper.querySelector(".credit").innerText = e.lectureInfo.credit + "학점";
+						
+						const statusBox = carouselWrapper.querySelector(".statusBox");
+						statusBox.innerHTML = "";
+						const bottonBox = carouselWrapper.querySelector(".bottonBox");
+						bottonBox.innerHTML = "";
+						
+						if(e.isComplete) {
+							
+							const certificateOutput = document.querySelector("#templete .certificateOutput").cloneNode(true);
+							const lectureProgress = document.querySelector("#templete .lectureProgress").cloneNode(true);
+							lectureProgress.querySelector(".progressButton").value = e.openLectureInfo.open_lecture_key;
+							bottonBox.appendChild(certificateOutput);
+							bottonBox.appendChild(lectureProgress);
+							
+							const complete = document.querySelector("#templete .complete").cloneNode(true);
+							statusBox.appendChild(complete);
+							
+						}else {
+							
+							const lectureProgress = document.querySelector("#templete .lectureProgress").cloneNode(true);
+							lectureProgress.querySelector(".progressButton").value = e.openLectureInfo.open_lecture_key;
+							bottonBox.appendChild(lectureProgress);
+							
+							const poor = document.querySelector("#templete .poor").cloneNode(true);
+							statusBox.appendChild(poor);
+							
+						}
+						
+						completeLectureBox.appendChild(carouselWrapper);
+						
+					}
+					
+				});
+				
 			}
         	
 	        function goMyPage() {
@@ -163,6 +354,7 @@
 	    	window.addEventListener("DOMContentLoaded", () => {
 	    		
 	    		/* getMyPk(); */
+	    		getLifeStudentKey();
 	    		
 	    	});
         
@@ -287,7 +479,7 @@
                                                                     <nav aria-label="Page navigation example">
                                                                         <ul class="pagination justify-content-end">
                                                                             <li id="ingPrevious" class="page-item">
-                                                                                <a onclick="previousIngPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;">
+                                                                                <a onclick="previousIngPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;"  data-bs-target="ingCarousel" data-bs-slide="prev">
                                                                                     <span aria-hidden="true">&laquo;</span>
                                                                                 </a>
                                                                             </li>
@@ -297,7 +489,7 @@
                                                                             	</a>
                                                                             </li>
                                                                             <li id="ingNext" class="page-item">
-                                                                                <a onclick="nextIngPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;">
+                                                                                <a onclick="nextIngPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;"  data-bs-target="ingCarousel" data-bs-slide="next">
                                                                                     <span aria-hidden="true">&raquo;</span>
                                                                                 </a>
                                                                             </li>
@@ -308,20 +500,11 @@
                                                             <div class="row mt-1">
                                                                 <div class="col rounded border px-3 py-4" style="height: 18.78em;">
                                                                     
-                                                                    <div class="row align-items-center" style="height: 15.78em;">
-                                                                        <div class="col">
-                                                                            <div class="row">
-                                                                                <div class="col text-center">
-                                                                                    <i class="bi bi-chat-dots-fill" style="color: #EEEEEE; font-size: 2.5em;"></i>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="col text-center" style="font-size: 0.9em;">
-                                                                                    학습중인 과정이 없습니다
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                                    <div id="ingCarousel" class="carousel slide" data-bs-ride="carousel">
+																  		<div id="ingLectureBox" class="carousel-inner">
+																    		
+																  		</div>
+																	</div>
                                                                     
                                                                 </div>
                                                             </div>
@@ -335,7 +518,7 @@
                                                                     <nav aria-label="Page navigation example">
                                                                         <ul class="pagination justify-content-end">
                                                                             <li id="overPrevious" class="page-item">
-                                                                                <a onclick="previousOverPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;">
+                                                                                <a onclick="previousOverPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;" data-bs-target="completeCarousel" data-bs-slide="prev">
                                                                                     <span aria-hidden="true">&laquo;</span>
                                                                                 </a>
                                                                             </li>
@@ -345,7 +528,7 @@
                                                                             	</a>
                                                                             </li>
                                                                             <li id="overNext" class="page-item">
-                                                                                <a onclick="nextOverPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;">
+                                                                                <a onclick="nextOverPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;" data-bs-target="completeCarousel" data-bs-slide="next">
                                                                                     <span aria-hidden="true">&raquo;</span>
                                                                                 </a>
                                                                             </li>
@@ -356,71 +539,11 @@
                                                             <div class="row mt-1">
                                                                 <div class="col rounded border px-3 py-4" style="height: 18.78em;">
                                                                     
-                                                                    <div class="row align-items-center" style="height: 15.78em;">
-                                                                        <div class="col">
-                                                                            <div class="row">
-                                                                                <div class="col">
-                                                                                    <div class="row">
-                                                                                        <div class="col">
-                                                                                            <span class="text-body-tertiary border-secondary-subtle ps-2 pe-1 py-1 fw-bold" style="border: solid; border-width: 0.01em; font-size: 0.85em;">
-                                                                                                &#91;123&#93;<span style="font-size: 0.9em;">차</span>
-                                                                                            </span>
-                                                                                            <span class="ms-2 px-2 py-1 fw-bold" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #f7a505;">
-                                                                                                오프라인
-                                                                                            </span>
-                                                                                        </div>
-                                                                                        <div class="col text-end">
-                                                                                            <span class="ms-2 px-3 py-1 fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #4CAF50; background-color: #F1F9F1;">
-                                                                                                수료
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row mt-3">
-                                                                                        <div class="col fw-bold text-body-tertiary" style="font-size: 0.95em;">
-                                                                                            파이썬
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row mt-2">
-                                                                                        <div class="col fw-bold" style="font-size: 1.1em;">
-                                                                                            기업현장교사 기본과정
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row mt-4">
-                                                                                <div class="col">
-                                                                                    <div class="row">
-                                                                                        <div class="col-auto fw-bold text-body-tertiary" style="font-size: 0.9em;">
-                                                                                            교육기간
-                                                                                        </div>
-                                                                                        <div class="col fw-bold" style="font-size: 0.9em;">
-                                                                                            2024.01.01~2024.12.31
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <div class="col-auto fw-bold text-body-tertiary" style="font-size: 0.9em;">
-                                                                                            인정학점
-                                                                                        </div>
-                                                                                        <div class="col fw-bold" style="font-size: 0.9em;">
-                                                                                            3학점
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row mt-4">
-                                                                                <div class="col d-grid pe-2">
-                                                                                    <button class="btn fw-bold" style="font-size: 0.9em; color: #7844ae; border: solid; border-color: #7844ae; border-width: 0.01em;">
-                                                                                        수료증 출력
-                                                                                    </button>
-                                                                                </div>
-                                                                                <div class="col d-grid ps-2">
-                                                                                    <button class="btn fw-bold text-white" style="font-size: 0.9em; background-color: #7844ae;">
-                                                                                        과정 살펴보기
-                                                                                    </button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                                	<div id="completeCarousel" class="carousel slide" data-bs-ride="carousel">
+																  		<div id="completeLectureBox" class="carousel-inner">
+																    		
+																  		</div>
+																	</div>
                                                                     
                                                                 </div>
                                                             </div>
@@ -438,6 +561,112 @@
                 </div>
             </div>
         </div>
+        
+        <div id="templete" class="d-none">
+        
+        	<div class="carouselWrapper carousel-item">
+				<div class="row align-items-center" style="height: 15.78em;">
+	                <div class="col">
+	                    <div class="row">
+	                        <div class="col">
+	                            <div class="row">
+	                                <div class="col">
+	                                    <span class="text-body-tertiary border-secondary-subtle ps-2 pe-1 py-1 fw-bold" style="border: solid; border-width: 0.01em; font-size: 0.85em;">
+	                                        &#91;<span class="round">123</span>&#93;<span style="font-size: 0.9em;">차</span>
+	                                    </span>
+	                                    <span class="ms-2 px-2 py-1 fw-bold" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #f7a505;">
+	                                        오프라인
+	                                    </span>
+	                                </div>
+	                                <div class="statusBox col text-end">
+	                                    
+	                                </div>
+	                            </div>
+	                            <div class="row mt-3">
+	                                <div class="category col fw-bold text-body-tertiary" style="font-size: 0.95em;">
+	                                    파이썬
+	                                </div>
+	                            </div>
+	                            <div class="row mt-2">
+	                                <div class="name col fw-bold" style="font-size: 1.1em;">
+	                                    기업현장교사 기본과정
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="row mt-4">
+	                        <div class="col">
+	                            <div class="row">
+	                                <div class="col-auto fw-bold text-body-tertiary" style="font-size: 0.9em;">
+	                                    교육기간
+	                                </div>
+	                                <div class="lectureDate col fw-bold" style="font-size: 0.9em;">
+	                                    2024.01.01~2024.12.31
+	                                </div>
+	                            </div>
+	                            <div class="row">
+	                                <div class="col-auto fw-bold text-body-tertiary" style="font-size: 0.9em;">
+	                                    인정학점
+	                                </div>
+	                                <div class="credit col fw-bold" style="font-size: 0.9em;">
+	                                    3학점
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="bottonBox row mt-4">
+	                        
+	                    </div>
+	                </div>
+	            </div>
+			</div>
+        	
+        	<div class="noLectureWrapper carousel-item active">
+	        	<div class="row align-items-center" style="height: 15.78em;">
+		            <div class="col">
+		                <div class="row">
+		                    <div class="col text-center">
+		                        <i class="bi bi-chat-dots-fill" style="color: #EEEEEE; font-size: 2.5em;"></i>
+		                    </div>
+		                </div>
+		                <div class="row">
+		                    <div class="col text-center" style="font-size: 0.9em;">
+		                        학습중인 과정이 없습니다
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+			</div>
+			
+			<div class="certificateOutput col d-grid pe-2">
+	            <button class="btn fw-bold" style="font-size: 0.9em; color: #7844ae; border: solid; border-color: #7844ae; border-width: 0.01em;">
+	                수료증 출력
+	            </button>
+	        </div>
+	        
+	        <div class="lectureProgress col d-grid ps-2">
+	            <button onclick="showLectureProgressModal(this)" class="progressButton btn fw-bold text-white" style="font-size: 0.9em; background-color: #7844ae;">
+	                과정 살펴보기
+	            </button>
+	        </div>
+			
+			<span class="complete ms-2 px-3 py-1 fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #4CAF50; background-color: #F1F9F1;">
+	        	수료
+	        </span>
+	        
+	        <span class="poor ms-2 px-3 py-1 fw-bold rounded-pill" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #FA4D5A; background-color: #FAF1F4;">
+	        	미수료
+	        </span>
+        	
+        </div>
+        
+        <jsp:include page="./lectureProgressModal.jsp"></jsp:include>
+
+        <jsp:include page="./testModal.jsp"></jsp:include>
+        
+        <jsp:include page="./testWarningModal.jsp"></jsp:include>
+
+        <jsp:include page="./submitWarningModal.jsp"></jsp:include>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>

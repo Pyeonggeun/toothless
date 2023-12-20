@@ -220,14 +220,14 @@
 			)t2
 		)t3
 		<![CDATA[
-			WHERE t3.rnum >= (#{pageNumber}-1)*10 + 1 AND t3.rnum <= #{pageNumber}*10
+			WHERE t3.rnum >= (#{pageNumber}-1)*5 + 1 AND t3.rnum <= #{pageNumber}*5
 		]]>
 	</select>
 	
 	<select id="getToTalReviewLectureCount" resultType="int">
 		SELECT COUNT(*) FROM (
 			SELECT * FROM tl_x_lecture_student
-			WHERE life_student_key = 21
+			WHERE life_student_key = #{life_student_key}
 		)t1
 		INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
 		<![CDATA[
@@ -398,7 +398,7 @@
 	
 	<select id="isCompleteTest" resultType="int">
 		SELECT COUNT(*) FROM (
-			SELECT lecture_test_key FROM tl_x_test_question
+			SELECT lecture_test_key FROM tl_x_test_result
 			GROUP BY lecture_test_key
 		)t1
 		WHERE t1.lecture_test_key = #{lecture_test_key}
@@ -419,6 +419,59 @@
 		SELECT * FROM tl_x_question_choice
 		WHERE test_question_key = #{test_question_key}
 		ORDER BY DBMS_RANDOM.RANDOM
+	</select>
+	
+	<select id="getTotalingCount" resultType="int">
+		SELECT COUNT(*) FROM (
+		   SELECT * FROM tl_x_lecture_student
+		   WHERE life_student_key = #{life_student_key}
+		)t1
+		INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
+		WHERE TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		BETWEEN TO_CHAR(txol.open_date, 'yyyy-MM-dd')
+		AND TO_CHAR(txol.close_date, 'yyyy-MM-dd')
+	</select>
+	
+	<select id="getTotalWaitCount" resultType="int">
+		SELECT COUNT(*) FROM (
+		   SELECT * FROM tl_x_lecture_student
+		   WHERE life_student_key = #{life_student_key}
+		)t1
+		INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
+		<![CDATA[
+			WHERE TO_CHAR(SYSDATE, 'yyyy-MM-dd') < TO_CHAR(txol.open_date, 'yyyy-MM-dd')
+		]]>
+	</select>
+	
+	<select id="getTotalCompleteCount" resultType="int">
+		SELECT COUNT(*) FROM (
+		   SELECT * FROM tl_x_lecture_student
+		   WHERE life_student_key = #{life_student_key}
+		)t1
+		INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
+		<![CDATA[
+			WHERE TO_CHAR(SYSDATE, 'yyyy-MM-dd') > TO_CHAR(txol.close_date, 'yyyy-MM-dd')
+		]]>
+	</select>
+	
+	<select id="getIngOpenLectureInfo" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+		SELECT txol.* FROM (
+	        SELECT * FROM tl_x_lecture_student
+	        WHERE life_student_key = #{life_student_key}
+	     )t1
+	     INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
+	     WHERE TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+	     BETWEEN TO_CHAR(txol.open_date, 'yyyy-MM-dd')
+	     AND TO_CHAR(txol.close_date, 'yyyy-MM-dd')
+	</select>
+	
+	<select id="getCompleteOpenLectureInfo" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+		SELECT txol.* FROM (
+	        SELECT * FROM tl_x_lecture_student
+	        WHERE life_student_key = #{life_student_key}
+	     )t1
+	     INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
+	     WHERE TO_CHAR(SYSDATE, 'yyyy-MM-dd') > TO_CHAR(txol.close_date, 'yyyy-MM-dd')
 	</select>
 
 </mapper>

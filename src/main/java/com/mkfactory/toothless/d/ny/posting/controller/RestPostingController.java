@@ -23,6 +23,7 @@ public class RestPostingController {
 	// 로그인 확인 등 출력용
 	@RequestMapping("getStudentId")
 	public D_RestResponseDto getStudentId(HttpSession session) {
+		
 		D_RestResponseDto restResponseDto = new D_RestResponseDto();
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
@@ -128,5 +129,15 @@ public class RestPostingController {
 		return restResponseDto;
 	}
 	
-	// 공고리스트 삭제(교직원) 만들어보기
+	// 교직원 페이지 공고리스트 출력
+	@RequestMapping("getJobPostingList")
+	public D_RestResponseDto getJobPostingList(String searchType, String searchWord) {
+		
+		D_RestResponseDto restResponseDto = new D_RestResponseDto();
+		
+		restResponseDto.setData(postingService.getPostingList(searchType, searchWord));
+		
+		return restResponseDto;
+	}
+	
 }

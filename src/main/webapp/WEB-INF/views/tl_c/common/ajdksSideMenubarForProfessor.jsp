@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- 좌측메뉴바 -->
-<div class="col-2 sticky-top text-white px-0 professorleftmenubar" style="background-color: #0C2145; height: 137dvh; box-shadow: 2px 2px 2px gray;">
+<div class="col-2 sticky-top text-white px-0 professorleftmenubar" style="background-color: #0C2145; height: 120dvh; box-shadow: 2px 2px 2px gray;">
 
 	<!-- 접속자 정보 묶음 -->
 	<div class="row text-center my-3">
@@ -37,50 +37,12 @@
 	<!-- 메뉴리스트 -->
 	<div class="row">
 		<div class="col">
-			<input type="checkbox" id="title1"/>
-			<label class="pt-3 pb-2 ps-3" for="title1"><i class="bi bi-person-exclamation"></i>&nbsp;학생 관리</label>			
-			<div class="content text-white-50">
-				<div class="row pt-2 ps-2">
-					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;학과생 조회</span>
-					</div>
-				</div>
-				<div class="row py-2 ps-2">
-					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;학과생 상담</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col">
-			<input type="checkbox" id="title2"/>
-			<label class="pt-3 pb-2 ps-3" for="title2"><i class="bi bi-easel"></i>&nbsp;강의 관리</label>			
-			<div class="content text-white-50">
-				<div class="row pt-2 ps-2">
-					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;나의 강의 조회</span>
-					</div>
-				</div>
-				<div class="row py-2 ps-2">
-					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;나의 수강생 조회</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col">
 			<input type="checkbox" id="title3"/>
 			<label class="pt-3 pb-2 ps-3" for="title3"><i class="bi bi-postcard"></i>&nbsp;현장실습과정 관리</label>			
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../eunbi/professor/internshipMainPage'">&gt;&nbsp;나의 과정 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../eunbi/professor/viewChargedInternshipCoursePage'">&gt;&nbsp;나의 과정 조회</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">

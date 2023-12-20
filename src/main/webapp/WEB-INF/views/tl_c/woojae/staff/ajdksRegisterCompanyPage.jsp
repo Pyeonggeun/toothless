@@ -146,6 +146,39 @@
 		return true;
 	}
 	
+	
+	// 카테고리 리스트
+	function companyCategoryList(){
+		
+		const url = "./companyCategoryList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const categoryWrapper = document.getElementById("categoryWrapper");
+			
+			for(e of response.data){
+				
+				
+				const radio = document.createElement("input");
+				radio.setAttribute("type", "radio");
+				radio.setAttribute("name", "company_category_pk");
+				radio.setAttribute("value", e.company_category_pk);
+				radio.classList.add("selectedRadio");
+				
+				const textNode = document.createTextNode(e.company_category_name + " ");
+				categoryWrapper.appendChild(radio);
+				categoryWrapper.appendChild(textNode);
+				
+				console.log(radio.value);
+			}
+		});
+	}
+	
+	
+	
+	
 	// 산업체 등록
 	function registerCompany(event){
 		// 로그인 예외처리
@@ -173,9 +206,11 @@
 		const externalIdValue = inputExternalId.value;
 		const inputExternalPassword = document.getElementById("inputExternalPassword"); // 산업체 비밀번호
 		const externalPasswordValue = inputExternalPassword.value;
-		const inputCompanyCategory = document.querySelector(".inputCompanyCategory"); // 업종카테고리
-		const inputCompanyCategoryValue = inputCompanyCategory.value; 
+		const selectedRadio = document.querySelector('input[name="company_category_pk"]:checked') // 업종카테고리
+		const inputCompanyCategoryValue = selectedRadio ? selectedRadio.value : null;
 		
+		/* const inputCompanyCategory = document.querySelector(".inputCompanyCategory"); // 업종카테고리
+		const inputCompanyCategoryValue = inputCompanyCategory.value; */
 		
 		const url = "./registerCompany";
 		
@@ -190,7 +225,24 @@
 		})
 		.then(response => response.json())
 		.then(response =>{
-				
+			
+			 inputCompanyId.value = "";
+			 inputCompanyName.value = "";
+			 inputCeoName.value = "";
+			 inputAddress.value = "";
+			 inputPhone.value = "";
+			 inputUrl.value = "";
+			 inputExternalId.value = "";
+			 inputExternalPassword.value = "";
+			 
+			 const selectedRadio = document.querySelector('input[name="company_category_pk"]:checked');
+		        if(selectedRadio){
+		            selectedRadio.checked = false;
+		        }
+			 
+			 
+			 alert("등록이 완료되었습니다.");
+			
 		});
 		
 	}
@@ -198,6 +250,7 @@
 	// 페이지가 로드 되자마자 아이디 줌.
 	  window.addEventListener("DOMContentLoaded", ()=>{
 		getStaffId();
+		companyCategoryList();
 	}); 
 	
 	
@@ -219,12 +272,12 @@
 	<!-- 본문 : 자유롭게 이용하세요 화이팅 -->
 	<div class="col">
 		<div class="row">
-			<div class="col mx-4">
+			<div class="col mx-5">
 			
 			<!-- 본문작성공간 -->
 				<form action="./registerCompanyProcess">
 				<div class="row mt-5">
-					<div class="col fw-bold">
+					<div class="col fw-bold" style="font-size: 1.6em;">
 						산업체 등록
 					</div>
 				</div>
@@ -257,11 +310,8 @@
 						<div class="row">
 							<div class="col">
 								<div class="row">
-									<div class="col">
-										<c:forEach items="${list}" var="companyCategoryList">
-											<input class="inputCompanyCategory form-check-input"  name="company_category_pk" type="radio" value="${companyCategoryList.company_category_pk}">
-											&nbsp;${companyCategoryList.company_category_name}&nbsp;
-										</c:forEach>
+									<div id="categoryWrapper" class="col">
+										
 									</div>
 								</div>
 							</div>

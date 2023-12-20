@@ -36,7 +36,7 @@ public class StudentController {
 		}
 		session.setAttribute("sessionStudentInfo", studentInfoDto);
 		
-		return "redirect:./mainPage";
+		return "redirect: /toothless/another/student/mainPage";
 		
 	}
 	@RequestMapping("logoutProcess")

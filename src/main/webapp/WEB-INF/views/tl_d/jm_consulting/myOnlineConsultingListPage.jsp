@@ -137,14 +137,14 @@ window.addEventListener("DOMContentLoaded", () => {
 
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
 
 
 	<div class="row">
 		<div class="col">
-			<div class="row">
+	
 				<jsp:include page="../common/studentTopNavi.jsp"></jsp:include>
-			</div>			
+				
 		</div>
 	</div>
 	
@@ -152,7 +152,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		<div class="col">
 			<div class="row">
 				<div class="col-2">
-					<jsp:include page="../common/staffMenu.jsp"></jsp:include>
+					<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 				</div>			
 				<div class="col-1 border-start"></div>					
 				<div class="col">
@@ -255,7 +255,13 @@ window.addEventListener("DOMContentLoaded", () => {
 		</div>
 	</div><!-- 첫로우 -->
 	
-	
+	<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+	<!-- futter -->
+	<div class="row">
+		<div class="col">
+			<jsp:include page="../common/futter.jsp"></jsp:include>
+		</div>
+	</div>	
 
 
 </div><!-- 컨테이너 -->

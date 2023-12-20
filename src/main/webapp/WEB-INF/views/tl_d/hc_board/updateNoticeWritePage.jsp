@@ -20,48 +20,49 @@
 		</div>
 		
 		<div class="row">
-			<div class="col-1"></div>
-			<div class="col-1 me-5">
+			
+			<div class="col-2 ">
 				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 			</div>
 			<div class="col-1 border-start"></div>
 			<%-- 내용 시작 --%>
 			<div class="col">
-				<div class="row border-bottom border-4 border-dark mb-5 pt-3">
+				<div class="row border-bottom border-4 border-dark mb-3 pt-3">
 					<div class="col fw-bold fs-3">글 수정</div>
 				</div>
+				
 				<div class="row">
-					<div class="col my-2">
+					<div class="col my-2 text-secondary" style="font-size: small;">
 						작성자:${sessionStaffInfo.name}
 					</div>
 				</div>
-				<form action="./noticeUpdateProcess" method="post">
+				
+				<form action="./noticeUpdateProcess">
 				<div class="row mb-4">
-					<div class="col-6">
-							<div class="form-floating">
-  								<textarea name="notice_title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-  								<label for="floatingTextarea">${qwer.noBoardDto.notice_title }</label>
-							</div>
+					
+					<div class="col">
+							<input id="inputTitle" name="notice_title" class="form-control form-control-sm" type="text" value="${qwer.noBoardDto.notice_title }" aria-label=".form-control-sm example">		
 					</div>
 				</div>
+				
 				<div class="row ">
-					<div class="col ">
-						<div class="form-floating">
-  							<textarea name="notice_contents" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-  							<label for="floatingTextarea2">${qwer.noBoardDto.notice_contents }</label>
-						</div>
+					<div class="col mb-3">
+						<textarea name="notice_contents" class="form-control" rows="20">${qwer.noBoardDto.notice_contents }</textarea>
 					</div>
-				</div>			
+				</div>
+							
 				<div class="row mt-3">
 					<div class="col"></div>
 					<div class="col text-end">
-						<input name="staff_pk" type="hidden" value="${sessionStaffInfo.staff_pk}">
-						<input name="notice_board_pk" type="hidden" value="${qwer.noBoardDto.notice_board_pk }">
 						<button type="submit" class="btn btn-primary">
-							<i class="bi bi-pencil-fill">수정완료</i>
+								<i class="bi bi-pencil-fill">글수정</i>
 						</button>
+						
 					</div>
+					
 				</div>
+					<input name="notice_board_pk" type="hidden" value="${qwer.noBoardDto.notice_board_pk}">
+					<input name="staff_pk" type="hidden" value="${sessionStaffInfo.staff_pk}">		
 				</form>
 				
 				
@@ -75,6 +76,11 @@
 	<div class="container">
 		<div style="height: 200px;"></div>
 	</div>
+	<div class="row">
+         <div class="col">
+            <jsp:include page="../common/futter.jsp"></jsp:include>
+         </div>
+      </div> 
 	
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

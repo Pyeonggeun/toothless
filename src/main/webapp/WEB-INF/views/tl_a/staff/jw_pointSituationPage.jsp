@@ -77,6 +77,19 @@
 		})
 	}
 	
+	let selectedElement = null;
+	  
+	function toggleBackgroundColor(element) {
+	    if (selectedElement) {
+	    	selectedElement.classList.remove('selected', 'fw-bold', 'text-white');
+	    	selectedElement.style.backgroundColor  = '';
+	    }
+	
+	    element.classList.add('selected', 'fw-bold', 'text-white');
+	    element.style.backgroundColor = 'black';
+	    selectedElement = element;
+	}
+	
 	function reloadBuildingName(){
 		
 		const url = "./restBuildingList"
@@ -92,6 +105,9 @@
 				
 				const buildingNameWrapper = document.querySelector("#buildingTemplete .buildingNameWrapper").cloneNode(true);
 				buildingNameWrapper.setAttribute("onclick", "reloadPointSituationListByDormPk("+e.dorm_pk+")");
+				buildingNameWrapper.addEventListener('click', function() {
+					toggleBackgroundColor(this);
+				});
 				
 				const buildingName = buildingNameWrapper.querySelector(".buildingName");
 				buildingName.innerText = e.name;

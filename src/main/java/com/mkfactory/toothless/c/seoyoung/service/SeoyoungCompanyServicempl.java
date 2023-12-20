@@ -17,11 +17,15 @@ import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
 import com.mkfactory.toothless.c.seoyoung.mapper.SeoyoungApplyingSqlMapper;
 import com.mkfactory.toothless.c.seoyoung.mapper.SeoyoungCompanyMapper;
 import com.mkfactory.toothless.donot.touch.dto.StudentSemesterDto;
+import com.mkfactory.toothless.donot.touch.service.AlarmApi;
 
 @Service
 public class SeoyoungCompanyServicempl {
 	@Autowired
 	private SeoyoungCompanyMapper seoyoungCompanyMapper;
+	
+	@Autowired
+	private AlarmApi alarmapi;
 
 	//해당 산업체 목록 전체 리스트
 	public List<Map<String, Object>> companyList(int sessionCompanyInfo) {
@@ -29,7 +33,7 @@ public class SeoyoungCompanyServicempl {
 	}
 	
 	//산업체의 진행중인지 모집중인지 확인
-	public String companyIngTF(int sessionCompanyInfo) {
+	public List<Map<String, Object>> companyIngTF(int sessionCompanyInfo) {
 		return seoyoungCompanyMapper.companyIngTF(sessionCompanyInfo);
 	}	
 	
@@ -46,33 +50,8 @@ public class SeoyoungCompanyServicempl {
 	//합격 불합격
 	public void updateSelectionArticle(AjdksStudentApplyingDto ajdksStudentApplyingDto) {
 		seoyoungCompanyMapper.updateSelectionStudent(ajdksStudentApplyingDto);
+		int studentPk =ajdksStudentApplyingDto.getStudent_pk();
+		alarmapi.sendAlarm(studentPk, 1, "신청결과를 확인하세요.", "/toothless/tl_c/seoyoung/student/ajdksStudentApplyPage");
+		
 	}
-//	
-//	public List<Map<String, Object>> getArticleList(int pageNum, String searchType, String searchWord) {
-//
-//		List<Map<String, Object>> list = new ArrayList<>();
-//
-//		
-//		List<AjdksInternshipCourseDto> studentinternshipDto = seoyoungCompanyMapper.studentinternshipDto();
-//
-//		for (AjdksInternshipCourseDto ajdksInternshipCourseDto : studentinternshipDto) {
-//			int internship_course_pk = ajdksInternshipCourseDto.getInternship_course_pk();
-//			AjdksStudentApplyingDto ajdksStudentApplyingDto = seoyoungCompanyMapper.studentApplyingDto(internship_course_pk);
-//
-//			
-//			int student_pk = ajdksInternshipCourseDto.getInternship_course_pk();
-//			AjdksSelfIntroductionDto ajdksSelfIntroductionDto = seoyoungCompanyMapper.selfIntroductionDto(student_pk);
-//
-//			
-//			
-//			Map<String, Object> map = new HashMap<>();
-//			map.put("ajdksStudentApplyingDto", ajdksStudentApplyingDto);
-//			map.put("ajdksInternshipCourseDto", ajdksInternshipCourseDto);
-//
-//			list.add(map);
-//		}
-//
-//		return list;
-//	}
-	
 }

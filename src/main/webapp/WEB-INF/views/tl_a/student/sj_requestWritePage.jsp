@@ -71,7 +71,7 @@
 						<div class="row">
 							<div class="col d-flex justify-content-end my-2">
                 			
-                			<button type="submit" class="btn btn-outline-danger">접수완료</button>
+                			<button type="submit" class="btn btn-danger rounded-0">접수완료</button>
                 		</div>
 						</div>
 		            </div>

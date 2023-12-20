@@ -53,7 +53,7 @@ public interface DormStaffMapperJw {
 	// 임원 방배정
 	public List<DormRoomDto> selectDormRoomListByDormFloorAndDormPk(int dorm_floor, int dorm_pk);
 	public int countExecutivePerRoomPk(int executive_pk, int dorm_room_pk);
-	public void deleteExecutivePerRoomPk(int executive_pk, int dorm_room_pk);
+	public void deleteExecutivePerRoomPk(int dorm_room_pk, int executive_pk);
 	
 	// 임원 관리
 	public void insertExecutiveManagement(ExecutiveManagementDto executiveManagementDto);

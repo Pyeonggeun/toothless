@@ -45,7 +45,7 @@
 	    			lifeStudentKey = response.data;
 	    			
 	    			reloadTotalReviewLectureCount();
-	    			
+	    			console.log("살행딤");
 	    		});
 	    		
 	    	}
@@ -129,7 +129,7 @@
 					
 					document.getElementById("totalCount").innerText = response.data;
 					
-					totalPageNumber = Math.ceil(response.data/10);
+					totalPageNumber = Math.ceil(response.data/5);
 					
 					reloadReviewLecture();
 					
@@ -149,6 +149,15 @@
 					
 					const reviewLectureBox = document.getElementById("reviewLectureBox");
 					reviewLectureBox.innerHTML = "";
+					
+					if(totalPageNumber == 0) {
+						
+						const noReviewLectureWrapper = document.querySelector("#templete .noReviewLectureWrapper").cloneNode(true);
+						reviewLectureBox.appendChild(noReviewLectureWrapper);
+						
+						return;
+						
+					}
 					
 					for(e of response.data) {
 						
@@ -524,6 +533,25 @@
 	                </div>
 	            </div>
 	        </div>
+	        
+	        <div class="noReviewLectureWrapper row mt-2">
+	       		<div class="col rounded border" style="height: 20em">
+	       			<div class="row align-items-center" style="height: 20em">
+	       				<div class="col">
+	       					<div class="row">
+	                            <div class="col text-center">
+	                                <i class="bi bi-chat-dots-fill" style="color: #EEEEEE; font-size: 2.5em;"></i>
+	                            </div>
+	                        </div>
+	                        <div class="row mt-2">
+	                            <div class="col text-center" style="font-size: 0.9em;">
+	                            	강의가 없습니다
+	                            </div>
+	                        </div>
+	       				</div>
+	       			</div>
+	       		</div>
+	       	</div>
         
         	<a onclick="movePage(this)" class="pageNumberLink page-link border-0 text-black px-4" href="#" style="font-size: 1.1em;">1</a>
         	

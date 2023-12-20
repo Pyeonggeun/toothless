@@ -165,4 +165,11 @@ public class DormStudentControllerDm {
 		return "/tl_a/student/dm_FAQ";
 	}
 	
+	@RequestMapping("dm_subPage")
+	public String dm_subPage() {
+		
+		
+		return "/tl_a/student/dm_subPage";
+	}
+	
 }

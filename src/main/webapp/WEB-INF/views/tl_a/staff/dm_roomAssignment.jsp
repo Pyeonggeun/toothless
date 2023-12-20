@@ -489,6 +489,9 @@
 				modalComplete.removeAttribute("onclick");
 				modalComplete.classList.add("d-none");
 				
+				// 여기도 테스트
+				
+				
 				// 내용 조작
 				const modaltemplete = document.querySelector("#modal");
 				modaltemplete.querySelector(".modal-title").innerText = "배정 불가";
@@ -506,6 +509,10 @@
 				const modalComplete = document.querySelector("#modal .modalComplete");
 				modalComplete.setAttribute("onclick","assignmentComplete(" + hovalue + "," + student_pk +")");
 				modalComplete.classList.remove("d-none");
+				
+				//잠깐 테스트
+				
+				
 				// 내용 조작
 				const modaltemplete = document.querySelector("#modal");
 				modaltemplete.querySelector(".modal-title").innerText = "배정 하기";
@@ -532,7 +539,13 @@
 		// element 요소에서 	
 	}
 	
-	
+	// 카운트 셀렉트한거 붙여주기
+	function countSelect(){
+		
+		document.querySelector("#buttonAll .bbutton1").innerText = "전체" + assignNeedAddCount + assignNeedCancelCount;
+		document.querySelector("#buttonAll .bbutton2").innerText = "미배정" + assignNeedAddCount;
+		document.querySelector("#buttonAll .bbutton3").innerText = "배정완료" + assignNeedCancelCount;
+	}
 	
 	
 	// 이거 셀렉트 옵션 바꿔주는거
@@ -569,6 +582,8 @@
 		
 		
 	}
+	
+	//배정취소 카운트
 	
 	function assignNeedCancelList(){
 		//배정이 완료된 리스트
@@ -704,7 +719,11 @@
 		
 		
 		
+	
+		
 	});
+	
+	
 	
 	
 </script>
@@ -748,15 +767,15 @@
 			</div>
 			
 			<!-- 미니맵 -->
-			<div class="row">
-				<div id="button1" class="col-1 border py-4 mx-2 rounded border-dark btn text-center" onclick="roomAssignmentAll()" style="background-color: black;">
+			<div id="buttonAll" class="row">
+				<div id="button1" class="col-1 border py-4 mx-2 rounded border-dark btn text-center"  onclick="roomAssignmentAll()" style="background-color: black;">
 					<div class="row">
 						<div class="bbutton1 col ms-2 fw-bold" style="color: white;">
 							전체
 						</div>
 					</div>
 				</div>
-				<div id="button2" class="col-1 border py-4 mx-2 rounded border-dark btn text-center" onclick="roomAssignmentY()">
+				<div id="button2" class="col-1 border py-4 mx-2 rounded border-dark btn text-center"  onclick="roomAssignmentY()">
 					<div class="row">
 						<div class="bbutton2 col ms-2 fw-bold">
 							미배정

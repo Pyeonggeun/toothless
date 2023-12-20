@@ -25,39 +25,44 @@
 			<%-- 가운데 여백--%>	
 			<div class="col-1 border-start"></div>
 			<%-- 공고상세 --%>
-			<div class="col">
-				<!-- 채용정보 -->
+			<div class="col-7">
+				<%-- 채용정보 --%>
 				<div class="row">
 					<div class="col fs-5 fw-bold mt-5">채용정보</div>
 				</div>
-				<!-- 기업정보 -->
+				<%-- 기업정보 --%>
 				<div class="row border-bottom border-dark border-3"></div>
 				<div class="row border border-top">
-					<!-- 간략한 채용정보 -->
+					<%-- 간략한 채용정보 --%>
 					<div class="col p-4 ms-2 mt-2">
 						<div class="row">
 							<div class="col">
-								<!-- 기업명 + 가족기업 여부 -->
+								<%-- 기업명 + 가족기업 여부 --%>
 								<div class="row">
 									<c:if test="${jobPostingDetailForStudent.companyDto.is_family_company ne null and jobPostingDetailForStudent.companyDto.is_family_company eq 'Y'}">
 										<div class="col-1"><span class="badge text-bg-info text-white">Family</span></div>
 									</c:if>
 									<div class="col-3 ps-2">${jobPostingDetailForStudent.companyDto.com_name}
-										<c:choose>
-											<c:when test="${jobPostingDetailForStudent.interestCompany.contains(jobPostingDetailForStudent.companyDto.com_pk)}">
-												<i class="text-danger bi bi-suit-heart-fill"></i>
-											</c:when>
-											<c:otherwise>
-												<i class="text-danger bi bi-suit-heart"></i>
-											</c:otherwise>
-										</c:choose> 
+										<c:if test="${empty sessionStudentInfo}">
+											<i class="text-danger bi bi-suit-heart"></i>
+										</c:if>
+										<c:if test="${!empty sessionStudentInfo}">
+											<c:choose>
+												<c:when test="${myInterestCompany==0}">
+													<a href="./interestCompanyProcessFromDetailPage?com_pk=${jobPostingDetailForStudent.companyDto.com_pk}&student_pk=${sessionStudentInfo.student_pk}&id=${jobPostingDetailForStudent.jobPostingDto.job_posting_pk}"><i class="text-danger bi bi-suit-heart"></i></a>
+												</c:when>
+												<c:when test="${myInterestCompany!=0}">
+													<a href="./deleteInterestCompanyProcessFromDetailPage?com_pk=${jobPostingDetailForStudent.companyDto.com_pk}&student_pk=${sessionStudentInfo.student_pk}&id=${jobPostingDetailForStudent.jobPostingDto.job_posting_pk}"><i class="text-danger bi bi-suit-heart-fill"></i></a>
+												</c:when>
+											</c:choose>	
+										</c:if>
 									</div>
 								</div>
-								<!-- 공고제목 -->
+								<%-- 공고제목 --%>
 								<div class="row mt-1">
 									<div class="col fs-4">${jobPostingDetailForStudent.jobPostingDto.posting_name}</div>
 								</div>
-								<!-- 분야 / 지역  -->
+								<%-- 분야 / 지역 --%>
 								<div class="row mt-1">
 									<div class="col">
 										<span class="text-secondary">#&nbsp;${jobPostingDetailForStudent.jobFieldCategoryDto.job_field_category_name} 
@@ -65,7 +70,7 @@
 										#&nbsp;${jobPostingDetailForStudent.companyDto.com_address}</span>
 									</div>
 								</div>
-								<!-- 마감일 -->
+								<%-- 마감일 --%>
 								<div class="row mt-1">
 									<div class="col-1 me-5 text-secondary">
 										#&nbsp;<fmt:formatDate value="${jobPostingDetailForStudent.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/>
@@ -102,36 +107,36 @@
 							</div>
 						</div>
 					</div>
-					<!-- 기업정보 -->
+					<%-- 기업정보 --%>
 					<div class="col-3 p-3 border-start my-2">
 						<div class="row ms-1">
 							<div class="col text-secondary">기업정보</div>
 						</div>
-						<!-- 기업명 -->						
+						<%-- 기업명 --%>						
 						<div class="row ms-1">
 							<div class="col fs-5 fw-bold mt-1">
 								${jobPostingDetailForStudent.companyDto.com_name}
 							</div>
 						</div>
-						<!-- 기업규모 -->
+						<%-- 기업규모 --%>
 						<div class="row ms-1">
 							<div class="col mt-1">
 								<span class="text-secondary">기업형태</span>&nbsp;${jobPostingDetailForStudent.comScaleCategoryDto.com_scale_category_name}
 							</div>
 						</div>
-						<!-- 채용담당자 -->
+						<%-- 채용담당자 --%>
 						<div class="row ms-1">
 							<div class="col mt-1">
 								<span class="text-secondary">대표자</span>&nbsp;${jobPostingDetailForStudent.companyDto.com_bossname}
 							</div>
 						</div>
 						<div class="row ms-1">
-							<!-- 기업정보 -->
+							<%-- 기업정보 --%>
 							<div class="col-4 mt-1">
 								<a class="navbar-brand badge bg-outline-dark text-secondary rounded-0 border"
 									href="../gw_company/studentViewDetailCompanyPage?com_pk=${jobPostingDetailForStudent.companyDto.com_pk}">기업정보 ></a>
 							</div>
-							<!-- 채용공고보기(기능구현은 나중에) -->
+							<%-- 채용공고보기 --%>
 							<div class="col mt-1">
 								<a class="navbar-brand badge bg-outline-dark text-secondary rounded-0 border"
 									href="../ny_posting/companyPostingListForStudentPage?com_pk=${jobPostingDetailForStudent.companyDto.com_pk}">진행중인 채용보기 ></a>
@@ -139,7 +144,7 @@
 						</div> 
 					</div>
 				</div>
-				<!-- 이미지 -->
+				<%-- 이미지 --%>
 				<div class="row mt-3">
 					<div class="col fs-5 fw-bold">상세요강</div>
 				</div>
@@ -151,24 +156,23 @@
 							</div>
 						</div>
 						<div class="row">
-							<!-- 채용내용 -->
+							<%-- 채용내용 --%>
 							<div class="col mt-3 ms-5 pb-3">
 								${jobPostingDetailForStudent.jobPostingDto.posting_contents}				
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- 채용내용 -->
+				<%-- 우대사항 --%>
 				<div class="row mt-3 border-bottom border-dark border-3">
 					<div class="col fs-5 fw-bold">우대사항</div>
 				</div>
-				<!-- 우대사항 -->
 				<div class="row border">
 					<div class="col p-3 ms-3">
 						${jobPostingDetailForStudent.jobPostingDto.preference}	
 					</div>
 				</div>
-				<!-- 채용인원 -->
+				<%-- 채용인원 --%>
 				<div class="row mt-3 border-bottom border-dark border-3">
 					<div class="col fs-5 fw-bold">채용인원</div>
 				</div>
@@ -177,7 +181,7 @@
 						&nbsp;&nbsp;${jobPostingDetailForStudent.jobPostingDto.hire_number} 명	
 					</div>
 				</div>
-				<!-- 채용마감일 까지 -->
+				<%-- 채용마감일 까지 --%>
 				<div class="row mt-3">
 					<div class="col fs-4 fw-bold text-center">
 						<c:choose>
@@ -213,10 +217,10 @@
 				</div>
 			</div>
 			<%-- 오른쪽 --%>	
-			<div class="col-2"></div>	
+			<div class="col-1"></div>	
 		</div>
 		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
-		<!-- futter -->
+		<%-- futter --%>
 		<div class="row">
 			<div class="col">
 				<jsp:include page="../common/futter.jsp"></jsp:include>

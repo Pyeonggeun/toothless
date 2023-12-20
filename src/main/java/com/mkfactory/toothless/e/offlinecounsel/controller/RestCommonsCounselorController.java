@@ -1,9 +1,12 @@
 package com.mkfactory.toothless.e.offlinecounsel.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.e.dto.RestResponseOfflineDto;
 import com.mkfactory.toothless.e.offlinecounsel.service.OfflineCounselServiceImpl;
 
@@ -15,6 +18,20 @@ public class RestCommonsCounselorController {
 	@Autowired
 	private OfflineCounselServiceImpl offlineCounselService;
 
+	@RequestMapping("getSessionExternalInfo")
+	public RestResponseOfflineDto getSessionExternalInfo(HttpSession session) {
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		
+		restResponseOfflineDto.setResult("success");
+		
+		restResponseOfflineDto.setData(externalInfoDto);
+		
+		return restResponseOfflineDto;
+		
+	}
 	
 	@RequestMapping("twoWeekStatisticsData")
 	public RestResponseOfflineDto twoWeekStatisticsData(int external_pk) {

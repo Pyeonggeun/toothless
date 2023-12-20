@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- 좌측메뉴바 -->
-<div class="col-2 sticky-top text-white px-0 studentleftmenubar" style="background-color: #0C2145; height: 142dvh; box-shadow: 2px 2px 2px gray;">
+<div class="col-2 sticky-top text-white px-0 studentleftmenubar" style="background-color: #0C2145; height: 155dvh; box-shadow: 2px 2px 2px gray;">
 
 	<!-- 접속자 정보 묶음 -->
 	<div class="row text-center my-3">
@@ -38,7 +38,21 @@
 	<div class="row">
 		<div class="col">
 			<input type="checkbox" id="title1"/>
-			<label class="pt-3 pb-2 ps-3" for="title1"><i class="bi bi-file-earmark-ruled"></i>&nbsp;이력서 관리</label>			
+			<label class="pt-3 pb-2 ps-3" for="title1"><i class="bi bi-circle-square"></i>&nbsp;프로그램 안내</label>			
+			<div class="content text-white-50">
+				<div class="row py-2 ps-2">
+					<div class="col ps-4">
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/student/ajdksStudentMainPage'">&gt;&nbsp;현장실습지원팀 소개</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col">
+			<input type="checkbox" id="title7"/>
+			<label class="pt-3 pb-2 ps-3" for="title7"><i class="bi bi-file-earmark-ruled"></i>&nbsp;이력서 관리</label>			
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
@@ -80,7 +94,7 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#######'">&gt;&nbsp;출결현황 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../taeho/student/readMyDetailAttendanceStatusPage'">&gt;&nbsp;출결현황 조회</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
@@ -152,12 +166,12 @@
 				</div>
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;자유게시판</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/student/ajdksStudentFreePostingPage'">&gt;&nbsp;자유게시판</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;Q&A</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/student/ajdksStudentQnApage'">&gt;&nbsp;Q&A</span>
 					</div>
 				</div>
 			</div>
