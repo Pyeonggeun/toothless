@@ -122,7 +122,6 @@ public class OnlineCounselController {
 		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
 		int externalPk = externalInfoDto.getExternal_pk();
 		
-		
 		model.addAttribute("counselList", onlineCounselService.getCounselInfoList(externalPk));
 		
 		return "tl_e/onlineCounsel/counselorOnlineCounselMainPage";
