@@ -79,16 +79,12 @@
 </style>
 <script>
 	function updateFormAction() {
-		// Get the form element
 		var certificationForm = document.getElementById("certificationForm");
 
-		// Update the action attribute with the student_pk
 		certificationForm.action = "./certificationProcess?student_pk="
 				+ selectionStudent.STUDENT_PK;
-
-		// Optionally, submit the form programmatically
-		// certificationForm.submit();
 	}
+
 </script>
 </head>
 <body>
@@ -150,6 +146,7 @@
 											<tbody>
 												<c:forEach items="${list2}" var="selectionStudent">
 													<tr>
+														
 														<th scope="row">${selectionStudent.STUDENT_APPLYING_PK}</th>
 														<td scope="row">${selectionStudent.STUDENT_ID}</td>
 														<td scope="row">
@@ -185,7 +182,7 @@
 
 																				<div class="col-2 text-center">
 																					<div class="row border" style="height: 300px;">
-																						<img src="C:\images\증명사진.jpg">
+																						<img src="/Git_imageFile/${selectionStudent.SELF_INTRODUCTION_IMG}">
 																					</div>
 																				</div>
 																				<div class="col-3">
@@ -369,7 +366,8 @@
 																								data-bs-toggle="collapse"
 																								data-bs-target="#collapseOne"
 																								aria-expanded="true" aria-controls="collapseOne"
-																								style="background-color: #f2f5f7;">
+																								style="background-color: #f2f5f7;"
+																								>
 																								<i class="bi bi-bookmarks "></i> &nbsp; 지원이력서
 																							</button>
 																						</h1>
