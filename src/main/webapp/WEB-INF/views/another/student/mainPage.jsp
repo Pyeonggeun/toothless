@@ -50,7 +50,7 @@
         				message.innerText = "";
         				message.innerText = "총 "+response.data.length+"개의 새로운 알림이 있습니다.";
         				
-        				//link.setAttribute("onclick" , "");
+        				
         				
         				
         				updateMyCheckNotifyStatus();
@@ -86,7 +86,7 @@
         				message.innerText = "";
         				message.innerText = response.data[0].notificationDto.message;
         				
-        				link.setAttribute("onclick" , "location.href='./testStudentListPage?lecture_test_key="+.response.data[0].notificationDto.pageLink+"'");
+        				link.setAttribute("onclick" , "location.href='/toothless/tl_d/jm_consulting/hopeJobConsultingPage'");
         				
         				updateMyCheckNotifyStatus();
             			reloadNotifyCount();

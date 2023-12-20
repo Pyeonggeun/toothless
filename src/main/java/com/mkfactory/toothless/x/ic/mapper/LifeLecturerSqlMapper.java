@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.NotificationDto;
 import com.mkfactory.toothless.x.dto.AttendanceBookDto;
 import com.mkfactory.toothless.x.dto.AttendanceStatusDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
@@ -100,5 +101,7 @@ public interface LifeLecturerSqlMapper {
 	
 	public int selectStudentTestingCount(@Param("open_lecture_key") int open_lecture_key,
 										@Param("lecture_student_key") int lecture_student_key);
+	
+	public void insertNotificationDto(NotificationDto notificationDto);
 	
 }
