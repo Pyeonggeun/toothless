@@ -36,7 +36,7 @@
 						AND tbei.NAME LIKE '%' || #{searchWord} || '%'
 					</when>
 					<when test="searchType == 'name'">
-						AND tjsi. NAME LIKE '%' || #{searchWord} || '%'
+						AND tjsi.NAME LIKE '%' || #{searchWord} || '%'
 					</when>
 					<when test="searchType == 'content'">
 						AND tbei.CONTENT LIKE '%' || #{searchWord} || '%' 
@@ -48,10 +48,104 @@
 	
 	</select>
 	
-	<!-- 프로그램 신청 목록가져오기 -->
-	<select id="selectAllEduApply" resultType="com.mkfactory.toothless.b.dto.EduApplyDto">
-		SELECT * FROM TL_B_EDU_APPlY ORDER BY edu_apply_pk DESC
+	<select id="selectProgListMain" resultType="com.mkfactory.toothless.b.dto.EduDto">
+		<![CDATA[
+		SELECT tbei.* FROM TL_B_EDU_INFO tbei
+		WHERE rownum <= 12
+		ORDER BY EDU_PK DESC 
+		]]>
 	</select>
+	
+	<select id="selectApplyListMain" resultType="com.mkfactory.toothless.b.dto.EduApplyDto">
+		<![CDATA[
+		SELECT * FROM TL_B_EDU_APPLY tbea 
+		WHERE rownum <= 6
+		ORDER BY EDU_APPLY_PK DESC 
+		]]>
+	</select>
+	
+	<select id="selectServeyListMain" resultType="com.mkfactory.toothless.b.dto.EduStsfcSurveyDto">
+		<![CDATA[
+		SELECT tbes.* FROM TL_B_EDU_STSFC_SURVEY tbes
+		WHERE rownum <= 6
+		ORDER BY edu_stsfc_survey_pk DESC
+		]]>
+	</select>
+	
+	
+	
+	<!-- 신청 목록가져오기 -->
+	<select id="selectAllEduApply" resultType="com.mkfactory.toothless.b.dto.EduApplyDto">
+		SELECT tbea.* 
+		FROM TL_B_EDU_APPlY tbea
+		
+		<if test="searchType != null and searchType == 'eduname'">
+			INNER JOIN TL_B_EDU_INFO tbei ON tbei.EDU_PK = tbea.EDU_PK
+			
+		</if>
+		
+		<if test="searchType != null and searchType == 'name'">
+			INNER JOIN TL_JIC_STUDENT_INFO tjsi ON tjsi.STUDENT_PK = tbea.STUDENT_PK 
+		</if>
+		
+		<if test="searchType != null and searchType == 'content'">
+			INNER JOIN TL_B_EDU_INFO tbei ON tbei.EDU_PK = tbea.EDU_PK 
+		</if>	
+		
+		WHERE 1=1
+			<if test="searchType != null">
+				<choose>
+					<when test="searchType == 'eduname'">
+						AND tbei.NAME LIKE '%' || #{searchWord} || '%'
+					</when>
+					<when test="searchType == 'name'">
+						AND tjsi.NAME LIKE '%' || #{searchWord} || '%'
+					</when>
+					<when test="searchType == 'content'">
+						AND tbei.CONTENT LIKE '%' || #{searchWord} || '%' 
+					</when>
+				</choose>
+			</if>
+		ORDER BY tbea.edu_apply_pk DESC
+	</select>
+	
+	
+	
+	
+	<!-- 모든 만족도 내역 출력 교직원이보는용도 -->
+	<select id="selectAllServeyList" resultType="com.mkfactory.toothless.b.dto.EduStsfcSurveyDto">
+		SELECT tbes.* FROM TL_B_EDU_STSFC_SURVEY tbes
+		
+		<if test="searchType != null and searchType == 'eduname'">
+		
+			INNER JOIN TL_B_EDU_apply tbea ON tbea.EDU_apply_PK = tbes.EDU_apply_PK 
+			INNER JOIN TL_B_EDU_INFO tbei ON tbei.EDU_PK = tbea.EDU_PK 
+		</if>
+		
+		<if test="searchType != null and searchType == 'name'">
+			INNER JOIN TL_B_EDU_apply tbea ON tbea.EDU_apply_PK = tbes.EDU_apply_PK 
+			INNER JOIN TL_JIC_STUDENT_INFO tjsi ON tjsi.STUDENT_PK = tbea.STUDENT_PK 
+		</if>
+		
+		
+		WHERE 1=1
+			<if test="searchType != null">
+				<choose>
+					<when test="searchType == 'eduname'">
+						AND tbei.NAME LIKE '%' || #{searchWord} || '%'
+					</when>
+					<when test="searchType == 'name'">
+						AND tjsi.NAME LIKE '%' || #{searchWord} || '%'
+					</when>
+					<when test="searchType == 'content'">
+						AND tbes.CONTENT LIKE '%' || #{searchWord} || '%' 
+					</when>
+				</choose>
+			</if>
+		
+		ORDER BY edu_stsfc_survey_pk DESC
+	</select>
+	
 	
 	<select id="selectById" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
 		SELECT * FROM TL_JIC_STAFF_INFO WHERE staff_pk = #{staff_pk}
@@ -72,10 +166,7 @@
 		AND EDU_PK = #{edu_pk}
 	</select>
 	
-	<!-- 모든 만족도 내역 출력 교직원이보는용도 -->
-	<select id="selectAllServeyList" resultType="com.mkfactory.toothless.b.dto.EduStsfcSurveyDto">
-		SELECT * FROM TL_B_EDU_STSFC_SURVEY ORDER BY edu_stsfc_survey_pk DESC
-	</select>
+	
 	
 	<select id="selectServeyStudent" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
 		SELECT * FROM TL_JIC_STUDENT_INFO tjsi 

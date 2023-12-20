@@ -149,10 +149,11 @@
                                                                     *신청방법<br> 
                                                                     MK대학교 보건센터 > 교육프로그램 > 수강신청 <br>
                  													(전화접수는 12.31일부터 가능)<br>
-                                                                    *강사 이민규 <br>
+                                                                    *강사 이 <br>
                                                                     <br>
                                                                     상세교육 내용<br>
-                                                                    ${qwer.eduDto.content }<br>
+                                                                    <span class="fw-normal" style="font-size: 0.9em;">${qwer.eduDto.content }</span>
+                                                                    
                                                                 </div>
                                                             </div>
                                                             
@@ -199,27 +200,32 @@
                                                         </div>
                                                     </div>
                                                     <!---->
-                                                    <div class="row mt-5 justify-content-end"> 
-                                                        <div class="col text-end">
-                                                            <button class="btn rounded-0" 
-                                                                    style="background-color: #EFF0F2;" 
-                                                                    onclick="location.href='./eduMainPageForStaff'">
-                                                                    목록
-                                                            </button>
-                                                           
-                                                            <button class="btn text-white rounded-0" 
-                                                                    style="background-color: #014195;" 
-                                                                    onclick="location.href='./updateEduProgPage?edu_pk=${qwer.eduDto.edu_pk }'">
-                                                                글 수정
-                                                            </button>
-                                                            <button class="btn text-white rounded-0" 
-                                                                    style="background-color: #B8312F;" 
-                                                                    onclick="location.href='./deleteEduProgProcess?edu_pk=${qwer.eduDto.edu_pk}'">
-                                                                글 삭제
-                                                            </button>
-
+                                                        <div class="row mt-5 justify-content-end"> 
+                                                            <div class="col text-end">
+                                                                <button class="btn rounded-0" 
+                                                                        style="background-color: #EFF0F2;" 
+                                                                        onclick="location.href='./eduMainPageForStaff'">
+                                                                        목록
+                                                                </button>
+                                                            
+                                                   			<c:if test="${!empty sessionStaffInfo && sessionStaffInfo.staff_pk == qwer.staffInfoDto.staff_pk}">
+                                                                <button class="btn text-white rounded-0" 
+                                                                        style="background-color: #014195;" 
+                                                                        onclick="location.href='./updateEduProgPage?edu_pk=${qwer.eduDto.edu_pk }'">
+                                                                    글 수정
+                                                                </button>
+                                                                <button class="btn text-white rounded-0" 
+                                                                        style="background-color: #B8312F;" 
+                                                                        onclick="location.href='./deleteEduProgProcess?edu_pk=${qwer.eduDto.edu_pk}'">
+                                                                    글 삭제
+                                                                </button>
+                                                            </c:if>    
+                                                            </div>
                                                         </div>
-                                                    </div>
+
+                                                    
+
+
                                                 </div>
                                             </div>
                         

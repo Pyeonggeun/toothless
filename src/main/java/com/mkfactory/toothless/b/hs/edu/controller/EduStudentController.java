@@ -45,7 +45,7 @@ public class EduStudentController {
 		
 		if(sessionstudentInfoDto == null) {
 			
-			return "/another/staff/loginPage";
+			return "redirect:../../another/student/loginPage";
 		}
 		
 
@@ -64,7 +64,7 @@ public class EduStudentController {
 		
 		if(sessionstudentInfoDto == null) {
 			
-			return "/another/staff/loginPage";
+			return "redirect:../../another/student/loginPage";
 		}
 		
 		int studentPk = sessionstudentInfoDto.getStudent_pk();
