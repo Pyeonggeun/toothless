@@ -158,7 +158,12 @@
 					
 					const reviewContentBox = writeModalElement.querySelector(".reviewContentBox");
 					reviewContentBox.innerHTML = "";
-					reviewContentBox.innerText = modalValues.offlineSurveyDto.text;
+					
+					if(modalValues.offlineSurveyDto.text == null){
+						reviewContentBox.innerText = "";
+					}else{
+						reviewContentBox.innerText = modalValues.offlineSurveyDto.text;
+					}
 					
 					reviewRegister.disabled = true;
 					

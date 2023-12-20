@@ -27,7 +27,7 @@ public class RestCommonsCounselorController {
 		
 		restResponseOfflineDto.setResult("success");
 		
-		restResponseOfflineDto.setData(externalInfoDto.getExternal_pk());
+		restResponseOfflineDto.setData(externalInfoDto);
 		
 		return restResponseOfflineDto;
 		

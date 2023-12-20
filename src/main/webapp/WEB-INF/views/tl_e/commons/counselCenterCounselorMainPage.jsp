@@ -10,13 +10,44 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 	<script>
+		
+		let myId = null;
+		
+		function getSessionInfo(){
+			
+			const url = "/toothless/tl_e/commons/getSessionExternalInfo";
+			
+			fetch(url)
+			.then(response => response.json())
+			.then(response => {
+				
+				myId = response.data.external_pk;
+				console.log(myId);
+				
+				if(myId == null){
+					if(confirm("로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
+						location.href="/toothless/another/external/loginPage";
+						return;
+					}
+				}else{
+					const checkSession = document.querySelector(".checkSession");
+					checkSession.innerText = response.data.external_id;
+				}
+				
+				reloadOfflineMainList();
+				reloadOnlineMainList();
+				reloadGroupMainList();
+				mainListCount();
+				lineChart();
+				pieChart();
 	
-		let myId = ${sessionExternalInfo.external_pk};
-		
-		
+			});
+		}
+
+	
 		function reloadOfflineMainList(){
 			
-			url = "./getOfflineMainList?external_pk=" + myId;
+			const url = "./getOfflineMainList?external_pk=" + myId;
 			
 			fetch(url)
 			.then(response => response.json())
@@ -49,7 +80,7 @@
 		
 		function reloadOnlineMainList(){
 			
-			url = "./getOnlineMainList?external_pk=" + myId;
+			const url = "./getOnlineMainList?external_pk=" + myId;
 			
 			fetch(url)
 			.then(response => response.json())
@@ -401,12 +432,7 @@
 		
 		
 		window.addEventListener("DOMContentLoaded", () => {
-			reloadOfflineMainList();
-			reloadOnlineMainList();
-			reloadGroupMainList();
-			mainListCount();
-			lineChart();
-			pieChart();
+			getSessionInfo();
 		});
 	
 	

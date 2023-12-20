@@ -5,46 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-	<script>
-		
-		let myId = null;
-		
-		function getSessionInfo(){
-			
-			url = "./getSessionExternalInfo";
-			
-			fetch(url)
-			.then(response => response.json())
-			.then(response => {
-				
-				myId = response.data;
-			});
-		}
-		
-		function checkSession(){
-			
-			const checkSession = document.querySelector(".checkSession");
-			checkSession.innerText = myId;
-			console.log("myId: "+myId);
-			
-			if(myId == null){
-				if(confirm("로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
-					location.href="/toothless/another/external/loginPage";
-				}
-				return;
-			}
-			
-		}
-		
-		window.addEventListener("DOMContentLoaded", () => {
-			getSessionInfo();
-			checkSession();
-		});
-		
-	
-	</script>
-
 </head>
 <body>
 	<div class="row py-2 border-bottom">

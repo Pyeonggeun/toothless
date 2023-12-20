@@ -139,12 +139,12 @@
 				button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mb-1", "mx-2");
 				if(e.isExecutiveCheck == 0){
 					button.innerText = "배정"
-					button.classList.add("btn-outline-secondary");
+					button.classList.add("btn-primary");
 					button.setAttribute("onclick", "registerExecutive("+e.dormStudentDto.dorm_student_pk+")");
 					assignmentSpace.appendChild(button);
 				} else{
 					button.innerText = "배정 취소"
-					button.classList.add("btn-outline-danger");
+					button.classList.add("btn-danger");
 					button.setAttribute("onclick", "deleteExecutive("+e.dormStudentDto.dorm_student_pk+")");
 					assignmentSpace.appendChild(button);
 				}
@@ -156,8 +156,18 @@
 		
 	}
 	
+	let selectedElement = null;
+	  
+	function toggleBackgroundColor(element) {
+	    if (selectedElement) {
+	    	selectedElement.classList.remove('selected', 'fw-bold', 'text-white');
+	    	selectedElement.style.backgroundColor  = '';
+	    }
 	
-	
+	    element.classList.add('selected', 'fw-bold', 'text-white');
+	    element.style.backgroundColor = 'black';
+	    selectedElement = element;
+	}
 	
 	function reloadBuildingName(){
 		
@@ -174,6 +184,9 @@
 				
 				const buildingNameWrapper = document.querySelector("#buildingTemplete .buildingNameWrapper").cloneNode(true);
 				buildingNameWrapper.setAttribute("onclick", "reloadDormStudentListByDormPk("+e.dorm_pk+")");
+				buildingNameWrapper.addEventListener('click', function() {
+					toggleBackgroundColor(this);
+				});
 				
 				const buildingName = buildingNameWrapper.querySelector(".buildingName");
 				buildingName.innerText = e.name;

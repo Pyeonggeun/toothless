@@ -51,4 +51,23 @@ public class ItemStudentController {
 		return "redirect:./studentItemListPage";
 	}
 	
+	@RequestMapping("informationForumPageOne")
+	public String informationForumPageOne() {
+		
+		return "tl_b/ys/informationForumPageOne";
+	}
+	
+	@RequestMapping("informationForumPageTwo")
+	public String informationForumPageTwo() {
+		
+		return "tl_b/ys/informationForumPageTwo";
+	}
+	
+	@RequestMapping("informationForumPageThree")
+	public String informationForumPageThree() {
+		
+		return "tl_b/ys/informationForumPageThree";
+	}
+	
+	
 }

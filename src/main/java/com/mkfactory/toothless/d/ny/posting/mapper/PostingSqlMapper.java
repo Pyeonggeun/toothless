@@ -39,7 +39,10 @@ public interface PostingSqlMapper {
 	// 공고 리스트 출력
 	public List<JobPostingDto> selectPostingList(
 			@Param("searchType") String searchType, 
-			@Param("searchWord") String searchWord
+			@Param("searchWord") String searchWord,
+			@Param("searchPosition") String searchPosition
+			/*@Param("searchAddress") String searchAddress,
+			@Param("searchField") String searchField*/
 			);
 	
 	// 기업 + 채용공고

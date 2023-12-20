@@ -539,7 +539,13 @@
 		// element 요소에서 	
 	}
 	
-	
+	// 카운트 셀렉트한거 붙여주기
+	function countSelect(){
+		
+		document.querySelector("#buttonAll .bbutton1").innerText = "전체" + assignNeedAddCount + assignNeedCancelCount;
+		document.querySelector("#buttonAll .bbutton2").innerText = "미배정" + assignNeedAddCount;
+		document.querySelector("#buttonAll .bbutton3").innerText = "배정완료" + assignNeedCancelCount;
+	}
 	
 	
 	// 이거 셀렉트 옵션 바꿔주는거
@@ -576,6 +582,8 @@
 		
 		
 	}
+	
+	//배정취소 카운트
 	
 	function assignNeedCancelList(){
 		//배정이 완료된 리스트
@@ -710,6 +718,9 @@
 		assignNeedCancelList();
 		
 		
+		
+	
+		
 	});
 	
 	
@@ -756,7 +767,7 @@
 			</div>
 			
 			<!-- 미니맵 -->
-			<div class="row">
+			<div id="buttonAll" class="row">
 				<div id="button1" class="col-1 border py-4 mx-2 rounded border-dark btn text-center"  onclick="roomAssignmentAll()" style="background-color: black;">
 					<div class="row">
 						<div class="bbutton1 col ms-2 fw-bold" style="color: white;">

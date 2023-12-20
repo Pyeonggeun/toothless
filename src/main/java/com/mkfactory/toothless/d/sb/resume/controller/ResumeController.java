@@ -419,10 +419,10 @@ public class ResumeController {
 			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
 			model.addAttribute("applyStudentList", postingService.getApplyStudentTotalList(companyDto.getCom_pk()));
 			model.addAttribute("resumeList", resumeService.getPublicResumeList());
+			model.addAttribute("departmentCategory" , resumeService.getDepartmentCategory());
 		}	
 		return "tl_d/sb_resume/publicResumeByStudentListPage";
 	}
-	
 	
 	
 	

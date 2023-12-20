@@ -346,20 +346,24 @@ public class DormStaffServiceJw {
 	public void assignmentExecutiveRoom(int dorm_room_pk, int executive_pk) {
 		
 		List<DormStudentDto> dormStudentListByPsAndDr = dormStaffMapperJw.selectDormStudentByProgressSemesterAndDormRoom(dorm_room_pk);
-		
-		for(DormStudentDto dormStudentDto : dormStudentListByPsAndDr) {
-			
-			int dormStudentPk = dormStudentDto.getDorm_student_pk();
-			ExecutiveManagementDto executiveManagementDto = new ExecutiveManagementDto();
-			executiveManagementDto.setExecutive_pk(executive_pk);
-			executiveManagementDto.setDorm_student_pk(dormStudentPk);
-			
-			dormStaffMapperJw.insertExecutiveManagement(executiveManagementDto);
+		try {
+			for(DormStudentDto dormStudentDto : dormStudentListByPsAndDr) {
+				
+				int dormStudentPk = dormStudentDto.getDorm_student_pk();
+				ExecutiveManagementDto executiveManagementDto = new ExecutiveManagementDto();
+				executiveManagementDto.setExecutive_pk(executive_pk);
+				executiveManagementDto.setDorm_student_pk(dormStudentPk);
+				
+				dormStaffMapperJw.insertExecutiveManagement(executiveManagementDto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
 	}
 	
-	public void removeExecutivePerRoom(int executive_pk, int dorm_room_pk) {
-		dormStaffMapperJw.deleteExecutivePerRoomPk(executive_pk, dorm_room_pk);
+	public void removeExecutivePerRoom(int dorm_room_pk, int executive_pk) {
+		dormStaffMapperJw.deleteExecutivePerRoomPk(dorm_room_pk, executive_pk);
 	}
 	
 	// 임원 관리

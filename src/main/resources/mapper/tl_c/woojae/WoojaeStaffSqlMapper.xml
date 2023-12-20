@@ -66,11 +66,6 @@
 		SELECT COUNT(*) FROM TL_JIC_EXTERNAL_INFO WHERE EXTERNAL_ID = #{external_id}
 	</select>
 	
-	<!-- 현장실습 과정 내역 -->
-	<select id="selectInternshipCourseList" resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
-		SELECT * FROM tl_c_internship_course ORDER BY INTERNSHIP_COURSE_PK DESC
-	</select>
-	
 	
 	<!-- 검색 카테고리 -->
 	<select id="joinedCompanyList" resultType="map">
@@ -80,13 +75,35 @@
 		WHERE 1=1
 		<if test="searchType != null">
 			AND tci.COMPANY_CATEGORY_PK IN
-			<foreach collection="searchType" item="arr" separator="," open="(" close=")">
-					#{arr}
+			<foreach collection="searchType" index="index" item="arr" separator="," open="(" close=")">
+				#{arr}
 			</foreach>
 		</if>
 		<if test="searchWord != null">
 			AND tci.COMPANY_NAME LIKE '%'||#{searchWord}||'%'
 		</if>
-	</select>	
+	</select>
+	
+	
+	
+	<!-- 현장실습 과정 내역 -->
+	<select id="selectAllCourse" resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
+		SELECT * FROM tl_c_internship_course ORDER BY INTERNSHIP_COURSE_PK DESC
+	</select>
 
+	<!-- 실습생 조회 -->
+	<select id="selectByCoursePk" resultType="com.mkfactory.toothless.c.dto.AjdksStudentInternDto">
+		SELECT * FROM TL_C_STUDENT_INTERN 
+		WHERE INTERNSHIP_COURSE_PK = #{INTERNSHIP_COURSE_PK}
+	</select>
+	
+	<!-- 학생 조회 -->
+	<select id="selectByStudentPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+		SELECT * FROM TL_JIC_STUDENT_INFO 
+		WHERE STUDENT_PK = #{STUDENT_PK}
+		ORDER BY STUDENT_PK DESC 
+	</select>
+	
+	
+	
 </mapper>

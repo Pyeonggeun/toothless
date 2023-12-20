@@ -402,8 +402,7 @@
                                                         <div class="row py-2 border-bottom" style="background-color: #f7f7f9;">
                                                             <div class="col-1 text-center fw-bold" style="font-size: 0.95em;">번호</div>
                                                             <div class="col text-center fw-bold" style="font-size: 0.95em;">평가명</div>
-                                                            <div class="col text-center fw-bold" style="font-size: 0.95em;">응시/제출 기간</div>
-                                                            <div class="col-1 text-center fw-bold" style="font-size: 0.95em;">반영비율</div>
+                                                            <div class="col-2 text-center fw-bold" style="font-size: 0.95em;">응시/제출 기간</div>
                                                             <div class="col-1 text-center fw-bold" style="font-size: 0.95em;">진행상태</div>
                                                             <div class="col-1 text-center fw-bold" style="font-size: 0.95em;">점수</div>
                                                             <div class="col-1 text-center fw-bold" style="font-size: 0.95em;">응시/제출</div>
@@ -451,8 +450,7 @@
 	<div class="testWrapper row py-2 border-bottom">
         <div class="testNumber col-1 text-center" style="font-size: 0.9em;">1</div>
         <div class="testName col text-center" style="font-size: 0.9em;">기업현장교사 기본과정 온라인교육(15시간) 이수자를 위한 보충 영상</div>
-        <div class="testDate col text-center" style="font-size: 0.9em;">2023-07-31 00:00~2023-08-31 23:59</div>
-        <div class="col-1 text-center" style="font-size: 0.9em;">20%</div>
+        <div class="testDate col-2 text-center" style="font-size: 0.9em;">2023-07-31 00:00~2023-08-31 23:59</div>
         <div class="testWhether col-1 text-center" style="font-size: 0.9em;">○</div>
         <div class="col-1 text-center" style="font-size: 0.9em;"><span class="testScore fw-bold">70</span> / 100</div>
     	<div class="testButtonBox col-1 text-center fw-bold" style="font-size: 0.9em;"></div>

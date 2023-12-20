@@ -46,8 +46,7 @@
             span.replyCount{
             	color: #005EAD;
             }
-            
-            </style>
+    	</style>
     </head>
     <body>
         <div class="container-fluid">
@@ -112,7 +111,7 @@
                                             	<div class="col">
                                             		<a href="./readTextPage?staffboard_pk=${map.staffboardDto.staffboard_pk}">${map.staffboardDto.title}
                                                 	</a>
-                                                	<span class="replyCount"><c:if test="${0 <map.staffboardReplyDto}">(${map.staffboardReplyDto})</c:if></span>
+                                                	<span class="replyCount"><c:if test="${0 < map.staffboardReplyDto}">(${map.staffboardReplyDto})</c:if></span>
                                             	</div>
                                             </div>
                                             <div class="row"></div>
@@ -127,7 +126,7 @@
                                     	</div>
                                     	<div class="col-md-5 ps-0">
                                     		<!-- 사진 자리 -->
-                                    		<img class="img img-fluid" src="/uploadFiles/bamboo.jpeg">
+                                    		<img class="img img-fluid" src="../../resources/img/healthRoom/staffboard/bamboo.jpeg">
                                     	</div>
                                     	
                                     </div>

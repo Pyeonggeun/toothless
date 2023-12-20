@@ -590,7 +590,7 @@
         			detailDisease.innerText = response.data.clinicPatientLogInfo.disease_code_pk + " " + response.data.diseaseName;
         			
         			const detailContent = document.getElementById("detailContent");
-        			detailContent.innerText = response.data.clinicPatientLogInfo.content;
+        			detailContent.innerText = response.data.clinicPatientLogInfo.content.replace(/<br>/g, '\n');
         			
         			const datailPrescriptionBox = document.getElementById("datailPrescriptionBox");
         			
@@ -717,7 +717,8 @@
         		
         		const diseaseCodePk = document.getElementById("writeDisease").value
         			.slice(0, document.getElementById("writeDisease").value.indexOf(" "));
-        		const content = document.getElementById("writeContent").value;
+        		let content = document.getElementById("writeContent").value;
+        		content = content.replace(/\n/g, '<br>');
         		
         		if(document.getElementById("writeDisease").value == "" || content == "") {
         			

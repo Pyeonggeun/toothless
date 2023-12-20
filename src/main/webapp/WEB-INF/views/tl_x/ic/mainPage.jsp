@@ -525,6 +525,7 @@
                 </div>
                 <div class="col-1"></div>
             </div>
+            
             <div class="row mt-5">
                 <div class="col-1"></div>
                 <div class="col mt-2">
@@ -553,11 +554,6 @@
                 </div>
                 <div class="col mt-2">
                     <div class="row">
-                        <div class="col-3 fw-bold text-center">
-                            <div class="chart">
-                              	<div id="chartPercent" class="chart-bar" style="background: conic-gradient(#1273ce 94%, #d1cecb 0% 100%);"></div>
-                            </div>
-                        </div>
                         <div class="col mt-2">
                         	<div class="row">
                             	<div class="col fw-bold text-start">

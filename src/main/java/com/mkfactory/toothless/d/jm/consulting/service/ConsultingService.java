@@ -247,7 +247,6 @@ public class ConsultingService {
 //
 //			}
 			
-			System.out.println("널2");
 			int on_consulting_pk = onlineConsultingDto.getOn_consulting_pk();
 			OnlineConsultingReplyDto onlineConsultingReplyDto = consultingMapper.getOnConsultingReplyByOnPk(on_consulting_pk);
 

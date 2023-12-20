@@ -73,5 +73,12 @@ public interface LifeStudentSqlMapper {
 	public List<QuestionChoiceDto> getTestChoiceListByTestQuestionKey(int test_question_key);
 	
 	public void insertTestResult(TestResultDto testResultDto);
+	
+	public int getTotalingCount(int life_student_key);
+	public int getTotalWaitCount(int life_student_key);
+	public int getTotalCompleteCount(int life_student_key);
+	
+	public List<OpenLectureDto> getIngOpenLectureInfo(int life_student_key);
+	public List<OpenLectureDto> getCompleteOpenLectureInfo(int life_student_key);
 
 }

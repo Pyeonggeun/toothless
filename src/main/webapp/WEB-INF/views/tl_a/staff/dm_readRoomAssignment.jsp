@@ -281,7 +281,6 @@
 				
 				templete.appendChild(HoWrapper);
 				
-				
 			}
 			
 			

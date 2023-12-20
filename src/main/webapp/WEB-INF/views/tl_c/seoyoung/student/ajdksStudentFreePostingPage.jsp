@@ -50,6 +50,25 @@
 	text-decoration: none;
 	color: #000000;
 }
+
+/*accordion*/
+.accordion { -
+	-bs-accordion-btn-focus-border-color: #CDCDD3;
+	-bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem #CDCDD3;
+}
+
+.accordion-button:not(.collapsed) {
+	background-color: #CDCDD3;
+}
+
+.accordion { -
+	-bs-accordion-btn-focus-box-shadow: none;
+}
+
+/*table*/
+.table{
+	--bs-table-bg:none;
+}
 </style>
 </head>
 <body>

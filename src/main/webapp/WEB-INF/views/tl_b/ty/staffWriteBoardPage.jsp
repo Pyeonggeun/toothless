@@ -233,7 +233,7 @@
                                 <div class="col"></div>
                                 <div class="col-8">
                                     <form id="frm" action="./staffWriteProcess" method="post" enctype="multipart/form-data" >
-                                 <div class="row mt-8">
+                                 <div class="row mt-3">
                                     <div class="col border-bottom border-3 fw-bold fs-3">공지사항 글 작성</div>
                                  </div>
                                  <div class="row mt-5">
@@ -257,7 +257,12 @@
                                  </div>
                                  <div class="row">
                                     <div class="col text-start">
-                                        이미지 등록: <input name="imageFiles" type="file" accept="image/*" multiple>
+                                        대표이미지 등록: <input name="imageFile" type="file" accept="image/*" enctype="multipart/form-data">
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col text-start">
+                                        상세이미지 등록: <input name="imageFiles" type="file" accept="image/*" multiple="multiple">
                                     </div>
                                     <div class="col mt-2 text-end">
                                         <input type="button" onclick="formSubmit()" class="btn btn-outline-primary" value="등록">

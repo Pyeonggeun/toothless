@@ -180,80 +180,91 @@
 							<div class="col fs-5 fw-bold mt-5 pb-1">관심채용정보</div>
 							<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
 						</div>
-						<c:forEach items="${interestpostingForMyPage}" var="interestPosting">
-						<div class="row mt-3  border-bottom">
-							<!-- 1번째 칸 -->
-							<div class="col-2">
-								<div class="row">
-									<!-- 기업명 -->
-									<div class="col pe-0 pt-1 text-truncate">
-										<a class="navbar-brand" href="./companyPostingListForStudentPage?com_pk=${interestPosting.companyDto.com_pk}">
-											${interestPosting.companyDto.com_name}
-										</a>
-		<!-- 								<i class="text-danger bi bi-suit-heart"></i>
-		 -->						</div>
-								</div>
-								<div class="row">
-									<!-- 가족기업여부 -->
-									<div class="col ms-1">
-										<c:if test="${interestPosting.companyDto.is_family_company ne null and interestPosting.companyDto.is_family_company eq 'Y'}">
-											<span class="badge text-bg-info text-white">Family</span>
-										</c:if>						
+						<c:choose>
+							<c:when test="${empty interestpostingForMyPage}">
+								<div class="row mt-3">
+									<div class="col fw-bold text-center">
+										스크랩한 채용공고가 없습니다
 									</div>
 								</div>
-							</div>
-							<!-- 2번째 칸 -->
-							<div class="col-8 mt-1 pb-3">
-								<div class="row">
-									<!-- 공고제목 -->
-									<div class="col ms-1 ps-0 pt-1">
-										<!-- 링크 더 좋은 방법 생각해보기 -->
-										<a class="navbar-brand" href="../ny_posting/jobPostingDetailForStudentPage?id=${interestPosting.jobPostingDto.job_posting_pk}">
-										<span class="d-inline-block text-truncate" style="max-width: 500px;">
-											${interestPosting.jobPostingDto.posting_name}
-										</span>
-										</a>
+							</c:when>
+							<c:otherwise>
+							<c:forEach items="${interestpostingForMyPage}" var="interestPosting">
+								<div class="row mt-3 border-bottom">
+									<!-- 1번째 칸 -->
+									<div class="col-2">
+										<div class="row">
+											<!-- 기업명 -->
+											<div class="col pe-0 pt-1 text-truncate">
+												<a class="navbar-brand" href="./companyPostingListForStudentPage?com_pk=${interestPosting.companyDto.com_pk}">
+													${interestPosting.companyDto.com_name}
+												</a>
+				<!-- 								<i class="text-danger bi bi-suit-heart"></i>
+				 -->						</div>
+										</div>
+										<div class="row">
+											<!-- 가족기업여부 -->
+											<div class="col ms-1">
+												<c:if test="${interestPosting.companyDto.is_family_company ne null and interestPosting.companyDto.is_family_company eq 'Y'}">
+													<span class="badge text-bg-info text-white">Family</span>
+												</c:if>						
+											</div>
+										</div>
+									</div>
+									<!-- 2번째 칸 -->
+									<div class="col-8 mt-1 pb-3">
+										<div class="row">
+											<!-- 공고제목 -->
+											<div class="col ms-1 ps-0 pt-1">
+												<!-- 링크 더 좋은 방법 생각해보기 -->
+												<a class="navbar-brand" href="../ny_posting/jobPostingDetailForStudentPage?id=${interestPosting.jobPostingDto.job_posting_pk}">
+												<span class="d-inline-block text-truncate" style="max-width: 500px;">
+													${interestPosting.jobPostingDto.posting_name}
+												</span>
+												</a>
+											</div>
+										</div>
+										<div class="row">
+											<!-- 분야/지역/기간 태그  -->
+											<div class="col ps-0">
+												<a class="navbar-brand" href="./jobPostingDetailPage?id=${interestPosting.jobPostingDto.job_posting_pk}">
+												<span class="text-secondary">#&nbsp;${interestPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${interestPosting.jobPostingDto.job_position}
+												#&nbsp;${interestPosting.companyDto.com_address} #&nbsp;<fmt:formatDate value="${interestPosting.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
+												<c:choose>
+													<c:when test="${interestPosting.postingDeadlineList.contains(interestPosting.jobPostingDto.job_posting_pk)}">
+														<span class="badge text-bg-danger">마감임박!</span>
+													</c:when>
+													<c:when test="${interestPosting.endPostingList.contains(interestPosting.jobPostingDto.job_posting_pk)}">
+														<span class="badge text-bg-secondary">채용마감</span>
+													</c:when>
+												</c:choose>
+												</a>
+											</div>
+										</div>
+									</div>
+									<!-- 3번째 칸 -->
+									<div class="col pt-3">
+										<div class="row">
+											<div class="col">
+												<c:choose>
+													<c:when test="${interestPosting.endPostingList.contains(interestPosting.jobPostingDto.job_posting_pk)}">
+														<button class="btn btn-dark btn-sm" disabled>채용마감</button>
+													</c:when>
+													<c:when test="${empty sessionStudentInfo}">
+														<button class="btn btn-dark btn-sm" disabled>지원하기</button>
+													</c:when>
+													<c:otherwise>
+														<a class="btn btn-dark btn-sm" 
+															href="../sb_resume/applyJobPostingPage?job_posting_pk=${interestPosting.jobPostingDto.job_posting_pk}">지원하기</a>
+													</c:otherwise>
+												</c:choose>
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="row">
-									<!-- 분야/지역/기간 태그  -->
-									<div class="col ps-0">
-										<a class="navbar-brand" href="./jobPostingDetailPage?id=${interestPosting.jobPostingDto.job_posting_pk}">
-										<span class="text-secondary">#&nbsp;${interestPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${interestPosting.jobPostingDto.job_position}
-										#&nbsp;${interestPosting.companyDto.com_address} #&nbsp;<fmt:formatDate value="${interestPosting.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
-										<c:choose>
-											<c:when test="${interestPosting.postingDeadlineList.contains(interestPosting.jobPostingDto.job_posting_pk)}">
-												<span class="badge text-bg-danger">마감임박!</span>
-											</c:when>
-											<c:when test="${interestPosting.endPostingList.contains(interestPosting.jobPostingDto.job_posting_pk)}">
-												<span class="badge text-bg-secondary">채용마감</span>
-											</c:when>
-										</c:choose>
-										</a>
-									</div>
-								</div>
-							</div>
-							<!-- 3번째 칸 -->
-							<div class="col pt-3">
-								<div class="row">
-									<div class="col">
-										<c:choose>
-											<c:when test="${interestPosting.endPostingList.contains(interestPosting.jobPostingDto.job_posting_pk)}">
-												<button class="btn btn-dark btn-sm" disabled>채용마감</button>
-											</c:when>
-											<c:when test="${empty sessionStudentInfo}">
-												<button class="btn btn-dark btn-sm" disabled>지원하기</button>
-											</c:when>
-											<c:otherwise>
-												<a class="btn btn-dark btn-sm" 
-													href="../sb_resume/applyJobPostingPage?job_posting_pk=${interestPosting.jobPostingDto.job_posting_pk}">지원하기</a>
-											</c:otherwise>
-										</c:choose>
-									</div>
-								</div>
-							</div>
-						</div>
-						</c:forEach>
+							</c:forEach>
+						</c:otherwise>
+						</c:choose>
 						<!-- 관심채용정보 끝 -->
 					</div>
 				</div>

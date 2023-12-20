@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 <script>
 	
@@ -39,22 +39,34 @@
 				const roomNameSpace = executiveWrapper.querySelector(".roomNameSpace");
 				roomNameSpace.innerText = e.dormRoomDto.room_name;
 				
-				const button = document.createElement('button');
-				button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mx-2");
+				
+				const floorListSpace = executiveWrapper.querySelector(".floorListSpace");
+				floorListSpace.classList.add("d-grid")
 				
 				for(i of e.dormRoomListByDormFloorAndDormPkListAndNY){
-					const floorListSpace = executiveWrapper.querySelector(".floorListSpace");
-					floorListSpace.classList.add("d-grid")
+					
+					const button = document.createElement('button');
+					button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mx-2", "my-1");
 					
 					if(i.isCount == 0){
 						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + "배정"
-						button.classList.add("btn-outline-secondary");
-						button.setAttribute("onclick", "배정함수("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk+")");
+						button.classList.add("btn-primary");
+						button.onclick = function() {
+							registerManageRoom(i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk);
+						};
+						<%--
+						button.setAttribute("onclick", "배정함수("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk + '' + e.executiveDto.executive_pk+")");
+						--%>
 						floorListSpace.appendChild(button);
 					} else {
 						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + "배정 취소"
-						button.classList.add("btn-outline-danger");
+						button.classList.add("btn-danger");
+						button.onclick = function() {
+							배정취소함수(i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk);
+						};
+						<%--
 						button.setAttribute("onclick", "배정취소함수("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk+")");
+						--%>
 						floorListSpace.appendChild(button);
 					}
 				}
@@ -100,13 +112,13 @@
 					
 					if(i.isCount == 0){
 						button.innerText += i.dormRoomListByDormFloorAndDormPk.room_name + "배정"
-						button.classList.add("btn-outline-secondary");
-						button.setAttribute("onclick", "배정함수("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk+")");
+						button.classList.add("btn-primary");
+						button.setAttribute("onclick", "registerManageRoom("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk+")");
 						floorListSpace.appendChild(button);
 					} else{
 						button.innerText += i.dormRoomListByDormFloorAndDormPk.room_name + "배정 취소"
-						button.classList.add("btn-outline-danger");
-						button.setAttribute("onclick", "배정취소함수("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk+")");
+						button.classList.add("btn-danger");
+						button.setAttribute("onclick", "removeManageRoom("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk+")");
 						floorListSpace.appendChild(button);
 					}
 				}
@@ -115,6 +127,62 @@
 			}
 		})
 		
+	}
+	
+	function registerManageRoom(dorm_room_pk, executive_pk){
+		
+		const url = "./restRegisterExecutiveManagementRoom";
+		const option = {
+				method: "post",
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded"
+				},
+				body: "dorm_room_pk=" + dorm_room_pk + "&executive_pk=" + executive_pk
+		}
+		
+		fetch(url, potion)
+		.then(response => response.json())
+		.then(response => {
+			reloadExecutiveList();
+		})
+		
+	}
+	
+	function removeManageRoom(dorm_room_pk, executive_pk){
+		
+		const url = "./restRemoveExecutiveManagementRoom";
+		const option = {
+				method: "post",
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded"
+				},
+				body: "dorm_room_pk=" + dorm_room_pk + "&executive_pk=" + executive_pk
+		}
+		
+		fetch(url, potion)
+		.then(response => response.json())
+		.then(response => {
+			reloadExecutiveList();
+		})
+		
+	}
+	
+	
+	
+	
+	
+	
+	let selectedElement = null;
+	  
+	function toggleBackgroundColor(element) {
+	    if (selectedElement) {
+	    	selectedElement.classList.remove('selected', 'fw-bold', 'text-white');
+	    	selectedElement.style.backgroundColor  = '';
+	    }
+	
+	    element.classList.add('selected', 'fw-bold', 'text-white');
+	    element.style.backgroundColor = 'black';
+	    selectedElement = element;
 	}
 	
 	// 건물명 반복문
@@ -132,6 +200,9 @@
 				
 				const buildingNameWrapper = document.querySelector("#buildingTemplete .buildingNameWrapper").cloneNode(true);
 				buildingNameWrapper.setAttribute("onclick", "reloadExecutiveListByDormPk("+e.dorm_pk+")");
+				buildingNameWrapper.addEventListener('click', function() {
+					toggleBackgroundColor(this);
+				});
 				
 				const buildingName = buildingNameWrapper.querySelector(".buildingName");
 				buildingName.innerText = e.name;

@@ -11,6 +11,9 @@
 
 <script>
 
+var abc = 0;
+
+
 // 이력서 가져오기
 function getResumeDto(resume_pk){
 	const url = "./getResumeDto?resume_pk="+ resume_pk;
@@ -138,8 +141,45 @@ function getStudentInfoByResume(resume_pk){
 	});
 }
 
+function getIsPublicResumeList(department_pk){
+	console.log(department_pk);
+	const url = "./getIsPublicResumeList?department_pk="+department_pk;
+	fetch(url)
+	.then(response => response.json())
+	.then(response => {
+		
+		const publicResumeListBox = document.getElementById("publicResumeListBox");
+		publicResumeListBox.innerHTML = "";
+		
+		
+		for(e of response.data){
+			
+			const publicResumeWrapper = document.querySelector("#resumeListTemplete .publicResumeWrapper").cloneNode(true);
+			
+			
+			const modal_resume_title = publicResumeWrapper.querySelector(".modal_resume_title");
+			
+			modal_resume_title.innerText = e.resumeDto.resume_title;
+			
+			const modal_department = publicResumeWrapper.querySelector(".modal_department");
+			
+			modal_department.innerText = e.department;
+			
+			const modal_select_resume = publicResumeWrapper.querySelector(".modal_select_resume");
+			
+			modal_select_resume.setAttribute("onclick","showResume("+e.resumeDto.resume_pk+")")
+			
+			publicResumeListBox.appendChild(publicResumeWrapper);
+			
+			
+			
+		}
+	});
+}
 
-
+window.addEventListener("DOMContentLoaded", () => {
+	getIsPublicResumeList(abc);	
+});
 
 
 </script>
@@ -220,6 +260,17 @@ function getStudentInfoByResume(resume_pk){
 				<!-- 채용공고 -->
 				<div class="row">
 					<div class="col fs-4 fw-bold mt-4 pb-3 border-bottom border-3">공개된 이력서 목록</div>
+					<div class="col-3 mt-4 pb-3">
+						<select class="form-select" onchange="getIsPublicResumeList(this.value)">
+							
+							<option value="0">전체보기</option>
+							<c:forEach items="${departmentCategory }" var="category">
+								<option value="${category.department_pk }">${category.name }</option>
+							</c:forEach>
+							
+						</select>
+					</div>
+					
 				</div>
 			<%-- 	<div class="row mt-4 pb-3 border-bottom border-3 border-dark">
 					<div class="col-1 pt-1">
@@ -235,20 +286,8 @@ function getStudentInfoByResume(resume_pk){
 					<div class="col-1"></div>
 				</div>
 				<div class="row border mb-4">
-					<div class="col">
-						<c:forEach items="${resumeList }" var="list">
-							<div class="row border-bottom">
-								<div class="col-1"></div>
-								<div class="col-7 p-3 fw-bold fs-4">
-									${list.resumeDto.resume_title }
-								</div>
-								<div class="col p-3 fw-bold"> ${list.department }</div>
-								<div class="col p-3 ms-1">
-									<button onclick="showResume(${list.resumeDto.resume_pk})" type="button" class="btn btn-outline-dark">선택</button>
-								</div>
-								<div class="col-1"></div>
-							</div> 
-						</c:forEach>	
+					<div class="col" id="publicResumeListBox">
+						<%-- 이력서 리스트 나오는 자리 --%>	
 					</div>
 				</div>
 				
@@ -391,6 +430,20 @@ function getStudentInfoByResume(resume_pk){
 		</div>
 	</div>
 </div>	
+
+<div id="resumeListTemplete" class="d-none">
+	<div class="publicResumeWrapper row border-bottom">
+		<div class="col-1"></div>
+		<div class="modal_resume_title col-7 p-3 fw-bold fs-4">
+			이력서 제목
+		</div>
+		<div class="modal_department col p-3 fw-bold">학과이름</div>
+		<div class="col p-3 ms-1">
+		<button  type="button" class="modal_select_resume btn btn-outline-dark">선택</button>
+		</div>
+		<div class="col-1"></div>
+	</div> 
+</div>						
 	
 	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

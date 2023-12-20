@@ -51,7 +51,7 @@
 					
 					</div>
 				<!-- 리스트 출력 -->
-				<c:forEach items="${jopPostingForStudent}" var="jobPostingForStudent">
+				<c:forEach items="${jobPostingForStudent}" var="jobPostingForStudent">
 					<div class="row mt-3 pb-3 border-bottom">
 						<!-- 1번째 칸 -->
 						<div class="col-2 mt-2 ps-4">

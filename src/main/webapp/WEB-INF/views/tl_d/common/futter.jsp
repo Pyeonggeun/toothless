@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="row pt-5 pb-5" style="background-color: #808080">
+<div class="row py-5" style="background-color: #808080">
 	<div class="col-1 pt-1 pe-2 text-end">
         <img class="opacity-25" src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
     </div>

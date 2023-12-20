@@ -44,13 +44,12 @@
                                             <form id="frm" action="./studentBoardPage" method="get">
                                             <div class="row mt-4">
                                                 <div class="col">
-                                                    <span style="font-size: 120%; font-weight: bold;">Total</span>
-                                                    <span style="font-size: 80%;">${total }개</span> 
+                                                    <span style="font-size: 20px; font-weight: bold;">Total</span>
+                                                    <span style="font-size: 15px;">${total }개</span> 
                                                 </div>
                                                 <div class="col-2">
                                                     <select name="searchType" class="form-select" aria-label="Default select example">
-                                                        <option selected>항목</option>
-                                                        <option value="title">제목</option>
+                                                        <option selected value="title">제목</option>
                                                         <option value="content">내용</option>
                                                     </select>
                                                 </div>
@@ -58,12 +57,27 @@
                                                     <input id="inputComment" name="searchWord" class="form-control " type="text" placeholder="내용을검색하세요">
                                                 </div> 
                                                 <div class="col-1 text-start">
-                                                    <input type="button" onclick="formSubmit()" class="btn btn-outline-dark" value="검색">
+                                                    <input type="button" onclick="formSubmit()" class="btn btn-outline-primary" value="검색">
                                                 </div>
                                             </div>
                                             </form>
                                             <div class="row">
-                                                <div class="col text-start" style="font-size: 60%"><a href="../common/studentMainPage";>홈</a>>공지사항</div>
+                                                <div class="col text-start" style="font-size: 15px;">
+	                                                <a href="../common/studentMainPage";
+	                                                style="text-decoration:none;">
+	                                                홈
+	                                                </a>
+	                                                >공지사항
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col text-start" style="font-size: 20px;">
+	                                                <a href="./studentBoardTestPage";
+	                                                style="text-decoration:none; color: black">
+	                                                <i class="bi bi-file-text"></i>
+	                                                </a>
+	                                                 | <i class="bi bi-file-richtext-fill"></i>
+                                                </div>
                                             </div>
 
                                             <div class="row mx-5">
@@ -71,7 +85,7 @@
                                                 	<div class="row mt-4">
                                                         <div class="col">
                                                             <div class="row ">
-                                                                <div class="col fw-bold fs-5 text-center ">[ 인기 게시글 ]</div>
+                                                                <div class="col fw-bold fs-5 text-center" style="color:#015A9E">[ 인기 게시글 ]</div>
                                                             </div>
                                                                 <div class="row mt-3">
                                                                     <div class="col text-center">
@@ -97,12 +111,46 @@
                                                                         </c:if>
                                                                         </c:forEach>
                                                                     </div>
+                                                                    
                                                                 </div>  
                                                         </div>
-                                                        <div class="col-7"></div>
+                                                        	 <div class="col-7 text-center">
+                                                        	<div class="row mt-2">
+                                                        		<div class="col fw-bold fs-5 text-center text-danger ">
+                                                        		<i class="bi bi-asterisk"></i>
+                                                        			필독사항
+                                                        		<i class="bi bi-asterisk"></i>
+                                                        		</div>
+                                                        	</div>
+                                                        	<div class="row mt-3">
+                                                        		<div class="col fw-bold">
+                                                        			건전한 공지사항을 위해 아래항목은 꼭 지켜주세요!!
+                                                        		</div>
+                                                        	</div>
+                                                        	<div class="row mt-3">
+                                                        		<div class="col-2"></div>
+                                                        		<div class="col text-start">
+                                                        			1. 댓글은 공지사항과 관련된 글만 올려주세요
+                                                        			(불건전한 내용은 예고없이 삭제 처리 됩니다.) 
+                                                        		</div>
+                                                        	</div>
+                                                        	<div class="row">
+                                                        		<div class="col-2"></div>
+                                                        		<div class="col text-start">
+                                                        			2. 요청사항 및 건의사항은 s001lec@naver.com 으로 보내주세요.
+                                                        		</div>
+                                                        	</div>
+                                                        	<div class="row">
+                                                        		<div class="col-2"></div>
+                                                        		<div class="col text-start">
+                                                        			3. 게시글 대표이미지는 꼭 설정 부탁드립니다.
+                                                        		</div>
+                                                        	</div>
+                                                        </div>
+                                                        </div>
                                                     </div>
                                                     <div class="row mt-5">
-                                                   		<div class="col fw-bold fs-5 text-center">[ 공지사항 ]</div>
+                                                   		<div class="col fw-bold fs-5 text-center" style="color:#015A9E">[ 공지사항 ]</div>
                                                     </div>
 
                                                     <div class="row mt-2 my-3">
@@ -126,7 +174,6 @@
                                                                 	<a href="./studentAndStaffBoardReadPage?id=${notice.noticeboardDto.studentboard_pk }"
                                                                 		style="text-decoration:none;">
                                                                 		${notice.noticeboardDto.title }
-                                                                	
                                                                 	</a>
                                                                 	<c:if test="${notice.replyDto !=0 }">
                                                                         		&nbsp;[${notice.replyDto }]

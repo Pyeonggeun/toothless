@@ -59,23 +59,38 @@
 	
 	<!-- 공고리스트 출력(검색 포함) -->
  	<select id="selectPostingList" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
-		SELECT * 
-		FROM TL_D_JOB_POSTING tdjp 
-		WHERE 1 = 1
-		<if test="searchType != null">
-			<choose>
-				<when test="searchType == 'posting_name'">
-					AND tdjp.POSTING_NAME  LIKE '%' || #{searchWord} ||'%' 
-				</when>
-				<when test="searchType == 'job_position'">
-					AND tdjp.JOB_POSITION  LIKE '%' || #{searchWord} || '%'
-				</when>
-				<when test="searchType == 'posting_contents'">
-					AND tdjp.POSTING_CONTENTS LIKE '%' || #{searchWord} || '%'
-				</when>
-			</choose>  
+		SELECT * FROM TL_D_JOB_POSTING tdjp
+		
+		<!-- <if test="searchAddress != null"> 
+			INNER JOIN TL_D_COMPANY tdc ON tdjp.COM_PK = tdc.COM_PK
 		</if>
-		ORDER BY tdjp.CREATED_AT DESC  
+		<if test="searchField != null"> 
+			INNER JOIN TL_D_JOB_FIELD_CATEGORY tdjfc ON tdjp.JOB_FIELD_CATEGORY_PK = tdjfc.JOB_FIELD_CATEGORY_PK
+		</if>  -->
+		WHERE 1 = 1
+		
+		<choose>
+			<when test="searchType != null and searchType == 'posting_name'">
+				AND tdjp.POSTING_NAME LIKE '%' || #{searchWord} || '%'
+			</when>
+			<when test="searchType != null and searchType == 'posting_contents'">
+				AND tdjp.POSTING_CONTENTS LIKE '%' || #{searchWord} || '%'
+			</when>
+			<when test="searchPosition != null">
+				AND tdjp.JOB_POSITION LIKE '%' || #{searchPosition} || '%'
+			</when>
+			<!-- <when test="searchAddress != null">
+				AND tdc.COM_ADDRESS LIKE '%' || #{searchAddress} || '%'
+			</when>
+			<when test="searchField != null">
+				 AND (
+                <foreach collection="searchField" item="fieldCategory" separator=" OR ">
+                    tdjfc.JOB_FIELD_CATEGORY_NAME LIKE '%' || #{fieldCategory} || '%'
+                </foreach>
+            )
+			</when> -->
+		</choose>
+		ORDER BY tdjp.CREATED_AT DESC
 	</select> 
 	
 	
@@ -275,22 +290,18 @@
 	<select id="selectPostingListForCompanyMainPage" resultType="com.mkfactory.toothless.d.dto.JobPostingDto">
 		SELECT tdjp.* 
 		FROM TL_D_JOB_POSTING tdjp 
+		LEFT OUTER JOIN (
+		    SELECT t1.JOB_POSTING_PK 
+		    FROM (
+		        SELECT tdv.JOB_POSTING_PK, RANK() OVER (ORDER BY COUNT(*) DESC) as rnk
+		        FROM TL_D_VOLUNTEER tdv 
+		        GROUP BY tdv.JOB_POSTING_PK 
+		    ) t1
+		    <![CDATA[
+		    WHERE t1.rnk <= 4
+		    ]]>
+		) t2 ON tdjp.JOB_POSTING_PK = t2.JOB_POSTING_PK
 		WHERE tdjp.COM_PK = #{com_pk}
-		AND tdjp.JOB_POSTING_PK IN (
-			SELECT t2.JOB_POSTING_PK 
-			FROM(
-				SELECT t1.JOB_POSTING_PK 
-				FROM (
-					SELECT tdv.job_posting_pk 
-					FROM TL_D_VOLUNTEER tdv 
-					GROUP BY tdv.JOB_POSTING_PK 
-					ORDER BY count(*) DESC  
-				)t1
-				<![CDATA[
-				WHERE ROWNUM <= 4
-				]]>
-			)t2
-		)
 		ORDER BY tdjp.POSTING_DEADLINE ASC
 	</select>
 	

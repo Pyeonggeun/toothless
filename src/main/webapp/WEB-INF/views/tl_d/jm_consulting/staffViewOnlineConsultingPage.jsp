@@ -83,9 +83,9 @@
 					
 					//응답여부
 					var button_isAnswered = document.createElement('button');
-					button_isAnswered.style.width = '60%';
-					button_isAnswered.style.height = '50%';
-					button_isAnswered.style.fontSize = '0.8em';
+					button_isAnswered.style.width = '40%';
+					button_isAnswered.style.height = '20%';
+					button_isAnswered.style.fontSize = '1em';
 					isReply.isReply ? (
 							button_isAnswered.innerText = "답변완료",
 							button_isAnswered.classList.add('btn', 'btn-primary')
@@ -354,9 +354,9 @@
 										</div>
 									</div>
 									
-									<div class="row border border-bottom-0 pt-4">
+									<div class="row  text-center bg-secondary-subtle border border-bottom-0 py-4" style="font-size:1.1em;">
 										<div class="col">
-											<div class="row">
+											<div class="row fw-bold">
 												<div class="col">
 													온라인 상담 번호
 												</div>
@@ -370,22 +370,32 @@
 													응답여부
 												</div>
 												<div class="col">
-													링크
+													상세 정보
 												</div>								
 											</div>
 										</div>
 									</div>
 									
 									<%--붙이는 위치 --%>
-									<div class="row pt-4 border border-top-0">
+									<div class="row border border-top-0 text-center">
 										<div id="viewListLocation" class="col">
 				
 										</div>
 									</div>
 									
 									
+									
+									<div class="row mt-2" style="disaply:grid; align-items:right;">
+										<div class="col ps-0">
+											<a href="../common/staffMainPage">
+												<button type="button" class="btn btn-secondary">목록</button>
+											</a>
+										</div>
+									</div>										
+									
+									
 									<%--페이징 --%>
-									<div class="row ">
+									<div class="row text-center mt-5">
 										<div class="col ps-0">						
 										  <div class="btn-group me-2" role="group" aria-label="First group">
 											<button id="pagingLeft" onclick="reloadOnlineConsultingList(shared_isReply,shared_sortby,searchCategory.value,searchContents.value, currentPageNum.value)" type="button" class="btn btn-outline-primary">&lt;</button>
@@ -399,13 +409,7 @@
 									  </div>
 									</div>					
 														
-									<div class="row mt-5">
-										<div class="col ps-0">
-											<a href="../common/staffMainPage">
-												<button type="button" class="btn btn-primary">목록</button>
-											</a>
-										</div>
-									</div>						
+					
 								 </div>
 								<div class="col-2"></div>															 
 								</div>
@@ -433,22 +437,22 @@
 <!-- 리스트 템플릿 -->
 <div id="templete" class="d-none">							
 	<div class="row py-2 border-top wrapper" style="align-items:center;">
-			<div class="col wrapper_pk">
+			<div class="col wrapper_pk" style="font-size:0.9em;">
 				
 			</div>
-			<div class="col wrapper_name">
+			<div class="col wrapper_name" style="font-size:0.9em;">
 				
 			</div>
-			<div class="col wrapper_date">
+			<div class="col wrapper_date" style="font-size:0.9em;">
 			</div>
-			<div class="col wrapper_isAnswered">			
+			<div class="col wrapper_isAnswered"style="font-size:0.9em;">			
 			</div>	
 			<div class="col wrapper_link" >
 				<div class="row modalWrapper">
 					<div class="col">
 					
-						<button onclick="manageOnlineConsulting(this.value)" value="" type="button" class="privewModalLink btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_Link">
-							확인
+						<button onclick="manageOnlineConsulting(this.value)" value="" type="button" class="privewModalLink btn btn-light" data-bs-toggle="modal" data-bs-target="#modal_Link">
+							<i class="bi bi-box-arrow-right"></i>
 						</button>
 					
 					

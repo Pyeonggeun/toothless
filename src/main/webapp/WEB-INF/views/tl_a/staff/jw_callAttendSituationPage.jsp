@@ -73,6 +73,19 @@
 		
 	}
 	
+	let selectedElement = null;
+	  
+	function toggleBackgroundColor(element) {
+	    if (selectedElement) {
+	    	selectedElement.classList.remove('selected', 'fw-bold', 'text-white');
+	    	selectedElement.style.backgroundColor  = '';
+	    }
+	
+	    element.classList.add('selected', 'fw-bold', 'text-white');
+	    element.style.backgroundColor = 'black';
+	    selectedElement = element;
+	}
+	
 	// 건물명 반복문
 	function reloadBuildingName(){
 		
@@ -88,6 +101,9 @@
 				
 				const buildingNameWrapper = document.querySelector("#buildingTemplete .buildingNameWrapper").cloneNode(true);
 				buildingNameWrapper.setAttribute("onclick", "reloadCallSituationListByDormPk("+e.dorm_pk+")");
+				buildingNameWrapper.addEventListener('click', function() {
+					toggleBackgroundColor(this);
+				});
 				
 				const buildingName = buildingNameWrapper.querySelector(".buildingName");
 				buildingName.innerText = e.name;

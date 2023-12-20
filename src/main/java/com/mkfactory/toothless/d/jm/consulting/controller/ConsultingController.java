@@ -297,7 +297,6 @@ public class ConsultingController {
 	public String insertHJFProcess(HopeJobFeedbackDto par) {
 				
 		consultingService.insertHopeJobFeedback(par);
-		System.out.println(par.getHjf_score()+"점수");
 		
 		return"redirect:./hopeJobConsultingPage";
 	}
@@ -413,8 +412,8 @@ public class ConsultingController {
 	@RequestMapping("viewStudentListPage")
 	public String viewStudentListPage(Model model) {
 		
-		List<Map<String, Object>> hopeJobInfoList = consultingService.getHopeJobInfoList();
-		model.addAttribute("hopeJobInfoList", hopeJobInfoList);
+	//	List<Map<String, Object>> hopeJobInfoList = consultingService.getHopeJobInfoList();
+	//	model.addAttribute("hopeJobInfoList", hopeJobInfoList);
 		
 		return"tl_d/jm_consulting/viewStudentListPage";
 	}

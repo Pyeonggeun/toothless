@@ -37,6 +37,9 @@
      		loadStudentInfo(open_lecture_key);
      		lectureTestListInfo(open_lecture_key);
      		
+     		const goTestInfoPage = document.querySelector("#goTestInfoPage");
+     		goTestInfoPage.setAttribute("href", "./testInfoListPage?open_lecture_key="+open_lecture_key);
+     		
 		}
      	function loadStudentInfo(open_lecture_key) {
 			const url = "./lectureStudentList?open_lecture_key="+open_lecture_key;
@@ -109,14 +112,6 @@
     			}else{
     				nullAttendanceCount.innerText = response.data.nullAttendanceBookCount+" 건";
     			}
-    			
-    			
-    			 
-    			
-    			
-    			
-    			
-    			
     		});
 		}
      	
@@ -225,13 +220,13 @@
 			
 		}
      	function lectureTestListInfo(open_lecture_key) {
-			
+     		lectureTestListBox.innerHtml = "";
      		const url = "./getLectureTestList?open_lecture_key="+open_lecture_key;
      		fetch(url)
     		.then(response => response.json())
     		.then((response) => {
     			const lectureTestListBox = document.querySelector("#lectureTestListBox");
-    			lectureTestListBox.innerHtml = "";
+    			
     			if(response.data[0] == null){
     				lectureTestListBox.innerText = "등록되어있는 시험이 존재하지 않습니다.";
     				lectureTestListBox.classList.add("text-center" , "text-secondary");
@@ -263,6 +258,9 @@
 	        			
 	        			const maxStudentAndTotalStudent = testListWrapper.querySelector(".maxStudentAndTotalStudent");
 	        			maxStudentAndTotalStudent.innerText = e.testingStudentCount+"/"+e.lectureStudentCount
+	        			
+	        			const testListPageButton = testListWrapper.querySelector(".testListPageButton");
+	        			testListPageButton.setAttribute("onclick","location.href='../../tl_x/ic/testStudentListPage?lecture_test_key="+e.lectureTestDto.lecture_test_key+"'");
 	        			
 	        			lectureTestListBox.appendChild(testListWrapper);
 	    			}
@@ -1039,7 +1037,7 @@
                                     훈련일지 관리 
                                 </div>
                                 <div class="col text-end mt-1">
-                                    <a class="navbar-brand" href="#" style="font-size: small;">더보기+</a>
+                                    <a id="absenceManagementPage" class="navbar-brand" href="#" style="font-size: small;">더보기+</a>
                                 </div>
                             </div>
                             <div class="row bg-white overflow-y-auto" style="height: 12em;">
@@ -1113,9 +1111,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-5">
-                        <div class="col fw-bold fs-5 text-light" style="background-color: #133369;">
+                    <div class="row mt-5" style="background-color: #133369;">
+                        <div class="col fw-bold fs-5 text-light">
                             시험 출제 관리
+                        </div>
+                        <div class="col text-light text-end mt-1">
+                        	<a id="goTestInfoPage" class="navbar-brand" style="font-size: small;">더보기+</a>
                         </div>
                     </div>
                     <div class="row bg-white border border-black py-3 px-3">
@@ -1204,8 +1205,7 @@
 		         </div>
 	        </div>
 		</div>
-		
-		
+
 		<div id="attendanceModal" class="modal" tabindex="-1">
 			  <div class="modal-dialog">
 			    <div class="modal-content" style="width: 50em;">
@@ -1573,7 +1573,7 @@
 	              8명/19명
 	          </div>
           	  <div class="col border align-self-center py-2">
-            	  <button class="btn btn-outline-secondary py-0">상세보기</button>
+            	  <button class="btn btn-outline-secondary py-0 testListPageButton">상세보기</button>
         	  </div>
     	  </div>
      </div>

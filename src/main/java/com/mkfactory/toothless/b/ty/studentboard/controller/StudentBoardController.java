@@ -26,6 +26,38 @@ public class StudentBoardController {
 	@Autowired
 	private StaffBoardServiceImpl staffBoardService;
 	
+	@RequestMapping("studentBoardTestPage")
+	public String studentBoardTestPage(Model model, StudentboardLikeDto likeDto, StudentboardDto params, 
+			   String searchType,
+			   String searchWord
+				){
+		int total = staffBoardService.totalList(params);
+		int aa = staffBoardService.upAndDownCount(likeDto);
+		
+		
+		List<Map<String, Object>>list=staffBoardService.boardNoticeList(searchType, searchWord);
+		List<Map<String, Object>>readList = staffBoardService.bestRead();
+		
+		model.addAttribute("aa" , aa);
+		model.addAttribute("noticeList", list);
+		model.addAttribute("total", total);
+		model.addAttribute("readList", readList);
+		
+		System.out.println(list);
+		System.out.println("aa =" + aa);
+		System.out.println("total =" + total);
+		
+		return"tl_b/ty/studentBoardTestPage";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping("studentBoardPage")
 	public String studentBoardPage(Model model, StudentboardLikeDto likeDto, StudentboardDto params,
 		   String searchType,

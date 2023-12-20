@@ -18,6 +18,7 @@ import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.dto.VolunteerDto;
 import com.mkfactory.toothless.d.ny.posting.mapper.PostingSqlMapper;
 import com.mkfactory.toothless.d.sb.resume.mapper.ResumeSqlMapper;
+import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @Service
@@ -336,6 +337,37 @@ public class ResumeServiceImpl {
 		
 		return student;
 		
+	}
+	
+	// 학과카테고리 가져오기
+	public List<DepartmentCategoryDto> getDepartmentCategory() {
+		List<DepartmentCategoryDto> list = resumeSqlMapper.getDepartmentCategory();
+		
+		return list;
+	}
+	
+	public List<Map<String,Object>> getResumeDtoListByDepartmentPk(int department_pk){
+		
+		
+		
+		List<Map<String,Object>> resumeList = new ArrayList<Map<String,Object>>();
+		
+		List<ResumeDto> list = resumeSqlMapper.getResumeDtoListByDepartmentPk(department_pk);
+		
+		for(ResumeDto resumeDto : list ) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			int resume_pk = resumeDto.getResume_pk();
+			String departmentName = resumeSqlMapper.getStudentDepartmentNameByResumePk(resume_pk);
+			
+			map.put("resumeDto", resumeDto);
+			map.put("department", departmentName );
+			
+			resumeList.add(map);
+		}
+		
+		
+		
+		return resumeList;
 	}
 	
 
