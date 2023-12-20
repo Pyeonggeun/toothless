@@ -52,9 +52,13 @@ var shared_sortHJFScore;
 				
 				
 				//모달
+				
+				const iconElement = document.createElement('i');
+				iconElement.classList.add('bi','bi-info-lg');
 				const modal_link_button = listWrapper.querySelector(".modal_link_button");
+				modal_link_button.classList.add('btn','btn-light');
 				modal_link_button.value = e.hopeJobFeedbackDto.hope_job_feedback_pk;
-
+				modal_link_button.appendChild(iconElement);
 				listOutput.appendChild(listWrapper);
 				}
 							
@@ -133,47 +137,46 @@ var shared_sortHJFScore;
 									학생 만족도 조사 리스트
 								</div>
 							</div>
-							<div class="row mt-5 border py-2">
-								<div class="col-2 fw-bold">
-									평균 평점
-								</div>
-								<div class="col-2 pe-0" style="text-align:left">
+							<div class=" border-secondary-subtle row mt-5 border py-3" style="font-size:1.1em;">
+
+								<div class="col pe-0" style="text-align:start">
 									<c:choose>
 										<c:when test="${avgScore==null }">
-											완료된 만족도 조사가 없습니다.
+											평균 평점 <span class="fw-bold text-danger">완료된 만족도 조사가 없습니다.</span>
 										</c:when>
 										
 										<c:otherwise>
-											<span>${avgScore}점</span>
+											평균 평점 <span class="fw-bold text-danger">${avgScore}점</span>
 										</c:otherwise>
 									</c:choose>
 								</div>
 								<div class="col"></div>
-								<div class="col-5">
+								<div class="col-7">
 									<div class="row">
+										<div class="col-6"></div>
 										<div class="col">
-											<input onclick="reloadlist(this.value)" type="radio" name="sortHJFScore" value="sortLow"${sortHJFScore == 'sortLow' ? 'checked' : null }>평점 낮은순
+											<input onclick="reloadlist(this.value)" type="radio" name="sortHJFScore" value="sortLow"${sortHJFScore == 'sortLow' ? 'checked' : null }>&nbsp;평점 낮은순
 										</div>
 										<div class="col"> 
-											<input onclick="reloadlist(this.value)" type="radio" name="sortHJFScore" value="sortHigh" ${sortHJFScore == 'sortHigh' ? 'checked' : null }>평점 높은순
+											<input onclick="reloadlist(this.value)" type="radio" name="sortHJFScore" value="sortHigh" ${sortHJFScore == 'sortHigh' ? 'checked' : null }>&nbsp;평점 높은순
 										</div>															
 									</div>
 								</div>																		
 							</div>
 							
-							<div class="row border pb-0" style="font-size:1.2em;">
+							<div class="row mt-5 pb-0" style="font-size:1.2em;">
 								<div class="col">
-									<div class="row border-bottom py-2">
-										<div class="col border-end">
+									<div class="row border-bottom border-2 border-secondary fw-bold py-2 text-center">
+										<div class="col">
 											만족도조사 번호			
 										</div>
-										<div class="col border-end">
+										<div class="col">
 											학생 이름			
 										</div>
-										<div class="col border-end">
+										<div class="col">
 											점수			
 										</div>
-										<div class="col border-end">
+										<div class="col">
 											설문일			
 										</div>
 										<div class="col">
@@ -194,9 +197,9 @@ var shared_sortHJFScore;
 							</div>	
 							
 							<div class="row mt-4">
-								<div class="col ps-0">
-									<a class="navbar-brand" href="./jmTempStaffMainPage">
-										<button type="button" class="btn btn-primary">목록</button>
+								<div class="col text-end">
+									<a class="navbar-brand" href="../common/staffMainPage">
+										<button type="button" class="btn btn-primary">메인페이지로</button>
 									</a>
 								</div>
 							</div>	
@@ -210,28 +213,35 @@ var shared_sortHJFScore;
 			</div>
 		</div>
 	</div>
+	<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+	<!-- futter -->
+	<div class="row">
+		<div class="col">
+			<jsp:include page="../common/futter.jsp"></jsp:include>
+		</div>
+	</div>	
 </div>
 
 <%-- 리스트 템플릿 --%>
 <div id="listTemplete" class="d-none">
 
-			<div class="row listWrapper border-bottom">
-				<div class="col list_pk py-2 border-end">
+			<div class="row listWrapper d-flex align-items-center border-bottom border-secondary-subtle">
+				<div class="col list_pk py-2 text-center fw-bold">
 
 				</div>
-				<div class="col list_name border-end py-2">
+				<div class="col list_name py-2 text-center">
 					
 				</div>
-				<div class="col list_score border-end py-2">
+				<div class="col list_score py-2 text-center">
 					
 				</div>
-				<div class="col list_date border-end py-2">
+				<div class="col list_date py-2 text-center">
 					
 				</div>
-				<div class="col list_link border-end py-2">
+				<div class="col list_link py-2 text-center">
 					<!-- Button trigger modal -->
 					<button value="" onclick="detailFeedback(this.value);" type="button" class="btn btn-primary modal_link_button" data-bs-toggle="modal" data-bs-target="#modal_link">
-					  이동
+					  
 					</button>
 					
 					<!-- Modal -->
@@ -278,15 +288,15 @@ var shared_sortHJFScore;
 											${detailHJFInfo.hopeJobFeedbackDto.hjf_score }
 										</div>												
 									</div>
-									<div class="row">
+									<div class="row mt-5">
 										<div class="col">
-											<div class="row fw-bold py-2 border-bottom">
-												<div class="col">
+											<div class="row fw-bold py-2 border-bottom text-start">
+												<div class="col ms-3">
 													기타사항
 												</div>
 											</div>
 											<div class="row mt-3">
-												<div class="col detail_feedback_comment">
+												<div class="col ms-3 detail_feedback_comment text-start">
 													<textarea rows="20" cols="55"></textarea>
 												</div>
 											</div>											
@@ -311,6 +321,7 @@ var shared_sortHJFScore;
 					</div>				
 				</div>											
 			</div>
+
 
 </div>
 

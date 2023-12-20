@@ -81,20 +81,27 @@
 						<!-- 공고 지원한 학생목록 -->
 						<div class="row border-bottom border-2">
 							<div class="col fs-5 fw-bold mt-5 pb-1">상담이력</div>
-							<div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div>
+							<div class="col fs-5 fw-bold mt-5 text-end"><a href="../jm_consulting/myOnlineConsultingListPage"><i class="bi bi-plus-lg"></i></a></div>
 						</div>
 						
 						<c:choose>
-							<c:when test="${getMyOnlineConsultingListNumFive!=null}">
+							<c:when test="${getMyOnlineConsultingListNumFive.size()==0}">
+								<span class="fw-bold mt-3 text-center">상담이력이 없습니다!</span>
+							</c:when>
+							
+							<c:when test="${getMyOnlineConsultingListNumFive==null}">
+								<span class="fw-bold mt-3 text-center">상담이력이 없습니다!</span>
+							</c:when>							
+							
+							<c:otherwise>
 								<c:forEach items="${getMyOnlineConsultingListNumFive }" var="e">
-								
+									
 									<div class="row my-3 border-bottom">
 										<div class="col">
 											<!-- 상담 번호 -->
 											<div class="row pb-2">
 												<div class="col-3 ms-2">No.<span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
 												<div class="col ms-2">
-													${sessionStudentInfo.name}				
 												</div>
 												<div class="col ms-2">
 													<c:choose>
@@ -110,15 +117,11 @@
 													<fmt:formatDate pattern="yyyy-MM-dd" value="${e.onlineConsultingDto.created_at}"/>
 												</div>			
 											</div>
-											<!-- 이름 -->
+											
 										
 										</div>
 									</div>
-								  </c:forEach>								
-							</c:when>
-							
-							<c:otherwise>
-								<span class="fw-bold mt-3">상담이력이 없습니다!</span>
+								  </c:forEach>																
 							</c:otherwise>
 							
 						</c:choose>
