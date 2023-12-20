@@ -39,34 +39,33 @@
 				const roomNameSpace = executiveWrapper.querySelector(".roomNameSpace");
 				roomNameSpace.innerText = e.dormRoomDto.room_name;
 				
-				
 				const floorListSpace = executiveWrapper.querySelector(".floorListSpace");
 				floorListSpace.classList.add("d-grid")
 				
 				for(i of e.dormRoomListByDormFloorAndDormPkListAndNY){
-					
+					console.log(i.isCount)
 					const button = document.createElement('button');
 					button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mx-2", "my-1");
 					
 					if(i.isCount == 0){
 						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + "배정"
 						button.classList.add("btn-primary");
-						button.onclick = function() {
-							registerManageRoom(i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk);
-						};
-						<%--
-						button.setAttribute("onclick", "배정함수("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk + '' + e.executiveDto.executive_pk+")");
-						--%>
+						button.setAttribute("onclick", "registerManageRoom("+
+							"'" +
+							i.dormRoomListByDormFloorAndDormPk.dorm_room_pk +
+							"', '" +
+							e.executiveDto.executive_pk +
+						"')");
 						floorListSpace.appendChild(button);
 					} else {
 						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + "배정 취소"
 						button.classList.add("btn-danger");
-						button.onclick = function() {
-							배정취소함수(i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk);
-						};
-						<%--
-						button.setAttribute("onclick", "배정취소함수("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk+")");
-						--%>
+						button.setAttribute("onclick", "removeManageRoom("+
+							"'" +
+							i.dormRoomListByDormFloorAndDormPk.dorm_room_pk +
+							"', '" +
+							e.executiveDto.executive_pk +
+						"')");
 						floorListSpace.appendChild(button);
 					}
 				}
@@ -103,22 +102,28 @@
 				const roomNameSpace = executiveWrapper.querySelector(".roomNameSpace");
 				roomNameSpace.innerText = e.dormRoomDto.room_name;
 				
-				const button = document.createElement('button');
-				button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mb-1", "mx-2");
+				const floorListSpace = executiveWrapper.querySelector(".floorListSpace");
+				floorListSpace.classList.add("d-grid")
 				
 				for(i of e.dormRoomListByDormFloorAndDormPkListAndNY){
-					const floorListSpace = executiveWrapper.querySelector(".floorListSpace");
-					floorListSpace.classList.add("d-grid")
+					console.log(i.isCount)
+					const button = document.createElement('button');
+					button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mx-2", "my-1");
 					
 					if(i.isCount == 0){
-						button.innerText += i.dormRoomListByDormFloorAndDormPk.room_name + "배정"
+						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + "배정"
 						button.classList.add("btn-primary");
-						button.setAttribute("onclick", "registerManageRoom("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk+")");
+						button.setAttribute("onclick", "registerManageRoom("+
+							"'" + i.dormRoomListByDormFloorAndDormPk.dorm_room_pk + "', '" + e.executiveDto.executive_pk + "')"
+						);
 						floorListSpace.appendChild(button);
-					} else{
-						button.innerText += i.dormRoomListByDormFloorAndDormPk.room_name + "배정 취소"
+					} else {
+						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + "배정 취소"
 						button.classList.add("btn-danger");
-						button.setAttribute("onclick", "removeManageRoom("+i.dormRoomListByDormFloorAndDormPk.dorm_room_pk, e.executiveDto.executive_pk+")");
+						button.setAttribute("onclick", "removeManageRoom("+
+							"'" + i.dormRoomListByDormFloorAndDormPk.dorm_room_pk +
+							"', '" + e.executiveDto.executive_pk +
+						"')");
 						floorListSpace.appendChild(button);
 					}
 				}
@@ -132,15 +137,19 @@
 	function registerManageRoom(dorm_room_pk, executive_pk){
 		
 		const url = "./restRegisterExecutiveManagementRoom";
+		const params = new URLSearchParams();
+		params.append('dorm_room_pk', dorm_room_pk);
+		params.append('executive_pk', executive_pk);
+
 		const option = {
-				method: "post",
-				headers: {
-					"Content-Type": "application/x-www-form-urlencoded"
-				},
-				body: "dorm_room_pk=" + dorm_room_pk + "&executive_pk=" + executive_pk
-		}
+			method: "POST",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded"
+			},
+			body: params
+		};
 		
-		fetch(url, potion)
+		fetch(url, option)
 		.then(response => response.json())
 		.then(response => {
 			reloadExecutiveList();
@@ -151,26 +160,25 @@
 	function removeManageRoom(dorm_room_pk, executive_pk){
 		
 		const url = "./restRemoveExecutiveManagementRoom";
+		const params = new URLSearchParams();
+		params.append('dorm_room_pk', dorm_room_pk);
+		params.append('executive_pk', executive_pk);
+
 		const option = {
-				method: "post",
-				headers: {
-					"Content-Type": "application/x-www-form-urlencoded"
-				},
-				body: "dorm_room_pk=" + dorm_room_pk + "&executive_pk=" + executive_pk
-		}
+			method: "POST",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded"
+			},
+			body: params
+		};
 		
-		fetch(url, potion)
+		fetch(url, option)
 		.then(response => response.json())
 		.then(response => {
 			reloadExecutiveList();
 		})
 		
 	}
-	
-	
-	
-	
-	
 	
 	let selectedElement = null;
 	  

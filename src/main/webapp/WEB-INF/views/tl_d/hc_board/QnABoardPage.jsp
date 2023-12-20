@@ -8,8 +8,12 @@
 <meta charset="UTF-8">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-<title>NoticeMainPage</title>
+<title>	QnABoardPage</title>
 </head>
+
+
+
+
 <body>
 	
 
@@ -41,39 +45,38 @@
 		 --%>
 		
 		<div class="row">
-			<div class="col-1"></div>
-			<div class="col-1 me-5">
+			<div class="col-2">
 				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 			</div>
 			<div class="col-1 border-start"></div>
 			<%-- 내용 시작 --%>
 			<div class="col">
 			<%-- 공지사항 칸 --%>
-				<div class="row  border-bottom border-4 border-dark mb-5 pt-3 ">
-					<div class="col fw-bold fs-3">QnA게시판</div>															
+				<div class="row  border-bottom border-2 border-grey mb-5 pt-3 ">
+					<div class="col fw-bold fs-3">공지사항</div>															
 				</div>
-				<div class="row border-4 border-bottom border-black">
-					<div class="col mb-1 fw-bold">글번호</div>
-					<div class="col fw-bold ps-3 text-center">제목</div>
-					<div class="col fw-bold text-end pe-5">작성자</div>
+				<div class="row border-2 border-top border-black bg-body-secondary pt-3">
+					<div class="col mb-3 fw-bold">글번호</div>
+					<div class="col fw-bold">제목</div>
+					<div class="col fw-bold">작성자</div>
 					<div class="col fw-bold">작성일</div>
 				</div>
 				
-				<div class="row border">
+				<div class="row">
 					<div class="col">
 						<c:forEach items="${list }" var="map">
-							<div class="row">
-								<div class="col-1 border-end mb-2">
-									${map.qnaBoardDto.board_pk }	
+							<div class="row border-bottom mt-4 ">
+								<div class="col-1 mb-3">
+									${map.qnaBoardDto.board_pk }
 								</div>
-								<div class="col border-end">
-								<td><a class="navbar-brand" href="./readPage?board_pk=${map.qnaBoardDto.board_pk }">
-								${map.qnaBoardDto.board_title }</a></td>
+								<div class="col  mb-3">
+								<a  class="navbar-brand"  href="./readPage?board_pk=${map.qnaBoardDto.board_pk }">
+									${map.qnaBoardDto.board_title }</a>
 								</div>
-								<div class="col-2 border-end">
+								<div class="col-3 mb-3 fw-bold">
 									${map.staffInfoDto.name}
 								</div>
-								<div class="col-3">
+								<div class="col-3 mb-3">
 								<fmt:formatDate value="${map.qnaBoardDto.created_at }" pattern="yyyy-MM-dd"/>	
 								</div>
 							</div>
@@ -84,12 +87,30 @@
 				<div class="row pt-3">
 					<div class="col">
 						<div class="row text-end">
+							<div class="col"></div>
 							<div class="col ">
+								<nav aria-label="Page navigation example">
+								  <ul class="pagination">
+								    <li class="page-item">
+								      <a class="page-link" href="#" aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+								    <li class="page-item"><a class="page-link" href="#">1</a></li>
+								    <li class="page-item"><a class="page-link" href="#">2</a></li>
+								    <li class="page-item"><a class="page-link" href="#">3</a></li>
+								    <li class="page-item">
+								      <a class="page-link" href="#" aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
+								  </ul>
+								</nav>
 							</div>
 							<div class="col">									
 								<form action="./BoardWritePage">
 									<button type="submit" class="btn btn-primary">
-										<i class="bi bi-pencil-fill"></i> 글작성
+										<i class="bi bi-pencil-fill">글작성</i> 
 									</button>
 									<!-- <input type="submit" value="글작성"> -->
 								</form>

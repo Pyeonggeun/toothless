@@ -171,7 +171,7 @@ public class RestLifeStaffControllerMj {
 	public Mj_RestResponseDto getAllStudentInfoList() {
 		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
 	
-		// 전체강사목록 + 강사별 가능한 교육과정 리스트
+		// 전체학생목록
 		List<LifeStudentDto> allStudentInfoList = lifeStaffService.getAllStudentInfoList();
 		restResponseDto.addData("allStudentInfoList", allStudentInfoList);
 		
@@ -432,6 +432,10 @@ public class RestLifeStaffControllerMj {
 		List<LectureCategoryDto> lectureCategoryList = lifeStaffService.getLectureCategory();
 		restResponseDto.addData("lectureCategoryList", lectureCategoryList);
 		
+		// 전체학생 리스트
+		List<LifeStudentDto> allStudentInfoList = lifeStaffService.getAllStudentInfoList();
+		restResponseDto.addData("allStudentInfoList", allStudentInfoList);
+		
 		
 		restResponseDto.setResult("success");
 		return restResponseDto;	
@@ -475,6 +479,21 @@ public class RestLifeStaffControllerMj {
 		restResponseDto.setResult("success");
 		return restResponseDto;	
 	}
+	
+	
+	// 수강신청 된 강의는 수정불가하게
+	@RequestMapping("getNoUpdateLectureList")
+	public Mj_RestResponseDto getNoUpdateLectureList() {
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+		
+		List<OpenLectureDto> noUpdateLectureList = lifeStaffService.getNoUpdateLecture();
+		restResponseDto.addData("noUpdateLectureList", noUpdateLectureList);
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;	
+	}
+	
+	
 	
 	// 개설 강의 정보 삭제(모달창에서)
 	@RequestMapping("deleteOpenLectureInfo")
