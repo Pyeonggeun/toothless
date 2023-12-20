@@ -35,6 +35,13 @@
 			const generalResumeListBox = document.getElementById("generalResumeListBox");
 			generalResumeListBox.innerHTML = "";
 			
+			if(response.data.length ==0){
+				generalResumeListBox.innerText ="등록된  이력서가 없습니다.";
+				return;
+			}
+			
+			
+			
 			for(e of response.data){
 				
 				const generalResumeWrapper = document.querySelector("#templeteGeneral .generalResumeWrapper").cloneNode(true);
@@ -76,9 +83,14 @@
 		.then(response => {
 			
 			const resumeDto = response.data;
-			
 			const mainResumeBox = document.getElementById("mainResumeBox");
 			mainResumeBox.innerHTML = "";
+			if(resumeDto == null){
+				mainResumeBox.innerText ="등록된 메인 이력서가 없습니다.";
+				return;
+			}
+			
+			
 			
 			const mainResumeWrapper = document.querySelector("#templeteMain .mainResumeWrapper").cloneNode(true);
 			
@@ -413,6 +425,7 @@
 						<div class="row mt-3">
 							<div id="mainResumeBox" class="col">
 								<%-- 메인 이력서 나오는 위치 --%>
+
 							</div>	
 						</div>	
 					</div>

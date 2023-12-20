@@ -374,7 +374,21 @@ public class ResumeController {
 	public String postApplyListPage(HttpSession session, Model model) {
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
-		int student_pk = studentInfoDto.getStudent_pk();
+		if(studentInfoDto != null) {
+			int student_pk = studentInfoDto.getStudent_pk();
+			
+			List<Map<String, Object>> list = resumeService.getPostAndCompanyList(student_pk);
+			model.addAttribute("postAndCompanyList", list);
+			
+			model.addAttribute("applyCount", resumeService.getCountForStudentApplyList(student_pk));
+			
+			return "tl_d/sb_resume/postApplyListPage";
+		
+		}else {
+			return "redirect:../../another/student/loginPage";
+		}
+		
+		
 		
 //		List<JobPostingDto> postList = resumeService.getPostApplyList(student_pk);
 //		model.addAttribute("postList", postList);
@@ -382,14 +396,9 @@ public class ResumeController {
 //		List<CompanyDto> companyDtoList = resumeService.getCompanyDtoListByStudentPk(student_pk);
 //		model.addAttribute("companyList", companyDtoList);
 		
-		List<Map<String, Object>> list = resumeService.getPostAndCompanyList(student_pk);
-		model.addAttribute("postAndCompanyList", list);
 		
 		
 		
-		model.addAttribute("applyCount", resumeService.getCountForStudentApplyList(student_pk));
-		
-		return "tl_d/sb_resume/postApplyListPage";
 	}
 	
 	// 공고 지원 취소

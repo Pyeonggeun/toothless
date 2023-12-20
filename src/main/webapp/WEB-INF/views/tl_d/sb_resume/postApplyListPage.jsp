@@ -45,48 +45,68 @@
 						</select>
 					</div>
 				</div>
+				<c:choose>
+					<c:when test="${applyCount == 0}">
+						
+						<div class="row p-3">
+							<div class="col text-center fw-bold fs-4">
+								지원한 공고가 없습니다.	
+							</div>
+						</div>
+						
+						
+					</c:when>
+					
+					<c:otherwise>
+					
+						<c:forEach items="${postAndCompanyList }" var="list">
+						<div class="row my-3 border-bottom">
+							<div class="col-2">
+								<!-- 회사 이름 -->
+								<div class="row">
+									<div class="col ms-2">${list.companyDto.com_name }</div>
+								</div>
+								<!-- 가족기업여부 -->
+								<div class="row mb-2">
+									<div class="col ms-2">
+										<c:if test="${list.companyDto.is_family_company ne null and list.companyDto.is_family_company eq 'Y'}">
+											<span class="badge text-bg-info text-white">Family</span>
+										</c:if>						
+									</div>
+								</div>
+							</div>
+							<div class="col-8">
+								<!-- 공고 제목 -->
+								<div class="row">
+									<div class="col">
+										<a class="navbar-brand" href="../ny_posting/jobPostingDetailForStudentPage?id=${list.postDto.job_posting_pk }">
+										${list.postDto.posting_name }
+										</a>
+									</div>
+								</div>
+								<!-- #카테고리 #콘텐츠 #주소 지역 #마감일 -->
+								<div class="row mb-3">
+									<div class="col">
+										<span class="text-secondary">#&nbsp;${list.jfcDto.job_field_category_name} #&nbsp;${list.postDto.job_position}
+										#&nbsp;${list.companyDto.com_address} #&nbsp;<fmt:formatDate value="${list.postDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
+									</div>
+								</div>
+							</div>
+							<div class="col">
+								<form action="./cancleApplyProcess" method="get">
+									<input type="hidden" name="job_posting_pk" value="${list.postDto.job_posting_pk }">
+									<button type="submit" class="btn btn-danger">지원 취소</button>
+								</form>
+							</div>
+						</div>
+					</c:forEach>
+					
+					
+					</c:otherwise>
+				</c:choose>
 				
-				<c:forEach items="${postAndCompanyList }" var="list">
-					<div class="row my-3 border-bottom">
-						<div class="col-2">
-							<!-- 회사 이름 -->
-							<div class="row">
-								<div class="col ms-2">${list.companyDto.com_name }</div>
-							</div>
-							<!-- 가족기업여부 -->
-							<div class="row mb-2">
-								<div class="col ms-2">
-									<c:if test="${list.companyDto.is_family_company ne null and list.companyDto.is_family_company eq 'Y'}">
-										<span class="badge text-bg-info text-white">Family</span>
-									</c:if>						
-								</div>
-							</div>
-						</div>
-						<div class="col-8">
-							<!-- 공고 제목 -->
-							<div class="row">
-								<div class="col">
-									<a class="navbar-brand" href="../ny_posting/jobPostingDetailForStudentPage?id=${list.postDto.job_posting_pk }">
-									${list.postDto.posting_name }
-									</a>
-								</div>
-							</div>
-							<!-- #카테고리 #콘텐츠 #주소 지역 #마감일 -->
-							<div class="row mb-3">
-								<div class="col">
-									<span class="text-secondary">#&nbsp;${list.jfcDto.job_field_category_name} #&nbsp;${list.postDto.job_position}
-									#&nbsp;${list.companyDto.com_address} #&nbsp;<fmt:formatDate value="${list.postDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
-								</div>
-							</div>
-						</div>
-						<div class="col">
-							<form action="./cancleApplyProcess" method="get">
-								<input type="hidden" name="job_posting_pk" value="${list.postDto.job_posting_pk }">
-								<button type="submit" class="btn btn-danger">지원 취소</button>
-							</form>
-						</div>
-					</div>
-				</c:forEach>
+				
+				
 
 
 						
