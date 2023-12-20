@@ -43,7 +43,10 @@
      		const absenceManagementPage = document.querySelector("#absenceManagementPage");
      		absenceManagementPage.setAttribute("href", "./attendanceStudentListPage?open_lecture_key="+open_lecture_key);
      		
-		}
+			const goStudentTotalListPage = document.querySelector("#goStudentTotalListPage");
+			goStudentTotalListPage.setAttribute("href", "./lectureStudentInfoListPage?open_lecture_key="+open_lecture_key);
+     	
+     	}
      	function loadStudentInfo(open_lecture_key) {
 			const url = "./lectureStudentList?open_lecture_key="+open_lecture_key;
 			fetch(url)
@@ -160,7 +163,6 @@
 				const max_studentAndCurrentStudent = document.querySelector("#max_studentAndCurrentStudent");
 				max_studentAndCurrentStudent.innerText = response.data.lectureStudentCount+"/"+response.data.openLectureDto.max_student
 				
-				const lectureStudentCount = document.querySelector("#lectureStudentCount");
 				
     		});
      	}
@@ -476,6 +478,8 @@
     				insertButton.classList.remove("disable", "btn-outline-secondary");
     				insertButton.classList.add("btn-primary");
     				insertButton.innerText = "저장하기";
+    				
+    				 
     				
     				
     				studentAttendanceWrite(open_lecture_key);
@@ -1076,7 +1080,7 @@
                                     수강생 관리
                                 </div>
                                 <div class="col text-end mt-1">
-                                    <a class="navbar-brand" href="#" style="font-size: small;">더보기+</a>
+                                    <a id="goStudentTotalListPage"class="navbar-brand" href="#" style="font-size: small;">더보기+</a>
                                 </div>
                             </div>
                             <div class="row bg-white overflow-y-auto" style="height: 12em;">
@@ -1313,7 +1317,7 @@
                 <div class="modal-header py-2" style="background-color: #133369;">
                  <div class="row">
                     <div id="testModalLectureName"class="col text-light">
-                        강의 명 시험 출제
+                       
                     </div>
                  </div>
                   <button onclick="hideTestWriteModal()" type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1365,7 +1369,7 @@
                                 평가 내용(카테고리)
                             </div>
                             <div id="studyCategory" class="col-8 text-start border py-3">
-                                JavaScript의 이해
+                                
                             </div>
                         </div>
                     </div>
@@ -1375,7 +1379,7 @@
                                 훈련교사
                             </div>
                             <div id="testOpenLecturerName" class="col-8 text-start border py-3">
-                                이민규
+                                
                             </div>
                         </div>
                     </div>
@@ -1559,21 +1563,21 @@
 	 </div>
 	 
 	 <div id="lecutreTestListTemplete" class="d-none">
-		  <div class="row fw-bold text-center testListWrapper">
+		  <div class="row text-center testListWrapper">
 	          <div class="col-1 border align-self-center border py-2 testNumber">
-	              1
+	              
 	          </div>
 	          <div class="col-4 border align-self-center border py-2 testName">
-	              인춘이와 함께 춤을
+	              
 	          </div>
 	          <div class="col border align-self-center border py-2 open_date">
-	              2023.12.12
+	              
 	          </div>
 	          <div class="col border align-self-center border py-2 close_date">
-	              2023.12.20
+	              
 	          </div>
 	          <div class="col border align-self-center border py-2 my-0 maxStudentAndTotalStudent">
-	              8명/19명
+	              
 	          </div>
           	  <div class="col border align-self-center py-2">
             	  <button class="btn btn-outline-secondary py-0 testListPageButton">상세보기</button>

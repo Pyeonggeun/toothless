@@ -109,7 +109,12 @@
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/company/ajdksCompanyFreeboardPostingPage'">&gt;&nbsp;자유게시판</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/company/ajdksCompanyFreeboardPostingPage'">&gt;&nbsp;현장실습 프로그램 안내</span>
+					</div>
+				</div>
+				<div class="row py-2 ps-2">
+					<div class="col ps-4">
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/company/ajdksCompanyQnApage'">&gt;&nbsp;Q&A</span>
 					</div>
 				</div>
 			</div>

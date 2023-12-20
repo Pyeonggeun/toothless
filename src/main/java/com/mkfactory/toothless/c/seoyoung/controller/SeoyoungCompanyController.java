@@ -134,5 +134,19 @@ public class SeoyoungCompanyController {
 		
 	}
 	
+	@RequestMapping("ajdksCompanyFreeboardPostingPage")
+	public String ajdksCompanyFreeboardPostingPage() {
+
+		return "tl_c/seoyoung/company/ajdksCompanyFreeboardPostingPage";
 	
+		
+	}
+	
+	@RequestMapping("ajdksCompanyQnApage")
+	public String ajdksCompanyQnApage() {
+
+		return "tl_c/seoyoung/company/ajdksCompanyQnApage";
+	
+		
+	}
 }
