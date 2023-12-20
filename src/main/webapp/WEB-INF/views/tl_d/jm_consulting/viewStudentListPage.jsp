@@ -11,18 +11,23 @@
 <title>Insert title here</title>
 
 <script>
-function reloadlist(){
+//var shared_searchType ;
+//var shared_searchContents ;
+function reloadlist(searchType,searchContents){
 	
-	url='./viewStudentList'
+	url='./viewStudentList?searchType='+ searchType + "&searchContents=" + searchContents ;
 	
 		fetch(url)
 		.then(response => response.json())
 		.then(response => {
 			
+			//붙일곳
+			const viewListLocation = document.querySelector("#viewListLocation");
+			viewListLocation.innerHTML='';
+			
 			for(e of response.data){
 				
-				//붙일곳
-				const viewListLocation = document.querySelector("#viewListLocation");
+
 				//불러오기
 				const templeteWrapper = document.querySelector("#templeteWrapper").cloneNode(true);
 				const list_pk = templeteWrapper.querySelector(".list_pk");
@@ -113,7 +118,7 @@ window.addEventListener("DOMContentLoaded", () => {
 									<select id="searchCategory" class="ps-0 form-select" aria-label="Default select example" style="border:none; outline:none; font-size:0.9em;">
 									  <option value="all">선택</option>
 									  <option value="student_name">학생 이름</option>
-									  <option value="online_consulting_pk">학번</option>
+									  <option value="student_id">학번</option>
 									</select>							
 								</div>
 								<div class="col-10">
@@ -122,7 +127,7 @@ window.addEventListener("DOMContentLoaded", () => {
 											<input id="searchContents" type="text" style="border:none; outline:none; width:100%; font-size:0.7em;">
 										</div>								
 										<div class="col-1 text-right pe-2" style="display:flex; align-items:end; justify-content:end;">
-											<button style="border:none; background:none; cursor:pointer;"><i class="bi bi-search"></i>
+											<button onclick="reloadlist(searchCategory.value, searchContents.value)" style="border:none; background:none; cursor:pointer;"><i class="bi bi-search"></i>
 											</button>
 										</div>
 		

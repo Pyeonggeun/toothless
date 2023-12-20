@@ -529,9 +529,9 @@ public class ConsultingService {
 		
 	//교직원입장에서 구직희망 진행중인 학생 리스트 보기
 	//구직희망 - 학생엮음, 구직희망pk당 학생 정보
-	public List<Map<String, Object>> getHopeJobInfoList(){		
+	public List<Map<String, Object>> getHopeJobInfoList(String searchType, String searchContents){		
 		//진행중 구직희망 리스트
-		List<HopeJobDto> hopeJobDtoList = consultingMapper.getOngoingHopeJobList();
+		List<HopeJobDto> hopeJobDtoList = consultingMapper.getOngoingHopeJobList(searchType, searchContents);
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
 		for(HopeJobDto hopeJobDto : hopeJobDtoList) {
