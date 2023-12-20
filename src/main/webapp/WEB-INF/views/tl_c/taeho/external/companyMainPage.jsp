@@ -70,10 +70,196 @@
 		
 		<!-- 본문 : 자유롭게 이용하세요 화이팅 -->
 		<div class="row">
-			<div class="col mx-5">
+			<div class="col">
 			
-			<!-- 본문작성공간 -->
-			산업체메인페이지입니다
+			<!-- 좌측 화면 : 문구 -->
+			<div class="row mt-4">
+				<div class="col">
+	
+					<!-- 큰 문구 -->
+					<div class="row">
+						<div class="col ps-5">
+							<div class="row mt-5">
+								<div class="col">
+									<span style="font-size: 2.5em; font-weight: 900; color: #635199;">학습과 실습의 연계</span><span style="font-size: 2.4em;">를 통한</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<span style="font-size: 2.4em;">산학 간</span>&nbsp;<span style="font-size: 2.5em; font-weight: 900; color: #423666;">균형 있는 성장</span>
+								</div>
+							</div>						
+						</div>
+					</div>
+
+					<!-- 작은 문구 -->
+					<div class="row mt-3">
+						<div class="col ps-5">
+							<div class="row">
+								<div class="col ps-3">
+									산업과 학업 간 <span class="fw-bold" style="color: #423666;">긴밀한 협력 프로세스</span>를 통하여
+								</div>
+							</div>
+							<div class="row">
+								<div class="col ps-3">
+									학생과 기업의 <span class="fw-bold" style="color: #423666;">상호 발전</span>을 이룩합니다.
+								</div>
+							</div>						
+						</div>
+					</div>
+					
+					<!-- 무언가 버튼 -->
+					<div class="row ps-5 pt-5">
+						<div class="col ps-1">
+							<span class="text-center text-white border border-white rounded px-3 py-3" style="background-color: #635199; cursor: pointer;">현장실습과정 신청&nbsp;<i class="bi bi-caret-right-fill"></i></span>
+						</div>
+					</div>
+				
+				</div>
+				
+				<!-- 우측 화면 : 이미지 -->
+				<div class="col mt-5 me-4 px-5 py-5">
+					<img src="../../../resources/img/companyImage/externalCompanyImage.jpg">
+				</div>
+
+			</div>
+
+			<!-- 회색 띠 배경 -->
+			<div class="row mt-4 px-5 py-2" style="background-color: #F6F8FB;">
+			
+				<div class="col px-4 py-5">
+					<div class="row border rounded bg-white border-white px-2 py-4" style="font-size: 1.1em; cursor: pointer;">
+						<div class="col">
+							<div class="row">
+								<div class="col" style="color: #423666;">
+									현장실습제도
+								</div>
+							</div>
+							<div class="row">
+								<div class="col" style="color: #423666;">
+									소개
+								</div>
+							</div>
+							<div class="row">
+								<div class="col ps-3 pt-2">
+									<i class="bi bi-arrow-right-circle fs-3" style="color: #c5c2d3;"></i>
+								</div>
+								<div class="col text-end">
+									<i class="bi bi-book fs-2" style="color: #423666;"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col px-4 py-5">
+					<div class="row border rounded bg-white border-white px-1 py-4" style="font-size: 1.1em; cursor: pointer;">
+						<div class="col">
+							<div class="row">
+								<div class="col" style="color: #423666;">
+									현장실습관리시스템
+								</div>
+							</div>
+							<div class="row">
+								<div class="col" style="color: #423666;">
+									안내
+								</div>
+							</div>
+							<div class="row">
+								<div class="col ps-3 pt-2">
+									<i class="bi bi-arrow-right-circle fs-3" style="color: #c5c2d3;"></i>
+								</div>							
+								<div class="col text-end">
+									<i class="bi bi-gear-wide-connected fs-2" style="color: #423666;"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col px-4 py-5">
+					<div class="row border rounded bg-white border-white px-2 py-4" style="font-size: 1.1em; cursor: pointer;">
+						<div class="col">
+							<div class="row">
+								<div class="col" style="color: #423666;">
+									현장실습과정
+								</div>
+							</div>
+							<div class="row">
+								<div class="col" style="color: #423666;">
+									조회
+								</div>
+							</div>
+							<div class="row">
+								<div class="col ps-3 pt-2">
+									<i class="bi bi-arrow-right-circle fs-3" style="color: #c5c2d3;"></i>
+								</div>							
+								<div class="col text-end">
+									<i class="bi bi-card-list fs-2" style="color: #423666;"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col px-4 py-5">
+					<div class="row border rounded bg-white border-white px-2 py-4" style="font-size: 1.1em; cursor: pointer;">
+						<div class="col">
+							<div class="row">
+								<div class="col" style="color: #423666;">
+									출근부 관리
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<br>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col ps-3 pt-2">
+									<i class="bi bi-arrow-right-circle fs-3" style="color: #c5c2d3;"></i>
+								</div>							
+								<div class="col text-end">
+									<i class="bi bi-pencil-square fs-2" style="color: #423666;"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col px-4 py-5">
+					<div class="row border rounded bg-white border-white px-2 py-4" style="font-size: 1.1em; cursor: pointer;">
+						<div class="col">
+							<div class="row">
+								<div class="col" style="color: #423666;">
+									대학홈페이지
+								</div>
+							</div>
+							<div class="row">
+								<div class="col" style="color: #423666;">
+									바로가기
+								</div>
+							</div>
+							<div class="row">
+								<div class="col ps-3 pt-2">
+									<i class="bi bi-arrow-right-circle fs-3" style="color: #c5c2d3;"></i>
+								</div>							
+								<div class="col text-end">
+									<i class="bi bi-bank fs-2" style="color: #423666;"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- 하단 여백 -->
+			<div class="row">
+				<div class="col">
+					<!-- 하이루 -->				
+				</div>
+			</div>
 				
 			</div>
 		</div>

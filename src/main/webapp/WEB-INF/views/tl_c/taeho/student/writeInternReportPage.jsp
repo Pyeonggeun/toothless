@@ -79,16 +79,19 @@
 			for(e of response.data){			
 				const reportWrapper = document.querySelector("#reportTemplate .reportWrapper").cloneNode(true); 
 				
-				const reportDate = document.querySelector(".reportDate");
-				const tempDate = new Date(e.REPORT_DATE);
-				
-				<!-- 월요일에 강사님한테 여쭤보기, console에는 날짜가 제대로 찍힌다, 그런데 출력은 이상하게 된다 -->
-				console.log(tempDate);
-				reportDate.innerText = tempDate.getFullYear() + "-" + (tempDate.getMonth()+1) + "-" + tempDate.getDate();
-				
-				const reportContent = reportWrapper.querySelector(".reportContent");
-				reportContent.innerText = e.REPORT_CONTENT;
-				
+				if(e.REPORT_CONTENT == null){
+					continue;
+				}else{
+					
+					const reportContent = reportWrapper.querySelector(".reportContent");					
+					reportContent.innerText = e.REPORT_CONTENT;
+					
+					const reportDate = reportWrapper.querySelector(".reportDate");
+					const tempDate = new Date(e.REPORT_DATE);				
+					<!-- 월요일에 강사님한테 여쭤보기, console에는 날짜가 제대로 찍힌다, 그런데 출력은 이상하게 된다 -->
+					reportDate.innerText = tempDate.getFullYear() + "-" + (tempDate.getMonth()+1) + "-" + tempDate.getDate();
+					
+				}				
 				internReportListBox.appendChild(reportWrapper);
 			}
 		
@@ -110,8 +113,7 @@
 				const attendanceWrapper = document.querySelector("#attendanceTemplate .attendanceWrapper").cloneNode(true);
 				
 				<!-- 여기도 console은 제대로 찍히는데, 값이 이상하게 나온다 -->
-				console.log(e.ATTENDANCE_COUNT);
-				const attendanceCount = document.querySelector(".attendanceCount");
+				const attendanceCount = attendanceWrapper.querySelector(".attendanceCount");
 				attendanceCount.innerText = e.ATTENDANCE_COUNT + "일";
 				
 				attendanceCountListBox.appendChild(attendanceWrapper);				
