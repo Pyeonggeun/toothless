@@ -38,12 +38,12 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;현장실습과정 신청</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../taeho/external/applyInternshipCoursePage'">&gt;&nbsp;현장실습과정 신청</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href=''">&gt;&nbsp;현장실습과정 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../woojae/external/ajdksInternshipCourseListPage'">&gt;&nbsp;현장실습과정 조회</span>
 					</div>
 				</div>
 			</div>
@@ -71,12 +71,12 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='./readStudentInternListPage'">&gt;&nbsp;실습생 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../readStudentInternListPage'">&gt;&nbsp;실습생 조회</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='./courseListPageForWriteTimecard'">&gt;&nbsp;출근부 관리</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../courseListPageForWriteTimecard'">&gt;&nbsp;출근부 관리</span>
 					</div>
 				</div>
 			</div>
@@ -99,46 +99,17 @@
 
 	<div class="row">
 		<div class="col">
-			<input type="checkbox" id="title6"/>
-			<label class="pt-3 pb-2 ps-3" for="title6"><i class="bi bi-list-task"></i>&nbsp;공지사항</label>			
-			<div class="content text-white-50">
-				<div class="row pt-2 ps-2">
-					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;김우재</span>
-					</div>
-				</div>
-				<div class="row pt-2 ps-2">
-					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;김은비</span>
-					</div>
-				</div>
-				<div class="row py-2 ps-2">
-					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;김태호</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col">
 			<input type="checkbox" id="title7"/>
 			<label class="pt-3 pb-2 ps-3" for="title7"><i class="bi bi-laptop"></i>&nbsp;커뮤니티</label>			
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;변후영</span>
-					</div>
-				</div>
-				<div class="row pt-2 ps-2">
-					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;이건택</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;공지사항</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;이서영</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/company/ajdksCompanyFreeboardPostingPage'">&gt;&nbsp;자유게시판</span>
 					</div>
 				</div>
 			</div>
