@@ -379,16 +379,15 @@
 			<div class="col-1 px-0 border-start"></div>
 			<%-- 채용공고 리스트 양식 --%>
 			<div class="col">
-				<!-- 채용공고 -->
+				<%-- 채용공고 --%>
 				<div class="row">
 					<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">채용공고리스트</div>
 				</div>
-				<!-- 검색 바 -->
+				<%-- 검색 바 --%>
 				<div class="row mt-3 p-2">
 					<div class="col">
 						<div class="row">
-							<!-- 분야 체크박스 -->
-							<!-- <div class="selectBox col-4 border p-3"></div> -->
+							<%-- 분야 체크박스 --%>
 							<div class="col text-secondary border p-3">
 								<c:forEach items="${jobFieldList}" var="jobField">
 									 <input name="job_field_category_pk" value="${jobField.job_field_category_pk}" type="checkbox">${jobField.job_field_category_name}&nbsp; 
@@ -445,7 +444,7 @@
 			<div class="col-2"></div>	
 		</div>
 		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
-		<!-- futter -->
+		<%-- futter --%>
 		<div class="row">
 			<div class="col">
 				<jsp:include page="../common/futter.jsp"></jsp:include>
@@ -455,55 +454,55 @@
 	
 	
 	
-	<!-- 클론 -->
-	<!-- 안쪽에 id 절대 넣지 못함! -->
-	<div id="templete" class="d-none">
-		<div class="postingWrapper row border-bottom py-2">
-			<!-- 1번째 칸 -->
-			<div class="col-2 mt-2 ps-4">
-				<div class="row">
-					<!-- 기업명 -->
-					<div class="postingCompanyName col pe-0"></div>
-				</div>
-				<div class="row">
-					<!-- 가족기업여부 -->
-					<div class="isFamilyCompany col ms-1"></div>
+<%-- 클론 --%>
+<%-- 안쪽에 id 절대 넣지 못함! --%>
+<div id="templete" class="d-none">
+	<div class="postingWrapper row border-bottom py-2">
+		<%-- 1번째 칸 --%>
+		<div class="col-2 mt-2 ps-4">
+			<div class="row">
+				<%-- 기업명 --%>
+				<div class="postingCompanyName col pe-0"></div>
+			</div>
+			<div class="row">
+				<%-- 가족기업여부 --%>
+				<div class="isFamilyCompany col ms-1"></div>
+			</div>
+		</div>
+		<%-- 2번째 칸 --%>
+		<%-- 공고제목 --%>
+		<div class="col-8 ps-4 pt-2">
+			<div class="row">
+				<div class="jobPostingName col"></div>
+			</div>
+			<div class="row">
+				<%-- 분야/지역/기간 태그  --%>
+				<div class="jobPostingCondition col"></div>
+			</div>
+		</div>
+		<%-- 3번째 칸 --%>
+		<div class="col-2">	
+			<div class="row">
+				<%-- 관심공고 별 --%>
+				<div class="interestPosting col ms-3 mb-1">
+					<%-- <i onclick="interestBox()" class="starBox text-warning bi bi-star"></i> --%>
+					<%-- <c:choose>
+						<c:when test="${jobPostingForStudent.allPostingInterest == 0}">
+							<i class="text-warning bi bi-star"></i>
+						</c:when>
+						<c:otherwise>
+							<i class="text-warning bi bi-star-fill"></i>
+						</c:otherwise>
+					</c:choose>
+					<span>${jobPostingForStudent.allPostingInterest}</span>	 --%>
 				</div>
 			</div>
-			<!-- 2번째 칸 -->
-			<!-- 공고제목 -->
-			<div class="col-8 ps-4 pt-2">
-				<div class="row">
-					<div class="jobPostingName col"></div>
-				</div>
-				<div class="row">
-					<!-- 분야/지역/기간 태그  -->
-					<div class="jobPostingCondition col"></div>
-				</div>
-			</div>
-			<!-- 3번째 칸 -->
-			<div class="col-2">	
-				<div class="row">
-					<!-- 관심공고 별 -->
-					<div class="interestPosting col ms-3 mb-1">
-						<!-- <i onclick="interestBox()" class="starBox text-warning bi bi-star"></i> -->
-						<%-- <c:choose>
-							<c:when test="${jobPostingForStudent.allPostingInterest == 0}">
-								<i class="text-warning bi bi-star"></i>
-							</c:when>
-							<c:otherwise>
-								<i class="text-warning bi bi-star-fill"></i>
-							</c:otherwise>
-						</c:choose>
-						<span>${jobPostingForStudent.allPostingInterest}</span>	 --%>
-					</div>
-				</div>
-				<div class="row">
-					<div class="applyPosting col"></div>
-				</div>
+			<div class="row">
+				<div class="applyPosting col"></div>
 			</div>
 		</div>
 	</div>
+</div>
 	
 	
 	

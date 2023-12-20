@@ -77,7 +77,7 @@
 	
 	<select id="dormListDong" resultType="com.mkfactory.toothless.a.dto.DormBuildingDto">
 	
-		SELECT * FROM TL_A_DORM_BUILDING
+		SELECT * FROM TL_A_DORM_BUILDING ORDER BY name asc 
 	
 	</select>
 	

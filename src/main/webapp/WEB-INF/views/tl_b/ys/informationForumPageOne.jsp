@@ -258,7 +258,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col ps-4 fw-bold" style="font-size: 0.9em;">
-                        <span style="position: relative; bottom: 7%;">-</span> 비약물요법
+                        <span style="position: relative; bottom: 10%;">-</span> 비약물요법
                     </div>
                 </div>
                 <div class="row mt-3">

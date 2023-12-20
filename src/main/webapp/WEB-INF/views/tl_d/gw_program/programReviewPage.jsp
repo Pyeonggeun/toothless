@@ -30,7 +30,7 @@
 				
 				<div class="row mt-5 mb-2">
 					<div class="col-2"></div>
-					<div class="col fw-bold fs-3 pb-2 border-bottom border-light-subtle">프로그램 만족도 작성</div>
+					<div class="col fw-bold fs-3 pb-2 border-2 border-bottom border-light-subtle">프로그램 만족도 작성</div>
 					<div class="col-3"></div>
 				</div>
 		
@@ -74,9 +74,9 @@
 					
 					<div class="row mt-3 mb-2"> 
 					
+						<div class="col-2"></div>
+						<div class="col d-grid"><input class="btn btn-primary d-grid" type="submit" value="등록하기"></div>
 						<div class="col-3"></div>
-						<div class="col d-grid"><input class="btn btn-primary" type="submit" value="등록하기"></div>
-						<div class="col-4"></div>
 						
 					</div>
 					

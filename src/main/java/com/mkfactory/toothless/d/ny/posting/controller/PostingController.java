@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -124,14 +125,22 @@ public class PostingController {
 	
 	// 채용공고 등록 완료
 	@RequestMapping("registerJobPostingSuccess")
-	public String registerJobPostingSuccess() {
+	public String registerJobPostingSuccess(HttpSession session) {
+		
+		StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(staffInfo == null) {
+			return "redirect:../../another/staff/loginPage";
+			
+		}
+		
 		
 		return "tl_d/ny_posting/registerJobPostingSuccess";
 	}
 	
 	// 채용공고 리스트 페이지
 	@RequestMapping("jobPostingListPage")
-	public String jobPostingListPage(HttpSession session, Model model, String searchType, String searchWord, String searchPosition) {
+	public String jobPostingListPage(HttpSession session, Model model, String searchType, String searchWord) {
 		
 		StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
 		
@@ -140,13 +149,20 @@ public class PostingController {
 		}
 			
 		model.addAttribute("postingCount", postingService.getPostingCount());
-		model.addAttribute("jobPostingList", postingService.getPostingList(searchType, searchWord, searchPosition));
+		model.addAttribute("jobPostingList", postingService.getPostingList(searchType, searchWord));
 		return "tl_d/ny_posting/jobPostingListPage";
 	}
 	
 	// 기업별 채용공고 리스트 페이지
 	@RequestMapping("companyPostingListPage")
-	public String companyPostingListPage(Model model, int com_pk) {
+	public String companyPostingListPage(HttpSession session, Model model, int com_pk) {
+		
+		StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(staffInfo == null) {
+			return "redirect:../../another/staff/loginPage";
+		}
+		
 		model.addAttribute("companyPostingCount", postingService.getCompanyPostingCount(com_pk));
 		model.addAttribute("companyPostingList", postingService.getCompanyPostingList(com_pk));
 		return "tl_d/ny_posting/companyPostingListPage";
@@ -154,7 +170,13 @@ public class PostingController {
 	
 	// 공고 상세 페이지
 	@RequestMapping("jobPostingDetailPage")
-	public String jobPostingDetailPage(Model model, int id) {
+	public String jobPostingDetailPage(HttpSession session, Model model, int id) {
+		
+		StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(staffInfo == null) {
+			return "redirect:../../another/staff/loginPage";
+		}
 		
 		model.addAttribute("jobPostingDetail", postingService.getJobPostingDetail(id));
 		
@@ -167,6 +189,7 @@ public class PostingController {
 		postingService.removeJobPosting(id);
 		return "redirect:./jobPostingListPage";
 	}
+	// 기업별 링크페이지에서 채용공고 삭제
 	@RequestMapping("removeJobPostingProcessForCompany")
 	public String removeJobPostingProcessForCompany(int id) {
 		postingService.removeJobPosting(id);
@@ -175,11 +198,16 @@ public class PostingController {
 	
 	// 채용공고 수정
 	@RequestMapping("modifyJobPostingPage")
-	public String modifyJobPostingPage(Model model, int id) {
+	public String modifyJobPostingPage(HttpSession session, Model model, int id) {
+		
+		StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(staffInfo == null) {
+			return "redirect:../../another/staff/loginPage";
+		}
 		
 		model.addAttribute("modifyJobPosting", postingService.getJobPostingDetail(id));
 		model.addAttribute("jobFieldCategory", postingService.getJobFieldCategoryList());
-		
 		
 		
 		return "tl_d/ny_posting/modifyJobPostingPage";
@@ -239,13 +267,13 @@ public class PostingController {
 	
 	// 학생용 채용공고 리스트
 	@RequestMapping("jobPostingListForStudentPage")
-	public String jobPostingListForStudentPage(HttpSession session, Model model, InterestCompanyDto params, String searchType, String searchWord, String searchPosition) {
+	public String jobPostingListForStudentPage(HttpSession session, Model model, InterestCompanyDto params, String searchType, String searchWord) {
 		
 		StudentInfoDto studentInfo = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		
 		if(studentInfo != null) {
 			int studentPk = studentInfo.getStudent_pk();
-			model.addAttribute("jobPostingForStudentList", postingService.getPostingListForStudent(studentPk, searchType, searchWord, searchPosition));
+			model.addAttribute("jobPostingForStudentList", postingService.getPostingListForStudent(studentPk, searchType, searchWord));
 		}else {
 			return "redirect:../../another/student/loginPage";
 		}
@@ -253,25 +281,23 @@ public class PostingController {
 		model.addAttribute("postingCount", postingService.getPostingCount());
 		
 		
-		// 페이징할때 링크 남기는 방법		
-        String searchQueryString = "";
-		
-		// 쿼리 스트링이니까 &붙임
-		if(searchType != null && searchWord != null && searchPosition != null && searchPosition != null) {
-			searchQueryString += "&searchType=" + searchType;
-			searchQueryString += "&searchWord=" + searchWord;
-			searchQueryString += "&searchPosition=" + searchPosition;
-			
-		}
-		
-		model.addAttribute("searchQueryString", searchQueryString);
+//		페이징할때 링크 남기는 방법		
+//      String searchQueryString = "";
+//		
+//		쿼리 스트링이니까 &붙임
+//  	if(searchType != null && searchWord != null && searchPosition != null && searchPosition != null) {
+//			searchQueryString += "&searchType=" + searchType;
+//			searchQueryString += "&searchWord=" + searchWord;
+//			searchQueryString += "&searchPosition=" + searchPosition;
+//			
+//		}
+//		
+//		model.addAttribute("searchQueryString", searchQueryString);
 		
 		// 검색 칸에 검색 내용 띄워 두기 영상확인!
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchWord", searchWord);
-		model.addAttribute("searchPosition", searchPosition);
 
-		// 여기서도 찜하는 방법 생각해보기
 		
 		return "tl_d/ny_posting/jobPostingListForStudentPage";
 	}
@@ -282,10 +308,14 @@ public class PostingController {
 			
 		StudentInfoDto studentInfo = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		
+		// 지원완료 버튼용
 		if(studentInfo != null) {
 			
 			int studentPk = studentInfo.getStudent_pk();
 			model.addAttribute("companyPosting",postingService.getStudentApplyList(studentPk));
+		}else {
+			return "redirect:../../another/student/loginPage";
+			
 		}
 		
 		
@@ -296,7 +326,7 @@ public class PostingController {
 	
 	// 학생용 공고 상세 페이지
 	@RequestMapping("jobPostingDetailForStudentPage")
-	public String jobPostingDetailForStudentPage(HttpSession session, Model model, int id, InterestPostingDto params) {
+	public String jobPostingDetailForStudentPage(HttpSession session, Model model, int id, InterestPostingDto params, InterestCompanyDto paramss) {
 
 		
 		params.setJob_posting_pk(id);
@@ -306,8 +336,20 @@ public class PostingController {
 		if(studentInfoDto != null) {
 			int studentPk = studentInfoDto.getStudent_pk();
 			params.setStudent_pk(studentPk);
-			model.addAttribute("jobPostingDetailForStudent",
-					postingService.getJobPostingDetailForStudentAndCompany(studentPk, id));
+			paramss.setStudent_pk(studentPk);
+			
+			
+			Map<String, Object> map = postingService.getJobPostingDetailForStudentAndCompany(studentPk, id);
+			
+			model.addAttribute("jobPostingDetailForStudent", map);
+
+			Object comPkObject = map.get("companyDto");
+			CompanyDto companyDto = (CompanyDto)comPkObject;
+		    if (companyDto != null) {
+		        int comPk = (int) companyDto.getCom_pk();
+		        paramss.setCom_pk(comPk);
+		        model.addAttribute("myInterestCompany", companyService.studentInterestCompany(paramss));
+			}
 			
 		}else {
 			return "redirect:../../another/student/loginPage";
@@ -317,6 +359,23 @@ public class PostingController {
 		
 		return "tl_d/ny_posting/jobPostingDetailForStudentPage";
 	}
+	
+	// 관심 기업 추가 프로세스
+	@RequestMapping("interestCompanyProcessFromDetailPage")
+	public String interestCompanyProcessFromDetailPage(int id, InterestCompanyDto interestCompanyDto) {
+		companyService.insertInterestCompany(interestCompanyDto);
+		
+		return "redirect:./jobPostingDetailForStudentPage?id="+ id;
+	}
+	
+	// 관심 기업 삭제 프로세스
+	@RequestMapping("deleteInterestCompanyProcessFromDetailPage")
+	public String deleteInterestCompanyProcessFromDetailPage(int id, InterestCompanyDto interestCompanyDto) {
+		companyService.deleteInterestCompany(interestCompanyDto);
+		
+		return "redirect:./jobPostingDetailForStudentPage?id="+ id;
+	}
+	
 	
 	// 공고스크랩 프로세스
 	@RequestMapping("interestingProcess")
@@ -375,7 +434,7 @@ public class PostingController {
 			model.addAttribute("companyPostingList", postingService.getCompanyPostingList(companyDto.getCom_pk()));
 			
 		}else {
-			return "redirect:../../another/staff/loginPage";
+			return "redirect:../../another/external/loginPage";
 		}
 		model.addAttribute("jobFieldCategory", postingService.getJobFieldCategoryList());
 		

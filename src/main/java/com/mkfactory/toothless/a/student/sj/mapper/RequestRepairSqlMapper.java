@@ -20,4 +20,5 @@ public interface RequestRepairSqlMapper {
 	public DormStudentDto selectDormStudentPk(int dorm_student_pk);
 	public StudentInfoDto studentPk(int student_pk);
 	public void deleteRequestRepair(int request_repair_pk);
+	public void editRequestRepair(RequestRepairDto requestRepairDto);
 }

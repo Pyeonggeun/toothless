@@ -26,7 +26,7 @@
 			<div class="col-1 border-start"></div>
 			<%-- 채용공고 리스트 양식 --%>
 			<div class="col">
-				<!-- 채용공고 -->
+				<%-- 채용공고 --%>
 				<div class="row">
 					<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">관심공고리스트</div>
 				</div>
@@ -57,7 +57,7 @@
 								</c:otherwise>
 							</c:choose> 
 						</div>
-						<!-- 공고제목 -->
+						<%-- 공고제목 --%>
 						<div class="col-9 ps-0 pt-1">
 							<!-- 링크 더 좋은 방법 생각해보기 -->
 							<a class="navbar-brand" href="./jobPostingDetailForStudentPage?id=${totalInteresting.jobPostingDto.job_posting_pk}">
@@ -66,13 +66,13 @@
 						</div>
 					</div>
 					<div class="row mt-1 pb-3 border-bottom">
-						<!-- 가족기업여부 -->
+						<%-- 가족기업여부 --%>
 						<div class="col-2  ms-1">
 							<c:if test="${totalInteresting.companyDto.is_family_company ne null and totalInteresting.companyDto.is_family_company eq 'Y'}">
 								<span class="badge text-bg-info text-white">Family</span>
 							</c:if>						
 						</div>
-						<!-- 분야/지역/기간 태그  -->
+						<%-- 분야/지역/기간 태그 --%>
 						<div class="col-7 ps-0">
 							<a class="navbar-brand" href="./jobPostingDetailPage?id=${totalInteresting.jobPostingDto.job_posting_pk}">
 							<span class="text-secondary">#&nbsp;${totalInteresting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${totalInteresting.jobPostingDto.job_position}
@@ -107,7 +107,7 @@
 			<div class="col-2"></div>	
 		</div>
 		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
-		<!-- futter -->
+		<%-- futter --%>
 		<div class="row">
 			<div class="col">
 				<jsp:include page="../common/futter.jsp"></jsp:include>

@@ -58,6 +58,10 @@ public class RequestRepairServiceImpl {
 		requestRepairSqlMapper.deleteRequestRepair(request_repair_pk);
 	}
 	
+	public void editRequestRepairArticle(RequestRepairDto requestRepairDto) {
+		requestRepairSqlMapper.editRequestRepair(requestRepairDto);
+	}
+	
 
 	
 }

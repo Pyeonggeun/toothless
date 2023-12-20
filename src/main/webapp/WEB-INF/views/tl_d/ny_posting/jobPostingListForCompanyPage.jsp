@@ -12,7 +12,7 @@
 <body>
 	<div class="container-fluid">
 		<div class="row">
-			<!-- 가족기업 뱃지 달기 -->
+			<%-- 가족기업 뱃지 달기 --%>
 			<div class="col">
 				<div class="row bg-body-white border-bottom mt-4 pb-0">
 					<a class="col-1 pe-2 text-end navbar-brand" href="../common/companyMainPage">
@@ -73,7 +73,7 @@
 		            </div>	
 		            </c:if>
 		            <div class="col align-self-center">
-		                <a class="navbar-brand" href="./employmentMainPage">취업지원센터</a>
+		                <a class="navbar-brand" href="../common/employmentMainPage">취업지원센터</a>
 		            </div>
 		            <div class="col-2"></div>
 		        </div>
@@ -90,11 +90,15 @@
 			<div class="col-2"></div>
 			<%-- 채용공고 리스트 양식 --%>
 			<div class="col">
-				<!-- 채용공고 -->
-				<div class="row">
-					<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">채용공고리스트</div>
+				<%-- 채용공고 --%>
+				<div class="row border-bottom border-3">
+					<div class="col fs-4 fw-bold mt-5 pb-3">채용공고리스트</div>
+					<div class="col-7"></div>
+					<a class="col-2 mt-5 mb-3 pt-2 btn btn-outline-secondary" href="../common/companyMainPage">
+						<i class="bi bi-house"></i>&nbsp;&nbsp;메인페이지로
+					</a>
 				</div>
-				<!-- 검색 바 -->
+				<%-- 검색 바 --%>
 				<div class="row mt-3 p-2">
 					<div class="col">
 						<div class="row">
@@ -136,7 +140,6 @@
 							총 <span class="fw-bold">${companyPostingCount}</span>건
 						</div>
 					</c:if>
-					<!-- 기능 구현하기 -->
 					<div class="col-8"></div>
 					<div class="col-3 btn-group btn-group-sm">
 						<a href="./jobPostingListForCompanyPage" class="btn btn-outline-dark active" aria-current="page">전체</a>
@@ -144,65 +147,76 @@
 					    <a href="#" class="btn btn-outline-dark">마감</a>
 					</div>
 				</div>
-				<c:forEach items="${companyPostingList}" var="companyPosting">
-					<div class="row mt-3 ps-5 pb-3 border-bottom">
-						<div class="col-1 pt-3">
-							<c:choose>
-								<c:when test="${companyPosting.postingDeadlineList.contains(companyPosting.jobPostingDto.job_posting_pk)}">
-									<span class="badge text-bg-danger">마감임박!</span>
-								</c:when>
-								<c:when test="${companyPosting.endPostingList.contains(companyPosting.jobPostingDto.job_posting_pk)}">
-									<span class="badge text-bg-secondary">채용마감</span>
-								</c:when>
-							</c:choose>
-						</div>
-						<div class="col-8 ps-4">
-							<div class="row">
-								<!-- 공고제목 -->
-								<div class="col ps-0 pt-2">
-									<a class="navbar-brand" href="./jobPostingDetailForCompanyPage?id=${companyPosting.jobPostingDto.job_posting_pk}">
- 										${companyPosting.jobPostingDto.posting_name}
-									</a>
-								</div>
-							</div>
-							<div class="row pt-0 pb-2" >
-								<!-- 분야/지역/기간 태그  -->
-								<div class="col-8 ps-0">
-									<a class="navbar-brand" href="./jobPostingDetailForCompanyPage?id=${companyPosting.jobPostingDto.job_posting_pk}">
-									<span class="text-secondary">#&nbsp;${companyPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${companyPosting.jobPostingDto.job_position}
-									#&nbsp;${companyPosting.companyDto.com_address}</span>
-									</a>
-								</div>
+				<c:choose>
+					<c:when test="${empty companyPostingList}">
+						<div class="row mt-3">
+							<div class="col fw-bold text-center">
+								등록된 채용공고가 없습니다
 							</div>
 						</div>
-						<div class="col">
-							<div class="row pt-2">
-								<div class="col ps-5">
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${companyPostingList}" var="companyPosting">
+							<div class="row mt-3 ps-5 pb-3 border-bottom">
+								<div class="col-1 pt-3">
 									<c:choose>
-										<c:when test="${companyPosting.allPostingInterest == 0}">
-											<i class="text-warning bi bi-star"></i>
+										<c:when test="${companyPosting.postingDeadlineList.contains(companyPosting.jobPostingDto.job_posting_pk)}">
+											<span class="badge text-bg-danger">마감임박!</span>
 										</c:when>
-										<c:otherwise>
-											<i class="text-warning bi bi-star-fill"></i>
-										</c:otherwise>
+										<c:when test="${companyPosting.endPostingList.contains(companyPosting.jobPostingDto.job_posting_pk)}">
+											<span class="badge text-bg-secondary">채용마감</span>
+										</c:when>
 									</c:choose>
-									<span>${companyPosting.allPostingInterest}</span>	
 								</div>
-							</div>
-							<div class="row">
+								<div class="col-8 ps-4">
+									<div class="row">
+										<%-- 공고제목 --%>
+										<div class="col ps-0 pt-2">
+											<a class="navbar-brand" href="./jobPostingDetailForCompanyPage?id=${companyPosting.jobPostingDto.job_posting_pk}">
+		 										${companyPosting.jobPostingDto.posting_name}
+											</a>
+										</div>
+									</div>
+									<div class="row pt-0 pb-2" >
+										<%-- 분야/지역/기간 태그 --%>
+										<div class="col-8 ps-0">
+											<a class="navbar-brand" href="./jobPostingDetailForCompanyPage?id=${companyPosting.jobPostingDto.job_posting_pk}">
+											<span class="text-secondary">#&nbsp;${companyPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${companyPosting.jobPostingDto.job_position}
+											#&nbsp;${companyPosting.companyDto.com_address}</span>
+											</a>
+										</div>
+									</div>
+								</div>
 								<div class="col">
-									<fmt:formatDate value="${companyPosting.jobPostingDto.posting_deadline}" pattern="~yyyy.MM.dd(EEE)"/>
+									<div class="row pt-2">
+										<div class="col ps-5">
+											<c:choose>
+												<c:when test="${companyPosting.allPostingInterest == 0}">
+													<i class="text-warning bi bi-star"></i>
+												</c:when>
+												<c:otherwise>
+													<i class="text-warning bi bi-star-fill"></i>
+												</c:otherwise>
+											</c:choose>
+											<span>${companyPosting.allPostingInterest}</span>	
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<fmt:formatDate value="${companyPosting.jobPostingDto.posting_deadline}" pattern="~yyyy.MM.dd(EEE)"/>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-					</div>				
-				</c:forEach>
+							</div>				
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<%-- 오른쪽 --%>	
 			<div class="col-2"></div>	
 		</div>
 		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
-		<!-- futter -->
+		<%-- futter --%>
 		<div class="row">
 			<div class="col">
 				<jsp:include page="../common/futter.jsp"></jsp:include>
