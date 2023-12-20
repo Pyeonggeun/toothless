@@ -20,18 +20,12 @@
 }
 </style>
 <script>
-
-	window.addEventListener("DOMContentLoaded", ()=>{		
-		reloadCounselorList()
-		reloadSearchTypeCategory()
-		
-	});
-	
 	
 	let searchData = null;
-	const curruntPageStaffUser = document.getElementById("sessionStaffName");
-	const userid = curruntPageStaffUser.getAttribute("value");
-	console.log(userid);
+	const loginStaffName = "${sessionStaffInfo.name}";
+	const loginStaffId = "${sessionStaffInfo.staff_pk}";
+	console.log(loginStaffName);
+	console.log(loginStaffId);
 	/* // 직원로그인 확인 로직
 	function getStaffInfo(){		
 		fetch("./restGetStaffInfo")
@@ -414,7 +408,10 @@
 			const counselorTypeList = [...counselorDetail.counselorTypeList];
 			for(e of counselorTypeList){				
 				const counselorType = document.createElement("div");
-				counselorType.setAttribute("class", "col-auto");
+				counselorType.setAttribute("class", "col-auto small border rounded-pill");				
+				/* counselorType.classList.add("small");
+				counselorType.classList.add("border");
+				counselorType.classList.add("rounded-pill"); */
 				counselorType.innerText = e.CATEGORYNAME;
 				counselorTypeRow.appendChild(counselorType);
 				
@@ -424,6 +421,7 @@
 			counselorCareer.innerText = counselorDetail.counselorDto.career;
 			
 			const counselorLicenseRow = document.getElementById("counselorLicenseRow");
+			counselorLicenseRow.innerHTML = "";
 			const counselorLicenseList = [...counselorDetail.counselorLicenseList];
 			if(counselorLicenseList.length > 0){
 				for(e of counselorLicenseList){
@@ -444,16 +442,47 @@
 			}
 			
 			const counselorScoreAvg = document.getElementById("counselorScoreAvg");
-			counselorScoreAvg.innerText = counselorDetail.counselorScoreAvg.TOTALAVG;
+			counselorScoreAvg.innerText = counselorDetail.totalScoreInfo.TOTALAVG;
+			const starRateIcon = document.getElementById("starRateIcon");
+			starRateIcon.innerHTML = "";
+			if(counselorDetail.totalScoreInfo.TOTALAVG >= 2.5){
+				const goodRate = document.createElement("img");
+				goodRate.setAttribute("src", "/toothless/resources/img/counselorImage/icon/goodRate.png");				
+				starRateIcon.appendChild(goodRate);
+				/* const goodRate = document.createElement("i");
+				goodRate.setAttribute("class", "bi bi-emoji-sunglasses-fill");				
+				starRateIcon.appendChild(goodRate); */
+			}
+			else{
+				const badRate = document.createElement("img");
+				badRate.setAttribute("src", "/toothless/resources/img/counselorImage/icon/badRate.png");				
+				starRateIcon.appendChild(badRate);
+				/* const badRate = document.createElement("i");
+				badRate.setAttribute("class", "bi bi-emoji-expressionless-fill");				
+				starRateIcon.appendChild(badRate); */
+			}
 			
+			
+			const star01 = document.getElementById("star01");
+			star01.innerText = "(" + counselorDetail.totalScoreInfo.SCORE1 + ")";
+			const star02 = document.getElementById("star02");
+			star02.innerText = "(" + counselorDetail.totalScoreInfo.SCORE2 + ")";
+			const star03 = document.getElementById("star03");
+			star03.innerText = "(" + counselorDetail.totalScoreInfo.SCORE3 + ")";
+			const star04 = document.getElementById("star04");
+			star04.innerText = "(" + counselorDetail.totalScoreInfo.SCORE4 + ")";
+			const star05 = document.getElementById("star05");
+			star05.innerText = "(" + counselorDetail.totalScoreInfo.SCORE5 + ")";
 			
 		});
 		
-/* 		CounselorDto counselorDto = registerCounselorSqlMapper.selectCounselorDetailByCounselorId(counselorId);
+		/*
+		CounselorDto counselorDto = registerCounselorSqlMapper.selectCounselorDetailByCounselorId(counselorId);
 		List<Map<String, Object>> counselorTypeList =  registerCounselorSqlMapper.selectCounselorTypeByCounselorId(counselorId);
-		List<LicenseImageDto> counselorLicenseList = registerCounselorSqlMapper.selectLicenseImgByCounselorId(counselorId);
-		Map<String, Object> counselorScoreAvg = registerCounselorSqlMapper.selectCounselorAllScoreAvgByCounselorId(counselorId);
-		List<Map<String, Object>> counselList =  registerCounselorSqlMapper.selectCompleteCounselListByCounselorId(counselorId); */	
+		List<LicenseImageDto> counselorLicenseList = registerCounselorSqlMapper.selectLicenseImgByCounselorId(counselorId);		
+		List<Map<String, Object>> counselList =  registerCounselorSqlMapper.selectCompleteCounselListByCounselorId(counselorId);
+		Map<String, Object> totalScoreInfo = registerCounselorSqlMapper.selectTotalScoreInfoByCounselorId(counselorId);
+		*/
 		
 		const modal = bootstrap.Modal.getOrCreateInstance("#counselorInfoModal");
         modal.show();
@@ -560,7 +589,11 @@
     }
 	
 	
-	
+    window.addEventListener("DOMContentLoaded", ()=>{		
+		reloadCounselorList()
+		reloadSearchTypeCategory()
+		
+	});
 	
 	
 </script>
@@ -845,13 +878,12 @@
                         									<span class="fw-bold">상담분야</span>
                         								</div>                        								
                         							</div>
-                        							<div id="counselorTypeRow" class="row align-items-center">                        								
+                        							<div id="counselorTypeRow" class="row align-items-center mt-2">                        								
                         								
                         							</div>
                         						</div>
                         					</div>
-                        				</div>
-                        				
+                        				</div>                        				
                         			</div>
                         			
                         			<!-- 상담사 정보조회 중간로우 -->
@@ -894,9 +926,12 @@
                         					<!-- 상담사 평점 -->
                         					<div class="row mt-3">                        						
                         						<div class="col">
-                        							<div class="row">
-                        								<div class="col">
+                        							<div class="row align-items-center">
+                        								<div class="col-auto">
                         									<span class="fw-bold fs-4">상담원 평점</span>
+                        								</div>
+                        								<div id="starRateIcon" class="col-auto fs-4 text-warning">
+                        									
                         								</div>
                         							</div>
                         							<div class="row mt-2">
@@ -915,8 +950,45 @@
                         										</div>
                         										<div class="col">
                         											<div class="row">
-                        												<div class="col">
-                        													
+                        												<div class="col-auto">
+                        													<span class="text-warning">
+																				<i class="bi bi-star-fill small"></i>													
+																			</span>
+																			<span id="star01"></span>
+                        												</div>
+                        												<div class="col-auto">
+                        													<span class="text-warning lh-1 small">
+																				<i class="bi bi-star-fill"></i>													
+																				<i class="bi bi-star-fill"></i>
+																			</span>
+																			<span id="star02"></span>
+                        												</div>
+                        												<div class="col-auto">
+                        													<span class="text-warning lh-1 small">
+																				<i class="bi bi-star-fill"></i>
+																				<i class="bi bi-star-fill"></i>
+																				<i class="bi bi-star-fill"></i>
+																			</span>
+																			<span id="star03"></span>
+                        												</div>
+                        												<div class="col-auto">
+                        													<span class="text-warning lh-1 small">
+																				<i class="bi bi-star-fill"></i>
+																				<i class="bi bi-star-fill"></i>
+																				<i class="bi bi-star-fill"></i>
+																				<i class="bi bi-star-fill"></i>
+																			</span>
+																			<span id="star04"></span>
+                        												</div>
+                        												<div class="col-auto">
+                        													<span class="text-warning lh-1 small">
+																				<i class="bi bi-star-fill"></i>
+																				<i class="bi bi-star-fill"></i>
+																				<i class="bi bi-star-fill"></i>
+																				<i class="bi bi-star-fill"></i>
+																				<i class="bi bi-star-fill"></i>
+																			</span>
+																			<span id="star05"></span>
                         												</div>
                         											</div>
                         										</div>
@@ -926,6 +998,12 @@
                         						</div>
                         					</div>
                         					
+                        					<!-- 상담원 상담이력 -->
+                        					<div class="row mt-3">
+                        						<div class="col">
+                        						
+                        						</div>
+                        					</div>
                         				</div>
                         			</div>
                         			

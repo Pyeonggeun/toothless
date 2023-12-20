@@ -219,12 +219,12 @@
 	<!-- 본문 : 자유롭게 이용하세요 화이팅 -->
 	<div class="col">
 		<div class="row">
-			<div class="col mx-4">
+			<div class="col mx-5">
 			
 			<!-- 본문작성공간 -->
 				<form action="./registerCompanyProcess">
 				<div class="row mt-5">
-					<div class="col fw-bold">
+					<div class="col fw-bold" style="font-size: 1.6em;">
 						산업체 등록
 					</div>
 				</div>

@@ -57,7 +57,7 @@
 					<!-- 구직희망 신청 -->
 					<div class="col me-4">
 						<div class="row fw-bold fs-5 pb-1 mb-2 border-bottom border-bd-border border-2">
-							<div class="col">구직희망 신청 리스트</div>
+							<div class="col-9">구직희망 신청 리스트</div>
 							<div class="col text-end fw-bold fs-5">
 								<a href="../jm_consulting/viewStudentListPage" class="btn"><i class="bi bi-plus-lg text-black"></i></a>	
 							</div>

@@ -184,6 +184,7 @@
                 .then(response => {
 
                     const selectInfo = document.querySelector(".selectInfo");
+                    selectInfo.innerHTML = "";
 
                     const defaultOption = document.createElement("option");
                     defaultOption.setAttribute("selected","");

@@ -247,7 +247,7 @@ public class PostingController {
 			int studentPk = studentInfo.getStudent_pk();
 			model.addAttribute("jobPostingForStudentList", postingService.getPostingListForStudent(studentPk, searchType, searchWord, searchPosition));
 		}else {
-			return "redirect:../../another/staff/loginPage";
+			return "redirect:../../another/student/loginPage";
 		}
 		model.addAttribute("jobFieldList", postingService.getJobFieldCategoryList());
 		model.addAttribute("postingCount", postingService.getPostingCount());
@@ -310,7 +310,7 @@ public class PostingController {
 					postingService.getJobPostingDetailForStudentAndCompany(studentPk, id));
 			
 		}else {
-			return "redirect:../../another/staff/loginPage";
+			return "redirect:../../another/student/loginPage";
 		}
 		
 		model.addAttribute("checkMyInteresting", postingService.checkMyPostingInterestCount(params));
@@ -393,7 +393,7 @@ public class PostingController {
 			
 			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
 		}else {
-			return "redirect:../../another/staff/loginPage";
+			return "redirect:../../another/external/loginPage";
 		}
 		
 		// 기업 상세
@@ -423,7 +423,7 @@ public class PostingController {
 			model.addAttribute("applyStudentList", postingService.getApplyStudentTotalList(companyDto.getCom_pk()));
 			
 		} else {
-			return "redirect:../../another/staff/loginPage";
+			return "redirect:../../another/external/loginPage";
 		}
 		
 		return "tl_d/ny_posting/myCompanyApplyStudentListPage";
@@ -444,7 +444,7 @@ public class PostingController {
 			model.addAttribute("interestCompanyTotalList", postingService.getInterestCompanyTotalList(companyDto.getCom_pk()));
 			
 		}else {
-			return "redirect:../../another/staff/loginPage";
+			return "redirect:../../another/external/loginPage";
 		}
 		
 		return "tl_d/ny_posting/myCompanyInterestListPage";

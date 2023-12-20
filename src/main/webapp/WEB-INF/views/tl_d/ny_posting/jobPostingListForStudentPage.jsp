@@ -391,7 +391,7 @@
 							<!-- <div class="selectBox col-4 border p-3"></div> -->
 							<div class="col text-secondary border p-3">
 								<c:forEach items="${jobFieldList}" var="jobField">
-									 <input name="job_field_category_pk" value="${jobField.job_field_category_pk}" type="checkbox">&nbsp; ${jobField.job_field_category_name}
+									 <input name="job_field_category_pk" value="${jobField.job_field_category_pk}" type="checkbox">${jobField.job_field_category_name}&nbsp; 
 								</c:forEach> 
 							</div>  
 						</div>

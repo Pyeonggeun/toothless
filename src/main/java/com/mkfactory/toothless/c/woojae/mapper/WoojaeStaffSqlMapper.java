@@ -7,7 +7,10 @@ import org.apache.ibatis.annotations.Param;
 
 import com.mkfactory.toothless.c.dto.AjdksCompanyCategoryDto;
 import com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto;
+import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
+import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 public interface WoojaeStaffSqlMapper {
 	
@@ -41,5 +44,14 @@ public interface WoojaeStaffSqlMapper {
 			@Param("searchType")int[] searchType,
 			@Param("searchWord")String searchWord);
 	
+	// 현장실습과정 조회
+	public List<AjdksInternshipCourseDto> selectAllCourse();
 	
+	
+	// 실습생 조회
+	public List<AjdksStudentInternDto> selectByCoursePk(int internship_course_pk);
+	
+	
+	// 학생
+	public StudentInfoDto selectByStudentPk(int student_pk);
 }

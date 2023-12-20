@@ -127,10 +127,10 @@
 										<br>
 										<c:forEach items="${list}" var="companyList">
 											<div class="card w-50 mb-3 text-center" >
-												<c:if test="${tf eq 'yes'}" >
+												<c:if test="${companyList.DATE_CHECK eq 'yes'}" >
 													<div class="card-header bg-secondary bg-opacity-25" style="background-color: #f2f5f7;">진행중</div>
 												</c:if>	
-												<c:if test="${tf eq 'no'}">
+												<c:if test="${companyList.DATE_CHECK eq 'no'}">
 												<div class="card-header bg-secondary bg-opacity-25" style="background-color: #f2f5f7;">종료</div>
 
 

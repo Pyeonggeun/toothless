@@ -89,26 +89,37 @@
 					<!-- 졸업여부 -->
 					<div class="col px-0">졸업여부</div>
 				</div>
-				<c:forEach items="${interestCompanyList}" var="interestCompany">
-					<!-- 목록 -->
-					<div class="row my-2 border-bottom">
-						<div class="col-2 ms-3">${interestCompany.studentInfoDto.name}</div>
-						<div class="col ps-5">
-						<fmt:formatDate value="${interestCompany.studentInfoDto.birth}" pattern="yyMMdd"/> </div>
-						<div class="col-1 ps-5">${interestCompany.studentInfoDto.gender}</div>
-						<div class="col-4 ps-5 pe-0">${interestCompany.studentInfoDto.email}</div>
-						<div class="col ps-0 pe-5">
-							<c:choose>
-								<c:when test="${! interestCompany.graduationInfoDtoList.contains(interestCompany.studentInfoDto.student_pk)}">
-									재학생
-								</c:when>
-								<c:otherwise>
-									졸업생
-								</c:otherwise>
-							</c:choose>
+				<c:choose>
+					<c:when test="${empty interestCompanyList}">
+						<div class="row mt-3">
+							<div class="col fw-bold text-center">
+								학생리스트가 없습니다
+							</div>
 						</div>
-					</div>
-				</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${interestCompanyList}" var="interestCompany">
+							<!-- 목록 -->
+							<div class="row my-2 border-bottom">
+								<div class="col-2 ms-3">${interestCompany.studentInfoDto.name}</div>
+								<div class="col ps-5">
+								<fmt:formatDate value="${interestCompany.studentInfoDto.birth}" pattern="yyMMdd"/> </div>
+								<div class="col-1 ps-5">${interestCompany.studentInfoDto.gender}</div>
+								<div class="col-4 ps-5 pe-0">${interestCompany.studentInfoDto.email}</div>
+								<div class="col ps-0 pe-5">
+									<c:choose>
+										<c:when test="${! interestCompany.graduationInfoDtoList.contains(interestCompany.studentInfoDto.student_pk)}">
+											재학생
+										</c:when>
+										<c:otherwise>
+											졸업생
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<!-- 기업이 올린 공고 목록 끝 -->
 			<%-- 우리기업 지원자 목록 --%>	
@@ -120,7 +131,7 @@
 						href="../ny_posting/myCompanyApplyStudentListPage"><i class="bi bi-plus-lg"></i></a>
 				</div>
 				<!-- 목록명 -->
-				<div class="row mt-3 mb-1 text-secondary border-bottom">
+				<div class="row mt-3 mb-1 ps-2 text-secondary border-bottom">
 					<!-- 이름 -->
 					<div class="col">이름</div>
 					<!-- 생년월일 -->
@@ -132,26 +143,37 @@
 					<!-- 졸업여부 -->
 					<div class="col">졸업여부</div>
 				</div>
-				<c:forEach items="${applyListForMainPage}" var="applyList">
-					<!-- 목록 -->
-					<div class="row my-2 border-bottom">
-						<div class="col">${applyList.studentInfoDto.name}</div>
-						<div class="col">
-						<fmt:formatDate value="${applyList.studentInfoDto.birth}" pattern="yyMMdd"/> </div>
-						<div class="col">${applyList.studentInfoDto.gender}</div>
-						<div class="col">${applyList.studentInfoDto.email}</div>
-						<div class="col">
-							<c:choose>
-								<c:when test="${! applyList.graduationInfoDtoList.contains(applyList.studentInfoDto.student_pk)}">
-									재학생
-								</c:when>
-								<c:otherwise>
-									졸업생
-								</c:otherwise>
-							</c:choose>
+				<c:choose>
+					<c:when test="${empty applyListForMainPage}">
+						<div class="row mt-3">
+							<div class="col fw-bold text-center">
+								학생리스트가 없습니다
+							</div>
 						</div>
-					</div>
-				</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${applyListForMainPage}" var="applyList">
+							<!-- 목록 -->
+							<div class="row ps-2 my-2 border-bottom">
+								<div class="col">${applyList.studentInfoDto.name}</div>
+								<div class="col">
+								<fmt:formatDate value="${applyList.studentInfoDto.birth}" pattern="yyMMdd"/> </div>
+								<div class="col">${applyList.studentInfoDto.gender}</div>
+								<div class="col">${applyList.studentInfoDto.email}</div>
+								<div class="col">
+									<c:choose>
+										<c:when test="${! applyList.graduationInfoDtoList.contains(applyList.studentInfoDto.student_pk)}">
+											재학생
+										</c:when>
+										<c:otherwise>
+											졸업생
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<!-- 우리기업 지원자 목록 끝 -->
 		</div>
@@ -164,62 +186,73 @@
 						href="../ny_posting/jobPostingListForCompanyPage"><i class="bi bi-plus-lg"></i></a>
 				</div>
 				<!-- 기업정보 -->
-				<c:forEach items="${jobPostingForCompanyMainPage}" var="mainPagePosting">
-				<div class="row mx-3 my-3 pb-3 border-bottom">
-					<div class="col-1 pt-3 ps-5 ms-2 me-2">
-						<c:choose>
-							<c:when test="${mainPagePosting.postingDeadlineList.contains(mainPagePosting.jobPostingDto.job_posting_pk)}">
-								<span class="badge text-bg-danger">마감임박!</span>
-							</c:when>
-							<c:when test="${mainPagePosting.endPostingList.contains(mainPagePosting.jobPostingDto.job_posting_pk)}">
-								<span class="badge text-bg-secondary">채용마감</span>
-							</c:when>
-						</c:choose>
-					</div>
-					<div class="col-8 ps-4">
-						<div class="row">
-							<!-- 공고제목 -->
-							<div class="col-7 ps-0 pt-2">
-								<a class="navbar-brand" href="../ny_posting/jobPostingDetailForCompanyPage?id=${mainPagePosting.jobPostingDto.job_posting_pk}">
-										<span class="d-inline-block text-truncate" style="max-width: 500px;">
-											${mainPagePosting.jobPostingDto.posting_name}
-										</span>
-								</a>
+				<c:choose>
+					<c:when test="${empty jobPostingForCompanyMainPage}">
+						<div class="row mt-3">
+							<div class="col fw-bold text-center">
+								등록된 채용공고가 없습니다
 							</div>
 						</div>
-						<div class="row pt-0 pb-2" >
-							<!-- 분야/지역/기간 태그  -->
-							<div class="col-8 ps-0">
-								<a class="navbar-brand" href="../ny_posting/jobPostingDetailForCompanyPage?id=${mainPagePosting.jobPostingDto.job_posting_pk}">
-								<span class="text-secondary">#&nbsp;${mainPagePosting.jobFieldCategoryDto.job_field_category_name} 
-								#&nbsp;${mainPagePosting.jobPostingDto.job_position}
-								#&nbsp;${mainPagePosting.companyDto.com_address}</span>
-								</a>
-							</div>
-						</div>
-					</div>
-					<div class="col ps-5">
-						<div class="row pt-2 ps-4">
-							<div class="col">
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${jobPostingForCompanyMainPage}" var="mainPagePosting">
+						<div class="row mx-3 my-3 pb-3 border-bottom">
+							<div class="col-1 pt-3 ps-5 ms-2 me-2">
 								<c:choose>
-									<c:when test="${mainPagePosting.allPostingInterest == 0}">
-										<i class="text-warning bi bi-star"></i>
+									<c:when test="${mainPagePosting.postingDeadlineList.contains(mainPagePosting.jobPostingDto.job_posting_pk)}">
+										<span class="badge text-bg-danger">마감임박!</span>
 									</c:when>
-									<c:otherwise>
-										<i class="text-warning bi bi-star-fill"></i>
-									</c:otherwise>
+									<c:when test="${mainPagePosting.endPostingList.contains(mainPagePosting.jobPostingDto.job_posting_pk)}">
+										<span class="badge text-bg-secondary">채용마감</span>
+									</c:when>
 								</c:choose>
-								<span>${mainPagePosting.allPostingInterest}</span>	
 							</div>
-						</div>
-						<div class="row">
-							<div class="col pt-1">
-								<fmt:formatDate value="${mainPagePosting.jobPostingDto.posting_deadline}" pattern="~ MM.dd(EEE)"/>
+							<div class="col-8 ps-4">
+								<div class="row">
+									<!-- 공고제목 -->
+									<div class="col-7 ps-0 pt-2">
+										<a class="navbar-brand" href="../ny_posting/jobPostingDetailForCompanyPage?id=${mainPagePosting.jobPostingDto.job_posting_pk}">
+											<span class="d-inline-block text-truncate" style="max-width: 500px;">
+												${mainPagePosting.jobPostingDto.posting_name}
+											</span>
+										</a>
+									</div>
+								</div>
+								<div class="row pt-0 pb-2" >
+									<!-- 분야/지역/기간 태그  -->
+									<div class="col-8 ps-0">
+										<a class="navbar-brand" href="../ny_posting/jobPostingDetailForCompanyPage?id=${mainPagePosting.jobPostingDto.job_posting_pk}">
+										<span class="text-secondary">#&nbsp;${mainPagePosting.jobFieldCategoryDto.job_field_category_name} 
+										#&nbsp;${mainPagePosting.jobPostingDto.job_position}
+										#&nbsp;${mainPagePosting.companyDto.com_address}</span>
+										</a>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-				</div>				
-				</c:forEach>
+							<div class="col ps-5">
+								<div class="row pt-2 ps-4">
+									<div class="col">
+										<c:choose>
+											<c:when test="${mainPagePosting.allPostingInterest == 0}">
+												<i class="text-warning bi bi-star"></i>
+											</c:when>
+											<c:otherwise>
+												<i class="text-warning bi bi-star-fill"></i>
+											</c:otherwise>
+										</c:choose>
+										<span>${mainPagePosting.allPostingInterest}</span>	
+									</div>
+								</div>
+								<div class="row">
+									<div class="col pt-1">
+										<fmt:formatDate value="${mainPagePosting.jobPostingDto.posting_deadline}" pattern="~ MM.dd(EEE)"/>
+									</div>
+								</div>
+							</div>
+						</div>				
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		<!-- 가족기업일 경우 이력서 공개 학생의 이력서 목록 -->

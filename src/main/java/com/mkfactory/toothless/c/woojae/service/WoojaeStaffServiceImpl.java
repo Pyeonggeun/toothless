@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.c.dto.AjdksCompanyCategoryDto;
 import com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto;
+import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
+import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
 import com.mkfactory.toothless.c.woojae.mapper.WoojaeStaffSqlMapper;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 
 @Service
@@ -102,11 +105,36 @@ public class WoojaeStaffServiceImpl {
 	// 산업체 카테고리 검색
 	public List<Map<String, Object>> categorizedCompanyList(int[] searchType, String searchWord){
 		
+		
 		return woojaeStaffSqlMapper.joinedCompanyList(searchType, searchWord);
 	}
 	
+	// 현장실습과정 조회
+	public List<AjdksInternshipCourseDto> internshipCourseList(){
+		
+		return woojaeStaffSqlMapper.selectAllCourse();
+	}
 	
 	
-
+	//실습생 조회
+	public List<Map<String, Object>> internList(int internship_course_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<AjdksStudentInternDto> studentInternList = woojaeStaffSqlMapper.selectByCoursePk(internship_course_pk);
+		
+		for(AjdksStudentInternDto ajdksStudentInternDto : studentInternList) {
+			
+			int studentPk = ajdksStudentInternDto.getStudent_pk();
+			StudentInfoDto studentInfoDto = woojaeStaffSqlMapper.selectByStudentPk(studentPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("ajdksStudentInternDto", ajdksStudentInternDto);
+			map.put("studentInfoDto", studentInfoDto);
+			
+			list.add(map);
+		}
+		return list;
+	}
 	
 }
