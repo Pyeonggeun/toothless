@@ -132,6 +132,7 @@
 							
 							evaluationDetails.innerText="평가상세보기"
 							evaluationDetails.classList.add("btn", "btn-secondary-outline", "btn-sm", "rounded-1");
+							evaluationDetails.setAttribute("href", "./viewEvaluationDetailPage?student_intern_pk=" + info.studentInternPk);
 							
 							}else if(info.didSatisfaction !== 0){
 								showGrade.setAttribute("style", "font-size:0.95em");

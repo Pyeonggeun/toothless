@@ -127,6 +127,38 @@ public class EunbiProfessorServiceImpl {
 		professorSqlMapper.insertProfessorEvaluation(professorEvaluationDto);
 	}
 	
+	// 학생 성적 조회
+	public List<Map<String, Object>> viewInternGrade(int professorPk) {
+		
+		List<Map<String, Object>> internList = new ArrayList<>();
+		
+		List<AjdksStudentInternDto> internDtoList = professorSqlMapper.getInternByProfessorPk(professorPk);
+		
+		for(AjdksStudentInternDto internDto : internDtoList) {
+			int internPk = internDto.getStudent_intern_pk();
+			int internshipCoursePk = internDto.getInternship_course_pk();
+			int studentPk = internDto.getStudent_pk();
+			
+			Map<String, Object> internGrade = new HashMap<>();
+
+			internGrade.put("internDto", internDto);
+			internGrade.put("internshipCourseDto", externalSqlMapper.getInternshipCourseDetail(internshipCoursePk));
+			internGrade.put("studentDto", studentSqlMapper.getStudentInfoByStudentPk(studentPk));
+			
+			internGrade.put("didProfessorEvaluateIntern", professorSqlMapper.didProfessorEvaluateIntern(internPk));
+			
+			if(studentSqlMapper.calculateGrade(internPk) == null) {
+				internGrade.put("grade", "0");
+			}else {
+				internGrade.put("grade", studentSqlMapper.calculateGrade(internPk));
+			}
+			
+			internList.add(internGrade);
+		}
+		
+		return internList;
+	}
+	
 	
 	
 	
