@@ -18,82 +18,88 @@
     		.then((response) => {
     			const lecturerNmae = document.querySelector("#lecturerNmae");
     			lecturerNmae.innerText = response.data.name;
-
+    			testOpenLecturerName = response.data.name;
     		});
 			
 		}
      	
+     
      	let open_lecture_key = null;
-     	function loadTestListPageInfo() {
+     	function getUrlKey() {
      		const urlParams = new URLSearchParams(location.search);
      		const key = urlParams.get("open_lecture_key");
      		open_lecture_key = key;
      		
-     		lectureTestListInfo(open_lecture_key);
+     		loadLectureStudentTotalInfoList(open_lecture_key);
      		
-		}        
-		function lectureTestListInfo(open_lecture_key) {
+     		
+		}  
+     	
+      	function loadLectureStudentTotalInfoList(open_lecture_key) {
 			
-     		const url = "./getLectureTestList?open_lecture_key="+open_lecture_key;
-     		fetch(url)
+     		const url = "./loadLectureStudentTotalInfoList?open_lecture_key="+open_lecture_key;
+			fetch(url)
     		.then(response => response.json())
     		.then((response) => {
-    			const lectureTestListBox = document.querySelector("#lectureTestListBox");
-    			lectureTestListBox.innerHtml = "";
-    			if(response.data[0] == null){
-    				lectureTestListBox.innerText = "등록되어있는 시험이 존재하지 않습니다.";
-    				lectureTestListBox.classList.add("text-center" , "text-secondary");
-    			}else{
-    				lectureTestListBox.classList.remove("text-center" , "text-secondary");
     			
+    			const studentTotalInfoListBox = document.querySelector("#studentTotalInfoListBox");
+    			studentTotalInfoListBox.innerHtml ="";
+    			
+    			if(response.data[0] == null){
+    				studentTotalInfoListBox.innerText = "수강신청 된 학생이 존재하지 않습니다.";
+    				studentTotalInfoListBox.classList.add("text-center" , "text-secondary");
+    			}else{
 	    			for(e of response.data){
-	    					
-	        			const testListWrapper = document.querySelector("#lecutreTestListTemplete .testListWrapper").cloneNode(true);
-	
-	        			const testNumber = testListWrapper.querySelector(".testNumber");
-	        			testNumber.innerText = e.lectureTestDto.lecture_test_key;
+	    				const studentTotalInfoListWrapper = document.querySelector("#studentTotalInfoListTemplet .studentTotalInfoListWrapper").cloneNode(true);	
+	    				
+	    				const number = studentTotalInfoListWrapper.querySelector(".number");
+	    				number.innerText = e.externalInfoDto.external_id;
+	    				
+	        			const name = studentTotalInfoListWrapper.querySelector(".name");
+	        			name.innerText = e.lifeStudentDto.name;
 	        			
-	        			const testName = testListWrapper.querySelector(".testName"); 
-	        			testName.innerText = e.lectureTestDto.test_name;
-	        			
-	        			
-	        			const openDate = new Date(e.lectureTestDto.open_test_day);
-	         			const open_test_day = openDate.getFullYear()+"-"+(openDate.getMonth()+1) + "-"+ openDate.getDate();
-	        			
-	         			const open_date = testListWrapper.querySelector(".open_date");
-	        			open_date.innerText = open_test_day;
-	        			
-	        			const closeDate = new Date(e.lectureTestDto.close_test_day);
-	         			const close_test_day = closeDate.getFullYear()+"-"+(closeDate.getMonth()+1) + "-"+ closeDate.getDate();
-	        			
-	        			const close_date = testListWrapper.querySelector(".close_date");
-	        			close_date.innerText = close_test_day;
-	        			
-	        			const maxStudentAndTotalStudent = testListWrapper.querySelector(".maxStudentAndTotalStudent");
-	        			maxStudentAndTotalStudent.innerText = e.testingStudentCount+"명/"+e.lectureStudentCount+"명";
-	        			
-	        			const testStatus = testListWrapper.querySelector(".testStatus");
-	        			testStatus.innerText = e.testStatus;
-	        			if(e.testStatus == '진행중'){
-	        				testStatus.classList.add("text-primary");
-	        			}else if(e.testStatus == '진행예정'){
-	        				testStatus.classList.add("text-info");
-	        			}else if(e.testStatus == '종료'){
-	        				testStatus.classList.add("text-danger");
+	        			const gender = studentTotalInfoListWrapper.querySelector(".gender");
+	        			if(e.lifeStudentDto.gender == "M"){
+	        				gender.innerText = "남";	
+	        			}else{
+	        				gender.innerText = "여";
 	        			}
 	        			
-	        			const testStudentPageButton = testListWrapper.querySelector(".testStudentPageButton");
-	        			testStudentPageButton.setAttribute("onclick", "location.href='./testStudentListPage?lecture_test_key="+e.lectureTestDto.lecture_test_key+"'");
+	        			const attendanceScore = studentTotalInfoListWrapper.attendanceScore(".absenceScore");
+	        			attendanceScore.innerText = e.studentAttendanceAvg;
 	        			
-	        			lectureTestListBox.appendChild(testListWrapper);
+	        			const testAvgScore = studentTotalInfoListWrapper.attendanceScore(".testAvgScore");
+	        			testAvgScore.innerText = e.studentTestScoreAvg;
+	        			
+	        			const totalScore = studentTotalInfoListWrapper.attendanceScore(".testAvgScore");
+	        			totalScore.innerText = (e.studentTestScoreAvg+ e.studentAttendanceAvg)/2;
+	        			
+	        			const status =studentTotalInfoListWrapper.attendanceScore(".status");
+	        			if(e.status == "진행중"){
+	        				status.innerText = e.status;
+	        			}else if(e.status == "진행예정"){
+	        				status.innerText = e.status;
+	        			}else if(e.status == "종료" && (e.studentTestScoreAvg+ e.studentAttendanceAvg)/2 <= 80){
+	        				status.innerText == "수료 완료";
+	        			}else if(e.status == "종료" && (e.studentTestScoreAvg+ e.studentAttendanceAvg)/2 >= 80){
+	        				status.innerText == "미수료";
+	        			}
+	        			
+	        			studentTotalInfoListBox.appendChild(studentTotalInfoListWrapper);
 	    			}
+    			
     			}
+    			
     		});
+			
 		}
+     	
+     	
+     	
 		
 		window.addEventListener("DOMContentLoaded", () =>{
-     		getMyInfo();
-     		loadTestListPageInfo();
+			getUrlKey();
+			getMyInfo();
         });
      
         </script>
@@ -279,95 +285,100 @@
                         </div>
                     </div>
                 </div>
-                <div class="col ms-5">
-                    <div class="row mt-5">
-                        <div class="col fs-4 fw-bold border-bottom border-black border-2">
-                            제 2회 java 어쩌구 저쩌구
+                <div class="col ms-5 mt-5">
+                    <div class="row">
+                        <div id="openLecutreName"class="col fs-4 fw-bold border-bottom border-black border-2">
+                            제 2회 자바 어저구 저쩌구
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col mt-2">
+                    <div class="row mt-4">
+                        <div class="col ms-3">
                             <div class="row">
-                                <div class="col fw-bold  text-center fs-4 number">
-                                    3 건
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-2 fw-bold align-self-center border py-2" style="background-color: rgb(240, 240, 240);">
+                                            강의 시작일
+                                        </div>
+                                        <div id="open_date" class="col-4 text-center align-self-center border text-secondary py-2">
+                                            2023.11.18
+                                        </div>
+                                        <div class="col-2 fw-bold align-self-center border py-2" style="background-color: rgb(240, 240, 240);">
+                                            강의 종료일
+                                        </div>
+                                        <div id="close_date" class="col-4 text-center align-self-center border text-secondary py-2">
+                                            2023.12.28
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-2 fw-bold align-self-cente border py-2" style="background-color: rgb(240, 240, 240);">
+                                            총 수업일수
+                                        </div>
+                                        <div id="totalStudyingHour" class="col-4 text-center align-self-center border text-secondary py-2">
+                                            30일 (240시간)
+                                        </div>
+                                        <div class="col-2 fw-bold align-self-center border py-2" style="background-color: rgb(240, 240, 240);">
+                                            진행도
+                                        </div>
+                                        <div id="currentStudyingHourAndPercent" class="col-4 text-center align-self-center border text-secondary py-2">
+                                            33.3% (80시간)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-2 fw-bold align-self-center border py-2" style="background-color: rgb(240, 240, 240);">
+                                            총 재적인원
+                                        </div>
+                                        <div id="lectureStudentCount" class="col-4 text-center align-self-center border text-secondary py-2">
+                                            30명
+                                        </div>
+                                        <div class="col-2 fw-bold align-self-center border py-2" style="background-color: rgb(240, 240, 240);">
+                                           	최소 출석점수
+                                        </div>
+                                        <div id="cutLine"class="col-4 text-center align-self-center border text-secondary py-2">
+                                            80점
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col fw-bold text-center">
-                                   전체시험
-                                </div>
+                            <div class="row">  
                             </div>
                         </div>
-                        <div class="col mt-2">
-                            <div class="row ">
-                                <div class="col fw-bold text-center fs-4 number">
-                                    3 건
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col fw-bold text-center">
-                                   진행중인 시험
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col mt-2">
-                            <div class="row ">
-                                <div class="col fw-bold text-center fs-4 number">
-                                    3 건 
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col fw-bold text-center">
-                                   진행예정 시험
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col mt-2">
-                            <div class="row ">
-                                <div class="col fw-bold text-center fs-4 number">
-                                    78.7점
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col fw-bold text-center">
-                                    전체 평균 점수
-                                </div>
-                            </div>
-                        </div>
-                    </div>    
-                    <div class="row mt-3">
+                    </div>
+                    <div class="row mt-5">
                         <div class="col fw-bold fs-5 text-light" style="background-color: #133369;">
-                            시험
+                            수강생 현황
                         </div>
                     </div>
                     <div class="row bg-white border border-black py-3 px-3" style="height: 40em;">
                         <div class="col my-0">
                             <div class="row fw-bold text-center" style="background-color: rgb(240, 240, 240);">
-                                <div class="col-1 border align-self-center border py-2">
-                                    시험번호
+                                <div class="col-2 border align-self-center border py-2">
+                                    학생번호
                                 </div>
-                                <div class="col-3 border align-self-center border py-2">
-                                    시험명
+                                <div class="col-1 border align-self-center border py-2">
+                                    학생명
                                 </div>
                                 <div class="col border align-self-center border py-2">
-                                    시험시작일
-                                </div>
-                                <div class="col border align-self-center border py-2">
-                                    시험종료일
+                                    성별
                                 </div>
                                 <div class="col-1 border align-self-center border py-2">
-                                    응시 인원
+                                    출결점수
                                 </div>
                                 <div class="col-1 border align-self-center border py-2">
-                                    진행 상태
+                                    시험점수
                                 </div>
-                                <div class="col-3 border align-self-center border py-2">
+                                <div class="col-1 border align-self-center border py-2">
+                                    종합점수
+                                </div>
+                                <div class="col-1 border align-self-center border py-2">
+                                    수료 상태
+                                </div>
+                                <div class="col-4 border align-self-center border py-2">
                                     관리
                                 </div>
                             </div>
                             <!-- 반복문 구간 -->
-                            <div id="lectureTestListBox" class="col">
-                            
+                            <div id="studentTotalInfoListBox" class="col" style="font-size: small;">
+                                
                             </div>
                         </div>
                     </div>
@@ -376,30 +387,35 @@
             </div>
         </div>
 
-		<div id="lecutreTestListTemplete" class="d-none">
-			<div class="row text-center testListWrapper">
-	           <div class="col-1 h-auto border align-self-center border py-2 testNumber">
-	                e33333
-	            </div>
-	            <div class="col-3 h-auto border align-self-center border py-2 testName">
-	                민규와 함께 춤
-	            </div>
-	            <div class="col h-auto border align-self-center border py-2 text-secondary open_date" style="font-size: small">
-	                2023.12.11
-	            </div>
-	            <div class="col h-auto border align-self-center border py-2 text-secondary close_date" style="font-size: small">
-	                2023.12.11
-	            </div>
-	            <div class="col-1 h-auto border align-self-center border py-2 maxStudentAndTotalStudent">
-	                3/19
-	            </div>
-	            <div class="col-1 h-auto border align-self-center border py-2 testStatus" style="font-size: small">
-	              	종료
-	            </div>
-	            <div class="col-3 h-auto border align-self-center border py-2">
-	                <button class="btn btn-primary py-0 testStudentPageButton" style="font-size: small">상세보기</button>
-	            </div>
-	        </div>
+		<div id="studentTotalInfoListTemplet" class="d-none">
+			<div class="row text-center studentTotalInfoListWrapper">
+                <div class="col-2 border align-self-center border py-2 number">
+                    20220233
+                </div>
+                <div class="col-1 border align-self-center border py-2 name">
+                    조인춘
+                </div>
+                <div class="col border align-self-center border py-2 gender">
+                    성별
+                </div>
+                <div class="col-1 border align-self-center border py-2 attendanceScore">
+                    83점
+                </div>
+                <div class="col-1 border align-self-center border py-2 testAvgScore">
+                    90점
+                </div>
+                <div class="col-1 border align-self-center border py-2 totalScore">
+                    87점
+                </div>
+                <div class="col-1 border align-self-center border py-2 status">
+                    진행중
+                </div>
+                <div class="col-4 border align-self-center border py-2">
+                    <button class="btn btn-outline-primary py-0" style="font-size: small;">상세보기</button>
+                    <button class="btn btn-outline-primary py-0" style="font-size: small;">출결현황보기</button>
+                    <button class="btn btn-outline-primary py-0" style="font-size: small;">시험현황보기</button>
+                </div>
+            </div>
 		</div>
 		
         
