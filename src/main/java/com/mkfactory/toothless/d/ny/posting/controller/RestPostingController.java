@@ -140,4 +140,14 @@ public class RestPostingController {
 		return restResponseDto;
 	}
 	
+	// 글 수정
+//	@RequestMapping("modifyJobPostingPage")
+//	public D_RestResponseDto modifyJobPostingPage(int id) {
+//		
+//		D_RestResponseDto restResponseDto = new D_RestResponseDto();
+//		restResponseDto.setData(postingService.getJobPostingDetail(id));
+//		
+//		return restResponseDto;
+//	}
+//	
 }

@@ -139,13 +139,19 @@
                             <div class="collapse" id="collapseExample3">
                                 <div class="card card-body rounded-0 py-0 border-0 px-0">
                                     <a id="color8" class="btn btn-transparent text-start rounded-0 px-4" href="../hs/eduMainPageForStaff" style="font-size: small;">
-                                        조회
+                                        전체 현황
+                                    </a>
+                                    <a id="color9" class="btn btn-transparent text-start rounded-0 px-4" href="../hs/eduApplyListPage" style="font-size: small;">
+                                        프로그램 신청 현황
+                                    </a>
+                                    <a id="color12" class="btn btn-transparent text-start rounded-0 px-4" href="../hs/eduServeyListPage" style="font-size: small;">
+                                        만족도 작성 현황
+                                    </a>
+                                    <a id="color13" class="btn btn-transparent text-start rounded-0 px-4" href="../hs/eduProgListPage" style="font-size: small;">
+                                        프로그램 목록
                                     </a>
                                     <a id="color7" class="btn btn-transparent text-start rounded-0 px-4" href="../hs/eduProgRegisterPage" style="font-size: small;">
-                                        등록
-                                    </a>
-                                    <a id="color9" class="btn btn-transparent text-start rounded-0 px-4" href="#" style="font-size: small;">
-                                        이수자관리
+                                        프로그램 등록
                                     </a>
                                 </div>
                             </div>

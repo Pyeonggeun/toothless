@@ -150,13 +150,13 @@ public class HcBoardController {
 	}
 	@RequestMapping("noticeUpdateProcess")
 	public String noticeUpdateProcess(NoticeStaffBoardDto paw) {
-		System.out.println("확인");
-		System.out.println(paw.getNotice_board_pk());
 		
+		int board_pk = paw.getNotice_board_pk();
 		hcBoardService.upup(paw);
 		
-		return "redirect:./noticeMainPage";
+		return "redirect:./readNoticePage?id="+board_pk;
 	}
+	
 	@RequestMapping("noticeMainPageForStudent")
 	public String StudentPage(Model model) {
 		List<Map<String, Object>> list = hcBoardService.noticeList();

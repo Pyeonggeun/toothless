@@ -28,25 +28,76 @@ public class EduStaffController {
 	EduStaffServiceimpl eduStaffService; 
 	//교육 메인
 	@RequestMapping("eduMainPageForStaff")
-	public String eduMainPageForStaff(Model model,
-			String searchType,
-			String searchWord) {
+	public String eduMainPageForStaff(Model model) {
 		
-		List<Map<String, Object>> list = eduStaffService.getEduProgList(searchType, searchWord);
-		List<Map<String, Object>> eduApplyList = eduStaffService.getEduApplyList();
-		List<Map<String, Object>> allServeyList = eduStaffService.getAllServeyList();
+		List<Map<String, Object>> progListMain = eduStaffService.getProgListMain();
+		List<Map<String, Object>> applyListMain = eduStaffService.getApplyListMain();
+		List<Map<String, Object>> serveyListMain = eduStaffService.getServeyListMain();
 		
 
-		model.addAttribute("list", list);
-		model.addAttribute("eduApplyList", eduApplyList);
-		model.addAttribute("allServeyList", allServeyList);
+		model.addAttribute("progListMain", progListMain);
+		model.addAttribute("applyListMain", applyListMain);
+		model.addAttribute("serveyListMain", serveyListMain);
 		
 		return "tl_b/hs/eduMainPageForStaff";
 	}
 	
+	//프로그램 목록페이지
+	@RequestMapping("eduProgListPage")
+	public String eduProgListPage(Model model,
+			String searchType,
+			String searchWord) {
+		
+		List<Map<String, Object>> list = eduStaffService.getEduProgList(searchType, searchWord);
+		
+		model.addAttribute("list", list);
+		
+		
+		return "tl_b/hs/eduProgListPage";
+	}
+	
+	//신청현황 페이지
+	@RequestMapping("eduApplyListPage")
+	public String eduApplyListPage(Model model,
+			String searchType,
+			String searchWord) {
+		
+		List<Map<String, Object>> eduApplyList = eduStaffService.getEduApplyList(searchType, searchWord);
+		
+		model.addAttribute("eduApplyList", eduApplyList);
+		
+		
+		return "tl_b/hs/eduApplyListPage";
+	}
+	//만족도 현황 페이지
+	@RequestMapping("eduServeyListPage")
+	public String eduServeyListPage(Model model,
+			String searchType,
+			String searchWord) {
+		
+		List<Map<String, Object>> allServeyList = eduStaffService.getAllServeyList(searchType, searchWord);
+		
+		model.addAttribute("allServeyList", allServeyList);
+		
+		
+		return "tl_b/hs/eduServeyListPage";
+	}
+	
+	
+	
+	
 	//프로그램 등록 페이지
 	@RequestMapping("eduProgRegisterPage")
-	public String eduProgRegisterPage() {
+	public String eduProgRegisterPage(HttpSession session) {
+		
+		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(sessionStaffInfo == null) {
+			
+			return "redirect:../../another/staff/loginPage";
+		}
+		
+		
 		return "tl_b/hs/eduProgRegisterPage";
 	}
 	//프로그램 등록프로세스
@@ -88,11 +139,15 @@ public class EduStaffController {
 		}
 		
 		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
 		int staffPk = sessionStaffInfo.getStaff_pk();
-	
+		
+		
 		eduDto.setStaff_pk(staffPk);
 		
 		eduStaffService.eduProgRegister(eduDto);
+		
+		
 		
 		return "redirect:./eduMainPageForStaff";
 	}
@@ -110,9 +165,17 @@ public class EduStaffController {
 	
 	//교육프로그램 정보 수정
 	@RequestMapping("updateEduProgPage")
-	public String updateEduProgPage(Model model,EduApplyDto eduApplyDto) {
+	public String updateEduProgPage(Model model,EduApplyDto eduApplyDto, HttpSession session) {
 		
 		model.addAttribute("update", eduStaffService.getEduProg(eduApplyDto));
+		
+		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(sessionStaffInfo == null) {
+			
+			return "redirect:../../another/staff/loginPage";
+		}
+		
 		
 		return "tl_b/hs/updateEduProgPage";
 	}

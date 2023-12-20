@@ -540,7 +540,25 @@ WHERE c.STUDENT_PK =(
 <!-- 진행중 구직희망 싹 다 -->
 <select id="getOngoingHopeJobList" resultType="com.mkfactory.toothless.d.dto.HopeJobDto">
 SELECT * FROM TL_D_HOPE_JOB 
-WHERE IS_END_HOPE_JOB = 'N' 
+WHERE IS_END_HOPE_JOB = 'N'
+and student_pk in(
+	<if test="searchType!=null">
+	<choose>
+		<when test="searchType == 'student_id'">
+		 SELECT student_pk FROM TL_JIC_STUDENT_INFO 
+		 WHERE student_id = #{searchContents}
+		</when>
+		<when test="searchType == 'student_name'">
+		 SELECT student_pk FROM TL_JIC_STUDENT_INFO 
+		 WHERE name = #{searchContents}
+		</when>
+		<otherwise>
+		 SELECT student_pk FROM TL_JIC_STUDENT_INFO 
+		</otherwise>
+	</choose>
+	</if>
+	)
+
 </select>
 
 

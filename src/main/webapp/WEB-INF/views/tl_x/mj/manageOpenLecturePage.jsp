@@ -343,48 +343,42 @@
 	// 정보 등록
 	function registerOpenLectureInfo(){
 
-		/*
 		// 미입력 필드를 담을 배열
 	    const emptyFields = [];
 
 	    // 값이 비어있는지 확인
-	    if (!document.getElementById("teacherName").value.trim()) {
-	        emptyFields.push("이름을 입력해주세요.");
-	    }
-	    // ** radio
-	    if (!document.querySelector('input[name="gender"]:checked')) {
-		    emptyFields.push("성별을 선택해주세요.");
-		}
-	    if (!document.getElementById("birth").value.trim()) {
-	        emptyFields.push("생년월일 입력해주세요.");
-	    }
-	    if (!document.getElementById("resident_id").value.trim()) {
-	        emptyFields.push("주민등록번호를 입력해주세요.");
-	    }
 	    // ** selectBox
-	    if (document.getElementById("external_pk").selectedIndex == 0) {
-	        emptyFields.push("외부아이디를 선택해주세요.");
+	    if (document.getElementById("sel_one").selectedIndex == 0) {
+	        emptyFields.push("교육과정을 선택해주세요.");
 	    }
-	    if (!document.getElementById("external_pk").value.trim()) {
-	        emptyFields.push("외부아이디를 선택해주세요.");
+	    if (!document.getElementById("sel_one").value.trim()) {
+	        emptyFields.push("교육과정을 선택해주세요.");
 	    }
-	    if (!document.getElementById("address").value.trim()) {
-	        emptyFields.push("주소를 입력해주세요.");
+	    if (document.getElementById("sel_two").selectedIndex == 0) {
+	        emptyFields.push("개설할 수업 정보를 선택해주세요.");
 	    }
-	    if (!document.getElementById("phone").value.trim()) {
-	        emptyFields.push("전화번호를 입력해주세요.");
+	    if (!document.getElementById("sel_two").value.trim()) {
+	        emptyFields.push("개설할 수업 정보를 선택해주세요.");
 	    }
-	    if (!document.getElementById("email").value.trim()) {
-	        emptyFields.push("이메일을 입력해주세요.");
+	    if (!document.getElementById("open_date").value.trim()) {
+	        emptyFields.push("개강일을 입력해주세요.");
 	    }
-	    // ** checkBox
-	    if (!document.querySelectorAll('input[name="lecture_category_key"]:checked').length > 0) {
-		    emptyFields.push("강의 가능한 교육과정을 선택해주세요.");
-		}
-	    if (!document.getElementById("entered_at").value.trim()) {
-	        emptyFields.push("입사일을 입력해주세요.");
+	    if (document.getElementById("sel_teacher").selectedIndex == 0) {
+	        emptyFields.push("담당할 강사를 선택해주세요.");
 	    }
-
+	    if (!document.getElementById("sel_teacher").value.trim()) {
+	        emptyFields.push("담당할 강사를 선택해주세요.");
+	    }
+	    if (!document.getElementById("max_student").value.trim()) {
+	        emptyFields.push("최대 수강인원을 정수로 정확히 입력해주세요.");
+	    }
+	    if (!document.getElementById("start_apply").value.trim()) {
+	        emptyFields.push("수강신청 시작일을 입력해주세요.");
+	    }
+	    if (!document.getElementById("end_apply").value.trim()) {
+	        emptyFields.push("수강신청 시작일을 입력해주세요.");
+	    }
+	  
 	    
 	    // 미입력 필드가 있다면 알림 표시
 	    if (emptyFields.length > 0) {
@@ -392,7 +386,7 @@
 		    alert(missingFieldsMessage);
 		    return;
 		}
-	    */
+	    
 	    
 
 	    

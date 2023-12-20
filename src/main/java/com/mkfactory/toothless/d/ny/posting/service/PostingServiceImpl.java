@@ -45,9 +45,12 @@ public class PostingServiceImpl {
 		jobPostingDto.setJob_posting_pk(jobPostingPk);
 		
 		String postingContents = jobPostingDto.getPosting_contents();
+		
+		if (postingContents != null) {
 	      postingContents = StringEscapeUtils.escapeHtml4(postingContents);
 	      postingContents = postingContents.replaceAll("\n", "<br>");
 	      jobPostingDto.setPosting_contents(postingContents);
+		}
 	
 	      String postingPreference = jobPostingDto.getPreference();
 	
@@ -216,10 +219,14 @@ public class PostingServiceImpl {
 	// 채용공고 수정
 	public void modifyJobPosting(JobPostingDto jobPostingDto) {
 		
-		String postingContents = jobPostingDto.getPosting_contents();
+ 		String postingContents = jobPostingDto.getPosting_contents();
+ 		
+ 		if(postingContents != null) {
+ 			
 	      postingContents = StringEscapeUtils.escapeHtml4(postingContents);
 	      postingContents = postingContents.replaceAll("\n", "<br>");
 	      jobPostingDto.setPosting_contents(postingContents);
+ 		}
 	
 	      String postingPreference = jobPostingDto.getPreference();
 	
@@ -406,6 +413,8 @@ public class PostingServiceImpl {
 			List<Integer> postingDeadlineList = postingSqlMapper.selectPostingDeadline();
 			List<Integer> endPostingList = postingSqlMapper.selectEndPosting();
 			List<Integer> interestCompany = postingSqlMapper.selectInterestCompanyByStudentPk(student_pk);
+			List<Integer> myApplyPostingList = postingSqlMapper.selectMyApplyByStudentPk(student_pk);
+			
 			
 			jobPostingMap.put("companyDto", companyDto);
 			jobPostingMap.put("jobFieldCategoryDto", jobFieldCategoryDto);
@@ -413,6 +422,7 @@ public class PostingServiceImpl {
 			jobPostingMap.put("postingDeadlineList", postingDeadlineList);
 			jobPostingMap.put("endPostingList", endPostingList);
 			jobPostingMap.put("interestCompany", interestCompany);
+			jobPostingMap.put("myApplyPostingList", myApplyPostingList);
 			
 			postingList.add(jobPostingMap);
 			

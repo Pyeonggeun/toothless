@@ -123,7 +123,8 @@ public interface ResumeSqlMapper {
 	// 해당 공고에 지원한 학생 정보 가져오기
 	public List<StudentInfoDto> getStudentInfoByJobPostingPk(int job_posting_pk);
 	
-	
+	// 해당 공고 가져오기
+	public JobPostingDto getApplyJobPostingDto(int job_posting_pk);
 	
 	
 // 	ajax

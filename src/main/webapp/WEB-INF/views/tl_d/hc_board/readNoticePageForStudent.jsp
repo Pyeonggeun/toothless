@@ -99,9 +99,12 @@
 							
 						</c:when>
 						<c:otherwise>
-							<div class="col text-center">
-								<i class="bi bi-list"></i>
-								<a class="navbar-brand" href="./noticeMainPageForStudent">목록</a>
+							<div class="col text-end">
+								<a class="navbar-brand" href="./noticeMainPageForStudent">
+								<button type="submit" class="btn btn-primary">
+									<i class="bi bi-list"></i>목록
+								</button>
+								</a>
 							</div>
 						</c:otherwise>	
 					</c:choose>
@@ -116,6 +119,11 @@
 	<div class="container">
 		<div style="height: 200px;"></div>
 	</div>
+	<div class="row">
+         <div class="col">
+            <jsp:include page="../common/futter.jsp"></jsp:include>
+         </div>
+      </div>
 	
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

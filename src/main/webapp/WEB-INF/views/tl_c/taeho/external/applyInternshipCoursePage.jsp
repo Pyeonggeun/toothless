@@ -64,7 +64,7 @@
 				<span>&#035;&nbsp;${ajdksCompanyInfoDto.company_name } 님 환영합니다</span>
 			</div>	
 			<div class="col pe-2 text-end nolinenoblue">
-				<a href="./ajdksCompanyLogoutProcess">로그아웃</a>
+				<a href="../../taeho/external/ajdksCompanyLogoutProcess">로그아웃</a>
 			</div>	
 		</div>
 		
@@ -376,13 +376,11 @@
 				<div class="row pt-4 pb-5 mb-4">
 					<div class="col"></div>
 					<div class="col"></div>
-					<div class="col me-1 text-center rounded py-2" style="color: #4A3D73; border-style: solid; border-color: #4A3D73; border-width: 0.5px;">저장하기</div>
-					<div class="col ms-1 text-center text-white border border-white rounded py-2" style="background-color: #4A3D73;">제출하기</div>
+					<div class="col me-1 text-center rounded py-2" style="color: #4A3D73; border-style: solid; border-color: #4A3D73; border-width: 0.5px; cursor: pointer;">저장하기</div>
+					<div class="col ms-1 text-center text-white border border-white rounded py-2" style="background-color: #4A3D73; cursor: pointer;">제출하기</div>
 					<div class="col"></div>
 					<div class="col"></div>
 				</div>
-
-
 				
 			</div>
 		</div>

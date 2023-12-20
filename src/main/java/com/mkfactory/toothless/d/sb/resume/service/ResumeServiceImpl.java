@@ -396,10 +396,16 @@ public class ResumeServiceImpl {
 		
 	}
 	
+	public JobPostingDto getApplyJobPostingDto(int job_posting_pk) {
+		
+		JobPostingDto jobPostingDto = resumeSqlMapper.getApplyJobPostingDto(job_posting_pk);
+		
+		
+		return jobPostingDto;
+	}
+	
+	
 
-	
-	
-	
 	
 	
 

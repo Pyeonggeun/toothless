@@ -102,7 +102,7 @@ function colorSideBar() {
 		bootstrap.Collapse.getOrCreateInstance("#collapseExample3").show();
         document.getElementById("collapse3").value = "o3";
 		
-	}else if(str == '0') {
+	}else if(str == 'eduApplyListPage') {
 	
 		document.getElementById("color9").classList.add("text-white");
 		document.getElementById("color9").style.backgroundColor = '#014195';
@@ -120,6 +120,22 @@ function colorSideBar() {
 		document.getElementById("color11").classList.add("text-white");
 		document.getElementById("color11").style.backgroundColor = '#014195';
 		
+	}else if(str == 'eduServeyListPage') {
+	
+		document.getElementById("color12").classList.add("text-white");
+		document.getElementById("color12").style.backgroundColor = '#014195';
+		
+		bootstrap.Collapse.getOrCreateInstance("#collapseExample3").show();
+        document.getElementById("collapse3").value = "o3";
+		
+	}else if(str == 'eduProgListPage') {
+	
+		document.getElementById("color13").classList.add("text-white");
+		document.getElementById("color13").style.backgroundColor = '#014195';
+		
+		bootstrap.Collapse.getOrCreateInstance("#collapseExample3").show();
+        document.getElementById("collapse3").value = "o3";
+		
 	}
 
 }
@@ -133,7 +149,6 @@ function reloadStaffName() {
 	.then(response => {
 	
 		document.getElementById("staffName").innerText = response.data;
-		console.log("호출됨");
 	
 	});
 	

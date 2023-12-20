@@ -149,7 +149,8 @@ public interface LifeStaffSqlMapper {
 	// 수강신청된 강의 - 수정불가하게
 	public List<OpenLectureDto> selectNoUpdateLecture();
 	
-	
+	// 월별 수강신청 정보 리스트
+	public List<Map<Object, String>> selectMonthlyOpenLectureList(int month);
 	
 	
 	

@@ -111,14 +111,9 @@
 			<input type="checkbox" id="title4">
 			<label class="pt-3 pb-2 ps-3" for="title4"><i class="bi bi-transparency"></i>&nbsp;실습결과 관리</label>			
 			<div class="content text-white-50">
-				<div class="row pt-2 ps-2">
-					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../eunbi/student/gradeInquiryPage'">&gt;&nbsp;최종성적 조회</span>
-					</div>
-				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;일일업무보고 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../eunbi/student/gradeInquiryPage'">&gt;&nbsp;최종성적 조회</span>
 					</div>
 				</div>
 			</div>
@@ -171,7 +166,7 @@
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/student/ajdksStudentQnApage'">&gt;&nbsp;Q&A</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/student/ajdksStudentQnApage'">&gt;&nbsp;FAQ</span>
 					</div>
 				</div>
 			</div>

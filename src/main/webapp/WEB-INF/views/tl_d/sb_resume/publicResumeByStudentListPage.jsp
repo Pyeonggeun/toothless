@@ -310,8 +310,12 @@ window.addEventListener("DOMContentLoaded", () => {
 				<div class="row">
 					<div class="col-10"></div>
 					<div class="col">
-						<a class="btn btn-outline-secondary" href="../common/companyMainPage" role="button">돌아가기</a>
+						<a class="btn btn-outline-secondary" href="../common/companyMainPage" role="button">
+						<i class="bi bi-house"></i>&nbsp;&nbsp;메인페이지로
+						
+						</a>
 					</div>
+					
 				</div>	
 				
 				

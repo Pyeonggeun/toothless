@@ -80,17 +80,12 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;김은비</span>
-					</div>
-				</div>
-				<div class="row pt-2 ps-2">
-					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;김우재</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;받은쪽지함</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;김태호</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;보낸쪽지함</span>
 					</div>
 				</div>
 			</div>
@@ -102,19 +97,9 @@
 			<input type="checkbox" id="title6"/>
 			<label class="pt-3 pb-2 ps-3" for="title6"><i class="bi bi-newspaper"></i>&nbsp;공지사항</label>			
 			<div class="content text-white-50">
-				<div class="row pt-2 ps-2">
-					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;변후영</span>
-					</div>
-				</div>
-				<div class="row pt-2 ps-2">
-					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;이건택</span>
-					</div>
-				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;이서영</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;공지사항</span>
 					</div>
 				</div>
 			</div>
