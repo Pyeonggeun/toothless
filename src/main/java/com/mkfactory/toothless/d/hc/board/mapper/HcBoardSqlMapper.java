@@ -22,6 +22,9 @@ public interface HcBoardSqlMapper {
 	
 	public void notice(NoticeStaffBoardDto noticeStaffBoardDto);
 	
+	
+	
+	
 	public List<NoticeStaffBoardDto> selectNoticeAll();
 	
 	public StaffInfoDto selectBynoticepk(int staff_pk);

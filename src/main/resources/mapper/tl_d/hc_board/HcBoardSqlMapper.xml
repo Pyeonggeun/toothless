@@ -73,7 +73,7 @@
 	<!-- 공지사항 4줄요약 -->
 	<select id="getNoticeBordRowNum" resultType="com.mkfactory.toothless.d.dto.NoticeStaffBoardDto">
 		SELECT * FROM (
-			SELECT * FROM TL_D_NOTICE_BOARD tdnb ORDER BY NOTICE_BOARD_PK DESC
+			SELECT * FROM TL_D_NOTICE_BOARD  ORDER BY NOTICE_BOARD_PK DESC
 		)<![CDATA[
 		WHERE rownum <= 4
 		]]>	
