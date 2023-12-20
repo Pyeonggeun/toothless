@@ -43,84 +43,96 @@
 						</select>
 					</div>
 				</div>
-					<c:forEach items="${companyPostingListForStudent}" var="companyPostingForStudent">
-					<div class="row mt-3 pb-2 border-bottom">
-						<div class="col">
-							<div class="row">
-								<%-- 기업명 --%>
-								<div class="col pe-0">
-									${companyPostingForStudent.companyDto.com_name}
-								</div>
-							</div>
-							<div class="row">
-								<%-- 가족기업여부 --%>
-								<div class="col  ms-1">
-									<c:if test="${companyPostingForStudent.companyDto.is_family_company ne null and companyPostingForStudent.companyDto.is_family_company eq 'Y'}">
-										<span class="badge text-bg-info text-white">Family</span>
-									</c:if>						
-								</div>
+				<c:choose>
+					<c:when test="${empty companyPostingListForStudent}">
+						<div class="row mt-3">
+							<div class="col fw-bold text-center">
+								등록된 채용공고가 없습니다
 							</div>
 						</div>
-						<%-- 공고제목 --%>
-						<div class="col-8 ps-0 pt-1">
-							<div class="row">
-								<a class="text-dark navbar-brand" href="./jobPostingDetailForStudentPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
-									${companyPostingForStudent.jobPostingDto.posting_name}
-								</a>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${companyPostingListForStudent}" var="companyPostingForStudent">
+						<div class="row mt-3 pb-2 ps-5 border-bottom">
+							<div class="col pt-1">
+								<div class="row">
+									<%-- 기업명 --%>
+									<div class="col pe-0">
+										${companyPostingForStudent.companyDto.com_name}
+									</div>
+								</div>
+								<div class="row">
+									<%-- 가족기업여부 --%>
+									<div class="col ms-1">
+										<c:if test="${companyPostingForStudent.companyDto.is_family_company ne null and companyPostingForStudent.companyDto.is_family_company eq 'Y'}">
+											<span class="badge text-bg-info text-white">Family</span>
+										</c:if>						
+									</div>
+								</div>
 							</div>
-							<div class="row">
-								<%-- 분야/지역/기간 태그 --%>
-								<div class="col-7 ps-0">
-									<a class="text-dark navbar-brand" href="./jobPostingDetailPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
-										<span class="text-secondary">#&nbsp;${companyPostingForStudent.jobFieldCategoryDto.job_field_category_name} #&nbsp;${companyPostingForStudent.jobPostingDto.job_position}
-										#&nbsp;${companyPostingForStudent.companyDto.com_address} #&nbsp;<fmt:formatDate value="${companyPostingForStudent.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
-										<c:choose>
-											<c:when test="${companyPostingForStudent.postingDeadlineList.contains(companyPostingForStudent.jobPostingDto.job_posting_pk)}">
-												<span class="badge text-bg-danger">마감임박!</span>
-											</c:when>
-											<c:when test="${companyPostingForStudent.endPostingList.contains(companyPostingForStudent.jobPostingDto.job_posting_pk)}">
-												<span class="badge text-bg-secondary">채용마감</span>
-											</c:when>
-										</c:choose>
+							<%-- 공고제목 --%>
+							<div class="col-8 pt-1">
+								<div class="row">
+									<a class="text-dark navbar-brand" href="./jobPostingDetailForStudentPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
+										${companyPostingForStudent.jobPostingDto.posting_name}
 									</a>
 								</div>
-							</div>
-						</div>
-						<div class="col">
-							<div class="row">
-								<div class="col ms-3 pb-1">
-									<c:choose>
-										<c:when test="${companyPostingForStudent.allPostingInterest == 0}">
-											<i class="text-warning bi bi-star"></i>
-										</c:when>
-										<c:otherwise>
-											<i class="text-warning bi bi-star-fill"></i>
-										</c:otherwise>
-									</c:choose>
-									<span>${companyPostingForStudent.allPostingInterest}</span>	
+								<div class="row">
+									<%-- 분야/지역/기간 태그 --%>
+									<div class="col-7">
+										<a class="text-dark navbar-brand" href="./jobPostingDetailPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
+											<span class="text-secondary">#&nbsp;${companyPostingForStudent.jobFieldCategoryDto.job_field_category_name} #&nbsp;${companyPostingForStudent.jobPostingDto.job_position}
+											#&nbsp;${companyPostingForStudent.companyDto.com_address} #&nbsp;<fmt:formatDate value="${companyPostingForStudent.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
+											<c:choose>
+												<c:when test="${companyPostingForStudent.postingDeadlineList.contains(companyPostingForStudent.jobPostingDto.job_posting_pk)}">
+													<span class="badge text-bg-danger">마감임박!</span>
+												</c:when>
+												<c:when test="${companyPostingForStudent.endPostingList.contains(companyPostingForStudent.jobPostingDto.job_posting_pk)}">
+													<span class="badge text-bg-secondary">채용마감</span>
+												</c:when>
+											</c:choose>
+										</a>
+									</div>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col me-3">
-									<c:choose>
-										<c:when test="${companyPostingForStudent.endPostingList.contains(companyPostingForStudent.jobPostingDto.job_posting_pk)}">
-											<button class="btn btn-dark btn-sm" disabled>채용마감</button>
-										</c:when>
-										<c:when test="${companyPosting.contains(companyPostingForStudent.jobPostingDto.job_posting_pk)}">
-											<button class="btn btn-dark btn-sm" disabled>지원완료</button>
-										</c:when>
-										<c:when test="${empty sessionStudentInfo}">
-											<button class="btn btn-dark btn-sm" disabled>지원하기</button>
-										</c:when>
-										<c:otherwise>
-											<button class="btn btn-dark btn-sm">지원하기</button>
-										</c:otherwise>
-									</c:choose>
+							<div class="col mb-1">
+								<div class="row">
+									<div class="col ms-3 pb-1">
+										<c:choose>
+											<c:when test="${companyPostingForStudent.allPostingInterest == 0}">
+												<i class="text-warning bi bi-star"></i>
+											</c:when>
+											<c:otherwise>
+												<i class="text-warning bi bi-star-fill"></i>
+											</c:otherwise>
+										</c:choose>
+										<span>${companyPostingForStudent.allPostingInterest}</span>	
+									</div>
+								</div>
+								<div class="row">
+									<div class="col me-3">
+										<c:choose>
+											<c:when test="${companyPostingForStudent.endPostingList.contains(companyPostingForStudent.jobPostingDto.job_posting_pk)}">
+												<button class="btn btn-dark btn-sm" disabled>채용마감</button>
+											</c:when>
+											<c:when test="${companyPosting.contains(companyPostingForStudent.jobPostingDto.job_posting_pk)}">
+												<button class="btn btn-dark btn-sm" disabled>지원완료</button>
+											</c:when>
+											<c:when test="${empty sessionStudentInfo}">
+												<button class="btn btn-dark btn-sm" disabled>지원하기</button>
+											</c:when>
+											<c:otherwise>
+												<a class="btn btn-dark btn-sm"
+													href="../sb_resume/applyJobPostingPage?job_posting_pk=${companyPostingForStudent.jobPostingDto.job_posting_pk}">지원하기</a>
+											</c:otherwise>
+										</c:choose>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					</c:forEach> 
+						</c:forEach>
+					</c:otherwise>
+				</c:choose> 
 				</div>
 			<%-- 오른쪽 --%>	
 			<div class="col-2"></div>	

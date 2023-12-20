@@ -115,6 +115,8 @@ public class ConsultingController {
 	
 	
 	
+	
+	
 	//학생 온라인상담 정보 입력
 //	@RequestMapping("onlineConsultingProcess")
 //	public String insertOnlineConsulting(OnlineConsultingDto onlineConsulting, Model model, HttpSession session) {
@@ -175,7 +177,8 @@ public class ConsultingController {
 		
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
-	
+		
+		
 		if(studentInfoDto == null) {
 			return"redirect:../../another/student/loginPage";
 		}
@@ -245,6 +248,9 @@ public class ConsultingController {
 	@RequestMapping("myOnlineConsultingPage")
 	public String myOnlineConsultingPage(int on_consulting_pk, Model model) {
 		
+		
+		
+		
 		Map<String, Object> onlineConsultingInfo = consultingService.getOnlineConsultingByPk(on_consulting_pk);
 		
 		model.addAttribute("onlineConsultingInfo", onlineConsultingInfo);
@@ -258,7 +264,21 @@ public class ConsultingController {
 	//나중에 페이징처리로 쿼리 변경하자
 	//restapi에서 전체 출력으로 변경	
 	@RequestMapping("myOnlineConsultingListPage")
-	public String viewOnlineConsultingList() {		
+	public String viewOnlineConsultingList(HttpSession session, Model model) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		if(studentInfoDto==null) {
+			return"redirect:../../another/student/loginPage";
+		}
+		int student_pk = studentInfoDto.getStudent_pk();
+		
+		
+		boolean isboolean = consultingService.checkOverlapHopeJobApply(student_pk) ;
+		//구직희망신청 안했을때
+		if(!isboolean) {
+			return "redirect:./applyHopeJobPage";
+		}
+		
 		return"tl_d/jm_consulting/myOnlineConsultingListPage";		
 	}	
 	
@@ -426,7 +446,6 @@ public class ConsultingController {
 		//구직희망 - 학생정보
 		
 		
-		
 		//구직희망신청pk로  카테고리 이름까지 싹다
 		List<Map<String, Object>> getHopeJobCategoryList = consultingService.getHopeJobCategoryList(hope_job_pk);
 		model.addAttribute("getHopeJobCategoryList", getHopeJobCategoryList);
@@ -435,7 +454,6 @@ public class ConsultingController {
 		Map<String, Object> viewStudentDetailPageStats = consultingService.viewStudentDetailPageInfo(hope_job_pk);
 		model.addAttribute("viewStudentDetailPageStats", viewStudentDetailPageStats);
 		
-
 		
 		
 		return"tl_d/jm_consulting/viewDetailStudentInfoPage";

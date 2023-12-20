@@ -59,13 +59,14 @@
 	<a class="col ps-4 mt-2 ms-5 navbar-brand" 
 		href="../gw_program/programListPage">프로그램목록</a>
 </div>
-<!-- <div class="row">
+<%-- <div class="row">
 	<a class="col ps-4 mt-2 ms-5 navbar-brand" 
 		href="#">만족도조사</a>
-</div> -->
+</div> --%>
 <div class="row">
-	<a class="col fs-5 fw-bold ps-3 mt-3 ms-5 navbar-brand"
-		href="#"><span class="border-bottom border-3 pb-1 pe-5 me-2">게시판관리&nbsp;&nbsp;</span></a>
+	<div class="col fs-5 fw-bold ps-3 mt-3 ms-5">
+		<span class="border-bottom border-3 pb-1 pe-5 me-2">게시판관리&nbsp;&nbsp;</span>
+	</div>
 </div>
 <div class="row">
 	<a class="col ps-4 mt-3 ms-5 navbar-brand" 

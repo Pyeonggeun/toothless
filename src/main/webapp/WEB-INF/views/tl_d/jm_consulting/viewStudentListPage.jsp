@@ -11,18 +11,23 @@
 <title>Insert title here</title>
 
 <script>
-function reloadlist(){
+//var shared_searchType ;
+//var shared_searchContents ;
+function reloadlist(searchType,searchContents){
 	
-	url='./viewStudentList'
+	url='./viewStudentList?searchType='+ searchType + "&searchContents=" + searchContents ;
 	
 		fetch(url)
 		.then(response => response.json())
 		.then(response => {
 			
+			//붙일곳
+			const viewListLocation = document.querySelector("#viewListLocation");
+			viewListLocation.innerHTML='';
+			
 			for(e of response.data){
 				
-				//붙일곳
-				const viewListLocation = document.querySelector("#viewListLocation");
+
 				//불러오기
 				const templeteWrapper = document.querySelector("#templeteWrapper").cloneNode(true);
 				const list_pk = templeteWrapper.querySelector(".list_pk");
@@ -44,15 +49,18 @@ function reloadlist(){
 				list_un_answered_reply.innerText = e.unAnsweredHJF + "건";
 				
 				
-
+				//<i class="list_student_info_icon bi bi-info-square"></i>
 				list_student_info.innerHTML="";
 		      	//링크이동
+		      	const list_student_info_icon = document.createElement('i');
+		      	list_student_info_icon.classList.add('bi','bi-info-square');
 		      	const a_element = document.createElement('a');
-		      	const button_element = document.createElement('button');
+		      	//const button_element = document.createElement('button');
 		      	a_element.href = "./viewDetailStudentInfoPage?hope_job_pk=" + e.hopeJobDto.hope_job_pk ;
-		      	button_element.classList.add('btn-primary', 'btn');
-		      	button_element.innerText = '이동';
-		      	a_element.appendChild(button_element);
+		      	//button_element.classList.add('btn-primary', 'btn');
+		      	//button_element.innerText = '이동';
+		      	//a_element.appendChild(button_element);
+		      	a_element.appendChild(list_student_info_icon);
 		      	list_student_info.appendChild(a_element);
 		      	
 		      	//붙이기
@@ -83,65 +91,129 @@ window.addEventListener("DOMContentLoaded", () => {
 	</div>
 	
 	<div class="row">
-		<div class="col-2">
+		<div class="col-2 border-end pb-0">
 			<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 		</div>	
-		<div class="col-1"></div>			
+		<div class="col-1"></div>	
 		<div class="col">
-
 			<div class="row">
-				<div class="col mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 fw-bold fs-4">
-					구직희망 학생 목록
-				</div>
-			</div>
-			
-			
-			
-			
-			<div class="row border mt-5 py-2">
-
-				<div class="col fw-bold text-center" style="font-size:1.2em;">
+				
+				<div class="col">
 					<div class="row">
-						<div class="col">
-							No.
+						<div class="col mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 fw-bold fs-4">
+							구직희망 학생 목록
 						</div>
-						<div class="col">
-							학생 이름
-						</div>
-						<div class="col">
-							학번
-						</div>
-						<div class="col">
-							신청 날짜
-						</div>
-						<div class="col">
-							미답변 온라인상담
-						</div>	
-						<div class="col">
-							학생 정보
-						</div>																			
 					</div>
-				</div>
-		
-			</div>
-			<div class="row text-center">
-				<div id="viewListLocation" class="col">
 					
-				</div>
-			</div>
-																									
+					
+					<div class="row mt-4">
+						<div class="col">
+							<div class="row border border-secondary-subtle" style="align-items:center;">
+							
+								
+							
+								
+								
+								<div class="col">					
+									<select id="searchCategory" class="ps-0 form-select" aria-label="Default select example" style="border:none; outline:none; font-size:0.9em;">
+									  <option value="all">선택</option>
+									  <option value="student_name">학생 이름</option>
+									  <option value="student_id">학번</option>
+									</select>							
+								</div>
+								<div class="col-10">
+									<div class="row">
+										<div class="col-11">
+											<input id="searchContents" type="text" style="border:none; outline:none; width:100%; font-size:0.7em;">
+										</div>								
+										<div class="col-1 text-right pe-2" style="display:flex; align-items:end; justify-content:end;">
+											<button onclick="reloadlist(searchCategory.value, searchContents.value)" style="border:none; background:none; cursor:pointer;"><i class="bi bi-search"></i>
+											</button>
+										</div>
+		
+									</div>									
+								</div>										
+		
+													
+							</div>
+		
+						</div>
+					</div>
+		
+					
+					
+					<div class="mt-5 row py-2 border-bottom border-2 border-secondary">
+		
+						<div class="col fw-bold text-center">
+							<div class="row">
+								<div class="col">
+									No.
+								</div>
+								<div class="col">
+									학생 이름
+								</div>
+								<div class="col">
+									학번
+								</div>
+								<div class="col">
+									신청 날짜
+								</div>
+								<div class="col">
+									미답변 온라인상담
+								</div>	
+								<div class="col">
+									학생 정보
+								</div>																			
+							</div>
+						</div>
+				
+					</div>
+					<div class="row text-center">
+						<div id="viewListLocation" class="col">
+							
+						</div>
+					</div>
 	
-			<div class="row mt-2 ps-0">
-				<div class="col ps-0">
-					<a href="../common/staffMainPage"><button type="button" class="btn btn-primary">목록</button></a>
-				</div>
-			</div>	
+			
+																											
+					
+					<div class="mt-5 row text-center">
+									
+						<div class="col">
+							
+						  <div class="ps-5 ms-5 btn-group" role="group" aria-label="First group">
+						    <button type="button" class="btn btn-outline-dark">&lt;</button>
+						    <button type="button" class="btn btn-outline-dark">1</button>
+						    <button type="button" class="btn btn-outline-dark">2</button>
+						    <button type="button" class="btn btn-outline-dark">3</button>
+						    <button type="button" class="btn btn-outline-dark">4</button>
+						    <button type="button" class="btn btn-outline-dark">5</button>
+						    <button type="button" class="btn btn-outline-dark">></button>
+						  </div>					
+						</div>
+						<div class="col-2 ps-0 text-end">
+							<a href="../common/staffMainPage"><button type="button" class="btn btn-primary">메인페이지로</button></a>
+						</div>									
+					</div>
+				
+					
+					
+	
+			</div>
+			</div>
+						
+		
 		</div>
-		<div class="col-2"></div>				
-
+		<div class="col-2"></div>	
 	</div>
 	
-	
+	<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+	<!-- futter -->
+	<div class="row">
+		<div class="col">
+			<jsp:include page="../common/futter.jsp"></jsp:include>
+		</div>
+	</div>	
 
 	
 </div>
@@ -157,16 +229,16 @@ window.addEventListener("DOMContentLoaded", () => {
 
 <%-- 리스트 템플릿 --%>
 <div id="listTemplete" class="d-none">
-	<div id="templeteWrapper" class="row border">
+	<div id="templeteWrapper" class="row border-bottom border-secondary-subtle">
 		<div class="col">
-			<div class="row py-2" style="font-size:0.9em; display: flex; align-items: center; justify-content: center;">
-				<div class="col border-end list_pk">No.</div>
-				<div class="col border-end list_name">학생 이름</div>
-				<div class="col border-end list_id">학번</div>
-				<div class="col border-end list_created_at">신청 날짜</div>
-				<div class="col border-end list_un_answered_reply">미답변 온라인상담</div>
-				<div class="col border-end list_student_info">
-					<i class="bi bi-info-square"></i>
+			<div class="row py-2" style="font-size:1em; display: flex; align-items: center; justify-content: center;">
+				<div class="col py-2 list_pk fw-bold">No.</div>
+				<div class="col py-2 list_name">학생 이름</div>
+				<div class="col py-2 list_id">학번</div>
+				<div class="col py-2 list_created_at">신청 날짜</div>
+				<div class="col py-2 list_un_answered_reply">미답변 온라인상담</div>
+				<div class="col py-2 list_student_info" style="font-size:1.2em;">
+					
 				</div>
 			</div>
 		</div>

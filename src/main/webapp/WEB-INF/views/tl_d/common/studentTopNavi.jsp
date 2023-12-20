@@ -48,7 +48,7 @@
 			</div> 
 	    	<div class="col-1"></div> --%>
    		</div>
-   		<!-- 상단부 메뉴 -->
+   		<%-- 상단부 메뉴 --%>
    		<div class="row text-center py-2 fw-bold text-light" style="background-color: #133369">
             <div class="col-2"></div>
             <div class="col align-self-center">
@@ -60,13 +60,14 @@
             <div class="col align-self-center">
                 <a class="navbar-brand" href="../jm_consulting/hopeJobConsultingPage">취업컨설팅</a>
             </div>
-            <!-- 드롭다운 만들 예정 -->
             <div class="col align-self-center">
                 <a class="navbar-brand" href="../hc_board/QnABoardPageForStudent">QnA게시판</a>
             </div>
             <div class="col align-self-center">
                 <a class="navbar-brand" href="../hc_board/noticeMainPageForStudent">공지사항</a>
             </div>
+            
+
             <div class="col-1"></div>
             <div class="col-1 align-self-center  text-end">
 				
@@ -92,6 +93,7 @@
 				
 			</div> 
 			<div class="col-1"></div>
+
         </div>
    		
 	</div>	

@@ -20,8 +20,8 @@
 		</div>
 		
 		<div class="row">
-			<div class="col-1"></div>
-			<div class="col-1 me-5">
+			
+			<div class="col-2 ">
 				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 			</div>
 			<div class="col-1 border-start"></div>
@@ -37,11 +37,11 @@
 					</div>
 				</div>
 				
-				<form action="./noticeWriteProcess">
+				<form action="./noticeUpdateProcess">
 				<div class="row mb-4">
-					<div class="col">
 					
-						<textarea name="notice_title"  class="form-control form-control-sm" >${qwer.noBoardDto.notice_title }</textarea>		
+					<div class="col">
+							<input id="inputTitle" name="notice_title" class="form-control form-control-sm" type="text" value="${qwer.noBoardDto.notice_title }" aria-label=".form-control-sm example">		
 					</div>
 				</div>
 				
@@ -76,6 +76,11 @@
 	<div class="container">
 		<div style="height: 200px;"></div>
 	</div>
+	<div class="row">
+         <div class="col">
+            <jsp:include page="../common/futter.jsp"></jsp:include>
+         </div>
+      </div> 
 	
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

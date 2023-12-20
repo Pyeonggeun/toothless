@@ -11,6 +11,18 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <title>교육 교직원 메인</title>
         <script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
+        
+        <style>
+          .text-over-cut {
+	        display: block;
+	        max-width: 600px;
+	        white-space: nowrap;
+	        overflow: hidden;
+	        text-overflow: ellipsis;
+	   	 }
+        
+        </style>
+        
     </head>
     <body>
         <div class="container-fluid">
@@ -31,20 +43,28 @@
 
                                                         <div class="col"> <!--교육목록-->
                                                             <div class="row">
-                                                            	<div class="col">
-                                                            	</div>
+                                                            	
                                                                 <div class="col text-center fw-bold px-0" style="font-size: 1.3em;">
                                                                     교육 프로그램 신청현황
                                                                 </div>
-                                                                <div class="col"></div>
+                                                                
                                                                 <!-- <div class="col-1 text-end">
                                                                     <input name="name" type="text" style="height: 25px;">
                                                                     <i class="bi bi-search-heart"></i>
                                                                 </div> -->
                                                             </div>
+                                                            <div class="row">
+		                                                        <div class="col text-end my-auto" style="font-size: small;">
+		                                                                   <a href="./eduApplyListPage" style="text-decoration: none;"
+		                                                                   class="text-secondary">
+		                                                                   더보기 &gt;
+		                                                                   </a>
+		                                                         </div>
+		                                                    </div>
                                                             <div class="row mt-3">
                                                                 <div class="col">
-                                                                    <div class="row fw-bold pb-1 border-bottom border-dark">
+                                                                    <div class="row text-white pb-1 border-bottom border-dark"
+                                                                    style="background-color: #133369;">
                                                                         <div class="col fw-bold" style="text-align: center;" >
                                                                             <span>신청자</span>
                                                                         </div>
@@ -58,12 +78,12 @@
                                                                             <span>상태</span>
                                                                         </div>
                                                                     </div>
-                                                                    <c:forEach items="${eduApplyList }" var="edu">
+                                                                    <c:forEach items="${applyListMain }" var="edu">
                                                                         <div class="row py-1 border-bottom">
                                                                             <div class="col align-self-center text-center" style="text-align: center;">
                                                                                 <span>${edu.studentInfoDto.name }</span>
                                                                             </div>
-                                                                            <div class="col align-self-center text-start" style="text-align: center;">
+                                                                            <div class="col align-self-center text-start text-over-cut" style="text-align: center;">
                                                                                 <span>${edu.eduDto.name }</span>
                                                                             </div>
                                                                             <div class="col align-self-center text-center" style="text-align: center;">
@@ -107,9 +127,18 @@
                                                                     만족도 작성현황
                                                                 </div>
                                                             </div>
+                                                            <div class="row">
+		                                                        <div class="col text-end my-auto" style="font-size: small;">
+		                                                                   <a href="./eduServeyListPage" style="text-decoration: none;"
+		                                                                   class="text-secondary">
+		                                                                   더보기 &gt;
+		                                                                   </a>
+		                                                         </div>
+		                                                    </div>
                                                             <div class="row mt-3">
                                                                 <div class="col">
-                                                                    <div class="row fw-bold pb-1 border-bottom border-dark">
+                                                                    <div class="row text-white pb-1 border-bottom border-dark"
+                                                                    style="background-color: #133369">
                                                                         <div class="col fw-bold" style="text-align: center;" >
                                                                             프로그램명
                                                                         </div>
@@ -123,15 +152,15 @@
                                                                             평가내용
                                                                         </div>
                                                                     </div>
-                                                                    <c:forEach items="${allServeyList }" var="ser">
+                                                                    <c:forEach items="${serveyListMain }" var="ser">
                                                                     <div class="row py-1 border-bottom">
-                                                                        <div class="col align-self-center text-start" style="text-align: center;">
+                                                                        <div class="col align-self-center text-start text-over-cut" style="text-align: center;">
                                                                             ${ser.eduName }
                                                                         </div>
                                                                         <div class="col align-self-center text-center" style="text-align: center;">
                                                                             <span>${ser.studentName.name }</span>
                                                                         </div>
-                                                                        <div class="col align-self-center text-center">
+                                                                        <div class="col align-self-center text-center" style="font-size: 1.28em;">
                                                                         	<c:choose>
 																				<c:when test="${ser.eduStsfcSurveyDto.star_rated eq 5}">
 																					⭐⭐⭐⭐⭐
@@ -150,7 +179,7 @@
 																				</c:when>
 																			</c:choose>
                                                                         </div>
-                                                                        <div class="col align-self-center text-center">
+                                                                        <div class="col align-self-center text-center text-over-cut">
                                                                         	${ser.eduStsfcSurveyDto.content }
                                                                         </div>
                                                                     </div>
@@ -170,53 +199,26 @@
                                                         <div class="col text-center fw-bold" style="font-size: 1.3em;">
                                                             교육 프로그램 목록
                                                         </div>
+                                                        
                                                     </div>
-
                                                     <div class="row">
-                                                        <div class="col justify-content-end">
-                                                            <form action="./eduMainPageForStaff" method="get">
-                                                            <div class="row mt-3 text-end"><!-- 검색  -->
-                                                                <div class="col-8"></div>
-                                                                <div class="col">
-                                                                	<div class="row justify-content-end">
-                                                                		<div class="col-2"></div>
-                                                                		<div class="col-3 px-1 text-end">
-		                                                                    <select name="searchType" class="form-select form-select-sm">
-		                                                                        <option value="eduName" selected>프로그램명</option>
-		                                                                        <option value="name">작성자</option>
-		                                                                        <option value="content">내용</option>
-		                                                                    </select>
-		                                                                </div>
-		                                                                <div class="col px-1">
-		                                                                    <div class="row justify-content-end">
-		                                                                        <div class="col-11 text-end">
-		                                                                            <input  name="searchWord" 
-		                                                                            type="text" 
-		                                                                            class="form-control form-control-sm">
-		                                                                        </div>
-		                                                                        <div class="col text-start p-0 ">
-		                                                                            <button type="submit" 
-		                                                                            class="p-0 btn btn-white btn-sm w-10">
-			                                                                            <i class="bi bi-search-heart"
-			                                                                            style="font-size: 18px;"></i>
-		                                                                            </button>
-		                                                                        </div>
-		                                                                    </div>
-		                                                                </div>	
-                                                                	</div>
-                                                                </div>
-                                                            </div>
-                                                            </form>
-                                                        </div>
+                                                        <div class="col text-end my-auto" style="font-size: small;">
+                                                                   <a href="./eduProgListPage" style="text-decoration: none;"
+                                                                   class="text-secondary">
+                                                                   더보기 &gt;
+                                                                   </a>
+                                                         </div>
                                                     </div>
-                                                    
-                                                   
+													
+													
+													
 
 
                                                     <div class="row mt-4"> <!--목록 출력-->
                                                         <div class="col">
-                                                            <div class="row fw-bold pb-1 border-bottom border-dark">
-                                                                <div class="col-1 fw-bold" style="text-align: center;" >
+                                                            <div class="row text-white pb-1 border-bottom border-dark"
+                                                            style="background-color: #133369;">
+                                                                <div class="col-1 fw-bold d-grid" style="text-align: center;" >
                                                                     <span>글번호</span>
                                                                 </div>
                                                                 <div class="col-4 fw-bold" style="text-align: center;" >
@@ -234,17 +236,14 @@
                                                                 <div class="col fw-bold" style="text-align: center;" >
                                                                     <span>작성일</span>
                                                                 </div>
-                                                                <div class="col-1 fw-bold" style="text-align: center;" >
-                                                                    조회
-                                                                </div>
                                                             </div>
-                                                            <!-- 프로그램 신청 현황목록 내용 -->
-                                                            <c:forEach items="${list }" var="edu">
+                                                            <!-- 프로그램 목록 내용 -->
+                                                            <c:forEach items="${progListMain }" var="edu">
                                                                 <div class="row py-1 border-bottom">
                                                                     <div class="col-1" style="text-align: center;">
                                                                         <span>${edu.eduDto.edu_pk }</span>
                                                                     </div>
-                                                                    <div class="col-4 text-start sss" style="text-align: center;" >
+                                                                    <div class="col-4 text-start text-over-cut" style="text-align: center;" >
                                                                         <span>
                                                                         <a href="./readEduProgPage?edu_pk=${edu.eduDto.edu_pk}" class="text-black"
                                                                         style="text-decoration: none;">
@@ -263,9 +262,7 @@
                                                                     <div class="col" style="text-align: center;">
                                                                         <span><fmt:formatDate value="${edu.eduDto.created_at }" pattern="yyyy-MM-dd"/></span>
                                                                     </div>
-                                                                    <div class="col-1" style="text-align: center;">
-                                                                        <span>10</span>
-                                                                    </div>
+                                                                   
                                                                 </div>
                                                             </c:forEach>
                                                             <div class="row mt-2"> <!--등록버튼이요-->
@@ -283,26 +280,7 @@
                                     </div>
 
                                     
-                                    <!-- <table border="1">
-										<tr>
-											<td>글번호</td>
-											<td>프로그램명</td>
-											<td>작성자</td>
-											<td>교육일</td>
-											<td>작성일</td>
-										</tr>   
-                                    <c:forEach items="${list }" var="map">
-                                    	<tr>
-											<td>${map.eduDto.edu_pk }</td>
-											<td><a href="./readEduProgPage?edu_pk=${map.eduDto.edu_pk}">${map.eduDto.name }</a></td>
-											<td>${map.staffInfoDto.name }</td>
-											<td>${map.eduDto.edu_date }</td>
-											<td><fmt:formatDate value="${map.eduDto.created_at }"
-											pattern="yy년 MM월 dd일 hh시 mm분 ss초"/></td>
-										</tr>
-                                    </c:forEach>
-                                    </table>
-                                    <a href="./eduProgRegisterPage">프로그램 등록</a>  -->
+                                    
                                 </div>
                             </div>
                         </div>

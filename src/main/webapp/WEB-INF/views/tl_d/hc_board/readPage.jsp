@@ -93,14 +93,7 @@
 				<div class="row border-top border-black pt-3 mt-1">
 					<c:choose>
 						<c:when test="${sessionStaffInfo.staff_pk == roman.staffInfoDto.staff_pk }">	
-							<div class="col text-end">
-								<a class="navbar-brand" href="./QnABoardPage">
-									<button type="submit" class="btn btn-primary">
-									<i class="bi bi-list"></i>목록
-								</button>
-								</a>	
-							</div>
-							<div class="col text-end">
+								<div class="col">
 							<a class="navbar-brand" href="./deleteProcess?board_pk=${roman.qnABoardDto.board_pk }">
 								<button type="submit" class="btn btn-danger"><i class="bi bi-trash3-fill"></i>
 									삭제
@@ -112,9 +105,18 @@
 								</button>
 							</a>	
 							</div>
+						
+							<div class="col text-end">
+								<a class="navbar-brand" href="./QnABoardPage">
+									<button type="submit" class="btn btn-primary">
+									<i class="bi bi-list"></i>목록
+								</button>
+								</a>	
+							</div>
+							
 						</c:when>
 						<c:otherwise>
-							<div class="col text-center">
+							<div class="col text-end">
 							<a class="navbar-brand" href="./QnABoardPage">
 								<button type="submit" class="btn btn-primary">
 									<i class="bi bi-list"></i>
@@ -135,6 +137,11 @@
 	<div class="container">
 		<div style="height: 200px;"></div>
 	</div>
+	<div class="row">
+         <div class="col">
+            <jsp:include page="../common/futter.jsp"></jsp:include>
+         </div>
+      </div>   
 	
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

@@ -116,7 +116,7 @@ public class PostingController {
 
 		if (businessNumberMatched) {
 			postingService.registerJobPostingInfo(params);
-		    return "redirect:./registerJobPostingPage";
+		    return "tl_d/ny_posting/registerJobPostingSuccess";
 		} else {
 		    return "tl_d/ny_posting/registerJobPostingFail";
 		}
@@ -281,22 +281,21 @@ public class PostingController {
 		model.addAttribute("postingCount", postingService.getPostingCount());
 		
 		
-//		페이징할때 링크 남기는 방법		
-//      String searchQueryString = "";
+//		//페이징할때 링크 남기는 방법		
+//		String searchQueryString = "";
 //		
-//		쿼리 스트링이니까 &붙임
-//  	if(searchType != null && searchWord != null && searchPosition != null && searchPosition != null) {
+//		//쿼리 스트링이니까 &붙임
+//		if(searchType != null && searchWord != null) {
 //			searchQueryString += "&searchType=" + searchType;
 //			searchQueryString += "&searchWord=" + searchWord;
-//			searchQueryString += "&searchPosition=" + searchPosition;
 //			
 //		}
 //		
 //		model.addAttribute("searchQueryString", searchQueryString);
-		
-		// 검색 칸에 검색 내용 띄워 두기 영상확인!
-		model.addAttribute("searchType", searchType);
-		model.addAttribute("searchWord", searchWord);
+//		
+//		// 검색 칸에 검색 내용 띄워 두기 영상확인!
+//		model.addAttribute("searchType", searchType);
+//		model.addAttribute("searchWord", searchWord);
 
 		
 		return "tl_d/ny_posting/jobPostingListForStudentPage";
@@ -363,6 +362,7 @@ public class PostingController {
 	// 관심 기업 추가 프로세스
 	@RequestMapping("interestCompanyProcessFromDetailPage")
 	public String interestCompanyProcessFromDetailPage(int id, InterestCompanyDto interestCompanyDto) {
+		
 		companyService.insertInterestCompany(interestCompanyDto);
 		
 		return "redirect:./jobPostingDetailForStudentPage?id="+ id;

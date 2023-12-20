@@ -231,13 +231,13 @@ window.addEventListener("DOMContentLoaded", () => {
 						<div class="col d-flex justify-content-center">
 							<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 							  <div class="btn-group" role="group" aria-label="First group">
-							    <button type="button" class="btn btn-primary">&lt;</button>
-							    <button type="button" class="btn btn-primary">1</button>
-							    <button type="button" class="btn btn-primary">미</button>
-							    <button type="button" class="btn btn-primary">구</button>
-							    <button type="button" class="btn btn-primary">현</button>
-							    <button type="button" class="btn btn-primary">5</button>
-							    <button type="button" class="btn btn-primary">></button>
+							    <button type="button" class="active btn btn-outline-dark">&lt;</button>
+							    <button type="button" class="btn btn-outline-dark">1</button>
+							    <button type="button" class="btn btn-outline-dark">2</button>
+							    <button type="button" class="btn btn-outline-dark">3</button>
+							    <button type="button" class="btn btn-outline-dark">4</button>
+							    <button type="button" class="btn btn-outline-dark">5</button>
+							    <button type="button" class="btn btn-outline-dark">></button>
 							  </div>
 							</div>	
 						</div>	
@@ -255,7 +255,13 @@ window.addEventListener("DOMContentLoaded", () => {
 		</div>
 	</div><!-- 첫로우 -->
 	
-	
+	<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
+	<!-- futter -->
+	<div class="row">
+		<div class="col">
+			<jsp:include page="../common/futter.jsp"></jsp:include>
+		</div>
+	</div>	
 
 
 </div><!-- 컨테이너 -->

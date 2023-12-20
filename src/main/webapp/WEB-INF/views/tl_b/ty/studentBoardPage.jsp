@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+   		<script src="../../resources/js/hn/topBanner.js"></script>
     </head>
     	<script>
             function formSubmit(){
@@ -25,19 +26,14 @@
             }
         </script>
     <body>
-
+		<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <jsp:include page="../commonJsp/staffTopBanner.jsp"></jsp:include>
                     <div class="row mx-5">
                         <div class="col">
                                     <div class="row">
                                         <div class="col">
-                                        	<div class="row">
-		                                        <div class="col-11 pe-0 text-end">${sessionStudentInfo.name }님 환영합니다</div>
-		                                        <div class="col text-start"><a href="./StudentlogoutProcess">로그아웃</a></div>
-		                                    </div>
                                             <div class="row mt-5  ">
                                                 <div class="col fw-bold fs-2 text-center border-bottom border-4">보건진료소</div>
                                             </div>
@@ -138,12 +134,6 @@
                                                         		<div class="col-2"></div>
                                                         		<div class="col text-start">
                                                         			2. 요청사항 및 건의사항은 s001lec@naver.com 으로 보내주세요.
-                                                        		</div>
-                                                        	</div>
-                                                        	<div class="row">
-                                                        		<div class="col-2"></div>
-                                                        		<div class="col text-start">
-                                                        			3. 게시글 대표이미지는 꼭 설정 부탁드립니다.
                                                         		</div>
                                                         	</div>
                                                         </div>

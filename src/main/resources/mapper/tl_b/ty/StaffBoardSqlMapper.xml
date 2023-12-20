@@ -68,7 +68,7 @@
 	</delete>
 	<update id="updateRead" >
 		UPDATE tl_b_studentboard
-		SET content=#{content}, title=#{title}, img_link=#{img_link}
+		SET content=#{content}, title=#{title}
 		WHERE studentboard_pk=#{studentboard_pk}
 	</update>
 	<update id="increase">
