@@ -150,8 +150,7 @@
 				</if>
 				<if test="!searchGenderOption.equals('default')">
 					AND gender = #{searchGenderOption}
-				</if>								
-				
+				</if>
 				<!-- <if test="searchOption == true and !searchCounselorName.equals('default')">
 					and rn = 1
 				</if>
@@ -196,7 +195,10 @@
 	
 	<!-- 상담원 PK로 상담원정보 조회 -->
 	<select id="selectCounselorDetailByCounselorId" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
-		SELECT * FROM CP_COUNSELOR WHERE id = #{id}
+		SELECT
+		* 
+		FROM CP_COUNSELOR
+		WHERE id = #{id}
 	</select>
 	
 	<!-- 상담카테고리 리스팅 -->
@@ -323,7 +325,7 @@
 			FROM CP_GROUP_RESERVATION cgr
 			INNER JOIN CP_GROUP_COUNSEL cgc ON cgc.ID = cgr.GROUP_COUNSEL_ID
 			INNER JOIN CP_GROUP_COUNSELOR cgc2 on cgc.ID = cgc2.GROUP_COUNSEL_ID
-			) completeList ON completeList.counselorid = cc.ID
+			) completeList ON completeList.counselorid = cc.ID		
 		WHERE id = #{counselorId}
 	</select>
 	
@@ -459,6 +461,70 @@
 			GROUP BY cc.ID
 			) starRateView ON starRateView.counselorId = cc2.ID 
 		WHERE cc2.ID = #{counselorId}
+	</select>
+	
+	<!-- 상담원 전체 상담분류별 상담완료실적 -->
+	<select id="selectAllCompleteCounselList" resultType="map">
+		SELECT
+			RANK() OVER (ORDER BY mainView.totalcount DESC NULLS LAST) AS totalRank,
+			cc.id AS id,
+			cc.name AS name,
+			NVL(mainView.offcount,0) AS offcount,
+			NVL(mainView.oncount,0) AS oncount,
+			NVL(mainView.groupcount,0) AS groupcount,
+			NVL(mainView.totalCount,0) AS totalCount
+		FROM CP_COUNSELOR cc 
+		LEFT OUTER JOIN (
+			SELECT
+				COUNSELORID,
+				COUNT(CASE WHEN counselboardtype=1 THEN 1 end) AS offCount,
+				COUNT(CASE WHEN counselboardtype=2 THEN 1 end) AS onCount,
+				COUNT(CASE WHEN counselboardtype=3 THEN 1 end) AS groupCount,
+				COUNT(counselboardtype) AS totalCount
+			FROM (
+				SELECT
+					cc.id AS counselorId,
+					completeList.boardType AS counselBoardType,
+					completeList.counselNo AS counselNo,
+					completeList.counselType AS counselType,
+					completeList.counselDate AS counselDate
+				FROM CP_COUNSELOR cc
+				INNER JOIN (
+						SELECT
+						1 AS boardType,
+						cor.COUNSELOR_ID AS counselorId, 
+						cor.id AS counselNo,
+						ctc.NAME AS counselType,
+						cor.COUNSEL_YEAR || '-' ||cor.COUNSEL_MONTH || '-' || cor.COUNSEL_DAY AS counselDate
+					FROM CP_OFFLINE_RESERVATION cor
+					INNER JOIN CP_COUNSELOR cc ON cc.id = cor.COUNSELOR_ID
+					INNER JOIN CP_TYPE_CATEGORY ctc ON cor.TYPE_CATEGORY_ID = ctc.ID 
+					WHERE cor.STATE = '완료'
+					UNION 
+					SELECT
+						2 AS boardType,
+						cocr.COUNSELOR_ID AS counselorId,
+						cocb.id AS counselNo,
+						ctc.NAME AS counselType,
+						TO_CHAR(cocb.CREATED_AT, 'yyyy-MM-dd') AS counselDate 
+					FROM CP_ONLINE_COUNSEL_BOARD cocb
+					INNER JOIN CP_ONLINE_COUNSEL_REPLY cocr ON cocr.ONLINE_COUNSEL_BOARD_ID = cocb.ID
+					INNER JOIN CP_TYPE_CATEGORY ctc ON cocb.TYPE_CATEGORY_ID = ctc.ID
+					UNION
+					SELECT
+						3 AS boardType,
+						cgc2.COUNSELOR_ID AS counselorId,
+						cgc.ID AS counselNo,
+						cgc.TITLE AS counselType,
+						TO_CHAR(cgc.COUNSEL_DATE, 'yyyy-mm-dd') AS counselDate  
+					FROM CP_GROUP_RESERVATION cgr
+					INNER JOIN CP_GROUP_COUNSEL cgc ON cgc.ID = cgr.GROUP_COUNSEL_ID
+					INNER JOIN CP_GROUP_COUNSELOR cgc2 on cgc.ID = cgc2.GROUP_COUNSEL_ID
+					) completeList ON completeList.counselorid = cc.ID
+				)
+			GROUP BY COUNSELORID
+			ORDER BY totalcount DESC  
+			)mainView ON mainview.counselorid = cc.ID
 	</select>
 	
 	
