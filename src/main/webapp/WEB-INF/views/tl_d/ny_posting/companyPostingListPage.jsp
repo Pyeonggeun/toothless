@@ -43,82 +43,89 @@
 						</select>
 					</div>
 				</div>
-				<c:forEach items="${companyPostingList}" var="companyPosting">
-				<div class="row border-bottom">
-					<%-- 1번째 기업 + 가족기업 뱃지 칸 --%>
-					<div class="col pt-3 ms-2 pe-0">
+				<c:choose>
+					<c:when test="${empty companyPostingList}">
 						<div class="row mt-3">
-							<%-- 기업명 --%>
-							<div class="col pe-0">
-								${companyPosting.companyDto.com_name}
+							<div class="col fw-bold text-center">
+								등록된 채용공고가 없습니다
 							</div>
 						</div>
-						<div class="row">
-							<%-- 가족기업여부 --%>
-							<div class="col ms-1">
-								<c:if test="${companyPosting.companyDto.is_family_company ne null and companyPosting.companyDto.is_family_company eq 'Y'}">
-									<span class="badge text-bg-info text-white">Family</span>
-								</c:if>						
-							</div>
-						</div>
-					</div>
-					<%-- 공고제목 --%>
-					<div class="col-7 mt-1 pt-4 px-0 pb-2">
-						<div class="row">
-							<div class="col">
-								<a class="navbar-brand" href="./jobPostingDetailPage?id=${companyPosting.jobPostingDto.job_posting_pk}">
-									${companyPosting.jobPostingDto.posting_name}
-								</a>
-							</div>
-						</div>
-						<div class="row mt-1 pb-1">
-						<%-- 분야/지역/기간 태그 --%>
-							<div class="col-7">
-								<a class="text-dark navbar-brand" href="./jobPostingDetailPage?id=${companyPosting.jobPostingDto.job_posting_pk}">
-									<span class="text-secondary">#&nbsp;${companyPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${companyPosting.jobPostingDto.job_position}
-									#&nbsp;${companyPosting.companyDto.com_address} #&nbsp;<fmt:formatDate value="${companyPosting.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
-									<c:choose>
-										<c:when test="${companyPosting.postingDeadlineList.contains(companyPosting.jobPostingDto.job_posting_pk)}">
-											<span class="badge text-bg-danger">마감임박!</span>
-										</c:when>
-										<c:when test="${companyPosting.endPostingList.contains(companyPosting.jobPostingDto.job_posting_pk)}">
-											<span class="badge text-bg-secondary">채용마감</span>
-										</c:when>
-									</c:choose>
-								</a>
-							</div>
-						</div>
-					</div>
-					<div class="col py-3 ps-2 pe-3 text-end">
-						<c:choose>
-							<c:when test="${empty sessionStaffInfo}">
-								<div class="row">
-									<div class="col pb-1">
-										<button class="btn btn-outline-dark" disabled>수정</button>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${companyPostingList}" var="companyPosting">
+						<div class="row border-bottom">
+							<%-- 1번째 기업 + 가족기업 뱃지 칸 --%>
+							<div class="col pt-3 ms-2 pe-0">
+								<div class="row mt-3">
+									<%-- 기업명 --%>
+									<div class="col pe-0">
+										${companyPosting.companyDto.com_name}
 									</div>
 								</div>
+								<div class="row">
+									<%-- 가족기업여부 --%>
+									<div class="col ms-1">
+										<c:if test="${companyPosting.companyDto.is_family_company ne null and companyPosting.companyDto.is_family_company eq 'Y'}">
+											<span class="badge text-bg-info text-white">Family</span>
+										</c:if>						
+									</div>
+								</div>
+							</div>
+							<%-- 공고제목 --%>
+							<div class="col-7 mt-1 pt-4 px-0 pb-3">
 								<div class="row">
 									<div class="col">
-										<button class="btn btn-dark" disabled>삭제</button>
+										<a class="navbar-brand" href="./jobPostingDetailPage?id=${companyPosting.jobPostingDto.job_posting_pk}">
+											${companyPosting.jobPostingDto.posting_name}
+										</a>
 									</div>
 								</div>
-							</c:when>
-							<c:otherwise>
-								<div class="row">
-									<div class="col pb-1">
-										<a class="btn btn-outline-dark" href="./modifyJobPostingPage?id=${companyPosting.jobPostingDto.job_posting_pk}">수정</a>
+								<div class="row mt-1 pb-1">
+								<%-- 분야/지역/기간 태그 --%>
+									<div class="col-7">
+										<a class="text-dark navbar-brand" href="./jobPostingDetailPage?id=${companyPosting.jobPostingDto.job_posting_pk}">
+											<span class="text-secondary">#&nbsp;${companyPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${companyPosting.jobPostingDto.job_position}
+											#&nbsp;${companyPosting.companyDto.com_address} #&nbsp;<fmt:formatDate value="${companyPosting.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
+											<c:choose>
+												<c:when test="${companyPosting.postingDeadlineList.contains(companyPosting.jobPostingDto.job_posting_pk)}">
+													<span class="badge text-bg-danger">마감임박!</span>
+												</c:when>
+												<c:when test="${companyPosting.endPostingList.contains(companyPosting.jobPostingDto.job_posting_pk)}">
+													<span class="badge text-bg-secondary">채용마감</span>
+												</c:when>
+											</c:choose>
+										</a>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col">
-										<a class="btn btn-dark" href="./removeJobPostingProcessForCompany?id=${companyPosting.jobPostingDto.job_posting_pk}">삭제</a>
-									</div>
-								</div>
-							</c:otherwise>
-						</c:choose>
-					</div>
-				</div>
-				</c:forEach> 
+							</div>
+							<div class="col-2 ms-5 pt-3 mt-3">
+								<c:choose>
+									<c:when test="${empty sessionStaffInfo}">
+										<div class="row">
+											<div class="col text-end">
+												<button class="btn btn-outline-dark" disabled>수정</button>
+											</div>
+											<div class="col ps-0">
+												<button class="btn btn-dark" disabled>삭제</button>
+											</div>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="row">
+											<div class="col pe-1 text-end">
+												<a class="btn btn-outline-dark" href="./modifyJobPostingPage?id=${companyPosting.jobPostingDto.job_posting_pk}">수정</a>
+											</div>
+											<div class="col ps-0">
+												<a class="btn btn-dark" href="./removeJobPostingProcessForCompany?id=${companyPosting.jobPostingDto.job_posting_pk}">삭제</a>
+											</div>
+										</div>
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
+						</c:forEach> 
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<%-- 오른쪽 --%>	
 			<div class="col-2"></div>	

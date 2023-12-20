@@ -10,45 +10,46 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         
         <script>
-        	// 로그인하지 않음
+        	<%-- 로그인하지 않음 --%>
         	let studentId = null;
         	
-        	// 로그인 확인
+        	<%-- 로그인 확인 --%>
         	function getStudentId(){
         		fetch("./getStudentId")
         		.then(response => response.json())
-        		// 응답된 결과
+        		<%-- 응답된 결과 --%>
         		.then(response => {
-        			// 로그인하면 값을 넣어줌
+        			<%-- 로그인하면 값을 넣어줌 --%>
         			studentId = response.data;
         		});
         	}
         	
         	
-        	// 공고 리스트 출력
+        	<%-- 공고 리스트 출력 --%>
         	function reloadJobPostingList(searchType, searchWord){
         		
-        		// 링크 가져오기
+        		<%-- 링크 가져오기 --%>
         		const url = "./getJobPostingListForStudent?searchType=" + searchType + "&searchWord=" + searchWord;
-        		// get방식 
-        		//fetch(url)
+        		<%-- get방식 
+        			fetch(url) --%> 
 				
-        		// post방식 - 설정이 더 필요
+        		<%-- post방식 - 설정 더 필요 --%>
         		fetch(url)
-        		// 역직렬화(필수!)
+        		<%-- 역직렬화(필수!) --%>
         		.then(response => response.json())
         		.then(response => {
-
+        			
         			
        				const postingListBox = document.getElementById("postingListBox");
        				
-       				// 초기화 필요
+       				<%-- 초기화 필요 --%>
        				postingListBox.innerHTML = ""; 
-        			// 클라이언트 사이드 렌더링
-        			// 리스트 반복문
+        			<%-- 클라이언트 사이드 렌더링
+        				 리스트 반복문 --%>
         			for(e of response.data){
         				
-        				/* const selectBox = document.querySelector(".selectBox")
+        				
+        				<%-- const selectBox = document.querySelector(".selectBox")
         				
         				const categoryList = [
         				    {id: e.fieldCategoryList.job_field_category_pk, categoryName: e.fieldCategoryList.job_field_category_name}
@@ -69,14 +70,23 @@
         				    selectBox.appendChild(checkBox);
         				    selectBox.appendChild(label);
         				    selectBox.appendChild(document.createTextNode("\u00A0"));
-        				}); */
+        				}); --%>
         				
-        				// 딱 1개의 클래스를 가져옴 + cloneNode(true)로 안쪽까지 모두 복사
+        				<%-- 딱 1개의 클래스를 가져옴 + cloneNode(true)로 안쪽까지 모두 복사 --%>
         				const postingWrapper = document.querySelector("#templete .postingWrapper").cloneNode(true);
         				
-        				// 내용 입력
+        				if(e == null){
+        					const text = document.createElement("div");
+        					text.classList.add("col", "fw-bold", "text-center");
+        					text.textContent = "등록된 채용공고가 없습니다";
+        					postingWrapper.appendChild(text);
+        				}
         				
-        				// 회사명
+        				
+        				
+        				<%-- 내용 입력 --%>
+        				
+        				<%-- 회사명 --%>
         				const postingCompanyName = postingWrapper.querySelector(".postingCompanyName");
         				
 		        		const companyInfoLink =	document.createElement("a");
@@ -102,7 +112,7 @@
         				 
 		        		
 		        		
-        				// 가족기업여부
+        				<%-- 가족기업여부 --%>
         				const isFamilyCompany = postingWrapper.querySelector(".isFamilyCompany");
         				
         					if(e.companyDto.is_family_company != null && e.companyDto.is_family_company == "Y"){
@@ -114,7 +124,7 @@
         					    isFamilyCompany.appendChild(badge);
         					}
 						
-        				// 공고제목
+        				<%-- 공고제목 --%>
         				const jobPostingName = postingWrapper.querySelector(".jobPostingName");
         				
         				const postingNameLink = document.createElement("a");
@@ -127,7 +137,7 @@
         				jobPostingName.appendChild(postingNameLink);
         				
 						
-        				// 분야 + 직무 + 지역 + 마감일 
+        				<%-- 분야 + 직무 + 지역 + 마감일 --%>
         				const jobPostingCondition = postingWrapper.querySelector(".jobPostingCondition");
         				
         				const postingLink = document.createElement("a");
@@ -137,22 +147,22 @@
         				postingLink.classList.add("navbar-brand", "text-secondary");
         				
         				
-        				// date 변환(자바스크립트 클래스)
+        				<%-- date 변환(자바스크립트 클래스) --%>
         				const date = new Date(e.jobPostingDto.posting_deadline);
         				
-        				// 요일 변환
+        				<%-- 요일 변환 --%>
         				let week = new Array('일', '월', '화', '수', '목', '금', '토');  
         				let theDay = date.getDay();    
         				let dayLabel = week[theDay];   
         				
         				postingLink.innerText = "#" + e.jobFieldCategoryDto.job_field_category_name + " " 
         				+ "#" + e.jobPostingDto.job_position + " " + "#" + e.companyDto.com_address + " "
-        				// DATE 변환 필요 (달은 + 1 해줘야함)
+        				<%-- DATE 변환 필요 (달은 + 1 해줘야함) --%>
         				+ "#" + "~" + (date.getMonth() + 1) + "/" + date.getDate() + "(" + dayLabel + ")" + " ";
         				
         				jobPostingCondition.appendChild(postingLink);
         				
-        				// 마감임박 + 채용마감
+        				<%-- 마감임박 + 채용마감 --%>
         				if(e.postingDeadlineList.includes(e.jobPostingDto.job_posting_pk)){
         					const deadlineBadge = document.createElement("span");
         					deadlineBadge.classList.add("badge", "text-bg-danger");
@@ -168,7 +178,7 @@
         					jobPostingCondition.appendChild(endBadge);
         				}
         				
-        				// 공고스크랩
+        				<%-- 공고스크랩 --%>
         				const interestPosting = postingWrapper.querySelector(".interestPosting");
         				
         				 if (e.allPostingInterest == 0) {
@@ -187,7 +197,7 @@
         				
         				interestPosting.appendChild(allInterestCount);
         			    
-        				/* 관심공고를 시도중 1..  
+        				<%-- 관심공고를 시도중 1..  
         				checkMyInterestPosting(e.jobPostingDto.job_posting_pk)
         			    .then(isInterest => {
         			        if (isInterest === 0) {
@@ -238,13 +248,13 @@
 		        				interestPosting.appendChild(allInterestCount);
 		        				
 	        					
-	        				});
-        			 */
+	        				}); --%>
+        			 
         				 
         				
         				const applyPosting = postingWrapper.querySelector(".applyPosting");
         				
-        				/* 좀 더 깔끔하게 하기 */ 
+        				<%-- 좀 더 깔끔하게 하기 --%>
         				if(e.endPostingList.includes(e.jobPostingDto.job_posting_pk)){
         					const endButton = document.createElement("button");
         					endButton.classList.add("btn", "btn-dark", "btn-sm");
@@ -273,7 +283,7 @@
         				}
         				
         			 	        				 
-        				// 반복문 돌면서 postingListBox 안쪽에 붙임
+        				<%-- 반복문 돌면서 postingListBox 안쪽에 붙임 --%>
         				postingListBox.appendChild(postingWrapper);
         				 
         			}
@@ -283,7 +293,7 @@
         	}
         	
                	
-         	// 관심공고
+         	<%-- 관심공고
         	function interest(job_posting_pk){
         		
         	/* 	if(studentId == null){
@@ -338,6 +348,7 @@
 	    				return response.data;
         		});
         	}
+        	--%>
         
         	function search(){
         		const searchTypeValue = document.querySelector(".searchType");
@@ -357,8 +368,8 @@
         		getStudentId();
         		reloadJobPostingList();
         		
-        		// n초마다 로드
-        		// setInterval(reloadJobPostingList, n);
+        		<%-- n초마다 로드
+        		 setInterval(reloadJobPostingList, n); --%>
         	});
         </script>
 </head>
@@ -457,7 +468,7 @@
 <%-- 클론 --%>
 <%-- 안쪽에 id 절대 넣지 못함! --%>
 <div id="templete" class="d-none">
-	<div class="postingWrapper row border-bottom py-2">
+	<div class="postingWrapper row ps-4 border-bottom py-2">
 		<%-- 1번째 칸 --%>
 		<div class="col-2 mt-2 ps-4">
 			<div class="row">

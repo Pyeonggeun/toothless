@@ -75,7 +75,7 @@
 		SELECT * FROM (
 			SELECT * FROM TL_D_NOTICE_BOARD  ORDER BY NOTICE_BOARD_PK DESC
 		)<![CDATA[
-		WHERE rownum <= 4
+		WHERE rownum <= 5
 		]]>	
 	</select>
 	
