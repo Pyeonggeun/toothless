@@ -11,6 +11,7 @@
 <title>Insert title here</title>
 		
 		<script>
+			let student_pk = "";	
 		
 			function getStudentInfo(){		
 	    		fetch("./restStudentInfo")
@@ -19,8 +20,8 @@
 	    			
 	    			const studentLoginPageUrl = "http://localhost:8181/toothless/another/student/loginPage";
 	    			
-	    			loginStudentInfo = response.data;
-	    			console.log(response.data);
+	    			loginStudentInfo = response.data;	    			
+	    			student_pk = response.data.student_pk;
 	    			if(loginStudentInfo == null){
 	    				
 	    				window.location.href = studentLoginPageUrl;
