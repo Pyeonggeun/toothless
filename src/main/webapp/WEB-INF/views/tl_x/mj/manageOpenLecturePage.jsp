@@ -750,6 +750,25 @@
 			const updateBtn = document.querySelector("#updateBtn")
 			updateBtn.setAttribute("onclick", "saveBtn("+ someOpenLecInfo.open_lecture_key +")");
 			
+			fetch("./getNoUpdateLectureList")
+			.then(response => response.json())
+			.then(response => {
+				
+				// 수강신청된 강의들
+				const noUpdateLectureList = response.data.noUpdateLectureList;
+				
+				noUpdateLectureList.forEach(item => {
+					
+					if(item.open_lecture_key == someOpenLecInfo.open_lecture_key){
+						updateBtn.innerText = "수정불가";
+						updateBtn.disabled = true;
+						return true;
+					}
+					
+				});
+				
+			});
+			
 			// 삭제 버튼
 			const deleteBtn = document.querySelector("#deleteBtn")
 			deleteBtn.setAttribute("onclick", "deleteBtn("+ someOpenLecInfo.open_lecture_key +")");
@@ -865,6 +884,7 @@
             
         
 	</div> <!-- main row 끝 -->
+	<jsp:include page="../commons/staff/footer.jsp"></jsp:include>
 </div>
 
 <!-- 공통 제목/탭 -->
@@ -885,9 +905,6 @@
 			  </li>
 			  <li class="nav-item">
 			    <a id="tab2" class="nav-link text-black" onclick="manageOpenLectureInfoPage()">조회/수정</a>
-			  </li>
-			  <li class="nav-item">
-			    <a id="tab2" class="nav-link text-black">진행상황</a>
 			  </li>
 			</ul>
 		</div>
@@ -1362,6 +1379,13 @@
         <div class="modal-footer mx-0 d-flex justify-content-between">
             <button id="deleteBtn" type="button" class="btn btn-danger rounded-0 px-4">삭제하기</button>
             <div>
+            	<c:choose>
+            		<c:when test="">
+            		
+            		</c:when>
+            	</c:choose>
+            	
+            	
                 <button id="updateBtn" type="button" class="btn btn-primary rounded-0 text-white px-4" style="background-color: #003399;">수정완료</button>
                 <button type="button" class="btn btn-secondary rounded-0 px-3" data-bs-dismiss="modal">닫기</button>
             </div>

@@ -186,6 +186,12 @@
 		ORDER BY DORM_APPLICATION_PK desc
 	</select>
 	
+	<select id="selectStudentPkForAlram" resultType="com.mkfactory.toothless.a.dto.JoinDormApplicationDto">
+		SELECT STUDENT_PK FROM TL_A_JOIN_DORM_APPLICATION 
+		WHERE dorm_application_pk = #{dorm_application_pk}
+	</select>
+	
+	
 	<!-- ============================================================ -->
 	<!-- 메인페이지 최근 2개 공고리스트 -->
 	<select id="selectDormNotice" resultType="com.mkfactory.toothless.a.dto.DormNoticeDto">

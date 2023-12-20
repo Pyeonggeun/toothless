@@ -119,7 +119,7 @@ body {
 
 				<!-- 상단 헤더 -->
 				<div class="row mt-3 mb-3">
-					<div class="col">
+					<div class="col mt-3">
 						<div class="row">
 							<div class="col">
 
@@ -139,14 +139,14 @@ body {
 					<!-- 본문 작성 공간 -->
 
 					<div class="row">
-						<div class="col-md-5 mt-2 mb-2">
+						<div class="col-md-6 mt-3 mb-2">
 							<label for="inputCity" class="form-label jb-700" > 글 제목 </label> <input
 								name="course_title" type="text" class="form-control"
 								style="font-size: 0.9em;" id="inputCity"
 								placeholder="50자 내외의 글 제목을 작성해주시기 바랍니다.">
 						</div>
 
-						<div class="col-md-5 mt-2 mb-2">
+						<div class="col-md-6 mt-3 mb-2">
 							<label for="inputState" class="form-label jb-700"> 인원 수 </label>
 							<select name="internship_total_member" style="font-size: 0.9em;" id="internship_total_member" class="form-select">
 								<option value="1">1</option>
@@ -157,7 +157,7 @@ body {
 							</select>
 						</div>
 
-						<div class="col-md-5 mt-2 mb-2">
+						<div class="col-md-6 mt-3 mb-2">
 							<label for="inputState" class="form-label jb-700"> 자격요건 </label>
 							<select name="semester_qualification" style="font-size: 0.9em;" id="semester_qualification" class="form-select">
 								<option value="1">1학기</option>
@@ -169,18 +169,43 @@ body {
 								<option value="7">7학기</option>
 							</select>
 						</div>
-						
-					</div>
-
-					<div class="row mt-2 mb-3 ">
-
-						<div class="col">
-							<div class="row"></div>
+						<!-- 교수 셀렉트 -->
+						<div class="col-md-6 mt-3 mb-2">
+						<label for="inputState" class="form-label jb-700 "> 교수명</label> 
+							<select name="professor_pk" id="professor_pk" class="form-select" style="font-size: 0.9em;">
+								<c:forEach items="${list }" var="map">
+									<option value="${map.professorInfoDto.professor_pk}">
+										${map.professorInfoDto.name}</option>
+								</c:forEach>
+						</select>
 						</div>
-
+						
+					    <!-- 사업체 셀렉트 -->
+						<div class="col-md-6 my-2">
+						<label for="inputState" class="form-label jb-700 "> 사업체명</label> 
+							<select name="company_pk" id="company_pk" class="form-select" style="font-size: 0.9em;">
+								<c:forEach items="${complist }" var="map">
+									<option value="${map.AjdksCompanyInfoDto.company_pk}">
+										${map.AjdksCompanyInfoDto.company_name}</option>
+								</c:forEach>
+						</select>
+						</div>
+						
+						<!-- 학과 셀렉트 -->
+						<div class="col-md-6 my-2">
+						<label for="inputState" class="form-label jb-700 "> 학과명</label> 
+							<select name="department_pk" id="department_pk" class="form-select" style="font-size: 0.9em;">
+								<c:forEach items="${departList }" var="map">
+									<option value="${map.DepartmentCategoryDto.department_pk}">
+										${map.DepartmentCategoryDto.name}</option>
+								</c:forEach>
+						</select>
+						</div>
 					</div>
 
-					<table class="table">
+					
+
+					<table class="table mt-4">
 
 						<thead class="table table-sm ">
 							<tr>
@@ -191,7 +216,7 @@ body {
 						</thead>
 
 
-						<!-- 기능 고도화 시 사용될 항목 -->
+						
 						<tbody class="table table-sm align-middle">
 							<tr>
 								<td scope="row" style="font-size: 0.9em;">- 모집기간시작</td>
@@ -224,66 +249,23 @@ body {
 						</tbody>
 					</table>
 					
-				<!-- 교수 셀렉트 -->
-				<div class="col-4 mt-4 mb-4">
-				<label for="inputState" class="form-label jb-700 "> 교수명</label> 
-					<select name="professor_pk" id="professor_pk" class="form-select" style="font-size: 0.9em;">
-						<c:forEach items="${list }" var="map">
-							<option value="${map.professorInfoDto.professor_pk}">
-								${map.professorInfoDto.name}</option>
-						</c:forEach>
-				</select>
-				</div>
 				
-			    <!-- 사업체 셀렉트 -->
-				<div class="col-4 mt-4 mb-4">
-				<label for="inputState" class="form-label jb-700 "> 사업체명</label> 
-					<select name="company_pk" id="company_pk" class="form-select" style="font-size: 0.9em;">
-						<c:forEach items="${complist }" var="map">
-							<option value="${map.AjdksCompanyInfoDto.company_pk}">
-								${map.AjdksCompanyInfoDto.company_name}</option>
-						</c:forEach>
-				</select>
-				</div>
-				
-				<!-- 학과 셀렉트 -->
-				<div class="col-4 mt-4 mb-4">
-				<label for="inputState" class="form-label jb-700 "> 학과명</label> 
-					<select name="department_pk" id="department_pk" class="form-select" style="font-size: 0.9em;">
-						<c:forEach items="${departList }" var="map">
-							<option value="${map.DepartmentCategoryDto.department_pk}">
-								${map.DepartmentCategoryDto.name}</option>
-						</c:forEach>
-				</select>
-				</div>
 				
 				</form>
 
-				<!-- 여백용도 -->
-				<div class="row mt-2 mb-2">
-					<div class="col">
-						<div class="row"></div>
-					</div>
-				</div>
-
 
 				<!-- 하단 버튼 -->
-				<div class="col-12 justify-content-end">
-
-					<div class="row">
-						<div class="col-2 d-grid mt-2 mb-2">
-							<button onclick="javascript:fn_reg();" class="btn labelcolor">
-								<i class="bi bi-pencil-square"></i> 등록
-							</button>
-						</div>
-
-						<div class="col-2 d-grid mt-2 mb-2">
-							<a href="./ajdksInternshipList" class="btn labelcolor"><i
-								class="bi bi-list-ul"></i> 목록으로</a>
-						</div>
-
+				<div class="row d-flex justify-content-center mt-5">
+					<div class="col-2 d-grid mt-2 mb-2">
+						<button onclick="javascript:fn_reg();" class="btn labelcolor py-2">
+							<i class="bi bi-pencil-square"></i> 수정
+						</button>
 					</div>
 
+					<div class="col-2 d-grid mt-2 mb-2">
+						<a href="./ajdksInternshipList" class="btn labelcolor py-2"><i
+							class="bi bi-list-ul"></i> 목록으로</a>
+					</div>
 
 				</div>
 			</div>

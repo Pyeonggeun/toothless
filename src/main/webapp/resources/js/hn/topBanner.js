@@ -12,12 +12,14 @@ function hideMenu() {
 
 function color(target) {
 
-    target.style.backgroundColor = '#133369';
+	target.classList.remove("text-white");
+    target.style.color = '#BDE1FF';
 
 }
 
 function removeColor(target) {
 
-    target.style.removeProperty("background-color");
+	target.classList.add("text-white");
+    target.style.removeProperty("color");
 
 }

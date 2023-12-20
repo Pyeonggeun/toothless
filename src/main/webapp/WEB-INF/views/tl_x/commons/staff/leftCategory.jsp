@@ -6,6 +6,13 @@
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item">
                   <h2 class="accordion-header">
+                    <button onclick="location.href='./mainPage'" class="accordion-button collapsed" type="button">
+                        <i class="ms-3 fs-4 bi bi-house"></i> &nbsp; 홈
+                    </button>
+                  </h2>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-1" aria-expanded="false" aria-controls="flush-collapseOne">
                         <i class="ms-3 fs-4 bi bi-book"></i> &nbsp; 교육과정 관리
                     </button>
@@ -30,7 +37,6 @@
                         <div class="row ps-5 ms-1 my-2">
                             <a class="btn text-start my-1" href="./manageOpenLecturePage" role="button">신규 강의 개설</a>
                             <a class="btn text-start my-1" href="./manageOpenLecturePage2" role="button">강의 조회/수정</a>
-                            <a class="btn text-start my-1" href="#" role="button">강의 진행상황 조회</a>
                         </div>
                     </div>
                   </div>
@@ -68,17 +74,32 @@
                   <!-- 아코디언 끝 -->
             </div>
             
+            <pre>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            </pre>
+            
             <div class="row mt-5 ps-2">
                 <div class="col">
                     <ul style="list-style: none;">
                         <li class="my-2 text-body-secondary" style="font-size: 0.7rem;">관련사이트</li>
-                        <li class="my-2" style="font-size: 0.8rem;">뭐라도
+                        <li class="my-2" style="font-size: 0.8rem;">MK대학교 포털
                             <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
-                        <li class="my-2" style="font-size: 0.8rem;">넣겠지
-                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
-                        <li class="my-2" style="font-size: 0.8rem;">이것저것
-                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
-                        <li class="my-2" style="font-size: 0.8rem;">필요한거
+                        <li class="my-2" style="font-size: 0.8rem;">평생교육원 포털
                             <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
                     </ul>
                 </div>
@@ -87,16 +108,14 @@
                 <div class="col">
                     <ul style="list-style: none;">
                         <li class="my-2 text-body-secondary" style="font-size: 0.7rem;">기타서비스</li>
-                        <li class="my-2" style="font-size: 0.8rem;">점메추
-                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
                         <li class="my-2" style="font-size: 0.8rem;">모바일 앱 다운로드
                             <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
-                        <li class="my-2" style="font-size: 0.8rem;">그림그림</li>
                     </ul>
                 </div>
             </div>
 			 
             <pre>
+               
                
                
                

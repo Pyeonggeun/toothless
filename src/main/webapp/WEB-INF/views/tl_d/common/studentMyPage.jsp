@@ -141,7 +141,7 @@
 						</div>
 						<c:forEach items="${applyPostListForMyPage }" var="list">
 							<div class="row my-3 border-bottom">
-								<div class="col-4">
+								<div class="col-3">
 									<!-- 회사 이름 -->
 									<div class="row">
 										<div class="col ms-2">${list.companyDto.com_name }</div>
@@ -158,7 +158,7 @@
 								<div class="col">
 									<!-- 공고 제목 -->
 									<div class="row">
-										<div class="col">
+										<div class="col sd-inline-block text-truncate" style="max-width: 330px;">
 											${list.postDto.posting_name }
 										</div>
 									</div>
@@ -286,12 +286,12 @@
 									<c:if test="${list.programApplyDto.student_pk==sessionStudentInfo.student_pk }">
 										<c:if test="${list.programDto.prg_schedule.before(currentTime)}">
 											<div class="row border-bottom border-bs-border pb-3 mb-3">
-												<div class="col-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
+												<div class="col-1 mt-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
 												<div class="col">
 													<a class="btn ms-4" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a>
 												</div>
 												<div class="col-4 text-center mt-2">
-													<span class="border border-0 py-2 px-3 mb-0 text-white fw-bold bg-primary rounded-3" style="font-size: 1em;"><fmt:formatDate value="${list.programDto.prg_schedule}" pattern="MM.dd"/>&nbsp;개강</span>
+													<span class="border ms-5 border-0 pt-1 pb-2 px-2 fw-bold mb-0 text-white rounded-3" style="font-size: 0.9em; background-color: #9badca;"><fmt:formatDate value="${list.programDto.prg_schedule}" pattern="MM.dd"/>&nbsp;개강</span>
 												</div> 
 											</div> 
 										</c:if>

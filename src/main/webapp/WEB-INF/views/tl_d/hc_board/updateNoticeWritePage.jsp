@@ -27,41 +27,42 @@
 			<div class="col-1 border-start"></div>
 			<%-- 내용 시작 --%>
 			<div class="col">
-				<div class="row border-bottom border-4 border-dark mb-5 pt-3">
+				<div class="row border-bottom border-4 border-dark mb-3 pt-3">
 					<div class="col fw-bold fs-3">글 수정</div>
 				</div>
+				
 				<div class="row">
-					<div class="col my-2">
+					<div class="col my-2 text-secondary" style="font-size: small;">
 						작성자:${sessionStaffInfo.name}
 					</div>
 				</div>
-				<form action="./noticeUpdateProcess" method="post">
+				
+				<form action="./noticeWriteProcess">
 				<div class="row mb-4">
-					<div class="col-6">
-							<div class="form-floating">
-  								<textarea name="notice_title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-  								<label for="floatingTextarea">${qwer.noBoardDto.notice_title }</label>
-							</div>
+					<div class="col">
+					
+						<textarea name="notice_title"  class="form-control form-control-sm" >${qwer.noBoardDto.notice_title }</textarea>		
 					</div>
 				</div>
+				
 				<div class="row ">
-					<div class="col ">
-						<div class="form-floating">
-  							<textarea name="notice_contents" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-  							<label for="floatingTextarea2">${qwer.noBoardDto.notice_contents }</label>
-						</div>
+					<div class="col mb-3">
+						<textarea name="notice_contents" class="form-control" rows="20">${qwer.noBoardDto.notice_contents }</textarea>
 					</div>
-				</div>			
+				</div>
+							
 				<div class="row mt-3">
 					<div class="col"></div>
 					<div class="col text-end">
-						<input name="staff_pk" type="hidden" value="${sessionStaffInfo.staff_pk}">
-						<input name="notice_board_pk" type="hidden" value="${qwer.noBoardDto.notice_board_pk }">
 						<button type="submit" class="btn btn-primary">
-							<i class="bi bi-pencil-fill">수정완료</i>
+								<i class="bi bi-pencil-fill">글수정</i>
 						</button>
+						
 					</div>
+					
 				</div>
+					<input name="notice_board_pk" type="hidden" value="${qwer.noBoardDto.notice_board_pk}">
+					<input name="staff_pk" type="hidden" value="${sessionStaffInfo.staff_pk}">		
 				</form>
 				
 				

@@ -256,7 +256,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		            </div>	
 		            </c:if>
 		            <div class="col align-self-center">
-		                <a class="navbar-brand" href="./employmentMainPage">취업지원센터</a>
+		                <a class="navbar-brand" href=" ../common/employmentMainPage">취업지원센터</a>
 		            </div>
 		            <div class="col-2"></div>
 		        </div>
@@ -307,7 +307,12 @@ window.addEventListener("DOMContentLoaded", () => {
 					</div>
 				</div>
 				
-					
+				<div class="row">
+					<div class="col-10"></div>
+					<div class="col">
+						<a class="btn btn-outline-secondary" href="../common/companyMainPage" role="button">돌아가기</a>
+					</div>
+				</div>	
 				
 				
 				

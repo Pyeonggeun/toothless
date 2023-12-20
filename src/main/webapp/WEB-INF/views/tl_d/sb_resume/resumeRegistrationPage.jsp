@@ -142,7 +142,7 @@
 					<div class="col-2">
 						<form action="./resumeManagementPage" method="post">
 							<input type="hidden" name="student_pk" value="${sessionStudentInfo.student_pk }">
-							<button type="submit" class="btn btn-secondary">돌아가기</button>
+							<button type="submit" class="btn btn-outline-secondary">돌아가기</button>
 						</form>
 					</div>
 				</div>

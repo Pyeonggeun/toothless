@@ -157,5 +157,25 @@ public class HcBoardController {
 		
 		return "redirect:./noticeMainPage";
 	}
+	@RequestMapping("noticeMainPageForStudent")
+	public String StudentPage(Model model) {
+		List<Map<String, Object>> list = hcBoardService.noticeList();
+		model.addAttribute("noticelist", list);
+		
+	return "tl_d/hc_board/noticeMainPageForStudent";
+			
+	}
+	
+	
+	
+	@RequestMapping("readNoticePageForStudent")
+	public String readNoticePageForStudent(Model model, int id) {
+		
+		Map<String, Object> map = hcBoardService.getnotice(id);
+		
+		model.addAttribute("hoho", map);
+		
+		return "tl_d/hc_board/readNoticePageForStudent";
+	}
 	
 }

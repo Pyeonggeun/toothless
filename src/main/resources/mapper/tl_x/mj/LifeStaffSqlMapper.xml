@@ -366,7 +366,13 @@
 		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
 	</delete>
 	
-	
+	<!-- 수강신청된 강의 - 수정불가하게 -->
+	<select id="selectNoUpdateLecture" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+		SELECT * FROM TL_X_OPEN_LECTURE
+		WHERE OPEN_LECTURE_KEY IN (
+			SELECT OPEN_LECTURE_KEY FROM TL_X_LECTURE_STUDENT
+		)
+	</select>
 	
 	
 	

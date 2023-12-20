@@ -41,39 +41,38 @@
 		 --%>
 		
 		<div class="row">
-			<div class="col-1"></div>
-			<div class="col-1 me-5">
+			<div class="col-2">
 				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 			</div>
 			<div class="col-1 border-start"></div>
 			<%-- 내용 시작 --%>
 			<div class="col">
 			<%-- 공지사항 칸 --%>
-				<div class="row  border-bottom border-4 border-dark mb-5 pt-3 ">
+				<div class="row  border-bottom border-2 border-grey mb-5 pt-3 ">
 					<div class="col fw-bold fs-3">공지사항</div>															
 				</div>
-				<div class="row border-4 border-bottom border-black">
-					<div class="col mb-1 fw-bold">글번호</div>
+				<div class="row border-2 border-top border-black bg-body-secondary pt-3">
+					<div class="col mb-3 fw-bold">글번호</div>
 					<div class="col fw-bold">제목</div>
 					<div class="col fw-bold">작성자</div>
 					<div class="col fw-bold">작성일</div>
 				</div>
 				
-				<div class="row border">
+				<div class="row">
 					<div class="col">
 						<c:forEach items="${noticelist }" var="no">
-							<div class="row">
-								<div class="col-1 border-end mb-2">
+							<div class="row border-bottom mt-4 ">
+								<div class="col-1 mb-3">
 									${no.noticeStaffBoardDto.notice_board_pk }	
 								</div>
-								<div class="col border-end">
+								<div class="col  mb-3">
 								<a  class="navbar-brand"  href="./readNoticePage?id=${no.noticeStaffBoardDto.notice_board_pk }">
 									${no.noticeStaffBoardDto.notice_title }</a>
 								</div>
-								<div class="col-3 border-end">
-									${sessionStaffInfo.name}
+								<div class="col-3 mb-3 fw-bold">
+									${no.staffInfoDto.name}
 								</div>
-								<div class="col-3">
+								<div class="col-3 mb-3">
 								<fmt:formatDate value="${no.noticeStaffBoardDto.created_at }" pattern="yyyy-MM-dd"/>	
 								</div>
 							</div>
@@ -84,7 +83,25 @@
 				<div class="row pt-3">
 					<div class="col">
 						<div class="row text-end">
+							<div class="col"></div>
 							<div class="col ">
+								<nav aria-label="Page navigation example">
+								  <ul class="pagination">
+								    <li class="page-item">
+								      <a class="page-link" href="#" aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+								    <li class="page-item"><a class="page-link" href="#">1</a></li>
+								    <li class="page-item"><a class="page-link" href="#">2</a></li>
+								    <li class="page-item"><a class="page-link" href="#">3</a></li>
+								    <li class="page-item">
+								      <a class="page-link" href="#" aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
+								  </ul>
+								</nav>
 							</div>
 							<div class="col">									
 								<form action="./noticeWritePage">

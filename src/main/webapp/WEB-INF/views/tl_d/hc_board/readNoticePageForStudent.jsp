@@ -15,13 +15,13 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col">
-				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>
+				<jsp:include page="../common/studentTopNavi.jsp"></jsp:include>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col-2">
-				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
+				<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 			</div>
 			<div class="col-1 border-start"></div>
 			<%-- 내용 시작 --%>
@@ -90,29 +90,18 @@
 					<c:choose>
 						<c:when test="${sessionStaffInfo.staff_pk == hoho.staffInfoDto.staff_pk }">	
 							<div class="col text-end">
-								<a class="navbar-brand" href="./noticeMainPage">
+								<a class="navbar-brand" href="./noticeMainPageForStudent">
 									<button type="submit" class="btn btn-primary">
 										<i class="bi bi-list"></i>목록
 									</button>
 								</a>
 							</div>
-							<div class="col text-end">
-								<a class="navbar-brand" href="./deleteNoticeProcess?notice_board_pk=${hoho.noBoardDto.notice_board_pk }">
-									<button type="submit" class="btn btn-danger"><i class="bi bi-trash3-fill"></i>
-										삭제
-									</button>
-								</a>
-								<a class="navbar-brand" href="./updateNoticeWritePage?notice_board_pk=${hoho.noBoardDto.notice_board_pk }">
-									<button type="submit" class="btn btn-primary"><i class="bi bi-pencil-fill"></i>
-										수정
-									</button>
-								</a>
-							</div>
+							
 						</c:when>
 						<c:otherwise>
 							<div class="col text-center">
 								<i class="bi bi-list"></i>
-								<a class="navbar-brand" href="./noticeMainPage">목록</a>
+								<a class="navbar-brand" href="./noticeMainPageForStudent">목록</a>
 							</div>
 						</c:otherwise>	
 					</c:choose>

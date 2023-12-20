@@ -92,6 +92,14 @@ public class EunbiProfessorController {
 		return"tl_c/eunbi/professor/viewStudentDetailPage";
 	}
 	
+	@RequestMapping("studentGradeInquiryPage")
+	public String studentGradeInquiryPage(HttpSession session, Model model) {
+		
+		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
+		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
+		
+		return"tl_c/eunbi/professor/studentGradeInquiryPage";
+	}
 	
 	
 	

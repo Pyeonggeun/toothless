@@ -34,11 +34,25 @@
 				<div class="row border-bottom border-2">
 					<div class="col fs-5 fw-bold mt-5 pb-1">공지사항</div>
 					<div class="col fs-5 fw-bold mt-5 text-end">
-						<a class="navbar-brand" href="#">
+						<a class="navbar-brand" href="../hc_board/noticeMainPageForStudent">
 							<i class="bi bi-plus-lg"></i>
 						</a>	
 					</div>
 				</div>
+				<c:forEach items="${noticeList }" var="list">
+					<div class="row border-bottom border-bs-border pb-2 mb-2">
+						
+						<div class="col-1"></div>
+						<div class="col fw-bold pt-3">
+							<a class="navbar-brand" href="../hc_board/readNoticePageForStudent?id=${list.notice_board_pk }">${list.notice_title }</a>	
+						</div>
+						<div class="col-2 pt-3">
+							<fmt:formatDate value="${list.created_at }" pattern="yy.MM.dd"/>
+						</div>
+						<div class="col-1"></div>
+					</div>
+				</c:forEach>
+				
 			</div>
 			<!-- 프로그램 -->
 			<div class="col-3 mx-3 mb-5">

@@ -8,12 +8,8 @@
 <meta charset="UTF-8">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-<title>	QnABoardPage</title>
+<title>NoticeMainPage</title>
 </head>
-
-
-
-
 <body>
 	
 
@@ -21,7 +17,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col">
-				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>
+				<jsp:include page="../common/studentTopNavi.jsp"></jsp:include>
 			</div>
 		</div>
 		
@@ -46,7 +42,7 @@
 		
 		<div class="row">
 			<div class="col-2">
-				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
+				<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 			</div>
 			<div class="col-1 border-start"></div>
 			<%-- 내용 시작 --%>
@@ -64,20 +60,20 @@
 				
 				<div class="row">
 					<div class="col">
-						<c:forEach items="${list }" var="map">
+						<c:forEach items="${noticelist }" var="no">
 							<div class="row border-bottom mt-4 ">
 								<div class="col-1 mb-3">
-									${map.qnaBoardDto.board_pk }
+									${no.noticeStaffBoardDto.notice_board_pk }	
 								</div>
 								<div class="col  mb-3">
-								<a  class="navbar-brand"  href="./readPage?board_pk=${map.qnaBoardDto.board_pk }">
-									${map.qnaBoardDto.board_title }</a>
+								<a  class="navbar-brand"  href="./readNoticePageForStudent?id=${no.noticeStaffBoardDto.notice_board_pk }">
+									${no.noticeStaffBoardDto.notice_title }</a>
 								</div>
 								<div class="col-3 mb-3 fw-bold">
-									${map.staffInfoDto.name}
+									${no.staffInfoDto.name}
 								</div>
 								<div class="col-3 mb-3">
-								<fmt:formatDate value="${map.qnaBoardDto.created_at }" pattern="yyyy-MM-dd"/>	
+								<fmt:formatDate value="${no.noticeStaffBoardDto.created_at }" pattern="yyyy-MM-dd"/>	
 								</div>
 							</div>
 						</c:forEach>	
@@ -107,14 +103,7 @@
 								  </ul>
 								</nav>
 							</div>
-							<div class="col">									
-								<form action="./BoardWritePage">
-									<button type="submit" class="btn btn-primary">
-										<i class="bi bi-pencil-fill">글작성</i> 
-									</button>
-									<!-- <input type="submit" value="글작성"> -->
-								</form>
-							</div>
+							<div class="col"></div>
 						</div>
 					</div>
 				</div>
