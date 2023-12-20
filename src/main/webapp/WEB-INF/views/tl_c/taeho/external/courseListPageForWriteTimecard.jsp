@@ -65,7 +65,7 @@
 		<span>&#035;&nbsp;${ajdksCompanyInfoDto.company_name } 님 환영합니다</span>
 	</div>	
 	<div class="col pe-2 text-end nolinenoblue">
-		<a href="./ajdksCompanyLogoutProcess">로그아웃</a>
+		<a href="../../taeho/external/ajdksCompanyLogoutProcess">로그아웃</a>
 	</div>	
 </div>
 	

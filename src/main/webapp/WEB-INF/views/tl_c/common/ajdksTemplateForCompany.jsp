@@ -7,7 +7,7 @@
 <div class="col-2 px-0 companyleftmenubar sticky-top" style="background-color: #22212E; color: #E2E2E4; height: 120dvh; box-shadow: 2px 2px 2px gray;">
 
 	<div class="row pt-2 pb-4" style="font-size: 1.1em;">
-		<div class="col text-white text-center fw-bold">
+		<div class="col text-white text-center fw-bold" style="cursor: pointer;" onclick="location.href='../../taeho/external/companyMainPage'">
 			MKU 현장실습관리시스템
 		</div>
 	</div>
@@ -19,12 +19,12 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;기업정보 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../taeho/external/readMyCompanyInformationPage'">&gt;&nbsp;기업정보 조회</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;기업정보 수정</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../taeho/external/updateMyCompanyInformationPage'">&gt;&nbsp;기업정보 수정</span>
 					</div>
 				</div>
 			</div>
@@ -71,12 +71,12 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../readStudentInternListPage'">&gt;&nbsp;실습생 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../taeho/external/readStudentInternListPage'">&gt;&nbsp;실습생 조회</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../courseListPageForWriteTimecard'">&gt;&nbsp;출근부 관리</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../taeho/external/courseListPageForWriteTimecard'">&gt;&nbsp;출근부 관리</span>
 					</div>
 				</div>
 			</div>
@@ -104,17 +104,17 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/company/ajdksCompanyFreeboardPostingPage'">&gt;&nbsp;현장실습프로그램 안내</span>
+					</div>
+				</div>
+				<div class="row pt-2 ps-2">
+					<div class="col ps-4">
 						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;공지사항</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/company/ajdksCompanyFreeboardPostingPage'">&gt;&nbsp;현장실습 프로그램 안내</span>
-					</div>
-				</div>
-				<div class="row py-2 ps-2">
-					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/company/ajdksCompanyQnApage'">&gt;&nbsp;Q&A</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../seoyoung/company/ajdksCompanyQnApage'">&gt;&nbsp;FAQ</span>
 					</div>
 				</div>
 			</div>
