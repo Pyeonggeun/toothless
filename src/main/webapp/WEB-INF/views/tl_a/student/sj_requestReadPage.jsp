@@ -54,32 +54,49 @@
                 <div class="row my-2">
                 	<div class="col">
                 	
-                		<div class="my-3">
-						  	<label for="exampleFormControlInput1" class="form-label">제목</label>
+                		<div class="my-3 mb-4">
+						  	<label for="exampleFormControlInput1" class="form-label">
+						  	<span class="fw-bold">제목</span>
+						  	</label>
 						  	
 						  	<input class="form-control" type="text" value="${one.repairDto.title }" readonly>
 						</div>
-						<div class="my-3">
-							<label for="exampleFormControlInput1" class="form-label">작성자</label>
+						<div class="my-3 mb-4">
+							<label for="exampleFormControlInput1" class="form-label">
+								<span class="fw-bold">작성자</span>
+							</label>
 							<input class="form-control" type="text" value="${one.studentInfo.name }" readonly>
 						</div>
-						<div class="my-3">
-						 	<label for="exampleFormControlTextarea1" class="form-label">내용</label>
-						  	<input class="form-control my-3 py-5 " type="text" value="${one.repairDto.content}" aria-label="readonly input example" readonly>
+						<div class="my-3 mb-4">
+						 	<label for="exampleFormControlTextarea1" class="form-label">
+						 		<span class="fw-bold">내용</span>
+						 	</label>
+						  	<input class="form-control py-5 " type="text" value="${one.repairDto.content}" aria-label="readonly input example" readonly>
 
 						</div>
 						<div class="mb-3">
-						  <label for="formFileMultiple" class="form-label">파손시설 사진</label><br>
+						  <label for="formFileMultiple" class="form-label">
+						  	<span class="fw-bold"> 파손시설 사진</span>
+						  </label><br>
 						  <img src="/requestRepairImg/${one.repairDto.image_link }" class="img-fluid">
 						  
 						</div>
-						<c:if test="${!empty sessionStudentInfo && sessionStudentInfo.student_pk == one.dormStudentDto.student_pk }">						
+												
 							<div class="row">
-								<div class="col d-flex justify-content-end my-2">
-	                				<a class="btn btn-danger rounded-0" href="./deleteRequestRepairProcess?request_repair_pk=${one.repairDto.request_repair_pk }" role="button">삭제하기</a>
+							
+								<div class="col d-flex justify-content-start my-2">
+	                				<a class="btn btn-primary rounded-0" href="./sj_requestRepairPage">목록으로</a>
 	                			</div>
+	                		
+	                		<c:if test="${!empty sessionStudentInfo && sessionStudentInfo.student_pk == one.dormStudentDto.student_pk }">
+	                			<div class="col d-flex justify-content-end my-2">
+	                				<a class="btn btn-success rounded-0 me-2" href="./sj_requestEditPage?request_repair_pk=${one.repairDto.request_repair_pk }" role="button">수정하기</a>
+	                				<a class="btn btn-danger rounded-0" href="./deleteRequestRepairProcess?request_repair_pk=${one.repairDto.request_repair_pk }" role="button">삭제하기</a>
+	                				
+	                			</div>
+	                		</c:if>
 							</div>
-						</c:if>
+						
 		            </div>
                 	
                 </div>

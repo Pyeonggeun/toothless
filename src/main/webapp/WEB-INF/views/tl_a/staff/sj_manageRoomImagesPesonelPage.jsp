@@ -27,7 +27,9 @@
 		
 		<!-- 우측내용 -->
 		<div class="col mx-5">
+			<!-- 
 			
+			 -->
 			
 			<!-- 카테고리 -->
 			<div class="row mt-2">
@@ -35,13 +37,29 @@
 					
 					<ul class="nav nav-tabs">
 					<li class="nav-item ta">
-					    <a class="nav-link active text-black" href="./sj_manageRoomImages">전체보기</a>
-					  </li>
-					<c:forEach items="${category }" var="da">
-					  <li class="nav-item ">
-					    <a class="nav-link text-secondary" href="./sj_manageRoomImagesPesonelPage?dorm_amount=${da.dorm_amount}">${da.dorm_amount }인실</a>
-					  </li>
-					  </c:forEach>
+					    <a class="nav-link text-black" href="./sj_manageRoomImages">전체보기</a>
+					 </li>
+						<c:forEach items="${category }" var="da">
+						 	<c:set var="uri" value="${pageContext.request.requestURI}"/>
+						 	<c:set var="personerUri" value="./sj_manageRoomImagesPesonelPage?dorm_amount=${da.dorm_amount}" />
+						 		<c:choose>
+						 			<c:when test="${not empty param.dorm_amount && param.dorm_amount eq da.dorm_amount }">
+							 			<li class="nav-item">
+									    	<a class="nav-link active text-black" href="${personerUri }">
+									    	 ${da.dorm_amount }인실
+									    	 </a>
+									  	</li>	
+						 			</c:when>
+						 			<c:otherwise>
+						 				<li class="nav-item">
+							                <a class="nav-link text-black" href="${personerUri}">
+							                    ${da.dorm_amount}인실
+							                </a>
+							            </li>
+						 			</c:otherwise>
+						 		</c:choose>
+								  
+						</c:forEach>
 					  
 					</ul>
 				</div>
@@ -51,28 +69,33 @@
 			
 			
 			
-			<!-- 상세이미지ㄱㄱ -->
+			<!-- 몇 인실 이미지인지 알려주기 -->
 			
-            <div class="row">
-				<div class="col fs-4 fw-bold my-3">
-					인실 별 이미지
-				</div>
-			</div>	
+			<c:forEach items="${category }" var="ct">
+				<c:if test="${ct.dorm_amount== param.dorm_amount }">
+		            <div class="row">
+						<div class="col fs-4 fw-bold my-3">
+							${ct.dorm_amount}인실 상세 이미지
+						</div>
+					</div>	
+				</c:if>
+			</c:forEach>
 			
 			<!-- 상세이미지 리스트 출력 -->
 			<div class="row">
 				<c:forEach items="${dormAmount }" var="ct">
-					<div class="col my-3">
+					<c:if test="${ct.dorm_amount == param.dorm_amount}">
+					<div class="col-md-3 my-3">
 						<div class="card" style="width: 18rem;">
 			
 							<img src="/uploadRoomImgs/${ct.dorm_imgs }" class="d-grid img-fluid card-img-top" style="height:11em;">
 							<div class="card-body">
 							    <h5 class="card-title fw-bold">${ct.dorm_amount }인실 상세이미지</h5>
-							    <p class="card-text">${dorm.address }</p>
 						   		<a class="btn btn-outline-danger d-grid" href="./deleteForRoomDatailProcess?dorm_amount_pk=${ct.dorm_amount_pk }" role="button">삭제하기</a>
 							</div>
 						</div>
 					</div>
+					</c:if>
 				</c:forEach>
 			</div>
 			
