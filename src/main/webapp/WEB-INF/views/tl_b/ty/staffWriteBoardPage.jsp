@@ -28,6 +28,11 @@
 	                    inputText.focus();
 	                    return;
 	                }
+	                const inputImage = document.getElementById("inputImage")
+	                if(inputImage.value == ''){
+	                	alert("대표 이미지를 설정해 주세요")
+						return;
+	                }
 	                
                 frm.submit();
             }
@@ -257,7 +262,7 @@
                                  </div>
                                  <div class="row">
                                     <div class="col text-start">
-                                        대표이미지 등록: <input name="imageFile" type="file" accept="image/*" enctype="multipart/form-data">
+                                        대표이미지 등록: <input id="inputImage" name="imageFile" type="file" accept="image/*" enctype="multipart/form-data">
                                     </div>
                                  </div>
                                  <div class="row">

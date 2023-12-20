@@ -17,17 +17,23 @@
                 const inputTitle =document.getElementById("inputTitle");
 
 	                if(inputTitle.value =='' ){
-	                    alert("제목을 입력해주세요.");
+	                    alert("수정할 제목을 입력해주세요.");
 	                    inputTitle.focus();
 	                    return;
 	                }
                
 	                const inputText = document.getElementById("inputText")
 	                if(inputText.value == ''){
-	                    alert("내용을 입력해주세요.")
+	                    alert("수정할 내용을 입력해주세요.")
 	                    inputText.focus();
 	                    return;
 	                }
+					const inputImage = document.getElementById("inputImage")
+					if(inputImage.value == ''){
+						alert("수정할 이미지를 등록해주세요")
+						return;
+					}
+	                
 	                
                 frm.submit();
             }
@@ -80,7 +86,7 @@
                                  </div>
                                  <div class="row mt-3">
                                     <div class="col text-start">
-                                        대표이미지 등록: <input name="imageFile" type="file" accept="image/*" enctype="multipart/form-data">
+                                        대표이미지 등록: <input id="inputImage" name="imageFile" type="file" accept="image/*" enctype="multipart/form-data">
                                     </div>
                                  </div>
                                  <div class="row mt-1">
