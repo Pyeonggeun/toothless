@@ -91,7 +91,7 @@ pageEncoding="UTF-8"%>
        			col11.innerText = "이름";
        			const col12 = document.createElement("div");
        			col12.classList.add("col");
-       			col12.innerText = e.name;
+       			col12.innerText = response.data.name;
        			const row2 = document.createElement("div")
        			row2.classList.add("row","mt-2");
        			const col21 = document.createElement("div");
@@ -99,7 +99,7 @@ pageEncoding="UTF-8"%>
        			col21.innerText = "아이디";
        			const col22 = document.createElement("div");
        			col22.classList.add("col");
-       			col22.innerText = e.student_id;
+       			col22.innerText = response.data.student_id;
        			const row3 = document.createElement("div")
        			row3.classList.add("row","mt-2");
        			const col31 = document.createElement("div");
@@ -107,7 +107,7 @@ pageEncoding="UTF-8"%>
        			col31.innerText = "생년월일";
        			const col32 = document.createElement("div");
        			col32.classList.add("col");
-       			col32.innerText = e.birth;
+       			col32.innerText = response.data.birth;
        			const row4 = document.createElement("div")
        			row4.classList.add("row","mt-2");
        			const col41 = document.createElement("div");
@@ -115,7 +115,7 @@ pageEncoding="UTF-8"%>
        			col41.innerText = "성별";
        			const col42 = document.createElement("div");
        			col42.classList.add("col");
-       			col42.innerText = e.gender;
+       			col42.innerText = response.data.gender;
        			const row5 = document.createElement("div")
        			row5.classList.add("row","mt-2");
        			const col51 = document.createElement("div");
@@ -123,7 +123,7 @@ pageEncoding="UTF-8"%>
        			col51.innerText = "주소";
        			const col52 = document.createElement("div");
        			col52.classList.add("col");
-       			col52.innerText = e.address;
+       			col52.innerText = response.data.address;
        			row1.appendChild(col11);
        			row1.appendChild(col12);
        			row2.appendChild(col21);
@@ -161,6 +161,311 @@ pageEncoding="UTF-8"%>
        		
        		
        	}
+       	// 학생 전체인원
+       	function studentCount(){
+       		
+       		const url = "./studentListCount";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			document.querySelector("#studentCount").innerText = response.data;
+       			document.querySelector("#studentCount").style.color = "blue";
+       		})
+       		
+       	}
+       	
+       	// 배정인원
+       	function assignListCount(){
+       		
+			const url = "./assignListCount";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			document.querySelector("#assignCount").innerText = response.data;
+       			document.querySelector("#assignCount").style.color = "blue";
+       		})
+       		
+       	}
+       	
+       	// 배정미완료 인원
+       	function assignNeedCount(){
+       		
+			const url = "./assignNeedListCount";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			document.querySelector("#assignNeedCount").innerText = response.data;
+       			document.querySelector("#assignNeedCount").style.color = "blue";
+       		})
+       		
+       	}
+       	
+       	// 임원 인원
+       	function executiveCount(){
+       		
+			const url = "./executiveListCount";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			document.querySelector("#executiveCount").innerText = response.data;
+       			document.querySelector("#executiveCount").style.color = "blue";
+       		})
+       		
+       	}
+       	
+       	// 오늘 일지 작성수
+       	function todayDiaryCountList(){
+       		
+			const url = "./todayDiaryCountList";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			document.querySelector("#todayLog").innerText = response.data;
+       			document.querySelector("#todayLog").style.color = "blue";
+       		})
+       		
+       		
+       		
+       	}
+       	// 오늘 외출 외박 신청수
+		function todayOutingCountList(){
+       		
+			const url = "./todayOutingCountList";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			document.querySelector("#todayOuting").innerText = response.data;
+       			document.querySelector("#todayOuting").style.color = "blue";
+       		})
+       		
+       		
+       		
+       	}
+		
+		function dongCountList(){
+       		
+			const url = "./dongCountList";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			document.querySelector("#dongCount").innerText = response.data;
+       			document.querySelector("#dongCount").style.color = "blue";
+       		})
+       		
+       		
+       		
+       	}
+		
+		function ingSemester(){
+			
+			const url = "./ingSemester";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			document.querySelector("#semester").innerText = response.data.semester_year + "학년도 " + response.data.semester ;
+       			document.querySelector("#semester").style.fontSize = "0.9em";
+       			document.querySelector("#semester").style.color = "blue";
+       		})
+			
+		}
+       	
+		function selectionStatusN(){
+       		
+			const url = "./selectionStatusN";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			document.querySelector("#selectionStatusN").innerText = response.data;
+       			document.querySelector("#selectionStatusN").style.color = "blue";
+       		})
+       		
+       		
+       		
+       	}
+		
+		function unpaidPeople(){
+			
+			const url = "./unpaidPeople";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			document.querySelector("#unpaid").innerText = response.data;
+       			document.querySelector("#unpaid").style.color = "blue";
+       		})
+       		
+			
+		}
+		
+		function pointListCount(){
+			
+			const url = "./pointListCount";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			document.querySelector("#pointCount").innerText = response.data;
+       			document.querySelector("#pointCount").style.color = "blue";
+       		})
+       		
+			
+		}
+		
+		function todayPointCreditCount(){
+			
+			const url = "./todayPointCreditCount";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			document.querySelector("#pointCredit").innerText = response.data;
+       			document.querySelector("#pointCredit").style.color = "blue";
+       		})
+			
+		}
+		function roomCount(){
+			
+			const url = "./roomCount";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			document.querySelector("#room").innerText = response.data;
+       			document.querySelector("#room").style.color = "blue";
+       		})
+			
+		}
+		function noticeCount(){
+					
+					const url = "./noticeCount";
+		       		
+		       		fetch(url)
+		       		.then(response => response.json())
+		       		.then(response => {
+		       			
+		       			document.querySelector("#noticeCount").innerText = response.data;
+		       			document.querySelector("#noticeCount").style.color = "blue";
+		       		})
+					
+				}
+		function noticeRecentWriteTitle(){
+			
+			const url = "./noticeRecentWriteTitle";
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					document.querySelector("#noticeTitle").innerText = response.data;
+					document.querySelector("#noticeTitle").style.color = "blue";
+				})
+			
+		}
+		function freeboardCount(){
+			
+			const url = "./freeboardCount";
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					document.querySelector("#boardCount").innerText = response.data;
+					document.querySelector("#boardCount").style.color = "blue";
+				})
+			
+		}
+		function freeboardRecentWriteTitle(){
+			
+			const url = "./freeboardRecentWriteTitle";
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					document.querySelector("#boardTitle").innerText = response.data;
+					document.querySelector("#boardTitle").style.color = "blue";
+				})
+			
+		}
+		function requestCount(){
+			
+			const url = "./requestCount";
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					document.querySelector("#repaireAll").innerText = response.data;
+					document.querySelector("#repaireAll").style.color = "blue";
+				})
+			
+		}
+		function todayRequestCount(){
+			
+			const url = "./todayRequestCount";
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					
+					document.querySelector("#repaireToday").innerText = response.data;
+					document.querySelector("#repaireToday").style.color = "blue";
+				})
+			
+		}
+       	
+       	
+       	window.addEventListener("DOMContentLoaded", () => {
+    		
+       		studentCount();
+       		assignListCount();
+       		assignNeedCount();
+       		executiveCount();
+       		todayDiaryCountList();
+       		todayOutingCountList();
+       		dongCountList();
+       		ingSemester();
+       		selectionStatusN();
+       		unpaidPeople();
+       		pointListCount();
+       		todayPointCreditCount();
+       		roomCount();
+       		noticeCount();
+       		noticeRecentWriteTitle();
+       		freeboardCount();
+       		freeboardRecentWriteTitle();
+       		requestCount();
+       		todayRequestCount();
+       		
+    	});
+       	
+       	
+       	
+       	
+       	
+       	
        	</script>
         </head>
         <body>
@@ -194,14 +499,14 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                                 <div class="row mt-2"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col text-center">
-                                        30
+                                    <div id="studentCount" class="col text-center">
+                                        
                                     </div>
-                                    <div class="col text-center">
-                                        10
+                                    <div id="assignCount" class="col text-center">
+                                        
                                     </div>
-                                    <div class="col text-center">
-                                        5
+                                    <div id="assignNeedCount" class="col text-center">
+                                        
                                     </div>
                                 </div>
                                 <div class="row mt-4"><!-- 여기 로우콜 잡기..-->
@@ -236,14 +541,14 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                                 <div class="row mt-2"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col text-center">
-                                        30
+                                    <div id="executiveCount" class="col text-center">
+                                        
                                     </div>
-                                    <div class="col text-center">
-                                        10
+                                    <div id="todayLog" class="col text-center">
+                                        
                                     </div>
-                                    <div class="col text-center">
-                                        5
+                                    <div id="todayOuting" class="col text-center">
+                                        
                                     </div>
                                 </div>
                                 <div class="row mt-4"><!-- 여기 로우콜 잡기..-->
@@ -270,18 +575,18 @@ pageEncoding="UTF-8"%>
                                         등록된 동
                                     </div>
                                     <div class="col fw-bold text-center">
-                                        오늘일지수
+                                       	
                                     </div>
                                     <div class="col fw-bold text-center">
                                         
                                     </div>
                                 </div>
                                 <div class="row mt-2"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col text-center">
-                                        5
+                                    <div id="dongCount" class="col text-center">
+                                        
                                     </div>
                                     <div class="col text-center">
-                                        10
+                                        
                                     </div>
                                     <div class="col text-center">
                                       
@@ -320,14 +625,14 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                                 <div class="row mt-2"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col text-center">
-                                        30
+                                    <div id="semester" class="col text-center">
+                                        
                                     </div>
-                                    <div class="col text-center">
-                                        10
+                                    <div id="selectionStatusN" class="col text-center">
+                                        
                                     </div>
-                                    <div class="col text-center">
-                                        5
+                                    <div id="unpaid" class="col text-center">
+                                        
                                     </div>
                                 </div>
                                 <div class="row mt-4"><!-- 여기 로우콜 잡기..-->
@@ -362,11 +667,11 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                                 <div class="row mt-2"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col text-center">
-                                        30
+                                    <div id="pointCount" class="col text-center">
+                                        
                                     </div>
-                                    <div class="col text-center">
-                                        10
+                                    <div id="pointCredit" class="col text-center">
+                                        
                                     </div>
                                     <div class="col text-center">
                                         
@@ -396,18 +701,18 @@ pageEncoding="UTF-8"%>
                                         등록된 호실
                                     </div>
                                     <div class="col fw-bold text-center">
-                                        오늘외출신청수
+                                        
                                     </div>
                                     <div class="col fw-bold text-center">
                                         
                                     </div>
                                 </div>
                                 <div class="row mt-2"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col text-center">
-                                        5
+                                    <div id="room" class="col text-center">
+                                        
                                     </div>
                                     <div class="col text-center">
-                                        5
+                                        
                                     </div>
                                     <div class="col text-center">
                                         
@@ -435,24 +740,19 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                                 <div class="row mt-4"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col fw-bold text-center">
+                                    <div class="col-4 fw-bold text-center">
                                         글 작성수
                                     </div>
                                     <div class="col fw-bold text-center">
                                         가장 최근에 올린 글제목
                                     </div>
-                                    <div class="col fw-bold text-center">
-                                        
-                                    </div>
+                                    
                                 </div>
                                 <div class="row mt-2"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col text-center">
-                                        30
+                                    <div id="noticeCount" class="col-4 text-center">
+                                        
                                     </div>
-                                    <div class="col text-center">
-                                        10
-                                    </div>
-                                    <div class="col text-center">
+                                    <div id="noticeTitle" class="col text-center">
                                         
                                     </div>
                                 </div>
@@ -477,24 +777,18 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                                 <div class="row mt-4"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col fw-bold text-center">
+                                    <div class="col-4 fw-bold text-center">
                                         게시글 수
                                     </div>
                                     <div class="col fw-bold text-center">
                                         가장 최근에 올린 글제목
                                     </div>
-                                    <div class="col fw-bold text-center">
-                                        
-                                    </div>
                                 </div>
                                 <div class="row mt-2"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col text-center">
-                                        30
+                                    <div id="boardCount" class="col-4 text-center">
+                                        
                                     </div>
-                                    <div class="col text-center">
-                                        10
-                                    </div>
-                                    <div class="col text-center">
+                                    <div id="boardTitle" class="col text-center">
                                         
                                     </div>
                                 </div>
@@ -529,11 +823,11 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                                 <div class="row mt-2"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col text-center">
-                                        5
+                                    <div id="repaireAll" class="col text-center">
+                                        
                                     </div>
-                                    <div class="col text-center">
-                                        10
+                                    <div id="repaireToday" class="col text-center">
+                                        
                                     </div>
                                     <div class="col text-center">
                                         

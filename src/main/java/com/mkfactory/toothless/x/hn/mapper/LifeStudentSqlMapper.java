@@ -30,7 +30,7 @@ public interface LifeStudentSqlMapper {
 	
 	public int isApply(@Param("open_lecture_key") int open_lecture_key, @Param("life_student_key") int life_student_key);
 	
-	public List<Integer> isConditionSatisfaction(
+	public List<Map<String, Object>> isConditionSatisfaction(
 			@Param("open_lecture_key") int open_lecture_key, @Param("life_student_key") int life_student_key);
 	public int isOverlapDate(
 			@Param("open_lecture_key") int open_lecture_key, @Param("life_student_key") int life_student_key);
@@ -59,6 +59,7 @@ public interface LifeStudentSqlMapper {
 			@Param("life_student_key") int life_student_key, @Param("pageNumber") int pageNumber, @Param("searchType") int searchType);
 	public int getTotalAttendanceCount(int open_lecture_key);
 	public int getAttendanceCountByLectureStudentKey(int lecture_student_key);
+	public int getAbsentCountByLectureStudentKey(int lecture_student_key);
 	public int getExceptAttendanceAndAbsentCountByLectureStudentKey(int lecture_student_key);
 	public int getAvgTestScoreByOpenLectureKey(int open_lecture_key);
 	

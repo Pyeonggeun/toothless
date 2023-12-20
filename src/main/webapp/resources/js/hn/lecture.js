@@ -40,17 +40,22 @@ function reloadLectureProgress() {
 			
 		}
 		
-		const attendanceResult = response.data.attendanceResult;
+		let attendanceScore = response.data.attendanceScore;
+		
+		if(response.data.attendanceResult == 0) {
+			attendanceScore = 0;		
+		}
+		
 		const testResult = response.data.testResult;
 		
-		document.getElementById("attendanceScore").innerText = attendanceResult;
+		document.getElementById("attendanceScore").innerText = attendanceScore;
 		document.getElementById("score").innerText = testResult;
-		document.getElementById("calcAttendanceScore").innerText = (attendanceResult * 0.5).toFixed(1);
+		document.getElementById("calcAttendanceScore").innerText = (attendanceScore * 0.5).toFixed(1);
 		document.getElementById("calcScore").innerText = (testResult * 0.5).toFixed(1);
-		document.getElementById("totalLeftScore").innerText = ((attendanceResult * 0.5) + (testResult * 0.5)).toFixed(1);
+		document.getElementById("totalLeftScore").innerText = ((attendanceScore * 0.5) + (testResult * 0.5)).toFixed(1);
 		document.getElementById("attendanceCondition").innerText = response.data.lectureInfo.essential_attendance;
 		document.getElementById("testCondition").innerText = response.data.lectureInfo.essential_grade;
-		document.getElementById("totalScore").innerText = ((attendanceResult * 0.5) + (testResult * 0.5)).toFixed(1);
+		document.getElementById("totalScore").innerText = ((attendanceScore * 0.5) + (testResult * 0.5)).toFixed(1);
 		
 		const testBox = document.getElementById("testBox");
 		

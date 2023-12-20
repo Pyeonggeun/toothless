@@ -38,6 +38,234 @@ public class RestDormStudentControllerDm {
 		
 	}
 	
+	@RequestMapping("studentListCount")
+	public RestResponseDto studentListCount() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.studentListCount());
+		
+		return responseDto;
+		
+		
+	}
+	
+	@RequestMapping("assignListCount")
+	public RestResponseDto assignListCount() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.assignPeopleCount());
+		
+		return responseDto;
+		
+		
+	}
+	
+	@RequestMapping("assignNeedListCount")
+	public RestResponseDto assignNeedListCount() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.assignPeopleNeedCount());
+		
+		return responseDto;
+		
+		
+	}
+	
+	@RequestMapping("executiveListCount")
+	public RestResponseDto executiveListCount() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.executiveCount());
+		
+		return responseDto;
+		
+		
+	}
+	
+	@RequestMapping("todayDiaryCountList")
+	public RestResponseDto todayDiaryCountList() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.diaryTodayCount());
+		
+		return responseDto;
+		
+		
+	}
+	
+	@RequestMapping("todayOutingCountList")
+	public RestResponseDto todayOutingCountList() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.todayOutingCount());
+		
+		return responseDto;
+		
+		
+	}
+	
+	@RequestMapping("dongCountList")
+	public RestResponseDto dongCountList() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.dongCount());
+		
+		return responseDto;
+		
+		
+	}
+	
+	@RequestMapping("ingSemester")
+	public RestResponseDto ingSemester() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.semesterName());
+		
+		return responseDto;
+		
+		
+	}
+	
+	@RequestMapping("selectionStatusN")
+	public RestResponseDto selectionStatusN() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.selectionStatusN());
+		
+		return responseDto;
+		
+		
+	}
+	
+	@RequestMapping("unpaidPeople")
+	public RestResponseDto unpaidPeople() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.unpaidCount());
+		
+		return responseDto;
+		
+		
+	}
+	
+	@RequestMapping("pointListCount")
+	public RestResponseDto pointListCount() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.pointListCount());
+		
+		return responseDto;
+		
+		
+	}
+	@RequestMapping("todayPointCreditCount")
+	public RestResponseDto todayPointCreditCount() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.todayPointCreditCount());
+		
+		return responseDto;
+	}
+	@RequestMapping("roomCount")
+	public RestResponseDto roomCount() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.roomCount());
+		
+		return responseDto;
+	}
+	@RequestMapping("noticeCount")
+	public RestResponseDto noticeCount() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.noticeCount());
+		
+		return responseDto;
+	}
+	@RequestMapping("noticeRecentWriteTitle")
+	public RestResponseDto noticeRecentWriteTitle() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.noticeRecentWriteTitle());
+		
+		return responseDto;
+	}
+	@RequestMapping("freeboardCount")
+	public RestResponseDto freeboardCount() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.freeboardCount());
+		
+		return responseDto;
+	}
+	@RequestMapping("freeboardRecentWriteTitle")
+	public RestResponseDto freeboardRecentWriteTitle() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.freeboardRecentWriteTitle());
+		
+		return responseDto;
+	}
+	@RequestMapping("requestCount")
+	public RestResponseDto requestCount() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.requestCount());
+		
+		return responseDto;
+	}
+	@RequestMapping("todayRequestCount")
+	public RestResponseDto todayRequestCount() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.todayRequestCount());
+		
+		return responseDto;
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
