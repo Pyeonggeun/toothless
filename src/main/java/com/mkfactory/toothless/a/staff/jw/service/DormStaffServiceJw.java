@@ -258,18 +258,18 @@ public class DormStaffServiceJw {
 			int dormPk = dormRoomDto.getDorm_pk();
 			DormBuildingDto dormBuildingDto = dormStaffMapperJw.selectDormByDormPk(dormPk);
 			
+			// ?동 ?층 호실 리스트
 			List<DormRoomDto> dormRoomListByDormFloorAndDormPk = dormStaffMapperJw.selectDormRoomListByDormFloorAndDormPk(dormRoomDto.getDorm_floor(), dormPk);
-			
-			// 배정 - 배정 취소 수정필요(호실 중에 하나만 배정취소로 변경되고 여러 문제 발생)
+
 			List<Map<String, Object>> dormRoomListByDormFloorAndDormPkListAndNY = new ArrayList<Map<String,Object>>();
 			
 			for(DormRoomDto dormRoomDtoqqq : dormRoomListByDormFloorAndDormPk) {
-				Map<String, Object> map = new HashMap<String, Object>();
+				Map<String, Object> dormRoomMap = new HashMap<String, Object>();
+
+				dormRoomMap.put("dormRoomListByDormFloorAndDormPk", dormRoomDtoqqq);
+				dormRoomMap.put("isCount", dormStaffMapperJw.countExecutivePerRoomPk(executiveDto.getExecutive_pk(), dormRoomDtoqqq.getDorm_room_pk()));
 				
-				map.put("dormRoomListByDormFloorAndDormPk", dormRoomDtoqqq);
-				map.put("isCount", dormStaffMapperJw.countExecutivePerRoomPk(executiveDto.getExecutive_pk(), dormRoomDto.getDorm_room_pk()));
-												
-				dormRoomListByDormFloorAndDormPkListAndNY.add(map);
+				dormRoomListByDormFloorAndDormPkListAndNY.add(dormRoomMap);
 			}
 			
 			Map<String, Object> map = new HashMap<>();
@@ -278,7 +278,6 @@ public class DormStaffServiceJw {
 			map.put("dormRoomDto", dormRoomDto);
 			map.put("dormBuildingDto", dormBuildingDto);
 			map.put("dormRoomListByDormFloorAndDormPkListAndNY", dormRoomListByDormFloorAndDormPkListAndNY);
-
 			
 			list.add(map);
 		}
@@ -303,15 +302,14 @@ public class DormStaffServiceJw {
 			DormBuildingDto dormBuildingDto = dormStaffMapperJw.selectDormByDormPk(dormPk);
 			
 			List<DormRoomDto> dormRoomListByDormFloorAndDormPk = dormStaffMapperJw.selectDormRoomListByDormFloorAndDormPk(dormRoomDto.getDorm_floor(), dormPk);
-			
-			// 배정 - 배정 취소 수정필요(호실 중에 하나만 배정취소로 변경되고 여러 문제 발생)
+
 			List<Map<String, Object>> dormRoomListByDormFloorAndDormPkListAndNY = new ArrayList<Map<String,Object>>();
 			
 			for(DormRoomDto dormRoomDtoqqq : dormRoomListByDormFloorAndDormPk) {
 				Map<String, Object> map = new HashMap<String, Object>();
 				
 				map.put("dormRoomListByDormFloorAndDormPk", dormRoomDtoqqq);
-				map.put("isCount", dormStaffMapperJw.countExecutivePerRoomPk(executiveDto.getExecutive_pk(), dormRoomDto.getDorm_room_pk()));
+				map.put("isCount", dormStaffMapperJw.countExecutivePerRoomPk(executiveDto.getExecutive_pk(), dormRoomDtoqqq.getDorm_room_pk()));
 												
 				dormRoomListByDormFloorAndDormPkListAndNY.add(map);
 			}
@@ -322,7 +320,6 @@ public class DormStaffServiceJw {
 			map.put("dormRoomDto", dormRoomDto);
 			map.put("dormBuildingDto", dormBuildingDto);
 			map.put("dormRoomListByDormFloorAndDormPkListAndNY", dormRoomListByDormFloorAndDormPkListAndNY);
-
 			
 			list.add(map);
 		}
@@ -346,18 +343,15 @@ public class DormStaffServiceJw {
 	public void assignmentExecutiveRoom(int dorm_room_pk, int executive_pk) {
 		
 		List<DormStudentDto> dormStudentListByPsAndDr = dormStaffMapperJw.selectDormStudentByProgressSemesterAndDormRoom(dorm_room_pk);
-		try {
-			for(DormStudentDto dormStudentDto : dormStudentListByPsAndDr) {
-				
-				int dormStudentPk = dormStudentDto.getDorm_student_pk();
-				ExecutiveManagementDto executiveManagementDto = new ExecutiveManagementDto();
-				executiveManagementDto.setExecutive_pk(executive_pk);
-				executiveManagementDto.setDorm_student_pk(dormStudentPk);
-				
-				dormStaffMapperJw.insertExecutiveManagement(executiveManagementDto);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		
+		for(DormStudentDto dormStudentDto : dormStudentListByPsAndDr) {
+			
+			int dormStudentPk = dormStudentDto.getDorm_student_pk();
+			ExecutiveManagementDto executiveManagementDto = new ExecutiveManagementDto();
+			executiveManagementDto.setExecutive_pk(executive_pk);
+			executiveManagementDto.setDorm_student_pk(dormStudentPk);
+			
+			dormStaffMapperJw.insertExecutiveManagement(executiveManagementDto);
 		}
 		
 	}
@@ -525,7 +519,35 @@ public class DormStaffServiceJw {
 			map.put("studentInfoDto", studentInfoDto);
 			map.put("dormRoomDto", dormRoomDto);
 			map.put("dormBuildingDto", dormBuildingDto);
-			map.put("pointCategoryDto", dormStaffMapperJw.selectAllPointCategory());
+			map.put("pointCategoryList", dormStaffMapperJw.selectAllPointCategory());
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
+	public List<Map<String, Object>> getPointManagementListByDormPk(int dorm_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<DormStudentDto> dormStudentExceptExecutive = dormStaffMapperJw.selectDormStudentExceptExecuteByProgressSemesterAndDormPk(dorm_pk);
+		
+		for(DormStudentDto dormStudentDto : dormStudentExceptExecutive) {
+			
+			int dormStudentPk = dormStudentDto.getDorm_student_pk();
+			StudentInfoDto studentInfoDto = dormStaffMapperJw.selectStudentInfoByProgressSemesterDormStudentPk(dormStudentPk);
+			DormRoomDto dormRoomDto = dormStaffMapperJw.selectDormRoomByDormStudentPk(dormStudentPk);
+			
+			int dormPk = dormRoomDto.getDorm_pk();
+			DormBuildingDto dormBuildingDto = dormStaffMapperJw.selectDormByDormPk(dormPk);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("dormStudentDto", dormStudentDto);
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("dormRoomDto", dormRoomDto);
+			map.put("dormBuildingDto", dormBuildingDto);
+			map.put("pointCategoryList", dormStaffMapperJw.selectAllPointCategory());
 			
 			list.add(map);
 		}
