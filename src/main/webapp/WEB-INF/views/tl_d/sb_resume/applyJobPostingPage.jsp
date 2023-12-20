@@ -214,12 +214,13 @@
 										</div>
 									</c:when>
 									<c:when test="${resumeDto.main_resume eq 'Y' }">
+										
 										<div class="row mt-3">
 											<div class="col">
 												이력서 제목 
 											</div>
 										</div>
-										<div class="row">
+										<div class="row mt-5">
 											<div class="col-3">
 												<span class="badge text-bg-success">메인 이력서</span>
 											</div>
@@ -229,12 +230,13 @@
 										</div>	
 									</c:when>
 									<c:otherwise>
+										
 										<div class="row mt-3">
 											<div class="col">
 												이력서 제목 
 											</div>
 										</div>
-										<div class="row">
+										<div class="row mt-5">
 											<div class="col-3"></div>
 											<div class="col">
 												${resumeDto.resume_title }
@@ -243,8 +245,10 @@
 									</c:otherwise>
 								</c:choose>	
 											
-								
-								<div class="row mt-3">
+								<div class="row mt-5">
+									<div class="col"></div>
+								</div>
+								<div class="row mt-5">
 									<div class="col">
 										전화번호 
 									</div>
@@ -255,7 +259,8 @@
 										<input type="text" name="vol_phone" value="${sessionStudentInfo.phone }">
 									</div>
 								</div>
-								<div class="row mt-2">
+								
+								<div class="row mt-3">
 									<div class="col">
 										이메일
 									</div>
@@ -265,6 +270,9 @@
 									<div class="col">
 										<input type="text" name="vol_email" value="${sessionStudentInfo.email }">
 									</div>
+								</div>
+								<div class="row mt-5">
+									<div class="col"></div>
 								</div>
 								<div class="row mt-2">
 									<div class="col-8"></div>
