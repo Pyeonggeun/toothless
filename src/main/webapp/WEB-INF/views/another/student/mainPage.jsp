@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         
         <script>
+        //알림
         	function reloadNotifyCount(){
         		const url = "./reloadMyNotifyCount?student_pk="+${sessionStudentInfo.student_pk};
         		fetch(url)
@@ -38,6 +39,7 @@
         			const notifyIcon = document.getElementById("notifyIcon");
         			const message = document.getElementById("message");
         			const link = document.getElementById("link");
+        			
         			if(response.data.length >= 2){
         				
         				alertBox.classList.remove("d-none");
@@ -47,6 +49,9 @@
         				notifyIcon.classList.add("bi-bell-fill");
         				message.innerText = "";
         				message.innerText = "총 "+response.data.length+"개의 새로운 알림이 있습니다.";
+        				
+        				
+        				
         				
         				updateMyCheckNotifyStatus();
             			reloadNotifyCount();
@@ -80,6 +85,8 @@
         				}
         				message.innerText = "";
         				message.innerText = response.data[0].notificationDto.message;
+        				
+        				link.setAttribute("onclick" , "location.href='/toothless/tl_d/jm_consulting/hopeJobConsultingPage'");
         				
         				updateMyCheckNotifyStatus();
             			reloadNotifyCount();
@@ -145,7 +152,8 @@
         				for(e of response.data){
 	        				const unreadNotifyWrapper = document.querySelector("#notifyTemplete .unreadNotifyWrapper").cloneNode(true);
 
-	        				//const link = unreadNotifyWrapper.querySelector(".link");
+	        				const goLinkPage = unreadNotifyWrapper.querySelector(".goLinkPage");
+	        	    		goLinkPage.setAttribute("onclick" , "./"+e.notificationDto.pageLink+"?open_lecture_key="+open_lecture_key);
 	        				
 	        				const centerIcon = unreadNotifyWrapper.querySelector(".centerIcon");
 	        				if(e.centerCategoryDto.center_pk == 1){
@@ -229,7 +237,7 @@
 					for(e of response.data){
         				
         				const unreadNotifyWrapper = document.querySelector("#notifyTemplete .unreadNotifyWrapper").cloneNode(true);
-        				//const link = unreadNotifyWrapper.querySelector(".link");
+        				
         				const centerIcon = unreadNotifyWrapper.querySelector(".centerIcon");
         				if(e.centerCategoryDto.center_pk == 1){
         					centerIcon.classList.add("bi","bi-person-workspace");
@@ -260,6 +268,9 @@
         	    		message.innerText = "";
         	    		message.innerText = e.notificationDto.message;
         				
+        	    		const goLinkPage = unreadNotifyWrapper.querySelector(".goLinkPage");
+        	    		goLinkPage.setAttribute("onclick" , "./"+e.notificationDto.pageLink+"?open_lecture_key="+open_lecture_key);
+        	    		
         				unreadNotifyListBox.appendChild(unreadNotifyWrapper);
         			}
         		});
@@ -345,7 +356,7 @@
                         <div class="col">
                             <div class="row border-bottom py-0 text-light rounded-top" style="background-color: #133369;">
                                 <div id="sender" class="col-9  ">
-                                    취업 창업센터
+                                    
                                 </div>
                                 <div class="col text-end " style="font-size: x-small;">
                                     <button onclick="hideNotify()" class="btn-close btn-close-white btn-close-disabled-opacity mt-1"></button>
@@ -357,7 +368,7 @@
                                     <i id ="notifyIcon" class="bi" style="color: #133369;"></i>
                                 </div>
                                 <div id="message" class="col fw-bold" style="font-size: small;">
-                                    알림 내용 블라블라블라블라블ㅓ 답글이 등록되었습니다.
+                                    
                                 </div>
                             </div>
                             
@@ -366,7 +377,7 @@
                                     <button onclick="showNotifyModal()" class="btn border fw-bold mt-3 px-3 py-1" style="font-size: small; border-color: #133369;" >전체 알림확인</button>
                                 </div>
                                 <div class="col-6 text-center">
-                                    <button class="btn border fw-bold mt-3 px-4 py-1" style="font-size: small;">바로 가기</button>
+                                    <button id="link"class="btn border fw-bold mt-3 px-4 py-1" style="font-size: small;">바로 가기</button>
                                 </div>
                             </div> 
                         </div>
@@ -488,7 +499,6 @@
                             <div class="row mt-5 mb-3">
                                 <div class="col text-start align-self-center rounded-pill">
                                     바로가기 <i class="bi bi-chevron-right text-secondary"></i>
-                                    <!-- <i class="bi bi-chevron-right fw-bold fs-4 text-secondary"></i> -->
                                 </div>
                             </div>
                         </div>
@@ -505,7 +515,7 @@
                 <div class="row">
                         <div class="col"></div> 
                         <div id="newNotify"class="col-4 px-0 fs-5 mt-4 text-center ">
-                            <a class="nav-link n" href="#"  onclick="loadUnreadNotifyList()">신규 알림</a>
+                            <a class="nav-link" href="#"  onclick="loadUnreadNotifyList()">신규 알림</a>
                         </div>
                         <div class="col"></div>
                         <div id="readNotify"class="col-4 mt-4 fs-5 text-center">
@@ -531,7 +541,7 @@
         <div id="notifyTemplete" class="d-none">
 	        <div class="row my-3 unreadNotifyWrapper" style="background-color: rgb(230, 230, 230);">
 	        	<div class="col">
-	             	<div class="row py-2 border rounded">
+	             	<div class="row py-2 border rounded goLinkPage">
 	                 	<div class="col-2 fs-1 rounded-circle text-center mt-1 ms-3" >
 	                    	 <i class="centerIcon" style="color: #133369;"></i>
 	                 	</div>

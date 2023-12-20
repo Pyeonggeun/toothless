@@ -50,6 +50,27 @@
 
 <script>
 	
+	// 교직원 아이디
+	let staffId = null;
+	
+	function getStaffId(){
+		const url = "./getStaffId";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response =>{
+			
+			staffId = response.data;
+			if(staffId == null){
+				if(confirm("로그인 후 이용가능합니다. 로그인페이지로 이동하시겠습니까?")){
+					location.href = "../../../another/staff/loginPage";
+				}
+				return;
+			}
+		});
+	}
+	
+	
 
 	// 카테고리 번호
 
@@ -172,6 +193,7 @@
 
 	
 	window.addEventListener("DOMContentLoaded", () => {
+		getStaffId();
 		registedCompanyList();
 		companyCategoryList();
 	});

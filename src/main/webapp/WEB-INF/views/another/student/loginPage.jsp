@@ -129,7 +129,7 @@
                         </div>
                         <div class="col-8 py-5 ps-3" style="background-color: #F3F6FC;">
                             <!-- 아이디/비밀번호/로그인 -->
-                            <form action="./loginProcess" method="post">
+                            <form action="/toothless/another/student/loginProcess" method="post">
                                 <div class="row mx-5">
                                     <div class="col-8">
                                         <div class="row text-center fs-s">

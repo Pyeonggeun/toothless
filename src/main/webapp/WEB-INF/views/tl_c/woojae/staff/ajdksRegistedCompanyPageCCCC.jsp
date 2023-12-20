@@ -50,14 +50,26 @@
 
 <script>
 	
+	// 교직원 아이디
+	let staffId = null;
 	
-	
-	function formsubmit() {
+	function getStaffId(){
+		const url = "./getStaffId";
 		
-		const frm = document.getElementById("frm");
-		frm.submit();
-		
+		fetch(url)
+		.then(response => response.json())
+		.then(response =>{
+			
+			staffId = response.data;
+			if(staffId == null){
+				if(confirm("로그인 후 이용가능합니다. 로그인페이지로 이동하시겠습니까?")){
+					location.href = "../../../another/staff/loginPage";
+				}
+				return;
+			}
+		});
 	}
+
 	
 	function companyCategoryList(){
 		
@@ -209,6 +221,7 @@
 	
 	
 	window.addEventListener("DOMContentLoaded", () =>{
+		getStaffId();
 		companyCategoryList();
 		registedCompanyList();
 	})
@@ -274,15 +287,6 @@
 				</div>
 				
 					
-				<div class="row mt-2">
-					<div class="col"></div>
-					<div class="col-1">
-						<a class="btn btn-secondary" href="./ajdksStaffMainPage">메인</a>
-					</div>
-				</div>
-				
-						 
-		
 				
 			</div>
 		</div>

@@ -280,22 +280,24 @@
 								</a>
 							</div>
 						</div>
-						<c:set var="currentTime" value="<%= new java.util.Date() %>" />
-						<c:forEach items="${applyProgramListForMyPage}" var="list"> 
-							<c:if test="${list.programApplyDto.student_pk==sessionStudentInfo.student_pk }">
-								<c:if test="${list.programDto.prg_schedule.before(currentTime)}">
-									<div class="row border-bottom border-bs-border pb-3 mb-3">
-										<div class="col-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
-										<div class="col">
-											<a class="btn ms-4" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a>
-										</div>
-										<div class="col-4 text-center mt-2">
-											<span class="border border-0 py-2 px-3 mb-0 text-white fw-bold bg-primary rounded-3" style="font-size: 1em;"><fmt:formatDate value="${list.programDto.prg_schedule}" pattern="MM.dd"/>&nbsp;개강</span>
-										</div> 
-									</div> 
-								</c:if>
-							</c:if>
-						</c:forEach>
+						
+								<c:set var="currentTime" value="<%= new java.util.Date() %>" />
+								<c:forEach items="${applyProgramListForMyPage}" var="list"> 
+									<c:if test="${list.programApplyDto.student_pk==sessionStudentInfo.student_pk }">
+										<c:if test="${list.programDto.prg_schedule.before(currentTime)}">
+											<div class="row border-bottom border-bs-border pb-3 mb-3">
+												<div class="col-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
+												<div class="col">
+													<a class="btn ms-4" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a>
+												</div>
+												<div class="col-4 text-center mt-2">
+													<span class="border border-0 py-2 px-3 mb-0 text-white fw-bold bg-primary rounded-3" style="font-size: 1em;"><fmt:formatDate value="${list.programDto.prg_schedule}" pattern="MM.dd"/>&nbsp;개강</span>
+												</div> 
+											</div> 
+										</c:if>
+									</c:if>
+								</c:forEach>
+							
 						<!-- 신청한 프로그램 끝 -->
 					</div>
 					<div class="col mx-5 px-5">

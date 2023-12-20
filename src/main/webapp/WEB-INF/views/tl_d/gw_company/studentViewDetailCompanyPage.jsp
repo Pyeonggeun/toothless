@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,12 +89,29 @@
 						</div>
 						<!-- 공고제목 -->
 						<div class="col-9 ps-0 pt-1">
-							<a class="text-dark navbar-brand" href="../ny_posting/jobPostingDetailPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
+							<a class="text-dark navbar-brand" href="../ny_posting/jobPostingDetailForStudentPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
 								${companyPostingForStudent.jobPostingDto.posting_name}
 							</a>
 						</div>
 						<!-- 별 크기 생각해보기 -->
-						<div class="col-1"><i class="fs-5 text-warning bi bi-star"></i></div>
+						
+						<!-- 여기를 해야하는거임!!! 별!!!! -->
+						
+						<div class="col-1">
+							
+							<c:choose>
+								<c:when test="${companyPostingForStudent.allPostingInterest == 0}">
+									<i class="text-warning bi bi-star"></i>
+								</c:when>
+								<c:otherwise>
+									<i class="text-warning bi bi-star-fill"></i>
+								</c:otherwise>
+							</c:choose>
+							<span>${companyPostingForStudent.allPostingInterest}</span>
+						</div>
+						
+						
+						
 					</div>
 					<div class="row mt-1 pb-3 border-bottom">
 						<!-- 가족기업여부 -->
@@ -104,7 +122,7 @@
 						</div>
 						<!-- 분야/지역/기간 태그  -->
 						<div class="col-7 ps-0">
-							<a class="text-dark navbar-brand" href="./jobPostingDetailPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
+							<a class="text-dark navbar-brand" href="./jobPostingDetailForStudentPage?id=${companyPostingForStudent.jobPostingDto.job_posting_pk}">
 								<span class="text-secondary">#&nbsp;${companyPostingForStudent.jobFieldCategoryDto.job_field_category_name} #&nbsp;${companyPostingForStudent.jobPostingDto.job_position}
 								#&nbsp;${companyPostingForStudent.companyDto.com_address} #&nbsp;<fmt:formatDate value="${companyPostingForStudent.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
 								<c:forEach items="${companyPostingForStudent.postingDeadlineList}" var="deadline">
