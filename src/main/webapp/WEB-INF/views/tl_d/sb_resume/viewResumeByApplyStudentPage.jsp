@@ -259,7 +259,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		            </div>	
 		            </c:if>
 		            <div class="col align-self-center">
-		                <a class="navbar-brand" href="./employmentMainPage">취업지원센터</a>
+		                <a class="navbar-brand" href=" ../common/employmentMainPage">취업지원센터</a>
 		            </div>
 		            <div class="col-2"></div>
 		        </div>
@@ -277,8 +277,10 @@ window.addEventListener("DOMContentLoaded", () => {
 			<%-- 채용공고 리스트 양식 --%>
 			<div class="col">
 				<div class="row">
-					<div class="col fs-4 fw-bold mt-4 pb-3 border-bottom border-3">지원한 이력서 목록</div>
-					
+					<div class="col-10 fs-4 fw-bold mt-4 pb-3 border-bottom border-3">지원한 이력서 목록</div>
+					<div class="col  mt-4 pb-3">
+						<a class="btn btn-outline-secondary" href="../ny_posting/jobPostingDetailForCompanyPage?id=${job_posting_pk }" role="button">돌아가기</a>
+					</div>
 				</div>
 				
 				<div class="row py-2 text-secondary border-bottom border-dark border-2 text-light"  style="background-color: #133369">
@@ -297,7 +299,12 @@ window.addEventListener("DOMContentLoaded", () => {
 					</div>
 				</div>
 				
-				
+				<div class="row">
+					<div class="col-10"></div>
+					<div class="col">
+						<a class="btn btn-outline-secondary" href="../ny_posting/jobPostingDetailForCompanyPage?id=${job_posting_pk }" role="button">돌아가기</a>
+					</div>
+				</div>
 			</div>
 			<%-- 오른쪽 --%>	
 			<div class="col-2"></div>	
@@ -332,7 +339,7 @@ window.addEventListener("DOMContentLoaded", () => {
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">이력서 미리보기</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">이력서 상세보기</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
