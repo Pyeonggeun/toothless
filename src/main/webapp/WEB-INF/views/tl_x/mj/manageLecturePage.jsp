@@ -624,10 +624,7 @@
 			// 수정 버튼
 			const updateConditionBtn = document.querySelector("#updateConditionBtn")
 			updateConditionBtn.setAttribute("onclick", "saveConditionBtn("+ lectureKey +")");
-			
-			// 삭제 버튼
-			const deleteConditionBtn = document.querySelector("#deleteConditionBtn")
-			deleteConditionBtn.setAttribute("onclick", "deleteConditionBtn("+ lectureKey +")");
+
 
 		});
     	
@@ -1359,8 +1356,7 @@
 			</div>
 		 <!-- 강사 기본정보 끝 -->
         </div>
-        <div class="modal-footer mx-3 d-flex justify-content-between">
-            <button id="deleteConditionBtn" type="button" class="btn btn-danger rounded-0 px-4">삭제하기</button>
+        <div class="modal-footer mx-3 d-flex justify-content-end">
             <div>
                 <button id="updateConditionBtn" type="button" class="btn btn-primary rounded-0 text-white px-4" style="background-color: #003399;">수정완료</button>
                 <button type="button" class="btn btn-secondary rounded-0 px-3" data-bs-dismiss="modal">닫기</button>
