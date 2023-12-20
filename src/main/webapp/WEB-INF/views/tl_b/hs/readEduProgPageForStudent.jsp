@@ -65,10 +65,10 @@
                             <div class="row">
                                 <h5>
                                     <span class="badge px-3 text-white" 
-                                    style="background-color: #133369;">진행중
+                                    style="background-color: #023048;">진행중
                                     </span>
                                     <span class="badge px-3 text-white" 
-                                    style="background-color: #F3AD12;">학생
+                                    style="background-color: #FFB604;">학생
                                     </span>
                                 </h5>
                             </div>

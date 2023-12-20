@@ -54,11 +54,35 @@ public class EduStaffServiceimpl {
 	
 	}
 	
-	//프로그램 신청자 리스트 출력
-	public List<Map<String, Object>> getEduApplyList(){
+	//메인에 프로그램 리스트 출력
+	public List<Map<String, Object>> getProgListMain(){
 		
 		List<Map<String, Object>> list = new ArrayList<>();
-		List<EduApplyDto> EduApplyList = eduStaffSqlMapper.selectAllEduApply();
+		
+		List<EduDto> eduProgList = eduStaffSqlMapper.selectProgListMain(); 
+		
+		for(EduDto eduDto : eduProgList) {
+			int staffPk = eduDto.getStaff_pk();
+			StaffInfoDto staffInfoDto = eduStaffSqlMapper.selectById(staffPk);
+			
+			int applyStudentCount = eduStaffSqlMapper.selectApplyPkPerEduPkCount(eduDto.getEdu_pk());
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("eduDto", eduDto);
+			map.put("staffInfoDto", staffInfoDto);
+			map.put("applyStudentCount", applyStudentCount);
+			
+			list.add(map);
+		}
+		return list;	
+		
+	}
+	
+	//프로그램 신청자 리스트 출력
+	public List<Map<String, Object>> getEduApplyList(String searchType, String searchWord){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		List<EduApplyDto> EduApplyList = eduStaffSqlMapper.selectAllEduApply(searchType, searchWord);
 		
 		for(EduApplyDto eduApplyDto : EduApplyList) {
 			int studentPk = eduApplyDto.getStudent_pk();
@@ -79,17 +103,65 @@ public class EduStaffServiceimpl {
 		return list;
 	}
 	
-	//만족도 전체 내역
-	public List<Map<String, Object>> getAllServeyList(){
+	//메인에 신청자 리스트 출력
+	public List<Map<String, Object>> getApplyListMain(){
 		
 		List<Map<String, Object>> list = new ArrayList<>();
-		List<EduStsfcSurveyDto> allServeyList = eduStaffSqlMapper.selectAllServeyList();
+		List<EduApplyDto> applyListMain = eduStaffSqlMapper.selectApplyListMain();
+		
+		for(EduApplyDto eduApplyDto : applyListMain) {
+			int studentPk = eduApplyDto.getStudent_pk();
+			StudentInfoDto studentInfoDto = eduStaffSqlMapper.selectByIdStudent(studentPk);
+			
+			EduDto eduDto = eduStaffSqlMapper.selectByEdu_pk(eduApplyDto.getEdu_pk());
+			int applyStudentCount = eduStaffSqlMapper.selectApplyPkPerEduPkCount(eduApplyDto.getEdu_pk());
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("eduApplyDto", eduApplyDto);
+			map.put("studentInfoDto", studentInfoDto);
+			map.put("eduDto", eduDto);
+			map.put("applyStudentCount", applyStudentCount);
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
+	
+	
+	
+	//만족도 전체 리스트
+	public List<Map<String, Object>> getAllServeyList(String searchType, String searchWord){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		List<EduStsfcSurveyDto> allServeyList = eduStaffSqlMapper.selectAllServeyList(searchType, searchWord);
 		
 		for(EduStsfcSurveyDto eduStsfcSurveyDto : allServeyList) {
 			
 			Map<String, Object> map = new HashMap<>();
 			int edu_apply_pk = eduStsfcSurveyDto.getEdu_apply_pk();
 
+			map.put("eduStsfcSurveyDto", eduStsfcSurveyDto);
+			map.put("studentName", eduStaffSqlMapper.selectServeyStudent(edu_apply_pk));
+			map.put("eduName", eduStaffSqlMapper.selectServeyEduName(edu_apply_pk));
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
+	//메인에 만족도 리스트
+	public List<Map<String, Object>> getServeyListMain(){
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		List<EduStsfcSurveyDto> serveyListMain = eduStaffSqlMapper.selectServeyListMain();
+		
+		for(EduStsfcSurveyDto eduStsfcSurveyDto : serveyListMain) {
+			
+			Map<String, Object> map = new HashMap<>();
+			int edu_apply_pk = eduStsfcSurveyDto.getEdu_apply_pk();
+			
 			map.put("eduStsfcSurveyDto", eduStsfcSurveyDto);
 			map.put("studentName", eduStaffSqlMapper.selectServeyStudent(edu_apply_pk));
 			map.put("eduName", eduStaffSqlMapper.selectServeyEduName(edu_apply_pk));
