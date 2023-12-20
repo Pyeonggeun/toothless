@@ -12,7 +12,6 @@
 <body>
 	<div class="container-fluid">
 		<div class="row">
-			<!-- 가족기업 뱃지 달기 -->
 			<div class="col">
 				<div class="row bg-body-white border-bottom mt-4 pb-0">
 					<a class="col-1 pe-2 text-end navbar-brand" href="../common/companyMainPage">
@@ -73,7 +72,7 @@
 		            </div>	
 		            </c:if>
 		            <div class="col align-self-center">
-		                <a class="navbar-brand" href="./employmentMainPage">취업지원센터</a>
+		                <a class="navbar-brand" href="../common/employmentMainPage">취업지원센터</a>
 		            </div>
 		            <div class="col-2"></div>
 		        </div>
@@ -81,7 +80,7 @@
 		</div>
 		<div class="row">
 			<div class="col px-0">
-				<img  class="opacity-55" src="../../resources/img/employment/companyBanner.png" style="width: 120rem; height : 30rem;">
+				<img  class="opacity-55" src="../../resources/img/employment/companyBanner.png" style="width: 119rem; height : 30rem;">
 			</div>		
 		</div>
 	 	<%-- 전체 크기 --%>
@@ -90,56 +89,63 @@
 			<div class="col-2"></div>
 			<%-- 채용공고 리스트 양식 --%>
 			<div class="col">
-				<!-- 채용공고 -->
-				<div class="row">
-					<div class="col fs-4 fw-bold mt-4 pb-3 border-bottom border-3">기업지원학생리스트</div>
+				<%-- 채용공고 --%>
+				<div class="row border-bottom border-3">
+					<div class="col fs-4 fw-bold mt-5 pb-3">기업지원자리스트</div>
+					<div class="col-7"></div>
+					<a class="col-2 mt-5 mb-3 pt-2 btn btn-outline-secondary" href="../common/companyMainPage">
+						<i class="bi bi-house"></i>&nbsp;&nbsp;메인페이지로
+					</a>
 				</div>
-			<%-- 	<div class="row mt-4 pb-3 border-bottom border-3 border-dark">
-					<div class="col-1 pt-1">
-						총 <span class="fw-bold"></span>건
-					</div>
-				</div> --%>
-				<div class="row mt-3 mb-1 text-secondary border-bottom border-dark border-2">
-					<!-- 이름 -->
+				<div class="row mt-5 mb-1 pb-2 fw-bold text-secondary text-center border-bottom border-dark border-2">
+					<%-- 이름 --%>
 					<div class="col">이름</div>
-					<!-- 생년월일 -->
+					<%-- 생년월일 --%>
 					<div class="col">생년월일</div>
-					<!-- 성별 -->
+					<%-- 성별 --%>
 					<div class="col">성별</div>
-					<!-- 이메일 -->
+					<%-- 이메일 --%>
 					<div class="col">이메일</div>
-					<!-- 졸업여부 -->
+					<%-- 졸업여부 --%>
 					<div class="col">졸업여부</div>
-					<!-- <div class="col px-0">지원한공고보기</div> -->
 				</div>
-				<c:forEach items="${applyStudentList}" var="applyStudent" >
-					<!-- 목록 -->
-					<div class="row my-2 border-bottom">
-						<div class="col">${applyStudent.studentInfoDto.name}</div>
-						<div class="col">
-						<fmt:formatDate value="${applyStudent.studentInfoDto.birth}" pattern="yyMMdd"/> </div>
-						<div class="col">${applyStudent.studentInfoDto.gender}</div>
-						<div class="col">${applyStudent.studentInfoDto.email}</div>
-						<div class="col">
-							<c:choose>
-								<c:when test="${! applyStudent.graduationInfoDtoList.contains(applyStudent.studentInfoDto.student_pk)}">
-									재학생
-								</c:when>
-								<c:otherwise>
-									졸업생
-								</c:otherwise>
-							</c:choose>
+				<c:choose>
+					<c:when test="${empty applyStudentList}">
+						<div class="row mt-3">
+							<div class="col fw-bold text-center">
+								해당 리스트가 없습니다
+							</div>
 						</div>
-						<!-- <a class="col-1 btn btn-outline-dark pb-1 mb-1 me-5"
-							href="../ny_posting/jobPostingDetailForCompanyPage?id=">공고보기</a> -->
-					</div>
-				</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${applyStudentList}" var="applyStudent">
+							<%-- 목록 --%>
+							<div class="row my-2 pb-2 text-center border-bottom">
+								<div class="col">${applyStudent.studentInfoDto.name}</div>
+								<div class="col">
+								<fmt:formatDate value="${applyStudent.studentInfoDto.birth}" pattern="yyMMdd"/> </div>
+								<div class="col">${applyStudent.studentInfoDto.gender}</div>
+								<div class="col">${applyStudent.studentInfoDto.email}</div>
+								<div class="col">
+									<c:choose>
+										<c:when test="${! applyStudent.graduationInfoDtoList.contains(applyStudent.studentInfoDto.student_pk)}">
+											재학생
+										</c:when>
+										<c:otherwise>
+											졸업생
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<%-- 오른쪽 --%>	
 			<div class="col-2"></div>	
 		</div>
 		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
-		<!-- futter -->
+		<%-- futter --%>
 		<div class="row">
 			<div class="col">
 				<jsp:include page="../common/futter.jsp"></jsp:include>

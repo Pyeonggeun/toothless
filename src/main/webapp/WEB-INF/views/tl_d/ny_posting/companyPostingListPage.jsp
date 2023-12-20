@@ -26,7 +26,7 @@
 			<div class="col-1 border-start"></div>
 			<%-- 채용공고 리스트 양식 --%>
 			<div class="col">
-				<!-- 채용공고 -->
+				<%-- 채용공고 --%>
 				<div class="row">
 					<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">기업별 공고리스트</div>
 				</div>
@@ -45,16 +45,16 @@
 				</div>
 				<c:forEach items="${companyPostingList}" var="companyPosting">
 				<div class="row border-bottom">
-					<!-- 1번째 기업 + 가족기업 뱃지 칸 -->
+					<%-- 1번째 기업 + 가족기업 뱃지 칸 --%>
 					<div class="col pt-3 ms-2 pe-0">
 						<div class="row mt-3">
-							<!-- 기업명 -->
+							<%-- 기업명 --%>
 							<div class="col pe-0">
 								${companyPosting.companyDto.com_name}
 							</div>
 						</div>
 						<div class="row">
-							<!-- 가족기업여부 -->
+							<%-- 가족기업여부 --%>
 							<div class="col ms-1">
 								<c:if test="${companyPosting.companyDto.is_family_company ne null and companyPosting.companyDto.is_family_company eq 'Y'}">
 									<span class="badge text-bg-info text-white">Family</span>
@@ -62,7 +62,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- 공고제목 -->
+					<%-- 공고제목 --%>
 					<div class="col-7 mt-1 pt-4 px-0 pb-2">
 						<div class="row">
 							<div class="col">
@@ -72,7 +72,7 @@
 							</div>
 						</div>
 						<div class="row mt-1 pb-1">
-						<!-- 분야/지역/기간 태그  -->
+						<%-- 분야/지역/기간 태그 --%>
 							<div class="col-7">
 								<a class="text-dark navbar-brand" href="./jobPostingDetailPage?id=${companyPosting.jobPostingDto.job_posting_pk}">
 									<span class="text-secondary">#&nbsp;${companyPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${companyPosting.jobPostingDto.job_position}
@@ -124,7 +124,7 @@
 			<div class="col-2"></div>	
 		</div>
 		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
-		<!-- futter -->
+		<%-- futter --%>
 		<div class="row">
 			<div class="col">
 				<jsp:include page="../common/futter.jsp"></jsp:include>

@@ -71,11 +71,11 @@ public class PostingServiceImpl {
 	}
 	
 	// 채용공고 리스트
-	public List<Map<String, Object>> getPostingList(String searchType, String searchWord, String searchPosition){
+	public List<Map<String, Object>> getPostingList(String searchType, String searchWord){
 		
 		List<Map<String, Object>> postingList = new ArrayList<>();
 		
-		List<JobPostingDto> jobPostingDtoList = postingSqlMapper.selectPostingList(searchType, searchWord, searchPosition);
+		List<JobPostingDto> jobPostingDtoList = postingSqlMapper.selectPostingList(searchType, searchWord);
 		
 		for(JobPostingDto jobPostingDto : jobPostingDtoList) {
 			
@@ -240,11 +240,11 @@ public class PostingServiceImpl {
 	// 학생
 	
 	// 학생용 채용공고 리스트(관심공고 정보 추가)
-	public List<Map<String, Object>> getPostingListForStudent(int student_pk, String searchType, String searchWord, String searchPosition){
+	public List<Map<String, Object>> getPostingListForStudent(int student_pk, String searchType, String searchWord){
 		
 		List<Map<String, Object>> postingList = new ArrayList<>();
 		
-		List<JobPostingDto> jobPostingDtoList = postingSqlMapper.selectPostingList(searchType, searchWord, searchPosition);
+		List<JobPostingDto> jobPostingDtoList = postingSqlMapper.selectPostingList(searchType, searchWord);
 		
 		for(JobPostingDto jobPostingDto : jobPostingDtoList) {
 			
