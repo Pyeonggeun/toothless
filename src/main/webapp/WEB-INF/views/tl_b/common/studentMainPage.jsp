@@ -207,24 +207,9 @@
                 <div class="col-4 me-5 d-flex justify-content-center align-items-center rounded-5 text-center py-3" style="background-color: #FFE7EB;">
                     <div class="row">
                     	<div class="col">
-                    		<div class="row my-3">
+                    		<div class="row my-1">
 		                        <div class="col fw-bold fs-6">
 		                            진료시간
-		                        </div>
-		                    </div>
-		                    <div class="row">
-		                        <div class="col">
-		                            월~금요일 : 09:00~18:00
-		                        </div>
-		                    </div>
-		                    <div class="row">
-		                        <div class="col">
-		                            (점심시간 : 12:00~13:00)
-		                        </div>
-		                    </div>
-		                    <div class="row my-3">
-		                        <div class="col fw-bold fs-6">
-		                            아무개 정보
 		                        </div>
 		                    </div>
 		                    <div class="row">
@@ -235,6 +220,26 @@
 		                    <div class="row mb-3">
 		                        <div class="col">
 		                            (점심시간 : 12:00~13:00)
+		                        </div>
+		                    </div>
+		                    <div class="row border-top border-2 border-danger ">
+		                        <div class="col fw-bold fs-6 pt-1 mt-3">
+		                            간호사 근무시간
+		                        </div>
+		                    </div>
+		                    <div class="row">
+		                        <div class="col">
+		                            월~금요일 : 09:00~18:00
+		                        </div>
+		                    </div>
+		                    <div class="row">
+		                        <div class="col">
+		                            (점심시간 : 12:00~13:00)
+		                        </div>
+		                    </div>
+		                    <div class="row mb-3">
+		                        <div class="col text-secondary fw-bold">
+		                            비상연락망 : 010-1004-1004
 		                        </div>
 		                    </div>
                     	</div>
