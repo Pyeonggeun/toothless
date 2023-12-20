@@ -184,7 +184,18 @@
 		JOIN TL_A_DORM_BUILDING tadb ON tadr.DORM_PK = tadb.DORM_PK 
 		WHERE tadr.DORM_FLOOR = #{param1}
 		AND tadb.DORM_PK = #{param2}
-		ORDER BY tadr.DORM_ROOM_PK ASC
+		AND tadr.DORM_ROOM_PK IN (
+			SELECT dorm_room_pk FROM (
+				SELECT tads.*
+				FROM TL_A_SEMESTER tas
+				JOIN TL_A_DORM_STUDENT tads ON tas.SEMESTER_PK = tads.SEMESTER_PK
+				WHERE tas.PROGRESS_STATE = 'Y'
+				MINUS 
+				SELECT tads.* FROM TL_A_EXECUTIVE tae
+				JOIN TL_A_DORM_STUDENT tads ON tae.DORM_STUDENT_PK = tads.DORM_STUDENT_PK
+			)
+		)
+		ORDER BY tadr.ROOM_NAME ASC
 	</select>
 	
 	<select id="countExecutivePerRoomPk" resultType="int" parameterType="hashmap">

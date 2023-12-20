@@ -180,6 +180,13 @@
     	const review = document.getElementById("review");
     	const inputStudentInternPk = document.getElementById("inputStudentInternPk");
     	
+    	if (inputStudentInternPk.value.trim() === '' ||
+	        ratingValue.value.trim() === '' ||
+	        review.value.trim() === '') {
+	        alert('모든 필드를 입력해주세요.');
+	        return;
+	    }
+    	
     	fetch("./writeSatisfaction", {
 			method: "post",
 			headers: {
@@ -408,7 +415,7 @@
 					</div>
 				</div>
 				
-				<div class="row mt-4" style="height:15em">
+				<div class="row mt-4" style="height:17em">
 					<div class="col border-secondary border-top border-bottom overflow-y-scroll mt-1">
 						<div class="row text-center bg-body-secondary border-bottom border-secondary py-1 fw-semibold">
 							<div class="col-1 border-end">

@@ -80,17 +80,17 @@ public class HuyeoungInternshipController {
 		model.addAttribute("list", list);
 		model.addAttribute("complist", complist);
 		model.addAttribute("departList", departList);
-		return "/tl_c/huyeong/staff/ajdksInternshipReg";
+		return "/tl_c/huyeong/staff/ajdksInternshipRegForm";
 	}
 
-	// 현장실습관리등록
-	@RequestMapping("ajdksInternshipReg")
-	public String ajdksInternshipReg(Model model, AjdksInternshipCourseDto param) {
-
-		huyeoungInternshipServiceImpl.insertInternshipRegister(param);
-
-		return "redirect:./ajdksInternshipList";
-	}
+//	// 현장실습관리등록
+//	@RequestMapping("ajdksInternshipReg")
+//	public Sting ajdksInternshipReg(Model model, AjdksInternshipCourseDto param) {
+//
+//		huyeoungInternshipServiceImpl.insertInternshipRegister(param);
+//
+//		return "redirect:./ajdksInternshipList";
+//	}
 
 	// 현장실습관리수정
 	@RequestMapping("ajdksInternshipModify")

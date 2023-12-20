@@ -22,6 +22,7 @@ import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.donot.touch.service.StaffServiceImpl;
 import com.mkfactory.toothless.donot.touch.service.StudentServiceImpl;
 import com.mkfactory.toothless.x.dto.LectureCategoryDto;
+import com.mkfactory.toothless.x.dto.OpenLectureDto;
 import com.mkfactory.toothless.x.mj.service.LifeStaffServiceImpl;
 
 @Controller
@@ -85,13 +86,14 @@ public class LifeStaffControllerMj {
 	// 강의관리 페이지로 (등록 탭)
 	@RequestMapping("manageOpenLecturePage")
 	public String manageOpenLecturePage() {
-		
+	
 		return "tl_x/mj/manageOpenLecturePage";
 	}
 	
 	// 강의관리 페이지2로 (조회/수정 탭)
 	@RequestMapping("manageOpenLecturePage2")
 	public String manageOpenLecturePage2() {
+		
 		
 		return "tl_x/mj/manageOpenLecturePage2";
 	}

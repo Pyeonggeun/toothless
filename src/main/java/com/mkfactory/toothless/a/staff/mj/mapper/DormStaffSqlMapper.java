@@ -82,6 +82,9 @@ public interface DormStaffSqlMapper {
 	// 선발인원 중 미납부 리스트
 	public List<JoinDormApplicationDto> selectPaymentNoList();
 	
+	// 알람보낼 student pk
+	public JoinDormApplicationDto selectStudentPkForAlram(int dorm_application_pk);
+	
 	// -----------------------------
 	// 메인페이지 공고리스트
 	public List<DormNoticeDto> selectDormNotice();

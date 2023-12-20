@@ -257,6 +257,13 @@
 		const inputReview = document.getElementById("inputReview");
 		const inputStudentInternPk = document.getElementById("inputStudentInternPk");
 		
+		if (!diligence_score || !responsibility_score || !coorporation_score || !achievement_score ||
+		        inputReview.value.trim() === '' ||
+		        inputStudentInternPk.value.trim() === '') {
+				alert('모든 항목에 평가를 완료해주세요');
+		        return;
+		    }
+
 		fetch("./writeInternEvaluation", {
 			method: "post",
 			headers: {
