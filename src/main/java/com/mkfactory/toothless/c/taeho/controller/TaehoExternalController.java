@@ -88,6 +88,18 @@ public class TaehoExternalController {
 		return "tl_c/taeho/external/readStudentInternListPage";
 	}
 	
+	@RequestMapping("applyInternshipCoursePage")
+	public String applyInternshipCoursePage(HttpSession session, Model model) {
+
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		int externalPk = externalInfoDto.getExternal_pk();
+		AjdksCompanyInfoDto ajdksCompanyInfoDto = taehoExternalService.getSessionCompanyInfoByExternalPk(externalPk);
+		model.addAttribute("ajdksCompanyInfoDto", ajdksCompanyInfoDto);		
+		
+		System.out.println(externalInfoDto.getExternal_pk());
+
+		return "tl_c/taeho/external/applyInternshipCoursePage";
+	}
 	
 	
 	

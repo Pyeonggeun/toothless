@@ -33,6 +33,17 @@ public class EunbiProfessorController {
 		return "tl_c/eunbi/professor/internshipMainPage";
 	}
 	
+	@RequestMapping("viewChargedInternshipCoursePage")
+	public String viewChargedInternshipCoursePage(HttpSession session, Model model) {
+		
+		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
+		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
+		
+		model.addAttribute("chargedInternshipCourse", professorService.viewChargedInternshipCourse(sessionProfessorPk));
+		
+		return "tl_c/eunbi/professor/viewChargedInternshipCoursePage";
+	}
+	
 	@RequestMapping("viewChargedStudentPage")
 	public String viewChargedStudentPage(HttpSession session, Model model) {
 		

@@ -40,6 +40,9 @@
      		const goTestInfoPage = document.querySelector("#goTestInfoPage");
      		goTestInfoPage.setAttribute("href", "./testInfoListPage?open_lecture_key="+open_lecture_key);
      		
+     		const absenceManagementPage = document.querySelector("#absenceManagementPage");
+     		absenceManagementPage.setAttribute("href", "./attendanceStudentListPage?open_lecture_key="+open_lecture_key);
+     		
 		}
      	function loadStudentInfo(open_lecture_key) {
 			const url = "./lectureStudentList?open_lecture_key="+open_lecture_key;
@@ -260,7 +263,7 @@
 	        			maxStudentAndTotalStudent.innerText = e.testingStudentCount+"/"+e.lectureStudentCount
 	        			
 	        			const testListPageButton = testListWrapper.querySelector(".testListPageButton");
-	        			testListPageButton.setAttribute("onclick","location.href='../../tl_x/ic/testStudentListPage?lecture_test_key="+e.lectureTestDto.lecture_test_key+"'");
+	        			testListPageButton.setAttribute("onclick","location.href='./testStudentListPage?lecture_test_key="+e.lectureTestDto.lecture_test_key+"'");
 	        			
 	        			lectureTestListBox.appendChild(testListWrapper);
 	    			}

@@ -65,6 +65,8 @@ public class EunbiRestStudentController {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
 		
+		studentService.insertInternSatisfaction(internSatisfactionDto);
+		
 		restResponseDto.setResult("Success");
 		
 		return restResponseDto;

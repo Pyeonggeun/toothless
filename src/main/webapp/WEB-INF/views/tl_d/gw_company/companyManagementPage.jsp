@@ -74,10 +74,30 @@
 			</div>
 			
 			<div class="col">
+				
 				<div class="row">
 					<div class="col-1"></div>
 					<div class="col">
 						<div class="row mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">기업 목록</div>
+						<!-- 검색 -->
+						<!--<form action="./companyManagementPage" method="get">
+				
+							<div class="row mt-4">
+								<div class="col-2">
+									<select name="searchType" class="form-select">
+										<option value="title" ${searchType == 'title' ? 'selected' : null}>회사 명</option>
+										<option value="content" ${searchType == 'content' ? 'selected' : null}>담당자 명</option>
+										<option value="nickname" ${searchType == 'nickname' ? 'selected' : null}>가족기업 여부</option>
+									</select>				
+								</div>
+								<div class="col-8">
+									<input name="searchWord" type="text" class="form-control" value="${searchWord}">
+								</div>
+								<div class="col-2 d-grid">
+									<button class="btn btn-primary">검색</button>
+								</div>
+							</div>
+						</form>-->
 						<div class="row border-bottom border-2 border-black pb-3 mb-3 mt-5">
 							      <div class="col-1 text-center fw-bold">기업번호</div>
 							      <div class="col text-center fw-bold">기업명</div>

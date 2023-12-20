@@ -15,6 +15,7 @@ import com.mkfactory.toothless.d.dto.InterestCompanyDto;
 import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
+import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 
 @Controller
@@ -29,7 +30,14 @@ public class CompanyController {
 	
 	// 기업 등록 페이지
 		@RequestMapping("registerCompanyPage")
-		public String registerCompanyPage(Model model) {
+		public String registerCompanyPage(HttpSession session, Model model) {
+			
+			StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+			
+			if(staffInfo == null) {
+				return "redirect:../../another/staff/loginPage";
+				
+			}
 			
 			model.addAttribute("comScaleList",companyService.getComScaleList());
 			
@@ -47,16 +55,42 @@ public class CompanyController {
 	//기업관리 페이지
 		
 		@RequestMapping("companyManagementPage")
-		public String companyManagementPage(Model model) {
+		public String companyManagementPage(HttpSession session, Model model) {
+			
+			StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+			
+			if(staffInfo == null) {
+				return "redirect:../../another/staff/loginPage";
+				
+			}
 			
 			model.addAttribute("companyList", companyService.getCompanyList());
+			
+//			String searchQueryString = "";
+//			
+//			if(searchType != null && searchWord != null) {
+//				searchQueryString += "&searchType=" + searchType;
+//				searchQueryString += "&searchWord=" + searchWord;
+//			}
+//			
+//			model.addAttribute("searchQueryString", searchQueryString);
+//			
+//			model.addAttribute("searchType", searchType);
+//			model.addAttribute("searchWord", searchWord);
 			
 			return "/tl_d/gw_company/companyManagementPage";
 		}
 		
 	//기업 상세정보 페이지
 		@RequestMapping("companyViewDetailsPage")
-		public String companyViewDetailsPage(Model model, int com_pk) {
+		public String companyViewDetailsPage(HttpSession session, Model model, int com_pk) {
+			
+			StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+			
+			if(staffInfo == null) {
+				return "redirect:../../another/staff/loginPage";
+				
+			}
 			
 			Map<String, Object> companyMap=companyService.getCompany(com_pk);
 			
@@ -85,7 +119,14 @@ public class CompanyController {
 		
 	//기업, 담당자 정보 수정
 		@RequestMapping("updateCompanyInfo")
-		public String updateCompanyInfo(Model model,int com_pk) {
+		public String updateCompanyInfo(HttpSession session, Model model,int com_pk) {
+			
+			StaffInfoDto staffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+			
+			if(staffInfo == null) {
+				return "redirect:../../another/staff/loginPage";
+				
+			}
 			
 			model.addAttribute("companyMap",companyService.getCompany(com_pk));
 			model.addAttribute("comScaleList",companyService.getComScaleList());
@@ -160,7 +201,14 @@ public class CompanyController {
 		
 		//기업에서 누가 자기네 회사 찜했나 볼 수 있게!!
 		@RequestMapping("companyViewStudentInterestPage")
-		public String companyViewStudentInterestPage(Model model, int com_pk) {
+		public String companyViewStudentInterestPage(HttpSession session, Model model, int com_pk) {
+			
+			ExternalInfoDto externalInfo = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+			
+			if(externalInfo == null) {
+				return "redirect:../../another/external/loginPage";
+				
+			}
 			
 			model.addAttribute("company", companyService.getCompany(com_pk));
 			model.addAttribute("studentInterestCompanyList", companyService.studentCompanyInterestList());
@@ -174,6 +222,11 @@ public class CompanyController {
 		public String interestCompanyListForStudentPage(HttpSession session, Model model) {
 			StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 			
+			if(studentInfoDto == null) {
+				return "redirect:../../another/student/loginPage";
+				
+			}
+			
 			if(studentInfoDto != null) {
 				
 				model.addAttribute("studentInterestCompanyList", companyService.studentCompanyInterestList());
@@ -186,12 +239,12 @@ public class CompanyController {
 		
 		//확인용기업관리 페이지
 		
-		@RequestMapping("checkCompanyManagementPage")
-		public String checkCompanyManagementPage(Model model) {
-			
-			model.addAttribute("companyList", companyService.getCompanyList());
-			
-			return "/tl_d/gw_company/checkCompanyManagementPage";
-		}
+//		@RequestMapping("checkCompanyManagementPage")
+//		public String checkCompanyManagementPage(Model model) {
+//			
+//			model.addAttribute("companyList", companyService.getCompanyList());
+//			
+//			return "/tl_d/gw_company/checkCompanyManagementPage";
+//		}
 		
 }

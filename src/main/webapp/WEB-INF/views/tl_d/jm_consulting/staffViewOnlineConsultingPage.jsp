@@ -193,8 +193,7 @@
 			const modal_student_id = modalLink.querySelector(".modal_student_id");
 			const modal_date = modalLink.querySelector(".modal_date");
 			const modal_contents = modalLink.querySelector(".modal_contents");
-			const modal_answer = modalLink.querySelector(".modal_answer");
-			const modal_textarea = modalLink.querySelector(".modal_textarea");
+			var modal_answer = modalLink.querySelector(".modal_answer");
 			
 			modal_student_name.innerText = e.studentInfoDto.name;
 			modal_student_id.innerText = e.studentInfoDto.student_id;
@@ -204,15 +203,17 @@
 			
 			//답변 안달렸으면 답변 입력창 생성
 			if(e.onlineConsultingReplyDto==null){
-				
+				modal_answer.innerText = '';
+				var modal_textarea = document.querySelector(".modal_textarea");
 				modal_answer.appendChild(modal_textarea);
-				
+
 				const modal_insert = document.querySelector('.modal_insert');
 				modal_insert.value = onlineConsultingPk ;
 				
 			}
 			
 			else{				
+				console.log("else문들어옴1");
 				modal_answer.innerText = e.onlineConsultingReplyDto.on_contents_reply;
 				const modal_cancel = document.querySelector('.modal_cancel');
 				modal_cancel.classList.remove('btn-secondary');
@@ -308,12 +309,12 @@
 													<div class="col-6"></div>															
 													
 													<div class="col">
-														<div class="row pt-3" style="font-size:0.8em; display:flex; text-align:right;">
+														<div class="row pt-3" style="font-size:0.9em; display:flex; text-align:right;">
 															<div id="getOnlineConsultingListLatest" onclick="reloadOnlineConsultingList(shared_isReply,'latest',searchCategory.value,searchContents.value, currentPageNum.value)" class="col pe-0">
 																<span onmouseover="cursorChangeLikeLink(this)">최신순</span>
 															</div>
-															<div id="getOnlineConsultingListEarliest" onclick="reloadOnlineConsultingList(shared_isReply,'earliest',searchCategory.value,searchContents.value, currentPageNum.value)" class="col pe-0">
-																<span onmouseover="cursorChangeLikeLink(this)">과거순</span>
+															<div id="getOnlineConsultingListEarliest" onclick="reloadOnlineConsultingList(shared_isReply,'earliest',searchCategory.value,searchContents.value, currentPageNum.value)" class="col pe-2">
+																<span onmouseover="cursorChangeLikeLink(this)">오래된순</span>
 															</div>
 														</div>
 													</div>
@@ -329,7 +330,7 @@
 											
 																	
 												<div class="col-3">
-													<select id="searchCategory" class="ps-0 form-select" aria-label="Default select example" style="border:none; outline:none; font-size:0.7em;">
+													<select id="searchCategory" class="ps-0 form-select" aria-label="Default select example" style="border:none; outline:none; font-size:0.9em;">
 													  <option value="all">선택</option>
 													  <option value="student_name">학생 이름</option>
 													  <option value="online_consulting_pk">신청번호</option>
@@ -437,7 +438,7 @@
 <!-- 리스트 템플릿 -->
 <div id="templete" class="d-none">							
 	<div class="row py-2 border-top wrapper" style="align-items:center;">
-			<div class="col wrapper_pk" style="font-size:0.9em;">
+			<div class="col wrapper_pk fw-bold" style="font-size:0.9em;">
 				
 			</div>
 			<div class="col wrapper_name" style="font-size:0.9em;">
@@ -452,7 +453,7 @@
 					<div class="col">
 					
 						<button onclick="manageOnlineConsulting(this.value)" value="" type="button" class="privewModalLink btn btn-light" data-bs-toggle="modal" data-bs-target="#modal_Link">
-							<i class="bi bi-box-arrow-right"></i>
+							<i class="bi bi-info-square" style="font-size:1.5em;"></i>
 						</button>
 					
 					
@@ -500,9 +501,7 @@
 											</div>
 											<div class="row py-2 pb-2">
 												<div class="col modal_contents">
-													<textarea class="modal_textarea" rows="20" cols="60" placeholder="답변입력">
-													
-													</textarea>
+													<textarea class="modal_textarea" rows="20" cols="60" placeholder="답변입력"></textarea>
 
 												</div>
 											</div>														

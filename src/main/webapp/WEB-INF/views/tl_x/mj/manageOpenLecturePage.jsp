@@ -151,28 +151,66 @@
 		
 	}
 	
+	// 수업명에따른 정보
+	function selectLectureChild(){
+		
+     	// ++ 수업명이 선택되면 수업정보(수업시간 / 학점) 자동 업데이트하기
+     	let twoSel = document.getElementById("sel_two").value;
+        console.log(twoSel);
+     	
+    	fetch("./getSomeLectureInfo?lecture_info_key=" + twoSel)
+		.then(response => response.json())
+		.then(response => {
+			
+			someLectureInfoBySelect = response.data.someLectureInfo;
+			document.getElementById("total_hourByLecture").innerText = "총 " + someLectureInfoBySelect.total_hour + "시간";
+			document.getElementById("creditBylecture").innerText = someLectureInfoBySelect.credit + "학점";
+		
+		});
+    	
+    	document.getElementById("open_date").focus();
+		
+	}
 	
-	// 수업명에 따른 하위 셀렉트박스
+	
+	// 날짜에따른 강의 가능한 강사리스트
 	function selectSecondChild(){ 
 		
 		let oneSel = document.getElementById("sel_one").value;
+		let insertOpenDate = document.getElementById("open_date").value;
+		let insertCloseDate = document.getElementById("end_date").value;
         console.log(oneSel);
+        console.log(insertOpenDate);
+        console.log(insertCloseDate);
         
-     	// 수업명에 따른 강사선택 (== 카테고리에 따른 수업가능한 강사리스트겠지!!!)
-		fetch("./getTeacherListByCategory?lecture_category_key=" + oneSel)
+        // 받아야할값 : lecture_category_key, insertOpenDate, insertCloseDate
+        
+     	// 수업명에 따른 강사선택 (== 카테고리에 따른 수업가능한 강사리스트 中 개강일~종강일 사이에 수업없는 애들이겠지!!!)
+		fetch("./getTeacherListByCategory?lecture_category_key=" + oneSel + "&insertOpenDate=" + insertOpenDate + "&insertCloseDate=" + insertCloseDate)
 		.then(response => response.json())
 		.then(response => {
 			
 			const teacherListByCategory = response.data.teacherListByCategory;
+			
 			
 			// 선택된 값에 따라 자식 셀렉트박스 업데이트
 	        let teacherSelect = document.getElementById("sel_teacher");
 	        teacherSelect.innerHTML = ""; // 자식 셀렉트박스 초기화
 	        
 	        const optionTag = document.createElement("option");
-			optionTag.selected = true;
-			optionTag.innerText = "담당할 강사를 선택하세요.";
-			teacherSelect.appendChild(optionTag);
+	        
+	        if(teacherListByCategory.length > 0){
+	        	optionTag.selected = true;
+				optionTag.innerText = "담당할 강사를 선택하세요.";
+				teacherSelect.appendChild(optionTag);
+	        }else{
+	        	optionTag.selected = true;
+				optionTag.innerText = "해당 기간에 수업 가능한 강사가 없습니다.";
+				teacherSelect.appendChild(optionTag);
+	        }
+	        
+	        
+			
 	        
 	     	// 자식 셀렉트박스에 옵션 추가
 	        teacherListByCategory.forEach(item => {
@@ -187,21 +225,8 @@
 			
 		});
      	
-     	// ++ 수업명이 선택되면 수업정보(수업시간 / 학점) 자동 업데이트하기
-     	let twoSel = document.getElementById("sel_two").value;
-        console.log(twoSel);
-     	
-    	fetch("./getSomeLectureInfo?lecture_info_key=" + twoSel)
-		.then(response => response.json())
-		.then(response => {
-			
-			someLectureInfoBySelect = response.data.someLectureInfo;
-			document.getElementById("total_hourByLecture").innerText = "총 " + someLectureInfoBySelect.total_hour + "시간";
-			document.getElementById("creditBylecture").innerText = someLectureInfoBySelect.credit + "학점";
-		
-		});
-		
 	}
+
 	
 	let someLectureInfoBySelect;
 	
@@ -588,12 +613,13 @@
     
     function showModal(open_lecture_key){
     	
+    	console.log("모달띄움!!")
+    	
     	// 리스트 들고오고나서 모달띄우면 이전 정보가 있겠지?
         const modal = bootstrap.Modal.getOrCreateInstance("#writeModal");
         modal.show();
-    	
-    	console.log(open_lecture_key);
-
+    
+        
     	// 이전 입력 내용 
 		fetch("./getSomeOpenLectureInfo?open_lecture_key=" + open_lecture_key)
 		.then(response => response.json())
@@ -621,11 +647,13 @@
 			document.getElementById("nameModal").innerText = someLectureInfo.name;
 			document.getElementById("totalHourModal").innerText = someLectureInfo.total_hour + "시간";
 			document.getElementById("creditModal").innerText = someLectureInfo.credit + "학점";
+			document.getElementById("open_dateModal").innerText = formatDate(new Date(someOpenLecInfo.open_date));
+			document.getElementById("end_dateModal").innerText = formatDate(new Date(someOpenLecInfo.close_date));
+			
 			document.getElementById("max_studentModal").value = someOpenLecInfo.max_student;
 			document.getElementById("start_applyModal").value = formatDate(new Date(someOpenLecInfo.start_apply));
 			document.getElementById("end_applyModal").value = formatDate(new Date(someOpenLecInfo.end_apply));
-			document.getElementById("open_dateModal").value = formatDate(new Date(someOpenLecInfo.open_date));
-			document.getElementById("end_dateModal").value = formatDate(new Date(someOpenLecInfo.close_date));
+			
 			
 			// **1. innerText & value
 			// innerText: 주로 HTML 요소의 텍스트 콘텐츠를 나타내는 속성입니다. 
@@ -635,6 +663,15 @@
 			// ---> 주로 <input>, <textarea>, <select> 등의 폼 요소에서 값에 접근하거나 값을 설정할 때 사용됩니다.
 			// ---> 사용자 입력을 받는 폼 요소!!
 			
+			let insertOpenDate = document.getElementById("open_dateModal").innerText;
+			let insertCloseDate = document.getElementById("end_dateModal").innerText;
+			
+			
+			console.log("innerText로 변경함");
+			console.log(insertOpenDate);
+			console.log(insertCloseDate);
+
+			
 			
 			
 			// **3. 이전정보 보여주려는게 셀렉트박스로 돼있을 때 - 이전에 선택한 정보를 checked, 다른거 선택도 할 수 있게....
@@ -642,17 +679,20 @@
 			// document.getElementById("sel_teacherModal").value = someOpenLecInfo.lecturer_key;	// select
 			
 			// 3-1. 이전에 선택한 정보는 checked, 아직강사로 등록안된 아이디들 셀렉트박스 내에 올라가게
-			fetch("./getTeacherListByCategory?lecture_category_key=" + someLectureInfo.lecture_category_key)
+			fetch("./getAllTeacherList")
 			.then(response => response.json())
 			.then(response => {
 				
 
-				// 카테고리별 가능한 강사 리스트
-				const teacherListByCategory = response.data.teacherListByCategory;
+				// 전체 강사리스트
+				const allTeacherList = response.data.allTeacherList;
+				console.log(allTeacherList + "강사리스트");
 				
 				// 이전에 등록한 lecturer_key
-				const previousLecturerKey = someOpenLecInfo.lecturer_key;
-			
+				let previousLecturerKey = someOpenLecInfo.lecturer_key;
+				console.log(previousLecturerKey + "이전키");
+				
+				
 				// selectBox찾기
 			    const selectBox = document.getElementById("sel_teacherModal");
 				selectBox.innerHTML = "";
@@ -662,18 +702,45 @@
 				  	<option value="${item.external_pk}">${item.external_id}</option>
 				</c:forEach> 
 				*/
-				teacherListByCategory.forEach(item => {
-			        const optionTag = document.createElement("option");
-			        optionTag.value = item.lecturer_key;
-			        optionTag.innerText = item.name;
+			    const optionTag = document.createElement("option");
+				allTeacherList.forEach(item => {
 
 			        // 이전에 등록한 lecturer_key와 같은 값이면 selected 처리
 			        if (item.lecturer_key == previousLecturerKey) {
-			            optionTag.selected = true;
+			        	optionTag.value = item.lecturer_key;
+				        optionTag.innerText = item.name;
+			        	optionTag.selected = true;
 			        }
 			        
-			        selectBox.add(optionTag);
+			        selectBox.appendChild(optionTag);
 			    });
+				
+				console.log("해당 카테고리, 강의시간되는 강사들 가져올건데")
+				console.log(document.getElementById("keyModal").value);
+				console.log(insertOpenDate);
+				console.log(insertCloseDate);
+				
+				
+				// 3-2. 해당 카테고리, 강의시간되는 강사들
+				fetch("./getTeacherListByCategory?lecture_category_key=" + document.getElementById("keyModal").value + "&insertOpenDate=" + insertOpenDate + "&insertCloseDate=" + insertCloseDate)
+				.then(response => response.json())
+				.then(response => {
+					
+						// 강사리스트
+						const teacherListByCategory = response.data.teacherListByCategory;
+					
+				        const optionTag = document.createElement("option");
+						teacherListByCategory.forEach(item => {
+
+				        	optionTag.value = item.lecturer_key;
+					        optionTag.innerText = item.name;
+					        selectBox.appendChild(optionTag);
+				    });
+					
+					
+				});
+				
+			
 				
 			});
 
@@ -705,8 +772,8 @@
 		inputOpenLectureInfo.append("max_student", document.getElementById("max_studentModal").value);
 		inputOpenLectureInfo.append("start_apply", document.getElementById("start_applyModal").value);
 		inputOpenLectureInfo.append("end_apply", document.getElementById("end_applyModal").value);
-		inputOpenLectureInfo.append("open_date", document.getElementById("open_dateModal").value);
-		inputOpenLectureInfo.append("close_date", document.getElementById("end_dateModal").value);
+		inputOpenLectureInfo.append("open_date", document.getElementById("open_dateModal").innerText);
+		inputOpenLectureInfo.append("close_date", document.getElementById("end_dateModal").innerText);
 		
 
 		
@@ -864,7 +931,7 @@
 								</select>
 							</div>
 							<div id="selectBoxTwo" class="col py-2 ps-0 pe-2 bg-white">
-								<select id="sel_two" onchange="selectSecondChild()" class="form-select rounded-0">
+								<select id="sel_two" onchange="selectLectureChild()" class="form-select rounded-0">
 								  <option selected>개설할 수업 정보를 선택하세요.</option>
 								</select>
 							</div>
@@ -899,6 +966,20 @@
 					<div class="col">
 						<div class="row border-top border-bottom border-dark bg-secondary bg-opacity-10">
 							<div class="col-2 py-2 fw-bold align-self-center">
+								<span class="text-danger" style="font-size: 0.8em;">*</span>개강일
+							</div>
+							<div class="col-4 py-2 border-start border-end border-dark d-grid bg-white">
+								<input class="border rounded-0 py-2" onchange="autoEndDate(); selectSecondChild();" id="open_date" type="date">
+							</div>
+							<div class="col-2 py-2 fw-bold align-self-center">
+								종강일 <span style="font-size: 0.8em;">(자동계산)</span>
+							</div>
+							<div class="col-4 py-2 d-grid bg-white border-start border-dark">
+								<input class="border rounded-0 py-2" id="end_date" type="date">
+							</div>
+						</div>
+						<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
+							<div class="col-2 py-2 fw-bold align-self-center">
 								<span class="text-danger" style="font-size: 0.8em;">*</span>담당 강사명
 							</div>
 							<div id="selectTeacherBox" class="col-4 py-2 bg-white border-start border-end border-dark">
@@ -914,6 +995,7 @@
 							</div>
 						</div>
 						<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
+							
 							<div class="col-2 py-2 fw-bold align-self-center">
 								<span class="text-danger" style="font-size: 0.8em;">*</span>수강신청 시작일
 							</div>
@@ -925,20 +1007,6 @@
 							</div>
 							<div class="col-4 py-2 d-grid bg-white border-start border-dark">
 								<input class="border rounded-0 py-2" id="end_apply" type="date">
-							</div>
-						</div>
-						<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
-							<div class="col-2 py-2 fw-bold align-self-center">
-								<span class="text-danger" style="font-size: 0.8em;">*</span>개강일
-							</div>
-							<div class="col-4 py-2 border-start border-end border-dark d-grid bg-white">
-								<input class="border rounded-0 py-2" onchange="autoEndDate()" id="open_date" type="date">
-							</div>
-							<div class="col-2 py-2 fw-bold align-self-center">
-								종강일 <span style="font-size: 0.8em;">(자동계산)</span>
-							</div>
-							<div class="col-4 py-2 d-grid bg-white border-start border-dark">
-								<input class="border rounded-0 py-2" id="end_date" type="date">
 							</div>
 						</div>
 					</div>
@@ -1211,17 +1279,16 @@
 			<div class="col">
 				<div class="row border-top border-bottom border-dark bg-secondary bg-opacity-10">
 					<div class="col-2 py-2 fw-bold align-self-center">
-						<span class="text-danger" style="font-size: 0.8em;">*</span>담당 강사명
+						개강일
 					</div>
-					<div id="selectTeacherBox" class="col-4 py-2 bg-white border-start border-end border-dark">
-						<select id="sel_teacherModal" class="form-select rounded-0">
-						</select>
+					<div id="open_dateModal" class="col-4 text-start py-2 border-start border-end border-dark d-grid bg-white">
+						
 					</div>
-					<div class="col-2 py-2  fw-bold align-self-center">
-						<span class="text-danger" style="font-size: 0.8em;">*</span>최대 수강인원
+					<div class="col-2 py-2 fw-bold align-self-center">
+						종강일
 					</div>
-					<div class="col-4 py-2 d-grid bg-white border-start border-dark">
-						<input class="border rounded-0" id="max_studentModal" type="number" placeholder="정수로 입력하세요.">
+					<div id="end_dateModal" class="col-4 text-start py-2 d-grid bg-white border-start border-dark">
+						
 					</div>
 				</div>
 				<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
@@ -1240,16 +1307,17 @@
 				</div>
 				<div class="row border-bottom border-dark bg-secondary bg-opacity-10">
 					<div class="col-2 py-2 fw-bold align-self-center">
-						<span class="text-danger" style="font-size: 0.8em;">*</span>개강일
+						<span class="text-danger" style="font-size: 0.8em;">*</span>담당 강사명
 					</div>
-					<div class="col-4 py-2 border-start border-end border-dark d-grid bg-white">
-						<input class="border rounded-0 py-2" onchange="autoEndDateModal()" id="open_dateModal" type="date">
+					<div id="selectTeacherBox" class="col-4 py-2 bg-white border-start border-end border-dark">
+						<select id="sel_teacherModal" class="form-select rounded-0">
+						</select>
 					</div>
-					<div class="col-2 py-2 fw-bold align-self-center">
-						종강일 <span style="font-size: 0.8em;">(자동계산)</span>
+					<div class="col-2 py-2  fw-bold align-self-center">
+						<span class="text-danger" style="font-size: 0.8em;">*</span>최대 수강인원
 					</div>
 					<div class="col-4 py-2 d-grid bg-white border-start border-dark">
-						<input class="border rounded-0 py-2" id="end_dateModal" type="date">
+						<input class="border rounded-0" id="max_studentModal" type="number" placeholder="정수로 입력하세요.">
 					</div>
 				</div>
 			</div>
@@ -1303,9 +1371,10 @@
   </div>
 </div>
 
+ 
 <!-- 모달 - BS복붙해옴 -->
 <!-- 다른 요소와의 간섭을 피하기 위해, container 바깥 && 맨밑에 넣어놓기... -->
-<div id="writeModal" class="modal" tabindex="-1">
+<!-- <div id="writeModal" class="modal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 1500px; width: 100%;">
       <div class="modal-content">
         <div class="modal-header py-2" style="background-color: #003399;">
@@ -1313,14 +1382,14 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body py-2">
-        <!-- 강사 기본정보 -->
+        강사 기본정보
 			<div class="row mt-2 ms-2">
 				<div class="col fw-bold" style="font-size: 0.9em;">
 					<i class="bi bi-dot"></i>강의 기본정보
 					<span class="ms-3 text-danger" style="font-size: 0.8em;">*는 필수 입력사항입니다.</span>
 				</div>
 			</div>
-          <!-- 정보/양식 -->
+          정보/양식
 			<div id="modalForInfo" class="row border border-dark rounded-0 m-3 mt-1 text-center">
 				<div class="col">
 					<div class="row border-top border-bottom border-dark">
@@ -1399,7 +1468,7 @@
 					</div>
 				</div>
 			</div>
-		 <!-- 강사 기본정보 끝 -->
+		 강사 기본정보 끝
         </div>
         <div class="modal-footer mx-3 d-flex justify-content-between">
             <button id="deleteBtn" type="button" class="btn btn-danger rounded-0 px-4">삭제하기</button>
@@ -1410,7 +1479,8 @@
         </div>
       </div>
     </div>
-</div>
+</div> -->
+
 
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
