@@ -96,6 +96,10 @@
 		                		<c:when test="${myApplyProgram>0 }">
 		                			 <span class="border border-0 py-2 px-3 text-white bg-secondary rounded-2">신청완료</span> 
 		                		</c:when>
+		                		<c:when test="${empty sessionStudentInfo}">
+		                			<a class="btn btn-primary" href="../../another/student/loginPage">로그인 후 신청가능</a> 
+		                			
+		                		</c:when>
 		                	</c:choose>
 		                    
 		                </c:otherwise>

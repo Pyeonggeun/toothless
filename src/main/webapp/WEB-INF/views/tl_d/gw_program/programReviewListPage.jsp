@@ -40,7 +40,7 @@
 						<div class="row mb-2 ps-2 border-bottom border-3 border-bs-border pb-3 mb-3">
 							<div class="col-2 ps-0 ms-0 fw-bold fs-4">프로그램 리뷰</div>
 							<!-- 평점 평균 들어갈곳 -->
-							<div class="col ps-0 ms-0 pt-1 fs-5">평균 66점</div>
+							<div class="col ps-0 ms-0 pt-1 fs-5"></div>
 							
 						</div>
 						<!-- <div class="row border-bottom border-2 border-black pb-3 mb-3 mt-5">
