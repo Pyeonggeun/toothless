@@ -110,7 +110,7 @@
 							</div>
 
 
-							<div class="row ms-5 me-5 mt-3 pt-3">
+							<div class="row ms-5 me-5 mt-4 pt-3">
 
 								<!-- 공지사항 -->
 								<div class="col-6 me-4 pe-4">
