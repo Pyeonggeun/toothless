@@ -37,6 +37,22 @@
             font-size: 1.5em; /* 원하는 크기로 조절 */
             font-weight: bold;
         }
+        /* CSS로 회전 효과를 줄 클래스 정의 */
+        .rotate-90 {
+            transform: rotate(90deg);
+            transition: transform 0.3s ease; /* 회전 효과에 대한 CSS 트랜지션 */
+        }
+        .element-with-pointer-cursor {
+            cursor: pointer;
+            color: blue;
+            font-weight: bold;
+        }
+        .bi-plus-circle-fill:hover{
+            font-size: 30px;
+            line-height: 30px;
+            color:cadetblue;
+        }
+        
     </style>
 
     <script>
@@ -75,6 +91,12 @@
         function changeColorReset(targetElement) {
             targetElement.style.backgroundColor = ''; // 빈 문자열로 설정하여 기본 스타일로 복원
         }
+        function rotateIcon(element, rotate = true) {
+            console.log('rotateIcon 함수 호출됨'); // 디버깅을 위한 로그 추가
+            var rotationValue = rotate ? 'rotate(90deg)' : 'rotate(0deg)';
+            element.style.transform = rotationValue;
+        }
+
 
     </script>
     
@@ -124,11 +146,11 @@
             <div class="row px-5 text-center mt-4 py-3 rounded-5" style="background-color: #FCF5E1;">
                 <div class="col-3">
                     <div class="row">
-                        <button class="btn rounded-pill" onclick="location.href=''" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
+                        <button class="btn rounded-pill" onclick="location.href='../ys/healthCenterInfoPage'" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
                             <div class="col img-fluid">
                                 <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link02.png">
                             </div>
-                            <div class="col fw-bold fs-5 pt-3">보건소소개</div>
+                            <div class="col fw-bold fs-5 pt-3">보건센터안내</div>
                         </button>
                     </div>
                 </div>
@@ -157,7 +179,7 @@
 
                 <div class="col-3">
                     <div class="row">
-                        <button class="btn rounded-pill" onclick="location.href=''" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
+                        <button class="btn rounded-pill" onclick="location.href='../ys/informationForumPageOne'" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
                         <div class="col img-fluid">
                             <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link01.png" >
                         </div>
@@ -211,7 +233,8 @@
                             공지사항
                         </div>
                         <div class="col-2 text-end">
-                            <i class="bi bi-plus-circle-fill fw-bold fs-2 text-white" onclick="location.href='../ty/studentBoardPage'"></i>
+                            <i class="bi bi-plus-circle-fill abc:hover fw-bold fs-2 text-white element-with-pointer-cursor" onclick="location.href='../ty/studentBoardPage'" onmouseover="rotateIcon(this, 90)"
+                            onmouseout="rotateIcon(this, 0)"></i>
                         </div>
                     </div>
                     <div class="row mt-3" >
