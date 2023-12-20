@@ -32,6 +32,38 @@ public class LifeStaffControllerMj {
 	@Autowired
 	private LifeStaffServiceImpl lifeStaffService;
 	
+	@Autowired
+	private StaffServiceImpl commonStaffService;
+	
+	// 사감 로그인 페이지로
+	@RequestMapping("loginPage")
+	public String loginPage() {
+		
+		return "another/staff/loginPage";
+	}
+	
+	// 사감 로그인
+	@RequestMapping("loginProcess")
+	public String loginProcess(HttpSession session, StaffInfoDto params) {
+		
+		StaffInfoDto staffInfoDto = commonStaffService.loginByStaffIdAndPassword(params);
+	
+		if(staffInfoDto == null) {
+			return "redirect:../another/staff/loginPage";
+		}
+		
+		session.setAttribute("sessionStaffInfo", staffInfoDto);
+		return "redirect:../mj/mainPage";
+	}
+	
+	// 사감 로그아웃
+	@RequestMapping("logoutProcess")
+	public String logoutProcess(HttpSession session) {
+	
+		session.invalidate();
+		
+		return "redirect:../../another/staff/loginPage";
+	}
 	
 	// 메인 페이지로
 	@RequestMapping("mainPage")
