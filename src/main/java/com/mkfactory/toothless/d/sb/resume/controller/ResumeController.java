@@ -449,11 +449,12 @@ public class ResumeController {
 			int externalInfoPk = externalInfoDto.getExternal_pk();
 			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalInfoPk);
 			List<Map<String, Object>> resumeList = resumeService.getResumeDtoListAndStudentInfoByJobPostingPk(job_posting_pk);
-			
+			JobPostingDto jobPostingDto = resumeService.getApplyJobPostingDto(job_posting_pk);
 			
 			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
 			model.addAttribute("resumeList", resumeList);
 			model.addAttribute("job_posting_pk", job_posting_pk);
+			model.addAttribute("jobPostingDto", jobPostingDto);
 			return "tl_d/sb_resume/viewResumeByApplyStudentPage";
 		
 		}else {
