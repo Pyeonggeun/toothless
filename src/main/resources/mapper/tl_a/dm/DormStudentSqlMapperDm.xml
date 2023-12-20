@@ -53,4 +53,16 @@
 	
 	</delete>
 	
+	<select id="studentListAll" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+	
+		SELECT * FROM TL_JIC_STUDENT_INFO ORDER BY STUDENT_PK ASC 
+	
+	</select>
+	
+	<select id="studentInfoByStudentPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+	
+		SELECT * FROM TL_JIC_STUDENT_INFO WHERE STUDENT_PK = #{STUDENT_PK}
+	
+	</select>
+	
 </mapper>
