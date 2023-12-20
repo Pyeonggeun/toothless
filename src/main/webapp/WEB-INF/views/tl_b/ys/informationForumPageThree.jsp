@@ -227,8 +227,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col ps-4 fw-bold" style="font-size: 0.9em;">
-                        &nbsp;&nbsp;<span>-</span>표준체중
-                        </span>
+                        &nbsp;&nbsp;<span style="position: relative; bottom: 10%;">-</span>&nbsp;표준체중
                     </div>
                 </div>
                 <div class="row mt-2">
@@ -243,7 +242,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col ps-4 fw-bold" style="font-size: 0.9em;">
-                        &nbsp;&nbsp;<span>-</span>비만도 자가진단                        
+                        &nbsp;&nbsp;<span style="position: relative; bottom: 10%;">-</span>&nbsp;비만도 자가진단                        
                     </div>
                 </div>
                 <div class="row mt-2">
@@ -253,7 +252,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col ps-4 fw-bold" style="font-size: 0.9em;">
-                        &nbsp;&nbsp;<span>-</span>비만도 판정                        
+                        &nbsp;&nbsp;<span style="position: relative; bottom: 10%;">-</span>&nbsp;비만도 판정                        
                     </div>
                 </div>
                 <div class="row mt-2">

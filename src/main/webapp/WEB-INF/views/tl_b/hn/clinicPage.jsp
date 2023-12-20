@@ -706,6 +706,14 @@
         		
         	}
         	
+        	function removePrescription(target) {
+        		
+        		const wrtiePrescriptionWrapper = target.closest(".wrtiePrescriptionWrapper");
+        		
+        		wrtiePrescriptionWrapper.remove();
+        		
+        	}
+        	
         	function checkListAndQuantityFetch(target) {
 	       		
 	       		getMedicineCodeInfo();
@@ -736,10 +744,28 @@
          		const medicineCodePkList = [];
         		const QuantityList = [];
         		
-        		for(e of writeMedicine) {
+        		for(const [index, e] of Object.entries(writeMedicine)) {
+        			
+        			if(index != 0 && e.value == "") {
+            			
+    					document.getElementById("fillLogBox").innerText = "! 빈칸을 전부 채워주세요";
+    					
+    					return;
+            			
+            		}
+        			
         			medicineCodePkList.push(Number(e.value.slice(0, e.value.indexOf(" "))));
         		}
-        		for(e of writeQuantity) {
+        		for(const [index, e] of Object.entries(writeQuantity)) {
+        			
+						if(index != 0 && e.value == 0) {
+            			
+    					document.getElementById("fillLogBox").innerText = "! 수량을 입력해주세요";
+    					
+    					return;
+            			
+            		}
+        			
         			QuantityList.push(Number(e.value));
         		}
         		
@@ -1229,6 +1255,9 @@
             </div>
 	        
 	        <div class="wrtiePrescriptionWrapper row mt-2">
+	        	<div class="col-auto my-auto fw-bold text-danger pe-0">
+	        		<button onclick="removePrescription(this)" class="text-danger btn btn-transparent py-0 px-0 fw-bold" style="font-size: 1.1em;">-</button>
+	        	</div>
 		    	<div class="col">
 		        	<input onblur="checkListAndQuantityFetch(this)" class="writeMedicine form-control rounded-0" placeholder="처방할 의약품을 입력해주세요" style="font-size: 0.7em;">
 		            <datalist class="medicineDataListOptionsBox">

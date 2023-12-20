@@ -9,7 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-<title>Insert title here</title>
+<title>호실 별 정보</title>
 </head>
 <body>
 <div class="container-fluid">
@@ -57,7 +57,8 @@
             <div class="col text-center fs-5 fw-bold my-4">
                전체 호실 정보
             </div>
-         </div>         
+         </div>
+         
          <div class="row border rounded-0 p-3">
          <div class="col-1"></div>
             <div class="col">
@@ -148,6 +149,7 @@
          </div>
          
       </div> <!-- 우측내용 col 끝 -->
+      
  <pre>
 			
 			

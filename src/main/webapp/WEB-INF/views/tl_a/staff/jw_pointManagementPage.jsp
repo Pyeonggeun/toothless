@@ -10,6 +10,232 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <title>Insert title here</title>
+<script>
+	
+	function reloadPointManagementList(){
+		
+		const url = "./restGetAllPointManagementList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const pointAssignBox = document.getElementById("pointAssignBox");
+			pointAssignBox.innerHTML = "";
+			
+			for(let e of response.data){
+				
+				const pointAssignWrapper = document.querySelector("#pointAssignTemplete .pointAssignWrapper").cloneNode(true);
+				
+				const studentNameSpace = pointAssignWrapper.querySelector(".studentNameSpace");
+				studentNameSpace.innerText = e.studentInfoDto.name;
+				
+				const buildingNameSpace = pointAssignWrapper.querySelector(".buildingNameSpace");
+				buildingNameSpace.innerText = e.dormBuildingDto.name;
+				
+				const roomNameSpace = pointAssignWrapper.querySelector(".roomNameSpace");
+				roomNameSpace.innerText = e.dormRoomDto.room_name;
+				
+				const pointCategorySpace = pointAssignWrapper.querySelector(".pointCategorySpace");
+				const selectBox = document.createElement("select")
+				selectBox.classList.add("border-secondary-subtle", "form-select", "mx-1", "form-select-sm", "rounded-0")
+				for(i of e.pointCategoryList){
+					const option = document.createElement('option');
+					option.value = i.point_category_pk;
+					option.text = i.content;
+					selectBox.appendChild(option);
+				}
+				pointCategorySpace.appendChild(selectBox);
+				
+				const reasonSpace = pointAssignWrapper.querySelector(".reasonSpace");
+				const inputBox = document.createElement('input');
+				inputBox.setAttribute('type', 'text'); 
+				inputBox.classList.add("form-control");
+				reasonSpace.appendChild(inputBox);
+				
+				const assignSpace = pointAssignWrapper.querySelector(".assignSpace");
+				assignSpace.classList.add("d-grid");
+				
+				const button = document.createElement("button");
+				button.type = "button";
+				button.innerText = "부여"
+				button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mb-1", "mx-2", "btn-primary");
+				button.addEventListener('click', function () {
+					const selectedOption = selectBox.options[selectBox.selectedIndex];
+					const selectedValue = selectedOption.value;
+					
+					const inputReason = inputBox.value;
+					
+					const data = {
+						dorm_student_pk: e.dormStudentDto.dorm_student_pk,
+						point_category_pk: selectedValue,
+						reason: inputReason
+					};
+					
+					registerPoint(data);
+					showAlert();
+				});
+				
+				assignSpace.appendChild(button);
+				
+				pointAssignBox.appendChild(pointAssignWrapper);
+			}
+			
+			
+		})
+		
+	}
+	
+	function reloadPointManagementListByDormPk(dorm_pk){
+		
+		const url = "./restGetPointManagementListByDormPk?dorm_pk=" + dorm_pk;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const pointAssignBox = document.getElementById("pointAssignBox");
+			pointAssignBox.innerHTML = "";
+			
+			for(e of response.data){
+				
+				const pointAssignWrapper = document.querySelector("#pointAssignTemplete .pointAssignWrapper").cloneNode(true);
+				
+				const studentNameSpace = pointAssignWrapper.querySelector(".studentNameSpace");
+				studentNameSpace.innerText = e.studentInfoDto.name;
+				
+				const buildingNameSpace = pointAssignWrapper.querySelector(".buildingNameSpace");
+				buildingNameSpace.innerText = e.dormBuildingDto.name;
+				
+				const roomNameSpace = pointAssignWrapper.querySelector(".roomNameSpace");
+				roomNameSpace.innerText = e.dormRoomDto.room_name;
+				
+				const pointCategorySpace = pointAssignWrapper.querySelector(".pointCategorySpace");
+				const selectBox = document.createElement("select")
+				selectBox.classList.add("border-secondary-subtle", "form-select", "mx-1", "form-select-sm", "rounded-0")
+				for(i of e.pointCategoryList){
+					const option = document.createElement('option');
+					option.value = i.point_category_pk;
+					option.text = i.content;
+					selectBox.appendChild(option);
+				}
+				pointCategorySpace.appendChild(selectBox);
+				
+				const reasonSpace = pointAssignWrapper.querySelector(".reasonSpace");
+				const inputBox = document.createElement('input');
+				inputBox.setAttribute('type', 'text'); 
+				inputBox.classList.add("form-control");
+				reasonSpace.appendChild(inputBox);
+				
+				const assignSpace = pointAssignWrapper.querySelector(".assignSpace");
+				assignSpace.classList.add("d-grid");
+				
+				const button = document.createElement("button");
+				button.type = "button";
+				button.innerText = "부여"
+				button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mb-1", "mx-2", "btn-primary");
+				button.addEventListener('click', function () {
+					const selectedOption = selectBox.options[selectBox.selectedIndex];
+					const selectedValue = selectedOption.value;
+					
+					const inputReason = inputBox.value;
+					
+					const data = {
+						dorm_student_pk: e.dormStudentDto.dorm_student_pk,
+						point_category_pk: selectedValue,
+						reason: inputReason
+					};
+					
+					registerPoint(data);
+					showAlert();
+				});
+				
+				assignSpace.appendChild(button);
+				
+				pointAssignBox.appendChild(pointAssignWrapper);
+			}
+			
+			
+		})
+		
+	}
+	
+	function showAlert() {
+		alert('부여 완료');
+	}
+	
+	function registerPoint(data){
+		
+		const url = "./restRegisterPoint";
+		const {dorm_student_pk, point_category_pk, reason} = data;
+		
+		const params = new URLSearchParams();
+		params.append('dorm_student_pk', dorm_student_pk);
+		params.append('point_category_pk', point_category_pk);
+		params.append('reason', reason);
+		
+		const option = {
+			method: "post",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded"
+			},
+			body: params
+		};
+		
+		fetch(url, option)
+		.then(response => response.json())
+		.then(response => {
+			reloadPointManagementList();
+		})
+	}
+	
+	let selectedElement = null;
+	  
+	function toggleBackgroundColor(element) {
+	    if (selectedElement) {
+	    	selectedElement.classList.remove('selected', 'fw-bold', 'text-white');
+	    	selectedElement.style.backgroundColor  = '';
+	    }
+	
+	    element.classList.add('selected', 'fw-bold', 'text-white');
+	    element.style.backgroundColor = 'black';
+	    selectedElement = element;
+	}
+	
+	// 건물명 반복문
+	function reloadBuildingName(){
+		
+		const url = "./restBuildingList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const buildingListBox = document.getElementById("buildingListBox");
+			buildingListBox.innerHTML = "";
+			for(e of response.data){
+				
+				const buildingNameWrapper = document.querySelector("#buildingTemplete .buildingNameWrapper").cloneNode(true);
+				buildingNameWrapper.setAttribute("onclick", "reloadPointManagementListByDormPk("+e.dorm_pk+")");
+				buildingNameWrapper.addEventListener('click', function() {
+					toggleBackgroundColor(this);
+				});
+				
+				const buildingName = buildingNameWrapper.querySelector(".buildingName");
+				buildingName.innerText = e.name;
+				
+				buildingListBox.appendChild(buildingNameWrapper);
+			}
+		})
+		
+	}
+	
+	window.addEventListener("DOMContentLoaded", () => {
+		reloadPointManagementList();
+		reloadBuildingName();
+	})
+
+</script>
 </head>
 <body>
 <div class="container-fluid">
@@ -51,12 +277,25 @@
 				</div>
 			</div>
 			
-
+			<div id="buildingListBox" class="row">
+				
+			</div>
+			
+			<div id="buildingTemplete" class="d-none">
+				<div class="buildingNameWrapper col-1 border py-4 mx-2 rounded border-dark btn text-center">
+					<div class="row">
+						<div class="buildingName col ms-2 fw-bold">
+							동나오는곳
+						</div>
+					</div>
+				</div>
+			</div>
+			
 			<!-- 세부내용 시작 -->			
 			<div class="row">
 				<div class="col">
 					<!-- 세부내용 -->
-					<div class="row py-3 mb-4">
+					<div class="row py-3 mt-3 mb-4">
 						<div class="col">
 							<table class="table table-bordered text-center align-middle">
 								<thead>
@@ -64,36 +303,30 @@
 										<th scope="col" class="col-1 text-bg-light">이름</th>
 										<th scope="col" class="col-1 text-bg-light">기숙사명</th>
 										<th scope="col" class="col-1 text-bg-light">호</th>
-										<th scope="col" class="col text-bg-light">상벌/사유/부여</th>
-										<!-- <th scope="col" class="col-4 text-bg-light">사유</th>
-										<th scope="col" class="col-1 text-bg-light">부여</th> -->
+										<th scope="col" class="col-4 text-bg-light">상벌</th>
+										<th scope="col" class="col-4 text-bg-light">사유</th>
+										<th scope="col" class="col-1 text-bg-light">부여</th>
 									</tr>
 								</thead>
-								<tbody>
-									<c:forEach items="${pointManagementListMap}" var="pointManagementListMap">
-									<tr>
-										<td>${pointManagementListMap.studentInfoDto.name}</td>
-										<td>${pointManagementListMap.dormBuildingDto.name}</td>
-										<td>${pointManagementListMap.dormRoomDto.room_name}</td>
-										<td colspan="3">
-											<form action="./jw_pointRegisterProcess" method="post">
-												<select name="point_category_pk" class="border-secondary-subtle form-select mx-1 form-select-sm rounded-0" aria-label="Default select example">
-													<option>선택해주세요.</option>
-													<c:forEach items="${pointManagementListMap.pointCategoryDto}" var="pointCategoryList">
-														<option value="${pointCategoryList.point_category_pk}">${pointCategoryList.content}</option>
-													</c:forEach>
-												</select>
-												<input type="hidden" name="dorm_student_pk" value="${pointManagementListMap.dormStudentDto.dorm_student_pk}">
-												<input type="text" name="reason" class="form-control">
-												<input type="submit" value="부여">
-											</form>
-										</td>
-									</tr>
-									</c:forEach>
+								<tbody id="pointAssignBox">
+
 								</tbody>
 							</table>
 						</div>
 					</div>
+					
+					<table id="pointAssignTemplete" class="d-none">
+						<tr class="pointAssignWrapper">
+							<td class="studentNameSpace">이름나오는곳</td>
+							<td class="buildingNameSpace">기숙사명나오는곳</td>
+							<td class="roomNameSpace">호나오는곳</td>
+							<td class="pointCategorySpace"></td>
+							<td class="reasonSpace"></td>
+							<td class="assignSpace"></td>
+						</tr>
+					</table>
+					
+					
 				</div>
 			</div>
 			

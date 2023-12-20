@@ -12,15 +12,15 @@
 		<i class="bi bi-house-fill"></i>&nbsp;메인페이지로
 	</a>
 </div>
-<div class="row">
+<div class="row mt-3">
 	<div class="col">
 		<div class="row">
 			<a class="col fs-5 fw-bold ps-5 ms-5 mt-3 navbar-brand"
-				href="../common/studentMyPage"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 마이페이지</span></a>
+				href="../common/studentMyPage"><span class="border-bottom border-3 pb-2 pe-5 me-2"> 마이페이지</span></a>
 		</div>
 	</div>
 </div>
-<div class="row">
+<div class="row mt-1">
 	<a class="col ps-5 mt-3 ms-5 navbar-brand"
 		href="../sb_resume/resumeRegistrationPage">&nbsp;이력서등록</a>
 </div>
@@ -49,33 +49,33 @@
 
 <c:choose>
 	<c:when test="${checkOverlapHopejob}">
-		<div class="row">
+		<div class="row mt-1">
 			<a class="col fs-5 fw-bold ps-5 mt-3 ms-5 navbar-brand"
-				href="../jm_consulting/applyHopeJobPage"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 구직희망&nbsp;&nbsp;</span></a>
+				href="../jm_consulting/applyHopeJobPage"><span class="border-bottom border-3 pb-2 pe-5 me-2"> 구직희망&nbsp;&nbsp;</span></a>
 		</div>	
 	</c:when>
 	
 	<c:otherwise>
-		<div class="row">
+		<div class="row mt-1">
 			<a class="col fs-5 fw-bold ps-5 mt-3 ms-5 navbar-brand"
-				href="../jm_consulting/hopeJobConsultingPage"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 구직희망&nbsp;&nbsp;</span></a>
+				href="../jm_consulting/hopeJobConsultingPage"><span class="border-bottom border-3 pb-2 pe-5 me-2"> 구직희망&nbsp;&nbsp;</span></a>
 		</div>		
 	</c:otherwise>
 
 </c:choose>
 
-<div class="row">
+<div class="row mt-2"> 
 	<a class="col fs-5 fw-bold ps-5 ms-5 mt-3 navbar-brand"
-		href="../ny_posting/jobPostingListForStudentPage"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 채용공고&nbsp;&nbsp;</span></a>
+		href="../ny_posting/jobPostingListForStudentPage"><span class="border-bottom border-3 pb-2 pe-5 me-2"> 채용공고&nbsp;&nbsp;</span></a>
 </div>
-<div class="row">
+<div class="row mt-2">
 	<a class="col fs-5 fw-bold ps-5 ms-5 mt-3 navbar-brand"
-		href="../gw_program/programListForStudentPage"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 프로그램&nbsp;&nbsp;</span></a>
+		href="../gw_program/programListForStudentPage"><span class="border-bottom border-3 pb-2 pe-5 me-2"> 프로그램&nbsp;&nbsp;</span></a>
 </div>
-<div class="row">
-	<div class="col fs-5 fw-bold ps-5 ms-5 mt-3 navbar-brand"><span class="border-bottom border-3 pb-1 pe-5 me-2"> 공지사항&nbsp;&nbsp;</span></div>
+<div class="row mt-2">
+	<div class="col fs-5 fw-bold ps-5 ms-5 mt-3 navbar-brand"><span class="border-bottom border-3 pb-2 pe-5 me-2"> 공지사항&nbsp;&nbsp;</span></div>
 </div>
-<div class="row">
+<div class="row mt-1">
 	<a class="col ps-5 mt-3 ms-5 navbar-brand" 
 		href="#">&nbsp;공지사항</a>
 </div>

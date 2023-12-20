@@ -146,6 +146,9 @@ public interface LifeStaffSqlMapper {
 	// 개설 강의 정보 삭제
 	public void deleteOpenLectureInfo(int open_lecture_key);
 	
+	// 수강신청된 강의 - 수정불가하게
+	public List<OpenLectureDto> selectNoUpdateLecture();
+	
 	
 	
 	

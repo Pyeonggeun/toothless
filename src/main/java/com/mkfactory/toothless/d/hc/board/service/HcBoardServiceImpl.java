@@ -123,4 +123,11 @@ public class HcBoardServiceImpl {
 		hcBoardSqlMapper.updateno(noticeStaffBoardDto);
 		
 	}
+	
+	public List<NoticeStaffBoardDto> getNoticeBordRowNum(){
+		List<NoticeStaffBoardDto> list = hcBoardSqlMapper.getNoticeBordRowNum();
+		
+		return list;
+	}
+	
 }

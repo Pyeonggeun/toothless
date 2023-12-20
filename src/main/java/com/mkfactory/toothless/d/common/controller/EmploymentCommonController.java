@@ -15,6 +15,7 @@ import com.mkfactory.toothless.d.dto.ProgramDto;
 import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
 import com.mkfactory.toothless.d.gw.program.service.ProgramServiceIpml;
+import com.mkfactory.toothless.d.hc.board.service.HcBoardServiceImpl;
 import com.mkfactory.toothless.d.jm.consulting.service.ConsultingService;
 import com.mkfactory.toothless.d.ny.posting.service.PostingServiceImpl;
 import com.mkfactory.toothless.d.sb.resume.service.ResumeServiceImpl;
@@ -40,6 +41,8 @@ public class EmploymentCommonController {
 	
 	@Autowired
 	private ConsultingService consultingService;
+	@Autowired
+	private HcBoardServiceImpl boardService;
 	
 	// 학생용 마이페이지
 	@RequestMapping("studentMyPage")
@@ -101,7 +104,12 @@ public class EmploymentCommonController {
 	public String employMainPage(Model model) {
 		
 		model.addAttribute("programList", programService.getProgramList());
+		
+		// 공고 4개 컷
+		model.addAttribute("noticeList", boardService.getNoticeBordRowNum());
+		
 		return "tl_d/common/employmentMainPage";
+		
 	}
 	
 	// 메인페이지 로그아웃
@@ -135,6 +143,8 @@ public class EmploymentCommonController {
 			model.addAttribute("jobPostingForCompanyMainPage", postingService.getPostingListForCompanyMainPage(companyDto.getCom_pk()));
 			// 기업 지원자 4개 컷
 			model.addAttribute("applyListForMainPage", postingService.getApplyListForCompanyMainPage(companyDto.getCom_pk()));
+
+			
 		}else {
 			return "redirect:../../another/external/loginPage";
 		}

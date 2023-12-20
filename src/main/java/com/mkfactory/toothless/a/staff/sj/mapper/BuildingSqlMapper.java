@@ -45,6 +45,8 @@ public interface BuildingSqlMapper {
 	public List<DormCategoryDto> dormCategory();
 	public DormCategoryDto selectDormCategoryPk(int dorm_amount_pk);
 	public void insertCategoryImgs(DormCategoryDto dormCategory);
+	public void deleteCategoryImg(int dorm_amount_pk);
+	public List<DormCategoryDto> choiceCategory();
 	
 	//상벌점
 	public PointDto stPk(int dorm_student_pk);

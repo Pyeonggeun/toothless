@@ -261,6 +261,12 @@ public class LifeStaffServiceImpl {
 
 		lifeStaffSqlMapper.updateLectureInfo(lectureInfoDto);
 	}
+	
+	// 수강신청된 강의 - 수정불가하게
+	public List<OpenLectureDto> getNoUpdateLecture(){
+		
+		return lifeStaffSqlMapper.selectNoUpdateLecture();
+	}
 
 	
 	// 강의 정보 삭제

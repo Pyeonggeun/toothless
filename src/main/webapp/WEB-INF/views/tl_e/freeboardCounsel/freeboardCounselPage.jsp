@@ -73,12 +73,14 @@
 				<!-- 양쪽 여백을 준 뒤 중요 내용 들어가는 콜 (안에서 로우 주기) 시작 -->
 				<div class="col">
 				
-					<div class="row py-5"><div class="col"><!-- 패딩과 마진으로 공간 벌리기 --></div></div>
+					<div class="row py-4"><div class="col"><!-- 패딩과 마진으로 공간 벌리기 --></div></div>
 					
 					<!-- 양옆으로 갈리는...?  -->
 					<div class="row">
 						<!-- 왼쪽 콜 시작 -->
 						<div class="col-4"> 
+						
+							<div class="row py-4"><div class="col"></div></div>
 						
 							<!-- 정보창 2 시작 -->
 							<div class="row">
@@ -89,7 +91,7 @@
 										<div class="row">
 											<div class="col">
 											
-												<div class="row mb-2 pb-2"> <div class="col border-bottom style="border-color:#dcdcdc;"> <span class="fs-4 fw-bold">인기 게시물</span> <span style="font-size: 1.2em; color: #8FBC8F">popular posts</span></div></div>
+												<div class="row mb-2 pb-2"> <div class="col border-bottom style="border-color:#dcdcdc;"> <span class="fs-4 fw-bold">인기 게시물</span> <span style="font-size: 1.2em; color: #8FBC8F">Popular posts</span></div></div>
 													
 													<c:forEach items="${bestFreeboardPostList}" var="best">
 														<div class="row text-center py-2 rounded-1"> 
@@ -159,14 +161,13 @@
 										<!-- 정보창 1의 중요 부분 시작(제목과 내용) 시작-->
 										<div class="col">
 											<div class="row ">
-												<div class="col border-1 border-bottom  pb-2"><span class="fs-4 fw-bold">기록</span> <span style="font-size: 1.2em; color: #8FBC8F">record</span></div>
+												<div class="col border-1 border-bottom  pb-2"><span class="fs-4 fw-bold">기록</span> <span style="font-size: 1.2em; color: #8FBC8F">Record</span></div>
 											</div>
 											
 											<div class="row">
-												<div class="col-5 text-center"> <br> <span class="text-danger fs-3"> ${countedPost}</span> <br> <span class="fs-6">총 게시글 수</span></i></div>
-												<div class="col-2"></div> 
-												<div class="col-5 text-start"> <a class="btn text-center" role="button"  href="./createFreeboardPostsPage"><i class="bi bi-keyboard-fill fs-1"></i> <br> <span class="fs-5 fw-bold">게시글 <br> 작성하기</span></a></i></div>
-											
+												<div class="col-4"></div>
+												<div class="col-4 text-center"> <br> <span class="text-danger fs-3"> ${countedPost}</span> <br> <span class="fs-6">총 게시글 수</span></i></div>
+												<div class="col-4"></div>												
 											</div>
 										<!-- 정보창 1의 중요 부분 시작(제목과 내용) 끝-->
 										</div>
@@ -195,12 +196,15 @@
 										
 										<!-- 중간 시작 -->
 										<div class="col">
-											<div class="row ps-2 pb-2"><div class="col fs-4 border-bottom  style="border-color:#dcdcdc;"> <span class="fw-bold">자유게시판 전체 글 목록 </span> <span style="font-size: 0.8em; color: #8FBC8F">list of freeboard</span></div></div>
-													
+											<div class="row ps-2">
+												<div class="col-8 pt-4"> <span class="fw-bold fs-4">자유게시판 전체 글 목록 </span> <span style="font-size: 1.2em; color: #8FBC8F">List of freeboard</span></div>
+												<div class="col-4 text-end"> <a class="btn text-center py-0 my-0" role="button" href="./createFreeboardPostsPage"><i class="bi bi-keyboard-fill fs-3"></i> <br> <span class="fw-bold">게시글 작성하기</span></a></div>
+											</div>
+											
+											<div class="row py-2"><div class="col"><!-- 여백 --></div></div>
+											
 											<!-- 오버플로우 주기 위함 -->
-											<div class="row">
-												
-												
+											<div class="row border-top" style="border-color:#dcdcdc;">
 												<div class="col overflow-auto" style="width: 10em; height: 40em;">									
 													<!-- 목차에 맞춘 진짜 글 리스팅 되는 로우 시작 -->
 													<c:forEach items="${combinedFreeboardList}" var="List">

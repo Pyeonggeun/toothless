@@ -29,7 +29,7 @@
 		<div class="col mx-5">
 			
 			
-			<!-- 카테고리 
+			<!-- 카테고리 -->
 			<div class="row mt-2">
 				<div class="col fw-bold text-center px-2 py-2 mb-3">
 					
@@ -37,59 +37,48 @@
 					<li class="nav-item ta">
 					    <a class="nav-link active text-black" href="./sj_manageRoomImages">전체보기</a>
 					  </li>
-					<c:forEach items="${dormAmount }" var="da">
+					<c:forEach items="${category }" var="da">
 					  <li class="nav-item ">
-					    <a class="nav-link text-secondary" href="./sj_manageRoomImagesReadPage?dorm_amount_pk=${da.dorm_amount_pk }">${da.dorm_amount }인실</a>
+					    <a class="nav-link text-secondary" href="./sj_manageRoomImagesPesonelPage?dorm_amount=${da.dorm_amount}">${da.dorm_amount }인실</a>
 					  </li>
 					  </c:forEach>
 					  
 					</ul>
 				</div>
 			</div>
-			-->
 			
 			
 			
 			
-			<!-- 상세이미지링크 -->
+			
+			<!-- 상세이미지ㄱㄱ -->
+			
             <div class="row">
-				<div class="col fs-4 fw-bold my-4">
+				<div class="col fs-4 fw-bold my-3">
 					인실 별 이미지
 				</div>
 			</div>	
 			
-					
-			<div class="row border rounded-0 ">
-				<div class="col">
-					<div class="row text-center fw-bold py-3 fs-5 border-bottom " style="background-color: #eeeeee;">
-						<div class="col ">
-							인실
+			<!-- 상세이미지 리스트 출력 -->
+			<div class="row">
+				<c:forEach items="${dormAmount }" var="ct">
+					<div class="col my-3">
+						<div class="card" style="width: 18rem;">
+			
+							<img src="/uploadRoomImgs/${ct.dorm_imgs }" class="d-grid img-fluid card-img-top" style="height:11em;">
+							<div class="card-body">
+							    <h5 class="card-title fw-bold">${ct.dorm_amount }인실 상세이미지</h5>
+							    <p class="card-text">${dorm.address }</p>
+						   		<a class="btn btn-outline-danger d-grid" href="./deleteForRoomDatailProcess?dorm_amount_pk=${ct.dorm_amount_pk }" role="button">삭제하기</a>
+							</div>
 						</div>
-						<div class="col">
-							상세 이미지
-						</div>
-						
-						<div class="col">삭제</div>
 					</div>
-					
-					<c:forEach items="${dormAmount }" var="ct">
-						<div class="row text-center my-4 border-bottom">
-							<div class="col my-4">
-								
-								${ct.dorm_amount }인실
-							</div>
-							<div class="col my-4">
-								<img src="/uploadRoomImgs/${ct.dorm_imgs }" class="img-fluid img-thumbnail">
-							</div>
-							<div class="col my-4">
-                                   <a class="btn btn-danger rounded-0" href="./deleteForRoomDatailProcess?dorm_amount_pk=${ct.dorm_amount_pk }" role="button">삭제하기</a>
-                              </div>
-						</div>
-					</c:forEach>
-				    
-					
-				</div>
+				</c:forEach>
 			</div>
+			
+		</div>
+			
+			
 						
 			<pre>
 			
