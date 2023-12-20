@@ -61,10 +61,10 @@
                 <a class="navbar-brand" href="../jm_consulting/hopeJobConsultingPage">취업컨설팅</a>
             </div>
             <div class="col align-self-center">
-                <a class="navbar-brand" href="../hc_board/QnABoardPageForStudent">QnA게시판</a>
+                <a class="navbar-brand" href="../hc_board/noticeMainPageForStudent">공지사항</a>
             </div>
             <div class="col align-self-center">
-                <a class="navbar-brand" href="../hc_board/noticeMainPageForStudent">공지사항</a>
+                <a class="navbar-brand" href="../hc_board/QnABoardPageForStudent">QnA게시판</a>
             </div>
             
 
