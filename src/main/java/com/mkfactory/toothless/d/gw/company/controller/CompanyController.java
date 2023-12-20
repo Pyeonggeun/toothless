@@ -239,12 +239,12 @@ public class CompanyController {
 		
 		//확인용기업관리 페이지
 		
-//		@RequestMapping("checkCompanyManagementPage")
-//		public String checkCompanyManagementPage(Model model) {
-//			
-//			model.addAttribute("companyList", companyService.getCompanyList());
-//			
-//			return "/tl_d/gw_company/checkCompanyManagementPage";
-//		}
+		@RequestMapping("checkCompanyManagementPage")
+		public String checkCompanyManagementPage(Model model) {
+			
+			model.addAttribute("companyList", companyService.getCompanyList());
+			
+			return "/tl_d/gw_company/checkCompanyManagementPage";
+		}
 		
 }
