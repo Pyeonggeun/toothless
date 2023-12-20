@@ -429,12 +429,37 @@ public class ResumeController {
 			model.addAttribute("applyStudentList", postingService.getApplyStudentTotalList(companyDto.getCom_pk()));
 			model.addAttribute("resumeList", resumeService.getPublicResumeList());
 			model.addAttribute("departmentCategory" , resumeService.getDepartmentCategory());
-		}	
-		return "tl_d/sb_resume/publicResumeByStudentListPage";
+		
+			return "tl_d/sb_resume/publicResumeByStudentListPage";
+		
+		}else {
+			return "redirect:../../another/external/loginPage";
+		}
+		
 	}
 	
 	
-	
+	// 지원한 학생의 이력서 보는 페이지
+	@RequestMapping("viewResumeByApplyStudentPage")
+	public String viewResumeByApplyStudentPage(HttpSession session,  Model model, int job_posting_pk) {
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
+		
+		if(externalInfoDto != null) {
+			int externalInfoPk = externalInfoDto.getExternal_pk();
+			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalInfoPk);
+			List<Map<String, Object>> resumeList = resumeService.getResumeDtoListAndStudentInfoByJobPostingPk(job_posting_pk);
+			
+			
+			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
+			model.addAttribute("resumeList", resumeList);
+			model.addAttribute("job_posting_pk", job_posting_pk);
+			return "tl_d/sb_resume/viewResumeByApplyStudentPage";
+		
+		}else {
+			return "redirect:../../another/external/loginPage";
+		}
+	}
 	
 	
 	

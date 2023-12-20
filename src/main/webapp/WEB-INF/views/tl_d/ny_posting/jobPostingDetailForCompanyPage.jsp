@@ -70,29 +70,29 @@
 		<div class="row">
 			<%-- 공고상세 --%>
 			<div class="col-7 px-5 mx-5">
-				<!-- 채용정보 -->
+				<%-- 채용정보 --%>
 				<div class="row">
 					<div class="col fs-5 fw-bold mt-5">채용정보</div>
 				</div>
-				<!-- 기업정보 -->
+				<%-- 기업정보 --%>
 				<div class="row border-bottom border-dark"></div>
 				<div class="row border border-top">
-					<!-- 간략한 채용정보 -->
+					<%-- 간략한 채용정보 --%>
 					<div class="col p-4 ms-2">
 						<div class="row">
 							<div class="col mt-2">
-								<!-- 기업명 + 가족기업 여부 -->
+								<%-- 기업명 + 가족기업 여부 --%>
 								<div class="row">
 									<c:if test="${jobPostingDetailForCompany.companyDto.is_family_company ne null and jobPostingDetailForCompany.companyDto.is_family_company eq 'Y'}">
 										<div class="col-1"><span class="badge text-bg-info text-white">Family</span></div>
 									</c:if>
 									<div class="col ps-2">${jobPostingDetailForCompany.companyDto.com_name}</div>
 								</div>
-								<!-- 공고제목 -->
+								<%-- 공고제목 --%>
 								<div class="row mt-1">
 									<div class="col fs-4">${jobPostingDetailForCompany.jobPostingDto.posting_name}</div>
 								</div>
-								<!-- 분야 / 지역  -->
+								<%-- 분야 / 지역 --%>
 								<div class="row">
 									<div class="col">
 										<span class="text-secondary">#&nbsp;${jobPostingDetailForCompany.jobFieldCategoryDto.job_field_category_name} 
@@ -100,7 +100,7 @@
 										#&nbsp;${jobPostingDetailForCompany.companyDto.com_address}</span>
 									</div>
 								</div>
-								<!-- 마감일 -->
+								<%-- 마감일 --%>
 								<div class="row">
 									<div class="col-1 me-5 text-secondary">
 										#&nbsp;<fmt:formatDate value="${jobPostingDetailForCompany.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/>
@@ -130,43 +130,43 @@
 							</div>
 						</div>
 					</div>
-					<!-- 기업정보 -->
+					<%-- 기업정보 --%>
 					<div class="col-3 p-3 border-start my-2">
 						<div class="row">
 							<div class="col text-secondary">기업정보</div>
 						</div>
-						<!-- 기업명 -->						
+						<%-- 기업명 --%>						
 						<div class="row">
 							<div class="col fs-5 fw-bold mt-1">
 								${jobPostingDetailForCompany.companyDto.com_name}
 							</div>
 						</div>
-						<!-- 기업규모 -->
+						<%-- 기업규모 --%>
 						<div class="row">
 							<div class="col mt-1">
 								<span class="text-secondary">기업형태</span>&nbsp;${jobPostingDetailForCompany.comScaleCategoryDto.com_scale_category_name}
 							</div>
 						</div>
-						<!-- 채용담당자 -->
+						<%-- 채용담당자 --%>
 						<div class="row">
 							<div class="col mt-1">
 								<span class="text-secondary">대표자</span>&nbsp;${jobPostingDetailForCompany.companyDto.com_bossname}
 							</div>
 						</div>
 						<div class="row">
-							<!-- 기업정보 -->
+							<%-- 기업정보 --%>
 							<div class="col-4 mt-1">
 								<a class="navbar-brand badge bg-outline-dark text-secondary rounded-0 border"
 									href="../gw_company/studentViewDetailCompanyPage?com_pk=${jobPostingDetailForCompany.companyDto.com_pk}">기업정보 ></a>
 							</div>
-							<!-- 채용공고보기(기능구현은 나중에) -->
+							<%-- 채용공고보기 --%>
 							<div class="col mt-1">
 								<span class="badge bg-outline-dark text-secondary rounded-0 border">진행중인 채용보기 ></span>
 							</div> 
 						</div> 
 					</div>
 				</div>
-				<!-- 이미지 -->
+				<%-- 이미지 --%>
 				<div class="row mt-3">
 					<div class="col fs-5 fw-bold">상세요강</div>
 				</div>
@@ -178,24 +178,23 @@
 							</div>
 						</div>
 						<div class="row">
-							<!-- 채용내용 -->
+							<%-- 채용내용 --%>
 							<div class="col mt-3 ms-5 pb-3">
 								${jobPostingDetailForCompany.jobPostingDto.posting_contents}				
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- 채용내용 -->
+				<%-- 우대사항 --%>
 				<div class="row mt-3 border-bottom border-dark">
 					<div class="col fs-5 fw-bold">우대사항</div>
 				</div>
-				<!-- 우대사항 -->
 				<div class="row border">
 					<div class="col p-3 ms-3">
 						${jobPostingDetailForCompany.jobPostingDto.preference}	
 					</div>
 				</div>
-				<!-- 채용인원 -->
+				<%-- 채용인원 --%>
 				<div class="row mt-3 border-bottom border-dark">
 					<div class="col fs-5 fw-bold">채용인원</div>
 				</div>
@@ -204,7 +203,7 @@
 						&nbsp;&nbsp;${jobPostingDetailForCompany.jobPostingDto.hire_number} 명	
 					</div>
 				</div>
-				<!-- 채용마감일 까지 -->
+				<%-- 채용마감일 까지 --%>
 				<div class="row mt-3">
 					<div class="col fs-4 fw-bold text-center">
 						<c:choose>
@@ -227,25 +226,26 @@
 			</div>	
 			<%-- 오른쪽 --%>	
 			<div class="col px-5  border-start">
-				<!-- 공고 지원한 학생목록 -->
+				<%-- 공고 지원한 학생목록 --%>
 				<div class="row border-bottom border-2 border-dark">
 					<div class="col fs-5 fw-bold mt-5">지원한 학생</div>
+					 <a class="col fs-5 fw-bold mt-5 text-end navbar-brand" href="../sb_resume/viewResumeByApplyStudentPage?job_posting_pk=${jobPostingDetailForCompany.jobPostingDto.job_posting_pk}"><i class="bi bi-plus-lg"></i></a> 
 				</div>
-				<!-- 목록명 -->
+				<%-- 목록명 --%>
 				<div class="row mt-3 mb-1 text-secondary border-bottom">
-					<!-- 이름 -->
+					<%-- 이름 --%>
 					<div class="col ms-4 px-0">이름</div>
-					<!-- 생년월일 -->
+					<%-- 생년월일 --%>
 					<div class="col ms-4 px-0">생년월일</div>
-					<!-- 성별 -->
+					<%-- 성별 --%>
 					<div class="col px-0">성별</div>
-					<!-- 이메일 -->
+					<%-- 이메일 --%>
 					<div class="col px-0">이메일</div>
-					<!-- 졸업여부 -->
+					<%-- 졸업여부 --%>
 					<div class="col px-0">졸업여부</div>
 				</div>
 				<c:forEach items="${applyStudentList}" var="applyStudent">
-					<!-- 목록 -->
+					<%-- 목록 --%>
 					<div class="row my-2 border-bottom">
 						<div class="col-2 ms-3">${applyStudent.studentInfoDto.name}</div>
 						<div class="col ps-5">
@@ -264,27 +264,25 @@
 						</div>
 					</div>
 				</c:forEach>
-				<!-- 스크랩한 학생 목록 -->
+				<%-- 스크랩한 학생 목록 --%>
 				<div class="row border-bottom border-2 border-dark">
 					<div class="col fs-5 fw-bold mt-5">스크랩한 학생</div>
-					<!-- 추가 페이지 -->
-					<!-- <div class="col fs-5 fw-bold mt-5 text-end"><i class="bi bi-plus-lg"></i></div> -->
 				</div>
-				<!-- 목록명 -->
+				<%-- 목록명 --%>
 				<div class="row mt-3 mb-1 text-secondary border-bottom">
-					<!-- 이름 -->
+					<%-- 이름 --%>
 					<div class="col ms-4 px-0">이름</div>
-					<!-- 생년월일 -->
+					<%-- 생년월일 --%>
 					<div class="col ms-4 px-0">생년월일</div>
-					<!-- 성별 -->
+					<%-- 성별 --%>
 					<div class="col px-0">성별</div>
-					<!-- 이메일 -->
+					<%-- 이메일 --%>
 					<div class="col px-0">이메일</div>
-					<!-- 졸업여부 -->
+					<%-- 졸업여부 --%>
 					<div class="col px-0">졸업여부</div>
 				</div>
 				<c:forEach items="${interestStudentList}" var="interestStudent">
-					<!-- 목록 -->
+					<%-- 목록 --%>
 					<div class="row my-2 border-bottom">
 						<div class="col-2 ms-3">${interestStudent.studentInfoDto.name}</div>
 						<div class="col ps-5">
@@ -300,13 +298,12 @@
 									졸업생
 								</c:otherwise>
 							</c:choose>
-							
 						</div>
 					</div>
 				</c:forEach>
 			</div>
 		</div>
-		<!-- futter -->
+		<%-- futter --%>
 		<div class="row">
 			<div class="col">
 				<jsp:include page="../common/futter.jsp"></jsp:include>
