@@ -104,12 +104,11 @@ public class LifeLecturerServiceImpl {
 			
 			String status = null;
 			if(open_date.after(currentDate)==true && open_date.equals(currentDate)) {
-				System.out.println(open_date.after(currentDate));
+				
 				
 				status = "진행예정";
 			}else if(open_date.before(currentDate) == true && close_date.after(currentDate)==true) {
-				System.out.println(open_date.before(currentDate));
-				System.out.println(close_date.after(currentDate));
+				
 				status = "진행중";
 			}else if(close_date.after(currentDate)==true && close_date.equals(currentDate) == false) {
 				status = "종료";
@@ -286,12 +285,7 @@ public class LifeLecturerServiceImpl {
 		 Date open_date = lifeLecturerSqlMapper.selectOpenLectureDto(open_lecture_key).getOpen_date();
 		 Date close_date = lifeLecturerSqlMapper.selectOpenLectureDto(open_lecture_key).getClose_date();
 		 Date currentDate = new Date();
-		 System.out.println(currentDate);
-		 System.out.println(close_date);
-		 System.out.println(close_date.equals(currentDate));
-		 System.out.println(close_date.after(currentDate)); 
-		 System.out.println(open_date.before(currentDate));
-		 System.out.println(open_date.equals(currentDate));
+		 
 		 if(open_date.before(currentDate) == true || open_date.equals(currentDate) == true) {
 			 for(Map<String, Object> dayMap : dayList ) {
 				 if(dayMap.get("WEEK_DAY").equals("평일")) {
@@ -308,7 +302,7 @@ public class LifeLecturerServiceImpl {
 					
 					 
 					 int compare = close_date.compareTo(dd);
-					 System.out.println(compare);
+					 
 					 if(compare ==0 || compare == 1) {
 						 AttendanceBookDto attendanceBookDto = lifeLecturerSqlMapper.selectAttendanceBookByDate(date);
 						 if(attendanceBookDto != null) {
@@ -511,9 +505,9 @@ public class LifeLecturerServiceImpl {
 		List<TestQuestionDto> questionList = lifeLecturerSqlMapper.selectTestQuestionList(lecture_test_key);
 		
 		int lecture_student_key = lifeLecturerSqlMapper.selectLecutreKeyByLifeStudentKeyAndLectureTestKey(lecture_test_key, life_student_key);
-		System.out.println(lecture_student_key);
+		
 		for(TestQuestionDto testQuestionDto : questionList) {
-			System.out.println("반복분 실행중");
+			
 			Map<String, Object> map = new HashMap<>();
 			int test_question_key = testQuestionDto.getTest_question_key();
 			List<QuestionChoiceDto> qcList = lifeLecturerSqlMapper.selectChoiceList(test_question_key);

@@ -20,7 +20,7 @@
        	        
        		});
        	}
-       	setInterval(reloadNotifyCount, 20000);
+       	//setInterval(reloadNotifyCount, 20000);
        	
        	function loadMyNewNotifyCount(){
        		const url = "/toothless/another/student/reloadMyNewNotifyList?student_pk="+${sessionStudentInfo.student_pk};
