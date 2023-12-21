@@ -79,7 +79,7 @@ public interface GuntaekStudentSqlMapper {
 	// 특정 학생이 신청했던 모든 신청 프로그램 리스트들.
 	public List<AjdksInternEduApplying> applyProgramListByStudent(int student_pk);
 	
-	// 특정 학생이 신청한 모든 프로그램 리스트들.
+	// 특정 학생이 이수한 프로그램들.
 	public List<AjdksInternEduProgramDto> programListByStudent(int student_pk);
 	
 	// 특정 프로그램에 신청한 인원 수
