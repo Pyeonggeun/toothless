@@ -64,68 +64,81 @@
 							  <div class="row border-bottom">
 									<%--작성자(학생) 이름표기 --%>
 									
-									<div class="col-3 pt-5 border-end text-secondary" style="text-align:center; align-items:center; font-size:0.8em;">학생정보</div>
+									<div class="col-3 border-end pt-2 fw-bold text-center" style="font-size:1em;">
+										<div class="row">
+											<div class="col" style="font-size:3em;">
+											 <i class="bi bi-person"></i>	
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+											  학생정보	
+											</div>
+										</div>										
+									
+									
+									</div>
 									<div class="col-9" style="text-align:left;">										
 										<div class="row pt-2">
-											<div class="col border-end">
+											<div class="col border-end fw-bold">
 												학생명
 											</div>
 											<div class="col">
 												${sessionStudentInfo.name}
 											</div>
-											<div class="col-5"></div>										
+											<div class="col-7"></div>										
 										</div>
 										<div class="row pt-2">
-											<div class="col border-end">
+											<div class="col border-end fw-bold">
 												학번
 											</div>
 											<div class="col">
 												${sessionStudentInfo.student_id}
 											</div>
-											<div class="col-5">
+											<div class="col-7">
 												
 											</div>																							
 										</div>										
 										<div class="row pt-2">
-											<div class="col border-end">
+											<div class="col border-end fw-bold">
 												전화번호
 											</div>
 											<div class="col">
 												${sessionStudentInfo.phone}
 											</div>	
-											<div class="col-5"></div>										
+											<div class="col-7"></div>										
 																					
 										</div>	
 										<div class="row py-2">
-											<div class="col border-end">
+											<div class="col border-end fw-bold">
 												이메일
 											</div>
 											<div class="col">
 												${sessionStudentInfo.email}
 											</div>
-											<div class="col-5"></div>										
+											<div class="col-7"></div>										
 																						
 										</div>																			
 									</div>						
 								</div>
 								<%-- 희망연봉 입력칸 --%>
 								<div class="row py-4">
-									<div class="col-3 py-1 border-end">
+									<div class="col-3 py-1 border-end fw-bold">
 										희망 연봉
 									</div>
 									<div class="col">
 										<div class="row">
-											<div class="col-10">
+											<div class="col-5">
 												<input type="number" name="hope_salary" style="width:100%; height:100%; border:none;" class="px-0 py-0">
 											</div>		
-											<div class="col" style="font-size:0.8em; text-align:left;">원</div>
+											<div class="col" style="font-size:1em; text-align:left;">원</div>
 										</div>									
 									</div>
 
 				
 								</div>
 								<div class="row border-top border-bottom py-4">
-									<div class="col-3 py-2 border-end">
+									<div class="col-3 py-2 border-end fw-bold">
 										희망 지역
 									</div>
 									<div class="col-9">
@@ -134,10 +147,11 @@
 								</div>
 								<div class="row" >
 									<div class="col">
-										<div class="row" style="text-align:left;">
-											<div class="col ps-5 py-3 border-bottom border-end">
-												&nbsp; 요구사항
+										<div class="row border-bottom ">
+											<div class="text-center col py-3 fw-bold">
+												요구사항
 											</div>
+											<div class="col-9"></div>
 										</div>
 										<div class="row pt-3">
 											<div class="col">

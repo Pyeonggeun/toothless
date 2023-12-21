@@ -136,7 +136,7 @@
 	<div class="col">
 		<div class="row">
 			<div class="col px-0">
-				<img src="/Git_imageFile/MainPage/professorMain.PNG" class="img-fluid" alt="...">
+				<img src="/Workspace/GitWorkspace/toothless/src/main/webapp/resources/img/internshipCourse/professorMainPage/professorMain.PNG" class="img-fluid" alt="...">
 			</div>
 		</div>
 		<div class="row">

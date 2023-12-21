@@ -26,9 +26,18 @@ public class EduStaffController {
 	
 	@Autowired
 	EduStaffServiceimpl eduStaffService; 
+	
 	//교육 메인
 	@RequestMapping("eduMainPageForStaff")
-	public String eduMainPageForStaff(Model model) {
+	public String eduMainPageForStaff(Model model, HttpSession session) {
+		
+		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(sessionStaffInfo == null) {
+			
+			return "redirect:../../another/staff/loginPage";
+		}
+		
 		
 		List<Map<String, Object>> progListMain = eduStaffService.getProgListMain();
 		List<Map<String, Object>> applyListMain = eduStaffService.getApplyListMain();
@@ -44,9 +53,16 @@ public class EduStaffController {
 	
 	//프로그램 목록페이지
 	@RequestMapping("eduProgListPage")
-	public String eduProgListPage(Model model,
+	public String eduProgListPage(Model model, HttpSession session,
 			String searchType,
 			String searchWord) {
+		
+		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(sessionStaffInfo == null) {
+			
+			return "redirect:../../another/staff/loginPage";
+		}
 		
 		List<Map<String, Object>> list = eduStaffService.getEduProgList(searchType, searchWord);
 		
@@ -58,9 +74,16 @@ public class EduStaffController {
 	
 	//신청현황 페이지
 	@RequestMapping("eduApplyListPage")
-	public String eduApplyListPage(Model model,
+	public String eduApplyListPage(Model model, HttpSession session,
 			String searchType,
 			String searchWord) {
+		
+		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(sessionStaffInfo == null) {
+			
+			return "redirect:../../another/staff/loginPage";
+		}
 		
 		List<Map<String, Object>> eduApplyList = eduStaffService.getEduApplyList(searchType, searchWord);
 		
@@ -71,9 +94,18 @@ public class EduStaffController {
 	}
 	//만족도 현황 페이지
 	@RequestMapping("eduServeyListPage")
-	public String eduServeyListPage(Model model,
+	public String eduServeyListPage(Model model, HttpSession session,
 			String searchType,
 			String searchWord) {
+
+		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(sessionStaffInfo == null) {
+			
+			return "redirect:../../another/staff/loginPage";
+		}
+		
+		
 		
 		List<Map<String, Object>> allServeyList = eduStaffService.getAllServeyList(searchType, searchWord);
 		
@@ -154,7 +186,15 @@ public class EduStaffController {
 	
 	//상세 글 보기
 	@RequestMapping("readEduProgPage")
-	public String readEduProgPage(Model model, EduApplyDto eduApplyDto) {
+	public String readEduProgPage(Model model, EduApplyDto eduApplyDto, HttpSession session) {
+		
+		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
+		if(sessionStaffInfo == null) {
+			
+			return "redirect:../../another/staff/loginPage";
+		}
+		
 		
 		Map<String, Object> map = eduStaffService.getEduProg(eduApplyDto);
 		
@@ -206,8 +246,6 @@ public class EduStaffController {
 		eduStaffService.updateStatusN(edu_apply_pk);
 		return "redirect:./eduMainPageForStaff";
 	}
-	
-	
 	
 	
 }

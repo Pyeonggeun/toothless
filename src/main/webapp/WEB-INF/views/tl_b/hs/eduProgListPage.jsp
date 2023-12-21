@@ -27,7 +27,7 @@
                                         <div class="col-1"></div>
                                         <div class="col">
                                             <div class="row">
-                                                <div class="col text-center fw-bold" style="font-size: 1.3em;">
+                                                <div class="col text-center fw-bold" style="font-size: 1.5em;">
                                                     교육 프로그램 목록
                                                 </div>
                                             </div>
@@ -35,7 +35,7 @@
                                             <!--검색바  -->
                                             <div class="row">
                                                 <div class="col justify-content-end">
-                                                    <form action="./eduMainPageForStaff" method="get">
+                                                    <form action="./eduProgListPage" method="get">
                                                     <div class="row mt-3 text-end"><!-- 검색  -->
                                                         <div class="col-7"></div>
                                                         <div class="col">
@@ -126,7 +126,7 @@
                                                           
                                                         </div>
                                                     </c:forEach>
-                                                    <div class="row mt-2"> <!--등록버튼이요-->
+                                                    <div class="row mt-4"> <!--등록버튼이요-->
                                                         <div class="col text-end" >
                                                             <a class="btn fw-bold text-white rounded-0" href="./eduProgRegisterPage"
                                                             role="button" style="background-color: #014195;

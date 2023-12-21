@@ -200,26 +200,29 @@
     					console.log(choiceBoxWrapper);
     					const choice = choiceBoxWrapper.querySelector(".choice");
     					choice.innerText = ee.questionChoiceDto.choice;
-    					console.log(ee.questionChoiceDto.choice)
+    					
     					const answerCheckBox = choiceBoxWrapper.querySelector(".answerCheckBox");
     					if(ee.questionChoiceDto.answer =="true"){
     						choice.classList.add("text-primary");
     						if(ee.testResultDto != null){
-    							console.log(ee.questionChoiceDto.question_choice_key);
-    							console.log(ee.testResultDto.question_choice_key);
+    							
     							if(ee.questionChoiceDto.question_choice_key == ee.testResultDto.question_choice_key){
-    								console.log("Ssss");
         							
-        							console.log(answerCheckBox.checked);
         							answerCheckBox.checked = true;	
         							console.log(answerCheckBox.checked);
         							CheckAnswerNumber.classList.add("answer");
     							}
     							
     						}else{
-	    						CheckAnswerNumber.classList.add("noAnswer");
+    							CheckAnswerNumber.classList.add("noAnswer");
+	    						choice.classList.add("text-danger");
+	    						
 	    						
     						}
+    					}else if(ee.questionChoiceDto.answer =="false"){
+    						if(ee.testResultDto != null){
+    							answerCheckBox.checked = false;
+    						}	
     					}
     					choiceBoxList.appendChild(choiceBoxWrapper);
     				}

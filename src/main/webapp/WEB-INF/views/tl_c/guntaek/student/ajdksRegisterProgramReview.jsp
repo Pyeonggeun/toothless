@@ -96,65 +96,71 @@
 		<div class="col">
 			<div class="row">	
 				<div class="col mx-5">
+					
+				
+				<div class="row mt-4">
+					<div class="col">
+						<p style="font-weight:bold; font-size:1.2em" ><i class="bi bi-pencil-square"></i>&nbsp;&nbsp; 리뷰 작성</p>							 	
+					</div>		
+				</div>
 				
 				
-				
-				
-				
-				
-				
-				
-				<div class="row mt-5 ms-3">
-					<div class="col fw-bold">
-							<h3> <i class="bi bi-list-task"></i> &nbsp;&nbsp;교육 프로그램 이수 내역</h3>
-							 
-					</div>
-					</div>
-					<div class="row mt-3">
-						<div class="col border border-2 border-dark"></div>
-					</div>
-			
-			
-			
-			
-			
-		
-                
-          <c:forEach items="${ProgramList}" var="list">   
-          <div class="row mt-5">   
-               <div class="col-1"></div>
+				<div class="row">
+						<div class="col border border-1 border-dark"></div>
+				</div>
+						
+		 <c:forEach items="${ProgramList}" var="list">   
+         
+         
+         	 <div class="row mt-5">   
+               <div class="col-2"></div>
   
-                    <div class="col-10 border mt-5" style ="height:12em; border-radius:10px;">
+                    <div class="col-8 mt-5">
                     <!-- 박스 시작-->
-                        <div class="row ps-5 mt-3">
-                                <div class="col-3 d-flex justify-content-center"> 
+                        <div class="row px-0 py-0 border mt-3" style ="height:12em; border-radius:10px;">
+                               
+                               
+                               
+                               
                                 
-                                <img class ="img-fluid" src ="/Git_imageFile/${list.eduList.poster_image}" style ="height:10em; border-radius: 1em;"> 
+                                <div class="px-0 py-0 col-3 d-flex justify-content-start align-items-center"> 
+                                
+                                	<img class ="w-100 py-0 px-0 img-fluid" src ="/Git_imageFile/${list.eduList.poster_image}" style ="height:12em; border-radius: 5px;"> 
                                 </div>
                                 <!-- 제목, 이외 여러 프로그램 정보들-->
-                                <div class="col">
-                                    <div class="row"> 
-                                        <div class="col d-flex justify-content-center" style ="font-weight: bold; font-size:1.5em"> ${list.eduList.title}</div>
+                                <div class="col ms-5">
+                                    <div class="row mt-4 ms-5"> 
+                                        <div class="col ms-5 d-flex justify-content-center" style ="font-weight: bold; font-size:1.2em"> ${list.eduList.title}</div>
                                     </div>
-                                    <div class="row mt-2"></div>
-                                    <div class="row mt-5 ms-3"> 
-                                        <div class="col-9"> 진행 날짜 &nbsp;&nbsp; ${list.eduList.progress_date }</div>
-
+                                    <div class="row mt-4"></div>
+                                    
+                                    
+                                    
+                                    <div class="row mt-5"> 
+                                       <div class="col-9">
+                                       			진행 날짜
+	                                    	<span style="color:gray;">
+	                                    	   &nbsp;&nbsp; ${list.eduList.progress_date}
+											</span>
+										</div>
                                     </div>
-                                    <div class="row mt-1 ms-3"> 
-                                        <div class="col-9">마감 날짜 &nbsp;&nbsp; 
-										<fmt:formatDate pattern = "yyyy-MM-dd" value ="${list.eduList.deadline_date}"/> 
+                                    <div class="row mt-1"> 
+                                        <div class="col-9 ">마감 날짜 &nbsp;&nbsp; 
+                                        
+											<span style ="color:gray;">
+												<fmt:formatDate pattern = "yyyy-MM-dd" value ="${list.eduList.deadline_date}"/> 
+                                        	</span>
                                         </div>    
                                     </div>
                                 </div>
                                 
                             <!-- 리뷰 등록했으면 안나오게 예외처리 -->
                        		<c:if test="${empty list.checkList}">
-                                <div class ="col-3">
-                                    <div class ="row" style ="margin-top:8em;">
-                                        <div class="col d-flex justify-content-end algin-itmes-end px-0 py-0">
+                                <div class ="col-3 d-flex justify-content-end align-items-end px-0 py-0">
+                                    <div class ="row">
+                                        <div class="col ">
                                         <!-- Button trigger modal -->
-											<button type="button" class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+											<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
 											  	리뷰 등록하기
 											</button>
 										</div>
@@ -206,13 +212,16 @@
 											</div>
                                         </div>
                                     </div>
-                                   </c:if>   
+                                   </c:if>
+                                   <c:if test="${!empty list.checkList}">
+                                   	<div class="col-3"></div>
+                                   </c:if>
                                 </div>
                            
                             
                             
                         </div>
-                        <div class="col-1"></div>
+                        <div class="col-2	"></div>
                     </div>
          
    			
@@ -231,7 +240,7 @@
 			</div>
 		</div>
 </div>
-</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

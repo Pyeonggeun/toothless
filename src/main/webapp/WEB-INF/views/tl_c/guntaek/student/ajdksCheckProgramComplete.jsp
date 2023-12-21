@@ -64,62 +64,50 @@
 		<!-- 본문 : 자유롭게 이용하세요 화이팅 -->	
 		
 		<div class="col">
-		<div class="row">
-			<div class="col mx-4">
-			<!-- 본문작성공간 -->
+			<div class="row ">	
+				<div class="col mx-5">
 				
 				
-				<div class="row mt-5 ms-3">
-				<div class="col fw-bold">
-						<h3> <i class="bi bi-person-square"></i> &nbsp;&nbsp;내 교육프로그램 이수내역</h3> 
+				<div class="row mt-4">
+					<div class="col">
+						<p style="font-weight:bold; font-size:1.2em" ><i class="bi bi-list"></i>&nbsp;&nbsp;교육 프로그램 이수 내역</p>							 	
+					</div>		
 				</div>
-				</div>
-				<div class="row mt-3">
-					<div class="col border border-2 border-dark"></div>
-				</div>
-				 
-				<div class="row" style ="margin-top:6em;">
-					<div class="col border-bottom border-3"></div>
-				</div>
-				<div class="row mt-3 d-flex align-items-center text-center fw-bold" style="font-size: 0.9em; height:2.3em;">
-					<div class="col-1">No</div>
-					<div class="col-3">제목</div>
-					<div class="col-1">강연자</div>
-					<div class="col-2">장소</div>
-					<div class="col">마감일	</div>
-					<div class="col">진행 날짜</div>
-					<div class="col">상태</div>
-				</div>
-				<div class="row mt-3">
-					<div class="col border border-2 "></div>
-				</div>
-				<!-- 다시 -->
-					<c:forEach items="${programList}" var="a">
-							<div class="row mt-3 d-flex align-items-center text-center" style="font-size: 0.8em; height:2.3em;" >
-								<div class="col-1">${a.EduProgramDto.internedu_program_pk}</div>
-								<div class="col-3">
-									${a.title}
-								
-								</div>								
-								<div class="col-1">${a.EduProgramDto.lecturer}</div>
-								<div class="col-2">${a.EduProgramDto.place}</div>
-								<div class="col"><fmt:formatDate pattern = "yyyy/MM/dd" value="${a.EduProgramDto.deadline_date}"/></div>
-								<div class="col">
-								${a.EduProgramDto.progress_date}
-								</div>
-								
-								<div class="col">
-								<button class="btn btn-primary" disabled="disabled">수료 완료</button>
-							
-								</div>
-							</div>
-							<div class="row mt-3">
-								<div class="col border border-secondary-subtle"></div>
-							</div>
-					</c:forEach>
 				
+				<div class="row">
+						<div class="col border border-1 border-dark"></div>
+				</div>
+				  
+			    <div class="row mt-5 border-1" style = "background-color:#F8F8F8" >
+			        
+			            <div class="col-1 d-flex justify-content-center border-start border-top border-bottom ">No</div>
+			            <div class="col-3 d-flex justify-content-center border-start border-top border-bottom ">제목</div>
+			            <div class="col-1 d-flex justify-content-center border-start border-top border-bottom ">강연자</div>
+			            <div class="col-2 d-flex justify-content-center border-start border-top border-bottom ">장소</div>
+			            <div class="col d-flex justify-content-center border-start border-top border-bottom ">마감일</div>
+			            <div class="col d-flex justify-content-center border-start border-top border-bottom ">진행 날짜</div>
+			            <div class="col d-flex justify-content-center border-start border-top border-bottom border-end	">상태</div>
+			    </div>
 				
-				
+				<c:forEach items="${CompleteList}" var="a">
+			    	<div class="row" style="height: 3em;">
+			        <div class="col-1 border-start border-bottom d-flex justify-content-center align-items-center">${a.internedu_program_pk}</div>
+			        <div class="col-3 border-start border-bottom d-flex justify-content-center align-items-center">${a.title}</div>
+			        <div class="col-1 border-start border-bottom d-flex justify-content-center align-items-center">${a.lecturer}</div>
+			        
+			        <div class="col-2 border-start border-bottom d-flex justify-content-center align-items-center">${a.place}</div>
+			        
+			        <div class="col border-start border-bottom d-flex justify-content-center align-items-center">
+			            <fmt:formatDate pattern="yyyy/MM/dd" value="${a.deadline_date}" />
+			        </div>
+			        <div class="col border-start border-bottom d-flex justify-content-center align-items-center">${a.progress_date}</div>
+			        <div class="col border-end border-start border-bottom d-flex justify-content-center align-items-center">
+			            <label for ="gg">이수</label> &nbsp;
+			            <i id ="gg" class="bi bi-check-circle-fill" style ="color:navy;"></i>
+			        </div>
+			    	</div>
+				</c:forEach>
+
 			</div>
 		</div>
 	</div>			

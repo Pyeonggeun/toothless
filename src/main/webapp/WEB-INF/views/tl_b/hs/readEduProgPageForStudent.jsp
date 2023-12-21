@@ -28,26 +28,12 @@
             font-family: 'Noto Sans KR', sans-serif;
             }
 
-
     	</style>
     </head>
     <body>
+    <jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
+    <jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
         <div class="container-fluid">
-            <jsp:include page="../hs/eduStudentTopBanner.jsp"></jsp:include>
-            <div class="row">
-                <div class="col">
-                    <div class="row">
-						<div class="col"></div>
-						<div class="col-8 text-start">
-							<a href="./eduMainPageForStudent" class="btn btn-sm fw-bold" 
-							style="color: #4c4a4c;">메인페이지</a>
-							<a href="./eduMyPageForStudent" class="btn btn-sm fw-bold"
-							style="color: #4c4a4c;">마이페이지</a>
-						</div>
-						<div class="col"></div>
-					</div>
-                </div>
-            </div>
             <div class="row mt-4 pb-4">
                 <div class="col"></div>
                 
