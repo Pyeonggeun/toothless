@@ -206,6 +206,19 @@
 		AND tadr.DORM_ROOM_PK = #{param2}
 	</select>
 	
+	<select id="countExecutivePerRoomPkMinusMySelf" resultType="int" parameterType="hashmap">
+		SELECT count(*) FROM TL_A_EXECUTIVE_MANAGEMENT taem
+		INNER JOIN TL_A_DORM_STUDENT tads ON TADS.DORM_STUDENT_PK = taem.DORM_STUDENT_PK
+		INNER JOIN TL_A_DORM_ROOM tadr ON TADR.DORM_ROOM_PK = TADS.DORM_ROOM_PK 
+		WHERE taem.EXECUTIVE_PK IN (
+			SELECT tae.EXECUTIVE_PK FROM TL_A_EXECUTIVE tae 
+			MINUS
+			SELECT tae2.EXECUTIVE_PK FROM TL_A_EXECUTIVE tae2
+			WHERE tae2.EXECUTIVE_PK = #{param1}
+		)
+		AND tadr.DORM_ROOM_PK = #{param2}
+	</select>
+	
 	<delete id="deleteExecutivePerRoomPk" parameterType="hashmap">
 		DELETE FROM TL_A_EXECUTIVE_MANAGEMENT taem
 		WHERE taem.EXECUTIVE_MANAGEMENT_PK IN  (
