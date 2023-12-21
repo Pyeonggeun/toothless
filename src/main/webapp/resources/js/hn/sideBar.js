@@ -110,12 +110,12 @@ function colorSideBar() {
 		bootstrap.Collapse.getOrCreateInstance("#collapseExample3").show();
         document.getElementById("collapse3").value = "o3";
 		
-	}else if(window.location.pathname.slice(window.location.pathname.lastIndexOf("/")-2) == 'dy/staffboardPage') {
+	}else if(str == 'staffboardPage') {
 	
 		document.getElementById("color10").classList.add("text-white");
 		document.getElementById("color10").style.backgroundColor = '#014195';
 		
-	}else if(window.location.pathname.slice(window.location.pathname.lastIndexOf("/")-2) == 'ty/staffboardPage') {
+	}else if(str == 'staffBoardPage') {
 	
 		document.getElementById("color11").classList.add("text-white");
 		document.getElementById("color11").style.backgroundColor = '#014195';
