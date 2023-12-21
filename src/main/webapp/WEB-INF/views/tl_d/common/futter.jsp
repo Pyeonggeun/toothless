@@ -19,7 +19,7 @@
       		</div>
       	</div>
       	<div class="row">
-      		<div class="col text-dark" style="font-size: 0.9rem;">
+      		<div class="col text-dark" style="font-size: 0.9em;">
       			COPYRIGHT© 2023 MINKUE UNIVERSITY ALL RIGHTS RESERVED.
       		</div>
       	</div>

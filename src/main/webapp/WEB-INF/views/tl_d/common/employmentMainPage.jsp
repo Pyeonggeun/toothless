@@ -106,8 +106,8 @@
 			</div>
 		</div>
 		<%-- 최하단 : 개인정보처리방침 + 주소 등 --%>
-		<div class="row py-4" style="background-color: #808080">
-			<div class="col-1 pt-1 pe-2 text-end">
+		<div class="row ps-5 py-4" style="background-color: #808080">
+			<div class="col-1 pt-1 text-end">
                 <img class="opacity-25" src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
             </div>
             <div class="col pt-1">
@@ -125,7 +125,7 @@
             		</div>
             	</div>
             	<div class="row">
-            		<div class="col text-dark" style="font-size: 0.9rem;">
+            		<div class="col text-dark" style="font-size: 0.9em;">
             			COPYRIGHT© 2023 MINKUE UNIVERSITY ALL RIGHTS RESERVED.
             		</div>
             	</div>

@@ -42,7 +42,7 @@
 	
 	<!-- 호실 조회 -->
 	<select id="selectRooms" resultType="com.mkfactory.toothless.a.dto.DormRoomDto">
-		SELECT * FROM TL_A_DORM_ROOM tadr ORDER BY DORM_PK, DORM_FLOOR  asc
+		SELECT * FROM TL_A_DORM_ROOM tadr ORDER BY DORM_PK, DORM_FLOOR, ROOM_NAME  asc
 	</select>
 	
 	<!-- 호실 삭제 -->

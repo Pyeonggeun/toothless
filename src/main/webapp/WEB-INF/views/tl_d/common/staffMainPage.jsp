@@ -83,12 +83,12 @@
 							<c:choose>
 								<c:when test="${getHopeJobInfoNumFive.size()==0}">
 									<div class="col fw-bold text-center">
-										미응답 온라인 상담이 없습니다!
+										구직희망 신청이 없습니다!
 									</div>
 								</c:when>
 								<c:when test="${getHopeJobInfoNumFive==null}">
 									<div class="col fw-bold text-center">
-										미응답 온라인 상담이 없습니다!
+										구직희망 신청이 없습니다!
 									</div>															
 								</c:when>								
 								<c:otherwise>
