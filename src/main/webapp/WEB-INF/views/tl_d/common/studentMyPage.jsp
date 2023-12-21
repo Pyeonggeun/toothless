@@ -32,11 +32,11 @@
 						<div class="row ps-0 pe-1 pt-4 pb-4 ms-3 mt-5 mb-3 border rounded-3">
 							<div class="col-1"></div>
 							<%-- 사진 --%> 
-							<div class="col pe-0 mt-2 fs-4 text-secondary">
+							<div class="col-4 pe-0 mt-2 fs-4 text-secondary">
 								<img class="img-fluid" src="../../resources/img/employment/user.png">
 							</div>
 							<%-- 학생정보 --%>
-							<div class="col mt-2 ps-0">
+							<div class="col mt-2 ps-3">
 								<%-- 이름 --%>
 								<div class="row">
 									<div class="col text-secondary">이름
@@ -78,9 +78,9 @@
 					<%-- 학생 정보 끝 --%>
 					<%-- 상담이력 --%>	
 					<div class="col mx-5 mt-3 px-5 pb-0">
-						<div class="row border-bottom border-2">
+						<div class="row ms-1 border-bottom border-2">
 							<div class="col fs-5 fw-bold mt-5 pb-1">상담이력</div>
-							<div class="col fs-5 fw-bold mt-5 text-end"><a href="../jm_consulting/myOnlineConsultingListPage"><i class="bi bi-plus-lg"></i></a></div>
+							<div class="col fs-5 fw-bold mt-5 text-end"><a class="navbar-brand" href="../jm_consulting/myOnlineConsultingListPage"><i class="bi bi-plus-lg"></i></a></div>
 						</div>
 						
 						<c:choose>
@@ -137,8 +137,7 @@
 					</div>
 					<%-- 상담이력 --%>
 				</div>
-				<div class="row pt-3 ps-0 me-3"><div class="col"></div></div>
-				<div class="row ms-1 pt-0 my-3">
+				<div class="row ms-1 pt-0 mb-3">
 					<div class="col-4 me-4 ps-3">
 						<%-- 신청한 공고정보 --%>
 						<div class="row border-bottom border-2">
