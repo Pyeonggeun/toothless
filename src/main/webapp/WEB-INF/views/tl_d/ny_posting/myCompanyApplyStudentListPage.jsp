@@ -80,7 +80,7 @@
 		</div>
 		<div class="row">
 			<div class="col px-0">
-				<img  class="opacity-55" src="../../resources/img/employment/companyBanner.png" style="width: 119rem; height : 30rem;">
+				<img class="opacity-55 img-fluid" src="../../resources/img/employment/companyBanner.jpg">
 			</div>		
 		</div>
 	 	<%-- 전체 크기 --%>

@@ -93,7 +93,7 @@
 			const likeSpan = noticeTitle.querySelector(".likeSpan");
 			likeSpan.innerText = "[" + "추천" + e.likeCount + "]";
 			const dislikeSpan = noticeTitle.querySelector(".dislikeSpan");
-			dislikeSpan.innerText = "[" + "비추" + e.disLikeCount + "]";
+			dislikeSpan.innerText = "[" + "비추천" + e.disLikeCount + "]";
 			
 			const noticeRead_Count = noticeListWrapper.querySelector(".noticeRead_Count");
 			noticeRead_Count.innerText = e.noticeBoardDto.read_count;
@@ -278,7 +278,7 @@
 						<div class="row fw-bold fs-6">
 							<div class="col"><i class="bi bi-chat-square-text-fill"></i>&nbsp;글번호</div>
 							<div class="col-7 ps-0 pe-5"><i class="bi bi-emoji-expressionless-fill"></i>&nbsp;제목</div>
-							<div class="col ps-3 pe-0"><i class="bi bi-emoji-heart-eyes-fill"></i>&nbsp;조회수</div>
+							<div class="col ps-5 pe-0"><i class="bi bi-emoji-heart-eyes-fill"></i>&nbsp;조회수</div>
 							<div class="col ps-2 pe-0"><i class="bi bi-person-arms-up"></i>&nbsp;작성자</div>
 							<div class="col ps-2 pe-0"><i class="bi bi-calendar-heart-fill"></i>&nbsp;작성일</div>
 						</div>
@@ -335,17 +335,17 @@
 							<span class="titleSpan fw-bold text-danger" style="font-size:0.7em;"></span>
 							<span class="imageSpan"></span>
 						</div>
-						<div class="col">
+						<div class="col pe-0 text-end">
 							<span class="likeSpan fw-bold" style="font-size:0.7em;"></span>
 						</div>
-						<div class="col">
+						<div class="col ps-0 pe-4 text-end">
 							<span class="dislikeSpan fw-bold" style="font-size:0.7em;"></span>
 						</div>
 					</div>
 				</div>
 				<div class="noticeRead_Count col-1"></div>
 				<div class="noticeNickname col-1"></div>
-				<div class="noticeDate col-1"></div>
+				<div class="noticeDate col-1 ps-1"></div>
 			</div>
 		</div>
 	</div>

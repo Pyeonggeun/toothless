@@ -130,7 +130,7 @@
 			return;
 		}
 		 
-		//비밀번호 정규표현 에러
+		<%--비밀번호 정규표현 에러
 		const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 		if(!passwordRegex.test(password.value)){
 			alert("영문 대소문자, 숫자, 특수문자(@,$,!,%,*,?,&)를 사용하여 비밀번호를 작성해주세요.");
@@ -138,7 +138,7 @@
 			password.focus();
 			
 			return;
-		}
+		}--%>
 		
 		//사업자번호 중복
 		if(isCheckedBusinessNumber==false){
