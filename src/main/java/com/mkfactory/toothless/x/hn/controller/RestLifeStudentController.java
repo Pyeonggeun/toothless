@@ -310,5 +310,19 @@ public class RestLifeStudentController {
 		
 		return restResponseDto;
 	}
+	
+	@RequestMapping("getTopName")
+	public RestResponseDto getTopName(HttpSession session) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		int life_student_key = lifeStudentService.getLifeStudentKey(externalInfoDto.getExternal_pk());
+		
+		restResponseDto.setData(lifeStudentService.getTopName(life_student_key));
+		restResponseDto.setResult("success");
+		
+		return restResponseDto;
+	}
 
 }

@@ -428,7 +428,12 @@ public class LifeStudentServiceImpl {
 		}
 		
 		return list;
-	} 
+	}
+	
+	public String getTopName(int life_student_key) {
+		
+		return lifeStudentSqlMapper.getTopName(life_student_key);
+	}
 
 }
 

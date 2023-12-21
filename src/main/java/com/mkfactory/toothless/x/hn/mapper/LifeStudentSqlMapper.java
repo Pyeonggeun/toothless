@@ -81,5 +81,7 @@ public interface LifeStudentSqlMapper {
 	
 	public List<OpenLectureDto> getIngOpenLectureInfo(int life_student_key);
 	public List<OpenLectureDto> getCompleteOpenLectureInfo(int life_student_key);
+	
+	public String getTopName(int life_student_key);
 
 }
