@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +15,7 @@ import com.mkfactory.toothless.b.dto.B_RestResponseDto;
 import com.mkfactory.toothless.b.dto.MedicineCodeDto;
 import com.mkfactory.toothless.b.dto.MedicineMgmtCatDto;
 import com.mkfactory.toothless.b.kh.medicine.service.MedicineServiceImpl;
+import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 
 @RestController
 @RequestMapping("/tl_b/kh/*")
@@ -20,6 +23,20 @@ public class RestMedicineController {
 	
 	@Autowired
 	private MedicineServiceImpl medicineService;
+	
+	//스태프정보 불러오기?
+	@RequestMapping("getStaffInfo")
+	public B_RestResponseDto getStaffInfo(HttpSession session) {
+		
+		B_RestResponseDto b_RestResponseDto = new B_RestResponseDto();
+		
+		StaffInfoDto staffInfo = (StaffInfoDto) session.getAttribute("sessionStaffInfo");
+		
+		b_RestResponseDto.setResult("success");
+		b_RestResponseDto.setData(staffInfo);
+		
+		return b_RestResponseDto;
+	}
 	
 	//의약품 정보
 	@RequestMapping("getMedicineList")

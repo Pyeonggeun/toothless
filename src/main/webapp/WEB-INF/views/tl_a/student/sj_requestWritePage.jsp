@@ -53,25 +53,23 @@
                 <div class="row my-2">
                 	<div class="col">
                 	<input type="hidden" value="${dormStudentDto.dorm_student_pk}" name="dorm_student_pk">
-                		<div class="my-3">
-						  	<label for="exampleFormControlInput1" class="form-label">제목</label>
+                		<div class="mb-3">
+						  	<label for="exampleFormControlInput1" class="form-label fw-bold fs-5">제목</label>
 						  	<input type="text" class="form-control" name="title"  placeholder="제목을 입력하세요.">
 						</div>
-						<label for="exampleFormControlInput1" class="form-label">작성자</label>
-						
-						<input class="form-control my-3" type="text" value="${studentInfoDto.name}" aria-label="readonly input example" readonly>
+						<label for="exampleFormControlInput1" class="form-label fw-bold fs-5 mt-3">작성자</label>
+						<input class="form-control" type="text" value="${studentInfoDto.name}" aria-label="readonly input example" readonly>
 						<div class="my-3">
-						 	<label for="exampleFormControlTextarea1" class="form-label">내용</label>
+						 	<label for="exampleFormControlTextarea1" class="form-label fw-bold fs-5 mt-3">내용</label>
 						  	<textarea class="form-control" name="content" rows="10"  placeholder="내용을 입력하세요."></textarea>
 						</div>
 						<div class="mb-3">
-						  <label for="formFileMultiple" class="form-label">파손시설 사진</label>
+						  <label for="formFileMultiple" class="form-label fw-bold fs-5 mt-3">파손시설 사진</label>
 						  <input class="form-control" type="file" id="formFileMultiple" name="imgs"accept="image/*">
 						</div>
 						<div class="row">
 							<div class="col d-flex justify-content-end my-2">
-                			
-                			<button type="submit" class="btn btn-danger rounded-0">접수완료</button>
+                			<button type="submit" class="btn rounded-0 px-4" style="background-color:#504528; color:#FFFFFF;">접수완료</button>
                 		</div>
 						</div>
 		            </div>

@@ -109,7 +109,7 @@
 										프로그램 내용
 									</div>
 									<div class="row mb-3">
-										<textarea class="form-control" name="prg_contents" placeholder="프로그램 내용을 입력해주세요."></textarea>
+										<textarea class="form-control" rows="20" name="prg_contents" placeholder="프로그램 내용을 입력해주세요."></textarea>
 										
 									</div>
 								</div>

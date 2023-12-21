@@ -124,7 +124,7 @@
 				const applyingStudentWrapper = document.querySelector("#applyingStudentListTemplete .applyingStudentWrapper").cloneNode(true);
 				
 				const applyingStudentPk = applyingStudentWrapper.querySelector(".applyingStudentPk");
-				applyingStudentPk.innerText = applyingStudent.studentInfoDto.student_pk;
+				applyingStudentPk.innerText = applyingStudent.studentInfoDto.student_id;
 				
 				const applyingStudentName = applyingStudentWrapper.querySelector(".applyingStudentName");
 				applyingStudentName.innerText = applyingStudent.studentInfoDto.name;
@@ -195,7 +195,7 @@
 				const internWrapper = document.querySelector("#internListTemplete .internWrapper").cloneNode(true);
 				
 				const internStudentPk = internWrapper.querySelector(".internStudentPk");
-				internStudentPk.innerText = intern.studentInfoDto.student_pk;
+				internStudentPk.innerText = intern.studentInfoDto.student_id;
 				
 				const internName = internWrapper.querySelector(".internName");
 				internName.innerText = intern.studentInfoDto.name;
@@ -571,6 +571,8 @@
 					
 				</div>
 			</div>
+			
+			<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 		</div>
 	</div>
 		

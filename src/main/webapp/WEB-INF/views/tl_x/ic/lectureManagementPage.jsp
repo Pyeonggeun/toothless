@@ -207,7 +207,7 @@
 	    					writeStudyLog.innerText = '일지작성';
 	    					writeStudyLog.classList.add("btn-primary");
 	    					writeStudyLog.setAttribute("onclick","showAttendacneModal("+millis+")");
-	    					
+	    				
 	    					absenceCount.innerText = "-";
 	    					lateCount.innerText = "-";
 	    					
@@ -465,13 +465,17 @@
      		
  			const thisDate = new Date(date);
  			
- 			const date_created = thisDate.getFullYear()+"-"+(thisDate.getMonth()+1) + "-"+ thisDate.getDate();
-			const selectDate = document.getElementById('selectDate');
-			selectDate.value = date_created;
+ 			const datefrm = thisDate.getFullYear()+"-"+(thisDate.getMonth()+1).toString().padStart(2, '0') + "-"+ thisDate.getDate().toString().padStart(2, '0');
+			const selectDate = document.getElementById("selectDate");
+			selectDate.value = datefrm;
+			console.log(selectDate);
+			console.log(datefrm);
+		
+			
 			
  			openModalLectureInfo();
  			
-     		checkAttendanceBook(date_created);
+     		checkAttendanceBook(datefrm);
      		
      		modal.show();
      	}
@@ -721,7 +725,11 @@
              			},
              			body:"attendance_book_key="+attendance_book_key+"&lecture_student_key="+checkLateStudent[i].value
              	            +"&status="+status
-             		});
+             		})
+             		.then(response => response.json())
+     	        .then((response) => {
+     	        	
+     	        });
              	    
             	}
             }
@@ -738,7 +746,11 @@
              			},
              			body:"attendance_book_key="+attendance_book_key+"&lecture_student_key="+checkLateStudent[i].value
          	           		 +"&status="+status
-             		});
+             		})
+             		.then(response => response.json())
+     	        .then((response) => {
+     	        	
+     	        });
              	    
             	}
             }
@@ -753,6 +765,7 @@
              			},
              			body:"attendance_book_key="+attendance_book_key+"&lecture_student_key="+checkLateStudent[i].value
     	           			 +"&status="+status
+    	           			 
              		});
              	    
             	}

@@ -10,10 +10,14 @@
 
 	<!-- 산업체의 현장실습 전체 목록 -->
 	<select id="selectCompanyList" resultType="Map">
+	<![CDATA[
 		SELECT
 		CASE
-		WHEN TO_DATE(SYSDATE, 'YYYY-MM-DD') BETWEEN TO_DATE(APPLYING_START_DATE,
-		'YYYY-MM-DD') AND TO_DATE(APPLYING_END_DATE, 'YYYY-MM-DD') THEN 'yes'
+		WHEN TO_DATE(SYSDATE, 'YYYY-MM-DD') BETWEEN TO_DATE(INTERNSHIP_START_DATE,
+		'YYYY-MM-DD') AND TO_DATE(INTERNSHIP_END_DATE, 'YYYY-MM-DD') THEN
+		'yes'
+		WHEN TO_DATE(SYSDATE, 'YYYY-MM-DD') < TO_DATE(INTERNSHIP_START_DATE,
+		'YYYY-MM-DD') THEN 'not'
 		ELSE 'no'
 		END AS date_check,
 		TL_JIC_EXTERNAL_INFO.*,
@@ -28,6 +32,7 @@
 		WHERE
 		TL_C_COMPANY_INFO.EXTERNAL_PK =
 		#{EXTERNAL_PK}
+	]]>
 	</select>
 
 	<!-- 산업체의 진행중인지 모집중인지 확인 -->
@@ -75,8 +80,11 @@
 		JOIN TL_JIC_DEPARTMENT_CATEGORY ON
 		TL_JIC_DEPARTMENT_CATEGORY.DEPARTMENT_PK =
 		TL_JIC_PROFESSOR_INFO.DEPARTMENT_PK
-		JOIN tl_c_self_introduction ON tl_c_self_introduction.STUDENT_PK  = TL_JIC_STUDENT_INFO.STUDENT_PK
-		LEFT JOIN tl_c_self_introduction_img ON tl_c_self_introduction_img.SELF_INTRODUCTION_IMG_PK =tl_c_self_introduction.SELF_INTRODUCTION_IMG_PK
+		JOIN tl_c_self_introduction ON
+		tl_c_self_introduction.STUDENT_PK = TL_JIC_STUDENT_INFO.STUDENT_PK
+		LEFT JOIN tl_c_self_introduction_img ON
+		tl_c_self_introduction_img.SELF_INTRODUCTION_IMG_PK
+		=tl_c_self_introduction.SELF_INTRODUCTION_IMG_PK
 		WHERE
 		tl_c_student_applying.internship_course_pk = #{INTERNSHIP_COURSE_PK}
 		AND TL_JIC_STUDENT_SEMESTER.SEMESTER_PK = (
@@ -88,7 +96,7 @@
 		GROUP BY TL_JIC_STUDENT_SEMESTER.STUDENT_PK
 		)
 	</select>
-	
+
 	<!-- 신청 학생 정보 확인 -->
 	<select id="selectstudentProcess" resultType="Map">
 		SELECT
@@ -114,8 +122,10 @@
 		TL_JIC_DEPARTMENT_CATEGORY.DEPARTMENT_PK =
 		TL_JIC_PROFESSOR_INFO.DEPARTMENT_PK
 		WHERE
-		tl_c_student_applying.internship_course_pk = #{internship_course_pk} AND tl_c_student_applying.STUDENT_PK = #{student_pk}
-		AND TL_JIC_STUDENT_SEMESTER.SEMESTER_PK = (
+		tl_c_student_applying.internship_course_pk = #{internship_course_pk}
+		AND tl_c_student_applying.STUDENT_PK = #{student_pk}
+		AND
+		TL_JIC_STUDENT_SEMESTER.SEMESTER_PK = (
 		SELECT MAX(SEMESTER_PK) AS
 		max_se
 		FROM TL_JIC_STUDENT_SEMESTER

@@ -120,7 +120,7 @@
 								<div class="col align-self-center text-center">등록자</div>
 								<div class="col align-self-center text-center">등록일</div>
 								<div class="col align-self-center text-center">추천</div>
-								<div class="col align-self-center text-center">초회수</div>
+								<div class="col align-self-center text-center">조회수</div>
 							</div>
 							<div class="row py-2 ms-5 me-5 mb-2 fs-6 ">
 								<div class="col align-self-center text-center">61</div>

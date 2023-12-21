@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    	<script src="../../resources/js/hn/topBanner.js"></script>
     </head>
     	<script>
             function formSubmit(){
@@ -25,21 +26,17 @@
             }
         </script>
     <body>
-
+  		<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
+		<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <jsp:include page="../commonJsp/staffTopBanner.jsp"></jsp:include>
                     <div class="row mx-5">
                         <div class="col">
                                     <div class="row">
                                         <div class="col">
-                                        	<div class="row">
-		                                        <div class="col-11 pe-0 text-end">${sessionStudentInfo.name }님 환영합니다</div>
-		                                        <div class="col text-start"><a href="./StudentlogoutProcess">로그아웃</a></div>
-		                                    </div>
                                             <div class="row mt-5  ">
-                                                <div class="col fw-bold fs-2 text-center border-bottom border-4">보건진료소</div>
+                                                <div class="col fw-bold fs-2 text-center border-bottom border-2">보건진료소</div>
                                             </div>
                                             <form id="frm" action="./studentBoardPage" method="get">
                                             <div class="row mt-4">
@@ -107,7 +104,7 @@
 	                                                            <c:when test="${!empty board.noticeboardDto.img_link  }">
 	                                                            <div class="row mx-1 my-1 border border-black ">
 	                                                                <div class="col text-center">
-	                                                                	<img class=" img-thumbnail img img-fluid" src="../../resources/img/healthRoom/TY/${board.noticeboardDto.img_link}"
+	                                                                	<img class=" img-thumbnail img img-fluid" src="/uploadFiles/mainImage/${board.noticeboardDto.img_link}"
 	                                                                	style="height: 160px; width: 180px;"> 
 	                                                                </div>
 	                                                            </div>

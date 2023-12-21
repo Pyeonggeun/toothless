@@ -18,7 +18,7 @@
                 <div class="col">
                     <div class="row">
                         <div class="col text-end">
-                            <a href="#" style="text-decoration-line : none; color: black;"><span style="font-size: 0.8em; opacity: 70%; ">HOME</span></a>&nbsp;<span style="font-size: 0.8em; opacity: 70%; position: relative; bottom: 7%;">></span>&nbsp;<span class="fw-bold" style="font-size: 0.8em;">보건센터 안내</span>                   
+                            <span style="font-size: 0.8em; opacity: 70%; ">HOME</span>&nbsp;<span style="font-size: 0.8em; opacity: 70%; position: relative; bottom: 7%;">></span>&nbsp;<span class="fw-bold" style="font-size: 0.8em;">보건센터 안내</span>                   
                         </div>
                     </div>
                     <div class="row mt-5">
@@ -82,7 +82,7 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col">
-                                    <span><span style="position: relative; bottom: 8%;"><i class="bi bi-dot" style="font-size: 0.9em;"></i>&nbsp;진료신청은 온라인 예약 불가, 오프라인으로만 가능</span>
+                                    <span style="position: relative; bottom: 8%;"><i class="bi bi-dot" style="font-size: 0.9em;"></i>&nbsp;진료신청은 온라인 예약 불가, 오프라인으로만 가능</span>
                                 </div>
                             </div>
                         </div>

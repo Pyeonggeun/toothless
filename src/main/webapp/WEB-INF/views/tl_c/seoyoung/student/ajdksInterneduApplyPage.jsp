@@ -121,19 +121,19 @@ const student_pk = ${sessionStudentInfo.student_pk};
               const INTERNSHIP_START_DATE = companyListWrapper.querySelector(".INTERNSHIP_START_DATE");
               const date = new Date(e.INTERNSHIP_START_DATE); 
               const formattedStartDate = date.getFullYear() + "-" + padZero(date.getMonth() + 1) + "-" + padZero(date.getDate()) +
-                " " + padZero(date.getHours()) + ":" + padZero(date.getMinutes()) + " ~ ";
+                 " ~ ";
               INTERNSHIP_START_DATE.innerText = formattedStartDate;
               
               const INTERNSHIP_END_DATE = companyListWrapper.querySelector(".INTERNSHIP_END_DATE");
               const date2 = new Date(e.INTERNSHIP_END_DATE); 
-              const formattedEndDate = date2.getFullYear() + "-" + padZero(date2.getMonth() + 1) + "-" + padZero(date2.getDate()) +
-                " " + padZero(date2.getHours()) + ":" + padZero(date2.getMinutes());
+              const formattedEndDate = date2.getFullYear() + "-" + padZero(date2.getMonth() + 1) + "-" + padZero(date2.getDate())
+                ;
               INTERNSHIP_END_DATE.innerText = formattedEndDate;
               
               const APPLYING_END_DATE = companyListWrapper.querySelector(".APPLYING_END_DATE");
               const date3 = new Date(e.APPLYING_END_DATE); 
-              const formattedApplyEndDate = date3.getFullYear() + "-" + padZero(date3.getMonth() + 1) + "-" + padZero(date3.getDate()) +
-                " " + padZero(date3.getHours()) + ":" + padZero(date3.getMinutes());
+              const formattedApplyEndDate = date3.getFullYear() + "-" + padZero(date3.getMonth() + 1) + "-" + padZero(date3.getDate()) 
+                ;
                 APPLYING_END_DATE.innerText = formattedApplyEndDate;
 
               function padZero(number) {
@@ -194,38 +194,42 @@ const student_pk = ${sessionStudentInfo.student_pk};
             ADDRESS.innerText = modalValues.ADDRESS;
             
             const INTERNSHIP_START_DATE = companyListWrapper.querySelector(".INTERNSHIP_START_DATE");
-            const date = new Date(e.INTERNSHIP_START_DATE); 
+            const date = new Date(modalValues.INTERNSHIP_START_DATE); 
+            
+            console.log(modalValues.INTERNSHIP_START_DATE);
+
+            
             const formattedStartDate = date.getFullYear() + "-" + padZero(date.getMonth() + 1) + "-" + padZero(date.getDate()) +
               " " + padZero(date.getHours()) + ":" + padZero(date.getMinutes()) + "  ~ ";
             INTERNSHIP_START_DATE.innerText = formattedStartDate;
             
             const INTERNSHIP_END_DATE = companyListWrapper.querySelector(".INTERNSHIP_END_DATE");
-            const date2 = new Date(e.INTERNSHIP_END_DATE); 
+            const date2 = new Date(modalValues.INTERNSHIP_END_DATE); 
             const formattedEndDate6 = date2.getFullYear() + "-" + padZero(date2.getMonth() + 1) + "-" + padZero(date2.getDate()) +
               " " + padZero(date2.getHours()) + ":" + padZero(date2.getMinutes());
             INTERNSHIP_END_DATE.innerText = formattedEndDate6;
 
             const APPLYING_START_DATE = companyListWrapper.querySelector(".APPLYING_START_DATE");
-            const date3 = new Date(e.APPLYING_START_DATE); 
+            const date3 = new Date(modalValues.APPLYING_START_DATE); 
             const formattedStartDate2 = date3.getFullYear() + "-" + padZero(date3.getMonth() + 1) + "-" + padZero(date3.getDate()) +
               " " + padZero(date3.getHours()) + ":" + padZero(date3.getMinutes()) + "  ~ ";
               APPLYING_START_DATE.innerText = formattedStartDate2;
             
             const APPLYING_END_DATE = companyListWrapper.querySelector(".APPLYING_END_DATE");
-            const date4 = new Date(e.APPLYING_END_DATE); 
+            const date4 = new Date(modalValues.APPLYING_END_DATE); 
             const formattedEndDate3 = date4.getFullYear() + "-" + padZero(date4.getMonth() + 1) + "-" + padZero(date4.getDate()) +
               " " + padZero(date4.getHours()) + ":" + padZero(date4.getMinutes());
               APPLYING_END_DATE.innerText = formattedEndDate3;
             
             const ANNOUNCEMENT_DATE = companyListWrapper.querySelector(".ANNOUNCEMENT_DATE");
-            const date5 = new Date(e.ANNOUNCEMENT_DATE); 
+            const date5 = new Date(modalValues.ANNOUNCEMENT_DATE); 
             const formattedEndDate4 = date5.getFullYear() + "-" + padZero(date5.getMonth() + 1) + "-" + padZero(date5.getDate()) +
               " " + padZero(date5.getHours()) + ":" + padZero(date5.getMinutes());
             ANNOUNCEMENT_DATE.innerText = formattedEndDate4;  
               
                 
             const CREATED_AT = companyListWrapper.querySelector(".CREATED_AT");
-            const date6 = new Date(e.CREATED_AT); 
+            const date6 = new Date(modalValues.CREATED_AT); 
             const formattedEndDate5 = date6.getFullYear() + "-" + padZero(date6.getMonth() + 1) + "-" + padZero(date6.getDate()) +
               " " + padZero(date6.getHours()) + ":" + padZero(date6.getMinutes());
               CREATED_AT.innerText = formattedEndDate5;      
@@ -259,13 +263,11 @@ const student_pk = ${sessionStudentInfo.student_pk};
         	console.log(response.data);
         	const modalValues = response.data;
         	if (modalValues == "yes") {
-    		    console.log("결과: yes");
     		    const applyButton = document.getElementById("applyButton");
     		    applyButton.setAttribute("onclick", "studentApplyProcess("+e.INTERNSHIP_COURSE_PK+")");
     		} else {
     		    failModal();
     		    modal.hide();
-    		    console.log("결과: no");
     		}
      
         });
@@ -764,7 +766,7 @@ const student_pk = ${sessionStudentInfo.student_pk};
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<p>이미 신청한 내역이 있습니다.</p>
+					<p>이미 신청한 내역 혹은 지원서 확인 후 신청해주세요.</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"

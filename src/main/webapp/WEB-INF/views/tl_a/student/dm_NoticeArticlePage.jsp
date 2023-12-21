@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +26,9 @@
     </script>
 </head>
 <body>
+
+
+
     <jsp:include page="../commons/student/topNavi.jsp"></jsp:include>
     <div class="row">
         <div class="col">
@@ -51,29 +55,33 @@
                     </div>
                 </div>
                 <!-- 여기까지 -->
-                <div class="row">
-                	<div class="col-1 ">
-                		제목:
-                	</div>
+                <div class="row border-top border-dark border-2 mt-3 pt-3">
                 	<div class="col">
-                		${noticeInfo.title}
+                		<div class="row">
+                			<div class="col fs-5 fw-bold">
+                				${noticeInfo.title}
+                			</div>
+                		</div>
+                		<div class="row text-end pb-2">
+                			<div class="col">
+                				<fmt:formatDate value="${noticeInfo.created_at }" pattern="yyyy.MM.dd"/>
+                			</div>
+                		</div>
+                	
                 	</div>
                 </div>
-                <div class="row">
-                	<div class="col-1 ">
-                		내용:
-                	</div>
-                	<div class="col">
+                <div class="row border-bottom border-dark pb-4" style="border-top: 1px dotted;">
+                	<div class="col mt-4">
                 		${noticeInfo.content}
                 	</div>
                 </div>
                 <c:if test="${!empty staffSession}">
-                <div class="row my-5 pb-5">	
-			             <div class="col px-0 text-end">
-			                	<a href="./noticeDeleteProcess?dorm_notice_pk=${noticeInfo.dorm_notice_pk}">
-					               <button type="button" class="rounded-0 fw-bold btn btn-lg btn-danger text-white ms-1">삭제하기</button>
-					            </a>
-			             </div>                    
+                <div class="row mt-3 mb-5 pb-5">	
+	             <div class="col px-0 text-end">
+	                	<a href="./noticeDeleteProcess?dorm_notice_pk=${noticeInfo.dorm_notice_pk}">
+			               <button type="button" class="rounded-0 fw-bold btn btn-lg btn-danger text-white ms-1">삭제하기</button>
+			            </a>
+	             </div>                    
 			     </div>
                 </c:if>
             </div>

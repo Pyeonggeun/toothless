@@ -94,7 +94,7 @@
 			const likeSpan = noticeTitle.querySelector(".likeSpan");
 			likeSpan.innerText = "[" + "추천" + e.likeCount + "]";
 			const dislikeSpan = noticeTitle.querySelector(".dislikeSpan");
-			dislikeSpan.innerText = "[" + "비추" + e.disLikeCount + "]";
+			dislikeSpan.innerText = "[" + "비추천" + e.disLikeCount + "]";
 			
 			const noticeRead_Count = noticeListWrapper.querySelector(".noticeRead_Count");
 			noticeRead_Count.innerText = e.noticeBoardDto.read_count;
@@ -197,9 +197,6 @@
 								<div id=frm>
 									<div class="row mt-5">
 										<div class="col-4 mt-3">
-											<span>HOME &gt; </span>
-											<span>상담 지원 센터 &gt; </span>
-											<span>공지사항</span>
 										</div>
 										<div class="col-2">
 											<select id="searchType" name="searchType" class="form-select">

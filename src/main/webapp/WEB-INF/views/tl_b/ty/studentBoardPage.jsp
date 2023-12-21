@@ -26,6 +26,7 @@
             }
         </script>
     <body>
+		<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
 		<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
         <div class="container-fluid">
             <div class="row">
@@ -35,7 +36,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="row mt-5  ">
-                                                <div class="col fw-bold fs-2 text-center border-bottom border-4">보건진료소</div>
+                                                <div class="col fw-bold fs-2 text-center  ">보건진료소</div>
                                             </div>
                                             <form id="frm" action="./studentBoardPage" method="get">
                                             <div class="row mt-4">
@@ -81,11 +82,11 @@
                                                 	<div class="row mt-4">
                                                         <div class="col">
                                                             <div class="row ">
-                                                                <div class="col fw-bold fs-5 text-center" style="color:#015A9E">[ 인기 게시글 ]</div>
+                                                                <div class="col fw-bold fs-5 text-center" >[ 인기 게시글 ]</div>
                                                             </div>
                                                                 <div class="row mt-3">
                                                                     <div class="col text-center">
-                                                                        <div class="row border-2 border-bottom border-dark fw-bold">
+                                                                        <div class="row border border-3 text-center text-white" style="background-color: #133369";>
                                                                             <div class="col-3">인기글 순위</div>
                                                                             <div class="col-5">제목</div>
                                                                             <div class="col-2">작성자</div>
@@ -140,12 +141,12 @@
                                                         </div>
                                                     </div>
                                                     <div class="row mt-5">
-                                                   		<div class="col fw-bold fs-5 text-center" style="color:#015A9E">[ 공지사항 ]</div>
+                                                   		<div class="col fw-bold fs-5 text-center">[ 공지사항 ]</div>
                                                     </div>
 
                                                     <div class="row mt-2 my-3">
                                                         <div class="col fw-bold fs-5">
-                                                            <div class="row border-bottom border-dark border-3 text-center">
+                                                            <div class="row border border-3 text-center text-white" style="background-color: #133369";>
                                                                 <div class="col-1">글 번호</div>
                                                                 <div class="col-5">제목</div>
                                                                 <div class="col">작성자</div>
@@ -158,7 +159,7 @@
                                                     <c:forEach items="${noticeList }" var="notice">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="row border-bottom border-0 text-center">
+                                                            <div class="row border-bottom text-center">
                                                                 <div class="col-1">${notice.noticeboardDto.studentboard_pk }</div>
                                                                 <div class="col-5">
                                                                 	<a href="./studentAndStaffBoardReadPage?id=${notice.noticeboardDto.studentboard_pk }"
