@@ -16,7 +16,7 @@
 	}
 	
 	.studentleftmenubar label {
-	    display: block;    
+	    display: block;
 	    cursor: pointer;
 	    background: #0C2145;
 	    transition: ease .1s;

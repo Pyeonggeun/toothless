@@ -68,7 +68,9 @@
 		.then(response => {
 			
 			if(response.data === false){
+				
 				loadNullAlert();
+				
 			}else{
 				
 				const internshipCourseListBox = document.getElementById("internshipCourseListBox");

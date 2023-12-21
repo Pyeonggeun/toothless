@@ -62,8 +62,16 @@ public class ConsultingService {
 	
 	
 	//학생 구직희망신청 정보 입력
-	public void insertHopeJobApply(HopeJobDto par) {
+	public void insertHopeJobApply(HopeJobDto par, int[] job_field_pk) {
+		int hopeJobPk = consultingMapper.getHopeJobPk();
+		par.setHope_job_pk(hopeJobPk);
 		consultingMapper.insertHopeJobApply(par);
+		for(int e :job_field_pk) {
+			HopeJobCategoryDto hopeJobCategoryDto = new HopeJobCategoryDto();
+			hopeJobCategoryDto.setHope_job_pk(hopeJobPk);
+			hopeJobCategoryDto.setJob_field_category_pk(e);
+			consultingMapper.insertHopeJobCategory(hopeJobCategoryDto);
+		};
 	}
 	
 	
@@ -354,11 +362,20 @@ public class ConsultingService {
 		return temp;
 	}
 	
+	//카테고리 리스트 출력
+	public List<JobFieldCategoryDto> getHopeJobFieldCategoryListAll(){
+		//전체 채용분야 카테고리 뽑아오기
+		List<JobFieldCategoryDto> jobFieldCategoryDtoList = postingSqlMapper.selectJobFieldCategoryList();	
+		return jobFieldCategoryDtoList;
+	}
+	
+	
+	
 	
 	//교직원 온라인상담 답글입력
 	public void insertOnlineConsultingReply(OnlineConsultingReplyDto par) {
 		consultingMapper.insertOnlineConsultingReply(par);
-		alarmApi.sendAlarm(42, 4, "알람왔어요", "/toothless/tl_d/jm_consulting/hopeJobConsultingPage");
+		//alarmApi.sendAlarm(42, 4, "알람왔어요", "/toothless/tl_d/jm_consulting/hopeJobConsultingPage");
 	}
 	//구직관심 등록 및 등록 페이지 관련
 	//채용분야 카테고리 출력

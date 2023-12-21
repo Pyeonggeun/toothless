@@ -143,14 +143,14 @@ body {
 								<div class="col">
 									<div class="card border-black shadow mb-3" style="height:11em">
 										<div class="card-body text">
-											<h5 class="card-title fw-bold nolinenoblue">
+											<h6 class="card-title fw-bold nolinenoblue" style="font-size:1.1em">
 												<a href="ajdksInternshipDtl?
 											internship_course_pk=${map.AjdksInternshipCourseDto.internship_course_pk}
 											&company_pk=${map.AjdksInternshipCourseDto.company_pk}
 											&professor_pk=${map.AjdksInternshipCourseDto.professor_pk}
 											&department_pk=${map.AjdksInternshipCourseDto.department_pk}">
 													${map.AjdksInternshipCourseDto.course_title}</a>
-											</h5>
+											</h6>
 											<p class="card-text" style="font-size: 0.9em;">
 												선발결과 발표일 <br>
 												<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
