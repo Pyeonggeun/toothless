@@ -35,4 +35,6 @@ public interface SeoyoungApplyingSqlMapper {
 	public List<Map<String, Object>> searchCompanyName(
 			@Param("COMPANY_CATEGORY_PK") int COMPANY_CATEGORY_PK,
 			@Param("searchWord") String searchWord);
+	//자기소개서 확인
+	public String selectItroTF(int student_pk);
 }

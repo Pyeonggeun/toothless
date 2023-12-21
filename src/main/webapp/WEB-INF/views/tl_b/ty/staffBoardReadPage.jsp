@@ -59,7 +59,7 @@
                             <div class="col">
                                 <div class="row border-2 border-top  border-black">
                                     <div class="col fw-bold mt-2" style="font-size: 25px">
-                                        [보건 공지] &nbsp;
+                                        [공지] &nbsp;
                                         ${read.noticeboardDto.title }
                                     </div>
                                 </div>
@@ -74,15 +74,15 @@
                                      	<i class="bi bi-chat-dots"></i>${replyCount}
                                     </div>
                                 </div>
-                                <div class="row mt-5 pt-3">
-                                    <div class="col">
+                                <div class="row mb-5 mt-5 pt-3">
+                                    <div class="col" style="font-size: 18px";>
                                         ${read.noticeboardDto.content }
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="col text-center">
                                         <c:forEach items="${read.boardImageDtoList }" var="boardImageDto">
-                                            <img src="../../resources/img/healthRoom/TY/${boardImageDto.img_link }">
+                                            <img src="/uploadFiles/mainImage/${boardImageDto.img_link }">
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -122,10 +122,21 @@
                                     </div>
                                 </div>
                                 	
-                          		<div class="row mt-3">
-                          			<div class="col">
+                          		<div class="row text-end mt-3">
+                          			<div class="col-10"></div>
+                          			<div class="col  px-0">
                           				<a href="./staffBoardPage">
                           					<input class="btn btn-outline-primary" type="button" value="목록">
+                          				</a>
+                          			</div>
+                          			<div class="col px-0">
+                          				<a href="./noticeDeleteProcess?id=${read.noticeboardDto.studentboard_pk }">
+                          					<input class="btn btn-outline-primary" type="button" value="삭제">
+                          				</a>
+                          			</div>
+                          			<div class="col px-0">
+                          				<a href="./noticeUpdatePage?id=${read.noticeboardDto.studentboard_pk }">
+                          					<input class="btn btn-outline-primary" type="button" value="수정">
                           				</a>
                           			</div>
                           		</div>

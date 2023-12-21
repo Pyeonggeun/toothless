@@ -36,7 +36,7 @@
                                                 
                                             </div>
 
-                                            <form action="./eduProgRegisterProcess" method="get">
+                                            <form action="./updateEduProgProcess" method="get">
                                             
                                              <div class="row">
                                              	<div class="col"></div>
@@ -44,7 +44,7 @@
                                                 
                                                     
 
-                                                    
+                                                   
                     
                                                     <div class="form-group mt-4">
                                                         <label for="name" class="form-label">프로그램명</label>
@@ -108,10 +108,11 @@
                                                             <div class="form-group">
                                                                 <label for="place" class="form-label">장소</label>
                                                                 <input type="text" class="form-control" id="place" name="place"  value="${update.eduDto.place }" required>
+                                                                <input name="edu_pk" type="hidden" value="${update.eduDto.edu_pk }">
                                                             </div>
                                                         </div>
                                                     </div>
-                        
+                        								
                                                     <div class="row mt-5">
                                                         <div class="form-group">
                                                             <span>작성자</span>
@@ -120,7 +121,7 @@
                                                             <input type="text" class="form-control" id="title" name="title" placeholder="게시글 제 입력하세요" required> -->
                                                         </div>
                                                     </div>
-                    
+                    						
                                                     <div class="row my-5">
                                                     	
                                                         <div class="col-5"></div>

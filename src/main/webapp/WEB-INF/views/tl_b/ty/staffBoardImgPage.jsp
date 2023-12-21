@@ -41,7 +41,7 @@
                                 
                                 <div class="col">
                                 	<div class="row mt-5  ">
-                                        <div class="col fw-bold fs-2 text-center border-bottom border-4">보건진료소</div>
+                                        <div class="col fw-bold fs-2 text-center border-bottom border-2">보건진료소</div>
                                     </div>
                                     <div class="row px-5 mx-3 ">
                                         <div class="col">
@@ -84,7 +84,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row mx-3 mt-5  border border-3 ">
+                                            <div class="row mx-3 mt-5 ">
                                                 <div class="col">
                                                     
                                                     
@@ -111,7 +111,7 @@
 	                                                            <c:when test="${!empty board.noticeboardDto.img_link  }">
 	                                                            <div class="row mx-1 my-1 border border-black ">
 	                                                                <div class="col">
-	                                                                	<img class="img img-fluid" src="../../resources/img/healthRoom/TY/${board.noticeboardDto.img_link}"
+	                                                                	<img class="img img-fluid" src="/uploadFiles/mainImage/${board.noticeboardDto.img_link}"
 	                                                                	style="height: 150px; width: 180px;" >
 	                                                                </div>
 	                                                            </div>

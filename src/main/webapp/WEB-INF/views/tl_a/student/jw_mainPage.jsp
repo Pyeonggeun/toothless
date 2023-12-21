@@ -72,6 +72,8 @@
 	</style>
 	
 	<script>
+	
+	    
 
 	
 	    function changeColor(num) {
@@ -168,6 +170,8 @@
 		    			wrappertitle.innerText = e.title;
 		    			
 		    			const wrappertime = wrapper.querySelector(".wrapper-time");
+		    			
+		    			
 		    			// 시간 데이터 변경
 		    			const createDate = e.created_at;
 		    			const changeDate = new Date(createDate);
@@ -176,6 +180,7 @@
 		    			dateEnd += changeDate.getMonth() + 1;
 		    			dateEnd += ".";
 		    			dateEnd += changeDate.getDate();
+		    			wrappertime.innerText = dateEnd;
 		    			
 		    			
 		    			const wrapperlink = wrapper.querySelector(".wrapper-link");
@@ -207,6 +212,7 @@
 	    			dateEnd += changeDate.getMonth() + 1;
 	    			dateEnd += ".";
 	    			dateEnd += changeDate.getDate();
+	    			wrappertime.innerText = dateEnd;
 	    			
 	    			
 	    			const wrapperlink = wrapper.querySelector(".wrapper-link");

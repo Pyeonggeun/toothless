@@ -96,8 +96,13 @@ public class StudentBoardController {
 		likeDto.setStudentboard_pk(id);
 		
 		StudentInfoDto sessionStudentInfo =(StudentInfoDto) session.getAttribute("sessionStudentInfo");
-		int studentPk = sessionStudentInfo.getStudent_pk();
-		likeDto.setStudent_pk(studentPk);
+		if(sessionStudentInfo != null) {
+			int studentPk = sessionStudentInfo.getStudent_pk();
+			likeDto.setStudent_pk(studentPk);
+		}
+			
+		
+		
 		
 		int replyCount = staffBoardService.replyCount(id);
 		model.addAttribute("replyCount",replyCount);

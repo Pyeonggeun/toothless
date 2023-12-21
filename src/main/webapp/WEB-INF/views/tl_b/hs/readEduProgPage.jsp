@@ -33,7 +33,7 @@
                                             <div class="row border-bottom ">
                                                 <div class="col-3 align-self-center my-3">
                                                     <img class="img img-fluid"
-                                                    src="../../resources/img/healthRoom/edu/${qwer.eduDto.img_link }"
+                                                    src="/uploadFiles/eduImage/${qwer.eduDto.img_link }"
                                                     style="max-height: 350px; width: 290px;" >
                                                 </div>
                                                 <div class="col px-0 mt-3">
@@ -149,7 +149,7 @@
                                                                     *신청방법<br> 
                                                                     MK대학교 보건센터 > 교육프로그램 > 수강신청 <br>
                  													(전화접수는 12.31일부터 가능)<br>
-                                                                    *강사 이 <br>
+                                                                    *강사 한고은 <br>
                                                                     <br>
                                                                     상세교육 내용<br>
                                                                     <span class="fw-normal" style="font-size: 0.9em;">${qwer.eduDto.content }</span>
@@ -160,7 +160,7 @@
                                                             <div class="row mt-4"> 
                                                                 <div class="col">
                                                                     <img class="img img-fluid"
-                                                                    src="../../resources/img/healthRoom/edu/${qwer.eduDto.img_link }"
+                                                                    src="/uploadFiles/eduImage/${qwer.eduDto.img_link }"
                                                                     style="max-height: 800px;">
                                                                 </div>
                                                             </div>

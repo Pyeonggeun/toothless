@@ -21,6 +21,17 @@
 		</style>
 
         <script>
+            function getStaffInfo(){
+                const url = "./getStaffInfo"
+
+                fetch(url)
+                .then(response => response.json())
+                .then(response => {
+                    const staff_pk = response.data.staff_pk;
+                    const staffPk = document.getElementById("staffPk");
+                    staffPk.setAttribute("value",""+staff_pk+"");
+                })
+            }
 
             function addInfoSubmit(){
 
@@ -37,7 +48,12 @@
                     alert("수량을 입력해주세요.");
                     addQuantity.focus();
                     return;
+                }else if(addQuantity.value > 10 || addQuantity.value <= 0){
+                    alert("정확한 수량을 입력해주세요.");
+                    addQuantity.focus();
+                    return;
                 }
+
                 const maxDate = document.querySelector("#maxDate");
                 if(!maxDate.value){
                     alert("정확한 입고일을 입력해주세요.");
@@ -277,35 +293,6 @@
                         const date = new Date(e.ADD_AT);
                         addDate.innerHTML = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
 
-                        //모달 부분
-                        // const showAddModal = addWrapper.querySelector(".showAddModal");
-                        // showAddModal.innerHTML = "";
-                        // const addApplybutton = document.querySelector("#templete #addApplybutton").cloneNode(true);
-                        // addApplybutton.setAttribute("data-bs-target","#"+e.MEDICINE_NAME+"");
-                        // addApplybutton.setAttribute("onclick","reloadAddMedicineInfo()")
-                        // const modalWrapper = document.querySelector(".modalWrapper").cloneNode(true);
-                        // modalWrapper.setAttribute("id",""+e.MEDICINE_NAME+"");
-                        
-                        // const modalBody = modalWrapper.querySelector(".modal-body");
-                        // modalBody.innerText = "";
-                        // // const addMedicineName = document.querySelector("#addMedicineName");
-                        // // addMedicineName.innerText = "";
-                        // // addMedicineName.innerText = e.medicineInfo.name;
-                        // showAddModal.appendChild(addApplybutton);
-                        // showAddModal.appendChild(modalWrapper);
-
-                        // //신청양식 불러오기
-                        // const addApplyForm = document.querySelector("#addApplyForm").cloneNode(true);
-                        // modalBody.appendChild(addApplyForm);
-
-                        // const addMedicineInfo = addApplyForm.querySelector("#addMedicineInfo");
-                        
-                        
-
-
-
-
-
                         allAddInfoLocation.appendChild(addWrapper)
 
                     }
@@ -322,6 +309,7 @@
                 // reloadAddinfo();
                 orderDate(1);
                 // reloadAddMedicineInfo();
+                getStaffInfo();
                 reloadCheckBoxName();
                 const maxToday = getToday(); // 오늘 날짜를 가져옴
                 document.getElementById('maxDate').setAttribute('max', maxToday); // max 속성을 동적으로 설정
@@ -428,6 +416,7 @@
                                                                                         <input type="button" class="btn btn-secondary customColor" onclick="addInfoSubmit()" value="입고하기">
                                                                                     </div>
                                                                                 </div>
+                                                                                <input id="staffPk" type="hidden" name="staff_pk" >
                                                                                 </form>
                                                                             </div>
                                                                         </div>

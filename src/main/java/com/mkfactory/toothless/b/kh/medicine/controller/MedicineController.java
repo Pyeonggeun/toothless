@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import com.mkfactory.toothless.b.dto.MedicineCodeDto;
 import com.mkfactory.toothless.b.dto.MedicineInventoryDto;
 import com.mkfactory.toothless.b.dto.MedicineMgmtCatDto;
 import com.mkfactory.toothless.b.kh.medicine.service.MedicineServiceImpl;
+import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 
 @Controller
 @RequestMapping("/tl_b/kh/*")
@@ -26,7 +30,7 @@ public class MedicineController {
 	
 	// 의약품 코드 등록 페이지
 	@RequestMapping("codeRegistPage")
-	public String codeRegistPage(Model model) {
+	public String codeRegistPage(HttpSession session, Model model) {
 		
 		List<Map<String, Object>> MedicineList = medicineService.getAllMedicineInfoAndCatName();
 		
@@ -52,7 +56,7 @@ public class MedicineController {
 	}
 	// 의약품 입고 페이지
 	@RequestMapping("medicineAdd")
-	public String medicineAdd(Model model) {
+	public String medicineAdd(HttpSession session, Model model) {
 		
 		//입고 등록용 정보
 		model.addAttribute("medicineInfo",medicineService.getAllMedicineInfo());
@@ -74,7 +78,6 @@ public class MedicineController {
 //		}
 
 //		
-		
 		
 		return "tl_b/kh/medicineAdd";
 	}
@@ -110,7 +113,7 @@ public class MedicineController {
 	
 	// 의약품 재고 관리 페이지
 	@RequestMapping("medicineInventory")
-	public String medicineInventory(
+	public String medicineInventory(HttpSession session,
 			@RequestParam(required = false, defaultValue = "0")int medicine_code_pk,
 			Model model) {
 		

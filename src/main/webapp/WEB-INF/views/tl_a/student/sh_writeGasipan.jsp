@@ -61,7 +61,7 @@
 				<div class="row my-2">
 					<div class="col-10"></div>
 					<div class="col-2 d-grid">
-						<input type="submit" class="btn" style="background-color:#504528; color:#FFFFFF;"value="글 작성">
+						<input type="submit" class="btn rounded-0" style="background-color:#504528; color:#FFFFFF;"value="글 작성">
 					</div>
 				</div>
 			</div>

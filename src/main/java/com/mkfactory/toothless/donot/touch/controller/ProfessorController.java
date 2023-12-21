@@ -36,7 +36,7 @@ public class ProfessorController {
 			
 		session.setAttribute("sessionProfessorInfo", professorInfo);
 		
-		return "redirect: ./mainPage";
+		return "redirect: /toothless/tl_c/eunbi/professor/internshipMainPage";
 		
 		
 	}
