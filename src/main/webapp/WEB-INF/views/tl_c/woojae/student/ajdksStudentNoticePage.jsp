@@ -200,56 +200,7 @@
 			  </div>
 			</div>
 		</div>
-		<div class="row bg-dark-subtle mt-5">
-			<div class="col">
-			</div>
-			<div class="col-10 fw-bold fs-6">
-				<div class="row py-3">
-					<div class="col text-center">
-						대학 발전 기금&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;개인정보처리방침&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;
-						개인정보공시&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;구매입찰&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;
-						예산공고&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;결산공고&nbsp;&nbsp;&nbsp:&nbsp;&nbsp;&nbsp;
-						대학자체평가&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;
-						정보공개&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;대학정보공시&nbsp;&nbsp;&nbsp;
-						:&nbsp;&nbsp;&nbsp;운영지원센터&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;사이트맵
-					</div>
-				</div>
-				<div class="row">
-					<div class="col border border-light"></div>
-				</div>
-				<div class="row mt-3 py-3">
-					<div class="col-1"></div>
-					<div class="col-2">
-						<img class="img-fluid" src="../../../resources/img/another/logo_black.png" style="width: 80px;">
-						<span class="fw-bold fs-5">MK University</span>
-					</div>
-					<div class="col">
-						강남캠퍼스 : 서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층 TEL.02-000-5504 <br>
-						용인캠퍼스 : 경기도 용인시 뒷골마을 191 TEL.031-111-2222<br>
-						© 2023 MK University. All Rights Reserved
-					</div>
-					<div class="col-3">
-						<div class="row">
-							<div class="col">
-								<button type="button" class="btn btn-outline-dark">주요기관 바로가기</button> <br>
-							</div>
-							<div class="col">
-								<button type="button" class="btn btn-outline-dark">제단 바로가기</button> <br>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-			</div>
-			<div class="col"></div>
-		</div>			
-		
-		
-		
-		
-		
-		
-		
+		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 		
 		
 		

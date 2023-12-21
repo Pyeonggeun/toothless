@@ -107,7 +107,7 @@ public class LifeStudentServiceImpl {
 					lifeStudentSqlMapper.getExceptAttendanceAndAbsentCountByLectureStudentKey(lectureStudentKey),
 					lifeStudentSqlMapper.getAttendanceCountByLectureStudentKey(lectureStudentKey)));
 			
-			int testResult = lifeStudentSqlMapper.getAvgTestScoreByOpenLectureKey(openLectureKey);
+			int testResult = lifeStudentSqlMapper.getAvgTestScoreByOpenLectureKey(lectureStudentKey, openLectureKey);
 			
 			if(lectureInfoDto.getEssential_attendance() > attendanceResult || lectureInfoDto.getEssential_grade() > testResult) {
 				
@@ -236,7 +236,7 @@ public class LifeStudentServiceImpl {
 					lifeStudentSqlMapper.getExceptAttendanceAndAbsentCountByLectureStudentKey(lecture_student_key),
 					lifeStudentSqlMapper.getAttendanceCountByLectureStudentKey(lecture_student_key)));
 			
-			int testResult = lifeStudentSqlMapper.getAvgTestScoreByOpenLectureKey(e);
+			int testResult = lifeStudentSqlMapper.getAvgTestScoreByOpenLectureKey(lecture_student_key, e);
 			
 			if(lectureInfoDto.getEssential_attendance() <= attendanceResult && lectureInfoDto.getEssential_grade() <= testResult) {
 				
@@ -279,7 +279,7 @@ public class LifeStudentServiceImpl {
 		double attendanceResult = Double.parseDouble(clac.attendanceClac(totalAttendance, exceptAttendance, attendance));
 		double attendanceScore = Double.parseDouble(clac.attendanceScore(totalAttendance, exceptAttendance, absent));
 		
-		int testResult = lifeStudentSqlMapper.getAvgTestScoreByOpenLectureKey(open_lecture_key);
+		int testResult = lifeStudentSqlMapper.getAvgTestScoreByOpenLectureKey(lecture_student_key, open_lecture_key);
 		
 		if(lectureInfoDto.getEssential_attendance() <= attendanceResult && lectureInfoDto.getEssential_grade() <= testResult) {
 			
@@ -296,7 +296,7 @@ public class LifeStudentServiceImpl {
 			boolean isCompleteTest = lifeStudentSqlMapper.isCompleteTest(lectureTestDto.getLecture_test_key()) > 0 ? true : false;
 			
 			testMap.put("lectureTestInfo", lectureTestDto);
-			testMap.put("testScore", lifeStudentSqlMapper.getStudentTestScoreByLectureTestKey(lectureTestDto.getLecture_test_key()));
+			testMap.put("testScore", lifeStudentSqlMapper.getStudentTestScoreByLectureTestKeyAndLectureStudentKey(lectureTestDto.getLecture_test_key(), lecture_student_key));
 			testMap.put("isCompleteTest", isCompleteTest);
 			
 			testList.add(testMap);
@@ -410,7 +410,7 @@ public class LifeStudentServiceImpl {
 					lifeStudentSqlMapper.getExceptAttendanceAndAbsentCountByLectureStudentKey(lecture_student_key),
 					lifeStudentSqlMapper.getAttendanceCountByLectureStudentKey(lecture_student_key)));
 			
-			int testResult = lifeStudentSqlMapper.getAvgTestScoreByOpenLectureKey(openLectureDto.getOpen_lecture_key());
+			int testResult = lifeStudentSqlMapper.getAvgTestScoreByOpenLectureKey(lecture_student_key, openLectureDto.getOpen_lecture_key());
 			
 			if(lectureInfoDto.getEssential_attendance() <= attendanceResult && lectureInfoDto.getEssential_grade() <= testResult) {
 				
