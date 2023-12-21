@@ -18,7 +18,7 @@
             <div class="col">
                 <div class="row">
                     <div class="col text-end">
-                        <a href="../../tl_b/common/studentMainPage" style="font-size: 0.8em; opacity: 70%; text-decoration-line : none; color: black;"><span>HOME</span></a>&nbsp;<span style="opacity: 70%;">></span>&nbsp;<a href="./informationForumPageOne" style="font-size: 0.8em; opacity: 70%; text-decoration-line : none; color: black;"><span>정보마당</span></a>&nbsp;<span style="opacity: 70%;">></span>&nbsp;<span class="fw-bold" style="font-size: 0.8em;">비만과 체중조절</span>                   
+                        <span style="font-size: 0.8em; opacity: 70%;">HOME</span>&nbsp;<span style="opacity: 70%;">></span>&nbsp;<span style="font-size: 0.8em; opacity: 70%;">정보마당</span>&nbsp;<span style="opacity: 70%;">></span>&nbsp;<span class="fw-bold" style="font-size: 0.8em;">비만과 체중조절</span>                   
                     </div>
                 </div>
                 <div class="row mt-5">
