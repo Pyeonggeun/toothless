@@ -55,9 +55,10 @@ public interface LifeLecturerSqlMapper {
 	public int selectLateStudentCount(int attendance_book_key);
 	public int selectAbsenceStudentCount(int attendance_book_key);
 	
-	public int selectLectureStudentLateCount(int lecture_student_key);
-	public int selectLectureStudentAbsenceCount(int lecture_student_key);
-	
+	public int selectLectureStudentLateCount(@Param("lecture_student_key") int lecture_student_key
+											,@Param("open_lecture_key") int open_lecture_key);
+	public int selectLectureStudentAbsenceCount(@Param("lecture_student_key")int lecture_student_key
+												,@Param("open_lecture_key")int open_lecture_key);
 	public ExternalInfoDto selectLifeStudentExternalId(int external_pk);
 	
 	public String selectOpenLectureCategoryName(int lecture_category_key);
@@ -80,8 +81,8 @@ public interface LifeLecturerSqlMapper {
 	public int selectTestingStatus(@Param("life_student_key") int life_student_key,
 									@Param("lecture_test_key") int lecture_test_key);
 	
-	public List<TestResultDto> selectStudentTestResultList(int life_student_key);
-	
+	public List<TestResultDto> selectStudentTestResultList(@Param("life_student_key") int life_student_key,
+															@Param("lecture_test_key") int lecture_test_key);
 	public QuestionChoiceDto selectQuestionChoiceDto(int question_choice_key);
 	
 	public int selectAnswerTestPoint(int test_question_key);
@@ -93,15 +94,22 @@ public interface LifeLecturerSqlMapper {
 	
 	public List<AttendanceStatusDto> selectAttendanceDtoList(int open_lecture_key);
 	
-	public int selectStudentLateCount(int lecture_student_key);
-	public int selectStudentAbsenceCount(int lecture_student_key);
 	
 	public int selectStudentTestScoreAvg(@Param("open_lecture_key") int open_lecture_key,
-													@Param("lecture_student_key") int lecture_student_key);
+											@Param("lecture_student_key") int lecture_student_key);
 	
 	public int selectStudentTestingCount(@Param("open_lecture_key") int open_lecture_key,
 										@Param("lecture_student_key") int lecture_student_key);
 	
 	public void insertNotificationDto(NotificationDto notificationDto);
+	
+	public List<TestQuestionDto> selectTestQuestionList(int lecture_test_key);
+
+	public List<QuestionChoiceDto> selectChoiceList(int test_question_key);
+	public TestResultDto selectStudetnResultDtoForChoice(@Param("question_choice_key") int question_choice_key,
+														@Param("lecture_student_key") int lecture_student_key);
+
+	public int selectLecutreKeyByLifeStudentKeyAndLectureTestKey(@Param("lecture_test_key") int lecture_test_key,
+																@Param("life_student_key") int life_student_key);
 	
 }

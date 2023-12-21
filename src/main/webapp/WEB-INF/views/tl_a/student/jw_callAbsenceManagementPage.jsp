@@ -142,12 +142,12 @@
                 </div>
                 <div class="row"><!--여기가 안에 들어갈 내용들-->
                     <div class="col">
-                    	<div class="row my-2">
-                    		<div class="col-2 py-3 fw-bold" style="font-size: 1.1rem;">
-                    			<span>이름</span>
+                    	<div class="row my-2 justify-content-end">
+                    		<div class="col-2 py-3 fw-bold ">
+                    			<span>담당임원</span>
                     		</div>
                     		<div class="col py-3 text-start" style="font-size: 1.0rem;">
-                    			${sessionStudentInfo.name}
+                    			${sessionStudentInfo.name} <i class="bi bi-person-circle"> </i>
                     		</div>
                     	</div>
                         <div class="row my-3">
@@ -179,13 +179,34 @@
 	                        	<div class="absenceSpace col-2"></div>
 	                        </div>
                         </div>
+                        
+                        
                     </div>
+                    
+                    
+                    
+                    
             	</div>
               </div>
                 <!-- 공고 끝 -->
             </div>
         </div>
         
+        <pre>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        </pre>
 
 <!-- 하단 footer -->
 <jsp:include page="../commons/student/footer.jsp"></jsp:include>

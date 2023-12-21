@@ -20,205 +20,42 @@
 		
 	</style>
 
+	<script>
+	
+	function showModal(){
+		
+		const writeModal = bootstrap.Modal.getOrCreateInstance("#writeModal");
+		
+		writeModal.show();
+		
+	}	
+	
+	</script>
+
+
+
+
 
 </head>
 <body>
 
+<jsp:include page="../../commons/staffTopArea.jsp"></jsp:include>
+
+
+
 <div class="container-fluid">
 
 
-	<div class="row pb-3 border-bottom border-dark-subtle">
-		<div class="col-2 pt-3">
-			<div class="row">
-				<div class="col-3 pe-0 me-0">
-					<img class="img-fluid" style="width: 60px; height: 60px; color:blue;" src="../../../resources/img/groupCounsel/logo_black.png">
-				</div>
-				<div class="col">
-					<div class="row" style="height: 0.55em;"></div>
-					<div class="row">
-						<div class="col ps-0 ms-0">
-							<div class="fw-bold" style="font-size: 1.7em;"> Mk University</div>						
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col">
-			<div class="row">
-				<div class="col"></div>
-				<div class="col-2">
-					<div class="row" style="height: 1.4em;"></div>
-					<div class="row">
-						<div class="col-6 pt-2 text-center">
-							<div class="fw-bold" style="font-size: 1.2em;">[${sessionStaffInfo.name}]님</div>
-						</div>
-						<div class="col-6 pt-1">
-							<i class="bi bi-box-arrow-right" style="font-size:1.6em;"></i>						
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>	
-	</div>
 	
 
 	
 	<div class="row">
 		
-		<!-- 카테고리 -->
-		<div class="col-2 border-end border-dark-subtle">
-			<div class="row">
-				<div class="col-1"></div>
-				<div class="col border-bottom border-0 border-secondary-subtle">
-					<div class="row">
-						<div class="col pt-4 pb-3">
-							<div class="fw-bold text-black" style="font-size:2em;">상담 관리</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col pb-3">
-							<div class="text-secondary fw-bold" style="font-size:1em;">온라인 상담</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col pb-3">
-							<div class="text-secondary fw-bold" style="font-size:1em;">오프라인 상담</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col pb-4">
-							<a href="./groupCounselListPage" style="text-decoration: none;"><div class="text-secondary fw-bold" style="font-size:1em;">집단 상담</div></a>
-						</div>
-					</div>
-				</div>
-				<div class="col-1"></div>
-			</div>
-
-			<div class="row">
-				<div class="col-1"></div>
-				<div class="col border-bottom border-0 border-secondary-subtle">
-					<div class="row">
-						<div class="col pt-4 pb-3">
-							<div class="fw-bold text-black" style="font-size:2em;">상담원 관리</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col pb-3">
-							<div class="text-secondary fw-bold" style="font-size:1em;">상담원 등록</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col pb-4">
-							<div class="text-secondary fw-bold" style="font-size:1em;">상담원 조회</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-1"></div>
-			</div>
-
-			<div class="row">
-				<div class="col-1"></div>
-				<div class="col border-bottom border-0 border-secondary-subtle">
-					<div class="row">
-						<div class="col pt-4 pb-3">
-							<div class="text-secondary fw-bold" style="font-size:1em;">공지사항</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col pb-3">
-							<div class="text-secondary fw-bold" style="font-size:1em;">문의사항</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col text-center pt-2 pb-0">
-							<div class="fw-bold text-black" style="font-size:1.5em;">
-								1544-7942
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col text-center pb-4">
-							<div class=" text-secondary" style="font-size:0.8em;">
-								평일 9~18시(점심 12~13시)
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-1"></div>
-			</div>
-			
-			<div class="row">
-				<div class="col-1"></div>
-				<div class="col">
-					<div class="row">
-						<div class="col pt-5 mt-2 text-center">
-							<div class="text-secondary" style="font-size:0.8em;">농협 302-1054-7722-11</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col text-center">
-							<div class="text-secondary" style="font-size:0.8em;">(주)중앙정보처리학원</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col text-center">
-							<div class="text-secondary" style="font-size:0.8em;">rjal3054@naver.com</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col pb-4 text-center">
-							<div class="text-secondary" style="font-size:0.8em;">TEL) 010-4097-3054</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-1"></div>
-			</div>
-		</div>		
-		
-		
 		<!-- 내용 -->
 		<div class="col">
-		
+
 				
-			<div class="row mb-0 pb-0">
-				<div class="col ps-0 ms-0 pb-0 mb-1">
-					<div class="row pt-3 ms-0 ps-0">
-						<div class="col">
-							<div class="row">
-								<div class="col-11"></div>
-								<div class="col"></div>
-							</div>
-						</div>
-						<div class="col-10"></div>
-					</div>				
-					<div class="row ms-0 ps-0">
-						<div class="col ms-0 ps-3 pt-2">
-							<div class="fw-bold" style="font-size: 3.5em; color:#07355e;">집단 상담</div>
-						</div>
-						<div class="col-9"></div>
-					</div>
-					<div class="row ms-0 ps-0">
-						<div class="col ms-0 ps-3 pt-2 pb-2">
-							<div class="fw-bold" style="font-size: 0.8em; color:#07355e;">&nbsp;&nbsp;<i class="bi bi-house-door-fill"></i> / 집단 상담 / 상담 관리</div>
-						</div>
-						<div class="col-10"></div>
-					</div>
-					<div class="row pb-4 ms-4 ps-0">
-						<div class="col">
-							<div class="row">
-								<div class="col border-top border-4 border-secondary"></div>
-							</div>
-						</div>
-						<div class="col-10"></div>					
-					</div>
-				</div>	
-			</div>					
-		
-				
-			<div class="row my-0">
-				<div class="col my-0 py-4"></div>
-			</div>
-			
+			<div class="row" style="height:8em;"></div>
 			
 			<div class="row mt-0 pt-0">
 					
@@ -293,7 +130,7 @@
 							<div class="row pt-3">
 								<div class="col"></div>
 								<div class="col-2 text-end">
-									<a href="./groupCounselRegisterPage"><i class="bi bi-plus-square" style="font-size:1.6em; color:black;"></i></a>
+									<a onclick="showModal()"><i class="bi bi-plus-square" style="font-size:1.6em; color:black;"></i></a>
 								</div>
 							</div>
 						
@@ -306,15 +143,147 @@
 	</div>
 	
 	
+	<div class="row" style="height:8em;"></div>
+	<div class="row">
+		<div class="col text-center fw-bold">
+			<hr>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col"></div>
+		<div class="col">
+			<div class="row">
+				<div class="col" style="font-size: 0.7em; font-weight: bold; text-align: center;">
+					서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) /
+				</div>
+			</div>
+			<div class="row">
+				<div class="col" style="font-size: 0.7em; font-weight: bold; text-align: center;">
+					TEL:010-4761-2103 / E-MAIL:se001lec@naver.com
+				</div>
+			</div>
+			<div class="row">
+				<div class="col" style="font-size: 0.7em; font-weight: bold; text-align: center;">
+					COPYRIGHT© 2023 MINKUE UNIVERSITY ALL RIGHTS RESERVED.
+				</div>
+			</div>
+		</div>
+		<div class="col mt-2" style="text-align: left;">
+			<i class="bi bi-twitter"></i>
+			<i class="bi bi-facebook"></i>
+			<i class="bi bi-instagram"></i>
+		</div>
+	</div>	
 	
 	
-	
-	
-	
-	
-	
-	<div class="row" style="height:10em;"></div>
 </div>
+
+
+
+<div id="writeModal" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+            <div class="modal-title fw-bold" style="font-size:2em;">집단 상담 등록</div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            	<form action="./groupCounselRegisterProcess" method="post" enctype="multipart/form-data">
+				<div class="row mt-5">
+					<div class="col border-top border-black border-2">
+						<div class="row my-3">
+							<div class="col-2 text-center">
+								<div class="fw-bold" style="font-size: 1.0em;">제목</div>
+							</div>
+							<div class="col">
+								<input type="text" name="title" class="form-control">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-2 text-center">
+								<div class="fw-bold" style="font-size: 1.0em;">내용</div>
+							</div>
+							<div class="col">
+								<textarea class="form-control" name="text" style="width:100%; height: 300px;"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 신청인원, 일시, 장소, 신청 시작일, 신청 종료일 -->
+				<div class="row">
+					<div class="col border-top border-black border-2">
+						<div class="row my-3">
+							<div class="col-2 text-center">
+								<div class="fw-bold" style="font-size: 1.0em;">상담 인원</div>
+							</div>
+							<div class="col">
+								<input type="number" name="amount" class="form-control">
+							</div>
+							<div class="col-2 text-center">
+								<div class="fw-bold" style="font-size: 1.0em;">상담 일시</div>
+							</div>
+							<div class="col">
+								<input type="date" name="counsel_date" class="form-control">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-2 text-center">
+								<div class="fw-bold" style="font-size: 1.0em;">장소</div>
+							</div>
+							<div class="col">
+								<input type="text" name="location" class="form-control">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-2 text-center">
+								<div class="fw-bold" style="font-size: 1.0em;">신청 시작 일자</div>
+							</div>
+							<div class="col">
+								<input type="date" name="start_apply_date" class="form-control">
+							</div>
+							<div class="col-2 text-center">
+								<div class="fw-bold" style="font-size: 1.0em;">신청 종료 일자</div>
+							</div>
+							<div class="col">
+								<input type="date" name="end_apply_date" class="form-control">
+							</div>								
+						</div>
+					</div>
+				</div>
+				<!-- 이미지 추가 -->
+				<div class="row">
+					<div class="col border-top border-black border-2">
+						<div class="row my-3">
+							<div class="col-2 text-center">
+								<div class="fw-bold" style="font-size: 1.0em;">이미지 등록</div>
+							</div>
+							<div class="col">
+								<input type="file" name="mainImageFile" class="form-control" accept="image/*">
+							</div>
+
+						</div>
+					</div>						
+				</div>
+				
+				<!-- 등록 버튼 -->
+				<div class="row mt-5">
+					<div class="col-10"></div>
+					<div class="col">
+						<input type="submit" class="form-control btn btn-secondary" value="등록">						
+					</div>
+				</div>  
+				</form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
 
 
 

@@ -18,6 +18,7 @@ import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.ImpossibleDateDto;
 import com.mkfactory.toothless.e.dto.OfflineReservationDto;
 import com.mkfactory.toothless.e.dto.OfflineSurveyDto;
+import com.mkfactory.toothless.e.dto.TypeCategoryDto;
 import com.mkfactory.toothless.e.offlinecounsel.service.OfflineCounselServiceImpl;
 
 @Controller
@@ -36,54 +37,79 @@ public class OfflineCounselController {
 		return "tl_e/offlineCounsel/selectCounselorPage";
 	}
 	
-	@RequestMapping("counselReservationPage")
-	public String counselReservationPage(Model model,
- 			@RequestParam(value = "type_category_id") int type_category_id, 
-			@RequestParam(value = "counselor_id") int counselor_id) {
+	
+//	@RequestMapping("counselReservationPage")
+//	public String counselReservationPage(Model model,
+// 			@RequestParam(value = "type_category_id") int type_category_id, 
+//			@RequestParam(value = "counselor_id") int counselor_id) {
+//		
+//		CounselorDto counselorDto = offlineCounselService.getCounselorInfo(counselor_id);
+//		model.addAttribute("counselorDto", counselorDto);
+//		model.addAttribute("type_category_id", type_category_id);
+//		
+//		List<Map<String, Object>> sevenDaysList = offlineCounselService.sevenDaysDateExtraction(counselor_id);
+//		model.addAttribute("sevenDaysList", sevenDaysList);
+//		
+//		return "tl_e/offlineCounsel/counselReservationPage";
+//	}
+	
+	
+//	@RequestMapping("counselReservationProcess")
+//	public String counselReservationProcess(
+//			Model model,
+//			HttpSession session,
+//			OfflineReservationDto params, 
+//			String reservationDate) {
+//		
+//		int offlineReservationPk = offlineCounselService.getOfflineReservationPk();
+//		params.setId(offlineReservationPk);
+//		
+//		int count = 0;
+//		List<Map<String, Object>> list = offlineCounselService.getDateReservationList();
+//		
+//		for(Map<String, Object> mapValue : list) {
+//			
+//			String value = (String)mapValue.get("DATE_VALUE");
+//			
+//			if(value.equals(reservationDate)) {
+//				count++;
+//			}
+//		}
+//		
+//		System.out.println("recount: "+count);
+//		if(count > 0) {
+//			return "tl_e/offlineCounsel/counselReservationImpossiblePage";
+//		}else {
+//			Map<String, Object> map = offlineCounselService.insertOfflineReservationInfo(params, reservationDate);
+//			model.addAttribute("map", map);
+//			
+//			return "tl_e/offlineCounsel/counselReservationCompletedPage";
+//		}
+//
+//	}
+	
+	@RequestMapping("counselReservationCompletedPage")
+	public String counselReservationCompletedPage(
+			Model model, 
+			String categoryName,
+			String counselorName,
+			int year,
+			int month,
+			int date,
+			String day,
+			int hour) {
 		
-		CounselorDto counselorDto = offlineCounselService.getCounselorInfo(counselor_id);
-		model.addAttribute("counselorDto", counselorDto);
-		model.addAttribute("type_category_id", type_category_id);
+		model.addAttribute("categoryName", categoryName);
+		model.addAttribute("counselorName", counselorName);
+		model.addAttribute("year", year);
+		model.addAttribute("month", month);
+		model.addAttribute("date", date);
+		model.addAttribute("day", day);
+		model.addAttribute("hour", hour);
 		
-		List<Map<String, Object>> sevenDaysList = offlineCounselService.sevenDaysDateExtraction(counselor_id);
-		model.addAttribute("sevenDaysList", sevenDaysList);
-		
-		return "tl_e/offlineCounsel/counselReservationPage";
+		return "tl_e/offlineCounsel/counselReservationCompletedPage";
 	}
 	
-	@RequestMapping("counselReservationProcess")
-	public String counselReservationProcess(
-			Model model,
-			HttpSession session,
-			OfflineReservationDto params, 
-			String reservationDate) {
-		
-		int offlineReservationPk = offlineCounselService.getOfflineReservationPk();
-		params.setId(offlineReservationPk);
-		
-		int count = 0;
-		List<Map<String, Object>> list = offlineCounselService.getDateReservationList();
-		
-		for(Map<String, Object> mapValue : list) {
-			
-			String value = (String)mapValue.get("DATE_VALUE");
-			
-			if(value.equals(reservationDate)) {
-				count++;
-			}
-		}
-		
-		System.out.println("recount: "+count);
-		if(count > 0) {
-			return "tl_e/offlineCounsel/counselReservationImpossiblePage";
-		}else {
-			Map<String, Object> map = offlineCounselService.insertOfflineReservationInfo(params, reservationDate);
-			model.addAttribute("map", map);
-			
-			return "tl_e/offlineCounsel/counselReservationCompletedPage";
-		}
-
-	}
 	
 	@RequestMapping("offlineCounselReservationCheckPage")
 	public String offlineCounselReservationCheckPage(HttpSession session, Model model) {
@@ -217,8 +243,14 @@ public class OfflineCounselController {
 	}
 	
 	@RequestMapping("offlineCounselCalendarReservation")
-	public String offlineCounselCalendarReservation() {
+	public String offlineCounselCalendarReservation(Model model,
+ 			@RequestParam(value = "type_category_id") int type_category_id, 
+			@RequestParam(value = "counselor_id") int counselor_id) {
 		
+		CounselorDto counselorDto = offlineCounselService.getCounselorInfo(counselor_id);
+		model.addAttribute("counselorDto", counselorDto);
+		model.addAttribute("categoryId", type_category_id);
+		model.addAttribute("counselorId", counselor_id);
 		
 		return "tl_e/offlineCounsel/offlineCounselCalendarReservation";
 	}

@@ -79,7 +79,7 @@
                     </div>
                     <div class="row">
                         <div class="col-1"></div>
-                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='../../tl_c/guntaek/student/ajdksRegisterSelfIntroduction'" class="col border border-2 mx-1" style="cursor: pointer;">
+                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='/toothless/tl_c/guntaek/student/ajdksRegisterSelfIntroduction'" class="col border border-2 mx-1" style="cursor: pointer;">
                             <div class="row">
                                 <div class="col-3 align-self-center text-center mt-4 fs-2">
                                     <i class="bi bi-person-workspace"></i>
@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='../../tl_d/common/employmentMainPage'" class="col border border-2 mx-1" style="cursor: pointer;">
+                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='/toothless/tl_d/common/employmentMainPage'" class="col border border-2 mx-1" style="cursor: pointer;">
                             <div class="row">
                                 <div class="col-3 align-self-center text-center mt-4 fs-2">
                                     <i class="bi bi-briefcase-fill"></i>
@@ -113,7 +113,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='../../tl_e/commons/counselCenterStudentMainPage'" class="col border border-2 mx-1" style="cursor: pointer;">
+                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='/toothless/tl_e/commons/counselCenterStudentMainPage'" class="col border border-2 mx-1" style="cursor: pointer;">
                             <div class="row">
                                 <div class="col-3 align-self-center text-center mt-4 fs-2">
                                     <i class="bi bi-headset"></i>
@@ -130,7 +130,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='../../tl_a/student/jw_mainPage'" class="col border border-2 mx-1" style="cursor: pointer;">
+                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='/toothless/tl_a/student/jw_mainPage'" class="col border border-2 mx-1" style="cursor: pointer;">
                             <div class="row">
                                 <div class="col-3 align-self-center text-center mt-4 fs-2">
                                     <i class="bi bi-buildings"></i>
@@ -147,7 +147,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='../../tl_b/common/studentMainPage'" class="col border border-2 mx-1" style="cursor: pointer;">
+                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='/toothless/tl_b/common/studentMainPage'" class="col border border-2 mx-1" style="cursor: pointer;">
                             <div class="row">
                                 <div class="col-3 align-self-center text-center mt-4 fs-2">
                                     <i class="bi bi-capsule"></i>

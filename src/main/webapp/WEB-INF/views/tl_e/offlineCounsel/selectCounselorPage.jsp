@@ -121,7 +121,7 @@
 												<div class="row pt-3 pb-2">
 													<div class="col">
 														<i class="bi bi-person-circle"></i>&nbsp;&nbsp;
-														<span><a class="navbar-brand" href="./counselReservationPage?type_category_id=${map2.counselorTypeDto.type_category_id }&counselor_id=${map2.counselorDto.id }">${map2.counselorDto.name } 상담사</a></span>
+														<span><a class="navbar-brand" href="./offlineCounselCalendarReservation?type_category_id=${map2.counselorTypeDto.type_category_id }&counselor_id=${map2.counselorDto.id }">${map2.counselorDto.name } 상담사</a></span>
 													</div>
 												</div>
 											</c:forEach>

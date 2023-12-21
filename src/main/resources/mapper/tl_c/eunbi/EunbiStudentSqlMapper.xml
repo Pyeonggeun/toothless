@@ -175,7 +175,32 @@
 		)
 	</select>
 
+	<select id="getProfessorEvaluation" resultType="com.mkfactory.toothless.c.dto.AjdksProfessorEvaluationDto">
+		SELECT * FROM tl_c_professor_evaluation
+		WHERE student_intern_pk = #{student_intern_pk}
+	</select>
+	
+	<select id="getCompanyEvaluation" resultType="com.mkfactory.toothless.c.dto.AjdksCompanyEvaluationDto">
+		SELECT * FROM tl_c_company_evaluation
+		WHERE student_intern_pk = #{student_intern_pk}
+	</select>
 
+	<select id="getCompanyTimecard" resultType="com.mkfactory.toothless.c.dto.AjdksCompanyTimecardDto">
+		SELECT * FROM tl_c_company_timecard
+		WHERE student_intern_pk = #{student_intern_pk}
+		ORDER BY created_at DESC
+	</select>
+
+	<select id="getInternReport" resultType="com.mkfactory.toothless.c.dto.AjdksInternReportDto">
+		SELECT * FROM tl_c_intern_report
+		WHERE student_intern_pk = #{student_intern_pk}
+		ORDER BY created_at DESC
+	</select>
+	
+	<select id="getCompanyTimecardCategory" resultType="com.mkfactory.toothless.c.dto.AjdksTimecardCategoryDto">
+		SELECT * FROM tl_c_timecard_category
+		WHERE timecard_category_pk = #{timecard_category_pk}
+	</select>
 
 
 
@@ -188,11 +213,6 @@
 	<select id="forSelectDepartment" resultType="com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto">
 		SELECT * FROM TL_JIC_DEPARTMENT_CATEGORY
 	</select>
-
-
-
-
-
 
 
 

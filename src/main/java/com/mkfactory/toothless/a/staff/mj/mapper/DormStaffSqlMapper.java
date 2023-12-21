@@ -97,7 +97,15 @@ public interface DormStaffSqlMapper {
 	public int countTodayExit();
 	public int countTodayCallAbsence();
 	
-	// 현재 배정 인원 ㅋ왜 나만한개야
+	// 현재 배정 인원
 	public int assignedDormStudentCount();
+	
+	// 특정날짜 임원 일지 리스트
+	public List<Map<Object, String>> selectSomeDayDiaryList(
+			@Param("month") int month, 
+			@Param("day") int day);
+	
+	
+	
 
 }

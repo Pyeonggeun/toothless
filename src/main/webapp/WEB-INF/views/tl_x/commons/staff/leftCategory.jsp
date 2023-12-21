@@ -97,10 +97,13 @@
                 <div class="col">
                     <ul style="list-style: none;">
                         <li class="my-2 text-body-secondary" style="font-size: 0.7rem;">관련사이트</li>
-                        <li class="my-2" style="font-size: 0.8rem;">MK대학교 포털
-                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
-                        <li class="my-2" style="font-size: 0.8rem;">평생교육원 포털
-                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></li>
+                        
+                        <li class="my-2" style="font-size: 0.8rem;">
+                            <a href="../../another/staff/loginPage" class="text-black" style="text-decoration: none;">
+                            MK대학교 포털 로그인<i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></a></li>
+                        <li class="my-2" style="font-size: 0.8rem;">
+                        	 <a href="../hn/mainPage" class="text-black" style="text-decoration: none;">
+                        	평생교육원 메인포털<i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i></a></li>
                     </ul>
                 </div>
             </div>

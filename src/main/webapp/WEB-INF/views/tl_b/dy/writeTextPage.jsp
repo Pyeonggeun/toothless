@@ -26,7 +26,13 @@
 				const inputId = document.getElementById("inputId");
 
 				if(inputId.value == ''){
-					alert("제목을 입력하세요.")
+					alert("제목을 입력하세요.");
+					inputId.focus();
+					return ;
+				}
+				if(inputTxt.value == ''){
+					alert("내용을 입력하세요.");
+					inputTxt.focus();
 					return ;
 				}
 				frm.submit();
@@ -66,7 +72,7 @@
                                     						</div>
                                     						<div class="row mb-4">
                                     							<div class="col mb-2">
-																	<textarea name="content" class="form-control" style="height: 400px;" maxlength="1300" placeholder="내용을 입력해주세요."></textarea>
+																	<textarea id="inputTxt" name="content" class="form-control" style="height: 400px;" maxlength="1300" placeholder="내용을 입력해주세요."></textarea>
 																</div>
                                     						</div>
                                     						<div class="row">

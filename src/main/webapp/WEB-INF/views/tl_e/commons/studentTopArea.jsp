@@ -9,7 +9,7 @@
     
     <script>
 
-    let studentId = null;
+    let studentPk = null;
     
     function checkLogin(){
     	
@@ -19,9 +19,9 @@
     	.then(response => response.json())
     	.then(response => {
     		
-    		studentId = response.data;
+    		studentPk = response.data;
 				
-        	if(studentId == null){
+        	if(studentPk == null){
         		
         		if(confirm("로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?")){
         			location.href="/toothless/another/student/loginPage"

@@ -53,8 +53,18 @@ public class OnlineCounselController {
 	
 	
 	//	****	학생 메인페이지		****
+	
+	
 	@RequestMapping("onlineCounselMainPage")
-	public String onlineCounselMainPage(HttpSession session, Model model) {
+	public String onlineCounselMainPage() {
+		
+		
+		return "tl_e/onlineCounsel/onlineCounselMainPage";
+	}
+	
+	
+	@RequestMapping("studentMyCounselPage")
+	public String studentMyCounselPage(HttpSession session, Model model) {
 		
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
@@ -62,7 +72,7 @@ public class OnlineCounselController {
 		model.addAttribute("counselList", onlineCounselService.getAllCounselListByStudentPk(studentPk));
 		
 
-		return "tl_e/onlineCounsel/onlineCounselMainPage";
+		return "tl_e/onlineCounsel/studentMyCounselPage";
 	}
 	
 	@RequestMapping("logoutProcess")
@@ -90,7 +100,7 @@ public class OnlineCounselController {
 		
 		onlineCounselService.writeOnlineCounsel(onlineCounselBoardDto);
 		
-		return "redirect:./onlineCounselMainPage";
+		return "redirect:./studentMyCounselPage";
 	}
 	
 	
@@ -104,6 +114,23 @@ public class OnlineCounselController {
 		model.addAttribute("targetCounselDto", onlineCounselService.readCounsel(counsel_pk));
 		
 		return "tl_e/onlineCounsel/readCounselPage";
+	}
+	
+	@RequestMapping("writeOnlineCounselSurveyPage")
+	public String writeOnlineCounselSurveyPage(int online_counsel_board_id, Model model) {
+		
+		
+		model.addAttribute("replyDtoList", onlineCounselService.getOnlineCounselReplyList(online_counsel_board_id));
+		model.addAttribute("online_counsel_board_id", online_counsel_board_id);
+		return "tl_e/onlineCounsel/writeOnlineCounselSurveyPage";
+	}
+	
+	
+	@RequestMapping("writeOnlineCounselSurveyProcess")
+	public String writeOnlineCounselSurveyProcess(OnlineCounselSurveyDto onlineCounselSurveyDto) {
+		
+		onlineCounselService.writeOnlineCounselSurvey(onlineCounselSurveyDto);
+		return "redirect:./readCounselPage?counsel_pk=" + onlineCounselSurveyDto.getOnline_counsel_board_id();
 	}
 	
 	
@@ -133,7 +160,7 @@ public class OnlineCounselController {
 	@RequestMapping("counselorOnlineCounselReadCounselPage")
 	public String counselorOnlineCounselReadCounselPage(int counsel_pk, Model model) {
 		
-		
+		System.out.println(counsel_pk + "글 번호");
 		model.addAttribute("replyDtoList", onlineCounselService.getOnlineCounselReplyList(counsel_pk));
 		model.addAttribute("targetCounselDto", onlineCounselService.readCounsel(counsel_pk));
 		return "tl_e/onlineCounsel/counselorOnlineCounselReadCounselPage";
@@ -154,20 +181,7 @@ public class OnlineCounselController {
 	
 
 	
-	@RequestMapping("writeOnlineCounselSurveyPage")
-	public String writeOnlineCounselSurveyPage(int online_counsel_board_id, Model model) {
-		
-		model.addAttribute("online_counsel_board_id", online_counsel_board_id);
-		return "tl_e/onlineCounsel/writeOnlineCounselSurveyPage";
-	}
-	
-	
-	@RequestMapping("writeOnlineCounselSurveyProcess")
-	public String writeOnlineCounselSurveyProcess(OnlineCounselSurveyDto onlineCounselSurveyDto) {
-		
-		onlineCounselService.writeOnlineCounselSurvey(onlineCounselSurveyDto);
-		return "redirect:./onlineCounselMainPage";
-	}
+
 	
 	
 

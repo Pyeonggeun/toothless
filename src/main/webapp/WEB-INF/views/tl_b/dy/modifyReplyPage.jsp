@@ -22,7 +22,8 @@
 				const inputReply = document.getElementById("inputReply");
 
 				if(inputReply.value == ''){
-					alert("댓글을 입력하세요.")
+					alert("댓글을 입력하세요.");
+					inputReply.focus();
 					return ;
 				}
 				frm.submit();
@@ -43,37 +44,37 @@
                                 <div class="col bg-body-tertiary">
                                     <!--여기서 부터-->
                                     <div class="row mt-5 mb-5">
-                                    	<div class="col">
-                                    	<form id="frm" action="./modifyReplyProcess?staffboard_pk=${replyInfo.staffboardReplyDto.staffboard_pk}" method="post">
-                                    		<div class="row ms-5 mb-5">
-                                    			<div class="col-md-5 me-4 border bg-white text-dark">
-                                    				<div class="row">
-                                    					<div class="col">
-                                    						<div class="row border-bottom">
-                                    							<div class="col d-flex align-items-center fw-bold fs-5 py-3">댓글 수정</div>
-                                    						</div>
-                                    						<div class="row">
-                                    							<div class="col my-4">
-                                    								수정할 내용
-                                    							</div>
-                                    						</div>
-                                    						<div class="row mb-4">
-                                    							<div class="col mb-4">
+										<div class="col">
+										<form id="frm" action="./modifyReplyProcess?staffboard_pk=${replyInfo.staffboardReplyDto.staffboard_pk}" method="post">
+											<div class="row ms-5 mb-5">
+												<div class="col-md-5 me-4 border bg-white text-dark">
+													<div class="row">
+														<div class="col">
+															<div class="row border-bottom">
+																<div class="col d-flex align-items-center fw-bold fs-5 py-3">댓글 수정</div>
+															</div>
+															<div class="row">
+																<div class="col my-4">
+																	수정할 내용
+																</div>
+															</div>
+															<div class="row mb-4">
+																<div class="col mb-4">
 																	<textarea id="inputReply" name="content" class="form-control" style="height: 80px" maxlength="413"> ${replyInfo.staffboardReplyDto.content}</textarea>
 																</div>
-                                    						</div>
-                                    					</div>
-                                    				</div>
-                                    			</div>
-                                    			<div class="col-md-4 ms-4">
-                                    				<div class="row">
-                                    					<div class="col border bg-white text-dark">
-                                    						<div class="row mt-3 pb-3">
-                                    							<div class="col text-center"><input class="avoidRedundancy btn btn-primary px-5 rounded-0" style="background-color: #005EAD; border-style: none" type="button" value="수정완료" onclick="formSubmit()"></div>
-                                    							<div class="col text-center"><button class="btn btn-primary px-5 rounded-0" style="background-color: #005EAD; border-style: none" type="button" onclick="location.href='./readTextPage?staffboard_pk=${replyInfo.staffboardReplyDto.staffboard_pk}'">취 &nbsp;&nbsp;&nbsp;&nbsp; 소</button></div>
-                                    						</div>
-                                    					</div>
-                                    				</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-4 ms-4">
+													<div class="row">
+														<div class="col border bg-white text-dark">
+															<div class="row mt-3 pb-3">
+																<div class="col text-center"><input class="avoidRedundancy btn btn-primary px-5 rounded-0" style="background-color: #005EAD; border-style: none" type="button" value="수정완료" onclick="formSubmit()"></div>
+																<div class="col text-center"><button class="btn btn-primary px-5 rounded-0" style="background-color: #005EAD; border-style: none" type="button" onclick="location.href='./readTextPage?staffboard_pk=${replyInfo.staffboardReplyDto.staffboard_pk}'">취 &nbsp;&nbsp;&nbsp;&nbsp; 소</button></div>
+															</div>
+														</div>
+													</div>
 													<div class="row border mt-3 bg-white text-dark">
 														<div class="col">
 															<div class="row py-1 border-bottom">
@@ -101,15 +102,15 @@
 															</div>
 														</div>
 													</div>
-                                    			</div>
-                                    		</div>
-                                    		<input name="staffboard_reply_pk" type="hidden" value="${replyInfo.staffboardReplyDto.staffboard_reply_pk }">
-                                    	</form>
-                                    	</div>
-                                    </div>
+												</div>
+											</div>
+											<input name="staffboard_reply_pk" type="hidden" value="${replyInfo.staffboardReplyDto.staffboard_reply_pk }">
+										</form>
+									</div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
                 </div>
             </div>

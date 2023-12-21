@@ -128,10 +128,10 @@
 		<!-- 안내문구 -->
 		<div class="row py-2" style="box-shadow: 2px 2px 2px gray; font-size: 0.9em;">
 			<div class="col ps-2">
-				<span>&#035;&nbsp;ㅇㅇㅇ 님 환영합니다</span>
+				<span>&#035;&nbsp;${ajdksCompanyInfoDto.company_name } 님 환영합니다</span>
 			</div>	
 			<div class="col pe-2 text-end nolinenoblue">
-				<a href="./ajdksCompanyLogoutProcess">로그아웃</a>
+				<a href="../../taeho/external/ajdksCompanyLogoutProcess">로그아웃</a>
 			</div>	
 		</div>
 		
@@ -186,6 +186,7 @@
 						<div class="applyingDate col-2">모집기간</div>
 						<div class="announceDate col-2">발표일</div>
 					</div>
+					
 					<div class="row mt-3">
 						<div class="col border-bottom border-secondary-subtle"></div>
 					</div>
@@ -195,31 +196,6 @@
 		
 		
 		
-		<!-- Modal -->
-		<div id="templete" class="d-none">
-			<div class="row">
-				<!-- Vertically centered scrollable modal -->
-				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					      </div>
-					      <div class="modal-body">
-					        ....
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					        <button type="button" class="btn btn-primary">Save changes</button>
-					      </div>
-					    </div>
-					  </div>
-					</div>
-				</div>
-			</div>
-		</div>
 		
 		
 

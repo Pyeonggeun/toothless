@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="" style="background-color: #F5F5F5;">
-                <div class="row mt-5"><!--여기가 안에 들어갈 내용들-->
+                <div class="row mt-5 mx-2"><!--여기가 안에 들어갈 내용들-->
                     <div class="col">
                         <div class="row mt-5">
                             <div class="col ps-4" style="font-size: x-large; color: #8C7430;">
@@ -69,7 +69,7 @@
                         </div>
                         <div class="row mt-5">
                             <div class="col ps-4" style="font-size: medium;">
-                                기숙사은 우리 대학 인재 양성의 심장으로서 그동안 큰 사랑을 받으면서 발전해 왔습니다. <span class="fw-bold"> 약 1,610명의 MK 가족이 기숙</span>하는 곳으로 중부권 <span class="fw-bold" style="color: #8C7430;">최고의 최신식 건물과 최첨단 휴게실 복지시설</span>(독서실, 헬스기구 등) 디지털 인터넷 시스템을 구비하여 원스톱 시스템으로 제2의 가정처럼 생활할 수 있도록 완비되어 있습니다.
+                                기숙사는 우리 대학 인재 양성의 심장으로서 그동안 큰 사랑을 받으면서 발전해 왔습니다. <span class="fw-bold"> 약 1,610명의 MK 가족이 기숙</span>하는 곳으로 중부권 <span class="fw-bold" style="color: #8C7430;">최고의 최신식 건물과 최첨단 휴게실 복지시설</span>(독서실, 헬스기구 등) 디지털 인터넷 시스템을 구비하여 원스톱 시스템으로 제2의 가정처럼 생활할 수 있도록 완비되어 있습니다.
                             </div>
                         </div>
                         <div class="row mt-4">
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 d-grid">
+                    <div class="col-6 d-grid mt-3">
                         <div class="row">
                             <div class="col">
                                 <img class="img-fluid" src="../../resources/img/dormitory/mkpicture.jpg">
@@ -97,17 +97,17 @@
                         
                     </div>
                 </div><!-- 여기까지-->
-                <div class="row mt-3">
+                <div class="row mt-3 mx-2">
                     <div class="col ps-4 pe-5" style="font-size: medium;">
                         이곳에서 생활하는 동안 <span class="fw-bold" style="color: #8C7430;">좋은 인간관계를 형성</span>하심은 물론 분명한 비전과 목표를 가지고 매사에 최선을 다하고 열심히 학업에 매진하시어 사회에 나가 떳떳하고 자신감 넘치는 사회의 구성원으로 자리매김 하시길 바랍니다.
                     </div>
                 </div>
-                <div class="row mt-4">
+                <div class="row mt-4 mx-2">
                     <div class="col ps-4 pe-5" style="font-size: medium;">
                         우리 기숙사를 섬기는 모든 이들은 학생들이 가정에서와 같은 <span class="fw-bold" style="color: #8C7430;">따뜻한 정</span>을 느낄 수 있도록 최선을 다하며, 특히 성장한 생활환경이 서로 다른 학생들이 공동생활을 통하여 서로 <span class="fw-bold">존중하며, 건전하고 보람된 대학생활을 할 수 있도록 지원</span>을 아끼지 않겠습니다.
                     </div>
                 </div>
-                <div class="row mt-4">
+                <div class="row mt-4 pb-4 mx-2">
                     <div class="col ps-4 pe-5" style="font-size: medium;">
                         다시 한 번 우리 기숙사 입사를 진심으로 축하드리며 <span class="fw-bold">관생 여러분들의 앞날과 학부모님의 가정에 하나님의 축복이 늘 함께 하시기를 소망합니다... 화이팅..!</span>
                     </div>

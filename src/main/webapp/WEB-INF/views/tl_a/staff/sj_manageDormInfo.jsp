@@ -59,7 +59,7 @@
 					<div class="col-md-3 my-3">
 						<div class="card" style="width: 18rem;">
 			
-							<img src="../../resources/img/dormitory/uploadDormMaingImg/${dorm.main_img }" class="d-grid img-fluid card-img-top" style="height:11em;">
+							<img src="/uploadDormMainImg/${dorm.main_img }" class="d-grid img-fluid card-img-top" style="height:11em;">
 							<!-- /uploadDormMainImg/${dorm.main_img } -->
 							
 							<div class="card-body">

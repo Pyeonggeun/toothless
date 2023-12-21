@@ -151,6 +151,18 @@
 
 	}
 	
+	// 유효성검사
+    function checkInput() {
+        // 입력된 값 가져오기
+        var inputValue = document.getElementById('total_hour').value;
+
+        // 8의 배수인지 확인
+        if (inputValue % 8 !== 0) {
+            alert('총 수업시간은 8의 배수인 정수로 입력해야합니다.');
+            document.getElementById('total_hour').value = ''; // 입력 값을 지워도 됩니다.
+        }
+    }
+	
 	
 	// 전역변수 - 교육과정 리스트
 	let lectureCategoryList;
@@ -209,6 +221,7 @@
 			
 		});
 	}
+	
 	
 	
 	// 교육과정 등록 탭 보여주기
@@ -984,7 +997,7 @@
 								<span class="text-danger" style="font-size: 0.8em;">*</span>총 수업시간
 							</div>
 							<div class="col-4 py-2 border-end border-start border-dark d-grid bg-white">
-								<input class="border rounded-0" id="total_hour" type="number" placeholder="8의 배수로 입력하세요.">
+								<input class="border rounded-0" id="total_hour" type="number" placeholder="8의 배수로 입력하세요." onblur="checkInput()">
 							</div>
 							<div class="col-2 py-2 border-end border-dark fw-bold">
 								<span class="text-danger" style="font-size: 0.8em;">*</span>학  점
