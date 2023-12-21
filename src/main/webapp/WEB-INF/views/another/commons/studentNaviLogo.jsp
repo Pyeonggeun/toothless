@@ -79,7 +79,7 @@
        				message.innerText = "";
        				message.innerText = response.data[0].notificationDto.message;
        				
-       				link.setAttribute("onclick" ,"location.href='"+e.data[0].notificationDto.pageLink+"'");
+       				link.setAttribute("onclick" ,"location.href='"+response.data[0].notificationDto.pageLink+"'");
        				
        				updateMyCheckNotifyStatus();
            			reloadNotifyCount();
