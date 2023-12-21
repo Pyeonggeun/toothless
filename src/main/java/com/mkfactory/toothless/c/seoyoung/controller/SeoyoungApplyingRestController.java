@@ -65,8 +65,16 @@ public class SeoyoungApplyingRestController {
 		if (tf == null) {
 			tf = "yes";
 		}
-		response.setData(tf);
-		System.out.println(sessionStudentInfo.getStudent_pk());
+		String iro = seoyoungApplyingService.iroTF(sessionStudentInfo.getStudent_pk());
+		
+		if(iro.equals("no")) {
+			response.setData(iro);
+			return response;
+		}else {
+			response.setData(tf);
+		}
+		//response.setData(tf);
+		//System.out.println(tf);
 		return response;
 	}
 

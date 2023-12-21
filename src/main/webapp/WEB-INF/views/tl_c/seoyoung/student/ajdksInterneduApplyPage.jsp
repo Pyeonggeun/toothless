@@ -259,13 +259,11 @@ const student_pk = ${sessionStudentInfo.student_pk};
         	console.log(response.data);
         	const modalValues = response.data;
         	if (modalValues == "yes") {
-    		    console.log("결과: yes");
     		    const applyButton = document.getElementById("applyButton");
     		    applyButton.setAttribute("onclick", "studentApplyProcess("+e.INTERNSHIP_COURSE_PK+")");
     		} else {
     		    failModal();
     		    modal.hide();
-    		    console.log("결과: no");
     		}
      
         });
@@ -764,7 +762,7 @@ const student_pk = ${sessionStudentInfo.student_pk};
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<p>이미 신청한 내역이 있습니다.</p>
+					<p>이미 신청한 내역 혹은 지원서 확인 후 신청해주세요.</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
