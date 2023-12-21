@@ -123,9 +123,9 @@
 						<div class="col-1"><!-- 왼쪽 공간주는 로우 --></div>
 						
 						<div class="col-10">
-							<div class="row py-2"><div class="col">	<input id="inputTitle" class="form-control" name="title" type="text" style="width:100%; height:2em; border-start: none; border-end: none;" maxlength="1000" placeholder="이 공간에 제목을 입력하시면 됩니다..."> </div></div>
+							<div class="row py-2"><div class="col">	<input id="inputTitle" class="form-control" name="title" type="text" style="width:100%; height:2em; border-start: none; border-end: none;" maxlength="300" placeholder="이 공간에 제목을 입력하시면 됩니다..."> </div></div>
 								<div class="row text-start pt-1 pb-2 ps-1"><div class="col"><i class="bi bi-person-vcard fs-5"></i>  <span class="fs-6">현재 작성자</span> <span class="fs-5">${sessionStudentInfo.name}</span> <span class="fs-6">님</span> </div></div>
-							<div class="row"><div class="col"> <textarea id="inputText" class="form-control" name ="text" style="width:100%; height:25em;" maxlength="3000" placeholder="이 공간에 원하는 내용을 입력하시면 됩니다..."></textarea> </div></div>
+							<div class="row"><div class="col"> <textarea id="inputText" class="form-control" name ="text" style="width:100%; height:25em; white-space: pre-wrap; wrap: off;" maxlength="1000" placeholder="이 공간에 원하는 내용을 입력하시면 됩니다..."></textarea> </div></div>
 							<div class="row py-2"><div class="col-8"> <input name="imgFiles" type="file" accept="image/*" multiple> </div><div class="col-4"> <span class="text-danger fw-bold">주의</span>) 이미지는 수정기능이 제공되지 않습니다.</div></div>
 							<div class="row text-center"><div class="col"> <input type="button" onclick="formSubmit()" class="btn fs-5 py-1 rounded text-white qwer" style="--bs-border-opacity: .7; background-color: #8FBC8F;" value="게시글 올리기"> </div></div>						
 						</div>
