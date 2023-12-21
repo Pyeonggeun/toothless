@@ -167,7 +167,7 @@
 							<c:set var="currentTime" value="<%= new java.util.Date() %>" />
 							<c:forEach items="${programList}" var="list" varStatus="loop">
 								<c:if test="${loop.index < 4}">
-									<div class="col border border-secondery rounded-4 p-0 m-4">
+									<div class="col-md-3 border border-secondery rounded-4 p-0 m-4">
 										<div class="row"> 
 											<img class="img-fluid" src="../../resources/img/employment/${list.programDto.prg_main_image}" style="height: 10em; weight: 10em;">
 											
@@ -186,7 +186,7 @@
 								        </div> 
 										<div class="row">
 											<div class="col">
-												<a class="btn text-truncate fw-bold" href="../gw_program/programViewDetailsPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em">${list.programDto.prg_name}</a>
+												<a class="btn text-truncate fw-bold text-truncate" href="../gw_program/programViewDetailsPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em; max-width: 300px;">${list.programDto.prg_name}</a>
 											</div>
 										</div>
 										<div class="row">
@@ -209,7 +209,16 @@
 										</div>
 										
 									</div>
+									
 								</c:if>
+								 <c:if test="${loop.index % 4 == 3 || loop.last}">
+						            <c:forEach var="dummy" begin="${loop.index + 1}" end="${loop.index + (3 - loop.index % 4)}">
+						                <div class="col-md-3 dummy"></div>
+						            </c:forEach>
+						        </c:if>
+						        <c:if test="${loop.index % 4 == 3 && !loop.last}">
+						            <div class="row mt-4"></div>
+						        </c:if>
 							</c:forEach> 
 						</div>
 					</div>
