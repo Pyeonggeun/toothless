@@ -6,8 +6,515 @@ pageEncoding="UTF-8"%>
             <meta charset="utf-8">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+       	<style>
+       	
+       		#screenSize{
+       		
+       			min-width: 1400px;
+       		
+      	 	}
+      	 	
+       		.title2{
+				       		
+       		}
+       		
+       		.title3{
+       			
+       		}
+       		
+       		.title{
+                font-size: 1.2em;
+                transition: transform 0.2s ease-in-out;
+                color: #504528;
+            }
+            
+            .title:hover{
+                transform: translateY(-3px);
+                
+            }
+            
+            .boxshadow{
+                background-color: #e2e2e2;
+                box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.302);
+                transition: box-shadow 0.3s ease-in-out;
+
+            }
+            
+            .boxshadow:hover{
+                box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
+            }
+            
+            .mainbutton{
+            	
+            }
+            
+          	.subbutton{
+          	
+          	}
+          	
+          	.navibutton{
+          		cursor: pointer;
+          	}
+       	</style>
        	<script>
        	
+       	// 임원 리스트 나오는 모달
+       	function executiveModal(){
+       		
+       		const modalBody = modalTemplete.querySelector(".modal-body");
+       		modalBody.innerHTML = "";
+       		const modalFooter = modalTemplete.querySelector(".modal-footer");
+       		modalFooter.innerHTML = "";
+       		
+       		const url = "./executiveList";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			// 여긴 안에 들어갈 내용
+       			const modalTemplete = document.querySelector("#modalTemplete");
+           		modalTemplete.querySelector(".modal-title").innerText = "임원리스트";
+           		
+           		for(e of response.data){
+           		
+           		const divrow = document.createElement("div");
+           		divrow.classList.add("row","mt-2");
+           		const divcol1 = document.createElement("div");
+           		divcol1.classList.add("col-2","fw-bold","pe-0");
+           		divcol1.innerText = e.NAME;
+           		const divcol2 = document.createElement("div");
+           		divcol2.classList.add("col-3");
+           		divcol2.innerText = e.STUDENT_ID;
+           		const divcol3 = document.createElement("div");
+           		divcol3.classList.add("col");
+           		divcol3.innerText = e.GENDER;
+           		const divcol4 = document.createElement("div");
+           		divcol4.classList.add("col");
+           		divcol4.innerText = e.PHONE;
+           		
+           		divrow.appendChild(divcol1);
+           		divrow.appendChild(divcol2);
+           		divrow.appendChild(divcol3);
+           		divrow.appendChild(divcol4);
+           		
+           		
+           		
+           		modalBody.appendChild(divrow);
+           		
+           		}
+           		
+           		// footer에 달 버튼
+           		const closeButton = document.createElement("button");
+       			closeButton.classList.add("btn","btn-secondary");
+       			closeButton.setAttribute("data-bs-dismiss","modal")
+       			closeButton.setAttribute("type","button")
+           		closeButton.innerText = "닫기";
+       			modalFooter.appendChild(closeButton);
+       			
+           		const modal = bootstrap.Modal.getOrCreateInstance("#writemodal");
+                modal.show();
+       			
+       		})
+       		
+       	}
+       	
+     // 배정인원 동호리스트
+       	function dongHoAssignList(){
+       		
+       		const modalBody = modalTemplete.querySelector(".modal-body");
+       		modalBody.innerHTML = "";
+       		const modalFooter = modalTemplete.querySelector(".modal-footer");
+       		modalFooter.innerHTML = "";
+       		
+       		const url = "./dongHoAssignList";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			// 여긴 안에 들어갈 내용
+       			const modalTemplete = document.querySelector("#modalTemplete");
+           		modalTemplete.querySelector(".modal-title").innerText = "배정인원 동호리스트";
+           		
+           		for(e of response.data){
+           		
+           		const divrow = document.createElement("div");
+           		divrow.classList.add("row","mt-2");
+           		const divcol1 = document.createElement("div");
+           		divcol1.classList.add("col-2","fw-bold","pe-0");
+           		divcol1.innerText = e.DONGNAME;
+           		const divcol2 = document.createElement("div");
+           		divcol2.classList.add("col-3");
+           		divcol2.innerText = e.ROOMNAME;
+           		const divcol3 = document.createElement("div");
+           		divcol3.classList.add("col");
+           		divcol3.innerText = e.STUDENTNAME;
+           		const divcol4 = document.createElement("div");
+           		divcol4.classList.add("col");
+           		divcol4.innerText = e.STUDENTPHONE;
+           		
+           		divrow.appendChild(divcol1);
+           		divrow.appendChild(divcol2);
+           		divrow.appendChild(divcol3);
+           		divrow.appendChild(divcol4);
+           		
+           		
+           		
+           		modalBody.appendChild(divrow);
+           		
+           		}
+           		
+           		// footer에 달 버튼
+           		const closeButton = document.createElement("button");
+       			closeButton.classList.add("btn","btn-secondary");
+       			closeButton.setAttribute("data-bs-dismiss","modal")
+       			closeButton.setAttribute("type","button")
+           		closeButton.innerText = "닫기";
+       			modalFooter.appendChild(closeButton);
+       			
+           		const modal = bootstrap.Modal.getOrCreateInstance("#writemodal");
+                modal.show();
+       			
+       		})
+       		
+       	}
+       	// 동호 리스트
+       	function dongHoList(){
+       		
+       		const modalBody = modalTemplete.querySelector(".modal-body");
+       		modalBody.innerHTML = "";
+       		const modalFooter = modalTemplete.querySelector(".modal-footer");
+       		modalFooter.innerHTML = "";
+       		
+       		const url = "./dongHoList";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			// 여긴 안에 들어갈 내용
+       			const modalTemplete = document.querySelector("#modalTemplete");
+           		modalTemplete.querySelector(".modal-title").innerText = "동호리스트";
+           		
+           		for(e of response.data){
+           		
+           		const divrow = document.createElement("div");
+           		divrow.classList.add("row","mt-2");
+           		const divcol1 = document.createElement("div");
+           		divcol1.classList.add("col","fw-bold","pe-0");
+           		divcol1.innerText = e.DONGNAME;
+           		const divcol2 = document.createElement("div");
+           		divcol2.classList.add("col");
+           		divcol2.innerText = e.ROOMNAME;
+           		const divcol3 = document.createElement("div");
+           		divcol3.classList.add("col");
+           		divcol3.innerText = e.DORMFLOOR;
+           		
+           		
+           		divrow.appendChild(divcol1);
+           		divrow.appendChild(divcol2);
+           		divrow.appendChild(divcol3);
+           		
+           		
+           		modalBody.appendChild(divrow);
+           		
+           		}
+           		
+           		// footer에 달 버튼
+           		const closeButton = document.createElement("button");
+       			closeButton.classList.add("btn","btn-secondary");
+       			closeButton.setAttribute("data-bs-dismiss","modal")
+       			closeButton.setAttribute("type","button")
+           		closeButton.innerText = "닫기";
+       			modalFooter.appendChild(closeButton);
+       			
+           		const modal = bootstrap.Modal.getOrCreateInstance("#writemodal");
+                modal.show();
+       			
+       		})
+       		
+       	}
+       	
+     	// 공지리스트
+       	function noticeAllList(){
+       		
+       		const modalBody = modalTemplete.querySelector(".modal-body");
+       		modalBody.innerHTML = "";
+       		const modalFooter = modalTemplete.querySelector(".modal-footer");
+       		modalFooter.innerHTML = "";
+       		
+       		const url = "./noticeAllList";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			// 여긴 안에 들어갈 내용
+       			const modalTemplete = document.querySelector("#modalTemplete");
+           		modalTemplete.querySelector(".modal-title").innerText = "공지리스트";
+           		
+           		for(e of response.data){
+           		
+           		const divrow = document.createElement("div");
+           		divrow.classList.add("row","mt-2");
+           		const divcol1 = document.createElement("div");
+           		divcol1.classList.add("col","fw-bold","pe-0");
+           		divcol1.innerText = e.TITLE;
+           		const divcol2 = document.createElement("div");
+           		divcol2.classList.add("col");
+           		divcol2.innerText = e.STAFFNAME;
+           		const divcol3 = document.createElement("div");
+           		divcol3.classList.add("col");
+           		divcol3.innerText = e.SIGAN;
+           		
+           		
+           		divrow.appendChild(divcol1);
+           		divrow.appendChild(divcol2);
+           		divrow.appendChild(divcol3);
+           		
+           		
+           		modalBody.appendChild(divrow);
+           		
+           		}
+           		
+           		// footer에 달 버튼
+           		const closeButton = document.createElement("button");
+       			closeButton.classList.add("btn","btn-secondary");
+       			closeButton.setAttribute("data-bs-dismiss","modal")
+       			closeButton.setAttribute("type","button")
+           		closeButton.innerText = "닫기";
+       			modalFooter.appendChild(closeButton);
+       			
+           		const modal = bootstrap.Modal.getOrCreateInstance("#writemodal");
+                modal.show();
+       			
+       		})
+       		
+       	}
+     	
+     	// 공지리스트
+       	function freeboardAllList(){
+       		
+       		const modalBody = modalTemplete.querySelector(".modal-body");
+       		modalBody.innerHTML = "";
+       		const modalFooter = modalTemplete.querySelector(".modal-footer");
+       		modalFooter.innerHTML = "";
+       		
+       		const url = "./freeboardAllList";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			// 여긴 안에 들어갈 내용
+       			const modalTemplete = document.querySelector("#modalTemplete");
+           		modalTemplete.querySelector(".modal-title").innerText = "공지리스트";
+           		
+           		for(e of response.data){
+           		
+           		const divrow = document.createElement("div");
+           		divrow.classList.add("row","mt-2");
+           		const divcol1 = document.createElement("div");
+           		divcol1.classList.add("col","fw-bold","pe-0");
+           		divcol1.innerText = e.TITLE;
+           		const divcol2 = document.createElement("div");
+           		divcol2.classList.add("col");
+           		divcol2.innerText = e.STUDENTNAME;
+           		const divcol3 = document.createElement("div");
+           		divcol3.classList.add("col");
+           		divcol3.innerText = e.SIGAN;
+           		
+           		
+           		divrow.appendChild(divcol1);
+           		divrow.appendChild(divcol2);
+           		divrow.appendChild(divcol3);
+           		
+           		
+           		modalBody.appendChild(divrow);
+           		
+           		}
+           		
+           		// footer에 달 버튼
+           		const closeButton = document.createElement("button");
+       			closeButton.classList.add("btn","btn-secondary");
+       			closeButton.setAttribute("data-bs-dismiss","modal")
+       			closeButton.setAttribute("type","button")
+           		closeButton.innerText = "닫기";
+       			modalFooter.appendChild(closeButton);
+       			
+           		const modal = bootstrap.Modal.getOrCreateInstance("#writemodal");
+                modal.show();
+       			
+       		})
+       		
+       	}
+     	
+     // 공지리스트
+       	function repaireRequestAllList(){
+       		
+       		const modalBody = modalTemplete.querySelector(".modal-body");
+       		modalBody.innerHTML = "";
+       		const modalFooter = modalTemplete.querySelector(".modal-footer");
+       		modalFooter.innerHTML = "";
+       		
+       		const url = "./repaireRequestAllList";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			// 여긴 안에 들어갈 내용
+       			const modalTemplete = document.querySelector("#modalTemplete");
+           		modalTemplete.querySelector(".modal-title").innerText = "공지리스트";
+           		
+           		for(e of response.data){
+           		
+           		const divrow = document.createElement("div");
+           		divrow.classList.add("row","mt-2");
+           		const divcol1 = document.createElement("div");
+           		divcol1.classList.add("col","fw-bold","pe-0");
+           		divcol1.innerText = e.TITLE;
+           		const divcol2 = document.createElement("div");
+           		divcol2.classList.add("col");
+           		divcol2.innerText = e.STUDENTNAME;
+           		const divcol3 = document.createElement("div");
+           		divcol3.classList.add("col");
+           		divcol3.innerText = e.SIGAN;
+           		
+           		
+           		divrow.appendChild(divcol1);
+           		divrow.appendChild(divcol2);
+           		divrow.appendChild(divcol3);
+           		
+           		
+           		modalBody.appendChild(divrow);
+           		
+           		}
+           		
+           		// footer에 달 버튼
+           		const closeButton = document.createElement("button");
+       			closeButton.classList.add("btn","btn-secondary");
+       			closeButton.setAttribute("data-bs-dismiss","modal")
+       			closeButton.setAttribute("type","button")
+           		closeButton.innerText = "닫기";
+       			modalFooter.appendChild(closeButton);
+       			
+           		const modal = bootstrap.Modal.getOrCreateInstance("#writemodal");
+                modal.show();
+       			
+       		})
+       		
+       	}
+       	// 이전학기정보 출력 모달
+       	function semesterAllList(){
+       		
+       		const modalBody = modalTemplete.querySelector(".modal-body");
+       		modalBody.innerHTML = "";
+       		const modalFooter = modalTemplete.querySelector(".modal-footer");
+       		modalFooter.innerHTML = "";
+       		
+       		const url = "./semesterAllList";
+       		
+       		fetch(url)
+       		.then(response => response.json())	
+       		.then(response => {
+       			
+       			// 여긴 안에 들어갈 내용
+       			const modalTemplete = document.querySelector("#modalTemplete");
+           		modalTemplete.querySelector(".modal-title").innerText = "이전학기 정보리스트";
+           		
+           		for(e of response.data){
+           		
+           		const divrow = document.createElement("div");
+           		divrow.classList.add("row","mt-2");
+           		const divcol1 = document.createElement("div");
+           		divcol1.classList.add("col","fw-bold","pe-0");
+           		divcol1.innerText = e.semester_year;
+           		const divcol2 = document.createElement("div");
+           		divcol2.classList.add("col");
+           		divcol2.innerText = e.semester;
+           		const divcol3 = document.createElement("div");
+           		divcol3.classList.add("col");
+           		divcol3.innerText = e.progress_state;
+           		
+           		
+           		divrow.appendChild(divcol1);
+           		divrow.appendChild(divcol2);
+           		divrow.appendChild(divcol3);
+           		
+           		
+           		modalBody.appendChild(divrow);
+           		
+           		}
+           		
+           		// footer에 달 버튼
+           		const closeButton = document.createElement("button");
+       			closeButton.classList.add("btn","btn-secondary");
+       			closeButton.setAttribute("data-bs-dismiss","modal")
+       			closeButton.setAttribute("type","button")
+           		closeButton.innerText = "닫기";
+       			modalFooter.appendChild(closeButton);
+       			
+           		const modal = bootstrap.Modal.getOrCreateInstance("#writemodal");
+                modal.show();
+       			
+       		})
+       		
+       	}
+       	
+     // 상벌점 카테고리
+       	function poingCategoryList(){
+       		
+       		const modalBody = modalTemplete.querySelector(".modal-body");
+       		modalBody.innerHTML = "";
+       		const modalFooter = modalTemplete.querySelector(".modal-footer");
+       		modalFooter.innerHTML = "";
+       		
+       		const url = "./poingCategoryList";
+       		
+       		fetch(url)
+       		.then(response => response.json())
+       		.then(response => {
+       			
+       			// 여긴 안에 들어갈 내용
+       			const modalTemplete = document.querySelector("#modalTemplete");
+           		modalTemplete.querySelector(".modal-title").innerText = "상벌점 리스트";
+           		
+           		for(e of response.data){
+           		
+           		const divrow = document.createElement("div");
+           		divrow.classList.add("row","mt-2");
+           		const divcol1 = document.createElement("div");
+           		divcol1.classList.add("col-11","fw-bold","pe-0");
+           		divcol1.innerText = e.content;
+           		const divcol2 = document.createElement("div");
+           		divcol2.classList.add("col");
+           		divcol2.innerText = e.point;
+          
+           		divrow.appendChild(divcol1);
+           		divrow.appendChild(divcol2);
+
+           		modalBody.appendChild(divrow);
+           		
+           		}
+           		
+           		// footer에 달 버튼
+           		const closeButton = document.createElement("button");
+       			closeButton.classList.add("btn","btn-secondary");
+       			closeButton.setAttribute("data-bs-dismiss","modal")
+       			closeButton.setAttribute("type","button")
+           		closeButton.innerText = "닫기";
+       			modalFooter.appendChild(closeButton);
+       			
+           		const modal = bootstrap.Modal.getOrCreateInstance("#writemodal");
+                modal.show();
+       			
+       		})
+       		
+       	}
+       	
+       	// 학생 리스트 나오는 모달
        	function studentModal(){
        		
        		const modalBody = modalTemplete.querySelector(".modal-body");
@@ -29,7 +536,7 @@ pageEncoding="UTF-8"%>
            		const divrow = document.createElement("div");
            		divrow.classList.add("row","mt-2");
            		const divcol1 = document.createElement("div");
-           		divcol1.classList.add("col-2","fw-bold");
+           		divcol1.classList.add("col-2","fw-bold","pe-0");
            		divcol1.innerText = e.name;
            		const divcol2 = document.createElement("div");
            		divcol2.classList.add("col-3");
@@ -68,7 +575,7 @@ pageEncoding="UTF-8"%>
        		
        	}
        	// 모달을 다음으로 넘길때 어떻게 넘길것인가 ..?
-       	// 상세정보 클릭시 ==> 새로 모달을 띄우는게 나은가? 아니면
+       	// 상세정보 클릭시 ==> 나오는 학생 정보
        	function studentInfo(student_pk){
        		
        		
@@ -464,48 +971,46 @@ pageEncoding="UTF-8"%>
        	
        	
        	
-       	
-       	
        	</script>
         </head>
         <body>
             
-            <div class="container-fluid">
-                <div class="row">
+           <div id="screenSize" class="container-fluid" style="background-color: rgb(230, 230, 230);">
+                <div class="row mx-3">
                     <div class="col">
-                        <div class="row" style="border-bottom: 0.02em solid black ;">
+                        <div class="row">
                             <div class="col"></div>
                             <div class="py-4 col fw-bold text-center fs-3">
                                 Navi Page
                             </div>
                             <div class="col"></div>
                         </div>
-                        <div class="row mt-5">
-                            <div class="col">
+                        <div class="row mt-4">
+                            <div class="col py-2 border rounded-3 boxshadow">
                                 <div class="row"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col fs-5 fw-bold">
+                                    <div class="title col fw-bold">
                                         사생정보
                                     </div>
                                 </div>
                                 <div class="row mt-4"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col fw-bold text-center">
+                                    <div class="title2 col fw-bold text-center">
                                         학생전체인원
                                     </div>
-                                    <div class="col fw-bold text-center">
+                                    <div class="title2 col fw-bold text-center">
                                         배정인원
                                     </div>
-                                    <div class="col fw-bold text-center">
+                                    <div class="title2 col fw-bold text-center">
                                         배정미완료
                                     </div>
                                 </div>
                                 <div class="row mt-2"><!-- 여기 로우콜 잡기..-->
-                                    <div id="studentCount" class="col text-center">
+                                    <div id="studentCount" class="title3 col text-center">
                                         
                                     </div>
-                                    <div id="assignCount" class="col text-center">
+                                    <div id="assignCount" class="title3 col text-center">
                                         
                                     </div>
-                                    <div id="assignNeedCount" class="col text-center">
+                                    <div id="assignNeedCount" class="title3 col text-center">
                                         
                                     </div>
                                 </div>
@@ -522,10 +1027,11 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-1"></div>
+                            <div class="col py-2 border rounded-3 boxshadow">
                                 
                                 <div class="row"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col fs-5 fw-bold">
+                                    <div class="title col fw-bold">
                                         임원정보
                                     </div>
                                 </div>
@@ -554,7 +1060,7 @@ pageEncoding="UTF-8"%>
                                 <div class="row mt-4"><!-- 여기 로우콜 잡기..-->
                                     <div class="col-4"></div>
                                     <div class="col d-grid text-end ps-0">
-                                        <a onclick="" class="btn btn-primary" role="button">임원리스트</a>
+                                        <a onclick="executiveModal()" class="btn btn-primary" role="button">임원리스트</a>
                                     </div>
                                     <div class="col d-grid px-0">
                                         <a href="../staff/jw_executiveAssignmentSituationPage" class="btn btn-secondary" role="button">배정조회 -></a>
@@ -564,9 +1070,10 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-1"></div>
+                            <div class="col py-2 border rounded-3 boxshadow">
                                 <div class="row"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col fs-5 fw-bold">
+                                    <div class="title col fw-bold">
                                         동정보
                                     </div>
                                 </div>
@@ -595,7 +1102,7 @@ pageEncoding="UTF-8"%>
                                 <div class="row mt-4"><!-- 여기 로우콜 잡기..-->
                                     <div class="col-4"></div>
                                     <div class="col d-grid text-end ps-0">
-                                        <a onclick="" class="btn btn-primary" role="button">동리스트</a>
+                                        <a onclick="dongHoList()" class="btn btn-primary" role="button">동리스트</a>
                                     </div>
                                     <div class="col d-grid px-0">
                                         <a href="../staff/sj_manageDormInfo" class="btn btn-danger" role="button">등록취소 -></a>
@@ -607,9 +1114,9 @@ pageEncoding="UTF-8"%>
                             </div>
                         </div>
                         <div class="row mt-5">
-                            <div class="col">
+                            <div class="col py-2 border rounded-3 boxshadow">
                                 <div class="row"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col fs-5 fw-bold">
+                                    <div class="title col fw-bold">
                                         공고 관련
                                     </div>
                                 </div>
@@ -638,7 +1145,7 @@ pageEncoding="UTF-8"%>
                                 <div class="row mt-4"><!-- 여기 로우콜 잡기..-->
                                     <div class="col-4"></div>
                                     <div class="col d-grid text-end ps-0">
-                                        <a onclick="" class="btn btn-primary" role="button">학기정보</a>
+                                        <a onclick="semesterAllList()" class="btn btn-primary" role="button">이전학기정보</a>
                                     </div>
                                     <div class="col d-grid px-0">
                                         <a href="../staff/mj_registerJoinInfoPage" class="btn btn-secondary" role="button">공고조회 -></a>
@@ -648,10 +1155,11 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-1"></div>
+                            <div class="col py-2 border rounded-3 boxshadow">
                                 
                                 <div class="row"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col fs-5 fw-bold">
+                                    <div class="title col fw-bold">
                                         상 벌점
                                     </div>
                                 </div>
@@ -680,7 +1188,7 @@ pageEncoding="UTF-8"%>
                                 <div class="row mt-4"><!-- 여기 로우콜 잡기..-->
                                     <div class="col-4"></div>
                                     <div class="col d-grid text-end ps-0">
-                                        <a onclick="" class="btn btn-primary" role="button">상벌점리스트</a>
+                                        <a onclick="poingCategoryList()" class="btn btn-primary" role="button">상벌점리스트</a>
                                     </div>
                                     <div class="col d-grid px-0">
                                         <a href="../staff/jw_pointSituationPage" class="btn btn-secondary" role="button">내역확인 -></a>
@@ -690,9 +1198,10 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-1"></div>
+                            <div class="col py-2 border rounded-3 boxshadow">
                                 <div class="row"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col fs-5 fw-bold">
+                                    <div class="title col fw-bold">
                                         호정보
                                     </div>
                                 </div>
@@ -721,7 +1230,7 @@ pageEncoding="UTF-8"%>
                                 <div class="row mt-4"><!-- 여기 로우콜 잡기..-->
                                     <div class="col-4"></div>
                                     <div class="col d-grid text-end ps-0">
-                                        <a onclick="" class="btn btn-primary" role="button">호리스트</a>
+                                        <a onclick="dongHoAssignList()" class="btn btn-primary" role="button">배정인원 호리스트</a>
                                     </div>
                                     <div class="col d-grid px-0">
                                         <a href="../staff/sj_manageRoomInfo" class="btn btn-danger" role="button">등록취소 -></a>
@@ -733,9 +1242,9 @@ pageEncoding="UTF-8"%>
                             </div>
                         </div>
                         <div class="row mt-5">
-                            <div class="col">
+                            <div class="col py-2 border rounded-3 boxshadow">
                                 <div class="row"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col fs-5 fw-bold">
+                                    <div class="title col fw-bold">
                                         공지사항
                                     </div>
                                 </div>
@@ -759,7 +1268,7 @@ pageEncoding="UTF-8"%>
                                 <div class="row mt-4"><!-- 여기 로우콜 잡기..-->
                                     <div class="col-4"></div>
                                     <div class="col d-grid text-end ps-0">
-                                        <a onclick="" class="btn btn-primary" role="button">공지리스트</a>
+                                        <a onclick="noticeAllList()" class="btn btn-primary" role="button">공지리스트</a>
                                     </div>
                                     <div class="col d-grid px-0">
                                         <a href="../student/dm_dormNoticePage" class="btn btn-secondary" role="button">공지조회 -></a>
@@ -769,10 +1278,11 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-1"></div>
+                            <div class="col py-2 border rounded-3 boxshadow">
                                 
                                 <div class="row"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col fs-5 fw-bold">
+                                    <div class="title col fw-bold">
                                         자유게시판
                                     </div>
                                 </div>
@@ -795,7 +1305,7 @@ pageEncoding="UTF-8"%>
                                 <div class="row mt-4"><!-- 여기 로우콜 잡기..-->
                                     <div class="col-4"></div>
                                     <div class="col d-grid text-end ps-0">
-                                        <a onclick="" class="btn btn-primary" role="button">게시판리스트</a>
+                                        <a onclick="freeboardAllList()" class="btn btn-primary" role="button">게시판리스트</a>
                                     </div>
                                     <div class="col d-grid px-0">
                                         <a href="../student/mainGaesipan" class="btn btn-secondary" role="button">글조회 -></a>
@@ -805,9 +1315,10 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-1"></div>
+                            <div class="col py-2 border rounded-3 boxshadow">
                                 <div class="row"><!-- 여기 로우콜 잡기..-->
-                                    <div class="col fs-5 fw-bold">
+                                    <div class="title col fw-bold">
                                         시설물 수리요청
                                     </div>
                                 </div>
@@ -836,7 +1347,7 @@ pageEncoding="UTF-8"%>
                                 <div class="row mt-4"><!-- 여기 로우콜 잡기..-->
                                     <div class="col-4"></div>
                                     <div class="col d-grid text-end ps-0">
-                                        <a onclick="" class="btn btn-primary" role="button">요청리스트</a>
+                                        <a onclick="repaireRequestAllList()" class="btn btn-primary" role="button">요청리스트</a>
                                     </div>
                                     <div class="col d-grid px-0">
                                         <a href="../student/sj_requestRepairPage" class="btn btn-secondary" role="button">요청조회 -></a>
@@ -854,59 +1365,59 @@ pageEncoding="UTF-8"%>
                                         기타 네비게이션
                                     </div>
                                 </div>
-                                <div class="row my-5"><!-- 여기 로우콜 잡기..-->
+                                <div class="row my-4"><!-- 여기 로우콜 잡기..-->
                                     <div class="col fw-bold text-center">
                                         <div class="row">
-                                            <div class="col">
-                                                <a onclick="location.href='../staff/mj_mainPage'">
+                                            <div class="navibutton col" onclick="location.href='../staff/mj_mainPage'">
+                                                
                                                 <i class="bi bi-house-door fs-2"></i><br>
-                                                Main</a>
+                                                Main
                                             </div>
-                                            <div class="col">
-                                                <a onclick="location.href='../student/jw_mainPage'">
+                                            <div class="navibutton col" onclick="location.href='../student/jw_mainPage'">
+                                                
                                                 <i class="bi bi-buildings fs-2"></i><br>
                                                 StudentMain
-                                                </a>
-                                            </div>
-                                            <div class="col">
-                                                <a onclick="location.href='../student/dm_dormOrganizationChart'">
-                                                <i class="bi bi-telephone fs-2"></i><br>
-                                                Phone</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col fw-bold text-center">
-                                        <div class="row">
-                                            <div class="col">
-                                                <a onclick="location.href='../student/dm_paymentMoney'">
-                                                <i class="bi bi-cash-coin fs-2"></i><br>
-                                                Payment</a>
-                                            </div>
-                                            <div class="col">
-                                                <a onclick="location.href='../student/dm_FAQ'">
-                                                <i class="bi bi-question-circle fs-2"></i><br>
-                                                FAQ</a>
-                                            </div>
-                                            <div class="col">
-                                                <a onclick="location.href='../student/dm_streetDistribution'">
-                                                <i class="bi bi-signpost-split fs-2"></i><br>
-                                                Distance</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col fw-bold text-center">
-                                        <div class="row">
-                                            <div class="col">
-                                                <a onclick="location.href='../student/dm_dormSelectionGuide'"><i class="bi bi-clipboard-check fs-2"></i><br>
-                                                Starter</a>
-                                            </div>
-                                            <div class="col">
-                                                <a onclick="location.href='../student/dm_dormSearchMap'"><i class="bi bi-cursor fs-2"></i><br>
-                                                SearchRoad</a>
-                                            </div>
-                                            <div class="col">
                                                 
-                                                <a onclick="location.href='../student/dm_dormIntroduction'"><i class="bi bi-rocket-takeoff fs-2"></i><br>Hello!</a>
+                                            </div>
+                                            <div class="navibutton col" onclick="location.href='../student/dm_dormOrganizationChart'">
+                                                
+                                                <i class="bi bi-telephone fs-2"></i><br>
+                                                Phone
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col fw-bold text-center">
+                                        <div class="row">
+                                            <div class="navibutton col" onclick="location.href='../student/dm_paymentMoney'">
+                                                
+                                                <i class="bi bi-cash-coin fs-2"></i><br>
+                                                Payment
+                                            </div>
+                                            <div class="navibutton col" onclick="location.href='../student/dm_FAQ'">
+                                                
+                                                <i class="bi bi-question-circle fs-2"></i><br>
+                                                FAQ
+                                            </div>
+                                            <div class="navibutton col" onclick="location.href='../student/dm_streetDistribution'">
+                                                
+                                                <i class="bi bi-signpost-split fs-2"></i><br>
+                                                Distance
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col fw-bold text-center">
+                                        <div class="row">
+                                            <div class="navibutton col" onclick="location.href='../student/dm_dormSelectionGuide'">
+                                                <i class="bi bi-clipboard-check fs-2"></i><br>
+                                                Starter
+                                            </div>
+                                            <div class="navibutton col" onclick="location.href='../student/dm_dormSearchMap'">
+                                                <i class="bi bi-cursor fs-2"></i><br>
+                                                SearchRoad
+                                            </div>
+                                            <div class="navibutton col" onclick="location.href='../student/dm_dormIntroduction'">
+                                                
+                                                <i class="bi bi-rocket-takeoff fs-2"></i><br>Hello!
                                             </div>
                                         </div>
                                     </div>
@@ -925,7 +1436,7 @@ pageEncoding="UTF-8"%>
             </div>
             <div id="modalTemplete">
             <div id="writemodal" class="modal" tabindex="-1">
-			  <div class="modal-dialog">
+			  <div class="modal-dialog modal-lg">
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <h5 class="modal-title">Modal title</h5>
