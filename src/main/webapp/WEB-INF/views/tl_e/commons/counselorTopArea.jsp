@@ -18,14 +18,14 @@
 				<div class="col pt-1 pe-4 text-end fs-5">
 					<span class="fw-bold"><a class="navbar-brand" href="../offlineCounsel/offlineCounselReservationCheckPage">오프라인 상담</a></span><span class="fs-5 text-body-tertiary">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
 					<span class="fw-bold"><a class="navbar-brand" href="../onlineCounsel/counselorOnlineCounselMainPage">온라인 상담</a></span><span class="fs-5 text-body-tertiary">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-					<span class="fw-bold"><a class="navbar-brand" href="">집단 상담</a></span><span class="fs-5 text-body-tertiary">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+					<span class="fw-bold"><a class="navbar-brand" href="../groupcounsel/staff/counselorGroupCounselListPage">집단 상담</a></span><span class="fs-5 text-body-tertiary">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
 					<span class="fw-bold"><a class="navbar-brand" href="../offlineCounsel/offlineCounselStatisticsPage">통계 자료</a></span>
 				</div>
            	</div>
            </div>
 		<div class="col-1 pt-3 me-4 text-center dropdown nav-item">
 		  <a class="nav-link pt-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		    <span class="checkSession fw-bold"></span>님
+		    <span class="checkSession fw-bold">${sessionExternalInfo.external_id }</span>님
 		  </a>
 		  <ul class="dropdown-menu">
 		    <li><a class="dropdown-item" href="#">마이페이지</a></li>
