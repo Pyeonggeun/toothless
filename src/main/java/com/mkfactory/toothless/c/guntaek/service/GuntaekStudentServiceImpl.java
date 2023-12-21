@@ -140,7 +140,7 @@ public class GuntaekStudentServiceImpl {
 			
 			AjdksInternEduReviewDto reviewDto = guntaekstudentSqlMapper.getCheckReview(apply_pk);
 			
-			
+			// 프로그램 Dto	
 			map.put("EduProgramDto",guntaekstaffSqlMapper.getEduProgramByPk(program_pk));			// 교육키를 갖고와서 프로그램 Dto 가져오기			
 			
 			map.put("getCountPeople", guntaekstudentSqlMapper.getCountPeopleOfProgram(program_pk)); 
@@ -187,5 +187,14 @@ public class GuntaekStudentServiceImpl {
 	public int getApplyKey(AjdksInternEduApplying apply) {
 		return guntaekstudentSqlMapper.getApplyKey(apply);
 	}
+	
+	// 이수한 프로그램들 얻어오기
+	public List<AjdksInternEduProgramDto> completeProgramList(int student_pk){
+		
+		return guntaekstudentSqlMapper.programListByStudent(student_pk);
+	}
+	
+	
+	
 }
 

@@ -71,43 +71,43 @@
 				
 				
 					<!-- 프로그램 상세하게 보기... -->				
-					<div class="row mt-5 ms-4">
-						<div class="col">
-							<h3 style="font-weight:bold"><i class="bi bi-list-task"></i>&nbsp;&nbsp;${ProgramDto.title}</h3>							 	
-						</div>	
+					
+					<div class="row mt-5">
+					<div class="col fw-bold">
+						<i style ="font-size:1.5em;" class="bi bi-list-task"></i>&nbsp;${ProgramDto.title}
 					</div>
-					<div class = "row mt-4" >
-						<div class="border border-bottom border-dark border-2 "></div>
 					</div>
-					<div class="row mt-4 border">
-						<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9; height:3em" >접수기간</div>
-						<div class = "col-4 ps-3 d-flex align-items-center">${ProgramDto.progress_date}</div>
+					
+					
+					<div class="row mt-4 border">	
+						<div class = "col-2 d-flex justify-content-center align-items-center border-end" style ="background-color:#f9f9f9; height:2em" >접수기간</div>
+						<div class = "col-4 ps-3 d-flex align-items-center" >${ProgramDto.progress_date}</div>
 						<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9">모집마감일자</div>
 						<div class = "col-4 ps-3 d-flex align-items-center">
 							<fmt:formatDate pattern ="yyyy-MM-dd" value="${ProgramDto.deadline_date}"/>
 						</div>
 					</div>
-					<div class="row mt border">
-						<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9;height:3em">장소</div>
-						<div class = "col-10 d-flex align-items-center"> ${ProgramDto.place}</div>
+					<div class="row mt">
+						<div class = "col-2 d-flex justify-content-center align-items-center border-start " style ="background-color:#f9f9f9;height:2em">장소</div>
+						<div class = "col-10 d-flex align-items-center border-end border-start"> ${ProgramDto.place}</div>
 					</div>
 					<div class="row mt border">
-						<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9; height:3em">신청 가능 인원</div>
+						<div class = "col-2 d-flex justify-content-center align-items-center border-end" style ="background-color:#f9f9f9; height:2em">신청 가능 인원</div>
 						<div class = "col-4 ps-3 d-flex align-items-center">${ProgramDto.maximum_applicant}</div>
 						<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9">교육비</div>
 						<div class = "col-4 ps-3 d-flex align-items-center">무료</div>
 					</div>
 					
 					
-					<div class="row">
+					<div class="row mt-5">
 					<div class="col-1"></div>
-						<div class="col-10 d-flex justify-content-center"><img class="img-fluid" src="/Git_imageFile/${ProgramDto.poster_image}">"
+						<div class="col-10 d-flex justify-content-center"><img class="img-fluid" src="/Git_imageFile/${ProgramDto.poster_image}">
 					</div>
 					<div class="col-1"></div>
 					</div>
 
 					<div class="row mt-5">
-					<div class="col-2"> <h4 style="font-weight:bold;">상세내용</h4></div>
+					<div class="col-2"> <p style="font-weight:bold; font-size:1.2em">상세내용</p></div>
  					<div class="col"></div>	
 					</div>
 					
@@ -118,7 +118,7 @@
 					</div>
 					
 					<div class="row mt-5">
-					<div class="col-2"> <h4 style="font-weight:bold;">학생 리뷰</h4></div>
+					<div class="col-2"><p style="font-weight:bold; font-size:1.2em">학생 리뷰</p></div></div>
  					<div class="col"></div>	
 					</div>
 					
@@ -137,7 +137,7 @@
 					<div class="col"></div>
 				
 					<div class="col-1 d-flex justify-content-center align-items-center border-start px-0 py-0">
-					    <input type="submit" class="btn btn-danger d-flex justify-content-center align-items-center" style="width: 100%; height: 100%;" value="삭제">     
+					    <input type="submit" class="btn btn-danger d-flex justify-content-center align-items-center" style="width: 100%; height: 100%;" value="게시글 삭제">     
 						<input type ="hidden" name="internedu_review_pk" value="${a.internedu_review_pk}">
 						<input type ="hidden" name="internedu_program_pk" value="${internedu_program_pk}">
 					</div>
@@ -159,7 +159,7 @@
 		</div>	
 	
 	</div>
-</div>
+
 			<!-- 전체 container 출구 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

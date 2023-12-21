@@ -68,65 +68,56 @@
 			<div class="col mx-4">
 			<!-- 본문작성공간 -->
 				
+			
 				
-				<div class="row mt-5 ms-3">
-				<div class="col fw-bold">
-						<h3> <i class="bi bi-card-text"></i> &nbsp;&nbsp; 프로그램 리뷰 조회 페이지</h3> 
+				
+				 <div class="row mt-5">
+					<div class="col fw-bold">
+						<i style ="font-size:1.5em;" class="bi bi-pencil"></i> &nbsp; 교육 프로그램 리뷰 관리
+					</div>
 				</div>
+				
+				<div class="row mt-5 g-0 py-0 border mt-3 fw-bold" style="font-size: 0.9em; height: 3em; background-color:#F8F8F8;">
+					<div class="col-1 d-flex justify-content-center  align-items-center border-end h-100">No</div>
+					<div class="col-3 d-flex justify-content-center  align-items-center border-end h-100">제목</div>
+					<div class="col-1 d-flex justify-content-center  align-items-center border-end h-100">강연자</div>
+					<div class="col-2 d-flex justify-content-center  align-items-center border-end h-100">장소</div>
+					<div class="col d-flex justify-content-center  align-items-center border-end h-100">마감일	</div>
+					<div class="col d-flex justify-content-center  align-items-center border-end h-100">진행 날짜</div>
+					<div class="col d-flex justify-content-center  align-items-center border-end h-100">작성일자</div>
+					<div class="col d-flex justify-content-center  align-items-center border-end h-100">평점</div>
 				</div>
-				<div class="row mt-3">
-					<div class="col border border-2 border-dark"></div>
-				</div>
-				 
-				<div class="row" style ="margin-top:6em;">
-					<div class="col border border-1"></div>
-				</div>
-				<div class="row mt-3 d-flex align-items-center text-center fw-bold" style="font-size: 0.9em; height:2.3em;">
-					<div class="col-1">No</div>
-					<div class="col-3">제목</div>
-					<div class="col-1">강연자</div>
-					<div class="col-2">장소</div>
-					<div class="col">마감일	</div>
-					<div class="col">진행 날짜</div>
-					<div class="col">작성일자</div>
-					<div class="col">평점</div>
-				</div>
-				<div class="row mt-3">
-					<div class="col border border-1"></div>
-				</div>
-				<!-- 다시 -->
+				
+				
+				
 					<c:forEach items="${List}" var="a">
-							<div class="row mt-3 d-flex align-items-center text-center" style="font-size: 0.8em; height:2.3em;" >
-								<div class="col-1">${a.programList.internedu_program_pk}</div>
-								<div class="col-3">
-								<a href="./ajdksManageProgramReview?internedu_program_pk=${a.programList.internedu_program_pk}" style ="color:black;">
+						<div class="row g-0 py-0 "style="font-size: 0.9em; height: 3em;">
+					    <div class="col-1 d-flex justify-content-center  align-items-center border-end border-start border-bottom h-100">${a.programList.internedu_program_pk}</div>
+					    <div class="col-3 d-flex justify-content-center align-items-center border-bottom border-end h-100">
+					    		<a href="./ajdksManageProgramReview?internedu_program_pk=${a.programList.internedu_program_pk}" style ="color:black;">
 									${a.programList.title}
 								</a>	
-								</div>								
-								<div class="col-1">${a.programList.lecturer}</div>
-								<div class="col-2">${a.programList.place}</div>
-								<div class="col"><fmt:formatDate pattern = "yyyy/MM/dd" value="${a.programList.deadline_date}"/></div>
-								<div class="col">
-								${a.programList.progress_date}
-								</div>
-								<div class="col">
-								<fmt:formatDate pattern = "yyyy/MM/dd" value="${a.programList.created_at}"/>
-								</div>
-								<c:if test="${!empty a.rating}">
-								<div class="col">
-									${a.rating}
-								</div>
-								</c:if>
-								
-								<c:if test="${empty a.rating}">
-								<div class="col">
-									리뷰 없음
-								</div>
-								</c:if>
+						</div>
+					    <div class="col-1 d-flex justify-content-center align-items-center border-bottom  border-end  h-100">${a.programList.lecturer}</div>
+					    <div class="col-2 d-flex justify-content-center align-items-center border-bottom border-end  h-100">${a.programList.place}</div>
+					    <div class="col d-flex justify-content-center align-items-center border-bottom border-end  h-100"><fmt:formatDate pattern = "yyyy/MM/dd" value="${a.programList.deadline_date}"/></div>
+					    <div class="col d-flex justify-content-center align-items-center border-bottom border-end  h-100">${a.programList.progress_date}</div>
+					    <div class="col d-flex justify-content-center align-items-center border-bottom border-end  h-100"><fmt:formatDate pattern = "yyyy/MM/dd" value="${a.programList.created_at}"/></div>
+						
+						<c:if test="${!empty a.rating}">
+							<div class="col d-flex justify-content-center align-items-center border-bottom border-end  h-100">
+								${a.rating}
 							</div>
-							<div class="row mt-3">
-								<div class="col border border-secondary-subtle"></div>
+						</c:if>
+						
+						<c:if test="${empty a.rating}">
+							<div class="col d-flex justify-content-center align-items-center border-bottom border-end  h-100">
+								리뷰 없음
 							</div>
+						</c:if>
+						
+						
+						</div>	
 					</c:forEach>
 				
 				
