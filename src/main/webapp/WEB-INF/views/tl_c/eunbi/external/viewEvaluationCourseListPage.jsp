@@ -201,7 +201,7 @@
 				const internWrapper = document.querySelector("#internListTemplete .internWrapper").cloneNode(true);
 				
 				const internStudentPk = internWrapper.querySelector(".internStudentPk");
-				internStudentPk.innerText = intern.studentInfoDto.student_pk;
+				internStudentPk.innerText = intern.studentInfoDto.student_id;
 				
 				const internName = internWrapper.querySelector(".internName");
 				internName.innerText = intern.studentInfoDto.name;
