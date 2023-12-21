@@ -87,7 +87,7 @@
 							<c:when test="${getMyOnlineConsultingListNumFive.size()==0}">
 								<div class="row">
 									<div class="col fw-bold mt-3 text-center">
-										상담이력이 없습니다!
+										상담이력이 없습니다
 									</div>
 								</div>
 							</c:when>
@@ -95,7 +95,7 @@
 							<c:when test="${getMyOnlineConsultingListNumFive==null}">
 								<div class="row">
 									<div class="col fw-bold mt-3 text-center">
-										상담이력이 없습니다!
+										상담이력이 없습니다
 									</div>
 								</div>
 							</c:when>							

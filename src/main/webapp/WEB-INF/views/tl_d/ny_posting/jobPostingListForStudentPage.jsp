@@ -181,7 +181,7 @@
         				<%-- 공고스크랩 --%>
         				const interestPosting = postingWrapper.querySelector(".interestPosting");
         				
-        				 if (e.allPostingInterest == 0) {
+        				 if (e.checkInterestPosting == 0) {
      			        	const starIcon = document.createElement("i");
      			        	starIcon.classList.add("text-warning", "bi", "bi-star");
          					interestPosting.appendChild(starIcon);

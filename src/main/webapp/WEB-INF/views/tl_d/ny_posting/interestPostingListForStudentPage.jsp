@@ -48,7 +48,7 @@
 				<c:choose>
 					<c:when test="${empty totalInterestPostingList}">
 						<div class="row mt-3">
-							<div class="col fw-bold text-center">
+							<div class="col fw-bold fs-4 text-center">
 								스크랩한 채용공고가 없습니다
 							</div>
 						</div>

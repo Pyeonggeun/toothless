@@ -147,6 +147,7 @@ public class PostingController {
 		if(staffInfo == null) {
 			return "redirect:../../another/staff/loginPage";
 		}
+	
 			
 		model.addAttribute("postingCount", postingService.getPostingCount());
 		model.addAttribute("jobPostingList", postingService.getPostingList(searchType, searchWord));
@@ -178,7 +179,7 @@ public class PostingController {
 			return "redirect:../../another/staff/loginPage";
 		}
 		
-		model.addAttribute("jobPostingDetail", postingService.getJobPostingDetail(id));
+		model.addAttribute("jobPostingDetail", postingService.getJobPostingDetail(id,true));
 		
 		return "tl_d/ny_posting/jobPostingDetailPage";
 	}
@@ -206,7 +207,7 @@ public class PostingController {
 			return "redirect:../../another/staff/loginPage";
 		}
 		
-		model.addAttribute("modifyJobPosting", postingService.getJobPostingDetail(id));
+		model.addAttribute("modifyJobPosting", postingService.getJobPostingDetail(id,false));
 		model.addAttribute("jobFieldCategory", postingService.getJobFieldCategoryList());
 		
 		
@@ -312,6 +313,7 @@ public class PostingController {
 			
 			int studentPk = studentInfo.getStudent_pk();
 			model.addAttribute("companyPosting",postingService.getStudentApplyList(studentPk));
+			model.addAttribute("interestCompany", postingService.getStudentInterestCompanyList(studentPk));
 		}else {
 			return "redirect:../../another/student/loginPage";
 			
@@ -338,7 +340,7 @@ public class PostingController {
 			paramss.setStudent_pk(studentPk);
 			
 			
-			Map<String, Object> map = postingService.getJobPostingDetailForStudentAndCompany(studentPk, id);
+			Map<String, Object> map = postingService.getJobPostingDetailForStudentAndCompany(studentPk, id, true);
 			
 			model.addAttribute("jobPostingDetailForStudent", map);
 
@@ -458,7 +460,7 @@ public class PostingController {
 		}
 		
 		// 기업 상세
-		model.addAttribute("jobPostingDetailForCompany", postingService.getJobPostingDetail(id));
+		model.addAttribute("jobPostingDetailForCompany", postingService.getJobPostingDetail(id,true));
 		
 		// 관심공고 학생 리스트
 		model.addAttribute("interestStudentList", postingService.getStudentListByPostingInterest(id));
