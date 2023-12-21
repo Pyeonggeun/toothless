@@ -51,7 +51,7 @@
    	
      .text-over-cut2 {
         display: block;
-        max-width: 255px;
+        max-width: 320px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -195,7 +195,7 @@
 						<div class="col shadow bg-white text-center">
 							<div class="row border-bottom py-2" style="background-color: #E5EFF6">
 								<div class="col">
-									<span class="fs-5 fw-bold" style="color:#0061AA">${sessionStaffInfo.name }</span>님 환영합니다.
+									<span class="fs-5 fw-bold" style="color:#0061AA">${sessionStaffInfo.name}</span>님 환영합니다.
 								</div>
 							</div>
 							<div class="row border-bottom text-secondary py-2" style="background-color: #E5EFF6">
@@ -262,12 +262,50 @@
 							</div>
 							<div class="row py-4 text-start justify-content-center">
 								<div class="col-4 d-grid">
-									<button type="button" class="btn rounded-0 text-white" style="background-color: #007AC3; font-size: 0.7em;">마이페이지</button>
+									<button type="button" class="btn rounded-0 text-white" style="background-color: #007AC3; font-size: 0.7em;" 
+									data-bs-toggle="modal" data-bs-target="#exampleModal">마이페이지</button>
 								</div>
 								<div class="col-4">
 									<a href="./logoutProcess" class="text-black d-grid" style="text-decoration: none;">
-									<button type="button" class="btn rounded-0 btn-outline-secondary" style="font-size: 0.8em;">로그아웃</button>
+									<button type="button" class="btn rounded-0 btn-danger" style="font-size: 0.8em;">로그아웃</button>
 									</a>
+								</div>
+							</div>
+						</div>
+						
+						<!-- 모달 -->
+						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+								<div class="modal-content">
+									<div class="modal-header" style="background-color: #E5EFF6">
+										<h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">마이페이지</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<div class="row py-1">
+											<div class="col-3 fw-bold text-center border-end">사번</div>
+											<div class="col ms-2">${sessionStaffInfo.staff_id}</div>
+										</div>
+										<div class="row py-1">
+											<div class="col-3 fw-bold text-center border-end">이름</div>
+											<div class="col ms-2">${sessionStaffInfo.name}</div>
+										</div>
+										<div class="row py-1 ">
+											<div class="col-3 fw-bold text-center border-end">전화번호</div>
+											<div class="col ms-2">${sessionStaffInfo.phone}</div>
+										</div>
+										<div class="row py-1 ">
+											<div class="col-3 fw-bold text-center border-end">이메일</div>
+											<div class="col ms-2">${sessionStaffInfo.email}</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<div class="row d-flex">
+											<div class="col">
+												<button type="button" class="btn btn-secondary mx-0 rounded-0 text-white fw-bold" data-bs-dismiss="modal" >닫기</button>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
