@@ -18,7 +18,7 @@
                 <div class="col">
                     <div class="row">
                         <div class="col text-end">
-                            <span style="font-size: 0.8em; opacity: 70%; ">HOME</span>&nbsp;<span style="font-size: 0.8em; opacity: 70%; position: relative; bottom: 7%;">></span>&nbsp;<span class="fw-bold" style="font-size: 0.8em;">보건센터 안내</span>                   
+                            <span style="font-size: 0.8em; opacity: 70%; ">HOME</span>&nbsp;<span style="font-size: 0.8em; opacity: 70%; position: relative; bottom: 3%;">></span>&nbsp;<span style="font-size: 0.8em; opacity: 70%;">보건센터 소개</span>&nbsp;<span style="font-size: 0.8em; opacity: 70%; position: relative; bottom: 3%;">></span>&nbsp;<span class="fw-bold" style="font-size: 0.8em;">보건센터 안내</span>                   
                         </div>
                     </div>
                     <div class="row mt-5">
