@@ -226,6 +226,23 @@ public class RestResumeController {
 	}
 	
 	
+	// 이력서 작성
+	@RequestMapping("convertEnterToBr")
+	public D_RestResponseDto convertEnterToBr (ResumeDto params) {
+		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
+		d_RestResponseDto.setResult("success");
+		
+		List<ResumeDto> list = resumeService.getResumeList(params);
+		if(list.isEmpty()) {
+			params.setMain_resume("Y");
+		}
+		
+		
+		resumeService.resumeRegistration(params);
+		
+		
+		return d_RestResponseDto;
+	}
 
 	
 	
