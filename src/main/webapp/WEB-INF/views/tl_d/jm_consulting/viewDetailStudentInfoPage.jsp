@@ -206,7 +206,7 @@
 										</div>	
 										<div class="col">															
 											<c:if test="${getHopeJobCategoryList.size()==0}">
-												<span class="fw-bold">관심 분야가 없습니다!</span>
+												<span>관심 분야가 없습니다!</span>
 											</c:if>
 											
 											<c:forEach items="${getHopeJobCategoryList}" var="e">												

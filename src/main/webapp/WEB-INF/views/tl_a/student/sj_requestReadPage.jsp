@@ -78,7 +78,7 @@
 						  <label for="formFileMultiple" class="form-label">
 						  	<span class="fw-bold"> 파손시설 사진</span>
 						  </label><br>
-						  <img src="../../resources/img/dormitory/requestRepairImg/${one.repairDto.image_link }" class="img-fluid">
+						  <img src="/requestRepairImg/${one.repairDto.image_link }" class="img-fluid">
 						  
 						</div>
 												

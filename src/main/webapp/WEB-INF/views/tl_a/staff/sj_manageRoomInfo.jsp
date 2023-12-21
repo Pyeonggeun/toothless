@@ -116,9 +116,6 @@
 		                                            		<span class="fw-bold">학번</span> <span class="mz-2">${st.student.student_pk}</span>
 		                                            	</div>
 		                                            </div>
-		                                             
-		                                            
-		                                            
 		                                        </a>
 		                                    </li>
 		                                </c:if>
