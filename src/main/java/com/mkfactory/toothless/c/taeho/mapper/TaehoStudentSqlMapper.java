@@ -15,7 +15,7 @@ public interface TaehoStudentSqlMapper {
 	
 	public void insertInternReport(AjdksInternReportDto ajdksInternReportDto);
 	
-	public List<Map<String, Object>> selectDetailAttendanceStatusByStudentPk(int student_pk, String categoryType);
+	public List<Map<String, Object>> selectDetailAttendanceStatusByStudentPk(int student_pk);
 	
 	
 	

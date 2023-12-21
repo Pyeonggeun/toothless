@@ -47,7 +47,7 @@ public class TaehoRestStudentController {
 	}
 	
 	@RequestMapping("getDetailAttendanceList")
-	public RestResponseDto getDetailAttendanceList(HttpSession session, String categoryType) {
+	public RestResponseDto getDetailAttendanceList(HttpSession session) {
 		
 		RestResponseDto restResponseDto = new RestResponseDto();
 		
@@ -55,10 +55,8 @@ public class TaehoRestStudentController {
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		int studentPk = studentInfoDto.getStudent_pk();
-		
-		System.out.println("컨트롤러 : " + categoryType);
-		
-		restResponseDto.setData(taehoStudentService.getDetailAttendanceStatusByStudentPk(studentPk, categoryType));
+				
+		restResponseDto.setData(taehoStudentService.getDetailAttendanceStatusByStudentPk(studentPk));
 		
 		return restResponseDto;
 	}

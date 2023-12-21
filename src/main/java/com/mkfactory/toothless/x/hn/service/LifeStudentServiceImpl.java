@@ -428,7 +428,12 @@ public class LifeStudentServiceImpl {
 		}
 		
 		return list;
-	} 
+	}
+	
+	public String getTopName(int life_student_key) {
+		
+		return lifeStudentSqlMapper.getTopName(life_student_key);
+	}
 
 }
 
@@ -436,7 +441,8 @@ class Clac {
 	
 	public String attendanceClac(int totalAttendance, int exceptAttendance, int attendance) {
 		
-		double e = ((attendance - (exceptAttendance/3)) / totalAttendance) * 100;
+		double a = exceptAttendance/3;
+		double e = ((attendance - a) / totalAttendance) * 100;
 		String result = String.format("%.1f", e);
 		
 		return result;
@@ -444,7 +450,8 @@ class Clac {
 	
 	public String attendanceScore(int totalAttendance, int exceptAttendance, int absent) {
 		
-		double e = 100 - (100/totalAttendance)*((exceptAttendance/3) + absent);
+		double a = exceptAttendance/3;
+		double e = 100 - (100/totalAttendance)*(a + absent);
 		String result = String.format("%.1f", e);
 		
 		return result;

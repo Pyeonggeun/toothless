@@ -12,7 +12,6 @@
 
 <script>
 
-
 	//취업상담 내용 등록
 	function insertConsulting(){
 		const templeteWrapper = document.querySelector("#templeteWrapper");
@@ -105,7 +104,7 @@
 											학번
 										</div>	
 										<div class="col-9">
-											${viewStudentDetailPageStats.studentInfoDto.student_pk }
+											${viewStudentDetailPageStats.studentInfoDto.student_id }
 										</div>												
 									</div>
 									<div class="row mt-3">

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<div class="row mt-5">
+<div class="row mt-5 align-self-end" style="z-index: 1;">
 	<div clas="col mt-4">
 		<div class="row bg-body-tertiary mt-1">
 			<div class="col py-5">

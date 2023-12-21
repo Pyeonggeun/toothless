@@ -8,7 +8,10 @@
 	                <div class="col">
 	                    <img class="img-fluid" src="../../resources/img/lifeStudent/header_top_logo.png">
 	                </div>
-	                <div class="col d-grid justify-content-end">
+	                <div class="col text-end my-auto" style="font-size: 0.75em">
+	                    <span id="topName" class="fw-bold"></span> 님 반갑습니다
+	                </div>
+	                <div class="col-auto d-grid justify-content-end">
 	                    <button onclick="logout()" class="btn text-white bg-black rounded-pill fw-bold py-0 px-3" style="font-size: 0.75em;">로그아웃</button>
 	                </div>
 	            </div>

@@ -229,8 +229,8 @@
 					<div class="col"></div>
 				</div>
 				<div class="row">
-					<div class="col">
-						<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black;" href="./noticeMainPage_Student"><i class="bi bi-card-list"></i>&nbsp;&nbsp;목록</a>
+					<div class="col text-end">
+						<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black;" href="./noticeMainPage_Student"><i class="bi bi-card-list" style="color: red"></i>&nbsp;&nbsp;목록</a>
 					</div>
 				</div>
 			</div>

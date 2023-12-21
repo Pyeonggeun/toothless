@@ -1,9 +1,11 @@
 package com.mkfactory.toothless.a.student.dm.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mkfactory.toothless.a.dto.DormNoticeDto;
 import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
+import com.mkfactory.toothless.a.dto.PointCategory;
 import com.mkfactory.toothless.a.dto.SemesterDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
@@ -49,11 +51,36 @@ public interface DormStudentSqlMapperDm {
 	// 공지 작성글수 && 최근글제목
 	public int noticeCount();
 	public String noticeRecentWriteTitle();
+	
 	// 자유게시판글 수 && 최근글제목
 	public int freeboardCount();
 	public String freeboardRecentWriteTitle();
+	
 	// 시설물전체요청 수 && 오늘요청한 수
 	public int requestCount();
 	public int todayRequestCount();
+	
+	// 임원 리스트출력 && 동호 리스트 출력(층 까지만)
+	public List<Map<String, Object>> executiveList();
+	public List<Map<String, Object>> dongHoList();
+	
+	// 
+	public List<SemesterDto> semesterAllList();
+	public List<PointCategory> poingCategoryList();
+	public List<Map<String, Object>> dongHoAssignList();
+	
+	//
+	public List<Map<String, Object>> noticeAllList();
+	public List<Map<String, Object>> freeboardAllList();
+	public List<Map<String, Object>> repaireRequestAllList();
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

@@ -481,5 +481,10 @@
 	     INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
 	     WHERE TO_CHAR(SYSDATE, 'yyyy-MM-dd') > TO_CHAR(txol.close_date, 'yyyy-MM-dd')
 	</select>
+	
+	<select id="getTopName" resultType="String">
+		SELECT name FROM tl_x_life_student
+		WHERE life_student_key = #{life_student_key}
+	</select>
 
 </mapper>

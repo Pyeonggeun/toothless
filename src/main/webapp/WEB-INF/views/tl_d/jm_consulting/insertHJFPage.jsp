@@ -144,7 +144,7 @@
 											</div>
 										
 											<div class="row pt-5">
-												<div class="col" style="font-size:0.8em; ">
+												<div class="col" style="font-size:1.2em; ">
 													구직희망 프로그램에 대해 평가 해주세요(1~5점)
 												</div>							
 											</div>	

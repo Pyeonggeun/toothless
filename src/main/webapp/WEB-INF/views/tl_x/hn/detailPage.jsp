@@ -31,6 +31,20 @@
         	let canSatisfaction = true;
         	let canOverlap = true;
         	
+			function getTopName() {
+		    		
+	    		const url = "./getTopName";
+	    		
+	    		fetch(url)
+	    		.then(response => response.json())
+	    		.then(response => {
+	    			
+	    			document.getElementById("topName").innerText = response.data;
+	    			
+	    		});
+	    		
+	    	}
+        	
         	function reloadDetailPage() {
         		
         		const url = "./getDetailPageInfo?open_lecture_key=" + openLectureKey;
@@ -303,6 +317,7 @@
         		
         		/* getMyPk(); */
         		
+        		getTopName();
         		isApply();
         		
         	});

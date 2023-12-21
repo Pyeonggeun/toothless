@@ -34,6 +34,35 @@
 		ON TBIA.STUDENT_PK = TJSI.STUDENT_PK
 	</select>
 	
+	<select id="searchSelectItemAll" resultType="map">
+        <!-- 
+        SELECT * FROM TL_B_ITEM_INFO tbii
+		INNER JOIN TL_B_ITEM_CAT tbic ON tbii.ITEM_CAT_PK = tbic.ITEM_CAT_PK
+		AND tbii.NAME LIKE '%' || #{searchItemName} || '%'
+		 -->
+		SELECT tbii.ITEM_PK AS ITEM_PK,
+		tbii.IMG_LINK AS IMG_LINK,
+		tbic.NAME AS CAT_NAME, 
+		tbii.NAME AS ITEM_NAME
+		FROM TL_B_ITEM_INFO tbii
+		INNER JOIN TL_B_ITEM_CAT tbic ON tbii.ITEM_CAT_PK = tbic.ITEM_CAT_PK
+		WHERE 1=1
+        <!-- 카테고리랑 물품명 둘 다 검색했을 시 -->
+		<if test="searchItemName != 'default' and searchCategory != 0">
+        AND tbii.NAME LIKE '%' || #{searchItemName} || '%'
+        AND tbii.ITEM_CAT_PK = #{searchCategory}
+	    </if>
+	    <!-- 카테고리만 검색했을 시 -->
+	    <if test="searchItemName == 'default' and searchCategory != 0">
+	    AND tbii.ITEM_CAT_PK = #{searchCategory}
+	    </if>
+	    <!-- 물품명만 검색했을 시 --> 
+	    <if test="searchItemName != 'default' and searchCategory == 0">
+	    AND tbii.NAME LIKE '%' || #{searchItemName} || '%'
+	    </if> 
+       
+	</select>
+	
 	<!-- 물품,물품 신청 JOIN 해서 STATUS값 가져오기 -->
 	<select id="ItemApplyStatus" resultType="String">
 		SELECT tbia.STATUS AS STATUS FROM TL_B_ITEM_INFO tbii 

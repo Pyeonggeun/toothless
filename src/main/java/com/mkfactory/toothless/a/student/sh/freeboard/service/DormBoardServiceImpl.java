@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,7 @@ public class DormBoardServiceImpl {
 		return list;
 	}
 	
-	public Map<String, Object> getDorm(int id){
+	public Map<String, Object> getDorm(int id, boolean escape){
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -49,6 +50,15 @@ public class DormBoardServiceImpl {
 		map.put("studentInfoDto", dormSqlMapper.getStudentInfoById(getDorm.getStudent_pk()));
 		
 		map.put("dormFreeboardDto", getDorm);
+		
+		if(escape) {
+			// html escape
+			String content = getDorm.getContent();
+			content = StringEscapeUtils.escapeHtml4(content);
+			content = content.replaceAll("\n", "<br>");
+			
+			getDorm.setContent(content);
+		}
 		
 		return map;
 	}
@@ -63,6 +73,8 @@ public class DormBoardServiceImpl {
 	}
 	
 	public void updateDorm(DormFreeboardDto dormFreeboardDto) {
+		
+		
 		dormSqlMapper.update(dormFreeboardDto);
 	}
 	

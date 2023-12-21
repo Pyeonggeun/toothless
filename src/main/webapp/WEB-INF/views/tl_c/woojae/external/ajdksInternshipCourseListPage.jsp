@@ -62,7 +62,7 @@
 
 	function internshipCourseList(){
 		 
-		const url = "./internshipCourseList";
+		const url = "./internshipCourseListByExternalPk";
 		
 		fetch(url)
 		.then(response => response.json())

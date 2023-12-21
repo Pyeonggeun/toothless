@@ -10,6 +10,8 @@
 
 <script>
 		function formSubmit(){
+			
+			console.log("실행됨")
 			const search = document.getElementById("search");
 			
 			const inputWord = document.getElementById("inputWord");
@@ -24,15 +26,18 @@
 			
 		}
 		
-		.btn:hover {
-			  background-color: #8FBC8F;
-			}
-	
 	</script>
+	<style>
+		*{
+		font-family: 'Gowun Dodum', sans-serif;
+		}
+	</style>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gowun+Dodum&family=Quicksand:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
@@ -86,7 +91,7 @@
 						<!-- 왼쪽 콜 시작 -->
 						<div class="col-4"> 
 						
-							<div class="row py-4"><div class="col"></div></div>
+							<div class="row pt-2 pb-3"><div class="col"></div></div>
 						
 							<!-- 정보창 2 시작 -->
 							<div class="row">
@@ -97,17 +102,29 @@
 										<div class="row">
 											<div class="col">
 											
-												<div class="row mb-2 pb-2"> <div class="col border-bottom style="border-color:#dcdcdc;"> <span class="fs-4 fw-bold">인기 게시물</span> <span style="font-size: 1.2em; color: #8FBC8F">Popular posts</span></div></div>
+												<div class="row pt-0 pb-3"> <div class="col"> <span class="fs-4 fw-bold">인기 게시물</span> <span style="font-size: 1.2em; color: #8FBC8F">Popular posts</span></div></div>
+												
+													
+													
+													
+												<div class="row border-top style="border-color:#dcdcdc;">
+													<div class="col">
+													
+													<div class="row py-2 mb-2"><div class="col"> </div></div>
 													
 													<c:forEach items="${bestFreeboardPostList}" var="best">
 														<div class="row text-center py-2 rounded-1"> 
-															<div class="col-2">${best.elementFreeboardPost.id}</div>
-															<div class="col-4 text-start"><a class="link-dark link-underline link-underline-opacity-0" href="./readFreeboardPostPage?id=${best.elementFreeboardPost.id}">${best.elementFreeboardPost.title}</a></div>
-															<div class="col-2">${best.elementFreeboardPost.read_count}</div>
-															<div class="col-2">${best.studentInfo.name}</div>
+								
+															<div class="col-4 text-truncate text-start pe-0 me-0"><a class="link-dark link-underline link-underline-opacity-0" href="./readFreeboardPostPage?id=${best.elementFreeboardPost.id}">${best.elementFreeboardPost.title}</a><span class=""></span></div>
+															<div class="col-2 ps-0 pt-1 ms-0 text-start text-secondary" style="font-size: small;">[${best.elementFreeboardPost.read_count}]</div>
+															<div class="col-3">${best.studentInfo.name}</div>
 															<div class="col-2"><fmt:formatDate value="${best.elementFreeboardPost.created_at}" pattern="yyyy.MM.dd"/> </div>
 														</div>
 														</c:forEach>
+													</div>
+												</div>			
+														
+														
 												</div>
 											<!--조회수 기준 베스트 게시물 끝-->
 											</div>
@@ -127,10 +144,12 @@
 									<div class="row">
 										<div class="col">
 															<div class="row pb-2">
-																<div class="col border-bottom style="border-color:#dcdcdc;">
+																<div class="col">
 																	<span class="fs-4 fw-bold">검색</span> <span style="font-size: 1.2em; color: #8FBC8F">Search</span>
 																</div>
 															</div>	
+															
+															<div class="row border style="border-color:#dcdcdc;"><div class="col"></div></div>
 										
 															<form id="search" action="./freeboardCounselPage" method="get">
 																<div class="row text-center py-3"> <!--검색-->
@@ -142,10 +161,10 @@
 																			<option value="name">작성자</option>
 																		</select>
 																	</div>
-																	<div class="col-5"> 
-																		<input id="inputWord" name ="searchWord" type ="text" class="form-control" placeholder="검색할 내용을 입력하세요">
+																	<div class="col-5 px-0 mx-0 d-grid"> 
+																		<input id="inputWord" name ="searchWord" type ="text" class="form-control">
 																	</div>
-																	<div class="col-3"> 
+																	<div class="col-3 d-grid px-3 mx-0"> 
 																		<input class="btn btn-dark" type="button" onclick="formSubmit()" value="검색">
 																	</div>
 																</div>
@@ -173,7 +192,8 @@
 											<div class="row">
 												<div class="col-4"></div>
 												<div class="col-4 text-center"> <br> <span class="text-danger fs-3"> ${countedPost}</span> <br> <span class="fs-6">총 게시글 수</span></i></div>
-												<div class="col-4"></div>												
+												<div class="col-4">
+												</div>												
 											</div>
 										<!-- 정보창 1의 중요 부분 시작(제목과 내용) 끝-->
 										</div>
@@ -207,17 +227,17 @@
 												<div class="col-3 text-center" style="color: #8FBC8F;"> <a class="btn text-center py-0 my-0" role="button" href="./createFreeboardPostsPage"><i class="bi bi-keyboard-fill fs-3"></i> <br> <span class="fw-bold">게시글 작성하기</span></a></div>
 											</div>
 											
-											<div class="row py-2"><div class="col"><!-- 여백 --></div></div>
+											<div class="row pb-2"><div class="col"><!-- 여백 --></div></div>
 											
 											<!-- 오버플로우 주기 위함 -->
-											<div class="row border-top" style="border-color:#dcdcdc;">
+											<div class="row border-top mt-0" style="border-color:#dcdcdc;">
 												<div class="col overflow-auto" style="width: 10em; height: 40em;">									
 													<!-- 목차에 맞춘 진짜 글 리스팅 되는 로우 시작 -->
 													<c:forEach items="${combinedFreeboardList}" var="List">
 														
 														<div class="row py-3">
 															<div class="col-2 text-center">${List.elementFreeboardDto.id}</div>
-															<div class="col-5 fw-bold text-start">
+															<div class="col-5 text-truncate fw-bold text-start">
 																<c:forEach items="${newPostList}" var="brand">
 																	<c:choose>
 																		<c:when test="${brand.id == List.elementFreeboardDto.id }">

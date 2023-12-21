@@ -115,6 +115,8 @@
 	function categorizedCompanyList(typeData,wordData){
 		
 		
+		
+		
 		// 검색
 		const searchWordValue = document.getElementById("searchWord").value;
 		console.log(searchWordValue);
@@ -130,10 +132,13 @@
 	    console.log(typeData);
 	    
 	    console.log(checkedValues);
-	    console.log(searchWordValue); 
+	    console.log(searchWordValue);
+	    
+	    
 		
-		
-		const url = "./categorizedCompanyList?searchType=" + checkedValues + "&searchWord=" + searchWordValue;
+	    const searchTypeParam = checkedValues.length > 0 ? "&searchType=" + checkedValues : "";
+
+	    const url = "./categorizedCompanyList?searchWord=" + searchWordValue + searchTypeParam;
 		
 		
 		fetch(url)
@@ -145,8 +150,10 @@
 			const companyListBox = document.getElementById("companyListBox");
 			companyListBox.innerHTML = "";
 			
+			
 			for(e of response.data){
 				
+				console.log(response.data[0]);
 				
 				const companyListWrapper = document.querySelector("#templete .companyListWrapper").cloneNode(true);
 				
@@ -173,7 +180,17 @@
 				
 			}
 			
+			
+			const checkboxes = document.querySelectorAll('.sType:checked');
+	        checkboxes.forEach(checkbox => {
+	            checkbox.checked = false; // 체크된 체크박스 해제
+	        });
+
+	        const searchWordInput = document.getElementById("searchWord");
+	        searchWordInput.value = ""; // 검색어 입력 부분 비우기
+			
 		});
+		
 	}
 	
 	
@@ -220,6 +237,13 @@
 	}
 	
 	
+	function reload(){
+		
+		registedCompanyList();
+	}
+	
+	
+	
 	window.addEventListener("DOMContentLoaded", () =>{
 		getStaffId();
 		companyCategoryList();
@@ -263,8 +287,11 @@
 							 <!-- <input name="searchType" type="checkbox"> -->
 						<%-- </c:forEach> --%>
 					</div>
+					<div class="col-1 d-flex justify-content-end">
+						<button onclick="reload()" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i></button>
+					</div>
 					<div class="col-4">
-						<input id="searchWord" type="text" class="form-control">
+						<input id="searchWord" type="text" class="form-control" placeholder="업체명을 입력해주세요.">
 					</div>
 					<div class="col-1 d-grid">
 						<button onclick="categorizedCompanyList(searchTypeData, searchWordData)" class="btn btn-secondary">검색</button>

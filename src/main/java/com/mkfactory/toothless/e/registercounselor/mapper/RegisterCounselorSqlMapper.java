@@ -73,9 +73,14 @@ public interface RegisterCounselorSqlMapper {
 	// 미친짓 : 상담사PK기준 카테고리별 평균평점+전체평균평점+별점항목별 갯수 카운팅
 	public Map<String, Object> selectTotalScoreInfoByCounselorId(int counselorId);
 	
+	// counselCenterStaffMainPage 용
 	// 상담원 전체 상담분류별 상담완료실적
 	public List<Map<String, Object>> selectAllCompleteCounselList();
 	
+	// 상담형태별 완료된 상담내역 카운팅
+	public Map<String, Object> selectAllTypeCompleteCounselCountValue();
 	
+	// 집단상담 리스팅
+	public List<Map<String, Object>> selectGroupCounselBoardForStaffMain();
 
 }

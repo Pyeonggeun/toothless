@@ -187,23 +187,19 @@
 	<jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
 
 	<div class="row">
-		<div class="col mx-0 px-0" style="height: 35em;">
-			<img class="banner img-fluid" src="/toothless/resources/img/groupCounsel/fff.jpg" style="width:100%; height: 100%;">
-		
-			<div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height:100%; position: relative; bottom: 100%;"></div>
-			<!-- 
-			<div class="title-text fw-bold" style="font-size: 3.5em; color: white; top: 70%;">Mk University | 상담센터</div>
-			<!--<div class="title-text" style="font-size: 1.5em; color: white; top: 42%;"></div> -->
-			<div style="color: white; position: relative; font-size: 4em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 20.5%;">MKU 공지사항</div>
-			<div style="color: white; position: relative; font-size: 5em; bottom: 154%; transform: translate(-50%, -50%); text-align: center; left: -18%; border-top:1px; border-top-style: solid; border-top-color: white;"></div>
-			<div style="color: white; position: relative; font-size: 1.4em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 19.6%;">너와 나 그리고 우리를 위한 마음을 위한 치료</div>
-			<div style="color: white; position: relative; font-size: 1.4em; bottom: 147%; transform: translate(-50%, -50%); text-align: center; left: 24.3%;">마음도 관리가 필요합니다</div>		
-			<div style="height:13em; width:14em; border-radius: 0px 50px 0px 0px; background-color: #679467; opacity:0.9; position: relative; font-size: 1.4em; bottom: 155.2%; transform: translate(-50%, -50%); text-align: center; left: 86.7%;"></div>				
-			<div style="font-weight:900; color: #464646; position: relative; font-size: 1.5em; bottom: 225%; transform: translate(-50%, -50%); text-align: center; left: 84%;">Contact Us</div>
-			<div style="font-weight:900; color: white; position: relative; font-size: 2.8em; bottom: 212%; transform: translate(-50%, -50%); text-align: center; left: 86.3%;">1544-3054</div>
-			<div style="color: white; position: relative; font-size: 0.9em; bottom: 215%; transform: translate(-50%, -50%); text-align: center; left: 85.5%;">E-mail. mkmk@naver.com</div>
-			<div style="color: white; position: relative; font-size: 0.9em; bottom: 214%; transform: translate(-50%, -50%); text-align: center; left: 84.5%;">Tel. 010-4097-3054</div>
-		</div>
+	    <div class="col mx-0 px-0" style="height: 35em; position: relative;">
+			<img class="banner img-fluid" src="/toothless/resources/img/groupCounsel/fff.jpg" style="width: 100%; height: 100%;">
+			<div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height: 100%; position: absolute; bottom: 0; left: 0;"></div>
+			<div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 20.5%; transform: translate(-50%, 50%);">MKU 상담센터</div>
+			<div style="color: white; position: absolute; font-size: 5em; bottom: 36%; transform: translate(-50%, -50%); text-align: center; left: -8%; border-top: 1px; border-top-style: solid; border-top-color: white; width: 80%;"></div>
+			<div style="color: white; position: absolute; font-size: 1.4em; bottom: 24.5%; transform: translate(-50%, -50%); text-align: center; left: 19.6%;">너와 나 그리고 우리를 위한 마음을 위한 치료</div>
+			<div style="color: white; position: absolute; font-size: 1.4em; bottom: 17.5%; transform: translate(-50%, -50%); text-align: center; left: 24.2%;">마음도 관리가 필요합니다</div>
+			<div style="height: 17em; width: 18em; border-radius: 0px 50px 0px 0px; background-color: #679467; opacity: 0.9; position: absolute; bottom: -24.2%; transform: translate(-50%, -50%); text-align: center; left: 85%;"></div>
+			<div style="font-weight: 900; color: #464646; position: absolute; font-size: 1.5em; bottom: 34%; transform: translate(-50%, -50%); text-align: center; left: 82%;">Contact Us</div>
+			<div style="font-weight: 900; color: white; position: absolute; font-size: 2.6em; bottom: 10%; transform: translate(-50%, -50%); text-align: center; left: 84%;">1544-3054</div>
+			<div style="color: white; position: absolute; font-size: 0.9em; bottom: 8%; transform: translate(-50%, -50%); text-align: center; left: 83.5%;">E-mail. mkmk@naver.com</div>
+			<div style="color: white; position: absolute; font-size: 0.9em; bottom: 3%; transform: translate(-50%, -50%); text-align: center; left: 82.5%;">Tel. 010-4097-3054</div>
+	    </div>
 	</div>
 
 	<div class="container">
@@ -261,9 +257,27 @@
 								<div class="row">&nbsp;</div>
 								<div class="row">&nbsp;</div>
 								<div class="row">
-									<div class="col">
-										<div class="col pt-5">
-											<img src="../../resources/img/onlineCounsel/doctor.png" width="100%" height="auto" style="border-radius: 10px;">
+									<div class="col" style="max-height: 15em; min-height: 15em;">
+										<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+										  <div class="carousel-inner">
+										    <div class="carousel-item active">
+										      <img src="../../resources/img/notice/image1.jpg" class="d-block w-100" alt="...">
+										    </div>
+										    <div class="carousel-item">
+										      <img src="../../resources/img/notice/image2.jpg" class="d-block w-100" alt="...">
+										    </div>
+										    <div class="carousel-item">
+										      <img src="../../resources/img/notice/image3.jpg" class="d-block w-100" alt="...">
+										    </div>
+										  </div>
+										  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+										    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										    <span class="visually-hidden">Previous</span>
+										  </button>
+										  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+										    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+										    <span class="visually-hidden">Next</span>
+										  </button>
 										</div>
 									</div>
 								</div>
@@ -296,7 +310,9 @@
 			</div>
 		</div>
 	</div>
-	
+	<div class="row mt-3 pt-3">
+		<div class="col"></div>
+	</div>
 	<!-- 풋터 -->
 	<div class="row mt-5" style="background-color: #5a5a5a;">
 		<div class="col-1"></div>
@@ -324,28 +340,30 @@
 		<div class="col-1"></div>
 	</div>
 	
-	<div id="templete" class="row">
-		<div class="col">
-			<div class="noticeListWrapper row mt-2 mb-2 ps-4 pe-0">
-				<div class="noticePk col-1"></div>
-				<div class="noticeTitle col-8 border-bottom">
-					<div class="row">
-						<div class="col-9">
-							<a class="titleUrl link-offset-2 link-underline link-underline-opacity-0 fs-5 ps-2" style="color: black"></a>
-							<span class="titleSpan fw-bold text-danger" style="font-size:0.7em;"></span>
-							<span class="imageSpan"></span>
-						</div>
-						<div class="col pe-0 text-end">
-							<span class="likeSpan fw-bold" style="font-size:0.7em;"></span>
-						</div>
-						<div class="col ps-0 pe-4 text-end">
-							<span class="dislikeSpan fw-bold" style="font-size:0.7em;"></span>
+	<div id="templete" class="d-none">
+		<div class="row">
+			<div class="col">
+				<div class="noticeListWrapper row mt-2 mb-2 ps-4 pe-0">
+					<div class="noticePk col-1"></div>
+					<div class="noticeTitle col-8 border-bottom">
+						<div class="row">
+							<div class="col-9">
+								<a class="titleUrl link-offset-2 link-underline link-underline-opacity-0 fs-5 ps-2" style="color: black"></a>
+								<span class="titleSpan fw-bold text-danger" style="font-size:0.7em;"></span>
+								<span class="imageSpan"></span>
+							</div>
+							<div class="col pe-0 text-end">
+								<span class="likeSpan fw-bold" style="font-size:0.7em;"></span>
+							</div>
+							<div class="col ps-0 pe-4 text-end">
+								<span class="dislikeSpan fw-bold" style="font-size:0.7em;"></span>
+							</div>
 						</div>
 					</div>
+					<div class="noticeRead_Count col-1"></div>
+					<div class="noticeNickname col-1"></div>
+					<div class="noticeDate col-1 ps-1"></div>
 				</div>
-				<div class="noticeRead_Count col-1"></div>
-				<div class="noticeNickname col-1"></div>
-				<div class="noticeDate col-1 ps-1"></div>
 			</div>
 		</div>
 	</div>

@@ -103,18 +103,19 @@
 					groupCounselDDay.style.cssText = "font-size: 1.3em; color: #0A6E0A; text-decoration : none;";
 					groupCounselTitle.style.cssText = "font-size: 0.9em; color: black;";
 				});
-				
-				const checkGroupAndOffline = document.querySelector("#checkGroupAndOffline");
-				const checkGroup = checkGroupAndOffline.querySelector(".checkGroup");
-				const checkOffline = checkGroupAndOffline.querySelector(".checkOffline");
-				
-				checkGroup.style.cssText = "font-size: 1.7em; color: black; cursor: pointer;";
-				checkOffline.style.cssText = "font-size: 1.0em; color: gray;";
-				
+
 				groupCounselListBox.appendChild(groupCounselWrapper);
 				
 			}
 			
+			const checkGroup = document.querySelector("#checkGroup");
+			const checkOffline = document.querySelector("#checkOffline");
+			
+			checkGroup.style.cssText = "font-size: 1.7em; color: black; cursor: pointer;";
+			checkOffline.style.cssText = "font-size: 1.0em; color: gray; cursor: pointer;";
+			
+			const counselLink = document.querySelector("#counselLink");
+			counselLink.setAttribute("href", "/toothless/tl_e/groupcounsel/student/readGroupCounselReservationListByStudentPage");
 			
 		});
 		
@@ -131,9 +132,99 @@
 	}
 	
 	
+	function reloadOfflineList(){
+		
+		const url="./getOfflineList?student_id=" + studentId;
+		
+		fetch(url)
+		.then(response => response.json())		
+		.then(response => {
+			
+			const groupCounselListBox = document.getElementById("groupCounselListBox");
+			groupCounselListBox.innerHTML = "";
+			
+			for(e of response.data){
+				
+				const offlineCounselWrapper = document.querySelector("#templete .offlineCounselWrapper").cloneNode(true);
+				
+				const counselorTypeName = offlineCounselWrapper.querySelector(".counselorTypeName");
+				counselorTypeName.innerText = e.counselorTypeDto.name;
+				
+				const offlineCounselDate = offlineCounselWrapper.querySelector(".offlineCounselDate");
+				offlineCounselDate.innerText = e.offlineCounselDto.COUNSEL_DATE;
+				
+				const offlineCounselHour = offlineCounselWrapper.querySelector(".offlineCounselHour");
+				offlineCounselHour.innerText = e.offlineCounselDto.COUNSEL_HOUR + ":00 ~ " + e.offlineCounselDto.COUNSEL_HOUR + 1 +":00";
+				
+				const counselorName = offlineCounselWrapper.querySelector(".counselorName");
+				counselorName.innerText = e.counselorDto.name;
+				
+				const offlineDDay = offlineCounselWrapper.querySelector(".offlineDDay");
+				offlineDDay.innerText = "D-" + e.offlineCounselDto.D_DAY;
+				
+				groupCounselListBox.appendChild(offlineCounselWrapper);
+				
+			}
+			
+			const checkGroup = document.querySelector("#checkGroup");
+			const checkOffline = document.querySelector("#checkOffline");
+			
+			checkGroup.style.cssText = "font-size: 1.0em; color: gray; cursor: pointer;";
+			checkOffline.style.cssText = "font-size: 1.7em; color: black; cursor: pointer;";
+			
+			const counselLink = document.querySelector("#counselLink");
+			counselLink.setAttribute("href", "/toothless/tl_e/offlineCounsel/checkOfflineCounselReservationStudentPage");
+			
+		});
+	}
+	
+	function showEventBorderBanner(){
+		const onlineBanner = document.querySelector("#onlineBanner");
+		const offlineBanner = document.querySelector("#offlineBanner");
+		const groupBanner = document.querySelector("#groupBanner");
+		const testBanner = document.querySelector("#testBanner");
+		
+		onlineBanner.addEventListener('mouseover', function(){
+			
+			onlineBanner.style.cssText = "height: 23em; width: 80%; background-color: white; border-style: solid; border-width: 4px; border-color: #8FBC8F";
+			offlineBanner.style.cssText = "height: 23em; width: 80%; background-color: white;";
+			groupBanner.style.cssText = "height: 23em; width: 80%; background-color: white;";
+			testBanner.style.cssText = "height: 23em; width: 80%; background-color: white;";
+		});
+		
+		offlineBanner.addEventListener('mouseover', function(){
+			
+			onlineBanner.style.cssText = "height: 23em; width: 80%; background-color: white;";
+			offlineBanner.style.cssText = "height: 23em; width: 80%; background-color: white; border-style: solid; border-width: 4px; border-color: #8FBC8F";
+			groupBanner.style.cssText = "height: 23em; width: 80%; background-color: white;";
+			testBanner.style.cssText = "height: 23em; width: 80%; background-color: white;";
+		});
+		
+		groupBanner.addEventListener('mouseover', function(){
+			
+			onlineBanner.style.cssText = "height: 23em; width: 80%; background-color: white;";
+			offlineBanner.style.cssText = "height: 23em; width: 80%; background-color: white;";
+			groupBanner.style.cssText = "height: 23em; width: 80%; background-color: white; border-style: solid; border-width: 4px; border-color: #8FBC8F";
+			testBanner.style.cssText = "height: 23em; width: 80%; background-color: white;";
+		});
+		
+		testBanner.addEventListener('mouseover', function(){
+			
+			onlineBanner.style.cssText = "height: 23em; width: 80%; background-color: white;";
+			offlineBanner.style.cssText = "height: 23em; width: 80%; background-color: white;";
+			groupBanner.style.cssText = "height: 23em; width: 80%; background-color: white;";
+			testBanner.style.cssText = "height: 23em; width: 80%; background-color: white; border-style: solid; border-width: 4px; border-color: #8FBC8F";
+		});		
+		
+		
+		
+		
+	}
 	
 
 	window.addEventListener("DOMContentLoaded", () => {
+		 reloadGroupCounselList();
+		 showEventBorderBanner();
 	});
 
 
@@ -182,7 +273,7 @@
 			
 			<div class="row">
 				<div class="col-1"></div>
-				<div class="col-6 px-3" style="border-width: 0px 2px 0px 2px; border-style: solid; border-color: #dcdcdc;">
+				<div class="col-6 px-3" style="border-width: 0px 0px 0px 0px; border-style: solid; border-color: #dcdcdc;">
 					<div class="row" style="height: 5em;"></div>
 					<div class="row">
 						<div class="col-1"></div>
@@ -194,7 +285,7 @@
 									<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">Schedule</span>								
 								</div>
 								<div class="col-2 text-end">
-									<i style="font-size: 1.5em;" class="bi bi-three-dots"></i>
+									<a id="counselLink" href="/toothless/tl_e/groupcounsel/student/readGroupCounselReservationListByStudentPage" style="color: black;"><i id="scheduleIcon" style="font-size: 1.5em; color: black;" class="bi bi-three-dots"></i></a>
 								</div>
 							</div>
 						</div>
@@ -206,46 +297,7 @@
 						
 						
 							<div id="groupCounselListBox" class="row row-cols-3" style="height: 25em;">
-								<c:forEach items="${offlineCounselList}" var="list">
-								<div class="col">
-									<div class="row">
-										<div class="col py-3" style="border-style: solid; border-width: 2px; border-color: #8FBC8F; height: 15em;">
-											<div class="row">
-												<div class="col-5">
-													<span>상담 종류</span>
-												</div>
-												<div class="col">
-													<span>${list.counselorTypeDto.name }</span>
-												</div>
-											</div>
-											<div class="row pt-2">
-												<div class="col-5">
-													<span>예약 일자</span>
-												</div>
-												<div class="col">
-													<span>${list.offlineCounselDto.COUNSEL_DATE }</span>
-												</div>
-											</div>
-											<div class="row pt-2">
-												<div class="col-5">
-													<span>예약 시간</span>
-												</div>
-												<div class="col">
-													<span>${list.offlineCounselDto.COUNSEL_HOUR }:00~${list.offlineCounselDto.COUNSEL_HOUR + 1}:00</span>
-												</div>
-											</div>			
-											<div class="row pt-2">
-												<div class="col-5">
-													<span>상담사</span>
-												</div>
-												<div class="col">
-													<span>${list.counselorDto.name}</span>
-												</div>
-											</div>																															
-										</div>
-									</div>
-								</div>
-								</c:forEach>
+
 
 							</div>
 							
@@ -253,18 +305,18 @@
 						</div>
 						<div class="col-1"></div>
 					</div>	
-					<div class="row" style="height: 8em;"></div>
+					<div class="row" style="height: 4.3em;"></div>
 					<div class="row" style="height: 3em;">
 						<div class="col-9"></div>
-						<div class="col" id="checkGroupAndOffline">
-							<span class="fw-bold checkGroup" style="font-size: 1.7em; color: black; cursor: pointer;" onclick="reloadGroupCounselList()">Group</span>
+						<div class="col">
+							<span id="checkGroup" class="fw-bold" style="font-size: 1.7em; color: black; cursor: pointer;" onclick="reloadGroupCounselList()">Group</span>
 							<span class="fw-bold" style="font-size: 1.0em; color: gray;">|</span>			
-							<span class="fw-bold checkOffline" style="font-size: 1.0em; color: gray;">Offline</span>			
+							<span id="checkOffline" class="fw-bold checkOffline" style="font-size: 1.0em; color: gray; cursor: pointer;" onclick="reloadOfflineList()">Offline</span>			
 						</div>
 					</div>
 									
 				</div>
-				<div class="col-4 px-3" style="border-width: 0px 2px 0px 0px; border-style: solid; border-color: #dcdcdc;">
+				<div class="col-4 px-3" style="border-width: 0px 0px 0px 0px; border-style: solid; border-color: #dcdcdc;">
 					<div class="row" style="height: 5em;"></div>
 					<div class="row">
 						<div class="col-1"></div>
@@ -276,7 +328,7 @@
 									<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">Notice</span>								
 								</div>
 								<div class="col-2 text-end">
-									<i style="font-size: 1.5em;" class="bi bi-three-dots"></i>
+									<a href="/toothless/tl_e/notice/noticeMainPage_Student" style="color: black;"><i style="font-size: 1.5em;" class="bi bi-three-dots"></i></a>
 								</div>
 							</div>
 						</div>		
@@ -290,8 +342,8 @@
 								<div class="col-1">
 									<div class="text-center" style="font-size:1.2em; color: #8FBC8F;">☘︎</div>
 								</div>
-								<div class="col-7 ms-0 ps-0">
-									<span class="text-black text-start" style="font-size:1.2em;">${list.noticeBoardDto.title}</span>
+								<div class="col-7 ms-0 ps-0 text-truncate">
+									<a href="/toothless/tl_e/notice/readNoticeBoardPage_Student?id=${list.noticeBoardDto.id }" style="color: black; text-decoration: none;"><span class="text-black text-start" style="font-size:1.2em;">${list.noticeBoardDto.title}</span></a>
 									&nbsp
 									<c:if test="${list.countNoticeComment != 0}">
 										<span class="fw-bold" style="font-size:0.9em; color: red;">[${list.countNoticeComment}]</span>															
@@ -375,7 +427,7 @@
 						<div class="col">
 							<div class="row">
 								<div class="col-1"></div>
-								<div class="col" style="height: 23em; width: 80%; background-color: white; border-style: solid; border-width: 4px; border-color: #8FBC8F">
+								<div id="onlineBanner" class="col" onclick="location.href='/toothless/tl_e/onlineCounsel/onlineCounselMainPage'" style="height: 23em; width: 80%; background-color: white; cursor: pointer;">
 									<div class="row" style="height: 3em;"></div>
 									<div class="row">
 										<div class="col text-center">
@@ -400,7 +452,7 @@
 						<div class="col">
 							<div class="row">
 								<div class="col-1"></div>
-								<div class="col" onclick="location.href='./../../resources/img/groupCounsel/online.png'" style="height: 23em; width: 80%; background-color: white;">
+								<div id="offlineBanner" class="col" onclick="location.href='/toothless/tl_e/offlineCounsel/selectCounselorPage'" style="height: 23em; width: 80%; background-color: white; cursor: pointer;">
 									<div class="row" style="height: 3em;"></div>
 									<div class="row">
 										<div class="col text-center">
@@ -425,7 +477,7 @@
 						<div class="col">
 							<div class="row">
 								<div class="col-1"></div>
-								<div class="col" style="height: 23em; width: 80%; background-color: white;">
+								<div id="groupBanner" class="col" onclick="location.href='/toothless/tl_e/groupcounsel/student/groupCounselListPage'" style="height: 23em; width: 80%; background-color: white; cursor: pointer;">
 									<div class="row" style="height: 3em;"></div>
 									<div class="row">
 										<div class="col text-center">
@@ -450,11 +502,11 @@
 						<div class="col">
 							<div class="row">
 								<div class="col-1"></div>
-								<div class="col" style="height: 23em; width: 80%; background-color: white;">
+								<div id="testBanner" class="col" style="height: 23em; width: 80%; background-color: white; cursor: pointer;">
 									<div class="row" style="height: 3em;"></div>
 									<div class="row">
 										<div class="col text-center">
-											<img style="width: 7em; height: 7em;" src="./../../resources/img/groupCounsel/online.png">
+											<img style="width: 7em; height: 7em;" src="./../../resources/img/groupCounsel/test.png">
 										</div>
 									</div>
 									<div class="row">
@@ -535,8 +587,65 @@
 	</div>
 
 
-
-
+	<div class="col offlineCounselWrapper">	
+		<div class="row">
+			<div class="col py-3 px-2 me-2" style="border-radius: 3%; border-style: solid; border-width: 2px; border-color: #8FBC8F; height: 14em;">
+				<div class="row">
+					<div class="col-1">
+						<span class="fw-bold" style="color: #8FBC8F;">☘ </span> 
+					</div>
+					<div class="col-4">
+						<span class="fw-bold" style="font-size: 1.0em;">상담종류</span>
+					</div>
+					<div class="col">
+						<span class="text-secondary fw-bold counselorTypeName" style="font-size: 0.9em;">${list.counselorTypeDto.name }</span>
+					</div>
+				</div>
+				<div class="row pt-2">
+					<div class="col-1">
+						<span class="fw-bold" style="color: #8FBC8F;">☘ </span> 
+					</div>											
+					<div class="col-4">
+						<span class="fw-bold">예약일자</span>
+					</div>
+					<div class="col">
+						<span class="text-secondary fw-bold offlineCounselDate" style="font-size: 0.9em;">${list.offlineCounselDto.COUNSEL_DATE }</span>
+					</div>
+				</div>
+				<div class="row pt-2">
+					<div class="col-1">
+						<span class="fw-bold" style="color: #8FBC8F;">☘ </span> 
+					</div>											
+					<div class="col-4">
+						<span class="fw-bold">예약시간</span>
+					</div>
+					<div class="col">
+						<span class="text-secondary fw-bold offlineCounselHour" style="font-size: 0.9em;">${list.offlineCounselDto.COUNSEL_HOUR }:00~${list.offlineCounselDto.COUNSEL_HOUR + 1}:00</span>
+					</div>
+				</div>			
+				<div class="row pt-2">
+					<div class="col-1">
+						<span class="fw-bold" style="color: #8FBC8F;">☘ </span> 
+					</div>
+					<div class="col-4">
+						<span class="fw-bold">상담사</span>
+					</div>
+					<div class="col">
+						<span class="text-secondary fw-bold counselorName" style="font-size: 0.9em;">${list.counselorDto.name}</span>
+					</div>
+				</div>	
+				<div class="row" style="height: 2.3em;"></div>
+				<div class="row">
+					<div class="col">
+						<div class="fw-bold offlineDDay" style="color: #0A6E0A; font-size: 1.5em;">D-${list.offlineCounselDto.D_DAY }</div>
+					</div>
+					<div class="col-3 text-end pe-3">
+						<div class="fw-bold" style="font-size: 1.5em;"><i class="bi bi-arrow-right-square fw-bold" style="color: black"></i></div>
+					</div>
+				</div>																														
+			</div>
+		</div>
+	</div>
 
 
 </div>

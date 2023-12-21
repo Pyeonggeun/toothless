@@ -64,8 +64,8 @@
               		
               		<c:if test="${!empty sessionStudentInfo && sessionStudentInfo.student_pk == qwer.dormFreeboardDto.student_pk }">
               			<div class="col d-flex justify-content-end my-2 pe-0">
-              				<a class="btn btn-outline-primary rounded-0 me-2" href="./deleteGasipanProcess?id=${qwer.dormFreeboardDto.dorm_freeboard_pk }" role="button">수정하기</a>
-              				<a class="btn btn-outline-danger rounded-0" href="./updateDorm?id=${qwer.dormFreeboardDto.dorm_freeboard_pk }" role="button">삭제하기</a>
+              				<a class="btn btn-outline-primary rounded-0 me-2" href="./updateDorm?id=${qwer.dormFreeboardDto.dorm_freeboard_pk }" role="button">수정하기</a>
+              				<a class="btn btn-outline-danger rounded-0" href="./deleteGasipanProcess?id=${qwer.dormFreeboardDto.dorm_freeboard_pk }" role="button">삭제하기</a>
               			</div>
               		</c:if>
 				</div>

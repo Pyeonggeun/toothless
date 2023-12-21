@@ -67,6 +67,10 @@
 				
 				// 링크의 href 속성을 설정합니다. e.onlineConsultingDto.on_consulting_pk를 사용합니다.
 				linkElement.href = './myOnlineConsultingPage?on_consulting_pk=' + e.onlineConsultingDto.on_consulting_pk;
+				linkElement.classList.add('fw-bold');
+				linkElement.style.textDecoration = 'none';
+				//text-decoration: none;
+	            //color: inherit; 
 				
 				// 텍스트 내용을 설정합니다.
 				linkElement.innerText = e.onlineConsultingDto.on_consulting_pk;
@@ -74,7 +78,7 @@
 				// 기존 내용을 지우고 새로운 a 엘리먼트를 추가합니다.
 				listPk.innerHTML = ''; // 또는 listPk.textContent = ''; 으로 사용할 수 있습니다.
 				listPk.appendChild(linkElement);
-
+				
 				
 				//날짜
 				const listDate = listWrapper.querySelector(".listDate");
@@ -155,14 +159,8 @@ window.addEventListener("DOMContentLoaded", () => {
 					<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 				</div>			
 				<div class="col-1 border-start"></div>					
-				<div class="col">
-					<%--
-					<div class="row my-5">
-						<div class="col fw-bold" style="font-size:1.2em;">
-							내 온라인 상담 내역
-						</div>
-					</div>
-					 --%>
+				<div class="col mt-3">
+
 					
 					<div class="row mt-4 py-2 border-bottom border-top" >
 					
@@ -231,8 +229,8 @@ window.addEventListener("DOMContentLoaded", () => {
 						<div class="col d-flex justify-content-center">
 							<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 							  <div class="btn-group" role="group" aria-label="First group">
-							    <button type="button" class="active btn btn-outline-dark">&lt;</button>
-							    <button type="button" class="btn btn-outline-dark">1</button>
+							    <button type="button" class="btn btn-outline-dark">&lt;</button>
+							    <button type="button" class="btn btn-outline-dark active">1</button>
 							    <button type="button" class="btn btn-outline-dark">2</button>
 							    <button type="button" class="btn btn-outline-dark">3</button>
 							    <button type="button" class="btn btn-outline-dark">4</button>

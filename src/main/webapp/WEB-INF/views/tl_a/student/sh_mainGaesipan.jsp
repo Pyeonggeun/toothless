@@ -80,11 +80,11 @@
 				<div class="col">
 					<fmt:formatDate value="${map.dormFreeboardDto.created_at}" pattern="yyyy.MM.dd"/>
 				</div>
-				
-			</div>
-           </div>
-       </div>
-                </c:forEach>
+					
+				</div>
+	           </div>
+	       </div>
+        </c:forEach>
 		
 			<div class="row mt-3">
 				

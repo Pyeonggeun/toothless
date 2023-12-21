@@ -70,6 +70,20 @@
 		INNER JOIN TL_JIC_STAFF_INFO tjsi ON tcci.STAFF_PK = tjsi.STAFF_PK 
 		WHERE tcci.EXTERNAL_PK = #{external_pk}
 	</select>
+	
+	<select id="selectInternListByInternshipCoursePk" resultType="Map">
+		SELECT
+		tjsi.student_id AS student_id,
+		tjsi.name AS student_name,
+		tjsi.birth AS student_birth,
+		tjsi.gender AS student_gender,
+		tjsi.address AS student_address,
+		tjsi.phone AS student_phone,
+		tjsi.email AS student_email
+		FROM tl_c_student_intern tcsi
+		INNER JOIN tl_jic_student_info tjsi ON tcsi.student_pk = tjsi.student_pk
+		WHERE tcsi.internship_course_pk = #{internship_course_pk }
+	</select>	
 
 
 

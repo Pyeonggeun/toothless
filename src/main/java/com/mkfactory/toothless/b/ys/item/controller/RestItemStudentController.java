@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,6 +53,25 @@ public class RestItemStudentController {
 		return restResponseDto;
 	}
 	
+	@RequestMapping("restGetItemAndItemApplyListByCategoryPk")
+	public B_RestResponseDto restGetItemAndItemApplyListByCategoryPk(int item_cat_pk) {
+		
+		B_RestResponseDto restResponseDto = new B_RestResponseDto();
+
+		if(item_cat_pk == 0) {
+			
+			restResponseDto.setData(itemStudentService.getItemAndItemApplyList());
+			restResponseDto.setResult("success");
+			
+			return restResponseDto;
+		}else {
+			restResponseDto.setResult("success");
+			restResponseDto.setData(itemStudentService.getItemAndItemApplyListByCategoryPk(item_cat_pk));
+			
+			return restResponseDto;
+		}
+	}
+	
 	@RequestMapping("restGetStudentItem")
 	public B_RestResponseDto restGetStudentItem(int item_pk) {
 		
@@ -77,4 +97,38 @@ public class RestItemStudentController {
 		return restResponseDto;
 	}
 	
+	@RequestMapping("restItemStatus")
+	public B_RestResponseDto restItemStatus(int item_pk) {
+		
+		B_RestResponseDto restResponseDto = new B_RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		restResponseDto.setData(itemStudentService.getItemApplyStatus(item_pk));		
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("restItemApplyCount")
+	public B_RestResponseDto restItemApplyCount(int item_pk) {
+		
+		B_RestResponseDto restResponseDto = new B_RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		restResponseDto.setData(itemStudentService.getItemApplyCount(item_pk));
+		
+		return restResponseDto;
+	}
+	
+	@RequestMapping("restStudentSearchItemList")
+	public B_RestResponseDto restStudentSearchItemList(
+			@RequestParam(name = "searchItemName", defaultValue = "default" ) String searchItemName,
+			@RequestParam(name = "searchCategory", required = false ) int searchCategory){
+		
+		B_RestResponseDto restResponseDto = new B_RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		restResponseDto.setData(itemStudentService.searchItemList(searchItemName, searchCategory));		
+		
+		return restResponseDto;
+	}
 }

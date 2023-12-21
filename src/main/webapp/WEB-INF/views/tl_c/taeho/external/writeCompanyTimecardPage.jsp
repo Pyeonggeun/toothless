@@ -222,6 +222,9 @@
 
 	</div><!-- 본문 col 출구 -->
 </div>
+
+<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>		
+
 	
 </div><!-- 메인화면 출구 -->
 	

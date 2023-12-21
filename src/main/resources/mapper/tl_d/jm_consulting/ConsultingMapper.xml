@@ -8,7 +8,7 @@
 <!-- (학생)구직희망신청 정보 입력 -->
 <insert id="insertHopeJobApply">
 	INSERT INTO tl_d_hope_job values(
-	tl_d_hope_job_seq.nextval,
+	#{hope_job_pk},
 	#{student_pk},
 	#{hope_salary},
 	#{hope_area},
@@ -327,6 +327,11 @@ WHERE HOPE_JOB_PK =#{HOPE_JOB_PK}
 <select id="getJobFieldCategoryByPk" resultType="com.mkfactory.toothless.d.dto.JobFieldCategoryDto">
 SELECT * FROM TL_D_JOB_FIELD_CATEGORY
 WHERE JOB_FIELD_CATEGORY_PK = #{JOB_FIELD_CATEGORY_PK}
+</select>
+
+<!-- 구직희망pk 시퀀스 실행 -->
+<select id="getHopeJobPk" resultType="int">
+SELECT tl_d_hope_job_seq.NEXTVAL FROM dual
 </select>
 
 
