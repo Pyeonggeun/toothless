@@ -137,7 +137,9 @@ public class EduStaffController {
 	public String eduProgRegisterProcess(HttpSession session, EduDto eduDto, MultipartFile eduImage) {
 		
 		if(eduImage != null) {
-			String rootPath = "C:\\workspace\\GitWorkSpace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\edu\\";
+			String rootPath = "C:/uploadFiles/eduImage/";
+			
+			
 			
 			// 날짜별 폴더 생성
 	         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");

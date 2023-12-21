@@ -135,7 +135,6 @@ public class EduStudentController {
 			return "redirect:../../another/student/loginPage";
 		}
 
-		
 		model.addAttribute("eduDto", eduStudentService.getEduInfoByEduPk(edu_pk));
 		
 		return "tl_b/hs/eduApplyCompletePage";

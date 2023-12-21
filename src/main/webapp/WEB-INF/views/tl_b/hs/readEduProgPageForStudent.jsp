@@ -5,6 +5,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="../../resources/js/hn/topBanner.js"></script>
+    
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -163,10 +165,11 @@
                                     <div class="row mt-1">
                                         <div class="col fw-semibold text-secondary"
                                         style="font-size: 18px; color: #535D66;">
-                                            *신청방법<br>
-                                            *강사<br>
+                                            *신청방법<br> 
+                                           	 MK대학교 보건센터 > 교육프로그램 > 수강신청 <br>
+											 (전화접수는 12.31일부터 가능)<br>
+                                            *강사 한고은 <br>
                                             <br>
-                                            상세교육 내용<br>
                                             ${qwer.eduDto.content }<br>
                                         </div>
                                     </div>
@@ -174,7 +177,8 @@
                                     <div class="row mt-4"> 
                                         <div class="col">
                                             <img class="img img-fluid"
-                                            src="../../resources/img/healthRoom/edu/${qwer.eduDto.img_link }"
+                                            
+                                            src="/uploadFiles/eduImage/${qwer.eduDto.img_link }"
                                             style="max-height: 800px;">
                                         </div>
                                     </div>

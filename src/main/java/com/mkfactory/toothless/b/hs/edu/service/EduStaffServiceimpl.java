@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,20 @@ public class EduStaffServiceimpl {
 	
 	@Autowired
 	StaffSqlMapper staffSqlMapper;
+	
 	//프로그램 등록
 	public void eduProgRegister(EduDto eduDto) {
+		
+		String content = eduDto.getContent();
+//      content = content.replaceAll("<", "&lt;");
+//      content = content.replaceAll(">", "&gt;");
+      
+	    content = StringEscapeUtils.escapeHtml4(content);
+	    content = content.replaceAll("<br>", "\n");
+	    eduDto.setContent(content);
+
+//출력 쪽은 replaceAll 쪽 '', '' 요거 바꿔줘서 넣으면 됩니다!
+// 표시는 < , > 이거도 바꾸는 거라 넣을거면 출력하는 부분에도 같이 넣어주셔야 돼용!
 		
 		eduStaffSqlMapper.insert(eduDto);
 	}
@@ -186,6 +199,17 @@ public class EduStaffServiceimpl {
 		String apply_end_date = sdf.format(eduDto.getApply_end_date());
 		String edu_date = sdf.format(eduDto.getEdu_date());
 		
+		String content = eduDto.getContent();
+//      content = content.replaceAll("<", "&lt;");
+//      content = content.replaceAll(">", "&gt;");
+      
+	    content = StringEscapeUtils.escapeHtml4(content);
+	    content = content.replaceAll("\n", "<br>");
+	    eduDto.setContent(content);
+
+//출력 쪽은 replaceAll 쪽 '', '' 요거 바꿔줘서 넣으면 됩니다!
+// 표시는 < , > 이거도 바꾸는 거라 넣을거면 출력하는 부분에도 같이 넣어주셔야 돼용!
+		
 		
 		int stuAndEduCount = eduStaffSqlMapper.selectByEdu_pkAndStudent_pk(eduApplyDto);
 		
@@ -201,6 +225,20 @@ public class EduStaffServiceimpl {
 	
 	//교육프로그램 수정, 삭제
 	public void updateEduProg(EduDto eduDto) {
+		
+		String content = eduDto.getContent();
+//      content = content.replaceAll("<", "&lt;");
+//      content = content.replaceAll(">", "&gt;");
+      
+	    content = StringEscapeUtils.escapeHtml4(content);
+	    content = content.replaceAll("<br>", "\n");
+	    eduDto.setContent(content);
+
+//출력 쪽은 replaceAll 쪽 '', '' 요거 바꿔줘서 넣으면 됩니다!
+// 표시는 < , > 이거도 바꾸는 거라 넣을거면 출력하는 부분에도 같이 넣어주셔야 돼용!
+		
+		
+		
 		eduStaffSqlMapper.update(eduDto);
 	}
 	
