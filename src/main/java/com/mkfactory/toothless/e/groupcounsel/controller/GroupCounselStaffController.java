@@ -126,7 +126,11 @@ public class GroupCounselStaffController {
 	}
 	
 	
-	
+	@RequestMapping("counselorGroupCounselListPage")
+	public String counselorGroupCounselListPage() {
+		
+		return "/tl_e/groupcounsel/staff/counselorGroupCounselListPage";
+	}
 	
 	
 }
