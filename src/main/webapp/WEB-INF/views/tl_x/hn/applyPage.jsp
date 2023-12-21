@@ -36,6 +36,20 @@
 	    	let startPageNumber = 1;
 	    	let endPageNumber = 1;
 	    	
+	    	function getTopName() {
+	    		
+	    		const url = "./getTopName";
+	    		
+	    		fetch(url)
+	    		.then(response => response.json())
+	    		.then(response => {
+	    			
+	    			document.getElementById("topName").innerText = response.data;
+	    			
+	    		});
+	    		
+	    	}
+	    	
 			function previousPage() {
         		
 				pageNumber = startPageNumber - 1;
@@ -351,6 +365,7 @@
 	    	window.addEventListener("DOMContentLoaded", () => {
 	    		
 	    		/* getMyPk(); */
+	    		getTopName();
 	    		reloadTotalOpenLectureCount();
 	    		reloadLectureCategoryList();
 	    		setSearchType();

@@ -85,8 +85,8 @@ public class WoojaeStaffController {
 	
 	// 체크박스용 리스트페이지
 	
-	@RequestMapping("ajdksRegistedCompanyPageCCCC")
-	public String ajdksRegistedCompanyPageCCCC(
+	@RequestMapping("ajdksRegistedCompanyPage2")
+	public String ajdksRegistedCompanyPage2(
 			Model model,
 			int[] searchType,
 			String searchWord
@@ -101,7 +101,7 @@ public class WoojaeStaffController {
 		
 		model.addAttribute("catSearch", woojaeStaffService.categorizedCompanyList(searchType, searchWord));
 		
-		return"tl_c/woojae/staff/ajdksRegistedCompanyPageCCCC";
+		return"tl_c/woojae/staff/ajdksRegistedCompanyPage2";
 	}
 	
 	//공지사항

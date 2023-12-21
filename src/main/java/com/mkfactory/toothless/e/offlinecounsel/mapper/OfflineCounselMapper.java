@@ -163,7 +163,7 @@ public interface OfflineCounselMapper {
 	public List<Map<String, Object>> selectMainPieChart(int counselor_id);
 	
 	// 상담 예약 중복 확인
-	public List<Map<String, Object>> selectDateValueReservationList();
+	public List<Map<String, Object>> selectDateValueReservationList(int counselor_id);
 	
 	
 }

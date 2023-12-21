@@ -149,7 +149,8 @@
 				</div>
 				<div class="row mt-2">
 					<div class="col"><a class="btn btn-secondary" href="./jobPostingListPage">목록으로</a></div>
-					<div class="col text-end">
+					<div class="col-8"></div>
+					<div class="col pe-0 text-end">
 						<c:choose>
 							<c:when test="${empty sessionStaffInfo}">
 								<button class="btn btn-outline-dark" disabled>수정</button>

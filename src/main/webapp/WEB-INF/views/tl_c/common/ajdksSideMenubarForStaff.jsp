@@ -47,7 +47,7 @@
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../woojae/staff/ajdksRegistedCompanyPage?company_category_pk=0'">&gt;&nbsp;산업체 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../woojae/staff/ajdksRegistedCompanyPage2'">&gt;&nbsp;산업체 조회</span>
 					</div>
 				</div>
 			</div>

@@ -18,7 +18,7 @@
                 <div class="col">
                     <div class="row">
                         <div class="col text-end">
-                            <a href="#" style="text-decoration-line : none; color: black;"><span style="font-size: 0.8em; opacity: 70%; ">HOME</span></a>&nbsp;<span style="font-size: 0.8em; opacity: 70%; position: relative; bottom: 7%;">></span>&nbsp;<span class="fw-bold" style="font-size: 0.8em;">보건센터 안내</span>                   
+                            <span style="font-size: 0.8em; opacity: 70%; ">HOME</span>&nbsp;<span style="font-size: 0.8em; opacity: 70%; position: relative; bottom: 7%;">></span>&nbsp;<span class="fw-bold" style="font-size: 0.8em;">보건센터 안내</span>                   
                         </div>
                     </div>
                     <div class="row mt-5">
@@ -82,7 +82,7 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col">
-                                    <span><span style="position: relative; bottom: 8%;"><i class="bi bi-dot" style="font-size: 0.9em;"></i>&nbsp;진료신청은 온라인 예약 불가, 오프라인으로만 가능</span>
+                                    <span style="position: relative; bottom: 8%;"><i class="bi bi-dot" style="font-size: 0.9em;"></i>&nbsp;진료신청은 온라인 예약 불가, 오프라인으로만 가능</span>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +195,7 @@
                         <div class="col-4 border">
                             <div class="row">
                                 <div class="col ps-4 pt-4 pb-5" style="font-size: 1em;">
-                                    <span class="fw-bold" style="opacity: 70%;">간호사</span></span><span style="position: relative; bottom: 1%; font-size: 1.2em;">:</span> <span class="fw-bold">이민지</span>
+                                    <span class="fw-bold" style="opacity: 70%;">간호사</span><span style="position: relative; bottom: 1%; font-size: 1.2em;">:</span> <span class="fw-bold">이민지</span>
                                     <div class="row">                                        
                                         <div class="col pt-2 pb-1" style="position: relative; left: 4%; border-bottom-style: solid; border-width: 0.08em; opacity: 70%;">
                                             
@@ -229,6 +229,10 @@
                     <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
                 </div>
             </div>
-        </div>      
+        </div>  
+        
+        
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>

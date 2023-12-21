@@ -239,6 +239,8 @@
 				
 			</div>
 		</div>
+		
+		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 	</div>
 	
 </div>

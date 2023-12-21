@@ -28,16 +28,25 @@
 			<div class="col">
 				
 				<div class="row">
-					<div class="col fs-5 fw-bold mt-5">이력서 상세보기</div>
-				</div>	
-				<div class="row border-bottom border-dark"></div>
-				<div class="row border border-top">
-					<div class="col p-3 ms-2">
-						<div class="row border-bottom border-gray">
-							<div class="col fs-1">${resumeDto.resume_title }</div>
-						</div>
-						<div class="row ms-2 mt-1">
+					<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">이력서 상세보기</div>
+				</div>
+				
+				<div class="row mt-3 border-bottom border-gray">
+					<div class="col fs-1">${resumeDto.resume_title }</div>
+				</div>
+				
+				<div class="row">
+					<div class="col">
+						<div class="row border-bottom border-2 border-black pb-3 mt-5">
+							<div class="col fw-bold">인적사항</div>
 							
+						</div>
+					</div>
+				</div>
+				
+				<div class="row border-bottom">
+					<div class="col">
+						<div class="row ms-2 mt-1">		
 							<div class="col">이름 : ${sessionStudentInfo.name }</div>
 							<div class="col">성별 : ${sessionStudentInfo.gender }</div>
 							<div class="col">
@@ -59,28 +68,38 @@
 					</div>
 				</div>
 				
-				<div class="row mt-4 border border-top">
-					<div class="col p-3 ms-2">
-						<div class="row border-bottom border-gray">
-							<div class="col fs-3">자소서</div>
-							<div class="col-1"><a href="./resumeUpdatePage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
+				
+				<div class="row">
+					<div class="col">
+						<div class="row border-bottom border-2 border-black pb-3 mt-5">
+							<div class="col fw-bold">자소서</div>
+							<div class="col-1"><a href="./resumeUpdatePage?resume_pk=${resumeDto.resume_pk }">수정</a></div>							
 						</div>
-						<div class="row">
+						<div class="row border-bottom">
 							<div class="col">${resumeDto.cover_letter }</div>
+						</div>
+						
+					</div>
+				</div>
+				
+				
+				
+				<div class="row">
+					<div class="col">
+						<div class="row border-bottom border-2 border-black pb-3 mt-5">
+							<div class="col fw-bold">경력 사항</div>
+							<div class="col-1"><a href="./careerDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
+						</div>
+						<div class="row border-bottom border-2 border-gray pb-3 mt-5">
+							<div class="col fw-bold">카테고리</div>
+							<div class="col-10 fw-bold text-center">경력 내용</div>
 						</div>
 					</div>
 				</div>
 				
-				<div class="row mt-4 border border-top">
-					<div class="col p-3 ms-2">
-						<div class="row border-bottom border-gray">
-							<div class="col fs-3">경력</div>
-							<div class="col-1"><a href="./careerDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
-						</div>
-						<div class="row  border-bottom text-light" style="background-color: #133369">
-							<div class="col fs-5">카테고리</div>
-							<div class="col-10  border-start fs-5 text-center">내용</div>
-						</div>
+				
+				<div class="row border-bottom">
+					<div class="col">
 						<c:choose>
 							<c:when test="${empty careerList }">
 								<div class="row">
@@ -92,7 +111,7 @@
 							
 							<c:otherwise>
 								<c:forEach items="${careerList }" var="list">
-								<div class="row">
+								<div class="row border-bottom mt-3">
 									<div class="col">${list.careerName.career_category_name }</div>
 									<div class="col-10 border-start">${list.careerDto.career_contents }</div>
 								</div>
@@ -100,24 +119,26 @@
 							</c:otherwise>
 							
 						</c:choose>
-						
-						
 					</div>
 				</div>
 				
-				<div class="row mt-4 border border-top">
-					<div class="col p-3 ms-2">
-						<div class="row border-bottom border-gray">
-							<div class="col fs-3">자격증</div>
+				<div class="row">
+					<div class="col">
+						<div class="row border-bottom border-2 border-black pb-3 mt-5">
+							<div class="col fw-bold">자격증</div>
 							<div class="col-1"><a href="./licenseDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
 						</div>
-						<div class="row  border-bottom text-light" style="background-color: #133369">
-							<div class="col">자격증 명</div>
-							<div class="col">취득 년도</div>
-							<div class="col">취득 월</div>
-							<div class="col">발급 기관</div>
+						<div class="row border-bottom border-2 border-gray pb-3 mt-5">
+							<div class="col fw-bold">자격증 명</div>
+							<div class="col fw-bold">취득 년도</div>
+							<div class="col fw-bold">취득 월</div>
+							<div class="col fw-bold">발급 기관</div>
 						</div>
-						
+					</div>
+				</div>
+				
+				<div class="row border-bottom">
+					<div class="col">
 						<c:choose>
 							<c:when test="${empty licenseList }">
 								<div class="row">
@@ -128,7 +149,7 @@
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${licenseList }" var="list">
-									<div class="row">
+									<div class="row border-bottom mt-3">
 										<div class="col">${list.lic_name }</div>
 										<div class="col">${list.lic_gain_year } 년</div>
 										<div class="col">${list.lic_gain_month }월</div>
@@ -138,12 +159,12 @@
 							</c:otherwise>
 							
 						</c:choose>
-						
-
 					</div>
 				</div>
 				
-				<div class="row mt-2">
+
+				
+				<div class="row mt-4">
 					<div class="col"></div>
 					<div class="col-2">
 						<form action="./resumeManagementPage" method="post">

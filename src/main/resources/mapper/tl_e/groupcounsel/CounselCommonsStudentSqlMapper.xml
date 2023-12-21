@@ -66,7 +66,7 @@
 		        TO_CHAR(TO_DATE(TO_CHAR(a.counsel_year) || '.' || TO_CHAR(a.counsel_month) || '.' || TO_CHAR(a.counsel_date), 'YYYY.MM.DD') - TO_DATE(TO_CHAR(SYSDATE, 'YYYY.MM.DD'), 'YYYY.MM.DD')) AS d_day,
 		        a.state
 		    FROM cp_offline_reservation a
-		    WHERE STUDENT_PK = 41 AND state='신청'
+		    WHERE STUDENT_PK = #{student_pk} AND state='신청'
 		    ORDER BY COUNSEL_YEAR, COUNSEL_MONTH, COUNSEL_DATE, COUNSEL_HOUR
 		)
 		 	<![CDATA[

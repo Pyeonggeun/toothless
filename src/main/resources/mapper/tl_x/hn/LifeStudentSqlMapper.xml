@@ -362,6 +362,7 @@
 						SELECT lecture_test_key FROM tl_x_lecture_test
 						WHERE open_lecture_key = #{open_lecture_key}
 					)
+					AND lecture_student_key = #{lecture_student_key}
 				)t1
 				INNER JOIN tl_x_question_choice txqc ON t1.question_choice_key = txqc.question_choice_key
 				WHERE txqc.answer LIKE 'true'
@@ -390,11 +391,12 @@
 		ORDER BY open_test_day ASC
 	</select>
 	
-	<select id="getStudentTestScoreByLectureTestKey" resultType="int">
+	<select id="getStudentTestScoreByLectureTestKeyAndLectureStudentKey" resultType="int">
 		SELECT NVL(SUM(test_point), 0) AS test_point FROM (
 		   SELECT * FROM (
 		      SELECT * FROM tl_x_test_result
 		      WHERE lecture_test_key = #{lecture_test_key}
+		      AND lecture_student_key = #{lecture_student_key}
 		   )t1
 		   INNER JOIN tl_x_question_choice txqc ON t1.question_choice_key = txqc.question_choice_key
 		   WHERE txqc.answer LIKE 'true'
@@ -478,6 +480,11 @@
 	     )t1
 	     INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
 	     WHERE TO_CHAR(SYSDATE, 'yyyy-MM-dd') > TO_CHAR(txol.close_date, 'yyyy-MM-dd')
+	</select>
+	
+	<select id="getTopName" resultType="String">
+		SELECT name FROM tl_x_life_student
+		WHERE life_student_key = #{life_student_key}
 	</select>
 
 </mapper>

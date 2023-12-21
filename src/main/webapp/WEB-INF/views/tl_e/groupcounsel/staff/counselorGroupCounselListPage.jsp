@@ -126,14 +126,6 @@
 								</div>
 							</div>				
 							</c:forEach>
-							
-							<div class="row pt-3">
-								<div class="col"></div>
-								<div class="col-2 text-end">
-									<a onclick="showModal()"><i class="bi bi-plus-square" style="font-size:1.6em; color:black;"></i></a>
-								</div>
-							</div>
-						
 						</div>
 						<div class="col-1"></div>
 					</div>
@@ -180,104 +172,6 @@
 
 
 
-<div id="writeModal" class="modal" tabindex="-1">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-            <div class="modal-title fw-bold" style="font-size:2em;">집단 상담 등록</div>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            	<form action="./groupCounselRegisterProcess" method="post" enctype="multipart/form-data">
-				<div class="row mt-5">
-					<div class="col border-top border-black border-2">
-						<div class="row my-3">
-							<div class="col-2 text-center">
-								<div class="fw-bold" style="font-size: 1.0em;">제목</div>
-							</div>
-							<div class="col">
-								<input type="text" name="title" class="form-control">
-							</div>
-						</div>
-						<div class="row mb-3">
-							<div class="col-2 text-center">
-								<div class="fw-bold" style="font-size: 1.0em;">내용</div>
-							</div>
-							<div class="col">
-								<textarea class="form-control" name="text" style="width:100%; height: 300px;"></textarea>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- 신청인원, 일시, 장소, 신청 시작일, 신청 종료일 -->
-				<div class="row">
-					<div class="col border-top border-black border-2">
-						<div class="row my-3">
-							<div class="col-2 text-center">
-								<div class="fw-bold" style="font-size: 1.0em;">상담 인원</div>
-							</div>
-							<div class="col">
-								<input type="number" name="amount" class="form-control">
-							</div>
-							<div class="col-2 text-center">
-								<div class="fw-bold" style="font-size: 1.0em;">상담 일시</div>
-							</div>
-							<div class="col">
-								<input type="date" name="counsel_date" class="form-control">
-							</div>
-						</div>
-						<div class="row mb-3">
-							<div class="col-2 text-center">
-								<div class="fw-bold" style="font-size: 1.0em;">장소</div>
-							</div>
-							<div class="col">
-								<input type="text" name="location" class="form-control">
-							</div>
-						</div>
-						<div class="row mb-3">
-							<div class="col-2 text-center">
-								<div class="fw-bold" style="font-size: 1.0em;">신청 시작 일자</div>
-							</div>
-							<div class="col">
-								<input type="date" name="start_apply_date" class="form-control">
-							</div>
-							<div class="col-2 text-center">
-								<div class="fw-bold" style="font-size: 1.0em;">신청 종료 일자</div>
-							</div>
-							<div class="col">
-								<input type="date" name="end_apply_date" class="form-control">
-							</div>								
-						</div>
-					</div>
-				</div>
-				<!-- 이미지 추가 -->
-				<div class="row">
-					<div class="col border-top border-black border-2">
-						<div class="row my-3">
-							<div class="col-2 text-center">
-								<div class="fw-bold" style="font-size: 1.0em;">이미지 등록</div>
-							</div>
-							<div class="col">
-								<input type="file" name="mainImageFile" class="form-control" accept="image/*">
-							</div>
-
-						</div>
-					</div>						
-				</div>
-				
-				<!-- 등록 버튼 -->
-				<div class="row mt-5">
-					<div class="col-10"></div>
-					<div class="col">
-						<input type="submit" class="form-control btn btn-secondary" value="등록">						
-					</div>
-				</div>  
-				</form>
-
-            </div>
-        </div>
-    </div>
-</div>
 
 
 

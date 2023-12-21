@@ -94,5 +94,20 @@
 		SELECT sysdate FROM dual	
 	</select>
 	
+	<select id="getGroupCounselCounselor" resultType="com.mkfactory.toothless.e.dto.GroupCounselCounselorDto">
+		SELECT * FROM CP_GROUP_COUNSELOR cgc 
+		WHERE counselor_id = #{counselor_id}
+	</select>
+	
+	<select id="getGroupCounsel" resultType="com.mkfactory.toothless.e.dto.GroupCounselDto">
+		SELECT * FROM CP_GROUP_COUNSEL cgc 
+		WHERE id = #{group_counsel_id}	
+	</select>
+	
+	<select id="getCounselor" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
+		SELECT * FROM CP_COUNSELOR cc 
+		WHERE EXTERNAL_PK = #{external_pk}	
+	</select>
+	
 	
 </mapper>

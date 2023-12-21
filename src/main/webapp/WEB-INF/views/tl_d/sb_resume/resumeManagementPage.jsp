@@ -638,7 +638,96 @@
 		<div class="resumeWrapper row border border-top">
 			<div class="col p-3 ms-2">
 				
-				<div class="row border-bottom border-gray">
+				<div class="row mt-3 border-bottom border-gray">
+					<div class="resumeTitle col fs-1">${resumeDto.resume_title }</div>
+				</div>
+				
+				<div class="row">
+					<div class="col">
+						<div class="row border-bottom border-2 border-black pb-3 mt-5">
+							<div class="col fw-bold">인적사항</div>
+							
+						</div>
+					</div>
+				</div>
+				
+				<div class="row border-bottom">
+					<div class="col">
+						<div class="row ms-2 mt-1">		
+							<div class="col">이름 : ${sessionStudentInfo.name }</div>
+							<div class="col">성별 : ${sessionStudentInfo.gender }</div>
+							<div class="col">
+								생일 : <fmt:formatDate value="${sessionStudentInfo.birth }" pattern="yyyy-MM-dd"/>
+							</div>
+							
+							<div class="col-1"></div>
+						</div>
+						<div class="row ms-2 mt-2">
+							<div class="col">핸드폰 번호 : ${sessionStudentInfo.phone }</div>
+							<div class="col">이메일 주소 : ${sessionStudentInfo.email }</div>
+							
+							
+						</div>
+						<div class="row ms-2 mt-2 mb-2">
+							<div class="col">주소 : ${sessionStudentInfo.address }</div>
+							<div class="col-1"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="coverWrapper row">
+					<div class="col">
+						<div class="row border-bottom border-2 border-black pb-3 mt-5">
+							<div class="col fw-bold">자소서</div>
+							<div class="col-1"><a href="./resumeUpdatePage?resume_pk=${resumeDto.resume_pk }">수정</a></div>							
+						</div>
+						
+						<div class="row border-bottom">
+							<div class="coverLetter col ">${resumeDto.cover_letter }</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col">
+						<div class="row border-bottom border-2 border-black pb-3 mt-5">
+							<div class="col fw-bold">경력 사항</div>
+							<div class="col-1"><a href="./careerDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
+						</div>
+						<div class="row border-bottom border-2 border-gray pb-3 mt-5">
+							<div class="col fw-bold">카테고리</div>
+							<div class="col-10 fw-bold text-center">경력 내용</div>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="row border-bottom">
+					<div id="careerCategoryBox" class="col"></div>
+				</div>			
+				
+				<div class="row licenseWrapper">
+					<div class="col">
+						<div class="row border-bottom border-2 border-black pb-3 mt-5">
+							<div class="col fw-bold">자격증</div>
+							<div class="col-1"><a href="./licenseDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
+						</div>
+						<div class="row border-bottom border-2 border-gray pb-3 mt-5">
+							<div class="col fw-bold">자격증 명</div>
+							<div class="col fw-bold">취득 년도</div>
+							<div class="col fw-bold">취득 월</div>
+							<div class="col fw-bold">발급 기관</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div id="licenseBox" class="col"></div>
+				</div>
+				
+				
+				
+				
+				<%-- <div class="row border-bottom border-gray">
 					<div class="resumeTitle col fs-1">이력서 제목</div>
 				</div>
 				<div class="row ms-2 mt-1">
@@ -685,7 +774,7 @@
 					<div class="col-10  border-start fs-5 text-center">내용</div>
 				</div>
 				
-				<div class="row">
+				<div class="row border-bottom">
 					<div id="careerCategoryBox" class="col"></div>
 				</div>
 			
@@ -706,10 +795,10 @@
 				
 				<div class="row">
 					<div id="licenseBox" class="col"></div>
-				</div>
+				</div>--%>
 				
 			</div>
-		</div>
+		</div> 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -726,13 +815,17 @@
 <div id="careerTemplete" class="d-none">
 	<div class="careerWrapper row">
 		<div class="col">
-			<div class="row">
+			<div class="row border-bottom mt-3">
 				<div class="careerCategory col"> 카테고리 명</div>
 				<div class="careerContents col-10 border-start">경력 내용</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+
+
+
 
 <!-- 자격증 템플릿  -->
 <div id="licenseTemplete" class="d-none">

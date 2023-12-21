@@ -289,7 +289,7 @@
 						사업자등록번호
 					</div>
 					<div class="col-6 d-grid">
-						<input onblur="checkCompanyIdFetch()" id="inputCompanyId" class="form-control" name="company_id" type="text" placeholder="예시) 1234-587-1122" style="font-size: 0.9em;">
+						<input onblur="checkCompanyIdFetch()" id="inputCompanyId" class="form-control" name="company_id" type="text" placeholder="예시) 123-45-67890" style="font-size: 0.9em;">
 					</div>
 					<div class="col"></div>
 				</div>
@@ -385,6 +385,7 @@
 				</form>
 			</div>
 		</div>
+		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 	</div>
 	<!-- 업종카테고리 템플릿 -->
 	

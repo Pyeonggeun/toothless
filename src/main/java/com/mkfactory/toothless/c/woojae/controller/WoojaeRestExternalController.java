@@ -25,6 +25,4 @@ public class WoojaeRestExternalController {
 		return restResponseDto;
 	}
 	
-	
-	
 }
