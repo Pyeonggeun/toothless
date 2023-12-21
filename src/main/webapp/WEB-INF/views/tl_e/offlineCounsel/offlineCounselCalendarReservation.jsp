@@ -22,20 +22,449 @@
 	<script>
 	
 		let myId = ${sessionStudentInfo.student_pk};
-	
-		function calendar(){
+		let direction = 'current';
+		let currentDate = new Date();
+		
+		function calendar(direction){
 			
-			const calendarBox = document.getElementById("#calendarBox");
-			const dateWrapper = document.querySelector("#templete .dateWrapper");
-			const dateCol = dateWrapper.querySelector(".dateCol");
+			const studentPk = document.querySelector(".studentPk");
 			
+			const categoryPk = document.querySelector(".categoryPk");
+			console.log("cav: "+categoryPk.value);
 			
+			const counselorPk = document.querySelector(".counselorPk");
+			console.log("cov: "+counselorPk.value);
+			
+			const selectDate = document.querySelector(".selectDate");
+			
+			const sYear = selectDate.querySelector(".sYear");
+			const yearValue = sYear.innerText;
+			console.log("yV: "+yearValue);
+			
+			const sMonth = selectDate.querySelector(".sMonth");
+			const monthValue = sMonth.innerText;
+			console.log("mV: "+monthValue);
+			
+			const sDate = selectDate.querySelector(".sDate");
+			const dateValue = sDate.innerText;
+			console.log("dV: "+dateValue);
+			
+			const sDay = selectDate.querySelector(".sDay");
+			const dayValue = sDay.getAttribute("data-value");
+			console.log("dV: "+dayValue);
+			
+			const sHour = selectDate.querySelector(".sHour");
+			const hourValue = sHour.innerText;
+			console.log("hV: "+hourValue);
+			
+			if(yearValue === '' && monthValue === '' && dateValue === ''){
+				selectDate.classList.add("text-white");
+			}else{
+				selectDate.classList.remove("text-white");
+			}
+			
+			const parameterDate = yearValue + "." + monthValue + "." + dateValue + "." + hourValue + "." + dayValue;
+			console.log("파라메터: "+ parameterDate);
+			
+			const text = document.querySelector(".text");
+			const textValue = text.value;
+			console.log("textValue: "+textValue);
+
+			
+			url = "./categoryAndCounselorName?categoryPk="+categoryPk.value + "&counselorPk=" + counselorPk.value;
+			
+			fetch(url)
+			.then(response => response.json())
+			.then(response => {
+				
+				const result = response.data;
+				
+				const categoryName = document.querySelector(".categoryName");
+				categoryName.innerText = result.categoryDto.name;
+				
+				const counselorName = document.querySelector(".counselorName");
+				counselorName.innerText = result.counselorDto.name;
+				
+			});
+			
+			console.log("d: "+direction);
+			const calendarBox = document.getElementById("calendarBox");
+			calendarBox.innerHTML = "";
+			let currentRow;
+			
+			let modifiedDate = new Date(currentDate);
+		  	
+		  	let firstDayOfMonth;
+		  	let lastDayOfPreviousMonth;
+		  	let lastDayOfMonth;
+		  	let firstDayOfNextMonth;
+		  	let firstDayOfMonthOfDay;
+
+			
+			<%-- 달력 출력하기: 지날 달, 이번 달, 다음 달 같이 출력 --%>
+			
+			if(direction === 'previous'){
+				
+				modifiedDate.setMonth(modifiedDate.getMonth() - 1);
+				currentDate = modifiedDate;
+
+			}else if(direction === 'next'){
+				
+				modifiedDate.setMonth(modifiedDate.getMonth() + 1);
+				currentDate = modifiedDate;
+			}
+			
+		  	firstDayOfMonth = new Date(modifiedDate.getFullYear(), modifiedDate.getMonth(), 1);
+		  	lastDayOfPreviousMonth = new Date(firstDayOfMonth.getFullYear(), firstDayOfMonth.getMonth(), 0);
+		  	lastDayOfMonth = new Date(modifiedDate.getFullYear(), modifiedDate.getMonth() + 1, 0);
+		  	firstDayOfNextMonth = new Date(modifiedDate.getFullYear(), modifiedDate.getMonth() + 1, 1);
+		  	firstDayOfMonthOfDay = firstDayOfMonth.getDay();
+					  	
+		  	console.log("Current: "+modifiedDate);
+		  	console.log("지난 달 마지막 날 : "+lastDayOfPreviousMonth.getDate());
+		  	console.log("이번 달 첫 요일 : "+firstDayOfMonthOfDay);
+		  	console.log("이번 달 첫째 날 : "+firstDayOfMonth.getDate());
+		  	console.log("이번 달 마지막 날 : "+lastDayOfMonth.getDate());
+		  	
+			const year = modifiedDate.getFullYear();
+			console.log("y: "+year);
+			const month = modifiedDate.getMonth() + 1;
+			console.log("m: "+month);
+			
+			const calendarYear = document.querySelector('.calendarYear');
+			calendarYear.innerText = year;
+			
+			const calendarMonth = document.querySelector('.calendarMonth');
+			calendarMonth.innerText = month;
+
+			const arrCalendar = [];
+			
+			for(let i = ((lastDayOfPreviousMonth.getDate() - firstDayOfMonthOfDay) + 1); i <= lastDayOfPreviousMonth.getDate(); i++){
+				arrCalendar.push(i);
+				console.log("a: "+arrCalendar);
+			}
+			
+			for(let i = firstDayOfMonth.getDate(); i <= lastDayOfMonth.getDate(); i++){
+				arrCalendar.push(i);
+			}
+			
+			let filledCount = 0;
+			for (let i = 0; i < 42; i++) {
+			    if (arrCalendar[i] !== undefined) {
+			        filledCount++;
+			    }
+			}
+			
+			console.log("fillC: "+filledCount);
+			
+			const remainingSpace = 42 - filledCount;
+			
+			console.log("reSpace: "+remainingSpace);
+			
+			for(let i = firstDayOfNextMonth.getDate(); i <= remainingSpace; i++){
+				arrCalendar.push(i);
+			}
+			
+			for(let i = 1; i <= arrCalendar.length; i++){
+				
+			    const currentDay = new Date(year, month - 1, arrCalendar[i - 1]).getDay();
+			    const currentDate = new Date(year, month - 1, arrCalendar[i - 1]);
+				
+                if (i % 7 === 1) {
+                    currentRow = document.createElement("div");
+                    currentRow.classList.add("row", "row-cols-7");
+                    calendarBox.appendChild(currentRow);
+                }
+				
+				const dateCol = document.querySelector("#templete .dateCol").cloneNode(true);
+				const currentNum = arrCalendar[i - 1];
+
+			    dateCol.innerText = currentNum;
+				
+			    <%--
+			    if (i <= firstDayOfMonth.getDay() && currentNum != 1) {
+			        // 이전 달의 날짜들 비활성화
+			        dateCol.style.backgroundColor = "#f2f1f1";
+			    } else if (i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())) {
+			        // 다음 달의 날짜들 활성화
+			        let nextMonthYear = month === 12 ? year + 1 : year;
+			        let nextMonth = month === 12 ? 1 : month + 1;
+			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + currentNum + "," + currentDay + ")");
+			    } else if (currentDate.getMonth() !== month - 1 && currentDate > new Date()) {
+			        // 다음 달의 날짜들 활성화
+			        let nextMonthYear = month === 12 ? year + 1 : year;
+			        let nextMonth = month === 12 ? 1 : month + 1;
+			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + currentNum + "," + currentDay + ")");
+			    } else if (currentDate < new Date(year, month - 1, new Date().getDate())) {
+			        // 이번 달의 날짜 중 오늘 이전인 경우, onclick 이벤트 비활성화
+			        dateCol.style.backgroundColor = "#f2f1f1";
+			    } else {
+			        // 이번 달의 날짜 중 오늘 이후인 경우, onclick 이벤트 설정
+			        dateCol.setAttribute("onclick", "showModal(" + year + "," + month + "," + currentNum + "," + currentDay + ")");
+			    }
+			    --%>
+			    
+			    // 이 부분을 수정합니다.
+			    if (i <= firstDayOfMonth.getDay()) {
+			        // 이전 달의 날짜 비활성화
+			        let prevMonthYear = modifiedDate.getFullYear();
+			        let prevMonth = modifiedDate.getMonth();
+			        if (prevMonth === 0) {
+			            prevMonth = 12;
+			            prevMonthYear--;
+			        }
+			        dateCol.setAttribute("onclick", "showModal(" + prevMonthYear + "," + prevMonth + "," + arrCalendar[i - 1] + "," + currentDay + ")");
+			    } else if (i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())) {
+			        // 다음 달의 날짜 활성화
+			        let nextMonthYear = modifiedDate.getFullYear();
+			        let nextMonth = modifiedDate.getMonth() + 2;
+			        if (nextMonth === 13) {
+			            nextMonth = 1;
+			            nextMonthYear++;
+			        }
+			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + arrCalendar[i - 1] + "," + currentDay + ")");
+			    } else if (currentDate.getFullYear() === year && currentDate.getMonth() === month - 1 && arrCalendar[i - 1] < currentDate.getDate()) {
+			        // 이번 달의 오늘 이전의 날짜인 경우, 비활성화
+			        dateCol.style.backgroundColor = "#f2f1f1";
+			    } else {
+			        // 나머지 날짜는 활성화
+			        dateCol.setAttribute("onclick", "showModal(" + year + "," + month + "," + arrCalendar[i - 1] + "," + currentDay + ")");
+			    }
+
+
+			    <%--
+				if (i <= firstDayOfMonth.getDay()) {
+			        let prevMonthYear = modifiedDate.getFullYear();
+			        let prevMonth = modifiedDate.getMonth();
+			        if (prevMonth === 0) {
+			            prevMonth = 12;
+			            prevMonthYear--;
+			        }
+			        dateCol.setAttribute("onclick", "showModal(" + prevMonthYear + "," + prevMonth + "," + arrCalendar[i - 1] + "," + currentDay + ")");
+			   
+			    } else if (i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())) {
+			        let nextMonthYear = modifiedDate.getFullYear();
+			        let nextMonth = modifiedDate.getMonth() + 2;
+			        if (nextMonth === 13) {
+			            nextMonth = 1;
+			            nextMonthYear++;
+			        }
+			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + arrCalendar[i - 1] + "," + currentDay + ")");
+			    
+			    }else if (currentDate.getFullYear() === year && currentDate.getMonth() === month - 1 && arrCalendar[i - 1] === currentDate.getDate()) {
+			        // 오늘 이전의 날짜인 경우, onclick 이벤트 비활성화
+			        dateCol.style.backgroundColor = "#f2f1f1";
+			    
+			    } else {
+			    	
+			        dateCol.setAttribute("onclick", "showModal(" + year + "," + month + "," + arrCalendar[i - 1] + "," + currentDay + ")");
+			    }
+			    
+			    --%>
+					
+				currentRow.appendChild(dateCol);
+			}
+			
+			const previousMonthBtn = document.querySelector(".previousMonthBtn");
+			
+			const today = new Date();
+			
+		    if (currentDate.getMonth() === today.getMonth()) {
+		        previousMonthBtn.disabled = true;
+		    } else {
+		        previousMonthBtn.disabled = false;
+		        previousMonthBtn.setAttribute("onclick", "previousMonth()");
+		    }
+
+			
+			const nextMonthBtn = document.querySelector(".nextMonthBtn");
+			nextMonthBtn.setAttribute("onclick", "nextMonth()");
+			
+			const reservationBtn = document.querySelector(".reservationBtn");
+			
+			reservationBtn.onclick = function() {
+			    const text = document.querySelector(".text").value;
+			    reservationRegister(studentPk.value, categoryPk.value, counselorPk.value, text, parameterDate);
+			};
 			
 		}
 		
 		
-		window.addEventListener("DOMContentLoaded", () => {
+		
+		function previousMonth(){
+			calendar('previous');
+		}
+		
+		function nextMonth(){
+			calendar('next');
+		}
+		
+		function showModal(year, month, date, day){
+			
+			console.log("my: "+year);
+			console.log("mm: "+month);
+			console.log("md: "+date);
+			console.log("mday: "+day);
+			
+            const writeModal = bootstrap.Modal.getOrCreateInstance("#writeModal");  // 매개변수로 질의 사용
+            const writeModalElement = document.querySelector("#writeModal");
+			
+			const url = "./isPossibleReservation";
+            
+			fetch(url)
+			.then(response => response.json())
+			.then(response => {
+				
+	            const todayYear = writeModalElement.querySelector(".todayYear");
+	            todayYear.innerText = year;
+	            
+	            const todayMonth = writeModalElement.querySelector(".todayMonth");
+	            todayMonth.innerText = month;
+	            
+	            const todayDate = writeModalElement.querySelector(".todayDate");
+	            todayDate.innerText = date;
+	            
+	            const modalTimeBox = writeModalElement.querySelector(".modalTimeBox");
+	            modalTimeBox.innerHTML = "";
+	            
+				for(let i = 9; i <= 17; i++){
+					
+					const modalTimeWrapper = document.querySelector("#templete .modalTimeWrapper").cloneNode(true);
+					const timeBtn = modalTimeWrapper.querySelector(".timeBtn");
+					
+					if(i == 12){
+						continue;
+					}
+					
+					timeBtn.value = i + ":00"
+					
+					const a = year + '.' + month + '.' + date + '.' + i + '.' + day;
+					
+					
+					for(e of response.data){
+						
+						console.log("a: "+a);
+						console.log("있는 예약: "+e.DATE_VALUE);
+						
+						if(e.DATE_VALUE == a){
+							timeBtn.disabled = true;
+						}
 
+					}
+					
+					const saveBtn = writeModalElement.querySelector('.saveBtn');
+					
+					timeBtn.addEventListener("click", function() {
+						
+						timeBtn.classList.toggle("btn-dark");
+					    timeBtn.classList.toggle("btn-outline-dark");
+					    timeBtn.classList.toggle("text-white");
+
+				        saveBtn.onclick = function() {
+				            save(year, month, date, i, day);
+				        };
+				    });
+					
+					modalTimeBox.appendChild(modalTimeWrapper);
+				}
+				
+			});
+            
+            writeModal.show();
+			
+		}
+		
+		function save(year, month, date, hour, day){
+			
+			const studentPk = document.querySelector(".studentPk");
+			const student = studentPk.value;
+			
+			const categoryPk = document.querySelector(".categoryPk");
+			const category = categoryPk.value;
+			
+			const counselorPk = document.querySelector(".counselorPk");
+			const counselor = counselorPk.value;
+			
+			console.log("dv: "+year);
+			console.log("dv: "+month);
+			console.log("dv: "+date);
+			console.log("dv: "+hour);
+			console.log("dv: "+day);
+			
+			const sYear = document.querySelector(".sYear");
+			sYear.innerText = year;
+			const sMonth = document.querySelector(".sMonth");
+			sMonth.innerText = month;
+			const sDate = document.querySelector(".sDate");
+			sDate.innerText = date;
+			
+			const sDay = document.querySelector(".sDay");
+			
+			if(day == 0){
+				sDay.innerText = '일';
+			}else if(day == 1){
+				sDay.innerText = '월';
+			}else if(day == 2){
+				sDay.innerText = '화';
+			}else if(day == 3){
+				sDay.innerText = '수';
+			}else if(day == 4){
+				sDay.innerText = '목';
+			}else if(day == 5){
+				sDay.innerText = '금';
+			}else if(day == 6){
+				sDay.innerText = '토';
+			}
+			sDay.setAttribute("data-value", day);
+			
+			const sHour = document.querySelector(".sHour");
+			sHour.innerText = hour;
+			
+			closeModal();
+			calendar(direction);
+			
+		}
+		
+		function closeModal(){
+			
+            const writeModal = bootstrap.Modal.getOrCreateInstance("#writeModal");  // 매개변수로 질의 사용
+            const writeModalElement = document.querySelector("#writeModal");
+			
+            writeModal.hide();
+			
+		}
+		
+		
+		function reservationRegister(studentPk, categoryPk, counselorPk, text, date){
+			
+			console.log("text: "+text);
+			
+			url = "./reservationCalendarProcess?student_pk=" + studentPk + "&counselor_id=" + counselorPk + "&type_category_id=" + categoryPk + "&text=" + text + "&reservationDate=" + date;
+			
+			fetch(url)
+			.then(response => response.json())
+			.then(response => {
+				
+				const result = response.data;
+				const categoryName = result.typeCategoryDto.name;
+				const counselorName = result.counselorDto.name;
+				const year = result.offlineReservationDto.counsel_year;
+				const month = result.offlineReservationDto.counsel_month;
+				const date = result.offlineReservationDto.counsel_date;
+				const day = result.dayString;
+				const hour = result.offlineReservationDto.counsel_hour;
+				
+				const newPageUrl = './counselReservationCompletedPage?categoryName=' + categoryName + "&counselorName=" + counselorName + "&year=" + year + "&month=" + month + "&date=" + date + "&day=" + day + "&hour=" + hour;
+
+			     window.location.href = newPageUrl;
+				
+			});
+
+		}
+		
+		
+		window.addEventListener("DOMContentLoaded", () => {
+			calendar(direction);
 		});
 	
 	</script>
@@ -125,7 +554,7 @@
 			<div class="col-2"></div>
 		</div>
 		
-		<div class="row pt-5">
+		<div class="row pt-5 mt-5">
 			<div class="col-2"></div>
 			<div class="col">
 				<i class="bi bi-info-circle-fill"></i>
@@ -134,7 +563,6 @@
 			<div class="col-2"></div>
 		</div>
 		
-		<form action="./counselReservationProcess" method="get">
 		<!-- 일정(7일) -->
 		<div class="row pt-3">
 			<div class="col-2"></div>
@@ -143,16 +571,16 @@
 					<div class="col">
 						<div class="row">
 							<div class="col text-end pt-1">
-								<input class="btn btn-outline-dark" type="button" value="&lt">
+								<input class="previousMonthBtn btn btn-outline-dark" type="button" value="&lt">
 							</div>
 							<div class="col-3 text-center fs-3 fw-bold">
-								12월 2023
+								<span class="calendarYear">2023</span>년 <span class="calendarMonth">12</span>월
 							</div>
 							<div class="col text-start pt-1">
-								<input class="btn btn-outline-dark" type="button" value="&gt">
+								<input class="nextMonthBtn btn btn-outline-dark" type="button" value="&gt">
 							</div>
 						</div>
-						<div class="row pt-5">
+						<div class="row mt-5 bg-secondary-subtle">
 							<div class="col text-center fw-bold border">
 								Sun
 							</div>
@@ -177,7 +605,59 @@
 						</div>
 						<div class="row">
 							<div id="calendarBox" class="col">
-							
+								
+							</div>
+						</div>
+					</div>
+					<div class="col-4 ps-5 mt-5">
+						<div class="row mt-5">
+							<div class="col fs-4 fw-bold">
+								<i class="bi bi-info-circle-fill fs-5"></i> 예약 날짜
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="selectDate fs-5 col">
+								<span class="sYear"></span>년&nbsp;<span class="sMonth"></span>월&nbsp;
+								<span class="sDate"></span>일(<span class="sDay"></span>)&nbsp;
+								<span class="sHour"></span>시 
+							</div>
+						</div>
+						<div class="row pt-4 fw-bold">
+							<div class="col fs-4">
+								<i class="bi bi-info-circle-fill fs-5"></i> 상담 종류
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="categoryName col fs-5">
+								&nbsp;&nbsp;&nbsp;&nbsp;우울/불안 문제
+							</div>
+						</div>
+						<div class="row pt-4 fw-bold">
+							<div class="col fs-4">
+								<i class="bi bi-info-circle-fill fs-5"></i> 상담사명
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="counselorName col fs-5">
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;김현영
+							</div>
+						</div>
+						<div class="row pt-4 fw-bold">
+							<div class="col fs-4">
+								<i class="bi bi-info-circle-fill fs-5"></i> 남기고 싶은 말
+							</div>
+						</div>
+						<div class="row pt-4">
+							<div class="col fs-5 d-grid px-0">
+								<textarea class="text rounded" rows="8"></textarea>
+							</div>
+						</div>
+						<div class="row pt-3">
+							<div class="col d-grid px-0">
+								<input class="studentPk" name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk }">
+								<input class="categoryPk" name="type_category_id" type="hidden" value="${categoryId }">
+								<input class="counselorPk" name="counselor_id" type="hidden" value="${counselorId }">
+								<input class="reservationBtn btn btn-lg text-white" type="button" value="신청하기" style="background-color: #679467;">
 							</div>
 						</div>
 					</div>
@@ -185,41 +665,7 @@
 			</div>
 			<div class="col-2"></div>
 		</div>
-		
-		<div class="row pt-5">
-			<div class="col-2"></div>
-			<div class="col">
-				<i class="bi bi-info-circle-fill"></i>
-				<span>&nbsp;&nbsp;남기고 싶은 말</span>
-			</div>
-			<div class="col-2"></div>
-		</div>
-		
-		<div class="row pt-3">
-			<div class="col-2"></div>
-			<div class="col">
-				<div class="row">
-					<div class="col d-grid px-0">
-						<textarea name="text" class="rounded" rows="5"></textarea>
-					</div>
-				</div>
-			</div>
-			<div class="col-2"></div>
-		</div>
-		<div class="row pt-5">
-			<div class="col-2"></div>
-			<div class="col-3"></div>
-			<div class="col d-grid">
-				<input name="student_pk" type="hidden" value="${sessionStudentInfo.student_pk }">
-				<input name="type_category_id" type="hidden" value="${type_category_id }">
-				<input name="counselor_id" type="hidden" value="${counselorDto.id }">
-				<input class="btn btn-dark btn-lg" type="submit" value="신청하기">
-			</div>
-			<div class="col-3"></div>
-			<div class="col-2"></div>
-		</div>
-		</form>
-				<pre>
+		<pre>
 		
 		
 		
@@ -254,12 +700,48 @@
 	
 	<!-- ★★★템플릿!!★★★ -->
 	<div id="templete" class="d-none">
-		<div class="dateWrapper row row-cols-7">
-			<div class="dateCol col border align-text-top" style="height: 8em;">
-				
-			</div>
+		<div class="dateCol col border" style="height: 7em; vertical-align: top; display: flex; justify-content: flex-end; align-items: flex-start;">
+			
+		</div>
+		<div class="modalTimeWrapper col-3 d-grid my-2">
+			<input type="button" class="timeBtn btn btn-outline-dark py-2">
 		</div>
 	</div>
+	
+	        <!-- Modal, Offcanvas : container 밖으로 빼놓기(왜? fixed option), 꼭! js로 띄우기 -->
+        <div id="writeModal" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title fw-bold fs-2 px-3 py-2">일정 선택</h5>
+                  <input type="button" onclick="closeModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+					<div class="row py-3">
+						<div class="col fs-4 ps-4">
+							<span class="todayYear">2023</span>년 <span class="todayMonth">12</span>월 <span class="todayDate">20</span>일
+						</div>
+					</div>
+					<hr>
+					<div class="row py-3">
+						<div class="col">
+							<div class="modalTimeBox row">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+                <div class="modal-footer">
+                  <input onclick="closeModal()" type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="닫기">
+                  <button onclick="save()" class="saveBtn btn btn-dark">신청하기</button>
+                  <%-- 
+                  <input onclick="save()" type="button" class="reservationBtn btn btn-primary" value="신청하기">
+                  --%>
+                </div>
+              </div>
+            </div>
+          </div>
+	
 
 
 
