@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <div class="row">
 	<div class="col">
-		<div class="row bg-body-white border-bottom mt-4 pb-0">
+		<div class="row bg-body-white mt-4 mb-2">
 			<%-- <c:choose>
 				<c:when test="${empty sessionStudentInfo}">
 					<a class="col-1 pe-2 text-end navbar-brand" href="../../another/student/loginPage">
