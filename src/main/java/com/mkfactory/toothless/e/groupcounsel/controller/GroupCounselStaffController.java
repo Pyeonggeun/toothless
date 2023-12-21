@@ -7,12 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.e.dto.CounselorDto;
 import com.mkfactory.toothless.e.dto.GroupCounselCounselorDto;
 import com.mkfactory.toothless.e.dto.GroupCounselDto;
@@ -127,7 +130,17 @@ public class GroupCounselStaffController {
 	
 	
 	@RequestMapping("counselorGroupCounselListPage")
-	public String counselorGroupCounselListPage() {
+	public String counselorGroupCounselListPage(HttpSession session, Model model) {
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		
+		int externalPk = externalInfoDto.getExternal_pk();
+		CounselorDto counselorDto = groupCounselStaffService.getCounselor(externalPk);
+		int counselorId = counselorDto.getId();
+		
+		
+		List<Map<String, Object>> groupCounselList = groupCounselStaffService.getGroupCounselByCounselorId(counselorId);
+		model.addAttribute("groupCounselList", groupCounselList);
 		
 		return "/tl_e/groupcounsel/staff/counselorGroupCounselListPage";
 	}

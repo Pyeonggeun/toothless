@@ -46,17 +46,16 @@
     
     
 	<!-- 네비바 -->
-	<div class="row pb-3" style="border-top-style: solid; border-top-width: 7px; border-top-color: #8FBC8F">
+	<div class="row pb-3">
 		<div class="col-2 pt-3">
 			<div class="row">
-				<div class="col-3 pe-0 me-0">
-					<a href="/toothless/tl_e/commons/counselCenterStudentMainPage"><img class="img-fluid" style="width: 60px; height: 60px; color:blue;" src="/toothless/resources/img/groupCounsel/logo_black.png"></a>
+				<div class="col-1 pe-0 me-0">
 				</div>
 				<div class="col">
-					<div class="row" style="height: 0.55em;"></div>
+					<div class="row" style="height: 0.3em;"></div>
 					<div class="row">
 						<div class="col ps-0 ms-0">
-							<div class="fw-bold" style="font-size: 1.7em;"> Mk University</div>						
+							<a href="/toothless/tl_e/commons/counselCenterStudentMainPage" style="color: black; text-decoration: none;"><div class="fw-bold" style="font-size: 1.5em;"> Mk | 상담센터</div></a>
 						</div>
 					</div>
 				</div>
@@ -65,12 +64,11 @@
 		<div class="col">
 			<div class="row">
 				<div class="col">
-					<div class="row" style="height: 2em;"></div>
+					<div class="row" style="height: 1.5em;"></div>
 					<div class="row">
-						<div class="col-2"></div>
 						<div class="col">
 							<div class="row">
-								<div class="col-2"></div>
+								<div class="col-1"></div>
 								<div class="col text-center">
 									<div class="dropdown">
 										<a class="dropdown-toggle fw-bold" data-bs-toggle="dropdown" style="font-size: 1.2em; text-decoration-line: none; color: black; cursor:pointer;">상담 신청</a>
@@ -98,33 +96,36 @@
 								</div>
 								<div class="col text-center">
 									<a href="/toothless/tl_e/registerCounselor/counselorInfo" class="fw-bold" style="font-size: 1.2em; text-decoration-line: none; color: black; cursor:pointer;">상담원 정보</a>
-								</div>									
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-2">
-					<div class="row">
-						<div class="col-6 text-center">
-							<div class="row" style="height: 2em;"></div>
-							<div class="row">
-								<div class="col">
-									<div class="fw-bold" style="font-size: 1.2em;">[${sessionStudentInfo.name}]님</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-6">
-							<div class="row" style="height: 1.7em;"></div>
-							<div class="row">
-								<div class="col">
-									<a href="/toothless/another/student/logoutProcess"><i class="bi bi-box-arrow-right" style="font-size:1.6em; color: black;"></i></a>
-								</div>
+								</div>	
+								<div class="col-1"></div>								
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>	
+		<div class="col-2">
+			<div class="row">
+				<div class="col-3"></div>
+				<div class="col-6">
+					<div class="row" style="height: 1.5em;"></div>
+					<div class="row">
+						<div class="col text-end">
+							<div class="fw-bold" style="font-size: 1.2em;">[${sessionStudentInfo.name}]님</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-2">
+					<div class="row" style="height: 1.1em;"></div>
+					<div class="row">
+						<div class="col text-end">
+							<a href="/toothless/another/student/logoutProcess"><i class="bi bi-box-arrow-right" style="font-size:1.7em; color: black;"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="col-1"></div>
+			</div>		
+		</div>
 	</div>
 	
 	
