@@ -397,7 +397,13 @@ public class LifeStaffServiceImpl {
 		
 		lifeStaffSqlMapper.deleteOpenLectureInfo(open_lecture_key);
 	}
+
 	
+	// 월별 수강신청정보 리스트
+	public List<Map<Object, String>> selectMonthlyOpenLectureList(int month) {
+		
+		return  lifeStaffSqlMapper.selectMonthlyOpenLectureList(month);
+	}
 	
 	
 	

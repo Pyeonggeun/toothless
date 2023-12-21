@@ -57,6 +57,14 @@ public class TaehoStudentController {
 		return "tl_c/taeho/student/readMyDetailAttendanceStatusPage";
 	}
 	
+	@RequestMapping("ajdksStudentLogoutProcess")
+	public String ajdksStudentLogoutProcess(HttpSession session) {
+		
+		session.invalidate();
+		
+		return "redirect:../../../another/student/loginPage";
+	}
+	
 	
 	
 	

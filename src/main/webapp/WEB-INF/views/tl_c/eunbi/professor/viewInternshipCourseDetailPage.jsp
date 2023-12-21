@@ -217,7 +217,7 @@
 				const readInternReport = internWrapper.querySelector(".readInternReport");
 				readInternReport.innerText = "업무일지확인";
 				readInternReport.classList.add("btn", "btn-outline-secondary", "btn-sm", "rounded-1");
-				readInternReport.setAttribute("href", "./viewInternReport?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
+				readInternReport.setAttribute("href", "./viewInternTimeCard?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
 				
 				if(now <= internshipEndDate){
 					const internEvaluation = internWrapper.querySelector(".internEvaluation");

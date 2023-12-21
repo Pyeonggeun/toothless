@@ -507,7 +507,19 @@ public class RestLifeStaffControllerMj {
 	}
 	
 
-	
+	// 월별 수강신청 정보 리스트 selectMonthlyOpenLectureList
+	@RequestMapping("selectMonthlyOpenLectureList")
+	public Mj_RestResponseDto selectMonthlyOpenLectureList(int month) {
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+		
+		System.out.println(month + "달이넘어오니");
+		
+		List<Map<Object, String>> monthlyOpenLectureList = lifeStaffService.selectMonthlyOpenLectureList(month);
+		restResponseDto.addData("monthlyOpenLectureList", monthlyOpenLectureList);
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;	
+	}
 	
 
 	

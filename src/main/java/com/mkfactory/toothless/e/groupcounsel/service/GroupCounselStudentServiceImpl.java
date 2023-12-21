@@ -43,13 +43,15 @@ public class GroupCounselStudentServiceImpl {
 			groupCounselReservationDto.setGroup_counsel_id(group_counsel_id);
 			
 			
+			
 			int count = groupCounselStudentMapper.countGroupCounselReservationByStudentId(groupCounselReservationDto);
 			int reservationCount = groupCounselStaffMapper.selectGroupCounselReservationCount(groupCounselDto.getId());
-			
+			Date sysdate = groupCounselStaffMapper.selectSysdate();
 			
 			map.put("groupCounselDto", groupCounselDto);
 			map.put("count", count);
 			map.put("reservationCount", reservationCount);
+			map.put("sysdate", sysdate);
 			
 			list.add(map);
 		}

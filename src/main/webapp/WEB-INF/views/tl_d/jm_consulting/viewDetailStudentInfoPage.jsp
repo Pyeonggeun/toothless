@@ -35,7 +35,16 @@
 			
 		});	
 	}
-
+	
+	//아코디언
+    function toggleAccordion(rowId) {
+        var row = document.getElementById(rowId);
+        if (row.style.display === 'none') {
+          row.style.display = 'block';
+        } else {
+          row.style.display = 'none';
+        }
+      }
 
 
 
@@ -75,120 +84,192 @@
 							학생 정보 페이지
 						</div>
 					</div>
-				
+					
+					
+					
+					
 				
 					<div class="row mt-3">
 						<div class="col py-3">				
 							<div class="row mt-2 fw-bold" style="font-size:1.2em;">
 								<div class="col">
-									학생정보
-								</div>						
+									<i class="bi bi-person" style="font-size:1.3em;"></i> 학생정보
+								</div>													
 							</div>
-							<div class="row mt-3 pt-4 border-top border-black">
-								<div class="col-3 fw-bold">
-									학번
-								</div>	
-								<div class="col-9">
-									${viewStudentDetailPageStats.studentInfoDto.student_pk }
-								</div>												
+							
+							
+							<div class="row">
+								<div class="col">
+									<div id="row1" class="row  mt-3 pt-4 border-top border-black">
+										<div class="col-3 fw-bold">
+											학번
+										</div>	
+										<div class="col-9">
+											${viewStudentDetailPageStats.studentInfoDto.student_pk }
+										</div>												
+									</div>
+									<div class="row mt-3">
+										<div class="col-3 fw-bold">
+											이름
+										</div>	
+										<div class="col-9">
+											${viewStudentDetailPageStats.studentInfoDto.name }
+										</div>												
+									</div>
+									<div class="row mt-3">
+										<div class="col-3 fw-bold">
+											성별
+										</div>	
+										<div class="col-9">
+											${viewStudentDetailPageStats.studentInfoDto.gender }
+										</div>												
+									</div>
+									<div class="row mt-3">
+										<div class="col-3 fw-bold">
+											전화번호
+										</div>	
+										<div class="col-9">
+											${viewStudentDetailPageStats.studentInfoDto.phone }
+										</div>												
+									</div>
+								</div>
+								<div class="col">
+									<div id="row1" class="row  mt-3 pt-4 border-top border-black">
+										<div class="col-3 fw-bold">
+											주소
+										</div>	
+										<div class="col-9">
+											${viewStudentDetailPageStats.studentInfoDto.address }
+										</div>												
+									</div>
+									<div class="row mt-3">
+										<div class="col-3 fw-bold">
+											이메일
+										</div>	
+										<div class="col-9">
+											${viewStudentDetailPageStats.studentInfoDto.email }
+										</div>												
+									</div>
+									<div class="row mt-3">
+										<div class="col-3 fw-bold">
+											입학일
+										</div>	
+										<div class="col-9">
+											<fmt:formatDate value="${viewStudentDetailPageStats.studentInfoDto.entered_at}" pattern="yyyy.MM.dd"/>
+										</div>												
+									</div>
+									<div class="row mt-3">
+										<div class="col-3 fw-bold">
+											생년월일
+										</div>	
+										<div class="col-9">
+											<fmt:formatDate value="${viewStudentDetailPageStats.studentInfoDto.birth}" pattern="yyyy.MM.dd"/>
+										
+											
+										</div>												
+									</div>
+								</div>								
 							</div>
-							<div class="row mt-3">
-								<div class="col-3 fw-bold">
-									이름
-								</div>	
-								<div class="col-9">
-									${viewStudentDetailPageStats.studentInfoDto.name }
-								</div>												
-							</div>
-							<div class="row mt-3">
-								<div class="col-3 fw-bold">
-									성별
-								</div>	
-								<div class="col-9">
-									${viewStudentDetailPageStats.studentInfoDto.gender }
-								</div>												
-							</div>
-							<div class="row mt-3">
-								<div class="col-3 fw-bold">
-									전화번호
-								</div>	
-								<div class="col-9">
-									${viewStudentDetailPageStats.studentInfoDto.phone }
-								</div>												
-							</div>																													
+							
+																																				
 						</div>
 					</div>
+					
+					
+					
+					
+					
+					
 					
 					<div class="row mt-3">
 						<div class="col py-3">				
 							<div class="row mt-2 fw-bold" style="font-size:1.2em;">
 								<div class="col">
-									구직희망정보
-								</div>						
+									 <i class="bi bi-file-earmark-text" style="font-size:1.3em;"></i> 구직희망정보
+								</div>													
 							</div>
-							<div class="row mt-3 pt-4 border-top border-black">
-								<div class="col-3 fw-bold">
-									희망연봉
-								</div>	
-								<div class="col-9">
-									${viewStudentDetailPageStats.hopeJobDto.hope_salary } <span style="font-size:0.9em;">원</span>
-								</div>												
-							</div>
-							<div class="row mt-3">
-								<div class="col-3 fw-bold">
-									희망지역
-								</div>	
-								<div class="col-9">
-									${viewStudentDetailPageStats.hopeJobDto.hope_area }
-								</div>												
-							</div>
-							<div class="row mt-3">
-								<div class="col-3 fw-bold">
-									요구사항
-								</div>	
-								<div class="col-9">
-									${viewStudentDetailPageStats.hopeJobDto.requierments }
-								</div>												
-							</div>
-							<div class="row mt-3">
-								<div class="col-3 fw-bold">
-									신청일
-								</div>	
-								<div class="col-9">
-									<fmt:formatDate value="${viewStudentDetailPageStats.hopeJobDto.created_at}" pattern="yyyy-MM-dd"/> 
-								</div>												
-							</div>
-							<div class="row mt-3">
-								<div class="col-3 fw-bold">
-									관심 채용 분야
-								</div>	
-								<div class="col-9">
-									<div class="row">
-										
-										
-										<c:if test="${getHopeJobCategoryList.size()==0}">
-											<span class="fw-bold">관심 분야가 없습니다!</span>
-										</c:if>
-										
-										<c:forEach items="${getHopeJobCategoryList}" var="e">
-											<div class="col">
-												${e.jobFieldCategoryDto.job_field_category_name} 
-											</div>
-										</c:forEach>
-											<div class="col-8">
-											</div>
-										
+							
+							
+							<div class="row">
+								<div class="col">
+									<div id="row1" class="row  mt-3 pt-4 border-top border-black">
+										<div class="col-3 fw-bold">
+											희망연봉
+										</div>	
+										<div class="col-9">
+											${viewStudentDetailPageStats.hopeJobDto.hope_salary } <span style="font-size:0.9em;">원</span>
+										</div>												
 									</div>
-								</div>												
-							</div>																																		
+									<div class="row mt-3">
+										<div class="col-3 fw-bold">
+											관심 채용 분야
+										</div>	
+										<div class="col">															
+											<c:if test="${getHopeJobCategoryList.size()==0}">
+												<span class="fw-bold">관심 분야가 없습니다!</span>
+											</c:if>
+											
+											<c:forEach items="${getHopeJobCategoryList}" var="e">												
+												${e.jobFieldCategoryDto.job_field_category_name} 												
+											</c:forEach>	
+										</div>
+									</div>									
+								</div>
+								<div class="col">
+									<div id="row1" class="row  mt-3 pt-4 border-top border-black">								
+										<div class="col-3 fw-bold">
+											희망지역
+										</div>	
+										<div class="col-9">
+											${viewStudentDetailPageStats.hopeJobDto.hope_area }
+										</div>																														
+									</div>
+									<div class="row mt-3">
+										<div class="col-3 fw-bold">
+											신청일
+										</div>	
+										<div class="col-9">
+											<fmt:formatDate value="${viewStudentDetailPageStats.hopeJobDto.created_at}" pattern="yyyy-MM-dd"/> 
+										</div>												
+									</div>
+								</div>								
+							</div>
+							
+							<div class="row mt-3">
+								<div class="col">
+									<div class="row">
+										<div class="col fw-bold">
+											요구사항
+										</div>
+									</div>
+									<div class="row mt-2">
+										<div class="col">
+											${viewStudentDetailPageStats.hopeJobDto.requierments }
+										</div>
+									</div>									
+								</div>
+							</div>
+							
+																																				
 						</div>
-					</div>			
+					</div>	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 					<div class="row mt-3">
 						<div class="col pt-3">				
 							<div class="row mt-2 fw-bold" style="font-size:1.2em;">
 								<div class="col">
-									상담 및 내역
+									<i class="bi bi-pencil-square" style="font-size:1.3em;"></i>  상담 및 내역
 								</div>						
 							</div>
 							<div class="row mt-3 pt-4 border-top border-black">
@@ -196,7 +277,7 @@
 									취업상담내역
 								</div>	
 								<div class="col-9">
-									${viewStudentDetailPageStats.countConsultingByHopeJobPk} 건
+									<span class="fw-bold">${viewStudentDetailPageStats.countConsultingByHopeJobPk}</span> 건
 								</div>												
 							</div>
 							<div class="row mt-3">
@@ -204,7 +285,7 @@
 									온라인상담 내역
 								</div>	
 								<div class="col-9">
-									${viewStudentDetailPageStats.countOnConsultingByHopeJobPk} 건
+									<span class="fw-bold">${viewStudentDetailPageStats.countOnConsultingByHopeJobPk}</span> 건
 								</div>												
 							</div>
 							<div class="row mt-3 pb-3">
@@ -212,25 +293,26 @@
 									미응답 만족도조사 내역
 								</div>	
 								<div class="col">
-									${viewStudentDetailPageStats.countUnAnsweredFeedback} 건
-								</div>																	
+									<span class="fw-bold">${viewStudentDetailPageStats.countUnAnsweredFeedback}</span> 건
+								</div>	
+								<div class="col text-end">
+									<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+									  <span class="fw-bold">취업상담 내용 등록</span>
+									</button>
+								</div>																								
 							</div>																																		
-						</div>			
+						</div>
+		
 					</div>	
 					
-					<div class="fw-bold" style="text-align:right; color:blue">
-						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-						  취업상담 내용 등록
-						</button>
-					</div>						
-					
-					<div class="row mt-5">
-						<div class="col fw-bold">
+					<div class="fw-bold mt-3 text-start row" style=" color:blue">
+						<div class="col text-end ">
 						<a class="navbar-brand" href="./viewStudentListPage">
 							<button type="button" class="btn btn-primary">목록</button>
-						</a>	
-						</div>
-					</div>		
+						</a>			
+						</div>				
+					</div>						
+						
 				</div>
 				<div class="col-1"></div>
 				
@@ -240,7 +322,8 @@
 			
 			
 			
-		</div>		
+		</div>
+		<div class="col-2"></div>	
 	</div>
 
 	<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>

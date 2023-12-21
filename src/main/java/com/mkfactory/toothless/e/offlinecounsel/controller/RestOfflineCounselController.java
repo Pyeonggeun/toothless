@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
+import com.mkfactory.toothless.e.dto.OfflineReservationDto;
 import com.mkfactory.toothless.e.dto.OfflineSurveyDto;
 import com.mkfactory.toothless.e.dto.RestResponseOfflineDto;
 import com.mkfactory.toothless.e.offlinecounsel.service.OfflineCounselServiceImpl;
@@ -234,7 +235,45 @@ public class RestOfflineCounselController {
 		return restResponseOfflineDto;
 		
 	}
-
+	
+	@RequestMapping("getCalendarData")
+	public RestResponseOfflineDto getCalendarData() {
+		
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		restResponseOfflineDto.setResult("success");
+		//restResponseOfflineDto.setData(offlineCounselService.getDateReservationList());
+		
+		return restResponseOfflineDto;
+		
+	}
+	
+	@RequestMapping("reservationCalendarProcess")
+	public RestResponseOfflineDto reservationCalendarProcess(int student_pk, int counselor_id, int type_category_id, String text, String reservationDate) {
+		
+		System.out.println(student_pk);
+		System.out.println(counselor_id);
+		System.out.println(type_category_id);
+		System.out.println(text);
+		System.out.println(reservationDate);
+		
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		restResponseOfflineDto.setResult("success");
+		restResponseOfflineDto.setData(offlineCounselService.insertOfflineReservationInfo(student_pk, counselor_id, type_category_id, text, reservationDate));
+		
+		return restResponseOfflineDto;
+		
+	}
+	
+	@RequestMapping("categoryAndCounselorName")
+	public RestResponseOfflineDto categoryAndCounselorName(int categoryPk, int counselorPk) {
+		
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		restResponseOfflineDto.setResult("success");
+		restResponseOfflineDto.setData(offlineCounselService.categoryAndCounselor(categoryPk, counselorPk));
+		
+		return restResponseOfflineDto;
+		
+	}
 	
 	
 }

@@ -28,7 +28,7 @@
 				<div class="row"> 
 				<%-- 가운데 여백 --%> 
 					<%-- 학생 정보 --%>  
-					<div class="col-4 p-0 me-4">
+					<div class="col-4 mt-4 p-0 me-4">
 						<div class="row ps-0 pe-1 pt-4 pb-4 ms-3 mt-5 mb-3 border rounded-3">
 							<div class="col-1"></div>
 							<%-- 사진 --%> 

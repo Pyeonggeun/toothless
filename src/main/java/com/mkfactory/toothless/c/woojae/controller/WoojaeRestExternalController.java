@@ -25,16 +25,6 @@ public class WoojaeRestExternalController {
 		return restResponseDto;
 	}
 	
-	// 실습생 조회
 	
-	public RestResponseDto internList(int internship_course_pk) {
-		
-		RestResponseDto restResponseDto = new RestResponseDto();
-		
-		restResponseDto.setResult("success");
-		restResponseDto.setData(woojaeStaffService.internList(internship_course_pk));
-		
-		return restResponseDto;
-	}
 	
 }

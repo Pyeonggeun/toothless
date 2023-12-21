@@ -86,6 +86,7 @@ public class OnlineCounselService {
 		
 		OnlineCounselBoardDto onlineCounselBoardDto = onlineCounselSqlMapper.selectCounsel(counsel_pk);
 		
+		
 		map.put("surveyDto", onlineCounselSqlMapper.selectSurvey(counsel_pk));
 		map.put("isSurveyed", onlineCounselSqlMapper.isSurveyed(counsel_pk));
 		map.put("count", onlineCounselSqlMapper.getReplyCount(counsel_pk));

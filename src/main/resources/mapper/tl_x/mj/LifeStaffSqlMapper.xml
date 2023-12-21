@@ -374,17 +374,21 @@
 		)
 	</select>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<!-- 월별수강신청 정보 -->
+	<select id="selectMonthlyOpenLectureList" resultType="map">
+		SELECT TITLE, SA, EA
+		FROM (
+		  SELECT name AS TITLE, START_APPLY AS SA, END_APPLY AS EA, ROWNUM as rnum
+		  FROM (
+		    SELECT name, START_APPLY, END_APPLY
+		    FROM tl_x_open_lecture ol
+		    INNER JOIN TL_X_LECTURE_INFO li ON li.LECTURE_INFO_KEY = ol.LECTURE_INFO_KEY
+		    WHERE TO_CHAR(START_APPLY, 'MM') = #{month} AND START_APPLY > CURRENT_DATE
+		    ORDER BY START_APPLY ASC
+		  )
+		)
+		<![CDATA[ WHERE rnum <= 3 ]]>
+	</select>
 	
 	
 	

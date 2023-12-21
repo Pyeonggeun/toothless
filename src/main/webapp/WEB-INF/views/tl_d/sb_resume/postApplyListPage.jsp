@@ -30,7 +30,7 @@
 			<div class="col">
 				<!-- 채용공고 -->
 				<div class="row">
-					<div class="col fs-4 fw-bold mt-5 text-center">공고지원리스트</div>
+					<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">지원한 공고 목록</div>
 				</div>
 				<div class="row mt-5 pb-3 border-bottom">
 					<div class="col-9 pt-1">
@@ -114,7 +114,7 @@
 
 			</div>
 			<%-- 내용 끝 --%>				
-			<div class="col-3"></div>
+			<div class="col-2"></div>
 		</div>
 			
 	</div>

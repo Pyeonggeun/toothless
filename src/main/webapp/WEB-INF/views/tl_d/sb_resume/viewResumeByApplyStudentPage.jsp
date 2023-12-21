@@ -277,10 +277,15 @@ window.addEventListener("DOMContentLoaded", () => {
 			<%-- 채용공고 리스트 양식 --%>
 			<div class="col">
 				<div class="row">
-					<div class="col-10 fs-4 fw-bold mt-4 pb-3 border-bottom border-3">지원한 이력서 목록</div>
-					<div class="col  mt-4 pb-3">
+					<div class="col-3 fs-4 fw-bold mt-4 pb-3 border-bottom border-3">지원한 이력서 목록</div>
+					<div class="col fs-4 mt-4 pb-3">${jobPostingDto.posting_name }</div>
+					<div class="col-3 text-center mt-4 pb-3">
+						<a class="btn btn-outline-secondary" href="../common/companyMainPage" role="button">
+							<i class="bi bi-house"></i>&nbsp;&nbsp;메인페이지로
+						</a>
 						<a class="btn btn-outline-secondary" href="../ny_posting/jobPostingDetailForCompanyPage?id=${job_posting_pk }" role="button">돌아가기</a>
 					</div>
+					
 				</div>
 				
 				<div class="row py-2 text-secondary border-bottom border-dark border-2 text-light"  style="background-color: #133369">
@@ -299,12 +304,7 @@ window.addEventListener("DOMContentLoaded", () => {
 					</div>
 				</div>
 				
-				<div class="row">
-					<div class="col-10"></div>
-					<div class="col">
-						<a class="btn btn-outline-secondary" href="../ny_posting/jobPostingDetailForCompanyPage?id=${job_posting_pk }" role="button">돌아가기</a>
-					</div>
-				</div>
+				
 			</div>
 			<%-- 오른쪽 --%>	
 			<div class="col-2"></div>	
