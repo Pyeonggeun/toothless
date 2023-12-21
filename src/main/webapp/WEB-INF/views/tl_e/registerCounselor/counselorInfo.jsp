@@ -258,15 +258,13 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 <title>상담원 정보 페이지</title>
 </head>
-<body>	
+<body>
+	<div class="container-fluid">
 	
-	<jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
-	
-	<div class="container">			
+	<jsp:include page="../commons/studentTopArea.jsp"></jsp:include>			
 
-		<div class="row"></div>
 		<div class="row">
-						
+			<div class="col-1"></div>			
 			<!-- 여기부터 레이아웃 -->
 			<div class="col">
 				<div class="row mt-5">
@@ -390,6 +388,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
 				</div>			
 			</div>			
 		</div>
+		<div class="col-1"></div>
 	</div>
 	
 <!-- 템플릿 짜두는 공간 -->
