@@ -752,7 +752,7 @@
 			</div>
 			<div class="col-1"></div>	
 		</div>
-		<div class="row mt-5 bg-secondary bg-opacity-25" style="height: 14em;">
+		<div class="row bg-secondary bg-opacity-25" style="height: 14em;">
 			<div class="col-1"></div>
 			<div class="col">
 				<div class="row" style="height: 4em;"></div>
@@ -1048,27 +1048,26 @@
 		                 					</div>
 		                 					
 		                 					<!-- 상담원 상담이력 -->
-		                    					<div class="row mt-3">
-		                    						<div class="col">
-		                    						
-		                    						</div>
-		                    					</div>
-		                    				</div>
-		                    			</div>
-		                    			
-		                    		</div>	
-		                    	</div>
+	                    					<div class="row mt-3">
+	                    						<div class="col">
+	                    						
+	                    						</div>
+	                    					</div>
+	                    				</div>
+	                    			</div>
+	                    			
+	                    		</div>	
 	                    	</div>
-	                	</div>
-                    
-                    <div class="col-1"></div>
-                </div>            
+                    	</div>
+                    	 <div class="col-1"></div>
+                	</div>
+               	</div>            
 	            <div class="modal-footer">
 	                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>                    
 	            </div>
 			</div>
+		</div>
 	</div>
-</div>
         
         
         
