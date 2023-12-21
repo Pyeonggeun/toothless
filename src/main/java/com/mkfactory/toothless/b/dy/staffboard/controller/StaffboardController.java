@@ -64,9 +64,9 @@ public class StaffboardController {
 				
 		//날짜별 폴더 생성
 				
-				String rootPath = "/Users/doxhi/Workspace/GitWorkspace/toothless/src/main/webapp/resources/img/healthRoom/staffboard/";
+				String rootPath = "/Users/doxhi/uploadFiles/staffboard/";
 				
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 				String todayPath = sdf.format(new Date()); 
 				
 				File todayFolderForCreate = new File(rootPath + todayPath); 
