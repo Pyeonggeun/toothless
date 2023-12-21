@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,78 +51,56 @@
                        
                     </div>
                 </div>
-                
-                <div class="row my-2">
+                <div class="row border-top border-dark border-2 mt-3 pt-3">
                 	<div class="col">
+                		<div class="row">
+                			<div class="col fs-5 fw-bold">
+                				${one.repairDto.title }
+                			</div>
+                		</div>
+                		<div class="row text-end pb-2">
+                			<div class="col">
+                				${one.studentInfo.name }
+                				<fmt:formatDate value="${one.repairDto.request_date }" pattern="yyyy.MM.dd"/>
+                			</div>
+                		</div>
                 	
-                		<div class="my-3 mb-4">
-						  	<label for="exampleFormControlInput1" class="form-label">
-						  	<span class="fw-bold">제목</span>
-						  	</label>
-						  	
-						  	<input class="form-control" type="text" value="${one.repairDto.title }" readonly>
-						</div>
-						<div class="my-3 mb-4">
-							<label for="exampleFormControlInput1" class="form-label">
-								<span class="fw-bold">작성자</span>
-							</label>
-							<input class="form-control" type="text" value="${one.studentInfo.name }" readonly>
-						</div>
-						<div class="my-3 mb-4">
-						 	<label for="exampleFormControlTextarea1" class="form-label">
-						 		<span class="fw-bold">내용</span>
-						 	</label>
-						  	<input class="form-control py-5 " type="text" value="${one.repairDto.content}" aria-label="readonly input example" readonly>
-
-						</div>
-						<div class="mb-3">
-						  <label for="formFileMultiple" class="form-label">
-						  	<span class="fw-bold"> 파손시설 사진</span>
-						  </label><br>
-						  <img src="/requestRepairImg/${one.repairDto.image_link }" class="img-fluid">
-						  
-						</div>
-												
-							<div class="row">
-							
-								<div class="col d-flex justify-content-start my-2">
-	                				<a class="btn btn-success rounded-0" href="./sj_requestRepairPage">목록으로</a>
-	                			</div>
-	                		
-	                		<c:if test="${!empty sessionStudentInfo && sessionStudentInfo.student_pk == one.dormStudentDto.student_pk }">
-	                			<div class="col d-flex justify-content-end my-2">
-	                				<a class="btn btn-primary rounded-0 me-2" href="./sj_requestEditPage?request_repair_pk=${one.repairDto.request_repair_pk }" role="button">수정하기</a>
-	                				<a class="btn btn-danger rounded-0" href="./deleteRequestRepairProcess?request_repair_pk=${one.repairDto.request_repair_pk }" role="button">삭제하기</a>
-	                				
-	                			</div>
-	                		</c:if>
-							</div>
-						
-		            </div>
-                	
+                	</div>
                 </div>
-            
-               
-               
-           
-            </div>
-            </div>
-        </div>
-        <div class="row my-5">
-            <div class="col">
+                <div class="row border-bottom border-dark pb-4" style="border-top: 1px dotted;">
+                	<div class="col mt-4">
+                		${one.repairDto.content} <br>
+                		<img src="/requestRepairImg/${one.repairDto.image_link }" class="img-fluid">
+                	</div>
+                </div>
 
+				<div class="row my-4 ">
+					<div class="col my-2 text-start">
+           				<a class="btn rounded-0" style="background-color:#504528; color:#FFFFFF;" href="./sj_requestRepairPage">목록으로</a>
+           			</div>
+              		
+              		<c:if test="${!empty sessionStudentInfo && sessionStudentInfo.student_pk == one.dormStudentDto.student_pk }">
+              			<div class="col d-flex justify-content-end my-2 pe-0">
+              				<a class="btn btn-outline-primary rounded-0 me-2" href="./sj_requestEditPage?request_repair_pk=${one.repairDto.request_repair_pk }" role="button">수정하기</a>
+              				<a class="btn btn-outline-danger rounded-0" href="./deleteRequestRepairProcess?request_repair_pk=${one.repairDto.request_repair_pk }" role="button">삭제하기</a>
+              			</div>
+              		</c:if>
+				</div>
+                
+            </div>
             </div>
         </div>
-        <div class="row my-5">
-            <div class="col">
-
-            </div>
-        </div>
-        <div class="row my-5">
-            <div class="col">
-
-            </div>
-        </div>
+        
+        <pre>
+        
+        
+        
+        
+        
+        
+        
+        
+        </pre>
 
 <!-- 하단 footer -->
 <jsp:include page="../commons/student/footer.jsp"></jsp:include>

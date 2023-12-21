@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,46 +34,49 @@
                             </div>
                             <span class="border-bottom  border-dark border-4 mt-2"></span>
                         </div>
-                    </div>
+                    </div> 
 			</div>
-    		<div class="row">
-				<div class="col-1">
-					제목:
-				</div>
-				<div class="col-11">	
-					${qwer.dormFreeboardDto.title}
+    		<div class="row border-top border-dark border-2 mt-3 pt-3">
+                	<div class="col">
+                		<div class="row">
+                			<div class="col fs-5 fw-bold">
+                				${qwer.dormFreeboardDto.title}
+                			</div>
+                		</div>
+                		<div class="row text-end pb-2">
+                			<div class="col">
+                				<fmt:formatDate value="${qwer.dormFreeboardDto.created_at }" pattern="yyyy.MM.dd"/>
+                			</div>
+                		</div>
+                	
+                	</div>
+                </div>
+                <div class="row border-bottom border-dark pb-4" style="border-top: 1px dotted;">
+                	<div class="col mt-4">
+                		${qwer.dormFreeboardDto.content}
+                	</div>
+                </div>
+				
+				<div class="row my-4 ">
+					<div class="col my-2 text-start">
+           				<a class="btn rounded-0" style="background-color:#504528; color:#FFFFFF;" href="./mainGaesipan">목록으로</a>
+           			</div>
+              		
+              		<c:if test="${!empty sessionStudentInfo && sessionStudentInfo.student_pk == qwer.dormFreeboardDto.student_pk }">
+              			<div class="col d-flex justify-content-end my-2 pe-0">
+              				<a class="btn btn-outline-primary rounded-0 me-2" href="./deleteGasipanProcess?id=${qwer.dormFreeboardDto.dorm_freeboard_pk }" role="button">수정하기</a>
+              				<a class="btn btn-outline-danger rounded-0" href="./updateDorm?id=${qwer.dormFreeboardDto.dorm_freeboard_pk }" role="button">삭제하기</a>
+              			</div>
+              		</c:if>
 				</div>
 			</div>
-				<div class="row">
-				<div class="col-1">
-					내용:
-				</div>
-				<div class="col-6">
-					${qwer.dormFreeboardDto.content}		
-				</div>
-			</div>
-
-				<div class="row my-4">
-					<div class="col-2 d-grid">
-						<a class="btn" style="background-color:#504528; color:#FFFFFF;" href="./mainGaesipan">목록으로</a>
-					</div>
-					<c:if test="${!empty sessionStudentInfo && sessionStudentInfo.student_pk == qwer.dormFreeboardDto.student_pk }">
-					<div class="ms-auto col-auto d-grid">
-						<a class="btn btn-danger" href="./deleteGasipanProcess?id=${qwer.dormFreeboardDto.dorm_freeboard_pk }">삭제</a>
-					</div>
-					<div class="col-auto d-grid">
-						<a class="btn" style="background-color:#504528; color:#FFFFFF;"href="./updateDorm?id=${qwer.dormFreeboardDto.dorm_freeboard_pk }">수정</a>
-					</div>
-					</c:if>
-				</div>
-			</div>
-		</div>
+		
     	</div>
     </div>
 	
 		
 		
-	</div>
+	
 
 
 
