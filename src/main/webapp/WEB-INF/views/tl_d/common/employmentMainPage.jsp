@@ -42,9 +42,12 @@
 				<c:forEach items="${noticeList}" var="list">
 					<div class="row border-bottom border-bs-border pb-2 mb-2">
 						
-						<div class="col-1"></div>
 						<div class="col fw-bold pt-3">
-							<a class="navbar-brand" href="../hc_board/readNoticePageForStudent?id=${list.notice_board_pk }">${list.notice_title }</a>	
+							<a class="navbar-brand" href="../hc_board/readNoticePageForStudent?id=${list.notice_board_pk }">
+								<span class="d-inline-block text-truncate" style="max-width: 350px;">
+									${list.notice_title}
+								</span>	
+							</a>	
 						</div>
 						<div class="col-2 pt-3">
 							<fmt:formatDate value="${list.created_at}" pattern="yy.MM.dd"/>
@@ -106,7 +109,8 @@
 			</div>
 		</div>
 		<%-- 최하단 : 개인정보처리방침 + 주소 등 --%>
-		<div class="row ps-5 py-4" style="background-color: #808080">
+		<div class="row py-4" style="background-color: #808080">
+			<div class="col-1"></div>
 			<div class="col-1 pt-1 text-end">
                 <img class="opacity-25" src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
             </div>
