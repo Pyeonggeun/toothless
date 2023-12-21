@@ -94,7 +94,7 @@
 		        		
 		        		companyInfoLink.href = "./companyPostingListForStudentPage?com_pk=" + e.companyDto.com_pk;
 
-		        		companyInfoLink.innerText = e.companyDto.com_name;
+		        		companyInfoLink.innerText = e.companyDto.com_name + " ";
 		        		companyInfoLink.classList.add("navbar-brand");
 		        		
 		        		postingCompanyName.appendChild(companyInfoLink);
