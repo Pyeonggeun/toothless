@@ -162,7 +162,7 @@
 							</div>
 							<div class="row pb-2">
 								<div class="col-10 text-start">
-									<input id="inputComment" name="text" type="text" class="form-control" style="width:100%; height:2.2em;" maxlength="300" placeholder="최대 100글자까지 작성가능합니다.">
+									<input id="inputComment" name="text" type="text" class="form-control" style="width:100%; height:2.2em;" maxlength="100" placeholder="최대 100글자까지 작성가능합니다.">
 									<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id } ">									
 								</div>
 								<div class="col-2 text-center"> 

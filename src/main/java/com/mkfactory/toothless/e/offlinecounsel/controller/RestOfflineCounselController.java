@@ -226,11 +226,11 @@ public class RestOfflineCounselController {
 		
 	
 	@RequestMapping("isPossibleReservation")
-	public RestResponseOfflineDto isPossibleReservation() {
+	public RestResponseOfflineDto isPossibleReservation(int counselor_id) {
 		
 		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
 		restResponseOfflineDto.setResult("success");
-		restResponseOfflineDto.setData(offlineCounselService.getDateReservationList());
+		restResponseOfflineDto.setData(offlineCounselService.getDateReservationList(counselor_id));
 		
 		return restResponseOfflineDto;
 		

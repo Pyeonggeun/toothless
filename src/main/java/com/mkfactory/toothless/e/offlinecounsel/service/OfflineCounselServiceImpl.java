@@ -601,9 +601,9 @@ public class OfflineCounselServiceImpl {
 		return offlineCounselMapper.selectMainPieChart(counselor_id);
 	}
 	
-	public List<Map<String, Object>> getDateReservationList(){
+	public List<Map<String, Object>> getDateReservationList(int counselor_id){
 		
-		return offlineCounselMapper.selectDateValueReservationList();
+		return offlineCounselMapper.selectDateValueReservationList(counselor_id);
 	}
 	
 	public Map<String, Object> getCalendarData() {

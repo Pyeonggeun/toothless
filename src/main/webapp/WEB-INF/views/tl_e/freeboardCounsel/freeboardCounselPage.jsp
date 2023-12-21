@@ -142,11 +142,11 @@
 																			<option value="name">작성자</option>
 																		</select>
 																	</div>
-																	<div class="col-6"> 
+																	<div class="col-5"> 
 																		<input id="inputWord" name ="searchWord" type ="text" class="form-control" placeholder="검색할 내용을 입력하세요">
 																	</div>
-																	<div class="col-2"> 
-																		<input class="btn btn-dark" type="button" onclick="formSubmit()" value="검색" ">
+																	<div class="col-3"> 
+																		<input class="btn btn-dark" type="button" onclick="formSubmit()" value="검색">
 																	</div>
 																</div>
 															</form>
