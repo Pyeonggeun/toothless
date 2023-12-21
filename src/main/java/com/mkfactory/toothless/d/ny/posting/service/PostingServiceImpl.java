@@ -44,23 +44,6 @@ public class PostingServiceImpl {
 		int jobPostingPk = postingSqlMapper.createJobPostingPk();
 		jobPostingDto.setJob_posting_pk(jobPostingPk);
 		
-		String postingContents = jobPostingDto.getPosting_contents();
-		
-		if (postingContents != null) {
-	      postingContents = StringEscapeUtils.escapeHtml4(postingContents);
-	      postingContents = postingContents.replaceAll("\n", "<br>");
-	      jobPostingDto.setPosting_contents(postingContents);
-		}
-	
-	      String postingPreference = jobPostingDto.getPreference();
-	
-	      if(postingPreference != null) {
-	    	  
-	    	  postingPreference = StringEscapeUtils.escapeHtml4(postingPreference);
-	    	  postingPreference = postingPreference.replaceAll("\n", "<br>");
-	    	  jobPostingDto.setPreference(postingPreference);
-	    	  
-	      }
 		
 		postingSqlMapper.insertJobPostingInfo(jobPostingDto);
 	}
@@ -98,6 +81,7 @@ public class PostingServiceImpl {
 			
 			List<Integer> postingDeadlineList = postingSqlMapper.selectPostingDeadline();
 			List<Integer> endPostingList = postingSqlMapper.selectEndPosting();
+			
 			
 			jobPostingMap.put("companyDto", companyDto);
 			jobPostingMap.put("jobFieldCategoryDto", jobFieldCategoryDto);
@@ -153,6 +137,7 @@ public class PostingServiceImpl {
 				jobPostingMap.put("postingDeadlineList", postingDeadlineList);
 				jobPostingMap.put("endPostingList", endPostingList);
 				jobPostingMap.put("allPostingInterest", allPostingInterest);
+
 				
 				
 				companypostingList.add(jobPostingMap);
@@ -164,7 +149,7 @@ public class PostingServiceImpl {
 
 	
 	// 교직원용 공고 상세리스트(기업용 공고 상세 페이지)
-	public Map<String, Object> getJobPostingDetail(int job_posting_pk){
+	public Map<String, Object> getJobPostingDetail(int job_posting_pk, boolean escape){
 		
 		
 		JobPostingDto jobPostingDto = postingSqlMapper.selectPostingDetailByJobPostingPk(job_posting_pk);
@@ -198,6 +183,37 @@ public class PostingServiceImpl {
 		    	jobPostingMap.put("deadlineDDay", deadlineDDay);
 		}
 		
+		
+		if(escape) {
+			
+			String postingContents = jobPostingDto.getPosting_contents();
+			
+			if (postingContents != null) {
+		      postingContents = StringEscapeUtils.escapeHtml4(postingContents);
+		      
+		      postingContents = postingContents.replaceAll("<","&lt;");
+		      postingContents = postingContents.replaceAll(">", "&gt;");
+		      postingContents = postingContents.replaceAll("\n", "<br>");
+		      
+		      jobPostingDto.setPosting_contents(postingContents);
+			}
+		
+		      String postingPreference = jobPostingDto.getPreference();
+		
+		      if(postingPreference != null) {
+		    	  
+		    	  postingPreference = StringEscapeUtils.escapeHtml4(postingPreference);
+		          
+		    	  postingPreference = postingPreference.replaceAll("<","&lt;");
+		    	  postingPreference = postingPreference.replaceAll(">", "&gt;");
+		    	  postingPreference = postingPreference.replaceAll("\n", "<br>");
+			      
+		    	  jobPostingDto.setPreference(postingPreference);
+		    	  
+		      }
+		}
+ 	
+		
 		jobPostingMap.put("companyDto", companyDto);
 		jobPostingMap.put("jobFieldCategoryDto", jobFieldCategoryDto);
 		jobPostingMap.put("jobPostingDto",jobPostingDto);
@@ -207,7 +223,7 @@ public class PostingServiceImpl {
 		jobPostingMap.put("endPostingList", endPostingList);
 		jobPostingMap.put("allPostingInterest", allPostingInterest);
 		
-			
+		
 		return jobPostingMap;
 	}
 	
@@ -218,24 +234,6 @@ public class PostingServiceImpl {
 	
 	// 채용공고 수정
 	public void modifyJobPosting(JobPostingDto jobPostingDto) {
-		
- 		String postingContents = jobPostingDto.getPosting_contents();
- 		
- 		if(postingContents != null) {
- 			
-	      postingContents = StringEscapeUtils.escapeHtml4(postingContents);
-	      postingContents = postingContents.replaceAll("\n", "<br>");
-	      jobPostingDto.setPosting_contents(postingContents);
- 		}
-	
-	      String postingPreference = jobPostingDto.getPreference();
-	
-	      if(postingPreference != null) {
-	    	  
-	    	  postingPreference = StringEscapeUtils.escapeHtml4(postingPreference);
-	    	  postingPreference = postingPreference.replaceAll("\n", "<br>");
-	    	  jobPostingDto.setPreference(postingPreference);
-	      }
 		
 		postingSqlMapper.updateJobPostingInfo(jobPostingDto);
 	}
@@ -276,7 +274,11 @@ public class PostingServiceImpl {
 			// 지원자
 			List<Integer> myApplyPostingList = postingSqlMapper.selectMyApplyByStudentPk(student_pk);
 			
+			InterestPostingDto interestPostingDto = new InterestPostingDto();
+			interestPostingDto.setJob_posting_pk(jobPostingDto.getJob_posting_pk());
+			interestPostingDto.setStudent_pk(student_pk);
 			
+			int checkInterestPosting = postingSqlMapper.selectMyPostingInterestCount(interestPostingDto);
 			int allPostingInterest = postingSqlMapper.selectAllInterestPosting(jobPostingDto.getJob_posting_pk());
 			
 			
@@ -288,6 +290,7 @@ public class PostingServiceImpl {
 			jobPostingMap.put("allPostingInterest", allPostingInterest);
 			jobPostingMap.put("interestCompany", interestCompany);
 			jobPostingMap.put("myApplyPostingList", myApplyPostingList);
+			jobPostingMap.put("checkInterestPosting", checkInterestPosting);
 			
 			
 			postingList.add(jobPostingMap);
@@ -299,7 +302,7 @@ public class PostingServiceImpl {
 	
 	
 	// 학생용 공고 상세 페이지
-	public Map<String, Object> getJobPostingDetailForStudentAndCompany(int student_pk, int job_posting_pk){
+	public Map<String, Object> getJobPostingDetailForStudentAndCompany(int student_pk, int job_posting_pk, boolean escape){
 		
 		
 		JobPostingDto jobPostingDto = postingSqlMapper.selectPostingDetailByJobPostingPk(job_posting_pk);
@@ -334,6 +337,39 @@ public class PostingServiceImpl {
 		List<Integer> interestCompany = postingSqlMapper.selectInterestCompanyByStudentPk(student_pk);
 		
 		int allPostingInterest = postingSqlMapper.selectAllInterestPosting(job_posting_pk);
+		
+		
+		if(escape) {
+			
+			String postingContents = jobPostingDto.getPosting_contents();
+			
+			if (postingContents != null) {
+		      postingContents = StringEscapeUtils.escapeHtml4(postingContents);
+		  
+		      postingContents = postingContents.replaceAll("<","&lt;");
+		      postingContents = postingContents.replaceAll(">", "&gt;");
+		      postingContents = postingContents.replaceAll("\n", "<br>");
+		      
+		      jobPostingDto.setPosting_contents(postingContents);
+			}
+		
+		      String postingPreference = jobPostingDto.getPreference();
+		
+		      if(postingPreference != null) {
+		    	  
+		    	  postingPreference = StringEscapeUtils.escapeHtml4(postingPreference);
+		          
+		    	  postingPreference = postingPreference.replaceAll("<","&lt;");
+		    	  postingPreference = postingPreference.replaceAll(">", "&gt;");
+		    	  postingPreference = postingPreference.replaceAll("\n", "<br>");
+			      
+		    	  jobPostingDto.setPreference(postingPreference);
+		    	  
+		      }
+		}
+		
+
+		
 		
 		jobPostingMap.put("companyDto", companyDto);
 		jobPostingMap.put("jobFieldCategoryDto", jobFieldCategoryDto);
@@ -659,6 +695,11 @@ public class PostingServiceImpl {
 	// 지원한 학생 리스트
 	public List<Integer> getStudentApplyList(int student_pk){
 		return postingSqlMapper.selectMyApplyByStudentPk(student_pk);
+	}
+	
+	// 학생별 관심기업 리스트
+	public List<Integer> getStudentInterestCompanyList(int student_pk){
+		return postingSqlMapper.selectInterestCompanyByStudentPk(student_pk);
 	}
 	
 }

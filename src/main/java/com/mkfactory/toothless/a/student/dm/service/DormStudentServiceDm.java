@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.a.dto.DormNoticeDto;
 import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
+import com.mkfactory.toothless.a.dto.PointCategory;
 import com.mkfactory.toothless.a.dto.SemesterDto;
 import com.mkfactory.toothless.a.student.dm.mapper.DormStudentSqlMapperDm;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
@@ -68,16 +68,8 @@ public class DormStudentServiceDm {
 	
 	public DormNoticeDto dormNoticeInfoByDormNoticePk(int dorm_notice_pk) {
 		
-		DormNoticeDto dormNoticeDto = dormStudentSqlMapperDm.dormNoticeInfoByDormNoticePk(dorm_notice_pk);
 		
-		// html escape
-		String content = dormNoticeDto.getContent();
-		content = StringEscapeUtils.escapeHtml4(content);
-		content = content.replaceAll("\n", "<br>");
-		dormNoticeDto.setContent(content);
-		
-		
-		return dormNoticeDto;
+		return dormStudentSqlMapperDm.dormNoticeInfoByDormNoticePk(dorm_notice_pk);
 	}
 	
 	public void deleteDormNoticeInfoByDormNoticePk(int dorm_notice_pk) {
@@ -180,5 +172,29 @@ public class DormStudentServiceDm {
 	}
 	public int todayRequestCount() {
 		return dormStudentSqlMapperDm.todayRequestCount();
+	}
+	public List<Map<String, Object>> executiveList(){
+		return dormStudentSqlMapperDm.executiveList();
+	}
+	public List<Map<String, Object>> dongHoList(){
+		return dormStudentSqlMapperDm.dongHoList();
+	}
+	public List<SemesterDto> semesterAllList() {
+		return dormStudentSqlMapperDm.semesterAllList();
+	}
+	public List<PointCategory> poingCategoryList(){
+		return dormStudentSqlMapperDm.poingCategoryList();
+	}
+	public List<Map<String, Object>> dongHoAssignList(){
+		return dormStudentSqlMapperDm.dongHoAssignList();
+	}
+	public List<Map<String, Object>> noticeAllList(){
+		return dormStudentSqlMapperDm.noticeAllList();
+	}
+	public List<Map<String, Object>> freeboardAllList(){
+		return dormStudentSqlMapperDm.freeboardAllList();
+	}
+	public List<Map<String, Object>> repaireRequestAllList(){
+		return dormStudentSqlMapperDm.repaireRequestAllList();
 	}
 }

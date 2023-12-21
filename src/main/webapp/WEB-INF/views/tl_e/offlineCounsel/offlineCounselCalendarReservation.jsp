@@ -284,7 +284,7 @@
 			
 			reservationBtn.onclick = function() {
 			    const text = document.querySelector(".text").value;
-			    reservationRegister(studentPk.value, categoryPk.value, counselorPk.value, text, parameterDate);
+			    checkDuplication(studentPk.value, categoryPk.value, counselorPk.value, text, parameterDate);
 			};
 			
 		}
@@ -434,6 +434,56 @@
 			
 		}
 		
+		function checkDuplication(studentPk, categoryPk, counselorPk, text, date){
+			
+			const sYear = document.querySelector(".sYear");
+			const sMonth = document.querySelector(".sMonth");
+			const sDate = document.querySelector(".sDate");
+			const sDay = document.querySelector(".sDay");
+			let dayValue = sDay.getAttribute("data-value");
+			const sHour = document.querySelector(".sHour");
+			const textValue = document.querySelector(".text");
+			
+			url = "./isPossibleReservation?counselor_id=" + counselorPk;
+			
+			fetch(url)
+			.then(response => response.json())
+			.then(response => {
+				
+				let isDuplicate = false;
+				
+				for(e of response.data){
+					
+					console.log("있는 예약: "+e.DATE_VALUE);
+					console.log("date: "+date);
+					
+					if(e.DATE_VALUE == date){
+						
+						isDuplicate = true;
+						alert("이미 예약이 완료된 일정입니다. 일정을 다시 선택해주세요.");
+						
+						sYear.innerText = "";
+						sMonth.innerText = "";
+						sDate.innerText = "";
+						sDay.innerText = "";
+						dayValue = "";
+						sHour.innerText = "";
+						textValue.value = "";
+
+						calendar('current');
+
+						break;
+					}
+				}
+				
+				if(isDuplicate == false){
+					reservationRegister(studentPk, categoryPk, counselorPk, text, date);
+				}
+				
+			});
+			
+		}
+		
 		
 		function reservationRegister(studentPk, categoryPk, counselorPk, text, date){
 			
@@ -522,7 +572,15 @@
 		</div>
 		
 		<!-- 상담원 정보 -->
-		<div class="row pt-5">
+		<div class="row mt-5">
+			<div class="col-2"></div>
+			<div class="col">
+				<i class="bi bi-info-circle-fill fs-5"></i>
+				<span class="fw-bold fs-4">&nbsp;&nbsp;상담원 정보</span>
+			</div>
+			<div class="col-2"></div>
+		</div>
+		<div class="row pt-4">
 			<div class="col-2"></div>
 			<div class="col border border-dark rounded">
 				<div class="row border-bottom border-dark fs-5 fw-bold rounded" style="background-color: rgb(246, 246, 242);">
@@ -557,8 +615,8 @@
 		<div class="row pt-5 mt-5">
 			<div class="col-2"></div>
 			<div class="col">
-				<i class="bi bi-info-circle-fill"></i>
-				<span>&nbsp;&nbsp;일정 선택</span>
+				<i class="bi bi-info-circle-fill fs-5"></i>
+				<span class="fw-bold fs-4">&nbsp;&nbsp;예약 일정</span>
 			</div>
 			<div class="col-2"></div>
 		</div>
@@ -612,7 +670,7 @@
 					<div class="col-4 ps-5 mt-5">
 						<div class="row mt-5">
 							<div class="col fs-4 fw-bold">
-								<i class="bi bi-info-circle-fill fs-5"></i> 예약 날짜
+								<i class="bi bi-info-circle-fill fs-5"></i>&nbsp;&nbsp;예약 날짜
 							</div>
 						</div>
 						<div class="row pt-3">
@@ -624,7 +682,7 @@
 						</div>
 						<div class="row pt-4 fw-bold">
 							<div class="col fs-4">
-								<i class="bi bi-info-circle-fill fs-5"></i> 상담 종류
+								<i class="bi bi-info-circle-fill fs-5"></i>&nbsp;&nbsp;상담 종류
 							</div>
 						</div>
 						<div class="row pt-3">
@@ -634,7 +692,7 @@
 						</div>
 						<div class="row pt-4 fw-bold">
 							<div class="col fs-4">
-								<i class="bi bi-info-circle-fill fs-5"></i> 상담사명
+								<i class="bi bi-info-circle-fill fs-5"></i>&nbsp;&nbsp;상담사명
 							</div>
 						</div>
 						<div class="row pt-3">
@@ -644,7 +702,7 @@
 						</div>
 						<div class="row pt-4 fw-bold">
 							<div class="col fs-4">
-								<i class="bi bi-info-circle-fill fs-5"></i> 남기고 싶은 말
+								<i class="bi bi-info-circle-fill fs-5"></i>&nbsp;&nbsp;남기고 싶은 말
 							</div>
 						</div>
 						<div class="row pt-4">

@@ -268,6 +268,7 @@ public class DormStaffServiceJw {
 
 				dormRoomMap.put("dormRoomListByDormFloorAndDormPk", dormRoomDtoqqq);
 				dormRoomMap.put("isCount", dormStaffMapperJw.countExecutivePerRoomPk(executiveDto.getExecutive_pk(), dormRoomDtoqqq.getDorm_room_pk()));
+				dormRoomMap.put("isCountMinusMySelf", dormStaffMapperJw.countExecutivePerRoomPkMinusMySelf(executiveDto.getExecutive_pk(), dormRoomDtoqqq.getDorm_room_pk()));
 				
 				dormRoomListByDormFloorAndDormPkListAndNY.add(dormRoomMap);
 			}
@@ -310,7 +311,8 @@ public class DormStaffServiceJw {
 				
 				map.put("dormRoomListByDormFloorAndDormPk", dormRoomDtoqqq);
 				map.put("isCount", dormStaffMapperJw.countExecutivePerRoomPk(executiveDto.getExecutive_pk(), dormRoomDtoqqq.getDorm_room_pk()));
-												
+				map.put("isCountMinusMySelf", dormStaffMapperJw.countExecutivePerRoomPkMinusMySelf(executiveDto.getExecutive_pk(), dormRoomDtoqqq.getDorm_room_pk()));
+				
 				dormRoomListByDormFloorAndDormPkListAndNY.add(map);
 			}
 			

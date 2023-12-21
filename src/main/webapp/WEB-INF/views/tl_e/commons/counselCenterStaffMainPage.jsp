@@ -24,6 +24,17 @@
 	font-family: 'Gowun Dodum', sans-serif;
 	/* font-family: 'Quicksand', sans-serif; */
 }
+
+#topBannerCol
+{	
+	background-image: url("/toothless/resources/img/counselCenterStaff/topBanner01.jpg");
+	background-position: center;
+	background-size: cover;
+	height: 14em;
+	background-repeat: no-repeat;
+	
+}
+
 </style>
 <script>
 	<%-- 여기부터 차트 관련 코드 --%>
@@ -143,63 +154,53 @@
 </script>
 </head>
 <body>
-
-
-	<!-- 상단 배너 -->
-	
-	<jsp:include page="./staffTopArea.jsp"></jsp:include>
-	
-
-	
-	<!-- 상단 배너 이미지 -->	
-
-	<div class="row">
-		<div class="col fw-bold text-center">
-			<img src="../../resources/img/counselCenterStaff/topBanner01.jpg" class="border border-dark" style="max-width: 100%; height: auto;">
+	<div class="container-fluid">
+		<!-- 상단 배너 -->	
+		<jsp:include page="./staffTopArea.jsp"></jsp:include>
+		
+		<!-- 상단 배너 이미지 -->
+		<div class="row">
+			<div id="topBannerCol" class="col">				
+			</div>
 		</div>
-	</div>
-	
-	
-	
-	
-	<!-- 중메뉴 -->
-
-	<div class="container">
-		<div class="row">			
+		
+		
+		<div class="row bg-body-secondary bg-opacity-25 pb-5">
+			<div class="col-1"></div>
 			<div class="col">
 				<!-- 통계 : 진용 작업 -->		
 				<div class="row mt-5">
-					<div class="col-5">
-						<div class="row">
+					<div class="col-5 bg-white border border-0 rounded">
+						<div class="row mt-2">
 							<div class="col text-center">
 								<span class="fw-bold fs-2">상담사 상담실적</span>
 							</div>
 						</div>
 						<div class="row mt-2">
-							<div class="col border rounded">
-								<div class="row px-1 py-1">
+							<div class="col border border-0 rounded">
+								<div class="row py-1">
 									<div class="col">
-										<div class="row mt-1">
-											<div class="col text-center border-bottom">
+										<div class="row mt-1 border-bottom border-dark-subtle border-3 ">
+											<div class="col text-center px-0">
 												<span class="fw-bold">번호</span>
 											</div>
-											<div class="col text-center border-bottom">
+											<div class="col text-center px-1 mx-0">
 												<span class="fw-bold">이름</span>
 											</div>
-											<div class="col text-center border-bottom">
+											<div class="col text-center px-0">
 												<span class="fw-bold">오프라인</span>
 											</div>
-											<div class="col text-center border-bottom">
+											<div class="col text-center px-0">
 												<span class="fw-bold">온라인</span>
 											</div>
-											<div class="col text-center border-bottom">
+											<div class="col text-center px-0">
 												<span class="fw-bold">집단상담</span>
 											</div>
-											<div class="col text-center border-bottom">
+											<div class="col text-center px-0">
 												<span class="fw-bold">통합실적</span>
 											</div>							
 										</div>
-										<div class="row mt-2">
+										<div class="row mt-2 mb-2">
 											<div id="completeCounselListCol" class="col">
 												<!-- 자료 반복될 로우 -->
 												
@@ -211,7 +212,7 @@
 						</div>
 					</div>
 					<div class="col-1"></div>
-					<div class="col-6">
+					<div class="col-5 bg-white border border-0 rounded">
 						<div class="row">
 							<div class="col">
 								<div class="row">
@@ -220,10 +221,10 @@
 									</div>
 								</div>
 								<div class="row mt-2">
-									<div class="col border rounded">
+									<div class="col border border-0 rounded">
 										<div class="row">
 											<div class="col">
-												<canvas id="completeCounselGraph"></canvas>
+												<canvas id="completeCounselGraph" class="align-middle"></canvas>
 											</div>
 										</div>
 									</div>
@@ -495,46 +496,43 @@
 					<div class="col-1"></div>
 				</div>
 			</div>
-		</div>						
-	</div>
-
-
-	
-	
-	
-
-	<!-- 풋터 -->
-	
-	<div class="row border-top">
-		<div class="col">
-			<div class="row mt-3">
-				<div class="col" style="font-size: 0.7em; font-weight: bold; text-align: center;">
-					서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층)  |  TEL:010-4761-2103 / E-MAIL:se001lec@naver.com  |  COPYRIGHT© 2023 MINKUE UNIVERSITY ALL RIGHTS RESERVED.  |  <i class="bi bi-twitter"></i><i class="bi bi-facebook"></i><i class="bi bi-instagram"></i>					
+			<div class="col-1"></div>
+		</div>
+		
+		
+		<!-- 풋터 -->	
+		<div class="row border-top mb-3">
+			<div class="col">
+				<div class="row mt-3">
+					<div class="col" style="font-size: 0.9em; font-weight: bold; text-align: center;">
+						서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층)  |  TEL:010-4761-2103 / E-MAIL:se001lec@naver.com  |  COPYRIGHT© 2023 MINKUE UNIVERSITY ALL RIGHTS RESERVED.  |  <i class="bi bi-twitter"></i><i class="bi bi-facebook"></i><i class="bi bi-instagram"></i>					
+					</div>
 				</div>
 			</div>
-		</div>
+		</div>						
 	</div>
+	
 	
 	
 <div id="templete" class="d-none">
 
-	<div id="completeCounselListWrapperRow" class="row mt-1 bg-body-secondary border">
-		<div class="col text-center">
+	<div id="completeCounselListWrapperRow" class="row mt-1 border-bottom">
+		<div class="col text-center px-0">
 			<span id="counselorId"></span>
 		</div>
-		<div id="counselorNameCol" class="col text-center px-1 mx-0">
+		<div id="counselorNameCol" class="col text-center px-1 mx-0 single-line">
 			<span id="counselorName"></span>
 		</div>
-		<div class="col text-center">
+		<div class="col text-center px-0">
 			<span id="offlineCount"></span>
 		</div>
-		<div class="col text-center">
+		<div class="col text-center px-0">
 			<span id="onlineCount"></span>
 		</div>
-		<div class="col text-center">
+		<div class="col text-center px-0">
 			<span id="groupCount"></span>
 		</div>
-		<div class="col text-center">
+		<div class="col text-center px-0">
 			<span id="totalCount"></span>
 		</div>
 	</div>

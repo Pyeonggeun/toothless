@@ -171,5 +171,61 @@
 	<select id="todayRequestCount" resultType="int">
 		SELECT count(*) FROM TL_A_REQUEST_REPAIR WHERE TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD') IN (SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') FROM dual)
 	</select>
+	<select id="executiveList" resultType="map">
+	
+		SELECT tjsi.name, tjsi.STUDENT_ID , tjsi.GENDER, tjsi.PHONE FROM TL_A_EXECUTIVE tae
+		INNER JOIN TL_A_DORM_STUDENT tads 
+		ON tae.DORM_STUDENT_PK = tads.DORM_STUDENT_PK
+		INNER JOIN TL_JIC_STUDENT_INFO tjsi
+		ON tads.STUDENT_PK = tjsi.STUDENT_PK 
+	
+	</select>
+	
+	<select id="dongHoList" resultType="map">
+	
+		SELECT tadb.NAME AS DONGNAME, tadr.ROOM_NAME AS ROOMNAME, tadr.DORM_FLOOR AS DORMFLOOR FROM TL_A_DORM_BUILDING tadb
+		INNER JOIN TL_A_DORM_ROOM tadr
+		ON tadb.DORM_PK = tadr.DORM_PK
+		
+	</select>
+	
+	<select id="semesterAllList" resultType="com.mkfactory.toothless.a.dto.SemesterDto">
+	
+		SELECT * FROM TL_A_SEMESTER
+	
+	</select>
+	<select id="poingCategoryList" resultType="com.mkfactory.toothless.a.dto.PointCategory">
+	
+		SELECT * FROM TL_A_POINT_CATEGORY ORDER BY POINT_CATEGORY_PK ASC
+	
+	</select>
+	<select id="dongHoAssignList" resultType="map">
+	
+		SELECT tadb.NAME AS DONGNAME ,tadr.ROOM_NAME AS ROOMNAME , tjsi.NAME AS STUDENTNAME , tjsi.PHONE AS STUDENTPHONE FROM TL_A_DORM_ROOM tadr INNER JOIN TL_A_DORM_STUDENT tads 
+		ON tadr.DORM_ROOM_PK = tads.DORM_ROOM_PK INNER JOIN TL_JIC_STUDENT_INFO tjsi 
+		ON tads.STUDENT_PK = tjsi.STUDENT_PK
+		INNER JOIN TL_A_DORM_BUILDING tadb ON tadb.DORM_PK = tadr.DORM_PK 
+		
+	</select>
+	
+	<select id="noticeAllList" resultType="map">
+	
+		SELECT tjsi.NAME AS STAFFNAME, TADN.TITLE AS TITLE, TO_CHAR(tadn.CREATED_AT, 'YYYY-MM-DD') AS SIGAN FROM TL_A_DORM_NOTICE tadn  INNER JOIN TL_JIC_STAFF_INFO tjsi 
+		ON tadn.STAFF_PK = tjsi.STAFF_PK
+	
+	</select>
+	<select id="freeboardAllList" resultType="map">
+	
+		SELECT tadf.TITLE AS TITLE, TJSI.NAME AS STUDENTNAME, TO_CHAR(TADF.CREATED_AT, 'YYYY-MM-DD') AS SIGAN  FROM TL_A_DORM_FREEBOARD tadf INNER JOIN TL_JIC_STUDENT_INFO tjsi 
+		ON tadf.STUDENT_PK = tjsi.STUDENT_PK
+	
+	</select>
+	<select id="repaireRequestAllList" resultType="map">
+	
+		SELECT TARR.TITLE AS TITLE ,tjsi.NAME AS STUDENTNAME, TO_CHAR(TARR.request_date, 'YYYY-MM-DD') AS SIGAN  FROM TL_A_REQUEST_REPAIR tarr INNER JOIN TL_A_DORM_STUDENT tads  
+		ON tarr.DORM_STUDENT_PK = tads.DORM_STUDENT_PK
+		INNER JOIN TL_JIC_STUDENT_INFO tjsi ON tads.STUDENT_PK = tjsi.STUDENT_PK
+	
+	</select>
 	
 </mapper>

@@ -52,10 +52,14 @@ public interface GroupCounselStaffSqlMapper {
 	// pk별 집단 상담
 	public GroupCounselDto selectGroupCounselById(int id);
 	
-	
 	// sysdate 가져오기
 	public Date selectSysdate();
 	
+	//
+	public List<GroupCounselCounselorDto> getGroupCounselCounselor(int counselor_id);
 	
+	public GroupCounselDto getGroupCounsel(int group_counsel_id);
+	
+	public CounselorDto getCounselor(int external_pk);
 	
 }

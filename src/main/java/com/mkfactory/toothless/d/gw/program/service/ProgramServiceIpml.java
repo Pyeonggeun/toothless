@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,15 @@ public class ProgramServiceIpml {
 	
 	//프로그램 정보 입력하는거
 	public void registerProgramInfo(ProgramDto programDto) {
+		
+		String programContents = programDto.getPrg_contents();
+		
+		if (programContents != null) {
+			programContents = StringEscapeUtils.escapeHtml4(programContents);
+			programContents = programContents.replaceAll("\n", "<br>");
+			programDto.setPrg_contents(programContents);
+		}
+		
 		programSqlMapper.insertProgram(programDto);
 	}
 	
@@ -86,6 +96,18 @@ public class ProgramServiceIpml {
 
 	
 	public void updateProgramInfo(ProgramDto programDto) {
+		
+		String programContents = programDto.getPrg_contents();
+		
+		if (programContents != null) {
+			programContents = StringEscapeUtils.escapeHtml4(programContents);
+			programContents = programContents.replaceAll("&lt;","<");
+			programContents = programContents.replaceAll("&gt;",">");
+			programContents = programContents.replaceAll("<br>","\n");
+			programContents = programContents.replaceAll("\n", "<br>");
+			programDto.setPrg_contents(programContents);
+		}
+		
 		programSqlMapper.updateProgram(programDto);
 	}
 	

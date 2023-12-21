@@ -54,7 +54,7 @@ public class DormBoardController {
 
 		// dormboardService.increaseReadCount(student_pk);
 
-		Map<String, Object> map = dormboardService.getDorm(id);
+		Map<String, Object> map = dormboardService.getDorm(id, true);
 
 		model.addAttribute("qwer", map);
 
@@ -72,7 +72,7 @@ public class DormBoardController {
 	@RequestMapping("updateDorm")
 	public String updateGasipan(Model model, int id) {
 
-		model.addAttribute("qwer", dormboardService.getDorm(id));
+		model.addAttribute("qwer", dormboardService.getDorm(id, false));
 
 		return "tl_a/student/sh_updateGasipan";
 	}

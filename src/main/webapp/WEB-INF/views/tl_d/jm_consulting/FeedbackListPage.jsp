@@ -149,7 +149,7 @@ var shared_sortHJFScore;
 								<div class="col pe-0" style="text-align:start">
 									<c:choose>
 										<c:when test="${avgScore==null }">
-											평균 평점 <span class="fw-bold text-danger">완료된 만족도 조사가 없습니다.</span>
+											평균 평점 <span class="fw-bold text-danger">- 점</span>
 										</c:when>
 										
 										<c:otherwise>

@@ -104,7 +104,12 @@
 					groupCounselTitle.style.cssText = "font-size: 0.9em; color: black;";
 				});
 				
+				const checkGroupAndOffline = document.querySelector("#checkGroupAndOffline");
+				const checkGroup = checkGroupAndOffline.querySelector(".checkGroup");
+				const checkOffline = checkGroupAndOffline.querySelector(".checkOffline");
 				
+				checkGroup.style.cssText = "font-size: 1.7em; color: black; cursor: pointer;";
+				checkOffline.style.cssText = "font-size: 1.0em; color: gray;";
 				
 				groupCounselListBox.appendChild(groupCounselWrapper);
 				
@@ -129,7 +134,6 @@
 	
 
 	window.addEventListener("DOMContentLoaded", () => {
-		reloadGroupCounselList();
 	});
 
 
@@ -142,7 +146,7 @@
 </head>
 <body>
 
-
+<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
 <jsp:include page="./studentTopArea.jsp"></jsp:include>
 
 <div class="container-fluid">
@@ -201,9 +205,47 @@
 						<div class="col">
 						
 						
-							<div id="groupCounselListBox" class="row row-cols-3">
-
-
+							<div id="groupCounselListBox" class="row row-cols-3" style="height: 25em;">
+								<c:forEach items="${offlineCounselList}" var="list">
+								<div class="col">
+									<div class="row">
+										<div class="col py-3" style="border-style: solid; border-width: 2px; border-color: #8FBC8F; height: 15em;">
+											<div class="row">
+												<div class="col-5">
+													<span>상담 종류</span>
+												</div>
+												<div class="col">
+													<span>${list.counselorTypeDto.name }</span>
+												</div>
+											</div>
+											<div class="row pt-2">
+												<div class="col-5">
+													<span>예약 일자</span>
+												</div>
+												<div class="col">
+													<span>${list.offlineCounselDto.COUNSEL_DATE }</span>
+												</div>
+											</div>
+											<div class="row pt-2">
+												<div class="col-5">
+													<span>예약 시간</span>
+												</div>
+												<div class="col">
+													<span>${list.offlineCounselDto.COUNSEL_HOUR }:00~${list.offlineCounselDto.COUNSEL_HOUR + 1}:00</span>
+												</div>
+											</div>			
+											<div class="row pt-2">
+												<div class="col-5">
+													<span>상담사</span>
+												</div>
+												<div class="col">
+													<span>${list.counselorDto.name}</span>
+												</div>
+											</div>																															
+										</div>
+									</div>
+								</div>
+								</c:forEach>
 
 							</div>
 							
@@ -211,7 +253,15 @@
 						</div>
 						<div class="col-1"></div>
 					</div>	
-					<div class="row" style="height: 3em;"></div>
+					<div class="row" style="height: 8em;"></div>
+					<div class="row" style="height: 3em;">
+						<div class="col-9"></div>
+						<div class="col" id="checkGroupAndOffline">
+							<span class="fw-bold checkGroup" style="font-size: 1.7em; color: black; cursor: pointer;" onclick="reloadGroupCounselList()">Group</span>
+							<span class="fw-bold" style="font-size: 1.0em; color: gray;">|</span>			
+							<span class="fw-bold checkOffline" style="font-size: 1.0em; color: gray;">Offline</span>			
+						</div>
+					</div>
 									
 				</div>
 				<div class="col-4 px-3" style="border-width: 0px 2px 0px 0px; border-style: solid; border-color: #dcdcdc;">
@@ -350,7 +400,7 @@
 						<div class="col">
 							<div class="row">
 								<div class="col-1"></div>
-								<div class="col" style="height: 23em; width: 80%; background-color: white;">
+								<div class="col" onclick="location.href='./../../resources/img/groupCounsel/online.png'" style="height: 23em; width: 80%; background-color: white;">
 									<div class="row" style="height: 3em;"></div>
 									<div class="row">
 										<div class="col text-center">

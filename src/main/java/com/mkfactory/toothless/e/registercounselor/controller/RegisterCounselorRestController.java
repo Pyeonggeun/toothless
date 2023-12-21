@@ -225,6 +225,7 @@ public class RegisterCounselorRestController {
 					e.printStackTrace();
 				}
 				
+				
 				LicenseImageDto licenseImageDto = new LicenseImageDto();
 				licenseImageDto.setLicense(todayPath + fileName);
 				licenseImageList.add(licenseImageDto);
