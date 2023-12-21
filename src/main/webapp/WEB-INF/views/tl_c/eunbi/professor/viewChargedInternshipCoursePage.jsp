@@ -121,7 +121,7 @@
 												</div>
 											</div>
 											<div class="row mt-2">
-												<div class="col word fw-semibold px-2" style="font-size:1.1em">
+												<div class="col word fw-semibold px-3" style="font-size:1.1em">
 													${internshipCourse.internshipCourseDto.course_title}
 												</div>
 											</div>

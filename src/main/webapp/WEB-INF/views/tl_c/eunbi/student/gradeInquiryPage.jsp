@@ -68,7 +68,7 @@
 		.then(response => response.json())
 		.then(response => {
 			
-			if(response.data === false){
+			if(response.data == false){
 				const noCourseToRead = document.getElementById("noCourseToRead");
 				noCourseToRead.classList.remove("d-none");
 			}else{
@@ -476,6 +476,10 @@
 				
 			</div>
 		</div>
+		
+		
+		
+		
 	</div>
 	
 </div>
