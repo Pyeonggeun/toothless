@@ -44,6 +44,17 @@ public class RestCommonsStudentController {
 	}
 		
 	
+	@RequestMapping("getOfflineList")
+	public RestResponseGroupCounselDto getOfflineList(int student_id) {
+		RestResponseGroupCounselDto restResponseGroupCounselDto = new RestResponseGroupCounselDto();
+		
+		
+		restResponseGroupCounselDto.setData(counselCommonsStudentService.getOfflineCounselList(student_id));
+		restResponseGroupCounselDto.setResult("success");
+		
+		return restResponseGroupCounselDto;
+		
+	}
 	
 	
 	
