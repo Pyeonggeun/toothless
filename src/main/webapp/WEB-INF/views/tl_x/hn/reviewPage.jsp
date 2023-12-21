@@ -505,7 +505,7 @@
 	                        <div class="row">
 	                            <div class="col">
 	                                <span class="text-body-tertiary border-secondary-subtle ps-2 pe-1 py-1 fw-bold" style="border: solid; border-width: 0.01em; font-size: 0.85em;">
-	                                    &#91;<span class="round">123</span>&#93;<span style="font-size: 0.9em;">차</span>
+	                                    &#91;<span class="round">123</span>&#93;<span style="font-size: 0.9em;">회차</span>
 	                                </span>
 	                                <span class="ms-2 px-2 py-1 fw-bold" style="font-size: 0.8em; border: solid; border-width: 0.01em; color: #f7a505;">
 	                                    오프라인
