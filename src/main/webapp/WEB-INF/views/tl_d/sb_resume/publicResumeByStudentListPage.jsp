@@ -23,6 +23,7 @@ function getResumeDto(resume_pk){
 	.then(response => {
 		const resumeWrapper = document.querySelector("#previewResume .resumeWrapper");
 		
+		
 		const resumeTitle = resumeWrapper.querySelector(".resumeTitle");
 		resumeTitle.innerText = response.data.resume_title;
 		
@@ -151,7 +152,10 @@ function getIsPublicResumeList(department_pk){
 		const publicResumeListBox = document.getElementById("publicResumeListBox");
 		publicResumeListBox.innerHTML = "";
 		
-		
+		if(response.data.length ==0){
+			publicResumeListBox.innerText = " 공개된  이력서가 없습니다.";
+			return;
+		}
 		for(e of response.data){
 			
 			const publicResumeWrapper = document.querySelector("#resumeListTemplete .publicResumeWrapper").cloneNode(true);
@@ -204,7 +208,19 @@ window.addEventListener("DOMContentLoaded", () => {
 			    	<div class="col-1 mt-5 pb-2 pe-0 text-secondary text-end">
 						<%-- mainPage --%>
 						<c:choose>
-							<c:when test="${!empty sessionExternalInfo}">
+							<c:when test="${!empty sessionExternalInfo and company.companyDto.is_family_company=='Y'}">
+								<li style="list-style-type: none;" class="nav-item dropdown ms-auto"><a
+									class="fw-bold nav-link dropdown-toggle" href="../../another/external/loginPage" role="button"
+									data-bs-toggle="dropdown" aria-expanded="false">
+										<span class="badge text-bg-info text-white me-1">Family</span>
+										${company.companyDto.com_name} 님</a>
+									<ul class="dropdown-menu">
+										<li><a href="../common/companyLogoutProcess"
+											class="dropdown-item">로그아웃</a></li>
+									</ul>
+								</li>
+							</c:when>
+							<c:when test="${!empty sessionExternalInfo and company.companyDto.is_family_company=='N'}">
 								<li style="list-style-type: none;" class="nav-item dropdown ms-auto"><a
 									class="fw-bold nav-link dropdown-toggle" href="../../another/external/loginPage" role="button"
 									data-bs-toggle="dropdown" aria-expanded="false">
@@ -240,15 +256,15 @@ window.addEventListener("DOMContentLoaded", () => {
 		            </div>	
 		            </c:if>
 		            <div class="col align-self-center">
-		                <a class="navbar-brand" href="./employmentMainPage">취업지원센터</a>
+		                <a class="navbar-brand" href=" ../common/employmentMainPage">취업지원센터</a>
 		            </div>
 		            <div class="col-2"></div>
 		        </div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col">
-				<img  class="opacity-55" src="../../resources/img/employment/companyBanner.png" style="width: 117rem; height : 30rem;">
+			<div class="col px-0">
+				<img  class="opacity-55" src="../../resources/img/employment/companyBanner.png" style="width: 119rem; height : 30rem;">
 			</div>		
 		</div>
 	 	<%-- 전체 크기 --%>
@@ -291,7 +307,16 @@ window.addEventListener("DOMContentLoaded", () => {
 					</div>
 				</div>
 				
+				<div class="row">
+					<div class="col-10"></div>
+					<div class="col">
+						<a class="btn btn-outline-secondary" href="../common/companyMainPage" role="button">
+						<i class="bi bi-house"></i>&nbsp;&nbsp;메인페이지로
+						
+						</a>
+					</div>
 					
+				</div>	
 				
 				
 				

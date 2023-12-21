@@ -129,23 +129,23 @@
                         </div>
                         <div class="col-8 py-5 ps-3" style="background-color: #F3F6FC;">
                             <!-- 아이디/비밀번호/로그인 -->
-                            <form action="./loginProcess" method="post">
+                            <form action="/toothless/another/student/loginProcess" method="post">
                                 <div class="row mx-5">
                                     <div class="col-8">
                                         <div class="row text-center fs-s">
                                         	<div class="col">
                                         		<div class="row bg-main pb-1">
                                         			 <div class="col-3 d-grid px-0">
-                                                		<a class="navbar-brand bg-main text-white" href="../student/loginPage">학생</a>
+                                                		<a class="navbar-brand bg-main text-white" href="/toothless/another/student/loginPage">학생</a>
                                             		</div>
                                             		<div class="col-3 d-grid px-0">
-                                                		<a class="navbar-brand border border-2 bg-white" href="../staff/loginPage">교직원</a>
+                                                		<a class="navbar-brand border border-2 bg-white" href="/toothless/another/staff/loginPage">교직원</a>
                                             		</div>
 		                                            <div class="col-3 d-grid px-0">
-		                                                <a class="navbar-brand border border-2 bg-white" href="../professor/loginPage">교수</a>
+		                                                <a class="navbar-brand border border-2 bg-white" href="/toothless/another/professor/loginPage">교수</a>
 		                                            </div>
 		                                            <div class="col-3 d-grid px-0">
-		                                                <a class="navbar-brand border border-2 bg-white" href="../external/loginPage">외부인</a>
+		                                                <a class="navbar-brand border border-2 bg-white" href="/toothless/another/external/loginPage">외부인</a>
 		                                            </div>	
                                         		</div>
                                         	</div>

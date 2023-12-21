@@ -57,17 +57,21 @@
                 
                  <div class="row"><!--여기가 안에 들어갈 내용들-->
                     <div class="col">
-                        <div class="row">
-                            <div class="col-2 pb-3 text-center fw-bold" style="font-size: large;">
+                        <div class="row mt-1">
+                            <div class="col-1 pb-3 text-center fw-bold" style="font-size: large;">
                                 글번호
                             </div>
-                            <div class="col text-center fw-bold" style="font-size: large;">
+                            <div class="col-5 text-center fw-bold" style="font-size: large;">
                                 제목
                             </div>
-                            <div class="col-2 text-center fw-bold" style="font-size: large;">
+                            <div class="col text-center fw-bold" style="font-size: large;">
                                 작성자
                             </div>
-                            <div class="col-2 text-center fw-bold" style="font-size: large;">
+                            <div class="col text-center fw-bold" style="font-size: large;">
+                                접수상태
+                            </div>
+                            
+                            <div class="col text-center fw-bold" style="font-size: large;">
                                 작성일
                             </div>
                         </div>
@@ -77,37 +81,47 @@
                 
                 
                 <!-- 게시판 우하하 -->
+                
+                
                 <c:forEach items="${printing }" var="repair">
-                <div class="row" style="border-top: 0.03em solid black;"><!-- 게시판 ㄲ --> 
-                    <div class="col-2 py-3 text-center" style="font-size: large;">
-                    	${repair.REQUEST_PK }
-                    </div>
-                    <div class="col py-3 text-center" style="font-size: large;">
-                    	<a class="navbar-brand" href="./sj_requestReadPage?request_repair_pk=${repair.REQUEST_PK }">${repair.TITLE }</a>
-                    </div>
-                    <div class="col-2 py-3 text-center" style="font-size: large;">
-						${repair.NAME }
-                    </div>
-                    <div class="col-2 py-3 text-center" style="font-size: large;">
-                    	<fmt:formatDate value="${repair.REQUEST_DATE }" pattern="yyyy.MM.dd"/>  
-                    </div>
-                </div>
+	                 <div class="row mb-2">
+			            <div class="col">
+							<div class="row border rounded-2 py-3 text-center shadow-sm  bg-body-tertiar">
+								<div class="col-1">
+									${repair.REQUEST_PK }
+								</div>
+								<div class="col-5">
+									<a class="navbar-brand" href="./sj_requestReadPage?request_repair_pk=${repair.REQUEST_PK }">${repair.TITLE }</a> 
+								</div>
+								<div class="col">
+									<i class="bi bi-person-circle"> </i> ${repair.NAME }
+								</div>
+								<div class="col text-secondary">
+									접수완료
+								</div>
+								
+								<div class="col">
+									<fmt:formatDate value="${repair.REQUEST_DATE }" pattern="yyyy.MM.dd"/>
+								</div>
+								
+							</div>
+			            </div>
+			        </div>
                 </c:forEach>
                 <div class="row">
                 	
                 	<div class="col d-flex justify-content-end my-2">
-                		<a class="btn btn-danger rounded-0" href="./sj_requestWritePage" role="button">수리접수</a>
+                		<a class="btn btn-primary rounded-0" href="./sj_requestWritePage" role="button">수리접수</a>
                 		
                 	</div>
                 </div>
+                
             </div>
-            </div>
-        </div>
-        <div class="row my-5">
-            <div class="col">
-
+            
+            
             </div>
         </div>
+       
         <div class="row my-5">
             <div class="col">
 

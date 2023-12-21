@@ -40,11 +40,11 @@
                                 <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
                                 
                                 <div class="col">
-                                    <div class="row ">
+                                	<div class="row mt-5  ">
+                                        <div class="col fw-bold fs-2 text-center border-bottom border-4">보건진료소</div>
+                                    </div>
+                                    <div class="row px-5 mx-3 ">
                                         <div class="col">
-                                            <div class="row mt-5  ">
-                                                <div class="col fw-bold fs-2 text-center border-bottom border-4">보건진료소</div>
-                                            </div>
                                             <form id="frm" action="./staffBoardPage" method="get">
                                             <div class="row mt-4">
                                                 <div class="col">
@@ -90,7 +90,7 @@
                                                     
                                                     <div class="row ms-4 ps-5">
                                                     <c:forEach items="${noticeList }" var="board">
-                                                        <div class="col-2 mx-3 my-3 border border-black">
+                                                        <div class="col-2 mx-3 my-3 border border-2">
                                                             <div class="row ">
                                                                 <div class="col fs-4 fw-bold">
                                                                 	<a href="./staffBoardReadPage?id=${board.noticeboardDto.studentboard_pk }"
@@ -117,14 +117,15 @@
 	                                                            </div>
 	                                                            </c:when>
 	                                                            <c:otherwise>
-	                                                            	<img class="text-center" 
+	                                                            	<img class="text-center" src="../../resources/img/healthRoom/TY/noimage.jpeg"
 	                                                                style="max-height: 200px; width: 190px;" >
 	                                                            </c:otherwise>
 	                                                        </c:choose>    
                                                             <div class="row ">
                                                                 <div class="col text-secondary" style="font-size: 13px;">
+                                                                   	&nbsp;
                                                                    	<i class="bi bi-heart-fill"></i>
-                                                                    ${board.likeDto } &nbsp;|&nbsp;
+                                                                    ${board.likeDto } |&nbsp;
                                                                     <i class="bi bi-chat"></i>
                                                                     ${board.replyDto }
                                                                 </div>

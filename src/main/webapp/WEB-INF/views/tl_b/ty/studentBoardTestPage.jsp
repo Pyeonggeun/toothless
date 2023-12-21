@@ -106,19 +106,20 @@
                                                             <c:choose>
 	                                                            <c:when test="${!empty board.noticeboardDto.img_link  }">
 	                                                            <div class="row mx-1 my-1 border border-black ">
-	                                                                <div class="col">
-	                                                                	<img class="text-center" src="../../resources/img/healthRoom/TY/${board.noticeboardDto.img_link}"
-	                                                                	style="max-height: 200px; width: 190px;" >
+	                                                                <div class="col text-center">
+	                                                                	<img class=" img-thumbnail img img-fluid" src="../../resources/img/healthRoom/TY/${board.noticeboardDto.img_link}"
+	                                                                	style="height: 160px; width: 180px;"> 
 	                                                                </div>
 	                                                            </div>
 	                                                            </c:when>
 	                                                            <c:otherwise>
-	                                                            	<img class="text-center" 
+	                                                            	<img class="text-center" src="../../resources/img/healthRoom/TY/noimage.jpeg"
 	                                                                style="max-height: 200px; width: 190px;" >
 	                                                            </c:otherwise>
 	                                                        </c:choose>    
                                                             <div class="row ">
                                                                 <div class="col text-secondary" style="font-size: 13px;">
+                                                                   	&nbsp;
                                                                    	<i class="bi bi-heart-fill"></i>
                                                                     ${board.likeDto } &nbsp;|&nbsp;
                                                                     <i class="bi bi-chat"></i>

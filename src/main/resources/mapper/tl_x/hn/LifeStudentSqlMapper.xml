@@ -87,15 +87,15 @@
 		SELECT COUNT(*) FROM tl_x_lecture_student WHERE open_lecture_key = #{open_lecture_key} AND life_student_key = #{life_student_key}
 	</select>
 	
-	<select id="isConditionSatisfaction" resultType="int">
-		SELECT NVL(t3.lecture_info_key, 0) FROM (
+	<select id="isConditionSatisfaction" resultType="map">
+		SELECT NVL(t3.lecture_info_key, 0) AS lecture_info_key, t3.open_lecture_key, t3.lecture_student_key FROM (
 			SELECT condition_lecture_key FROM tl_x_apply_condition WHERE lecture_info_key = (
 				SELECT lecture_info_key FROM tl_x_open_lecture WHERE open_lecture_key = #{open_lecture_key}
 			)
 		)t2
 		LEFT JOIN (
-			SELECT txol.lecture_info_key FROM (
-				SELECT open_lecture_key FROM tl_x_lecture_student WHERE life_student_key = #{life_student_key}
+			SELECT txol.lecture_info_key, t1.open_lecture_key, t1.lecture_student_key FROM (
+				SELECT open_lecture_key, lecture_student_key FROM tl_x_lecture_student WHERE life_student_key = #{life_student_key}
 			)t1
 			INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
 		)t3 ON t2.condition_lecture_key = t3.lecture_info_key
@@ -220,14 +220,14 @@
 			)t2
 		)t3
 		<![CDATA[
-			WHERE t3.rnum >= (#{pageNumber}-1)*10 + 1 AND t3.rnum <= #{pageNumber}*10
+			WHERE t3.rnum >= (#{pageNumber}-1)*5 + 1 AND t3.rnum <= #{pageNumber}*5
 		]]>
 	</select>
 	
 	<select id="getToTalReviewLectureCount" resultType="int">
 		SELECT COUNT(*) FROM (
 			SELECT * FROM tl_x_lecture_student
-			WHERE life_student_key = 21
+			WHERE life_student_key = #{life_student_key}
 		)t1
 		INNER JOIN tl_x_open_lecture txol ON t1.open_lecture_key = txol.open_lecture_key
 		<![CDATA[
@@ -339,6 +339,12 @@
 		SELECT COUNT(*) FROM tl_x_attendance_status
 		WHERE lecture_student_key = #{lecture_student_key}
 		AND status LIKE '출석'	
+	</select>
+	
+	<select id="getAbsentCountByLectureStudentKey" resultType="int">
+		SELECT COUNT(*) FROM tl_x_attendance_status
+		WHERE lecture_student_key = #{lecture_student_key}
+		AND status LIKE '결석'	
 	</select>
 	
 	<select id="getExceptAttendanceAndAbsentCountByLectureStudentKey" resultType="int">

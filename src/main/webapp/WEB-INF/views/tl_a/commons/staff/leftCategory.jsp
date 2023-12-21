@@ -64,6 +64,13 @@
 
    		 <div class="col-2 p-0 border-end">
             <div class="accordion accordion-flush" id="accordionFlushExample">
+            	<div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button onclick="location.href='./mj_mainPage'" class="accordion-button collapsed" type="button">
+                        <i class="ms-3 fs-4 bi bi-house"></i> &nbsp; 홈
+                    </button>
+                  </h2>
+                </div>
                 <div class="accordion-item">
                   <h2 class="accordion-header">
                     <button onclick="readBeforeYearInfo()" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-1" aria-expanded="false" aria-controls="flush-collapseOne">

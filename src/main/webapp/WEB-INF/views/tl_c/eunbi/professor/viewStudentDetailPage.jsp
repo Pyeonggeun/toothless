@@ -218,7 +218,7 @@
 					<div class="row mt-5">
 						<div class="col fw-semibold" style="font-size:1.3em">
 							<span class="text-secondary fs-3">&gt;</span>
-							현장실습 진행 관리
+							학생 정보 상세보기
 						</div>
 					</div>
 					

@@ -121,11 +121,11 @@ body {
 				<div class="row mt-3 mb-3">
 					<div class="col">
 						<div class="row">
-							<div class="col">
+							<div class="col mt-3">
 
 								<!-- 상단 텍스트 -->
 								<h3 class="jb-700 fontcolor2">
-									<i class="bi bi-box-arrow-in-down-right "></i> 관리자 현장실습과정 상세 및 수정
+									<i class="bi bi-box-arrow-in-down-right"></i> 관리자 현장실습과정 상세 및 수정
 								</h3>
 
 							</div>
@@ -138,13 +138,13 @@ body {
 					<!-- 본문 작성 공간 -->
 
 					<div class="row">
-						<div class="col-md-5 mt-2 mb-2">
+						<div class="col-md-6 mt-3 mb-2">
 							<label for="inputCity" class="form-label jb-700"> 글 제목 </label> 
 							<input name="course_title" type="text" class="form-control" style="font-size: 0.9em;" id="course_title" value="${AjdksInternshipCourseDto.course_title}" >
 						</div>
 						<input name="internship_course_pk" type="hidden"  value="${AjdksInternshipCourseDto.internship_course_pk}" >
-						<div class="col-md-5 mt-2 mb-2">
-							<label for="inputState" class="form-label jb-700"> 인원 수 </label>
+						<div class="col-md-6 mt-3 mb-2">
+							<label for="inputState" class="form-label jb-700" style="font-size: 1.05em"> 인원 수 </label>
 							<select name="internship_total_member" id="internship_total_member" class="form-select" style="font-size: 0.9em;">
 								<c:choose>
 									<c:when test="${AjdksInternshipCourseDto.internship_total_member == 1 }">
@@ -189,7 +189,7 @@ body {
 							</select>
 						</div>
 
-						<div class="col-md-5 mt-2 mb-2">
+						<div class="col-md-6 mt-3 mb-2">
 							<label for="inputState" class="form-label jb-700"> 자격요건 </label>
 							<select name="semester_qualification" id="semester_qualification" class="form-select" style="font-size: 0.9em;">
 								<c:choose>
@@ -250,33 +250,76 @@ body {
 								</c:choose>																		
 							</select>
 						</div>
-						
-					</div>
-
-					<div class="row mt-2 mb-3 ">
-
-						<div class="col">
-							<div class="row"></div>
+						<!-- 교수 셀렉트 -->
+						<div class="col-md-6 mt-3 mb-2">
+							<label for="inputState" class="form-label jb-700">교수명</label> 
+							<select name="professor_pk" id="professor_pk" class="form-select jb-small" style="font-size: 0.9em;">
+								<c:forEach items="${list }" var="map">
+									<c:choose>
+										<c:when test="${map.professorInfoDto.professor_pk == AjdksInternshipCourseDto.professor_pk }">
+											<option value="${map.professorInfoDto.professor_pk}" selected="selected">${map.professorInfoDto.name}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${map.professorInfoDto.professor_pk}">${map.professorInfoDto.name}</option>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</select>
 						</div>
-
+					
+					    <!-- 사업체 셀렉트 -->
+						<div class="col-md-6 my-2">
+						<label for="inputState" class="form-label jb-700 "> 사업체명</label> 
+							<select name="company_pk" id="company_pk" class="form-select" style="font-size: 0.9em;">
+								<c:forEach items="${complist }" var="map">
+									<c:choose>
+										<c:when test="${map.AjdksCompanyInfoDto.company_pk == AjdksInternshipCourseDto.company_pk }">
+											<option value="${map.AjdksCompanyInfoDto.company_pk}" selected="selected">${map.AjdksCompanyInfoDto.company_name}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${map.AjdksCompanyInfoDto.company_pk}">${map.AjdksCompanyInfoDto.company_name}</option>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+						</select>
+						</div>
+	
+						<!-- 학과 셀렉트 -->
+						<div class="col-md-6 my-2">
+						<label for="inputState" class="form-label jb-700 "> 학과명</label> 
+							<select name="department_pk" id="department_pk" class="form-select" style="font-size: 0.9em;">
+								<c:forEach items="${departList }" var="map">
+									<c:choose>
+										<c:when test="${map.DepartmentCategoryDto.department_pk == AjdksInternshipCourseDto.department_pk }">
+											<option value="${map.DepartmentCategoryDto.department_pk}" selected="selected">${map.DepartmentCategoryDto.name}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${map.DepartmentCategoryDto.department_pk}">${map.DepartmentCategoryDto.name}</option>
+										</c:otherwise>
+									</c:choose>
+									
+								</c:forEach>
+							</select>
+						</div>
 					</div>
+					
+					
 
 
-					<table class="table">
+					<table class="table mt-4">
 
-						<thead class="table table-sm jb-700">
+						<thead class="table table-sm jb-700 mt-2">
 							<tr>
-								<th scope="col"><i class="bi bi-check-circle-fill"></i> 필수
-									날짜 입력 항목</th>
-								<th scope="col"><i class="bi bi-calendar3"></i> 날짜 입력</th>
+								<th scope="col" style="font-size: 1.05em"><i class="bi bi-check-circle-fill"></i> 필수날짜 입력 항목</th>
+								<th scope="col" style="font-size: 1.05em"><i class="bi bi-calendar3"></i> 날짜 입력</th>
 							</tr>
 						</thead>
 
 
-						<!-- 기능 고도화 시 사용될 항목 -->
-						<tbody class="table table-sm align-middle">
+						
+						<tbody class="table table-sm align-middle mt-1">
 							<tr>
-								<td scope="row" style="font-size: 0.9em;">- 모집기간시작</td>
+								<td scope="row" class="col-6" style="font-size: 0.9em;">- 모집기간시작</td>
 								<td scope="row"><input name="applying_start_date" type="date" class="form-control" style="font-size: 0.9em;" value="${applying_start_date}"></td>
 							</tr>
 							<tr>
@@ -302,87 +345,32 @@ body {
 					</table>
 					
 										
-				<!-- 교수 셀렉트 -->
-				<div class="col-4 mt-4 mb-4 ">
-					<label for="inputState" class="form-label jb-700" >교수명</label> 
-					<select name="professor_pk" id="professor_pk" class="form-select jb-small" style="font-size: 0.9em;">
-						<c:forEach items="${list }" var="map">
-							<c:choose>
-								<c:when test="${map.professorInfoDto.professor_pk == AjdksInternshipCourseDto.professor_pk }">
-									<option value="${map.professorInfoDto.professor_pk}" selected="selected">${map.professorInfoDto.name}</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${map.professorInfoDto.professor_pk}">${map.professorInfoDto.name}</option>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</select>
-				</div>
 				
-			    <!-- 사업체 셀렉트 -->
-				<div class="col-4 mt-4 mb-4">
-				<label for="inputState" class="form-label jb-700 "> 사업체명</label> 
-					<select name="company_pk" id="company_pk" class="form-select" style="font-size: 0.9em;">
-						<c:forEach items="${complist }" var="map">
-							<c:choose>
-								<c:when test="${map.AjdksCompanyInfoDto.company_pk == AjdksInternshipCourseDto.company_pk }">
-									<option value="${map.AjdksCompanyInfoDto.company_pk}" selected="selected">${map.AjdksCompanyInfoDto.company_name}</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${map.AjdksCompanyInfoDto.company_pk}">${map.AjdksCompanyInfoDto.company_name}</option>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-				</select>
-				</div>
 				
-				<!-- 학과 셀렉트 -->
-				<div class="col-4 mt-4 mb-4">
-				<label for="inputState" class="form-label jb-700 " > 학과명</label> 
-					<select name="department_pk" id="department_pk" class="form-select" style="font-size: 0.9em;">
-						<c:forEach items="${departList }" var="map">
-							<c:choose>
-								<c:when test="${map.DepartmentCategoryDto.department_pk == AjdksInternshipCourseDto.department_pk }">
-									<option value="${map.DepartmentCategoryDto.department_pk}" selected="selected">${map.DepartmentCategoryDto.name}</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${map.DepartmentCategoryDto.department_pk}">${map.DepartmentCategoryDto.name}</option>
-								</c:otherwise>
-							</c:choose>
-							
-						</c:forEach>
-				</select>
-				</div>
+				
 				
 				</form>
 
-				<!-- 여백용도 -->
-				<div class="row mt-2 mb-2">
-					<div class="col">
-						<div class="row"></div>
-					</div>
-				</div>
-
 
 				<!-- 하단 버튼 -->
-				<div class="col-12 justify-content-end">
+				
 
-					<div class="row">
-						<div class="col-2 d-grid mt-2 mb-2">
-							<button onclick="javascript:fn_reg();" class="btn labelcolor">
-								<i class="bi bi-pencil-square"></i> 수정
-							</button>
-						</div>
+				<div class="row d-flex justify-content-center mt-5">
+					<div class="col-2 d-grid mt-2 mb-2">
+						<button onclick="javascript:fn_reg();" class="btn labelcolor py-2">
+							<i class="bi bi-pencil-square"></i> 수정
+						</button>
+					</div>
 
-						<div class="col-2 d-grid mt-2 mb-2">
-							<a href="./ajdksInternshipList" class="btn labelcolor"><i
-								class="bi bi-list-ul"></i> 목록으로</a>
-						</div>
+					<div class="col-2 d-grid mt-2 mb-2">
+						<a href="./ajdksInternshipList" class="btn labelcolor py-2"><i
+							class="bi bi-list-ul"></i> 목록으로</a>
+					</div>
 
 				</div>
+			
 			</div>
 		</div>
-	</div>
 
 	<!-- 전체 container 출구 -->
 	<script

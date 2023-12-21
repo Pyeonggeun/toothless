@@ -33,7 +33,8 @@
 	
 	<update id="update">	
 		UPDATE tl_d_QnA_board
-		SET board_title = #{board_title},board_contents=#{board_contents}
+		SET board_title = #{board_title},board_contents=#{board_contents},
+		board_answer=#{board_answer}
 		WHERE board_pk = #{board_pk}
 	</update>
 	
@@ -68,5 +69,18 @@
 		UPDATE tl_d_notice_board SET notice_title = #{notice_title}, notice_contents = #{notice_contents}
 		WHERE notice_board_pk = #{notice_board_pk}
 	</update>
+	
+	<!-- 공지사항 4줄요약 -->
+	<select id="getNoticeBordRowNum" resultType="com.mkfactory.toothless.d.dto.NoticeStaffBoardDto">
+		SELECT * FROM (
+			SELECT * FROM TL_D_NOTICE_BOARD  ORDER BY NOTICE_BOARD_PK DESC
+		)<![CDATA[
+		WHERE rownum <= 5
+		]]>	
+	</select>
+	
+	
+	
+	
 
 </mapper>

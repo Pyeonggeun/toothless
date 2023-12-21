@@ -217,7 +217,7 @@
 				const readInternReport = internWrapper.querySelector(".readInternReport");
 				readInternReport.innerText = "업무일지확인";
 				readInternReport.classList.add("btn", "btn-outline-secondary", "btn-sm", "rounded-1");
-				readInternReport.setAttribute("href", "./viewInternReport?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
+				readInternReport.setAttribute("href", "./viewInternTimeCard?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
 				
 				if(now <= internshipEndDate){
 					const internEvaluation = internWrapper.querySelector(".internEvaluation");
@@ -274,6 +274,13 @@
 		const achievement_score = document.querySelector('input[name="achievement_score"]:checked');
 		const inputReview = document.getElementById("inputReview");
 		const inputStudentInternPk = document.getElementById("inputStudentInternPk");
+		
+		if (!diligence_score || !responsibility_score || !coorporation_score || !achievement_score ||
+	        inputReview.value.trim() === '' ||
+	        inputStudentInternPk.value.trim() === '') {
+	        alert('모든 항목에 평가를 완료해주세요');
+	        return;
+	    }
 		
 		fetch("./writeInternEvaluation", {
 			method: "post",

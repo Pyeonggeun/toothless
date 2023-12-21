@@ -22,6 +22,7 @@ import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.donot.touch.service.StaffServiceImpl;
 import com.mkfactory.toothless.donot.touch.service.StudentServiceImpl;
 import com.mkfactory.toothless.x.dto.LectureCategoryDto;
+import com.mkfactory.toothless.x.dto.OpenLectureDto;
 import com.mkfactory.toothless.x.mj.service.LifeStaffServiceImpl;
 
 @Controller
@@ -31,6 +32,38 @@ public class LifeStaffControllerMj {
 	@Autowired
 	private LifeStaffServiceImpl lifeStaffService;
 	
+	@Autowired
+	private StaffServiceImpl commonStaffService;
+	
+	// 사감 로그인 페이지로
+	@RequestMapping("loginPage")
+	public String loginPage() {
+		
+		return "another/staff/loginPage";
+	}
+	
+	// 사감 로그인
+	@RequestMapping("loginProcess")
+	public String loginProcess(HttpSession session, StaffInfoDto params) {
+		
+		StaffInfoDto staffInfoDto = commonStaffService.loginByStaffIdAndPassword(params);
+	
+		if(staffInfoDto == null) {
+			return "redirect:../another/staff/loginPage";
+		}
+		
+		session.setAttribute("sessionStaffInfo", staffInfoDto);
+		return "redirect:../mj/mainPage";
+	}
+	
+	// 사감 로그아웃
+	@RequestMapping("logoutProcess")
+	public String logoutProcess(HttpSession session) {
+	
+		session.invalidate();
+		
+		return "redirect:../../another/staff/loginPage";
+	}
 	
 	// 메인 페이지로
 	@RequestMapping("mainPage")
@@ -85,13 +118,14 @@ public class LifeStaffControllerMj {
 	// 강의관리 페이지로 (등록 탭)
 	@RequestMapping("manageOpenLecturePage")
 	public String manageOpenLecturePage() {
-		
+	
 		return "tl_x/mj/manageOpenLecturePage";
 	}
 	
 	// 강의관리 페이지2로 (조회/수정 탭)
 	@RequestMapping("manageOpenLecturePage2")
 	public String manageOpenLecturePage2() {
+		
 		
 		return "tl_x/mj/manageOpenLecturePage2";
 	}

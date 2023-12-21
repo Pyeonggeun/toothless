@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
+import com.mkfactory.toothless.c.dto.AjdksCompanyTimecardDto;
+import com.mkfactory.toothless.c.dto.AjdksInternReportDto;
 import com.mkfactory.toothless.c.dto.AjdksInternSatisfactionDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
@@ -212,6 +214,66 @@ public class EunbiStudentServiceImpl {
 		
 		return internshipList;
 	}
+	
+	public Map<String, Object> getEvaluation(int studentInternPk) {
+		
+		Map<String, Object> evaluations = new HashMap<>();
+		
+		evaluations.put("professorEvaluation", studentSqlMapper.getProfessorEvaluation(studentInternPk));
+		evaluations.put("companyEvaluation", studentSqlMapper.getCompanyEvaluation(studentInternPk));
+		evaluations.put("didProfessorEvaluateIntern", professorSqlMapper.didProfessorEvaluateIntern(studentInternPk));
+		
+		return evaluations;
+	}
+	
+	// 기업 업무일지
+	public List<Map<String, Object>> viewTimeCard(int studentInternPk) {
+		
+		List<Map<String, Object>> reportList = new ArrayList<Map<String,Object>>();
+		
+		List<AjdksCompanyTimecardDto> timecardList = studentSqlMapper.getCompanyTimecard(studentInternPk);
+		
+		for(AjdksCompanyTimecardDto timecard : timecardList) {
+			int timecardCategoryPk = timecard.getTimecard_category_pk();
+			
+			Map<String, Object> report = new HashMap<>();
+			
+			report.put("timecard", timecard);
+			report.put("timecardCategory", studentSqlMapper.getCompanyTimecardCategory(timecardCategoryPk));
+			
+			reportList.add(report);
+		}
+		
+		return reportList;
+	}
+	
+	public List<AjdksInternReportDto> getInternReport(int studentInternPk) {
+		
+		List<AjdksInternReportDto> internReport = studentSqlMapper.getInternReport(studentInternPk);
+		
+		return internReport;
+		
+	}
+	
+	
+	
+	public Map<String, Object> countTimecard(int studentInternPk) {
+		
+		Map<String, Object> countTimecard = new HashMap<>();
+		
+		countTimecard.put("countAttendance", studentSqlMapper.countAttendance(studentInternPk));
+		countTimecard.put("countLate", studentSqlMapper.countLate(studentInternPk));
+		countTimecard.put("countEarlyleave", studentSqlMapper.countEarlyleave(studentInternPk));
+		countTimecard.put("countAbsent", studentSqlMapper.countAbsent(studentInternPk));
+		
+		return countTimecard;
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

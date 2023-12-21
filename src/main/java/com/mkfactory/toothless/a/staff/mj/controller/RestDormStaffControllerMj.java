@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mkfactory.toothless.a.dto.JoinDormApplicationDto;
 import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
 import com.mkfactory.toothless.a.dto.Mj_RestResponseDto;
 import com.mkfactory.toothless.a.dto.SemesterDto;
 import com.mkfactory.toothless.a.staff.mj.service.DormStaffServiceImpl;
 import com.mkfactory.toothless.a.student.mj.service.DormStudentServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
+import com.mkfactory.toothless.donot.touch.service.AlarmApi;
 
 @RestController
 @RequestMapping("/tl_a/staff/*")
@@ -28,6 +30,8 @@ public class RestDormStaffControllerMj {
 	@Autowired
 	private DormStudentServiceImpl studentService;
 
+	@Autowired
+	private AlarmApi alarmApi;
 	
 	// 세션 아이디값 넘기기
 	@RequestMapping("getSessionStaffId")
@@ -171,17 +175,19 @@ public class RestDormStaffControllerMj {
 			@RequestParam String selection_status, 
 			@RequestParam int dorm_application_pk) {
 		
-		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)
 		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
 		
 		staffService.updateSelectionStatus(selection_status, dorm_application_pk);
+		JoinDormApplicationDto joinDormApplicationDto = staffService.selectStudentPkForAlram(dorm_application_pk);
 		
 		if ("Y".equals(selection_status)) {
+			alarmApi.sendAlarm(joinDormApplicationDto.getStudent_pk(), 4, "기숙사 선발되었습니다. 납부관련 공지를 확인해주세요", "/toothless/tl_a/student/jw_mainPage");
 			restResponseDto.addData("selectionStatus", "Y");
 		}else if("N".equals(selection_status)) {
 			restResponseDto.addData("selectionStatus", "N");
 		}
 			
+		
 		restResponseDto.setResult("success");
 		return restResponseDto;
 		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)		
@@ -281,7 +287,21 @@ public class RestDormStaffControllerMj {
 		return restResponseDto;
 		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)		
 	}
-
+	
+	
+	@RequestMapping("selectSomeDayDiaryList")
+	public Mj_RestResponseDto selectSomeDayDiaryList(int month, int day) {
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)
+		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
+		
+		List<Map<Object, String>> diaryList = staffService.selectSomeDayDiaryList(month, day);
+		restResponseDto.addData("daliyDiaryList", diaryList);
+		
+		
+		restResponseDto.setResult("success");
+		return restResponseDto;
+		// ★★★ rest api의 시작과 끝 (답정너로 넣어주기)		
+	}
 	
 	
 	

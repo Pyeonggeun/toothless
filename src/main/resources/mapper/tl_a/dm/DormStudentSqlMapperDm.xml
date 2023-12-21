@@ -53,4 +53,123 @@
 	
 	</delete>
 	
+	<select id="studentListAll" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+	
+		SELECT * FROM TL_JIC_STUDENT_INFO ORDER BY STUDENT_PK ASC 
+	
+	</select>
+	
+	<select id="studentInfoByStudentPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+	
+		SELECT * FROM TL_JIC_STUDENT_INFO WHERE STUDENT_PK = #{STUDENT_PK}
+	
+	</select>
+	
+	<select id="studentListCount" resultType="int">
+	
+		SELECT COUNT(*) FROM TL_JIC_STUDENT_INFO
+	
+	</select>
+	
+	<select id="assignPeopleCount" resultType="int">
+	
+		SELECT count(*) FROM TL_A_DORM_STUDENT
+	
+	</select>
+	
+	<select id="assignPeopleNeedCount" resultType="int">
+	
+		SELECT (SELECT count(tjsi.STUDENT_PK)  FROM TL_JIC_STUDENT_INFO tjsi 
+		INNER JOIN TL_A_JOIN_DORM_APPLICATION tajda 
+		ON TJSI.STUDENT_PK = tajda.STUDENT_PK 
+		WHERE tajda.SELECTION_STATUS = 'Y' AND TAJDA.PAYMENT_STATUS = 'Y') - (SELECT COUNT(*) FROM TL_A_DORM_STUDENT
+		WHERE STUDENT_PK IN (SELECT tjsi.STUDENT_PK  FROM TL_JIC_STUDENT_INFO tjsi 
+		INNER JOIN TL_A_JOIN_DORM_APPLICATION tajda 
+		ON TJSI.STUDENT_PK = tajda.STUDENT_PK 
+		WHERE tajda.SELECTION_STATUS = 'Y' AND TAJDA.PAYMENT_STATUS = 'Y')) AS count FROM dual
+	
+	</select>
+	
+	<select id="executiveCount" resultType="int">
+	
+		SELECT COUNT(*) FROM TL_A_EXECUTIVE
+	
+	</select>
+	
+	<select id="diaryTodayCount" resultType="int">
+	
+		SELECT count(*)  FROM TL_A_DIARY
+		WHERE TO_CHAR(CREATED_AT, 'YYYY-mm-DD') IN (SELECT TO_CHAR(SYSDATE, 'YYYY-mm-DD') FROM dual)
+	
+	</select>
+	
+	<select id="todayOutingCount" resultType="int">
+	
+		SELECT count(*) FROM TL_A_EXIT
+		WHERE TO_CHAR(APPLY_CREATE_AT, 'YYYY-mm-DD') IN (SELECT TO_CHAR(SYSDATE, 'YYYY-mm-DD') FROM dual)
+	
+	</select>
+	
+	<select id="dongCount" resultType="int">
+	
+		SELECT count(*) FROM TL_A_DORM_BUILDING
+	
+	</select>
+	
+	<select id="semesterName" resultType="com.mkfactory.toothless.a.dto.SemesterDto">
+	
+		SELECT * FROM TL_A_SEMESTER WHERE PROGRESS_STATE = 'Y'
+	
+	</select>
+	
+	<select id="selectionStatusN" resultType="int">
+	
+		SELECT COUNT(*) FROM TL_A_JOIN_DORM_APPLICATION WHERE SELECTION_STATUS = 'N'
+	
+	</select>
+	
+	<select id="unpaidCount" resultType="int">
+	
+		SELECT count(*) FROM TL_A_JOIN_DORM_APPLICATION WHERE  SELECTION_STATUS = 'Y' AND PAYMENT_STATUS = 'N'
+	
+	</select>
+	
+	<select id="pointListCount" resultType="int">
+	
+		SELECT count(*) FROM TL_A_POINT_CATEGORY
+		
+	</select>
+	
+	<select id="todayPointCreditCount" resultType="int">
+	
+		SELECT count(*) FROM TL_A_POINT
+		WHERE TO_CHAR(CREATED_AT, 'YYYY-MM-DD') IN (SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD')  FROM dual)
+	
+	</select>
+	
+	<select id="roomCount" resultType="int">
+	
+		SELECT count(*) FROM TL_A_DORM_ROOM
+	
+	</select>
+	
+	<select id="noticeCount" resultType="int">
+		SELECT count(*) FROM TL_A_DORM_NOTICE
+	</select>
+	<select id="noticeRecentWriteTitle" resultType="string">
+		SELECT title FROM TL_A_DORM_NOTICE WHERE CREATED_AT = (SELECT MAX(CREATED_AT) FROM TL_A_DORM_NOTICE)
+	</select>
+	<select id="freeboardCount" resultType="int">
+		SELECT COUNT(*) FROM TL_A_DORM_FREEBOARD
+	</select>
+	<select id="freeboardRecentWriteTitle" resultType="string">
+		SELECT title FROM TL_A_DORM_FREEBOARD WHERE CREATED_AT = (SELECT MAX(CREATED_AT) FROM TL_A_DORM_FREEBOARD)
+	</select>
+	<select id="requestCount" resultType="int">
+		SELECT count(*) FROM TL_A_REQUEST_REPAIR
+	</select>
+	<select id="todayRequestCount" resultType="int">
+		SELECT count(*) FROM TL_A_REQUEST_REPAIR WHERE TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD') IN (SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') FROM dual)
+	</select>
+	
 </mapper>

@@ -374,7 +374,21 @@ public class ResumeController {
 	public String postApplyListPage(HttpSession session, Model model) {
 		
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
-		int student_pk = studentInfoDto.getStudent_pk();
+		if(studentInfoDto != null) {
+			int student_pk = studentInfoDto.getStudent_pk();
+			
+			List<Map<String, Object>> list = resumeService.getPostAndCompanyList(student_pk);
+			model.addAttribute("postAndCompanyList", list);
+			
+			model.addAttribute("applyCount", resumeService.getCountForStudentApplyList(student_pk));
+			
+			return "tl_d/sb_resume/postApplyListPage";
+		
+		}else {
+			return "redirect:../../another/student/loginPage";
+		}
+		
+		
 		
 //		List<JobPostingDto> postList = resumeService.getPostApplyList(student_pk);
 //		model.addAttribute("postList", postList);
@@ -382,14 +396,9 @@ public class ResumeController {
 //		List<CompanyDto> companyDtoList = resumeService.getCompanyDtoListByStudentPk(student_pk);
 //		model.addAttribute("companyList", companyDtoList);
 		
-		List<Map<String, Object>> list = resumeService.getPostAndCompanyList(student_pk);
-		model.addAttribute("postAndCompanyList", list);
 		
 		
 		
-		model.addAttribute("applyCount", resumeService.getCountForStudentApplyList(student_pk));
-		
-		return "tl_d/sb_resume/postApplyListPage";
 	}
 	
 	// 공고 지원 취소
@@ -420,12 +429,38 @@ public class ResumeController {
 			model.addAttribute("applyStudentList", postingService.getApplyStudentTotalList(companyDto.getCom_pk()));
 			model.addAttribute("resumeList", resumeService.getPublicResumeList());
 			model.addAttribute("departmentCategory" , resumeService.getDepartmentCategory());
-		}	
-		return "tl_d/sb_resume/publicResumeByStudentListPage";
+		
+			return "tl_d/sb_resume/publicResumeByStudentListPage";
+		
+		}else {
+			return "redirect:../../another/external/loginPage";
+		}
+		
 	}
 	
 	
-	
+	// 지원한 학생의 이력서 보는 페이지
+	@RequestMapping("viewResumeByApplyStudentPage")
+	public String viewResumeByApplyStudentPage(HttpSession session,  Model model, int job_posting_pk) {
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
+		
+		if(externalInfoDto != null) {
+			int externalInfoPk = externalInfoDto.getExternal_pk();
+			CompanyDto companyDto = postingService.getCompanyPkFromExternalPk(externalInfoPk);
+			List<Map<String, Object>> resumeList = resumeService.getResumeDtoListAndStudentInfoByJobPostingPk(job_posting_pk);
+			JobPostingDto jobPostingDto = resumeService.getApplyJobPostingDto(job_posting_pk);
+			
+			model.addAttribute("company", companyService.getCompany(companyDto.getCom_pk()));
+			model.addAttribute("resumeList", resumeList);
+			model.addAttribute("job_posting_pk", job_posting_pk);
+			model.addAttribute("jobPostingDto", jobPostingDto);
+			return "tl_d/sb_resume/viewResumeByApplyStudentPage";
+		
+		}else {
+			return "redirect:../../another/external/loginPage";
+		}
+	}
 	
 	
 	

@@ -18,6 +18,7 @@ import com.mkfactory.toothless.a.student.mj.mapper.DormStudnetSqlMapper;
 import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
 import com.mkfactory.toothless.donot.touch.mapper.StudentSqlMapper;
+import com.mkfactory.toothless.donot.touch.service.AlarmApi;
 
 @Service
 public class DormStaffServiceImpl {
@@ -31,7 +32,9 @@ public class DormStaffServiceImpl {
 	@Autowired
 	private StudentSqlMapper commonStudentSqlMapper;
 	
-
+	@Autowired
+	private AlarmApi alarmApi;
+	
 	
 	// 학년도/학기 등록
 	public void registerYear(SemesterDto semesterDto) {
@@ -171,6 +174,11 @@ public class DormStaffServiceImpl {
 		staffSqlMapper.updateSelectionStatus(selection_status, dorm_application_pk);
 	}
 	
+	// 알람보낼애들 pk
+	public JoinDormApplicationDto selectStudentPkForAlram(int dorm_application_pk) {
+		return staffSqlMapper.selectStudentPkForAlram(dorm_application_pk);
+	}
+	
 
 	// 선발된 정보(학생정보, 학과정보, 학년, 입사신청정보..) 전체 조회
 	public List<Map<String, Object>> getAllDormSelectedList() {
@@ -292,8 +300,13 @@ public class DormStaffServiceImpl {
 	// 사생 배정 현황 끌고오는 ~ing
 	public int assignedDormStudentCount() {
 		
-		return staffSqlMapper.assignedDormStudentCount();
-				
+		return staffSqlMapper.assignedDormStudentCount();	
+	}
+	
+	// 특정날짜 일지리스트
+	public List<Map<Object, String>> selectSomeDayDiaryList(int month, int day) {
+		
+		return staffSqlMapper.selectSomeDayDiaryList(month, day);
 	}
 	
 	

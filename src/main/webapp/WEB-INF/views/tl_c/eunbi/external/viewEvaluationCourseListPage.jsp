@@ -223,7 +223,7 @@
 				const readInternReport = internWrapper.querySelector(".readInternReport");
 				readInternReport.innerText = "업무일지확인";
 				readInternReport.classList.add("btn", "btn-outline-secondary", "btn-sm", "rounded-1");
-				readInternReport.setAttribute("href", "./viewInternReport?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
+				readInternReport.setAttribute("href", "./viewInternTimeCard?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
 				
 				if(intern.didCompanyEvaluateIntern === 0){
 					const evaluationButton = internWrapper.querySelector(".evaluationButton");
@@ -257,6 +257,13 @@
 		const inputReview = document.getElementById("inputReview");
 		const inputStudentInternPk = document.getElementById("inputStudentInternPk");
 		
+		if (!diligence_score || !responsibility_score || !coorporation_score || !achievement_score ||
+		        inputReview.value.trim() === '' ||
+		        inputStudentInternPk.value.trim() === '') {
+				alert('모든 항목에 평가를 완료해주세요');
+		        return;
+		    }
+
 		fetch("./writeInternEvaluation", {
 			method: "post",
 			headers: {
@@ -327,10 +334,10 @@
 		<!-- 안내문구 -->
 		<div class="row py-2" style="box-shadow: 2px 2px 2px gray; font-size: 0.9em;">
 			<div class="col ps-2">
-				<span>&#035;&nbsp;ㅇㅇㅇ 님 환영합니다</span>
+				<span>&#035;&nbsp;${ajdksCompanyInfoDto.company_name } 님 환영합니다</span>
 			</div>	
 			<div class="col pe-2 text-end nolinenoblue">
-				<a href="./ajdksCompanyLogoutProcess">로그아웃</a>
+				<a href="../../taeho/external/ajdksCompanyLogoutProcess">로그아웃</a>
 			</div>	
 		</div>
 		
@@ -339,15 +346,17 @@
 			<div class="col mx-5">
 				
 				<div id="ifNull" class="row mt-5 d-none">
-					<div class="row">
-						<div class="col fw-semibold mt-2" style="font-size:1.3em">
-							<span class="text-secondary fs-3">&gt;</span>
-							최종평가 입력
+					<div class="col">
+						<div class="row">
+							<div class="col fw-semibold mt-2" style="font-size:1.3em">
+								<span class="text-secondary fs-3">&gt;</span>
+								최종평가 입력
+							</div>
 						</div>
-					</div>
-					<div class="row mt-2 px-4">
-						<div class="col mt-2 bg-body-secondary py-5 px-5">
-							<i class="bi bi-exclamation-triangle"></i> 평가할 수 있는 실습과정이 존재하지 않습니다.
+						<div class="row mt-2 px-4">
+							<div class="col mt-2 bg-body-secondary py-5 px-5">
+								<i class="bi bi-exclamation-triangle"></i> 평가할 수 있는 실습과정이 존재하지 않습니다.
+							</div>
 						</div>
 					</div>
 				</div>
@@ -368,9 +377,9 @@
 						<!-- 현장실습 정보/학생 -->
 						
 						<div id="detailBox" class="row mt-4 d-none">
-							<div class="col px-4">
+							<div class="col px-3">
 								<div class="row">
-									<div class="col border border-start-0 border-end-0 border-dark-subtle px-4 py-3">
+									<div class="col border border-start-0 border-end-0 border-dark-subtle px-3 py-3">
 									
 										<div class="row mt-2 px-3">
 											<div class="col">

@@ -69,5 +69,10 @@ public class ItemStudentController {
 		return "tl_b/ys/informationForumPageThree";
 	}
 	
+	@RequestMapping("healthCenterInfoPage")
+	public String healthCenterInfoPage() {
+		
+		return "tl_b/ys/healthCenterInfoPage";
+	}
 	
 }

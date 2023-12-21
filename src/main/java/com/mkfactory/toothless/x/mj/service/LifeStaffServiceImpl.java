@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -260,6 +261,12 @@ public class LifeStaffServiceImpl {
 
 		lifeStaffSqlMapper.updateLectureInfo(lectureInfoDto);
 	}
+	
+	// 수강신청된 강의 - 수정불가하게
+	public List<OpenLectureDto> getNoUpdateLecture(){
+		
+		return lifeStaffSqlMapper.selectNoUpdateLecture();
+	}
 
 	
 	// 강의 정보 삭제
@@ -336,10 +343,11 @@ public class LifeStaffServiceImpl {
 		return lifeStaffSqlMapper.getLectureListByCategory(lecture_category_key);
 	}
 	
-	// 카테고리별 강사리스트
-	public List<LifeLecturerDto> getTeacherListByCategory(int lecture_category_key) {
+	// 카테고리별 강사리스트 中 개강일~종강일 사이에 수업없는 애들
+	public List<LifeLecturerDto> getTeacherListByCategory(
+			int lecture_category_key, String insertOpenDate, String insertCloseDate) {
 		
-		return lifeStaffSqlMapper.getTeacherListByCategory(lecture_category_key);
+		return lifeStaffSqlMapper.getTeacherListByCategory(lecture_category_key, insertOpenDate, insertCloseDate);
 	}
 
 	// 신규 강의 개설
@@ -389,7 +397,13 @@ public class LifeStaffServiceImpl {
 		
 		lifeStaffSqlMapper.deleteOpenLectureInfo(open_lecture_key);
 	}
+
 	
+	// 월별 수강신청정보 리스트
+	public List<Map<Object, String>> selectMonthlyOpenLectureList(int month) {
+		
+		return  lifeStaffSqlMapper.selectMonthlyOpenLectureList(month);
+	}
 	
 	
 	

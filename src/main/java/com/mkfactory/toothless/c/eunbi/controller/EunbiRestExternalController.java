@@ -76,7 +76,29 @@ public class EunbiRestExternalController {
 		return restResponseDto;
 	}
 	
+	@RequestMapping("getStudentDetails")
+	public RestResponseDto getStudentDetails(int student_pk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(studentService.viewStudentDetail(student_pk));
+		
+		restResponseDto.setResult("Success");
+		
+		return restResponseDto;
+	}
 	
+	@RequestMapping("getSelfIntroduction")
+	public RestResponseDto getSelfIntroduction(int student_pk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(studentService.viewSelfIntroduction(student_pk));
+		
+		restResponseDto.setResult("Success");
+		
+		return restResponseDto;
+	}
 	
 	
 	

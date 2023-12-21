@@ -88,6 +88,66 @@ public class TaehoExternalController {
 		return "tl_c/taeho/external/readStudentInternListPage";
 	}
 	
+	@RequestMapping("applyInternshipCoursePage")
+	public String applyInternshipCoursePage(HttpSession session, Model model) {
+
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		int externalPk = externalInfoDto.getExternal_pk();
+		AjdksCompanyInfoDto ajdksCompanyInfoDto = taehoExternalService.getSessionCompanyInfoByExternalPk(externalPk);
+		model.addAttribute("ajdksCompanyInfoDto", ajdksCompanyInfoDto);		
+		
+		return "tl_c/taeho/external/applyInternshipCoursePage";
+	}
+	
+	@RequestMapping("readMyCompanyInformationPage")
+	public String readMyCompanyInformationPage(HttpSession session, Model model) {
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		int externalPk = externalInfoDto.getExternal_pk();
+
+		AjdksCompanyInfoDto ajdksCompanyInfoDto = taehoExternalService.getSessionCompanyInfoByExternalPk(externalPk);
+		model.addAttribute("ajdksCompanyInfoDto", ajdksCompanyInfoDto);		
+
+		Map<String, Object> companyInformationMap = taehoExternalService.getMyCompanyInformationByExternalPk(externalPk);
+		model.addAttribute("companyInformationMap", companyInformationMap);
+		
+		return "tl_c/taeho/external/readMyCompanyInformationPage";
+	}
+	
+	
+	@RequestMapping("updateMyCompanyInformationPage")
+	public String updateMyCompanyInformationPage(HttpSession session, Model model) {
+		
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		int externalPk = externalInfoDto.getExternal_pk();
+
+		AjdksCompanyInfoDto ajdksCompanyInfoDto = taehoExternalService.getSessionCompanyInfoByExternalPk(externalPk);
+		model.addAttribute("ajdksCompanyInfoDto", ajdksCompanyInfoDto);		
+
+		Map<String, Object> companyInformationMap = taehoExternalService.getMyCompanyInformationByExternalPk(externalPk);
+		model.addAttribute("companyInformationMap", companyInformationMap);
+		
+		return "tl_c/taeho/external/updateMyCompanyInformationPage";
+	}
+ 
+	@RequestMapping("ajdksCompanyLogoutProcess")
+	public String ajdksCompanyLogoutProcess(HttpSession session) {
+		
+		session.invalidate();
+		
+		return "redirect:../../../another/external/loginPage";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

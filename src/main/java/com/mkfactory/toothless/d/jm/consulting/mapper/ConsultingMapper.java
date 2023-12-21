@@ -134,7 +134,10 @@ public interface ConsultingMapper {
 	public StudentInfoDto getStudentInfoByHopeJobPk(int HOPE_JOB_PK);
 	
 	//진행중 구직희망 리스트 싹 다 뽑기
-	public List<HopeJobDto> getOngoingHopeJobList();
+	public List<HopeJobDto> getOngoingHopeJobList(
+			@Param("searchType") String searchType,
+			@Param("searchContents") String searchContents 
+			);
 	
 	//구직희망pk로 취업상담 갯수
 	public int countConsultingByHopeJobPk(int HOPE_JOB_PK);

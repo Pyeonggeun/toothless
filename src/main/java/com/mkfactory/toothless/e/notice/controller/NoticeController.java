@@ -106,8 +106,6 @@ public class NoticeController {
 				String ext = orginalFileName.substring(orginalFileName.lastIndexOf("."));
 				fileName += ext;
 				
-				System.out.println("test:" + rootPath + todayPath + fileName);
-				
 				try {
 					multipartFile.transferTo(new File(rootPath + todayPath + fileName));
 				}catch(Exception e) {

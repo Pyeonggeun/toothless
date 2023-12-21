@@ -300,12 +300,18 @@
 	</select>
 	
 	
-	<!-- 카테고리별 강사 리스트 -->
+	<!-- 카테고리별 강사 리스트 中 개강일~종강일 사이에 수업없는 애들-->
 	<select id="getTeacherListByCategory" resultType="com.mkfactory.toothless.x.dto.LifeLecturerDto">
 		SELECT * FROM TL_X_LIFE_LECTURER ll
 		WHERE LECTURER_KEY IN (
 			SELECT LECTURER_KEY FROM TL_X_POSSIBLE_LECTURE pl
 			WHERE LECTURE_CATEGORY_KEY = #{lecture_category_key}
+			AND LECTURER_KEY NOT IN (
+				SELECT LECTURER_KEY
+				FROM tl_x_open_lecture
+				WHERE TRUNC(OPEN_DATE, 'DD') BETWEEN #{insertOpenDate} AND #{insertCloseDate}
+				OR TRUNC(CLOSE_DATE, 'DD') BETWEEN #{insertOpenDate} AND #{insertCloseDate}
+			)
 		)
 		ORDER BY name ASC, LECTURER_KEY ASC
 	</select>
@@ -360,19 +366,29 @@
 		WHERE LECTURE_INFO_KEY = #{lecture_info_key}
 	</delete>
 	
+	<!-- 수강신청된 강의 - 수정불가하게 -->
+	<select id="selectNoUpdateLecture" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+		SELECT * FROM TL_X_OPEN_LECTURE
+		WHERE OPEN_LECTURE_KEY IN (
+			SELECT OPEN_LECTURE_KEY FROM TL_X_LECTURE_STUDENT
+		)
+	</select>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<!-- 월별수강신청 정보 -->
+	<select id="selectMonthlyOpenLectureList" resultType="map">
+		SELECT TITLE, SA, EA
+		FROM (
+		  SELECT name AS TITLE, START_APPLY AS SA, END_APPLY AS EA, ROWNUM as rnum
+		  FROM (
+		    SELECT name, START_APPLY, END_APPLY
+		    FROM tl_x_open_lecture ol
+		    INNER JOIN TL_X_LECTURE_INFO li ON li.LECTURE_INFO_KEY = ol.LECTURE_INFO_KEY
+		    WHERE TO_CHAR(START_APPLY, 'MM') = #{month} AND START_APPLY > CURRENT_DATE
+		    ORDER BY START_APPLY ASC
+		  )
+		)
+		<![CDATA[ WHERE rnum <= 3 ]]>
+	</select>
 	
 	
 	

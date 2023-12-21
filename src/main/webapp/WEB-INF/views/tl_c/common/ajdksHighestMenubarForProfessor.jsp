@@ -10,7 +10,7 @@
 		MK UNIVERSITY 사이트 로고
 	</div>
 	<div class="col text-end nolinenoblue">
-		${sessionProfessorInfo.name } 님 환영합니다 | <a href="./ajdksProfessorLogoutProcess">로그아웃</a>
+		${sessionProfessorInfo.name } 님 환영합니다 | <a href="../../taeho/professor/ajdksProfessorLogoutProcess">로그아웃</a>
 	</div>
 </div>
 

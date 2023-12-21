@@ -11,7 +11,7 @@
 <body>
 
 	<div class="container-fluid">
-	
+	 
 		<div class="row">
 				<jsp:include page="../common/staffTopNavi.jsp"></jsp:include>	
 		</div>
@@ -21,14 +21,37 @@
 			<div class="col-2 border-end pb-0">
 				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 			</div>
-			
-			<div class="col"></div>
+			 
+			<div class="col-2"></div>
 			<div class="col">
-				기업등록이 완료되었습니다.
-				<!-- 임시로 교직원 기업목록으로 통하게 했습니다. 수정 예정 -->
-				<a href="./companyManagementPage">기업 메인페이지로 이동</a>
+				<div class="row p-5 m-5"></div>
+				<div class="row p-2 m-2"></div>
+				<div class="row">
+					<div class="col p-3">
+						<div class="row text-center mt-4 fs-4 fw-bold pb-2 mb-2 border-bottom border-2"> 
+							<div class="col text-center">
+								기업 등록 완료
+							</div> 
+						</div> 
+						<div class="row text-center mt-4 mb-3">  
+						 	<div class="col"> 
+						 		기업등록이 완료되었습니다, 기업에 가입완료를 안내해 주세요.
+						 	</div>
+						 	 
+						</div>
+						<div class="row text-center mt-3 mb-4">  
+						 	<div class="col"> 
+						 		<a class="btn btn-primary px-5" href="./companyManagementPage">기업목록 페이지로 이동</a>
+						 	</div>
+						 	 
+						</div>
+					</div>
+				 		
+				</div>
+				
+				
 			</div>
-			<div class="col"></div>
+			<div class="col-3"></div>
 		</div>
 		
 		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>

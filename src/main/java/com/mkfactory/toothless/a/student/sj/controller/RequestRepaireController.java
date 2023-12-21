@@ -66,14 +66,21 @@ public class RequestRepaireController {
 		return "tl_a/student/sj_requestReadPage";
 	}
 	
+	
+	@RequestMapping("sj_requestEditPage")
+	public String requestEditPage(Model model, int request_repair_pk) {
+		model.addAttribute("edit", repairService.printingOne(request_repair_pk));
+		
+		return "tl_a/student/sj_requestEditPage";
+	}
+	
 	@RequestMapping("requestRepairWriteProcess")
 	public String requestWriteProcess(HttpSession session, RequestRepairDto repairDto, 
 						Model model, MultipartFile imgs, int dorm_student_pk) {
 		
 		
 			if (imgs != null && !imgs.isEmpty()) {
-		        String rootPath = "C:/requestRepairImg/";
-
+		        String rootPath = "C:\\workspace\\GitWorkSpace\\toothless\\src\\main\\webapp\\resources\\img\\dormitory\\requestRepairImg\\";
 		        // 날짜별 폴더 생성.
 		        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
 		        String todayPath = sdf.format(new Date());
@@ -110,12 +117,19 @@ public class RequestRepaireController {
 				
 	}
 	
+	
+	
 	@RequestMapping("deleteRequestRepairProcess")
 	public String deleteRequestRepairProcess(int request_repair_pk) {
 		repairService.deleteRequestRepairArticle(request_repair_pk);
 		return "redirect:./sj_requestRepairPage";
 	}
 	
+	@RequestMapping("requestRepairEditProcess")
+	public String editRequestRepairProcess(RequestRepairDto requestRepairDto) {
+		repairService.editRequestRepairArticle(requestRepairDto);
+		return "redirect:./sj_requestReadPage?request_repair_pk="+requestRepairDto.getRequest_repair_pk(); 
+	}
 	
 	
 }

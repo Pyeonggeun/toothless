@@ -10,10 +10,43 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <title>교육 학생 메인</title>
+
+		
     </head>
     <body>
         <div class="container-fluid">
-        	<jsp:include page="../hs/eduStudentTopBanner.jsp"></jsp:include>
+			
+			
+        	<div class="row text-center">
+				<div class="col-4"></div>
+				<div class="col ms-5">
+					<div class="row">
+						<div class="col-3 pe-2 text-end mt-2">
+							<img src="../../resources/img/another/logo_black.png" alt="" style="height: 2em;">
+						</div>
+						<div class="col-9 ps-0 fw-bold fs-3 text-start align-self-center ">
+							MK University 
+						</div>
+					</div>
+				</div>
+				<div class="col-1"></div>
+				<div class="col-1 position-relative pe-0 pb-0 fs-4 text-end align-self-center">
+					<button class="navbar-brand border-0" onclick="showNotifyModal()"><i class="bi bi-bell text-balck pe-1">
+					<span id="reloadNotifyCount" class="position-absolute top-0 start-60 badge rounded-pill bg-danger d-none px-1 py-0" style="font-size: small;">
+					</span>
+					</i></button> 
+				</div>
+				<div class="col-1"></div>
+			</div>
+        	
+        
+        
+        	<!-- <jsp:include page="../hs/eduStudentTopBanner.jsp"></jsp:include> -->
+        	
+        	
+        	
+        	
+        	
             <div class="row">
 				<div class="col">
 					<div class="row">
@@ -109,10 +142,10 @@
 										<div class="col">
 											<h5>
 												<span class="badge px-3 text-white" 
-												style="background-color: #133369;">진행중
+												style="background-color: #023048;">진행중
 												</span>
 												<span class="badge px-3 text-white" 
-												style="background-color: #F3AD12;">학생
+												style="background-color: #FFB604;">학생
 												</span>
 											</h5>
 										</div>
@@ -122,7 +155,7 @@
 										<div class="col">
 											
 											<span class="badge px-3 text-white" 
-											style="background-color: #007141; font-size: 14px;
+											style="background-color: #229EBD; font-size: 14px;
 											border-radius: 100%;">
 											중앙
 											</span>

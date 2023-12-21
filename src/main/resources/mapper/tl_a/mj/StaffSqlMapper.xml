@@ -186,6 +186,12 @@
 		ORDER BY DORM_APPLICATION_PK desc
 	</select>
 	
+	<select id="selectStudentPkForAlram" resultType="com.mkfactory.toothless.a.dto.JoinDormApplicationDto">
+		SELECT STUDENT_PK FROM TL_A_JOIN_DORM_APPLICATION 
+		WHERE dorm_application_pk = #{dorm_application_pk}
+	</select>
+	
+	
 	<!-- ============================================================ -->
 	<!-- 메인페이지 최근 2개 공고리스트 -->
 	<select id="selectDormNotice" resultType="com.mkfactory.toothless.a.dto.DormNoticeDto">
@@ -245,12 +251,33 @@
 		WHERE TO_CHAR(CREATED_AT, 'YYYYMMDD') = 
 		TO_CHAR(SYSDATE, 'YYYYMMDD')
 	</select>
+	
 	<!-- 현재 배정 현황 -->
-	
 	<select id="assignedDormStudentCount" resultType="int">
-	
 		SELECT count(*) FROM TL_A_DORM_STUDENT
-	
 	</select>
+	
+	<!-- 특정날자 일지리스트 -->
+	<select id="selectSomeDayDiaryList" resultType="map">
+		SELECT si.NAME AS STUNAME, ad.CONTENT AS DIARY
+		FROM TL_A_DIARY ad
+		INNER JOIN TL_A_EXECUTIVE ae ON ae.EXECUTIVE_PK = ad.EXECUTIVE_PK
+		INNER JOIN TL_A_DORM_STUDENT ds ON ds.DORM_STUDENT_PK = ae.DORM_STUDENT_PK
+		INNER JOIN TL_JIC_STUDENT_INFO si ON si.STUDENT_PK = ds.STUDENT_PK 
+		WHERE TO_CHAR(ad.CREATED_AT, 'MM') = #{month}
+		AND TO_CHAR(ad.CREATED_AT, 'DD') = #{day}
+		<![CDATA[ 
+			AND rownum <= 3
+		]]>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>

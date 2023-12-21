@@ -117,8 +117,8 @@
 		    return;
 		}
 	    
-	    
 
+	    
 		// 입력된 값 모으기(body로 간결하게 보내보자) == map이랑 비슷한뎅?
 		const inputTeacherInfo = new FormData();
 		
@@ -669,8 +669,8 @@
 	// 페이지의 DOM이 로드되면 실행될 함수 등록!! 
 	//	--> 함수가 실행이 안되면 값을 못 가져오는거...
 	window.addEventListener("DOMContentLoaded", () => {
-		searchConditionByLectureList();
 		manageTeacherInfoPage();
+		searchConditionByLectureList();
 	});
 	
 	
@@ -704,8 +704,8 @@
 			
 		</div> <!-- 우측내용 col 끝 -->
             
-        
 	</div> <!-- main row 끝 -->
+	<jsp:include page="../commons/staff/footer.jsp"></jsp:include>
 </div>
 
 <!-- 공통 제목/탭 -->
@@ -1197,7 +1197,7 @@
 				
 			
         </div>
-        <div class="modal-footer mx-3 d-flex justify-content-between">
+        <div class="modal-footer d-flex justify-content-between mx-3">
             <button id="deleteBtn" type="button" class="btn btn-danger rounded-0">삭제하기</button>
             <div>
                 <button id="updateBtn" type="button" class="btn btn-primary rounded-0 text-white" style="background-color: #003399;">수정완료</button>

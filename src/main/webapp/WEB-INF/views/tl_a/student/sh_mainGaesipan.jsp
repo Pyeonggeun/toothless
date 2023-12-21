@@ -35,30 +35,62 @@
                         </div>
                     </div>
                 </div>
-			<div class="row fw-bold my-3">
-				<div class="col-2 pb-1 text-center fw-bold" style="font-size: large;">
-					글 번호</div>
-				 <div class="col text-center fw-bold" style="font-size: large;">
-				 	제목</div>
-				<div class="col-2 text-center fw-bold" style= "font-size: large;">
-					작성자</div>
-				<div class="col-2 text-center fw-bold" style= "font-size: large">
-				작성일</div>
-			</div>
+			 <div class="row"><!--여기가 안에 들어갈 내용들-->
+                    <div class="col">
+                        <div class="row mt-1">
+                            <div class="col-1 pb-3 text-center fw-bold" style="font-size: large;">
+                                글번호
+                            </div>
+                            <div class="col-5 text-center fw-bold" style="font-size: large;">
+                                제목
+                            </div>
+                            <div class="col text-center fw-bold" style="font-size: large;">
+                                작성자
+                            </div>
+                            <div class="col text-center fw-bold" style="font-size: large;">
+                                접수상태
+                            </div>
+                            
+                            <div class="col text-center fw-bold" style="font-size: large;">
+                                작성일
+                            </div>
+                        </div>
+                    </div>
+                </div>
+	
+		
+		
 		<c:forEach items="${list }" var="map">
-			<div class="row border-bottom my-1">
-				<div class="col-2  py-2 text-center" style="font-size: large">${map.dormFreeboardDto.dorm_freeboard_pk}</div>
-				<div class="col py-2 text-center" style="font-size: large" > <a style=text-decoration:none; href="./readGasipan?id=${map.dormFreeboardDto.dorm_freeboard_pk}">${map.dormFreeboardDto.title}</a></div>
-				<div class="col-2 py-2 text-center" style="font-size: large">${map.studentInfoDto.name}</div>
-				<div class="col-2 py-2 text-center" style="font-size: large"><fmt:formatDate value="${map.dormFreeboardDto.created_at}" pattern="yy.MM.dd" /></div>
+           <div class="row mb-2">
+           <div class="col">
+			<div class="row border rounded-2 py-3 text-center shadow-sm  bg-body-tertiar">
+				<div class="col-1">
+					${map.dormFreeboardDto.dorm_freeboard_pk}
+				</div>
+				<div class="col-5">
+					<a class="navbar-brand" href="./readGasipan?id=${map.dormFreeboardDto.dorm_freeboard_pk}">${map.dormFreeboardDto.title}</a> 
+				</div>
+				<div class="col">
+					<i class="bi bi-person-circle"> </i> ${map.studentInfoDto.name}
+				</div>
+				<div class="col text-secondary">
+					접수완료
+				</div>
+				
+				<div class="col">
+					<fmt:formatDate value="${map.dormFreeboardDto.created_at}" pattern="yyyy.MM.dd"/>
+				</div>
+				
 			</div>
-		</c:forEach>
+           </div>
+       </div>
+                </c:forEach>
 		
 			<div class="row mt-3">
 				
 			<c:if test="${!empty sessionStudentInfo}">
 			<div class="col-2 text-end ms-auto d-grid">
-				<a class="btn" style="background-color:#504528; color:#FFFFFF;" href="./writeGasipan">글쓰기</a>
+				<a class="btn btn-primary rounded-0"  href="./writeGasipan">글쓰기</a>
 			</div>
 			</c:if>
 		</div>

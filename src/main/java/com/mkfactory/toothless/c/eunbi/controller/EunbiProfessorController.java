@@ -33,6 +33,17 @@ public class EunbiProfessorController {
 		return "tl_c/eunbi/professor/internshipMainPage";
 	}
 	
+	@RequestMapping("viewChargedInternshipCoursePage")
+	public String viewChargedInternshipCoursePage(HttpSession session, Model model) {
+		
+		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
+		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
+		
+		model.addAttribute("chargedInternshipCourse", professorService.viewChargedInternshipCourse(sessionProfessorPk));
+		
+		return "tl_c/eunbi/professor/viewChargedInternshipCoursePage";
+	}
+	
 	@RequestMapping("viewChargedStudentPage")
 	public String viewChargedStudentPage(HttpSession session, Model model) {
 		
@@ -78,9 +89,37 @@ public class EunbiProfessorController {
 		
 		model.addAttribute("student_pk", student_pk);
 		
-		return"tl_c/eunbi/professor/viewStudentDetailPage";
+		return "tl_c/eunbi/professor/viewStudentDetailPage";
 	}
 	
+	@RequestMapping("studentGradeInquiryPage")
+	public String studentGradeInquiryPage(HttpSession session, Model model) {
+		
+		ProfessorInfoDto sessionProfessorInfo = (ProfessorInfoDto)session.getAttribute("sessionProfessorInfo");
+		int sessionProfessorPk = sessionProfessorInfo.getProfessor_pk();
+		
+		model.addAttribute("internList", professorService.viewInternGrade(sessionProfessorPk));
+		
+		return "tl_c/eunbi/professor/studentGradeInquiryPage";
+	}
+	
+	@RequestMapping("viewInternEvaluationDetailPage")
+	public String viewInternEvaluationDetailPage(HttpSession session, Model model, int student_intern_pk) {
+		
+		model.addAttribute("evaluations", studentService.getEvaluation(student_intern_pk));
+		
+		return "tl_c/eunbi/professor/viewInternEvaluationDetailPage";
+	}
+	
+	@RequestMapping("viewInternTimeCard")
+	public String viewInternTimeCard(HttpSession session, Model model, int student_intern_pk) {
+		
+		model.addAttribute("timecatedReport", studentService.viewTimeCard(student_intern_pk));
+		model.addAttribute("internReport", studentService.getInternReport(student_intern_pk));
+		model.addAttribute("countTimecard", studentService.countTimecard(student_intern_pk));
+		
+		return "tl_c/eunbi/professor/viewInternTimeCard";
+	}
 	
 	
 	

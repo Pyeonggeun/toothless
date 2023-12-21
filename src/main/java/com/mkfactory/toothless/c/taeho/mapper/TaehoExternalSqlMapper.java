@@ -18,4 +18,13 @@ public interface TaehoExternalSqlMapper {
 	
 	public void insertTimecardByStudentInternPk(AjdksCompanyTimecardDto ajdksCompanyTimecardDto);
 	
+	public Map<String, Object> selectMyCompanyInformationByExternalPk(int external_pk);
+	
+	
+	
+	
+	
+	
+	
+	
 }

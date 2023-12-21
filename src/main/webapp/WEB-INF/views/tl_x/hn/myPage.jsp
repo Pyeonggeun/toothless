@@ -270,15 +270,15 @@
 						
 						carouselWrapper.querySelector(".credit").innerText = e.lectureInfo.credit + "학점";
 						
-						const statusBox = carouselWrapper.querySelector(".bottonBox");
+						const statusBox = carouselWrapper.querySelector(".statusBox");
 						statusBox.innerHTML = "";
 						const bottonBox = carouselWrapper.querySelector(".bottonBox");
 						bottonBox.innerHTML = "";
 						
 						if(e.isComplete) {
 							
-							const certificateOutput = document.querySelector("#tempelte .certificateOutput").cloneNode(true);
-							const lectureProgress = document.querySelector("#tempelte .lectureProgress").cloneNode(true);
+							const certificateOutput = document.querySelector("#templete .certificateOutput").cloneNode(true);
+							const lectureProgress = document.querySelector("#templete .lectureProgress").cloneNode(true);
 							lectureProgress.querySelector(".progressButton").value = e.openLectureInfo.open_lecture_key;
 							bottonBox.appendChild(certificateOutput);
 							bottonBox.appendChild(lectureProgress);
@@ -288,11 +288,11 @@
 							
 						}else {
 							
-							const lectureProgress = document.querySelector("#tempelte .lectureProgress").cloneNode(true);
+							const lectureProgress = document.querySelector("#templete .lectureProgress").cloneNode(true);
 							lectureProgress.querySelector(".progressButton").value = e.openLectureInfo.open_lecture_key;
 							bottonBox.appendChild(lectureProgress);
 							
-							const poor = document.querySelector("#tempelte .poor").cloneNode(true);
+							const poor = document.querySelector("#templete .poor").cloneNode(true);
 							statusBox.appendChild(poor);
 							
 						}

@@ -72,10 +72,9 @@
 }
 
 /*table*/
-.table{
-	--bs-table-bg:none;
+.table { -
+	-bs-table-bg: none;
 }
-
 </style>
 </head>
 <body>
@@ -93,10 +92,10 @@
 				<div class="row py-2"
 					style="box-shadow: 2px 2px 2px gray; font-size: 0.9em;">
 					<div class="col ps-2">
-						<span>&#035;&nbsp;중앙정보기술인재개발원 님 환영합니다</span>
+						<span>&#035;&nbsp;${ajdksCompanyInfoDto.company_name } 님 환영합니다</span>
 					</div>
 					<div class="col pe-2 text-end nolinenoblue">
-						<a href="./ajdksCompanyLogoutProcess">로그아웃</a>
+						<a href="../../taeho/external/ajdksCompanyLogoutProcess">로그아웃</a>
 					</div>
 				</div>
 
@@ -121,47 +120,64 @@
 												</h2>
 											</div>
 											<div class="col text-start mt-3">
-												<h6><span class="align-text-bottom">상세 과정 선택</span></h6>
+												<h6>
+													<span class="align-text-bottom">상세 과정 선택</span>
+												</h6>
 											</div>
 										</div>
 										<br>
-										<c:forEach items="${list}" var="companyList">
-											<div class="card w-50 mb-3 text-center" >
-												<c:if test="${companyList.DATE_CHECK eq 'yes'}" >
-													<div class="card-header bg-secondary bg-opacity-25" style="background-color: #f2f5f7;">진행중</div>
-												</c:if>	
-												<c:if test="${companyList.DATE_CHECK eq 'no'}">
-												<div class="card-header bg-secondary bg-opacity-25" style="background-color: #f2f5f7;">종료</div>
-
-
-												</c:if>
-												<div class="card-body">
-													<h5 class="card-title">
-														<p class="fs-4 fw-bolder">
-															<i class="bi bi-bookmarks"></i>
-															&nbsp;${companyList.COMPANY_NAME}
-														</p>
-													</h5>
-													<p class="card-text fs-6">
-														과정 : ${companyList.COURSE_TITLE}<br> 현장실습 진행기간 :
-														<fmt:formatDate
-															value="${companyList.INTERNSHIP_START_DATE}"
-															pattern="yyyy-MM-dd hh:mm" />
-														~
-														<fmt:formatDate value="${companyList.INTERNSHIP_END_DATE}"
-															pattern="yyyy-MM-dd hh:mm" />
-														<br> 모집기간 :
-														<fmt:formatDate value="${companyList.APPLYING_START_DATE}"
-															pattern="yyyy-MM-dd hh:mm" />
+										<div class="row row-cols-1 row-cols-md-2 g-4">
+											<c:forEach items="${list}" var="companyList">
+												<div class="card w-50 mb-3 text-center">
+													<c:if test="${companyList.DATE_CHECK eq 'yes'}">
+														<div class="card-header bg-secondary bg-opacity-25"
+															style="background-color: #f2f5f7;">진행중</div>
+													</c:if>
+													<c:if test="${companyList.DATE_CHECK eq 'no'}">
+														<div class="card-header bg-secondary bg-opacity-25"
+															style="background-color: #f2f5f7;">종료</div>
+													</c:if>
+													<div class="card-body">
+														<h5 class="card-title">
+															<p class="fs-4 fw-bolder">
+																<i class="bi bi-bookmarks"></i>
+																&nbsp;${companyList.COMPANY_NAME}
+															</p>
+														</h5>
+														<p class="card-text fs-6">
+															과정 : ${companyList.COURSE_TITLE}<br> 현장실습 진행기간 :
+															<fmt:formatDate
+																value="${companyList.INTERNSHIP_START_DATE}"
+																pattern="yyyy-MM-dd hh:mm" />
 															~
-														<fmt:formatDate value="${companyList.APPLYING_END_DATE}"
-															pattern="yyyy-MM-dd hh:mm" />
-													</p>
-													<a href="./ajdksSelectInternPage?internship_course_pk=${companyList.INTERNSHIP_COURSE_PK}"
-													 class="d-grid btn bg-secondary bg-opacity-10" style="background-color:	#f2f5f7; outline-color:#f2f5f7;">상세보기</a>
+															<fmt:formatDate
+																value="${companyList.INTERNSHIP_END_DATE}"
+																pattern="yyyy-MM-dd hh:mm" />
+															<br> 모집기간 :
+															<fmt:formatDate
+																value="${companyList.APPLYING_START_DATE}"
+																pattern="yyyy-MM-dd hh:mm" />
+															~
+															<fmt:formatDate value="${companyList.APPLYING_END_DATE}"
+																pattern="yyyy-MM-dd hh:mm" />
+														</p>
+														<c:if test="${companyList.DATE_CHECK eq 'yes'}">
+															<a
+															href="./ajdksSelectInternPage?internship_course_pk=${companyList.INTERNSHIP_COURSE_PK}"
+															class="d-grid btn bg-secondary bg-opacity-10"
+															style="background-color: #f2f5f7; outline-color: #f2f5f7;">상세보기</a>
+														</c:if>
+														<c:if test="${companyList.DATE_CHECK eq 'no'}">
+															<a
+															class="d-grid btn bg-secondary bg-opacity-10"
+															style="background-color: #f2f5f7; outline-color: #f2f5f7;" onclick="alert('종료된 실습 과정 입니다.');">상세보기</a>
+															
+														</c:if>
+														
+													</div>
 												</div>
-											</div>
-										</c:forEach>
+											</c:forEach>
+										</div>
 									</div>
 
 								</div>

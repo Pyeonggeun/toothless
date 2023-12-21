@@ -79,16 +79,12 @@
 </style>
 <script>
 	function updateFormAction() {
-		// Get the form element
 		var certificationForm = document.getElementById("certificationForm");
 
-		// Update the action attribute with the student_pk
 		certificationForm.action = "./certificationProcess?student_pk="
 				+ selectionStudent.STUDENT_PK;
-
-		// Optionally, submit the form programmatically
-		// certificationForm.submit();
 	}
+
 </script>
 </head>
 <body>
@@ -106,10 +102,10 @@
 				<div class="row py-2"
 					style="box-shadow: 2px 2px 2px gray; font-size: 0.9em;">
 					<div class="col ps-2">
-						<span>&#035;&nbsp;중앙정보기술인재개발원 님 환영합니다</span>
+						<span>&#035;&nbsp;${ajdksCompanyInfoDto.company_name } 님 환영합니다</span>
 					</div>
 					<div class="col pe-2 text-end nolinenoblue">
-						<a href="./ajdksCompanyLogoutProcess">로그아웃</a>
+						<a href="../../taeho/external/ajdksCompanyLogoutProcess">로그아웃</a>
 					</div>
 				</div>
 
@@ -150,6 +146,7 @@
 											<tbody>
 												<c:forEach items="${list2}" var="selectionStudent">
 													<tr>
+														
 														<th scope="row">${selectionStudent.STUDENT_APPLYING_PK}</th>
 														<td scope="row">${selectionStudent.STUDENT_ID}</td>
 														<td scope="row">
@@ -185,7 +182,7 @@
 
 																				<div class="col-2 text-center">
 																					<div class="row border" style="height: 300px;">
-																						<img src="C:\images\증명사진.jpg">
+																						<img src="/Git_imageFile/${selectionStudent.SELF_INTRODUCTION_IMG}">
 																					</div>
 																				</div>
 																				<div class="col-3">
@@ -369,7 +366,8 @@
 																								data-bs-toggle="collapse"
 																								data-bs-target="#collapseOne"
 																								aria-expanded="true" aria-controls="collapseOne"
-																								style="background-color: #f2f5f7;">
+																								style="background-color: #f2f5f7;"
+																								>
 																								<i class="bi bi-bookmarks "></i> &nbsp; 지원이력서
 																							</button>
 																						</h1>

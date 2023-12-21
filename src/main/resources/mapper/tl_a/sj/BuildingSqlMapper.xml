@@ -89,6 +89,10 @@
 		SELECT * FROM TL_A_DORM_CATEGORY tadc WHERE DORM_AMOUNT_PK =#{dorm_amount_pk}
 	</select>
 	
+	<select id="choiceCategory" resultType="com.mkfactory.toothless.a.dto.DormCategoryDto">
+		SELECT DISTINCT DORM_AMOUNT  FROM TL_A_DORM_CATEGORY tadc ORDER BY DORM_AMOUNT
+	</select>
+	
 	<!-- 동과 호실에 해당하는 학생 리스트 나오기 ex.A동 101호에 사는 학생이름, 학번 출력 -->
 	<select id="selectStudentNameAndId" resultType="com.mkfactory.toothless.a.dto.DormStudentDto">
 		SELECT TJSI.student_pk, tjsi.NAME

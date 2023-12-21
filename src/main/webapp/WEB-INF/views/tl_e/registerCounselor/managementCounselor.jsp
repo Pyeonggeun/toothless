@@ -26,6 +26,10 @@
 	const loginStaffId = "${sessionStaffInfo.staff_pk}";
 	console.log(loginStaffName);
 	console.log(loginStaffId);
+	
+	reloadCounselorList();
+	reloadSearchTypeCategory();
+	
 	/* // 직원로그인 확인 로직
 	function getStaffInfo(){		
 		fetch("./restGetStaffInfo")
@@ -73,24 +77,22 @@
 		
 		for(e of searchData){
 			
-			const counselorboxWrapper = document.querySelector("#templete .counselorInfoBox").cloneNode(true);
-			const counselorImageLink = counselorboxWrapper.querySelector(".imageCol .counselorImageLink");
-			const counselorImage = counselorboxWrapper.querySelector(".imageCol .counselorImage");
+			const counselorInfoBox = document.querySelector("#templete #counselorInfoBox").cloneNode(true);			
+			const counselorImageLink = counselorInfoBox.querySelector(".imageCol .counselorImageLink");
+			const counselorImage = counselorInfoBox.querySelector(".imageCol .counselorImage");
 			
 			if(e.PROFILEIMAGE != null){
-				counselorImage.src = "../../resources/img/counselorImage/" + e.PROFILEIMAGE;
-				counselorImage.setAttribute("value", e.COUNSELORID);
+				counselorImage.src = "../../resources/img/counselorImage/" + e.PROFILEIMAGE;				
 			}
 			else{
-				counselorImage.src = "../../resources/img/counselorImage/no_image.jpg";
-				counselorImage.setAttribute("value", e.COUNSELORID);
+				counselorImage.src = "../../resources/img/counselorImage/no_image.jpg";				
 			}
 			
-			const counselorName = counselorboxWrapper.querySelector(".counselorName");
-			counselorName.innerText = e.NAME;
-			counselorName.setAttribute("value", e.COUNSELORID);
+			const counselorName = counselorInfoBox.querySelector(".counselorName");
+			counselorName.innerText = e.NAME;			
 			
-			counselorListBox.appendChild(counselorboxWrapper);
+			counselorInfoBox.setAttribute("onclick", "showCounselorInfoModal("+e.COUNSELORID+")");
+			counselorListBox.appendChild(counselorInfoBox);
 			
 		}
 		
@@ -363,8 +365,9 @@
     }
 	
 	// 상담원 상세정보 조회모달
-	function showCounselorInfoModal(target){
-		const counselorId = target.getAttribute("value");
+	function showCounselorInfoModal(counselorId){
+		
+		//const counselorId = target.getAttribute("value");
 		
 		const url = "./showCounselorInfoModal?counselorId=" + counselorId;
 		
@@ -590,8 +593,7 @@
 	
 	
     window.addEventListener("DOMContentLoaded", ()=>{		
-		reloadCounselorList()
-		reloadSearchTypeCategory()
+		
 		
 	});
 	
@@ -1240,22 +1242,23 @@
     </div>
 	
 	<!-- 템플릿 짜두는 공간 -->
-	<div id="templete" class="d-none">
+	<div id="templete" class="d-none">		
 		
-		<div class="counselorInfoBox col-2">
+		<div id="counselorInfoBox" class="col-2" role="button">
 			<div class="row mt-2">				
 				<div class="imageCol col">					
 					<a class="counselorImageLink">
-						<img src="" class="counselorImage img-fluid img-thumbnail" onclick="showCounselorInfoModal(this)" role="button">
+						<img src="" class="counselorImage img-fluid img-thumbnail" role="button">
 					</a>						
 				</div>													
 			</div>
 			<div class="row mt-2">
-				<div class="col text-center" onclick="showCounselorInfoModal(this)" role="button">					
+				<div class="col text-center" role="button">					
 					<span class="counselorName fw-bold"></span> 상담사					
 				</div>
 			</div>								
 		</div>
+		
 		
 		
 		<div class="searchCategoryOption form-check form-check-inline align-middle" id="" required>                                                

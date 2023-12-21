@@ -3,12 +3,17 @@ package com.mkfactory.toothless.c.eunbi.mapper;
 import java.util.List;
 
 import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
+import com.mkfactory.toothless.c.dto.AjdksCompanyEvaluationDto;
+import com.mkfactory.toothless.c.dto.AjdksCompanyTimecardDto;
+import com.mkfactory.toothless.c.dto.AjdksInternReportDto;
 import com.mkfactory.toothless.c.dto.AjdksInternSatisfactionDto;
 import com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto;
+import com.mkfactory.toothless.c.dto.AjdksProfessorEvaluationDto;
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionImgDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
+import com.mkfactory.toothless.c.dto.AjdksTimecardCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.DepartmentCategoryDto;
 import com.mkfactory.toothless.donot.touch.dto.SemesterInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
@@ -65,7 +70,13 @@ public interface EunbiStudentSqlMapper {
 	// 성적 산출
 	public String calculateGrade(int student_intern_pk);
 	
+	public AjdksProfessorEvaluationDto getProfessorEvaluation(int student_intern_pk);
+	public AjdksCompanyEvaluationDto getCompanyEvaluation(int student_intern_pk);
 	
+	// 일지 상세
+	public List<AjdksCompanyTimecardDto> getCompanyTimecard(int student_intern_pk);
+	public AjdksTimecardCategoryDto getCompanyTimecardCategory(int timecard_category_pk);
+	public List<AjdksInternReportDto> getInternReport(int student_intern_pk);
 	
 	
 	
