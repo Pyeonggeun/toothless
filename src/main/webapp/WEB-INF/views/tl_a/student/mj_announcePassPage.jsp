@@ -92,16 +92,16 @@
 																	</div>
 																</div>
 																<div class="row border-bottom">
-																	<div class="col-2 py-2 border-end fw-bold">
+																	<div class="col-2 py-2 border-end fw-bold align-self-center">
 																		차  수
 																	</div>
-																	<div class="col-4 py-2 border-end">
+																	<div class="col-4 py-2 border-end align-self-center">
 																		${thisSemesterJoinDormInfo.joinDormInfoDto.title }
 																	</div>
-																	<div class="col-2 py-2 border-end fw-bold">
+																	<div class="col-2 py-2 border-end fw-bold align-self-center">
 																		상  태
 																	</div>
-																	<div class="col-4 py-2">
+																	<div class="col-4 py-2 align-self-center">
 																		<c:choose>
 																			<c:when test="${isPass == 1}">
 																				<span class="text-primary fw-bold">합격</span>
