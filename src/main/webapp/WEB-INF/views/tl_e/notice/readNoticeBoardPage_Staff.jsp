@@ -202,6 +202,11 @@
 		<div class="row mt-3">
 			<div class="col-1"></div>
 			<div class="col">
+				<div class="row">
+					<div class="col">공지사항</div>
+					<div class="col"></div>
+					<div class="col"></div>
+				</div>
 				<div class="row fw-bold">
 					<div id="headerSize" class="col-1"><i class="bi bi-chat-square-text-fill"></i>&nbsp;&nbsp;글번호</div>
 					<div id="headerSize" class="col-8"><i class="bi bi-emoji-expressionless-fill"></i>&nbsp;&nbsp;제목</div>
@@ -214,7 +219,7 @@
 						<div id="headerSize" class="col-1">${mainList.noticeBoardDto.id }</div>
 						<div class="col-8 border-bottom">
 							<div class="row">
-								<div class="col-10">
+								<div class="col-9">
 									<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./readNoticeBoardPage_Staff?id=${mainList.noticeBoardDto.id }">${mainList.noticeBoardDto.title }</a>
 									<c:if test="${mainList.commentCount > 0 }">
 										<span class="fw-bold text-danger" style="font-size:0.7em;">[${mainList.commentCount }]</span> 
@@ -226,8 +231,8 @@
 								<div class="col-1">
 									<span class="fw-bold" style="font-size:0.7em;">추천[${mainList.likeCount }]</span>
 								</div>
-								<div class="col-1">
-									<span class="fw-bold" style="font-size:0.7em;">비추[${mainList.disLikeCount }]</span>
+								<div class="col-2">
+									<span class="fw-bold" style="font-size:0.7em;">비추천[${mainList.disLikeCount }]</span>
 								</div>
 							</div>
 						</div>

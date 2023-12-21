@@ -132,10 +132,10 @@
 			<div class="col-1"></div>
 			<div class="col">
 				<div class="row">
-					<div class="col-1 mt-3 mb-1 fw-bold">공지사항</div>
+					<div class="col-2 mt-3 mb-1 fw-bold fs-5">공지사항</div>
 					<div class="col"></div>
 					<c:if test="${!empty sessionStudentInfo }">
-						<div class="col-1 mt-3 mb-1 fw-bold">${sessionStudentInfo.name }님</div>
+						<div class="col-1 mt-3 mb-1 fw-bold">${sessionStudentInfo.name }</div>
 					</c:if>
 				</div>
 				<!-- 공지사항 제목 -->
@@ -270,7 +270,7 @@
 							<input id="inputComment" name="text" type="text" style="width:100%; height: 2em">
 						</div>
 						<div class="col d-grid">
-							<button onclick="writeComment()" style="width:100%; height: 2em">댓글띠</button>
+							<button onclick="writeComment()" class="btn btn-light" style="width:100%; height: 2em">등록</button>
 						</div>
 					</div>
 				</c:if>
@@ -280,6 +280,11 @@
 		<div class="row mt-3">
 			<div class="col-1"></div>
 			<div class="col">
+				<div class="row">
+					<div class="col">공지사항</div>
+					<div class="col"></div>
+					<div class="col"></div>
+				</div>
 				<div class="row fw-bold">
 					<div id="headerSize" class="col-1"><i class="bi bi-chat-square-text-fill"></i>&nbsp;&nbsp;글번호</div>
 					<div id="headerSize" class="col-8"><i class="bi bi-emoji-expressionless-fill"></i>&nbsp;&nbsp;제목</div>
@@ -292,7 +297,7 @@
 						<div id="headerSize" class="col-1">${mainList.noticeBoardDto.id }</div>
 						<div class="col-8 border-bottom">
 							<div class="row">
-								<div class="col-10">
+								<div class="col-9">
 									<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./readNoticeBoardPage_Student?id=${mainList.noticeBoardDto.id }">${mainList.noticeBoardDto.title }</a>
 									<c:if test="${mainList.commentCount > 0 }">
 										<span class="fw-bold text-danger" style="font-size:0.7em;">[${mainList.commentCount }]</span> 
@@ -304,8 +309,8 @@
 								<div class="col-1">
 									<span class="fw-bold" style="font-size:0.7em;">추천[${mainList.likeCount }]</span>
 								</div>
-								<div class="col-1">
-									<span class="fw-bold" style="font-size:0.7em;">비추[${mainList.disLikeCount }]</span>
+								<div class="col-2">
+									<span class="fw-bold" style="font-size:0.7em;">비추천[${mainList.disLikeCount }]</span>
 								</div>
 							</div>
 						</div>

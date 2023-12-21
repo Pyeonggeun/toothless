@@ -93,7 +93,7 @@
 			const likeSpan = noticeTitle.querySelector(".likeSpan");
 			likeSpan.innerText = "[" + "추천" + e.likeCount + "]";
 			const dislikeSpan = noticeTitle.querySelector(".dislikeSpan");
-			dislikeSpan.innerText = "[" + "비추" + e.disLikeCount + "]";
+			dislikeSpan.innerText = "[" + "비추천" + e.disLikeCount + "]";
 			
 			const noticeRead_Count = noticeListWrapper.querySelector(".noticeRead_Count");
 			noticeRead_Count.innerText = e.noticeBoardDto.read_count;
@@ -338,7 +338,7 @@
 						<div class="col pe-0 text-end">
 							<span class="likeSpan fw-bold" style="font-size:0.7em;"></span>
 						</div>
-						<div class="col ps-0 pe-0 text-end">
+						<div class="col ps-0 pe-4 text-end">
 							<span class="dislikeSpan fw-bold" style="font-size:0.7em;"></span>
 						</div>
 					</div>
