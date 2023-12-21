@@ -183,6 +183,9 @@
 					
 					pagination();
 					
+					const lectureBox = document.getElementById("lectureBox");
+					lectureBox.innerHTML = "";
+					
 					if(totalPageNumber == 0) {
 						
 						const noApplyLectureWrapper = document.querySelector("#templete .noApplyLectureWrapper").cloneNode(true);

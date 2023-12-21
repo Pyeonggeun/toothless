@@ -82,9 +82,11 @@
 				if(ingPageNumber <= 1) {
 					
 					ingPageNumber = ingTotalPageNumber;
+					document.getElementById("ingPageNumber").innerText = ingPageNumber;
 					
 				}else {
 					ingPageNumber--;
+					document.getElementById("ingPageNumber").innerText = ingPageNumber;
 				}
 	    		
 	    	}
@@ -94,9 +96,11 @@
 				if(ingPageNumber >= ingTotalPageNumber) {
 					
 					ingPageNumber = 1;
+					document.getElementById("ingPageNumber").innerText = ingPageNumber;
 					
 				}else {
 					ingPageNumber++;
+					document.getElementById("ingPageNumber").innerText = ingPageNumber;
 				}
 	    		
 	    	}
@@ -106,9 +110,11 @@
 				if(overPageNumber <= 1) {
 					
 					overPageNumber = overTotalPageNumber;
+					document.getElementById("overPageNumber").innerText = overPageNumber;
 					
 				}else {
 					overPageNumber--;
+					document.getElementById("overPageNumber").innerText = overPageNumber;
 				}
 	    		
 	    	}
@@ -118,9 +124,11 @@
 				if(overPageNumber >= overTotalPageNumber) {
 					
 					overPageNumber = 1;
+					document.getElementById("overPageNumber").innerText = overPageNumber;
 					
 				}else {
 					overPageNumber++;
+					document.getElementById("overPageNumber").innerText = overPageNumber;
 				}
 	    		
 	    	}
@@ -479,7 +487,7 @@
                                                                     <nav aria-label="Page navigation example">
                                                                         <ul class="pagination justify-content-end">
                                                                             <li id="ingPrevious" class="page-item">
-                                                                                <a onclick="previousIngPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;"  data-bs-target="ingCarousel" data-bs-slide="prev">
+                                                                                <a onclick="previousIngPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;"  data-bs-target="#ingCarousel" data-bs-slide="prev">
                                                                                     <span aria-hidden="true">&laquo;</span>
                                                                                 </a>
                                                                             </li>
@@ -489,7 +497,7 @@
                                                                             	</a>
                                                                             </li>
                                                                             <li id="ingNext" class="page-item">
-                                                                                <a onclick="nextIngPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;"  data-bs-target="ingCarousel" data-bs-slide="next">
+                                                                                <a onclick="nextIngPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;"  data-bs-target="#ingCarousel" data-bs-slide="next">
                                                                                     <span aria-hidden="true">&raquo;</span>
                                                                                 </a>
                                                                             </li>
@@ -518,7 +526,7 @@
                                                                     <nav aria-label="Page navigation example">
                                                                         <ul class="pagination justify-content-end">
                                                                             <li id="overPrevious" class="page-item">
-                                                                                <a onclick="previousOverPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;" data-bs-target="completeCarousel" data-bs-slide="prev">
+                                                                                <a onclick="previousOverPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;" data-bs-target="#completeCarousel" data-bs-slide="prev">
                                                                                     <span aria-hidden="true">&laquo;</span>
                                                                                 </a>
                                                                             </li>
@@ -528,7 +536,7 @@
                                                                             	</a>
                                                                             </li>
                                                                             <li id="overNext" class="page-item">
-                                                                                <a onclick="nextOverPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;" data-bs-target="completeCarousel" data-bs-slide="next">
+                                                                                <a onclick="nextOverPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;" data-bs-target="#completeCarousel" data-bs-slide="next">
                                                                                     <span aria-hidden="true">&raquo;</span>
                                                                                 </a>
                                                                             </li>
