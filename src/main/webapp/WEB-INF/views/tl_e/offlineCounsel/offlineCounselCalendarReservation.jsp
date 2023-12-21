@@ -213,7 +213,7 @@
 			            prevMonth = 12;
 			            prevMonthYear--;
 			        }
-			        dateCol.setAttribute("onclick", "showModal(" + prevMonthYear + "," + prevMonth + "," + arrCalendar[i - 1] + "," + currentDay + ")");
+			        dateCol.setAttribute("onclick", "showModal(" + prevMonthYear + "," + prevMonth + "," + arrCalendar[i - 1] + "," + currentDay + "," + counselorPk.value + ")");
 			    } else if (i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())) {
 			        // 다음 달의 날짜 활성화
 			        let nextMonthYear = modifiedDate.getFullYear();
@@ -222,13 +222,13 @@
 			            nextMonth = 1;
 			            nextMonthYear++;
 			        }
-			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + arrCalendar[i - 1] + "," + currentDay + ")");
+			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + arrCalendar[i - 1] + "," + currentDay + "," + counselorPk.value + ")");
 			    } else if (currentDate.getFullYear() === year && currentDate.getMonth() === month - 1 && arrCalendar[i - 1] < currentDate.getDate()) {
 			        // 이번 달의 오늘 이전의 날짜인 경우, 비활성화
 			        dateCol.style.backgroundColor = "#f2f1f1";
 			    } else {
 			        // 나머지 날짜는 활성화
-			        dateCol.setAttribute("onclick", "showModal(" + year + "," + month + "," + arrCalendar[i - 1] + "," + currentDay + ")");
+			        dateCol.setAttribute("onclick", "showModal(" + year + "," + month + "," + arrCalendar[i - 1] + "," + currentDay + "," + counselorPk.value + ")");
 			    }
 
 
@@ -299,7 +299,7 @@
 			calendar('next');
 		}
 		
-		function showModal(year, month, date, day){
+		function showModal(year, month, date, day, counselorPk){
 			
 			console.log("my: "+year);
 			console.log("mm: "+month);
@@ -309,7 +309,7 @@
             const writeModal = bootstrap.Modal.getOrCreateInstance("#writeModal");  // 매개변수로 질의 사용
             const writeModalElement = document.querySelector("#writeModal");
 			
-			const url = "./isPossibleReservation";
+			const url = "./isPossibleReservation?counselor_id=" + counselorPk;
             
 			fetch(url)
 			.then(response => response.json())
@@ -546,7 +546,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-9 pt-4 ps-4">
+					<div class="col-9 py-4 ps-4">
 						${counselorDto.career }
 					</div>
 				</div>
