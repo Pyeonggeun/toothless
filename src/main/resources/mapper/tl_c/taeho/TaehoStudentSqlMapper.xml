@@ -66,7 +66,7 @@
 		tcct.getin_minute AS getin_minute,
 		tcct.getoff_hour AS getoff_hour,
 		tcct.getoff_minute AS getoff_minute,
-		tctc.timecard_category_name AS attendance_status
+		tctc.timecard_category_name AS attendance_status,
 		tcct.company_timecard_pk AS attendance_pk
 		FROM TL_C_COMPANY_TIMECARD tcct 
 		INNER JOIN TL_C_STUDENT_INTERN tcsi ON tcct.STUDENT_INTERN_PK = tcsi.STUDENT_INTERN_PK 
@@ -78,27 +78,7 @@
 		AND TO_CHAR(sysdate, 'yyyy/MM/dd') >= TO_CHAR(tcic.INTERNSHIP_START_DATE, 'yyyy/MM/dd')
 		AND TO_CHAR(sysdate, 'yyyy/MM/dd') <= TO_CHAR(tcic.INTERNSHIP_END_DATE, 'yyyy/MM/dd')
 		]]> 
-		
-		<choose>
-			<when test="categoryType == 'wholeInfo'">
-				AND 1=1
-			</when>
-			<when test="categoryType == 'goodJob'">
-				AND tcct.TIMECARD_CATEGORY_PK = 1
-			</when>
-			<when test="categoryType == 'lateJob'">
-				AND tcct.TIMECARD_CATEGORY_PK = 2
-			</when>
-			<when test="categoryType == 'leaveJob'">
-				AND tcct.TIMECARD_CATEGORY_PK = 3
-			</when>
-			<when test="categoryType == 'absenceJob'">
-				AND tcct.TIMECARD_CATEGORY_PK = 4			
-			</when>
-		</choose>		
-		
 		ORDER BY attendance_pk DESC
-		
 	</select>
 	
 	

@@ -75,10 +75,10 @@
 <script>
 	const modal = document.getElementById("internListModal");
 
-	function openModal(){
+	function openModal(internshipCoursePk){
 		const modal = document.getElementById("internListModal");	
 		modal.style.display = "block";
-		reloadInternList();
+		reloadInternList(internshipCoursePk);
 				
 	}
 	
@@ -87,7 +87,42 @@
 		modal.style.display = "none";			
 	}
 
+	function reloadInternList(internshipCoursePk){
+		
+		const url = "./getInternListByInternshipCoursePk?internshipCoursePk="+internshipCoursePk;
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+		const internListBox = document.getElementById("internListBox");
+		internListBox.innerHTML = "";
+		
+			for(e of response.data){			
+				const internListWrapper = document.querySelector("#modal-inner .internListWrapper").cloneNode(true); 
 
+				const internName = internListWrapper.querySelector(".internName");
+				internName.innerText = e.STUDENT_NAME;
+
+				const internGender = internListWrapper.querySelector(".internGender");
+				internGender.innerText = e.STUDENT_GENDER;
+
+				const internBirth = internListWrapper.querySelector(".internBirth");
+				internBirth.innerText = e.STUDENT_BIRTH;
+
+				const internAddress = internListWrapper.querySelector(".internAddress");
+				internAddress.innerText = e.STUDENT_ADDRESS;
+
+				const internEmail = internListWrapper.querySelector(".internEmail");
+				internEmail.innerText = e.STUDENT_EMAIL;
+					
+								
+				internListBox.appendChild(internListWrapper);
+			}
+		
+		});
+	}
+	
 	window.onclick = function(event) {
 		const modal = document.getElementById("internListModal");
 		if(event.target == modal){
@@ -174,19 +209,13 @@
 										<span class="closeButton fw-bold fs-4" style="color: #aaa;" onclick="closeModal()">&times;</span>
 									</div>
 								</div>
-								
-								<div class="row">
-									<div class="col">										
-										실습생 리스트										
-									</div>
-								</div>
 
-								<div class="row">
-									<div class="col">이름</div>
-									<div class="col">성별</div>
-									<div class="col">생년월일</div>
-									<div class="col">주소</div>
-									<div class="col">이메일</div>
+								<div class="row mx-2" style="border-style: none none solid none; border-width: 2px; border-color: #495057;">
+									<div class="col-2 text-center">이름</div>
+									<div class="col-1 text-center">성별</div>
+									<div class="col-2 text-center">생년월일</div>
+									<div class="col text-center">주소</div>
+									<div class="col text-center">이메일</div>
 								</div>
 								
 								<div class="row">
@@ -203,7 +232,7 @@
 
 
 	<div id="modal-inner" class="d-none">
-		<div class="internListWrapper row">
+		<div class="internListWrapper row pb-1" style="border-style: none none solid none; border-color: #495057;">
 			<div class="internName col">이름</div>
 			<div class=" internGender col">성별</div>
 			<div class="internBirth col">생년월일</div>
@@ -216,6 +245,10 @@
 
 			</div>
 		</div>
+		
+	<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>		
+		
+		
 	</div>
 	
 </div>

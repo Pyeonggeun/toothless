@@ -15,8 +15,19 @@ public class TaehoRestExternalController {
 	private TaehoExternalServiceImpl taehoExternalService;
 	
 	
-	
-	
+	@RequestMapping("getInternListByInternshipCoursePk")
+	public RestResponseDto getInternListByInternshipCoursePk(int internshipCoursePk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setResult("success");
+		
+		System.out.println("컨트롤러:" + internshipCoursePk);
+		
+		restResponseDto.setData(taehoExternalService.getInternListByInternshipCoursePk(internshipCoursePk));
+		
+		return restResponseDto;
+	}
 	
 	
 	
