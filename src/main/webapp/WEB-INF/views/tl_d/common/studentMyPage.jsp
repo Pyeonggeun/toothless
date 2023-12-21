@@ -162,7 +162,7 @@
 										<div class="col-3">
 											<%-- 회사 이름 --%>
 											<div class="row">
-												<div class="col ms-2">${list.companyDto.com_name }</div>
+												<div class="col pt-2 ms-2">${list.companyDto.com_name }</div>
 											</div>
 											<%-- 가족기업여부 --%>
 											<div class="row mb-2">
@@ -210,12 +210,12 @@
 							</c:when>
 							<c:otherwise>
 							<c:forEach items="${interestpostingForMyPage}" var="interestPosting">
-								<div class="row mt-3 border-bottom">
+								<div class="row mt-2 border-bottom">
 									<%-- 1번째 칸 --%>
 									<div class="col-2">
 										<div class="row">
 											<%-- 기업명 --%>
-											<div class="col pe-0 pt-1 text-truncate">
+											<div class="col pe-0 pt-2 text-truncate">
 												<a class="navbar-brand" href="./companyPostingListForStudentPage?com_pk=${interestPosting.companyDto.com_pk}">
 													${interestPosting.companyDto.com_name}
 												</a>
@@ -231,7 +231,7 @@
 										</div>
 									</div>
 									<%-- 2번째 칸 --%>
-									<div class="col-8 mt-1 pb-3">
+									<div class="col-8 mt-1 pb-2">
 										<div class="row">
 											<%-- 공고제목 --%>
 											<div class="col ms-1 ps-0 pt-1">
