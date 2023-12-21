@@ -228,6 +228,16 @@ public class RestLifeLecutrerController {
 		
 		return responseDto;
 	}
-	
+	@RequestMapping("loadStudentTestResultListForModal")
+	public RestResponseDto loadStudentTestResultListForModal(int life_student_key, int lecture_test_key) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> list = lifeLecturerService.studentTestQuestionAndResultList(lecture_test_key, life_student_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(list);
+		
+		return responseDto;
+	}
 	
 }

@@ -88,7 +88,7 @@
 	        			
 	        			const name = testStudentListWrapper.querySelector(".name");
 	        			name.innerText = e.lifeStudentDto.name;
-	        			console.log(name);
+	        			//console.log(name);
 	        			/* 나중에 제대로 할때 해야함... 자꾸 널떠...
 	        			const externalId = studentInfoListWrapper.querySelector(".externalId");
 	    				externalId.innerText = e.externalInfoDto.external_id; */
@@ -102,19 +102,25 @@
 	   					     			
 	        			const studentTestingStatus = testStudentListWrapper.querySelector(".studentTestingStatus");
 	        			const testScore =  testStudentListWrapper.querySelector(".testScore");
+	        			const showResultButton = testStudentListWrapper.querySelector(".showResultButton");
 	        			if(e.statusCount == 1){
 	        				studentTestingStatus.innerText ='응시완료';
 	        				studentTestingStatus.classList.add("text-primary");
 	        				
 	        				testScore.innerText = e.test_point+"점"
+	        				showResultButton.setAttribute("onclick","showStudentTestResultModal("+e.lifeStudentDto.life_student_key+")");
+	        				showResultButton.classList.add("btn-primary");
 	        				
 	        			}else{
 	        				studentTestingStatus.innerText ='미응시';
 	           				studentTestingStatus.classList.add("text-danger");
 	           				
 	           				testScore.innerText = "-";
+	           				
+	           				showResultButton.classList.add("btn-outline-secondary","disable");
 	        			}
-	        			 
+	        			
+	        			
 	        			
 	        			testStudentListBox.appendChild(testStudentListWrapper);
 	    			}
@@ -125,7 +131,104 @@
 			
 		}
      	
+     	//시험 결과 모달
+     	function showStudentTestResultModal(life_student_key) {
+     		const modal = bootstrap.Modal.getOrCreateInstance("#studentTestResultModal");
+     		loadStudentTestResultList(life_student_key)
+     		loadTestinfoForModal(lecture_test_key)
+			modal.show();
+     	}
      	
+     	function hideTestWriteModal() {
+     		const modal = bootstrap.Modal.getOrCreateInstance("#studentTestResultModal");
+     		modal.hide();
+		}
+     	
+     	function loadTestinfoForModal(lecture_test_key){
+     		
+     		const url = "./loadTestInfo?lecture_test_key="+lecture_test_key;
+			fetch(url)
+    		.then(response => response.json())
+    		.then((response) => {
+ 
+    			const testModalLectureName = document.querySelector("#testModalLectureName");
+    			testModalLectureName.innerText = response.data.roundCount+"회 "+response.data.lectureInfoDto.name;
+    			
+    			const modalTestName = document.querySelector("#modalTestName");
+    			modalTestName.innerText = response.data.lectureTestDto.test_name;
+    			
+    			const openDate = new Date(response.data.lectureTestDto.open_test_day);
+    			const open_day = openDate.getFullYear()+"-"+(openDate.getMonth()+1) + "-"+ openDate.getDate();
+    			
+    			const closeDate = new Date(response.data.lectureTestDto.close_test_day);
+    			const close_day = closeDate.getFullYear()+"-"+(closeDate.getMonth()+1) + "-"+ closeDate.getDate();
+    			
+    			const open_close_day = document.querySelector("#open_close_day");
+    			open_close_day.innerText = open_day+"-"+close_day;
+    			
+    			const modalStudyCategory = document.querySelector("#modalStudyCategory");
+    			modalStudyCategory.innerText = response.data.categoryName;
+    			
+    		});
+     	}
+     	
+     	function loadStudentTestResultList(life_student_key){
+     		const url = "./loadStudentTestResultListForModal?life_student_key="+life_student_key+"&lecture_test_key="+lecture_test_key;
+			fetch(url)
+    		.then(response => response.json())
+    		.then((response) => {
+   				const testResultListBox = document.querySelector("#testResultListBox");
+				
+    			
+    			for(e of response.data){
+    				const testQuestionWrapper = document.querySelector("#testQuestionTemplete .testQuestionWrapper").cloneNode(true);
+    				
+    				//문항번호랑 answer or noAnswer css클래스 넣어주기 
+    				const CheckAnswerNumber = testQuestionWrapper.querySelector(".CheckAnswerNumber");
+    				CheckAnswerNumber.innerText = e.testQuestionDto.question_number;
+    				
+    				const question = testQuestionWrapper.querySelector(".question");
+    				question.innerText = e.testQuestionDto.question;
+    				
+    				const test_point = testQuestionWrapper.querySelector(".test_point");
+    				test_point.innerText = e.testQuestionDto.test_point+"점";
+    				
+    				const choiceBoxList = testQuestionWrapper.querySelector("#choiceBoxList");
+    				for(ee of e.qList){
+    					
+    					const choiceBoxWrapper =  document.querySelector("#choiceBoxTemplete .choiceBoxWrapper").cloneNode(true);
+    					console.log(choiceBoxWrapper);
+    					const choice = choiceBoxWrapper.querySelector(".choice");
+    					choice.innerText = ee.questionChoiceDto.choice;
+    					console.log(ee.questionChoiceDto.choice)
+    					const answerCheckBox = choiceBoxWrapper.querySelector(".answerCheckBox");
+    					if(ee.questionChoiceDto.answer =="true"){
+    						choice.classList.add("text-primary");
+    						if(ee.testResultDto != null){
+    							console.log(ee.questionChoiceDto.question_choice_key);
+    							console.log(ee.testResultDto.question_choice_key);
+    							if(ee.questionChoiceDto.question_choice_key == ee.testResultDto.question_choice_key){
+    								console.log("Ssss");
+        							
+        							console.log(answerCheckBox.checked);
+        							answerCheckBox.checked = true;	
+        							console.log(answerCheckBox.checked);
+        							CheckAnswerNumber.classList.add("answer");
+    							}
+    							
+    						}else{
+	    						CheckAnswerNumber.classList.add("noAnswer");
+	    						
+    						}
+    					}
+    					choiceBoxList.appendChild(choiceBoxWrapper);
+    				}
+    				
+    				testResultListBox.appendChild(testQuestionWrapper);
+    			}
+    			
+    		});
+     	}
      	
 		
 		window.addEventListener("DOMContentLoaded", () =>{
@@ -158,6 +261,46 @@
             .border-main{
                 border-color: #133369;
             }
+            .answer{
+                background-size: cover;
+                position: relative;
+                width: 5vh;
+                height: 5vh;   
+                display: grid;
+                z-index: 1;
+            }
+            .answer::after{
+                width: 5vh;
+                height: 5vh;
+                content: "";
+                background-image: url("../../resources/img/tl_x/answer.png");
+                background-size: cover;
+                position: absolute;
+                display: grid;
+                top: -5;
+                left: 5;
+                z-index: -1;
+            }
+            .noAnswer{
+                background-size: cover;
+                position: relative;
+                width: 5vh;
+                height: 5vh;   
+                display: grid;
+                z-index: 1;
+            }
+            .noAnswer::after{
+                width: 5vh;
+                height: 5vh;
+                content: "";
+                background-image: url("../../resources/img/tl_x/noanswer.png");
+                background-size: cover;
+                position: absolute;
+                display: grid;
+                top: -10;
+                left: 8;
+                z-index: -1;
+            }
 
         </style>
 
@@ -166,7 +309,7 @@
         <div class="container-fluid">
             <div class="row pb-1 mt-2">
                 <div class="col-1 text-end">
-                    <img src="../imgForAcademy/logo_black.png" alt="" style="height: 3em;">
+                    <img src="../..resources/img/another/logo_black.png" alt="" style="height: 3em;">
                 </div>
                 <div class="col fw-bold fs-4 test-start mt-1 ps-0">
                     MK대학교 평생교육센터
@@ -467,7 +610,7 @@
                             시험응시현황
                         </div>
                     </div>
-                    <div class="row bg-white border border-black py-3 px-3" style="height: 40em;">
+                    <div class="row bg-white border border-black py-3 px-3 overflow-y-auto" style="height: 40em;">
                         <div class="col my-0">
                             <div class="row fw-bold text-center" style="background-color: rgb(240, 240, 240);">
                                 <div class="col-2 border align-self-center border py-2">
@@ -518,12 +661,233 @@
                     99점
                 </div>
                 <div class="col-3 border align-self-center border py-2">
-                    <button class="btn btn-primary py-0" style="font-size: small">학생답안</button>
+                    <button class="btn py-0 showResultButton" style="font-size: small">학생답안</button>
                 </div>
             </div>
 		</div>
 		
+		
+		<div id="studentTestResultModal" class="modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl" >
+              <div class="modal-content">
+                <div class="modal-header py-2" style="background-color: #133369;">
+                 <div class="row">
+                    <div id="testModalLectureName"class="col text-light">
+                       
+                    </div>
+                 </div>
+                  <button onclick="hideStudentTestResultModal()" type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col">
+                       <div class="row">
+                           <div class="col-2 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                                시험명
+                           </div>
+                           <div id="modalTestName" class="col text-start border py-1 align-self-center">
+                                인춘이와 함께 춤을
+                           </div>
+                       </div>
+                    </div>
+                    <div class="col-1"></div>
+                 </div>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                                평가 기간
+                            </div>
+                            <div id="open_close_day" class="col-8 text-start text-secondary border py-2" style="font-size: small;">
+                                2023.03.23 - 2023-12-20
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                                시험 응시일
+                            </div>
+                            <div id="testing_day" class="col-8 text-start border py-2">
+                                2023.08.11
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+               </div>
+               <div class="row ">
+                    <div class="col-1"></div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                                평가 내용(카테고리)
+                            </div>
+                            <div id="modalStudyCategory" class="col-8 text-start border py-3">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                                훈련교사
+                            </div>
+                            <div id="testOpenLecturerName" class="col-8 text-start border py-3">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+              </div>
+              <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                                능력단위 요소
+                            </div>
+                            <div class="col-8 text-start border py-3">
+                                데이터베이스 기초, 프로그램 언어 기초
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                                평가 시간
+                            </div>
+                            <div class="col-8 text-start border py-3">
+                                60분
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+              </div>
+              <div class="row">
+                 <div class="col-1"></div>
+                 <div class="col">
+                    <div class="row">
+                        <div class="col-2 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                            성취 수준
+                        </div>
+                        <div class="col text-start border py-1">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-1"></div>
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                            수준
+                                        </div>
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                            5수준
+                                        </div>
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                            4수준
+                                        </div>
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                            3수준
+                                        </div>
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                           2수준
+                                        </div>
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                           1수준
+                                        </div>
+                                        <div class="col-1"></div>
+                                    </div>
+                                    <div class="row" style="font-size: small;">
+                                        <div class="col-1"></div>
+                                        <div class="col border text-center align-self-center" >
+                                            점수구간
+                                        </div>
+                                        <div id="level5" class="col border text-center align-self-center" >
+                                            90점 이상
+                                        </div>
+                                        <div id="level4" class="col border text-center align-self-center">
+                                            80~89점
+                                        </div>
+                                        <div id="level3" class="col border text-center align-self-center">
+                                            70~79점
+                                        </div>
+                                        <div id="level2" class="col border text-center align-self-center">
+                                            60~69점
+                                        </div>
+                                        <div id="level1" class="col border text-center align-self-center">
+                                           60점 미만
+                                        </div>
+                                        <div class="col-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="col-1"></div>
+              </div>
+              <div class="row text-center fw-bold mt-4" style="background-color: rgb(240, 240, 240);">
+                 <div class="col">
+                    평가 내용
+                 </div>
+              </div>
+              <div class="row">
+                    <div class="col-1"></div>
+                    <div id="testResultListBox" class="col">	
+        			
+        			</div>
+                    <div class="col-1"></div>
+              </div>
+            </div>
+              <div class="modal-footer">
+                  <button onclick="hideStudentTestResultModal()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
+              </div>
+          </div>
+      </div>
+   
+      
+        <div id="testQuestionTemplete" class="d-none">
+            <div class="row border border-2 mt-4 testQuestionWrapper" style="border-color: #133369;">
+                <div class="col">
+                    <div class="row my-2 ">
+                        <div class="col-1 fw-bold text-center align-self-center">
+                            <div class="row">
+                                <div class="col fw-bold fs-5 align-self-center CheckAnswerNumber">
+                                    1
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8 align-self-center question">
+                            문제가 무엇일까요~?
+                        </div> 
+                        <div class="col-1 px-0 fw-bold text-center align-self-center">
+                            배점
+                        </div> 
+                        <div class="col-1 px-0 text-start align-self-center test_point">
+                            5점
+                        </div>                                 
+                    </div>
+                    <div class="row border-bottom border-2" style="border-color: #133369;">
+                        <div id="choiceBoxList" class="col">
+                            
+                        </div>
+                    </div>                          
+                </div> 
+            </div>
+        </div>
         
+        <div id="choiceBoxTemplete" class="d-none">
+        	<div class="row my-3 choiceBoxWrapper">
+               <div class="col-1 align-self-center text-end">
+                   <input class="form-check-input border-black px-0 answerCheckBox disable" type="checkbox">
+               </div>
+               <div class="col-8 choice">
+                   보기중에 하나지롱 
+               </div> 
+               <div class="col-2"></div>
+           </div>
+   		</div>
         
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
