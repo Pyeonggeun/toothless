@@ -20,7 +20,8 @@
        	        
        		});
        	}
-       	//setInterval(reloadNotifyCount, 20000);
+       	
+        setInterval(reloadNotifyCount, 20000);
        	
        	function loadMyNewNotifyCount(){
        		const url = "/toothless/another/student/reloadMyNewNotifyList?student_pk="+${sessionStudentInfo.student_pk};
@@ -78,7 +79,7 @@
        				message.innerText = "";
        				message.innerText = response.data[0].notificationDto.message;
        				
-       				link.setAttribute("onclick" ,"location.href='"+e.data[0].notificationDto.pageLink+"'");
+       				link.setAttribute("onclick" ,"location.href='"+response.data[0].notificationDto.pageLink+"'");
        				
        				updateMyCheckNotifyStatus();
            			reloadNotifyCount();
@@ -303,7 +304,7 @@
                <div class="col-1"></div>
                <div class="col-1 position-relative pe-0 pb-0 fs-4 text-end align-self-center">
                    <button class="navbar-brand border-0 bg-white" onclick="showNotifyModal()"><i class="bi bi-bell text-balck pe-1">
-                   <span id="reloadNotifyCount" class="position-absolute top-0 start-0 badge rounded-pill bg-danger d-none px-1 py-0" style="font-size: small;">
+                   <span id="reloadNotifyCount" class="position-absolute top-0 start-60 badge rounded-pill bg-danger d-none px-1 py-0" style="font-size: small;">
                    </span>
                    </i></button> 
                </div>

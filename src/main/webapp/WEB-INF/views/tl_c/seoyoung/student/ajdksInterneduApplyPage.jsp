@@ -194,38 +194,42 @@ const student_pk = ${sessionStudentInfo.student_pk};
             ADDRESS.innerText = modalValues.ADDRESS;
             
             const INTERNSHIP_START_DATE = companyListWrapper.querySelector(".INTERNSHIP_START_DATE");
-            const date = new Date(e.INTERNSHIP_START_DATE); 
+            const date = new Date(modalValues.INTERNSHIP_START_DATE); 
+            
+            console.log(modalValues.INTERNSHIP_START_DATE);
+
+            
             const formattedStartDate = date.getFullYear() + "-" + padZero(date.getMonth() + 1) + "-" + padZero(date.getDate()) +
               " " + padZero(date.getHours()) + ":" + padZero(date.getMinutes()) + "  ~ ";
             INTERNSHIP_START_DATE.innerText = formattedStartDate;
             
             const INTERNSHIP_END_DATE = companyListWrapper.querySelector(".INTERNSHIP_END_DATE");
-            const date2 = new Date(e.INTERNSHIP_END_DATE); 
+            const date2 = new Date(modalValues.INTERNSHIP_END_DATE); 
             const formattedEndDate6 = date2.getFullYear() + "-" + padZero(date2.getMonth() + 1) + "-" + padZero(date2.getDate()) +
               " " + padZero(date2.getHours()) + ":" + padZero(date2.getMinutes());
             INTERNSHIP_END_DATE.innerText = formattedEndDate6;
 
             const APPLYING_START_DATE = companyListWrapper.querySelector(".APPLYING_START_DATE");
-            const date3 = new Date(e.APPLYING_START_DATE); 
+            const date3 = new Date(modalValues.APPLYING_START_DATE); 
             const formattedStartDate2 = date3.getFullYear() + "-" + padZero(date3.getMonth() + 1) + "-" + padZero(date3.getDate()) +
               " " + padZero(date3.getHours()) + ":" + padZero(date3.getMinutes()) + "  ~ ";
               APPLYING_START_DATE.innerText = formattedStartDate2;
             
             const APPLYING_END_DATE = companyListWrapper.querySelector(".APPLYING_END_DATE");
-            const date4 = new Date(e.APPLYING_END_DATE); 
+            const date4 = new Date(modalValues.APPLYING_END_DATE); 
             const formattedEndDate3 = date4.getFullYear() + "-" + padZero(date4.getMonth() + 1) + "-" + padZero(date4.getDate()) +
               " " + padZero(date4.getHours()) + ":" + padZero(date4.getMinutes());
               APPLYING_END_DATE.innerText = formattedEndDate3;
             
             const ANNOUNCEMENT_DATE = companyListWrapper.querySelector(".ANNOUNCEMENT_DATE");
-            const date5 = new Date(e.ANNOUNCEMENT_DATE); 
+            const date5 = new Date(modalValues.ANNOUNCEMENT_DATE); 
             const formattedEndDate4 = date5.getFullYear() + "-" + padZero(date5.getMonth() + 1) + "-" + padZero(date5.getDate()) +
               " " + padZero(date5.getHours()) + ":" + padZero(date5.getMinutes());
             ANNOUNCEMENT_DATE.innerText = formattedEndDate4;  
               
                 
             const CREATED_AT = companyListWrapper.querySelector(".CREATED_AT");
-            const date6 = new Date(e.CREATED_AT); 
+            const date6 = new Date(modalValues.CREATED_AT); 
             const formattedEndDate5 = date6.getFullYear() + "-" + padZero(date6.getMonth() + 1) + "-" + padZero(date6.getDate()) +
               " " + padZero(date6.getHours()) + ":" + padZero(date6.getMinutes());
               CREATED_AT.innerText = formattedEndDate5;      

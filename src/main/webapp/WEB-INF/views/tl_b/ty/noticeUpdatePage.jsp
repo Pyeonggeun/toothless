@@ -72,15 +72,13 @@
                                  </div>
                                  <div class="row mt-3">
                                     <div class="form-floating">
-                                        <textarea id="inputTitle" name="title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 30px;"></textarea>
-                                        <label for="floatingTextarea2">${update.noticeboardDto.title }</label>
+                                        <textarea id="inputTitle" name="title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 30px;">${update.noticeboardDto.title }</textarea>
                                     </div>
                                  </div>
                                  <div class="row  mt-3">
                                     <div class="col">
                                         <div class="form-floating">
-                                            <textarea id="inputText" name="content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 300px"></textarea>
-                                            <label for="floatingTextarea2">${update.noticeboardDto.content }</label>
+                                            <textarea id="inputText" name="content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 300px">${update.noticeboardDto.content }</textarea>
                                         </div>
                                     </div>
                                  </div>
@@ -95,7 +93,7 @@
                                     </div>
                                     <div class="col mt-2 text-end">
                                         <input type="button" onclick="formSubmit()" class="btn btn-outline-primary" value="등록">
-                                    	<a href="./staffBoardPage">
+                                    	<a href="./staffBoardReadPage?id=${update.noticeboardDto.studentboard_pk }">
                                     		<input type="button" class="btn btn-outline-primary" value="취소">
                                     	</a>
                                     </div>

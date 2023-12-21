@@ -136,11 +136,11 @@
 	<div class="col">
 		<div class="row">
 			<div class="col px-0">
-				<img src="/Workspace/GitWorkspace/toothless/src/main/webapp/resources/img/internshipCourse/professorMainPage/professorMain.PNG" class="img-fluid" alt="...">
+				<img src="../../../resources/img/internshipCourse/professorMainPage/professorMain.PNG" class="img-fluid" alt="...">
 			</div>
 		</div>
 		<div class="row">
-			<div class="col mx-5 mb-5">
+			<div class="col mx-5 ">
 			
 			<!-- 본문작성공간 -->
 				<div class="row">
@@ -427,6 +427,9 @@
 				
 			</div>
 		</div>
+		
+		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
+		
 	</div>
 	
 </div>

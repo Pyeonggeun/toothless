@@ -119,7 +119,7 @@
 								<c:when test="${intern.internshipCourseDto.internship_end_date <= now}">
 								<div class="row text-center py-1 border-bottom" style="font-size:0.95em">
 									<div class="col-1 align-self-center fw-semibold border-end">
-										${intern.studentDto.student_pk}
+										${intern.studentDto.student_id}
 									</div>
 									<div class="col-2 align-self-center fw-semibold border-end">
 										${intern.studentDto.name}
@@ -192,6 +192,9 @@
 				
 			</div>
 		</div>
+		
+		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
+		
 	</div>
 	
 </div>

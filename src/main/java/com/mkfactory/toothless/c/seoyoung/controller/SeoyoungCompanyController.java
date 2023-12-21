@@ -12,11 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.c.dto.AjdksCertificationDto;
+import com.mkfactory.toothless.c.dto.AjdksCompanyInfoDto;
 import com.mkfactory.toothless.c.dto.AjdksSelfIntroductionDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentApplyingDto;
 import com.mkfactory.toothless.c.dto.AjdksStudentInternDto;
 import com.mkfactory.toothless.c.guntaek.service.GuntaekStudentServiceImpl;
 import com.mkfactory.toothless.c.seoyoung.service.SeoyoungCompanyServicempl;
+import com.mkfactory.toothless.c.taeho.service.TaehoExternalServiceImpl;
 import com.mkfactory.toothless.c.woojae.service.WoojaeStaffServiceImpl;
 import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.donot.touch.dto.StudentInfoDto;
@@ -29,10 +31,18 @@ public class SeoyoungCompanyController {
 	private SeoyoungCompanyServicempl seoyoungCompanyService;
 	@Autowired
 	private GuntaekStudentServiceImpl guntaekStudentService;
+	@Autowired
+	private TaehoExternalServiceImpl taehoExternalService;
+	
+	
 
 	// 산업체학생선발페이지
 	@RequestMapping("ajdksStudentinternPage")
 	public String ajdksStudentinternPage(Model model, HttpSession session) {
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		int externalPk = externalInfoDto.getExternal_pk();
+		AjdksCompanyInfoDto ajdksCompanyInfoDto = taehoExternalService.getSessionCompanyInfoByExternalPk(externalPk);
+		model.addAttribute("ajdksCompanyInfoDto", ajdksCompanyInfoDto);
 
 		ExternalInfoDto sessionCompanyInfo = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
 		model.addAttribute("sessionCompanyInfo", sessionCompanyInfo);
@@ -52,7 +62,10 @@ public class SeoyoungCompanyController {
 	@RequestMapping("ajdksSelectInternPage")
 	public String ajdksSelectInternPage(Model model, HttpSession session, AjdksStudentInternDto pramse,
 			AjdksSelfIntroductionDto selfIntroductionDto) {
-
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		int externalPk = externalInfoDto.getExternal_pk();
+		AjdksCompanyInfoDto ajdksCompanyInfoDto = taehoExternalService.getSessionCompanyInfoByExternalPk(externalPk);
+		model.addAttribute("ajdksCompanyInfoDto", ajdksCompanyInfoDto);
 		ExternalInfoDto sessionCompanyInfo = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
 		model.addAttribute("sessionCompanyInfo", sessionCompanyInfo);
 
@@ -73,7 +86,10 @@ public class SeoyoungCompanyController {
 	@RequestMapping("updateSelectInternProcess")
 	public String updateSelectInternProcess(Model model, HttpSession session, AjdksStudentApplyingDto pramse,
 			AjdksSelfIntroductionDto selfIntroductionDto) {
-
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		int externalPk = externalInfoDto.getExternal_pk();
+		AjdksCompanyInfoDto ajdksCompanyInfoDto = taehoExternalService.getSessionCompanyInfoByExternalPk(externalPk);
+		model.addAttribute("ajdksCompanyInfoDto", ajdksCompanyInfoDto);
 		ExternalInfoDto sessionCompanyInfo = (ExternalInfoDto) session.getAttribute("sessionExternalInfo");
 		model.addAttribute("sessionCompanyInfo", sessionCompanyInfo);
 
@@ -125,15 +141,21 @@ public class SeoyoungCompanyController {
 	}
 
 	@RequestMapping("ajdksCompanyFreeboardPostingPage")
-	public String ajdksCompanyFreeboardPostingPage() {
-
+	public String ajdksCompanyFreeboardPostingPage(Model model, HttpSession session) {
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		int externalPk = externalInfoDto.getExternal_pk();
+		AjdksCompanyInfoDto ajdksCompanyInfoDto = taehoExternalService.getSessionCompanyInfoByExternalPk(externalPk);
+		model.addAttribute("ajdksCompanyInfoDto", ajdksCompanyInfoDto);
 		return "tl_c/seoyoung/company/ajdksCompanyFreeboardPostingPage";
 
 	}
 
 	@RequestMapping("ajdksCompanyQnApage")
-	public String ajdksCompanyQnApage() {
-
+	public String ajdksCompanyQnApage(Model model, HttpSession session) {
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
+		int externalPk = externalInfoDto.getExternal_pk();
+		AjdksCompanyInfoDto ajdksCompanyInfoDto = taehoExternalService.getSessionCompanyInfoByExternalPk(externalPk);
+		model.addAttribute("ajdksCompanyInfoDto", ajdksCompanyInfoDto);
 		return "tl_c/seoyoung/company/ajdksCompanyQnApage";
 
 	}

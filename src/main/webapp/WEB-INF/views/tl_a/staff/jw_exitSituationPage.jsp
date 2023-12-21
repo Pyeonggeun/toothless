@@ -41,11 +41,11 @@
 				
 				const exitDateSpace = exitSituationWrapper.querySelector(".exitDateSpace");
 				const date1 = new Date(e.exitDto.exit_date);
-				exitDateSpace.innerText = date1.getFullYear() + "." + ((date1.getMonth())+1) + "." + date1.getDate();
+				exitDateSpace.innerText = date1.getFullYear()%100 + "." + ((date1.getMonth())+1) + "." + date1.getDate();
 				
 				const applyDateSpace = exitSituationWrapper.querySelector(".applyDateSpace");
 				const date2 = new Date(e.exitDto.apply_create_at);
-				applyDateSpace.innerText = date2.getFullYear() + "." + ((date2.getMonth())+1) + "." + date2.getDate();
+				applyDateSpace.innerText = date2.getFullYear()%100 + "." + ((date2.getMonth())+1) + "." + date2.getDate();
 				
 				exitSituationBox.appendChild(exitSituationWrapper);
 			
@@ -220,9 +220,9 @@
 								<th scope="col" class="col-1 text-bg-light">이름</th>
 								<th scope="col" class="col-1 text-bg-light">기숙사명</th>
 								<th scope="col" class="col-1 text-bg-light">호</th>
-								<th scope="col" class="col-5 text-bg-light">사유</th>
-								<th scope="col" class="col-2 text-bg-light">외출/외박 일</th>
-								<th scope="col" class="col-2 text-bg-light">외출/외박 신청일</th>
+								<th scope="col" class="col-6 text-bg-light">사유</th>
+								<th scope="col" class="col text-bg-light">외출/외박일</th>
+								<th scope="col" class="col text-bg-light">신청일</th>
 							</tr>
 						</thead>
 						<tbody id="exitSituationBox">

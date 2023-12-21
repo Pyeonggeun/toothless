@@ -154,11 +154,16 @@ body {
 								<option value="3">3</option>
 								<option value="4">4</option>
 								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
 							</select>
 						</div>
 
 						<div class="col-md-6 mt-3 mb-2">
-							<label for="inputState" class="form-label jb-700"> 자격요건 </label>
+							<label for="inputState" class="form-label jb-700"> 자격학기 </label>
 							<select name="semester_qualification" style="font-size: 0.9em;" id="semester_qualification" class="form-select">
 								<option value="1">1학기</option>
 								<option value="2">2학기</option>
@@ -193,7 +198,7 @@ body {
 						
 						<!-- 학과 셀렉트 -->
 						<div class="col-md-6 my-2">
-						<label for="inputState" class="form-label jb-700 "> 학과명</label> 
+						<label for="inputState" class="form-label jb-700 "> 학과조건</label> 
 							<select name="department_pk" id="department_pk" class="form-select" style="font-size: 0.9em;">
 								<c:forEach items="${departList }" var="map">
 									<option value="${map.DepartmentCategoryDto.department_pk}">
@@ -230,6 +235,11 @@ body {
 
 							</tr>
 							<tr>
+								<td scope="row" style="font-size: 0.9em;">- 선발결과발표일</td>
+								<td scope="row"><input name="announcement_date" type="date"
+									class="form-control" style="font-size: 0.9em;"></td>
+							</tr>
+							<tr>
 								<td scope="row" style="font-size: 0.9em;">- 실습기간시작</td>
 								<td scope="row"><input name="internship_start_date"
 									type="date" class="form-control" style="font-size: 0.9em;"></td>
@@ -240,11 +250,7 @@ body {
 									type="date" class="form-control" style="font-size: 0.9em;"></td>
 
 							</tr>
-							<tr>
-								<td scope="row" style="font-size: 0.9em;">- 선발결과발표일</td>
-								<td scope="row"><input name="announcement_date" type="date"
-									class="form-control" style="font-size: 0.9em;"></td>
-							</tr>
+							
 
 						</tbody>
 					</table>
@@ -258,7 +264,7 @@ body {
 				<div class="row d-flex justify-content-center mt-5">
 					<div class="col-2 d-grid mt-2 mb-2">
 						<button onclick="javascript:fn_reg();" class="btn labelcolor py-2">
-							<i class="bi bi-pencil-square"></i> 수정
+							<i class="bi bi-pencil-square"></i> 등록
 						</button>
 					</div>
 

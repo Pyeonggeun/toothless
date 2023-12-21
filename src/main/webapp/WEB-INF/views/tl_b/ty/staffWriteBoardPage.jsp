@@ -241,13 +241,13 @@
                                  <div class="row mt-3">
                                     <div class="col border-bottom border-3 fw-bold fs-3">공지사항 글 작성</div>
                                  </div>
-                                 <div class="row mt-5">
-                                    <div class="col">
+                                 <div class="row mx-1 mt-5">
+                                    <div class="col text-start text-white badge" style="font-size: 15px; background-color: #133369">
                                         작성자: ${sessionStaffInfo.name }
                                     </div>
                                  </div>
                                  <div class="row mt-3">
-                                    <div class="form-floating">
+                                    <div class="col form-floating">
                                         <textarea id="inputTitle" name="title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 30px;"></textarea>
                                         <label for="floatingTextarea2">제목을 입력하세요</label>
                                     </div>
