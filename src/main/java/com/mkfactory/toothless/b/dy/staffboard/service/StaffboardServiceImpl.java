@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,6 +73,15 @@ public class StaffboardServiceImpl {
 		StaffboardDto staffboardDto = staffboardSqlMapper.selectContentsDetailInfo(staffboard_pk);
 		int userPk = staffboardDto.getStaff_pk();
 		StaffInfoDto staffInfoDto = staffboardSqlMapper.selectStaffInfo(userPk);
+		
+		//줄바꿈
+		String content = staffboardDto.getContent();
+		
+		content = StringEscapeUtils.escapeHtml4(content);
+		content = content.replaceAll("\n", "<br>");
+		content = content.replaceAll(" ", "&nbsp;");
+		
+		staffboardDto.setContent(content);
 		
 		//이미지
 		List<StaffboardImageDto> staffboardImageDtoList  = staffboardSqlMapper.selectTextImgListByStaffboardPk(staffboard_pk);

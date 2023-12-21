@@ -94,7 +94,7 @@
 			const likeSpan = noticeTitle.querySelector(".likeSpan");
 			likeSpan.innerText = "[" + "추천" + e.likeCount + "]";
 			const dislikeSpan = noticeTitle.querySelector(".dislikeSpan");
-			dislikeSpan.innerText = "[" + "비추" + e.disLikeCount + "]";
+			dislikeSpan.innerText = "[" + "비추천" + e.disLikeCount + "]";
 			
 			const noticeRead_Count = noticeListWrapper.querySelector(".noticeRead_Count");
 			noticeRead_Count.innerText = e.noticeBoardDto.read_count;
@@ -197,9 +197,6 @@
 								<div id=frm>
 									<div class="row mt-5">
 										<div class="col-4 mt-3">
-											<span>HOME &gt; </span>
-											<span>상담 지원 센터 &gt; </span>
-											<span>공지사항</span>
 										</div>
 										<div class="col-2">
 											<select id="searchType" name="searchType" class="form-select">
@@ -303,33 +300,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	<!-- 풋터 -->
-	<div class="row mt-5" style="background-color: #5a5a5a;">
-		<div class="col-1"></div>
-		<div class="col">
-			<div class="row" style="height: 4em;"></div>
-			<div class="row">
-				<div class="col">
-					<span style="font-size: 1.4em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
-					<span style="font-size: 1.2em; color: white; font-weight: 500;">▪</span>
-					<span style="font-size: 1.2em; color: white; font-weight: 500;">이메일무단수집거부</span>
-				</div>
-			</div>
-			<div class="row pt-4">
-				<div class="col">
-					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
-				</div>
-			</div>
-			<div class="row pt-2">
-				<div class="col">
-					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
-				</div>
-			</div>
-			<div class="row pt-4" style="border-bottom-style: solid; border-bottom-color: gray; border-bottom-width: 1px;"></div>
-		</div>
-		<div class="col-1"></div>
 	</div>
 	
 	<div id="templete" class="row">

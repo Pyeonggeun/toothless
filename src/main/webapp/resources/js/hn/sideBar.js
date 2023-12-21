@@ -154,7 +154,7 @@ function reloadStaffName() {
 	
 }
 
- window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", () => {
  
 	reloadStaffName();    	
 	colorSideBar();

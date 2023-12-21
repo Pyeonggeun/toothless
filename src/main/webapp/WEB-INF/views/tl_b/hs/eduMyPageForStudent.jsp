@@ -12,21 +12,10 @@
     	<title>교육 학생 마이페이지</title>
     </head>
 	<body>
+	<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
+	<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
 		<div class="container-fluid">
-		<jsp:include page="../hs/eduStudentTopBanner.jsp"></jsp:include>
-			<div class="row">
-				<div class="col">
-					<div class="row">
-						<div class="col"></div>
-						<div class="col-8 text-start">
-							<a class="btn btn-sm fw-bold" href="./eduMainPageForStudent"
-							role="button" style="color: #4c4a4c;">메인페이지</a>
-						</div>
-						<div class="col"></div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
+			<div class="row mt-4">
 				<div class="col"></div>
 				<div class="col-8"> <!--교육목록-->
 					<div class="row">

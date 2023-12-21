@@ -23,3 +23,30 @@ function removeColor(target) {
     target.style.removeProperty("color");
 
 }
+
+function reloadName() {
+
+	const url = "../common/getStudentName";
+	
+	fetch(url)
+	.then(response => response.json())
+	.then(response => {
+	
+		document.getElementById("studentName").innerText = response.data;
+	
+	});
+
+}
+
+function movePage(target) {
+
+	const url = "../" + target.id;
+	location.href = url;
+
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+ 
+	reloadName();
+	
+});

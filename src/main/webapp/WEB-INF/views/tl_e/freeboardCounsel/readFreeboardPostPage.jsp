@@ -75,7 +75,7 @@
 					<div class="col-1"><i class="bi bi-list fs-5"></i> ${pickpostMap.freeboardPost.id}</div>
 					<div class="col-11 text-end"> <i class="bi bi-eye"></i> ${pickpostMap.freeboardPost.read_count} <i class="bi bi-clock"></i> <fmt:formatDate value="${pickpostMap.freeboardPost.created_at}" pattern="yyyy-MM-dd hh:mm"/></div>
 				</div>
-				<div class="row border-top border-bottom" style:"border-clolr: #dcdcdc;">
+				<div class="row border-top border-bottom" style:"border-color: #dcdcdc;">
 					<div class="col-2"></div>
 					<div class="col-8 text-center fw-bold py-2 fs-3">${pickpostMap.freeboardPost.title}</div>
 					<div class="col-2 text-end pt-3 fs-5"><i class="bi bi-person-vcard"></i> ${pickpostMap.studentInfo.name}</div>
@@ -115,13 +115,13 @@
 								<!--	<a href="./insertEmpathy?freeboard_id=${pickpostMap.freeboardPost.id}"><i bi bi-hand-thumbs-up rounded fs-5></i></a>-->
 									 <form action="./insertEmpathy" method=post>
 										<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id}">
-										<button class= "bi bi-hand-thumbs-up rounded fs-3" type="submit" style="background: none;">
+										<button class= "bi bi-hand-thumbs-up rounded fs-5" type="submit" style="background: none;">
 									</form>
 								</c:when>
 								<c:otherwise>
 									<form action="./deleteEmpathyByIdAndPk" method=post>
 										<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id}">
-										<button class="bi bi-hand-thumbs-up-fill rounded fs-3" type="submit" style="background: none;">
+										<button class="bi bi-hand-thumbs-up-fill rounded fs-5" type="submit" style="background: none;">
 									</form>
 								</c:otherwise>
 							</c:choose>

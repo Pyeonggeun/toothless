@@ -40,11 +40,10 @@
 				document.querySelector(".avoidRedundancy").setAttribute("disabled", "true");
 			}
 		</script>
-		<script>
-
-		</script>
+		<script src="../../resources/js/hn/topBanner.js"></script>
     </head>
     <body>
+    	<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
@@ -100,19 +99,20 @@
 															<div class="row">
 																<div class="col">
 																	<div class="row mt-2">
-																		<div class="col" style="font-size: small;"> ● 지나치게 선정적, 폭력적이거나 불법적인 내용의 게시물은 바로 삭제됩니다.</div>
+																		<div class="col" style="font-size: small;"> ● 다른 교직원 및 구성원들과의 상호 작용에서 존중과 예의를 지켜야 합니다. 공손한 언어와 타인의 의견에 대한 존중이 필요합니다.</div>
 																	</div>
 																	<div class="row mt-2">
-																		<div class="col" style="font-size: small;"> ● 도배 방지를 위해 유사한 내용의 게시글을 72시간 내 업로드할 시 게시글 삭제 및 이용제한이 이루어질 수 있습니다.</div>
+																		<div class="col" style="font-size: small;"> ● 게시물이나 댓글은 주제와 관련이 있어야 하며, 교육과 관련된 정보, 소식, 또는 유익한 자료를 나누는 데 중점을 두어야 합니다.</div>
 																	</div>
 																	<div class="row mt-2">
-																		<div class="col" style="font-size: small;"> ● 작성된 게시물이 저작권을 침해하는 경우 게시자에게 책임이 있습니다.</div>
+																		<div class="col" style="font-size: small;"> ● 다른 교직원이나 구성원을 비방하거나 모욕하는 행위는 금지되며, 존중과 협력을 기반으로 하는 환경을 유지해야 합니다.</div>
 																	</div>
 																	<div class="row mt-2">
-																		<div class="col" style="font-size: small;"> ● 그 외 게시판 이용에 관련된 사항은 커뮤니티 이용 규칙을 따릅니다.</div>
+																		<div class="col" style="font-size: small;"> ● 학교나 기관 내부 정보, 교육과 관련된 기밀 사항은 공개되어서는 안 됩니다. 게시물에서는 합법적이고 공개 가능한 정보에만 초점을 맞춰야 합니다.</div>
 																	</div>
 																	<div class="row mt-2 mb-2">
-																		<div class="col" style="font-size: small;"> ● siu~~~~~~~~~~~</div>
+																		<div class="col" style="font-size: small;"> ● 교직원 게시판에서는 상업 광고, 스팸, 또는 상업적인 목적을 가진 게시물을 허용하지 않습니다. 게시물은 교육과 관련이 있어야 하며, 광고적 목적을 가진 내용은 허용되지 않습니다.
+																		</div>
 																	</div>
 																</div>
 															</div>

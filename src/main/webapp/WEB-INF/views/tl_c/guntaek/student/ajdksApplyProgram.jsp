@@ -66,81 +66,110 @@
 			<div class="row">	
 				<div class="col mx-5">
 				
-					<div class="row mt-5 ms-3">
-					<div class="col fw-bold">
-							<h3> <i class="bi bi-list-task"></i> &nbsp;&nbsp;교육 프로그램 신청 내역</h3>
-							 
+				
+					<div class="row mt-4">
+							<div class="col">
+								<p style="font-weight:bold; font-size:1.2em" ><i class="bi bi-arrow-right"></i>&nbsp;&nbsp;프로그램 신청 내역</p>							 	
+							</div>		
+						</div>
+			
+				<div class="row">
+						<div class="col border border-1 border-dark"></div>
 					</div>
-					</div>
-					<div class="row mt-3">
-						<div class="col border border-2 border-dark"></div>
-					</div>
-					
-				<c:forEach items="${applyprogramList}" var = "list">
-					<div class="row mt-5">
-						<div class="col-1"></div>
-						<div class="col border" style ="height:12em; border-radius:10px;">
 						
-							<div class="row ps-5 mt-3">
-							 
-    
-								<div class="col ms-4">
-								<span class="border-3 border text-secondary ps-2 pe-1 pb-1">
-									<fmt:formatDate pattern = "yyyy" value ="${list.EduProgramDto.created_at}"/> 
-								</span>
-								&nbsp;
-								<span style ="border:solid; border-color:#00EF91; color:#00EF91" class=" ps-2 pe-1 pb-1" >
-									E-러닝
-								</span>
+				
+				
+	
+				<c:forEach items="${applyprogramList}" var = "list">
+				<div class="row">
+				
+				<div class="col-1"></div>
+				
+				<div class="col-10">
+				<div class="row ms-5 mt-5 mx-5 border text-center;" style= "border-radius:10px;"  >
+				
+								
+								
+								
+							    <div class="col-2 d-flex justify-content-center align-items-center px-0 py-0" style="border-radius:50px; ">
+							        
+							            <img class = "w-100 rounded" src="/Git_imageFile/${list.EduProgramDto.poster_image}" style ="height:150px;">
+							        
+							    </div>
+							    
+							    <div class="col-8">
+							    
+							    	<div class="row">
+							    	
+							    		<div class="col-6">
+							    			<div class="row mt-4 ms-4 ps-5 ">
+							        			<div class="col mt-1 ps-5 ">
+							        				<p style ="font-weight:bold; font-size:18px;" >${list.EduProgramDto.title}</p>
+							        			</div>
+							        	
+							    			</div>
+							        
+									        <div class="row mt-4 ms-4 ps-5">
+									        	<div class="col ps-5">
+									        	
+									        	  <span style ="color:#9ea9a5; border-color:black; " class="border rounded  	border-2  ps-2 pe-1 pb-1">[ 2023 ]</span>
+					                          
+					                              <span style=" border-radius: 5px; border: 2px solid #6D7A93; color:#6D7A93" class="ps-2 pe-1 pb-1">[E-러닝]</span>
+		
+									       		 </div>
+									        
+											</div>
+							        
+							        	</div>
+							        
+							    	<div class="col-6">
+							    			<div class="row mt-3 ms-4">
+							        			<div class="col ps-5">
+							        				<span style ="color:black"><i class="bi bi-stop-fill"></i></span>&nbsp;
+							        				<span class="fw-semibold" style ="font-size:14px; font-weight:semi-bold">신청 인원</span> &nbsp;&nbsp; ${list.getCountPeople} &nbsp;&nbsp;/ &nbsp;
+													<span style ="color:gray;">${list.EduProgramDto.maximum_applicant}</span>	
+							        			</div>
+							        	
+							    			</div>
+							        
+									        <div class="row mt-4 ms-4 ">
+									        	<div class="col ps-5" >
+									        	
+									        		<span style ="color:black"><i class="bi bi-stop-fill"></i></span>&nbsp;
+									        		<span class="fw-semibold" style ="font-size:14px; font-weight:semi-bold">접수 기간</span> 
+													<span>
+														&nbsp;&nbsp; 	
+														<fmt:formatDate pattern = "MM-dd" value ="${list.EduProgramDto.created_at}"/>
+														~ <fmt:formatDate pattern = "MM-dd" value ="${list.EduProgramDto.deadline_date}"/>	
+									       		 	</span>
+									       		 </div>
+									        
+											</div>
+								
+											<div class="row mt-4 ms-4 ">
+									        	<div class="col ps-5">
+									        	
+									        	
+									        	
+							        			
+									        	
+									        		
+									        		<span style ="color:black"><i class="bi bi-stop-fill"></i></span>&nbsp;
+									        	
+													<span class="fw-semibold" style ="font-size:14px; font-weight:semi-bold">지역</span>
+														&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+													<span>${list.EduProgramDto.place}</span>
+									       		 </div>
+									        
+											</div>	
+							        
+							        	</div>	
 								</div>
-								<div class="col-1"></div>
-								<div class="col-7"></div>
-								
-								
-								<div class="col-2 d-flex justify-content-end "> 
-									
-								</div>
-							
-							
 							</div>
-							<div class="row mt-2 ms-2 ps-5">
-								<div class="col"><h4 style="font-weight:bold;">${list.EduProgramDto.title}</h4></div>
-							</div>
-							<div class="row mt-2 ">
-								<div class="col">	</div>
-							</div>
-							<div class="row mt-3 ps-5">
-								<div class="col-1 d-flex justify-content-end"><span style="font-weight:bold;">접수 기간</span>	</div> 
-								<div class="col-2" style ="color:gray;">
-								<fmt:formatDate pattern = "MM-dd" value ="${list.EduProgramDto.created_at}"/>
-								~ <fmt:formatDate pattern = "MM-dd" value ="${list.EduProgramDto.deadline_date}"/>								
-								</div> 
-								<div class="col-1 d-flex justify-content-end"><span style="font-weight:bold;">신청 인원</span></div> <div class="col-2"> ${list.getCountPeople} &nbsp; / &nbsp;
-								
-								<span style ="color:gray;">${list.EduProgramDto.maximum_applicant}</span>								
-								</div>
-								
-								<div class="col-6"></div>
-							</div>
-							<div class ="row mt-2 ps-5">
-								<div class="col-1 d-flex justify-content-end">
-								  		<span style="font-weight:bold;">교육 날짜</span>	
-								  </div> 
-								  <div class="col-2" style ="color:gray;">${list.EduProgramDto.progress_date}</div> 
-								<div class="col-1 d-flex justify-content-end"><span style="font-weight:bold;">지역</span>	</div> <div class="col-2" style ="color:gray;">${list.EduProgramDto.place}</div>
-								
-								
-								<div class="col-6 d-flex justify-content-end pe-0" style ="padding-top:0.8em">
-									<c:if test ="${list.applyDto.completion == 'Y'}">
-											<button disabled ="disabled" class="btn btn-primary">수료 완료</button>
-									</c:if>
-									<c:if test ="${list.applyDto.completion == 'N'}">
-											<button disabled ="disabled" class="btn btn-danger">미수료</button>
-									</c:if>
-								</div>
-							</div>
-							</div>
-							<div class="col-1"></div></div>	 
+				
+					</div>	
+				</div>
+				</div>
 				</c:forEach>
 				
 				

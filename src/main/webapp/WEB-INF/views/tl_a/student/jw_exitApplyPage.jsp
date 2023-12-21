@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +15,18 @@
     
 </head>
 <body>
+
+<%
+    // 현재 시간 가져오기
+    Date currentDate = new Date();
+    
+    // 시간을 특정 형식으로 포맷팅
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yy.MM.dd HH:mm:ss");
+    SimpleDateFormat newDateFormat = new SimpleDateFormat("yy.MM.dd");
+    String formattedDate = dateFormat.format(currentDate);
+    String newFormattedDate = newDateFormat.format(currentDate);
+%>
+
     <jsp:include page="../commons/student/topNavi.jsp"></jsp:include>
     <div class="row">
         <div class="col">
@@ -40,46 +54,89 @@
                        
                     </div>
                 </div>
-                <form class="row" action="./jw_exitApplyProcess" method="post" onsubmit="alert('신청이 완료되었습니다!');">
-                    <div class="col">
-                    	<div class="row mt-2">
-                    		<div class="col-2 py-3 fw-bold" style="font-size: 1.1rem;">
-                    			<span>이름</span>
-                    		</div>
-                    		<div class="col py-3 text-start" style="font-size: 1.0rem;">
-                    			${sessionStudentInfo.name}
-                    		</div>
-                    	</div>
-                    	<input type="hidden" name="dorm_student_pk" value="${dormStudentDto.dorm_student_pk}">
-                        <div class="row mt-3">
-                        	<div class="col-2 fw-bold" style="font-size: 1.1rem;">
-								<span>사유</span>
-							</div>
-							<div class="col" style="font-size: 1.0rem;">
-								<textarea name="reason" style="height:20rem; width:45rem"></textarea>
-							</div>
-                        </div>
-                        <div class="row mt-3">
-							<div class="col-2 py-3 fw-bold" style="font-size: 1.1rem;">
-								<span>외출/외박 신청일</span>
-							</div>
-							<div class="col py-3 text-start" style="font-size: 1.0rem;">
-								<input type="date" name="exit_date">
-							</div>
-                        </div>
-                        <div class="row my-3">
-							<div class="col"></div>
-							<div class="col-2 d-grid py-3 fw-bold" style="font-size: 1.1rem;">
+                <div class="row">
+            		<div class="col fw-bold fs-4 mt-4 text-center">
+            			외박 및 외출 신청 양식
+            		</div>
+            	</div>
+            	<div class="row mt-2">
+					<div class="col-2 py-3 fw-bold" style="font-size: 1.1rem;">
+						<span>외박/외출 신청일</span>
+					</div>
+					<div class="col py-3 text-start" style="font-size: 1.0rem;">
+						<input type="date" name="exit_date">
+					</div>
+                </div>
+            	<form action="./jw_exitApplyProcess" method="get" onsubmit="alert('외박/외출 신청이 완료되었습니다!');">
+            	<div class="row">
+            		<div class="col">
+            			<div class="row text-center border border-black ">
+            				<div class="col py-3 border-end border-black fw-bold" style="background:#eeeeee;">
+            					담당 부서
+            				</div>
+            				<div class="col py-3 border-end border-black">
+            					생활관관리센터 팀
+            				</div>
+            				
+            				<div class="col py-3 border-end border-black fw-bold" style="background:#eeeeee;">
+            					담당자 연락처
+            				</div>
+            				<div class="col py-3 border-end border-black">
+            					010-7630-1172
+            				</div>
+            			</div>
+            			<div class="row text-center border border-top-0 border-black ">
+            				<div class="col py-3 border-end border-black fw-bold" style="background:#eeeeee;">
+            					작성자
+            				</div>
+            				<div class="col py-3 border-end border-black">
+            					${sessionStudentInfo.name}
+	            				<input type="hidden" name="executive_pk" value="${executiveDto.executive_pk}">
+            				</div>
+            				
+            				<div class="col py-3 border-end border-black fw-bold" style="background:#eeeeee;">
+            					작성시간
+            				</div>
+            				<div class="col py-3 border-end border-black">
+            					<%= formattedDate %>
+            				</div>
+            			</div>
+            			<input type="hidden" name="dorm_student_pk" value="${dormStudentDto.dorm_student_pk}">
+            			<div class="row text-center border border-top-0 border-black" style="background:#eeeeee;">
+            				<div class="col py-3 border-end border-black fs-5 fw-bold">
+            					사유
+            				</div>
+            			</div>
+            			<div class="row text-center border border-top-0 border-black">
+            				<div class="col py-3 border-end border-black">
+            					<textarea class="form-control" name="reason" id="exampleFormControlTextarea1" rows="25" placeholder="외출/외박 사유를 작성하십시오." style="border:none;"></textarea>
+            				</div>
+            			</div>
+            			
+            			<div class="row my-3">
+                        	<div class="col"></div>
+							<div class="col-2 d-grid py-3 fw-bold pe-0" style="font-size: 1.1rem;">
 								<input type="submit" class="btn btn-primary rounded-0" value="작성">
 							</div>
                         </div>
-                    </div>
+            			
+            		</div>
+            	</div>
             	</form>
               </div>
                 <!-- 공고 끝 -->
             </div>
         </div>
+         <pre>
         
+        
+        
+        
+        
+        
+        
+        
+        </pre>
 
 <!-- 하단 footer -->
 <jsp:include page="../commons/student/footer.jsp"></jsp:include>
