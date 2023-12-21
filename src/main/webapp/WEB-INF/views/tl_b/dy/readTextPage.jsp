@@ -112,7 +112,7 @@
 				const inputReply = document.getElementById("inputReply");
 
 				if(inputReply.value == ''){
-					alert("댓글을 입력하세요.")
+					alert("댓글을 입력하세요.");
 					return ;
 				}
 				frm.submit();
