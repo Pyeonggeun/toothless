@@ -115,7 +115,7 @@
 										프로그램 내용
 									</div>
 									<div class="row mb-3">
-										<textarea class="form-control" name="prg_contents" placeholder="프로그램 내용을 입력해주세요."> ${program.programDto.prg_contents}</textarea>
+										<textarea class="form-control" name="prg_contents" rows="20" placeholder="프로그램 내용을 입력해주세요."> ${program.programDto.prg_contents}</textarea>
 										
 									</div>
 								</div>

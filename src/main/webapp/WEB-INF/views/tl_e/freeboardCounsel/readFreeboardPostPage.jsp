@@ -29,6 +29,17 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gowun+Dodum&family=Quicksand:wght@300&display=swap" rel="stylesheet">
+
+
+<style>
+	*{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
+</style>
+
 </head>
 <body>
 <jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
@@ -162,7 +173,7 @@
 							</div>
 							<div class="row pb-2">
 								<div class="col-10 text-start">
-									<input id="inputComment" name="text" type="text" class="form-control" style="width:100%; height:2.2em;" maxlength="300" placeholder="최대 100글자까지 작성가능합니다.">
+									<input id="inputComment" name="text" type="text" class="form-control" style="width:100%; height:2.2em;" maxlength="100" placeholder="최대 100글자까지 작성가능합니다.">
 									<input name="freeboard_id" type="hidden" value="${pickpostMap.freeboardPost.id } ">									
 								</div>
 								<div class="col-2 text-center"> 

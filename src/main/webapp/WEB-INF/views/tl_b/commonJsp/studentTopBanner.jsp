@@ -7,7 +7,7 @@
                 <div class="col bg-white py-1">
                     <div class="row">
                         <div class="col text-end" style="font-size: 0.75em; margin-right: 12.2em">
-                            <span id="studentName" class="fw-bold">태호띠</span> 님 | <a href="../../another/student/logoutProcess" class="link-underline link-underline-opacity-0 link-dark">로그아웃</a>
+                            <span id="studentName" class="fw-bold"></span> 님 | <a href="../../another/student/logoutProcess" class="link-underline link-underline-opacity-0 link-dark">로그아웃</a>
                         </div>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div onmouseover="showMenu()" class="col text-center fw-bold" style="font-size: 0.95em;">
-                                        보건소 안내
+                                        보건센터 소개
                                     </div>
                                     <div onmouseover="showMenu()" class="col text-center fw-bold" style="font-size: 0.95em;">
                                         물품 신청
@@ -46,7 +46,7 @@
                                             <div class="col text-center fw-semibold" style="font-size: 0.9em;">
                                                 <div class="row">
                                                     <div id="ys/healthCenterInfoPage" onclick="movePage(this)" onmouseover="color(this)" onmouseout="removeColor(this)" class="col py-1 text-white" style="cursor: pointer;">
-                                                        보건소 소개
+                                                        보건센터 안내
                                                     </div>
                                                 </div>
                                                 <div class="row">

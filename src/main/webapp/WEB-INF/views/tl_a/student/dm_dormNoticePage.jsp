@@ -18,11 +18,8 @@
         
  
     </style>
-    <script>
-        //js주석
-        /*여러줄 주석*/
+
         
-    </script>
 </head>
 <body>
     <jsp:include page="../commons/student/topNavi.jsp"></jsp:include>
@@ -93,19 +90,12 @@
                 </c:forEach>
                 
                 <!-- 반복문 여기까지 게시판 내용 + 사생정보 내용 -->
-                <div class="row">
-                    <div class="col">
-                    <!-- border-top 뭔가 묘하게 거슬려서 빼놨어요 style="border-top: 0.03em solid black;" -->
-                        <div class="row"> 
-                           
-                        </div>
-                    </div>
-                </div>
+                  
                 <c:if test="${!empty sessionStaffInfo}">
-                <div class="row my-5 pb-5">	
+                <div class="row mt-3 pb-5">	
 			             <div class="col px-0 text-end">
 			                	<a href="./dm_NoticeWritePage">
-					               <button type="button" class="rounded-0 fw-bold btn btn-lg btn-primary text-white ms-1">공지사항 등록</button>
+					               <button type="button" class="rounded-0 fw-bold btn btn-lg text-white ms-1" style="background-color:#504528; color:#FFFFFF;">공지사항 등록</button>
 					            </a>
 			             </div>                    
 			     </div>
@@ -115,21 +105,16 @@
            </div>
         </div>
     </div>
-        <div class="row my-5">
-            <div class="col">
-
-            </div>
-        </div>
-        <div class="row my-5">
-            <div class="col">
-
-            </div>
-        </div>
-        <div class="row my-5">
-            <div class="col">
-
-            </div>
-        </div>  
+    
+    <pre>
+    
+    
+    
+    
+    
+    
+    
+    </pre> 
        
 <!-- 하단 footer -->
 <jsp:include page="../commons/student/footer.jsp"></jsp:include>

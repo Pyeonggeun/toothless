@@ -62,6 +62,20 @@
 	    	let openLectureKey = 1;
 	    	let lectureTestKey = 1;
 	    	
+	    	function getTopName() {
+	    		
+	    		const url = "./getTopName";
+	    		
+	    		fetch(url)
+	    		.then(response => response.json())
+	    		.then(response => {
+	    			
+	    			document.getElementById("topName").innerText = response.data;
+	    			
+	    		});
+	    		
+	    	}
+	    	
 	    	function getLifeStudentKey() {
 	    		
 	    		const url = "./getLifeStudentKey";
@@ -182,6 +196,9 @@
 				.then(response => {
 					
 					pagination();
+					
+					const lectureBox = document.getElementById("lectureBox");
+					lectureBox.innerHTML = "";
 					
 					if(totalPageNumber == 0) {
 						
@@ -311,6 +328,7 @@
 	    	window.addEventListener("DOMContentLoaded", () => {
 	    		
 	    		/* getMyPk(); */
+	    		getTopName();
 	    		getLifeStudentKey();
 	    		
 	    	});

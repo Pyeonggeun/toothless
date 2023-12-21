@@ -34,6 +34,20 @@
 	    	let lifeStudentKey = 0;
 	    	let lectureStudentKey = 0;
 	    	
+			function getTopName() {
+	    		
+	    		const url = "./getTopName";
+	    		
+	    		fetch(url)
+	    		.then(response => response.json())
+	    		.then(response => {
+	    			
+	    			document.getElementById("topName").innerText = response.data;
+	    			
+	    		});
+	    		
+	    	}
+	    	
 	    	function getLifeStudentKey() {
 	    		
 	    		const url = "./getLifeStudentKey";
@@ -376,6 +390,7 @@
 	    	window.addEventListener("DOMContentLoaded", () => {
 	    		
 	    		/* getMyPk(); */
+	    		getTopName();
 	    		getLifeStudentKey();
 	    		
 	    	});

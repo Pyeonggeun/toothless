@@ -26,6 +26,74 @@
 
 
 <script>
+	function previousPage() {
+	    
+	    pageNumber = startPageNumber - 1;
+	      
+	    reloadReviewLecture();
+	      
+	   }
+	 
+	 function nextPage() {
+	      
+	    pageNumber = endPageNumber + 1;
+	      
+	    reloadReviewLecture();
+	      
+	   }
+	 
+	 function movePage(target) {
+	      
+	    pageNumber = Number(target.innerText);
+	      
+	    reloadReviewLecture();
+	      
+	   }
+	 
+	 function pagination() {
+	    
+	    startPageNumber = (parseInt((pageNumber-1)/5))*5+1;
+	    endPageNumber = ((parseInt(pageNumber-1)/5)+1)*5;
+	      
+	      if(endPageNumber > totalPageNumber) {
+	         endPageNumber = totalPageNumber;
+	      }
+	      
+	      if(startPageNumber <= 1) {
+	         document.getElementById("previous").classList.add("disabled");
+	      }else {
+	         document.getElementById("previous").classList.remove("disabled");
+	      }
+	      
+	      if(endPageNumber >= totalPageNumber) {
+	         document.getElementById("next").classList.add("disabled");
+	      }else {
+	         document.getElementById("next").classList.remove("disabled");   
+	      }
+	      
+	      for(let i = 1 ; i <= 10 ; i++) {
+	         document.getElementById("pageNumberBox" + i).innerHTML = "";
+	      }
+	      
+	      for(let i = startPageNumber ; i <= endPageNumber ; i++) {
+	         
+	         const pageNumberLink = document.querySelector("#templete .pageNumberLink").cloneNode(true);
+	         
+	         if(i == pageNumber) {
+	            pageNumberLink.classList.remove("text-black");
+	            pageNumberLink.style.color = '#f7a505';
+	         }else {
+	            pageNumberLink.classList.add("text-black");
+	            pageNumberLink.style.removeProperty("color");
+	         }
+	         
+	         pageNumberLink.innerText = i;
+	         
+	         document.getElementById("pageNumberBox" + (i - parseInt((pageNumber-1)/5)*5)).appendChild(pageNumberLink);
+	         
+	      }
+	    
+	 }
 
 	// 날짜 포맷
 	function formatDate(date) {
@@ -552,10 +620,36 @@
 				<div class="thirdRow col mx-3"></div>
 			</div>
 			
+			<!-- 페이징 -->
+			 <div class="row mt-5">
+		        <div class="col d-grid justify-content-center">
+		            <nav aria-label="Page navigation example">
+		                <ul class="pagination mb-0">
+		                    <li id="previous" class="page-item">
+		                        <a onclick="previousPage()" class="page-link border-0 text-black fw-bold" href="#" aria-label="Previous" style="font-size: 1.1em;">
+		                            <span aria-hidden="true">&laquo;</span>
+		                        </a>
+		                    </li>
+		                    <li id="pageNumberBox1" class="page-item my-auto"></li>
+		                    <li id="pageNumberBox2" class="page-item my-auto"></li>
+		                    <li id="pageNumberBox3" class="page-item my-auto"></li>
+		                    <li id="pageNumberBox4" class="page-item my-auto"></li>
+		                    <li id="pageNumberBox5" class="page-item my-auto"></li>
+		                    <li id="next" class="page-item">
+		                        <a onclick="nextPage()" class="page-link border-0 text-black fw-bold" href="#" aria-label="Next" style="font-size: 1.1em;">
+		                            <span aria-hidden="true">&raquo;</span>
+		                        </a>
+		                    </li>
+		                </ul>
+		            </nav>
+		        </div>
+    		</div>
+			
 		</div> <!-- 우측내용 col 끝 -->
             
         
 	</div> <!-- main row 끝 -->
+	
 	<jsp:include page="../commons/staff/footer.jsp"></jsp:include>
 </div>
 
@@ -871,8 +965,8 @@
 			
 		</div>
 	</div>
-
 </div>
+
 
 <!-- 리스트 템플릿 -->
 <table id="template" class="d-none">

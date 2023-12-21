@@ -61,12 +61,12 @@ public interface LifeStudentSqlMapper {
 	public int getAttendanceCountByLectureStudentKey(int lecture_student_key);
 	public int getAbsentCountByLectureStudentKey(int lecture_student_key);
 	public int getExceptAttendanceAndAbsentCountByLectureStudentKey(int lecture_student_key);
-	public int getAvgTestScoreByOpenLectureKey(int open_lecture_key);
+	public int getAvgTestScoreByOpenLectureKey(@Param("lecture_student_key") int lecture_student_key, @Param("open_lecture_key") int open_lecture_key);
 	
 	public int getTotalTestCount(int open_lecture_key);
 	public int getStudentTotalTestCount(int lecture_student_key);
 	public List<LectureTestDto> getLectureTestInfoByOpenLectureKey(int open_lecture_key);
-	public int getStudentTestScoreByLectureTestKey(int lecture_test_key);
+	public int getStudentTestScoreByLectureTestKeyAndLectureStudentKey(@Param("lecture_test_key") int lecture_test_key, @Param("lecture_student_key") int lecture_student_key);
 	public int isCompleteTest(int lecture_test_key);
 	
 	public String getTestNameByLectureTestKey(int lecture_test_key);
@@ -81,5 +81,7 @@ public interface LifeStudentSqlMapper {
 	
 	public List<OpenLectureDto> getIngOpenLectureInfo(int life_student_key);
 	public List<OpenLectureDto> getCompleteOpenLectureInfo(int life_student_key);
+	
+	public String getTopName(int life_student_key);
 
 }

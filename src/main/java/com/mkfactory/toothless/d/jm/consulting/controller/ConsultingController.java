@@ -52,16 +52,17 @@ public class ConsultingController {
 	
 	//구직희망 신청서 등록 페이지
 	@RequestMapping("applyHopeJobPage")
-	public String applyHopeJobPage() {		
+	public String applyHopeJobPage(Model model) {		
+		List<JobFieldCategoryDto> list = consultingService.getHopeJobFieldCategoryListAll();
+		model.addAttribute("list", list);
 		return "tl_d/jm_consulting/applyHopeJobPage";
 	}
 	
 	
 	//구직희망신청 insert
 	@RequestMapping("hopeJobApplyProcess")
-	public String insertHopeJobApply(HopeJobDto par, HttpSession session, Model model) {
+	public String insertHopeJobApply(HopeJobDto par, int[] job_field_pk,HttpSession session, Model model) {
 		
-			
 		//학생정보 pk 출력
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		
@@ -74,7 +75,7 @@ public class ConsultingController {
 			par.setStudent_pk(studentInfoDto.getStudent_pk());
 			
 			//구직희망신청 insert 실행
-			consultingService.insertHopeJobApply(par);
+			consultingService.insertHopeJobApply(par, job_field_pk);
 			return "redirect:./hopeJobConsultingPage";
 		}
 		//중복이면 등록거부

@@ -145,10 +145,33 @@ public class GroupCounselStaffServiceImpl {
 	}
 	
 	
+	public List<Map<String, Object>> getGroupCounselByCounselorId(int counselor_id){
+		
+		List<GroupCounselCounselorDto> counselorList =  groupCounselStaffMapper.getGroupCounselCounselor(counselor_id);
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		for(GroupCounselCounselorDto groupCounselCounselorDto : counselorList) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			int groupCounselId = groupCounselCounselorDto.getGroup_counsel_id();
+			GroupCounselDto groupCounselDto = groupCounselStaffMapper.getGroupCounsel(groupCounselId);
+			
+			map.put("groupCounselCounselorDto", groupCounselCounselorDto);
+			map.put("groupCounselDto", groupCounselDto);
+			
+			list.add(map);
+			
+		}
+		
+		return list;
+	}
 	
 	
-	
-	
+	public CounselorDto getCounselor(int external_pk) {
+		
+		return groupCounselStaffMapper.getCounselor(external_pk);
+	}
 	
 	
 	

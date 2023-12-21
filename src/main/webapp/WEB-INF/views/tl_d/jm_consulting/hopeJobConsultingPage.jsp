@@ -11,6 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
+
 <title>Insert title here</title>
 
 <script>
@@ -691,12 +692,11 @@ function deleteMyHopeJobCategory(){
 							</div>
 							<div class="row">
 								<div class="col">
-									<a class="navbar-brand" href="./myUnAnsweredHJFListPage">
 									
 										<span class="fw-bold pt-2" style="font-size:1.2em;">
 											미응답 만족도 조사
 										</span>
-									</a>
+									
 								</div>						
 							</div>
 							<div class="row">
@@ -811,11 +811,11 @@ function deleteMyHopeJobCategory(){
 							</div>
 							<div class="row">
 								<div class="col">
-									<a class="navbar-brand" href="./updateHopeJobPage">
+									
 										<span class="fw-bold pt-2" style="font-size:1.2em;">
 											구직희망 정보 관리
 										</span>
-									</a>
+								
 								</div>						
 							</div>
 							<div class="row">
@@ -942,7 +942,7 @@ function deleteMyHopeJobCategory(){
 									      <div class="modal-footer">
 									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 									        
-									        <a href="./hopeJobConsultingPage" style="">
+									        <a href="../../another/student/mainPage" style="">
 									        <button onclick="endHopeJobConsulting()" type="button" class="btn btn-danger" data-bs-dismiss="modal">
 									        프로그램 종료
 									        </button>
@@ -965,7 +965,7 @@ function deleteMyHopeJobCategory(){
 		
 		
 	</div>
-	<div class="col-1"></div>
+	
 	
 	</div>
 	<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
