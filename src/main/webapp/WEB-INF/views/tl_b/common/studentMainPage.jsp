@@ -106,7 +106,12 @@
             { 
                 title: '크리스마스연휴',
                 start: '2023-12-23',
-                end: '2023-12-25'
+                end: '2023-12-26'
+            } ,
+            { 
+                title: '기말고사',
+                start: '2023-12-04',
+                end: '2023-12-09'
             } ,
                 // 추가적인 이벤트들을 원하는 만큼 추가할 수 있습니다.
             ]
@@ -156,201 +161,215 @@
                 </div>
             </div>
         </div> -->
-        <div class="container">
-            <div class="row px-5 text-center mt-4 py-3 rounded-5" style="background-color: #FCF5E1;">
-                <div class="col-3">
-                    <div class="row">
-                        <button id="aaa" class="btn rounded-pill" onclick="location.href='../ys/healthCenterInfoPage'" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
-                            <div class="col img-fluid">
-                                <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link02.png">
-                            </div>
-                            <div class="col fw-bold fs-5 pt-3">보건센터안내</div>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="col-3">
-                    <div class="row">
-                        <button class="btn rounded-pill" onclick="location.href='../ys/studentItemApplyInformationPage'" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
-                            <div class="col img-fluid">
-                                <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link03.png">
-                            </div>
-                            <div class="col fw-bold fs-5 pt-3">물품신청</div>
-                        </button>
-                    </div>  
-                </div>
-
-                <div class="col-3">
-                    <div class="row">
-                        <button class="btn rounded-pill" onclick="location.href='../hs/eduMainPageForStudent'" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
-                        <div class="col img-fluid">
-                            <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link04.png">
-                        </div>
-                        <div class="col fw-bold fs-5 pt-3">교육프로그램신청</div>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="col-3">
-                    <div class="row">
-                        <button class="btn rounded-pill" onclick="location.href='../ys/informationForumPageOne'" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
-                        <div class="col img-fluid">
-                            <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link01.png" >
-                        </div>
-                        <div class="col fw-bold fs-5 pt-3">정보마당</div>
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row my-4">
-                <div class="col-4 me-5 d-flex justify-content-center align-items-center rounded-5 text-center py-3" style="background-color: #FFE7EB;">
-                    <div class="row">
-                    	<div class="col">
-                    		<div class="row my-1">
-		                        <div class="col fw-bold fs-6">
-		                            진료시간
-		                        </div>
-		                    </div>
-		                    <div class="row">
-		                        <div class="col">
-		                            월~금요일 : 09:00~18:00
-		                        </div>
-		                    </div>
-		                    <div class="row mb-3">
-		                        <div class="col">
-		                            (점심시간 : 12:00~13:00)
-		                        </div>
-		                    </div>
-		                    <div class="row border-top border-2 border-danger ">
-		                        <div class="col fw-bold fs-6 pt-1 mt-3">
-		                            간호사 근무시간
-		                        </div>
-		                    </div>
-		                    <div class="row">
-		                        <div class="col">
-		                            월~금요일 : 09:00~18:00
-		                        </div>
-		                    </div>
-		                    <div class="row">
-		                        <div class="col">
-		                            (점심시간 : 12:00~13:00)
-		                        </div>
-		                    </div>
-		                    <div class="row mb-3">
-		                        <div class="col text-secondary fw-bold">
-		                            비상연락망 : 010-1004-1004
-		                        </div>
-		                    </div>
-                    	</div>
-                    </div>
-                </div>
-                
+        
+            <div class="row" style="margin-left: 7%; margin-right: 7%;">
                 <div class="col">
-                    <div class="row text-white rounded-5 py-3 px-3 " style="background-color:#133369;">
-                        <div class="col-10 d-flex align-items-center fw-bold fs-5">
-                            공지사항
-                        </div>
-                        <div class="col-2 text-end fs-6 element-with-pointer-cursor">
-                            <!-- <i class="bi bi-plus-circle-fill abc:hover fw-bold fs-2 text-white element-with-pointer-cursor" onclick="location.href='../ty/studentBoardPage'" onmouseover="rotateIcon(this, 90)"
-                            onmouseout="rotateIcon(this, 0)"></i> -->
-                            <svg id="plus" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16"
-                            onmouseover="rotateRight(this)" onmouseout="rotateLeft(this)" onclick="location.href='../ty/studentBoardPage'">
-                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="row mt-3" >
-                        <div onmouseover="borderChange(this)" onmouseout="borderChange(this)" class="borderChange col ps-3 me-3 border border-2 rounded-5" style="background-color: #F7FBFF;">
-                            <div class="row my-3">
-                                <div class="col fw-bold fs-6 text-center">
-                                    보건실을 이용하는 모든 학생들에게
-                                </div>
-                            </div>
+
+                
+                    <div class="row px-5 text-center mt-4 py-3 rounded-5" style="background-color: #FCF5E1;">
+                        <div class="col-3">
                             <div class="row">
-                                <div class="col">
-                                    <span>보건실 이용이 끝난후 뛰어나가다가 다시 보건실에 입원하는 경우가 속출하고 있습니다.</span>
-                                    <span>퇴원하실때는 걸어나가셔서 부디 재입원을 하게되는 경우가없도록 부탁드립니다.</span>
-                                </div>
+                                <button id="aaa" class="btn rounded-pill" onclick="location.href='../ys/healthCenterInfoPage'" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
+                                    <div class="col img-fluid">
+                                        <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link02.png">
+                                    </div>
+                                    <div class="col fw-bold fs-5 pt-3">보건센터안내</div>
+                                </button>
                             </div>
-                            <div class="row my-3">
-                                <div class="col text-center">
-                                    2023.12.20 보건소장
-                                </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="row">
+                                <button class="btn rounded-pill" onclick="location.href='../ys/studentItemApplyInformationPage'" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
+                                    <div class="col img-fluid">
+                                        <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link03.png">
+                                    </div>
+                                    <div class="col fw-bold fs-5 pt-3">물품신청</div>
+                                </button>
                             </div>  
                         </div>
-                        <div onmouseover="borderChange(this)" onmouseout="borderChange(this)" class="borderChange col ps-3 ms-3 border border-2 rounded-5 "style="background-color: #F7FBFF;">
-                            <div class="row my-3">
-                                <div class="col fw-bold fs-6 text-center">
-                                    보건실을 이용하는 모든 학생들에게
+
+                        <div class="col-3">
+                            <div class="row">
+                                <button class="btn rounded-pill" onclick="location.href='../hs/eduMainPageForStudent'" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
+                                <div class="col img-fluid">
+                                    <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link04.png">
                                 </div>
+                                <div class="col fw-bold fs-5 pt-3">교육프로그램신청</div>
+                                </button>
                             </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="row">
+                                <button class="btn rounded-pill" onclick="location.href='../ys/informationForumPageOne'" onmouseover="changeColor(this)" onmouseout="changeColorReset(this)">
+                                <div class="col img-fluid">
+                                    <img src="../../resources/img/healthRoom/mainPage/0028_ico01_link01.png" >
+                                </div>
+                                <div class="col fw-bold fs-5 pt-3">정보마당</div>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row my-4">
+                        <div class="col-4 me-3 d-flex justify-content-center align-items-center rounded-5 text-center py-3" style="background-color: #FFE7EB;">
                             <div class="row">
                                 <div class="col">
-                                    <span>보건실 이용이 끝난후 뛰어나가다가 다시 보건실에 입원하는 경우가 속출하고 있습니다.</span>
-                                    <span>퇴원하실때는 걸어나가셔서 부디 재입원을 하게되는 경우가없도록 부탁드립니다.</span>
+                                    <div class="row my-1">
+                                        <div class="col fw-bold fs-6">
+                                            진료시간
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            월~금요일 : 09:00~18:00
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            (점심시간 : 12:00~13:00)
+                                        </div>
+                                    </div>
+                                    <div class="row border-top border-2 border-danger ">
+                                        <div class="col fw-bold fs-6 pt-1 mt-3">
+                                            간호사 근무시간
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            월~금요일 : 09:00~18:00
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            (점심시간 : 12:00~13:00)
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col text-secondary fw-bold">
+                                            비상연락망 : 010-1004-1004
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row my-3">
-                                <div class="col text-center">
-                                    2023.12.20 보건소장
-                                </div>
-                            </div> 
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-9 bg-body-tertiary rounded-4 pe-5">
-                    <div class="row">
-                        <div class="col-6">
-                            <div id="calendar"></div>
-                        </div>
-                        <div class="col-6 my-0 text-center">
-                            <div class="row my-3 rounded-5 py-1" style="background-color: #133369;">
-                                <div class="col fw-bold text-start fs-5 text-white ps-3">
-                                    Event
+                        
+                        <div class="col">
+                            <div class="row text-white rounded-5 py-3 px-3 " style="background-color:#133369;">
+                                <div class="col-10 d-flex align-items-center fw-bold fs-5">
+                                    공지사항
                                 </div>
-                                <div class="col fw-bold text-end fs-5 text-white pb-1 element-with-pointer-cursor">
-                                    <svg id="plus2" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16"
+                                <div class="col-2 text-end fs-6 element-with-pointer-cursor">
+                                    <!-- <i class="bi bi-plus-circle-fill abc:hover fw-bold fs-2 text-white element-with-pointer-cursor" onclick="location.href='../ty/studentBoardPage'" onmouseover="rotateIcon(this, 90)"
+                                    onmouseout="rotateIcon(this, 0)"></i> -->
+                                    <svg id="plus" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16"
                                     onmouseover="rotateRight(this)" onmouseout="rotateLeft(this)" onclick="location.href='../ty/studentBoardPage'">
                                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
                                     </svg>
                                 </div>
                             </div>
-                            <div class="row my-2 py-2 border-bottom border-2">
-                                <div class="col-4 border-end">
-                                    2023.12.22
+                            <div class="row mt-3" >
+                                <div onmouseover="borderChange(this)" onmouseout="borderChange(this)" class="borderChange col ps-3 me-3 border border-2 rounded-5" style="background-color: #F7FBFF;">
+                                    <div class="row my-3">
+                                        <div class="col fw-bold fs-6 text-center">
+                                            보건실을 이용하는 모든 학생들에게
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <span>보건실 이용이 끝난후 뛰어나가다가 다시 보건실에 입원하는 경우가 속출하고 있습니다.</span>
+                                            <span>퇴원하실때는 걸어나가셔서 부디 재입원을 하게되는 경우가없도록 부탁드립니다.</span>
+                                        </div>
+                                    </div>
+                                    <div class="row my-3">
+                                        <div class="col text-center">
+                                            2023.12.20 보건소장
+                                        </div>
+                                    </div>  
                                 </div>
-                                <div class="col-8">
-                                    대동제
-                                </div>
-                            </div>
-                            <div class="row my-2 py-2 border-bottom border-2">
-                                <div class="col-4 border-end">
-                                    2023.12.23
-                                </div>
-                                <div class="col-8">
-                                    크리스마스 연휴
+                                <div onmouseover="borderChange(this)" onmouseout="borderChange(this)" class="borderChange col ps-3 border border-2 rounded-5 "style="background-color: #F7FBFF;">
+                                    <div class="row my-3">
+                                        <div class="col fw-bold fs-6 text-center">
+                                            보건실을 이용하는 모든 학생들에게
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <span>보건실 이용이 끝난후 뛰어나가다가 다시 보건실에 입원하는 경우가 속출하고 있습니다.</span>
+                                            <span>퇴원하실때는 걸어나가셔서 부디 재입원을 하게되는 경우가없도록 부탁드립니다.</span>
+                                        </div>
+                                    </div>
+                                    <div class="row my-3">
+                                        <div class="col text-center">
+                                            2023.12.20 보건소장
+                                        </div>
+                                    </div> 
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-3">
                     <div class="row">
-                        <div class="col text-center fw-bold fs-2">
-                            <span>Map&nbsp;</span><i class="bi bi-pin-map-fill text-danger"></i>
+                        <div class="col bg-body-tertiary rounded-4 pe-5">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div id="calendar"></div>
+                                </div>
+                                <div class="col-6 my-0 text-center">
+                                    <div class="row my-3 rounded-5 py-1" style="background-color: #133369;">
+                                        <div class="col fw-bold text-start fs-5 text-white ps-3">
+                                            Event
+                                        </div>
+                                        <div class="col fw-bold text-end fs-5 text-white pb-1 element-with-pointer-cursor">
+                                            <svg id="plus2" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16"
+                                            onmouseover="rotateRight(this)" onmouseout="rotateLeft(this)" onclick="location.href='../ty/studentBoardPage'">
+                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="row my-2 py-2 border-bottom border-2">
+                                        <div class="col-4 border-end">
+                                            2023.12.08
+                                        </div>
+                                        <div class="col-8">
+                                            기말고사
+                                        </div>
+                                    </div>
+                                    <div class="row my-2 py-2 border-bottom border-2">
+                                        <div class="col-4 border-end">
+                                            2023.12.13
+                                        </div>
+                                        <div class="col-8">
+                                            대동제
+                                        </div>
+                                    </div>
+                                    <div class="row my-2 py-2 border-bottom border-2 text-danger">
+                                        <div class="col-4 border-end">
+                                            2023.12.23
+                                        </div>
+                                        <div class="col-8">
+                                            크리스마스 연휴
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mt-1">
-                        <div class="col text-center">
-                            <img class="img-fluid rounded-5" src="../../resources/img/healthRoom/mainPage/map.jpg" style="height : 100%" >
+                        <div class="col-3 ms-2">
+                            <div class="row">
+                                <div class="col text-center fw-bold fs-2">
+                                    <span>Map&nbsp;</span><i class="bi bi-pin-map-fill text-danger"></i>
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col text-center pe-0" >
+                                    <img class="img-fluid rounded-5" src="../../resources/img/healthRoom/mainPage/map.jpg" style="width: 100%; height:23.57em;">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+
     </div>
     <div class="row mt-3">
         <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>

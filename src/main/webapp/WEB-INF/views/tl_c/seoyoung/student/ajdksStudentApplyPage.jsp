@@ -91,7 +91,7 @@
 
 			<div class="col">
 				<div class="row">
-					<div class="col ">
+					<div class="col mx-5 ">
 
 						<!-- 본문작성공간 -->
 						<br> <br>

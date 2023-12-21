@@ -35,23 +35,23 @@ public class ExternalController {
 		session.setAttribute("sessionExternalInfo", externalInfoDto);
 		if(externalInfoDto.getExternal_category() == 1) {
 				
-			return "redirect: ./mainPage";
+			return "redirect: /toothless/tl_c/taeho/external/companyMainPage";
 		
 		}else if(externalInfoDto.getExternal_category() == 2) {
 				
-			return "redirect: ../../tl_d/common/companyMainPage";
+			return "redirect: /toothless//tl_d/common/companyMainPage";
 			
 		}else if(externalInfoDto.getExternal_category() == 3){
 			
-			return "redirect: ../../tl_e/commons/counselCenterCounselorMainPage";
+			return "redirect: /toothless//tl_e/commons/counselCenterCounselorMainPage";
 			
 		}else if(externalInfoDto.getExternal_category() == 4){
 			
-			return "redirect: ../../tl_x/ic/mainPage";
+			return "redirect: /toothless//tl_x/ic/mainPage";
 		
 		}else if(externalInfoDto.getExternal_category() == 5){
 			
-			return "redirect: ../../tl_x/hn/mainPage";
+			return "redirect: /toothless//tl_x/hn/mainPage";
 		}else {
 			
 			return "redirect: ./loginPage";

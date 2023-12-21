@@ -99,7 +99,7 @@
 			<div class="content text-white-50">
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;공지사항</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../woojae/professor/ajdksProfessorNoticePage'">&gt;&nbsp;공지사항</span>
 					</div>
 				</div>
 			</div>

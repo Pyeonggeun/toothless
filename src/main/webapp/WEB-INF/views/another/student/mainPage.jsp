@@ -79,7 +79,7 @@
                     </div>
                     <div class="row">
                         <div class="col-1"></div>
-                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='/toothless/tl_c/guntaek/student/ajdksRegisterSelfIntroduction'" class="col border border-2 mx-1" style="cursor: pointer;">
+                        <div onmouseenter="mouseOver(this)" onmouseleave="mouseLeave(this)" onclick="location.href='/toothless/tl_c/seoyoung/student/ajdksStudentMainPage'" class="col border border-2 mx-1" style="cursor: pointer;">
                             <div class="row">
                                 <div class="col-3 align-self-center text-center mt-4 fs-2">
                                     <i class="bi bi-person-workspace"></i>

@@ -121,19 +121,19 @@ const student_pk = ${sessionStudentInfo.student_pk};
               const INTERNSHIP_START_DATE = companyListWrapper.querySelector(".INTERNSHIP_START_DATE");
               const date = new Date(e.INTERNSHIP_START_DATE); 
               const formattedStartDate = date.getFullYear() + "-" + padZero(date.getMonth() + 1) + "-" + padZero(date.getDate()) +
-                " " + padZero(date.getHours()) + ":" + padZero(date.getMinutes()) + " ~ ";
+                 " ~ ";
               INTERNSHIP_START_DATE.innerText = formattedStartDate;
               
               const INTERNSHIP_END_DATE = companyListWrapper.querySelector(".INTERNSHIP_END_DATE");
               const date2 = new Date(e.INTERNSHIP_END_DATE); 
-              const formattedEndDate = date2.getFullYear() + "-" + padZero(date2.getMonth() + 1) + "-" + padZero(date2.getDate()) +
-                " " + padZero(date2.getHours()) + ":" + padZero(date2.getMinutes());
+              const formattedEndDate = date2.getFullYear() + "-" + padZero(date2.getMonth() + 1) + "-" + padZero(date2.getDate())
+                ;
               INTERNSHIP_END_DATE.innerText = formattedEndDate;
               
               const APPLYING_END_DATE = companyListWrapper.querySelector(".APPLYING_END_DATE");
               const date3 = new Date(e.APPLYING_END_DATE); 
-              const formattedApplyEndDate = date3.getFullYear() + "-" + padZero(date3.getMonth() + 1) + "-" + padZero(date3.getDate()) +
-                " " + padZero(date3.getHours()) + ":" + padZero(date3.getMinutes());
+              const formattedApplyEndDate = date3.getFullYear() + "-" + padZero(date3.getMonth() + 1) + "-" + padZero(date3.getDate()) 
+                ;
                 APPLYING_END_DATE.innerText = formattedApplyEndDate;
 
               function padZero(number) {
@@ -259,13 +259,11 @@ const student_pk = ${sessionStudentInfo.student_pk};
         	console.log(response.data);
         	const modalValues = response.data;
         	if (modalValues == "yes") {
-    		    console.log("결과: yes");
     		    const applyButton = document.getElementById("applyButton");
     		    applyButton.setAttribute("onclick", "studentApplyProcess("+e.INTERNSHIP_COURSE_PK+")");
     		} else {
     		    failModal();
     		    modal.hide();
-    		    console.log("결과: no");
     		}
      
         });
@@ -764,7 +762,7 @@ const student_pk = ${sessionStudentInfo.student_pk};
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<p>이미 신청한 내역이 있습니다.</p>
+					<p>이미 신청한 내역 혹은 지원서 확인 후 신청해주세요.</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"

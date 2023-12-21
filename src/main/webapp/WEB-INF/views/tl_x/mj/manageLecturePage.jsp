@@ -476,7 +476,7 @@
 				lectureInfoWrapper.querySelector(".lectureName").innerText = e.lectureDto.name;
 				lectureInfoWrapper.querySelector(".total_hour").innerText = e.lectureDto.total_hour + "시간";
 				lectureInfoWrapper.querySelector(".credit").innerText = e.lectureDto.credit;
-				lectureInfoWrapper.querySelector(".essential_attendance").innerText = e.lectureDto.essential_attendance + "시간 미만";
+				lectureInfoWrapper.querySelector(".essential_attendance").innerText = e.lectureDto.essential_attendance + "% 이상";
 				lectureInfoWrapper.querySelector(".essential_grade").innerText = e.lectureDto.essential_grade + "점 이상";
 				
 				
