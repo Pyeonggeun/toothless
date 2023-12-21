@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,14 @@ public class StaffBoardServiceImpl {
 	public void staffWrite(StudentboardDto StudentboardDto, List<StudentboardImageDto> boardImageDtoList) {
 		
 		int boardPk = staffBoardSqlMapper.createBoardPk();
+		
+		String content = StudentboardDto.getContent();
+//      content = content.replaceAll("<", "&lt;");
+//      content = content.replaceAll(">", "&gt;");
+      
+	      content = StringEscapeUtils.escapeHtml4(content);
+	      content = content.replaceAll("<br>","\n");
+	      StudentboardDto.setContent(content);
 		
 		StudentboardDto.setStudentboard_pk(boardPk);
 		staffBoardSqlMapper.insertNotice(StudentboardDto);
@@ -100,6 +109,15 @@ public class StaffBoardServiceImpl {
 		StudentboardDto studentboardDto = staffBoardSqlMapper.selectNoticeId(id);
 		int staffPk = studentboardDto.getStaff_pk();
 		StaffInfoDto staffInfoDto = staffBoardSqlMapper.selectById(staffPk);
+		
+		String content = studentboardDto.getContent();
+//      content = content.replaceAll("<", "&lt;");
+//      content = content.replaceAll(">", "&gt;");
+      
+	      content = StringEscapeUtils.escapeHtml4(content);
+	      content = content.replaceAll("\n", "<br>" );
+	      studentboardDto.setContent(content);
+		
 		
 		List<StudentboardImageDto> boardImageDtoList =
 				staffBoardSqlMapper.getArticleImageList(id);
