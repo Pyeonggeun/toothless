@@ -10,58 +10,23 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <title>교육 학생 메인</title>
-
-		
     </head>
     <body>
+    <jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
+    <jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
         <div class="container-fluid">
 			
-			
-        	<div class="row text-center">
-				<div class="col-4"></div>
-				<div class="col ms-5">
-					<div class="row">
-						<div class="col-3 pe-2 text-end mt-2">
-							<img src="../../resources/img/another/logo_black.png" alt="" style="height: 2em;">
-						</div>
-						<div class="col-9 ps-0 fw-bold fs-3 text-start align-self-center ">
-							MK University 
-						</div>
-					</div>
-				</div>
-				<div class="col-1"></div>
-				<div class="col-1 position-relative pe-0 pb-0 fs-4 text-end align-self-center">
-					<button class="navbar-brand border-0" onclick="showNotifyModal()"><i class="bi bi-bell text-balck pe-1">
-					<span id="reloadNotifyCount" class="position-absolute top-0 start-60 badge rounded-pill bg-danger d-none px-1 py-0" style="font-size: small;">
-					</span>
-					</i></button> 
-				</div>
-				<div class="col-1"></div>
-			</div>
-        	
-        
-        
-        	<!-- <jsp:include page="../hs/eduStudentTopBanner.jsp"></jsp:include> -->
-        	
-        	
-        	
-        	
-        	
-            <div class="row">
-				<div class="col">
-					<div class="row">
-						<div class="col"></div>
-						<div class="col-8 text-start">
-							<a href="./eduMainPageForStudent" class="btn btn-sm fw-bold" 
-							style="color: #4c4a4c;">메인페이지</a>
-							<a href="./eduMyPageForStudent" class="btn btn-sm fw-bold"
-							style="color: #4c4a4c;">마이페이지</a>
-						</div>
-						<div class="col"></div>
-					</div>
-				</div>
-			</div> 
+			<!-- 메인 사진 -->        
 			<div class="row">
+           		<div class="col px-0">
+               		<img class="img-fluid" src="../../resources/img/healthRoom/mainPage/adhy-savala-zbpgmGe27p8-unsplash.jpg"
+               		style="height: 14vh; width: 100%; object-fit: cover; object-position: 70% 90%;">
+               		
+	            </div>
+	        </div>
+	        	
+        	
+			<div class="row mt-4">
 				<div class="col"></div>
 				<div class="col-8"> <!--교육목록-->
 					<div class="row">
