@@ -497,7 +497,7 @@
 			</div>
 		</div>						
 	</div>
-</div>
+
 
 	
 	
@@ -505,36 +505,16 @@
 
 	<!-- 풋터 -->
 	
-	<div class="row">
-		<div class="col text-center fw-bold">
-			<hr>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col"></div>
+	<div class="row border-top">
 		<div class="col">
-			<div class="row">
+			<div class="row mt-3">
 				<div class="col" style="font-size: 0.7em; font-weight: bold; text-align: center;">
-					서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) /
+					서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층)  |  TEL:010-4761-2103 / E-MAIL:se001lec@naver.com  |  COPYRIGHT© 2023 MINKUE UNIVERSITY ALL RIGHTS RESERVED.  |  <i class="bi bi-twitter"></i><i class="bi bi-facebook"></i><i class="bi bi-instagram"></i>					
 				</div>
 			</div>
-			<div class="row">
-				<div class="col" style="font-size: 0.7em; font-weight: bold; text-align: center;">
-					TEL:010-4761-2103 / E-MAIL:se001lec@naver.com
-				</div>
-			</div>
-			<div class="row">
-				<div class="col" style="font-size: 0.7em; font-weight: bold; text-align: center;">
-					COPYRIGHT© 2023 MINKUE UNIVERSITY ALL RIGHTS RESERVED.
-				</div>
-			</div>
-		</div>
-		<div class="col mt-2" style="text-align: left;">
-			<i class="bi bi-twitter"></i>
-			<i class="bi bi-facebook"></i>
-			<i class="bi bi-instagram"></i>
 		</div>
 	</div>
+	
 	
 <div id="templete" class="d-none">
 

@@ -27,7 +27,7 @@
                                         <div class="col-1"></div>
                                         <div class="col">
                                             <div class="row">
-                                                <div class="col text-center fw-bold" style="font-size: 1.3em;">
+                                                <div class="col text-center fw-bold" style="font-size: 1.5em;">
                                                 	교육 프로그램 신청현황
                                                 </div>
                                             </div>

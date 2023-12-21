@@ -93,13 +93,13 @@
 								<div class="row pt-4 pb-2">
 									<div class="col">
 										<span class="fw-bold">상담주제 : </span>
-										<span>${map.typeCategoryDto.name }</span>
+										<span>${categoryName }</span>
 									</div>
 								</div>
 								<div class="row pt-2 pb-4">
 									<div class="col">
 										<span class="fw-bold">상담원명: </span>
-										<span>${map.counselorDto.name }</span>&nbsp;상담사
+										<span>${counselorName }</span>&nbsp;상담사
 									</div>
 								</div>
 							</div>
@@ -107,7 +107,7 @@
 								<div class="row pt-4 pb-2">
 									<div class="col">
 										<span class="fw-bold">일시 : </span>
-										<span>${map.offlineReservationDto.counsel_year }년 ${map.offlineReservationDto.counsel_month }월 ${map.offlineReservationDto.counsel_date }일(${map.dayString }) ${map.offlineReservationDto.counsel_hour }:00</span>
+										<span>${year }년 ${month }월 ${date }일(${day }) ${hour }:00</span>
 									</div>
 								</div>
 								<div class="row pt-2 pb-4">

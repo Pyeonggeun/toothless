@@ -69,15 +69,14 @@
 			<div class="col mx-4">
 			<!-- 본문작성공간 -->
 				
-				<!-- 프로그램 상세하게 보기... -->				
-					<div class="row mt-5 ms-4">
-						<div class="col">
-							<h2 style="font-weight:bold"><i class="bi bi-list-task"></i>&nbsp;&nbsp;${EduDto.title}</h2>							 	
-						</div>	
+				<!-- 프로그램 상세하게 보기... -->	
+				
+					<div class="row mt-5">
+					<div class="col fw-bold">
+							<i class="bi bi-list-task"></i>&nbsp;&nbsp;${EduDto.title}
 					</div>
-					<div class = "row mt-4" >
-						<div class="border border-bottom border-dark border-2 "></div>
-					</div>
+					</div>			
+				
 					<div class="row mt-4 border">
 						<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9; height:3em" >접수기간</div>
 						<div class = "col-4 ps-3 d-flex align-items-center">${EduDto.progress_date}</div>

@@ -199,7 +199,7 @@ window.addEventListener("DOMContentLoaded", () => {
 			<div class="col">
 				<div class="row bg-body-white border-bottom mt-4 pb-0">
 					<a class="col-1 pe-2 text-end navbar-brand" href="../common/companyMainPage">
-		                <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
+		                <img class="opacity-55 img-fluid" src="../../resources/img/employment/companyBanner.jpg">
 		            </a>
 		            <a class="col-4 ps-0 fw-bold fs-1 text-start navbar-brand" href="../common/companyMainPage">
 		                MK University<span class="fs-6"> | </span> <span class="fs-5">취업지원센터</span> 

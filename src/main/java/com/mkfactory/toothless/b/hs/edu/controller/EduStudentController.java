@@ -41,9 +41,9 @@ public class EduStudentController {
 			String searchType,
 			String searchWord) {
 		
-		StudentInfoDto sessionstudentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		
-		if(sessionstudentInfoDto == null) {
+		if(studentInfoDto == null) {
 			
 			return "redirect:../../another/student/loginPage";
 		}
@@ -92,7 +92,12 @@ public class EduStudentController {
 //		int applyStudentCount = eduStaffSqlMapper.selectApplyPkPerEduPkCount(eduDto.getEdu_pk());
 		
 		//인춘쓰
+
 		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		if(studentInfoDto == null) {
+			
+			return "redirect:../../another/student/loginPage";
+		}
 		Map<String, Object> studentOtherInfo = studentService.getStudentOtherInfo(studentInfoDto);
 		model.addAttribute("studentOtherInfo", studentOtherInfo);
 		
@@ -109,8 +114,8 @@ public class EduStudentController {
 	@RequestMapping("eduApplyProcess")
 	public String eduApplyProcess(HttpSession session, EduApplyDto eduApplyDto) {
 		
-		StudentInfoDto sessionstudentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
-		int studentPk = sessionstudentInfoDto.getStudent_pk();
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		int studentPk = studentInfoDto.getStudent_pk();
 		
 		eduApplyDto.setStudent_pk(studentPk);
 
@@ -121,7 +126,15 @@ public class EduStudentController {
 	
 	//신청완료 페이지
 	@RequestMapping("eduApplyCompletePage")
-	public String eduApplyCompletePage(Model model, int edu_pk) {
+	public String eduApplyCompletePage(Model model, int edu_pk, HttpSession session) {
+		
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(studentInfoDto == null) {
+			
+			return "redirect:../../another/student/loginPage";
+		}
+
 		
 		model.addAttribute("eduDto", eduStudentService.getEduInfoByEduPk(edu_pk));
 		
@@ -132,9 +145,15 @@ public class EduStudentController {
 	@RequestMapping("eduMyPageForStudent")
 	public String eduMyPageForStudent(Model model, HttpSession session) {
 		
-		StudentInfoDto sessionstudentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
-		int studentPk = sessionstudentInfoDto.getStudent_pk();
+		StudentInfoDto studentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
 		
+		if(studentInfoDto == null) {
+			
+			return "redirect:../../another/student/loginPage";
+		}
+		
+		int studentPk = studentInfoDto.getStudent_pk();
+
 		
 		List<Map<String, Object>> MyEduList = eduStudentService.getMyEduList(studentPk);
 		List<Map<String, Object>> MyServeyList = eduStudentService.getMyServeyList(studentPk);
@@ -149,7 +168,16 @@ public class EduStudentController {
 	@RequestMapping("eduServeyWritePage")
 	public String eduServeyWritePage(Model model, HttpSession session, int edu_apply_pk) {
 		
+		
+		
 		StudentInfoDto sessionstudentInfoDto = (StudentInfoDto)session.getAttribute("sessionStudentInfo");
+		
+		if(sessionstudentInfoDto == null) {
+			
+			return "redirect:../../another/student/loginPage";
+		}
+
+		
 		int studentPk = sessionstudentInfoDto.getStudent_pk();
 		
 		List<Map<String, Object>> eduApplyList = eduStudentService.getMyEduList(studentPk);
@@ -188,7 +216,11 @@ public class EduStudentController {
 	}
 	
 	
-	
+	@RequestMapping("healthCenterBossPage")
+	public String healthCenterBossPage() {
+		
+		return "tl_b/hs/healthCenterBossPage";
+	}
 	
 	
 	

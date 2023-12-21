@@ -43,14 +43,6 @@
         		}
         		
         	       		
-        		const inputField = document.getElementById("inputField");
-        		
-        		if(inputField.value == '채용분야'){
-        			alert("채용분야를 선택해주세요");
-        			inputField.focus();
-        			return;
-        		}
-        		
         		
         		const inputPosition = document.getElementById("inputPosition");
         		
@@ -124,7 +116,7 @@
 				<%-- 채용분야 --%>
 				<div class="row mt-3">
 					<div class="col">
-						<select id="inputField" class="form-select py-0 border-dark" name="job_field_category_pk">
+						<select class="form-select py-0 border-dark" name="job_field_category_pk">
 						    <c:forEach items="${jobFieldCategory}" var="jobField">
 						        <option value="${jobField.job_field_category_pk}" ${jobField.job_field_category_pk eq modifyJobPosting.jobFieldCategoryDto.job_field_category_pk ? 'selected' : ''}>
 						            ${jobField.job_field_category_name}
@@ -203,8 +195,8 @@
 					</div>
 				</div>
 				<div class="row mt-3">
-					<div class="col"><a class="btn btn-secondary" href="./jobPostingListPage">목록으로</a></div>
-					<div class="col-9"></div>
+					<div class="col"><a class="btn btn-outline-secondary" href="./jobPostingListPage">목록으로</a></div>
+					<div class="col-8"></div>
 					<div class="col pe-0">
 						<c:choose>
 							<c:when test="${empty sessionStaffInfo}">

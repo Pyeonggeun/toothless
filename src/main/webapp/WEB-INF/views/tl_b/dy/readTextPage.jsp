@@ -112,7 +112,7 @@
 				const inputReply = document.getElementById("inputReply");
 
 				if(inputReply.value == ''){
-					alert("댓글을 입력하세요.")
+					alert("댓글을 입력하세요.");
 					return ;
 				}
 				frm.submit();
@@ -120,8 +120,10 @@
 				document.querySelector(".avoidRedundancy").setAttribute("disabled", "true");
 			}
 		</script>
+		<script src="../../resources/js/hn/topBanner.js"></script>
     </head>
     <body>
+    	<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
@@ -167,7 +169,7 @@
                                             <div class="row">
                                             	<div class="col">
                                             		<c:forEach items="${readText.staffboardImageDtoList}" var="staffboardImageDto">
-                                            			<img class="img img-fluid" src="../../resources/img/healthRoom/staffboard/${staffboardImageDto.img_link}">
+                                            			<img class="img img-fluid" src="/uploadFiles/staffboard/${staffboardImageDto.img_link}">
                                             		</c:forEach>
                                             	</div>
                                             </div>

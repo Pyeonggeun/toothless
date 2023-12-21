@@ -68,51 +68,53 @@
 							<!-- 본문작성공간 -->
 				
 					<!-- 프로그램 상세하게 보기... -->				
-						<div class="row mt-5 ms-4">
+						<div class="row mt-4">
 							<div class="col">
-								<h2 style="font-weight:bold"><i class="bi bi-list-task"></i>&nbsp;&nbsp;${EduDto.title}</h2>							 	
+								<p style="font-weight:bold; font-size:1.2em" ><i class="bi bi-amd"></i>&nbsp;&nbsp;${EduDto.title}</p>							 	
 							</div>	
 						</div>
-						<div class = "row mt-4" >
-							<div class="border border-bottom border-dark border-2 "></div>
+						<div class = "row" >
+							<div class="border border-bottom border-dark border-1	"></div>
 						</div>
-						<div class="row mt-4 border">
-							<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9; height:3em" >접수기간</div>
-							<div class = "col-4 ps-3 d-flex align-items-center">${EduDto.progress_date}</div>
-							<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9">모집마감일자</div>
-							<div class = "col-4 ps-3 d-flex align-items-center">
+						<div class="row mt-4">
+							<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end border-top border-bottom" style ="background-color:#f9f9f9; height:2.5em" >접수기간</div>
+							<div class = "col-4 d-flex align-items-center  border-bottom border-top ">${EduDto.progress_date}</div>
+							<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end border-top border-bottom" style ="background-color:#f9f9f9; height:2.5em">모집마감일자</div>
+							<div class = "col-4 d-flex align-items-center  border-end border-top border-bottom" >
 							<fmt:formatDate pattern = "yyyy-MM-dd" value ="${EduDto.deadline_date}"/>
 								
 							</div>
 						</div>
-						<div class="row mt border">
-							<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9;height:3em">장소</div>
-							<div class = "col-10 d-flex align-items-center"> ${EduDto.place}</div>
+						<div class="row mt ">
+							<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end border-bottom" style ="background-color:#f9f9f9; height:2.5em">장소</div>
+							<div class = "col-10 d-flex align-items-center border-bottom border-end"> ${EduDto.place}</div>
 						</div>
-						<div class="row mt border">
-							<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9; height:3em">신청 가능 인원</div>
-							<div class = "col-4 ps-3 d-flex align-items-center">${EduDto.maximum_applicant}</div>
-							<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9">교육비</div>
-							<div class = "col-4 ps-3 d-flex align-items-center">무료</div>
+						<div class="row mt">
+							<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end border-bottom" style ="background-color:#f9f9f9; height:2.5em">신청 가능 인원</div>
+							<div class = "col-4 ps-3 d-flex align-items-center border-bottom">${EduDto.maximum_applicant}</div>
+							<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end border-bottom" style ="background-color:#f9f9f9">교육비</div>
+							<div class = "col-4 ps-3 d-flex align-items-center border-bottom border-end">무료</div>
 						</div>
 						
 						
 						<div class="row mt-4">
 						
-						<div class="col-1"></div>
-						<div class="col-10 d-flex justify-content-center">
-								<img class="img-fluid" src="/Git_imageFile/${EduDto.poster_image}" style ="height :30em;">
+				
+						<div class="col-12 d-flex justify-content-center px-0 mx-0" style="height:100em;" >
+								<img class="w-100 h-100 img-fluid" src="/Git_imageFile/${EduDto.poster_image}">
 						</div>
-						<div class="col-1"></div>
+			
 						</div>
 									
 						
-						<div class="row mt-4">
+						<div class="row mt-5">
+						
+						<div class="row mt-5">
 						<div class="col-10"></div>
 						<div class="col-2 d-flex justify-content-end">
-							<a href="./ajdksInquiryProgram" class="btn btn-dark">목록</a>
+							<a href="./ajdksInquiryProgram" class="btn btn-secondary">목록으로 돌아가기</a>
 						</div>
-						
+						</div>
 						</div>
 						
 						
@@ -132,33 +134,43 @@
 					<!-- 즉 이미 신청 했다면? -->
 					<c:choose>
 						<c:when test ="${!empty DeadProgram}">
-									<div class="row mt-4">
+									<div class="row mt-5">
+									<div class="row mt-5">
 									<div class="col-10"></div>
 									<div class="col-2 d-flex justify-content-end">
-										<button class="btn btn-danger" disabled="disabled">마감 되었습니다</button>
+										<button class="btn btn-danger" disabled="disabled">마감되었습니다</button>
 									</div>
 									<div class="col-1"></div>
 									</div>
+									</div>
+									
+									<div class="row mt-5"></div>
 						</c:when>
 						<c:when test="${!empty EduApplying}">
-									<div class="row mt-4">
+									<div class="row mt-5">
+									<div class="row mt-5">
 									<div class="col-10"></div>
 									<div class="col-2 d-flex justify-content-end">
 										<button disabled="disabled" class ="btn btn-dark">신청완료</button>
 									</div>
-	
 									</div>
+									</div>
+									
+									<div class="row mt-5"></div>
+							
 						</c:when>
 						<c:when test= "${empty EduApplying}">
 							<form action="./ajdksRegisterProgramProcess">
-								<div class="row mt-4">
+								<div class="row mt-5">
+								<div class="row mt-5">
 								<div class="col-10"></div>
 								<div class="col-2 d-flex justify-content-end">
 									<input type = "hidden" value="${EduDto.internedu_program_pk}" name ="internedu_program_pk">
-									<input type ="submit" value ="신청하기" class ="btn btn-primary">
+									<input type ="submit" value ="프로그램 신청하기" class ="btn btn-primary">
 								</div>
-								
 								</div>
+								</div>
+								<div class="row mt-5"></div>
 							</form>		
 						</c:when>
 						

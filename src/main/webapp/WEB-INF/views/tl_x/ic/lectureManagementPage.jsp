@@ -61,6 +61,7 @@
     			}else{
     			
 	    			for(e of response.data){
+	    				
 	    				const studentInfoListWrapper = document.querySelector("#studentInfoListTemplete .studentInfoListWrapper").cloneNode(true);	
 	        			
 	        			const name = studentInfoListWrapper.querySelector(".name");
@@ -127,7 +128,7 @@
     		.then(response => response.json())
     		.then((response) => {
     			
-    			const open_lecture_key = document.querySelector("#number");
+    			const number = document.querySelector("#number");
     			number.innerText = response.data.openLectureDto.open_lecture_key;
     			
     			const lectureName = document.querySelector("#lectureName");
@@ -186,9 +187,10 @@
 	    			
 	    				const targetDate = attendanceStatusWrapper.querySelector(".targetDate");
 	    				const resultDate = new Date(e.date);
+	    				
 	    				const day = resultDate.getFullYear()+"."+(resultDate.getMonth()+1)+"."+resultDate.getDate();
 	    				targetDate.innerText = day;
-	    				
+	    			
 	    				const absenceCount = attendanceStatusWrapper.querySelector(".absenceCount");
 	    				const lateCount = attendanceStatusWrapper.querySelector(".lateCount");
 	    				
@@ -349,14 +351,15 @@
      		
      	}
      	
-     	function insertTestQuestion(lecture_test_key) {
+     	/* function insertTestQuestion(lecture_test_key) {
 			const testQuestionWrapperList = document.querySelectorAll("#testQuestionListBox .testQuestionWrapper");
 			
-			for(testQuestionWrapper of testQuestionWrapperList){
+			for(testQuestionWrapperof1 of testQuestionWrapperList){
 				// 시험 문항 인서트 되어야함.
-				const question_number = testQuestionWrapper.querySelector(".questionNumber").innerText;
-				const question = testQuestionWrapper.querySelector(".question").value;
-				const test_point = testQuestionWrapper.querySelector(".test_point").value;
+				
+				const question_number = testQuestionWrapperof1.querySelector(".questionNumber").innerText;
+				const question = testQuestionWrapperof1.querySelector(".question").value;
+				const test_point = testQuestionWrapperof1.querySelector(".test_point").value;
 				
 				
 				
@@ -372,14 +375,16 @@
 	     		.then(response => response.json())
 	    		.then((response) => {
 	    			const test_question_key = response.data;
-	    			const choiceList = testQuestionWrapper.querySelectorAll(".choiceBox");
-	    			for(choiceBox of choiceList){
+	    			const choiceList = testQuestionWrapperof1.querySelectorAll(".choiceBox");
+	    			for(choiceBoxof1 of choiceList){
 						let answer = "false";
-						const choice = choiceBox.querySelector(".choice").value;
-						const answerCheckBox = choiceBox.querySelector(".answerCheckBox");
+						const choice = choiceBoxof1.querySelector(".choice").value;
+						console.log(choice);
+						const answerCheckBox = choiceBoxof1.querySelector(".answerCheckBox");
 						if(answerCheckBox.checked == true){
 							answer = "true";
 						}
+						
 						const url = "./insertQuestionChoice";
 			     		fetch(url , {
 			     			method: "post",
@@ -396,6 +401,51 @@
 	    		});
 	    		
 			}
+     	} */
+     	function insertTestQuestion(lecture_test_key) {
+     	    const testQuestionWrapperList = document.querySelectorAll("#testQuestionListBox .testQuestionWrapper");
+
+     	    for (const testQuestionWrapper of testQuestionWrapperList) {
+     	        const question_number = testQuestionWrapper.querySelector(".questionNumber").innerText;
+     	        const question = testQuestionWrapper.querySelector(".question").value;
+     	        const test_point = testQuestionWrapper.querySelector(".test_point").value;
+
+     	        const url = "./insertTestQuestionAndGetQuestionPk";
+     	        fetch(url, {
+     	            method: "post",
+     	            headers: {
+     	                "Content-Type": "application/x-www-form-urlencoded"
+     	            },
+     	            body: "lecture_test_key=" + lecture_test_key + "&question=" + question + "&test_point=" + test_point + "&question_number=" + question_number
+     	        })
+     	        .then(response => response.json())
+     	        .then((response) => {
+     	            const test_question_key = response.data;
+
+     	            const choiceList = testQuestionWrapper.querySelectorAll(".choiceBox");
+     	            for (const choiceBox of choiceList) {
+     	                let answer = "false";
+     	                const choice = choiceBox.querySelector(".choice").value;
+     	                const answerCheckBox = choiceBox.querySelector(".answerCheckBox");
+
+     	                if (answerCheckBox.checked == true) {
+     	                    answer = "true";
+     	                }
+
+     	                const choiceUrl = "./insertQuestionChoice";
+     	                fetch(choiceUrl, {
+     	                    method: "post",
+     	                    headers: {
+     	                        "Content-Type": "application/x-www-form-urlencoded"
+     	                    },
+     	                    body: "test_question_key=" + test_question_key + "&choice=" + choice + "&answer=" + answer
+     	                });
+     	            }
+
+     	            hideTestWriteModal();
+     	            lectureTestListInfo(open_lecture_key);
+     	        });
+     	    }
      	}
      	function checkTestResult(target){
      		
@@ -420,6 +470,7 @@
 			selectDate.value = date_created;
 			
  			openModalLectureInfo();
+ 			
      		checkAttendanceBook(date_created);
      		
      		modal.show();
@@ -631,9 +682,9 @@
      
      	
      	function insertAttendanceBook(){
-     		const open_lecture_key = document.querySelector("#open_lecture_key");
-        	const open_lecture_key_value = open_lecture_key.getAttribute("value");
-        	const selectDate =document.querySelector("#selectDate");
+     		
+        	
+        	const selectDate =document.querySelector("#selectDate").value;
      		const study_log = document.querySelector("#study_log");
      		const url = "./insertAttendanceBookProcess";
      		
@@ -642,7 +693,7 @@
      			headers: {
      				"Content-Type": "application/x-www-form-urlencoded"
      			},
-     			body:"open_lecture_key="+open_lecture_key_value+"&date_created="+selectDate.value
+     			body:"open_lecture_key="+open_lecture_key+"&date_created="+selectDate
      	            +"&study_log="+study_log.value
      		})
      		.then(response => response.json())
@@ -707,6 +758,9 @@
             	}
             }
             hideAttendanceModal();
+            loadAttendanceStatusList(open_lecture_key);
+            getStudyingInfo(open_lecture_key);
+            loadStudentInfo(open_lecture_key);
             	
 		}
      	
@@ -1163,8 +1217,6 @@
                 </div>
                 <div class="col-1"></div>
             </div>
-           
-
         </div>
         
         <div id="attendanceStatusTemplete" class="d-none">
@@ -1228,7 +1280,6 @@
 			      <div class="row">
 			      	<div class="col-8 text-danger" style="font-size: small">
 			      		*출석 현황은 직접기입하지 않고 결석자, 지각자를 체크하시면 자동으로 기입됩니다.
-			      		<input id="open_lecture_key" type="hidden">
 			      	</div>
 			      	<div class="col pe-0">
 			      		날짜 선택

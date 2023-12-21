@@ -62,10 +62,10 @@
 			<!-- 상세이미지 리스트 출력 -->
 			<div class="row">
 				<c:forEach items="${dormAmount }" var="ct">
-					<div class="col my-3">
+					<div class="col-md-3 my-3">
 						<div class="card" style="width: 18rem;">
 			
-							<img src="../../resources/img/dormitory/uploadRoomDetailImgs/${ct.dorm_imgs }" class="d-grid img-fluid card-img-top" style="height:11em;">
+							<img src="/uploadRoomImgs/${ct.dorm_imgs }" class="d-grid img-fluid card-img-top" style="height:11em;">
 							<div class="card-body">
 							    <h5 class="card-title fw-bold">${ct.dorm_amount }인실 상세이미지</h5>
 							    <p class="card-text">${dorm.address }</p>

@@ -93,7 +93,7 @@
 			const likeSpan = noticeTitle.querySelector(".likeSpan");
 			likeSpan.innerText = "[" + "추천" + e.likeCount + "]";
 			const dislikeSpan = noticeTitle.querySelector(".dislikeSpan");
-			dislikeSpan.innerText = "[" + "비추" + e.disLikeCount + "]";
+			dislikeSpan.innerText = "[" + "비추천" + e.disLikeCount + "]";
 			
 			const noticeRead_Count = noticeListWrapper.querySelector(".noticeRead_Count");
 			noticeRead_Count.innerText = e.noticeBoardDto.read_count;
@@ -206,72 +206,90 @@
 		</div>
 	</div>
 
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
-			<div class="col">
+			<div class="col-3 mt-2">
+				<div class="row">
+					<div class="col text-start">
+						<span><i class="bi bi-house"></i> &gt; </span>
+						<span>상담 지원 센터 &gt; </span>
+						<span>공지사항</span>
+					</div>
+				</div>
+			</div>
+			<div class="col mt-2">
+				<div id=frm>
+					<div class="row">
+						<div class="col-2">
+							<select id="searchType" name="searchType" class="form-select">
+								<option value="title" selected>제목</option>
+								<option value="text">내용</option>
+								<option value="name">작성자</option>
+							</select>
+						</div>
+						<div class="col">
+							<input id="searchWord" name="searchWord" type="text" class="form-control">
+						</div>
+						<div class="col-2 d-grid">
+							<input type="button" class="btn btn-light" onclick="formSubmit()" value="검색" ></input>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-2 mt-2">
 				<div class="row">
 					<div class="col">
 						<div class="row">
-							<div class="col-1"></div>
-							<div class="col">
-								<div id=frm>
-									<div class="row mt-3">
-										<div class="col">
-											<div class="row">
-												<div class="col rotate-icon mt-2">
-													<img src="../../resources/img/notice/images.jpg" width="30%" height="auto" style="border-radius: 50%;">
-												</div>
-											</div>
-										</div>
-										<div class="col-3 mt-3 text-center">
-											<span>HOME &gt; </span>
-											<span>상담 지원 센터 &gt; </span>
-											<span>공지사항</span>
-										</div>
-										<div class="col">
-											<div class="row">
-												<div class="col rotate-icon mt-2">
-													<img src="../../resources/img/notice/images2.jpg" width="30%" height="auto" style="border-radius: 50%;">
-												</div>
-											</div>
-										</div>
-										<div class="col-1">
-											<select id="searchType" name="searchType" class="form-select">
-												<option value="title" selected>제목</option>
-												<option value="text">내용</option>
-												<option value="name">작성자</option>
-											</select>
-										</div>
-										<div class="col-3">
-											<input id="searchWord" name="searchWord" type="text" class="form-control">
-										</div>
-										<div class="col-2 d-grid">
-											<input type="button" class="btn btn-light" onclick="formSubmit()" value="검색" ></input>
-										</div>
-									</div>	
+							<div class="col pe-3">
+								<div class="dropdown d-grid">
+									<button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+								    	상담 안내
+								  	</button>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" href="../onlineCounsel/onlineCounselMainPage">온라인 상담</a></li>
+										<li><a class="dropdown-item" href="../offlineCounsel/selectCounselorPage">오프라인 상담</a></li>
+										<li><a class="dropdown-item" href="../groupcounsel/student/groupCounselListPage">집단 상담</a></li>
+										<li><a class="dropdown-item" href="../freeboardCounsel/freeboardCounselPage">자유 게시판</a></li>
+									</ul>
 								</div>
+								
+								<div class="row">&nbsp;</div>
+								<div class="row">&nbsp;</div>
+								<div class="row">&nbsp;</div>
+								<div class="row">&nbsp;</div>
+								<div class="row">&nbsp;</div>
 								<div class="row">
 									<div class="col">
-										<div class="row fw-bold mt-3 fs-5">
-											<div class="col-1"><i class="bi bi-chat-square-text-fill"></i>&nbsp;글번호</div>
-											<div class="col-8"><i class="bi bi-emoji-expressionless-fill"></i>&nbsp;제목</div>
-											<div class="col-1"><i class="bi bi-emoji-heart-eyes-fill"></i>&nbsp;조회수</div>
-											<div class="col-1"><i class="bi bi-person-arms-up"></i>&nbsp;작성자</div>
-											<div class="col-1"><i class="bi bi-calendar-heart-fill"></i>&nbsp;작성일</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col" style="overflow-y: auto; max-height: 400px;">
-										<div id="noticeListBox" class="row">
-											<div class="col" >
-												
-											</div>
+										<div class="col pt-5">
+											<img src="../../resources/img/onlineCounsel/doctor.png" width="100%" height="auto" style="border-radius: 10px;">
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-1"></div>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<div class="col ps-4 mt-2">
+				<div class="row">
+					<div class="col mt-2">
+						<div class="row fw-bold fs-6">
+							<div class="col"><i class="bi bi-chat-square-text-fill"></i>&nbsp;글번호</div>
+							<div class="col-7 ps-0 pe-5"><i class="bi bi-emoji-expressionless-fill"></i>&nbsp;제목</div>
+							<div class="col ps-5 pe-0"><i class="bi bi-emoji-heart-eyes-fill"></i>&nbsp;조회수</div>
+							<div class="col ps-2 pe-0"><i class="bi bi-person-arms-up"></i>&nbsp;작성자</div>
+							<div class="col ps-2 pe-0"><i class="bi bi-calendar-heart-fill"></i>&nbsp;작성일</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col" style="overflow-y: auto; max-height: 600px;">
+						<div id="noticeListBox" class="row">
+							<div class="col">
+								
+							</div>
 						</div>
 					</div>
 				</div>
@@ -308,26 +326,26 @@
 	
 	<div id="templete" class="row">
 		<div class="col">
-			<div class="noticeListWrapper row mt-2 mb-2">
+			<div class="noticeListWrapper row mt-2 mb-2 ps-4 pe-0">
 				<div class="noticePk col-1"></div>
 				<div class="noticeTitle col-8 border-bottom">
 					<div class="row">
-						<div class="col-10">
-							<a class="titleUrl link-offset-2 link-underline link-underline-opacity-0 fs-5" style="color: black"></a>
+						<div class="col-9">
+							<a class="titleUrl link-offset-2 link-underline link-underline-opacity-0 fs-5 ps-2" style="color: black"></a>
 							<span class="titleSpan fw-bold text-danger" style="font-size:0.7em;"></span>
 							<span class="imageSpan"></span>
 						</div>
-						<div class="col-1">
+						<div class="col pe-0 text-end">
 							<span class="likeSpan fw-bold" style="font-size:0.7em;"></span>
 						</div>
-						<div class="col-1">
+						<div class="col ps-0 pe-4 text-end">
 							<span class="dislikeSpan fw-bold" style="font-size:0.7em;"></span>
 						</div>
 					</div>
 				</div>
-				<div class="noticeRead_Count col-1 text-center"></div>
-				<div class="noticeNickname col-1 text-center"></div>
-				<div class="noticeDate col-1 text-center"></div>
+				<div class="noticeRead_Count col-1"></div>
+				<div class="noticeNickname col-1"></div>
+				<div class="noticeDate col-1 ps-1"></div>
 			</div>
 		</div>
 	</div>

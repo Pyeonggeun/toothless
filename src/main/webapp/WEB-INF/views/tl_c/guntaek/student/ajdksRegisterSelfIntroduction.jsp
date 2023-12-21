@@ -83,36 +83,27 @@
 		
 	<div class="col mx-5">
 					
-		<div class="row ms-2 mt-5 border rounded" style ="height:15em;">
+		
+		
+	<%-- 답변도 안했을 경우 안내문만 출력 (자소서 먼저 등록하라고)--%>
+<c:choose>
+					
+		<c:when test = "${empty selfIntroductionDto}"> 
+			<div class="row ms-2 mt-5 border rounded" style ="height:15em;">
             
-            <div class="col-2 border-end">
+            <div class="col-2 border-end d-flex align-items-center">
           	  
-            	<div class="row d-flex justify-content-center align-items-center">	
-                	<form action="./ajdksRegisterIntroductionImage" enctype="multipart/form-data" method ="post" >
-	    
-	    
-	    				<div class="row">
-		    				<div class="col d-flex justify-content-center" style="padding-top:2em">
-	                          <label for= "kuntek">
-	                                
-	                                    <img src = "../../../resources/img/tl_c/profile.png" style="height:9em;"> 
-	                         
-	                          </label> 
+            	<div class="row  ">	
+        
+	    				
+		    				<div class="col d-flex justify-content-center ">             					
+	                      			 <strong>자소서를 먼저 등록해주세요.</strong>	
 	                       	</div>
-                        </div>
+                    
                         
-                        <div class="row">
-                        	<div class="col">
-                              <input class="d-none" id = "kuntek" name="imageLink" type="file">		                       
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                      		<div class="col mt-4 d-flex justify-content-center">
-                        	 <input type ="submit" value="제출 버튼">                            
-                			</div>   	
-                        </div>
-                       </form>
+                      
+                    
+                    
                 
                 </div>
             </div> 
@@ -168,8 +159,182 @@
                     
               </div> 
 			</div>
+		</c:when>
+						
+					
+	<%-- 자소서만 등록한 경우 (이미지 아직 X) --%>
+			<c:when test = "${selfIntroductionDto.self_introduction_img_pk==0}"> 
+								<div class="row ms-2 mt-5 border rounded" style ="height:15em;">
+							            
+							            <div class="col-2 border-end">
+							          	  
+							            	<div class="row d-flex justify-content-center align-items-center">	
+							                	<form action="./ajdksRegisterIntroductionImage" enctype="multipart/form-data" method ="post" >
+								    
+								    
+								    				<div class="row">
+									    				<div class="col d-flex justify-content-center" style="padding-top:2em">
+								                          <label for= "kuntek">
+								                                
+								                                    <img src = "../../../resources/img/tl_c/profile.png" style="height:9em;"> 
+								                         
+								                          </label> 
+								                       	</div>
+							                        </div>
+							                        
+							                        <div class="row">
+							                        	<div class="col">
+							                              <input class="d-none" id = "kuntek" name="imageLink" type="file">		                       
+							                            </div>
+							                        </div>
+							                        
+							                        <div class="row">
+							                      		<div class="col mt-4 d-flex justify-content-center">
+							                        	 <input type ="submit" value="제출 버튼">                            
+							                			</div>   	
+							                        </div>
+							                       </form>
+							                
+							                </div>
+							            </div> 
+							     <div class="col-10">
+							                <div class="row">
+							                    <div class="col-6">
+							                       
+							                        <div class="row ms-5" style="margin-top:2em">
+							
+							                            <span>
+							                                <a style="color:black;  font-size:1.3em" class="fw-semibold text-decoration-none" >${loginUser.name} </a>
+							                                
+							                                <c:if test ="${loginUser.gender == 'M'}">
+							                                	<a style="color:gray">&nbsp;&nbsp;&nbsp;남자</a>
+							                            	</c:if>
+							                            	
+							                            	<c:if test ="${loginUser.gender == 'F'}">
+							                                	<a style="color:gray">&nbsp;&nbsp;&nbsp;여자</a>
+							                            	</c:if>
+							                            </span>
+							                        </div>
+							                        <div class="row ms-5 mt-5">
+							
+							                            <span>&nbsp;주소<a style="color:gray"> <span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginUser.address}</a></span>
+							                        </div>
+							                        <div class="row ms-5 mt-5">
+							                            <span>휴대폰<a style="color:gray"><span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginUser.phone}</a></span>
+							                        </div>
+							                       
+							                    </div>
+							                    
+							                  
+							                  <div class="col-6">
+							                       
+							                        <div class="row" style="margin-top:2em;">
+														
+														<div class="col-10"></div>
+							                            
+							                            	<div class="col-2">
+							                            		<span><a style="color:gray;  font-size:1.3em"><i class="bi bi-gear"></i> </a></span>
+							                        		</div>
+							                        </div>
+							                        <div class="row ms-5 mt-5">
+							
+							                            <span>주민번호<a style="color:gray"> <span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginUser.resident_id}</a></span>
+							                        </div>
+							                        <div class="row ms-5 mt-5">
+							                            <span>이메일<a style="color:gray"><span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginUser.email}</a></span>
+							                        </div>
+							                       
+							                    </div>
+							               </div>     
+							                    
+							              </div> 
+										</div>
+					
+			</c:when>
+	<%-- 만약 이미지를 등록했다면!? --%>					
+			<c:when test = "${selfIntroductionDto.self_introduction_img_pk != 0}">
+		<div class="row ms-2 mt-5 border rounded" style ="height:15em;">
+            
+            <div class="col-2 d-flex justify-content-center align-items-center border-end px-0 py-0 mx-0" style ="height: 15em;">
+                            <div class="row w-100 px-0 py-0">
+                            	<div class="col w-100">
+                                	<img class="img-fluid rounded border w-100 px-0 py-0 " src="/Git_imageFile/${imageLink}" style ="height:14.8em">
+                                </div>
+                            </div>
+                                
+
+			</div>
+     <div class="col-10">
+                <div class="row">
+                    <div class="col-6">
+                       
+                        <div class="row ms-5" style="margin-top:2em">
+
+                            <span>
+                                <a style="color:black;  font-size:1.3em" class="fw-semibold text-decoration-none" >${loginUser.name} </a>
+                                
+                                <c:if test ="${loginUser.gender == 'M'}">
+                                	<a style="color:gray">&nbsp;&nbsp;&nbsp;남자</a>
+                            	</c:if>
+                            	
+                            	<c:if test ="${loginUser.gender == 'F'}">
+                                	<a style="color:gray">&nbsp;&nbsp;&nbsp;여자</a>
+                            	</c:if>
+                            </span>
+                        </div>
+                        <div class="row ms-5 mt-5">
+
+                            <span>&nbsp;주소<a style="color:gray"> <span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginUser.address}</a></span>
+                        </div>
+                        <div class="row ms-5 mt-5">
+                            <span>휴대폰<a style="color:gray"><span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginUser.phone}</a></span>
+                        </div>
+                       
+                    </div>
+                    
+                  
+                  <div class="col-6">
+                       
+                        <div class="row" style="margin-top:2em;">
+							
+							<div class="col-10"></div>
+                            
+                            	<div class="col-2">
+                            		<span><a style="color:gray;  font-size:1.3em"><i class="bi bi-gear"></i> </a></span>
+                        		</div>
+                        </div>
+                        <div class="row ms-5 mt-5">
+
+                            <span>주민번호<a style="color:gray"> <span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginUser.resident_id}</a></span>
+                        </div>
+                        <div class="row ms-5 mt-5">
+                            <span>이메일<a style="color:gray"><span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginUser.email}</a></span>
+                        </div>
+                       
+                    </div>
+               </div>     
+                    
+              </div> 
+			</div>
+					
+					
+			</c:when>	
+</c:choose>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			<!-- 자소서를 하나도 등록하지 않았을때 이력서를 등록해준다.-->
-			<!--  -->
 			<c:choose>
 				<c:when test = "${introductionCount == 0}"> 
  			

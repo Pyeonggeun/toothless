@@ -161,7 +161,7 @@ public class BuildingController {
 		//기숙사 건물(동) 대표 이미지
 		if (mainImage != null && !mainImage.isEmpty()) {
 	       // String rootPath = "C:/uploadDormMainImg/";
-	        String rootPath = "C:\\workspace\\GitWorkSpace\\toothless\\src\\main\\webapp\\resources\\img\\dormitory\\uploadDormMaingImg\\";
+	        String rootPath = "C:/uploadDormMainImg/";
 
 	        // 날짜별 폴더 생성.
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
@@ -222,7 +222,7 @@ public class BuildingController {
 					continue;
 				}
 				
-				String rootPath = "C:\\workspace\\GitWorkSpace\\toothless\\src\\main\\webapp\\resources\\img\\dormitory\\uploadRoomDetailImgs\\";
+				String rootPath = "C:/uploadRoomImgs/";
 				
 				// 날짜별 폴더 생성.
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");

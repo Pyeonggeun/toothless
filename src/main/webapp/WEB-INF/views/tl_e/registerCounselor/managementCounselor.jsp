@@ -551,7 +551,7 @@
     			
     			const modal = bootstrap.Modal.getOrCreateInstance("#registerModal");
                 modal.hide();
-                reloadCounselorList();
+                refreshPage();
     		}
     		
     		if(response.result == "fail"){

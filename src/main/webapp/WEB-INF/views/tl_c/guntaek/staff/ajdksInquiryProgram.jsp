@@ -68,63 +68,57 @@
 			<div class="col mx-4">
 			<!-- 본문작성공간 -->
 				
+			
+
+
+
+				<div class="row mt-5">
+					<div class="col fw-bold">
+						<i style ="font-size:1.5em;" class="bi bi bi-gear"></i> &nbsp; 교육프로그램 조회 및 삭제
+					</div>
+				</div>
+									 
+				<div class="row mt-5 g-0 py-0 border mt-3 fw-bold" style="height: 3em; background-color:#F8F8F8; " >
+					<div class="col-1 d-flex justify-content-center  align-items-center border-end h-100" style ="font-size:0.8em;" >No</div>
+					<div class="col-3 d-flex justify-content-center  align-items-center border-end h-100" style ="font-size:0.8em;">제목</div>
+					<div class="col-1 d-flex justify-content-center  align-items-center border-end h-100" style ="font-size:0.8em;">담당자</div>
+					<div class="col-1 d-flex justify-content-center  align-items-center border-end h-100" style ="font-size:0.8em;">강연자</div>
+					<div class="col-2 d-flex justify-content-center  align-items-center border-end h-100" style ="font-size:0.8em;">장소</div>
+					<div class="col-1  d-flex justify-content-center  align-items-center border-end h-100" style ="font-size:0.8em;">신청 가능 인원</div>
+					<div class="col-1 d-flex justify-content-center  align-items-center border-end h-100" style ="font-size:0.8em;">모집 마감일</div>
+					<div class="col-1 d-flex justify-content-center  align-items-center border-end h-100" style ="font-size:0.8em;">진행 날짜</div>
+					<div class="col-1 d-flex justify-content-center  align-items-center border-end h-100" style ="font-size:0.8em;">작성일자</div>
+				</div>
 				
-				<div class="row mt-5 ms-4">
-				<div class="col fw-bold">
-						<h3><i class="bi bi-person-lines-fill"></i>&nbsp;&nbsp;교육 프로그램 조회</h3>
-				</div>
-				</div>
-				<div class="row mt-3">
-					<div class="col border border-2 border-dark" ></div>
-				</div>
-				 
-				<div class="row" style ="margin-top:6em;">
-					<div class="col border border-1"></div>
-				</div>
-				<div class="row mt-3 d-flex align-items-center text-center fw-bold" style="font-size: 0.9em; height:2.3em;">
-					<div class="col-1">No</div>
-					<div class="col-3">제목</div>
-					<div class="col-1">담당자</div>
-					<div class="col-1">강연자</div>
-					<div class="col-2">장소</div>
-					<div class="col-1">신청 가능 인원</div>
-					<div class="col-1">모집 마감일</div>
-					<div class="col-1">진행 날짜</div>
-					<div class="col-1">작성일자</div>
-				</div>
-				<div class="row mt-3">
-					<div class="col border border-1 "></div>
-				</div>
-				<!-- 다시 -->
+				
 					<c:forEach items="${list}" var="a">
-							<div class="row mt-3 d-flex align-items-center text-center" style="font-size: 0.8em; height:2.3em;" >
-								<div class="col-1">${a.eduDto.internedu_program_pk}</div>
-								<div class="col-3">
-								<a href="./ajdksDetailInquiryProgram?internedu_program_pk=${a.eduDto.internedu_program_pk}"
-								style ="color:black;"
-								>
-									${a.eduDto.title}
-								</a>								</div>								
-								<div class="col-1">${a.staffDto.name}</div>
-								<div class="col-1">${a.eduDto.lecturer}</div>
-								<div class="col-2">${a.eduDto.place}</div>
-								<div class="col-1">${a.eduDto.maximum_applicant}</div>
-								<div class="col-1">
-								<fmt:formatDate pattern = "yyyy/MM/dd" value="${a.eduDto.deadline_date}"/>
-								</div>
-								<div class="col-1">${a.eduDto.progress_date}</div>
-								
-								<div class="col-1">
-								<fmt:formatDate pattern = "yyyy/MM/dd" value="${a.eduDto.created_at}"/>
-							
-								</div>
+						<div class="row g-0 py-0 " style="font-size: 0.9em; height: 3em;" >
+						    <div class="col-1 d-flex justify-content-center  align-items-center border-end border-start border-bottom h-100">
+						    		${a.eduDto.internedu_program_pk}
+						    </div>
+						    
+						    <div class="col-3 d-flex justify-content-center align-items-center border-bottom border-end h-100">
+						    		<a href="./ajdksDetailManageProgram?internedu_program_pk=${a.eduDto.internedu_program_pk}" style ="color:black;">
+										${a.eduDto.title}
+									</a>	
 							</div>
-							<div class="row mt-3">
-								<div class="col border border-secondary-subtle"></div>
-							</div>
+						    <div class="col-1 d-flex justify-content-center align-items-center border-bottom  border-end  h-100">
+						    			${a.staffDto.name}
+						    			
+						    </div>
+						    <div class="col-1 d-flex justify-content-center align-items-center border-bottom border-end  h-100">
+						    			${a.eduDto.lecturer}
+						    </div>
+						    <div class="col-2 d-flex justify-content-center align-items-center border-bottom border-end  h-100">
+						    			${a.eduDto.place}
+						    </div>
+						    <div class="col-1 d-flex justify-content-center align-items-center border-bottom border-end  h-100">${a.eduDto.maximum_applicant}</div>
+						    <div class="col-1 d-flex justify-content-center align-items-center border-bottom border-end  h-100"><fmt:formatDate pattern = "yyyy/MM/dd" value="${a.eduDto.deadline_date}"/></div>
+							<div class="col-1 d-flex justify-content-center align-items-center border-bottom border-end  h-100">${a.eduDto.progress_date}</div>
+							<div class="col-1 d-flex justify-content-center align-items-center border-bottom border-end  h-100"><fmt:formatDate pattern = "yyyy/MM/dd" value="${a.eduDto.created_at}"/></div>
+						
+						</div>				
 					</c:forEach>
-				
-				
 				
 			</div>
 		</div>

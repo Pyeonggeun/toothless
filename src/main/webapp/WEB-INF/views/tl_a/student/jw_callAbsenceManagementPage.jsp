@@ -192,6 +192,21 @@
             </div>
         </div>
         
+        <pre>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        </pre>
 
 <!-- 하단 footer -->
 <jsp:include page="../commons/student/footer.jsp"></jsp:include>

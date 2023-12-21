@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -161,9 +162,15 @@ public class OfflineCounselServiceImpl {
 	}
 	
 	public Map<String, Object> insertOfflineReservationInfo(
-			OfflineReservationDto params, 
+			int student_pk, int counselor_id, int type_category_id, String text, 
 			@RequestParam(value = "counsel_hour") String counsel_hour) {
 		
+		OfflineReservationDto params = new OfflineReservationDto();
+		
+		params.setStudent_pk(student_pk);
+		params.setCounselor_id(counselor_id);
+		params.setType_category_id(type_category_id);
+		params.setText(text);
 		
 		// 밑에 로직 추후 sevice단에서 구현하고 예약dto에 년,월,일,시 각각 set해주면 됨... 
 		String str[] = counsel_hour.split("\\.");
@@ -179,6 +186,9 @@ public class OfflineCounselServiceImpl {
 		params.setCounsel_hour(dayInfo[3]);
 		params.setCounsel_day(dayInfo[4]);
 		params.setState("신청");
+		
+		int offlineReservationPk = offlineCounselMapper.createOfflineReservationPk();
+		params.setId(offlineReservationPk);
 
 		offlineCounselMapper.insertOfflineReservationInfo(params);
 		
@@ -186,8 +196,8 @@ public class OfflineCounselServiceImpl {
 		
 		OfflineReservationDto offlineReservationDto = offlineCounselMapper.selectOfflineReservationCompletedInfo(params.getId());
 		
-		int counselor_id = offlineReservationDto.getCounselor_id();
-		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfo(counselor_id);
+		int counselor_pk = offlineReservationDto.getCounselor_id();
+		CounselorDto counselorDto = offlineCounselMapper.selectCounselorInfo(counselor_pk);
 		
 		int categoryId = offlineReservationDto.getType_category_id();
 		TypeCategoryDto typeCategoryDto = offlineCounselMapper.selectTypeCategoryDtoById(categoryId);
@@ -594,6 +604,28 @@ public class OfflineCounselServiceImpl {
 	public List<Map<String, Object>> getDateReservationList(){
 		
 		return offlineCounselMapper.selectDateValueReservationList();
+	}
+	
+	public Map<String, Object> getCalendarData() {
+		
+		
+		Calendar cal = Calendar.getInstance();
+		
+		cal.set(2019,9,1);
+		
+		System.out.println();
+		
+		return null;
+	}
+	
+	public Map<String, Object> categoryAndCounselor(int categoryPk, int counselorPk){
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("categoryDto",offlineCounselMapper.selectTypeCategoryDtoById(categoryPk));
+		map.put("counselorDto", offlineCounselMapper.selectCounselorInfo(counselorPk));
+		
+		return map;
 	}
 	
 	

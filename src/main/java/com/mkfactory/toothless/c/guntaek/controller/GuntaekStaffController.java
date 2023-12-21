@@ -75,7 +75,7 @@ public class GuntaekStaffController {
 				eduProgramDto.setPoster_image(todayPath + fileName);
 		}
 				guntaekStaffService.registerEduProgram(eduProgramDto);
-				return "redirect:./ajdksRegisterProgramComplete";
+				return "redirect:./ajdksRegisterProgram";
 	}
 
 

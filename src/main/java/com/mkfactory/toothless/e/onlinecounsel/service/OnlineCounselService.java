@@ -86,6 +86,7 @@ public class OnlineCounselService {
 		
 		OnlineCounselBoardDto onlineCounselBoardDto = onlineCounselSqlMapper.selectCounsel(counsel_pk);
 		
+		
 		map.put("surveyDto", onlineCounselSqlMapper.selectSurvey(counsel_pk));
 		map.put("isSurveyed", onlineCounselSqlMapper.isSurveyed(counsel_pk));
 		map.put("count", onlineCounselSqlMapper.getReplyCount(counsel_pk));
@@ -207,9 +208,13 @@ public class OnlineCounselService {
 		return onlineCounselSqlMapper.selectGroupCounselListSpecificNum();
 	}
 	
+	
 	public double getLastestReadCountAvg() {
 		
+
 		return onlineCounselSqlMapper.selectLastestReadCountAvg();
+		
+		
 	}
 	
 	public List<NoticeBoardDto> getTop3ReadCountNotice(){

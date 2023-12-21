@@ -265,7 +265,7 @@
                                                                    
                                                                 </div>
                                                             </c:forEach>
-                                                            <div class="row mt-2"> <!--등록버튼이요-->
+                                                            <div class="row mt-4"> <!--등록버튼이요-->
                                                                 <div class="col text-end" >
                                                                     <a class="btn fw-bold text-white rounded-0" href="./eduProgRegisterPage"
                                                                     role="button" style="background-color: #014195;
