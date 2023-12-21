@@ -72,7 +72,7 @@
 				<c:when test ="${!empty staffDto}">
 				<div class="row mt-5">
 					<div class="col fw-bold">
-						교육프로그램 등록
+						<i style ="font-size:1.5em;"class="bi bi-calendar-plus-fill"></i> &nbsp; 교육프로그램 등록
 					</div>
 				</div>
 				<div class="row mt-3">
@@ -81,7 +81,7 @@
 				
 				
 				<form action="./ajdksRegisterProgramProcess" method ="post" enctype="multipart/form-data">
-				<div class="row mt-5">
+				<div class="row mt-4">
 					<div class="col mt-2 me-2 d-flex justify-content-end" style="font-size: 0.9em;">
 						프로그램 제목
 					</div>
@@ -91,7 +91,7 @@
 					<div class="col"></div>
 				</div>
 				
-				<div class="row mt-5">
+				<div class="row mt-3">
 					<div class="col mt-2 me-2 d-flex justify-content-end" style="font-size: 0.9em;">
 						프로그램 내용
 					</div>
@@ -101,7 +101,7 @@
 					<div class="col"></div>
 				</div>
 				
-				<div class="row mt-5">
+				<div class="row mt-3">
 					<div class="col mt-2 me-2 d-flex justify-content-end" style="font-size: 0.9em;">
 						프로그램 장소
 					</div>
@@ -111,7 +111,7 @@
 					<div class="col"></div>
 				</div>
 									
-				<div class="row mt-5">
+				<div class="row mt-3">
 					<div class="col mt-2 me-2 d-flex justify-content-end" style="font-size: 0.9em;">
 						프로그램 강연자
 					</div>
@@ -121,7 +121,7 @@
 					<div class="col"></div>
 				</div>
 				
-				<div class="row mt-5">
+				<div class="row mt-3">
 					<div class="col mt-2 me-2 d-flex justify-content-end" style="font-size: 0.9em;">
 						신청가능 인원
 					</div>
@@ -131,7 +131,7 @@
 					<div class="col"></div>
 				</div>
 				
-				<div class="row mt-5">
+				<div class="row mt-3">
 					<div class="col mt-2 me-2 d-flex justify-content-end" style="font-size: 0.9em;">
 						프로그램 진행 날짜
 					</div>
@@ -141,7 +141,7 @@
 					<div class="col"></div>
 
 				</div>
-				<div class="row mt-5">
+				<div class="row mt-3">
 					<div class="col mt-2 me-2 d-flex justify-content-end" style="font-size: 0.9em;">
 						모집 마감일
 					</div>
@@ -152,7 +152,7 @@
 
 				</div>
 				
-				<div class="row mt-5">
+				<div class="row mt-3">
 					<div class="col mt-2 me-2 d-flex justify-content-end" style="font-size: 0.9em;">
 						이미지 등록
 					</div>

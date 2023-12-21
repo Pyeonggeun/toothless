@@ -208,9 +208,13 @@ public class OnlineCounselService {
 		return onlineCounselSqlMapper.selectGroupCounselListSpecificNum();
 	}
 	
+	
 	public double getLastestReadCountAvg() {
 		
+
 		return onlineCounselSqlMapper.selectLastestReadCountAvg();
+		
+		
 	}
 	
 	public List<NoticeBoardDto> getTop3ReadCountNotice(){

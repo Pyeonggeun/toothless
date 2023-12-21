@@ -62,7 +62,7 @@
 			<!-- 상세이미지 리스트 출력 -->
 			<div class="row">
 				<c:forEach items="${dormAmount }" var="ct">
-					<div class="col my-3">
+					<div class="col-md-3 my-3">
 						<div class="card" style="width: 18rem;">
 			
 							<img src="/uploadRoomImgs/${ct.dorm_imgs }" class="d-grid img-fluid card-img-top" style="height:11em;">

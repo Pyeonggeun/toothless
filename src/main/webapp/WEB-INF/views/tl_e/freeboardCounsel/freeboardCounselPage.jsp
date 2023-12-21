@@ -23,11 +23,16 @@
 			search.submit(); 
 			
 		}
+		
+		.btn:hover {
+			  background-color: #8FBC8F;
+			}
 	
 	</script>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
 </head>
 <body>
 
@@ -128,7 +133,7 @@
 										
 															<form id="search" action="./freeboardCounselPage" method="get">
 																<div class="row text-center py-3"> <!--검색-->
-																	<div class="col-3"> 
+																	<div class="col-4"> 
 																		<select name="searchType" class="form-select">   
 																			<option selected value="title">글 제목</option>
 																			<option value="text">글내용</option>
@@ -137,10 +142,10 @@
 																		</select>
 																	</div>
 																	<div class="col-6"> 
-																		<input id="inputWord" name ="searchWord" type = "text" class="form-control" placeholder="검색할 내용을 입력하세요">
+																		<input id="inputWord" name ="searchWord" type ="text" class="form-control" placeholder="검색할 내용을 입력하세요">
 																	</div>
-																	<div class="col"> 
-																		<input class="btn btn-dark" type="button" onclick="formSubmit()" value="검색">
+																	<div class="col-2"> 
+																		<input class="btn btn-dark" type="button" onclick="formSubmit()" value="검색" ">
 																	</div>
 																</div>
 															</form>
@@ -197,8 +202,8 @@
 										<!-- 중간 시작 -->
 										<div class="col">
 											<div class="row ps-2">
-												<div class="col-8 pt-4"> <span class="fw-bold fs-4">자유게시판 전체 글 목록 </span> <span style="font-size: 1.2em; color: #8FBC8F">List of freeboard</span></div>
-												<div class="col-4 text-end"> <a class="btn text-center py-0 my-0" role="button" href="./createFreeboardPostsPage"><i class="bi bi-keyboard-fill fs-3"></i> <br> <span class="fw-bold">게시글 작성하기</span></a></div>
+												<div class="col-9 pt-4"> <span class="fw-bold fs-4">자유게시판 전체 글 목록 </span> <span style="font-size: 1.2em; color: #8FBC8F;">List of freeboard</span></div>
+												<div class="col-3 text-center" style="color: #8FBC8F;"> <a class="btn text-center py-0 my-0" role="button" href="./createFreeboardPostsPage"><i class="bi bi-keyboard-fill fs-3"></i> <br> <span class="fw-bold">게시글 작성하기</span></a></div>
 											</div>
 											
 											<div class="row py-2"><div class="col"><!-- 여백 --></div></div>

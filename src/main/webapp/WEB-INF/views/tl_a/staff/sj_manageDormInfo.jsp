@@ -65,8 +65,7 @@
 							<div class="card-body">
 							    <h5 class="card-title fw-bold">${dorm.name }</h5>
 							    <p class="card-text">${dorm.address }</p>
-							    <p>수용가능 인원 :</p>
-							    <p>현재 인원 :</p>
+							
 						   		<a href="./deleteForDormInfoProcess?dorm_pk=${dorm.dorm_pk }" class="btn btn-outline-danger rounded-3 d-grid">삭제</a>
 							</div>
 						</div>

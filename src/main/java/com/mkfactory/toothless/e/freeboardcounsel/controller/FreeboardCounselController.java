@@ -82,11 +82,11 @@ public class FreeboardCounselController {
 						continue;
 					}
 					
-				String rootPath = "C:/uploadFiles/";
+				String rootPath ="C:/uploadFiles/";
 				
 				//날짜별 폴더 생성	
 				//simpledateformat은 날짜를 문자로, 문자를 날짜로 바꾸는 api
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd/");
 				String todayPath = sdf.format(new Date());
 					
 				File todayFolderForCreate = new File(rootPath + todayPath);
