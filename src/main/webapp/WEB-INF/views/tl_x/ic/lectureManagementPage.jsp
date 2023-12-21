@@ -725,7 +725,11 @@
              			},
              			body:"attendance_book_key="+attendance_book_key+"&lecture_student_key="+checkLateStudent[i].value
              	            +"&status="+status
-             		});
+             		})
+             		.then(response => response.json())
+     	        .then((response) => {
+     	        	
+     	        });
              	    
             	}
             }
@@ -742,7 +746,11 @@
              			},
              			body:"attendance_book_key="+attendance_book_key+"&lecture_student_key="+checkLateStudent[i].value
          	           		 +"&status="+status
-             		});
+             		})
+             		.then(response => response.json())
+     	        .then((response) => {
+     	        	
+     	        });
              	    
             	}
             }
@@ -757,6 +765,7 @@
              			},
              			body:"attendance_book_key="+attendance_book_key+"&lecture_student_key="+checkLateStudent[i].value
     	           			 +"&status="+status
+    	           			 
              		});
              	    
             	}
