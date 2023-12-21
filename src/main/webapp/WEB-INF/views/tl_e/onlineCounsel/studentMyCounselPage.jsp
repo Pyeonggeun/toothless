@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -47,8 +47,6 @@
 	</div>	
 
 
-
-
 	<div class="container">
 	
 		<div class="row">
@@ -66,6 +64,9 @@
 					</div>
 				</div>
 				
+				<!--  -->
+				<!--  -->
+				<!--  -->
 				<div class="row">
 					<div class="col border-bottom py-1 rounded d-flex justify-content-center d-flex align-items-center" style="font-size: 1.1em; text-align: center; background-color: beige;">
 						<a class="link-dark link-offset-2 link-underline link-underline-opacity-0" href="./writeOnlineCounselPage">상담 작성</a>
@@ -92,7 +93,7 @@
 		
 		
 		
-			<div class="col" style="max-width: 80%;">
+			<div class="col">
 			
 			<!-- 미니 로케이션 바 -->
 			
@@ -114,120 +115,82 @@
 						&nbsp;&nbsp; <span style="font-weight: bold;">내 상담</span>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-3"></div>
-					<div class="col mt-4 pt-4" style="font-size: 1.5em; text-align: center; font-weight: bold;">만족도 조사</div>
-					<div class="col-3"></div>
-				</div>
-				<div class="row">
-					<div class="col"></div>
-					<div class="col-8" style="text-align: center;">
-						<span style="font-weight: bold; font-size: 1.5em;">더 나은 상담을 위해 만족도를 남겨주세요 !</span>
-					</div>
-					<div class="col"></div>
-				</div>
-				<div class="row">
-					<div class="col text-center">
-						<span style="color: red; font-size: 1.5em;"><i class="bi bi-balloon-heart-fill"></i></span>
-					</div>
-				</div>
 				
-				
-				
-				<!-- 받은 답변 -->
-				<div class="row">
+
+
+
+				<div class="row mt-4 pt-4">
+					<div class="col-10"></div>
 					<div class="col">
-						<hr>
+						<div class="row" style="font-size: 0.8em; font-weight: bold">
+							<div class="col"><i class="bi bi-check-lg" style="color: red;"></i> : 만족도 조사 요망</div>
+						</div>
+						<div class="row" style="font-size: 0.8em; font-weight: bold">
+							<div class="col"><i class="bi bi-check-lg" style="color: orange;"></i> : 답변 대기</div>
+						</div>
+						<div class="row" style="font-size: 0.8em; font-weight: bold">
+							<div class="col"><i class="bi bi-check-lg" style="color: green;"></i> : 만족도 조사 완료</div>
+						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col">
-						<hr style="color: darkgreen;">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col" style="background-color: beige; border-radius: 10px; word-wrap: break-word; ">
-						<c:forEach items="${replyDtoList }" var="replyDtoList">								
-							<div class="col-1"></div>
-							<div class="row border rounded" style="font-size: 1.2em; background-color: skyblue;;">
-								<div class="col my-2 ps-4" style="max-height: 5em;">
-									<i class="bi bi-bell-fill" style="color: orange;"></i>상담가 | ${replyDtoList.counselorDto.name }&nbsp;&nbsp;답변
-								</div>
-							</div>
-							<div class="row rounded mt-0 pb-0">
-								<div class="col ps-4" style="min-height: 10em; font-size: 1.1em; background-color: beige; max-height:5em; overflow-y: auto;">
-									${replyDtoList.replyDto.text }
-								</div>
-							</div>
-							<div class="row rounded mt-0 pt-0" style="background-color: beige;">
-								<div class="col-10"></div>
-								<div class="col mt-3 ps-4" style="font-size: 0.8em; color: gray;">
-									<fmt:formatDate value="${replyDtoList.replyDto.created_at }" pattern="yy.MM.dd"/>
-								</div>
-							</div>
-						</c:forEach>
-					</div>
-				</div>
-				
-				
-				
-				<div class="row">
-					<div class="col">
-						<hr>
-					</div>
-				</div>
-				
-				<!-- 만족도 조사 점수주기 -->
+	
+	
+	
 				<div class="row mt-3">
-					<div class="col d-grid">
-						<form action="./writeOnlineCounselSurveyProcess" method="post">
-							<div class="row mt-4">
-								<div class="col-4 d-grid">
-									<div class="row">
+					<div class="col" style="text-align: center;">
+						<div class="row fw-bold">
+							<div class="col-1"></div>
+							<div class="col-2 ps-2">작성자</div>
+							<div class="col-2 ps-2">카테고리</div>
+							<div class="col">제목</div>
+							<div class="col-2 pe-3 me-3 ps-3">작성시간</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col" style=" overflow-y: auto; max-height: 300px;">
+								<C:forEach items="${counselList}" var="counselList">
+									<div class="row mt-1">
+										<div class="col-1"></div>
+										<div class="col-2">${counselList.studentDto.name }</div>
+										<div class="col-2 ps-3">${counselList.category.name }</div>
 										<div class="col">
-											<ul>
-												<li>
-												<div class="col">
-													<div class="form-floating fw-bold text-secondary">
-														<label for="floatingTextarea" style="font-size: 0.7em;">점수를 입력해주세요! <span class="text-danger">(0~5)</span></label>
-														<input name="score" class="form-control rounded-4" type="number" min="0" max="5">
-													</div> 
-												</div>
-											</ul>
+											<C:if test="${counselList.replyCount == 0 }">
+													<i class="bi bi-check-lg" style="color: orange;"></i>
+											</C:if>
+											<C:if test="${counselList.replyCount > 0 }">
+												<C:choose>
+													<C:when test="${counselList.isSurveyed == 0 }">
+														<i class="bi bi-check-lg" style="color: red;"></i>
+													</C:when>
+													<C:otherwise>
+														<i class="bi bi-check-lg" style="color: green;"></i>
+													</C:otherwise>
+												</C:choose>
+											</C:if>
+											<a href="./readCounselPage?counsel_pk=${counselList.onlineCounselBoardDto.id }" class="link-dark link-offset-2 link-underline link-underline-opacity-0">
+									      		${counselList.onlineCounselBoardDto.title }
+												<C:if test="${counselList.replyCount != 0 }">
+													<span style="color: blue;">[${counselList.replyCount }]</span>
+												</C:if>
+									      	</a>
+										</div>
+										<div class="col-2">
+											<fmt:formatDate value="${counselList.onlineCounselBoardDto.created_at }" pattern="yy.MM.dd"/>
 										</div>
 									</div>
-								</div>
-								<div class="col">
-									<div class="row">
-										<div class="col">
-											<div class="row mt">
-												<ul>
-													<li>
-													<div class="col">
-														<div class="form-floating fw-bold text-secondary">
-															<textarea name="text" class="form-control rounded-4" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-															<label for="floatingTextarea" style="font-size: 0.7em;">리뷰를 작성해주세요!</label>
-														</div>
-													</div>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
+								 </C:forEach>
 							</div>
-							<div class="row mt-4">
-								<div class="col-2"></div>
-								<div class="col d-grid">
-									<input name="online_counsel_board_id" type="hidden" value="${online_counsel_board_id }">
-									<input class="btn" type="submit" value="Done" style=" background-color: #679467; color: beige;">
-								</div>
-								<div class="col-2">
-									<a class="btn d-grid" href="./readCounselPage?counsel_pk=${ online_counsel_board_id}" class="link-dark link-offset-2 link-underline link-underline-opacity-0" style=" background-color: #679467; color: beige;">Back</a>
-								</div>
-							</div>
-						</form>
+						</div>
 					</div>
 				</div>
+				
+					<!-- 상담 작성 -->		
+				<div class="row mt-5">
+					<div class="col-3"></div>
+					<div class="col mt-5 text-center">
+						<a href="./writeOnlineCounselPage" class="link-light link-offset-2 link-underline link-underline-opacity-0 btn d-grid" style="background-color: #679467; color: white;">상담 작성</a>
+					</div>
+					<div class="col-3"></div>
+				</div>	
 			</div>
 		</div>
 	</div>
@@ -262,72 +225,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-<%-- 
-	<jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
-	
-	<div class="row mt-4">
-		<div class="col border border-warning-emphasis border-1"></div>
-	</div>
-	<div class="container">
-		<div class="row mt-4">
-			<div class="col fs-2 fw-bold">만족도 조사</div>							
-		</div>
-		<form action="./writeOnlineCounselSurveyProcess" method="post">
-			<div class="row mt-4">
-				<div class="col-4 d-grid">
-					<div class="row">
-						<div class="col">
-							<ul>
-								<li>
-								<div class="col">
-									<div class="form-floating fw-bold text-secondary">
-										<label for="floatingTextarea" style="font-size: 0.7em;">점수를 입력해주세요! <span class="text-danger">(0~5)</span></label>
-										<input name="score" class="form-control rounded-4" type="number" min="0" max="5">
-									</div> 
-								</div>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col">
-					<div class="row">
-						<div class="col">
-							<div class="row mt">
-								<ul>
-									<li>
-									<div class="col">
-										<div class="form-floating fw-bold text-secondary">
-											<textarea name="text" class="form-control rounded-4" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-											<label for="floatingTextarea" style="font-size: 0.7em;">리뷰를 작성해주세요!</label>
-										</div>
-									</div>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row mt-4">
-				<div class="col-2"></div>
-				<div class="col d-grid">
-					<input name="online_counsel_board_id" type="hidden" value="${online_counsel_board_id }">
-					<input type="submit" value="Done" class="btn btn-dark">
-				</div>
-				<div class="col-2"></div>
-			</div>
-			
-		</form>
-	</div>
-	<div class="row mt-4">
-		<div class="col border border-warning-emphasis border-1"></div>
-	</div> --%>
