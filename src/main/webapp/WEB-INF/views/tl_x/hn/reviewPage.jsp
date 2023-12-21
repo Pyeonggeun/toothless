@@ -226,7 +226,7 @@
 					}
 					
 					const showContent = document.getElementById("showContent");
-					showContent.innerText = response.data.review;
+					showContent.innerText = response.data.review.replace(/<br>/g, '\n');
 
 					const modal = bootstrap.Modal.getOrCreateInstance("#reviewModal");
 	                modal.show();
@@ -271,7 +271,8 @@
 				}
 				
 				const starCount = Number(target.value);
-				const review = document.getElementById("writeContent").value;
+				let review = document.getElementById("writeContent").value;
+				review = review.replace(/\n/g, '<br>');
 				
 				const url = "./insertLectureReviewInfo?lecture_student_key=" + lectureStudentKey + "&star_count=" + starCount + "&review=" + review;
 				
