@@ -349,6 +349,9 @@ public class GuntaekStudentController {
 		model.addAttribute("DeadProgram", guntaekStudentService.deadProgram(internedu_program_pk));
 		return "tl_c/guntaek/student/ajdksDetailInquiryProgram";
 	}
+	
+	
+	
 	// 학생이 프로그램 신청하기
 	@RequestMapping("ajdksRegisterProgramProcess")
 	public String ajdksRegisterProgram(AjdksInternEduProgramDto eduDto, Model model,HttpSession session) {
@@ -382,8 +385,9 @@ public class GuntaekStudentController {
 		
 		StudentInfoDto loginUser = (StudentInfoDto) session.getAttribute("sessionStudentInfo"); // 로그인 한 학생 유저
 
-		model.addAttribute("programList",guntaekStudentService.programListByStudent(loginUser.getStudent_pk()));
+		model.addAttribute("CompleteList",guntaekStudentService.completeProgramList(loginUser.getStudent_pk()));
 		
+		// 특정 학생이 이수한 것만 리스트로 얻어오기 
 		
 		return "tl_c/guntaek/student/ajdksCheckProgramComplete";
 	}
@@ -417,6 +421,9 @@ public class GuntaekStudentController {
 	
 		return "redirect:./ajdksRegisterProgramReview";
 	}
+	
+	
+	// 이수한 프로그램만 
 
 }
 

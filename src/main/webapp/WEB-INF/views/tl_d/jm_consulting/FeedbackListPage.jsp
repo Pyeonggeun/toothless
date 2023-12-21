@@ -18,7 +18,7 @@ var shared_sortHJFScore;
 
 	function reloadlist(sortHJFScore){
 				
-		
+
 		url = "./FeedbackList?sortHJFScore=" + sortHJFScore ;
 		
 		fetch(url)
@@ -27,6 +27,10 @@ var shared_sortHJFScore;
 			
 			//붙일곳 소환
 			const listOutput = document.querySelector("#listOutput");
+			console.log(response,"eee");
+			//예외처리
+
+			
 			listOutput.innerHTML="";
 			listOutput.innerText="";
 			for(e of response.data){
@@ -88,6 +92,9 @@ var shared_sortHJFScore;
 			const detail_feedback_name = modal_link.querySelector(".detail_feedback_name");
 			const detail_feedback_score = modal_link.querySelector(".detail_feedback_score");
 			const detail_feedback_comment = modal_link.querySelector(".detail_feedback_comment");
+			
+
+			
 			
 			const date = new Date(e.hopeJobFeedbackDto.created_at);
 			detail_feedback_date.innerText = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate();

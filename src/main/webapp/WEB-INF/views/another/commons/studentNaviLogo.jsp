@@ -4,7 +4,7 @@
 	<script>
         //알림
        	function reloadNotifyCount(){
-       		const url = "./reloadMyNotifyCount?student_pk="+${sessionStudentInfo.student_pk};
+       		const url = "/toothless/another/student/reloadMyNotifyCount?student_pk="+${sessionStudentInfo.student_pk};
        		fetch(url)
        		.then(response => response.json())
        		.then((response) => {
@@ -23,7 +23,7 @@
        	setInterval(reloadNotifyCount, 20000);
        	
        	function loadMyNewNotifyCount(){
-       		const url = "./reloadMyNewNotifyList?student_pk="+${sessionStudentInfo.student_pk};
+       		const url = "/toothless/another/student/reloadMyNewNotifyList?student_pk="+${sessionStudentInfo.student_pk};
        		fetch(url)
        		.then(response => response.json())
        		.then((response) => {
@@ -93,7 +93,7 @@
        	setInterval(loadMyNewNotifyCount, 20000);
        	
        	function updateReadNotifyStatus(){
-       		const url = "./updateReadNotifyStatus?student_pk="+${sessionStudentInfo.student_pk};
+       		const url = "/toothless/another/student/updateReadNotifyStatus?student_pk="+${sessionStudentInfo.student_pk};
        		fetch(url);
        		
        	}
@@ -101,7 +101,7 @@
        	
        	
        	function updateMyCheckNotifyStatus(){
-       		const url = "./updateNewNotifyStatus?student_pk="+${sessionStudentInfo.student_pk};
+       		const url = "/toothless/another/student/updateNewNotifyStatus?student_pk="+${sessionStudentInfo.student_pk};
        		fetch(url);
 
        	}
@@ -119,7 +119,7 @@
        	
        	function loadUnreadNotifyList() {
        		
-			const url = "./loadUnreadNotifyList?student_pk="+${sessionStudentInfo.student_pk};
+			const url = "/toothless/another/student/loadUnreadNotifyList?student_pk="+${sessionStudentInfo.student_pk};
 			fetch(url)
        		.then(response => response.json())
        		.then((response) => {
@@ -205,7 +205,7 @@
        		
        	}
        	function checkReadNotifyList(){
-       		const url = "./loadReadNotifyList?student_pk="+${sessionStudentInfo.student_pk};
+       		const url = "/toothless/another/student/loadReadNotifyList?student_pk="+${sessionStudentInfo.student_pk};
 			fetch(url)
        		.then(response => response.json())
        		.then((response) => {
