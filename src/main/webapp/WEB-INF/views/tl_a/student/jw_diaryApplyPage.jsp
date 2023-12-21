@@ -109,7 +109,7 @@
             			<div class="row my-3">
                         	<div class="col"></div>
 							<div class="col-2 d-grid py-3 fw-bold pe-0" style="font-size: 1.1rem;">
-								<input type="submit" class="btn btn-primary rounded-0" value="작성">
+								<input type="submit" class="btn rounded-0 px-4" style="background-color:#504528; color:#FFFFFF;" value="작성 완료">
 							</div>
                         </div>
             			

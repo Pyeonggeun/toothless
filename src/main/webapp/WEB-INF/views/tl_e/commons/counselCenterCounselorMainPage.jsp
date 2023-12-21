@@ -231,7 +231,7 @@
 					    //추가 옵션이 있을 경우
 					    options: {
 					    	// 차트 사이즈를 부모 컨테이너의 크기에 맞게 반응형으로 조정
-							responsive: true,
+							responsive: false,
 		                    plugins: {
 		                        legend: {
 		                            position: 'top',
@@ -564,7 +564,7 @@
 								</div>
 								<div class="row pt-2 pb-4">
 									<div class="col">
-										<canvas id="myChart1"></canvas>
+										<canvas id="myChart1" width="930" height="430"></canvas>
 									</div>
 								</div>
 							</div>
