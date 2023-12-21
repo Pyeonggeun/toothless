@@ -50,7 +50,7 @@ public class CounselCommonsStaffController {
 			model.addAttribute("freeboardList", onlineCouneslService.getFreeboardListSpecificNum());
 			model.addAttribute("top3Freeboard", onlineCouneslService.getTop3ReadCountFreeboard());
 				// 최근 조회수 평균
-				model.addAttribute("readCountNum", onlineCouneslService.getLastestReadCountAvg());
+//				model.addAttribute("readCountNum", onlineCouneslService.getLastestReadCountAvg());
 			
 			
 			return "tl_e/commons/counselCenterStaffMainPage";
