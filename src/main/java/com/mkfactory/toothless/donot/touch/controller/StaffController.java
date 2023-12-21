@@ -40,27 +40,27 @@ public class StaffController {
 			session.setAttribute("sessionStaffInfo", staffInfoDto);
 			if(staffInfoDto.getCenter_pk() == 1) {
 				
-				return "redirect: ../../tl_c/woojae/staff/ajdksStaffMainPage";
+				return "redirect: /toothless/tl_c/woojae/staff/ajdksStaffMainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 2){
 				
-				return "redirect: ../../tl_d/common/staffMainPage";
+				return "redirect: /toothless/tl_d/common/staffMainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 3){
 				
-				return "redirect: ../../tl_e/commons/counselCenterStaffMainPage";
+				return "redirect: /toothless/tl_e/commons/counselCenterStaffMainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 4){
 				
-				return "redirect: ../../tl_a/staff/mj_mainPage";
+				return "redirect: /toothless/tl_a/staff/mj_mainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 5){
 				
-				return "redirect: ../../tl_b/common/staffMainPage";
+				return "redirect: /toothless/tl_b/common/staffMainPage";
 				
 			}else if(staffInfoDto.getCenter_pk() == 7){
 				
-				return "redirect: ../../tl_x/mj/mainPage";
+				return "redirect: /toothless/tl_x/mj/mainPage";
 				
 			}else{
 				return "redirect: ./anotherMainPage";
