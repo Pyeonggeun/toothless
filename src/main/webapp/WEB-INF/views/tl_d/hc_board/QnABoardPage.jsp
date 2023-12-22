@@ -55,35 +55,26 @@
 				<div class="row  border-bottom border-2 border-grey mb-5 mt-5 pt-3 pb-3">
 					<div class="col fw-bold fs-3" >자주 묻는 QnA </div>															
 				</div>
-				<div class="row my-2">
-					<div class="col-8">1</div>
-					
-					<div class="col text-end mx-0 px-0">
-						<div class="btn-group">
-							<button class="btn border-black border-1 btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-								제목
-							</button>
-							<ul class="dropdown-menu">
-							</ul>
-						</div>	
-					</div>
-					<div class="col mx-0 ps-2 pe-0">
-						<div class=row>
-							<div class=col></div>
-							
-							<div class=col>
-								<div class="row">
-									<div class="col-9" >
-										<input type="text" class="rounded-2">
-									</div>
-									<div class="col align-self-center">
-										<i class="bi bi-search"></i>
-									</div>
-								</div>
+				<div class="row justify-content-end mb-2">
+					<div class="col-6"></div>
+                    <div class="col ms-5 pe-0 text-end">
+						<div class="row  ms-5">
+							<div class="col-4 ms-5 pe-0">
+								<select name="searchType" class="form-select" aria-label="Default select example">
+		                             <option selected value="title">제목</option>
+		                             <option value="content">내용</option>
+		                         </select>      
+							</div>
+							<div class="col  px-0">
+								<input id="inputComment" name="searchWord" class="form-control " type="text" placeholder="내용입력">			
+							</div>
+							<div class="col-2 ps-0">
+								<input type="button" onclick="formSubmit()" class="btn btn-outline-primary" value="검색">
 							</div>
 						</div>
-					</div>
+                    </div>
 				</div>
+
 				<div class="row  border-2 border-top border-black bg-body-secondary pt-3">
 					<div class="col ms-4 mb-3 fw-bold">글번호</div>
 					<div class="col-7 text-center ms-4  fw-bold">제목</div>
@@ -120,7 +111,7 @@
 							<div class="col"></div>
 							<div class="col ">
 								<nav aria-label="Page navigation example">
-								  <ul class="pagination">
+								  <ul class="pagination justify-content-center">
 								    <li class="page-item">
 								      <a class="page-link" href="#" aria-label="Previous">
 								        <span aria-hidden="true">&laquo;</span>
