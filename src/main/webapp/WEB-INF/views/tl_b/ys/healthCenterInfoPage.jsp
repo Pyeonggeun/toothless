@@ -9,6 +9,19 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
     	<script src="../../resources/js/hn/topBanner.js"></script>
+    	
+    	<script>
+    	
+    		function showMap() {
+    			
+    			const modal = bootstrap.Modal.getOrCreateInstance("#mapModal");
+    			modal.show();
+    			reloadMap();
+    			
+    		}
+    	
+    	</script>
+    	
     </head>
     <body>
     	<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
@@ -47,14 +60,14 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col">
-                                    <span><span style="position: relative; bottom: 3%;"><i class="bi bi-dot" style="font-size: 0.9em;"></i></span>&nbsp;MK 본관 1층(103호)</span>
+                                    <span><span style="position: relative; bottom: 3%;"><i class="bi bi-dot" style="font-size: 0.9em;"></i></span>&nbsp;서울특별시 강남구 테헤란로7길 7 에스코빌딩 MK 본관 1층(103호)</span>
                                 </div>
                             </div>
                             <div class="row mt-3 ms-1">
                                 <div class="col">
                                     <div class="row">
                                         <div class="col-4 text-center pt-1 pb-1" style="border-style: solid; border-radius: 0.3em; border-width: 0.03em; font-size: 0.9em;">
-                                            <a href="#" style="text-decoration: none; color: black;">지도 보기&nbsp;&nbsp;&nbsp;&nbsp;<i class="bi bi-box-arrow-up-right"></i></a>
+                                            <a onclick="showMap()" style="text-decoration: none; color: black;">지도 보기&nbsp;&nbsp;&nbsp;&nbsp;<i class="bi bi-box-arrow-up-right"></i></a>
                                         </div>
                                         <div class="col"></div>   
                                     </div>
@@ -229,9 +242,68 @@
                     <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
                 </div>
             </div>
-        </div>  
+        </div>
         
-        
+        <div id="mapModal" class="modal" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+			    <div class="modal-content">
+			    	<div class="modal-header border-0 py-3">
+			    		<span class="fw-bold" style="font-size: 1.1em">지도</span>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 0.8em"></button>
+			      	</div>
+			      	<div class="modal-body pt-0">
+			        	<div class="row">
+			        		<div class="col">
+			        			<div class="row">
+			        				<div class="col">
+			        					<div id="map" style="width:100%; height:400px;"></div>
+			        				</div>
+			        			</div>
+			        			<div class="row mt-3">
+			        				<div class="col" style="font-size: 0.9em">
+			        					위치 : 서울특별시 강남구 테헤란로7길 7 에스코빌딩 MK 본관 1층(103호)
+			        				</div>
+			        			</div>
+			        			<div class="row mt-1">
+			        				<div class="col" style="font-size: 0.9em">
+			        					오시는 길 :&nbsp;<span class="badge text-white rounded-circle" style="background-color: #3CB44A; position: relative; top: -0.15em;">2</span>
+			        					<span class="badge text-white rounded-pill" style="background-color: #A71E31; position: relative; top: -0.15em;">신분당</span> 강남역 12번 출구에서 250m
+			        				</div>
+			        			</div>
+			        		</div>
+			        	</div>
+			      	</div>
+			    </div>
+		  	</div>
+		</div>
+		
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a277eb582a644847f86de6196a42745f"></script>
+		
+		<script>
+		
+			function reloadMap() {
+				
+				var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+				var options = { //지도를 생성할 때 필요한 기본 옵션
+					center: new kakao.maps.LatLng(37.499605278039844, 127.03004492190401), //지도의 중심좌표.
+					level: 3 //지도의 레벨(확대, 축소 정도)
+				};
+
+				var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+				
+				var markerPosition  = new kakao.maps.LatLng(37.499632, 127.030471); 
+
+				// 마커를 생성합니다
+				var marker = new kakao.maps.Marker({
+				    position: markerPosition
+				});
+
+				// 마커가 지도 위에 표시되도록 설정합니다
+				marker.setMap(map);
+				
+			}	
+		
+		</script>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
