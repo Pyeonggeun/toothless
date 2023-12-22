@@ -237,7 +237,6 @@
 </head>
 <body>
 
-<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
 <jsp:include page="./studentTopArea.jsp"></jsp:include>
 
 <div class="container-fluid">
