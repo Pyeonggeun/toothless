@@ -66,8 +66,8 @@
 }
 
 /*table*/
-.table{
-	--bs-table-bg:none;
+.table { -
+	-bs-table-bg: none;
 }
 </style>
 </head>
@@ -204,7 +204,7 @@
 						</div>
 					</div>
 				</div>
-
+				<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 			</div>
 		</div>
 	</div>
