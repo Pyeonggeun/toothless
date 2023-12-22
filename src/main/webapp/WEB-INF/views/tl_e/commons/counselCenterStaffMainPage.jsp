@@ -57,6 +57,29 @@
   background-color: white; /* 스크롤바 트랙 색상 */
 }
 
+/* 공지사항 row 크기 맞추고 스크롤  */
+.scrollableBoardListRow
+{
+	max-height : 18em;
+	overflow-y : auto;
+	overflow-x : hidden;
+	  
+}
+.scrollableBoardListRow::-webkit-scrollbar
+{
+  width: 10px; /* 스크롤바 너비 설정 */
+}
+
+.scrollableBoardListRow::-webkit-scrollbar-thumb
+{
+	background-color: silver;
+	border-radius: 10px;
+}
+
+.scrollableBoardListRow::-webkit-scrollbar-track {
+  background-color: white; /* 스크롤바 트랙 색상 */
+}
+
 /* 컨텐츠박스 CSS */
 .contentBox
 {
@@ -156,6 +179,129 @@
 		});			
 	}
 	<%-- 여기까지 차트 관련 코드 --%>
+	function getFreeboardForStaffMain(){
+		fetch("./getFreeboardForStaffMain")
+		.then(response => response.json())
+		.then(response => {
+			
+			const freeboardList = response.data;
+			
+			const tbody_freeBoard = document.getElementById("tbody_freeBoard");
+			tbody_freeBoard.innerHTML = "";
+			
+			for(e of freeboardList){
+				
+				const newFreeTr = document.createElement("tr");				
+				newFreeTr.setAttribute("onclick", "freeBoardDetailPage(e.FREEID)");
+				
+				const freeId = document.createElement("th");
+				freeId.setAttribute("class", "text-center");				
+				freeId.innerText = e.FREEID;    /*  여기 작업중이었음 */
+				newFreeTr.appendChild(freeId);
+				
+				const freeTitle = document.createElement("td");
+				freeTitle.setAttribute("colspan", 2);
+				freeTitle.innerText = e.FREETITLE;
+				
+				const maxLength = 15;
+				
+				if(freeTitle.textContent.length > maxLength){
+					const resizeText = freeTitle.textContent.slice(0, maxLength) + '...';
+					freeTitle.innerText = resizeText;
+				}
+				
+				if(e.COMMENTVALUE > 0){
+					const commentValue = document.createElement("span");
+					commentValue.setAttribute("class", "text-danger fw-bold");
+					commentValue.innerText = "[" + e.COMMENTVALUE + "]"
+					freeTitle.appendChild(commentValue);
+				}
+				
+				newFreeTr.appendChild(freeTitle);
+				
+				const freeReadcount = document.createElement("td");
+				freeReadcount.setAttribute("class", "text-center");
+				freeReadcount.innerText = e.FREEREADCOUNT;
+				newFreeTr.appendChild(freeReadcount);
+				
+				const freeWriter = document.createElement("td");
+				freeWriter.setAttribute("class", "text-center");
+				freeWriter.innerText = e.FREEWRITER;
+				newFreeTr.appendChild(freeWriter);
+				
+				const freeRegdate = document.createElement("td");
+				freeRegdate.setAttribute("class", "text-center");
+				freeRegdate.innerText = e.FREEREGDATE;
+				newFreeTr.appendChild(freeRegdate);
+				
+				tbody_freeBoard.appendChild(newFreeTr);
+			}
+			
+		});
+		
+	}
+	
+	function getNoticeListForStaffMain(){
+		fetch("./getNoticeListForStaffMain")
+		.then(response => response.json())
+		.then(response => {
+			
+			const noticeList = response.data;
+			
+			const tbody_noticeBoard = document.getElementById("tbody_noticeBoard");
+			tbody_noticeBoard.innerHTML = "";
+			
+			for(e of noticeList){
+				
+				const newNoticeTr = document.createElement("tr");				
+				newNoticeTr.setAttribute("onclick", "noticeDetailPage(e.ID)");
+				
+				const noticeId = document.createElement("th");
+				noticeId.setAttribute("class", "text-center");				
+				noticeId.innerText = e.NOTICEID;
+				newNoticeTr.appendChild(noticeId);
+				
+				const noticeTitle = document.createElement("td");
+				noticeTitle.setAttribute("colspan", 2);
+				noticeTitle.innerText = e.NOTICETITLE;
+				
+				const maxLength = 15;
+				
+				if(noticeTitle.textContent.length > maxLength){
+					const resizeText = noticeTitle.textContent.slice(0, maxLength) + '...';
+					noticeTitle.innerText = resizeText;
+				}
+				
+				if(e.NOTICECOMMENTVALUE > 0){
+					const commentValue = document.createElement("span");
+					commentValue.setAttribute("class", "text-danger fw-bold");
+					commentValue.innerText = "[" + e.NOTICECOMMENTVALUE + "]"
+					noticeTitle.appendChild(commentValue);
+				}
+				
+				newNoticeTr.appendChild(noticeTitle);
+				
+				const noticeReadcount = document.createElement("td");
+				noticeReadcount.setAttribute("class", "text-center");
+				noticeReadcount.innerText = e.NOTICEREADCOUNT;
+				newNoticeTr.appendChild(noticeReadcount);
+				
+				const noticeWriter = document.createElement("td");
+				noticeWriter.setAttribute("class", "text-center");
+				noticeWriter.innerText = e.NOTICEWRITER;
+				newNoticeTr.appendChild(noticeWriter);
+				
+				const noticeRegdate = document.createElement("td");
+				noticeRegdate.setAttribute("class", "text-center");
+				noticeRegdate.innerText = e.NOTICEREGDATE;
+				newNoticeTr.appendChild(noticeRegdate);
+				
+				tbody_noticeBoard.appendChild(newNoticeTr);
+			}
+			
+		});
+	}
+	
 	
 	function getGroupCounselListForStaffMain(){
 		fetch("./getGroupCounselListForStaffMain")
@@ -169,21 +315,35 @@
 			
 			for(e of groupCounselList){
 				
-				const tr_groupCounselBoard = document.querySelector("#templete #groupCounselItemWrapper").cloneNode(true);
-				tr_groupCounselBoard.setAttribute("onclick", "groupCounselDetailPage(e.ID)");
+				const newGroupTr = document.createElement("tr");				
+				newGroupTr.setAttribute("onclick", "groupCounselDetailPage(e.ID)");
 				
-				const groupCounselId = tr_groupCounselBoard.querySelector("groupCounselId");
+				const groupCounselId = document.createElement("th");
+				groupCounselId.setAttribute("class", "text-center");				
 				groupCounselId.innerText = e.ID;
-				const groupCounselTitle = tr_groupCounselBoard.querySelector("groupCounselTitle");
-				groupCounselTitle.innerText = e.TITLE;
-				const groupCounselRegDate = tr_groupCounselBoard.querySelector("groupCounselRegDate");
-				groupCounselRegDate.innerText = e.REGDATE;
-				const groupCounselApply = tr_groupCounselBoard.querySelector("groupCounselApply");
-				groupCounselApply.innerText = e.APPLYPERSON + "/" + e.MAXPERSON;
-				const groupCounselStatus = tr_groupCounselBoard.querySelector("groupCounselStatus");
-				groupCounselStatus.innerText = e.STATUS;
+				newGroupTr.appendChild(groupCounselId);
 				
-				tbody_groupCounselBoard.appendChild(tr_groupCounselBoard);
+				const groupCounselTitle = document.createElement("td");
+				groupCounselTitle.setAttribute("colspan", 2);
+				groupCounselTitle.innerText = e.TITLE;
+				newGroupTr.appendChild(groupCounselTitle);
+				
+				const groupCounselRegDate = document.createElement("td");
+				groupCounselRegDate.setAttribute("class", "text-center");
+				groupCounselRegDate.innerText = e.REGDATE;
+				newGroupTr.appendChild(groupCounselRegDate);
+				
+				const groupCounselApply = document.createElement("td");
+				groupCounselApply.setAttribute("class", "text-center");
+				groupCounselApply.innerText = e.APPLYPERSON + "/" + e.MAXPERSON;
+				newGroupTr.appendChild(groupCounselApply);
+				
+				const groupCounselStatus = document.createElement("td");
+				groupCounselStatus.setAttribute("class", "text-center");
+				groupCounselStatus.innerText = e.STATUS;
+				newGroupTr.appendChild(groupCounselStatus);
+				
+				tbody_groupCounselBoard.appendChild(newGroupTr);
 			}
 			
 		});
@@ -251,6 +411,8 @@
 		getAllCompleteCounselList()
 		chartControl()
 		getGroupCounselListForStaffMain()
+		getNoticeListForStaffMain()
+		getFreeboardForStaffMain()
 		
 	});
 
@@ -258,7 +420,7 @@
 </script>
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid bg-body-secondary bg-opacity-25">
 		<!-- 상단 배너 -->	
 		<jsp:include page="./staffTopArea.jsp"></jsp:include>
 		
@@ -274,7 +436,7 @@
 		</div>
 		
 		<!-- 메인컨텐츠 상단 로우 -->
-		<div class="row bg-body-secondary bg-opacity-25 pb-5">
+		<div class="row">
 			<div class="col-1"></div>
 			<div class="col">
 				<!-- 통계 : 진용 작업 -->		
@@ -348,33 +510,39 @@
 		
 		
 		<!-- 메인컨텐츠 하단 로우 -->
-		<div class="row mt-5">
+		<div class="row mt-5 mb-5">
 			<div class="col-1"></div>
 			<div class="col">
 				<div class="row">
 					
 					<!-- 집단상담 -->
-					<div class="col contentBox">
-						
+					<div class="col contentBox mx-2">						
 						<div class="row">
 							<div class="col">
-								<div class="row">
+								<div class="row mt-4">
 									<div class="col text-center">
 										<span class="fw-bold fs-4">집단상담</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col text-end">
+										<a href="../groupcounsel/staff/groupCounselListPage" class="btn btn-white"> 
+											<span class="fw-bold small">more</span>
+										</a>										
 									</div>
 								</div>
 							</div>
 						</div>
 						
-						<div class="row">
+						<div class="row mb-5">
 							<div class="col">
-								<div class="row mt-3">
+								<div class="row mt-3 scrollableBoardListRow">
 									<div class="col">
 										<table class="table table-sm table-hover">
 											<thead>
 												<tr class="text-center">
 													<th scope="col">No.</th>
-													<th scope="col" colspan="3">제목</th>
+													<th scope="col" colspan="2">제목</th>
 													<th scope="col">작성일</th>
 													<th scope="col">인원</th>													
 													<th scope="col">상태</th>
@@ -391,37 +559,42 @@
 					</div>
 					
 					<!-- 공지사항 -->
-					<div class="col contentBox">
-						
+					<div class="col contentBox mx-2">						
 						<div class="row">
 							<div class="col">
+								<div class="row mt-4">
+									<div class="col text-center">
+										<span class="fw-bold fs-4">공지사항</span>
+									</div>
+								</div>
 								<div class="row">
-									<div class="col">
-										<span class="fw-bold fs-6">집단상담</span>
+									<div class="col text-end">										
+										<a href="../notice/noticeMainPage_Staff" class="btn btn-white"> 
+											<span class="fw-bold small">more</span>
+										</a>										
 									</div>
 								</div>
 							</div>
 						</div>
 						
-						<div class="row">
+						<div class="row mb-5">
 							<div class="col">
-								<div class="row">
+								<div class="row mt-3 scrollableBoardListRow">
 									<div class="col">
-										<div class="row">
-											<div class="col">
-												<span>No.</span>
-											</div>
-											<div class="col">
-												<span>Title</span>
-											</div>
-											<div class="col">
-												<span>등록일</span>
-											</div>
-											<div class="col">
-												<span>상태</span>
-											</div>
-										</div>
-										
+										<table class="table table-sm table-hover">
+											<thead>
+												<tr class="text-center">
+													<th scope="col">No.</th>
+													<th scope="col" colspan="2">제목</th>
+													<th scope="col">조회수</th>
+													<th scope="col">작성자</th>													
+													<th scope="col">작성일</th>
+												</tr>
+											</thead>
+											<tbody id="tbody_noticeBoard" class="mt-3">
+												
+											</tbody>
+										</table>									
 									</div>
 								</div>
 							</div>
@@ -429,37 +602,42 @@
 					</div>
 					
 					<!-- 학생자유게시판 -->
-					<div class="col contentBox">
-						
+					<div class="col contentBox mx-2">						
 						<div class="row">
 							<div class="col">
+								<div class="row mt-4">
+									<div class="col text-center">
+										<span class="fw-bold fs-4">학생 자유게시판</span>
+									</div>
+								</div>
 								<div class="row">
-									<div class="col">
-										<span class="fw-bold fs-6">집단상담</span>
+									<div class="col text-end">										
+										<a href="../freeboardCounsel/freeboardCounselPage" class="btn btn-white"> 
+											<span class="fw-bold small">more</span>
+										</a>										
 									</div>
 								</div>
 							</div>
 						</div>
 						
-						<div class="row">
+						<div class="row mb-5">
 							<div class="col">
-								<div class="row">
+								<div class="row mt-3 scrollableBoardListRow">
 									<div class="col">
-										<div class="row">
-											<div class="col">
-												<span>No.</span>
-											</div>
-											<div class="col">
-												<span>Title</span>
-											</div>
-											<div class="col">
-												<span>등록일</span>
-											</div>
-											<div class="col">
-												<span>상태</span>
-											</div>
-										</div>
-										
+										<table class="table table-sm table-hover">
+											<thead>
+												<tr class="text-center">
+													<th scope="col">No.</th>
+													<th scope="col" colspan="2">제목</th>
+													<th scope="col">조회수</th>
+													<th scope="col">작성자</th>													
+													<th scope="col">작성일</th>
+												</tr>
+											</thead>											
+												<tbody id="tbody_freeBoard" class="mt-3">
+													
+												</tbody>											
+										</table>									
 									</div>
 								</div>
 							</div>
@@ -471,25 +649,33 @@
 			<div class="col-1"></div>
 		</div>
 		
-		<!-- 임시저장 -->
-		<div class="row">
+					
+		<!-- footer start -->
+		<div class="row mt-5" style="background-color: #686868; height: 11.3em;">
+			<div class="col-1"></div>
 			<div class="col">
-				<a href="../groupcounsel/staff/groupCounselListPage" class="link-offset-2 link-underline link-underline-opacity-0" style="color: mediumblue;">집단상담more</a>						
-				<a href="../notice/noticeMainPage_Staff" class="link-offset-2 link-underline link-underline-opacity-0" style="color: mediumblue;">공지사항more</a>			
-				<a href="../freeboardCounsel/freeboardCounselPage" class="link-offset-2 link-underline link-underline-opacity-0" style="color: mediumblue;">자게more</a>					
-			</div>
-		</div>
-		
-		<!-- 풋터 -->	
-		<div class="row border-top mb-3">
-			<div class="col">
-				<div class="row mt-3">
-					<div class="col" style="font-size: 0.9em; font-weight: bold; text-align: center;">
-						서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층)  |  TEL:010-4761-2103 / E-MAIL:se001lec@naver.com  |  COPYRIGHT© 2023 MINKUE UNIVERSITY ALL RIGHTS RESERVED.  |  <i class="bi bi-twitter"></i><i class="bi bi-facebook"></i><i class="bi bi-instagram"></i>					
+				<div class="row" style="height: 2.5em;"></div>
+				<div class="row">
+					<div class="col">
+						<span style="font-size: 1.1em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
+						<span style="font-size: 0.9em; color: white; font-weight: 500;">▪</span>
+						<span style="font-size: 0.9em; color: white; font-weight: 500;">이메일무단수집거부</span>
+					</div>
+				</div>
+				<div class="row pt-4">
+					<div class="col">
+						<div style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
+					</div>
+				</div>
+				<div class="row pt-2">
+					<div class="col">
+						<div style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
 					</div>
 				</div>
 			</div>
-		</div>						
+			<div class="col-1"></div>
+		</div>
+		<!-- footer end -->						
 	</div>
 	
 	
@@ -517,15 +703,6 @@
 		</div>
 	</div>
 	
-	<div id="groupCounselItemWrapper">
-		<tr id="tr_groupCounselBoard">													
-			<th id="groupCounselId" scope="row" class="text-center">1</th>
-			<td id="groupCounselTitle" colspan="3">닐리야야야야야야리리야</td>
-			<td id="groupCounselRegDate" class="text-center">2023.12.21</td>
-			<td id="groupCounselApply" class="text-center">3/10</td>													
-			<td id="groupCounselStatus" class="text-center">진행중</td>
-		</tr>
-	</div>
 
 </div>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>	

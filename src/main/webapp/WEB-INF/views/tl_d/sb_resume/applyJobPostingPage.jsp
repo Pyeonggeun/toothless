@@ -31,6 +31,12 @@
 				<div class="row">
 					<div class="col-7 fs-5 fw-bold mt-5">채용 정보</div>
 					<div class="col fs-5 fw-bold mt-5"> 이력서 목록</div>
+					<div class="col mt-5 mb-1 d-flex justify-content-end">
+						<a class="btn btn-outline-dark" href="../ny_posting/jobPostingListForStudentPage" role="button">
+						<i class="bi bi-list"></i>채용공고목록
+						</a>
+									
+					</div>
 				</div>
 				
 				<!-- 기업정보 -->
@@ -51,13 +57,13 @@
 												</div>
 											</c:if>
 											<div class="col ps-2">${jobPostingDetailForStudent.companyDto.com_name}
-												<i class="text-danger bi bi-suit-heart"></i>
+												
 											</div>
 											<div class="col-2 px-0 pe-2">
 												<c:if test="${empty sessionStudentInfo}">
 													<i class="ps-3 text-warning bi bi-star"></i>
 												</c:if>
-												<c:if test="${!empty sessionStudentInfo}">
+												<%-- <c:if test="${!empty sessionStudentInfo}">
 													<a class="navbar-brand" href="./interestingProcess?job_posting_pk=${jobPostingDetailForStudent.jobPostingDto.job_posting_pk}&student_pk=${sessionStudentInfo.student_pk}">
 													<c:choose>
 														<c:when test="${checkMyInteresting == 0}">
@@ -69,7 +75,7 @@
 													</c:choose>
 													</a>
 												</c:if>
-												<span>${jobPostingDetailForStudent.allPostingInterest}</span>
+												<span>${jobPostingDetailForStudent.allPostingInterest}</span> --%>
 											</div>
 										</div>
 										<!-- 공고제목 -->
@@ -275,17 +281,18 @@
 									<div class="col"></div>
 								</div>
 								<div class="row mt-2">
-									<div class="col-8"></div>
-									<div class="col">
+									<div class="col"></div>
+									<div class="col d-flex justify-content-end">
 										<input type="hidden" name="job_posting_pk" value="${jobPostingDetailForStudent.jobPostingDto.job_posting_pk}">
 										<c:if test="${not empty resumeDto.resume_pk }">
 											<input type="hidden" name="resume_pk" value="${resumeDto.resume_pk }">
 											<button type="submit" class="btn btn-success">지원하기</button>
 										</c:if>
 										<c:if test="${empty resumeDto.resume_pk }">
-											<button type="submit" class="btn btn-gray" disabled>이력서 선택</button>
+											<button type="submit" class="btn btn-gray" disabled>지원하기</button>
 										</c:if>
 									</div>
+									
 								</div>
 								</form>	
 							</div>

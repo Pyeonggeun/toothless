@@ -72,9 +72,38 @@ public class RestCounselCenterStaffcontroller {
 		jinyongRestResponseDto.setResult("success");
 		jinyongRestResponseDto.setData(groupCounselList);
 		
+		return jinyongRestResponseDto;		
+	}
+	
+	@RequestMapping("getNoticeListForStaffMain")
+	public JinyongRestResponseDto getNoticeListForStaffMain() {
+		
+		List<Map<String, Object>> noticeList = registerCounselorService.getNoticeListForStaffMain();
+		
+		JinyongRestResponseDto jinyongRestResponseDto = new JinyongRestResponseDto();
+				
+		jinyongRestResponseDto.setResult("success");
+		jinyongRestResponseDto.setData(noticeList);
+		
+		return jinyongRestResponseDto;		
+	}
+	
+	@RequestMapping("getFreeboardForStaffMain")
+	public JinyongRestResponseDto getFreeboardForStaffMain() {
+		
+		List<Map<String, Object>> freeboardList = registerCounselorService.getFreeboardForStaffMain();
+		
+		JinyongRestResponseDto jinyongRestResponseDto = new JinyongRestResponseDto();
+				
+		jinyongRestResponseDto.setResult("success");
+		jinyongRestResponseDto.setData(freeboardList);
+		
 		return jinyongRestResponseDto;
 		
-	}
+	} 
+	
+	
+	
 	
 	public JinyongRestResponseDto templete() {
 		

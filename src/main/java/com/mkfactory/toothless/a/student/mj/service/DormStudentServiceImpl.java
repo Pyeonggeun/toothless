@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,14 +27,26 @@ public class DormStudentServiceImpl {
 	private StudentSqlMapper commonStudentSqlMapper;
 
 	// 입주공고 페이지로
-	public Map<String, Object> thisSemesterJoinDormInfo() {
+	public Map<String, Object> thisSemesterJoinDormInfo(Boolean escape) {
 		
 		Map<String, Object> map = new HashMap<>();
+		
 		
 		SemesterDto thisSemesterDto = studentSqlMapper.thisSemesterByY();
 		int semester_pk = thisSemesterDto.getSemester_pk();
 		
 		JoinDormInfoDto joinDormInfoDto = studentSqlMapper.joinDormInfoBySemesterPk(semester_pk);
+		
+		if(escape) {
+			// html escape
+			String content = joinDormInfoDto.getDetail_expln();
+			content = StringEscapeUtils.escapeHtml4(content);
+			content = content.replaceAll("\n", "<br>");
+			
+			joinDormInfoDto.setDetail_expln(content);
+		}
+		
+		
 		int joinDormInfoPk = joinDormInfoDto.getDorm_info_pk();
 		
 		map.put("thisSemesterDto", thisSemesterDto);

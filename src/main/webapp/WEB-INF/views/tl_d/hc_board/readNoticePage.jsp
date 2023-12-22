@@ -91,12 +91,12 @@
 						<c:when test="${sessionStaffInfo.staff_pk == hoho.staffInfoDto.staff_pk }">	
 								<div class="col">
 							<a class="navbar-brand" href="./deleteNoticeProcess?notice_board_pk=${hoho.noBoardDto.notice_board_pk }">
-								<button type="submit" class="btn btn-danger"><i class="bi bi-trash3-fill"></i>
+								<button type="submit" class="btn btn-outline-primary"><i class="bi bi-trash3-fill"></i>
 									삭제
 								</button>
 							</a>
 							<a class="navbar-brand" href="./updateNoticeWritePage?notice_board_pk=${hoho.noBoardDto.notice_board_pk }">
-								<button type="submit" class="btn btn-primary"><i class="bi bi-pencil-fill"></i>
+								<button type="submit" class="btn btn btn-primary"><i class="bi bi-pencil-fill"></i>
 								수정
 								</button>
 							</a>	

@@ -73,7 +73,9 @@
 					<div class="col">
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
 							<div class="col fw-bold">자소서</div>
-							<div class="col-1"><a href="./resumeUpdatePage?resume_pk=${resumeDto.resume_pk }">수정</a></div>							
+							<div class="col-2 d-flex justify-content-end">
+							<a class="btn btn-outline-secondary" role="button" href="./resumeUpdatePage?resume_pk=${resumeDto.resume_pk }"><i class="bi bi-pencil-square"></i>수정</a>
+							</div>							
 						</div>
 						<div class="row border-bottom">
 							<div class="col">${resumeDto.cover_letter }</div>
@@ -88,7 +90,9 @@
 					<div class="col">
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
 							<div class="col fw-bold">경력 사항</div>
-							<div class="col-1"><a href="./careerDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
+							<div class="col-2 d-flex justify-content-end">
+							<a class="btn btn-outline-secondary" role="button"  href="./careerDetailPage?resume_pk=${resumeDto.resume_pk }"><i class="bi bi-pencil-square"></i>수정</a>
+							</div>
 						</div>
 						<div class="row border-bottom border-2 border-gray pb-3 mt-5">
 							<div class="col fw-bold">카테고리</div>
@@ -126,7 +130,9 @@
 					<div class="col">
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
 							<div class="col fw-bold">자격증</div>
-							<div class="col-1"><a href="./licenseDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
+							<div class="col-2 d-flex justify-content-end">
+							<a class="btn btn-outline-secondary" role="button" href="./licenseDetailPage?resume_pk=${resumeDto.resume_pk }"><i class="bi bi-pencil-square"></i>수정</a>
+							</div>
 						</div>
 						<div class="row border-bottom border-2 border-gray pb-3 mt-5">
 							<div class="col fw-bold">자격증 명</div>

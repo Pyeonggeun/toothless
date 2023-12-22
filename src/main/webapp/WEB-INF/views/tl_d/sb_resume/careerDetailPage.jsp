@@ -42,7 +42,7 @@
 						<c:forEach items="${careerList }" var="list">
 							<div class="row border-bottom border-gray">
 								<div class="col text-center my-2">${list.careerName.career_category_name }</div>
-								<div class="col-8 m-2 border-start">${list.careerDto.career_contents }</div>
+								<div class="col-8  border-start">${list.careerDto.career_contents }</div>
 								<div class="col-2">
 									<div class="row p-1">
 										<div class="col border-start">

@@ -150,7 +150,7 @@ public class RestResumeController {
 	public D_RestResponseDto getResumeDto (ResumeDto params) {
 		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
 		d_RestResponseDto.setResult("success");
-		d_RestResponseDto.setData(resumeService.getResume(params));
+		d_RestResponseDto.setData(resumeService.getResume(params,false));
 		
 		
 		return d_RestResponseDto;
@@ -161,9 +161,9 @@ public class RestResumeController {
 	public D_RestResponseDto getCareerDto (ResumeDto params) {
 		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
 		d_RestResponseDto.setResult("success");
-		ResumeDto resumeDto = resumeService.getResume(params);
+		ResumeDto resumeDto = resumeService.getResume(params,false);
 		
-		d_RestResponseDto.setData(resumeService.getCareerDtoList(resumeDto));
+		d_RestResponseDto.setData(resumeService.getCareerDtoList(resumeDto,false));
 		
 		
 		return d_RestResponseDto;
@@ -174,7 +174,7 @@ public class RestResumeController {
 	public D_RestResponseDto getLicenseDto (ResumeDto params) {
 		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
 		d_RestResponseDto.setResult("success");
-		ResumeDto resumeDto = resumeService.getResume(params);
+		ResumeDto resumeDto = resumeService.getResume(params,false);
 		
 		LicenseDto licenseDto = new LicenseDto();
 		int resume_pk = resumeDto.getResume_pk();
@@ -188,7 +188,7 @@ public class RestResumeController {
 	public D_RestResponseDto getStudentInfoByResume(ResumeDto params) {
 		D_RestResponseDto d_RestResponseDto = new D_RestResponseDto();
 		d_RestResponseDto.setResult("success");
-		ResumeDto resumeDto = resumeService.getResume(params);
+		ResumeDto resumeDto = resumeService.getResume(params,true);
 		int student_pk = resumeDto.getStudent_pk();
 		StudentInfoDto student = resumeService.getStudentDtoByResumePk(student_pk);
 		d_RestResponseDto.setData(student);

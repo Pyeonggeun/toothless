@@ -133,11 +133,11 @@ public class ResumeController {
 	@RequestMapping("resumeDetailPage")
 	public String resumeDetailPage(Model model, ResumeDto params) {
 		
-		ResumeDto resumeDto = resumeService.getResume(params);
+		ResumeDto resumeDto = resumeService.getResume(params,true);
 		model.addAttribute("resumeDto", resumeDto);
 		
 		// 경력 내용 가져오기
-		List<Map<String, Object>> careerList = resumeService.getCareerDtoList(resumeDto);
+		List<Map<String, Object>> careerList = resumeService.getCareerDtoList(resumeDto,true);
 		model.addAttribute("careerList", careerList);
 		// 자격증
 		LicenseDto licenseDto = new LicenseDto();
@@ -154,7 +154,7 @@ public class ResumeController {
 	@RequestMapping("resumeUpdatePage")
 	public String resumeUpdatePage(Model model, ResumeDto params) {
 		
-		ResumeDto resumeDto = resumeService.getResume(params);
+		ResumeDto resumeDto = resumeService.getResume(params,false);
 		model.addAttribute("resumeDto", resumeDto);
 		
 		return "tl_d/sb_resume/resumeUpdatePage";
@@ -172,10 +172,7 @@ public class ResumeController {
 	@RequestMapping("resumeUpdateProcess")
 	public String resumeUpdateProcess(ResumeDto params) {
 		
-		String letter = params.getCover_letter();
-		letter = StringEscapeUtils.escapeHtml4(letter);
-		letter = letter.replaceAll("\n", "<br>");
-		params.setCover_letter(letter);
+		
 		resumeService.updateResume(params);
 		
 		
@@ -195,13 +192,13 @@ public class ResumeController {
 	// 경력 페이지
 	@RequestMapping("careerDetailPage")
 	public String careerDetailPage(Model model, ResumeDto params) {
-		ResumeDto resumeDto = resumeService.getResume(params);
+		ResumeDto resumeDto = resumeService.getResume(params,true);
 		
 		// 경력 카테고리 가져오기
 		List<CareerCategoryDto> careerCategoryList = resumeService.getCareerCategory();
 		model.addAttribute("careerCategoryList", careerCategoryList);
 		
-		List<Map<String, Object>> careerList = resumeService.getCareerDtoList(resumeDto);
+		List<Map<String, Object>> careerList = resumeService.getCareerDtoList(resumeDto,false);
 		model.addAttribute("careerList", careerList);
 		
 		model.addAttribute("resumeDto", resumeDto);
@@ -222,7 +219,7 @@ public class ResumeController {
 		model.addAttribute("careerCategoryList", careerCategoryList);
 		
 		// 경력 내용 가져오기
-		List<Map<String, Object>> careerList = resumeService.getCareerDtoList(resumeDto);
+		List<Map<String, Object>> careerList = resumeService.getCareerDtoList(resumeDto,false);
 		model.addAttribute("careerList", careerList);
 		
 		model.addAttribute("careerDto", params);
@@ -234,10 +231,7 @@ public class ResumeController {
 	// 경력 수정
 	@RequestMapping("careerUpdateProcess")
 	public String careerUpdateProcess(CareerDto params) {
-		String career = params.getCareer_contents();
-		career = StringEscapeUtils.escapeHtml4(career);
-		career = career.replaceAll("\n", "<br>");
-		params.setCareer_contents(career);
+		
 		resumeService.updateCareer(params);
 		return "redirect:./careerDetailPage?resume_pk=" + params.getResume_pk();
 	}
