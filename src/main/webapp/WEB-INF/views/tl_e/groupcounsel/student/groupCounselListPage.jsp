@@ -75,23 +75,31 @@
 	<div class="row" style="height:10em;"></div>
 	
 	<div class="row">
+		<div class="col-1"></div>
+		<div class="col" style="padding-left: 1.9em;">
+			<span class="fw-bold" style="font-size: 1.5em;">집단 상담</span>
+			<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">List</span>
+		</div>
+	</div>
+	
+	
+	<div class="row mb-0">
+		<div class="col-1"></div>
 		<div class="col">
+			<div class="row" style="padding-left: 2em;">
+				<div class="col" style="border-bottom-style: solid; border-bottom-width: 4px; border-bottom-color: #8FBC8F;"></div>
+				<div class="col-2"></div>
+			</div>
+		</div>
+		<div class="col-1"></div>
+	</div>	
+	
+	<div class="row pt-0">
+		<div class="col pt-0">
 			<c:forEach items="${groupCounselList}" var="list">
-			<div class="row pt-4">
+			<div class="row pt-2">
 				<!-- 상담 리스트 -->
 				<div class="col ps-5">
-				
-					<div class="row">
-						<div class="col-1"></div>
-						<div class="col-10">
-							<div class="row">
-								<div class="col mx-0 pe-0" style="border-top-style: solid; border-top-width: 4px; border-top-color: #8FBC8F;"></div>
-								<div class="col-2"></div>
-							</div>
-						</div>
-						<div class="col-1"></div>
-					</div>
-					
 					<div class="row">
 						<div class="col-1"></div>
 						
@@ -110,7 +118,7 @@
 												<div class="text-secondary fw-bold" style="font-size: 1em;">${list.groupCounselDto.text}</div>
 											</div>
 										</div>
-										<div class="row py-5"></div>
+										<div class="row py-3"></div>
 										<div class="row pt-3">
 											<div class="col-3">
 												<div class="fw-bold text-black" style="font-size:1.2em; text-decoration: underline;">신청 인원</div>
@@ -137,12 +145,12 @@
 											</div>
 											<div class="col-2 text-end">
 												<c:if test="${list.count==0 && list.groupCounselDto.start_apply_date <= list.sysdate && list.groupCounselDto.end_apply_date >= list.sysdate}">
-													<button onClick="location.href='./groupCounselReservationProcess?group_counsel_id=${list.groupCounselDto.id }&student_pk=${sessionStudentInfo.student_pk}'" class="fw-bold ms-0" type="button" style="font-size: 1.1em; width: 80%; height: 40px; padding: 4px; border-color: red; border-style: solid; border-width: 2px; background-color: white; color: red;">
+													<button onClick="location.href='./groupCounselReservationProcess?group_counsel_id=${list.groupCounselDto.id }&student_pk=${sessionStudentInfo.student_pk}'" class="fw-bold ms-0" type="button" style="font-size: 1.1em; width: 80%; height: 40px; padding: 4px; border-color: #4169E1; border-style: solid; border-width: 2px; background-color: white; color: #4169E1;">
 													신 청
 													</button>	
 												</c:if>
 												<c:if test="${list.count==1 || list.reservationCount == list.groupCounselDto.amount || list.groupCounselDto.end_apply_date < list.sysdate}">
-													<button class="fw-bold ms-0" type="button" style="font-size: 1.1em; width: 80%; height: 40px; padding: 4px; border-color: #8FBC8F; border-style: solid; border-width: 2px; background-color: white; color: black;">
+													<button class="fw-bold ms-0" type="button" style="font-size: 1.1em; width: 80%; height: 40px; padding: 4px; border-color: gray; border-style: solid; border-width: 2px; background-color: white;" disabled="disabled">
 													마 감
 													</button>
 												</c:if>
@@ -150,7 +158,6 @@
 													<button class="fw-bold ms-0" type="button" style="font-size: 1.1em; width: 80%; height: 40px; padding: 4px; border-color: black; border-style: solid; border-width: 2px; background-color: white; color: black;">
 													대 기
 													</button>													
-																										
 												</c:if>
 											</div>
 										</div>
@@ -158,7 +165,7 @@
 								</div>
 							</div>
 							<div class="col-4 text-end pt-2">
-								<img class="img-fluid" style="width: 60%; opacity: 0.8;" src="/uploadFiles/${list.groupCounselDto.posterImage }">
+								<img class="img-fluid" style="width: 50%; opacity: 0.8; border-radius: 3%" src="/uploadFiles/${list.groupCounselDto.posterImage }">
 							</div>												
 							<div class="col"></div>					
 												
@@ -166,7 +173,17 @@
 							</div>
 						</div>
 						<div class="col-1"></div>
-					</div>		
+					</div>	
+					<div class="row pt-3">
+						<div class="col-1"></div>
+						<div class="col-10">
+							<div class="row">
+								<div class="col pt-3 mx-0 pe-0" style="border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #DCDCDC;"></div>
+								<div class="col-2"></div>
+							</div>
+						</div>
+						<div class="col-1"></div>
+					</div>						
 				</div>
 			</div>
 			</c:forEach>		

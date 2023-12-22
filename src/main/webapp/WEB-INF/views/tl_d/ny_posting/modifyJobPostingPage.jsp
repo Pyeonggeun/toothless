@@ -196,7 +196,7 @@
 				</div>
 				<div class="row mt-3">
 					<div class="col"><a class="btn btn-outline-secondary" href="./jobPostingListPage">목록으로</a></div>
-					<div class="col-8"></div>
+					<div class="col-9"></div>
 					<div class="col">
 						<c:choose>
 							<c:when test="${empty sessionStaffInfo}">

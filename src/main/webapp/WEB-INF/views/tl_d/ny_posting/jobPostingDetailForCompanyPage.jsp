@@ -131,7 +131,7 @@
 						</div>
 					</div>
 					<%-- 기업정보 --%>
-					<div class="col-3 p-3 border-start my-2">
+					<div class="col-3 p-3 border-start mt-4 mb-2">
 						<div class="row">
 							<div class="col text-secondary">기업정보</div>
 						</div>
@@ -218,30 +218,34 @@
 				<%-- 공고 지원한 학생목록 --%>
 				<div class="row border-bottom border-2 border-dark">
 					<div class="col fs-5 fw-bold mt-5">지원한 학생</div>
-					 <a class="col fs-5 fw-bold mt-5 text-end navbar-brand" href="../sb_resume/viewResumeByApplyStudentPage?job_posting_pk=${jobPostingDetailForCompany.jobPostingDto.job_posting_pk}"><i class="bi bi-plus-lg"></i></a> 
+					<div class="col-7"></div>
+					 <a class="col-2 btn btn-sm btn-outline-secondary mt-5 mb-1" 
+					 	href="../sb_resume/viewResumeByApplyStudentPage?job_posting_pk=${jobPostingDetailForCompany.jobPostingDto.job_posting_pk}">
+					 	<span class="fw-bold" style="font-size: 1.1em">이력서 보기</span>	
+					 </a> 
 				</div>
 				<%-- 목록명 --%>
 				<div class="row mt-4 mb-1 fw-bold text-secondary text-center border-bottom border-dark">
 					<%-- 이름 --%>
-					<div class="col">이름</div>
+					<div class="col-2">이름</div>
 					<%-- 생년월일 --%>
-					<div class="col">생년월일</div>
+					<div class="col-2">생년월일</div>
 					<%-- 성별 --%>
-					<div class="col">성별</div>
+					<div class="col-2">성별</div>
 					<%-- 이메일 --%>
-					<div class="col">이메일</div>
+					<div class="col-4">이메일</div>
 					<%-- 졸업여부 --%>
-					<div class="col">졸업여부</div>
+					<div class="col-2">졸업여부</div>
 				</div>
 				<c:forEach items="${applyStudentList}" var="applyStudent">
 					<%-- 목록 --%>
 					<div class="row my-2 pb-2 text-center border-bottom">
-						<div class="col">${applyStudent.studentInfoDto.name}</div>
-						<div class="col">
+						<div class="col-2">${applyStudent.studentInfoDto.name}</div>
+						<div class="col-2">
 						<fmt:formatDate value="${applyStudent.studentInfoDto.birth}" pattern="yyMMdd"/> </div>
-						<div class="col">${applyStudent.studentInfoDto.gender}</div>
-						<div class="col">${applyStudent.studentInfoDto.email}</div>
-						<div class="col">
+						<div class="col-2">${applyStudent.studentInfoDto.gender}</div>
+						<div class="col-4">${applyStudent.studentInfoDto.email}</div>
+						<div class="col-2">
 							<c:choose>
 								<c:when test="${! applyStudent.graduationInfoDtoList.contains(applyStudent.studentInfoDto.student_pk)}">
 									재학생
@@ -260,25 +264,25 @@
 				<%-- 목록명 --%>
 				<div class="row mt-4 mb-1 fw-bold text-secondary text-center border-bottom border-dark">
 					<%-- 이름 --%>
-					<div class="col">이름</div>
+					<div class="col-2">이름</div>
 					<%-- 생년월일 --%>
-					<div class="col">생년월일</div>
+					<div class="col-2">생년월일</div>
 					<%-- 성별 --%>
-					<div class="col">성별</div>
+					<div class="col-2">성별</div>
 					<%-- 이메일 --%>
-					<div class="col">이메일</div>
+					<div class="col-4">이메일</div>
 					<%-- 졸업여부 --%>
-					<div class="col">졸업여부</div>
+					<div class="col-2">졸업여부</div>
 				</div>
 				<c:forEach items="${interestStudentList}" var="interestStudent">
 					<%-- 목록 --%>
 					<div class="row my-2 pb-2 text-center border-bottom">
-						<div class="col">${interestStudent.studentInfoDto.name}</div>
-						<div class="col">
+						<div class="col-2">${interestStudent.studentInfoDto.name}</div>
+						<div class="col-2">
 						<fmt:formatDate value="${interestStudent.studentInfoDto.birth}" pattern="yyMMdd"/> </div>
-						<div class="col">${interestStudent.studentInfoDto.gender}</div>
-						<div class="col">${interestStudent.studentInfoDto.email}</div>
-						<div class="col">
+						<div class="col-2">${interestStudent.studentInfoDto.gender}</div>
+						<div class="col-4">${interestStudent.studentInfoDto.email}</div>
+						<div class="col-2">
 							<c:choose>
 								<c:when test="${! interestStudent.graduationInfoDtoList.contains(interestStudent.studentInfoDto.student_pk)}">
 									재학생
