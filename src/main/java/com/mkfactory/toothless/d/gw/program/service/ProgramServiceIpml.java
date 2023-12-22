@@ -38,25 +38,35 @@ public class ProgramServiceIpml {
 	//프로그램 정보 입력하는거
 	public void registerProgramInfo(ProgramDto programDto) {
 		
-		String programContents = programDto.getPrg_contents();
-		
-		if (programContents != null) {
-			programContents = StringEscapeUtils.escapeHtml4(programContents);
-			programContents = programContents.replaceAll("\n", "<br>");
-			programDto.setPrg_contents(programContents);
-		}
 		
 		programSqlMapper.insertProgram(programDto);
 	}
 	
 	//프로그램 한개만 보는거
-	public Map<String, Object> getProgram(int program_pk){
+	public Map<String, Object> getProgram(int program_pk, boolean escape){
 		
 		Map<String, Object> programMap=new HashMap<>();
+		
 		
 		ProgramDto programDto=programSqlMapper.programSelectByPk(program_pk);
 		ProgramCategoryDto programCategoryDto=programSqlMapper.programCategorySelectByPk(programDto.getProgram_category_pk());
 		StaffInfoDto staffInfoDto=programSqlMapper.staffSelectByPk(programDto.getStaff_pk());
+		
+		if(escape) {
+	         
+	         String programContents = programDto.getPrg_contents();
+	         
+	         if (programContents != null) {
+	        	 programContents = StringEscapeUtils.escapeHtml4(programContents);
+	        
+	        	 programContents = programContents.replaceAll("<","&lt;");
+	        	 programContents = programContents.replaceAll(">", "&gt;");
+	        	 programContents = programContents.replaceAll("\n", "<br>");
+	            
+	        	 programDto.setPrg_contents(programContents);
+	         }
+	      
+	      }
 		
 		int applyProgramCount=programSqlMapper.programApplyCount(program_pk);
 		
@@ -97,16 +107,6 @@ public class ProgramServiceIpml {
 	
 	public void updateProgramInfo(ProgramDto programDto) {
 		
-		String programContents = programDto.getPrg_contents();
-		
-		if (programContents != null) {
-			programContents = StringEscapeUtils.escapeHtml4(programContents);
-			programContents = programContents.replaceAll("&lt;","<");
-			programContents = programContents.replaceAll("&gt;",">");
-			programContents = programContents.replaceAll("<br>","\n");
-			programContents = programContents.replaceAll("\n", "<br>");
-			programDto.setPrg_contents(programContents);
-		}
 		
 		programSqlMapper.updateProgram(programDto);
 	}
