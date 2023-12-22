@@ -60,6 +60,7 @@ var shared_sortHJFScore;
 				iconElement.classList.add('bi','bi-info-square');
 				const modal_link_button = listWrapper.querySelector(".modal_link_button");
 				modal_link_button.classList.add('btn','btn-light');
+				modal_link_button.style.fontSize = '1.5em'
 				modal_link_button.value = e.hopeJobFeedbackDto.hope_job_feedback_pk;
 				modal_link_button.appendChild(iconElement);
 				listOutput.appendChild(listWrapper);
@@ -134,7 +135,7 @@ var shared_sortHJFScore;
 				<div class="col-2 border-end pb-0">
 					<jsp:include page="../common/staffMenu.jsp"></jsp:include>	
 				</div>
-				<div class="col ps-3" style="font-size:0.8em;">
+				<div class="col ps-3">
 					<div class="row">
 						<div class="col-1"></div>
 						<div class="col">
@@ -143,7 +144,7 @@ var shared_sortHJFScore;
 									학생 만족도 조사 리스트
 								</div>
 							</div>
-							<div class=" border-secondary-subtle row mt-5 border py-3" style="font-size:1.1em;">
+							<div class=" border-secondary-subtle row mt-5 border py-3">
 
 								<div class="col pe-0" style="text-align:start">
 									<c:choose>
@@ -170,7 +171,7 @@ var shared_sortHJFScore;
 								</div>																		
 							</div>
 							
-							<div class="row mt-5 pb-0" style="font-size:1.2em;">
+							<div class="row mt-5 pb-0" style="font-size:1em;">
 								<div class="col">
 									<div class="row border-bottom border-2 border-secondary fw-bold py-2 text-center">
 										<div class="col">

@@ -201,10 +201,10 @@
 							<table class="table table-bordered text-center align-middle">
 								<thead>
 									<tr class="align-middle border-bottom border-2">
-										<th scope="col" class="col-2 text-bg-light">이름</th>
-										<th scope="col" class="col-2 text-bg-light">기숙사명</th>
-										<th scope="col" class="col-2 text-bg-light">호</th>
-										<th scope="col" class="col-6 text-bg-light">총 점수</th>
+										<th scope="col" class="col-3 text-bg-light">이름</th>
+										<th scope="col" class="col-3 text-bg-light">기숙사명</th>
+										<th scope="col" class="col-3 text-bg-light">호</th>
+										<th scope="col" class="col-3 text-bg-light">총 점수</th>
 									</tr>
 								</thead>
 								<tbody id="pointSituationBox">

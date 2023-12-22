@@ -204,7 +204,7 @@
 			<table id="templete" class="d-none">
 				<tr class="diaryListWrapper">
 					<td class="studentNameSpace">이름나오는곳</td>
-					<td class="contentSpace">내용나오는곳</td>
+					<td class="contentSpace text-start">내용나오는곳</td>
 					<td class="dateSpace">입력일나오는곳</td>
 				</tr>
 			</table>

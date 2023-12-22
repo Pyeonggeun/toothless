@@ -552,11 +552,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="modal-footer border-0 mb-3">
-					<input type="hidden" id="ratingValue">
-					<input type="hidden" id="inputStudentInternPk">
-					<button id="submitButton" onclick="writeSatisfaction()" class="closeModal btn btn-secondary rounded-0">제출</button>
-				</div>
+				
 			</div>
 		</div>
 	</div>
