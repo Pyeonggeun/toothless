@@ -133,7 +133,7 @@ public class ResumeController {
 	@RequestMapping("resumeDetailPage")
 	public String resumeDetailPage(Model model, ResumeDto params) {
 		
-		ResumeDto resumeDto = resumeService.getResume(params);
+		ResumeDto resumeDto = resumeService.getResume(params,true);
 		model.addAttribute("resumeDto", resumeDto);
 		
 		// 경력 내용 가져오기
@@ -154,7 +154,7 @@ public class ResumeController {
 	@RequestMapping("resumeUpdatePage")
 	public String resumeUpdatePage(Model model, ResumeDto params) {
 		
-		ResumeDto resumeDto = resumeService.getResume(params);
+		ResumeDto resumeDto = resumeService.getResume(params,false);
 		model.addAttribute("resumeDto", resumeDto);
 		
 		return "tl_d/sb_resume/resumeUpdatePage";
@@ -195,7 +195,7 @@ public class ResumeController {
 	// 경력 페이지
 	@RequestMapping("careerDetailPage")
 	public String careerDetailPage(Model model, ResumeDto params) {
-		ResumeDto resumeDto = resumeService.getResume(params);
+		ResumeDto resumeDto = resumeService.getResume(params,true);
 		
 		// 경력 카테고리 가져오기
 		List<CareerCategoryDto> careerCategoryList = resumeService.getCareerCategory();

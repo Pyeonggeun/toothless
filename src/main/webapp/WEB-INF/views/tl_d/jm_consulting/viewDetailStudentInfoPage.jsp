@@ -295,7 +295,7 @@
 									<span class="fw-bold">${viewStudentDetailPageStats.countUnAnsweredFeedback}</span> 건
 								</div>	
 								<div class="col text-end">
-									<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+									<button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
 									  <span class="fw-bold">취업상담 내용 등록</span>
 									</button>
 								</div>																								

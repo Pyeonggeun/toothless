@@ -68,17 +68,17 @@
                                	 Ⅰ. 신청 대상
                             </div>
                         </div>
-                        <div class="row mt-1">
+                        <div class="row mt-2">
 							<div class="col " style="font-size: 1.0em;">
 								□ ${thisSemesterJoinDormInfo.thisSemesterDto.semester_year }학년도 ${thisSemesterJoinDormInfo.thisSemesterDto.semester } 생활관 입사를 희망하는 본교 재학생
 							</div>             
                         </div>
                         <div class="row mt-5">
 							<div class="col fw-bold" style="font-size: 1.2em">
-								Ⅱ. 신청일 
+								Ⅱ. 신청 기간
 							</div>             
                         </div>
-                        <div class="row mt-1">
+                        <div class="row mt-2">
 							<div class="col" style="font-size: 1.0em;">
 								□ <span style="color: blue;"><fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.apply_start_date }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.apply_end_date }" pattern="yyyy-MM-dd"/></span>
 							</div>             
@@ -88,82 +88,107 @@
 								Ⅲ. 선발인원
 							</div>             
                         </div>
-                        <div class="row mt-1">
-							<div class="col" style="font-size: 1.0em;">
-								□ ${thisSemesterJoinDormInfo.joinDormInfoDto.selection_amount }
+                        <div class="row mt-2">
+							<div class="col" style="font-size: 1.0em;" >
+								□ <span style="color: blue;">총 ${thisSemesterJoinDormInfo.joinDormInfoDto.selection_amount }명</span>
 							</div>             
                         </div>
-                        <div class="row mt-1">
+                        <div class="row mt-2">
 							<div class="col" style="font-size: 1.0em;">
 								□ 선발 비율:
 							</div>             
                         </div>
-                        <div class="row mt-1">
+                        <div class="row mt-2">
 							<div class="col" style="font-size: 1.0em;">
 								※ 상기 선발계획은 생활관 사정에 따라 변경될 수 있습니다.
 							</div>             
                         </div>
-                        <div class="row mt-1">
+                        <div class="row mt-2">
 							<div class="col" style="font-size: 1.0em;">
 								※ 서관(남)의 경우 선발 비율이 학교 사정에 따라 변경될 수 있습니다.
 							</div>             
                         </div>
                         <div class="row mt-5">
 							<div class="col fw-bold" style="font-size: 1.2em;">
-								Ⅳ. 선발 내용
+								Ⅳ. 선발 방법
 							</div>             
                         </div>
-                        <div class="row mt-1">
+                        <div class="row mt-2">
 							<div class="col" style="font-size: 1.0em;">
 								□ ${thisSemesterJoinDormInfo.joinDormInfoDto.detail_expln }
 							</div>             
                         </div>
                         <div class="row mt-5">
 							<div class="col fw-bold" style="font-size: 1.2em;">
-								Ⅴ. 합격자발표일
+								Ⅴ. 합격자 발표일
 							</div>             
                         </div>
-                        <div class="row mt-1">
+                        <div class="row mt-2">
 							<div class="col" style="font-size: 1.0em;">
-								□ 발표일시: <span style="color: blue;"><fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.pass_anncm_date }" pattern="yyyy-MM-dd"/> ~</span>
+								□ 발표일시: <span style="color: blue;"><fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.pass_anncm_date }" pattern="yyyy-MM-dd"/></span>
 							</div>             
                         </div>
-                        <div class="row mt-1">
+                        <div class="row mt-2">
 							<div class="col" style="font-size: 1.0em;">
 								□ 확인방법: 합격자 발표 및 납부기간에 생활관 홈페이지에 바로가기 팝업을 띄울 예정이오니 참고하시기 바랍니다.
 							</div>             
                         </div>
-                        <div class="row mt-1">
+                        <div class="row mt-2">
 							<div class="col" style="font-size: 1.0em;">
                                 1. 재학생 : [종합정보시스템] - [일반] - [생활관 관리] - [생활관 입사신청]
 							</div>             
                         </div>
-                        <div class="row mt-1">
+                        <div class="row mt-2">
 							<div class="col" style="font-size: 1.0em;">
                                 2 외국인 신입생(학부) : 신입생 생활관 신청 (mokwon.ac.kr) - [수험번호 입력] - [가상 계좌로 납부]
 							</div>             
                         </div>
-                        <div class="row mt-1">
+                        <div class="row mt-2">
 							<div class="col" style="font-size: 1.0em;">
                                 3 신입 대학원생 :  신입생 생활관 신청 (mokwon.ac.kr) - [수험번호 입력]
 							</div>             
                         </div>
                         <div class="row mt-5">
 							<div class="col fw-bold" style="font-size: 1.2em;">
-								Ⅵ. 관비납부일
+								Ⅵ. 관비 납부
 							</div>             
                         </div>
-                        <div class="row mt-1">
+                        <div class="row mt-2">
 							<div class="col" style="font-size: 1.0em;">
 								□ <span style="color: blue;"><fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.payment_start_date }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.payment_end_date }" pattern="yyyy-MM-dd"/></span>
 							</div>             
                         </div>
-                        <div class="row mt-5">
-							<div class="col fw-bold" style="font-size: 1.2em;">
-								Ⅶ. 배정통보일
+                        <div class="row mt-2">
+							<div class="col" style="font-size: 1.0em;">
+								□ 납부금액 : 850,000원
 							</div>             
                         </div>
-                        <div class="row mt-1">
+                        <div class="row mt-2">
+							<div class="col" style="font-size: 1.0em;">
+								□ 납부방법 : 
+							</div>             
+                        </div>
+                         <div class="row mt-2">
+							<div class="col" style="font-size: 1.0em;">
+                               1) 재 학 생 : [종합정보시스템] - [학사행정] - [부가서비스] - [생활관 입사 신청] - [본인인증] - [가상계좌로 납부]
+							</div>             
+                        </div>
+                        <div class="row mt-2">
+							<div class="col" style="font-size: 1.0em;">
+                               2) 신입 대학원생 : 신입생 생활관 신청 (mokwon.ac.kr) - [수험번호 입력] - [가상 계좌로 납부]
+							</div>             
+                        </div>
+                        <div class="row mt-2">
+							<div class="col" style="font-size: 1.0em;">
+                                ※ 납부 기간을 엄수해주시기 바라며, 기간 미준수 시 자동탈락 됩니다.
+							</div>             
+                        </div>
+                        <div class="row mt-5">
+							<div class="col fw-bold" style="font-size: 1.2em;">
+								Ⅶ. 배정 통보일
+							</div>             
+                        </div>
+                        <div class="row mt-2">
 							<div class="col" style="font-size: 1.0em;">
 								□ <span style="color: blue;"><fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.asgnm_anncm_date }" pattern="yyyy-MM-dd"/></span>
 							</div>             
@@ -173,9 +198,34 @@
 								Ⅷ. 입주일 
 							</div>             
                         </div>
-                        <div class="row mt-1">
+                        <div class="row mt-2">
 							<div class="col" style="font-size: 1.0em;">
 								□ <span style="color: blue;"><fmt:formatDate value="${thisSemesterJoinDormInfo.joinDormInfoDto.join_dorm_date }" pattern="yyyy-MM-dd"/></span>
+							</div>             
+                        </div>
+                        <div class="row mt-5">
+							<div class="col fw-bold" style="font-size: 1.2em;">
+								Ⅸ. 관련 문의처 
+							</div>             
+                        </div>
+                        <div class="row mt-2">
+							<div class="col" style="font-size: 1.0em;">
+                              □ 문의 가능 시간 : 평일 09:00 ~ 15:00 (토, 일, 공휴일 휴무)
+                              </div>             
+                        </div>
+                        <div class="row mt-2">
+							<div class="col" style="font-size: 1.0em;">
+                              ◦ 전화 : 031) 123-7777~3, 5~7
+                              </div>             
+                        </div>
+                        <div class="row mt-2">
+							<div class="col" style="font-size: 1.0em;">
+                               ※ 12:00 ~ 13:00 은 점심시간이므로 통화 연결이 어렵습니다.
+							</div>             
+                        </div>
+                        <div class="row mt-2">
+							<div class="col" style="font-size: 1.0em;">
+                               □ E-MAIL : dormitory@mkfactory.ac.kr
 							</div>             
                         </div>
                         <!-- 수정 안해도 됨!!-->
