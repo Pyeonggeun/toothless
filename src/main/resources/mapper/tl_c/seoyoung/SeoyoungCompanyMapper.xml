@@ -132,7 +132,7 @@
 		WHERE
 		TL_JIC_STUDENT_SEMESTER.STUDENT_PK = TL_JIC_STUDENT_INFO.STUDENT_PK
 		GROUP BY TL_JIC_STUDENT_SEMESTER.STUDENT_PK
-		)
+		) AND tl_c_student_applying.STATUS !='신청완료'
 	</select>
 
 	<!-- 자격증 -->
