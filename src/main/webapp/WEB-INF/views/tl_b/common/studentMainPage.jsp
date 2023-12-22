@@ -53,13 +53,24 @@
         }
         .rotateRight {
         transform: rotate(90deg);
-        transition: all ease 1s;
+        transition: all ease 0.5s;
      	}
         .rotateLeft {
         transform: rotate(-90deg);
-        transition: all ease 1s;
+        transition: all ease 0.5s;
      	}
-        
+        body span {
+            display: block;  
+        }
+        .card {
+        max-width: calc(100% - 38px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        }
+            
     </style>
 
     <script>
@@ -86,7 +97,68 @@
         }
     </script>
 
-    
+    <script>
+        function reloadNotice(){
+
+            const url = "../kh/boardNotice"
+
+            fetch(url)
+            .then(response => response.json())
+            .then(response => {
+
+                console.log(response.data.length);
+
+                let i = 0;
+
+                //붙일장소
+                const noticeStation = document.querySelector("#noticeStation");
+                for(e of response.data){
+                    
+                    if(i==2){return;}
+                    if(i == 0){
+                    const borderChange = document.querySelector("#templete .borderChange").cloneNode(true);
+                    borderChange.classList.add("me-3");
+
+                    const boardTitle = borderChange.querySelector(".boardTitle");
+                    boardTitle.innerText = e.title;
+                    console.log(e.title);
+                    
+                    const boardContent = borderChange.querySelector(".boardContent");
+                    boardContent.innerText = e.content;
+                    
+                    const boardDate = borderChange.querySelector(".boardDate");
+                    const date = new Date(e.created_at);
+                    boardDate.innerText = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
+                    
+                    noticeStation.appendChild(borderChange);
+                    }else{
+
+                    const borderChange = document.querySelector("#templete .borderChange").cloneNode(true);
+
+                    const boardTitle = borderChange.querySelector(".boardTitle");
+                    boardTitle.innerText = e.title;
+                    console.log(e.title);
+                    
+                    const boardContent = borderChange.querySelector(".boardContent");
+                    boardContent.innerText = e.content;
+                    
+                    const boardDate = borderChange.querySelector(".boardDate");
+                    const date = new Date(e.created_at);
+                    boardDate.innerText = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
+                    
+                    noticeStation.appendChild(borderChange);
+                    }
+                    i += 1;
+                }
+            })
+
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            reloadNotice();
+            });
+    </script>
+
     <script>
         $(document).ready(function() {
             $('#calendar').fullCalendar({
@@ -124,7 +196,6 @@
 	<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
 	<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
     <div class="container-fluid">
-
         <div class="row">
             <div class="col px-0">
                 <img class="img-fluid" src="../../resources/img/healthRoom/mainPage/adhy-savala-zbpgmGe27p8-unsplash.jpg">
@@ -269,43 +340,8 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="row mt-3" >
-                                <div onmouseover="borderChange(this)" onmouseout="borderChange(this)" class="borderChange col ps-3 me-3 border border-2 rounded-5" style="background-color: #F7FBFF;">
-                                    <div class="row my-3">
-                                        <div class="col fw-bold fs-6 text-center">
-                                            보건실을 이용하는 모든 학생들에게
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <span>보건실 이용이 끝난후 뛰어나가다가 다시 보건실에 입원하는 경우가 속출하고 있습니다.</span>
-                                            <span>퇴원하실때는 걸어나가셔서 부디 재입원을 하게되는 경우가없도록 부탁드립니다.</span>
-                                        </div>
-                                    </div>
-                                    <div class="row my-3">
-                                        <div class="col text-center">
-                                            2023.12.20 보건소장
-                                        </div>
-                                    </div>  
-                                </div>
-                                <div onmouseover="borderChange(this)" onmouseout="borderChange(this)" class="borderChange col ps-3 border border-2 rounded-5 "style="background-color: #F7FBFF;">
-                                    <div class="row my-3">
-                                        <div class="col fw-bold fs-6 text-center">
-                                            보건실을 이용하는 모든 학생들에게
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <span>보건실 이용이 끝난후 뛰어나가다가 다시 보건실에 입원하는 경우가 속출하고 있습니다.</span>
-                                            <span>퇴원하실때는 걸어나가셔서 부디 재입원을 하게되는 경우가없도록 부탁드립니다.</span>
-                                        </div>
-                                    </div>
-                                    <div class="row my-3">
-                                        <div class="col text-center">
-                                            2023.12.20 보건소장
-                                        </div>
-                                    </div> 
-                                </div>
+                            <div id="noticeStation"class="row mt-3" >
+                                <!-- 공지사항 출력되는곳-->
                             </div>
                         </div>
                     </div>
@@ -322,7 +358,7 @@
                                         </div>
                                         <div class="col fw-bold text-end fs-5 text-white pb-1 element-with-pointer-cursor">
                                             <svg id="plus2" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16"
-                                            onmouseover="rotateRight(this)" onmouseout="rotateLeft(this)" onclick="location.href='../ty/studentBoardPage'">
+                                            onmouseover="rotateRight(this)" onmouseout="rotateLeft(this)" onclick="location.href='../kh/calendarPage'">
                                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
                                             </svg>
                                         </div>
@@ -362,7 +398,10 @@
                             </div>
                             <div class="row mt-1">
                                 <div class="col text-center pe-0" >
-                                    <img class="img-fluid rounded-5" src="../../resources/img/healthRoom/mainPage/map.jpg" style="width: 100%; height:23.57em;">
+                                    <div class="rounded-4" id="map" style="width:100%; height:422.13px;"></div>
+                                    <div id="clickLatlng"></div>
+
+                                    
                                 </div>
                             </div>
                         </div>
@@ -382,5 +421,52 @@
         const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
         const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
     </script>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b22c10f227ab026df2162c47788f95c8"></script>
+    <script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = { 
+            center: new kakao.maps.LatLng(37.499605278039844, 127.03044921990401), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+    // 마커가 표시될 위치입니다 
+    var markerPosition  = new kakao.maps.LatLng(37.499605278039844, 127.03044921990401); 
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+
+    // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+    // marker.setMap(null);    
+    </script>
+
+    <div id="templete" class="d-none">
+        <div onmouseover="borderChange(this)" onmouseout="borderChange(this)" class="borderChange col ps-3 border border-2 rounded-5" 
+        style="max-height: 300px; background-color: #F7FBFF;">
+            <div class="row my-3">
+                <div class="col fw-bold fs-6 text-center boardTitle">
+                    <!-- 제목 -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col boardContent">
+                    <!-- 내용 -->
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col fw-bold text-center boardDate">
+                    <!-- 입력일 -->
+                </div>
+            </div>  
+        </div>
+    </div>
+    
 </body>
 </html>
