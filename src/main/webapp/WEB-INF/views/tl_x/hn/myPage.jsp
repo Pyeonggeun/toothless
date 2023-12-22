@@ -49,12 +49,9 @@
         
         <script>
         
-	        let ingPageNumber = 1;
-	    	let ingTotalPageNumber = 1;
-	    	
-	    	let overPageNumber = 1;
-	    	let overTotalPageNumber = 1;
-	    	
+        	let ingTotalPageNumber = 0;
+        	let overTotalPageNumber = 0;
+        
 			let lifeStudentKey = 1;
 	    	
 	    	let lectureStudentKey = 1;
@@ -91,86 +88,6 @@
 	    		
 	    	}
 			
-			function previousIngPage() {
-	    		
-				if(ingPageNumber <= 1) {
-					
-					ingPageNumber = ingTotalPageNumber;
-					document.getElementById("ingPageNumber").innerText = ingPageNumber;
-					
-				}else {
-					ingPageNumber--;
-					document.getElementById("ingPageNumber").innerText = ingPageNumber;
-				}
-	    		
-	    	}
-			
-			function nextIngPage() {
-	    		
-				if(ingPageNumber >= ingTotalPageNumber) {
-					
-					ingPageNumber = 1;
-					document.getElementById("ingPageNumber").innerText = ingPageNumber;
-					
-				}else {
-					ingPageNumber++;
-					document.getElementById("ingPageNumber").innerText = ingPageNumber;
-				}
-	    		
-	    	}
-			
-			function previousOverPage() {
-	    		
-				if(overPageNumber <= 1) {
-					
-					overPageNumber = overTotalPageNumber;
-					document.getElementById("overPageNumber").innerText = overPageNumber;
-					
-				}else {
-					overPageNumber--;
-					document.getElementById("overPageNumber").innerText = overPageNumber;
-				}
-	    		
-	    	}
-			
-			function nextOverPage() {
-	    		
-				if(overPageNumber >= overTotalPageNumber) {
-					
-					overPageNumber = 1;
-					document.getElementById("overPageNumber").innerText = overPageNumber;
-					
-				}else {
-					overPageNumber++;
-					document.getElementById("overPageNumber").innerText = overPageNumber;
-				}
-	    		
-	    	}
-			
-			function ingPagination() {
-	 			
-	 			document.getElementById("ingPageNumber").innerText = ingPageNumber;
-	 			
-	 			if(ingTotalPageNumber == 0){
-	 				document.getElementById("ingTotalPageNumber").innerText = 1;
-	 			}else{
-	 				document.getElementById("ingTotalPageNumber").innerText = ingTotalPageNumber;
-	 			}
-	 			
-			}
-			
-			function overPagination() {
-				
-				document.getElementById("overPageNumber").innerText = overPageNumber;
-	 			
-	 			if(overTotalPageNumber == 0){
-	 				document.getElementById("overTotalPageNumber").innerText = 1;
-	 			}else{
-	 				document.getElementById("overTotalPageNumber").innerText = overTotalPageNumber;
-	 			}
-	 			
-			}
-			
 			function reloadTotalCount() {
 				
 				const url = "./getTotalCount?life_student_key=" + lifeStudentKey;
@@ -184,7 +101,7 @@
 					document.getElementById("completeTotalCount").innerText = response.data.completeTotalCount;
 					
 					ingTotalPageNumber = response.data.ingTotalCount;
-					overTotalPageNumber = response.data.completeTotalCount;
+		        	overTotalPageNumber = response.data.completeTotalCount;
 					
 					reloadIngLecture();
 					reloadCompleteLecture();
@@ -200,8 +117,6 @@
 				fetch(url)
 				.then(response => response.json())
 				.then(response => {
-					
-					ingPagination();
 					
 					const ingLectureBox = document.getElementById("ingLectureBox");
 					ingLectureBox.innerHTML = "";
@@ -257,8 +172,6 @@
 				fetch(url)
 				.then(response => response.json())
 				.then(response => {
-					
-					overPagination();
 					
 					const completeLectureBox = document.getElementById("completeLectureBox");
 					completeLectureBox.innerHTML = "";
@@ -502,17 +415,13 @@
                                                                     <nav aria-label="Page navigation example">
                                                                         <ul class="pagination justify-content-end">
                                                                             <li id="ingPrevious" class="page-item">
-                                                                                <a onclick="previousIngPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;"  data-bs-target="#ingCarousel" data-bs-slide="prev">
+                                                                                <a class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;"  data-bs-target="#ingCarousel" data-bs-slide="prev">
                                                                                     <span aria-hidden="true">&laquo;</span>
                                                                                 </a>
                                                                             </li>
-                                                                            <li class="page-item px-1 my-auto">
-                                                                            	<a class="page-link border-0 link-secondary px-1 fw-bold" style="font-size: 0.9em;">
-                                                                            		<span id="ingPageNumber" style="color: #f7a505">1</span> / <span id="ingTotalPageNumber">10</span>
-                                                                            	</a>
-                                                                            </li>
+                                                                            <li class="page-item px-1 my-auto"></li>
                                                                             <li id="ingNext" class="page-item">
-                                                                                <a onclick="nextIngPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;"  data-bs-target="#ingCarousel" data-bs-slide="next">
+                                                                                <a class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;"  data-bs-target="#ingCarousel" data-bs-slide="next">
                                                                                     <span aria-hidden="true">&raquo;</span>
                                                                                 </a>
                                                                             </li>
@@ -541,17 +450,13 @@
                                                                     <nav aria-label="Page navigation example">
                                                                         <ul class="pagination justify-content-end">
                                                                             <li id="overPrevious" class="page-item">
-                                                                                <a onclick="previousOverPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;" data-bs-target="#completeCarousel" data-bs-slide="prev">
+                                                                                <a class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Previous" style="font-size: 1em; color: #f7a505;" data-bs-target="#completeCarousel" data-bs-slide="prev">
                                                                                     <span aria-hidden="true">&laquo;</span>
                                                                                 </a>
                                                                             </li>
-                                                                            <li class="page-item px-1 my-auto">
-                                                                            	<a class="page-link border-0 link-secondary px-1 fw-bold" style="font-size: 0.9em;">
-                                                                            		<span id="overPageNumber" style="color: #f7a505">1</span> / <span id="overTotalPageNumber">10</span>
-                                                                            	</a>
-                                                                            </li>
+                                                                            <li class="page-item px-1 my-auto"></li>
                                                                             <li id="overNext" class="page-item">
-                                                                                <a onclick="nextOverPage()" class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;" data-bs-target="#completeCarousel" data-bs-slide="next">
+                                                                                <a class="page-link fw-bold rounded-circle py-1" href="#" aria-label="Next" style="font-size: 1em; color: #f7a505;" data-bs-target="#completeCarousel" data-bs-slide="next">
                                                                                     <span aria-hidden="true">&raquo;</span>
                                                                                 </a>
                                                                             </li>
