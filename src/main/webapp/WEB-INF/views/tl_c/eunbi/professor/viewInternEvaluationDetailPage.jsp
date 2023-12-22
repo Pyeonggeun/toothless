@@ -100,7 +100,7 @@
 							<div class="col">
 								<div class="row pt-2">
 									<div class="col-3 fw-semibold text-dark-emphasis align-self-center">
-										- 성실성 평가점수
+										- 성실성 평가점수 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -132,7 +132,7 @@
 									</c:choose>
 									</div>
 									<div class="col-3 fw-semibold text-dark-emphasis align-self-center ms-3">
-										- 책임감 평가점수
+										- 책임감 평가점수 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -167,7 +167,7 @@
 								
 								<div class="row border-bottom pb-4">
 									<div class="col-3 fw-semibold text-dark-emphasis align-self-center">
-										- 협조성 평가점수
+										- 협조성 평가점수 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -199,7 +199,7 @@
 									</c:choose>
 									</div>
 									<div class="col-3 fw-semibold text-dark-emphasis align-self-center ms-3">
-										- 업무달성도
+										- 업무달성도 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -255,7 +255,7 @@
 							<div class="col">
 								<div class="row pt-2">
 									<div class="col-3 fw-semibold text-dark-emphasis align-self-center">
-										- 성실성 평가점수
+										- 성실성 평가점수 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -287,7 +287,7 @@
 									</c:choose>
 									</div>
 									<div class="col-3 fw-semibold text-dark-emphasis align-self-center ms-3">
-										- 책임감 평가점수
+										- 책임감 평가점수 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -322,7 +322,7 @@
 								
 								<div class="row border-bottom pb-4">
 									<div class="col-3 fw-semibold text-dark-emphasis align-self-center">
-										- 협조성 평가점수
+										- 협조성 평가점수 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -354,7 +354,7 @@
 									</c:choose>
 									</div>
 									<div class="col-3 fw-semibold text-dark-emphasis align-self-center ms-3">
-										- 업무달성도
+										- 업무달성도 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>

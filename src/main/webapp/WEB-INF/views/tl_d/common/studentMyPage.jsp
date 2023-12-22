@@ -156,7 +156,7 @@
 										<div class="col">
 											<%-- 공고 제목 --%>
 											<div class="row">
-												<div class="col sd-inline-block text-truncate" style="max-width: 330px;">
+												<div class="col sd-inline-block text-truncate" style="max-width: 22em;">
 													${list.postDto.posting_name }
 												</div>
 											</div>
@@ -190,7 +190,7 @@
 							</c:when>
 							<c:otherwise>
 							<c:forEach items="${interestpostingForMyPage}" var="interestPosting">
-								<div class="row mt-2 border-bottom">
+								<div class="row mt-2 ps-4 border-bottom">
 									<%-- 1번째 칸 --%>
 									<div class="col-2">
 										<div class="row">
@@ -211,12 +211,12 @@
 										</div>
 									</div>
 									<%-- 2번째 칸 --%>
-									<div class="col-8 mt-1 pb-2">
+									<div class="col-8 mt-1 ms-2 pb-2">
 										<div class="row">
 											<%-- 공고제목 --%>
 											<div class="col ms-1 ps-0 pt-1">
 												<a class="navbar-brand" href="../ny_posting/jobPostingDetailForStudentPage?id=${interestPosting.jobPostingDto.job_posting_pk}">
-												<span class="d-inline-block text-truncate" style="max-width: 500px;">
+												<span class="d-inline-block text-truncate" style="max-width: 32em;">
 													${interestPosting.jobPostingDto.posting_name}
 												</span>
 												</a>
@@ -224,7 +224,7 @@
 										</div>
 										<div class="row">
 											<%-- 분야/지역/기간 태그  --%>
-											<div class="col ps-0">
+											<div class="col ms-1 ps-0">
 												<a class="navbar-brand" href="./jobPostingDetailPage?id=${interestPosting.jobPostingDto.job_posting_pk}">
 												<span class="text-secondary">#&nbsp;${interestPosting.jobFieldCategoryDto.job_field_category_name} #&nbsp;${interestPosting.jobPostingDto.job_position}
 												#&nbsp;${interestPosting.companyDto.com_address} #&nbsp;<fmt:formatDate value="${interestPosting.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/></span>
@@ -269,8 +269,8 @@
 				<div class="row pt-3 ps-0 me-3"><div class="col"></div></div>
 				<div class="row ms-1 pt-0 my-3">
 					<div class="col-4 me-4 ps-3">
-					<div class="row ms-1 border-bottom border-2">
-							<div class="col fs-5 fw-bold mt-5 pb-1">상담이력</div>
+					<div class="row border-bottom border-2">
+							<div class="col fs-5 fw-bold mt-5 pb-1">온라인 상담 이력</div>
 							<div class="col fs-5 fw-bold mt-5 text-end"><a class="navbar-brand" href="../jm_consulting/myOnlineConsultingListPage"><i class="bi bi-plus-lg"></i></a></div>
 						</div>
 						
@@ -294,20 +294,19 @@
 							<c:otherwise>
 								<c:forEach items="${getMyOnlineConsultingListNumFive }" var="e">
 									
-									<div class="row my-3 border-bottom">
+									<div class="row my-3 ps-3 border-bottom">
 										<div class="col">
 											<%-- 상담 번호 --%>
 											<div class="row pb-2">
-												<div class="col-3 ms-2">No.<span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
-												<div class="col ms-2">
-												</div>
-												<div class="col ms-2">
+												<div class="col-4 ms-2">상담 번호 <span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
+
+												<div class="col ms-2 text-center">
 													<c:choose>
 														<c:when test="${e.onlineConsultingReplyDto==null}">
-															<span class="badge text-bg-danger">미답변</span>
+															<a style="height:80%;" class="pt-0 btn btn-danger" href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="">미답변</span></a>
 														</c:when>
 														<c:otherwise>
-															<a href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="badge text-bg-primary">답변완료</span></a>
+															<a style="height:80%;" class="pt-0 btn btn-secondary" href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="">답변완료</span></a>
 														</c:otherwise>
 													</c:choose>		
 												</div>

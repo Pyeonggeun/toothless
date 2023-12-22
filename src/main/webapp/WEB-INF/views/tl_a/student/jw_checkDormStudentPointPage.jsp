@@ -43,7 +43,7 @@
                 <div class="row"><!--여기가 안에 들어갈 내용들-->
                     <div class="col">
                     	<div class="row my-2">
-                    		<div class="col-2 py-3 fw-bold" style="font-size: 1.1rem;">
+                    		<div class="col-1 py-3 fw-bold" style="font-size: 1.1rem;">
                     			<span>이름</span>
                     		</div>
                     		<div class="col py-3 text-start" style="font-size: 1.0rem;">
@@ -60,18 +60,18 @@
                         </div>
                         <div class="row my-4 border">
                         	<div class="col">
-                        		<div class="row py-2 align-middle mb-0 text-center border border-bottom-1 border-start-0 border-top-1 border-end-0 text-white" style="background-color: #8C7430;">
+                        		<div class="row py-2 mb-0 text-center border border-bottom-1 border-start-0 border-top-1 border-end-0 text-white" style="background-color: #8C7430;">
                         				<div class="col fw-bold border border-bottom-0 border-start-0 border-top-0 border-end-1">상/벌점 Category</div>
                         				<div class="col fw-bold border border-bottom-0 border-start-0 border-top-0 border-end-1">사유</div>
-                        				<div class="col-1 fw-bold border border-bottom-0 border-start-0 border-top-0 border-end-1">점수</div>
+                        				<div class="col-1 w-bold border border-bottom-0 border-start-0 border-top-0 border-end-1" align="center">점수</div>
                         				<div class="col-3 fw-bold">부여일</div>
                         			</div>
                         		<c:forEach items="${pointSituationListMap}" var="pointSituationListMap">
-                        			<div class="row py-2 align-middle border border-bottom-1 border-start-0 border-top-0 border-end-0">
-                        				<div class="col border border-bottom-0 border-start-0 border-top-0 border-end-1">${pointSituationListMap.pointCategoryDto.content}</div>
-                        				<div class="col border border-bottom-0 border-start-0 border-top-0 border-end-1">${pointSituationListMap.pointDto.reason}</div>
-                        				<div class="col-1 text-center border border-bottom-0 border-start-0 border-top-0 border-end-1">${pointSituationListMap.pointCategoryDto.point}</div>
-                        				<div class="col-3 text-center"><fmt:formatDate value="${pointSituationListMap.pointDto.created_at}" pattern="yyyy-MM-dd"/></div>
+                        			<div class="row py-2 border border-bottom-1 border-start-0 border-top-0 border-end-0">
+                        				<div class="col d-grid align-items-center border border-bottom-0 border-start-0 border-top-0 border-end-1">${pointSituationListMap.pointCategoryDto.content}</div>
+                        				<div class="col d-grid align-items-center border border-bottom-0 border-start-0 border-top-0 border-end-1">${pointSituationListMap.pointDto.reason}</div>
+                        				<div class="col-1 d-grid text-center align-items-center border border-bottom-0 border-start-0 border-top-0 border-end-1">${pointSituationListMap.pointCategoryDto.point}</div>
+                        				<div class="col-3 d-grid align-items-center text-center"><fmt:formatDate value="${pointSituationListMap.pointDto.created_at}" pattern="yyyy-MM-dd"/></div>
                         			</div>
                         		</c:forEach>
 							</div>

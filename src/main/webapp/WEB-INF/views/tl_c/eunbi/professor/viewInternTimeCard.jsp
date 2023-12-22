@@ -149,7 +149,7 @@
 							
 							<c:forEach items="${timecatedReport}" var="report">
 								<div class="col mt-3 px-4">
-									<div class="row border rounded-1" style="height:17em">
+									<div class="row border rounded-1" style="height:23em">
 										<div class="col">
 											<div class="row">
 												<div class="col py-2 fw-semibold bg-body-secondary">

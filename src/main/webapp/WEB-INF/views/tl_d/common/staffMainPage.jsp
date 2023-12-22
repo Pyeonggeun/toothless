@@ -130,7 +130,7 @@
 											<div class="col-3 text-center pt-1">
 												<c:choose>
 													<c:when test="${list.companyDto.is_family_company=='Y'}">
-														<span class="badge text-bg-primary">가족기업</span>
+														<span class="badge text-white text-bg-info">가족기업</span>
 													</c:when>
 													
 													<c:when test="${list.companyDto.is_family_company=='N'}">
@@ -185,8 +185,8 @@
 									          </div>
 								        </div> 
 										<div class="row">
-											<div class="col">
-												<a class="btn text-truncate fw-bold text-truncate" href="../gw_program/programViewDetailsPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em; max-width: 250px;">${list.programDto.prg_name}</a>
+											<div class="col"> 
+												<a class="btn text-truncate fw-bold text-truncate" href="../gw_program/programViewDetailsPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em; max-width: 14em;">${list.programDto.prg_name}</a>
 											</div>
 										</div>
 										<div class="row">

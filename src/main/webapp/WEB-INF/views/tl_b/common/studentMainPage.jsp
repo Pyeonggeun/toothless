@@ -70,6 +70,7 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         }
+        
             
     </style>
 
@@ -106,8 +107,6 @@
             .then(response => response.json())
             .then(response => {
 
-                console.log(response.data.length);
-
                 let i = 0;
 
                 //붙일장소
@@ -121,7 +120,6 @@
 
                     const boardTitle = borderChange.querySelector(".boardTitle");
                     boardTitle.innerText = e.title;
-                    console.log(e.title);
                     
                     const boardContent = borderChange.querySelector(".boardContent");
                     boardContent.innerText = e.content;
@@ -137,7 +135,6 @@
 
                     const boardTitle = borderChange.querySelector(".boardTitle");
                     boardTitle.innerText = e.title;
-                    console.log(e.title);
                     
                     const boardContent = borderChange.querySelector(".boardContent");
                     boardContent.innerText = e.content;
@@ -392,13 +389,13 @@
                         </div>
                         <div class="col-3 ms-2">
                             <div class="row">
-                                <div class="col text-center fw-bold fs-2">
-                                    <span>Map&nbsp;</span><i class="bi bi-pin-map-fill text-danger"></i>
+                                <div class="col text-center fw-bold fs-4">
+                                    <span>찾아오시는길&nbsp;</span><i class="bi bi-pin-map-fill text-danger"></i>
                                 </div>
                             </div>
                             <div class="row mt-1">
                                 <div class="col text-center pe-0" >
-                                    <div class="rounded-4" id="map" style="width:100%; height:422.13px;"></div>
+                                    <div class="rounded-4" id="map" style="width:100%; height:352.13px;"></div>
                                     <div id="clickLatlng"></div>
 
                                     
@@ -411,7 +408,9 @@
 
     </div>
     <div class="row mt-3">
-        <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
+    	<div class="col">
+        	<jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
+        </div>
     </div>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <!--부트스트랩 -->

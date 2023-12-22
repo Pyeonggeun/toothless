@@ -8,12 +8,8 @@
 <meta charset="UTF-8">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-<title>	QnABoardPage</title>
+<title>qnaboardPage</title>
 </head>
-
-
-
-
 <body>
 	
 
@@ -52,60 +48,58 @@
 			<%-- 내용 시작 --%>
 			<div class="col">
 			<%-- 공지사항 칸 --%>
-				<div class="row  border-bottom border-2 border-grey mb-5 pt-3 ">
-					<div class="col fw-bold fs-3">QnA 자주 묻는 질문 게시판</div>															
+				<div class="row  border-bottom border-2 border-grey mb-5 mt-5 pt-3 pb-3 ">
+					<div class="col fw-bold fs-3">공지사항</div>															
 				</div>
-				<div class="row my-2">
-					<div class="col-8"></div>
-					
-					<div class="col text-end mx-0 px-0">
-						<div class="btn-group">
-							<button class="btn border-black border-1 btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-								제목
-							</button>
-							<ul class="dropdown-menu">
-							</ul>
-						</div>	
-					</div>
-					<div class="col mx-0 ps-2 pe-0">
-						<div class=row>
-							<div class=col></div>
-							
-							<div class=col>
-								<div class="row">
-									<div class="col-9" >
-										<input type="text" class="rounded-2">
-									</div>
-									<div class="col align-self-center">
-										<i class="bi bi-search"></i>
-									</div>
-								</div>
+				<div class="row justify-content-end mb-2">
+					<div class="col-6"></div>
+                    <div class="col ms-5 pe-0 text-end">
+						<div class="row  ms-5">
+							<div class="col-4 ms-5 pe-0">
+								<select name="searchType" class="form-select" aria-label="Default select example">
+		                             <option selected value="title">제목</option>
+		                             <option value="content">내용</option>
+		                         </select>      
+							</div>
+							<div class="col  px-0">
+								<input id="inputComment" name="searchWord" class="form-control " type="text" placeholder="내용입력">			
+							</div>
+							<div class="col-2 ps-0">
+								<input type="button" onclick="formSubmit()" class="btn btn-outline-primary" value="검색">
 							</div>
 						</div>
-					</div>
+                    </div>
 				</div>
-				<div class="row border-2 border-top border-black bg-body-secondary pt-3">
-					<div class="col mb-3 fw-bold">글번호</div>
-					<div class="col fw-bold">제목</div>
-					<div class="col fw-bold">작성자</div>
-					<div class="col fw-bold">작성일</div>
+				<div class="row border-2 border-top border-black bg-body-secondary pt-3 ps-4">
+				
+					<div class="col">
+						<div class="row">	
+							<div class="col mb-3 ms-3 fw-bold">글번호</div>
+							<div class="col-6 text-center fw-bold">제목</div>
+							<div class="col ps-3  me-3 fw-bold text-end">작성자</div>
+							<div class="col fw-bold ps-5 text-center">작성일</div>
+						</div>
+					</div>	
+					
+					
 				</div>
 				
 				<div class="row">
 					<div class="col">
 						<c:forEach items="${list }" var="map">
-							<div class="row border-bottom mt-4 ">
-								<div class="col-1 mb-3">
-									${map.qnaBoardDto.board_pk }
+							<div class="row border-bottom mt-4">
+								<div class="col mb-3 text-center ">
+									${map.qnaBoardDto.board_pk }	
 								</div>
-								<div class="col  mb-3">
-								<a  class="navbar-brand"  href="./readPageForStudent?board_pk=${map.qnaBoardDto.board_pk }">
-									${map.qnaBoardDto.board_title }</a>
+								<div class="col-6 text-start ">
+									<a  class="navbar-brand"  href="./readPageForStudent?board_pk=${map.qnaBoardDto.board_pk }">
+										<span class="d-inline-block text-truncate" style="max-width: 23em;">${map.qnaBoardDto.board_title }</span>
+									</a>
 								</div>
-								<div class="col-3 mb-3 fw-bold">
+								<div class="col ps-3  text-end">
 									${map.staffInfoDto.name}
 								</div>
-								<div class="col-3 mb-3">
+								<div class="col  ps-5 text-center">
 								<fmt:formatDate value="${map.qnaBoardDto.created_at }" pattern="yyyy-MM-dd"/>	
 								</div>
 							</div>
@@ -115,11 +109,11 @@
 				
 				<div class="row pt-3">
 					<div class="col">
-						<div class="row text-end">
+						<div class="row text-center">
 							<div class="col"></div>
-							<div class="col ">
+							<div class="col text-center">
 								<nav aria-label="Page navigation example">
-								  <ul class="pagination">
+								  <ul class="pagination justify-content-center">
 								    <li class="page-item">
 								      <a class="page-link" href="#" aria-label="Previous">
 								        <span aria-hidden="true">&laquo;</span>

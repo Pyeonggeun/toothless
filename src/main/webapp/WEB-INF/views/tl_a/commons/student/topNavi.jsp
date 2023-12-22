@@ -119,17 +119,16 @@
 			                   <div class="col text-end">
 			                       <c:choose>
 			                           <c:when test="${!empty sessionStudentInfo }">
-			                           		<div class="row justify-content-end">
-		                           				<div class="col-6 align-self-center nav-item dropdown ms-auto">
-			                                       <a class="fw-bold nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			                           		<div class="row">
+		                                       <div class="col-4 align-self-center nav-item dropdown ms-auto">
+			                                       <a class="fw-bold nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 			                                       ${sessionStudentInfo.name }</a>
 			                                   
-			                                     <ul class="dropdown-menu">
-			                                       <li><a class="dropdown-item" href="#">마이페이지</a></li>
-			                                       <li><a class="dropdown-item" href="#">뭘 넣을까</a></li>
-			                                       <li><hr class="dropdown-divider"></li>
-			                                       <li><a href="./logoutProcess" class="dropdown-item">로그아웃</a></li>
-			                                     </ul>
+				                                     <ul class="dropdown-menu">
+				                                       <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#topExampleModal">마이페이지</button></li>
+				                                       <li><hr class="dropdown-divider"></li>
+				                                       <li><a href="./logoutProcess" class="dropdown-item">로그아웃</a></li>
+				                                     </ul>
 			                                   </div>
 			                           			<div class="col-2 me-3">
 			                           				<div class="row">
@@ -162,11 +161,48 @@
 			                           		</div>
 			                           </c:otherwise>
 			                       </c:choose>
-			                   </div>						
-			               </div>                     
-			           </div>	
+			                   </div>
+			               </div>
+			           </div>
+
                     </div>
                   </nav>
             </div>
             
         </div>
+        <!-- 모달 -->
+		<div class="modal fade" id="topExampleModal" tabindex="-1" aria-labelledby="topModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color: #E5EFF6">
+						<h1 class="modal-title fs-5 fw-bold" id="topModalLabel">마이페이지</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="row py-1">
+							<div class="col-3 fw-bold text-center border-end">학번</div>
+							<div class="col ms-2">${sessionStudentInfo.student_id}</div>
+						</div>
+						<div class="row py-1">
+							<div class="col-3 fw-bold text-center border-end">이름</div>
+							<div class="col ms-2">${sessionStudentInfo.name}</div>
+						</div>
+						<div class="row py-1 ">
+							<div class="col-3 fw-bold text-center border-end">전화번호</div>
+							<div class="col ms-2">${sessionStudentInfo.phone}</div>
+						</div>
+						<div class="row py-1 ">
+							<div class="col-3 fw-bold text-center border-end">이메일</div>
+							<div class="col ms-2">${sessionStudentInfo.email}</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="row d-flex">
+							<div class="col">
+								<button type="button" class="btn btn-secondary mx-0 rounded-0 text-white fw-bold" data-bs-dismiss="modal" >닫기</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

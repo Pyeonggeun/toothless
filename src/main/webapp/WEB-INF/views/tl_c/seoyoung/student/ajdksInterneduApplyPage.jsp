@@ -243,7 +243,7 @@ const student_pk = ${sessionStudentInfo.student_pk};
             console.log(viewButton);
             viewButton.value = "다음";
             viewButton.classList.add("btn", "btn-primary", "rounded-1", "open-Modal");
-            viewButton.setAttribute("onclick", "openModal2("+e.INTERNSHIP_COURSE_PK+")");
+            viewButton.setAttribute("onclick", "openModal2("+modalValues.INTERNSHIP_COURSE_PK+")");
             
 
 		});
@@ -264,7 +264,7 @@ const student_pk = ${sessionStudentInfo.student_pk};
         	const modalValues = response.data;
         	if (modalValues == "yes") {
     		    const applyButton = document.getElementById("applyButton");
-    		    applyButton.setAttribute("onclick", "studentApplyProcess("+e.INTERNSHIP_COURSE_PK+")");
+    		    applyButton.setAttribute("onclick", "studentApplyProcess("+itemPk+")");
     		} else {
     		    failModal();
     		    modal.hide();
@@ -571,7 +571,7 @@ const student_pk = ${sessionStudentInfo.student_pk};
 						</nav>
 						<br>
 						<!-- 컴퍼니 리스트 -->
-						<div class="row mt-2" >
+						<div class="row mt-2">
 							<div class="col border-secondary border-top text-center">
 								<div class="row text-center py-1 border-botton"
 									style="height: 50px; background-color: #f2f5f7; font-weight: bold;">
@@ -589,9 +589,13 @@ const student_pk = ${sessionStudentInfo.student_pk};
 								</div>
 							</div>
 						</div>
+
 					</div>
+
 				</div>
+				<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 			</div>
+
 		</div>
 	</div>
 

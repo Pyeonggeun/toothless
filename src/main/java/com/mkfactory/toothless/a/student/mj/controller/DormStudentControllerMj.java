@@ -65,7 +65,7 @@ public class DormStudentControllerMj {
 	public String mj_dormPosted(Model model, HttpSession session) {
 		
 		// 공고 정부
-		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
+		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo(true);
 		model.addAttribute("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
 		
 		// 학생정보
@@ -97,7 +97,7 @@ public class DormStudentControllerMj {
 		model.addAttribute("studentInfoAll", studentInfoAll);
 		
 		// 현재학기정보 + 입주공고 정보
-		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
+		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo(true);
 		model.addAttribute("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
 		
 		return "tl_a/student/mj_applyDormByInfoPage";
@@ -117,7 +117,7 @@ public class DormStudentControllerMj {
 	public String mj_applyDormCompletePage(Model model) {
 		
 		// 현재학기정보 + 입주공고 정보
-		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
+		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo(true);
 		model.addAttribute("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
 		
 		return "tl_a/student/mj_applyDormCompletePage";
@@ -162,7 +162,7 @@ public class DormStudentControllerMj {
 		model.addAttribute("studentInfoAll", studentInfoAll);
 		
 		// 현재학기정보 + 입주공고 정보
-		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
+		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo(true);
 		model.addAttribute("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
 		
 		

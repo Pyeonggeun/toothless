@@ -93,14 +93,14 @@
 							<c:if test="${!empty sessionStaffInfo&&sessionStaffInfo.staff_pk==list.noticeBoardDto.staff_pk}">	
 								<div class="col-1 border-top">
 									<div class="row">
-										<div class="col" style="font-size: 0.8em;">
-											<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./deleteNoticeArticleProcess?id=${list.noticeBoardDto.id }">삭제</a>
+										<div class="col" style="font-size: 1em;">
+											<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: red" href="./deleteNoticeArticleProcess?id=${list.noticeBoardDto.id }">삭제</a>
 										</div>
 									</div>
 								</div>
 								<div class="col-1 border-top">
 									<div class="row">
-										<div class="col" style="font-size: 0.8em;">
+										<div class="col" style="font-size: 1em;">
 											<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./updateNoticeArticlePage?id=${list.noticeBoardDto.id }">수정</a>
 										</div>
 									</div>
