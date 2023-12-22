@@ -53,7 +53,8 @@ function reloadlist(searchType,searchContents){
 				list_student_info.innerHTML="";
 		      	//링크이동
 		      	const list_student_info_icon = document.createElement('i');
-		      	list_student_info_icon.classList.add('bi','bi-info-square');
+		      	list_student_info_icon.classList.add('bi','bi-info-square', 'text-dark');
+		      	list_student_info_icon.style.fontSize="1.5em";
 		      	const a_element = document.createElement('a');
 		      	//const button_element = document.createElement('button');
 		      	a_element.href = "./viewDetailStudentInfoPage?hope_job_pk=" + e.hopeJobDto.hope_job_pk ;
