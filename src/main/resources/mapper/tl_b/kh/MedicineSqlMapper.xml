@@ -432,6 +432,13 @@
 		 ORDER BY a.MEDICINE_CODE_PK , a.CREATED_AT ,a.ADD_AT desc 
 	</select>
 
+	<!-- 그거그거 학생게시판 -->
+	<select id="selectStudentBoard" resultType="com.mkfactory.toothless.b.dto.StudentboardDto">
+		SELECT *
+		FROM TL_B_STUDENTBOARD
+		ORDER BY STUDENTBOARD_PK DESC 
+	</select>
+	
 	
 </mapper>
 

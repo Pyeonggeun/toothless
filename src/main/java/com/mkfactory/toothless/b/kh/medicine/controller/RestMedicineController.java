@@ -238,5 +238,15 @@ public class RestMedicineController {
 	    
 	    return b_RestResponseDto;
 	}
-
+	
+	//태영이 공지사항.. 되나 ? 
+	@RequestMapping("boardNotice")
+	public B_RestResponseDto boardNotice() {
+	    B_RestResponseDto b_RestResponseDto = new B_RestResponseDto();
+	    
+	    b_RestResponseDto.setResult("success");
+	    b_RestResponseDto.setData(medicineService.selectStudentBoard());
+	    
+	    return b_RestResponseDto;
+	}
 }

@@ -70,6 +70,11 @@
 /*table*/
 .table{
 	--bs-table-bg:none;
+	text-align: center;  
+}
+
+.th{
+	text-align: center;  
 }
 </style>
 </head>
@@ -155,8 +160,8 @@
 									<div id="collapseOne" class="accordion-collapse collapse show"
 										data-bs-parent="#accordionExample">
 										<div class="accordion-body">
-											<div class="row">
-												<table class="table">
+											<div class="row ">
+												<table class="table ">
 													<thead>
 														<tr style="background-color: #f2f5f7;">
 															<th class="col-md-3">#</th>
@@ -164,21 +169,21 @@
 
 														</tr>
 													</thead>
-													<tbody>
-														<tr>
-															<th>지원 동기</th>
+													<tbody >
+														<tr >
+															<th style="vertical-align : middle">지원 동기</th>
 															<td>${selfIntroduction.answer1}</td>
 														</tr>
 														<tr>
-															<th>전공 및 기술 능력</th>
+															<th style="vertical-align : middle">전공 및 기술 능력</th>
 															<td>${selfIntroduction.answer2}</td>
 														</tr>
 														<tr>
-															<th>주요경력 및 자격사항</th>
+															<th style="vertical-align : middle">주요경력 및 자격사항</th>
 															<td>${selfIntroduction.answer3}</td>
 														</tr>
 														<tr>
-															<th>성격 및 장단점</th>
+															<th style="vertical-align : middle">성격 및 장단점</th>
 															<td>${selfIntroduction.answer4}</td>
 														</tr>
 													</tbody>

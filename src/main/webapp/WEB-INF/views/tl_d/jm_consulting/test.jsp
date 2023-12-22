@@ -9,58 +9,96 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <title>Insert title here</title>
+
+<script>
+
+	function emptyUnAnsweredHJf(){
+		
+		alert("미응답 만족도 조사가 없습니다!");
+	}
+    function changeCursor() {
+        document.body.style.cursor = 'pointer'; // 원하는 커서 스타일로 변경
+    }
+    function restoreCursor() {
+        document.body.style.cursor = 'default';
+    }
+
+</script>
 </head>
 <body>
-						<c:choose>
-							<c:when test="${getMyOnlineConsultingListNumFive.size()==0}">
-								<span class="fw-bold mt-3 text-center">상담이력이 없습니다!</span>
-							</c:when>
-							
-							<c:when test="${getMyOnlineConsultingListNumFive==null}">
-								<span class="fw-bold mt-3 text-center">상담이력이 없습니다!</span>
-							</c:when>							
-							
-							<c:otherwise>
-								<c:forEach items="${getMyOnlineConsultingListNumFive }" var="e">
-									
-									<div class="row my-3 border-bottom">
-										<div class="col">
-											<!-- 상담 번호 -->
-											<div class="row pb-2">
-												<div class="col-3 ms-2">No.<span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
-												<div class="col ms-2">
-												</div>
-												<div class="col ms-2">
-													<c:choose>
-														<c:when test="${e.onlineConsultingReplyDto==null}">
-															<span class="badge text-bg-danger">미답변</span>
-														</c:when>
-														<c:otherwise>
-															<a href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="badge text-bg-primary">답변완료</span></a>
-														</c:otherwise>
-													</c:choose>		
-												</div>
-												<div class="col-2">
-													<fmt:formatDate pattern="yyyy-MM-dd" value="${e.onlineConsultingDto.created_at}"/>
-												</div>			
-											</div>
-											<!-- 이름 -->
+
+									<c:choose>
+										<c:when test="${countUnAnsweredHJF==0}">
 										
+										<div class="row">
+											<div  onclick="emptyUnAnsweredHJf()"  class="col ps-5 mt-2 ms-5">
+												<span onmouseover="changeCursor()"  onmouseout="restoreCursor()" >&nbsp;만족도 조사</span>
+											</div>
+										</div>										
+										</c:when>
+										
+										<c:otherwise>
+										
+										
+										<!-- Button trigger modal -->
+										<div class="row">
+											<div class="col ps-5 mt-2 ms-5 navbar-brand"  data-bs-toggle="modal" data-bs-target="#myUnAnsweredHJF"
+												>
+												<span onmouseover="changeCursor()"  onmouseout="restoreCursor()">&nbsp;만족도 조사</span>
+											</div>	
 										</div>
-									</div>
-								  </c:forEach>																
-							</c:otherwise>
-							
-						</c:choose>
-						
-
-
-
-
-
-
-
-
+		
+										
+										<!-- Modal -->
+										<div class="modal fade" id="myUnAnsweredHJF" tabindex="-1" aria-hidden="true">
+										  <div class="modal-dialog">
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <h1 class="modal-title fs-5" id="exampleModalLabel">미응답 만족도 조사 리스트</h1>
+										        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										      </div>
+										      <div class="modal-body">
+										        <div class="row">
+										        	<div class="col">
+										        		<div class="row fw-bold border-2 border-bottom pb-3">
+										        			<div class="col">
+										        				신청번호
+										        			</div>
+										        			<div class="col">
+										        				구직 희망 신청일
+										        			</div>
+										        			<div class="col">
+										        				만족도 조사하기
+										        			</div>										        													        			
+										        		</div>
+										        		<div class="row pt-2">
+										        			<div class="col">
+										        				<c:forEach items="${hopeJobDtoList}" var="e">
+										        					<div class="row py-3">
+										        						<div class="col">
+										        							${e.hope_job_pk}
+										        						</div>
+										        						<div class="col">
+										        							<fmt:formatDate value="${e.created_at}" pattern="yyyy-MM-dd"/>
+										        						</div>
+										        						<div class="col">
+										        							<a href="./insertHJFPage?hope_job_pk=${e.hope_job_pk}" style="text-decoration: none;"> 바로가기 ></a>
+										        						</div>										        																        																        						
+										        					</div>										        				
+										        				</c:forEach>
+										        			</div>
+										        		</div>
+										        	</div>
+										        </div>
+										      </div>
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>										        
+										      </div>
+										    </div>
+										  </div>
+										</div>																																																							
+										</c:otherwise>													
+									</c:choose>
 
 
 
