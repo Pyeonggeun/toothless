@@ -571,7 +571,7 @@ const student_pk = ${sessionStudentInfo.student_pk};
 						</nav>
 						<br>
 						<!-- 컴퍼니 리스트 -->
-						<div class="row mt-2" >
+						<div class="row mt-2">
 							<div class="col border-secondary border-top text-center">
 								<div class="row text-center py-1 border-botton"
 									style="height: 50px; background-color: #f2f5f7; font-weight: bold;">
@@ -589,9 +589,13 @@ const student_pk = ${sessionStudentInfo.student_pk};
 								</div>
 							</div>
 						</div>
+
 					</div>
+
 				</div>
+				<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 			</div>
+
 		</div>
 	</div>
 
