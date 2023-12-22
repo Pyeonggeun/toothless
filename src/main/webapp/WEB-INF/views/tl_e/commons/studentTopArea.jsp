@@ -46,7 +46,7 @@
     
     <jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
 	<!-- 네비바 -->
-	<div class="row pb-3">
+	<div class="row pb-3 bg-white">
 		<div class="col-2">
 			<div class="row" style="height: 0.15em;"></div>
 			<div class="row">
