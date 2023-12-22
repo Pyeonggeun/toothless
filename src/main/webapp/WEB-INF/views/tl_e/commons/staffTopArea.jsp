@@ -37,7 +37,7 @@
 </script>
 
     
-	<div class="row py-2">
+	<div class="row py-2 bg-white">
 		<div class="col-3 pe-2 text-start">
 			<a href="/toothless/tl_e/commons/counselCenterStaffMainPage" role="button" class="btn btn-white">
 				<span class="fw-bold fs-4">상담센터</span>
