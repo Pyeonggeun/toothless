@@ -15,7 +15,7 @@
    			<div class="col">
     		</div>
     		<div class="col text-center border-end align-self-center">
-    			<a href="./sj_registerDormInfo" style="text-decoration: none; color: black; font-size: 0.8em">건물 관리</a>
+    			<a href="./sj_manageDormInfo" style="text-decoration: none; color: black; font-size: 0.8em">건물 관리</a>
     		</div>
     		<div class="col text-center border-end align-self-center">
     			<a href="./mj_readApplyDormInfoPage" style="text-decoration: none; color: black; font-size: 0.8em">사생 관리</a>
