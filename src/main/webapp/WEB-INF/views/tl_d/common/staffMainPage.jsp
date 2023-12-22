@@ -130,7 +130,7 @@
 											<div class="col-3 text-center pt-1">
 												<c:choose>
 													<c:when test="${list.companyDto.is_family_company=='Y'}">
-														<span class="badge text-bg-primary">가족기업</span>
+														<span class="badge text-white text-bg-info">가족기업</span>
 													</c:when>
 													
 													<c:when test="${list.companyDto.is_family_company=='N'}">
