@@ -21,7 +21,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
 <jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
 
 	<div class="row">
@@ -30,7 +29,7 @@
 			
 			<div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height: 100%; position: absolute; bottom: 0; left: 0;"></div>
 			
-			<div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 20.5%; transform: translate(-50%, 50%);">내 상담</div>
+			<div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 20.5%; transform: translate(-50%, 50%);">나의 상담</div>
 			
 			<div style="color: white; position: absolute; font-size: 5em; bottom: 36%; transform: translate(-50%, -50%); text-align: center; left: -8%; border-top: 1px; border-top-style: solid; border-top-color: white; width: 80%;"></div>
 			
@@ -64,7 +63,7 @@
 				</div>
 				<div class="row">
 					<div class="col border-bottom py-1 rounded d-flex justify-content-center d-flex align-items-center" style="font-size: 1.1em; text-align: center; background-color: beige;">
-						<a class="link-dark link-offset-2 link-underline link-underline-opacity-0" href="./studentMyCounselPage">내 상담</a>
+						<a class="link-dark link-offset-2 link-underline link-underline-opacity-0" href="./studentMyCounselPage">나의 상담</a>
 					</div>
 				</div>
 
@@ -202,31 +201,31 @@
 	
 	
 	<!-- 풋터 -->
-	<div class="row mt-5" style="background-color: #5a5a5a;">
-		<div class="col-1"></div>
-		<div class="col">
-			<div class="row" style="height: 3em;"></div>
-			<div class="row">
-				<div class="col">
-					<span style="font-size: 1.4em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
-					<span style="font-size: 1.2em; color: white; font-weight: 500;">▪</span>
-					<span style="font-size: 1.2em; color: white; font-weight: 500;">이메일무단수집거부</span>
-				</div>
-			</div>
-			<div class="row pt-4">
-				<div class="col">
-					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
-				</div>
-			</div>
-			<div class="row pt-2">
-				<div class="col">
-					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
-				</div>
-			</div>
-			<div class="row pt-4" style="border-bottom-style: solid; border-bottom-color: gray; border-bottom-width: 1px;"></div>
-		</div>
-		<div class="col-1"></div>
-	</div>
+         <div class="row" style="background-color: #5a5a5a; height: 14em;">
+            <div class="col-1"></div>
+            <div class="col">
+               <div class="row" style="height: 4em;"></div>
+               <div class="row">
+                  <div class="col">
+                     <span style="font-size: 1.4em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
+                     <span style="font-size: 1.2em; color: white; font-weight: 500;">▪</span>
+                     <span style="font-size: 1.2em; color: white; font-weight: 500;">이메일무단수집거부</span>
+                  </div>
+               </div>
+               <div class="row pt-4">
+                  <div class="col">
+                     <div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
+                  </div>
+               </div>
+               <div class="row pt-2">
+                  <div class="col">
+                     <div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
+                  </div>
+               </div>
+               <div class="row pt-4" style="border-bottom-style: solid; border-bottom-color: gray; border-bottom-width: 1px;"></div>
+            </div>
+            <div class="col-1"></div>
+         </div>
 
 </body>
 </html>
