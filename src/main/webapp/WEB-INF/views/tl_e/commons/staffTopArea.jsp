@@ -38,12 +38,12 @@
 
     
 	<div class="row py-2">
-		<div class="col-1 pe-2 text-end">
-			<a href="/toothless/tl_e/commons/counselCenterStaffMainPage"><img src="/toothless/resources/img/another/logo_black.png" alt="" style="height: 4em;"></a>
-		</div>
-		<div class="col-3 mt-2 ps-0 fw-bold fs-3 text-start ">
-			<a href="/toothless/tl_e/commons/counselCenterStaffMainPage" class="link-dark link-offset-2 link-underline link-underline-opacity-0">MK University<span class="fs-6 link-dark link-offset-2 link-underline link-underline-opacity-0"> | </span> <span class="fs-5 link-offset-2 link-underline link-underline-opacity-0">상담센터</span></a> 
-		</div>
+		<div class="col-3 pe-2 text-start">
+			<a href="/toothless/tl_e/commons/counselCenterStaffMainPage" role="button" class="btn btn-white">
+				<span class="fw-bold fs-4">상담센터</span>
+				<span class="fs-4"> | Mainpage</span>
+			</a>
+		</div>		
 		<div class="col-3"></div>
 		<div class="col ps-0 pt-4 text-center" style="font-size: 1.1em; font-weight: bold;"> <a href="/toothless/tl_e/registerCounselor/managementCounselor" class="link-offset-2 link-underline link-underline-opacity-0 text-primary-emphasis">상담원 관리</a></div>
 		<div class="col ps-0 pt-4 text-center text-primary-emphasis" style="font-size: 1.1em; font-weight: bold;"><a href="/toothless/tl_e/groupcounsel/staff/groupCounselListPage" class="link-offset-2 link-underline link-underline-opacity-0 text-center text-primary-emphasis">집단상담</a></div>

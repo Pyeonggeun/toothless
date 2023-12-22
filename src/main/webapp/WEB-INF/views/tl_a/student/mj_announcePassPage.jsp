@@ -124,7 +124,7 @@
 																				납부 금액
 																			</div>
 																			<div class="col-4 py-2 border-end">
-																				일단은! 동일.. 90만원 >_O
+																				850,000원
 																			</div>
 																			<div class="col-2 py-2 border-end fw-bold">
 																				가상 계좌

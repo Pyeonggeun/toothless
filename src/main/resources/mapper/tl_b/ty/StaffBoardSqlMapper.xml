@@ -173,7 +173,7 @@
 	SELECT t2.*, rownum FROM 
 	(SELECT t1.* FROM tl_b_studentboard t1
 	ORDER BY t1.READ_COUNT DESC ) t2
-	WHERE rownum <=3
+	WHERE rownum <=5
 	]]>
 	</select>
 	

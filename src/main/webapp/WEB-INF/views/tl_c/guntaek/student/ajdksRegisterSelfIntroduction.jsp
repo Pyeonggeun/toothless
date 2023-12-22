@@ -148,7 +148,7 @@
                         </div>
                         <div class="row ms-5 mt-5">
 
-                            <span>주민번호<a style="color:gray"> <span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginUser.resident_id}</a></span>
+                            <span>학과<a style="color:gray"> <span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${departName}</a></span>
                         </div>
                         <div class="row ms-5 mt-5">
                             <span>이메일<a style="color:gray"><span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginUser.email}</a></span>
@@ -238,7 +238,7 @@
 							                        </div>
 							                        <div class="row ms-5 mt-5">
 							
-							                            <span>주민번호<a style="color:gray"> <span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginUser.resident_id}</a></span>
+							                                <span>학과<a style="color:gray"> <span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${departName}</a></span>
 							                        </div>
 							                        <div class="row ms-5 mt-5">
 							                            <span>이메일<a style="color:gray"><span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginUser.email}</a></span>
@@ -305,7 +305,7 @@
                         </div>
                         <div class="row ms-5 mt-5">
 
-                            <span>주민번호<a style="color:gray"> <span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginUser.resident_id}</a></span>
+                               <span>학과<a style="color:gray"> <span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${departName}</a></span>
                         </div>
                         <div class="row ms-5 mt-5">
                             <span>이메일<a style="color:gray"><span style="color:orange">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${loginUser.email}</a></span>
@@ -437,7 +437,7 @@
 				
 				
 				<div class ="row py-2 mt-2 ms-2 border " style="background-color: #F8F8F8;">
-					<span class="ps-4 fw-semibold" style ="color:#A63641;  font-weight: bold " > <i class="bi bi-info-circle"></i> NOTICE </span> <br>
+					<span class="ps-4 fw-semibold" style ="color:#A63641;  font-weight: bold " ><i class="bi bi-info-circle"></i> NOTICE </span> <br>
 					<span class ="ps-4 fw-semibold ">최소 250자 이상 작성해주세요. (띄어쓰기 포함)</span>	
 				</div>
 				
@@ -451,7 +451,7 @@
 									<div class="col-9">
 			                            <div class="row	">
 			                                <div class="col border-bottom border-end justify-content-center align-items-center px-0 py-0" style="height:8em;">
-			                                	<textarea name="answer1" class="w-100 h-100" style="border:none" placeholder="${selfIntroductionDto.answer1}">${studentIntroductionDto.answer1}</textarea>
+			                                	<textarea name="answer1" class="w-100 h-100" style="border:none">${selfIntroductionDto.answer1}</textarea>
 			                                </div>
 			                            </div>    
 			                        </div>     
@@ -467,7 +467,7 @@
 									<div class="col-9">
 			                            <div class="row	">
 			                                <div class="col border-bottom border-end justify-content-center align-items-center px-0 py-0" style="height:8em;">
-			                                	<textarea name="answer2" class="w-100 h-100" style="border:none" placeholder="${selfIntroductionDto.answer2}">${studentIntroductionDto.answer2}</textarea>
+			                                	<textarea name="answer2" class="w-100 h-100" style="border:none">${selfIntroductionDto.answer2}</textarea>
 			                                </div>
 			                            </div>    
 			                        </div>     
@@ -483,7 +483,7 @@
 									<div class="col-9">
 			                            <div class="row	">
 			                                <div class="col border-bottom border-end justify-content-center align-items-center px-0 py-0" style="height:8em;">
-			                                	<textarea name="answer3" class="w-100 h-100" style="border:none" placeholder="${selfIntroductionDto.answer3}">${studentIntroductionDto.answer3}</textarea>
+			                                	<textarea name="answer3" class="w-100 h-100" style="border:none">${selfIntroductionDto.answer3}</textarea>
 			                                </div>
 			                            </div>    
 			                        </div>     
@@ -498,7 +498,7 @@
 										<div class="col-9">
 				                            <div class="row	">
 				                                <div class="col border-bottom border-end justify-content-center align-items-center px-0 py-0" style="height:8em;">
-				                                	<textarea name="answer4" class="w-100 h-100" style="border:none" placeholder="${selfIntroductionDto.answer4}">${studentIntroductionDto.answer4}</textarea>
+				                                	<textarea name="answer4" class="w-100 h-100" style="border:none">${selfIntroductionDto.answer4}</textarea>
 				                                </div>
 				                            </div>    
 				                        </div>     
@@ -525,6 +525,10 @@
 												    
 												      <div class="modal-footer">
 												        <a href ="./ajdksRegisterSelfIntroduction" class="btn btn-secondary">아니오</a>
+												        
+												        
+												    
+
 												        <a href ="./ajdksRegisterSelfIntroduction?Student_pk=${selfIntroductionDto.student_pk}" class="btn btn-primary">네</a>
 												      	
 												      </div>

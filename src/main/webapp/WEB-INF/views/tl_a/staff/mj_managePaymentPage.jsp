@@ -36,11 +36,17 @@
 	    const tabs = document.querySelectorAll("#tabs > *");
 
 	    tabs.forEach(tab => {
-	        tab.classList.remove("bg-primary", "text-white");
+	        tab.classList.remove("bg-primary", "bg-danger", "text-white");
 	    });
 		
 		const tab = document.getElementById(tabNum);
-		tab.classList.add("bg-primary", "text-white"); 
+		
+		if(tabNum == 'tab3'){
+			tab.classList.add("bg-danger", "text-white"); 
+		}else{			
+			tab.classList.add("bg-primary", "text-white"); 
+		}
+		
 	}
 	
 

@@ -72,10 +72,14 @@
 				<!-- 프로그램 상세하게 보기... -->	
 				
 					<div class="row mt-5">
-						<div class="col fw-bold">
-							<i class="bi bi-list-task"></i>&nbsp;&nbsp;${EduDto.title}
-						</div>
-					</div>			
+					<div class="col fw-bold">
+								<h3 style="font-weight:bold"> <i class="bi bi-list-task"></i>&nbsp;&nbsp;&nbsp;${EduDto.title}</h3>	
+					</div>
+					</div>
+					
+					<div class="row mt-3">
+						<div class="col border border-2 border-dark"></div>
+					</div>	
 				
 					<div class="row mt-4 border">
 						<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9; height:3em" >접수기간</div>
@@ -99,7 +103,7 @@
 					
 					<div class="row">
 					<div class="col-1"></div>
-						<div class="col-10 d-flex justify-content-center"><img class="img-fluid" src="/Git_imageFile/${EduDto.poster_image}">"
+						<div class="col-10 d-flex justify-content-center"><img class="img-fluid" src="/Git_imageFile/${EduDto.poster_image}">
 					</div>
 					<div class="col-1"></div>
 					</div>
@@ -140,7 +144,7 @@
 					
 					
 					
-					
+						<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 					</div>
 					<!-- 본문 작성 공간 -->	
 							

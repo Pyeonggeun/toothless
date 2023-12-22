@@ -91,6 +91,14 @@ public class GuntaekStudentController {
 		//  자격증 model 전달
 		model.addAttribute("certificationList", certificationList);
 	
+		
+		// 특정학생 학과 불러오기
+		String departmentName = guntaekStudentService.getDepartmentName(loginUser.getDepartment_pk());
+		
+		model.addAttribute("departName",departmentName);
+		
+		
+		
 		return "tl_c/guntaek/student/ajdksRegisterSelfIntroduction";
 	}
 	
@@ -231,7 +239,14 @@ public class GuntaekStudentController {
 			// 자기소개서의 img_pk 에 해당하는 이미지 링크 가져오기		
 			String imageLink = guntaekStudentService.getSelfIntroductionFile(selfIntroductionDto.getSelf_introduction_img_pk());
 			model.addAttribute("imageLink",imageLink);
+			
+			// 특정 학생 학과 가져오기
+			
+			
+			
 		}
+		
+		
 		
 		Map<String,Object> Student = new HashMap<String,Object>(); 
 			
@@ -259,6 +274,17 @@ public class GuntaekStudentController {
 		// 특정 학생의 자격증 Dto 리스트가 필요하다. map이랑 list 엮으면 될거같다.
 		
 		model.addAttribute("Student",Student);
+		
+		String departMentName = guntaekStudentService.getDepartmentName(loginUser.getDepartment_pk());
+		
+		
+		
+		model.addAttribute("departName", departMentName);
+		
+		
+		
+		System.out.println(departMentName);
+		
 		return "tl_c/guntaek/student/ajdksResumeInquiry";
 	}
 	

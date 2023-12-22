@@ -146,9 +146,9 @@ window.addEventListener("DOMContentLoaded", () => {
 									<div class="col">
 										<div class="row">
 											<div class="col-5">
-												<input type="number" name="hope_salary" style="width:100%; height:100%; border:none;" class="px-0 py-0">
+												<input type="text" inputmode="numeric" pattern="[0-9]*" style="width:100%; height:100%; border:none;" class="px-0 py-0">
 											</div>		
-											<div class="col" style="font-size:1em; text-align:left;">원</div>
+											<div class="col" style="font-size:1em; text-align:left;">원<span class="ps-3 text-secondary" style="font-size:0.8em">*숫자만 입력해주세요</span></div> 
 										</div>									
 									</div>
 
@@ -170,7 +170,7 @@ window.addEventListener("DOMContentLoaded", () => {
 										<div class="row">
 											<c:forEach items="${list}" var="e">
 												<div class="col">
-													${e.job_field_category_name}<input name="job_field_pk" type="checkbox" value="${e.job_field_category_pk}">
+													${e.job_field_category_name}<input name="job_field_pk" type="checkbox" value="${e.job_field_category_pk}"> 
 												</div>
 											</c:forEach>
 										</div>

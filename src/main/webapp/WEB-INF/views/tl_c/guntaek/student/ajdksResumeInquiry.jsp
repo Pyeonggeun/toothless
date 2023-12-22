@@ -127,8 +127,10 @@
                                 <div class="col-8 d-flex justify-content-center align-items-center border-bottom border-end">${Student.studentDto.gender}</div>
                             </div>
                              <div class="row" style ="height: 3em;">
-                                <div class="col-4"style ="background-color:#F8F8F8"></div>
-                                <div class="col-8 border-end" style ="background-color:#F8F8F8"></div>
+                                <div class="col-4 d-flex justify-content-center align-items-center border-end" style ="background-color:#F8F8F8">학과 </div>
+                                <div class="col-8 border-end d-flex justify-content-center align-items-center">
+                                		${departName}
+                                </div>
                                 
                             </div>
                        	  

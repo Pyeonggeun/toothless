@@ -461,8 +461,15 @@ function deleteMyHopeJobCategory(){
 				<div class="col-1"></div>
 			
 				<div class="col">
-					<div class="row mt-3">						
-						<div class="col bg-primary-subtle me-3 text-center border rounded-3">
+				
+					<div class="row mt-5 text-center">
+						<div class="col fw-bold" style="font-size:1.5em;">
+							<span class="border border-black p-3 rounded-pill">구직희망 관리 페이지</span>							
+						</div>
+					</div>				
+				
+					<div class="row mt-5">						
+						<div class="col bg-primary-subtle me-3 text-center border rounded-3">							
 							<div class="row">
 								<div class="col pt-3">
 									<span class="rounded-circle" style="font-size:3em;">
@@ -477,12 +484,24 @@ function deleteMyHopeJobCategory(){
 								</div>						
 							</div>
 							<div class="row">
-								<div class="col pt-1 pb-3 fw-bold" style="font-size:1.2em;">
-
-									<span class="">
-										온라인 상담 신청
-									</span>
-
+								<div class="col pt-1 pb-3" style="font-size:1.2em;">
+									<div class="row">
+										<div class="col fw-bold">
+											<span>
+												온라인 상담 신청
+											</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col text-center" style="font-size:0.8em;">
+											<span>상담사와 1:1온라인 상담을 합니다</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col" style="font-size:0.7em;">
+											<span class="text-secondary">*답변이 오기전까지 추가문의는 불가능 합니다</span>
+										</div>
+									</div>																										
 								</div>						
 							</div>
 							<div class="row">
@@ -532,11 +551,34 @@ function deleteMyHopeJobCategory(){
 							</div>
 							<div class="row">
 								<div class="col pt-1 pb-3">
-									<a class="navbar-brand" href="./myOnlineConsultingListPage">
-										<span class="fw-bold" style="font-size:1.2em;">
-											내 온라인 상담 현황
-										</span>
-									</a>
+									<div class="row">
+										<div class="col">
+											<a class="navbar-brand" href="./myOnlineConsultingListPage">
+												<span class="fw-bold" style="font-size:1.2em;">
+													내 온라인 상담 현황
+												</span>
+											</a>										
+										</div>
+									</div>
+									<div class="row pt-1">
+										<div class="col" style="font-size:0.9em;">
+											<div class="row">
+												<div class="col">
+													내 온라인 상담 목록 및 답변 여부를 확인 합니다.
+												</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													
+												</div>
+											</div>																					
+										</div>
+									</div>	
+									<div class="row">
+										<div class="col">
+													&nbsp;							
+										</div>
+									</div>																	
 								</div>						
 							</div>
 							<div class="row">
@@ -591,16 +633,10 @@ function deleteMyHopeJobCategory(){
 								</div>						
 							</div>
 							<div class="row">
-								<div class="col pt-1 pb-3" style="font-size:0.8em;">
-								<%--
-									<span>
-										나의 구직관심 분야를 관리
-									</span>
-								 --%>
-								<button type="button" class=" btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#hopeJobSettingModal">
-									이동
-								</button>
-								
+								<div class="col pt-1 pb-3" style="font-size:0.8em;">									
+									<button type="button" class=" btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#hopeJobSettingModal">
+										이동
+									</button>								
 								<!-- Modal -->
 								<div class="modal fade" id="hopeJobSettingModal" tabindex="-1" aria-labelledby="hopeJobSettingModal" aria-hidden="true">
 								  <div class="modal-dialog">
