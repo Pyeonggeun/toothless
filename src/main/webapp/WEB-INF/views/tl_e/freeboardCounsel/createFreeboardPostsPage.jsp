@@ -51,7 +51,7 @@
 
 </head>
 <body>
-<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
+
 <jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
 
 	<!-- 전체 컨테이너 시작-->

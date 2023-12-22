@@ -40,7 +40,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gowun+Dodum&family=Quicksand:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
+
 <jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
 
 <!-- 전체 컨테이너 시작 -->
