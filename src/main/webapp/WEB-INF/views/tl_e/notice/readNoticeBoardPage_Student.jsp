@@ -43,7 +43,7 @@
 
 	    // 댓글이 비어있는지 확인
 	    if (!commentValue) {
-	        alert("값 입력하고 눌러라");
+	        alert("입력을 해주세요!");
 	        inputComment.focus();
 	        return;
 	    }
@@ -96,7 +96,7 @@
 				commentDelete.setAttribute("onclick", "deleteComment("+e.noticeCommentDto.id+")");
 				
 				if(${sessionStudentInfo == null} || ${sessionStudentInfo.student_pk} != e.studentInfoDto.student_pk){
-					commentDelete.remove();
+					commentDelete.innerText = "";
 				}
 
 				commentListBox.appendChild(commentWrapper);
@@ -315,7 +315,7 @@
 					<c:forEach items="${mainList }" var="mainList">
 						<div id="headerSize" class="col-1">${mainList.noticeBoardDto.id }</div>
 						<div class="col-8 border-bottom">
-							<div class="row">
+							<div class="row mt-1">
 								<div class="col-9">
 									<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./readNoticeBoardPage_Student?id=${mainList.noticeBoardDto.id }">${mainList.noticeBoardDto.title }</a>
 									<c:if test="${mainList.commentCount > 0 }">
@@ -372,11 +372,14 @@
 	
 	<div id="templete" class="d-none">
 		<div class="commentWrapper row">
-			<div class="col border-bottom"><i class="bi bi-chat-dots"></i></div>
+			<div class="col-1 border-bottom"><i class="bi bi-chat-dots-fill" style="color: orange;"></i></div>
 			<div class="commentText col border-bottom">댓글내용</div>
-			<div class="commentNickname col border-bottom">댓글작성자</div>
-			<div class="commentDate col border-bottom">작성일</div>
-			<div class="commentDelete">삭제</div>
+			<div class="col-1 border-bottom"></div>
+			<div class="commentNickname col-2 border-bottom">댓글작성자</div>
+			<div class="commentDate col-2 border-bottom">작성일</div>
+			<div class="commentDelete col-1 border-bottom">
+				<div style="cursor: pointer; color: red;">삭제</div>
+			</div>
 		</div>		
 	</div>
 	

@@ -56,7 +56,7 @@
 		
 		const itemBox = document.getElementById("itemBox");
 		const ifNull = document.getElementById("ifNull");
-		
+	
 		ifNull.classList.remove("d-none");
 		itemBox.classList.add("d-none");
 	}
@@ -85,6 +85,9 @@
 					const coursePeroid = internshipCourseWrapper.querySelector(".coursePeroid");
 					const showCourseInfoButton = internshipCourseWrapper.querySelector(".showCourseInfoButton");
 					
+					
+					console.log(course.internshipCourseDto.course_title);
+					
 					let startDate = new Date(course.internshipCourseDto.internship_start_date);
 					startDate = startDate.getFullYear() + "." + (startDate.getMonth()+1) + "." + startDate.getDate();
 					let endDate = new Date(course.internshipCourseDto.internship_end_date);
@@ -96,9 +99,8 @@
 					
 					showCourseInfoButton.setAttribute("data-value", course.internshipCourseDto.internship_course_pk);
 					
-					if(course.countDidCompanyEvaluate < course.countInternBycoursePk){
-						internshipCourseListBox.appendChild(internshipCourseWrapper);
-					}
+					
+					internshipCourseListBox.appendChild(internshipCourseWrapper);
 				}
 				
 			}
@@ -120,6 +122,8 @@
 		const detailBox = document.getElementById("detailBox");
 		detailBox.classList.toggle("d-none");
 		
+		const marginBox = document.getElementById("marginBox");
+		marginBox.classList.toggle("d-none");
 	}
 	
 	function changeActive(internshipCoursePk){
@@ -509,7 +513,15 @@
 								</div>
 							</div>
 						</div>
-						
+						<div id="marginBox" class="row">
+							<div class="col my-5 py-5">
+								<div class="row my-5 py-5">
+									<div class="col mt-1 py-5">
+									
+									</div>
+								</div>
+							</div>
+						</div>
 						
 						
 						

@@ -390,7 +390,6 @@ function deleteMyHopeJobCategory(){
 	
 	//구직희망프로그램 종료
 	function endHopeJobConsulting(){
-		console.log(shared_hope_job_pk+"따당");
 		const url="./endHopeJobConsulting?hope_job_pk=" + shared_hope_job_pk;
 		
 		
@@ -462,14 +461,14 @@ function deleteMyHopeJobCategory(){
 			
 				<div class="col">
 				
-					<div class="row mt-5 text-center">
-						<div class="col fw-bold" style="font-size:1.5em;">
-							<span class="border border-black p-3 rounded-pill">구직희망 관리 페이지</span>							
+					<div class="row mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">
+						<div class="col fw-bold" style="font-size:1.2em;">
+							구직희망 관리 페이지							
 						</div>
 					</div>				
 				
 					<div class="row mt-5">						
-						<div class="col bg-primary-subtle me-3 text-center border rounded-3">							
+						<div class="col me-3 text-center border rounded-3"  style="background-color:#d8d9ed">							
 							<div class="row">
 								<div class="col pt-3">
 									<span class="rounded-circle" style="font-size:3em;">
@@ -541,7 +540,7 @@ function deleteMyHopeJobCategory(){
 							</div>																	
 						</div>
 		
-						<div class="col bg-primary-subtle  me-3 text-center border rounded-3">
+						<div class="col me-3 text-center border rounded-3"   style="background-color:#d8d9ed">
 							<div class="row">
 								<div class="col pt-3">
 									<span style="font-size:3em;">
@@ -568,8 +567,8 @@ function deleteMyHopeJobCategory(){
 												</div>
 											</div>
 											<div class="row">
-												<div class="col">
-													
+												<div class="col" style="font-size:0.7em;">
+													<span class="text-secondary"></span>
 												</div>
 											</div>																					
 										</div>
@@ -585,7 +584,7 @@ function deleteMyHopeJobCategory(){
 								<div class="col pt-1 pb-3" style="font-size:0.8em;">
 									
 									<a class="navbar-brand" href="./myOnlineConsultingListPage">
-										<button id="checkIsNewOnlineConsultingReply" type="button" class="btn btn-primary-subtle btn-outline-primary position-relative">
+										<button id="checkIsNewOnlineConsultingReply" type="button" class="btn btn-outline-dark position-relative">
 										  <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
 										    <span class="visually-hidden">New alerts</span>
 										  </span>	
@@ -594,7 +593,116 @@ function deleteMyHopeJobCategory(){
 									</a>										
 								</div>						
 							</div>										
-						</div>				
+						</div>
+						
+						<div class="col me-3 text-center border rounded-3" style="background-color:#d8d9ed">
+							<div class="row">
+								<div class="col pt-3">
+									<span style="font-size:3em;">
+										<i class="bi bi-journal-check"></i>
+									</span>
+								</div>						
+							</div>
+							<div class="row">
+								<div class="col">
+				
+									<div class="row">
+										<div class="col">
+											<span class="fw-bold pt-2" style="font-size:1.2em;">
+												구직희망 정보 관리
+											</span>						
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+										<span class="pt-2">
+												11
+											</span>							
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<span class="text-secondary" style="font-size:0.9em;">
+													*
+											</span>							
+										</div>
+									</div>																										
+								</div>						
+							</div>
+							<div class="row pt-2">
+								<div class="col pt-1 pb-3" style="font-size:0.8em;">
+									
+									<button onclick="myHopeJobInfo()" type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#updateHopeJob">
+									  수정
+									</button>
+									
+									
+									<div class="modal fade" id="updateHopeJob" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-dialog-scrollable">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h1 class="modal-title fs-5" id="exampleModalLabel">구직희망 정보 수정</h1>
+									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									      </div>
+									      <div class="modal-body">
+											  <div class="row mt-4" style="font-size:0.9em;">
+													<div class="col">
+														<div class="row">
+															<div class="col-2 pe-0 border-end">
+																희망 연봉
+															</div>
+															<div class="col ms-4 border">
+																<input onblur="checkHopeSalaryNull()" id="hope_salary" type="number" min="0" name="hope_salary" value="" style="width:100%; border:none; outline:none;">
+															</div>	
+															<div class="col-1" style="font-size:0.8em; display: flex; align-items: center;">원</div>
+															<div id="warningHopeSalaryValue" class="col-6" style="text-align: left; display: flex; align-items:center; color:red; font-size:0.9em;"></div>				
+														</div>
+														<div class="row pt-3">
+															<div class="col-2 pe-0 border-end">
+																희망 지역
+															</div>
+															<div class="col ms-4 border">
+																<input onblur="checkHopeAreaNull()" id="hope_area" type="text" name="hope_area" placeholder="" style="width:100%; border:none; outline:none;">
+															</div>				
+															<div class="col-1"></div>
+															<div id="warningHopeAreaValue" class="col-6" style="text-align: left; display: flex; align-items:center; color:red; font-size:0.9em;"></div>			
+														</div>
+														<div class="row text-left pt-3">
+															<div class="col">
+																<div class="row">
+																	<div class="col ps-4" style="text-align:left;">
+																	 	요구사항
+																	</div>
+																	<div id="warningHopeRequiermentsValue" class="col-9" style="text-align: left; display: flex; align-items:center; color:red; font-size:0.9em;">
+																		
+																	</div>
+																</div>
+																<div class="row border mx-2 my-2 px-1 py-1">
+																	<div class="col">
+																		<textarea onblur="checkHopeRequiermentsNull()" id="requierments" name="requierments" rows="30" cols="8" placeholder="" style="width:100%; border:none; outline:none;"></textarea>
+																	</div>
+																</div>							
+															</div>						
+														</div>																	
+													</div>
+													<div class="row">
+														<div class="col">
+															<input id="hope_job_pk" type="hidden" name="hope_job_pk" value="">
+															<input id="student_pk" type="hidden" name="student_pk" value="">
+														</div>
+													</div>
+												</div>								       
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+									        <button onclick="updateMyHopeJobInfo()" type="button" class="btn btn-primary" data-bs-dismiss="modal">수정</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+								</div>						
+							</div>										
+						</div>										
 					</div>					
 				</div>
 				
@@ -614,8 +722,9 @@ function deleteMyHopeJobCategory(){
 				<div class="col-1"></div>
 			
 				<div class="col">
-					<div class="row mt-3 ">						
-						<div class="col bg-success-subtle me-3 text-center border rounded-3">
+					<div class="row mt-3 ">	
+						
+						<div class="col me-3 text-center border rounded-3"   style="background-color:#c8c9e6">
 							<div class="row">
 								<div class="col pt-3">
 									<span style="font-size:3em;">
@@ -625,16 +734,32 @@ function deleteMyHopeJobCategory(){
 							</div>
 							<div class="row ">
 								<div class="col">
-									
-									<span class="fw-bold pt-2" style="font-size:1.2em;">
-										구직관심 관리
-									</span>
-									
+									<div class="row">
+										<div class="col">																					
+											<span class="fw-bold pt-2" style="font-size:1.2em;">
+												관심 분야 관리
+											</span>
+										</div>
+									</div>
+									<div class="row pt-1">
+										<div class="col">																					
+											<span>
+												관심 분야를 수정합니다
+											</span>
+										</div>
+									</div>	
+									<div class="row">
+										<div class="col">																					
+											<span class="text-secondary" style="font-size:0.9em;">
+												*복수 선택 가능
+											</span>
+										</div>
+									</div>																												
 								</div>						
 							</div>
-							<div class="row">
-								<div class="col pt-1 pb-3" style="font-size:0.8em;">									
-									<button type="button" class=" btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#hopeJobSettingModal">
+							<div class="row pt-3">
+								<div class="col pb-3" style="font-size:0.8em;">									
+									<button type="button" class=" btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#hopeJobSettingModal">
 										이동
 									</button>								
 								<!-- Modal -->
@@ -717,8 +842,10 @@ function deleteMyHopeJobCategory(){
 								</div>						
 							</div>										
 						</div>
-		
-						<div class="col bg-success-subtle me-3 text-center border rounded-3">
+						
+						
+						<%-- 
+						<div class="col me-3 text-center border rounded-3"   style="background-color:lightgray">
 							<div class="row">
 								<div class="col pt-3">
 									<span style="font-size:3em;">
@@ -727,15 +854,34 @@ function deleteMyHopeJobCategory(){
 								</div>						
 							</div>
 							<div class="row">
+						
 								<div class="col">
-									
-										<span class="fw-bold pt-2" style="font-size:1.2em;">
-											미응답 만족도 조사
-										</span>
-									
+								
+										
+									<div class="row">
+										<div class="col">
+											<span class="fw-bold pt-2" style="font-size:1.2em;">
+												미응답 만족도 조사
+											</span>		
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<span class="fw-bold pt-2">
+												종료된 구직희망 프로그램에 대해 
+											</span>		
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<span class="fw-bold pt-2" style="font-size:1.2em;">
+												*
+											</span>		
+										</div>
+									</div>																										
 								</div>						
 							</div>
-							<div class="row">
+							<div class="row pt-2">
 								<div class="col pt-1 pb-3" style="font-size:0.8em;">
 								
 								
@@ -809,7 +955,8 @@ function deleteMyHopeJobCategory(){
 								
 								</div>						
 							</div>										
-						</div>			
+						</div>
+						 --%>			
 					</div>					
 				</div>
 				
@@ -831,99 +978,9 @@ function deleteMyHopeJobCategory(){
 			
 				<div class="col">
 					<div class="row mt-3 ">						
-						<div class="col bg-danger-subtle me-3 text-center border rounded-3">
-							<div class="row">
-								<div class="col pt-3">
-									<span style="font-size:3em;">
-										<i class="bi bi-journal-check"></i>
-									</span>
-								</div>						
-							</div>
-							<div class="row">
-								<div class="col">
-									
-										<span class="fw-bold pt-2" style="font-size:1.2em;">
-											구직희망 정보 관리
-										</span>
-								
-								</div>						
-							</div>
-							<div class="row">
-								<div class="col pt-1 pb-3" style="font-size:0.8em;">
-									
-									<button onclick="myHopeJobInfo()" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#updateHopeJob">
-									  수정
-									</button>
-									
-									
-									<div class="modal fade" id="updateHopeJob" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-									  <div class="modal-dialog modal-dialog-scrollable">
-									    <div class="modal-content">
-									      <div class="modal-header">
-									        <h1 class="modal-title fs-5" id="exampleModalLabel">구직희망 정보 수정</h1>
-									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-									      </div>
-									      <div class="modal-body">
-											  <div class="row mt-4" style="font-size:0.9em;">
-													<div class="col">
-														<div class="row">
-															<div class="col-2 pe-0 border-end">
-																희망 연봉
-															</div>
-															<div class="col ms-4 border">
-																<input onblur="checkHopeSalaryNull()" id="hope_salary" type="number" min="0" name="hope_salary" value="" style="width:100%; border:none; outline:none;">
-															</div>	
-															<div class="col-1" style="font-size:0.8em; display: flex; align-items: center;">원</div>
-															<div id="warningHopeSalaryValue" class="col-6" style="text-align: left; display: flex; align-items:center; color:red; font-size:0.9em;"></div>				
-														</div>
-														<div class="row pt-3">
-															<div class="col-2 pe-0 border-end">
-																희망 지역
-															</div>
-															<div class="col ms-4 border">
-																<input onblur="checkHopeAreaNull()" id="hope_area" type="text" name="hope_area" placeholder="" style="width:100%; border:none; outline:none;">
-															</div>				
-															<div class="col-1"></div>
-															<div id="warningHopeAreaValue" class="col-6" style="text-align: left; display: flex; align-items:center; color:red; font-size:0.9em;"></div>			
-														</div>
-														<div class="row text-left pt-3">
-															<div class="col">
-																<div class="row">
-																	<div class="col ps-4" style="text-align:left;">
-																	 	요구사항
-																	</div>
-																	<div id="warningHopeRequiermentsValue" class="col-9" style="text-align: left; display: flex; align-items:center; color:red; font-size:0.9em;">
-																		
-																	</div>
-																</div>
-																<div class="row border mx-2 my-2 px-1 py-1">
-																	<div class="col">
-																		<textarea onblur="checkHopeRequiermentsNull()" id="requierments" name="requierments" rows="30" cols="8" placeholder="" style="width:100%; border:none; outline:none;"></textarea>
-																	</div>
-																</div>							
-															</div>						
-														</div>																	
-													</div>
-													<div class="row">
-														<div class="col">
-															<input id="hope_job_pk" type="hidden" name="hope_job_pk" value="">
-															<input id="student_pk" type="hidden" name="student_pk" value="">
-														</div>
-													</div>
-												</div>								       
-									      </div>
-									      <div class="modal-footer">
-									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-									        <button onclick="updateMyHopeJobInfo()" type="button" class="btn btn-primary" data-bs-dismiss="modal">수정</button>
-									      </div>
-									    </div>
-									  </div>
-									</div>
-								</div>						
-							</div>										
-						</div>
+
 		
-						<div class="col bg-danger-subtle me-3 text-center border rounded-3">
+						<div class="col me-3 text-center border rounded-3" style="background-color:#b2b5ed">
 							<div class="row">
 								<div class="col pt-3">
 									<span style="font-size:3em;">
@@ -933,14 +990,31 @@ function deleteMyHopeJobCategory(){
 							</div>
 							<div class="row">
 								<div class="col">
-									<a class="navbar-brand" href="./insertOnConsultingPage">
-										<span class="fw-bold pt-2" style="font-size:1.2em;">
-											구직희망 프로그램 종료하기
-										</span>
-									</a>
-								</div>						
+	
+									<div class="row">
+										<div class="col">
+											<span class="fw-bold pt-2" style="font-size:1.2em;">
+												구직희망 프로그램 종료하기
+											</span>						
+										</div>
+									</div>
+									<div class="row pt-1">
+										<div class="col">
+											<span class="pt-2">
+												현재 진행중인 구직희망 프로그램을 종료합니다
+											</span>							
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<span class="text-secondary" style="font-size:0.9em;">
+													*종료 시, 복
+											</span>							
+										</div>
+									</div>																										
+								</div>							
 							</div>
-							<div class="row">
+							<div class="row pt-2">
 								<div class="col pt-1 pb-3" style="font-size:0.8em;">
 								
 									<!-- Button trigger modal -->

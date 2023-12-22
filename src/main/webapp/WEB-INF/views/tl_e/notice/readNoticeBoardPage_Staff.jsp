@@ -117,20 +117,20 @@
 							<c:if test="${!empty sessionStaffInfo&&sessionStaffInfo.staff_pk==list.noticeBoardDto.staff_pk}">	
 								<div class="col-1 border-top">
 									<div class="row">
-										<div class="col" style="font-size: 1em;">
+										<div class="col mt-1" style="font-size: 1em;">
 											<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: red" href="./deleteNoticeArticleProcess?id=${list.noticeBoardDto.id }">삭제</a>
 										</div>
 									</div>
 								</div>
 								<div class="col-1 border-top">
 									<div class="row">
-										<div class="col" style="font-size: 1em;">
+										<div class="col mt-1" style="font-size: 1em;">
 											<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./updateNoticeArticlePage?id=${list.noticeBoardDto.id }">수정</a>
 										</div>
 									</div>
 								</div>
 							</c:if>
-							<div class="col-1 mb-1 border-top" style="font-size: 0.8em"><fmt:formatDate value="${list.noticeBoardDto.created_at }" pattern="yyyy-MM-dd"/></div>
+							<div class="col-1 border-top mb-0 d-flex align-items-center justify-content-center" style="font-size: 0.8em"><fmt:formatDate value="${list.noticeBoardDto.created_at }" pattern="yyyy-MM-dd"/></div>
 						</div>
 					</div>
 				</div>
@@ -242,7 +242,7 @@
 					<c:forEach items="${mainList }" var="mainList">
 						<div id="headerSize" class="col-1">${mainList.noticeBoardDto.id }</div>
 						<div class="col-8 border-bottom">
-							<div class="row">
+							<div class="row mt-1">
 								<div class="col-9">
 									<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./readNoticeBoardPage_Staff?id=${mainList.noticeBoardDto.id }">${mainList.noticeBoardDto.title }</a>
 									<c:if test="${mainList.commentCount > 0 }">
@@ -299,10 +299,10 @@
 	
 	<div id="templete" class="d-none">
 		<div class="commentWrapper row">
-			<div class="col border-bottom"><i class="bi bi-chat-dots"></i></div>
+			<div class="col-1 border-bottom"><i class="bi bi-chat-dots-fill" style="color: orange;"></i></div>
 			<div class="commentText col border-bottom"></div>
-			<div class="commentNickname col border-bottom"></div>
-			<div class="commentDate col border-bottom"></div>
+			<div class="commentNickname col-2 border-bottom"></div>
+			<div class="commentDate col-2 border-bottom"></div>
 		</div>		
 	</div>
 	
