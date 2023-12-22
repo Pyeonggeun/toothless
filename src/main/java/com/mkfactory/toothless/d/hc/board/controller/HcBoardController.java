@@ -57,7 +57,7 @@ public class HcBoardController {
 	public String readPage(Model model, int board_pk) {
 		
 		
-		Map<String, Object> map = hcBoardService.getArticle(board_pk);
+		Map<String, Object> map = hcBoardService.getArticle(board_pk,true);
 		
 		model.addAttribute("roman", map);
 		
@@ -75,7 +75,7 @@ public class HcBoardController {
 	@RequestMapping("updatePage")
 	public String updatePage(Model model, int board_pk) {
 		
-		Map<String, Object> map = hcBoardService.getArticle(board_pk);
+		Map<String, Object> map = hcBoardService.getArticle(board_pk,false);
 		model.addAttribute("soso", map);
 
 		return "tl_d/hc_board/updatePage";
@@ -117,14 +117,14 @@ public class HcBoardController {
 	@RequestMapping("noticeWriteProcess")
 	public String noticeWriteProcess(NoticeStaffBoardDto ruru) {
 		
-		hcBoardService.rara(ruru);
+		hcBoardService.rara(ruru,true);
 		
 		return "redirect:./noticeMainPage";
 	}
 	@RequestMapping("readNoticePage")
 	public String readNoticePage(Model model, int id) {
 		
-		Map<String, Object> map = hcBoardService.getnotice(id);
+		Map<String, Object> map = hcBoardService.getnotice(id,true);
 		
 		model.addAttribute("hoho", map);
 		
@@ -142,7 +142,7 @@ public class HcBoardController {
 	public String updateNoticeWritePage(Model model, int notice_board_pk) {
 	
 		
-		Map<String, Object> qwer = hcBoardService.getnotice(notice_board_pk);
+		Map<String, Object> qwer = hcBoardService.getnotice(notice_board_pk,false);
 		
 		model.addAttribute("qwer",qwer);
 		return "tl_d/hc_board/updateNoticeWritePage";
@@ -169,7 +169,7 @@ public class HcBoardController {
 	@RequestMapping("readNoticePageForStudent")
 	public String readNoticePageForStudent(Model model, int id) {
 		
-		Map<String, Object> map = hcBoardService.getnotice(id);
+		Map<String, Object> map = hcBoardService.getnotice(id,true);
 		
 		model.addAttribute("hoho", map);
 		
@@ -187,7 +187,7 @@ public class HcBoardController {
 	public String readPageForStudent(Model model, int board_pk) {
 		
 		
-		Map<String, Object> map = hcBoardService.getArticle(board_pk);
+		Map<String, Object> map = hcBoardService.getArticle(board_pk,true);
 		
 		model.addAttribute("roman", map);
 		

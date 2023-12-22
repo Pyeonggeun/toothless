@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,8 @@ public class HcBoardServiceImpl {
 	
 	
 	public void ramses(QnABoardDto qnABoardDto) {
-		
+			
+			
 		hcBoardSqlMapper.insert(qnABoardDto);
 	}
 	//리스트 출력
@@ -47,7 +49,7 @@ public class HcBoardServiceImpl {
 		
 	}
 	//상세글보기
-	public Map<String, Object> getArticle(int gambare){
+	public Map<String, Object> getArticle(int gambare,boolean escape){
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -59,20 +61,42 @@ public class HcBoardServiceImpl {
 		map.put("qnABoardDto", qnABoardDto);
 		map.put("staffInfoDto", staffInfoDto);
 		
-		return map;
+		if(escape) {
+			String board_contents = qnABoardDto.getBoard_contents();
+			
+			if (board_contents != null) {
+			board_contents = StringEscapeUtils.escapeHtml4(board_contents);
+			board_contents = board_contents.replaceAll("\n", "<br>");
+			qnABoardDto.setBoard_contents(board_contents);
+		}
+		
 	}
+		
+			
+		return map;
+	
+	
+	
+	
+	}
+	
+	
+	
 	//삭제
 	public void deletegam(int board_pk) {
 		hcBoardSqlMapper.delete(board_pk);
 	}
 	//수정
 	public void updateart (QnABoardDto qnABoardDto) {
-	
+		
+		
+		
 		hcBoardSqlMapper.update(qnABoardDto);
 		
 	}
 	
-	public void rara(NoticeStaffBoardDto noticeStaffBoardDto) {
+	public void rara(NoticeStaffBoardDto noticeStaffBoardDto,boolean esacpe) {
+		
 		
 		hcBoardSqlMapper.notice(noticeStaffBoardDto);
 	}
@@ -100,7 +124,11 @@ public class HcBoardServiceImpl {
 		}
 		return noticelist;
 	}
-	public Map<String, Object> getnotice(int noticepk){
+	
+	
+	
+	
+	public Map<String, Object> getnotice(int noticepk,boolean escape){
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -110,8 +138,24 @@ public class HcBoardServiceImpl {
 		map.put("noBoardDto", noBoardDto);
 		map.put("staffInfoDto", staffInfoDto);
 		
-		return map;	
+		if(escape) {
+			String notice_contents = noBoardDto.getNotice_contents();
+			
+			if (notice_contents != null) {
+			notice_contents = StringEscapeUtils.escapeHtml4(notice_contents);
+			notice_contents = notice_contents.replaceAll("\n", "<br>");
+			noBoardDto.setNotice_contents(notice_contents);
+		}
+
+		
 	}
+		return map;	
+		
+	}
+	
+	
+	
+	
 	public void deleteno(int noticeid) {
 		
 		hcBoardSqlMapper.deletenotice(noticeid);
@@ -119,6 +163,7 @@ public class HcBoardServiceImpl {
 	}
 	
 	public void upup(NoticeStaffBoardDto noticeStaffBoardDto) {
+		
 		
 		hcBoardSqlMapper.updateno(noticeStaffBoardDto);
 		
@@ -129,5 +174,8 @@ public class HcBoardServiceImpl {
 		
 		return list;
 	}
+	
+
+	
 	
 }
