@@ -38,8 +38,6 @@ public class EunbiRestExternalController {
 			restResponseDto.setResult("Success");
 		}
 		
-		System.out.println(restResponseDto.getData());
-		
 		return restResponseDto;
 	}
 	
