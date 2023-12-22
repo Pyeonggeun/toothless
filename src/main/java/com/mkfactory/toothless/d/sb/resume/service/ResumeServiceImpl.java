@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -94,9 +95,27 @@ public class ResumeServiceImpl {
 	
 	
 	// 이력서 상세보기
-	public ResumeDto getResume(ResumeDto resumeDto) {
+	public ResumeDto getResume(ResumeDto resumeDto, boolean escape) {
 		
 		ResumeDto dto = resumeSqlMapper.getThisResumeDtoByResumePk(resumeDto);
+		
+		if(escape) {
+			
+			String coverContent = dto.getCover_letter();
+			
+			if (coverContent != null) {
+				coverContent = StringEscapeUtils.escapeHtml4(coverContent);
+		  
+				coverContent = coverContent.replaceAll("<","&lt;");
+				coverContent = coverContent.replaceAll(">", "&gt;");
+				coverContent = coverContent.replaceAll("\n", "<br>");
+		      
+				dto.setCover_letter(coverContent);
+				
+		      
+			}
+		}
+		
 		
 		return dto;
 	}
@@ -320,7 +339,9 @@ public class ResumeServiceImpl {
 			Map<String, Object> map = new HashMap<String, Object>();
 			int resume_pk = resumeDto.getResume_pk();
 			String departmentName = resumeSqlMapper.getStudentDepartmentNameByResumePk(resume_pk);
-			
+			int student_pk = resumeDto.getStudent_pk();
+			StudentInfoDto student = resumeSqlMapper.getStudentDtoByResumePk(student_pk);
+			map.put("studentDto", student);
 			map.put("resumeDto", resumeDto);
 			map.put("department", departmentName );
 			
@@ -358,7 +379,9 @@ public class ResumeServiceImpl {
 			Map<String, Object> map = new HashMap<String, Object>();
 			int resume_pk = resumeDto.getResume_pk();
 			String departmentName = resumeSqlMapper.getStudentDepartmentNameByResumePk(resume_pk);
-			
+			int student_pk = resumeDto.getStudent_pk();
+			StudentInfoDto student = resumeSqlMapper.getStudentDtoByResumePk(student_pk);
+			map.put("studentDto", student);
 			map.put("resumeDto", resumeDto);
 			map.put("department", departmentName );
 			

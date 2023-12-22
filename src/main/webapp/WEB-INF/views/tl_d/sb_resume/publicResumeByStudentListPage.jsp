@@ -143,7 +143,7 @@ function getStudentInfoByResume(resume_pk){
 }
 
 function getIsPublicResumeList(department_pk){
-	console.log(department_pk);
+	
 	const url = "./getIsPublicResumeList?department_pk="+department_pk;
 	fetch(url)
 	.then(response => response.json())
@@ -153,7 +153,7 @@ function getIsPublicResumeList(department_pk){
 		publicResumeListBox.innerHTML = "";
 		
 		if(response.data.length ==0){
-			publicResumeListBox.innerText = " 공개된  이력서가 없습니다.";
+			publicResumeListBox.innerText = "공개된  이력서가 없습니다.";
 			return;
 		}
 		for(e of response.data){
@@ -164,6 +164,10 @@ function getIsPublicResumeList(department_pk){
 			const modal_resume_title = publicResumeWrapper.querySelector(".modal_resume_title");
 			
 			modal_resume_title.innerText = e.resumeDto.resume_title;
+			
+			const modal_stu_name = publicResumeWrapper.querySelector(".modal_stu_name");
+			console.log(e.studentDto.name);
+			modal_stu_name.innerText = e.studentDto.name;
 			
 			const modal_department = publicResumeWrapper.querySelector(".modal_department");
 			
@@ -199,7 +203,8 @@ window.addEventListener("DOMContentLoaded", () => {
 			<div class="col">
 				<div class="row bg-body-white border-bottom mt-4 pb-0">
 					<a class="col-1 pe-2 text-end navbar-brand" href="../common/companyMainPage">
-		                <img class="opacity-55 img-fluid" src="../../resources/img/employment/companyBanner.jpg">
+						<img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
+		               
 		            </a>
 		            <a class="col-4 ps-0 fw-bold fs-1 text-start navbar-brand" href="../common/companyMainPage">
 		                MK University<span class="fs-6"> | </span> <span class="fs-5">취업지원센터</span> 
@@ -264,7 +269,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		</div>
 		<div class="row">
 			<div class="col px-0">
-				<img  class="opacity-55" src="../../resources/img/employment/companyBanner.png" style="width: 119rem; height : 30rem;">
+				<img class="opacity-55 img-fluid" src="../../resources/img/employment/companyBanner.jpg">
 			</div>		
 		</div>
 	 	<%-- 전체 크기 --%>
@@ -274,8 +279,8 @@ window.addEventListener("DOMContentLoaded", () => {
 			<%-- 채용공고 리스트 양식 --%>
 			<div class="col">
 				<!-- 채용공고 -->
-				<div class="row">
-					<div class="col fs-4 fw-bold mt-4 pb-3 border-bottom border-3">공개된 이력서 목록</div>
+				<div class="row border-bottom border-3">
+					<div class="col fs-4 fw-bold mt-4 pb-3 ">공개된 이력서 목록</div>
 					<div class="col-3 mt-4 pb-3">
 						<select class="form-select" onchange="getIsPublicResumeList(this.value)">
 							
@@ -293,19 +298,49 @@ window.addEventListener("DOMContentLoaded", () => {
 						총 <span class="fw-bold"></span>건
 					</div>
 				</div> --%>
+				
+				<div class="row">
+					<div class="col">
+						<div class="row border-bottom border-2 border-black pb-3 mt-5">
+							<div class="col-1 fw-bold"></div>
+							<div class="col-6 fw-bold">이력서 제목</div>
+							<div class="col ms-1 fw-bold">이름</div>
+							<div class="col ms-1 fw-bold">학과</div>
+							<div class="col ms-1 fw-bold">상세보기</div>
+							<div class="col-1 fw-bold"></div>
+							
+							
+						</div>
+					</div>
+				</div>
+				
+				<div class="row border-bottom mb-4">
+					<div class="col fw-bold" id="publicResumeListBox">
+						<%-- 이력서 리스트 나오는 자리 --%>	
+					</div>
+				</div>
+				
+<%-- 				<div class="row mt-5">
+					<div class="col"></div>
+				</div>
+				
+				
+				
+				
 				<div class="row py-2 text-secondary border-bottom border-dark border-2 text-light"  style="background-color: #133369">
 					
 					<div class="col-1"></div>
-					<div class="col-7  fw-bold ">이력서 제목</div>
+					<div class="col-6  fw-bold ">이력서 제목</div>
+					<div class="col ms-1 fw-bold">이름</div>
 					<div class="col ms-1 fw-bold">학과</div>
 					<div class="col ms-1 fw-bold">상세보기</div>
 					<div class="col-1"></div>
 				</div>
 				<div class="row border mb-4">
 					<div class="col" id="publicResumeListBox">
-						<%-- 이력서 리스트 나오는 자리 --%>	
+						이력서 리스트 나오는 자리	
 					</div>
-				</div>
+				</div> --%>
 				
 				<div class="row">
 					<div class="col-10"></div>
@@ -459,9 +494,10 @@ window.addEventListener("DOMContentLoaded", () => {
 <div id="resumeListTemplete" class="d-none">
 	<div class="publicResumeWrapper row border-bottom">
 		<div class="col-1"></div>
-		<div class="modal_resume_title col-7 p-3 fw-bold fs-4">
+		<div class="modal_resume_title col-6 p-3 fw-bold fs-4">
 			이력서 제목
 		</div>
+		<div class="modal_stu_name col p-3 fw-bold">이름</div>
 		<div class="modal_department col p-3 fw-bold">학과이름</div>
 		<div class="col p-3 ms-1">
 		<button  type="button" class="modal_select_resume btn btn-outline-dark">선택</button>
