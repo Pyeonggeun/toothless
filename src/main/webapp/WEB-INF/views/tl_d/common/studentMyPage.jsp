@@ -270,7 +270,7 @@
 				<div class="row ms-1 pt-0 my-3">
 					<div class="col-4 me-4 ps-3">
 					<div class="row border-bottom border-2">
-							<div class="col fs-5 fw-bold mt-5 pb-1">상담이력</div>
+							<div class="col fs-5 fw-bold mt-5 pb-1">온라인 상담 이력</div>
 							<div class="col fs-5 fw-bold mt-5 text-end"><a class="navbar-brand" href="../jm_consulting/myOnlineConsultingListPage"><i class="bi bi-plus-lg"></i></a></div>
 						</div>
 						
@@ -298,16 +298,15 @@
 										<div class="col">
 											<%-- 상담 번호 --%>
 											<div class="row pb-2">
-												<div class="col-3 ms-2">No.<span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
-												<div class="col ms-2">
-												</div>
+												<div class="col-4 ms-2">상담 번호 <span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
+
 												<div class="col ms-2 text-center">
 													<c:choose>
 														<c:when test="${e.onlineConsultingReplyDto==null}">
-															<span class="badge text-bg-danger">미답변</span>
+															<a style="height:80%;" class="pt-0 btn btn-danger" href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="">미답변</span></a>
 														</c:when>
 														<c:otherwise>
-															<a href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="badge text-bg-secondary">답변완료</span></a>
+															<a style="height:80%;" class="pt-0 btn btn-secondary" href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="">답변완료</span></a>
 														</c:otherwise>
 													</c:choose>		
 												</div>
