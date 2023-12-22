@@ -505,7 +505,7 @@ const student_pk = ${sessionStudentInfo.student_pk};
 							</div>
 							<br>
 
-							<nav class="navbar navbar-light" id="searchCompany"
+							<nav class="row navbar navbar-light" id="searchCompany"
 								style="background-color: #f2f5f7;">
 								<div class="col">
 									<div class="row ms-3 mt-3 me-3 mb-3">
