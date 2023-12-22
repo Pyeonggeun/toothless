@@ -81,8 +81,8 @@ String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(ne
 }
 
 /*table*/
-.table{
-	--bs-table-bg:none;
+.table { -
+	-bs-table-bg: none;
 }
 </style>
 <!-- Bootstrap JS -->
@@ -497,103 +497,104 @@ const student_pk = ${sessionStudentInfo.student_pk};
 
 						<!-- 본문작성공간 -->
 						<br> <br>
-							<div class="row">
-								<h2>
-									<span class="fw-bolder"><i class="bi bi-calendar-check"></i>&nbsp;현장실습
-										기관조회</span>
-								</h2>
-							</div>
-							<br>
+						<div class="row">
+							<h2>
+								<span class="fw-bolder"><i class="bi bi-calendar-check"></i>&nbsp;현장실습
+									기관조회</span>
+							</h2>
+						</div>
+						<br>
 
-							<nav class="navbar navbar-light" id="searchCompany"
-								style="background-color: #f2f5f7;">
-								<div class="col">
-									<div class="row ms-3 mt-3 me-3 mb-3">
-										<div class="col-2 px-0">
-											<select class="form-select" id="inputCategory">
-												<option selected value=0>업종 선택</option>
-												<option value=1>제조업</option>
-												<option value=2>건설업</option>
-												<option value=3>정보통신업</option>
-												<option value=4>금융업</option>
-												<option value=5>부동산업</option>
-											</select>
-										</div>
-										<div class="input-group col px-0 ">
-											<input id="searchCompanyWord" onkeyup="pressEnter()"
-												type="text" class="form-control btn-outline-light">
-											<a href="#" onclick="searchByCompany()" role="button"
-												class="btn btn-secondary  btn-outline-light"> <i
-												class="bi bi-search"></i></a>
-										</div>
+						<nav class="row navbar navbar-light" id="searchCompany"
+							style="background-color: #f2f5f7;">
+							<div class="col">
+								<div class="row ms-3 mt-3 me-3 mb-3">
+									<div class="col-2 px-0">
+										<select class="form-select" id="inputCategory">
+											<option selected value=0>업종 선택</option>
+											<option value=1>제조업</option>
+											<option value=2>건설업</option>
+											<option value=3>정보통신업</option>
+											<option value=4>금융업</option>
+											<option value=5>부동산업</option>
+										</select>
 									</div>
-									<div class="row mt-4 mx-3">
-										<div class="col ">
-											<div class="row">
-												<div class="col-2 mx-3 mb-2">
-													<span class="fw-bold align-middle">세부검색</span>
-												</div>
-												<div class="col form-check mx-3">
-													<input class="form-check-input" type="checkbox" value=1
-														id="flexCheckDefault" checked> <label
-														class="form-check-label" for="flexCheckChecked">
-														제조업 </label>													
-												</div>
-												<div class="col form-check mx-3">
-													<input class="form-check-input" type="checkbox" value=2
-														id="flexCheckDefault" checked> <label
-														class="form-check-label" for="flexCheckChecked">
-														건설업 </label>	
-												</div>
-												<div class="col form-check mx-3">
-													<input class="form-check-input" type="checkbox" value=3
-														id="flexCheckDefault" checked> <label
-														class="form-check-label" for="flexCheckChecked">
-														정보통신업 </label>
-												</div>
-												<div class="col form-check mx-3">
-													<input class="form-check-input" type="checkbox" value=4
-														id="flexCheckDefault" checked> <label
-														class="form-check-label" for="flexCheckChecked">
-														금융업 </label>
-												</div>
-												<div class="col form-check mx-3">
-													<input class="form-check-input" type="checkbox" value=5
-														id="flexCheckDefault" checked> <label
-														class="form-check-label" for="flexCheckChecked">
-														부동산업 </label>
-												</div>
-												<div class="searchCategoryCheckBox col-auto"></div>
-											</div>
-										</div>
+									<div class="input-group col px-0 ">
+										<input id="searchCompanyWord" onkeyup="pressEnter()"
+											type="text" class="form-control btn-outline-light"> <a
+											href="#" onclick="searchByCompany()" role="button"
+											class="btn btn-secondary  btn-outline-light"> <i
+											class="bi bi-search"></i></a>
 									</div>
 								</div>
-							</nav>
-							<br>
-							<!-- 컴퍼니 리스트 -->
-							<div class="row mt-2" style="height: 18em" >
-								<div class="col border-secondary border-top text-center">
-									<div class="row text-center py-1 border-botton"
-										style="height: 50px; background-color: #f2f5f7; font-weight: bold;">
-										<div class="col align-self-center">#</div>
-										<div class="col-2 align-self-center">업종</div>
-										<div class="col-2 align-self-center">회사명</div>
-										<div class="col-2 align-self-center">소재지</div>
-										<div class="col-2 text-center align-self-center">실습기간</div>
-										<div class="col align-self-center">접수마감</div>
-										<div class="col align-self-center">선발인원</div>
-										<div class="col align-self-center">지원</div>
-									</div>
-									<div class="row">
-										<div id="companyListBox" class="col mt-2 text-center"></div>
+								<div class="row mt-4 mx-3">
+									<div class="col ">
+										<div class="row">
+											<div class="col-2 mx-3 mb-2">
+												<span class="fw-bold align-middle">세부검색</span>
+											</div>
+											<div class="col form-check mx-3">
+												<input class="form-check-input" type="checkbox" value=1
+													id="flexCheckDefault" checked> <label
+													class="form-check-label" for="flexCheckChecked">
+													제조업 </label>
+											</div>
+											<div class="col form-check mx-3">
+												<input class="form-check-input" type="checkbox" value=2
+													id="flexCheckDefault" checked> <label
+													class="form-check-label" for="flexCheckChecked">
+													건설업 </label>
+											</div>
+											<div class="col form-check mx-3">
+												<input class="form-check-input" type="checkbox" value=3
+													id="flexCheckDefault" checked> <label
+													class="form-check-label" for="flexCheckChecked">
+													정보통신업 </label>
+											</div>
+											<div class="col form-check mx-3">
+												<input class="form-check-input" type="checkbox" value=4
+													id="flexCheckDefault" checked> <label
+													class="form-check-label" for="flexCheckChecked">
+													금융업 </label>
+											</div>
+											<div class="col form-check mx-3">
+												<input class="form-check-input" type="checkbox" value=5
+													id="flexCheckDefault" checked> <label
+													class="form-check-label" for="flexCheckChecked">
+													부동산업 </label>
+											</div>
+											<div class="searchCategoryCheckBox col-auto"></div>
+										</div>
 									</div>
 								</div>
 							</div>
+						</nav>
+						<br>
+						<!-- 컴퍼니 리스트 -->
+						<div class="row mt-2" >
+							<div class="col border-secondary border-top text-center">
+								<div class="row text-center py-1 border-botton"
+									style="height: 50px; background-color: #f2f5f7; font-weight: bold;">
+									<div class="col align-self-center">#</div>
+									<div class="col-2 align-self-center">업종</div>
+									<div class="col-2 align-self-center">회사명</div>
+									<div class="col-2 align-self-center">소재지</div>
+									<div class="col-2 text-center align-self-center">실습기간</div>
+									<div class="col align-self-center">접수마감</div>
+									<div class="col align-self-center">선발인원</div>
+									<div class="col align-self-center">지원</div>
+								</div>
+								<div class="row">
+									<div id="companyListBox" class="col mt-2 text-center"></div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 	<!--컴퍼니 리스트 -->
 	<div id="companyListTemplete" class="d-none">

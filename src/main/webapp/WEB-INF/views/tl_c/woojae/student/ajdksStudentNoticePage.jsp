@@ -12,18 +12,30 @@
 <title>Insert title here</title>
 </head>
 <body class="mx-0">
-	
+
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" style="max-width: 100%; max-height: 100%" src="../../../resources/img/tll_c/temp_1.jpg">
-			</div>
-		</div>
-		<div class="row bg-light fw-bold py-3 fs-6">
-			<div class="col">
-				<div class="container">
-					<div class="row">
-						<div class="col-2">공지사항</div>
-						<div class="col-2 text-secondary">자주하는 질문</div>
+				<div class="row text-center">
+					<div class="col"></div>
+					<div class="col py-3">
+						<img class="img-fluid" style="width: 50px;" src="../../../resources/img/another/logo_black.png">
+						<a class="fw-bold fs-4 link-offset-2 link-underline link-underline-opacity-0 text-black" href="../../seoyoung/student/ajdksStudentMainPage">MK University</a>
+					</div>
+					<div class="col"></div>
+				</div>
+				<div class="row">
+					<div class="col w-100 h-100">
+						<img class="img-fluid" src="../../../resources/img/tll_c/temp_1.jpg">
+					</div>
+				</div>
+				<div class="row bg-light fw-bold py-3 fs-6">
+					<div class="col">
+						<div class="container">
+							<div class="row">
+								<div class="col-2">공지사항</div>
+								<div class="col-2 text-secondary">자주하는 질문</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -290,7 +290,7 @@
 		SELECT *
 		FROM (
 		    SELECT tjsi.*, 
-		           ROW_NUMBER() OVER (ORDER BY tdjp.POSTING_DEADLINE ASC) AS rnum
+		           ROW_NUMBER() OVER (ORDER BY tdjp.POSTING_DEADLINE ASC, tjsi.STUDENT_PK ASC) AS rnum
 		    FROM TL_JIC_STUDENT_INFO tjsi
 		    JOIN TL_D_RESUME tdr ON tjsi.STUDENT_PK = tdr.STUDENT_PK
 		    JOIN TL_D_VOLUNTEER tdv ON tdr.RESUME_PK = tdv.RESUME_PK
@@ -313,7 +313,7 @@
 		JOIN TL_D_JOB_POSTING tdjp ON tdv.JOB_POSTING_PK = tdjp.JOB_POSTING_PK
 		JOIN TL_D_COMPANY tdc ON tdjp.COM_PK = tdc.COM_PK
 		WHERE tdc.COM_PK = #{com_pk}
-		ORDER BY tdjp.POSTING_DEADLINE ASC 
+		ORDER BY tdjp.POSTING_DEADLINE ASC, tjsi.STUDENT_PK ASC 
 	</select>
 	
 	<!-- 기업 메인페이지용 관심기업 체크한 학생 4개-->

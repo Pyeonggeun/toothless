@@ -72,9 +72,9 @@
 				<!-- 프로그램 상세하게 보기... -->	
 				
 					<div class="row mt-5">
-					<div class="col fw-bold">
+						<div class="col fw-bold">
 							<i class="bi bi-list-task"></i>&nbsp;&nbsp;${EduDto.title}
-					</div>
+						</div>
 					</div>			
 				
 					<div class="row mt-4 border">
@@ -142,8 +142,11 @@
 					
 					
 					</div>
-					<!-- 본문 작성 공간 -->			
+					<!-- 본문 작성 공간 -->	
+							
 				</div>
+				
+				
 			</div>
 		</div>	
 	

@@ -66,7 +66,7 @@ public class StaffboardServiceImpl {
 		return list;
 	}
 	
-	public Map<String, Object> readContentsDetailInfo(int staffboard_pk) {
+	public Map<String, Object> readContentsDetailInfo(int staffboard_pk, boolean escape) {
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -75,18 +75,18 @@ public class StaffboardServiceImpl {
 		StaffInfoDto staffInfoDto = staffboardSqlMapper.selectStaffInfo(userPk);
 		
 		//줄바꿈
-		String content = staffboardDto.getContent();
+		if(escape) {
+			String content = staffboardDto.getContent();
 		
-		content = StringEscapeUtils.escapeHtml4(content);
-		content = content.replaceAll("\n", "<br>");
-		content = content.replaceAll(" ", "&nbsp;");
+			content = StringEscapeUtils.escapeHtml4(content);
+			content = content.replaceAll("\n", "<br>");
+			content = content.replaceAll(" ", "&nbsp;");
 		
-		staffboardDto.setContent(content);
 		
+			staffboardDto.setContent(content);
+		}
 		//이미지
 		List<StaffboardImageDto> staffboardImageDtoList  = staffboardSqlMapper.selectTextImgListByStaffboardPk(staffboard_pk);
-		
-		
 		
 		map.put("staffboardDto", staffboardDto);
 		map.put("staffInfoDto", staffInfoDto);
@@ -105,6 +105,8 @@ public class StaffboardServiceImpl {
 	}
 	public void modifyText(StaffboardDto staffboardDto) {
 		staffboardSqlMapper.updateModifyText(staffboardDto);
+		
+		
 	}
 	
 	public void writeReply(StaffboardReplyDto staffboardReplyDto){
@@ -179,6 +181,45 @@ public class StaffboardServiceImpl {
 	public int replyCountInContent(int staffboard_pk) {
 		return staffboardSqlMapper.selectReplyCount(staffboard_pk);
 	}
+	
+	//수정을위한글불러오기
+//	public Map<String, Object> readContentsDetailInfoForUpdate(int staffboard_pk) {
+//		
+//		Map<String, Object> map = new HashMap<>();
+//		
+//		StaffboardDto staffboardDto = staffboardSqlMapper.selectContentsDetailInfo(staffboard_pk);
+//		int userPk = staffboardDto.getStaff_pk();
+//		StaffInfoDto staffInfoDto = staffboardSqlMapper.selectStaffInfo(userPk);
+//		
+//		//줄바꿈
+//		String content = staffboardDto.getContent();
+//		
+//		content = StringEscapeUtils.escapeHtml4(content);
+//		content = content.replaceAll("<br>", "/n");
+//		content = content.replaceAll("&nbsp;", " ");
+//		
+//		staffboardDto.setContent(content);
+//		
+//		//이미지
+//		List<StaffboardImageDto> staffboardImageDtoList  = staffboardSqlMapper.selectTextImgListByStaffboardPk(staffboard_pk);
+//		
+//		map.put("staffboardDto", staffboardDto);
+//		map.put("staffInfoDto", staffInfoDto);
+//		map.put("staffboardImageDtoList", staffboardImageDtoList);
+//		
+//		
+//		return map;
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
 

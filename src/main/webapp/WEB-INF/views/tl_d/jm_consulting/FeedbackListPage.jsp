@@ -56,9 +56,8 @@ var shared_sortHJFScore;
 				
 				
 				//모달
-				
 				const iconElement = document.createElement('i');
-				iconElement.classList.add('bi','bi-info-lg');
+				iconElement.classList.add('bi','bi-info-square');
 				const modal_link_button = listWrapper.querySelector(".modal_link_button");
 				modal_link_button.classList.add('btn','btn-light');
 				modal_link_button.value = e.hopeJobFeedbackDto.hope_job_feedback_pk;

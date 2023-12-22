@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -121,7 +122,7 @@ public class StaffboardController {
 		
 		staffboardService.createTextReadCount(staffboard_pk);
 		
-		Map<String, Object> readText = staffboardService.readContentsDetailInfo(staffboard_pk);
+		Map<String, Object> readText = staffboardService.readContentsDetailInfo(staffboard_pk, true);
 		
 		List<Map<String, Object>> replyList = staffboardService.getContentReplyInfo(staffboard_pk);
 		
@@ -174,8 +175,7 @@ public class StaffboardController {
 	@RequestMapping("modifyTextPage")
 	public String modifyTextPage(Model model, int staffboard_pk) {
 		
-		Map<String, Object> readText = staffboardService.readContentsDetailInfo(staffboard_pk);
-		
+		Map<String, Object> readText = staffboardService.readContentsDetailInfo(staffboard_pk, false);
 		model.addAttribute("readText", readText);
 		
 		return "tl_b/dy/modifyTextPage";

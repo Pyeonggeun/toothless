@@ -213,4 +213,11 @@ public class MedicineController {
 		return "redirect:./medicineInventory";
 	}
 	
+	//이벤트 게시판?
+	@RequestMapping("calendarPage")
+	public String calendarPage() { 
+		
+		
+		return "tl_b/kh/calendarPage";
+	}
 }

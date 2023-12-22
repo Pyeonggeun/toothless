@@ -39,7 +39,7 @@
 		
 		<div class="row">
 			<div class="col-1"></div>
-			<div class="col-1 me-5">
+			<div class="col-2">
 				<jsp:include page="../common/staffMenu.jsp"></jsp:include>
 			</div>
 			<div class="col-1 border-start"></div>
@@ -58,8 +58,7 @@
 				<form id="frm" action="./writeProcess">
 				<div class="row mb-4">
 					<div class="col">
-							<input id="inputTitle" name="board_title" class="form-control form-control-sm" type="text" placeholder="제목" aria-label=".form-control-sm example">
-							
+							<input id="inputTitle" name="board_title" class="form-control form-control-sm" type="text" placeholder="제목" aria-label=".form-control-sm example">		
 					</div>
 				</div>
 				

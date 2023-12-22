@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,7 +73,11 @@
 										프로그램 일정
 									</div>
 									<div class="row d-grid">
-										<input type="date" name="prg_schedule" class="form-control">
+										<input type="date" name="prg_schedule" class="form-control" value="<fmt:formatDate value="${program.programDto.prg_schedule}" pattern="yyyy-MM-dd"/>"> 
+										
+									</div>
+									<div class="row mt-1 text-secondery">
+										기존 날짜&nbsp;<fmt:formatDate value="${program.programDto.prg_schedule}" pattern="yyyy.MM.dd"/>
 									</div>
 								</div>
 							</div>
@@ -84,7 +89,10 @@
 										프로그램 모집 마감일
 									</div>
 									<div class="row">
-										<input type="date" name="prg_apply_deadline" class="form-control">
+										<input type="date" name="prg_apply_deadline" class="form-control" value="<fmt:formatDate value="${program.programDto.prg_apply_deadline}" pattern="yyyy-MM-dd"/>"> 
+									</div>
+									<div class="row mt-1 text-secondery">
+										기존 날짜&nbsp;<fmt:formatDate value="${program.programDto.prg_apply_deadline}" pattern="yyyy.MM.dd"/>
 									</div>
 								</div>
 							</div>
@@ -152,12 +160,15 @@
 										출석체크 여부
 									</div>
 									<div class="row mb-4">
-										<div class="col">
-											<input type="radio" name="prg_is_attend" class="form-check-input" value="Y">&nbsp; 출석체크 있음
+										<div class="col"> 
+											<input type="radio" name="prg_is_attend" class="form-check-input" value="Y"
+												
+											>&nbsp; 출석체크 있음
 										</div>
 										
 										<div class="col">
-											<input type="radio" name="prg_is_attend" class="form-check-input" value="N">&nbsp; 출석체크 없음
+											<input type="radio" name="prg_is_attend" class="form-check-input" value="N"
+												>&nbsp; 출석체크 없음
 										</div>
 										<div class="col"></div>
 									</div>

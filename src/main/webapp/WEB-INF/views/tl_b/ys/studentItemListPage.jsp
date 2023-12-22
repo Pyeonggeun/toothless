@@ -64,18 +64,18 @@
 						const itemButton = studentItemListWrapper.querySelector(".itemButton");
 						
 						
-						if(status == 'N' || status == null){
-							if(count < 1){
+						if(e.status == 'N' || e.status == null){
+							if(e.itemApplyCount < 1){
 								itemButton.setAttribute("onclick","showModal("+e.itemDto.item_pk+")");
 								itemButton.classList.add("btn-primary");
 								itemButton.innerText = "신청하기";
-							}else if(count >= 1){
+							}else if(e.itemApplyCount >= 1){
 								itemButton.disabled = true;
 								itemButton.classList.add("btn-outline-success");
 								itemButton.innerText = "신청진행중"
 							}
 						}	
-						if(status == 'Y'){
+						if(e.status == 'Y'){
 							itemButton.disabled = true;
 							itemButton.classList.add("btn-outline-danger");
 							itemButton.innerText = "대여중"
