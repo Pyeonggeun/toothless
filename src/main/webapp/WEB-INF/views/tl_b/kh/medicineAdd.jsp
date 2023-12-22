@@ -37,9 +37,9 @@
 
                 const addInfoSubmit = document.getElementById("addInfoSubmit");
 
-                const addMedicineInfo = document.querySelector(".addMedicineInfo");
+                const selectInfo = document.querySelector(".selectInfo");
                 
-                if(addMedicineInfo.value === '의약품종류'){
+                if(selectInfo.value == "의약품종류"){
                     alert("의약품종류를 선택해 주세요");
                     return;
                 }

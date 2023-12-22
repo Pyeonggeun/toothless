@@ -22,15 +22,28 @@
             color: white;
             background-color: #014195;
             }
-        .ellipsis-container {
-            width: 17.5%; /* 예제로 설정한 너비 */
+        .ellipsis-110 {
+            width: 110px; /* 예제로 설정한 너비 */
             white-space: nowrap; /* 텍스트가 한 줄로 나타나도록 설정 */
             overflow: hidden; /* 너비를 벗어나는 부분을 숨김 */
             text-overflow: ellipsis; /* 초과된 텍스트를 ...으로 대체 */
         	}
-            .noUserCursorPointer {
+        .ellipsis-220 {
+            width: 220px; /* 예제로 설정한 너비 */
+            white-space: nowrap; /* 텍스트가 한 줄로 나타나도록 설정 */
+            overflow: hidden; /* 너비를 벗어나는 부분을 숨김 */
+            text-overflow: ellipsis; /* 초과된 텍스트를 ...으로 대체 */
+        	}
+        .ellipsis-330 {
+            width: 330px; /* 예제로 설정한 너비 */
+            white-space: nowrap; /* 텍스트가 한 줄로 나타나도록 설정 */
+            overflow: hidden; /* 너비를 벗어나는 부분을 숨김 */
+            text-overflow: ellipsis; /* 초과된 텍스트를 ...으로 대체 */
+        	}
+        .noUserCursorPointer {
             cursor: pointer; /* 이 부분이 마우스를 올렸을 때 손가락 모양으로 변경하는 부분입니다. */
-            }
+        }
+
 
    		</style>
         <script>
@@ -492,10 +505,10 @@
             <div class="row mt-3 medicineWrapper text-center border-bottom pb-3 border-primary">
                 <div class="col-1 medicinecodeNumber ">코드번호</div>
                 <div class="col-1 medicineName">의약품명</div>
-                <div class="col-1 medicineKind">약품종류</div>
+                <div class="col-1 medicineKind ellipsis-110">약품종류</div>
                 <div class="col-1 medicineCompany ">회사</div>
-                <div class="col-2 medicineEfficacy ">효능</div>
-                <div class="col-3 medicineprecaution ">주의사항</div>
+                <div class="col-2 medicineEfficacy ellipsis-220">효능</div>
+                <div class="col-3 medicineprecaution ellipsis-330">주의사항</div>
                 <div class="col medicineCreatedAt">등록일</div>
                 <div class="col-1 text-right">
                 	<i class="medicineDelete py-0 px-0 btn bi bi-x-square text-danger"></i>
