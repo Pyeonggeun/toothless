@@ -503,7 +503,8 @@
         modal.show();
 	}
 
-    function resigterCounselorProcess(){
+    // 상담원 신규등록
+	function resigterCounselorProcess(){
         
     	const categoryValueList = [];
     	
@@ -529,7 +530,7 @@
     	
     	
     	const profile_ImageInput = document.getElementById("profile_Image");    	
-    	const licenseInput = document.getElementById("license");
+    	const licenseInput = document.getElementById("license").files;
     	
     	const formData = new FormData();
     	
@@ -593,6 +594,28 @@
         console.log(regCounselorData); */        
     }
     
+    function clearInputValueInTarget(target){
+    	
+    	const targetElement = document.querySelector(target);
+    	
+    	const inputElements = targetElement.querySelectorAll("input");    	
+    	inputElements.forEach(input => input.value = "");
+    	
+    	const radioElements = targetElement.querySelectorAll("input[type='radio']");
+    	radioElements.forEach(radio => radio.checked = false);
+    	
+    	const checkboxElements = targetElement.querySelectorAll("input[type='checkbox']");
+    	checkboxElements.forEach(checkbox => checkbox.checked = false);
+    	
+    	const textareaElements = targetElement.querySelectorAll("textarea");
+    	textareaElements.forEach(textarea => textarea.value="");
+    	
+    	const checkDuplicateId_col = targetElement.querySelector("#checkDuplicateId_col");
+    	checkDuplicateId_col.innerHTML="";
+    	
+    }
+    
+    
     function refreshPage(){
     	
     	location.reload();
@@ -612,7 +635,7 @@
 	
 	
 </script>
-<title>상담원 등록 페이지</title>
+<title>상담원 관리 페이지</title>
 </head>
 <body>
 	<div class="container-fluid bg-body-secondary bg-opacity-25">
@@ -1081,7 +1104,7 @@
             <div class="modal-content">
                 <div class="modal-header">                        
                     <span class="modal-title fw-bold fs-2 ms-5">상담원 신규등록</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                            
+                    <button type="button" onclick="clearInputValueInTarget('#registerModal')" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                            
                 </div>
                 <div class="container modal-body">
                     <div class="row mt-2">
@@ -1094,7 +1117,7 @@
                                 <div class="col-auto">
                                     <div class="row">
                                         <div class="col">
-                                            <label for="`" class="fw-bold form-label">상담원아이디</label>
+                                            <label for="" class="fw-bold form-label">상담원아이디</label>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -1286,7 +1309,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button type="button" onclick="clearInputValueInTarget('#registerModal')" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                     <button onclick="resigterCounselorProcess()" type="button" class="btn btn-primary">등록하기</button>
                 </div>
             </div>
