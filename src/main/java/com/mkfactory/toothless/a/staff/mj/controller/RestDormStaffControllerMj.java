@@ -84,7 +84,7 @@ public class RestDormStaffControllerMj {
 		restResponseDto.addData("countInfoList", countInfoList);
 		
 		// 현재학기정보 + 입주공고 정보
-		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
+		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo(true);
 		restResponseDto.addData("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
 				
 		restResponseDto.setResult("success");
@@ -134,7 +134,7 @@ public class RestDormStaffControllerMj {
 		restResponseDto.addData("countApplyList", countApplyList);
 		
 		// 현재학기정보 + 입주공고 정보
-		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
+		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo(true);
 		restResponseDto.addData("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
 		
 
@@ -160,7 +160,7 @@ public class RestDormStaffControllerMj {
 		restResponseDto.addData("countDormSelectedList", countDormSelectedList);
 		
 		// 현재학기정보 + 입주공고 정보
-		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
+		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo(true);
 		restResponseDto.addData("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
 		
 
@@ -222,7 +222,7 @@ public class RestDormStaffControllerMj {
 		Mj_RestResponseDto restResponseDto = new Mj_RestResponseDto();
 				
 		// 현재학기정보 + 입주공고 정보
-		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo();
+		Map<String, Object> thisSemesterJoinDormInfo = studentService.thisSemesterJoinDormInfo(true);
 		restResponseDto.addData("thisSemesterJoinDormInfo", thisSemesterJoinDormInfo);
 		
 		

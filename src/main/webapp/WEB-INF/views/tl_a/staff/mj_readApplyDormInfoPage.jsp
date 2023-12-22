@@ -139,6 +139,12 @@
 				applyDormInfoWrapper.querySelector(".address").innerText = e.studentInfo.address;
 				applyDormInfoWrapper.querySelector(".priority_select").innerText = e.applyInfo.priority_select;
 				
+				if(e.applyInfo.priority_select == 'Y'){
+					applyDormInfoWrapper.querySelector(".priority_select").classList.add("fw-bold", "text-white", "bg-primary")
+				}else{
+					applyDormInfoWrapper.querySelector(".priority_select").classList.remove("fw-bold", "text-white", "bg-primary")
+				}
+				
 				applyDormInfoListBox.appendChild(applyDormInfoWrapper);
 				
 				// 버튼
@@ -226,6 +232,12 @@
 				applyDormInfoWrapper.querySelector(".departmentName").innerText = e.departmentInfo.name ;
 				applyDormInfoWrapper.querySelector(".address").innerText = e.studentInfo.address;
 				applyDormInfoWrapper.querySelector(".priority_select").innerText = e.selectedDto.priority_select;
+				
+				if(e.selectedDto.priority_select == 'Y'){
+					applyDormInfoWrapper.querySelector(".priority_select").classList.add("fw-bold", "text-white", "bg-primary")
+				}else{
+					applyDormInfoWrapper.querySelector(".priority_select").classList.remove("fw-bold", "text-white", "bg-primary")
+				}
 				
 				applyDormInfoListBox.appendChild(applyDormInfoWrapper);
 				
