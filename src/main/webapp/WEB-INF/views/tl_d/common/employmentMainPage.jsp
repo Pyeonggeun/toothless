@@ -44,7 +44,7 @@
 						
 						<div class="col fw-bold pt-3">
 							<a class="navbar-brand" href="../hc_board/readNoticePageForStudent?id=${list.notice_board_pk }">
-								<span class="d-inline-block text-truncate" style="max-width: 350px;">
+								<span class="d-inline-block text-truncate" style="max-width: 23em;">
 									${list.notice_title}
 								</span>	
 							</a>	
