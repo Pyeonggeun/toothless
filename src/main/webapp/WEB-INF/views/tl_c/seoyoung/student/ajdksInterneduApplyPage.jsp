@@ -243,7 +243,7 @@ const student_pk = ${sessionStudentInfo.student_pk};
             console.log(viewButton);
             viewButton.value = "다음";
             viewButton.classList.add("btn", "btn-primary", "rounded-1", "open-Modal");
-            viewButton.setAttribute("onclick", "openModal2("+e.INTERNSHIP_COURSE_PK+")");
+            viewButton.setAttribute("onclick", "openModal2("+modalValues.INTERNSHIP_COURSE_PK+")");
             
 
 		});
@@ -264,7 +264,7 @@ const student_pk = ${sessionStudentInfo.student_pk};
         	const modalValues = response.data;
         	if (modalValues == "yes") {
     		    const applyButton = document.getElementById("applyButton");
-    		    applyButton.setAttribute("onclick", "studentApplyProcess("+e.INTERNSHIP_COURSE_PK+")");
+    		    applyButton.setAttribute("onclick", "studentApplyProcess("+itemPk+")");
     		} else {
     		    failModal();
     		    modal.hide();
