@@ -49,7 +49,7 @@
 										<fmt:formatDate value="${list.programDto.prg_schedule}" pattern="yyyy.MM.dd"/>
 									</div>
 									
-									<div class="col-2 text-center pt-1">
+									<div class="col-2 text-center pt-1 mt-1">
 										<c:choose>
 										
 							                <c:when test="${list.programDto.prg_schedule.before(currentTime)}">
@@ -64,22 +64,21 @@
 								                				</c:when>
 								                				
 							                					<c:otherwise>
-							                						<a class="text-center mt-3 btn btn-primary" href="./programReviewPage?program_apply_pk=${list.programApplyDto.program_apply_pk}">리뷰쓰기</a>
+							                						<a class="text-center btn btn-primary" href="./programReviewPage?program_apply_pk=${list.programApplyDto.program_apply_pk}">리뷰쓰기</a>
 							                					</c:otherwise>
 							                				
 							                				</c:choose>
 														</c:when>
 																 
 								                		<c:otherwise>
-								                			<span class="text-center border border-0 py-2 px-3 mt-3 bg-secondary-subtle rounded-2">미수료</span>
+								                			<span class="text-center border border-0 py-2 px-3 bg-secondary-subtle rounded-2">미수료</span>
 														</c:otherwise>
 																
 										        	</c:choose>
 										      </c:when>
 										                
 								              <c:otherwise>
-								                
-								  					<span class="text-center border border-0 py-2 px-3 mt-3 bg-secondary-subtle rounded-2">진행 전</span>                 
+								  					<span class="text-center border border-0 py-2 px-3 mt-5 bg-secondary-subtle rounded-2">진행 전</span>                 
 								                	
 								               </c:otherwise>
 										                
