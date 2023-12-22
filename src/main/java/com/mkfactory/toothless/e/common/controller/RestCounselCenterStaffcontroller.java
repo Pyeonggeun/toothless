@@ -51,9 +51,26 @@ public class RestCounselCenterStaffcontroller {
 	@RequestMapping("getCompleteCounselData")
 	public JinyongRestResponseDto getCompleteCounselData() {
 		
+		Map<String, Object> completeCounselCountValue = 
+				registerCounselorService.getAllTypeCompleteCounselCountValue();
+		
 		JinyongRestResponseDto jinyongRestResponseDto = new JinyongRestResponseDto();
 				
 		jinyongRestResponseDto.setResult("success");
+		jinyongRestResponseDto.setData(completeCounselCountValue);
+		
+		return jinyongRestResponseDto;		
+	}
+	
+	@RequestMapping("getGroupCounselListForStaffMain")
+	public JinyongRestResponseDto getGroupCounselListForStaffMain() {
+		
+		List<Map<String, Object>> groupCounselList = registerCounselorService.getGroupCounselList();
+		
+		JinyongRestResponseDto jinyongRestResponseDto = new JinyongRestResponseDto();
+				
+		jinyongRestResponseDto.setResult("success");
+		jinyongRestResponseDto.setData(groupCounselList);
 		
 		return jinyongRestResponseDto;
 		

@@ -73,8 +73,8 @@
 					<!-- 프로그램 상세하게 보기... -->				
 					
 					<div class="row mt-5">
-					<div class="col fw-bold">
-						<i style ="font-size:1.5em;" class="bi bi-list-task"></i>&nbsp;${ProgramDto.title}
+					<div class="col fw-bold d-flex align-items-center">
+						<i style ="font-size:1.5em;" class="bi bi-list-task"></i>&nbsp;&nbsp;${ProgramDto.title}
 					</div>
 					</div>
 					
@@ -120,7 +120,7 @@
 					<div class="row mt-5">
 					<div class="col-2"><p style="font-weight:bold; font-size:1.2em">학생 리뷰</p></div></div>
  					<div class="col"></div>	
-					</div>
+					
 					
 					
 					
@@ -151,11 +151,12 @@
 					
 						
 					
-					
+					</div>
 					
 					<!-- 본문 작성 공간 -->			
 				</div>
 			</div>
+			<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>		
 		</div>	
 	
 	</div>

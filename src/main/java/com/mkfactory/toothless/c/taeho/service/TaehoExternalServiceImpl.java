@@ -53,7 +53,12 @@ public class TaehoExternalServiceImpl {
 		return taehoExternalSqlMapper.selectMyCompanyInformationByExternalPk(externalPk);
 	}
 	
-	
+	public List<Map<String, Object>> getInternListByInternshipCoursePk(int internshipCoursePk){
+		
+		System.out.println("서비스:" + internshipCoursePk);
+		
+		return taehoExternalSqlMapper.selectInternListByInternshipCoursePk(internshipCoursePk);
+	}
 	
 	
 	

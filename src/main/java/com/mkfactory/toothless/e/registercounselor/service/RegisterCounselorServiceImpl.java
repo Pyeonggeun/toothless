@@ -231,10 +231,19 @@ public class RegisterCounselorServiceImpl {
 		return counselorDetailForAJAX;
 	}
 	
+	// counselCenterStaffMainPage 용
 	// 전체상담원 상담형태별 상담완료리스팅
-	public List<Map<String, Object>> getAllCompleteCounselList(){
-		
+	public List<Map<String, Object>> getAllCompleteCounselList(){		
 		return registerCounselorSqlMapper.selectAllCompleteCounselList();
 	}
 	
+	// 상담형태별 완료된 상담내역 카운팅
+	public Map<String, Object> getAllTypeCompleteCounselCountValue(){
+		return registerCounselorSqlMapper.selectAllTypeCompleteCounselCountValue();
+	}
+	
+	// 집단상담 리스팅
+	public List<Map<String, Object>> getGroupCounselList(){
+		return registerCounselorSqlMapper.selectGroupCounselBoardForStaffMain();
+	}
 }

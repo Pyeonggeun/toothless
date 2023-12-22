@@ -123,7 +123,6 @@
 		<script src="../../resources/js/hn/topBanner.js"></script>
     </head>
     <body>
-    	<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
