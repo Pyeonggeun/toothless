@@ -185,8 +185,8 @@
 									          </div>
 								        </div> 
 										<div class="row">
-											<div class="col">
-												<a class="btn text-truncate fw-bold text-truncate" href="../gw_program/programViewDetailsPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em; max-width: 250px;">${list.programDto.prg_name}</a>
+											<div class="col"> 
+												<a class="btn text-truncate fw-bold text-truncate" href="../gw_program/programViewDetailsPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em; max-width: 14em;">${list.programDto.prg_name}</a>
 											</div>
 										</div>
 										<div class="row">

@@ -41,9 +41,9 @@
 						<c:forEach items="${studentApplyProgram}" var="list">
 							<c:if test="${list.programApplyDto.student_pk==sessionStudentInfo.student_pk}">
 								<div class="row border-bottom border-bs-border pb-3 mb-3">
-									<div class="col-1 py-2 text-center fw-bold">${list.programApplyDto.program_apply_pk}</div>
+									<div class="col-1 py-2 text-center fw-bold">${list.programApplyDto.program_apply_pk}</div> 
 									
-									<div class="col"><a class="btn text-truncate ms-4" href="./programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}" style="max-width: 400px;">${list.programDto.prg_name}</a></div>
+									<div class="col"><a class="btn text-truncate ms-4" href="./programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}" style="max-width: 40em;">${list.programDto.prg_name}</a></div>
 									
 									<div class="col-2 py-2 text-center">
 										<fmt:formatDate value="${list.programDto.prg_schedule}" pattern="yyyy.MM.dd"/>
