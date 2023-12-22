@@ -228,7 +228,7 @@
 									<%-- 공고제목 --%>
 									<div class="col-7 ps-0 pt-2">
 										<a class="navbar-brand" href="../ny_posting/jobPostingDetailForCompanyPage?id=${mainPagePosting.jobPostingDto.job_posting_pk}">
-											<span class="d-inline-block text-truncate" style="max-width: 500px;">
+											<span class="d-inline-block text-truncate" style="max-width: 32em;">
 												${mainPagePosting.jobPostingDto.posting_name}
 											</span>
 										</a>

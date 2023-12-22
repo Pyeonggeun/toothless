@@ -75,6 +75,10 @@
 					</div>
 				</div>
 				
+				<div class="row mt-3">
+					<div class="col border border-2"></div>
+				</div>
+				
 				
 				<div class="row mt-5 g-0 py-0 border mt-3 fw-bold" style="font-size: 0.9em; height: 3em; background-color:#F8F8F8; " >
 				    <div class="col-1 d-flex justify-content-center  align-items-center border-end h-100">No</div>

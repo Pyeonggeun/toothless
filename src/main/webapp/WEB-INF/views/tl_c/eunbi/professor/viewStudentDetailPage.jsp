@@ -80,9 +80,6 @@
 			
 			const info = response.data;
 			
-			const introductionImgSrc = info.selfIntroductionImg.self_introduction_img;
-			introductionImg.setAttribute("src", "/Git_imageFile/" + introductionImgSrc);
-			
 			const birth = new Date(info.studentInfoDto.birth);
 			
 			studentName.innerText = info.studentInfoDto.name;
@@ -94,6 +91,8 @@
 			studentPhone.innerText = info.studentInfoDto.phone;
 			studentEmail.innerText = info.studentInfoDto.email;
 			studentAdress.innerText = info.studentInfoDto.address;
+			const introductionImgSrc = info.selfIntroductionImg.self_introduction_img;
+			introductionImg.setAttribute("src", "/Git_imageFile/" + introductionImgSrc);
 			
 		});
 	}
@@ -191,6 +190,7 @@
 		getProfessorPk();
 		reloadStudentDetails();
 		showSelfIntroduction();
+		reloadCertification();
 	});
 	
 </script>
@@ -358,22 +358,30 @@
 										</div>
 									</div>
 									<!-- 자격증 출력 -->
-									<div id="showCertificationList" class="row border border-secondary border-top-0 d-none">
-										<div class="col text-center">
-											<div class="row border-bottom py-1 fw-semibold text-dark-emphasisr" style="background-color:#f2f5f7;">
-												<div class="col-5">
-													자격증명
-												</div>
-												<div class="col-4">
-													자격증 취득일
-												</div>
-												<div class="col-3">
-													자격증 파일
+									<div id="showCertificationList" class="row d-none">
+										<div class="col">
+											<div class="row border border-secondary border-top-0">
+												<div class="col text-center">
+													<div class="row border-bottom py-1 fw-semibold text-dark-emphasisr" style="background-color:#f2f5f7;">
+														<div class="col-5">
+															자격증명
+														</div>
+														<div class="col-4">
+															자격증 취득일
+														</div>
+														<div class="col-3">
+															자격증 파일
+														</div>
+													</div>
+													<div class="row">
+														<div class="col" id="certificationListBox">
+															
+														</div>
+													</div>
 												</div>
 											</div>
 											<div class="row">
-												<div class="col" id="certificationListBox">
-													
+												<div class="col my-5 py-5">
 												</div>
 											</div>
 										</div>

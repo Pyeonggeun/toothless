@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>       
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,266 +10,190 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-		<script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>        
+		<script src="../../resources/js/hn/topBanner.js"></script>
     </head>
-		 
-		 <script>
-		 
+    	 <script>
             function formSubmit(){
                 const frm = document.getElementById("frm");
 
-                const inputComment = document.getElementById("inputComment");
-                console.log(inputComment);
-                    if(inputComment.value == ''){
-                        alert("댓글 입력");
+                const inputComment =document.getElementById("inputComment");
+                    if(inputComment.value ==''){
+                        alert("댓글을 입력해주세요!!")
                         inputComment.focus;
                         return;
 
                     }
-           		frm.submit();
+                   
+                 frm.submit();
             }
         </script>
     <body>
-
+        <jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
+		<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <jsp:include page="../commonJsp/staffTopBanner.jsp"></jsp:include>
+                
+                  <div class="row">
+                    <div class="col">
+                        
+                        <div class="row mt-2">
+                          	<div class="col-2"></div>
+                            <div class="col">
+                                <a href="../common/studentMainPage"; 
+                                    style="text-decoration: none; color:#015A9E;">
+                                    홈
+                                </a>>
+                                <a href="./studentBoardPage"; 
+                                    style="text-decoration: none; color:#015A9E;">
+                                    공지사항
+                                </a>>
+                                    상세글
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-2"></div>
+                           
+
+
+                            <div class="col">
+                                <div class="row border-2 border-top  border-black">
+                                    <div class="col fw-bold mt-2" style="font-size: 25px">
+                                        [보건 공지] &nbsp;
+                                        ${read.noticeboardDto.title }
+                                    </div>
+                                </div>
+                                <div class="row border-2 border-bottom  ">
+                                    <div class="col mb-2" style="font-size: 13px">
+                                        ${read.staffInfoDto.name } &nbsp;
+                                        <fmt:formatDate value="${read.noticeboardDto.created_at }" pattern="yy년 MM월 dd일"/>
+                                        &nbsp; | 조회수: ${read.noticeboardDto.read_count }
+                                        &nbsp; | <i class="text-danger bi bi-heart-fill"></i>${aa }
+                                        <i class="text-primary bi bi-chat-dots"></i>${replyCount}
+                                    </div>
+                                </div>
+                                <div class="row mt-5 pt-3">
+                                    <div class="col">
+                                        ${read.noticeboardDto.content }
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <c:forEach items="${read.boardImageDtoList }" var="boardImageDto">
+                                            <img src="/uploadFiles/mainImage/${boardImageDto.img_link }">
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                                <div class="row mt-5 pt-3">
+                                    <div class="col">
+                                        
+                                        
+                                        
+                                        
+                                        <div class="row mb-2 border-2 border-bottom border-black">
+                                            <div class="col" style="font-size: 15px">
+                                            	<span class="text-secondary">댓글[${replyCount}]</span>
+		                                                <c:choose>
+		                                                    <c:when test="${count==0 }">
+		                                                        <a href="./likeProcess?student_pk=${sessionStudentInfo.student_pk }&studentboard_pk=${read.noticeboardDto.studentboard_pk}">
+		                                                        <i class="text-danger bi bi-heart"></i></a>${aa }
+		                                                    </c:when>
+		                                                    <c:otherwise>
+		                                                        <a  href="./likeProcess?student_pk=${sessionStudentInfo.student_pk }&studentboard_pk=${read.noticeboardDto.studentboard_pk}">
+		                                                        <i class="text-danger bi bi-heart-fill"></i></a>${aa }
+		                                                    </c:otherwise>
+		                                                </c:choose>  
+                                            </div>
+                                        </div>
+                                        
+                                        <c:forEach items="${reply }" var="boardReply">
+                                        <div class="row">
+                                            <div class="col" style="font-size:20px;">
+                                                ${boardReply.replyDto.content }
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col border-bottom" style="font-size: 15px;">
+                                                작성자: ${boardReply.studentDto.name }
+	                                            <span class="col text-secondary" style="font-size: 13px;">
+	                                                <fmt:formatDate value="${boardReply.replyDto.created_at }" pattern="yy년 MM월 dd일 "/>
+	                                                <c:if test="${sessionStudentInfo.student_pk == boardReply.replyDto.student_pk || sessionStaffInfo != null  }">
+	                                                    <a href="./studentReplyDeleteProcess?id=${boardReply.replyDto.studentboard_reply_pk }
+	                                                        &deleteId=${boardReply.studentDto.student_pk}
+	                                                        &boardPk=${read.noticeboardDto.studentboard_pk}"
+	                                                        style="text-decoration: none; color:#015A9E;">
+	                                                        <i class="bi bi-trash"></i>
+	                                                    </a>
+	                                                </c:if>    
+	                                            </span>
+                                             </div>
+                                        </div>
+                                        </c:forEach>
+                                        <c:if test="${!empty sessionStudentInfo }">
+                                        <form id="frm" action="./studentReplyProcess" method="post">
+                                        <div class="row mt-2">
+                                            <div class="col">
+                                                <div class="form-floating">
+												  <textarea id="inputComment" name="content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+												  <label for="floatingTextarea">Comments</label>
+												</div>
+                                                <input name="studentboard_pk" type="hidden" value="${read.noticeboardDto.studentboard_pk }">
+                                            </div>
+                                            <div class="col mt-3">
+                                                <input type="button" onclick="formSubmit()" class="btn btn-outline-primary" value="작성하기">
+                                            </div>
+                                        </div>
+                                        </form>
+                                        </c:if>
+                                        <div class="row">
+                                        	<div class="col">
+                                        	
+                                        		<div class="row mt-3">
+                                        			<div class="col">
+                                        				<a href="./studentBoardPage">
+                                        					<input class="btn btn-outline-primary" type="button" value="목록">
+                                        				</a>
+                                        			</div>
+                                        		</div>
+                                        	
+                                        	</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-2"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
                     <div class="row">
                         <div class="col">
                             <div class="row">
-                                <jsp:include page="../commonJsp/staffSideBar.jsp"></jsp:include>
-                                <div class="col">
-                                    
-                              <div class="row">
-                        <div class="col">
-                                    <div class="row">
+                                <div class="col py-4" style="background-color: #F2F2F2;">
+                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
                                         <div class="col">
-                                            <div class="row mt-5  ">
-                                                <div class="col fw-bold fs-2 text-center ">보건진료소</div>
-                                            </div>
-
-                                            <div class="row px-5 mx-3">
-                                                <div class="col">
-                                                    <form id="frm" action="./staffBoardPage" method="get">
-                                                    
-                                                        <div class="row mt-4">
-                                                        <div class="col">
-                                                            <span style="font-size: 20px; font-weight: bold;">Total</span>
-                                                            <span style="font-size: 15px;">${total }개</span> 
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <select name="searchType" class="form-select" aria-label="Default select example">
-                                                                <option selected value="title">제목</option>
-                                                                <option value="content">내용</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-3 pe-0 text-end">
-                                                            <input id="inputComment" name="searchWord" class="form-control" type="text" placeholder="내용을검색하세요">
-                                                        </div> 
-                                                        <div class="col-1 text-start">
-                                                            <input type="submit" onclick="formSubmit()" class="btn btn-outline-primary" value="검색">
-                                                        </div>
-                                                    </div>
-                                                    </form>
-                                                    <div class="row">
-                                                        <div class="col text-start" style="font-size: 15px;">
-	                                                        <a href="../common/staffMainPage";
-	                                                        style="text-decoration: none; color:#015A9E;">
-	                                                        	홈
-	                                                        </a>
-	                                                        >공지사항
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-		                                                <div class="col text-start" style="font-size: 20px;">
-			                                                <a href="./staffBoardImgPage";
-			                                                style="text-decoration:none; color: black">
-			                                                <i class="bi bi-file-text"></i>
-			                                                </a> |
-			                                                <i class="bi bi-file-richtext-fill"></i>
-	                                              	  </div>
-	                                            	</div>
-
-                                                    <div class="row mt-4">
-                                                        <div class="col">
-                                                            <div class="row ">
-                                                                <div class="col fw-bold fs-5 text-center">[ 인기 게시글 ]</div>
-                                                            </div>
-                                                                <div class="row mt-3" >
-                                                                    <div class="col text-center">
-                                                                        <div class="row border border-3 text-center text-white" style="background-color: #133369";">
-                                                                            <div class="col-3">인기글 순위</div>
-                                                                            <div class="col-5">제목</div>
-                                                                            <div class="col-2">작성자</div>
-                                                                            <div class="col-2">조회수</div>                                                                   
-                                                                        </div>
-                                                                        <c:forEach items="${readList }" var="notice" varStatus="loop">
-                                                                        <c:if test="${loop.index<3 }">
-                                                                        <div class="row border-1 border-bottom">
-                                                                            <div class="col-3 fw-bold text-danger">${loop.index+1}</div>
-                                                                            <div class="col-5" style="text-decoration:none;" >
-                                                                            	<span class="d-inline-block text-truncate" style="max-width: 10em;">
-	                                                                            	<a href="./staffBoardReadPage?id=${notice.noticeboardDto.studentboard_pk }"
-			                                                                        	class="navbar-brand"
-			                                                                        	style="text-decoration:none;">
-			                                                                        	${notice.noticeboardDto.title }
-			                                                                        </a>
-		                                                                        </span>
-                                                                            	</div>
-                                                                            <div class="col-2">${notice.staffDto.name }</div>
-                                                                            <div class="col-2">${notice.noticeboardDto.read_count }</div>
-                                                                        </div>
-                                                                        </c:if>
-                                                                        </c:forEach>
-                                                                    </div>
-                                                                </div>  
-                                                        </div>
-                                                        <div class="col-7 text-center">
-                                                        	<div class="row mt-2">
-                                                        		<div class="col fw-bold fs-5 text-center text-danger ">
-                                                        		<i class="bi bi-asterisk"></i>
-                                                        			필독사항
-                                                        		<i class="bi bi-asterisk"></i>
-                                                        		</div>
-                                                        	</div>
-                                                        	<div class="row mt-3">
-                                                        		<div class="col fw-bold">
-                                                        			건전한 공지사항을 위해 아래항목은 꼭 지켜주세요!!
-                                                        		</div>
-                                                        	</div>
-                                                        	<div class="row mt-3">
-                                                        		<div class="col-2"></div>
-                                                        		<div class="col text-start">
-                                                        			1. 댓글은 공지사항과 관련된 글만 올려주세요
-                                                        			(불건전한 내용은 예고없이 삭제 처리 됩니다.) 
-                                                        		</div>
-                                                        	</div>
-                                                        	<div class="row">
-                                                        		<div class="col-2"></div>
-                                                        		<div class="col text-start">
-                                                        			2. 요청사항 및 건의사항은 s001lec@naver.com 으로 보내주세요.
-                                                        		</div>
-                                                        	</div>
-                                                        	<div class="row">
-                                                        		<div class="col-2"></div>
-                                                        		<div class="col text-start">
-                                                        			3. 게시글 대표이미지는 꼭 설정 부탁드립니다.
-                                                        		</div>
-                                                        	</div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="row mt-5">
-                                                        <div class="col">
-                                                        	<div class="row">
-                                                        		<div class="col fw-bold fs-5 text-center">[ 공지사항 ]</div>
-                                                        	</div>
-                                                            <div class="row mt-3 my-2">
-                                                                <div class="col fw-bold fs-5">
-                                                                    <div class="row border border-3 text-center text-white" style="background-color: #133369";">
-                                                                        <div class="col-1">글 번호</div>
-                                                                        <div class="col-5">제목</div>
-                                                                        <div class="col-1">작성자</div>
-                                                                        <div class="col">작성일</div>
-                                                                        <div class="col-1">좋아요</div>
-                                                                        <div class="col-1">조회수</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                           <%--  <c:forEach items="${readList }" var="notice">
-                                                                        <div class="row border-1 border-bottom text-center">
-                                                                            <div class="col-1 fw-bold text-danger">[인기글]</div>
-                                                                            <div class="col-5" style="text-decoration:none;" >
-                                                                            	<a href="./staffBoardReadPage?id=${notice.noticeboardDto.studentboard_pk }"
-		                                                                        	style="text-decoration:none;">
-		                                                                        	${notice.noticeboardDto.title }
-		                                                                        </a>
-                                                                            	</div>
-                                                                            <div class="col-1">${notice.staffDto.name }</div>
-                                                                            <div class="col">
-		                                                                        <fmt:formatDate value="${notice.noticeboardDto.created_at  }" pattern="yyyy년 MM월 dd일"/>
-		                                                                    </div>
-	                                                                        <div class="col-1">${notice.likeDto }</div>
-                                                                            <div class="col-1">${notice.noticeboardDto.read_count }</div>
-                                                                        </div>
-                                                                        </c:forEach> --%>
-                                                            
-                                                            <c:forEach items="${noticeList }" var="notice">
-                                                            <div class="row">
-                                                                <div class="col">
-                                                                    <div class="row border-bottom border-0 text-center">
-                                                                        <div class="col-1">${notice.noticeboardDto.studentboard_pk }</div>
-                                                                        <div class="col-5 ">
-                                                                        	<span class="d-inline-block text-truncate" style="max-width: 23em;">
-	                                                                        	<a href="./staffBoardReadPage?id=${notice.noticeboardDto.studentboard_pk }"
-		                                                                        	class="navbar-brand"
-		                                                                        	style="text-decoration:none;">
-		                                                                        	${notice.noticeboardDto.title }
-	                                                                        	</a>
-                                                                        	</span>
-                                                                        	<c:if test="${notice.replyDto !=0 }">
-                                                                        		&nbsp;[${notice.replyDto }]
-                                                                        	</c:if>
-                                                                        	<c:if test="${notice.imgDto !=0}">
-                                                                        		<i class="bi bi-images"></i>
-                                                                        	</c:if>
-                                                                        </div>
-                                                                        <div class="col-1">${notice.staffDto.name }</div>
-                                                                        <div class="col">
-                                                                        <fmt:formatDate value="${notice.noticeboardDto.created_at  }" pattern="yyyy년 MM월 dd일"/>
-                                                                        </div>
-                                                                        <div class="col-1">${notice.likeDto }</div>
-                                                                        <div class="col-1">${notice.noticeboardDto.read_count }</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            </c:forEach> 
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mt-2">
-                                                        <div class="col text-end">
-                                                            <a href="./staffWriteBoardPage">
-                                                            	<input type="button" class="btn btn-outline-primary " value="글쓰기">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mt-4">
-                                                        <div class="col">
-                                                            <nav aria-label="Page navigation example ">
-                                                                <ul class="pagination  justify-content-center ">
-                                                                <li class="page-item">
-                                                                    <a class="page-link" href="#" aria-label="Previous">
-                                                                    <span aria-hidden="true">&laquo;</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                                <li class="page-item">
-                                                                    <a class="page-link" href="#" aria-label="Next">
-                                                                    <span aria-hidden="true">&raquo;</span>
-                                                                    </a>
-                                                                </li>
-                                                                </ul>
-                                                            </nav>
-                                                        </div>
-                                                    </div>
+                                            <div class="row">
+                                                <div class="col-4 my-auto">
+                                                    <img class="img-fluid" src="./img/health/health_ci.gif">
                                                 </div>
-                                            </div> 
+                                                <div class="col text-body-tertiary" style="font-size: small;">
+                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
+                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
-
-			                        </div>
-			                    </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-                   <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
                 </div>
             </div>
         </div>

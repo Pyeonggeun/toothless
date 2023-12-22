@@ -88,9 +88,10 @@ public class StudentBoardController {
 		staffBoardService.increaseCount(id);
 		
 
-		
+		List<Map<String, Object>>readList = staffBoardService.bestRead();
 		List<Map<String, Object>> reply = staffBoardService.replyList(id);
 		Map<String, Object> read = staffBoardService.viewDtls(id);
+		
 		
 		StudentboardLikeDto likeDto = new StudentboardLikeDto();
 		likeDto.setStudentboard_pk(id);
@@ -115,7 +116,7 @@ public class StudentBoardController {
 
 		model.addAttribute("read", read);
 		model.addAttribute("reply", reply);
-		
+		model.addAttribute("readList", readList);
 		
 		return"tl_b/ty/studentAndStaffBoardReadPage";
 	}

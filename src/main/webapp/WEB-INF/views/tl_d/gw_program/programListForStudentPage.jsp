@@ -57,7 +57,7 @@
 								        </div>
 										<div class="row mb-1">
 											<div class="col">
-												<a class="btn text-truncate fw-bold" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em; max-width: 280px;">${list.programDto.prg_name}</a>
+												<a class="btn text-truncate fw-bold" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}" style="font-size: 1.1em; max-width: 14em;">${list.programDto.prg_name}</a>
 											</div>
 										</div>
 										<div class="row">
@@ -71,7 +71,7 @@
 												<fmt:formatDate value="${list.programDto.prg_apply_deadline}" pattern="yyyy.MM.dd"/>
 											</div>
 										</div>
-										
+										 
 										<div class="row ps-3 pb-4">
 											<div class="col-5 fw-bold">운영기간</div>
 											<div class="col ps-0">

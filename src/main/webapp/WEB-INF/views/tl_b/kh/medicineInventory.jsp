@@ -18,6 +18,18 @@
         </style>
 
         <script>
+
+            function getStaffInfo(){
+                const url = "./getStaffInfo"
+
+                fetch(url)
+                .then(response => response.json())
+                .then(response => {
+                    const staff_pk = response.data.staff_pk;
+                    const staffPk = document.getElementById("staffPk");
+                    staffPk.setAttribute("value",""+staff_pk+"");
+                })
+            }
         
             let name = null;
 
@@ -233,6 +245,7 @@
                 orderByInventoryInfo(1);
                 changeInventoryInfo();
                 reloadInventoryCat();
+                getStaffInfo();
             });
         </script>
     <script type="text/javascript" src="../../resources/js/hn/sideBar.js"></script>
@@ -303,6 +316,7 @@
 	                                                    <div class="col">
 	                                                    	<input type="button" class="btn btn-secondary customColor" onclick="frmInventoryModify()" value="수정하기">
 	                                                    </div>
+                                                        <input id="staffPk" type="hidden" name="staff_pk" >
 	                                                </div>
 	                                                </form>
                                             	
