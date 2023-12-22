@@ -595,5 +595,73 @@
 			)valueTb ON valueTb.id = cgc.ID 
 	</select>
 	
+	<!-- 공지사항 리스팅 -->
+	<select id="selectNoticeBoardForStaffMain" resultType="map">
+		SELECT
+			t1.noticeid AS noticeId,
+			t1.noticeTitle AS noticeTitle,
+			t1.noticeReadcount AS noticeReadCount,
+			t1.noticeWriter AS noticeWriter,
+			t1.noticeRegdate AS noticeRegdate,
+			nvl(t2.cvalue,0) AS noticeCommentValue
+		FROM (
+			SELECT 
+				cn.id AS noticeId,
+				cn.TITLE AS noticeTitle,
+				cn.READ_COUNT AS noticeReadcount,
+				tjsi.NAME AS noticeWriter,
+				TO_CHAR(cn.CREATED_AT, 'yyyy-mm-dd') AS noticeRegdate	
+			FROM CP_NOTICE cn
+			INNER JOIN TL_JIC_STAFF_INFO tjsi ON tjsi.STAFF_PK  = cn.STAFF_PK
+			)t1
+		LEFT OUTER JOIN (
+			SELECT
+				NOTICE_ID AS id,
+				COUNT(student_pk) AS cValue
+			FROM CP_NOTICE_COMMENT cnc
+			GROUP BY NOTICE_ID
+			)t2 ON t2.id = t1.noticeid
+		ORDER BY noticeid desc
+	</select>
+	
+	<!-- 학생 자유게시판 리스팅 -->
+	<select id="selectFreeboardForStaffMain" resultType="map">
+		SELECT
+			t1.id AS freeID,
+			t1.title AS freeTitle,
+			t1.rcount AS freeReadcount,
+			t1.name AS freeWriter,
+			t1.regdate AS freeRegdate,
+			NVL(cmTb.commentValue, 0) AS commentValue,
+			NVL(lkTb.likeValue, 0) AS likeValue
+		FROM (
+			SELECT
+				CSF.id AS ID,
+				CSF.TITLE AS Title,
+				csf.READ_COUNT AS Rcount,
+				tjsi.NAME  AS name,
+				TO_CHAR(CSF.CREATED_AT, 'yyyy-mm-dd') AS Regdate	 
+			FROM CP_STUDENT_FREEBOARD csf
+			INNER JOIN TL_JIC_STUDENT_INFO tjsi ON tjsi.STUDENT_PK = csf.STUDENT_PK
+			)t1
+		LEFT OUTER JOIN (
+			SELECT
+				csf.id AS id,
+				COUNT(cfc.STUDENT_PK) AS commentValue
+			FROM CP_STUDENT_FREEBOARD csf 
+			INNER JOIN CP_FREEBOARD_COMMENT cfc ON cfc.FREEBOARD_ID = csf.ID 
+			GROUP BY csf.id
+			)cmTb ON cmTb.id = t1.id
+		LEFT OUTER JOIN (
+			SELECT
+				csf.id AS id,
+				COUNT(cfe.id) AS likeValue
+			FROM CP_STUDENT_FREEBOARD csf 
+			INNER JOIN CP_FREEBOARD_EMPATHY cfe ON cfe.FREEBOARD_ID = csf.ID
+			GROUP BY csf.ID 
+			)lkTb ON lkTb.id = t1.id
+		ORDER BY freeID DESC
+	</select>
+	
 
 </mapper>
