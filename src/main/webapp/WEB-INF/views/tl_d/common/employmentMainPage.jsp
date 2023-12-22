@@ -40,11 +40,11 @@
 					</div>
 				</div>
 				<c:forEach items="${noticeList}" var="list">
-					<div class="row border-bottom border-bs-border pb-2 mb-2">
+					<div class="row border-bottom border-bs-border pb-2 mb-2 px-1">
 						
 						<div class="col fw-bold pt-3">
 							<a class="navbar-brand" href="../hc_board/readNoticePageForStudent?id=${list.notice_board_pk }">
-								<span class="d-inline-block text-truncate" style="max-width: 350px;">
+								<span class="d-inline-block text-truncate" style="max-width: 23em;">
 									${list.notice_title}
 								</span>	
 							</a>	
@@ -52,14 +52,13 @@
 						<div class="col-2 pt-3">
 							<fmt:formatDate value="${list.created_at}" pattern="yy.MM.dd"/>
 						</div>
-						<div class="col-1"></div>
 					</div>
 				</c:forEach>
 				
 			</div>
 			<%-- 프로그램 --%>
 			<div class="col-3 mx-3 mb-5">
-				<div class="row border-bottom border-2 mb-3">
+				<div class="row border-bottom border-2 mb-2">
 					<div class="col fs-5 fw-bold mt-5 pb-1">프로그램</div>
 					<div class="col fs-5 fw-bold mt-5 text-end">
 						<a class="navbar-brand" href="../gw_program/programListForStudentPage">
@@ -70,7 +69,7 @@
 				<c:set var="currentTime" value="<%= new java.util.Date() %>" />
 				<c:forEach items="${programList}" var="list" varStatus="loop">
 					<c:if test="${loop.index < 5}">
-						<div class="row border-bottom border-bs-border pb-2 mb-2">
+						<div class="row border-bottom border-bs-border pt-1 pb-2 mb-2">
 							<div class="col-1 text-center fw-bold pt-2">${list.programDto.program_pk}</div>
 							<div class="col"><a class="btn text-truncate" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}" style="max-width: 280px;">${list.programDto.prg_name}</a></div>
 							<div class="col-3 text-center pt-2">

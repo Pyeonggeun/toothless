@@ -26,8 +26,6 @@ public class EunbiExternalController {
 		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
 		int externalPk = externalInfoDto.getExternal_pk();
 		
-		System.out.println(externalInfoDto.getExternal_pk());
-		
 		model.addAttribute("companyPk", externalService.getCompanyPk(externalPk));
 		
 		return "tl_c/eunbi/external/viewEvaluationCourseListPage";

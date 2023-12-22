@@ -213,6 +213,8 @@
 						counselorTextBox.innerText = "";
 					}else{
 						counselorTextBox.innerText = map.counselDocumentDto.text;
+						counselorTextBox.classList.remove("py-3");
+						counselorTextBox.classList.add("py-0");
 					}
 				}else{
 					counselorText = document.createElement("textarea");
@@ -631,15 +633,11 @@
 			</div>
 			<div class="col-1"></div>
 		</div>
-		<pre>
-		
-		
-		
-		</pre>
-		<div class="row mt-5" style="background-color: #686868; height: 14em;">
+		<!-- footer start -->
+		<div class="row mt-5" style="background-color: #686868; height: 11.3em;">
 			<div class="col-1"></div>
 			<div class="col">
-				<div class="row" style="height: 4em;"></div>
+				<div class="row" style="height: 2.5em;"></div>
 				<div class="row">
 					<div class="col">
 						<span style="font-size: 1.1em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
@@ -657,10 +655,10 @@
 						<div style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
 					</div>
 				</div>
-				<div class="row pt-4" style="border-bottom-style: solid; border-bottom-color: gray; border-bottom-width: 1px;"></div>
 			</div>
 			<div class="col-1"></div>
 		</div>
+		<!-- footer end -->
 	</div>
 	
 	<!-- 템플릿!!! -->

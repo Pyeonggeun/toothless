@@ -124,7 +124,7 @@ public class ProgramController {
 			
 		}
 		
-		model.addAttribute("program", programService.getProgram(program_pk));
+		model.addAttribute("program", programService.getProgram(program_pk, true));
 		programService.countApplyProgram(program_pk);
 		
 		return "/tl_d/gw_program/programViewDetailsPage";
@@ -134,7 +134,7 @@ public class ProgramController {
 	@RequestMapping("updateProgramInfoPage")
 	public String updateProgramInfo(Model model,int program_pk) {
 		
-		model.addAttribute("program", programService.getProgram(program_pk));
+		model.addAttribute("program", programService.getProgram(program_pk, false));
 		model.addAttribute("programCategory", programService.programCategory());
 		
 		return "/tl_d/gw_program/updateProgramInfoPage";
@@ -224,7 +224,7 @@ public class ProgramController {
 			
 		}
 		
-		model.addAttribute("program", programService.getProgram(program_pk));
+		model.addAttribute("program", programService.getProgram(program_pk, true));
 		
 		return "/tl_d/gw_program/programViewDetailsForStudentPage";
 	}
@@ -240,7 +240,7 @@ public class ProgramController {
 			
 		}
 		
-		model.addAttribute("program", programService.getProgram(program_pk));
+		model.addAttribute("program", programService.getProgram(program_pk, true));
 		
 		return "/tl_d/gw_program/studentApplyProgram";
 	}
@@ -282,7 +282,7 @@ public class ProgramController {
 	@RequestMapping("applyProgramListForStaffPage")
 	public String applyProgramListForStaffPage(Model model,int program_pk) {
 		
-		model.addAttribute("program", programService.getProgram(program_pk));
+		model.addAttribute("program", programService.getProgram(program_pk, true));
 		model.addAttribute("studentApplyProgram", programService.applyProgramList(program_pk));
 		
 		return "/tl_d/gw_program/applyProgramListForStaffPage";
@@ -335,7 +335,7 @@ public class ProgramController {
 	@RequestMapping("programReviewListPage")
 	public String programReviewListPage(Model model, int program_pk) {
 		
-		model.addAttribute("program", programService.getProgram(program_pk));
+		model.addAttribute("program", programService.getProgram(program_pk, true));
 		model.addAttribute("studentApplyProgram", programService.applyProgramList(program_pk));
 		
 		return "/tl_d/gw_program/programReviewListPage";

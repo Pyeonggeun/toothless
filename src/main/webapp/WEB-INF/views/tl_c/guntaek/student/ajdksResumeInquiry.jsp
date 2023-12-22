@@ -127,8 +127,10 @@
                                 <div class="col-8 d-flex justify-content-center align-items-center border-bottom border-end">${Student.studentDto.gender}</div>
                             </div>
                              <div class="row" style ="height: 3em;">
-                                <div class="col-4"style ="background-color:#F8F8F8"></div>
-                                <div class="col-8 border-end" style ="background-color:#F8F8F8"></div>
+                                <div class="col-4 d-flex justify-content-center align-items-center border-end" style ="background-color:#F8F8F8">학과 </div>
+                                <div class="col-8 border-end d-flex justify-content-center align-items-center">
+                                		${departName}
+                                </div>
                                 
                             </div>
                        	  
@@ -156,7 +158,9 @@
 						</div>
 						<div class="col-9">
                             <div class="row">
-                                <div class="col border-top border-bottom border-end justify-content-center align-items-center" style="height:8em;">${Student.introductionDto.answer1}</div>
+                                <div class="overflow-y-auto col border-top border-bottom border-end justify-content-center align-items-center" style="height:8em;">
+                                ${Student.introductionDto.answer1}
+                                </div>
                             </div>    
                         </div>
                         
@@ -171,7 +175,7 @@
 						</div>
 						<div class="col-9">
                             <div class="row">
-                                <div class="col border-bottom border-end justify-content-center align-items-center" style="height:8em;">${Student.introductionDto.answer2}</div>
+                                <div class="overflow-y-auto col border-bottom border-end justify-content-center align-items-center" style="height:8em;">${Student.introductionDto.answer2}</div>
                             </div>    
                         </div>
                         
@@ -187,7 +191,7 @@
 						</div>
 						<div class="col-9">
                             <div class="row">
-                                <div class="col  border-bottom border-end justify-content-center align-items-center" style="height:8em;">${Student.introductionDto.answer3}</div>
+                                <div class=" overflow-y-auto col  border-bottom border-end justify-content-center align-items-center" style="height:8em;">${Student.introductionDto.answer3}</div>
                             </div>    
                         </div>
                         
@@ -203,7 +207,7 @@
 						</div>
 						<div class="col-9">
                             <div class="row">
-                                <div class="col  border-bottom border-end justify-content-center align-items-center" style="height:8em;">${Student.introductionDto.answer4}</div>
+                                <div class="overflow-y-auto col border-bottom border-end justify-content-center align-items-center" style="height:8em;">${Student.introductionDto.answer4}</div>
                             </div>    
                         </div>
                         
@@ -262,13 +266,16 @@
 					
 					
 				
+					</div>
 				</div>
 			</div>
+			
 		</div>
+	 	<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>		
+	</div>
 	
-	</div>
-	</div>
 <!-- 전체 container 출구 -->
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

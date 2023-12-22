@@ -165,10 +165,15 @@
 				arrCalendar.push(i);
 			}
 			
+			const today = new Date();
+			const threeMonthsLater = new Date();
+			threeMonthsLater.setMonth(threeMonthsLater.getMonth() + 2);
+			
 			for(let i = 1; i <= arrCalendar.length; i++){
 				
 			    const currentDay = new Date(year, month - 1, arrCalendar[i - 1]).getDay();
 			    const currentDate = new Date(year, month - 1, arrCalendar[i - 1]);
+			    const currentMonth = today.getMonth();
 				
                 if (i % 7 === 1) {
                     currentRow = document.createElement("div");
@@ -180,94 +185,52 @@
 				const currentNum = arrCalendar[i - 1];
 
 			    dateCol.innerText = currentNum;
-				
-			    <%--
-			    if (i <= firstDayOfMonth.getDay() && currentNum != 1) {
-			        // 이전 달의 날짜들 비활성화
-			        dateCol.style.backgroundColor = "#f2f1f1";
-			    } else if (i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())) {
-			        // 다음 달의 날짜들 활성화
-			        let nextMonthYear = month === 12 ? year + 1 : year;
-			        let nextMonth = month === 12 ? 1 : month + 1;
-			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + currentNum + "," + currentDay + ")");
-			    } else if (currentDate.getMonth() !== month - 1 && currentDate > new Date()) {
-			        // 다음 달의 날짜들 활성화
-			        let nextMonthYear = month === 12 ? year + 1 : year;
-			        let nextMonth = month === 12 ? 1 : month + 1;
-			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + currentNum + "," + currentDay + ")");
-			    } else if (currentDate < new Date(year, month - 1, new Date().getDate())) {
-			        // 이번 달의 날짜 중 오늘 이전인 경우, onclick 이벤트 비활성화
-			        dateCol.style.backgroundColor = "#f2f1f1";
-			    } else {
-			        // 이번 달의 날짜 중 오늘 이후인 경우, onclick 이벤트 설정
-			        dateCol.setAttribute("onclick", "showModal(" + year + "," + month + "," + currentNum + "," + currentDay + ")");
-			    }
-			    --%>
 			    
-			    // 이 부분을 수정합니다.
-			    if (i <= firstDayOfMonth.getDay()) {
-			        // 이전 달의 날짜 비활성화
+			    if (i <= firstDayOfMonth.getDay() && currentMonth === (month - 1)) {
+			        // 현재 날짜 기준 이전 달의 날짜 비활성화 & bg 컬러 변경 
 			        let prevMonthYear = modifiedDate.getFullYear();
 			        let prevMonth = modifiedDate.getMonth();
 			        if (prevMonth === 0) {
 			            prevMonth = 12;
 			            prevMonthYear--;
 			        }
-			        dateCol.setAttribute("onclick", "showModal(" + prevMonthYear + "," + prevMonth + "," + arrCalendar[i - 1] + "," + currentDay + "," + counselorPk.value + ")");
-			    } else if (i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())) {
-			        // 다음 달의 날짜 활성화
+			        dateCol.classList.add('text-secondary');
+			        dateCol.style.backgroundColor = "#f2f1f1";
+			    }else if (i <= firstDayOfMonth.getDay()) {
+			        // 이전 달의 날짜 text-secondary 변경
+			        let prevMonthYear = modifiedDate.getFullYear();
+			        let prevMonth = modifiedDate.getMonth();
+			        if (prevMonth === 0) {
+			            prevMonth = 12;
+			            prevMonthYear--;
+			        }
+			        dateCol.classList.add('text-secondary');
+			    }else if (i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())) {
+			        // 다음 달의 날짜 활성화 & text-secondary 변경
 			        let nextMonthYear = modifiedDate.getFullYear();
 			        let nextMonth = modifiedDate.getMonth() + 2;
 			        if (nextMonth === 13) {
 			            nextMonth = 1;
 			            nextMonthYear++;
 			        }
+			        dateCol.classList.add('text-secondary');
 			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + arrCalendar[i - 1] + "," + currentDay + "," + counselorPk.value + ")");
-			    } else if (currentDate.getFullYear() === year && currentDate.getMonth() === month - 1 && arrCalendar[i - 1] < currentDate.getDate()) {
+			        if(modifiedDate.getTime() > threeMonthsLater.getTime() && i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())){
+				    	dateCol.removeAttribute("onclick");
+				    }
+			    } else if (today.getFullYear() === year && today.getMonth() === month - 1 && arrCalendar[i - 1] < today.getDate()) {
 			        // 이번 달의 오늘 이전의 날짜인 경우, 비활성화
+			        dateCol.classList.add('text-secondary');
 			        dateCol.style.backgroundColor = "#f2f1f1";
-			    } else {
+			    }else {
 			        // 나머지 날짜는 활성화
 			        dateCol.setAttribute("onclick", "showModal(" + year + "," + month + "," + arrCalendar[i - 1] + "," + currentDay + "," + counselorPk.value + ")");
 			    }
-
-
-			    <%--
-				if (i <= firstDayOfMonth.getDay()) {
-			        let prevMonthYear = modifiedDate.getFullYear();
-			        let prevMonth = modifiedDate.getMonth();
-			        if (prevMonth === 0) {
-			            prevMonth = 12;
-			            prevMonthYear--;
-			        }
-			        dateCol.setAttribute("onclick", "showModal(" + prevMonthYear + "," + prevMonth + "," + arrCalendar[i - 1] + "," + currentDay + ")");
-			   
-			    } else if (i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())) {
-			        let nextMonthYear = modifiedDate.getFullYear();
-			        let nextMonth = modifiedDate.getMonth() + 2;
-			        if (nextMonth === 13) {
-			            nextMonth = 1;
-			            nextMonthYear++;
-			        }
-			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + arrCalendar[i - 1] + "," + currentDay + ")");
 			    
-			    }else if (currentDate.getFullYear() === year && currentDate.getMonth() === month - 1 && arrCalendar[i - 1] === currentDate.getDate()) {
-			        // 오늘 이전의 날짜인 경우, onclick 이벤트 비활성화
-			        dateCol.style.backgroundColor = "#f2f1f1";
-			    
-			    } else {
-			    	
-			        dateCol.setAttribute("onclick", "showModal(" + year + "," + month + "," + arrCalendar[i - 1] + "," + currentDay + ")");
-			    }
-			    
-			    --%>
-					
 				currentRow.appendChild(dateCol);
 			}
 			
 			const previousMonthBtn = document.querySelector(".previousMonthBtn");
-			
-			const today = new Date();
 			
 		    if (currentDate.getMonth() === today.getMonth()) {
 		        previousMonthBtn.disabled = true;
@@ -275,10 +238,15 @@
 		        previousMonthBtn.disabled = false;
 		        previousMonthBtn.setAttribute("onclick", "previousMonth()");
 		    }
-
 			
-			const nextMonthBtn = document.querySelector(".nextMonthBtn");
-			nextMonthBtn.setAttribute("onclick", "nextMonth()");
+		    const nextMonthBtn = document.querySelector(".nextMonthBtn");
+		    
+		    if(modifiedDate <= threeMonthsLater){
+		    	nextMonthBtn.disabled = false;
+		    	nextMonthBtn.setAttribute("onclick", "nextMonth()");
+		    }else{
+		    	nextMonthBtn.disabled = true;
+		    }
 			
 			const reservationBtn = document.querySelector(".reservationBtn");
 			
@@ -638,7 +606,7 @@
 								<input class="nextMonthBtn btn btn-outline-dark" type="button" value="&gt">
 							</div>
 						</div>
-						<div class="row mt-5 bg-secondary-subtle">
+						<div class="row mt-5">
 							<div class="col text-center fw-bold border">
 								Sun
 							</div>

@@ -512,7 +512,7 @@ function deleteMyHopeJobCategory(){
 											      </div>
 											      <div class="modal-footer">
 											        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-											        <button onclick="onlineConsultingProcess()" data-bs-dismiss="modal" type="button" class="btn btn-primary">등록</button>
+											        <button onmouseover="changeCursor()" onclick="onlineConsultingProcess()" data-bs-dismiss="modal" type="button" class="btn btn-primary">등록</button>
 											      </div>
 											    </div>
 											  </div>
@@ -766,13 +766,7 @@ function deleteMyHopeJobCategory(){
 										      </div>
 										    </div>
 										  </div>
-										</div>										
-										
-										
-										
-										
-							
-																																					
+										</div>																																																							
 										</c:otherwise>													
 									</c:choose>
 								

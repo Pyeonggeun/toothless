@@ -82,18 +82,17 @@
 					wrapper_date.innerText = date.getFullYear() +"." + (date.getMonth() + 1) + "." + date.getDate();
 					
 					//응답여부
-					var button_isAnswered = document.createElement('button');
-					button_isAnswered.style.width = '45%';
-					button_isAnswered.style.height = '20%';
-					button_isAnswered.style.fontSize = '1em';
+					var button_isAnswered = document.createElement('span');
+
 					isReply.isReply ? (
 							button_isAnswered.innerText = "답변완료",
-							button_isAnswered.classList.add('btn', 'btn-primary')
+							button_isAnswered.classList.add('badge', 'text-bg-secondary')
 
 							)
 							
 							: (button_isAnswered.innerText = "미답변",
-							button_isAnswered.classList.add('btn', 'btn-danger')
+							button_isAnswered.classList.add('badge', 'text-bg-danger')
+							
 							);
 					wrapper_isAnswered.appendChild(button_isAnswered);
 

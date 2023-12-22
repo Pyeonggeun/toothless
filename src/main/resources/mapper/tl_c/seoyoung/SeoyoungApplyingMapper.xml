@@ -17,13 +17,17 @@
 	<!-- 이력서에 자기소개서 있는지 확인 -->
 	<select id="selectItroTF" resultType="String">
 		SELECT
-		CASE WHEN tl_c_self_introduction.ANSWER1 IS NULL OR
+		CASE WHEN
+		tl_c_self_introduction.ANSWER1 IS NULL OR
 		tl_c_self_introduction.ANSWER2 IS NULL
-		OR tl_c_self_introduction.ANSWER3 IS NULL OR
+		OR
+		tl_c_self_introduction.ANSWER3 IS NULL OR
 		tl_c_self_introduction.ANSWER4 IS NULL
-		THEN 'no' ELSE 'yes' END AS intro_check
+		THEN 'no' ELSE 'yes' END AS
+		intro_check
 		FROM TL_JIC_STUDENT_INFO
-		LEFT JOIN tl_c_self_introduction ON tl_c_self_introduction.STUDENT_PK =
+		LEFT JOIN tl_c_self_introduction ON
+		tl_c_self_introduction.STUDENT_PK =
 		TL_JIC_STUDENT_INFO.STUDENT_PK
 		WHERE TL_JIC_STUDENT_INFO.STUDENT_PK = #{student_pk}
 	</select>
@@ -31,23 +35,14 @@
 	<!-- 현재 진행중인 산업체 리스트 -->
 	<select id="selectApplyCompanyList" resultType="Map">
 		SELECT *
-		FROM
-		TL_C_INTERNSHIP_COURSE
-		JOIN tl_c_company_info ON
-		TL_C_INTERNSHIP_COURSE.COMPANY_PK = tl_c_company_info.COMPANY_PK
-		JOIN
-		tl_c_company_category ON tl_c_company_category.COMPANY_CATEGORY_PK =
+		FROM TL_C_INTERNSHIP_COURSE
+		JOIN tl_c_company_info ON TL_C_INTERNSHIP_COURSE.COMPANY_PK =
+		tl_c_company_info.COMPANY_PK
+		JOIN tl_c_company_category ON tl_c_company_category.COMPANY_CATEGORY_PK =
 		tl_c_company_info.COMPANY_CATEGORY_PK
-		WHERE
-		TL_C_INTERNSHIP_COURSE.COMPANY_PK IN (
-		SELECT COMPANY_PK
-		FROM
-		TL_C_INTERNSHIP_COURSE
-		WHERE TO_DATE(SYSDATE, 'YYYY-MM-DD') BETWEEN
-		TO_DATE(APPLYING_START_DATE,
-		'YYYY-MM-DD') AND
-		TO_DATE(APPLYING_END_DATE, 'YYYY-MM-DD')
-		)
+		WHERE TO_DATE(SYSDATE, 'YYYY-MM-DD') BETWEEN TO_DATE(APPLYING_START_DATE,
+		'YYYY-MM-DD') AND TO_DATE(APPLYING_END_DATE, 'YYYY-MM-DD')
+
 	</select>
 
 	<select id="selectApplyCompanyModal" resultType="map">
@@ -87,15 +82,15 @@
 	<!-- 현재 진행 리스트 -->
 	<select id="selectApplyNewList" resultType="Map">
 		<![CDATA[
-		SELECT * 
-		FROM (
-		    SELECT * 
-		    FROM TL_C_INTERNSHIP_COURSE a
-		    JOIN tl_c_company_info b ON a.COMPANY_PK = b.COMPANY_PK
-		    JOIN tl_c_student_applying c ON c.INTERNSHIP_COURSE_PK = a.INTERNSHIP_COURSE_PK
-		    WHERE STUDENT_PK = #{student_pk}
-		    ORDER BY c.created_at DESC
-		) WHERE ROWNUM <= 1
+			SELECT * 
+			FROM (
+			    SELECT * 
+			    FROM TL_C_INTERNSHIP_COURSE a
+			    JOIN tl_c_company_info b ON a.COMPANY_PK = b.COMPANY_PK
+			    JOIN tl_c_student_applying c ON c.INTERNSHIP_COURSE_PK = a.INTERNSHIP_COURSE_PK
+			    WHERE STUDENT_PK = #{student_pk}
+			    ORDER BY c.created_at DESC
+			) WHERE ROWNUM <= 1
 		]]>
 	</select>
 

@@ -13,6 +13,7 @@ import com.mkfactory.toothless.b.dto.MedicineCatDto;
 import com.mkfactory.toothless.b.dto.MedicineCodeDto;
 import com.mkfactory.toothless.b.dto.MedicineInventoryDto;
 import com.mkfactory.toothless.b.dto.MedicineMgmtCatDto;
+import com.mkfactory.toothless.b.dto.StudentboardDto;
 import com.mkfactory.toothless.b.kh.medicine.mapper.MedicineSqlMapper;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 import com.mkfactory.toothless.donot.touch.service.AlarmApi;
@@ -266,7 +267,11 @@ public class MedicineServiceImpl {
 		return medicineSqlMapper.selectCheckBox(listOfMedicineCodes);
 	}
 
+	//rest 게시판정보가져오기
 	
+	public List<StudentboardDto> selectStudentBoard(){
+		return medicineSqlMapper.selectStudentBoard();
+	}
 	
 	
 	

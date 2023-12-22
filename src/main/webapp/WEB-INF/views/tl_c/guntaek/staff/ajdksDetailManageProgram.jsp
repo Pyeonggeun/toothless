@@ -75,11 +75,12 @@
 						
 					
 				
-					<div class="row mt-5 ms-3">
+					<div class="row mt-5">
 					<div class="col fw-bold">
 								<h3 style="font-weight:bold"> <i class="bi bi-list-task"></i>&nbsp;&nbsp;&nbsp;${programDto.title}</h3>	
 					</div>
 					</div>
+					
 					<div class="row mt-3">
 						<div class="col border border-2 border-dark"></div>
 					</div>
@@ -100,13 +101,16 @@
 					
 					<c:if test ="${!empty myStudentApplyList}">
 					
-					<div class="row mt-4 border">
-						<div class = "col-2 d-flex align-items-center justify-content-center" style ="background-color:#f9f9f9">이름</div>
-						<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9">학번</div>
-						<div class = "col-1 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9">수료여부</div>
-						<div class = "col-1 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9">성별</div>
-						<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9">신청일자</div>
-						<div class = "col-4 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9">수료완료 버튼</div>
+					<div class="row mt-4 ">
+						
+						<div class ="col-1"></div>
+						<div class = "col-2 d-flex align-items-center justify-content-center border " style ="background-color:#f9f9f9">이름</div>
+						<div class = "col-2 d-flex justify-content-center align-items-center  border-top border-bottom border-end" style ="background-color:#f9f9f9">학번</div>
+						<div class = "col-1 d-flex justify-content-center align-items-center  border-end border-top border-bottom" style ="background-color:#f9f9f9">수료여부</div>
+						<div class = "col-1 d-flex justify-content-center align-items-center  border-end border-top border-bottom" style ="background-color:#f9f9f9">성별</div>
+						<div class = "col-2 d-flex justify-content-center align-items-center  border-end border-top border-bottom" style ="background-color:#f9f9f9">신청일자</div>
+						<div class = "col-2 d-flex justify-content-center align-items-center  border-top border-bottom  border-end" style ="background-color:#f9f9f9">수료완료 버튼</div>
+						<div class ="col-1"></div>
 					</div>
 					</c:if>
 					
@@ -121,24 +125,28 @@
 					
 					<c:forEach items ="${myStudentApplyList}" var = "a">				
 					<div class="row">
-						<div class = "col-2 d-flex align-items-center justify-content-center border-start border-end border-bottom" style ="height:5em;">
+					
+						<div class="col-1"></div>
+						<div class = "col-2 d-flex align-items-center justify-content-center border-start border-bottom" style ="height:3em;">
 							${a.sDto.name}
 						</div>
-						<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end border-bottom">
+						<div class = "col-2 d-flex justify-content-center align-items-center  border-start border-end border-bottom">
 							${a.sDto.student_id}
 						</div>
-						<div class = "col-1 d-flex justify-content-center align-items-center border-start border-end border-bottom">
+						<div class = "col-1 d-flex justify-content-center align-items-center  border-end border-bottom">
 							${a.aDto.completion}
 						</div>
-						<div class = "col-1 d-flex justify-content-center align-items-center border-start border-end border-bottom">
+						<div class = "col-1 d-flex justify-content-center align-items-center border-end  border-bottom">
 							${a.sDto.gender}
 						</div>
-						<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end border-bottom">
+						<div class = "col-2 d-flex justify-content-center align-items-center border-end  border-bottom">
 							<fmt:formatDate pattern ="yyyy-MM-dd" value="${a.aDto.applying_date}"/>			
 						</div>
+					
+						
 						
 						<c:if test="${a.aDto.completion == 'N'}">
-							<div class = "col-4 d-flex justify-content-center align-items-center border-start border-end border-bottom">
+							<div class = "col-2 d-flex justify-content-center align-items-center border-bottom">
 								<form action ="./ajdksChangeCompletion">
 									<input type ="hidden" value ="${internedu_program_pk}" name="internedu_program_pk">
 									<input type ="hidden" value ="${a.sDto.student_pk}" name ="student_pk">
@@ -171,7 +179,7 @@
 							</c:if>
 							
 						<c:if test="${a.aDto.completion == 'Y'}">
-							<div class = "col-4 d-flex justify-content-center align-items-center border-start border-end border-bottom">
+							<div class = "col-2 d-flex justify-content-center align-items-center border-end border-bottom">
 									
 									<input class="btn btn-primary" value = "수료 완료"  type ="submit" disabled ="disabled"	>
 							</div>
@@ -181,7 +189,7 @@
 					
 					
 					
-					
+						<div class="col-1"></div>
 					
 					
 					
@@ -190,7 +198,7 @@
 				</div>
 			</div>
 		</div>	
-	
+		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>	
 	</div>
 </div>
 			<!-- 전체 container 출구 -->

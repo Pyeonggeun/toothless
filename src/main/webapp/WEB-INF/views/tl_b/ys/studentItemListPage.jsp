@@ -12,9 +12,13 @@
 		
 		<script>
 			let student_pk = "";
+			<%--
 			let status = "";
 			let count = "";
-			let category_id = "";
+			let category_id = "";			
+			--%>
+			 
+			
 			
 			function getStudentInfo(){		
 	    		fetch("./restStudentInfo")
@@ -40,13 +44,15 @@
 			function reloadItemList(){
 				const url = "./restGetItemAndItemApplyList";
 				
+			 	const itemStatus = "";
+				const itemCount = "";
+				
 				fetch(url)
 				.then(response => response.json())
 				.then(response => {
 					const studentItemListBox = document.getElementById("studentItemListBox");
 					studentItemListBox.innerHTML = "";
-					
-					console.log(response.data);
+										
 					
 					for(e of response.data){				
 						
@@ -62,20 +68,22 @@
 						itemName.innerText = e.itemDto.name;
 						
 						const itemButton = studentItemListWrapper.querySelector(".itemButton");
-						
-						
-						if(status == 'N' || status == null){
-							if(count < 1){
+						<%--
+						status = e.status;						
+						count = e.itemApplyCount;
+						--%>
+						if(e.status == 'N' || e.status == null){
+							if(e.itemApplyCount < 1){
 								itemButton.setAttribute("onclick","showModal("+e.itemDto.item_pk+")");
 								itemButton.classList.add("btn-primary");
 								itemButton.innerText = "신청하기";
-							}else if(count >= 1){
+							}else if(e.itemApplyCount >= 1){
 								itemButton.disabled = true;
 								itemButton.classList.add("btn-outline-success");
 								itemButton.innerText = "신청진행중"
 							}
 						}	
-						if(status == 'Y'){
+						if(e.status == 'Y'){
 							itemButton.disabled = true;
 							itemButton.classList.add("btn-outline-danger");
 							itemButton.innerText = "대여중"
@@ -113,6 +121,39 @@
     				}
     			});    			
 			}
+			async function itemStatus(item_pk){
+				
+				const url = "./restItemStatus?item_pk=" + item_pk;
+				
+				const response = await fetch(url);
+			    const data = await response.json();
+			    return data.data;
+				<%-- 
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					const status = response.data;
+					console.log(status);
+				});
+				--%>
+			}
+			
+			async function applyCount(item_pk){
+				
+				const url = "./restItemApplyCount?item_pk=" + item_pk;
+				const response = await fetch(url);
+			    const data = await response.json();
+			    return data.data;
+				<%--
+				const url = "./restItemApplyCount?item_pk=" + item_pk; 
+				fetch(url)
+				.then(response => response.json())
+				.then(response =>{
+					const count = response.data;
+					
+				});
+				--%>
+			}
 			
 			function reloadItemListByCategoryId(item_cat_pk){
 				
@@ -125,9 +166,7 @@
 				.then(response => response.json())
 				.then(response => {
 					const studentItemListBox = document.getElementById("studentItemListBox");
-					studentItemListBox.innerHTML = "";
-					
-					console.log(response.data);
+					studentItemListBox.innerHTML = "";									
 					
 					for(e of response.data){
 						
@@ -145,18 +184,19 @@
 						const itemButton = studentItemListWrapper.querySelector(".itemButton");
 						
 						
+						
 						if(e.status == 'N' || e.status == null){
-							if(e.itemApplyCount < 1){
+							if(e.itemApplyCount < 1){								
 								itemButton.setAttribute("onclick","showModal("+e.itemDto.item_pk+")");
 								itemButton.classList.add("btn-primary");
 								itemButton.innerText = "신청하기";
-							}else if(e.itemApplyCount >= 1){
+							}else if(e.itemApplyCount >= 1){								
 								itemButton.disabled = true;
 								itemButton.classList.add("btn-outline-success");
 								itemButton.innerText = "신청진행중"
 							}
 						}	
-						if(e.status == 'Y'){
+						if(e.status == 'Y'){							
 							itemButton.disabled = true;
 							itemButton.classList.add("btn-outline-danger");
 							itemButton.innerText = "대여중"
@@ -169,25 +209,34 @@
 				});
 				
 			}
-			function searchItemList(searchName, searchCategory){
+			function searchItemListOnEnter(event) {
+			    // Enter 키의 키 코드는 13
+			    if (event.keyCode === 13) {
+			        // Enter 키가 눌렸을 때만 검색 수행
+			        searchItemList();
+			    }
+			}
+			
+			async function searchItemList(searchName, searchCategory){
     			
     			const searchItemName = document.getElementById("searchItemName").value;
-    			const searchCategoryName = document.getElementById("categoryWrapper").value;
-    			    			
-    			console.log(searchItemName);
-    			console.log(category_id);
+    			const searchCategoryName = document.getElementById("categoryWrapper").value;    			    			    		
     			
     			const url = "./restStudentSearchItemList?searchItemName=" + searchItemName + "&searchCategory=" + searchCategoryName;
     			
+    			<%--
     			fetch(url)
 				.then(response => response.json())
 				.then(response => {
+				--%>	
+					const response = await fetch(url);
+				    const responseData = await response.json();
+					
 					const studentItemListBox = document.getElementById("studentItemListBox");
 					studentItemListBox.innerHTML = "";
+										
 					
-					console.log(response.data);
-					
-					for(e of response.data){
+					for(e of responseData.data){
 						
 						const studentItemListWrapper = document.querySelector("#templete .studentItemListWrapper").cloneNode(true);
 						
@@ -202,6 +251,8 @@
 						
 						const itemButton = studentItemListWrapper.querySelector(".itemButton");
 						
+						const status = await itemStatus(e.ITEM_PK);
+				        const count = await applyCount(e.ITEM_PK);
 						
 						if(status == 'N' || status == null){
 							if(count < 1){
@@ -224,7 +275,7 @@
 						
 						studentItemListBox.appendChild(studentItemListWrapper);
 					}
-				});
+				
 			}
 			
 			
@@ -304,8 +355,10 @@
 			.then(response => {
 				//모달창 초기화
 				save();
+				searchItemList();
+				<%--
 				reloadItemList();
-				
+				--%>
 				inputReason.value="";
 				inputRentalDate.value="";
 				inputReturnDate.value="";
@@ -372,7 +425,7 @@
 						</select>
 					</div>
 					<div class="col-2 ps-0 pe-0">
-						<input id="searchItemName" onkeypress="searchItemList(searchItemName, categoryWrapper)" class="form-control form-control-sm" style="position: relative; top:10%;" type="text" placeholder="물품명을 입력해주세요">
+						<input id="searchItemName" onkeyPress="searchItemListOnEnter(event)" class="form-control form-control-sm" style="position: relative; top:10%;" type="text" placeholder="물품명을 입력해주세요">
 					</div>
 				</div>
 				<div id="studentItemListBox" class="row mt-2 mb-5">

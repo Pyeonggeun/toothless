@@ -10,6 +10,7 @@ import com.mkfactory.toothless.b.dto.MedicineCatDto;
 import com.mkfactory.toothless.b.dto.MedicineCodeDto;
 import com.mkfactory.toothless.b.dto.MedicineInventoryDto;
 import com.mkfactory.toothless.b.dto.MedicineMgmtCatDto;
+import com.mkfactory.toothless.b.dto.StudentboardDto;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
 
 public interface MedicineSqlMapper {
@@ -75,6 +76,9 @@ public interface MedicineSqlMapper {
 	public List<Map<String, Object>> restInventoryInfoByPk(int medicine_code_pk);
 
 	public List<Map<String, Object>> selectCheckBox(@Param("listOfMedicineCodes") int[] listOfMedicineCodes);
+	
+	//그거야 그거 게시판
+	public List<StudentboardDto> selectStudentBoard();
 
 	
 }

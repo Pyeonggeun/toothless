@@ -77,6 +77,10 @@
 						<i style ="font-size:1.5em;" class="bi bi bi-gear"></i> &nbsp; 교육프로그램 조회 및 삭제
 					</div>
 				</div>
+				
+				<div class="row mt-3">
+					<div class="col border border-2"></div>
+				</div>
 									 
 				<div class="row mt-5 g-0 py-0 border mt-3 fw-bold" style="height: 3em; background-color:#F8F8F8; " >
 					<div class="col-1 d-flex justify-content-center  align-items-center border-end h-100" style ="font-size:0.8em;" >No</div>
@@ -98,7 +102,7 @@
 						    </div>
 						    
 						    <div class="col-3 d-flex justify-content-center align-items-center border-bottom border-end h-100">
-						    		<a href="./ajdksDetailManageProgram?internedu_program_pk=${a.eduDto.internedu_program_pk}" style ="color:black;">
+						    		<a href="./ajdksDetailInquiryProgram	?internedu_program_pk=${a.eduDto.internedu_program_pk}" style ="color:black;">
 										${a.eduDto.title}
 									</a>	
 							</div>
@@ -119,12 +123,16 @@
 						
 						</div>				
 					</c:forEach>
-				
+					
+					
+				<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 			</div>
+			
 		</div>
+		
 	</div>	
 				
-	
+
 </div>
 
 </div><!-- 전체 container 출구 -->

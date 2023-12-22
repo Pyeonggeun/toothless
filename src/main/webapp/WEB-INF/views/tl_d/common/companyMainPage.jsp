@@ -86,7 +86,7 @@
 	 	<%-- 관심기업 학생목록 --%>
 		<div class="row">
 			<%-- 관심기업 학생 --%>
-			<div class="col-5 px-5 mx-5">
+			<div class="col-5 ps-5 mx-5">
 				<%-- 관심기업 학생 --%>
 				<div class="row mt-3 pb-2 border-bottom border-2">
 					<div class="col fs-5 fw-bold mt-5">기업에 관심이 있는 학생</div>
@@ -96,15 +96,15 @@
 				<%-- 목록명 --%>
 				<div class="row mt-4 mb-1 pb-2 fw-bold text-secondary text-center border-bottom border-dark">
 					<%-- 이름 --%>
-					<div class="col">이름</div>
+					<div class="col-2">이름</div>
 					<%-- 생년월일 --%>
-					<div class="col">생년월일</div>
+					<div class="col-2">생년월일</div>
 					<%-- 성별 --%>
-					<div class="col">성별</div>
+					<div class="col-2">성별</div>
 					<%-- 이메일 --%>
-					<div class="col">이메일</div>
+					<div class="col-4">이메일</div>
 					<%-- 졸업여부 --%>
-					<div class="col">졸업여부</div>
+					<div class="col-2">졸업여부</div>
 				</div>
 				<c:choose>
 					<c:when test="${empty interestCompanyList}">
@@ -118,12 +118,12 @@
 						<c:forEach items="${interestCompanyList}" var="interestCompany">
 							<%-- 목록 --%>
 							<div class="row my-2 pb-2 text-center border-bottom">
-								<div class="col">${interestCompany.studentInfoDto.name}</div>
-								<div class="col">
+								<div class="col-2">${interestCompany.studentInfoDto.name}</div>
+								<div class="col-2">
 								<fmt:formatDate value="${interestCompany.studentInfoDto.birth}" pattern="yyMMdd"/></div>
-								<div class="col">${interestCompany.studentInfoDto.gender}</div>
-								<div class="col">${interestCompany.studentInfoDto.email}</div>
-								<div class="col">
+								<div class="col-2">${interestCompany.studentInfoDto.gender}</div>
+								<div class="col-4">${interestCompany.studentInfoDto.email}</div>
+								<div class="col-2">
 									<c:choose>
 										<c:when test="${! interestCompany.graduationInfoDtoList.contains(interestCompany.studentInfoDto.student_pk)}">
 											재학생
@@ -140,7 +140,7 @@
 			</div>
 			<%-- 기업이 올린 공고 목록 끝 --%>
 			<%-- 우리기업 지원자 목록 --%>	
-			<div class="col px-5 me-5 mt-3">
+			<div class="col px-5 ms-4 me-5 mt-3">
 				<div class="row pb-2 border-bottom border-2">
 					<div class="col fs-5 fw-bold mt-5">기업 지원자</div>
 					<a class="col fs-5 fw-bold mt-5 text-end navbar-brand" 
@@ -149,15 +149,15 @@
 				<%-- 목록명 --%>
 				<div class="row mt-4 mb-1 pb-2 fw-bold text-secondary text-center border-bottom border-dark">
 					<%-- 이름 --%>
-					<div class="col">이름</div>
+					<div class="col-2">이름</div>
 					<%-- 생년월일 --%>
-					<div class="col">생년월일</div>
+					<div class="col-2">생년월일</div>
 					<%-- 성별 --%>
-					<div class="col">성별</div>
+					<div class="col-2">성별</div>
 					<%-- 이메일 --%>
-					<div class="col">이메일</div>
+					<div class="col-4">이메일</div>
 					<%-- 졸업여부 --%>
-					<div class="col">졸업여부</div>
+					<div class="col-2">졸업여부</div>
 				</div>
 				<c:choose>
 					<c:when test="${empty applyListForMainPage}">
@@ -171,12 +171,12 @@
 						<c:forEach items="${applyListForMainPage}" var="applyList">
 							<%-- 목록 --%>
 							<div class="row my-2 pb-2 text-center border-bottom">
-								<div class="col">${applyList.studentInfoDto.name}</div>
-								<div class="col">
+								<div class="col-2">${applyList.studentInfoDto.name}</div>
+								<div class="col-2">
 								<fmt:formatDate value="${applyList.studentInfoDto.birth}" pattern="yyMMdd"/> </div>
-								<div class="col">${applyList.studentInfoDto.gender}</div>
-								<div class="col">${applyList.studentInfoDto.email}</div>
-								<div class="col">
+								<div class="col-2">${applyList.studentInfoDto.gender}</div>
+								<div class="col-4">${applyList.studentInfoDto.email}</div>
+								<div class="col-2">
 									<c:choose>
 										<c:when test="${! applyList.graduationInfoDtoList.contains(applyList.studentInfoDto.student_pk)}">
 											재학생
@@ -228,7 +228,7 @@
 									<%-- 공고제목 --%>
 									<div class="col-7 ps-0 pt-2">
 										<a class="navbar-brand" href="../ny_posting/jobPostingDetailForCompanyPage?id=${mainPagePosting.jobPostingDto.job_posting_pk}">
-											<span class="d-inline-block text-truncate" style="max-width: 500px;">
+											<span class="d-inline-block text-truncate" style="max-width: 32em;">
 												${mainPagePosting.jobPostingDto.posting_name}
 											</span>
 										</a>

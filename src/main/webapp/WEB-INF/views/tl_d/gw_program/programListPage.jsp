@@ -43,7 +43,7 @@
 						<c:forEach items="${programList}" var="list">
 							<div class="row border-bottom border-bs-border pb-3 mb-3">
 								<div class="col-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
-								<div class="col"><a class="btn ms-4" href="./programViewDetailsPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a></div>
+								<div class="col"><a class="btn text-truncate ms-4" href="./programViewDetailsPage?program_pk=${list.programDto.program_pk}" style="max-width: 30em;">${list.programDto.prg_name}</a></div>
 								<div class="col-3 text-center pt-1">${list.staffInfoDto.name}</div>
 								<div class="col-2 text-center pt-1">
 									 <c:choose>

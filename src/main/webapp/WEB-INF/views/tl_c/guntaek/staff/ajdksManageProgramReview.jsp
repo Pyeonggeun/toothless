@@ -74,9 +74,15 @@
 					
 					<div class="row mt-5">
 					<div class="col fw-bold">
-						<i style ="font-size:1.5em;" class="bi bi-list-task"></i>&nbsp;${ProgramDto.title}
+								<h3 style="font-weight:bold"> <i class="bi bi-list-task"></i>&nbsp;&nbsp;&nbsp;${ProgramDto.title}</h3>	
 					</div>
 					</div>
+					
+					<div class="row mt-3">
+						<div class="col border border-2 border-dark"></div>
+					</div>
+					
+				
 					
 					
 					<div class="row mt-4 border">	
@@ -120,29 +126,24 @@
 					<div class="row mt-5">
 					<div class="col-2"><p style="font-weight:bold; font-size:1.2em">학생 리뷰</p></div></div>
  					<div class="col"></div>	
-					</div>
+					
 					
 					
 					
 					<c:forEach items="${reviewList}" var="a">
 						
 					<form action ="./ajdksDeleteProgramReview">
-					<div class="row border"  style ="background-color:#f9f9f9; border-radius:5px;">
+					<div class="row border border-radius:5px;">
 					<div class = "col-1 d-flex justify-content-center align-items-center border-end" style ="background-color:#f9f9f9; height:3em" >아이디</div>
-					<div class = "col-2 ps-3 d-flex align-items-center">익명 ${a.internedu_review_pk}</div>
+					<div class = "col-2 ps-3 d-flex align-items-center justify-content-center">익명 ${a.internedu_review_pk}</div>
 					<div class = "col-2 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9">점수(5점 만점)</div>
-					<div class = "col-2 ps-3 d-flex align-items-center">${a.rating}점</div>
+					<div class = "col-2 ps-3 d-flex align-items-center justify-content-center">${a.rating}점</div>
 					<div class = "col-1 d-flex justify-content-center align-items-center border-start border-end" style ="background-color:#f9f9f9">작성일</div>
-					<div class = "col-2 ps-3 d-flex align-items-center">	<fmt:formatDate pattern ="yyyy-MM-dd" value="${a.created_at}"/></div>
-					<div class="col"></div>
+					<div class = "col-4 ps-3 d-flex align-items-center justify-content-center">	<fmt:formatDate pattern ="yyyy-MM-dd" value="${a.created_at}"/></div>
+					
 				
-					<div class="col-1 d-flex justify-content-center align-items-center border-start px-0 py-0">
-					    <input type="submit" class="btn btn-danger d-flex justify-content-center align-items-center" style="width: 100%; height: 100%;" value="게시글 삭제">     
-						<input type ="hidden" name="internedu_review_pk" value="${a.internedu_review_pk}">
-						<input type ="hidden" name="internedu_program_pk" value="${internedu_program_pk}">
 					</div>
-					</div>
-					<div class="row border-start border-end border-bottom" style ="height:10em; ; border-radius:5px;">
+					<div class="row border-start border-end border-bottom px-4 py-4 " style ="height:10em; ; border-radius:5px;">
 						${a.review}
 					</div>
 					<div class="row mt-4"></div>
@@ -151,11 +152,12 @@
 					
 						
 					
-					
+					</div>
 					
 					<!-- 본문 작성 공간 -->			
 				</div>
 			</div>
+			<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>		
 		</div>	
 	
 	</div>

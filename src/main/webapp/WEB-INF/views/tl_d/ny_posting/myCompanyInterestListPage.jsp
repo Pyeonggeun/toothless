@@ -93,7 +93,7 @@
 				<div class="row border-bottom border-3">
 					<div class="col fs-4 fw-bold mt-5 pb-3">관심기업체크리스트</div>
 					<div class="col-7"></div>
-					<a class="col-2 mt-5 mb-3 pt-2 btn btn-outline-secondary" href="../common/companyMainPage">
+					<a class="col-2 mt-5 mb-3 btn btn-outline-secondary" href="../common/companyMainPage">
 						<i class="bi bi-house"></i>&nbsp;&nbsp;메인페이지로
 					</a>
 				</div>
