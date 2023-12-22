@@ -207,13 +207,23 @@
 			</c:when>
 		</c:choose>
 			
-			
+					
+						
+				
+				
+				
+					<div class="row mt-5"></div>	
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+		
 			
 						
 				</div>
+				
 			</div>
 			
-				<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>		
+					<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>	
 		</div>
 	
 	

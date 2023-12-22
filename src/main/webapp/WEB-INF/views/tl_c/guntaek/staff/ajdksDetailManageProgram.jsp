@@ -197,8 +197,9 @@
 					<!-- 본문 작성 공간 -->			
 				</div>
 			</div>
+			<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>	
 		</div>	
-		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>	
+		
 	</div>
 </div>
 			<!-- 전체 container 출구 -->
