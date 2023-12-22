@@ -88,7 +88,7 @@
 				</div>
 				
 				<div class="row">
-					<div class="col">
+					<div class="col text-center">
 						<c:forEach items="${noticelist }" var="no">
 							<div class="row border-bottom mt-4 ">
 								<div class="col mb-3">

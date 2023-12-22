@@ -63,14 +63,21 @@ public class HcBoardServiceImpl {
 		
 		if(escape) {
 			String board_contents = qnABoardDto.getBoard_contents();
-			
+			String board_answer = qnABoardDto.getBoard_answer();
+			System.out.println("0");
 			if (board_contents != null) {
 			board_contents = StringEscapeUtils.escapeHtml4(board_contents);
 			board_contents = board_contents.replaceAll("\n", "<br>");
 			qnABoardDto.setBoard_contents(board_contents);
 		}
-		
+			System.out.println("1");
+			if (board_answer != null) {
+				board_answer = StringEscapeUtils.escapeHtml4(board_answer);
+				board_answer = board_answer.replaceAll("\n", "<br>");
+				qnABoardDto.setBoard_answer(board_answer);
+			}
 	}
+		System.out.println("2");
 		
 			
 		return map;
@@ -94,6 +101,14 @@ public class HcBoardServiceImpl {
 		hcBoardSqlMapper.update(qnABoardDto);
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public void rara(NoticeStaffBoardDto noticeStaffBoardDto,boolean esacpe) {
 		
