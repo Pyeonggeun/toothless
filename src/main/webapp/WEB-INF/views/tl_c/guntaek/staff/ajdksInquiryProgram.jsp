@@ -98,7 +98,7 @@
 						    </div>
 						    
 						    <div class="col-3 d-flex justify-content-center align-items-center border-bottom border-end h-100">
-						    		<a href="./ajdksDetailManageProgram?internedu_program_pk=${a.eduDto.internedu_program_pk}" style ="color:black;">
+						    		<a href="./ajdksDetailInquiryProgram	?internedu_program_pk=${a.eduDto.internedu_program_pk}" style ="color:black;">
 										${a.eduDto.title}
 									</a>	
 							</div>
@@ -124,7 +124,7 @@
 		</div>
 	</div>	
 				
-	
+	<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 </div>
 
 </div><!-- 전체 container 출구 -->
