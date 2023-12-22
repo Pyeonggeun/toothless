@@ -99,11 +99,11 @@
 								<c:set var="currentTime" value="<%= new java.util.Date() %>" />
 								<c:forEach items="${applyProgramListForMyPage}" var="list"> 
 									<c:if test="${list.programApplyDto.student_pk==sessionStudentInfo.student_pk }">
-										<c:if test="${list.programDto.prg_schedule.before(currentTime)}">
+										<c:if test="${list.programDto.prg_schedule.after(currentTime)}">
 											<div class="row border-bottom border-bs-border pb-3 mb-3">
-												<div class="col-1 mt-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
+												<div class="col-1 ms-3 mt-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
 												<div class="col">
-													<a class="btn ms-4" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a>
+													<a class="btn ms-4 text-truncate" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}" style="max-width: 25em">${list.programDto.prg_name}</a>
 												</div>
 												<div class="col-4 text-center mt-2">
 													<span class="border ms-5 border-0 pt-1 pb-2 px-2 fw-bold mb-0 text-white rounded-3" style="font-size: 0.9em; background-color: #9badca;"><fmt:formatDate value="${list.programDto.prg_schedule}" pattern="MM.dd"/>&nbsp;개강</span>
@@ -270,7 +270,7 @@
 				<div class="row ms-1 pt-0 my-3">
 					<div class="col-4 me-4 ps-3">
 					<div class="row border-bottom border-2">
-							<div class="col fs-5 fw-bold mt-5 pb-1">상담이력</div>
+							<div class="col fs-5 fw-bold mt-5 pb-1">온라인 상담 이력</div>
 							<div class="col fs-5 fw-bold mt-5 text-end"><a class="navbar-brand" href="../jm_consulting/myOnlineConsultingListPage"><i class="bi bi-plus-lg"></i></a></div>
 						</div>
 						
@@ -298,16 +298,15 @@
 										<div class="col">
 											<%-- 상담 번호 --%>
 											<div class="row pb-2">
-												<div class="col-3 ms-2">No.<span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
-												<div class="col ms-2">
-												</div>
+												<div class="col-4 ms-2">상담 번호 <span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
+
 												<div class="col ms-2 text-center">
 													<c:choose>
 														<c:when test="${e.onlineConsultingReplyDto==null}">
-															<span class="badge text-bg-danger">미답변</span>
+															<a style="height:80%;" class="pt-0 btn btn-danger" href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="">미답변</span></a>
 														</c:when>
 														<c:otherwise>
-															<a href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="badge text-bg-secondary">답변완료</span></a>
+															<a style="height:80%;" class="pt-0 btn btn-secondary" href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="">답변완료</span></a>
 														</c:otherwise>
 													</c:choose>		
 												</div>
@@ -338,14 +337,12 @@
 						<c:forEach items="${noticeList}" var="list">
 							<div class="row border-bottom border-bs-border pb-2 mb-2">
 								
-								<div class="col-1"></div>
-								<div class="col fw-bold pt-3">
+								<div class="col fw-bold ps-3 pt-3 text-truncate" style="max-width: 41em">
 									<a class="navbar-brand" href="../hc_board/readNoticePageForStudent?id=${list.notice_board_pk }">${list.notice_title }</a>	
 								</div>
-								<div class="col-2 pt-3">
+								<div class="col-2 pt-3 pe-4 text-end">
 									<fmt:formatDate value="${list.created_at}" pattern="yy.MM.dd"/>
 								</div>
-								<div class="col-1"></div>
 							</div>
 						</c:forEach>
 						<%-- 공지사항 끝 --%>
