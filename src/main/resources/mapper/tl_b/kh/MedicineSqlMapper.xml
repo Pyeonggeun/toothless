@@ -436,7 +436,7 @@
 	<select id="selectStudentBoard" resultType="com.mkfactory.toothless.b.dto.StudentboardDto">
 		SELECT *
 		FROM TL_B_STUDENTBOARD
-		ORDER BY STUDENTBOARD_PK DESC 
+		ORDER BY STUDENTBOARD_PK asc 
 	</select>
 	
 	
