@@ -77,7 +77,7 @@
 	<div class="row">
 		<div class="col-1"></div>
 		<div class="col" style="padding-left: 1.9em;">
-			<span class="fw-bold" style="font-size: 1.5em;">집단 상담</span>
+			<span class="fw-bold" style="font-size: 3em;">집단 상담</span>
 			<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">List</span>
 		</div>
 	</div>
@@ -144,7 +144,7 @@
 												<div class="fw-bold text-secondary" style="font-size:1.2em;">${list.groupCounselDto.location }</div>
 											</div>
 											<div class="col-2 text-end">
-												<c:if test="${list.count==0 && list.groupCounselDto.start_apply_date <= list.sysdate && list.groupCounselDto.end_apply_date >= list.sysdate}">
+												<c:if test="${list.count==0 && list.groupCounselDto.start_apply_date <= list.sysdate && list.groupCounselDto.end_apply_date >= list.sysdate && list.reservationCount != list.groupCounselDto.amount}">
 													<button onClick="location.href='./groupCounselReservationProcess?group_counsel_id=${list.groupCounselDto.id }&student_pk=${sessionStudentInfo.student_pk}'" class="fw-bold ms-0" type="button" style="font-size: 1.1em; width: 80%; height: 40px; padding: 4px; border-color: #4169E1; border-style: solid; border-width: 2px; background-color: white; color: #4169E1;">
 													신 청
 													</button>	
