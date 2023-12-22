@@ -88,8 +88,19 @@
 	
 	<!-- 현장실습 과정 내역 -->
 	<select id="selectAllCourse" resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
-		SELECT * FROM tl_c_internship_course ORDER BY INTERNSHIP_COURSE_PK DESC
+		SELECT * FROM tl_c_internship_course
+		WHERE COMPANY_PK = #{COMPANY_PK}
 	</select>
+
+	<!-- 산업체 pk -->
+	<select id="companyPk" resultType="int">
+		SELECT COMPANY_PK 
+		FROM TL_C_COMPANY_INFO tcci
+		WHERE 1=1
+		AND EXTERNAL_PK = #{external_pk}
+	</select>
+	
+	
 
 	<!-- 실습생 조회 -->
 	<select id="selectByCoursePk" resultType="com.mkfactory.toothless.c.dto.AjdksStudentInternDto">
@@ -103,6 +114,7 @@
 		WHERE STUDENT_PK = #{STUDENT_PK}
 		ORDER BY STUDENT_PK DESC 
 	</select>
+	
 	
 	
 	

@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="col col-auto border-end">
+<div class="col col-auto" style="height: 45em">
     <div class="row">
         <div class="col">
             <div class="row">
                 <div class="col">
                     <div class="row mt-4">
-                        <div class="col text-center" style="font-size: xx-large;">
+                        <div class="col text-center fw-bold" style="font-size: xx-large;">
                             MENU
                         </div>
                     </div>
@@ -17,7 +17,7 @@
                     </div>
                     <div class="row">
                         <div class="col text-center">
-                            <span id="staffName"></span> 님
+                            환영합니다
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="col">
                     <div class="row">
                         <div class="col text-center" style="font-size: small;">
-                            마이페이지&nbsp;&nbsp;|&nbsp;&nbsp;<a class="link-underline link-underline-opacity-0 link-dark" href="../../another/staff/logoutProcess">로그아웃</a>
+                            <span class="fw-bold" id="staffName"></span> 님&nbsp;&nbsp;|&nbsp;&nbsp;<a class="link-underline link-underline-opacity-0 link-dark" href="../../another/staff/logoutProcess">로그아웃</a>
                         </div>
                     </div>
                 </div>
@@ -74,21 +74,6 @@
                                      <div class="row py-2 mx-1">
                                          <div class="col text-start">
                                              <i class="bi bi-ui-checks"></i>&nbsp;&nbsp;진료관리
-                                         </div>
-                                     </div>
-                                 </button>
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col px-0">
-                            <p class="mb-0">
-                                <a class="d-grid link-underline link-underline-opacity-0" href="#">
-                                	<button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button">
-                                     <div class="row py-2 mx-1">
-                                         <div class="col text-start">
-                                             <i class="bi bi-person-exclamation"></i>&nbsp;&nbsp;요보호학생관리
                                          </div>
                                      </div>
                                  </button>
@@ -160,21 +145,6 @@
                     <div class="row">
                         <div class="col px-0">
                             <p class="mb-0">
-                            	<a class="d-grid link-underline link-underline-opacity-0" href="#">
-                                 <button class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button">
-                                     <div class="row py-2 mx-1">
-                                         <div class="col text-start">
-                                             <i class="bi bi-calendar-check"></i>&nbsp;&nbsp;일정관리
-                                         </div>
-                                     </div>
-                                 </button>
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col px-0">
-                            <p class="mb-0">
                             	<a class="d-grid link-underline link-underline-opacity-0" href="../dy/staffboardPage">
                                  <button id="color10" class="btn btn-transparent rounded-0 fw-bold" style="font-size: small;" type="button">
                                      <div class="row py-2 mx-1">
@@ -207,3 +177,4 @@
         </div>
     </div>
 </div>
+<div class="vr px-0 text-body-tertiary"></div>

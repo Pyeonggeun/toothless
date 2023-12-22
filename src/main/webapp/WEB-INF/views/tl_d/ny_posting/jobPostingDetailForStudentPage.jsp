@@ -42,7 +42,7 @@
 									<c:if test="${jobPostingDetailForStudent.companyDto.is_family_company ne null and jobPostingDetailForStudent.companyDto.is_family_company eq 'Y'}">
 										<div class="col-1"><span class="badge text-bg-info text-white">Family</span></div>
 									</c:if>
-									<div class="col-3 ps-2">${jobPostingDetailForStudent.companyDto.com_name}
+									<div class="col-3 px-0">${jobPostingDetailForStudent.companyDto.com_name}
 										<c:if test="${empty sessionStudentInfo}">
 											<i class="text-danger bi bi-suit-heart"></i>
 										</c:if>
@@ -60,11 +60,11 @@
 								</div>
 								<%-- 공고제목 --%>
 								<div class="row mt-1">
-									<div class="col fs-4">${jobPostingDetailForStudent.jobPostingDto.posting_name}</div>
+									<div class="col px-0 fs-4">${jobPostingDetailForStudent.jobPostingDto.posting_name}</div>
 								</div>
 								<%-- 분야 / 지역 --%>
 								<div class="row mt-1">
-									<div class="col">
+									<div class="col px-0">
 										<span class="text-secondary">#&nbsp;${jobPostingDetailForStudent.jobFieldCategoryDto.job_field_category_name} 
 										#&nbsp;${jobPostingDetailForStudent.jobPostingDto.job_position}
 										#&nbsp;${jobPostingDetailForStudent.companyDto.com_address}</span>
@@ -72,7 +72,7 @@
 								</div>
 								<%-- 마감일 --%>
 								<div class="row mt-1">
-									<div class="col-1 me-5 text-secondary">
+									<div class="col-1 px-0 me-5 text-secondary">
 										#&nbsp;<fmt:formatDate value="${jobPostingDetailForStudent.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/>
 									</div>
 									<div class="col">

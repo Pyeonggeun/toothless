@@ -118,6 +118,8 @@
 	</div>
 </div>
 
+<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>		
+
 </div><!-- 메인화면 출구 -->
 	
 </div>

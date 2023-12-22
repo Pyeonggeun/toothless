@@ -11,8 +11,11 @@
 <title>Insert title here</title>
 		
 		<script>
-			let student_pk = "";	
-		
+			let student_pk = "";
+			let status = "";
+			let count = "";
+			let category_id = "";
+			
 			function getStudentInfo(){		
 	    		fetch("./restStudentInfo")
 	    		.then(response => response.json())
@@ -43,8 +46,9 @@
 					const studentItemListBox = document.getElementById("studentItemListBox");
 					studentItemListBox.innerHTML = "";
 					
-					for(e of response.data){
-						
+					console.log(response.data);
+					
+					for(e of response.data){				
 						
 						const studentItemListWrapper = document.querySelector("#templete .studentItemListWrapper").cloneNode(true);
 						
@@ -84,6 +88,145 @@
 				});
 			}
 
+			function itemCategoryList(){
+				<%-- selectbox 검색 --%>    			
+    			const url = "./restGetCategoryList"
+    			
+    			fetch(url)
+    			.then(response => response.json())
+    			.then(response => {
+    				
+    				const categoryWrapper = document.querySelector("#categoryWrapper");
+    				const defaultOption = document.createElement("option");
+    				defaultOption.setAttribute("selected","");
+    				defaultOption.setAttribute("value","0");
+    				defaultOption.innerText = "전체";
+    				categoryWrapper.appendChild(defaultOption);
+    				
+    				for(e of response.data){
+    					
+    					const newOption = document.createElement("option");
+    					newOption.setAttribute("value", e.item_cat_pk);
+    					newOption.innerText = e.name;
+    					categoryWrapper.appendChild(newOption);
+
+    				}
+    			});    			
+			}
+			
+			function reloadItemListByCategoryId(item_cat_pk){
+				
+				console.log(item_cat_pk);
+				category_id = item_cat_pk;
+				
+				const url = "./restGetItemAndItemApplyListByCategoryPk?item_cat_pk=" + item_cat_pk;
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					const studentItemListBox = document.getElementById("studentItemListBox");
+					studentItemListBox.innerHTML = "";
+					
+					console.log(response.data);
+					
+					for(e of response.data){
+						
+						const studentItemListWrapper = document.querySelector("#templete .studentItemListWrapper").cloneNode(true);
+						
+						const imgLink = studentItemListWrapper.querySelector(".imgLink");
+						imgLink.querySelector("img").src = "/uploadFiles/mainImage/" + e.itemDto.img_link;
+						
+						const catName = studentItemListWrapper.querySelector(".catName");
+						catName.innerText = e.itemCatDto.name;
+						
+						const itemName = studentItemListWrapper.querySelector(".itemName");
+						itemName.innerText = e.itemDto.name;
+						
+						const itemButton = studentItemListWrapper.querySelector(".itemButton");
+						
+						
+						if(e.status == 'N' || e.status == null){
+							if(e.itemApplyCount < 1){
+								itemButton.setAttribute("onclick","showModal("+e.itemDto.item_pk+")");
+								itemButton.classList.add("btn-primary");
+								itemButton.innerText = "신청하기";
+							}else if(e.itemApplyCount >= 1){
+								itemButton.disabled = true;
+								itemButton.classList.add("btn-outline-success");
+								itemButton.innerText = "신청진행중"
+							}
+						}	
+						if(e.status == 'Y'){
+							itemButton.disabled = true;
+							itemButton.classList.add("btn-outline-danger");
+							itemButton.innerText = "대여중"
+						}
+							
+						
+						
+						studentItemListBox.appendChild(studentItemListWrapper);
+					}
+				});
+				
+			}
+			function searchItemList(searchName, searchCategory){
+    			
+    			const searchItemName = document.getElementById("searchItemName").value;
+    			const searchCategoryName = document.getElementById("categoryWrapper").value;
+    			    			
+    			console.log(searchItemName);
+    			console.log(category_id);
+    			
+    			const url = "./restStudentSearchItemList?searchItemName=" + searchItemName + "&searchCategory=" + searchCategoryName;
+    			
+    			fetch(url)
+				.then(response => response.json())
+				.then(response => {
+					const studentItemListBox = document.getElementById("studentItemListBox");
+					studentItemListBox.innerHTML = "";
+					
+					console.log(response.data);
+					
+					for(e of response.data){
+						
+						const studentItemListWrapper = document.querySelector("#templete .studentItemListWrapper").cloneNode(true);
+						
+						const imgLink = studentItemListWrapper.querySelector(".imgLink");
+						imgLink.querySelector("img").src = "/uploadFiles/mainImage/" + e.IMG_LINK;
+						
+						const catName = studentItemListWrapper.querySelector(".catName");
+						catName.innerText = e.CAT_NAME;
+						
+						const itemName = studentItemListWrapper.querySelector(".itemName");
+						itemName.innerText = e.ITEM_NAME;
+						
+						const itemButton = studentItemListWrapper.querySelector(".itemButton");
+						
+						
+						if(status == 'N' || status == null){
+							if(count < 1){
+								itemButton.setAttribute("onclick","showModal("+e.ITEM_PK+")");
+								itemButton.classList.add("btn-primary");
+								itemButton.innerText = "신청하기";
+							}else if(count >= 1){
+								itemButton.disabled = true;
+								itemButton.classList.add("btn-outline-success");
+								itemButton.innerText = "신청진행중"
+							}
+						}	
+						if(status == 'Y'){
+							itemButton.disabled = true;
+							itemButton.classList.add("btn-outline-danger");
+							itemButton.innerText = "대여중"
+						}
+							
+						
+						
+						studentItemListBox.appendChild(studentItemListWrapper);
+					}
+				});
+			}
+			
 			
 			function showModal(itemPk){
 		            //필요시 여기서 백엔드하고 연동... CSR
@@ -169,12 +312,28 @@
 			})
 			;
 			}
-
-			
+	        <%-- 검색창 초기화 --%>
+	        <%--
+	        document.addEventListener('DOMContentLoaded', function() {
+	            var inputElement = document.getElementById('inputSearch');
+	
+	            document.addEventListener('click', function(event) {
+	              if (!inputElement.contains(event.target)) {
+	                inputElement.placeholder = '물품명 입력';
+	              }
+	            });
+	
+	            function initializeText() {
+	              inputElement.placeholder = '';
+	            }
+	          });	       
+			--%>		
 			window.addEventListener("DOMContentLoaded", () => {
 				reloadItemList();
 				getStudentInfo();
+				itemCategoryList();
 			});
+			
 			
 			
 			
@@ -189,7 +348,7 @@
         	<div class="col">
         		<div class="row mt-2">
 		            <div class="col text-end">
-		                <a href="../common/studentMainPage" style="text-decoration-line : none; color: black;"><span style="font-size: 0.8em; opacity: 70%;">HOME</span></a>&nbsp;<span style="opacity: 70%;">></span>&nbsp;<a href="./studentItemApplyInformationPage" style="text-decoration-line : none; color: black;"><span style="font-size: 0.8em; opacity: 70%;">물품신청안내</span></a>&nbsp;<span style="opacity: 70%;">></span>&nbsp;<span class="fw-bold" style="font-size: 0.8em;">물품신청</span> 
+		                <span style="font-size: 0.8em; opacity: 70%;">HOME</span>&nbsp;<span style="opacity: 70%;">></span>&nbsp;<span style="font-size: 0.8em; opacity: 70%;">물품신청안내</span>&nbsp;<span style="opacity: 70%;">></span>&nbsp;<span class="fw-bold" style="font-size: 0.8em;">물품신청</span> 
 		            </div>
 		        </div>
 				<div class="row mt-5">
@@ -204,7 +363,19 @@
 					<div class="col-4"></div>
 				</div>
 				
-				<div id="studentItemListBox" class="row mt-4 mb-5">
+				<div class="row mt-4">
+					<div class="col-8"></div>
+					<div class="col-2 pe-3">
+						<!-- 카테고리 select box 들어갈 곳 -->
+						<select onchange="reloadItemListByCategoryId(this.value)" id="categoryWrapper" class="form-select form-select-sm text-center" style="text-align-last: center; position: relative; top:11%" aria-label="Default select example">
+													  
+						</select>
+					</div>
+					<div class="col-2 ps-0 pe-0">
+						<input id="searchItemName" onkeypress="searchItemList(searchItemName, categoryWrapper)" class="form-control form-control-sm" style="position: relative; top:10%;" type="text" placeholder="물품명을 입력해주세요">
+					</div>
+				</div>
+				<div id="studentItemListBox" class="row mt-2 mb-5">
 					
 				</div>
         	</div>

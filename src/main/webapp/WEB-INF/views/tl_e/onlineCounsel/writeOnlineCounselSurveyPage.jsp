@@ -5,6 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+	*{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
+</style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -15,11 +20,7 @@
 
 <jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
 
-	<div class="row">
-		<div class="col">
-		 	<hr>
-		</div>
-	</div>
+
 	<div class="row">
 	    <div class="col mx-0 px-0" style="height: 35em; position: relative;">
 			<img class="banner img-fluid" src="/toothless/resources/img/groupCounsel/fff.jpg" style="width: 100%; height: 100%;">

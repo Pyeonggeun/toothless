@@ -94,7 +94,7 @@
 		        		
 		        		companyInfoLink.href = "./companyPostingListForStudentPage?com_pk=" + e.companyDto.com_pk;
 
-		        		companyInfoLink.innerText = e.companyDto.com_name;
+		        		companyInfoLink.innerText = e.companyDto.com_name + " ";
 		        		companyInfoLink.classList.add("navbar-brand");
 		        		
 		        		postingCompanyName.appendChild(companyInfoLink);
@@ -181,7 +181,7 @@
         				<%-- 공고스크랩 --%>
         				const interestPosting = postingWrapper.querySelector(".interestPosting");
         				
-        				 if (e.allPostingInterest == 0) {
+        				 if (e.checkInterestPosting == 0) {
      			        	const starIcon = document.createElement("i");
      			        	starIcon.classList.add("text-warning", "bi", "bi-star");
          					interestPosting.appendChild(starIcon);

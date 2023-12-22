@@ -45,7 +45,11 @@ public interface WoojaeStaffSqlMapper {
 			@Param("searchWord")String searchWord);
 	
 	// 현장실습과정 조회
-	public List<AjdksInternshipCourseDto> selectAllCourse();
+	public List<AjdksInternshipCourseDto> selectAllCourse(int company_pk);
+	
+	// 산업체 pk
+	public int companyPk(int external_pk);
+	
 	
 	
 	// 실습생 조회
@@ -54,4 +58,6 @@ public interface WoojaeStaffSqlMapper {
 	
 	// 학생
 	public StudentInfoDto selectByStudentPk(int student_pk);
+	
+	
 }

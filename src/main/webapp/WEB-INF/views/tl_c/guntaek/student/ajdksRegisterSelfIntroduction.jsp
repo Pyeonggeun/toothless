@@ -326,14 +326,6 @@
 			
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
 			<!-- 자소서를 하나도 등록하지 않았을때 이력서를 등록해준다.-->
 			<c:choose>
 				<c:when test = "${introductionCount == 0}"> 
@@ -662,21 +654,20 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
         
         <input class="btn btn-primary" type="submit" value="등록">
-      </div>
- </form>
-    </div>
-  </div>
-</div>
-
-				 				
-								
-								
-						 
-			 	</div>	 
-			 </div>
-			</div>		 		
-		</div>		        
-    
+	      </div>
+	 </form>
+							    </div>
+							  </div>
+							</div>
+				 	</div>	 
+				</div>
+			 
+	 		
+			
+		</div>		 	
+		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>		
+	</div>		        
+  
  
 </div>
 	

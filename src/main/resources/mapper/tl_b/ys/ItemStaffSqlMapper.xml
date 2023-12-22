@@ -8,6 +8,13 @@
 	<select id="selectItemList" resultType="com.mkfactory.toothless.b.dto.ItemDto">
 		SELECT * FROM TL_B_ITEM_INFO 
 	</select>
+	
+	<!-- 카테고리별 아이템 리스트 -->
+	<select id="selectItemListByCategoryId" resultType="com.mkfactory.toothless.b.dto.ItemDto">
+		SELECT * FROM TL_B_ITEM_INFO
+		WHERE ITEM_CAT_PK = #{item_cat_pk}
+	</select>
+	
 	<!-- 카테고리 + 물품 join -->
 	 
 	<select id="selectItemJoinCategoryList" resultType="map">

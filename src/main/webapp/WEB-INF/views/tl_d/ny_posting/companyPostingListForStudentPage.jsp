@@ -59,6 +59,14 @@
 									<%-- 기업명 --%>
 									<div class="col pe-0">
 										${companyPostingForStudent.companyDto.com_name}
+										<c:choose>
+											<c:when test="${interestCompany.contains(companyPostingForStudent.companyDto.com_pk)}">
+												<i class="text-danger bi bi-suit-heart-fill"></i>
+											</c:when>
+											<c:otherwise>
+												<i class="text-danger bi bi-suit-heart"></i>
+											</c:otherwise>
+										</c:choose> 
 									</div>
 								</div>
 								<div class="row">

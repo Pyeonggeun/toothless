@@ -92,7 +92,7 @@
 				<div class="row mt-5">
 					<div class="col mt-3">
 						<img class="img-fluid" src="../../resources/img/employment/calender.png">
-					</div>
+					</div> 
 				</div>
 			</div>
 		</div>

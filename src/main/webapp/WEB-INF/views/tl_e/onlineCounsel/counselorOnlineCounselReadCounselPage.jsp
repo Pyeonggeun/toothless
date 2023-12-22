@@ -5,6 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<style type="text/css">
+	*{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
+</style>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -13,13 +20,9 @@
 </head>
 <body>
 
-	<jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
+	<jsp:include page="../commons/counselorTopArea.jsp"></jsp:include>
 	
-	<div class="row">
-		<div class="col">
-		 	<hr>
-		</div>
-	</div>
+
 	<div class="row">
 	    <div class="col mx-0 px-0" style="height: 35em; position: relative;">
 			<img class="banner img-fluid" src="/toothless/resources/img/groupCounsel/fff.jpg" style="width: 100%; height: 100%;">
@@ -71,7 +74,7 @@
 					</div>
 					<div class="row">
 						<div class="col border-bottom py-1 rounded d-flex justify-content-center d-flex align-items-center" style="font-size: 1.1em; text-align: center; background-color: beige;">
-							<a class="link-dark link-offset-2 link-underline link-underline-opacity-0" href="#">집단상담</a>
+							<a class="link-dark link-offset-2 link-underline link-underline-opacity-0" href="#">공지사항</a>
 						</div>
 					</div>
 					<div class="row">
@@ -185,14 +188,38 @@
 					<!-- 답변 -->
 					<div class="row mt-2">
 						<div class="col" style="font-size: 1.4em;">
+						<c:if test="${targetCounselDto.isSurveyed == 0 }">
+							<form action="./writeOnlineCounselReplyProcess" method="post">
+								<div class="row">
+									<div class="col-1"></div>
+									<div class="col py-2 my-2 ms-3 me-3 border rounded" style="max-height:auto; font-size: 0.8em; background-color: skyblue;">
+										<i class="bi bi-bell-fill" style="color: orange;"></i>상담가 | ${sessionCounselorInfo.name }&nbsp;&nbsp;답변
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-1"></div>
+									<div class="col">
+										<textarea name="text" placeholder="답변 작성" class="form-control" style=" border-radius: 10px; max-width:100%; min-height: 12em; background-color: beige;"></textarea>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col"></div>
+									<div class="col-3 mt-4">
+										<button type= "submit" value="작성" class="btn link-light link-offset-2 link-underline link-underline-opacity-0" style="background-color:#679467; width: 100%;">작성</button>
+										<input name="online_counsel_board_id" type="hidden" value="${targetCounselDto.counselDto.id }">
+										<input name="counselor_id" type="hidden" value="${sessionCounselorInfo.id }">
+									</div>
+								</div>
+							</form>
+						</c:if>
 							<div class="row">
 								<div class="col">
-									답변 &nbsp;&nbsp;<i class="bi bi-chat-dots-fill" style="color: blue;"></i>								
+									<hr style="color: darkgreen;">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col">
-									<hr style="color: darkgreen;">
+									답변 &nbsp;&nbsp;<i class="bi bi-chat-dots-fill" style="color: blue;"></i>								
 								</div>
 							</div>
 							<div class="row">
