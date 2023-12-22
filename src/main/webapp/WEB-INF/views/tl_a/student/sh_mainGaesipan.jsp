@@ -80,17 +80,17 @@
 				<div class="col">
 					<fmt:formatDate value="${map.dormFreeboardDto.created_at}" pattern="yyyy.MM.dd"/>
 				</div>
-				
-			</div>
-           </div>
-       </div>
-                </c:forEach>
+					
+				</div>
+	           </div>
+	       </div>
+        </c:forEach>
 		
 			<div class="row mt-3">
 				
 			<c:if test="${!empty sessionStudentInfo}">
-			<div class="col-2 text-end ms-auto d-grid">
-				<a class="btn btn-primary rounded-0"  href="./writeGasipan">글쓰기</a>
+			<div class="col-2 text-end ms-auto d-grid pe-0">
+				<a class="btn rounded-0 " style="background-color:#504528; color:#FFFFFF;" href="./writeGasipan">글쓰기</a>
 			</div>
 			</c:if>
 		</div>

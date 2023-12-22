@@ -28,6 +28,20 @@
         	
         	let myPk = null;
         	
+			function getTopName() {
+	    		
+	    		const url = "./getTopName";
+	    		
+	    		fetch(url)
+	    		.then(response => response.json())
+	    		.then(response => {
+	    			
+	    			document.getElementById("topName").innerText = response.data;
+	    			
+	    		});
+	    		
+	    	}
+        	
         	function getMyPk() {
         		
         		const url = "./getMyPk";
@@ -160,6 +174,7 @@
         	window.addEventListener("DOMContentLoaded", () => {
         		
         		getMyPk();
+        		getTopName();
         		reloadReceivingLecture();
         		
         	});

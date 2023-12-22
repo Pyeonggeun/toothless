@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.mkfactory.toothless.a.dto.DormNoticeDto;
 import com.mkfactory.toothless.a.dto.JoinDormInfoDto;
+import com.mkfactory.toothless.a.dto.PointCategory;
 import com.mkfactory.toothless.a.dto.SemesterDto;
 import com.mkfactory.toothless.a.student.dm.mapper.DormStudentSqlMapperDm;
 import com.mkfactory.toothless.donot.touch.dto.StaffInfoDto;
@@ -171,5 +172,29 @@ public class DormStudentServiceDm {
 	}
 	public int todayRequestCount() {
 		return dormStudentSqlMapperDm.todayRequestCount();
+	}
+	public List<Map<String, Object>> executiveList(){
+		return dormStudentSqlMapperDm.executiveList();
+	}
+	public List<Map<String, Object>> dongHoList(){
+		return dormStudentSqlMapperDm.dongHoList();
+	}
+	public List<SemesterDto> semesterAllList() {
+		return dormStudentSqlMapperDm.semesterAllList();
+	}
+	public List<PointCategory> poingCategoryList(){
+		return dormStudentSqlMapperDm.poingCategoryList();
+	}
+	public List<Map<String, Object>> dongHoAssignList(){
+		return dormStudentSqlMapperDm.dongHoAssignList();
+	}
+	public List<Map<String, Object>> noticeAllList(){
+		return dormStudentSqlMapperDm.noticeAllList();
+	}
+	public List<Map<String, Object>> freeboardAllList(){
+		return dormStudentSqlMapperDm.freeboardAllList();
+	}
+	public List<Map<String, Object>> repaireRequestAllList(){
+		return dormStudentSqlMapperDm.repaireRequestAllList();
 	}
 }

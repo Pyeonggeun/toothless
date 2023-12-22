@@ -213,6 +213,8 @@
 						counselorTextBox.innerText = "";
 					}else{
 						counselorTextBox.innerText = map.counselDocumentDto.text;
+						counselorTextBox.classList.remove("py-3");
+						counselorTextBox.classList.add("py-0");
 					}
 				}else{
 					counselorText = document.createElement("textarea");

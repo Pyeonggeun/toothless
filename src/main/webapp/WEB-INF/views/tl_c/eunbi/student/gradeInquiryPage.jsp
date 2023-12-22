@@ -16,7 +16,7 @@
 	}
 	
 	.studentleftmenubar label {
-	    display: block;    
+	    display: block;
 	    cursor: pointer;
 	    background: #0C2145;
 	    transition: ease .1s;
@@ -68,7 +68,7 @@
 		.then(response => response.json())
 		.then(response => {
 			
-			if(response.data === false){
+			if(response.data == false){
 				const noCourseToRead = document.getElementById("noCourseToRead");
 				noCourseToRead.classList.remove("d-none");
 			}else{
@@ -476,6 +476,10 @@
 				
 			</div>
 		</div>
+		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
+		
+		
+		
 	</div>
 	
 </div>

@@ -68,7 +68,9 @@
 		.then(response => {
 			
 			if(response.data === false){
+				
 				loadNullAlert();
+				
 			}else{
 				
 				const internshipCourseListBox = document.getElementById("internshipCourseListBox");
@@ -201,7 +203,7 @@
 				const internWrapper = document.querySelector("#internListTemplete .internWrapper").cloneNode(true);
 				
 				const internStudentPk = internWrapper.querySelector(".internStudentPk");
-				internStudentPk.innerText = intern.studentInfoDto.student_pk;
+				internStudentPk.innerText = intern.studentInfoDto.student_id;
 				
 				const internName = internWrapper.querySelector(".internName");
 				internName.innerText = intern.studentInfoDto.name;
@@ -516,6 +518,9 @@
 				
 			</div>
 		</div>
+		
+		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
+		
 	</div>
 	
 </div>

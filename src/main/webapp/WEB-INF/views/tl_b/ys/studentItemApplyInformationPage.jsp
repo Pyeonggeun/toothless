@@ -18,7 +18,7 @@
             <div class="col ps-5">
                 <div class="row mt-2">
                     <div class="col text-end">
-                        <a href="../common/studentMainPage" style="text-decoration-line : none; color: black;"><span style="font-size: 0.8em; opacity: 70%;">HOME</span></a>&nbsp;<span style="opacity: 70%;">></span>&nbsp;<span class="fw-bold" style="font-size: 0.8em;">물품신청안내</span> 
+                        <span style="font-size: 0.8em; opacity: 70%;">HOME</span>&nbsp;<span style="opacity: 70%;">></span>&nbsp;<span class="fw-bold" style="font-size: 0.8em;">물품신청안내</span> 
                     </div>
                 </div>
                 <div class="row mt-4">

@@ -47,6 +47,15 @@
 		text-decoration: none;
 		color: #000000;
 	}
+	
+	.word {
+        width: 1rem;
+        font-size: 1rem;
+        font-weight: !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
 </style>
 </head>
@@ -81,7 +90,7 @@
 					
 						<div class="row row-cols-3 mt-3">
 						<c:forEach items="${chargedInternshipCourse}" var="internshipCourse">
-							<div class="col px-4 py-2">
+							<div class="col px-4 py-2" >
 								<div class="row">
 									<div class="col border px-2 py-2 d-grid">
 										<a class="btn btn-light rounded-0 border py-3" href="./viewInternshipCourseDetailPage?internship_course_pk=${internshipCourse.internshipCourseDto.internship_course_pk}">
@@ -112,7 +121,7 @@
 												</div>
 											</div>
 											<div class="row mt-2">
-												<div class="col fw-semibold" style="font-size:1.1em">
+												<div class="col word fw-semibold px-3" style="font-size:1.1em">
 													${internshipCourse.internshipCourseDto.course_title}
 												</div>
 											</div>
@@ -152,6 +161,9 @@
 				
 			</div>
 		</div>
+		
+		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
+		
 	</div>
 	
 </div>

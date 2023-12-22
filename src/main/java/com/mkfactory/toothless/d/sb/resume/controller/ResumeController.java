@@ -307,7 +307,7 @@ public class ResumeController {
 		model.addAttribute("resumeList", resumeList);
 		int studentPk = studentInfoDto.getStudent_pk();
 		int postingPk = params.getJob_posting_pk();
-		model.addAttribute("jobPostingDetailForStudent", postingService.getJobPostingDetailForStudentAndCompany(studentPk ,postingPk));
+		model.addAttribute("jobPostingDetailForStudent", postingService.getJobPostingDetailForStudentAndCompany(studentPk ,postingPk,true));
 		
 		// 관심 공고
 		interestPostingDto.setJob_posting_pk(params.getJob_posting_pk());

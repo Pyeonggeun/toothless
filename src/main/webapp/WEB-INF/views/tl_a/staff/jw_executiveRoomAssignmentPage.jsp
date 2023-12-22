@@ -43,12 +43,17 @@
 				floorListSpace.classList.add("d-grid")
 				
 				for(i of e.dormRoomListByDormFloorAndDormPkListAndNY){
-					console.log(i.isCount)
+					
 					const button = document.createElement('button');
 					button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mx-2", "my-1");
 					
-					if(i.isCount == 0){
-						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + "배정"
+					if(i.isCountMinusMySelf > 0){
+						button.innerText = "이미 배정된 호실"
+						button.classList.add("btn-secondary");
+						button.disabled = true;
+						floorListSpace.appendChild(button);
+					} else if(i.isCountMinusMySelf == 0 && i.isCount == 0){
+						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + " " + "배정"
 						button.classList.add("btn-primary");
 						button.setAttribute("onclick", "registerManageRoom("+
 							"'" +
@@ -58,7 +63,7 @@
 						"')");
 						floorListSpace.appendChild(button);
 					} else {
-						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + "배정 취소"
+						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + " " + "배정취소"
 						button.classList.add("btn-danger");
 						button.setAttribute("onclick", "removeManageRoom("+
 							"'" +
@@ -106,23 +111,33 @@
 				floorListSpace.classList.add("d-grid")
 				
 				for(i of e.dormRoomListByDormFloorAndDormPkListAndNY){
-					console.log(i.isCount)
+					
 					const button = document.createElement('button');
 					button.classList.add("fw-bold", "rounded-0", "btn", "btn-sm", "mx-2", "my-1");
 					
-					if(i.isCount == 0){
-						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + "배정"
+					if(i.isCountMinusMySelf > 0){
+						button.innerText = "이미 배정된 호실"
+						button.classList.add("btn-secondary");
+						button.disabled = true;
+						floorListSpace.appendChild(button);
+					} else if(i.isCountMinusMySelf == 0 && i.isCount == 0){
+						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + " " + "배정"
 						button.classList.add("btn-primary");
 						button.setAttribute("onclick", "registerManageRoom("+
-							"'" + i.dormRoomListByDormFloorAndDormPk.dorm_room_pk + "', '" + e.executiveDto.executive_pk + "')"
-						);
+							"'" +
+							i.dormRoomListByDormFloorAndDormPk.dorm_room_pk +
+							"', '" +
+							e.executiveDto.executive_pk +
+						"')");
 						floorListSpace.appendChild(button);
 					} else {
-						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + "배정 취소"
+						button.innerText = i.dormRoomListByDormFloorAndDormPk.room_name + " " + "배정취소"
 						button.classList.add("btn-danger");
 						button.setAttribute("onclick", "removeManageRoom("+
-							"'" + i.dormRoomListByDormFloorAndDormPk.dorm_room_pk +
-							"', '" + e.executiveDto.executive_pk +
+							"'" +
+							i.dormRoomListByDormFloorAndDormPk.dorm_room_pk +
+							"', '" +
+							e.executiveDto.executive_pk +
 						"')");
 						floorListSpace.appendChild(button);
 					}

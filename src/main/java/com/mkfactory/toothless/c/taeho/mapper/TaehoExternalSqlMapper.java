@@ -20,7 +20,7 @@ public interface TaehoExternalSqlMapper {
 	
 	public Map<String, Object> selectMyCompanyInformationByExternalPk(int external_pk);
 	
-	
+	public List<Map<String, Object>> selectInternListByInternshipCoursePk(int internship_course_pk);
 	
 	
 	

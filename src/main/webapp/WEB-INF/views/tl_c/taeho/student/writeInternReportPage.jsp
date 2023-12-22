@@ -290,6 +290,9 @@
 	</div>
 
 
+
+<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>		
+
 </div><!-- 본문 출구 -->
 	
 </div><!-- 전체화면 출구 -->

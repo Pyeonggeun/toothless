@@ -13,6 +13,8 @@ public interface ItemStaffSqlMapper {
 	
 	public List<ItemDto> selectItemList();
 	
+	public List<ItemDto> selectItemListByCategoryId(int item_cat_pk);
+	
 	public ItemDto selectItemByItemCategoryPk(int item_cat_pk);
 	
 	public ItemCatDto selectItemCatByItemCategoryPk(int item_cat_pk);

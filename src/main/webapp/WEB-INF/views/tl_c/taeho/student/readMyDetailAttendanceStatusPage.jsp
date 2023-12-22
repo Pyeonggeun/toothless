@@ -79,6 +79,7 @@
 		});		
 	}
 
+	/* 
  	function changeCategoryType(){
 		
 		var selectedCategoryType = document.getElementById("categorySelectBox");
@@ -90,14 +91,12 @@
 		return categoryType;
 		
 		reloadDetailAttendanceList();
-	}
-	
-	
-	function reloadDetailAttendanceList(){
-				
- 		var categoryType = changeCategoryType();
-		
-		const url = "./getDetailAttendanceList?categoryType=" + categoryType;
+	}	
+	*/	
+
+ function reloadDetailAttendanceList(){
+					
+		const url = "./getDetailAttendanceList";
 		
 		fetch(url)
 		.then(response => response.json())
@@ -107,21 +106,41 @@
 		attendanceStatusListBox.innerHTML = "";
 		
 			for(e of response.data){
-				const attendanceWrapper = document.auerySelector("#attendanceTemplate .attendanceWrapper").cloneNode(true);
+				const attendanceWrapper = document.querySelector("#attendanceTemplate .attendanceWrapper").cloneNode(true);
 				
-				const attendanceDate = document.querySelector(".attendanceDate");
+				const attendanceDate = attendanceWrapper.querySelector(".attendanceDate");
 				attendanceDate.innerText = e.TIMECARD_YEAR + "-" + e.TIMECARD_MONTH + "-" + e.TIMECARD_DATE;
 				
-				
+				const getinTime = attendanceWrapper.querySelector(".getinTime");
+				if(e.GETIN_HOUR != null){
+					if(e.GETIN_MINUTE >= 0 && e.GETIN_MINUTE <= 9){
+						getinTime.innerText = e.GETIN_HOUR + ":0" + e.GETIN_MINUTE;						
+					}else{
+						getinTime.innerText = e.GETIN_HOUR + ":" + e.GETIN_MINUTE;											
+					}
+				}else{
+					getinTime.innerText = "-";
+				}
+									
+				const getoffTime = attendanceWrapper.querySelector(".getoffTime");
+				if(e.GETOFF_HOUR != null){
+					if(e.GETOFF_MINUTE >= 0 && e.GETOFF_MINUTE <= 9){
+						getoffTime.innerText = e.GETOFF_HOUR + ":0" + e.GETOFF_MINUTE;						
+					}else{
+						getoffTime.innerText = e.GETOFF_HOUR + ":" + e.GETOFF_MINUTE;											
+					}
+				}else{
+					getoffTime.innerText = "-";
+				}
+									
+				const attendanceStatus = attendanceWrapper.querySelector(".attendanceStatus");
+				attendanceStatus.innerText = e.ATTENDANCE_STATUS;	
+					
 				attendanceStatusListBox.appendChild(attendanceWrapper);	
 			}
 			
 		});
 	}
-
-
-
-
 
 	window.addEventListener("DOMContentLoaded", ()=>{
 		reloadMyInternCourseInfo();
@@ -159,7 +178,7 @@
 					<!-- 현재 접속 과정명 -->
 				</div>
 			</div>
-			<div class="row border-bottom border-dark border-2 pb-1">
+			<div class="row pb-1" style="border-style: none none solid none; border-color: #495057; border-width: 2px;">
 				<div class="col ps-0" style="font-size: 0.9em;">※ 당일 출근 결과는 익일 반영됩니다.</div>
 			</div>
 			<div class="row border-bottom">
@@ -180,6 +199,7 @@
 	
 		
 	<!-- 카테고리 드롭다운 -->		
+<!--  
 	<div class="row mt-5 pb-2 border-bottom">
 		<div class="col ps-0">
 			<select id="categorySelectBox" class="px-4" onchange="changeCategoryType()">
@@ -191,10 +211,11 @@
 			</select>		
 		</div>
 	</div>
+-->
 			
-	<div class="row">
+	<div class="row mt-5">
 		<div class="col">
-			<div class="row border-bottom border-dark border-2" style="background-color: #E7E9EF;">
+			<div class="row" style="background-color: #E7E9EF; border-style: none none solid none; border-color: #495057; border-width: 2px;">
 				<div class="col py-2 text-center border-end">일자</div>
 				<div class="col py-2 text-center border-end">출근시간</div>
 				<div class="col py-2 text-center border-end">퇴근시간</div>
@@ -217,12 +238,12 @@
 		</div>
 	</div>	
 			
-			
-			
-			
-			
 			</div>
 		</div>
+		
+	<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>		
+		
+		
 	</div>
 	
 </div>

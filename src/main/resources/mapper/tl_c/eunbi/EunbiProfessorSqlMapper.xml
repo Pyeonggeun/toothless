@@ -15,7 +15,7 @@
 	<select id="getChargedInternshipCourse" resultType="com.mkfactory.toothless.c.dto.AjdksInternshipCourseDto">
 		SELECT * FROM TL_C_INTERNSHIP_COURSE
 		WHERE professor_pk = #{professor_pk}
-		ORDER BY applying_start_date ASC
+		ORDER BY applying_start_date DESC
 	</select>
 	
 	<!-- 학생 최종평가 입력 -->	

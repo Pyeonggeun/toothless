@@ -158,9 +158,13 @@ public class OnlineCounselController {
 
 
 	@RequestMapping("counselorOnlineCounselReadCounselPage")
-	public String counselorOnlineCounselReadCounselPage(int counsel_pk, Model model) {
+	public String counselorOnlineCounselReadCounselPage(int counsel_pk, Model model, HttpSession session) {
+
+		ExternalInfoDto externalInfoDto = (ExternalInfoDto)session.getAttribute("sessionExternalInfo");
 		
-		System.out.println(counsel_pk + "글 번호");
+		
+		
+		model.addAttribute("sessionCounselorInfo", onlineCounselService.getCounselorDto(externalInfoDto.getExternal_pk()));
 		model.addAttribute("replyDtoList", onlineCounselService.getOnlineCounselReplyList(counsel_pk));
 		model.addAttribute("targetCounselDto", onlineCounselService.readCounsel(counsel_pk));
 		return "tl_e/onlineCounsel/counselorOnlineCounselReadCounselPage";

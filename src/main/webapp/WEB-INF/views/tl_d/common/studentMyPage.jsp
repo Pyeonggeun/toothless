@@ -78,62 +78,42 @@
 					<%-- 학생 정보 끝 --%>
 					<%-- 상담이력 --%>	
 					<div class="col mx-5 mt-3 px-5 pb-0">
-						<div class="row ms-1 border-bottom border-2">
-							<div class="col fs-5 fw-bold mt-5 pb-1">상담이력</div>
-							<div class="col fs-5 fw-bold mt-5 text-end"><a class="navbar-brand" href="../jm_consulting/myOnlineConsultingListPage"><i class="bi bi-plus-lg"></i></a></div>
+						<%-- 신청한 프로그램 --%>
+						<div class="row border-bottom border-2 mb-3">
+							<div class="col fs-5 fw-bold mt-5 pb-1">이수예정 프로그램</div>
+							<div class="col fs-5 fw-bold mt-5 text-end">
+								<a class="navbar-brand" href="../gw_program/applyProgramListForStudentPage">
+									<i class="bi bi-plus-lg"></i>
+								</a>
+							</div>
 						</div>
-						
 						<c:choose>
-							<c:when test="${getMyOnlineConsultingListNumFive.size()==0}">
-								<div class="row">
-									<div class="col fw-bold mt-3 text-center">
-										상담이력이 없습니다!
+							<c:when test="${empty applyProgramListForMyPage}">
+								<div class="row mt-3">
+									<div class="col fw-bold text-center">
+										신청한 프로그램이 없습니다
 									</div>
 								</div>
 							</c:when>
-							
-							<c:when test="${getMyOnlineConsultingListNumFive==null}">
-								<div class="row">
-									<div class="col fw-bold mt-3 text-center">
-										상담이력이 없습니다!
-									</div>
-								</div>
-							</c:when>							
-							
 							<c:otherwise>
-								<c:forEach items="${getMyOnlineConsultingListNumFive }" var="e">
-									
-									<div class="row my-3 border-bottom">
-										<div class="col">
-											<%-- 상담 번호 --%>
-											<div class="row pb-2">
-												<div class="col-3 ms-2">No.<span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
-												<div class="col ms-2">
+								<c:set var="currentTime" value="<%= new java.util.Date() %>" />
+								<c:forEach items="${applyProgramListForMyPage}" var="list"> 
+									<c:if test="${list.programApplyDto.student_pk==sessionStudentInfo.student_pk }">
+										<c:if test="${list.programDto.prg_schedule.before(currentTime)}">
+											<div class="row border-bottom border-bs-border pb-3 mb-3">
+												<div class="col-1 mt-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
+												<div class="col">
+													<a class="btn ms-4" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a>
 												</div>
-												<div class="col ms-2">
-													<c:choose>
-														<c:when test="${e.onlineConsultingReplyDto==null}">
-															<span class="badge text-bg-danger">미답변</span>
-														</c:when>
-														<c:otherwise>
-															<a href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="badge text-bg-primary">답변완료</span></a>
-														</c:otherwise>
-													</c:choose>		
-												</div>
-												<div class="col-2">
-													<fmt:formatDate pattern="yyyy-MM-dd" value="${e.onlineConsultingDto.created_at}"/>
-												</div>			
-											</div>
-											
-										
-										</div>
-									</div>
-								  </c:forEach>																
+												<div class="col-4 text-center mt-2">
+													<span class="border ms-5 border-0 pt-1 pb-2 px-2 fw-bold mb-0 text-white rounded-3" style="font-size: 0.9em; background-color: #9badca;"><fmt:formatDate value="${list.programDto.prg_schedule}" pattern="MM.dd"/>&nbsp;개강</span>
+												</div> 
+											</div> 
+										</c:if>
+									</c:if>
+								</c:forEach>
 							</c:otherwise>
-							
-						</c:choose>
-						
-					
+						</c:choose>						
 					</div>
 					<%-- 상담이력 --%>
 				</div>
@@ -162,7 +142,7 @@
 										<div class="col-3">
 											<%-- 회사 이름 --%>
 											<div class="row">
-												<div class="col ms-2">${list.companyDto.com_name }</div>
+												<div class="col pt-2 ms-2">${list.companyDto.com_name }</div>
 											</div>
 											<%-- 가족기업여부 --%>
 											<div class="row mb-2">
@@ -210,12 +190,12 @@
 							</c:when>
 							<c:otherwise>
 							<c:forEach items="${interestpostingForMyPage}" var="interestPosting">
-								<div class="row mt-3 border-bottom">
+								<div class="row mt-2 border-bottom">
 									<%-- 1번째 칸 --%>
 									<div class="col-2">
 										<div class="row">
 											<%-- 기업명 --%>
-											<div class="col pe-0 pt-1 text-truncate">
+											<div class="col pe-0 pt-2 text-truncate">
 												<a class="navbar-brand" href="./companyPostingListForStudentPage?com_pk=${interestPosting.companyDto.com_pk}">
 													${interestPosting.companyDto.com_name}
 												</a>
@@ -231,7 +211,7 @@
 										</div>
 									</div>
 									<%-- 2번째 칸 --%>
-									<div class="col-8 mt-1 pb-3">
+									<div class="col-8 mt-1 pb-2">
 										<div class="row">
 											<%-- 공고제목 --%>
 											<div class="col ms-1 ps-0 pt-1">
@@ -289,42 +269,62 @@
 				<div class="row pt-3 ps-0 me-3"><div class="col"></div></div>
 				<div class="row ms-1 pt-0 my-3">
 					<div class="col-4 me-4 ps-3">
-						<%-- 신청한 프로그램 --%>
-						<div class="row border-bottom border-2 mb-3">
-							<div class="col fs-5 fw-bold mt-5 pb-1">이수예정 프로그램</div>
-							<div class="col fs-5 fw-bold mt-5 text-end">
-								<a class="navbar-brand" href="../gw_program/applyProgramListForStudentPage">
-									<i class="bi bi-plus-lg"></i>
-								</a>
-							</div>
+					<div class="row ms-1 border-bottom border-2">
+							<div class="col fs-5 fw-bold mt-5 pb-1">상담이력</div>
+							<div class="col fs-5 fw-bold mt-5 text-end"><a class="navbar-brand" href="../jm_consulting/myOnlineConsultingListPage"><i class="bi bi-plus-lg"></i></a></div>
 						</div>
+						
 						<c:choose>
-							<c:when test="${empty applyProgramListForMyPage}">
-								<div class="row mt-3">
-									<div class="col fw-bold text-center">
-										신청한 프로그램이 없습니다
+							<c:when test="${getMyOnlineConsultingListNumFive.size()==0}">
+								<div class="row">
+									<div class="col fw-bold mt-3 text-center">
+										상담이력이 없습니다
 									</div>
 								</div>
 							</c:when>
+							
+							<c:when test="${getMyOnlineConsultingListNumFive==null}">
+								<div class="row">
+									<div class="col fw-bold mt-3 text-center">
+										상담이력이 없습니다
+									</div>
+								</div>
+							</c:when>							
+							
 							<c:otherwise>
-								<c:set var="currentTime" value="<%= new java.util.Date() %>" />
-								<c:forEach items="${applyProgramListForMyPage}" var="list"> 
-									<c:if test="${list.programApplyDto.student_pk==sessionStudentInfo.student_pk }">
-										<c:if test="${list.programDto.prg_schedule.before(currentTime)}">
-											<div class="row border-bottom border-bs-border pb-3 mb-3">
-												<div class="col-1 mt-1 text-center fw-bold pt-1">${list.programDto.program_pk}</div>
-												<div class="col">
-													<a class="btn ms-4" href="../gw_program/programViewDetailsForStudentPage?program_pk=${list.programDto.program_pk}">${list.programDto.prg_name}</a>
+								<c:forEach items="${getMyOnlineConsultingListNumFive }" var="e">
+									
+									<div class="row my-3 border-bottom">
+										<div class="col">
+											<%-- 상담 번호 --%>
+											<div class="row pb-2">
+												<div class="col-3 ms-2">No.<span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
+												<div class="col ms-2">
 												</div>
-												<div class="col-4 text-center mt-2">
-													<span class="border ms-5 border-0 pt-1 pb-2 px-2 fw-bold mb-0 text-white rounded-3" style="font-size: 0.9em; background-color: #9badca;"><fmt:formatDate value="${list.programDto.prg_schedule}" pattern="MM.dd"/>&nbsp;개강</span>
-												</div> 
-											</div> 
-										</c:if>
-									</c:if>
-								</c:forEach>
+												<div class="col ms-2">
+													<c:choose>
+														<c:when test="${e.onlineConsultingReplyDto==null}">
+															<span class="badge text-bg-danger">미답변</span>
+														</c:when>
+														<c:otherwise>
+															<a href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="badge text-bg-primary">답변완료</span></a>
+														</c:otherwise>
+													</c:choose>		
+												</div>
+												<div class="col-4 text-end">
+													<fmt:formatDate pattern="yyyy-MM-dd" value="${e.onlineConsultingDto.created_at}"/>
+												</div>			
+											</div>
+											
+										
+										</div>
+									</div>
+								  </c:forEach>																
 							</c:otherwise>
+							
 						</c:choose>
+						
+						
 						<%-- 신청한 프로그램 끝 --%>
 					</div>
 					<div class="col mx-5 px-5">

@@ -32,6 +32,7 @@ public class EunbiRestExternalController {
 		if(externalService.getNeedEvaluationCourse(company_pk) == null) {
 			restResponseDto.setData(false);
 			restResponseDto.setResult("Success");
+			System.out.println(restResponseDto.getData());
 		}else {
 			restResponseDto.setData(externalService.getNeedEvaluationCourse(company_pk));
 			restResponseDto.setResult("Success");

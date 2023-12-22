@@ -192,6 +192,12 @@ public class OnlineCounselService {
 	
 	
 	// 공용 UI 용 메소드
+	
+	public CounselorDto getCounselorDto(int External_pk) {
+		
+		return onlineCounselSqlMapper.selectCounselorDto(External_pk); 
+	}
+	
 	public List<NoticeBoardDto> getNoticeListSpecificNum(){
 		
 		

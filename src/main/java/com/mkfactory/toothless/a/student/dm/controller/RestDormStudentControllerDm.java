@@ -261,8 +261,90 @@ public class RestDormStudentControllerDm {
 		return responseDto;
 	}
 	
+	@RequestMapping("executiveList")
+	public RestResponseDto executiveList() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.executiveList());
+		
+		return responseDto;
+	}	
 	
+	@RequestMapping("dongHoList")
+	public RestResponseDto dongHoList() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.dongHoList());
+		
+		return responseDto;
+	}
 	
+	@RequestMapping("semesterAllList")
+	public RestResponseDto semesterAllList() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.semesterAllList());
+		
+		return responseDto;
+	}
+	
+	@RequestMapping("poingCategoryList")
+	public RestResponseDto poingCategoryList() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.poingCategoryList());
+		
+		return responseDto;
+	}
+	
+	@RequestMapping("dongHoAssignList")
+	public RestResponseDto dongHoAssignList() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.dongHoAssignList());
+		
+		return responseDto;
+	}
+	@RequestMapping("noticeAllList")
+	public RestResponseDto noticeAllList() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.noticeAllList());
+		
+		return responseDto;
+	}
+	@RequestMapping("freeboardAllList")
+	public RestResponseDto freeboardAllList() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.freeboardAllList());
+		
+		return responseDto;
+	}
+	@RequestMapping("repaireRequestAllList")
+	public RestResponseDto repaireRequestAllList() {
+		
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		responseDto.setResult("success");
+		responseDto.setData(dormStudentServiceDm.repaireRequestAllList());
+		
+		return responseDto;
+	}
 	
 	
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,13 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+	<style>
+	  /* 사용자 글 수정 화면에서 <br> 태그 무시 */
+	  .user-content {
+	    white-space: pre-line;
+	  }
+	</style>
 
 </head>
 <body>
@@ -55,7 +63,7 @@
 				</div>
 				<div class="row my-2">
 					<div class="col">
-						<textarea rows="15" name="content" class="form-control" placeholder="내용">${qwer.dormFreeboardDto.content }</textarea>
+						<textarea rows="15" name="content" class="form-control user-content" placeholder="내용">${qwer.dormFreeboardDto.content }</textarea>
 						<input name="id" type="hidden" value="${qwer.dormFreeboardDto.dorm_freeboard_pk }">
 					</div>
 				</div>

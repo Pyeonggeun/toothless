@@ -463,6 +463,7 @@
 		WHERE cc2.ID = #{counselorId}
 	</select>
 	
+	<!-- counselCenterStaffMainPage 사용쿼리 -->
 	<!-- 상담원 전체 상담분류별 상담완료실적 -->
 	<select id="selectAllCompleteCounselList" resultType="map">
 		SELECT
@@ -527,7 +528,72 @@
 			)mainView ON mainview.counselorid = cc.ID
 	</select>
 	
+	<!-- 상담형태별 완료된 상담내역 카운팅 -->
+	<select id="selectAllTypeCompleteCounselCountValue" resultType="map">
+		SELECT
+			COUNT(CASE WHEN mainview.boardType=1 THEN 1 end) AS offlineCount,
+			COUNT(CASE WHEN mainview.boardType=2 THEN 1 end) AS onlineCount,
+			COUNT(CASE WHEN mainview.boardType=3 THEN 1 end) AS groupCount	
+		FROM (
+			SELECT
+				1 AS boardType,
+				cor.COUNSELOR_ID AS counselorId, 
+				cor.id AS counselNo,
+				ctc.NAME AS counselType,
+				cor.COUNSEL_YEAR || '-' ||cor.COUNSEL_MONTH || '-' || cor.COUNSEL_DAY AS counselDate
+			FROM CP_OFFLINE_RESERVATION cor
+			INNER JOIN CP_COUNSELOR cc ON cc.id = cor.COUNSELOR_ID
+			INNER JOIN CP_TYPE_CATEGORY ctc ON cor.TYPE_CATEGORY_ID = ctc.ID 
+			WHERE cor.STATE = '완료'
+			UNION 
+			SELECT
+				2 AS boardType,
+				cocr.COUNSELOR_ID AS counselorId,
+				cocb.id AS counselNo,
+				ctc.NAME AS counselType,
+				TO_CHAR(cocb.CREATED_AT, 'yyyy-MM-dd') AS counselDate 
+			FROM CP_ONLINE_COUNSEL_BOARD cocb
+			INNER JOIN CP_ONLINE_COUNSEL_REPLY cocr ON cocr.ONLINE_COUNSEL_BOARD_ID = cocb.ID
+			INNER JOIN CP_TYPE_CATEGORY ctc ON cocb.TYPE_CATEGORY_ID = ctc.ID
+			UNION
+			SELECT
+				3 AS boardType,
+				cgc2.COUNSELOR_ID AS counselorId,
+				cgc.ID AS counselNo,
+				cgc.TITLE AS counselType,
+				TO_CHAR(cgc.COUNSEL_DATE, 'yyyy-mm-dd') AS counselDate  
+			FROM CP_GROUP_RESERVATION cgr
+			INNER JOIN CP_GROUP_COUNSEL cgc ON cgc.ID = cgr.GROUP_COUNSEL_ID
+			INNER JOIN CP_GROUP_COUNSELOR cgc2 on cgc.ID = cgc2.GROUP_COUNSEL_ID
+			)mainview
+	</select>
 	
+	<!-- 집단상담 리스팅 -->
+	<select id="selectGroupCounselBoardForStaffMain" resultType="map">
+		SELECT
+			cgc.ID AS id,
+			cgc.TITLE AS title,
+			to_char(cgc.CREATED_AT, 'yyyy-mm-dd') AS regDate,
+			valueTb.applyValue AS applyPerson,
+			cgc.AMOUNT AS maxPerson,
+			<![CDATA[
+			CASE 
+				WHEN CGC.START_APPLY_DATE > SYSDATE THEN '미오픈'
+				WHEN CGC.START_APPLY_DATE < SYSDATE AND cgc.END_APPLY_DATE > SYSDATE THEN '신청진행'
+				WHEN cgc.COUNSEL_DATE > SYSDATE AND cgc.END_APPLY_DATE < SYSDATE THEN '신청마감'
+				WHEN cgc.COUNSEL_DATE < SYSDATE THEN '상담종료'
+			END	AS status
+			]]>			
+		FROM CP_GROUP_COUNSEL cgc
+		INNER JOIN (
+			SELECT
+				cgc.id AS ID,
+				count(*) AS applyValue
+			FROM CP_GROUP_COUNSEL cgc 
+			INNER JOIN CP_GROUP_RESERVATION cgr ON cgr.GROUP_COUNSEL_ID = cgc.ID 
+			GROUP BY cgc.ID
+			)valueTb ON valueTb.id = cgc.ID 
+	</select>
 	
 
 </mapper>

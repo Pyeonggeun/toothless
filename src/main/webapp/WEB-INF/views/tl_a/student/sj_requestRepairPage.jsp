@@ -110,8 +110,8 @@
                 </c:forEach>
                 <div class="row">
                 	
-                	<div class="col d-flex justify-content-end my-2">
-                		<a class="btn btn-primary rounded-0" href="./sj_requestWritePage" role="button">수리접수</a>
+                	<div class="col d-flex justify-content-end my-2 px-0">
+                		<a class="btn rounded-0 px-4" href="./sj_requestWritePage" style="background-color:#504528; color:#FFFFFF;" role="button">수리접수</a>
                 		
                 	</div>
                 </div>

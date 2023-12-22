@@ -144,7 +144,7 @@
 					</div>
 				</div>
 				
-				<div class="row mb-5">
+				<div class="row">
 					<div class="col mb-4">
 						<div class="row mt-4">
 							<div class="col fw-semibold mt-3" style="font-size:1.2em">
@@ -243,6 +243,9 @@
 				</div>
 			</div>
 		</div>
+		
+		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
+		
 	</div>
 	
 </div>

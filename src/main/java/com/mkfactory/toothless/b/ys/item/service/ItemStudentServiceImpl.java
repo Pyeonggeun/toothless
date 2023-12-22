@@ -37,10 +37,36 @@ public class ItemStudentServiceImpl {
 		
 		List<ItemDto> itemList = itemStaffSqlMapper.selectItemList();
 		
+		
 		for(ItemDto e : itemList) {
 			int itemPk = e.getItem_pk();
 			int item_cat_pk = e.getItem_cat_pk();
 			ItemCatDto itemCatDto = itemStaffSqlMapper.selectItemCatByItemCategoryPk(item_cat_pk);
+			String status = itemStudentSqlMapper.ItemApplyStatus(itemPk);
+			int itemApplyCount = itemStudentSqlMapper.ItemApplyCount(itemPk);
+			
+			Map<String,Object> map = new HashMap<>();
+			map.put("itemCatDto", itemCatDto);
+			map.put("itemDto", e);
+			map.put("status", status);
+			map.put("itemApplyCount", itemApplyCount);
+			list.add(map);
+		}
+		return list;
+	}
+	//카테고리별 물품 리스트
+	public List<Map<String,Object>> getItemAndItemApplyListByCategoryPk(int item_cat_pk){
+		
+		List<Map<String,Object>> list = new ArrayList<>();
+		
+		List<ItemDto> itemList = itemStaffSqlMapper.selectItemListByCategoryId(item_cat_pk);
+		
+		System.out.println(itemList);
+		
+		for(ItemDto e : itemList) {
+			int itemPk = e.getItem_pk();			
+			ItemCatDto itemCatDto = itemStaffSqlMapper.selectItemCatByItemCategoryPk(item_cat_pk);
+			System.out.println(itemCatDto);
 			String status = itemStudentSqlMapper.ItemApplyStatus(itemPk);
 			int itemApplyCount = itemStudentSqlMapper.ItemApplyCount(itemPk);
 			
@@ -60,10 +86,17 @@ public class ItemStudentServiceImpl {
 		return itemStudentSqlMapper.studentApplyItemList();
 	}
 	
+	//카테고리별 물품 리스트
+	public List<Map<String,Object>> getStudentApplyItemListByCategoryId(int item_cat_pk){
+		
+		return itemStudentSqlMapper.studentApplyItemListByCategoryId(item_cat_pk);
+	}
+	
 	public String getItemApplyStatus(int item_pk){
 		
 		return itemStudentSqlMapper.ItemApplyStatus(item_pk);
 	}
+	
 	
 	public boolean getItemApplyCount(int item_pk) {
 		
@@ -76,5 +109,11 @@ public class ItemStudentServiceImpl {
 			return false;
 		
 	}
+	
+	public List<Map<String,Object>> searchItemList(String searchItemName, int searchCategory){
+		
+		return itemStudentSqlMapper.searchSelectItemAll(searchItemName,searchCategory);
+	}
+	
 	
 }

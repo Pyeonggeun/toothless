@@ -62,7 +62,7 @@
 
 	function internshipCourseList(){
 		 
-		const url = "./internshipCourseList";
+		const url = "./internshipCourseListByExternalPk";
 		
 		fetch(url)
 		.then(response => response.json())
@@ -167,6 +167,7 @@
 				</div>
 			</div>
 		</div>
+		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 	</div>
 	</div>
 	
@@ -193,7 +194,6 @@
 				</div>
 			</div>
 		</div>
-		
 		
 		
 		

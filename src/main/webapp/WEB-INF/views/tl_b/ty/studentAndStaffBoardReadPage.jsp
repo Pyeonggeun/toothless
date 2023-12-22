@@ -23,10 +23,12 @@
                         return;
 
                     }
+                   
                  frm.submit();
             }
         </script>
     <body>
+        <jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
 		<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
         <div class="container-fluid">
             <div class="row">
@@ -67,8 +69,8 @@
                                         ${read.staffInfoDto.name } &nbsp;
                                         <fmt:formatDate value="${read.noticeboardDto.created_at }" pattern="yy년 MM월 dd일"/>
                                         &nbsp; | 조회수: ${read.noticeboardDto.read_count }
-                                        &nbsp; | <i class="bi bi-heart-fill"></i>${aa }
-                                        <i class="bi bi-chat-dots-fill"></i>${replyCount}
+                                        &nbsp; | <i class="text-danger bi bi-heart-fill"></i>${aa }
+                                        <i class="text-primary bi bi-chat-dots"></i>${replyCount}
                                     </div>
                                 </div>
                                 <div class="row mt-5 pt-3">
@@ -79,32 +81,58 @@
                                 <div class="row">
                                     <div class="col">
                                         <c:forEach items="${read.boardImageDtoList }" var="boardImageDto">
-                                            <img src="../../resources/img/healthRoom/TY/${boardImageDto.img_link }">
+                                            <img src="/uploadFiles/mainImage/${boardImageDto.img_link }">
                                         </c:forEach>
                                     </div>
                                 </div>
                                 <div class="row mt-5 pt-3">
                                     <div class="col">
                                         
-                                        <div class="row ">
-                                            <div class="col">
-                                                <c:choose>
-                                                    <c:when test="${count==0 }">
-                                                        <a href="./likeProcess?student_pk=${sessionStudentInfo.student_pk }&studentboard_pk=${read.noticeboardDto.studentboard_pk}">
-                                                        <i class="bi bi-heart"></i></a>${aa }
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <a  href="./likeProcess?student_pk=${sessionStudentInfo.student_pk }&studentboard_pk=${read.noticeboardDto.studentboard_pk}">
-                                                        <i class="bi bi-heart-fill"></i></a>${aa }
-                                                    </c:otherwise>
-                                                </c:choose>  
-                                                <i class="bi bi-chat-dots-fill"></i>${replyCount}
+                                        
+                                        
+                                        
+                                        <div class="row mb-2 border-2 border-bottom border-black">
+                                            <div class="col" style="font-size: 15px">
+                                            	<span class="text-secondary">댓글[${replyCount}]</span>
+		                                                <c:choose>
+		                                                    <c:when test="${count==0 }">
+		                                                        <a href="./likeProcess?student_pk=${sessionStudentInfo.student_pk }&studentboard_pk=${read.noticeboardDto.studentboard_pk}">
+		                                                        <i class="text-danger bi bi-heart"></i></a>${aa }
+		                                                    </c:when>
+		                                                    <c:otherwise>
+		                                                        <a  href="./likeProcess?student_pk=${sessionStudentInfo.student_pk }&studentboard_pk=${read.noticeboardDto.studentboard_pk}">
+		                                                        <i class="text-danger bi bi-heart-fill"></i></a>${aa }
+		                                                    </c:otherwise>
+		                                                </c:choose>  
                                             </div>
                                         </div>
                                         
+                                        <c:forEach items="${reply }" var="boardReply">
+                                        <div class="row">
+                                            <div class="col" style="font-size:20px;">
+                                                ${boardReply.replyDto.content }
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col border-bottom" style="font-size: 15px;">
+                                                작성자: ${boardReply.studentDto.name }
+	                                            <span class="col text-secondary" style="font-size: 13px;">
+	                                                <fmt:formatDate value="${boardReply.replyDto.created_at }" pattern="yy년 MM월 dd일 "/>
+	                                                <c:if test="${sessionStudentInfo.student_pk == boardReply.replyDto.student_pk || sessionStaffInfo != null  }">
+	                                                    <a href="./studentReplyDeleteProcess?id=${boardReply.replyDto.studentboard_reply_pk }
+	                                                        &deleteId=${boardReply.studentDto.student_pk}
+	                                                        &boardPk=${read.noticeboardDto.studentboard_pk}"
+	                                                        style="text-decoration: none; color:#015A9E;">
+	                                                        <i class="bi bi-trash"></i>
+	                                                    </a>
+	                                                </c:if>    
+	                                            </span>
+                                             </div>
+                                        </div>
+                                        </c:forEach>
                                         <c:if test="${!empty sessionStudentInfo }">
                                         <form id="frm" action="./studentReplyProcess" method="post">
-                                        <div class="row">
+                                        <div class="row mt-2">
                                             <div class="col">
                                                 <div class="form-floating">
 												  <textarea id="inputComment" name="content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
@@ -118,32 +146,6 @@
                                         </div>
                                         </form>
                                         </c:if>
-                                        
-                                        <c:forEach items="${reply }" var="boardReply">
-                                        <div class="row">
-                                            <div class="col fw-bold" style="font-size: 18px;">
-                                                작성자: ${boardReply.studentDto.name }
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                ${boardReply.replyDto.content }
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col text-secondary" style="font-size: 15px;">
-                                                <fmt:formatDate value="${boardReply.replyDto.created_at }" pattern="yy년 MM월 dd일 "/>
-                                                <c:if test="${sessionStudentInfo.student_pk == boardReply.replyDto.student_pk }">
-                                                    <a href="./studentReplyDeleteProcess?id=${boardReply.replyDto.studentboard_reply_pk }
-                                                        &deleteId=${boardReply.studentDto.student_pk}
-                                                        &boardPk=${read.noticeboardDto.studentboard_pk}"
-                                                        style="text-decoration: none; color:#015A9E;">
-                                                        <i class="bi bi-trash"></i>
-                                                    </a>
-                                                </c:if>    
-                                            </div>
-                                        </div>
-                                        </c:forEach>
                                         <div class="row">
                                         	<div class="col">
                                         	

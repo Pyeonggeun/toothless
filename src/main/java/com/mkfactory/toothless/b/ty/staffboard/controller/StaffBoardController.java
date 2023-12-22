@@ -94,7 +94,7 @@ public class StaffBoardController {
 		if(imageFile != null) {
 			
 			// 경로 수정
-			String rootPath = "C:\\workspace\\GitWorkspace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\TY\\";
+			String rootPath = "C:/uploadFiles/mainImage/";
 			
 	         
 	         File FolderForCreate = new File(rootPath);
@@ -131,7 +131,7 @@ public class StaffBoardController {
 					  continue; 
 					}
 				  
-				  String rootPath = "C:\\workspace\\GitWorkspace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\TY\\";
+				  String rootPath = "C:/uploadFiles/mainImage/";
 				  
 
 				  File FolderForCreate = new File(rootPath);
@@ -214,7 +214,7 @@ public class StaffBoardController {
 		List<StudentboardImageDto> boardImageDtoList = new ArrayList<>();
 		if(imageFile != null) {
 			// 경로 수정
-			String rootPath = "C:\\workspace\\GitWorkspace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\TY\\";
+			String rootPath = "C:/uploadFiles/mainImage/";
 			
 	         
 	         File FolderForCreate = new File(rootPath);
@@ -251,7 +251,7 @@ public class StaffBoardController {
 					  continue; 
 					}
 				  
-				  String rootPath = "C:\\workspace\\GitWorkspace\\toothless\\src\\main\\webapp\\resources\\img\\healthRoom\\TY\\";
+				  String rootPath = "C:/uploadFiles/mainImage/";
 				  
 
 				  File FolderForCreate = new File(rootPath);

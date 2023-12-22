@@ -55,6 +55,7 @@
 </style>
 <title>Insert title here</title>
 <script>
+
 	// 리스트 출력 templete
 	function temp(listData){
 		
@@ -174,6 +175,15 @@
 			reloadNoticeList();
 		});
 	}
+	// 게시글 작성시 취소할 때 초기화
+	function textReset(){
+		
+		const articleTitle = document.getElementById("articleTitle");
+		const articleText = document.getElementById("articleText");
+		
+		articleTitle.value = "";
+		articleText.value = "";
+	}
 	
 	window.addEventListener("DOMContentLoaded", () => {
 		reloadNoticeList()
@@ -268,7 +278,7 @@
 													    			<input id="imageFilesLink" class="btn btn-light" name="imageFiles" type="file" accept="image/*" multiple="multiple">
 													    		</div>
 													    		<div class="col-1">
-													    			<input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="취소">
+													    			<input type="button" onclick="textReset()" class="btn btn-secondary" data-bs-dismiss="modal" value="취소">
 													    		</div>
 													    		<div class="col-1">
 													    			<input type="button" onclick="writeSubmit()" class="btn btn-primary" data-bs-dismiss="modal" value="글 작성">
@@ -283,12 +293,12 @@
 								</div>
 								<div class="row fw-bold mt-2">
 									<div class="col-1"><i class="bi bi-chat-square-text-fill"></i>&nbsp;글번호</div>
-									<div class="col-8"><i class="bi bi-emoji-expressionless-fill"></i>&nbsp;제목</div>
+									<div class="col-8 border-bottom"><i class="bi bi-emoji-expressionless-fill"></i>&nbsp;제목</div>
 									<div class="col-1"><i class="bi bi-emoji-heart-eyes-fill"></i>&nbsp;조회수</div>
 									<div class="col-1"><i class="bi bi-person-arms-up"></i>&nbsp;작성자</div>
 									<div class="col-1"><i class="bi bi-calendar-heart-fill"></i>&nbsp;작성일</div>
 								</div>
-								<div id="noticeListBox" class="row">
+ 								<div id="noticeListBox" class="row">
 									<div class="col">
 										
 									</div>
@@ -302,28 +312,30 @@
 		</div>
 	</div>
 	
-	<div id="templete" class="row">
-		<div class="col">
-			<div class="noticeListWrapper row mt-2 mb-2">
-				<div class="noticePk col-1"></div>
-				<div class="noticeTitle col-8 border-bottom">
-					<div class="row">
-						<div class="col-10">
-							<a class="titleUrl link-offset-2 link-underline link-underline-opacity-0" style="color: black"></a>
-							<span class="titleSpan fw-bold text-danger" style="font-size:0.7em;"></span>
-							<span class="imageSpan"></span>
-						</div>
-						<div class="col-1">
-							<span class="likeSpan fw-bold" style="font-size:0.7em;"></span>
-						</div>
-						<div class="col-1">
-							<span class="dislikeSpan fw-bold" style="font-size:0.7em;"></span>
+	<div id="templete" class="d-none">
+		<div class="row">
+			<div class="col">
+				<div class="noticeListWrapper row mt-2 mb-2 ps-4 pe-0">
+					<div class="noticePk col-1"></div>
+					<div class="noticeTitle col-8 border-bottom">
+						<div class="row">
+							<div class="col-9">
+								<a class="titleUrl link-offset-2 link-underline link-underline-opacity-0 fs-5 ps-2" style="color: black"></a>
+								<span class="titleSpan fw-bold text-danger" style="font-size:0.7em;"></span>
+								<span class="imageSpan"></span>
+							</div>
+							<div class="col pe-0 text-end">
+								<span class="likeSpan fw-bold" style="font-size:0.7em;"></span>
+							</div>
+							<div class="col ps-0 pe-4 text-end">
+								<span class="dislikeSpan fw-bold" style="font-size:0.7em;"></span>
+							</div>
 						</div>
 					</div>
+					<div class="noticeRead_Count col-1 text-center"></div>
+					<div class="noticeNickname col-1 text-center"></div>
+					<div class="noticeDate col-1 ps-1 text-center"></div>
 				</div>
-				<div class="noticeRead_Count col-1 text-center"></div>
-				<div class="noticeNickname col-1 text-center"></div>
-				<div class="noticeDate col-1 text-center"></div>
 			</div>
 		</div>
 	</div>

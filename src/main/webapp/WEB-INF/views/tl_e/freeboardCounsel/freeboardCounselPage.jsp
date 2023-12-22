@@ -10,10 +10,12 @@
 
 <script>
 		function formSubmit(){
+			
+			console.log("실행됨")
 			const search = document.getElementById("search");
 			
 			const inputWord = document.getElementById("inputWord");
-			const inputWordRegex =/^([a-zA-Z0-9_-]{2,})$/;
+			const inputWordRegex =/^([a-zA-Z0-9_-]{2,})$/; 
 			if(!inputWordRegex.test ==(inputWord.value)){
 				alert("검색란에 검색어를 입력하셔야 검색이 진행됩니다.");
 				inputWord.focus();
@@ -24,18 +26,21 @@
 			
 		}
 		
-		.btn:hover {
-			  background-color: #8FBC8F;
-			}
-	
 	</script>
+	<style>
+		*{
+		font-family: 'Gowun Dodum', sans-serif;
+		}
+	</style>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gowun+Dodum&family=Quicksand:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-
+<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
 <jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
 
 <!-- 전체 컨테이너 시작 -->
@@ -45,30 +50,31 @@
 		<div class="col">
 		
 			<!-- 상단배너 이미지 넣는  로우 시작 -->
-			<div class="row mx-0 px-0">
-				<div class="col mx-0 px-0">
-						<div class="row">
-							<div class="col mx-0 px-0" style="height: 35em;">
-								<img class="banner img-fluid" src="./../../resources/img/groupCounsel/fff.jpg" style="width:100%; height: 100%;">
-							
-								<div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height:100%; position: relative; bottom: 100%;"></div>
-								<!-- 
-								<div class="title-text fw-bold" style="font-size: 3.5em; color: white; top: 70%;">Mk University | 상담센터</div>
-								<!--<div class="title-text" style="font-size: 1.5em; color: white; top: 42%;"></div> -->
-								<div style="color: white; position: relative; font-size: 3em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 18.5%;">MKU 상담센터 자유게시판</div>
-								<div style="color: white; position: relative; font-size: 5em; bottom: 154%; transform: translate(-50%, -50%); text-align: center; left: -18%; border-top:1px; border-top-style: solid; border-top-color: white;"></div>
-								<div style="color: white; position: relative; font-size: 1.4em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 19.6%;">여러분들의 소중한 의견을 나누는 공간입니다</div>
-								<div style="color: white; position: relative; font-size: 1.4em; bottom: 147%; transform: translate(-50%, -50%); text-align: center; left: 24.3%;"></div>		
-								<div style="height:13em; width:14em; border-radius: 0px 50px 0px 0px; background-color: #679467; opacity:0.9; position: relative; font-size: 1.4em; bottom: 155.2%; transform: translate(-50%, -50%); text-align: center; left: 86.7%;"></div>				
-								<div style="font-weight:900; color: #464646; position: relative; font-size: 1.5em; bottom: 225%; transform: translate(-50%, -50%); text-align: center; left: 84%;">Contact Us</div>
-								<div style="font-weight:900; color: white; position: relative; font-size: 2.8em; bottom: 212%; transform: translate(-50%, -50%); text-align: center; left: 86.3%;">1544-3054</div>
-								<div style="color: white; position: relative; font-size: 0.9em; bottom: 215%; transform: translate(-50%, -50%); text-align: center; left: 85.5%;">E-mail. mkmk@naver.com</div>
-								<div style="color: white; position: relative; font-size: 0.9em; bottom: 214%; transform: translate(-50%, -50%); text-align: center; left: 84.5%;">Tel. 010-4097-3054</div>
-							</div>
-						</div>
-					</div>
-			<!-- 상단배너 이미지 넣는  로우 끝 -->
-			</div>
+			<div class="row">
+             <div class="col mx-0 px-0" style="height: 35em; position: relative;">
+                 <img class="banner img-fluid" src="/toothless/resources/img/groupCounsel/fff.jpg" style="width: 100%; height: 100%;">
+         
+                 <div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height: 100%; position: absolute; bottom: 0; left: 0;"></div>
+         
+                 <div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 20.5%; transform: translate(-50%, 50%);">MKU 상담센터 </div>
+         
+                 <div style="color: white; position: absolute; font-size: 5em; bottom: 36%; transform: translate(-50%, -50%); text-align: center; left: -8%; border-top: 1px; border-top-style: solid; border-top-color: white; width: 80%;"></div>
+         
+                 <div style="color: white; position: absolute; font-size: 1.5em; bottom: 24.5%; transform: translate(-50%, -50%); text-align: center; left: 19.6%;">자유게시판</div>
+         
+                 <div style="color: white; position: absolute; font-size: 1.4em; bottom: 17.5%; transform: translate(-50%, -50%); text-align: center; left: 24.2%;"></div>
+         
+                 <div style="height: 17em; width: 18em; border-radius: 0px 50px 0px 0px; background-color: #679467; opacity: 0.9; position: absolute; bottom: -24.2%; transform: translate(-50%, -50%); text-align: center; left: 85%;"></div>
+         
+                 <div style="font-weight: 900; color: #464646; position: absolute; font-size: 1.5em; bottom: 34%; transform: translate(-50%, -50%); text-align: center; left: 82%;">Contact Us</div>
+         
+                 <div style="font-weight: 900; color: white; position: absolute; font-size: 2.6em; bottom: 10%; transform: translate(-50%, -50%); text-align: center; left: 84%;">1544-3054</div>
+         
+                 <div style="color: white; position: absolute; font-size: 0.9em; bottom: 8%; transform: translate(-50%, -50%); text-align: center; left: 83.5%;">E-mail. mkmk@naver.com</div>
+         
+                 <div style="color: white; position: absolute; font-size: 0.9em; bottom: 3%; transform: translate(-50%, -50%); text-align: center; left: 82.5%;">Tel. 010-4097-3054</div>
+             </div>
+         	</div>
 		
 			<!-- 상단 배너 다음으로 오는 로우와 콜 (주류 내용을 모두 감싼다) 시작-->
 			<div class="row">
@@ -85,7 +91,7 @@
 						<!-- 왼쪽 콜 시작 -->
 						<div class="col-4"> 
 						
-							<div class="row py-4"><div class="col"></div></div>
+							<div class="row pt-2 pb-3"><div class="col"></div></div>
 						
 							<!-- 정보창 2 시작 -->
 							<div class="row">
@@ -96,17 +102,29 @@
 										<div class="row">
 											<div class="col">
 											
-												<div class="row mb-2 pb-2"> <div class="col border-bottom style="border-color:#dcdcdc;"> <span class="fs-4 fw-bold">인기 게시물</span> <span style="font-size: 1.2em; color: #8FBC8F">Popular posts</span></div></div>
+												<div class="row pt-0 pb-3"> <div class="col"> <span class="fs-4 fw-bold">인기 게시물</span> <span style="font-size: 1.2em; color: #8FBC8F">Popular posts</span></div></div>
+												
+													
+													
+													
+												<div class="row border-top style="border-color:#dcdcdc;">
+													<div class="col">
+													
+													<div class="row py-2 mb-2"><div class="col"> </div></div>
 													
 													<c:forEach items="${bestFreeboardPostList}" var="best">
 														<div class="row text-center py-2 rounded-1"> 
-															<div class="col-2">${best.elementFreeboardPost.id}</div>
-															<div class="col-4 text-start"><a class="link-dark link-underline link-underline-opacity-0" href="./readFreeboardPostPage?id=${best.elementFreeboardPost.id}">${best.elementFreeboardPost.title}</a></div>
-															<div class="col-2">${best.elementFreeboardPost.read_count}</div>
-															<div class="col-2">${best.studentInfo.name}</div>
+								
+															<div class="col-4 text-truncate text-start pe-0 me-0"><a class="link-dark link-underline link-underline-opacity-0" href="./readFreeboardPostPage?id=${best.elementFreeboardPost.id}">${best.elementFreeboardPost.title}</a><span class=""></span></div>
+															<div class="col-2 ps-0 pt-1 ms-0 text-start text-secondary" style="font-size: small;">[${best.elementFreeboardPost.read_count}]</div>
+															<div class="col-3">${best.studentInfo.name}</div>
 															<div class="col-2"><fmt:formatDate value="${best.elementFreeboardPost.created_at}" pattern="yyyy.MM.dd"/> </div>
 														</div>
 														</c:forEach>
+													</div>
+												</div>			
+														
+														
 												</div>
 											<!--조회수 기준 베스트 게시물 끝-->
 											</div>
@@ -126,10 +144,12 @@
 									<div class="row">
 										<div class="col">
 															<div class="row pb-2">
-																<div class="col border-bottom style="border-color:#dcdcdc;">
+																<div class="col">
 																	<span class="fs-4 fw-bold">검색</span> <span style="font-size: 1.2em; color: #8FBC8F">Search</span>
 																</div>
 															</div>	
+															
+															<div class="row border style="border-color:#dcdcdc;"><div class="col"></div></div>
 										
 															<form id="search" action="./freeboardCounselPage" method="get">
 																<div class="row text-center py-3"> <!--검색-->
@@ -141,11 +161,11 @@
 																			<option value="name">작성자</option>
 																		</select>
 																	</div>
-																	<div class="col-6"> 
-																		<input id="inputWord" name ="searchWord" type ="text" class="form-control" placeholder="검색할 내용을 입력하세요">
+																	<div class="col-5 px-0 mx-0 d-grid"> 
+																		<input id="inputWord" name ="searchWord" type ="text" class="form-control">
 																	</div>
-																	<div class="col-2"> 
-																		<input class="btn btn-dark" type="button" onclick="formSubmit()" value="검색" ">
+																	<div class="col-3 d-grid px-3 mx-0"> 
+																		<input class="btn btn-dark" type="button" onclick="formSubmit()" value="검색">
 																	</div>
 																</div>
 															</form>
@@ -172,7 +192,8 @@
 											<div class="row">
 												<div class="col-4"></div>
 												<div class="col-4 text-center"> <br> <span class="text-danger fs-3"> ${countedPost}</span> <br> <span class="fs-6">총 게시글 수</span></i></div>
-												<div class="col-4"></div>												
+												<div class="col-4">
+												</div>												
 											</div>
 										<!-- 정보창 1의 중요 부분 시작(제목과 내용) 끝-->
 										</div>
@@ -206,17 +227,17 @@
 												<div class="col-3 text-center" style="color: #8FBC8F;"> <a class="btn text-center py-0 my-0" role="button" href="./createFreeboardPostsPage"><i class="bi bi-keyboard-fill fs-3"></i> <br> <span class="fw-bold">게시글 작성하기</span></a></div>
 											</div>
 											
-											<div class="row py-2"><div class="col"><!-- 여백 --></div></div>
+											<div class="row pb-2"><div class="col"><!-- 여백 --></div></div>
 											
 											<!-- 오버플로우 주기 위함 -->
-											<div class="row border-top" style="border-color:#dcdcdc;">
+											<div class="row border-top mt-0" style="border-color:#dcdcdc;">
 												<div class="col overflow-auto" style="width: 10em; height: 40em;">									
 													<!-- 목차에 맞춘 진짜 글 리스팅 되는 로우 시작 -->
 													<c:forEach items="${combinedFreeboardList}" var="List">
 														
 														<div class="row py-3">
 															<div class="col-2 text-center">${List.elementFreeboardDto.id}</div>
-															<div class="col-5 fw-bold text-start">
+															<div class="col-5 text-truncate fw-bold text-start">
 																<c:forEach items="${newPostList}" var="brand">
 																	<c:choose>
 																		<c:when test="${brand.id == List.elementFreeboardDto.id }">

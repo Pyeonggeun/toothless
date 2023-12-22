@@ -110,10 +110,21 @@ public class WoojaeStaffServiceImpl {
 	}
 	
 	// 현장실습과정 조회
-	public List<AjdksInternshipCourseDto> internshipCourseList(){
+	public List<AjdksInternshipCourseDto> internshipCourseList(int company_pk){
+					
 		
-		return woojaeStaffSqlMapper.selectAllCourse();
+		return woojaeStaffSqlMapper.selectAllCourse(company_pk);
 	}
+	
+	public List<AjdksInternshipCourseDto> internshipCourseListByExternalPk(int external_pk){
+			
+		int companyPk = woojaeStaffSqlMapper.companyPk(external_pk);
+		
+		List<AjdksInternshipCourseDto> list = woojaeStaffSqlMapper.selectAllCourse(companyPk);
+		
+		return list;
+	}
+	
 	
 	
 	//실습생 조회
@@ -136,5 +147,7 @@ public class WoojaeStaffServiceImpl {
 		}
 		return list;
 	}
+	
+	
 	
 }

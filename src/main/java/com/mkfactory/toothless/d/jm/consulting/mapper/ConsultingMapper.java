@@ -22,6 +22,7 @@ public interface ConsultingMapper {
 	public int checkOverlapHopeJobApply(int student_pk);	
 	
 	//학생 구직희망신청 정보 입력
+	public int getHopeJobPk();
 	public void insertHopeJobApply(HopeJobDto par);
 	
 	

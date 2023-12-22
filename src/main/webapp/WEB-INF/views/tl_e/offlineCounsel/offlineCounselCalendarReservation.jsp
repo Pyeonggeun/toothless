@@ -167,8 +167,10 @@
 			
 			for(let i = 1; i <= arrCalendar.length; i++){
 				
+				const today = new Date();
 			    const currentDay = new Date(year, month - 1, arrCalendar[i - 1]).getDay();
 			    const currentDate = new Date(year, month - 1, arrCalendar[i - 1]);
+			    const currentMonth = today.getMonth();
 				
                 if (i % 7 === 1) {
                     currentRow = document.createElement("div");
@@ -180,32 +182,8 @@
 				const currentNum = arrCalendar[i - 1];
 
 			    dateCol.innerText = currentNum;
-				
-			    <%--
-			    if (i <= firstDayOfMonth.getDay() && currentNum != 1) {
-			        // 이전 달의 날짜들 비활성화
-			        dateCol.style.backgroundColor = "#f2f1f1";
-			    } else if (i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())) {
-			        // 다음 달의 날짜들 활성화
-			        let nextMonthYear = month === 12 ? year + 1 : year;
-			        let nextMonth = month === 12 ? 1 : month + 1;
-			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + currentNum + "," + currentDay + ")");
-			    } else if (currentDate.getMonth() !== month - 1 && currentDate > new Date()) {
-			        // 다음 달의 날짜들 활성화
-			        let nextMonthYear = month === 12 ? year + 1 : year;
-			        let nextMonth = month === 12 ? 1 : month + 1;
-			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + currentNum + "," + currentDay + ")");
-			    } else if (currentDate < new Date(year, month - 1, new Date().getDate())) {
-			        // 이번 달의 날짜 중 오늘 이전인 경우, onclick 이벤트 비활성화
-			        dateCol.style.backgroundColor = "#f2f1f1";
-			    } else {
-			        // 이번 달의 날짜 중 오늘 이후인 경우, onclick 이벤트 설정
-			        dateCol.setAttribute("onclick", "showModal(" + year + "," + month + "," + currentNum + "," + currentDay + ")");
-			    }
-			    --%>
 			    
-			    // 이 부분을 수정합니다.
-			    if (i <= firstDayOfMonth.getDay()) {
+			    if (i <= firstDayOfMonth.getDay() && currentMonth === (month - 1)) {
 			        // 이전 달의 날짜 비활성화
 			        let prevMonthYear = modifiedDate.getFullYear();
 			        let prevMonth = modifiedDate.getMonth();
@@ -213,8 +191,18 @@
 			            prevMonth = 12;
 			            prevMonthYear--;
 			        }
-			        dateCol.setAttribute("onclick", "showModal(" + prevMonthYear + "," + prevMonth + "," + arrCalendar[i - 1] + "," + currentDay + ")");
-			    } else if (i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())) {
+			        dateCol.classList.add('text-secondary');
+			        dateCol.style.backgroundColor = "#f2f1f1";
+			    }else if (i <= firstDayOfMonth.getDay()) {
+			        // 이전 달의 날짜 비활성화
+			        let prevMonthYear = modifiedDate.getFullYear();
+			        let prevMonth = modifiedDate.getMonth();
+			        if (prevMonth === 0) {
+			            prevMonth = 12;
+			            prevMonthYear--;
+			        }
+			        dateCol.classList.add('text-secondary');
+			    }else if (i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())) {
 			        // 다음 달의 날짜 활성화
 			        let nextMonthYear = modifiedDate.getFullYear();
 			        let nextMonth = modifiedDate.getMonth() + 2;
@@ -222,46 +210,17 @@
 			            nextMonth = 1;
 			            nextMonthYear++;
 			        }
-			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + arrCalendar[i - 1] + "," + currentDay + ")");
-			    } else if (currentDate.getFullYear() === year && currentDate.getMonth() === month - 1 && arrCalendar[i - 1] < currentDate.getDate()) {
+			        dateCol.classList.add('text-secondary');
+			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + arrCalendar[i - 1] + "," + currentDay + "," + counselorPk.value + ")");
+			    } else if (today.getFullYear() === year && today.getMonth() === month - 1 && arrCalendar[i - 1] < today.getDate()) {
 			        // 이번 달의 오늘 이전의 날짜인 경우, 비활성화
+			        dateCol.classList.add('text-secondary');
 			        dateCol.style.backgroundColor = "#f2f1f1";
 			    } else {
 			        // 나머지 날짜는 활성화
-			        dateCol.setAttribute("onclick", "showModal(" + year + "," + month + "," + arrCalendar[i - 1] + "," + currentDay + ")");
-			    }
-
-
-			    <%--
-				if (i <= firstDayOfMonth.getDay()) {
-			        let prevMonthYear = modifiedDate.getFullYear();
-			        let prevMonth = modifiedDate.getMonth();
-			        if (prevMonth === 0) {
-			            prevMonth = 12;
-			            prevMonthYear--;
-			        }
-			        dateCol.setAttribute("onclick", "showModal(" + prevMonthYear + "," + prevMonth + "," + arrCalendar[i - 1] + "," + currentDay + ")");
-			   
-			    } else if (i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())) {
-			        let nextMonthYear = modifiedDate.getFullYear();
-			        let nextMonth = modifiedDate.getMonth() + 2;
-			        if (nextMonth === 13) {
-			            nextMonth = 1;
-			            nextMonthYear++;
-			        }
-			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + arrCalendar[i - 1] + "," + currentDay + ")");
-			    
-			    }else if (currentDate.getFullYear() === year && currentDate.getMonth() === month - 1 && arrCalendar[i - 1] === currentDate.getDate()) {
-			        // 오늘 이전의 날짜인 경우, onclick 이벤트 비활성화
-			        dateCol.style.backgroundColor = "#f2f1f1";
-			    
-			    } else {
-			    	
-			        dateCol.setAttribute("onclick", "showModal(" + year + "," + month + "," + arrCalendar[i - 1] + "," + currentDay + ")");
+			        dateCol.setAttribute("onclick", "showModal(" + year + "," + month + "," + arrCalendar[i - 1] + "," + currentDay + "," + counselorPk.value + ")");
 			    }
 			    
-			    --%>
-					
 				currentRow.appendChild(dateCol);
 			}
 			
@@ -269,22 +228,30 @@
 			
 			const today = new Date();
 			
+			const threeMonthsLater = new Date();
+			threeMonthsLater.setMonth(threeMonthsLater.getMonth() + 2);
+			
 		    if (currentDate.getMonth() === today.getMonth()) {
 		        previousMonthBtn.disabled = true;
 		    } else {
 		        previousMonthBtn.disabled = false;
 		        previousMonthBtn.setAttribute("onclick", "previousMonth()");
 		    }
-
 			
-			const nextMonthBtn = document.querySelector(".nextMonthBtn");
-			nextMonthBtn.setAttribute("onclick", "nextMonth()");
+		    const nextMonthBtn = document.querySelector(".nextMonthBtn");
+		    
+		    if(modifiedDate <= threeMonthsLater){
+		    	nextMonthBtn.disabled = false;
+		    	nextMonthBtn.setAttribute("onclick", "nextMonth()");
+		    }else{
+		    	nextMonthBtn.disabled = true;
+		    }
 			
 			const reservationBtn = document.querySelector(".reservationBtn");
 			
 			reservationBtn.onclick = function() {
 			    const text = document.querySelector(".text").value;
-			    reservationRegister(studentPk.value, categoryPk.value, counselorPk.value, text, parameterDate);
+			    checkDuplication(studentPk.value, categoryPk.value, counselorPk.value, text, parameterDate);
 			};
 			
 		}
@@ -299,7 +266,7 @@
 			calendar('next');
 		}
 		
-		function showModal(year, month, date, day){
+		function showModal(year, month, date, day, counselorPk){
 			
 			console.log("my: "+year);
 			console.log("mm: "+month);
@@ -309,7 +276,7 @@
             const writeModal = bootstrap.Modal.getOrCreateInstance("#writeModal");  // 매개변수로 질의 사용
             const writeModalElement = document.querySelector("#writeModal");
 			
-			const url = "./isPossibleReservation";
+			const url = "./isPossibleReservation?counselor_id=" + counselorPk;
             
 			fetch(url)
 			.then(response => response.json())
@@ -434,6 +401,56 @@
 			
 		}
 		
+		function checkDuplication(studentPk, categoryPk, counselorPk, text, date){
+			
+			const sYear = document.querySelector(".sYear");
+			const sMonth = document.querySelector(".sMonth");
+			const sDate = document.querySelector(".sDate");
+			const sDay = document.querySelector(".sDay");
+			let dayValue = sDay.getAttribute("data-value");
+			const sHour = document.querySelector(".sHour");
+			const textValue = document.querySelector(".text");
+			
+			url = "./isPossibleReservation?counselor_id=" + counselorPk;
+			
+			fetch(url)
+			.then(response => response.json())
+			.then(response => {
+				
+				let isDuplicate = false;
+				
+				for(e of response.data){
+					
+					console.log("있는 예약: "+e.DATE_VALUE);
+					console.log("date: "+date);
+					
+					if(e.DATE_VALUE == date){
+						
+						isDuplicate = true;
+						alert("이미 예약이 완료된 일정입니다. 일정을 다시 선택해주세요.");
+						
+						sYear.innerText = "";
+						sMonth.innerText = "";
+						sDate.innerText = "";
+						sDay.innerText = "";
+						dayValue = "";
+						sHour.innerText = "";
+						textValue.value = "";
+
+						calendar('current');
+
+						break;
+					}
+				}
+				
+				if(isDuplicate == false){
+					reservationRegister(studentPk, categoryPk, counselorPk, text, date);
+				}
+				
+			});
+			
+		}
+		
 		
 		function reservationRegister(studentPk, categoryPk, counselorPk, text, date){
 			
@@ -522,7 +539,15 @@
 		</div>
 		
 		<!-- 상담원 정보 -->
-		<div class="row pt-5">
+		<div class="row mt-5">
+			<div class="col-2"></div>
+			<div class="col">
+				<i class="bi bi-info-circle-fill fs-5"></i>
+				<span class="fw-bold fs-4">&nbsp;&nbsp;상담원 정보</span>
+			</div>
+			<div class="col-2"></div>
+		</div>
+		<div class="row pt-4">
 			<div class="col-2"></div>
 			<div class="col border border-dark rounded">
 				<div class="row border-bottom border-dark fs-5 fw-bold rounded" style="background-color: rgb(246, 246, 242);">
@@ -546,7 +571,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-9 pt-4 ps-4">
+					<div class="col-9 py-4 ps-4">
 						${counselorDto.career }
 					</div>
 				</div>
@@ -557,8 +582,8 @@
 		<div class="row pt-5 mt-5">
 			<div class="col-2"></div>
 			<div class="col">
-				<i class="bi bi-info-circle-fill"></i>
-				<span>&nbsp;&nbsp;일정 선택</span>
+				<i class="bi bi-info-circle-fill fs-5"></i>
+				<span class="fw-bold fs-4">&nbsp;&nbsp;예약 일정</span>
 			</div>
 			<div class="col-2"></div>
 		</div>
@@ -612,7 +637,7 @@
 					<div class="col-4 ps-5 mt-5">
 						<div class="row mt-5">
 							<div class="col fs-4 fw-bold">
-								<i class="bi bi-info-circle-fill fs-5"></i> 예약 날짜
+								<i class="bi bi-info-circle-fill fs-5"></i>&nbsp;&nbsp;예약 날짜
 							</div>
 						</div>
 						<div class="row pt-3">
@@ -624,7 +649,7 @@
 						</div>
 						<div class="row pt-4 fw-bold">
 							<div class="col fs-4">
-								<i class="bi bi-info-circle-fill fs-5"></i> 상담 종류
+								<i class="bi bi-info-circle-fill fs-5"></i>&nbsp;&nbsp;상담 종류
 							</div>
 						</div>
 						<div class="row pt-3">
@@ -634,7 +659,7 @@
 						</div>
 						<div class="row pt-4 fw-bold">
 							<div class="col fs-4">
-								<i class="bi bi-info-circle-fill fs-5"></i> 상담사명
+								<i class="bi bi-info-circle-fill fs-5"></i>&nbsp;&nbsp;상담사명
 							</div>
 						</div>
 						<div class="row pt-3">
@@ -644,7 +669,7 @@
 						</div>
 						<div class="row pt-4 fw-bold">
 							<div class="col fs-4">
-								<i class="bi bi-info-circle-fill fs-5"></i> 남기고 싶은 말
+								<i class="bi bi-info-circle-fill fs-5"></i>&nbsp;&nbsp;남기고 싶은 말
 							</div>
 						</div>
 						<div class="row pt-4">

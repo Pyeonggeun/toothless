@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
 
 
 	<div class="row">
@@ -24,105 +24,99 @@
 
 
 	<div class="row">
-		<div class="col-3">
+		<div class="col-2">
 			<jsp:include page="../common/studentMenu.jsp"></jsp:include>
 		</div>
-				<div class="col">
-					<div class="row my-5">
-						<div class="col fw-bold" style="font-size:1.5em;">
-							<span>내 온라인 상담 내역</span>
-						</div>
-					</div>
-					
-					<div class="row">
-									
-						<div class="col">
-							<div class="row mt-3 border-top">
-								<div class="col">
-								
-									<div class="row mt-3">
-										<div class="col-2 fw-bold">
-											상담내용						
-										</div>
-										<div class="col-8">
-											
-										</div>										
-										
-										<div class="col-2 text-right" style="font-size:0.8em; color:gray">
-											<fmt:formatDate value="${onlineConsultingInfo.onlineConsultingDto.created_at}" pattern="yyyy-MM-dd"/>
-										</div>
-																
-									</div>
-								
-									<div class="row mt-2">							
-										<div class="col">
-											${onlineConsultingInfo.onlineConsultingDto.on_consulting_contents}
-										</div>						
-									</div>
-								</div>
-							</div>
-							<%-- 답글 --%>
-							<div class="row mt-4 border-top">
-								<div class="col">
-									
-									<c:choose>
-										
-										<c:when test="${onlineConsultingInfo.onlineConsultingReplyDto == null}">
-											<div class="row mt-3">
-												<div class="col">
-													아직 답변이 등록되지 않았습니다.
-												</div>
-											</div>
-										</c:when>
-									
-										<c:otherwise>
-												<div class="row mt-3">
-													<div class="col-2 fw-bold">
-														상담 답변 
-													</div>	
-													<div class="col-8">
-														
-													</div>	
-													<div class="col-2 text-right" style="color:gray; font-size:0.8em;">
-														<fmt:formatDate pattern="yyyy-MM-dd" value="${onlineConsultingInfo.onlineConsultingReplyDto.created_at}"/> 
-													</div>																																		
-												</div>
-										
-								
-												<div class="row">
-													<div class="col mt-3">
-														${onlineConsultingInfo.onlineConsultingReplyDto.on_contents_reply}
-													</div>					
-												</div>	
-												<div class="row mt-4">		
-													<div class="col-8">
-														
-													</div>																			
-													<div class="col-3 ps-1 text-right" style="font-size:0.8em; text-align:right">
-														<span class="fw-bold">답변인</span> ${onlineConsultingInfo.staffInfoDto.name }
-													</div>
-													<div class="col-1"></div>																		
-												</div>																	
-										</c:otherwise>	
-									
-									</c:choose>											
-								</div>	
-							</div>		
-							
-							<div class="row mt-5">
-								<div class="col">
-									<a href="./myOnlineConsultingListPage"><button type="button" class="btn btn-primary">목록으로</button>
-									</a>
-								</div>
-							</div>												
-						</div>
-					</div>
-					
-							
-					
-			
+		<div class="col-1 border-start"></div>
+		<div class="col">
+			<div class="row my-5">
+				<div class="col fw-bold" style="font-size:1.5em;">
+					<span>내 온라인 상담 내역</span>
+				</div>
 			</div>
-	</div>
+			
+			<div class="row">
+							
+				<div class="col">
+				
+				
+					<div class="row">
+						<div class="col">
+							<i class="bi bi-pen text-start"> </i> 상담 내용
+						</div>
+						
+						<div class="col-2 text-end" style="font-size:0.8em; color:gray">
+							<fmt:formatDate value="${onlineConsultingInfo.onlineConsultingDto.created_at}" pattern="yyyy-MM-dd"/>
+						</div>												
+					</div>				
+													
+					<div class="row mt-1 border-top">
+						<div class="col">						
+							<div class="row mt-2">							
+								<div class="col">
+									${onlineConsultingInfo.onlineConsultingDto.on_consulting_contents}
+								</div>						
+							</div>
+						</div>
+					</div>
+					<%-- 답글 --%>
+					<div class="row mt-5">
+						<div class="col fw-bold text-secondary ">
+								<i class="bi bi-envelope-open"> </i> 상담 답변 
+						</div>					
+						
+						<div class="col-2 text-end" style="color:gray; font-size:0.8em;">
+							<fmt:formatDate pattern="yyyy-MM-dd" value="${onlineConsultingInfo.onlineConsultingReplyDto.created_at}"/> 
+						</div>														
+					</div>
+					
+
+					<div class="row mt-2 border-top">
+						<div class="col">
+
+							<c:choose>
+								
+								<c:when test="${onlineConsultingInfo.onlineConsultingReplyDto == null}">
+
+									<div class="row mt-2">
+										<div class="col fw-bold ">
+											아직 답변이 등록되지 않았습니다!
+										</div>
+									</div>
+
+								</c:when>
+							
+								<c:otherwise>						
+										<div class="row">
+											<div class="col mt-3">
+												${onlineConsultingInfo.onlineConsultingReplyDto.on_contents_reply}
+											</div>					
+										</div>	
+										<div class="row mt-4">		
+											<div class="col-8">
+												
+											</div>																			
+											<div class="col text-right" style=" text-align:right">
+												<span class="fw-bold ">답변인</span> ${onlineConsultingInfo.staffInfoDto.name }
+											</div>																	
+										</div>																	
+								</c:otherwise>	
+							
+							</c:choose>											
+						</div>	
+					</div>		
+					
+					<div class="row mt-5">
+						<div class="col text-end">
+							<a href="./myOnlineConsultingListPage"><button type="button" class="btn btn-primary ">목록으로</button>
+							</a>
+						</div>
+					</div>												
+				</div>
+			</div>	
+		</div>
+		<div class="col-2"></div>
+		</div>
 		<div class="row mb-5 pb-5"><div class="col mb-5 pb-5"></div></div>
 		<!-- futter -->
 		<div class="row">
