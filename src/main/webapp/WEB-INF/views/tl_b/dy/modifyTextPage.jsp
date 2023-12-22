@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% 
+	pageContext.setAttribute("br", "<br>");
+	pageContext.setAttribute("cn", "\n");	
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,7 +44,6 @@
 		<script src="../../resources/js/hn/topBanner.js"></script>
     </head>
     <body>
-    	<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
@@ -67,7 +71,7 @@
                                     						</div>
                                     						<div class="row mb-4">
                                     							<div class="col mb-4">
-																	<textarea id="inputTxt" name="content" class="form-control" style="height: 400px;" maxlength="1300" placeholder="내용을 입력해주세요.">${readText.staffboardDto.content}</textarea>
+																	<textarea id="inputTxt" name="content" class="form-control" style="height: 400px;" maxlength="1300" placeholder="내용을 입력해주세요.">${readText.staffboardDto.content}${fn:replace(b.board_content,br,cn)}</textarea>
 																</div>
                                     						</div>
                                     					</div>
