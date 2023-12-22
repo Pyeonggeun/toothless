@@ -89,7 +89,6 @@ public class StaffBoardController {
 	}
 	@RequestMapping("staffWriteProcess")
 	public String staffWriteProcess(HttpSession session, StudentboardDto params, MultipartFile imageFile, MultipartFile[] imageFiles ) {
-		
 		List<StudentboardImageDto> boardImageDtoList = new ArrayList<>();
 		if(imageFile != null) {
 			
@@ -181,11 +180,13 @@ public class StaffBoardController {
 		int staffPk = sessionStaffInfo.getStaff_pk();
 		params.setStaff_pk(staffPk);
 		
+		List<Map<String, Object>>readList = staffBoardService.bestRead();
 		List<Map<String, Object>> list = staffBoardService.replyList(id);
 		Map<String, Object> map = staffBoardService.viewDtls(id);
 
 		model.addAttribute("read", map);
 		model.addAttribute("reply", list);
+		model.addAttribute("readList", readList);
 		
 		int likeCount = staffBoardService.likeCount(id);
 		model.addAttribute("likeCount", likeCount);
