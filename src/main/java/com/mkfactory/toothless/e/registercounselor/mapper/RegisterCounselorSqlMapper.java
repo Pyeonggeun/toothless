@@ -82,5 +82,11 @@ public interface RegisterCounselorSqlMapper {
 	
 	// 집단상담 리스팅
 	public List<Map<String, Object>> selectGroupCounselBoardForStaffMain();
+	
+	// 공지사항 리스팅
+	public List<Map<String, Object>> selectNoticeBoardForStaffMain();
+	
+	// 학생 자유게시판 리스팅
+	public List<Map<String, Object>> selectFreeboardForStaffMain(); 
 
 }

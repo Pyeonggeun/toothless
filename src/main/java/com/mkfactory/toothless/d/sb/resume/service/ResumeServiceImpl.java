@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -94,9 +95,27 @@ public class ResumeServiceImpl {
 	
 	
 	// 이력서 상세보기
-	public ResumeDto getResume(ResumeDto resumeDto) {
+	public ResumeDto getResume(ResumeDto resumeDto, boolean escape) {
 		
 		ResumeDto dto = resumeSqlMapper.getThisResumeDtoByResumePk(resumeDto);
+		
+		if(escape) {
+			
+			String coverContent = dto.getCover_letter();
+			
+			if (coverContent != null) {
+				coverContent = StringEscapeUtils.escapeHtml4(coverContent);
+		  
+				coverContent = coverContent.replaceAll("<","&lt;");
+				coverContent = coverContent.replaceAll(">", "&gt;");
+				coverContent = coverContent.replaceAll("\n", "<br>");
+		      
+				dto.setCover_letter(coverContent);
+				
+		      
+			}
+		}
+		
 		
 		return dto;
 	}
@@ -135,7 +154,7 @@ public class ResumeServiceImpl {
 	
 	
 	// 해당 이력성에 작성한 경력 목록 가져오기
-	public List<Map<String, Object>> getCareerDtoList(ResumeDto resumeDto) {
+	public List<Map<String, Object>> getCareerDtoList(ResumeDto resumeDto, boolean escape) {
 		// 이력서 번호에 해당되는 경력 리스트 뽑아오기
 		
 		List<Map<String, Object>> careerList = new ArrayList<Map<String,Object>>();
@@ -147,6 +166,22 @@ public class ResumeServiceImpl {
 			CareerCategoryDto careerName = resumeSqlMapper.getCareerCategoryNameByCategoryPk(category_pk);
 			Map<String, Object> map = new HashMap<String, Object>();
 			
+			if(escape) {
+				
+				String careerContent = careerDto.getCareer_contents();
+				
+				if (careerContent != null) {
+					careerContent = StringEscapeUtils.escapeHtml4(careerContent);
+			  
+					careerContent = careerContent.replaceAll("<","&lt;");
+					careerContent = careerContent.replaceAll(">", "&gt;");
+					careerContent = careerContent.replaceAll("\n", "<br>");
+			      
+					careerDto.setCareer_contents(careerContent);
+					
+			      
+				}
+			}
 			map.put("careerName", careerName);
 			map.put("careerDto", careerDto);
 			
@@ -320,7 +355,9 @@ public class ResumeServiceImpl {
 			Map<String, Object> map = new HashMap<String, Object>();
 			int resume_pk = resumeDto.getResume_pk();
 			String departmentName = resumeSqlMapper.getStudentDepartmentNameByResumePk(resume_pk);
-			
+			int student_pk = resumeDto.getStudent_pk();
+			StudentInfoDto student = resumeSqlMapper.getStudentDtoByResumePk(student_pk);
+			map.put("studentDto", student);
 			map.put("resumeDto", resumeDto);
 			map.put("department", departmentName );
 			
@@ -358,7 +395,9 @@ public class ResumeServiceImpl {
 			Map<String, Object> map = new HashMap<String, Object>();
 			int resume_pk = resumeDto.getResume_pk();
 			String departmentName = resumeSqlMapper.getStudentDepartmentNameByResumePk(resume_pk);
-			
+			int student_pk = resumeDto.getStudent_pk();
+			StudentInfoDto student = resumeSqlMapper.getStudentDtoByResumePk(student_pk);
+			map.put("studentDto", student);
 			map.put("resumeDto", resumeDto);
 			map.put("department", departmentName );
 			

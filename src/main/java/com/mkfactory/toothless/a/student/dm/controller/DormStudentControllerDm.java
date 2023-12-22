@@ -144,7 +144,7 @@ public class DormStudentControllerDm {
 		
 		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
 		model.addAttribute("staffSession", sessionStaffInfo);
-		model.addAttribute("noticeInfo", dormStudentServiceDm.dormNoticeInfoByDormNoticePk(dorm_notice_pk));
+		model.addAttribute("noticeInfo", dormStudentServiceDm.dormNoticeInfoByDormNoticePk(dorm_notice_pk, true));
 		
 		
 		return "/tl_a/student/dm_NoticeArticlePage";

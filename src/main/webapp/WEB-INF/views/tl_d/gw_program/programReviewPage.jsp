@@ -44,7 +44,7 @@
 							<div class="row mt-3">
 								<div class="col">
 									<div class="row mb-1">
-										프로그램 평점 (1~100점)
+										프로그램 평점 (1~5점)
 									</div>
 									<div class="row mb-3">
 										<input class="form-control form-control-sm" name="prg_score" type="text">
@@ -58,8 +58,8 @@
 									<div class="row mb-1">
 										프로그램에 하고싶은 말 
 									</div>
-									<div class="row mb-3">
-										<textarea class="form-control" name="prg_comment" placeholder="내용을 입력해주세요."></textarea>
+									<div class="row mb-3"> 
+										<textarea class="form-control" rows="15" name="prg_comment" placeholder="내용을 입력해주세요."></textarea>
 									</div>
 								</div>
 							</div>

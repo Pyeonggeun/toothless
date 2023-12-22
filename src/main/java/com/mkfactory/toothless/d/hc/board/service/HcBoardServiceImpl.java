@@ -70,14 +70,14 @@ public class HcBoardServiceImpl {
 			board_contents = board_contents.replaceAll("\n", "<br>");
 			qnABoardDto.setBoard_contents(board_contents);
 		}
-			System.out.println("1");
+			
 			if (board_answer != null) {
 				board_answer = StringEscapeUtils.escapeHtml4(board_answer);
 				board_answer = board_answer.replaceAll("\n", "<br>");
 				qnABoardDto.setBoard_answer(board_answer);
 			}
 	}
-		System.out.println("2");
+	
 		
 			
 		return map;

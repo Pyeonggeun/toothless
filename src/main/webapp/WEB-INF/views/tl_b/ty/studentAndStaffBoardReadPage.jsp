@@ -12,6 +12,11 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 		<script src="../../resources/js/hn/topBanner.js"></script>
     </head>
+    	<style>
+    		a {
+            	text-decoration: none; /* 밑줄 제거 */
+       	 	}
+    	</style>
     	 <script>
             function formSubmit(){
                 const frm = document.getElementById("frm");
@@ -28,21 +33,19 @@
             }
         </script>
     <body>
-        <jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
+    	<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
 		<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                
                   <div class="row">
                     <div class="col">
                         
-                        <div class="row mt-2">
-                          	<div class="col-2"></div>
+                        <div class="row py-2" style="background-color:#F2F2F2 ;">
                             <div class="col">
-                                <a href="../common/studentMainPage"; 
-                                    style="text-decoration: none; color:#015A9E;">
-                                    홈
+                                <a href="../common/studentMainPage";
+	                                 style="text-decoration: none; color:#015A9E;">
+	                                 홈
                                 </a>>
                                 <a href="./studentBoardPage"; 
                                     style="text-decoration: none; color:#015A9E;">
@@ -50,17 +53,15 @@
                                 </a>>
                                     상세글
                             </div>
-                            <div class="col"></div>
                         </div>
-                        <div class="row mt-5">
-                            <div class="col-2"></div>
-                           
-
-
-                            <div class="col">
-                                <div class="row border-2 border-top  border-black">
+                        <div>
+                        <div class="row">
+                            <div class="col"></div>
+								
+                            <div class="col-7 mt-5 pt-5">
+                                <div class="row my-2 border-2 border-top  border-black">
                                     <div class="col fw-bold mt-2" style="font-size: 25px">
-                                        [보건 공지] &nbsp;
+                                        [공지] &nbsp;
                                         ${read.noticeboardDto.title }
                                     </div>
                                 </div>
@@ -68,43 +69,33 @@
                                     <div class="col mb-2" style="font-size: 13px">
                                         ${read.staffInfoDto.name } &nbsp;
                                         <fmt:formatDate value="${read.noticeboardDto.created_at }" pattern="yy년 MM월 dd일"/>
-                                        &nbsp; | 조회수: ${read.noticeboardDto.read_count }
-                                        &nbsp; | <i class="text-danger bi bi-heart-fill"></i>${aa }
-                                        <i class="text-primary bi bi-chat-dots"></i>${replyCount}
+                                        &nbsp; | 
+                                        <i class="bi bi-eye"></i>
+                                        ${read.noticeboardDto.read_count }
+                                        &nbsp; | <i class="text-danger bi bi-heart-fill"></i>${likeCount }
+                                     	<i class="bi bi-chat-dots"></i>${replyCount}
                                     </div>
                                 </div>
-                                <div class="row mt-5 pt-3">
-                                    <div class="col">
+                                <div class="row mb-5 mt-5 pt-3">
+                                    <div class="col" style="font-size: 18px";>
                                         ${read.noticeboardDto.content }
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="col text-center">
                                         <c:forEach items="${read.boardImageDtoList }" var="boardImageDto">
                                             <img src="/uploadFiles/mainImage/${boardImageDto.img_link }">
                                         </c:forEach>
                                     </div>
                                 </div>
-                                <div class="row mt-5 pt-3">
+                                <div class="row mt-5 pt-3 ">
                                     <div class="col">
                                         
-                                        
-                                        
-                                        
                                         <div class="row mb-2 border-2 border-bottom border-black">
-                                            <div class="col" style="font-size: 15px">
-                                            	<span class="text-secondary">댓글[${replyCount}]</span>
-		                                                <c:choose>
-		                                                    <c:when test="${count==0 }">
-		                                                        <a href="./likeProcess?student_pk=${sessionStudentInfo.student_pk }&studentboard_pk=${read.noticeboardDto.studentboard_pk}">
-		                                                        <i class="text-danger bi bi-heart"></i></a>${aa }
-		                                                    </c:when>
-		                                                    <c:otherwise>
-		                                                        <a  href="./likeProcess?student_pk=${sessionStudentInfo.student_pk }&studentboard_pk=${read.noticeboardDto.studentboard_pk}">
-		                                                        <i class="text-danger bi bi-heart-fill"></i></a>${aa }
-		                                                    </c:otherwise>
-		                                                </c:choose>  
-                                            </div>
+                                        	<div class="col text-secondary" style="font-size: 15px;">
+                                        		댓 글
+                                        		[${replyCount}]
+                                        	</div>
                                         </div>
                                         
                                         <c:forEach items="${reply }" var="boardReply">
@@ -113,13 +104,13 @@
                                                 ${boardReply.replyDto.content }
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row my-1">
                                             <div class="col border-bottom" style="font-size: 15px;">
                                                 작성자: ${boardReply.studentDto.name }
 	                                            <span class="col text-secondary" style="font-size: 13px;">
 	                                                <fmt:formatDate value="${boardReply.replyDto.created_at }" pattern="yy년 MM월 dd일 "/>
 	                                                <c:if test="${sessionStudentInfo.student_pk == boardReply.replyDto.student_pk || sessionStaffInfo != null  }">
-	                                                    <a href="./studentReplyDeleteProcess?id=${boardReply.replyDto.studentboard_reply_pk }
+	                                                    <a href="./replyDeleteProcess?id=${boardReply.replyDto.studentboard_reply_pk }
 	                                                        &deleteId=${boardReply.studentDto.student_pk}
 	                                                        &boardPk=${read.noticeboardDto.studentboard_pk}"
 	                                                        style="text-decoration: none; color:#015A9E;">
@@ -146,58 +137,85 @@
                                         </div>
                                         </form>
                                         </c:if>
-                                        <div class="row">
-                                        	<div class="col">
-                                        	
-                                        		<div class="row mt-3">
-                                        			<div class="col">
-                                        				<a href="./studentBoardPage">
-                                        					<input class="btn btn-outline-primary" type="button" value="목록">
-                                        				</a>
-                                        			</div>
-                                        		</div>
-                                        	
-                                        	</div>
-                                        </div>
                                     </div>
                                 </div>
+                                	
+                          		<div class="row text-end my-4">
+                          			<div class="col pe-0">
+                          				<a href="./studentBoardPage">
+                          					<input class="btn btn-outline-primary" type="button" value="목록">
+                          				</a>
+                          			</div>
+                          		</div>
+                                       	
                             </div>
-
-
-                            <div class="col-2"></div>
+							<div class="col"></div>
+							<div class="col-2" style="background-color:#F2F2F2";>
+                               	<div class="row" >
+                               		<div class="col-1"></div>
+                               		<div class="col">
+                               			<div class="row"></div>
+                               			<div class="row mt-5 pt-1" style="background-color:#F2F2F2";>
+                              				<div class="col fw-bold mb-4 text-center" style="font-size: 1.1em;">
+	                               				<i class="bi bi-asterisk"></i>
+	                               				인기검색어
+	                               				<i class="bi bi-asterisk"></i>
+                              				</div>
+                              			</div>
+                               			<c:forEach items="${readList }" var="notice" varStatus="loop">
+                                    	<c:if test="${loop.index<5 }">
+                               			<div class="row mx-2" >
+                               				<div class="col-1 mt-2">
+                               					<i class="bi bi-award-fill" style="color:#F7C113"></i>
+                               				</div>
+                               				<div class="col mt-2">
+	                   							<span class="d-inline-block text-truncate" style="max-width: 9em;">
+	                                     			<a href="./staffBoardReadPage?id=${notice.noticeboardDto.studentboard_pk }"
+	                                               	class="navbar-brand"
+	                                               	style="text-decoration:none; font-size: 0.9em;">
+	                                               	${notice.noticeboardDto.title }
+	                                            	</a>
+	                                            </span>
+                               				</div>
+                                     	</div>
+										</c:if>
+                                    	</c:forEach>                                        			
+                               		</div>
+	                               		
+                               		<div class="col-1"></div>
+                               		
+                            	</div>
+                            	<div class="row">&nbsp;</div>
+                           		<div class="row">&nbsp;</div>
+                           		<div class="row">&nbsp;</div>
+                           		<div class="row">&nbsp;</div>
+                           		<div class="row">&nbsp;</div>
+                           		<div class="row">&nbsp;</div>
+                           		<div class="row">&nbsp;</div>
+                           		<div class="row">&nbsp;</div>
+                           		<div class="row">&nbsp;</div>
+                           		<div class="row">&nbsp;</div>
+                           		<div class="row">&nbsp;</div>
+                           		<div class="row">&nbsp;</div>
+                           		<div class="row">&nbsp;</div>
+                           		<div class="row">&nbsp;</div>
+                            </div>
                         </div>
 
                     </div>
                 </div>
-
-
-
-
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col py-4" style="background-color: #F2F2F2;">
-                                    <div class="row" style="margin-left: 16%; margin-right: 16%;">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-4 my-auto">
-                                                    <img class="img-fluid" src="./img/health/health_ci.gif">
-                                                </div>
-                                                <div class="col text-body-tertiary" style="font-size: small;">
-                                                    <p class="my-0">서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층&emsp;전화 : 02&#41;561-1911&emsp;팩스 : 02&#41;561-1911</p>
-                                                    <p class="my-0">COPYRIGHT&#40;C&#41; University of Seoul ALL RIGHTS RESERVED.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+	                
+                    
                 </div>
             </div>
+        	</div>
         </div>
         
+        <div class="row">
+        	<div class="col">
+       			<jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
+       		</div>
+        </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>

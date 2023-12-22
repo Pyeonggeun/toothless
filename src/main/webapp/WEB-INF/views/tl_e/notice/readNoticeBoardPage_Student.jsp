@@ -43,7 +43,7 @@
 
 	    // 댓글이 비어있는지 확인
 	    if (!commentValue) {
-	        alert("값 입력하고 눌러라");
+	        alert("입력을 해주세요!");
 	        inputComment.focus();
 	        return;
 	    }
@@ -96,7 +96,7 @@
 				commentDelete.setAttribute("onclick", "deleteComment("+e.noticeCommentDto.id+")");
 				
 				if(${sessionStudentInfo == null} || ${sessionStudentInfo.student_pk} != e.studentInfoDto.student_pk){
-					commentDelete.remove();
+					commentDelete.innerText = "";
 				}
 
 				commentListBox.appendChild(commentWrapper);
@@ -127,6 +127,25 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
+
+	<div class="row">
+	    <div class="col mx-0 px-0" style="height: 35em; position: relative;">
+			<img class="banner img-fluid" src="/toothless/resources/img/groupCounsel/fff.jpg" style="width: 100%; height: 100%;">
+			<div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height: 100%; position: absolute; bottom: 0; left: 0;"></div>
+			<div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 20.5%; transform: translate(-50%, 50%);">MKU 공지사항</div>
+			<div style="color: white; position: absolute; font-size: 5em; bottom: 36%; transform: translate(-50%, -50%); text-align: center; left: -8%; border-top: 1px; border-top-style: solid; border-top-color: white; width: 80%;"></div>
+			<div style="color: white; position: absolute; font-size: 1.4em; bottom: 24.5%; transform: translate(-50%, -50%); text-align: center; left: 19.6%;">너와 나 그리고 우리를 위한 마음을 위한 치료</div>
+			<div style="color: white; position: absolute; font-size: 1.4em; bottom: 17.5%; transform: translate(-50%, -50%); text-align: center; left: 24.2%;">마음도 관리가 필요합니다</div>
+			<div style="height: 17em; width: 18em; border-radius: 0px 50px 0px 0px; background-color: #679467; opacity: 0.9; position: absolute; bottom: -24.2%; transform: translate(-50%, -50%); text-align: center; left: 85%;"></div>
+			<div style="font-weight: 900; color: #464646; position: absolute; font-size: 1.5em; bottom: 34%; transform: translate(-50%, -50%); text-align: center; left: 82%;">Contact Us</div>
+			<div style="font-weight: 900; color: white; position: absolute; font-size: 2.6em; bottom: 10%; transform: translate(-50%, -50%); text-align: center; left: 84%;">1544-3054</div>
+			<div style="color: white; position: absolute; font-size: 0.9em; bottom: 8%; transform: translate(-50%, -50%); text-align: center; left: 83.5%;">E-mail. mkmk@naver.com</div>
+			<div style="color: white; position: absolute; font-size: 0.9em; bottom: 3%; transform: translate(-50%, -50%); text-align: center; left: 82.5%;">Tel. 010-4097-3054</div>
+	    </div>
+	</div>
+
 	<div class="container">
 		<div class="row">
 			<div class="col-1"></div>
@@ -281,7 +300,7 @@
 			<div class="col-1"></div>
 			<div class="col">
 				<div class="row">
-					<div class="col">공지사항</div>
+					<div class="col fw-bold">공지사항</div>
 					<div class="col"></div>
 					<div class="col"></div>
 				</div>
@@ -296,7 +315,7 @@
 					<c:forEach items="${mainList }" var="mainList">
 						<div id="headerSize" class="col-1">${mainList.noticeBoardDto.id }</div>
 						<div class="col-8 border-bottom">
-							<div class="row">
+							<div class="row mt-1">
 								<div class="col-9">
 									<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./readNoticeBoardPage_Student?id=${mainList.noticeBoardDto.id }">${mainList.noticeBoardDto.title }</a>
 									<c:if test="${mainList.commentCount > 0 }">
@@ -353,11 +372,14 @@
 	
 	<div id="templete" class="d-none">
 		<div class="commentWrapper row">
-			<div class="col border-bottom"><i class="bi bi-chat-dots"></i></div>
+			<div class="col-1 border-bottom"><i class="bi bi-chat-dots-fill" style="color: orange;"></i></div>
 			<div class="commentText col border-bottom">댓글내용</div>
-			<div class="commentNickname col border-bottom">댓글작성자</div>
-			<div class="commentDate col border-bottom">작성일</div>
-			<div class="commentDelete">삭제</div>
+			<div class="col-1 border-bottom"></div>
+			<div class="commentNickname col-2 border-bottom">댓글작성자</div>
+			<div class="commentDate col-2 border-bottom">작성일</div>
+			<div class="commentDelete col-1 border-bottom">
+				<div style="cursor: pointer; color: red;">삭제</div>
+			</div>
 		</div>		
 	</div>
 	

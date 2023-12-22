@@ -348,14 +348,14 @@
 												<i class="bi bi-dot fw-bold"></i>
 											</div>
 											<div id="someDate" class="col" >
-												12.08 ~ 12.15
+												임원명
 											</div>
 										</div>
 										<div class="row text-start mb-1">
 											<div class="col-1">
 											</div>
-											<div id="someName" class="col text-over-cut2" style="color: #007AC3">
-												어떠한 수업명
+											<div onclick="location.href='./jw_diaryManagementPage'" id="someName" class="col text-over-cut2" style="color: #007AC3; cursor: pointer;">
+												일지내용
 											</div>
 										</div>
 									</div>

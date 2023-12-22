@@ -15,10 +15,35 @@
 		font-family: 'Gowun Dodum', sans-serif;
 		/* font-family: 'Quicksand', sans-serif; */
 	}
+	
+	#topBannerCol
+	{	
+		background-image: url("/toothless/resources/img/counselCenterStaff/topBanner01.jpg");
+		background-position: center;
+		background-size: cover;
+		height: 14em;
+		background-repeat: no-repeat;
+		
+	}
+	
 </style>
 <title>Insert title here</title>
 </head>
 <body>
+	
+	<jsp:include page="../commons/staffTopArea.jsp"></jsp:include>
+	
+	<!-- 상단 배너 이미지 -->
+	<div class="row">
+		<div id="topBannerCol" class="col">
+			<div class="row mt-3">
+				<div class="col ms-5">
+					<span class="fs-1 fw-bold text-white">Management</span>
+				</div>
+			</div>				
+		</div>
+	</div>
+
 	<div class="container">
 		<div class="row">&nbsp;</div>
 		<div class="row">
@@ -29,13 +54,11 @@
 					<div class="col-10">
 						<div class="row">
 							<div class="col fs-1 fw-bold text-center">공지사항 수정</div>
-							<div class="col-2 mt-3 text-end">${sessionStaffInfo.name } 님 글 수정중</div>
 						</div>
 					</div>
 					<div class="col-1"></div>
 				</div>
 				<div class="row">&nbsp;</div>
-				<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black;" href="./noticeMainPage"><i class="bi bi-card-list"></i>&nbsp;&nbsp;목록</a>
 				<div class="row">
 					<div class="col-11">
 						<div class="row border">
@@ -70,9 +93,19 @@
 									</div>
 									<div class="row">&nbsp;</div>
 									<div class="row">
-										<div class="col-10"></div>
+										<div class="col-8"></div>
 										<div class="col">
-											<button type="submit" class="btn btn-light">글수정</button>
+											<div class="row">
+												<div class="col text-end pe-0">
+													<a class="link-offset-2 link-underline link-underline-opacity-0 btn btn-light" style="color: black;" href="./noticeMainPage_Staff"><i class="bi bi-card-list" style="color: red"></i>&nbsp;&nbsp;목록</a>
+												</div>
+												<div class="col text-center">
+													<a class="link-offset-2 link-underline link-underline-opacity-0 btn btn-light" style="color: black;" href="readNoticeBoardPage_Staff?id=${list.noticeBoardDto.id }">뒤로가기</a>
+												</div>
+												<div class="col text-center">
+													<button type="submit" class="btn btn-light">글수정</button>
+												</div>
+											</div>		
 										</div>
 									</div>
 									<div class="row">&nbsp;</div>

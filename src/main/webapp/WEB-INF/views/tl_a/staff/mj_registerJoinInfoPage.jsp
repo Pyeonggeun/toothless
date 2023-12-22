@@ -534,7 +534,7 @@
 	//	--> 함수가 실행이 안되면 값을 못 가져오는거...
 	window.addEventListener("DOMContentLoaded", () => {
 		getSessionStaffId();	
-		mj_registerJoinInfoPage();
+		mj_readRegisterJoinInfoPage();
 	});
 	
 	

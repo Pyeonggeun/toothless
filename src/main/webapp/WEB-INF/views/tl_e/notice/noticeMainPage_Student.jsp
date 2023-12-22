@@ -51,6 +51,24 @@
 		display: inline-block;
 	}
 	
+	.carousel-caption {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);	
+		width: 100%;
+		padding: 20px; /* 원하는 패딩 값으로 조정 가능 */
+		color: black; /* 텍스트 색상 설정 */
+	}
+
+	.carousel-caption h5 {
+		margin-bottom: 0; /* h5 요소의 기본 마진 제거 */
+	}
+	
+	.carousel-item a {
+		pointer-events: none;
+	}
+	
 </style>
 <title>Insert title here</title>
 <script>
@@ -190,7 +208,7 @@
 	    <div class="col mx-0 px-0" style="height: 35em; position: relative;">
 			<img class="banner img-fluid" src="/toothless/resources/img/groupCounsel/fff.jpg" style="width: 100%; height: 100%;">
 			<div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height: 100%; position: absolute; bottom: 0; left: 0;"></div>
-			<div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 20.5%; transform: translate(-50%, 50%);">MKU 상담센터</div>
+			<div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 20.5%; transform: translate(-50%, 50%);">MKU 공지사항</div>
 			<div style="color: white; position: absolute; font-size: 5em; bottom: 36%; transform: translate(-50%, -50%); text-align: center; left: -8%; border-top: 1px; border-top-style: solid; border-top-color: white; width: 80%;"></div>
 			<div style="color: white; position: absolute; font-size: 1.4em; bottom: 24.5%; transform: translate(-50%, -50%); text-align: center; left: 19.6%;">너와 나 그리고 우리를 위한 마음을 위한 치료</div>
 			<div style="color: white; position: absolute; font-size: 1.4em; bottom: 17.5%; transform: translate(-50%, -50%); text-align: center; left: 24.2%;">마음도 관리가 필요합니다</div>
@@ -203,8 +221,9 @@
 	</div>
 
 	<div class="container">
+		
 		<div class="row">
-			<div class="col-3 mt-2">
+			<div class="col-3">
 				<div class="row">
 					<div class="col text-start">
 						<span><i class="bi bi-house"></i> &gt; </span>
@@ -213,7 +232,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col mt-2">
+			<div class="col mt-4">
 				<div id=frm>
 					<div class="row">
 						<div class="col-2">
@@ -234,7 +253,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-2 mt-2">
+			<div class="col-2 mt-5">
 				<div class="row">
 					<div class="col">
 						<div class="row">
@@ -257,27 +276,42 @@
 								<div class="row">&nbsp;</div>
 								<div class="row">&nbsp;</div>
 								<div class="row">
-									<div class="col" style="max-height: 15em; min-height: 15em;">
+									<div class="col mt-5" style="max-height: 15em; min-height: 15em;">
 										<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-										  <div class="carousel-inner">
-										    <div class="carousel-item active">
-										      <img src="../../resources/img/notice/image1.jpg" class="d-block w-100" alt="...">
-										    </div>
-										    <div class="carousel-item">
-										      <img src="../../resources/img/notice/image2.jpg" class="d-block w-100" alt="...">
-										    </div>
-										    <div class="carousel-item">
-										      <img src="../../resources/img/notice/image3.jpg" class="d-block w-100" alt="...">
-										    </div>
-										  </div>
-										  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-										    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-										    <span class="visually-hidden">Previous</span>
-										  </button>
-										  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-										    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-										    <span class="visually-hidden">Next</span>
-										  </button>
+											<div class="carousel-inner">
+												<div class="carousel-item active">
+													<img src="../../resources/img/notice/image1.jpg" class="d-block w-100" alt="...">
+													<div class="carousel-caption d-flex align-items-start justify-content-center" onclick="location.href='../onlineCounsel/onlineCounselMainPage'" style="cursor: pointer;">
+													    <h5 style="font-weight: bold;">온라인 상담</h5>
+													</div>
+												</div>
+												<div class="carousel-item">
+													<a href="../offlineCounsel/selectCounselorPage"><img src="../../resources/img/notice/image2.jpg" class="d-block w-100" alt="..."></a>
+													<div class="carousel-caption d-flex align-items-start justify-content-center" onclick="location.href='../offlineCounsel/selectCounselorPage'" style="cursor: pointer;">
+													    <h5 style="font-weight: bold;">오프라인 상담</h5>
+													</div>
+												</div>
+												<div class="carousel-item">
+													<a href="../groupcounsel/student/groupCounselListPage"><img src="../../resources/img/notice/image3.jpg" class="d-block w-100" alt="..."></a>
+													<div class="carousel-caption d-flex align-items-start justify-content-center" onclick="location.href='../offlineCounsel/selectCounselorPage'" style="cursor: pointer;">
+													    <h5 style="font-weight: bold;">집단 상담</h5>
+													</div>
+												</div>
+											    <div class="carousel-item">
+											    	<a href="../freeboardCounsel/freeboardCounselPage"><img src="../../resources/img/notice/image4.jpg" class="d-block w-100" alt="..."></a>
+													<div class="carousel-caption d-flex align-items-start justify-content-center" onclick="location.href='../freeboardCounsel/freeboardCounselPage'" style="cursor: pointer;">
+													    <h5 style="font-weight: bold;">자유 게시판</h5>
+													</div>
+											  	</div>
+											</div>
+											<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+												<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+												<span class="visually-hidden">Previous</span>
+											</button>
+											<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+												<span class="carousel-control-next-icon" aria-hidden="true"></span>
+												<span class="visually-hidden">Next</span>
+											</button>
 										</div>
 									</div>
 								</div>
@@ -286,21 +320,21 @@
 					</div>
 				</div>	
 			</div>
-			<div class="col ps-4 mt-2">
+			<div class="col ps-4 mt-5">
 				<div class="row">
-					<div class="col mt-2">
+					<div class="col">
 						<div class="row fw-bold fs-6">
 							<div class="col"><i class="bi bi-chat-square-text-fill"></i>&nbsp;글번호</div>
 							<div class="col-7 ps-0 pe-5"><i class="bi bi-emoji-expressionless-fill"></i>&nbsp;제목</div>
 							<div class="col ps-5 pe-0"><i class="bi bi-emoji-heart-eyes-fill"></i>&nbsp;조회수</div>
 							<div class="col ps-2 pe-0"><i class="bi bi-person-arms-up"></i>&nbsp;작성자</div>
-							<div class="col ps-2 pe-0"><i class="bi bi-calendar-heart-fill"></i>&nbsp;작성일</div>
+							<div class="col ps-0 pe-0"><i class="bi bi-calendar-heart-fill"></i>&nbsp;작성일</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col" style="overflow-y: auto; max-height: 600px;">
-						<div id="noticeListBox" class="row">
+						<div id="noticeListBox" class="row mt-4" style=" overflow-y: auto; max-height: 400px;">
 							<div class="col">
 								
 							</div>
@@ -314,7 +348,7 @@
 		<div class="col"></div>
 	</div>
 	<!-- 풋터 -->
-	<div class="row mt-5" style="background-color: #5a5a5a;">
+	<div class="row mt-1" style="background-color: #5a5a5a;">
 		<div class="col-1"></div>
 		<div class="col">
 			<div class="row" style="height: 4em;"></div>
@@ -348,7 +382,7 @@
 					<div class="noticeTitle col-8 border-bottom">
 						<div class="row">
 							<div class="col-9">
-								<a class="titleUrl link-offset-2 link-underline link-underline-opacity-0 fs-5 ps-2" style="color: black"></a>
+								<a class="titleUrl link-offset-2 link-underline link-underline-opacity-0 ps-2" style="color: black; font-size: 1.1em;"></a>
 								<span class="titleSpan fw-bold text-danger" style="font-size:0.7em;"></span>
 								<span class="imageSpan"></span>
 							</div>
@@ -360,9 +394,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="noticeRead_Count col-1"></div>
-					<div class="noticeNickname col-1"></div>
-					<div class="noticeDate col-1 ps-1"></div>
+					<div class="noticeRead_Count col-1 text-center"></div>
+					<div class="noticeNickname col-1 text-center"></div>
+					<div class="noticeDate col-1 ps-3"></div>
 				</div>
 			</div>
 		</div>

@@ -281,7 +281,7 @@
 																	<div class="col-4 pe-4">
 																		<div
 																			class="row border d-flex align-items-center justify-content-center"
-																			style="height: 50px;">전자공학과</div>
+																			style="height: 50px;">${selectionStudent.TOTAL_SCORE}</div>
 																	</div>
 																</div>
 

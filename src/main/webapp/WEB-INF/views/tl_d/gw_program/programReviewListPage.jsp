@@ -47,27 +47,21 @@
 						      <div class="col-2 text-center fw-bold">평점</div>
 						      <div class="col text-center fw-bold">평가</div>
 						</div> -->
+						<div class="row border-bottom border-black pt-4 pb-3 mb-3">
+									<div class="col-1 text-center fw-bold">평점</div>
+								   <div class="col-1 text-center fw-bold">참여자</div>
+								   <div class="col text-center fw-bold">개선사항</div>
+						</div>	
+						
 						
 						<c:forEach items="${studentApplyProgram}" var="list">
-							<c:if test="${!empty list.programReviewDto.prg_score}">
-								<div class="row border-bottom border-bs-border pb-3 mb-3">
+							<c:if test="${!empty list.programReviewDto.prg_score}"> 
+								<div class="row border-bottom border-bs-border pb-4 mb-3">
 									
-								    <div class="col-2">
-								    	<div class="row mb-3">
-								    		<div class="col fw-bold">평점</div>
-								    		<div class="col">${list.programReviewDto.prg_score}</div>
-								    	</div> 
-								    	<div class="row mb-3"> 
-								    		<div class="col fw-bold">참여자</div>
-								    		<div class="col">${list.studentInfoDto.name}</div>
-								    	</div>
-								    	<div class="row mb-3">
-								    		<div class="col fw-bold">개선사항</div>
-								    		<div class="col">${list.programReviewDto.prg_comment}</div>
-								    		
-								    	</div>
-									</div>
-								</div>	
+								    <div class="col-1 mt-1 text-center fw-bold">${list.programReviewDto.prg_score}</div>
+								   <div class="col-1 mt-1 text-center fw-bold">${list.studentInfoDto.name}</div>
+								   <div class="col mt-1">${list.programReviewDto.prg_comment}</div>
+								</div>    
 							</c:if>		
 						</c:forEach>
 						

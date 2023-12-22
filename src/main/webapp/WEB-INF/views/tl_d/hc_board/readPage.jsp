@@ -95,7 +95,7 @@
 						<c:when test="${sessionStaffInfo.staff_pk == roman.staffInfoDto.staff_pk }">	
 								<div class="col">
 							<a class="navbar-brand" href="./deleteProcess?board_pk=${roman.qnABoardDto.board_pk }">
-								<button type="submit" class="btn btn-danger"><i class="bi bi-trash3-fill"></i>
+								<button type="submit" class="btn btn-outline-primary"><i class="bi bi-trash3-fill"></i>
 									삭제
 								</button>
 							</a>

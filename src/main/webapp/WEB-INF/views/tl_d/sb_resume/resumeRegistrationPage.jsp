@@ -13,46 +13,6 @@
 <script>
 
 
-
-function convertEnterToBr() {
-	
-	const resume_title = document.getElementById("resume_title");
-	const titleValue = resume_title.value;
-	
-	const cover_letter = document.getElementById("cover_letter");
-	const letterValue = cover_letter.value;
-	
-	const radioBox = document.querySelector(".radioBox");
-	const main_resume = radioBox.querySelectorAll(".main_resume");
-	
-	
-	main_resume.forEach((e) => {
-        if(e.checked == true){
-        	mainValue = e.value;
-        }
-     });
-	
-    const url = "./convertEnterToBr";
-	
-	fetch(url, {
-		method: "post",
-		headers: {
-			"Content-Type": "application/x-www-form-urlencoded"
-		},
-		body: "resume_title=" + titleValue + "&cover_letter=" + letterValue + "&main_resume=" + mainValue
-	})
-	.then(response => response.json())
-	.then(response => {
-		const aaa = document.querySelector("#aaa");
-	   	aaa.setAttribute("href", "./resumeManagementPage");
-		let mainValue = "";q
-		
-	});
-    
-    
-}
-
-
 </script>
 
 
@@ -83,7 +43,7 @@ function convertEnterToBr() {
 				<div class="row">
 					<div class="col">
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
-							<div class="col fw-bold">인적사항</div>
+							<div class="col fw-bold"><i class="bi bi-person-fill"></i>인적사항</div>
 							
 						</div>
 					</div>
@@ -120,7 +80,7 @@ function convertEnterToBr() {
 				<div class="row">
 					<div class="col">
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
-							<div class="col fw-bold">메인 이력서 선택</div>
+							<div class="col fw-bold"><i class="bi bi-check-lg"></i>메인 이력서 선택</div>
 							
 						</div>
 					</div>
@@ -142,7 +102,7 @@ function convertEnterToBr() {
 				<div class="row">
 					<div class="col">
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
-							<div class="col fw-bold">이력서 제목</div>
+							<div class="col fw-bold"><i class="bi bi-file-earmark-text"></i>이력서 제목</div>
 							
 						</div>
 					</div>
@@ -161,7 +121,7 @@ function convertEnterToBr() {
 				<div class="row">
 					<div class="col">
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
-							<div class="col fw-bold">자소서</div>
+							<div class="col fw-bold"><i class="bi bi-file-earmark-text"></i>자소서</div>
 							
 						</div>
 					</div>
@@ -178,10 +138,10 @@ function convertEnterToBr() {
 					</div>
 				</div>
 				
-				<div class="row">
+				<div class="row mt-4">
 					<div class="col-10"></div>
-					<div class="col">
-						<a class="navbar-brand" id="aaa" ><button onclick="convertEnterToBr()" type="button" class="btn btn-primary">이력서 등록</button></a>
+					<div class="col ">
+						<button type="submit" class="btn btn-outline-dark">이력서 등록</button>
 					</div>
 				</div>
 				</form>

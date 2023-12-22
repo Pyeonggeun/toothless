@@ -246,4 +246,14 @@ public class RegisterCounselorServiceImpl {
 	public List<Map<String, Object>> getGroupCounselList(){
 		return registerCounselorSqlMapper.selectGroupCounselBoardForStaffMain();
 	}
+	
+	// 공지사항 리스팅
+	public List<Map<String, Object>> getNoticeListForStaffMain(){
+		return registerCounselorSqlMapper.selectNoticeBoardForStaffMain();
+	}
+	
+	// 학생 자유게시판 리스팅
+	public List<Map<String, Object>> getFreeboardForStaffMain(){
+		return registerCounselorSqlMapper.selectFreeboardForStaffMain();
+	}
 }
