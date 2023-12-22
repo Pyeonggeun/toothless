@@ -300,7 +300,7 @@
 			<div class="col-1"></div>
 			<div class="col">
 				<div class="row">
-					<div class="col">공지사항</div>
+					<div class="col fw-bold">공지사항</div>
 					<div class="col"></div>
 					<div class="col"></div>
 				</div>

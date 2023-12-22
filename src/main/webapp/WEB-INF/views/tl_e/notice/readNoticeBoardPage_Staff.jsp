@@ -27,6 +27,17 @@
     #headerSize {
     	font-size: 0.8em;
     }
+    
+    #topBannerCol
+	{	
+		background-image: url("/toothless/resources/img/counselCenterStaff/topBanner01.jpg");
+		background-position: center;
+		background-size: cover;
+		height: 14em;
+		background-repeat: no-repeat;
+		
+	}
+    
 </style>
 
 <script>
@@ -79,7 +90,20 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 	<jsp:include page="../commons/staffTopArea.jsp"></jsp:include>
+	
+	<!-- 상단 배너 이미지 -->
+	<div class="row">
+		<div id="topBannerCol" class="col">
+			<div class="row mt-3">
+				<div class="col ms-5">
+					<span class="fs-1 fw-bold text-white">Management</span>
+				</div>
+			</div>				
+		</div>
+	</div>
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-1"></div>
@@ -203,7 +227,7 @@
 			<div class="col-1"></div>
 			<div class="col">
 				<div class="row">
-					<div class="col">공지사항</div>
+					<div class="col fw-bold">공지사항</div>
 					<div class="col"></div>
 					<div class="col"></div>
 				</div>
@@ -246,32 +270,32 @@
 		</div>
 	</div>
 	
-	<!-- 풋터 -->
-	<div class="row mt-5" style="background-color: #5a5a5a;">
+	<!-- footer start -->
+	<div class="row mt-5" style="background-color: #686868; height: 11.3em;">
 		<div class="col-1"></div>
 		<div class="col">
-			<div class="row" style="height: 4em;"></div>
+			<div class="row" style="height: 2.5em;"></div>
 			<div class="row">
 				<div class="col">
-					<span style="font-size: 1.4em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
-					<span style="font-size: 1.2em; color: white; font-weight: 500;">▪</span>
-					<span style="font-size: 1.2em; color: white; font-weight: 500;">이메일무단수집거부</span>
+					<span style="font-size: 1.1em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
+					<span style="font-size: 0.9em; color: white; font-weight: 500;">▪</span>
+					<span style="font-size: 0.9em; color: white; font-weight: 500;">이메일무단수집거부</span>
 				</div>
 			</div>
 			<div class="row pt-4">
 				<div class="col">
-					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
+					<div style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
 				</div>
 			</div>
 			<div class="row pt-2">
 				<div class="col">
-					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
+					<div style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
 				</div>
 			</div>
-			<div class="row pt-4" style="border-bottom-style: solid; border-bottom-color: gray; border-bottom-width: 1px;"></div>
 		</div>
 		<div class="col-1"></div>
 	</div>
+	<!-- footer end -->
 	
 	<div id="templete" class="d-none">
 		<div class="commentWrapper row">

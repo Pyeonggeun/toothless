@@ -221,8 +221,9 @@
 	</div>
 
 	<div class="container">
+		
 		<div class="row">
-			<div class="col-3 mt-2">
+			<div class="col-3">
 				<div class="row">
 					<div class="col text-start">
 						<span><i class="bi bi-house"></i> &gt; </span>
@@ -231,7 +232,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col mt-2">
+			<div class="col mt-4">
 				<div id=frm>
 					<div class="row">
 						<div class="col-2">
@@ -252,7 +253,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-2 mt-2">
+			<div class="col-2 mt-5">
 				<div class="row">
 					<div class="col">
 						<div class="row">
@@ -319,21 +320,21 @@
 					</div>
 				</div>	
 			</div>
-			<div class="col ps-4 mt-2">
+			<div class="col ps-4 mt-5">
 				<div class="row">
-					<div class="col mt-2">
+					<div class="col">
 						<div class="row fw-bold fs-6">
 							<div class="col"><i class="bi bi-chat-square-text-fill"></i>&nbsp;글번호</div>
 							<div class="col-7 ps-0 pe-5"><i class="bi bi-emoji-expressionless-fill"></i>&nbsp;제목</div>
 							<div class="col ps-5 pe-0"><i class="bi bi-emoji-heart-eyes-fill"></i>&nbsp;조회수</div>
 							<div class="col ps-2 pe-0"><i class="bi bi-person-arms-up"></i>&nbsp;작성자</div>
-							<div class="col ps-2 pe-0"><i class="bi bi-calendar-heart-fill"></i>&nbsp;작성일</div>
+							<div class="col ps-0 pe-0"><i class="bi bi-calendar-heart-fill"></i>&nbsp;작성일</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col" style="overflow-y: auto; max-height: 600px;">
-						<div id="noticeListBox" class="row">
+						<div id="noticeListBox" class="row mt-4" style=" overflow-y: auto; max-height: 400px;">
 							<div class="col">
 								
 							</div>
@@ -381,7 +382,7 @@
 					<div class="noticeTitle col-8 border-bottom">
 						<div class="row">
 							<div class="col-9">
-								<a class="titleUrl link-offset-2 link-underline link-underline-opacity-0 fs-5 ps-2" style="color: black"></a>
+								<a class="titleUrl link-offset-2 link-underline link-underline-opacity-0 ps-2" style="color: black; font-size: 1.1em;"></a>
 								<span class="titleSpan fw-bold text-danger" style="font-size:0.7em;"></span>
 								<span class="imageSpan"></span>
 							</div>
@@ -393,9 +394,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="noticeRead_Count col-1"></div>
-					<div class="noticeNickname col-1"></div>
-					<div class="noticeDate col-1 ps-1"></div>
+					<div class="noticeRead_Count col-1 text-center"></div>
+					<div class="noticeNickname col-1 text-center"></div>
+					<div class="noticeDate col-1 ps-3"></div>
 				</div>
 			</div>
 		</div>
