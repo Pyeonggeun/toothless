@@ -281,19 +281,12 @@
 	            const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 100 };
 
 	            const COLORS = [
-	            	'#6FEDD6',
-	            	'#FF9551',
-	            	'#FF4A4A',
-	            	'#9AD0C2',
-	            	'#2D9596',
-	            	'#265073',
-	            	'#ECF4D6',
 	            	'#7071E8', 
-	            	'#C683D7', 
-	            	'#ED9ED6',
+	            	'#C683D7',
 	            	'#C0EEE4',
+	            	'#FFCAC8', 
+	            	'#ED9ED6',
 	            	'#F8F988',
-	            	'#FFCAC8',
 	            	'#FF9E9E',
 	            	'#F4F27E',
 	            	'#6DB9EF',
@@ -448,7 +441,7 @@
 				<jsp:include page="../commons/counselorTopArea.jsp"></jsp:include>
 			</div>
 		</div>
-		<div class="row pt-4" style="background-color: rgb(238, 238, 238);">
+		<div class="row pt-4 pb-5" style="background-color: rgb(238, 238, 238);">
 			<div class="col">
 				<div class="row">
 					<div class="col-3 ms-5 me-3 px-5 py-2 border rounded bg-white">
@@ -586,6 +579,32 @@
 				</div>
 			</div>
 		</div>
+		<!-- footer start -->
+		<div class="row" style="background-color: #686868; height: 11.3em;">
+			<div class="col-1"></div>
+			<div class="col">
+				<div class="row" style="height: 2.5em;"></div>
+				<div class="row">
+					<div class="col">
+						<span style="font-size: 1.1em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
+						<span style="font-size: 0.9em; color: white; font-weight: 500;">▪</span>
+						<span style="font-size: 0.9em; color: white; font-weight: 500;">이메일무단수집거부</span>
+					</div>
+				</div>
+				<div class="row pt-4">
+					<div class="col">
+						<div style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
+					</div>
+				</div>
+				<div class="row pt-2">
+					<div class="col">
+						<div style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-1"></div>
+		</div>
+		<!-- footer end -->
 	</div>
 	
 	<div id="templete" class="d-none">

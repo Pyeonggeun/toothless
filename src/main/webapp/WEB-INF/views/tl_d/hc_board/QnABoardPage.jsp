@@ -52,31 +52,61 @@
 			<%-- 내용 시작 --%>
 			<div class="col">
 			<%-- 공지사항 칸 --%>
-				<div class="row  border-bottom border-2 border-grey mb-5 pt-3 ">
-					<div class="col fw-bold fs-3">QnA 자주 묻는 질문 게시판</div>															
+				<div class="row  border-bottom border-2 border-grey mb-5 mt-5 pt-3 pb-3">
+					<div class="col fw-bold fs-3" >자주 묻는 QnA </div>															
 				</div>
-				<div class="row border-2 border-top border-black bg-body-secondary pt-3">
-					<div class="col mb-3 fw-bold">글번호</div>
-					<div class="col fw-bold">제목</div>
-					<div class="col fw-bold">작성자</div>
-					<div class="col fw-bold">작성일</div>
+				<div class="row my-2">
+					<div class="col-8">1</div>
+					
+					<div class="col text-end mx-0 px-0">
+						<div class="btn-group">
+							<button class="btn border-black border-1 btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+								제목
+							</button>
+							<ul class="dropdown-menu">
+							</ul>
+						</div>	
+					</div>
+					<div class="col mx-0 ps-2 pe-0">
+						<div class=row>
+							<div class=col></div>
+							
+							<div class=col>
+								<div class="row">
+									<div class="col-9" >
+										<input type="text" class="rounded-2">
+									</div>
+									<div class="col align-self-center">
+										<i class="bi bi-search"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row  border-2 border-top border-black bg-body-secondary pt-3">
+					<div class="col ms-4 mb-3 fw-bold">글번호</div>
+					<div class="col-7 text-center ms-4  fw-bold">제목</div>
+					<div class="col ms-3 fw-bold">작성자</div>
+					<div class="col ps-5 ms-5  fw-bold">작성일</div>
 				</div>
 				
-				<div class="row">
-					<div class="col">
+				<div class="row ">
+					<div class="col text-center">
 						<c:forEach items="${list }" var="map">
 							<div class="row border-bottom mt-4 ">
-								<div class="col-1 mb-3">
+								<div class="col mb-3">
 									${map.qnaBoardDto.board_pk }
 								</div>
-								<div class="col  mb-3">
+								<div class="col-7 text-start mb-3">
 								<a  class="navbar-brand"  href="./readPage?board_pk=${map.qnaBoardDto.board_pk }">
-									${map.qnaBoardDto.board_title }</a>
+								<span class="d-inline-block text-truncate" style="max-width: 23em;">${map.qnaBoardDto.board_title }
+								</span></a>
 								</div>
-								<div class="col-3 mb-3 fw-bold">
+								<div class="col me-5 mb-3 fw-bold">
 									${map.staffInfoDto.name}
 								</div>
-								<div class="col-3 mb-3">
+								<div class="col  mb-3">
 								<fmt:formatDate value="${map.qnaBoardDto.created_at }" pattern="yyyy-MM-dd"/>	
 								</div>
 							</div>

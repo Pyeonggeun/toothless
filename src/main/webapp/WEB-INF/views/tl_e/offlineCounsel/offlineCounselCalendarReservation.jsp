@@ -165,9 +165,12 @@
 				arrCalendar.push(i);
 			}
 			
+			const today = new Date();
+			const threeMonthsLater = new Date();
+			threeMonthsLater.setMonth(threeMonthsLater.getMonth() + 2);
+			
 			for(let i = 1; i <= arrCalendar.length; i++){
 				
-				const today = new Date();
 			    const currentDay = new Date(year, month - 1, arrCalendar[i - 1]).getDay();
 			    const currentDate = new Date(year, month - 1, arrCalendar[i - 1]);
 			    const currentMonth = today.getMonth();
@@ -184,7 +187,7 @@
 			    dateCol.innerText = currentNum;
 			    
 			    if (i <= firstDayOfMonth.getDay() && currentMonth === (month - 1)) {
-			        // 이전 달의 날짜 비활성화
+			        // 현재 날짜 기준 이전 달의 날짜 비활성화 & bg 컬러 변경 
 			        let prevMonthYear = modifiedDate.getFullYear();
 			        let prevMonth = modifiedDate.getMonth();
 			        if (prevMonth === 0) {
@@ -194,7 +197,7 @@
 			        dateCol.classList.add('text-secondary');
 			        dateCol.style.backgroundColor = "#f2f1f1";
 			    }else if (i <= firstDayOfMonth.getDay()) {
-			        // 이전 달의 날짜 비활성화
+			        // 이전 달의 날짜 text-secondary 변경
 			        let prevMonthYear = modifiedDate.getFullYear();
 			        let prevMonth = modifiedDate.getMonth();
 			        if (prevMonth === 0) {
@@ -203,7 +206,7 @@
 			        }
 			        dateCol.classList.add('text-secondary');
 			    }else if (i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())) {
-			        // 다음 달의 날짜 활성화
+			        // 다음 달의 날짜 활성화 & text-secondary 변경
 			        let nextMonthYear = modifiedDate.getFullYear();
 			        let nextMonth = modifiedDate.getMonth() + 2;
 			        if (nextMonth === 13) {
@@ -212,11 +215,14 @@
 			        }
 			        dateCol.classList.add('text-secondary');
 			        dateCol.setAttribute("onclick", "showModal(" + nextMonthYear + "," + nextMonth + "," + arrCalendar[i - 1] + "," + currentDay + "," + counselorPk.value + ")");
+			        if(modifiedDate.getTime() > threeMonthsLater.getTime() && i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())){
+				    	dateCol.removeAttribute("onclick");
+				    }
 			    } else if (today.getFullYear() === year && today.getMonth() === month - 1 && arrCalendar[i - 1] < today.getDate()) {
 			        // 이번 달의 오늘 이전의 날짜인 경우, 비활성화
 			        dateCol.classList.add('text-secondary');
 			        dateCol.style.backgroundColor = "#f2f1f1";
-			    } else {
+			    }else {
 			        // 나머지 날짜는 활성화
 			        dateCol.setAttribute("onclick", "showModal(" + year + "," + month + "," + arrCalendar[i - 1] + "," + currentDay + "," + counselorPk.value + ")");
 			    }
@@ -225,11 +231,6 @@
 			}
 			
 			const previousMonthBtn = document.querySelector(".previousMonthBtn");
-			
-			const today = new Date();
-			
-			const threeMonthsLater = new Date();
-			threeMonthsLater.setMonth(threeMonthsLater.getMonth() + 2);
 			
 		    if (currentDate.getMonth() === today.getMonth()) {
 		        previousMonthBtn.disabled = true;
@@ -605,7 +606,7 @@
 								<input class="nextMonthBtn btn btn-outline-dark" type="button" value="&gt">
 							</div>
 						</div>
-						<div class="row mt-5 bg-secondary-subtle">
+						<div class="row mt-5">
 							<div class="col text-center fw-bold border">
 								Sun
 							</div>

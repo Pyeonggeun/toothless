@@ -103,7 +103,8 @@
 						
 						internshipPeroid.innerText = internshipStartDate + " - " + internshipEndDate;
 						
-						if(info.grade == 0){
+						if(info.grade === 0){
+							
 							showGrade.setAttribute("style", "font-size:0.95em");
 							showGrade.classList.add("text-secondary", "fw-bold");
 							showGrade.innerText = "평가 미완료";
@@ -449,7 +450,7 @@
 					</div>
 				</div>
 				
-				<div id="notice" class="row border mt-5" style="font-size:0.85em">
+				<div id="notice" class="row border mt-5 mb-4" style="font-size:0.85em">
 					<div class="col px-4 py-4 text-dark-emphasis">
 						<div class="row mt-2">
 							<div class="col fw-semibold">
@@ -551,11 +552,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="modal-footer border-0 mb-3">
-					<input type="hidden" id="ratingValue">
-					<input type="hidden" id="inputStudentInternPk">
-					<button id="submitButton" onclick="writeSatisfaction()" class="closeModal btn btn-secondary rounded-0">제출</button>
-				</div>
+				
 			</div>
 		</div>
 	</div>
