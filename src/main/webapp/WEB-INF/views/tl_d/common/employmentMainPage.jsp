@@ -40,7 +40,7 @@
 					</div>
 				</div>
 				<c:forEach items="${noticeList}" var="list">
-					<div class="row border-bottom border-bs-border pb-2 mb-2">
+					<div class="row border-bottom border-bs-border pb-2 mb-2 px-1">
 						
 						<div class="col fw-bold pt-3">
 							<a class="navbar-brand" href="../hc_board/readNoticePageForStudent?id=${list.notice_board_pk }">
@@ -52,7 +52,6 @@
 						<div class="col-2 pt-3">
 							<fmt:formatDate value="${list.created_at}" pattern="yy.MM.dd"/>
 						</div>
-						<div class="col-1"></div>
 					</div>
 				</c:forEach>
 				
