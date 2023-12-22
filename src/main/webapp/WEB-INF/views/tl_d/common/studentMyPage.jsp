@@ -301,13 +301,13 @@
 												<div class="col-3 ms-2">No.<span class="fw-bold">${e.onlineConsultingDto.on_consulting_pk}</span></div>
 												<div class="col ms-2">
 												</div>
-												<div class="col ms-2">
+												<div class="col ms-2 text-center">
 													<c:choose>
 														<c:when test="${e.onlineConsultingReplyDto==null}">
 															<span class="badge text-bg-danger">미답변</span>
 														</c:when>
 														<c:otherwise>
-															<a href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="badge text-bg-primary">답변완료</span></a>
+															<a href="../jm_consulting/myOnlineConsultingPage?on_consulting_pk=${e.onlineConsultingDto.on_consulting_pk}"><span class="badge text-bg-secondary">답변완료</span></a>
 														</c:otherwise>
 													</c:choose>		
 												</div>
