@@ -178,14 +178,30 @@
 				
 				
 				
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					<div class="row mt-5"></div>
+					
 				
 				<!-- 본문 끝 -->
 				</div>
-				
+				<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 			</div>
-			
+					
 		</div>
-		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>	
+	
 	</div>
 	
 </div>
