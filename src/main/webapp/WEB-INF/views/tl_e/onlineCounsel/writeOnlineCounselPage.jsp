@@ -179,7 +179,7 @@
 		
 		
 <!-- footer start -->
-         <div class="row" style="background-color: #5a5a5a; height: 14em;">
+         <div class="row mt-3" style="background-color: #5a5a5a; height: 14em;">
             <div class="col-1"></div>
             <div class="col">
                <div class="row" style="height: 4em;"></div>

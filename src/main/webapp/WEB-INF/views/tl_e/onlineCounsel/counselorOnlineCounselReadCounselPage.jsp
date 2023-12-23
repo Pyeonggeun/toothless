@@ -351,7 +351,7 @@
 								<div class="row">
 									<div class="col-1"></div>
 									<div class="col">
-										<textarea name="text" placeholder="답변 작성" class="form-control" style=" border-radius: 10px; max-width:100%; min-height: 12em; background-color: rgb(244, 244, 241);"></textarea>
+										<textarea name="text" placeholder="답변 작성" class="form-control" style=" border-radius: 10px; max-width:100%; min-height: 12em; background-color: white;"></textarea>
 									</div>
 								</div>
 								<div class="row">
@@ -460,8 +460,8 @@
 			
 			
 <!-- footer start -->
-	<div class="row mt-5" style="background-color: #686868; height: 11.3em;">
-		<div class="col-1"></div>
+	<div class="row mt-3" style="background-color: #686868; height: 11.3em;">
+		<div class="col s-1"></div>
 		<div class="col">
 			<div class="row" style="height: 2.5em;"></div>
 			<div class="row">

@@ -375,7 +375,7 @@
 			
 			
 <!-- footer start -->
-	<div class="row mt-5" style="background-color: #686868; height: 11.3em;">
+	<div class="row mt-3" style="background-color: #686868; height: 11.3em;">
 		<div class="col-1"></div>
 		<div class="col">
 			<div class="row" style="height: 2.5em;"></div>
