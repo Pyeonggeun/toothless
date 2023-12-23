@@ -75,11 +75,16 @@
 					
 					if(e.offlineReservationDto.state == "완료"){
 						canceledReservation.disabled = true;
+						canceledReservation.value = "상담완료";
 						canceledReservation.classList.replace("btn-danger","btn-outline-danger");
 					}else if(e.offlineReservationDto.state == "취소" || e.offlineReservationDto.state == "노쇼"){
 						canceledReservation.disabled = true;
 						canceledReservation.value = "취소완료";
 						canceledReservation.classList.replace("btn-danger","btn-outline-danger");
+					}else{
+						canceledReservation.disabled = false;
+						canceledReservation.value = "예약취소";
+						canceledReservation.classList.replace("btn-danger","btn-danger");
 					}
 					
 					const createReview = reservationDataWrapper.querySelector(".createReview");
@@ -218,15 +223,14 @@
 					reviewContent.rows = 5;
 					reviewContentBox.appendChild(reviewContent);
 					
-					reviewRegister.addEventListener("click", function(){
-						
-						const id = modalValues.offlineReservationDto.id;
-						const scoreValue = reviewScore.value;
-						const contentValue = reviewContent.value;
-						
-						save(id, scoreValue, contentValue);
-					});
-					
+					function saveHandler() {
+					    const id = modalValues.offlineReservationDto.id;
+					    const scoreValue = reviewScore.value;
+					    const contentValue = reviewContent.value;
+
+					    save(id, scoreValue, contentValue);
+					}
+					reviewRegister.onclick = saveHandler;
 				}
 				
 			});
@@ -330,20 +334,11 @@
 	                const currentPageNumber = document.createElement('a');
 	                currentPageNumber.classList.add('page-link', 'text-dark');
 	                currentPageNumber.innerText = i;
-	                
-	                console.log("상담원명: "+counselorNameValue);
-	                console.log("날짜타입: "+selectDateType);
-	                console.log("날짜값: "+datevalue);
-	                console.log("상태타입: "+stateType);
-	                console.log("카테고리타입: "+categoryValues);
+	                currentPageNumber.style.cursor = "pointer";
 	                
 	                currentPageNumber.addEventListener("click", function() {
 	                    setPageNum(i, counselorNameValue, selectDateType, datevalue, categoryValues, stateType);
 	                });
-	                
-	                <%--
-	                currentPageNumber.setAttribute("onclick", "setPageNum("+i+","+counselorNameValue+","+selectDateType+","+datevalue+","+categoryValues+","+stateType+")");
-	                --%>
 	                
 	                pageNumWrapper.appendChild(currentPageNumber);
 	                pagination.insertBefore(pageNumWrapper, pagination.querySelector('.endPageNumli'));
@@ -470,11 +465,6 @@
 					console.log(checkbox.value);
 				}
 			});
-			
-            console.log("s상담원명: "+counselorNameValue);
-            console.log("s날짜타입: "+selectDateType);
-            console.log("s날짜값: "+datevalue);
-            console.log("s상태타입: "+stateType);
 			
 			reloadReservationList(pageNum, counselorNameValue, selectDateType, datevalue, categoryValues, stateType);
 			createPageNum(pageNum, counselorNameValue, selectDateType, datevalue, categoryValues, stateType);
@@ -651,11 +641,11 @@
 						<nav aria-label="Page navigation example">
 						  <ul class="pagination justify-content-center">
 						    <li class="startPageNumli page-item">
-						      <a class="startPageNumber page-link text-dark">&lt;</a>
+						      <a class="startPageNumber page-link text-dark" style="cursor: pointer;">&lt;</a>
 						    </li>
 						    
 						    <li class="endPageNumli page-item">
-						      <a class="endPageNumber page-link text-dark">&gt;</a>
+						      <a class="endPageNumber page-link text-dark" style="cursor: pointer;">&gt;</a>
 						    </li>
 						  </ul>
 						</nav>

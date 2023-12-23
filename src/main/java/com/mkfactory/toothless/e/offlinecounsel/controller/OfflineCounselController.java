@@ -38,56 +38,6 @@ public class OfflineCounselController {
 	}
 	
 	
-//	@RequestMapping("counselReservationPage")
-//	public String counselReservationPage(Model model,
-// 			@RequestParam(value = "type_category_id") int type_category_id, 
-//			@RequestParam(value = "counselor_id") int counselor_id) {
-//		
-//		CounselorDto counselorDto = offlineCounselService.getCounselorInfo(counselor_id);
-//		model.addAttribute("counselorDto", counselorDto);
-//		model.addAttribute("type_category_id", type_category_id);
-//		
-//		List<Map<String, Object>> sevenDaysList = offlineCounselService.sevenDaysDateExtraction(counselor_id);
-//		model.addAttribute("sevenDaysList", sevenDaysList);
-//		
-//		return "tl_e/offlineCounsel/counselReservationPage";
-//	}
-	
-	
-//	@RequestMapping("counselReservationProcess")
-//	public String counselReservationProcess(
-//			Model model,
-//			HttpSession session,
-//			OfflineReservationDto params, 
-//			String reservationDate) {
-//		
-//		int offlineReservationPk = offlineCounselService.getOfflineReservationPk();
-//		params.setId(offlineReservationPk);
-//		
-//		int count = 0;
-//		List<Map<String, Object>> list = offlineCounselService.getDateReservationList();
-//		
-//		for(Map<String, Object> mapValue : list) {
-//			
-//			String value = (String)mapValue.get("DATE_VALUE");
-//			
-//			if(value.equals(reservationDate)) {
-//				count++;
-//			}
-//		}
-//		
-//		System.out.println("recount: "+count);
-//		if(count > 0) {
-//			return "tl_e/offlineCounsel/counselReservationImpossiblePage";
-//		}else {
-//			Map<String, Object> map = offlineCounselService.insertOfflineReservationInfo(params, reservationDate);
-//			model.addAttribute("map", map);
-//			
-//			return "tl_e/offlineCounsel/counselReservationCompletedPage";
-//		}
-//
-//	}
-	
 	@RequestMapping("counselReservationCompletedPage")
 	public String counselReservationCompletedPage(
 			Model model, 

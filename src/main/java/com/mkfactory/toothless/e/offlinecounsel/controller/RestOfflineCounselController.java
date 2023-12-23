@@ -275,5 +275,26 @@ public class RestOfflineCounselController {
 		
 	}
 	
+	@RequestMapping("getMainLineChart")
+	public RestResponseOfflineDto getMainLineChart(int external_pk) {
+		
+		System.out.println("extPK= "+external_pk);
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		restResponseOfflineDto.setResult("success");
+		restResponseOfflineDto.setData(offlineCounselService.getMainLineChart(external_pk));
+		
+		return restResponseOfflineDto;
+	}
+
+	@RequestMapping("getMainPieChart")
+	public RestResponseOfflineDto getMainPieChart(int external_pk) {
+		
+		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
+		restResponseOfflineDto.setResult("success");
+		restResponseOfflineDto.setData(offlineCounselService.getMainPieChart(external_pk));
+		
+		return restResponseOfflineDto;
+	}
+
 	
 }
