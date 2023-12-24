@@ -18,7 +18,9 @@
     		.then((response) => {
     			const lecturerNmae = document.querySelector("#lecturerNmae");
     			lecturerNmae.innerText = response.data.name;
-    			testOpenLecturerName = response.data.name;
+    			
+    			const testOpenLecturerName = document.querySelector("#testOpenLecturerName");
+    			testOpenLecturerName.innerText = response.data.name;
     		});
 			
 		}
@@ -31,6 +33,9 @@
      		lecture_test_key = key;
      		loadTestInfo(lecture_test_key);
      		loadTestStudentList(lecture_test_key);
+     		
+     		
+     		
      		
 		}  
 		function loadTestInfo() {
@@ -62,10 +67,26 @@
 	    			const close_test_day = document.querySelector("#close_test_day");
 	    			close_test_day.innerText = close_day;
 	    			
+	    			const testDate = new Date(response.data.lectureTestDto.close_test_day);
+	    			
+	    			const testing_day = document.querySelector("#testing_day");
+	    			
 	    			
 	    			const studyCategory = document.querySelector("#studyCategory");
 	    			studyCategory.innerText = response.data.categoryName;
     			}
+    			const goLectureManagementPage = document.querySelector("#goLectureManagementPage");
+         		goLectureManagementPage.setAttribute("onclick" ,"location.href='./lectureManagementPage?open_lecture_key="+response.data.lectureTestDto.open_lecture_key+"'");
+         		const goStudentListPage = document.querySelector("#goStudentListPage");
+         		goStudentListPage.setAttribute("onclick" ,"location.href='./lectureStudentInfoListPage?open_lecture_key="+response.data.lectureTestDto.open_lecture_key+"'");
+         		const goAttendancePage = document.querySelector("#goAttendancePage");
+         		goAttendancePage.setAttribute("onclick" ,"location.href='./attendanceStudentListPage?open_lecture_key="+response.data.lectureTestDto.open_lecture_key+"'");
+         		const goTestInfoPage = document.querySelectorAll(".goTestInfoPage");
+         		for(e of goTestInfoPage ){
+         			e.setAttribute("onclick" ,"location.href='./testInfoListPage?open_lecture_key="+response.data.lectureTestDto.open_lecture_key+"'");	
+         		}
+         		
+         	
     		});
 		}     
 		
@@ -75,6 +96,7 @@
 			fetch(url)
     		.then(response => response.json())
     		.then((response) => {
+    		
     			
     			const testStudentListBox = document.querySelector("#testStudentListBox");
     			testStudentListBox.innerHtml ="";
@@ -88,10 +110,9 @@
 	        			
 	        			const name = testStudentListWrapper.querySelector(".name");
 	        			name.innerText = e.lifeStudentDto.name;
-	        			//console.log(name);
-	        			/* 나중에 제대로 할때 해야함... 자꾸 널떠...
-	        			const externalId = studentInfoListWrapper.querySelector(".externalId");
-	    				externalId.innerText = e.externalInfoDto.external_id; */
+	        			
+	        			const externalId = testStudentListWrapper.querySelector(".externalId");
+	    				externalId.innerText = e.externalInfoDto.external_id;
 	        			
 	        			const gender = testStudentListWrapper.querySelector(".gender");
 	        			if(e.lifeStudentDto.gender == "M"){
@@ -107,7 +128,7 @@
 	        				studentTestingStatus.innerText ='응시완료';
 	        				studentTestingStatus.classList.add("text-primary");
 	        				
-	        				testScore.innerText = e.test_point+"점"
+	        				testScore.innerText = e.test_point.toFixed(1)+"점"
 	        				showResultButton.setAttribute("onclick","showStudentTestResultModal("+e.lifeStudentDto.life_student_key+")");
 	        				showResultButton.classList.add("btn-primary");
 	        				
@@ -136,13 +157,68 @@
      		const modal = bootstrap.Modal.getOrCreateInstance("#studentTestResultModal");
      		loadStudentTestResultList(life_student_key)
      		loadTestinfoForModal(lecture_test_key)
+     		testingStudentInfo(lecture_test_key, life_student_key)
 			modal.show();
      	}
      	
-     	function hideTestWriteModal() {
+     	function hideStudentTestResultModal() {
      		const modal = bootstrap.Modal.getOrCreateInstance("#studentTestResultModal");
+     		
+     		const testResultListBox = document.querySelector("#testResultListBox");
+     		testResultListBox.innerHTML = "";
+     		
+     		const level1 = document.querySelector("#level1");
+     		const level1Box = document.querySelector("#level1Box");
+     		const level2 = document.querySelector("#level2");
+     		const level2Box = document.querySelector("#level2Box");
+     		const level3 = document.querySelector("#level3");
+     		const level3Box = document.querySelector("#level3Box");
+     		const level4 = document.querySelector("#level4");
+     		const level4Box = document.querySelector("#level4Box");
+     		const level5 = document.querySelector("#level5");
+     		const level5Box = document.querySelector("#level5Box");
+     		
+     		
+     		
+     		level1.classList.remove("fw-bold");
+			level1Box.removeAttribute("style");
+			level1Box.classList.remove("text-light");
+     		
+			level2.classList.remove("fw-bold");
+			level2Box.removeAttribute("style");
+			level2Box.classList.remove("text-light");
+			
+			level3.classList.remove("fw-bold");
+			level3Box.removeAttribute("style");
+			level3Box.classList.remove("text-light");
+			
+			level4.classList.remove("fw-bold");
+			level4Box.removeAttribute("style");
+			level4Box.classList.remove("text-light");
+			
+			level5.classList.remove("fw-bold");
+			level5Box.removeAttribute("style");
+			level5Box.classList.remove("text-light");
+     		
      		modal.hide();
 		}
+     	function testingStudentInfo(lecture_test_key, life_student_key) {
+			const url = "loadTestingStduentInfo?lecture_test_key="+lecture_test_key+"&life_student_key="+life_student_key;
+			
+			fetch(url)
+    		.then(response => response.json())
+    		.then((response) => {
+    			const testing_day = document.querySelector("#testing_day");
+    			const testingDate = new Date(response.data.testingDate);
+    			const test_day = testingDate.getFullYear()+"-"+(testingDate.getMonth()+1) + "-"+ testingDate.getDate();
+    			testing_day.innerText = test_day;
+    			
+    			const studentName = document.querySelector("#studentName");
+    			studentName.innerText = response.data.lifeStudentDto.name;
+    		});
+			
+		}
+     	
      	
      	function loadTestinfoForModal(lecture_test_key){
      		
@@ -166,6 +242,8 @@
     			const open_close_day = document.querySelector("#open_close_day");
     			open_close_day.innerText = open_day+"-"+close_day;
     			
+    			
+    			
     			const modalStudyCategory = document.querySelector("#modalStudyCategory");
     			modalStudyCategory.innerText = response.data.categoryName;
     			
@@ -177,9 +255,15 @@
 			fetch(url)
     		.then(response => response.json())
     		.then((response) => {
-   				const testResultListBox = document.querySelector("#testResultListBox");
-				
+   				/* const testDate = new Date(response.data[0].qList[0].testResultDto.created_at);
+    			const testingDay = testDate.getFullYear()+"-"+(testDate.getMonth()+1) + "-"+ testDate.getDate();
+    			const testing_day = document.querySelector("#testing_day");
+    			testing_day.innerText = testingDay; */
     			
+    			
+    			const testResultListBox = document.querySelector("#testResultListBox");
+				
+    			let test_score = 0;
     			for(e of response.data){
     				const testQuestionWrapper = document.querySelector("#testQuestionTemplete .testQuestionWrapper").cloneNode(true);
     				
@@ -202,34 +286,63 @@
     					choice.innerText = ee.questionChoiceDto.choice;
     					
     					const answerCheckBox = choiceBoxWrapper.querySelector(".answerCheckBox");
-    					if(ee.questionChoiceDto.answer =="true"){
-    						choice.classList.add("text-primary");
-    						if(ee.testResultDto != null){
-    							
-    							if(ee.questionChoiceDto.question_choice_key == ee.testResultDto.question_choice_key){
-        							
-        							answerCheckBox.checked = true;	
-        							console.log(answerCheckBox.checked);
-        							CheckAnswerNumber.classList.add("answer");
-    							}
-    							
-    						}else{
-    							CheckAnswerNumber.classList.add("noAnswer");
-	    						choice.classList.add("text-danger");
-	    						
-	    						
-    						}
-    					}else if(ee.questionChoiceDto.answer =="false"){
-    						if(ee.testResultDto != null){
-    							answerCheckBox.checked = false;
-    						}	
+    					if(ee.questionChoiceDto.answer =="true" && ee.testResultDto != null){
+   							answerCheckBox.checked = true;	
+   							console.log(answerCheckBox.checked);
+   							CheckAnswerNumber.classList.add("answer");
+   							test_score += e.testQuestionDto.test_point;
+    					}else if (ee.questionChoiceDto.answer =="false" && ee.testResultDto != null){
+    						CheckAnswerNumber.classList.add("noAnswer");
+    						answerCheckBox.checked = true;
+    						choice.classList.add("text-danger");
+    						console.log(answerCheckBox.checked);
     					}
+						if(ee.questionChoiceDto.answer =="true"){
+							choice.classList.add("text-primary");
+						}
     					choiceBoxList.appendChild(choiceBoxWrapper);
     				}
-    				
     				testResultListBox.appendChild(testQuestionWrapper);
-    			}
+   				}const testScore = document.querySelector("#testScore");
+   				testScore.innerText = test_score + "점";
     			
+   				
+   				
+   				
+   				
+   				
+   				if(test_score < 60){
+   					const level1 = document.querySelector("#level1");
+    				level1.classList.add("fw-bold");
+    				const level1Box = document.querySelector("#level1Box");
+    				level1Box.setAttribute("style", "background-color: #133369");
+    				level1Box.classList.add("text-light");
+    			}else if(test_score <= 70){
+    				const level2 = document.querySelector("#level2");
+    				level2.classList.add("fw-bold");
+    				const level2Box = document.querySelector("#level2Box");
+    				level2Box.setAttribute("style", "background-color: #133369");
+    				level2Box.classList.add("text-light");
+    			}else if(test_score <= 80){
+    				const level3 = document.querySelector("#level3");
+    				level3.classList.add("fw-bold");
+    				const level3Box = document.querySelector("#level3Box");
+    				level3Box.setAttribute("style", "background-color: #133369");
+    				level3Box.classList.add("text-light");
+    			}else if(test_score <= 90){
+    				
+    				const level4 = document.querySelector("#level4");
+    				level4.classList.add("fw-bold");
+    				const level4Box = document.querySelector("#level4Box");
+    				level4Box.setAttribute("style", "background-color: #133369");
+    				level4Box.classList.add("text-light");
+    			}else if(test_score > 90){
+    				const level5 = document.querySelector("#level5");
+    				level5.classList.add("fw-bold");
+    				const level5Box = document.querySelector("#level5Box");
+    				level5Box.setAttribute("style", "background-color: #133369");
+    				level5Box.classList.add("text-light");
+    			}
     		});
      	}
      	
@@ -273,16 +386,19 @@
                 z-index: 1;
             }
             .answer::after{
-                width: 5vh;
-                height: 5vh;
+               width: 6vh;
+                height: 6vh;
                 content: "";
                 background-image: url("../../resources/img/tl_x/answer.png");
                 background-size: cover;
                 position: absolute;
                 display: grid;
                 top: -5;
-                left: 5;
+                right: 20;
                 z-index: -1;
+                align-self: center;
+                padding-left: 4em;
+                
             }
             .noAnswer{
                 background-size: cover;
@@ -291,18 +407,21 @@
                 height: 5vh;   
                 display: grid;
                 z-index: 1;
+                align-self: center;
             }
             .noAnswer::after{
-                width: 5vh;
-                height: 5vh;
+                width: 6vh;
+                height: 6vh;
                 content: "";
                 background-image: url("../../resources/img/tl_x/noanswer.png");
                 background-size: cover;
                 position: absolute;
                 display: grid;
-                top: -10;
-                left: 8;
+                top: -5;
+                right: 20;
                 z-index: -1;
+                align-self: center;
+                padding-left: 4em;
             }
 
         </style>
@@ -310,9 +429,9 @@
     </head>
     <body>
         <div class="container-fluid">
-            <div class="row pb-1 mt-2">
+             <div onclick="location.href='./mainPage'" class="row pb-1 mt-2" style="cursor: pointer;">
                 <div class="col-1 text-end">
-                    <img src="../..resources/img/another/logo_black.png" alt="" style="height: 3em;">
+                    <img src="../../resources/img/another/logo_black.png" alt="" style="height: 3em;">
                 </div>
                 <div class="col fw-bold fs-4 test-start mt-1 ps-0">
                     MK대학교 평생교육센터
@@ -320,37 +439,37 @@
             </div>
             <div class="row text-light" style="background-color: #133369;">
            		<div class="col-9"></div>
-            	<div id="lecturerNmae" class="col text-end pe-0">
+            	<div id="lecturerNmae" class="col mt-1 text-end pe-0" style="font-size: small">
             		
             	</div>
-            	<div class="col mt-1" style="font-size: small">
-            		님
+            	<div class="col mt-2" style="font-size: x-small;">
+            		(강사)님.
             	</div>
-            	<div class="col-1 mt-1 text-end" style="font-size: small;">
-            		마이페이지
-            	</div>
-            	<div class="col mt-1" style="font-size: small">
+            	<div class="col mt-1 text-start" style="font-size: small">
             		<a class="navbar-brand" href="../../another/external/loginPage">로그아웃</a>
             	</div>
             </div>
             <div class="row">
                 <div class="col-2" style="background-color: #133369;">
-                    <div class="row">
+                    <div class="row mt-3">
+                    	<div onclick="location.href='./mainPage'" class="col text-light fs-5 my-3" style="cursor: pointer;">
+                    		<i class="bi bi-house ms-1 me-3"></i> 메인페이지
+                    	</div>
                         <div class="accordion accordion-flush px-0">
 						  <div class="accordion-item">
 						      <a class="accordion-button collapsed text-light navbar-brand fs-5"type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" style="background-color: #133369;">
-						        <i class="bi bi-book me-3"></i> 학적부
+						        <i class="bi bi-journal-bookmark me-3"></i> 강의 관리
 						      </a>
 						    <div id="flush-collapseOne" class="accordion-collapse collapse">
 						      <div class="accordion-body text-light"  style="background-color: #133369;">
 						      	<div class="row">
-						      		<div class="col ms-3">
-						      			수강생 관리
+						      		<div id="goLectureManagementPage" class="col ms-3" style="cursor: pointer;">
+						      			강의 상세
 						      		</div>
 						      	</div>
 						      	<div class="row">
-						      		<div class="col ms-3 mt-2">
-						      			출석 관리
+						      		<div onclick="location.href='./mainPage'" class="col ms-3 mt-2"style="cursor: pointer;">
+						      			전체 강의
 						      		</div>
 						      	</div>
 						      </div>
@@ -362,18 +481,18 @@
                         <div class="accordion accordion-flush px-0">
 						  <div class="accordion-item">
 						      <a class="accordion-button button-white collapsed text-light navbar-brand fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" style="background-color: #133369;">
-						        <i class="bi bi-journal-bookmark me-3"></i> 강의 관리
+						        <i class="bi bi-book me-3"></i> 학적부
 						      </a>
 						    <div id="flush-collapseTwo" class="accordion-collapse collapse">
 						      <div class="accordion-body text-light"  style="background-color: #133369;">
 						      	<div class="row">
-						      		<div class="col ms-3">
-						      			과정자료
+						      		<div id="goStudentListPage" class="col ms-3" style="cursor: pointer;">
+						      			수강생 관리
 						      		</div>
 						      	</div>
 						      	<div class="row">
-						      		<div class="col ms-3 mt-2">
-						      			과정질문
+						      		<div id="goAttendancePage" class="col ms-3 mt-2" style="cursor: pointer;">
+						      			출석 관리
 						      		</div>
 						      	</div>
 						      </div>
@@ -390,12 +509,12 @@
 						    <div id="flush-collapseThree" class="accordion-collapse collapse">
 						      <div class="accordion-body text-light"  style="background-color: #133369;">
 						      	<div class="row">
-						      		<div class="col ms-3">
+						      		<div  class="col ms-3 goTestInfoPage" style="cursor: pointer;">
 						      			시험출제
 						      		</div>
 						      	</div>
 						      	<div class="row">
-						      		<div class="col ms-3 mt-2">
+						      		<div class="col ms-3 mt-2 goTestInfoPage" style="cursor: pointer;">
 						      			시험/평가
 						      		</div>
 						      	</div>
@@ -426,40 +545,6 @@
 						    </div>
 						  </div>
 						</div>
-                    </div>
-                    <div class="row mt-5">
-                        <div class="col">
-                            <div class="row mt-5 border-top border-white text-light">
-                                <div class="col mt-5">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-2 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-2 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-4 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-2 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-2 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col ms-5">
@@ -529,7 +614,7 @@
                                     능력단위 요소
                                 </div>
                                 <div id="elementByTest" class="col-8 text-start border py-3">
-                                    
+                                    데이터베이스 기초, 프로그램 언어 기초
                                 </div>
                             </div>
                         </div>
@@ -539,7 +624,7 @@
                                     평가 시간
                                 </div>
                                 <div id="testTime" class="col-8 text-start border py-3">
-                                    
+                                    60분
                                 </div>
                             </div>
                         </div>
@@ -641,8 +726,109 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row py-5"></div>
                 </div>
                 <div class="col-1"></div>
+            </div>
+            <div class="row ps-3 py-5 text-light" style="font-size: small; background-color: #133369   ;">
+            	<div class="col-7">
+            		<div class="row">
+            			<div class="col-1">
+            				<img src="../../resources/img/another/logo_white.png" alt="" style="height: 5em;">
+            			</div>
+                        <div class="col fw-bold fs-3 align-self-center">
+                            MK University
+                        </div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				주소: (06134) 서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층 
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            			    평생교육원 센터 : 1541-1541 e-mail: se001@naver.com
+            			</div>
+            		</div>
+                    <div class="row mt-2">
+            			<div class="col">
+            				Copyright 2023 Seoul National University All Rights Reserved.
+            			</div>
+            		</div>
+            	</div>
+            	<div class="col ">
+            		<div class="row">
+            			<div class="col mt-1 fw-bold fs-6">
+            				POLICY
+            			</div>
+            		</div>
+            		<div class="row mt-3">
+            			<div class="col">
+            				이용약관
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				개인정보처리방침
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				정보공시
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				행정센터
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				이메일 무단수집 거부
+            			</div>
+            		</div>
+            	</div>
+            	<div class="col">
+            		<div class="row mt-1">
+            			<div class="col fw-bold fs-6">
+            				학사 문의
+            			</div>
+            		</div>
+            		<div class="row mt-3">
+            			<div class="col">
+            				MON - FRI | 09:00 - 17:00
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				LUNCH | 12:30 - 13:30
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				HOLLYDAY OFF
+            			</div>
+            		</div>
+            	</div>
+            	<div class="col">
+            		<div class="row">
+            			<div class="col mt-1 fw-bold fs-6">
+            				SNS SERVICE
+            			</div>
+            		</div>
+            		<div class="row mt-3">
+            			<div class="col-1 fs-4 me-1">
+            				<i class="bi bi-twitter"></i> 
+            			</div>
+            			<div class="col-1 fs-4 me-1">
+            				<i class="bi bi-facebook"></i> 
+            			</div>
+            			<div class="col-1 fs-4">
+            				<i class="bi bi-instagram"></i>
+            			</div>
+            			
+            		</div>
+            	</div>
             </div>
         </div>
 
@@ -689,8 +875,8 @@
                            <div class="col-2 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
                                 시험명
                            </div>
-                           <div id="modalTestName" class="col text-start border py-1 align-self-center">
-                                인춘이와 함께 춤을
+                           <div id="modalTestName" class="col text-start border py-3 align-self-center">
+                                
                            </div>
                        </div>
                     </div>
@@ -703,8 +889,8 @@
                             <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
                                 평가 기간
                             </div>
-                            <div id="open_close_day" class="col-8 text-start text-secondary border py-2" style="font-size: small;">
-                                2023.03.23 - 2023-12-20
+                            <div id="open_close_day" class="col-8 text-start text-secondary align-self-center border py-3">
+                                
                             </div>
                         </div>
                     </div>
@@ -713,8 +899,8 @@
                             <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
                                 시험 응시일
                             </div>
-                            <div id="testing_day" class="col-8 text-start border py-2">
-                                2023.08.11
+                            <div id="testing_day" class="col-8 text-start align-self-center text-secondary border py-3">
+                                
                             </div>
                         </div>
                     </div>
@@ -735,9 +921,9 @@
                     <div class="col">
                         <div class="row">
                             <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
-                                훈련교사
+                                학생명
                             </div>
-                            <div id="testOpenLecturerName" class="col-8 text-start border py-3">
+                            <div id="studentName" class="col-8 text-start border py-3">
                                 
                             </div>
                         </div>
@@ -759,10 +945,10 @@
                     <div class="col">
                         <div class="row">
                             <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
-                                평가 시간
+                                총점
                             </div>
-                            <div class="col-8 text-start border py-3">
-                                60분
+                            <div id="testScore" class="col-8 text-start border py-3">
+                                
                             </div>
                         </div>
                     </div>
@@ -783,19 +969,19 @@
                                         <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
                                             수준
                                         </div>
-                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                        <div id="level5Box" class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
                                             5수준
                                         </div>
-                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                        <div id="level4Box" class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
                                             4수준
                                         </div>
-                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                        <div id="level3Box" class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
                                             3수준
                                         </div>
-                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                        <div id="level2Box" class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
                                            2수준
                                         </div>
-                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                        <div id="level1Box" class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
                                            1수준
                                         </div>
                                         <div class="col-1"></div>
@@ -856,19 +1042,19 @@
                     <div class="row my-2 ">
                         <div class="col-1 fw-bold text-center align-self-center">
                             <div class="row">
-                                <div class="col fw-bold fs-5 align-self-center CheckAnswerNumber">
-                                    1
+                                <div class="col fw-bold fs-5 pt-2 CheckAnswerNumber">
+                                    
                                 </div>
                             </div>
                         </div>
                         <div class="col-8 align-self-center question">
-                            문제가 무엇일까요~?
+                            
                         </div> 
                         <div class="col-1 px-0 fw-bold text-center align-self-center">
                             배점
                         </div> 
                         <div class="col-1 px-0 text-start align-self-center test_point">
-                            5점
+                            
                         </div>                                 
                     </div>
                     <div class="row border-bottom border-2" style="border-color: #133369;">
@@ -883,7 +1069,7 @@
         <div id="choiceBoxTemplete" class="d-none">
         	<div class="row my-3 choiceBoxWrapper">
                <div class="col-1 align-self-center text-end">
-                   <input class="form-check-input border-black px-0 answerCheckBox disable" type="checkbox">
+                   <input class="form-check-input border-black px-0 answerCheckBox " type="checkbox" disabled>
                </div>
                <div class="col-8 choice">
                    보기중에 하나지롱 

@@ -36,27 +36,70 @@ public class LifeLecturerServiceImpl {
 	}
 	
 	
-	public List<Map<String, Object>> getMyLecutre(int lecturer_key){
-		 List<Map<String, Object>> list = new ArrayList<>();
+	public Map<String, Object> getMyLecutre(int lecturer_key){
+		Map<String, Object> map = new HashMap<>();
 		 
-		 for(OpenLectureDto openLectureDto : lifeLecturerSqlMapper.selectMyOpenLectureInfoList(lecturer_key)) {
-			 Map<String, Object> map = new HashMap<>();
-			 int leecture_info_key = openLectureDto.getLecture_info_key();
-			 LectureInfoDto lectureInfoDto = lifeLecturerSqlMapper.selectLectureInfo(leecture_info_key);
-			 int roundCount = lifeLecturerSqlMapper.lectureRoundCount(openLectureDto);			
-			 LifeLecturerDto lifeLecturerDto = lifeLecturerSqlMapper.selectLecturerDto(openLectureDto.getLecturer_key());
+		OpenLectureDto openLectureDto = lifeLecturerSqlMapper.selectMyOpenLectureInfo(lecturer_key);
 			 
-			 map.put("lifeLecturerDto", lifeLecturerDto);
-			 map.put("openLectureDto", openLectureDto);
-			 map.put("lectureInfoDto", lectureInfoDto);
-			 map.put("roundCount", roundCount);
-			 
-			 list.add(map);
-			 
-		 }
-		 return list;
+		int leecture_info_key = openLectureDto.getLecture_info_key();
+		LectureInfoDto lectureInfoDto = lifeLecturerSqlMapper.selectLectureInfo(leecture_info_key);
+		int roundCount = lifeLecturerSqlMapper.lectureRoundCount(openLectureDto);			
+		LifeLecturerDto lifeLecturerDto = lifeLecturerSqlMapper.selectLecturerDto(openLectureDto.getLecturer_key());
+		 
+		map.put("lifeLecturerDto", lifeLecturerDto);
+		map.put("openLectureDto", openLectureDto);
+		map.put("lectureInfoDto", lectureInfoDto);
+		map.put("roundCount", roundCount);
+	 
+		return map;
 		
 	}
+	public List<Map<String, Object>> getMyExpectedLecutre(int lecturer_key){
+		List<Map<String, Object>> list = new ArrayList<>();
+		 
+		List<OpenLectureDto> openLectureDtoList = lifeLecturerSqlMapper.selectMyExpectedLectureInfoList(lecturer_key);
+		
+		for(OpenLectureDto openLectureDto : openLectureDtoList) {
+			Map<String, Object> map = new HashMap<>();
+			int leecture_info_key = openLectureDto.getLecture_info_key();
+			LectureInfoDto lectureInfoDto = lifeLecturerSqlMapper.selectLectureInfo(leecture_info_key);
+			int roundCount = lifeLecturerSqlMapper.lectureRoundCount(openLectureDto);			
+			LifeLecturerDto lifeLecturerDto = lifeLecturerSqlMapper.selectLecturerDto(openLectureDto.getLecturer_key());
+			 
+			map.put("lifeLecturerDto", lifeLecturerDto);
+			map.put("openLectureDto", openLectureDto);
+			map.put("lectureInfoDto", lectureInfoDto);
+			map.put("roundCount", roundCount);
+			
+			list.add(map);
+		}
+		return list;
+		
+	}
+	public List<Map<String, Object>> getMyCloseLecutre(int lecturer_key){
+		List<Map<String, Object>> list = new ArrayList<>();
+		 
+		List<OpenLectureDto> openLectureDtoList = lifeLecturerSqlMapper.selectMyCloseLectureInfoList(lecturer_key);
+		
+		for(OpenLectureDto openLectureDto : openLectureDtoList) {
+			Map<String, Object> map = new HashMap<>();
+			int leecture_info_key = openLectureDto.getLecture_info_key();
+			LectureInfoDto lectureInfoDto = lifeLecturerSqlMapper.selectLectureInfo(leecture_info_key);
+			int roundCount = lifeLecturerSqlMapper.lectureRoundCount(openLectureDto);			
+			LifeLecturerDto lifeLecturerDto = lifeLecturerSqlMapper.selectLecturerDto(openLectureDto.getLecturer_key());
+			 
+			map.put("lifeLecturerDto", lifeLecturerDto);
+			map.put("openLectureDto", openLectureDto);
+			map.put("lectureInfoDto", lectureInfoDto);
+			map.put("roundCount", roundCount);
+			
+			list.add(map);
+		}
+		return list;
+		
+	}
+	
+	
 	
 	public  List<Map<String, Object>> getLectureStudentList(int open_lecture_key){
 		List<Map<String, Object>> list = new ArrayList<>();
@@ -71,6 +114,7 @@ public class LifeLecturerServiceImpl {
 				int lateCount = lifeLecturerSqlMapper.selectLectureStudentLateCount(lecture_student_key, open_lecture_key);
 				int absenceCount = lifeLecturerSqlMapper.selectLectureStudentAbsenceCount(lecture_student_key, open_lecture_key);
 				
+				map.put("open_lecture_key", open_lecture_key);
 				map.put("lateCount", lateCount);
 				map.put("absenceCount", absenceCount);
 				map.put("lectureStudentDto", lectureStudentDto);
@@ -98,32 +142,53 @@ public class LifeLecturerServiceImpl {
 			int absenceCount = lifeLecturerSqlMapper.selectLectureStudentAbsenceCount(open_lecture_key, lectureStudentDto.getLecture_student_key());
 			int totalHour = lifeLecturerSqlMapper.selectLectureInfo(lifeLecturerSqlMapper.selectOpenLectureDto(open_lecture_key).getLecture_info_key()).getTotal_hour();
 			OpenLectureDto openLectureDto = lifeLecturerSqlMapper.selectOpenLectureDto(open_lecture_key);
+			
 			Date open_date = openLectureDto.getOpen_date();
 			Date close_date = openLectureDto.getClose_date();
 			Date currentDate = new Date();
 			
 			String status = null;
-			if(open_date.after(currentDate)==true && open_date.equals(currentDate)) {
-				
-				
+			
+			if(open_date.after(currentDate)==true && open_date.equals(currentDate) != true) {
 				status = "진행예정";
 			}else if(open_date.before(currentDate) == true && close_date.after(currentDate)==true) {
-				
 				status = "진행중";
-			}else if(close_date.after(currentDate)==true && close_date.equals(currentDate) == false) {
+			}else if(close_date.after(currentDate)==false && close_date.equals(currentDate) == false) {
 				status = "종료";
 			}
 			
 			
-			double studentAttendanceAvg = (double)(((totalHour/8) - absenceCount - (lateCount/3))/totalHour) * 100;
+			
 			
 			int totalTestPointSum = lifeLecturerSqlMapper.selectStudentTestScoreAvg(open_lecture_key, lecture_student_key);
 			
+			
 			int testingCount = lifeLecturerSqlMapper.selectStudentTestingCount(open_lecture_key, lecture_student_key);
 			
-			double studentTestScoreAvg = (double)totalTestPointSum/testingCount;
+			double studentTestScoreAvg = 0;
+			if(testingCount != 0) {
+				studentTestScoreAvg = (double)totalTestPointSum/testingCount;
+			}
 			
-		 
+			double studyDay = (double)(totalHour/8);
+			int lateBeAbsence = lateCount/3;
+			double studentStudeyDay = studyDay - absenceCount - lateBeAbsence;
+			double studentAttendanceAvg = studentStudeyDay/studyDay * 100;
+	
+			if( status == "종료") {
+				 LectureInfoDto lectureInfoDto = lifeLecturerSqlMapper.selectLectureInfo(openLectureDto.getLecture_info_key());
+				 int essential_attendance = lectureInfoDto.getEssential_attendance();
+				 int essential_grade = lectureInfoDto.getEssential_grade();
+				 if(studentTestScoreAvg >= essential_grade && studentAttendanceAvg >= essential_attendance ) {
+					 status = "수료완료";
+				 }else {
+					 status = "미수료";
+				 }
+			}
+			
+			
+			
+			map.put("lifeStudentDto", lifeStudentDto);
 			map.put("status", status);
 			map.put("studentTestScoreAvg", studentTestScoreAvg);
 			map.put("studentAttendanceAvg", studentAttendanceAvg);
@@ -148,7 +213,8 @@ public class LifeLecturerServiceImpl {
 				Map<String, Object> map = new HashMap<>();
 				int life_student_key = lifeStudentDto.getLife_student_key();
 				int statusCount = lifeLecturerSqlMapper.selectTestingStatus(life_student_key, lecture_test_key);
-				
+				int external_pk = lifeStudentDto.getExternal_pk();
+				ExternalInfoDto externalInfoDto = lifeLecturerSqlMapper.selectLifeStudentExternalId(external_pk);
 				if(statusCount == 1) {
 					int test_point = 0;
 					List<TestResultDto> resultList = lifeLecturerSqlMapper.selectStudentTestResultList(life_student_key, lecture_test_key);
@@ -167,7 +233,7 @@ public class LifeLecturerServiceImpl {
 					
 					map.put("test_point", test_point);
 				}
-				
+				map.put("externalInfoDto", externalInfoDto);
 				map.put("statusCount", statusCount);
 				map.put("lifeStudentDto", lifeStudentDto);
 				
@@ -389,11 +455,10 @@ public class LifeLecturerServiceImpl {
 					}
 				}
 			}
-			double percent = (double)(studyingHour/total_hour)*100;
+			double that = (double)studyingHour/total_hour;
+			double percent = that *100;
 			int lectureStudentCount = lifeLecturerSqlMapper.selectLectureStudentList(open_lecture_key).size();
-			double avgAttendanceScore = (double)(total_hour/8);
-			
-			
+
 			map.put("lectureStudentCount", lectureStudentCount);
 			map.put("totalLateCount", totalLateCount);
 			map.put("totalAbsenceCount", totalAbsenceCount);
@@ -408,23 +473,26 @@ public class LifeLecturerServiceImpl {
 	public List<Map<String, Object>> attendanceStudentList(int open_lecture_key){
 		List<Map<String, Object>> list = new ArrayList<>();
 		
-		List<AttendanceStatusDto> statusList = lifeLecturerSqlMapper.selectAttendanceDtoList(open_lecture_key);
+		int[] statusList = lifeLecturerSqlMapper.selectAttendanceDtoList(open_lecture_key);
 		
-		for(AttendanceStatusDto attendanceStatusDto : statusList) {
+		for(int lecture_student_key : statusList) {
 			Map<String, Object> map = new HashMap<>();
 			
-			int lecture_student_key = attendanceStatusDto.getLecture_student_key();
 			LectureStudentDto lectureStudentDto = lifeLecturerSqlMapper.selectLectureStudentDto(lecture_student_key);
 			int life_student_key = lectureStudentDto.getLife_student_key();
 			LifeStudentDto lifeStudentDto = lifeLecturerSqlMapper.selectStudentDto(life_student_key);
 			int external_pk = lifeStudentDto.getExternal_pk();
 			ExternalInfoDto externalInfoDto = lifeLecturerSqlMapper.selectLifeStudentExternalId(external_pk);
-			int absenceCount = lifeLecturerSqlMapper.selectLectureStudentAbsenceCount(open_lecture_key, lecture_student_key);
-			int lateCount = lifeLecturerSqlMapper.selectLectureStudentLateCount(open_lecture_key, lecture_student_key);
+			int absenceCount = lifeLecturerSqlMapper.selectLectureStudentAbsenceCount(lecture_student_key, open_lecture_key);
+			int lateCount = lifeLecturerSqlMapper.selectLectureStudentLateCount(lecture_student_key, open_lecture_key);
 			int totalHour = lifeLecturerSqlMapper.selectLectureInfoDto(open_lecture_key).getTotal_hour();
+			int cutline = lifeLecturerSqlMapper.selectLectureInfoDto(open_lecture_key).getEssential_attendance();
+			double studyDay = (double)(totalHour/8);
+			int lateBeAbsence = lateCount/3;
+			double studentStudeyDay = studyDay - absenceCount - lateBeAbsence;
+			double studentAttendanceAvg = studentStudeyDay/studyDay * 100;
 			
-			double studentAttendanceAvg = (double)(((totalHour/8) - absenceCount - (lateCount/3))/totalHour) * 100;
-			
+			map.put("cutline", cutline);
 			map.put("externalInfoDto", externalInfoDto);
 			map.put("lifeStudentDto", lifeStudentDto);
 			map.put("absenceCount", absenceCount);
@@ -492,6 +560,8 @@ public class LifeLecturerServiceImpl {
 		String categoryName = lifeLecturerSqlMapper.selectOpenLectureCategoryName(open_lecture_key);
 		
 		
+		
+		
 		map.put("lectureInfoDto", lectureInfoDto);
 		map.put("roundCount", roundCount);
 		map.put("categoryName", categoryName);
@@ -512,10 +582,15 @@ public class LifeLecturerServiceImpl {
 			int test_question_key = testQuestionDto.getTest_question_key();
 			List<QuestionChoiceDto> qcList = lifeLecturerSqlMapper.selectChoiceList(test_question_key);
 			List<Map<String, Object>> qList = new ArrayList<>();
+			
 			for(QuestionChoiceDto questionChoiceDto : qcList) {
 				Map<String, Object> qMap = new HashMap<>();
 				int question_choice_key = questionChoiceDto.getQuestion_choice_key();
 				TestResultDto testResultDto = lifeLecturerSqlMapper.selectStudetnResultDtoForChoice(question_choice_key, lecture_student_key);
+				if(testResultDto != null && questionChoiceDto.getAnswer().equals("true")) {
+				
+				}
+				
 				
 				qMap.put("questionChoiceDto", questionChoiceDto);
 				qMap.put("testResultDto", testResultDto);
@@ -530,7 +605,48 @@ public class LifeLecturerServiceImpl {
 		
 		return list;
 	}
+	public Map<String, Object> getTestingStudentInfo(int life_student_key, int lecture_test_key) {
+		Map<String, Object> map = new HashMap<>();
+		LifeStudentDto lifeStudentDto =  lifeLecturerSqlMapper.selectStudentDto(life_student_key);
+		Date testingDate = lifeLecturerSqlMapper.selectStudentTestingDay(lecture_test_key, life_student_key);
+		
+		map.put("lifeStudentDto", lifeStudentDto);
+		map.put("testingDate", testingDate);
+		
+		return map;
 	
-	
+	}
+	public List<String> noLectureAttendanceBook(int open_lecture_key){
+		List<String> list = new ArrayList<>();
+		
+		List<Map<String, Object>> dayList = lifeLecturerSqlMapper.selectCurrentStudyDay(open_lecture_key);
+		 Date open_date = lifeLecturerSqlMapper.selectOpenLectureDto(open_lecture_key).getOpen_date();
+		 Date close_date = lifeLecturerSqlMapper.selectOpenLectureDto(open_lecture_key).getClose_date();
+		 Date currentDate = new Date();
+		 
+		 if(open_date.before(currentDate) == true || open_date.equals(currentDate) == true) {
+			 for(Map<String, Object> dayMap : dayList ) {
+				 if(dayMap.get("WEEK_DAY").equals("평일")) {
+					 String date = (String)dayMap.get("DT");
+					 Date dd =null;
+					 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					 try {
+						 dd = dateFormat.parse(date);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					 int compare = close_date.compareTo(dd);
+					 
+					 if(compare ==0 || compare == 1) {
+						 AttendanceBookDto attendanceBookDto = lifeLecturerSqlMapper.selectAttendanceBookByDate(date);
+						 if(attendanceBookDto == null) {
+							 list.add(date);
+						 }
+					 }
+				 } 
+			}
+		 }
+		 return list;
+	}
 	
 }
