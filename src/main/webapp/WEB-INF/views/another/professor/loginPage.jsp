@@ -50,7 +50,7 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                z-index: -1;
+                z-index: -2;
                 opacity: 0.6;
                 font-size: 0px;
             }
@@ -82,6 +82,34 @@
     </head>
     <body>
         <div class="container-fluid">
+        <div class="fixed-top" style="z-index: -1">
+                <div class="row mt-5"></div>
+                <div class="row mt-5"></div>
+                <div class="row mt-5"></div>
+                <div class="row mt-5"></div>
+                <div class="row mt-5"></div>
+                <div class="row" >
+                    <div class="col-1"></div>
+                    <div class="col border border-black border-2 fw-bold text-start" style="background-color: #f1f3d4;">
+                        <div class="row">
+                            <div class="col">
+                                C조 현장실습 지원(교수)                               
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                ID: P202301                            
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                PW: 1234                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9"></div>
+                </div>
+            </div>
             <div class="row mt-5 align-self-center">
                 <div class="col-3"></div>
 
@@ -136,16 +164,16 @@
                                         	<div class="col">
                                         		<div class="row bg-main pb-1">
                                         			 <div class="col-3 d-grid px-0">
-                                                		<a class="navbar-brand border border-2 bg-white" href="../student/loginPage">학생</a>
+                                                		<a class="navbar-brand border border-2 bg-white" href="/toothless/">학생</a>
                                             		</div>
                                             		<div class="col-3 d-grid px-0">
-                                                		<a class="navbar-brand border border-2 bg-white" href="../staff/loginPage">교직원</a>
+                                                		<a class="navbar-brand border border-2 bg-white" href="/toothless/another/staff/loginPage">교직원</a>
                                             		</div>
 		                                            <div class="col-3 d-grid px-0">
-		                                                <a class="navbar-brand bg-main text-white" href="../professor/loginPage">교수</a>
+		                                                <a class="navbar-brand bg-main text-white" href="/toothless/another/professor/loginPage">교수</a>
 		                                            </div>
 		                                            <div class="col-3 d-grid px-0">
-		                                                <a class="navbar-brand border border-2 bg-white" href="../external/loginPage">외부인</a>
+		                                                <a class="navbar-brand border border-2 bg-white" href="/toothless/another/external/loginPage">외부인</a>
 		                                            </div>	
                                         		</div>
                                         	</div>

@@ -29,7 +29,21 @@
      		const key = urlParams.get("open_lecture_key");
      		open_lecture_key = key;
      		
+     		
+     		openLectureInfo(open_lecture_key)
      		lectureTestListInfo(open_lecture_key);
+     		
+     		
+     		const goLectureManagementPage = document.querySelector("#goLectureManagementPage");
+     		goLectureManagementPage.setAttribute("onclick" ,"location.href='./lectureManagementPage?open_lecture_key="+open_lecture_key+"'");
+     		const goStudentListPage = document.querySelector("#goStudentListPage");
+     		goStudentListPage.setAttribute("onclick" ,"location.href='./lectureStudentInfoListPage?open_lecture_key="+open_lecture_key+"'");
+     		const goAttendancePage = document.querySelector("#goAttendancePage");
+     		goAttendancePage.setAttribute("onclick" ,"location.href='./attendanceStudentListPage?open_lecture_key="+open_lecture_key+"'");
+     		const goTestInfoPage = document.querySelectorAll(".goTestInfoPage");
+     		for(e of goTestInfoPage ){
+     			e.setAttribute("onclick" ,"location.href='./testInfoListPage?open_lecture_key="+open_lecture_key+"'");	
+     		}
      		
 		}        
 		function lectureTestListInfo(open_lecture_key) {
@@ -90,6 +104,153 @@
     			}
     		});
 		}
+		function openLectureInfo(open_lecture_key){
+     		const url = "./loadOpenLectureInfo?open_lecture_key="+open_lecture_key;
+     		fetch(url)
+    		.then(response => response.json())
+    		.then((response) => {
+    			
+    			const openLecutreName = document.querySelector("#openLecutreName");
+    			openLecutreName.innerText = "제 "+response.data.roundCount+"회"+response.data.lectureInfoDto.name;
+    			
+				
+				
+    		});
+     	}
+		function showTestWriteModal() {
+     		const modal = bootstrap.Modal.getOrCreateInstance("#testWriteModal");
+     		loadWriteTestInfo();
+			modal.show();
+     	}
+     	function hideTestWriteModal() {
+     		const modal = bootstrap.Modal.getOrCreateInstance("#testWriteModal");
+     		const test_name = document.querySelector("#test_name");
+     		test_name.value ="";
+     		const open_test_day = document.querySelector("#open_test_day");
+     		open_test_day.value ="";
+     		const close_test_day = document.querySelector("#close_test_day");
+     		close_test_day.value ="";
+     		const testQuestionListBox = document.querySelector("#testQuestionListBox");
+     		testQuestionListBox.innerHTML ="";
+     		modal.hide();
+		}
+     	
+     	
+		function loadWriteTestInfo(){
+			const url = "./loadOpenLectureInfo?open_lecture_key="+open_lecture_key;
+     		fetch(url)
+    		.then(response => response.json())
+    		.then((response) => {
+    			const testModalLectureName = document.querySelector("#testModalLectureName");
+    			testModalLectureName.innerText = "제 "+response.data.roundCount+"회 "+response.data.lectureInfoDto.name+" 시험출제";
+    		
+    			const studyCategory = document.querySelector("#studyCategory");
+    			studyCategory.innerText = response.data.categoryName;
+    			
+    			const testOpenLecturerName = document.querySelector("#testOpenLecturerName");
+    			testOpenLecturerName.innerText = response.data.lifeLecturerDto.name;
+    			
+    		});
+     		
+     	}
+     	let questionCount = 0;
+     	function appendTestQuestionTemplete(){
+     		const testQuestionWrapper = document.querySelector("#testQuestionTemplete .testQuestionWrapper").cloneNode(true);
+     		const testQuestionListBox = document.querySelector("#testQuestionListBox");
+     		questionCount++;
+     		
+     		const questionNumber = testQuestionWrapper.querySelector(".questionNumber");
+     		questionNumber.innerText = questionCount;
+     		
+     		testQuestionListBox.appendChild(testQuestionWrapper);
+     		
+     	}
+     	
+     	function insertTestInfo(){
+     		// 빈칸있거나, (다른곳에서는 체크 두번안되게 체크 확인하는 기능만들어야함.), 배점이 100점이 아닐시 알람뜨게해야함.
+     		const test_name = document.querySelector("#test_name").value;
+     		const open_test_day = document.querySelector("#open_test_day").value;
+     		const close_test_day = document.querySelector("#close_test_day").value;
+     		
+     		const url = "./insertLectureTestAndGetTestPk";
+     		fetch(url, {
+     			method: "post",
+     			headers: {
+     				"Content-Type": "application/x-www-form-urlencoded"
+     			},
+     			body:"open_lecture_key="+open_lecture_key+"&test_name="+test_name
+     				+"&open_test_day="+open_test_day+"&close_test_day="+close_test_day
+     		})
+     		.then(response => response.json())
+    		.then((response) => {
+    			
+    			insertTestQuestion(response.data);
+    			
+    		});
+     		
+     	}
+     	
+     	
+     	function insertTestQuestion(lecture_test_key) {
+     	    const testQuestionWrapperList = document.querySelectorAll("#testQuestionListBox .testQuestionWrapper");
+
+     	    for (const testQuestionWrapper of testQuestionWrapperList) {
+     	        const question_number = testQuestionWrapper.querySelector(".questionNumber").innerText;
+     	        const question = testQuestionWrapper.querySelector(".question").value;
+     	        const test_point = testQuestionWrapper.querySelector(".test_point").value;
+
+     	        const url = "./insertTestQuestionAndGetQuestionPk";
+     	        fetch(url, {
+     	            method: "post",
+     	            headers: {
+     	                "Content-Type": "application/x-www-form-urlencoded"
+     	            },
+     	            body: "lecture_test_key=" + lecture_test_key + "&question=" + question + "&test_point=" + test_point + "&question_number=" + question_number
+     	        })
+     	        .then(response => response.json())
+     	        .then((response) => {
+     	            const test_question_key = response.data;
+
+     	            const choiceList = testQuestionWrapper.querySelectorAll(".choiceBox");
+     	            for (const choiceBox of choiceList) {
+     	                let answer = "false";
+     	                const choice = choiceBox.querySelector(".choice").value;
+     	                const answerCheckBox = choiceBox.querySelector(".answerCheckBox");
+
+     	                if (answerCheckBox.checked == true) {
+     	                    answer = "true";
+     	                }
+
+     	                const choiceUrl = "./insertQuestionChoice";
+     	                fetch(choiceUrl, {
+     	                    method: "post",
+     	                    headers: {
+     	                        "Content-Type": "application/x-www-form-urlencoded"
+     	                    },
+     	                    body: "test_question_key=" + test_question_key + "&choice=" + choice + "&answer=" + answer
+     	                });
+     	            }
+
+     	            hideTestWriteModal();
+     	            lectureTestListInfo(open_lecture_key);
+     	        });
+     	    }
+     	}
+     	function checkTestResult(target){
+     		
+     		const testQuestionWrapper = target.closest(".testQuestionWrapper");
+     		const answerCheckBoxList = testQuestionWrapper.querySelectorAll(".answerCheckBox");
+     		for(answerCheckBox of answerCheckBoxList){
+   				
+   				answerCheckBox.checked = false;
+     		}
+     		target.checked = true;
+     	}
+
+		
+		
+	
+		
 		
 		window.addEventListener("DOMContentLoaded", () =>{
      		getMyInfo();
@@ -127,47 +288,47 @@
     </head>
     <body>
         <div class="container-fluid">
-            <div class="row pb-1 mt-2">
+            <div onclick="location.href='./mainPage'" class="row pb-1 mt-2" style="cursor: pointer;">
                 <div class="col-1 text-end">
-                    <img src="../imgForAcademy/logo_black.png" alt="" style="height: 3em;">
+                    <img src="../../resources/img/another/logo_black.png" alt="" style="height: 3em;">
                 </div>
                 <div class="col fw-bold fs-4 test-start mt-1 ps-0">
                     MK대학교 평생교육센터
                 </div>
             </div>
-            <div class="row text-light" style="background-color: #133369;">
+          <div class="row text-light" style="background-color: #133369;">
            		<div class="col-9"></div>
-            	<div id="lecturerNmae" class="col text-end pe-0">
+            	<div id="lecturerNmae" class="col mt-1 text-end pe-0" style="font-size: small">
             		
             	</div>
-            	<div class="col mt-1" style="font-size: small">
-            		님
+            	<div class="col mt-2" style="font-size: x-small;">
+            		(강사)님.
             	</div>
-            	<div class="col-1 mt-1 text-end" style="font-size: small;">
-            		마이페이지
-            	</div>
-            	<div class="col mt-1" style="font-size: small">
+            	<div class="col mt-1 text-start" style="font-size: small">
             		<a class="navbar-brand" href="../../another/external/loginPage">로그아웃</a>
             	</div>
             </div>
             <div class="row">
                 <div class="col-2" style="background-color: #133369;">
-                    <div class="row">
+                    <div class="row mt-3">
+                    	<div onclick="location.href='./mainPage'" class="col text-light fs-5 my-3" style="cursor: pointer;">
+                    		<i class="bi bi-house ms-1 me-3"></i> 메인페이지
+                    	</div>
                         <div class="accordion accordion-flush px-0">
 						  <div class="accordion-item">
 						      <a class="accordion-button collapsed text-light navbar-brand fs-5"type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" style="background-color: #133369;">
-						        <i class="bi bi-book me-3"></i> 학적부
+						        <i class="bi bi-journal-bookmark me-3"></i> 강의 관리
 						      </a>
 						    <div id="flush-collapseOne" class="accordion-collapse collapse">
 						      <div class="accordion-body text-light"  style="background-color: #133369;">
 						      	<div class="row">
-						      		<div class="col ms-3">
-						      			수강생 관리
+						      		<div id="goLectureManagementPage" class="col ms-3" style="cursor: pointer;">
+						      			강의 상세
 						      		</div>
 						      	</div>
 						      	<div class="row">
-						      		<div class="col ms-3 mt-2">
-						      			출석 관리
+						      		<div onclick="location.href='./mainPage'" class="col ms-3 mt-2"style="cursor: pointer;">
+						      			전체 강의
 						      		</div>
 						      	</div>
 						      </div>
@@ -179,18 +340,18 @@
                         <div class="accordion accordion-flush px-0">
 						  <div class="accordion-item">
 						      <a class="accordion-button button-white collapsed text-light navbar-brand fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" style="background-color: #133369;">
-						        <i class="bi bi-journal-bookmark me-3"></i> 강의 관리
+						        <i class="bi bi-book me-3"></i> 학적부
 						      </a>
 						    <div id="flush-collapseTwo" class="accordion-collapse collapse">
 						      <div class="accordion-body text-light"  style="background-color: #133369;">
 						      	<div class="row">
-						      		<div class="col ms-3">
-						      			과정자료
+						      		<div id="goStudentListPage" class="col ms-3" style="cursor: pointer;">
+						      			수강생 관리
 						      		</div>
 						      	</div>
 						      	<div class="row">
-						      		<div class="col ms-3 mt-2">
-						      			과정질문
+						      		<div id="goAttendancePage" class="col ms-3 mt-2" style="cursor: pointer;">
+						      			출석 관리
 						      		</div>
 						      	</div>
 						      </div>
@@ -207,12 +368,12 @@
 						    <div id="flush-collapseThree" class="accordion-collapse collapse">
 						      <div class="accordion-body text-light"  style="background-color: #133369;">
 						      	<div class="row">
-						      		<div class="col ms-3">
+						      		<div  class="col ms-3 goTestInfoPage" style="cursor: pointer;">
 						      			시험출제
 						      		</div>
 						      	</div>
 						      	<div class="row">
-						      		<div class="col ms-3 mt-2">
+						      		<div class="col ms-3 mt-2 goTestInfoPage" style="cursor: pointer;">
 						      			시험/평가
 						      		</div>
 						      	</div>
@@ -244,98 +405,19 @@
 						  </div>
 						</div>
                     </div>
-                    <div class="row mt-5">
-                        <div class="col">
-                            <div class="row mt-5 border-top border-white text-light">
-                                <div class="col mt-5">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-2 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-2 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-4 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-2 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-2 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="col ms-5">
                     <div class="row mt-5">
-                        <div class="col fs-4 fw-bold border-bottom border-black border-2">
-                            제 2회 java 어쩌구 저쩌구
+                        <div id="openLecutreName" class="col fs-4 fw-bold border-bottom border-black border-2">
+                           
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col mt-2">
-                            <div class="row">
-                                <div class="col fw-bold  text-center fs-4 number">
-                                    3 건
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col fw-bold text-center">
-                                   전체시험
-                                </div>
-                            </div>
+                    <div class="row">
+                    	 <div class="col text-end py-0 mt-2">
+                            <button onclick="showTestWriteModal()" class="btn btn-primary" style="font-size: small;">시험출제하기</button>
                         </div>
-                        <div class="col mt-2">
-                            <div class="row ">
-                                <div class="col fw-bold text-center fs-4 number">
-                                    3 건
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col fw-bold text-center">
-                                   진행중인 시험
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col mt-2">
-                            <div class="row ">
-                                <div class="col fw-bold text-center fs-4 number">
-                                    3 건 
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col fw-bold text-center">
-                                   진행예정 시험
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col mt-2">
-                            <div class="row ">
-                                <div class="col fw-bold text-center fs-4 number">
-                                    78.7점
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col fw-bold text-center">
-                                    전체 평균 점수
-                                </div>
-                            </div>
-                        </div>
-                    </div>    
-                    <div class="row mt-3">
+                    </div>
+                    <div class="row mt-1">
                         <div class="col fw-bold fs-5 text-light" style="background-color: #133369;">
                             시험
                         </div>
@@ -371,8 +453,109 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row py-5"></div>
                 </div>
                 <div class="col-1"></div>
+            </div>
+            <div class="row ps-3 py-5 text-light" style="font-size: small; background-color: #133369   ;">
+            	<div class="col-7">
+            		<div class="row">
+            			<div class="col-1">
+            				<img src="../../resources/img/another/logo_black.png" alt="" style="height: 3em;">
+            			</div>
+                        <div class="col fw-bold fs-3 align-self-center">
+                            MK University
+                        </div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				주소: (06134) 서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층 
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            			    평생교육원 센터 : 1541-1541 e-mail: se001@naver.com
+            			</div>
+            		</div>
+                    <div class="row mt-2">
+            			<div class="col">
+            				Copyright 2023 Seoul National University All Rights Reserved.
+            			</div>
+            		</div>
+            	</div>
+            	<div class="col ">
+            		<div class="row">
+            			<div class="col mt-1 fw-bold fs-6">
+            				POLICY
+            			</div>
+            		</div>
+            		<div class="row mt-3">
+            			<div class="col">
+            				이용약관
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				개인정보처리방침
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				정보공시
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				행정센터
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				이메일 무단수집 거부
+            			</div>
+            		</div>
+            	</div>
+            	<div class="col">
+            		<div class="row mt-1">
+            			<div class="col fw-bold fs-6">
+            				학사 문의
+            			</div>
+            		</div>
+            		<div class="row mt-3">
+            			<div class="col">
+            				MON - FRI | 09:00 - 17:00
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				LUNCH | 12:30 - 13:30
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				HOLLYDAY OFF
+            			</div>
+            		</div>
+            	</div>
+            	<div class="col">
+            		<div class="row">
+            			<div class="col mt-1 fw-bold fs-6">
+            				SNS SERVICE
+            			</div>
+            		</div>
+            		<div class="row mt-3">
+            			<div class="col-1 fs-4 me-1">
+            				<i class="bi bi-twitter"></i> 
+            			</div>
+            			<div class="col-1 fs-4 me-1">
+            				<i class="bi bi-facebook"></i> 
+            			</div>
+            			<div class="col-1 fs-4">
+            				<i class="bi bi-instagram"></i>
+            			</div>
+            			
+            		</div>
+            	</div>
             </div>
         </div>
 
@@ -401,6 +584,261 @@
 	            </div>
 	        </div>
 		</div>
+		
+		
+		
+		
+		
+		 <div id="testWriteModal" class="modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
+              <div class="modal-content">
+                <div class="modal-header py-2" style="background-color: #133369;">
+                 <div class="row">
+                    <div id="testModalLectureName"class="col text-light">
+                       
+                    </div>
+                 </div>
+                  <button onclick="hideTestWriteModal()" type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col">
+                       <div class="row">
+                           <div class="col-2 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                                시험명
+                           </div>
+                           <div class="col text-start border py-1 align-self-center">
+                            <input id="test_name" class="form-control form-control-sm align-self-center px-0" type="text" placeholder="시험명을 입력해주세요.">
+                           </div>
+                       </div>
+                    </div>
+                    <div class="col-1"></div>
+                 </div>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                                평가 시작일
+                            </div>
+                            <div class="col-8 text-start border py-2">
+                                <input id="open_test_day" class="form-control px-1" type="date">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                                평가 종료일
+                            </div>
+                            <div class="col-8 text-start border py-2">
+                                <input id="close_test_day" class="form-control px-1" type="date">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+               </div>
+               <div class="row ">
+                    <div class="col-1"></div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                                평가 내용(카테고리)
+                            </div>
+                            <div id="studyCategory" class="col-8 text-start border py-3">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                                훈련교사
+                            </div>
+                            <div id="testOpenLecturerName" class="col-8 text-start border py-3">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+              </div>
+              <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                                능력단위 요소
+                            </div>
+                            <div class="col-8 text-start border py-3">
+                                데이터베이스 기초, 프로그램 언어 기초
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                                평가 시간
+                            </div>
+                            <div class="col-8 text-start border py-3">
+                                60분
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+              </div>
+              <div class="row">
+                 <div class="col-1"></div>
+                 <div class="col">
+                    <div class="row">
+                        <div class="col-2 border text-center align-self-center py-3" style="background-color: rgb(240, 240, 240);">
+                            성취 수준
+                        </div>
+                        <div class="col text-start border py-1">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-1"></div>
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                            수준
+                                        </div>
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                            5수준
+                                        </div>
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                            4수준
+                                        </div>
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                            3수준
+                                        </div>
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                           2수준
+                                        </div>
+                                        <div class="col border text-center align-self-center" style="background-color: rgb(240, 240, 240);">
+                                           1수준
+                                        </div>
+                                        <div class="col-1"></div>
+                                    </div>
+                                    <div class="row" style="font-size: small;">
+                                        <div class="col-1"></div>
+                                        <div class="col border text-center align-self-center" >
+                                            점수구간
+                                        </div>
+                                        <div class="col border text-center align-self-center" >
+                                            90점 이상
+                                        </div>
+                                        <div class="col border text-center align-self-center">
+                                            80~89점
+                                        </div>
+                                        <div class="col border text-center align-self-center">
+                                            70~79점
+                                        </div>
+                                        <div class="col border text-center align-self-center">
+                                            60~69점
+                                        </div>
+                                        <div class="col border text-center align-self-center">
+                                           60점 미만
+                                        </div>
+                                        <div class="col-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="col-1"></div>
+              </div>
+              <div class="row text-center fw-bold mt-4" style="background-color: rgb(240, 240, 240);">
+                 <div class="col">
+                    평가 내용 출제
+                 </div>
+              </div>
+              <div class="row">
+                    <div class="col-1"></div>
+                    <div id="testQuestionListBox" class="col">
+                       
+                    </div>
+                    <div class="col-1"></div>
+              </div>
+            </div>
+              <div class="row">
+                <div class="col-4"></div>
+                <div class="col text-center d-grid py-0 my-5">
+                    <Button onclick="appendTestQuestionTemplete()" class="btn btn-outline-primary border border-black py-0">+</Button>
+                </div>
+                <div class="col-4"></div>
+              </div>
+
+              <div class="modal-footer">
+                  <button onclick="hideTestWriteModal()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                  <button id="insertButton" onclick="insertTestInfo()" type="button" class="btn btn-primary">등록하기</button>
+                </div>
+              </div>
+          </div>
+      </div>
+		
+		
+	
+	 <div id="testQuestionTemplete" class="d-none">
+	 	<div class="row border border-2 mt-4 testQuestionWrapper" style="border-color: #133369;">
+             <div class="col">
+                 <div class="row my-2">
+                     <div class="col-1 fw-bold text-center align-self-center questionNumber">
+                      
+                     </div>
+                     <div class="col-8">
+                         <input class="form-control form-control-sm align-self-center px-0 question" type="text" placeholder="문항을 입력해주세요">
+                     </div> 
+                     <div class="col-1 px-0 fw-bold text-center align-self-center">
+                         배점
+                     </div> 
+                     <div class="col-1 px-0 text-start align-self-center">
+                         <input class="form-control form-control-sm test_point" type="number" value="0">
+                     </div>                                 
+                 </div>
+                 <div class="row border-bottom border-2" style="border-color: #133369;">
+                     <div class="col">
+                         <div class="row my-3 choiceBox">
+                             <div class="col-1 align-self-center text-end">
+                                 <input onclick="checkTestResult(this)" class="form-check-input border-black px-0 answerCheckBox" type="checkbox">
+                             </div>
+                             <div class="col-8">
+                                 <input class="form-control form-control-sm align-self-center px-0 choice" type="text" placeholder="1번 보기를 입력해주세요.">
+                             </div> 
+                             <div class="col-2"></div>
+                         </div>
+                         <div class="row my-3 choiceBox">
+                             <div class="col-1 align-self-center text-end">
+                                 <input onclick="checkTestResult(this)" class="form-check-input border-black px-0 answerCheckBox" type="checkbox">
+                             </div>
+                             <div class="col-8">
+                                 <input class="form-control form-control-sm align-self-center px-0 choice" type="text"placeholder="2번 보기를 입력해주세요.">
+                             </div> 
+                             <div class="col-2"></div>
+                         </div>
+                         <div class="row my-3 choiceBox">
+                             <div class="col-1 align-self-center text-end">
+                                 <input onclick="checkTestResult(this)" class="form-check-input border-black px-0 answerCheckBox" type="checkbox">
+                             </div>
+                             <div class="col-8">
+                                 <input class="form-control form-control-sm align-self-center px-0 choice" type="text" placeholder="3번 보기를 입력해주세요.">
+                             </div> 
+                             <div class="col-2"></div>
+                         </div>
+                         <div class="row my-3 choiceBox">
+                             <div class="col-1 align-self-center text-end">
+                                 <input onclick="checkTestResult(this)" class="form-check-input border-black px-0 answerCheckBox" type="checkbox">
+                             </div>
+                             <div class="col-8">
+                                 <input class="form-control form-control-sm align-self-center px-0 choice" type="text" placeholder="4번 보기를 입력해주세요.">
+                             </div> 
+                             <div class="col-2"></div>
+                         </div>
+                     </div>
+                 </div>                          
+             </div> 
+         </div>
+	 </div>
 		
         
         
