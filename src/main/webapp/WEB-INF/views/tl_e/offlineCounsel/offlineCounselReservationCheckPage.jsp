@@ -813,7 +813,7 @@
 					<div class="row text-center border-bottom border-dark align-items-center">
 						<div class="col-2 py-3 fw-bold border-end border-dark" style="background-color: rgb(244, 244, 241);">
 							<div class="row">
-								<div class="col">
+								<div class="col py-3">
 									신청자<br>
 									코멘트
 								</div>
@@ -848,11 +848,9 @@
 					<div class="row text-center align-items-center">
 						<div class="col-2 py-5 fw-bold border-end border-dark" style="background-color: rgb(244, 244, 241);">
 							<div class="row">
-								<div class="col">
-									<br>
+								<div class="col py-2">
 									상담자의<br>
 									평가
-									<br>
 								</div>
 							</div>
 						</div>
