@@ -82,6 +82,7 @@ public class RestCommonsCounselorController {
 	@RequestMapping("getGroupMainList")
 	public RestResponseOfflineDto getGroupMainList(int external_pk) {
 		
+		System.out.println(external_pk);
 		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
 		restResponseOfflineDto.setResult("success");
 		
@@ -93,6 +94,7 @@ public class RestCommonsCounselorController {
 	@RequestMapping("getMainLineChart")
 	public RestResponseOfflineDto getMainLineChart(int external_pk) {
 		
+		System.out.println("extPK= "+external_pk);
 		RestResponseOfflineDto restResponseOfflineDto = new RestResponseOfflineDto();
 		restResponseOfflineDto.setResult("success");
 		restResponseOfflineDto.setData(offlineCounselService.getMainLineChart(external_pk));

@@ -22,7 +22,11 @@ import com.mkfactory.toothless.x.dto.TestResultDto;
 
 public interface LifeLecturerSqlMapper {
 	
-	public List<OpenLectureDto> selectMyOpenLectureInfoList(int lecturer_key);
+	public OpenLectureDto selectMyOpenLectureInfo(int lecturer_key);
+	
+	public List<OpenLectureDto> selectMyExpectedLectureInfoList(int lecturer_key);
+	
+	public List<OpenLectureDto> selectMyCloseLectureInfoList(int lecturer_key);
 	
 	public LectureInfoDto selectLectureInfo(int lecture_info_key);
 	
@@ -92,11 +96,12 @@ public interface LifeLecturerSqlMapper {
 	public int selectTotalLateCount(int open_lecture_key);
 	public int selectTotalAbsenceCount(int open_lecture_key);
 	
-	public List<AttendanceStatusDto> selectAttendanceDtoList(int open_lecture_key);
+	public int[] selectAttendanceDtoList(int open_lecture_key);
 	
 	
 	public int selectStudentTestScoreAvg(@Param("open_lecture_key") int open_lecture_key,
 											@Param("lecture_student_key") int lecture_student_key);
+	public int selectTestCount(int open_lecture_key);
 	
 	public int selectStudentTestingCount(@Param("open_lecture_key") int open_lecture_key,
 										@Param("lecture_student_key") int lecture_student_key);
@@ -112,4 +117,8 @@ public interface LifeLecturerSqlMapper {
 	public int selectLecutreKeyByLifeStudentKeyAndLectureTestKey(@Param("lecture_test_key") int lecture_test_key,
 																@Param("life_student_key") int life_student_key);
 	
+	public Date selectStudentTestingDay(@Param("lecture_test_key") int lecture_test_key,
+										@Param("life_student_key") int life_student_key);
+	
+
 }

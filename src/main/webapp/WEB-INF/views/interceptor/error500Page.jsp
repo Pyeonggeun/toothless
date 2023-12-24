@@ -16,28 +16,30 @@
 		</div>
 		<div class="row">
 			<div class="col-4"></div>
-			<div class="col">
-				<img class="img-fluid" src="../../resources/img/errorPage/404error.gif">
+			<div class="col ps-5">
+				<img class="img-fluid" src="../../resources/img/errorPage/500error.gif">
 			</div>
 			<div class="col-4"></div>
 		</div>
 		<div class="row mt-3">
 			<div class="col-4"></div>
-			<div class="col fs-1 text-info-emphasis fw-bold">
-				페이지를 찾을 수 없습니다.
+			<div class="col fs-1 fw-bold">
+				죄송합니다. Internet Server Error
 			</div>
-			<div class="col-4"></div>
+			<div class="col-3"></div>
 		</div>
 		<div class="row mt-3">
 			<div class="col-4"></div>	
-			<div class="col fs-5 text-info-emphasis">
-				원하시는 결과를 찾을 수 없습니다. 올바른 URL을 입력하였는지 확인하세요.
+			<div class="col fs-5">
+				서비스 이용에 불편을 드려 죄송합니다.<br>
+				시스템 에러가 발생하여 페이지를 표시할 수 없습니다.<br>
+				관리자에게 문의하시거나 잠시 후 다시 시도해주세요.
 			</div>
 			<div class="col-3"></div>
 		</div>
 		<div class="row mt-5">
 			<div class="col-4"></div>
-			<div class="col">
+			<div class="col text-start pe-0">
 				<c:choose>
 					<c:when test="${!empty sessionStaffInfo }">
 						<a href="/toothless/another/staff/loginPage"><button class="btn btn-dark rounded-pill py-3" style="background-color: #055160;">로그인페이지로 돌아가기</button></a>

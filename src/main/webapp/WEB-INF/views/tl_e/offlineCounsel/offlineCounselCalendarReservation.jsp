@@ -183,9 +183,15 @@
 	            
 	            const dateCol = document.querySelector("#templete .dateCol").cloneNode(true);
 	            const currentNum = arrCalendar[i - 1];
-
+				
+	            if (currentDay === 0 || currentDay === 6) {
+	                // 주말인 경우 선택 못하도록 비활성화
+	                dateCol.classList.add('text-secondary');
+	                dateCol.style.pointerEvents = "none"; // 클릭 이벤트 비활성화
+	            }
+	            
 	            dateCol.innerText = currentNum;
-	             
+	            
 	            if (i <= firstDayOfMonth.getDay() && currentMonth === (month - 1)) {
 	                 // 현재 날짜 기준 이전 달의 날짜 비활성화 & bg 컬러 변경 
 	                let prevMonthYear = modifiedDate.getFullYear();
@@ -205,6 +211,7 @@
 	                    prevMonthYear--;
 	                }
 	                dateCol.classList.add('text-secondary');
+	                dateCol.setAttribute("onclick", "showModal(" + prevMonthYear + "," + prevMonth + "," + arrCalendar[i - 1] + "," + currentDay + "," + counselorPk.value + ")");
 	            }else if (i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())) {
 	                // 다음 달의 날짜 활성화 & text-secondary 변경
 	                let nextMonthYear = modifiedDate.getFullYear();
@@ -218,20 +225,15 @@
 	                if(modifiedDate.getTime() > threeMonthsLater.getTime() && i > (lastDayOfMonth.getDate() + firstDayOfMonth.getDay())){
 	                   dateCol.removeAttribute("onclick");
 	                }
+	            }else if (today.getFullYear() === year && today.getMonth() === month - 1 && arrCalendar[i - 1] < today.getDate()) {
+	                // 이번 달의 오늘 이전의 날짜인 경우, 비활성화
+	                dateCol.classList.add('text-secondary');
+	                dateCol.style.backgroundColor = "#f2f1f1";
 	            }else {
 	                // 나머지 날짜는 활성화
 	                dateCol.setAttribute("onclick", "showModal(" + year + "," + month + "," + arrCalendar[i - 1] + "," + currentDay + "," + counselorPk.value + ")");
 	            }
 	            
-	            
-	            <%--
-	            else if (today.getFullYear() === year && today.getMonth() === month - 1 && arrCalendar[i - 1] < today.getDate()) {
-	                // 이번 달의 오늘 이전의 날짜인 경우, 비활성화
-	                dateCol.classList.add('text-secondary');
-	                dateCol.style.backgroundColor = "#f2f1f1";
-	            }
-	            --%>
-	             
 	            currentRow.appendChild(dateCol);
 	        }
 	        
@@ -507,23 +509,29 @@
 		
 		<!-- 상단 배너 -->
 		<div class="row">
-			<div class="col mx-0 px-0" style="height: 35em;">
-				<img class="banner img-fluid" src="./../../resources/img/groupCounsel/fff.jpg" style="width:100%; height: 100%;">
-			
-				<div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height:100%; position: relative; bottom: 100%;"></div>
-				<!-- 
-				<div class="title-text fw-bold" style="font-size: 3.5em; color: white; top: 70%;">Mk University | 상담센터</div>
-				<!--<div class="title-text" style="font-size: 1.5em; color: white; top: 42%;"></div> -->
-				<div style="color: white; position: relative; font-size: 4em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 20.5%;">오프라인 상담</div>
-				<div style="color: white; position: relative; font-size: 5em; bottom: 154%; transform: translate(-50%, -50%); text-align: center; left: -18%; border-top:1px; border-top-style: solid; border-top-color: white;"></div>
-				<div style="color: white; position: relative; font-size: 1.4em; bottom: 148%; transform: translate(-50%, -50%); text-align: center; left: 19.6%;">너와 나 그리고 우리를 위한 마음을 위한 치료</div>
-				<div style="color: white; position: relative; font-size: 1.4em; bottom: 147%; transform: translate(-50%, -50%); text-align: center; left: 24.3%;">마음도 관리가 필요합니다</div>		
-				<div style="height:13em; width:14em; border-radius: 0px 50px 0px 0px; background-color: #679467; opacity:0.9; position: relative; font-size: 1.4em; bottom: 155.2%; transform: translate(-50%, -50%); text-align: center; left: 86.7%;"></div>				
-				<div style="font-weight:900; color: #464646; position: relative; font-size: 1.5em; bottom: 225%; transform: translate(-50%, -50%); text-align: center; left: 84%;">Contact Us</div>
-				<div style="font-weight:900; color: white; position: relative; font-size: 2.8em; bottom: 212%; transform: translate(-50%, -50%); text-align: center; left: 86.3%;">1544-3054</div>
-				<div style="color: white; position: relative; font-size: 0.9em; bottom: 215%; transform: translate(-50%, -50%); text-align: center; left: 85.5%;">E-mail. mkmk@naver.com</div>
-				<div style="color: white; position: relative; font-size: 0.9em; bottom: 214%; transform: translate(-50%, -50%); text-align: center; left: 84.5%;">Tel. 010-4097-3054</div>
-			</div>
+		    <div class="col mx-0 px-0" style="height: 35em; position: relative;">
+		        <img class="banner img-fluid" src="/toothless/resources/img/groupCounsel/fff.jpg" style="width: 100%; height: 100%;">
+		
+		        <div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height: 100%; position: absolute; bottom: 0; left: 0;"></div>
+		
+		        <div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 20.5%; transform: translate(-50%, 50%);">오프라인 상담</div>
+		
+		        <div style="color: white; position: absolute; font-size: 5em; bottom: 36%; transform: translate(-50%, -50%); text-align: center; left: -8%; border-top: 1px; border-top-style: solid; border-top-color: white; width: 80%;"></div>
+		
+		        <div style="color: white; position: absolute; font-size: 1.4em; bottom: 24.5%; transform: translate(-50%, -50%); text-align: center; left: 19.6%;">너와 나 그리고 우리를 위한 마음을 위한 치료</div>
+		
+		        <div style="color: white; position: absolute; font-size: 1.4em; bottom: 17.5%; transform: translate(-50%, -50%); text-align: center; left: 24.2%;">마음도 관리가 필요합니다</div>
+		
+		        <div style="height: 17em; width: 18em; border-radius: 0px 50px 0px 0px; background-color: #679467; opacity: 0.9; position: absolute; bottom: -24.2%; transform: translate(-50%, -50%); text-align: center; left: 85%;"></div>
+		
+		        <div style="font-weight: 900; color: #464646; position: absolute; font-size: 1.5em; bottom: 34%; transform: translate(-50%, -50%); text-align: center; left: 82%;">Contact Us</div>
+		
+		        <div style="font-weight: 900; color: white; position: absolute; font-size: 2.6em; bottom: 10%; transform: translate(-50%, -50%); text-align: center; left: 84%;">1544-3054</div>
+		
+		        <div style="color: white; position: absolute; font-size: 0.9em; bottom: 8%; transform: translate(-50%, -50%); text-align: center; left: 83.5%;">E-mail. mkmk@naver.com</div>
+		
+		        <div style="color: white; position: absolute; font-size: 0.9em; bottom: 3%; transform: translate(-50%, -50%); text-align: center; left: 82.5%;">Tel. 010-4097-3054</div>
+		    </div>
 		</div>
 	
 		<!-- 본문 -->

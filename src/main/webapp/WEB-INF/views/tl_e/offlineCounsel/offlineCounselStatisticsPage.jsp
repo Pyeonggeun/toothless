@@ -11,6 +11,15 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gowun+Dodum&family=Quicksand:wght@300&display=swap" rel="stylesheet">
+	
+	<style>
+		*{
+			font-family: 'Gowun Dodum', sans-serif;
+		}
+	</style>
 
 	<script>
 		
@@ -47,22 +56,37 @@
 		
 		function lineChart(){
 			
-			url = "./twoWeekStatisticsData?external_pk="+ myId;
+			console.log("myId: "+myId);
+			url = "./getMainLineChart?external_pk="+ myId;
 			
 			fetch(url)
 			.then(response => response.json())
 			.then(response => {
 				
-				const resultData = response.data;
+				const result = response.data;
+				
+				const offlineData = result.offlineData;
+				const onlineData = result.onlineData;
+				const groupData = result.groupData;
 				
 		        // 라벨들을 담을 배열과 데이터를 담을 배열 초기화
-		        const labels = [];
-		        const dataValues = [];
+		        const offlineLabels = [];
+		        const offlineDataValues = [];
+		        const onlineDataValues = [];
+		        const groupDataValues = [];
+	
+		        // result를 순회하며 각 항목의 값을 추출하여 labels와 dataValues에 추가
+		        offlineData.forEach(item => {
+		        	offlineLabels.push(item.COUNSEL_DATE);
+		        	offlineDataValues.push(item.COUNT);
+		        });
+		        
+		        onlineData.forEach(item => {
+		        	onlineDataValues.push(item.COUNT);
+		        });
 
-		        // resultData를 순회하며 각 항목의 값을 추출하여 labels와 dataValues에 추가
-		        resultData.forEach(item => {
-		            labels.push(item.COUNSEL_DATE);
-		            dataValues.push(item.COUNT);
+		        groupData.forEach(item => {
+		        	groupDataValues.push(item.COUNT);
 		        });
 				
 				const myChart1 = new Chart(
@@ -70,33 +94,49 @@
 				    {
 					    type: 'line',
 					    data: {
-					        labels: labels,
-					        datasets: [{
-					            label: '누적 통계',
-					            data: dataValues,
-					            fill: false,
-					            borderColor: '#E26EE5',
-					            tension: 0.1
-					        }]
+					    	labels: offlineLabels,
+					        datasets: [
+					        	{
+						        	label: '오프라인',
+						            data: offlineDataValues,
+						            fill: false,
+						            borderColor: '#8ACDD7',
+						            tension: 0.1
+					        	},
+					        	{
+						        	label: '온라인',
+						            data: onlineDataValues,
+						            fill: false,
+						            borderColor: '#FF90BC',
+						            tension: 0.1
+					        	},
+					        	{
+						        	label: '집단',
+						            data: groupDataValues,
+						            fill: false,
+						            borderColor: '#A367B1',
+						            tension: 0.1
+					        	}
+					        ]
 					    },
 					  	
 					    //추가 옵션이 있을 경우
 					    options: {
 					    	// 차트 사이즈를 부모 컨테이너의 크기에 맞게 반응형으로 조정
-							responsive: true,
+							responsive: false,
 		                    plugins: {
 		                        legend: {
 		                            position: 'top',
 		                        },
 		                        title: {
 		                            display: true,
-		                            text: '2주간 상담 누적 통계량'
+		                            text: '2주간 상담 통계량'
 		                        }
 		                    },
 						    scales: {
 						        y: {
 						            beginAtZero: true,
-						            max: 20,
+						            max: 10,
 						            min: 0,
 						            ticks: {
 						                stepSize: 1
@@ -106,15 +146,13 @@
 					    }	
 					}
 				);
-				
 			});
-
 		}
 		
 		
 		function pieChart(){
 			
-			url = "./twoWeekStatisticsDataByCategory?external_pk=" + myId;
+			url = "./getMainPieChart?external_pk=" + myId;
 			
 			fetch(url)
 			.then(response => response.json())
@@ -126,7 +164,7 @@
 		        const dataValues = [];
 
 		        resultData.forEach(item => {
-		            labels.push(item.CATEGORYNAME);
+		            labels.push(item.NAME);
 		            dataValues.push(item.RATE);
 		        });
 		        
@@ -134,14 +172,14 @@
 		        
 		        const DATA_COUNT = resultData.length;
 	            const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 100 };
-				
+
 	            const COLORS = [
 	            	'#7071E8', 
-	            	'#C683D7', 
-	            	'#ED9ED6',
+	            	'#C683D7',
 	            	'#C0EEE4',
+	            	'#FFCAC8', 
+	            	'#ED9ED6',
 	            	'#F8F988',
-	            	'#FFCAC8',
 	            	'#FF9E9E',
 	            	'#F4F27E',
 	            	'#6DB9EF',
@@ -290,7 +328,7 @@
 		        	  type: 'bar',
 		        	  data: data,
 		        	  options: {
-		        	    responsive: true,
+		        	    responsive: false,
 		        	    plugins: {
 		        	      legend: {
 		        	        position: 'top',
@@ -374,7 +412,7 @@
 		        		  type: 'bar',
 		        		  data: data,
 		        		  options: {
-		        		    responsive: true,
+		        		    responsive: false,
 		        		    plugins: {
 		        		      legend: {
 		        		        position: 'top',
@@ -517,7 +555,7 @@
 						</div>
 						<div class="row pt-5">
 							<div class="col">
-								<canvas id="myChart1"></canvas>
+								<canvas id="myChart1" width="700" height="400"></canvas>
 							</div>
 						</div>
 					</div>
@@ -530,7 +568,7 @@
 						</div>
 						<div class="row pt-5">
 							<div class="col">
-								<canvas id="myChart3"></canvas>
+								<canvas id="myChart3" width="700" height="400"></canvas>
 							</div>
 						</div>
 					</div>
@@ -545,7 +583,7 @@
 						</div>
 						<div class="row pt-5">
 							<div class="col">
-								<canvas id="myChart2" width="400" height="400"></canvas>
+								<canvas id="myChart2" width="500" height="500"></canvas>
 							</div>
 						</div>
 					</div>
@@ -558,7 +596,7 @@
 						</div>
 						<div class="row pt-5">
 							<div class="col">
-								<canvas id="myChart4" width="400" height="200"></canvas>
+								<canvas id="myChart4" width="700" height="400"></canvas>
 							</div>
 						</div>
 					</div>

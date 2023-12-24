@@ -31,6 +31,18 @@
      		open_lecture_key = key;
      		
      		loadLectureStudentTotalInfoList(open_lecture_key);
+     		openLectureInfo(open_lecture_key);
+     		const goLectureManagementPage = document.querySelector("#goLectureManagementPage");
+     		goLectureManagementPage.setAttribute("onclick" ,"location.href='./lectureManagementPage?open_lecture_key="+open_lecture_key+"'");
+     		const goStudentListPage = document.querySelector("#goStudentListPage");
+     		goStudentListPage.setAttribute("onclick" ,"location.href='./lectureStudentInfoListPage?open_lecture_key="+open_lecture_key+"'");
+     		const goAttendancePage = document.querySelector("#goAttendancePage");
+     		goAttendancePage.setAttribute("onclick" ,"location.href='./attendanceStudentListPage?open_lecture_key="+open_lecture_key+"'");
+     		const goTestInfoPage = document.querySelectorAll(".goTestInfoPage");
+     		for(e of goTestInfoPage ){
+     			e.setAttribute("onclick" ,"location.href='./testInfoListPage?open_lecture_key="+open_lecture_key+"'");	
+     		}
+     		
      		
      		
 		}  
@@ -65,25 +77,33 @@
 	        				gender.innerText = "여";
 	        			}
 	        			
-	        			const attendanceScore = studentTotalInfoListWrapper.attendanceScore(".absenceScore");
-	        			attendanceScore.innerText = e.studentAttendanceAvg;
+	        			const attendanceScore = studentTotalInfoListWrapper.querySelector(".attendanceScore");
+	        			attendanceScore.innerText = e.studentAttendanceAvg+"점";
 	        			
-	        			const testAvgScore = studentTotalInfoListWrapper.attendanceScore(".testAvgScore");
-	        			testAvgScore.innerText = e.studentTestScoreAvg;
+	        			const testAvgScore = studentTotalInfoListWrapper.querySelector(".testAvgScore");
+	        			testAvgScore.innerText = e.studentTestScoreAvg+"점";
 	        			
-	        			const totalScore = studentTotalInfoListWrapper.attendanceScore(".testAvgScore");
-	        			totalScore.innerText = (e.studentTestScoreAvg+ e.studentAttendanceAvg)/2;
-	        			
-	        			const status =studentTotalInfoListWrapper.attendanceScore(".status");
-	        			if(e.status == "진행중"){
-	        				status.innerText = e.status;
-	        			}else if(e.status == "진행예정"){
-	        				status.innerText = e.status;
-	        			}else if(e.status == "종료" && (e.studentTestScoreAvg+ e.studentAttendanceAvg)/2 <= 80){
-	        				status.innerText == "수료 완료";
-	        			}else if(e.status == "종료" && (e.studentTestScoreAvg+ e.studentAttendanceAvg)/2 >= 80){
-	        				status.innerText == "미수료";
+	        			const totalScore = studentTotalInfoListWrapper.querySelector(".totalScore");
+	        			if(e.studentTestScoreAvg == 0){
+	        				totalScore.innerText = e.studentAttendanceAvg+"점";
+	        			}else{
+	        				totalScore.innerText = (e.studentTestScoreAvg+ e.studentAttendanceAvg)/2+"점";	
 	        			}
+	        			
+	        			
+	        			const status =studentTotalInfoListWrapper.querySelector(".status");
+	        			status.innerText = e.status;
+	        			if(e.status == "수료완료"){
+	        				status.classList.add("text-primary");
+	        			}else if(e.status == "미수료") {
+	        				status.classList.add("text-danger");
+	        			}
+	        			
+	        			const goAttendancePageButton = studentTotalInfoListWrapper.querySelector(".goAttendancePageButton");
+	        			goAttendancePageButton.setAttribute("onclick", "location.href='./attendanceStudentListPage?open_lecture_key="+open_lecture_key+"'");
+	        			
+	        			const goTestListPageButton = studentTotalInfoListWrapper.querySelector(".goTestListPageButton");
+						goTestListPageButton.setAttribute("onclick", "location.href='./testInfoListPage?open_lecture_key="+open_lecture_key+"'");
 	        			
 	        			studentTotalInfoListBox.appendChild(studentTotalInfoListWrapper);
 	    			}
@@ -93,6 +113,37 @@
     		});
 			
 		}
+      	function openLectureInfo(open_lecture_key){
+     		const url = "./loadOpenLectureInfo?open_lecture_key="+open_lecture_key;
+     		fetch(url)
+    		.then(response => response.json())
+    		.then((response) => {
+    			
+    			const openLecutreName = document.querySelector("#openLecutreName");
+    			openLecutreName.innerText = "제 "+response.data.roundCount+"회"+response.data.lectureInfoDto.name;
+    			
+				const open_date = document.querySelector("#open_date");
+				const openDate = new Date(response.data.openLectureDto.open_date);
+				open_date.innerText = openDate.getFullYear() +"."+ (openDate.getMonth()+1) + "."+ openDate.getDate();
+				
+				const close_date = document.querySelector("#close_date");
+				const closeDate = new Date(response.data.openLectureDto.close_date);
+				close_date.innerText = closeDate.getFullYear() +"."+ (closeDate.getMonth()+1) + "."+ closeDate.getDate();
+				
+				const max_studentAndCurrentStudent = document.querySelector("#max_studentAndCurrentStudent");
+				max_studentAndCurrentStudent.innerText = response.data.lectureStudentCount+"명/"+response.data.openLectureDto.max_student+"명";
+				
+				const essential_grade = document.querySelector("#essential_grade");
+				essential_grade.innerText = response.data.lectureInfoDto.essential_grade+"점";
+				
+				const essential_attendance = document.querySelector("#essential_attendance");
+				essential_attendance.innerText = response.data.lectureInfoDto.essential_attendance+"점";
+				
+				const totalStudyingHour = document.querySelector("#totalStudyingHour");
+				totalStudyingHour.innerText = response.data.lectureInfoDto.total_hour/8+"일 ("+response.data.lectureInfoDto.total_hour+"시간)"
+				
+    		});
+     	}
      	
      	
      	
@@ -133,9 +184,9 @@
     </head>
     <body>
         <div class="container-fluid">
-            <div class="row pb-1 mt-2">
+             <div onclick="location.href='./mainPage'" class="row pb-1 mt-2" style="cursor: pointer;">
                 <div class="col-1 text-end">
-                    <img src="../imgForAcademy/logo_black.png" alt="" style="height: 3em;">
+                    <img src="../../resources/img/another/logo_black.png" alt="" style="height: 3em;">
                 </div>
                 <div class="col fw-bold fs-4 test-start mt-1 ps-0">
                     MK대학교 평생교육센터
@@ -143,37 +194,37 @@
             </div>
             <div class="row text-light" style="background-color: #133369;">
            		<div class="col-9"></div>
-            	<div id="lecturerNmae" class="col text-end pe-0">
+            	<div id="lecturerNmae" class="col mt-1 text-end pe-0" style="font-size: small">
             		
             	</div>
-            	<div class="col mt-1" style="font-size: small">
-            		님
+            	<div class="col mt-2" style="font-size: x-small;">
+            		(강사)님.
             	</div>
-            	<div class="col-1 mt-1 text-end" style="font-size: small;">
-            		마이페이지
-            	</div>
-            	<div class="col mt-1" style="font-size: small">
+            	<div class="col mt-1 text-start" style="font-size: small">
             		<a class="navbar-brand" href="../../another/external/loginPage">로그아웃</a>
             	</div>
             </div>
             <div class="row">
                 <div class="col-2" style="background-color: #133369;">
-                    <div class="row">
+                    <div class="row mt-3">
+                    	<div onclick="location.href='./mainPage'" class="col text-light fs-5 my-3" style="cursor: pointer;">
+                    		<i class="bi bi-house ms-1 me-3"></i> 메인페이지
+                    	</div>
                         <div class="accordion accordion-flush px-0">
 						  <div class="accordion-item">
 						      <a class="accordion-button collapsed text-light navbar-brand fs-5"type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" style="background-color: #133369;">
-						        <i class="bi bi-book me-3"></i> 학적부
+						        <i class="bi bi-journal-bookmark me-3"></i> 강의 관리
 						      </a>
 						    <div id="flush-collapseOne" class="accordion-collapse collapse">
 						      <div class="accordion-body text-light"  style="background-color: #133369;">
 						      	<div class="row">
-						      		<div class="col ms-3">
-						      			수강생 관리
+						      		<div id="goLectureManagementPage" class="col ms-3" style="cursor: pointer;">
+						      			강의 상세
 						      		</div>
 						      	</div>
 						      	<div class="row">
-						      		<div class="col ms-3 mt-2">
-						      			출석 관리
+						      		<div onclick="location.href='./mainPage'" class="col ms-3 mt-2"style="cursor: pointer;">
+						      			전체 강의
 						      		</div>
 						      	</div>
 						      </div>
@@ -185,18 +236,18 @@
                         <div class="accordion accordion-flush px-0">
 						  <div class="accordion-item">
 						      <a class="accordion-button button-white collapsed text-light navbar-brand fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" style="background-color: #133369;">
-						        <i class="bi bi-journal-bookmark me-3"></i> 강의 관리
+						        <i class="bi bi-book me-3"></i> 학적부
 						      </a>
 						    <div id="flush-collapseTwo" class="accordion-collapse collapse">
 						      <div class="accordion-body text-light"  style="background-color: #133369;">
 						      	<div class="row">
-						      		<div class="col ms-3">
-						      			과정자료
+						      		<div id="goStudentListPage" class="col ms-3" style="cursor: pointer;">
+						      			수강생 관리
 						      		</div>
 						      	</div>
 						      	<div class="row">
-						      		<div class="col ms-3 mt-2">
-						      			과정질문
+						      		<div id="goAttendancePage" class="col ms-3 mt-2" style="cursor: pointer;">
+						      			출석 관리
 						      		</div>
 						      	</div>
 						      </div>
@@ -213,12 +264,12 @@
 						    <div id="flush-collapseThree" class="accordion-collapse collapse">
 						      <div class="accordion-body text-light"  style="background-color: #133369;">
 						      	<div class="row">
-						      		<div class="col ms-3">
+						      		<div  class="col ms-3 goTestInfoPage" style="cursor: pointer;">
 						      			시험출제
 						      		</div>
 						      	</div>
 						      	<div class="row">
-						      		<div class="col ms-3 mt-2">
+						      		<div class="col ms-3 mt-2 goTestInfoPage" style="cursor: pointer;">
 						      			시험/평가
 						      		</div>
 						      	</div>
@@ -250,45 +301,11 @@
 						  </div>
 						</div>
                     </div>
-                    <div class="row mt-5">
-                        <div class="col">
-                            <div class="row mt-5 border-top border-white text-light">
-                                <div class="col mt-5">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-2 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-2 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-4 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-2 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                            <div class="row mt-2 text-light">
-                                <div class="col">
-                                    어쩌구 저쩌구
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="col ms-5 mt-5">
                     <div class="row">
                         <div id="openLecutreName"class="col fs-4 fw-bold border-bottom border-black border-2">
-                            제 2회 자바 어저구 저쩌구
+                            
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -317,24 +334,24 @@
                                             30일 (240시간)
                                         </div>
                                         <div class="col-2 fw-bold align-self-center border py-2" style="background-color: rgb(240, 240, 240);">
-                                            진행도
+                                            재적 인원
                                         </div>
-                                        <div id="currentStudyingHourAndPercent" class="col-4 text-center align-self-center border text-secondary py-2">
-                                            33.3% (80시간)
+                                        <div id="max_studentAndCurrentStudent" class="col-4 text-center align-self-center border text-secondary py-2">
+                                            
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-2 fw-bold align-self-center border py-2" style="background-color: rgb(240, 240, 240);">
-                                            총 재적인원
+                                          최소 시험점수  
                                         </div>
-                                        <div id="lectureStudentCount" class="col-4 text-center align-self-center border text-secondary py-2">
-                                            30명
+                                        <div id="essential_grade" class="col-4 text-center align-self-center border text-secondary py-2">
+                                            
                                         </div>
                                         <div class="col-2 fw-bold align-self-center border py-2" style="background-color: rgb(240, 240, 240);">
                                            	최소 출석점수
                                         </div>
-                                        <div id="cutLine"class="col-4 text-center align-self-center border text-secondary py-2">
-                                            80점
+                                        <div id="essential_attendance"class="col-4 text-center align-self-center border text-secondary py-2">
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -348,7 +365,7 @@
                             수강생 현황
                         </div>
                     </div>
-                    <div class="row bg-white border border-black py-3 px-3" style="height: 40em;">
+                    <div class="row bg-white border border-black py-3 px-3 overflow-y-auto" style="height: 40em;">
                         <div class="col my-0">
                             <div class="row fw-bold text-center" style="background-color: rgb(240, 240, 240);">
                                 <div class="col-2 border align-self-center border py-2">
@@ -382,8 +399,109 @@
                             </div>
                         </div>
                     </div>
+                  	<div class="row py-5"></div>  
                 </div>
                 <div class="col-1"></div>
+            </div>
+            <div class="row ps-3 py-5 text-light" style="font-size: small; background-color: #133369   ;">
+            	<div class="col-7">
+            		<div class="row">
+            			<div class="col-1">
+            				<img src="../../resources/img/another/logo_white.png" alt="" style="height: 5em;">
+            			</div>
+                        <div class="col fw-bold fs-3 align-self-center">
+                            MK University
+                        </div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				주소: (06134) 서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층 
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            			    평생교육원 센터 : 1541-1541 e-mail: se001@naver.com
+            			</div>
+            		</div>
+                    <div class="row mt-2">
+            			<div class="col">
+            				Copyright 2023 Seoul National University All Rights Reserved.
+            			</div>
+            		</div>
+            	</div>
+            	<div class="col ">
+            		<div class="row">
+            			<div class="col mt-1 fw-bold fs-6">
+            				POLICY
+            			</div>
+            		</div>
+            		<div class="row mt-3">
+            			<div class="col">
+            				이용약관
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				개인정보처리방침
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				정보공시
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				행정센터
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				이메일 무단수집 거부
+            			</div>
+            		</div>
+            	</div>
+            	<div class="col">
+            		<div class="row mt-1">
+            			<div class="col fw-bold fs-6">
+            				학사 문의
+            			</div>
+            		</div>
+            		<div class="row mt-3">
+            			<div class="col">
+            				MON - FRI | 09:00 - 17:00
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				LUNCH | 12:30 - 13:30
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				HOLLYDAY OFF
+            			</div>
+            		</div>
+            	</div>
+            	<div class="col">
+            		<div class="row">
+            			<div class="col mt-1 fw-bold fs-6">
+            				SNS SERVICE
+            			</div>
+            		</div>
+            		<div class="row mt-3">
+            			<div class="col-1 fs-4 me-1">
+            				<i class="bi bi-twitter"></i> 
+            			</div>
+            			<div class="col-1 fs-4 me-1">
+            				<i class="bi bi-facebook"></i> 
+            			</div>
+            			<div class="col-1 fs-4">
+            				<i class="bi bi-instagram"></i>
+            			</div>
+            			
+            		</div>
+            	</div>
             </div>
         </div>
 
@@ -408,12 +526,11 @@
                     87점
                 </div>
                 <div class="col-1 border align-self-center border py-2 status">
-                    진행중
+                    
                 </div>
                 <div class="col-4 border align-self-center border py-2">
-                    <button class="btn btn-outline-primary py-0" style="font-size: small;">상세보기</button>
-                    <button class="btn btn-outline-primary py-0" style="font-size: small;">출결현황보기</button>
-                    <button class="btn btn-outline-primary py-0" style="font-size: small;">시험현황보기</button>
+                    <button class="btn btn-outline-primary py-0 goAttendancePageButton" style="font-size: small;">출결현황보기</button>
+                    <button class="btn btn-outline-primary py-0 goTestListPageButton" style="font-size: small;">시험현황보기</button>
                 </div>
             </div>
 		</div>

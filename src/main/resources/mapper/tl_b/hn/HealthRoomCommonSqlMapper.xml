@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkfactory.toothless.b.hn.common.mapper.HealthRoomCommonSqlMapper">
+
+	<select id="getItemList" resultType="map">
+		SELECT t2.rental_date, t2.return_date, tbii.name, tbic.name AS categoryName FROM (
+			SELECT t1.item_pk, t1.rental_date, t1.return_date FROM (
+				SELECT tbia.*, rownum rnum FROM tl_b_item_apply tbia
+				WHERE TO_CHAR(tbia.rental_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+			)t1
+			<![CDATA[
+				WHERE t1.rnum <= 4
+			]]>
+		)t2
+		INNER JOIN tl_b_item_info tbii ON t2.item_pk = tbii.item_pk
+		INNER JOIN tl_b_item_cat tbic ON tbii.item_cat_pk = tbic.item_cat_pk
+	</select>
+	
+	<select id="getEduList" resultType="map">
+		SELECT t1.edu_pk, t1.name, t2.quantity, t1.capacity, t1.edu_date FROM (
+			SELECT * FROM (
+				SELECT tbei.*, rownum rnum FROM tl_b_edu_info tbei
+				WHERE TO_CHAR(tbei.edu_date, 'yyyy-MM-dd') >= TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+				ORDER BY tbei.edu_date ASC
+			)t3
+			<![CDATA[
+				WHERE t3.rnum <= 4
+			]]>
+		)t1
+		INNER JOIN (
+			SELECT edu_pk, COUNT(*) AS quantity FROM tl_b_edu_apply
+			WHERE status LIKE 'N'
+			GROUP BY edu_pk
+		)t2 ON t1.edu_pk = t2.edu_pk
+	</select>
+	
+	<select id="getStudentboardList" resultType="map">
+		SELECT t1.title, t1.created_at FROM (
+			SELECT tbs.*, rownum rnum FROM tl_b_studentboard tbs
+			ORDER BY tbs.created_at ASC
+		)t1
+		<![CDATA[
+			WHERE t1.rnum <= 4
+		]]>
+	</select>
+	
+	<select id="getStaffboardList" resultType="map">
+		SELECT t1.title, t1.created_at FROM (
+			SELECT tbs.*, rownum rnum FROM tl_b_staffboard tbs
+			ORDER BY tbs.created_at ASC
+		)t1
+		<![CDATA[
+			WHERE t1.rnum <= 9
+		]]>
+	</select>
+	
+	<select id="totalMedicineCount" resultType="int">
+		SELECT (
+			(SELECT NVL(SUM(quantity), 0) FROM tl_b_medicine_add)
+			+
+			(SELECT NVL(SUM(quantity), 0) FROM tl_b_prescription_info)
+			+
+			(SELECT NVL(SUM(quantity), 0) FROM tl_b_medicine_inventory)
+		) AS quantity FROM dual
+	</select>
+	
+	<select id="addMedicineCount" resultType="int">
+		SELECT NVL(SUM(quantity), 0) FROM tl_b_medicine_add
+	</select>
+	
+	<select id="outMedicineCount" resultType="int">
+		SELECT NVL(-SUM(quantity), 0) FROM tl_b_prescription_info
+	</select>
+	
+	<select id="disposalMedicineCount" resultType="int">
+		SELECT NVL(-SUM(quantity), 0) FROM tl_b_medicine_inventory
+		WHERE medicine_mgmt_cat_pk = 1
+	</select>
+	
+	<select id="lossMedicineCount" resultType="int">
+		SELECT NVL(-SUM(quantity), 0) FROM tl_b_medicine_inventory
+		WHERE medicine_mgmt_cat_pk = 2
+	</select>
+	
+	<select id="adjustmentMedicineCount" resultType="int">
+		SELECT NVL(SUM(quantity), 0) FROM tl_b_medicine_inventory
+		WHERE medicine_mgmt_cat_pk = 3
+	</select>
+	
+	<select id="getUserCountList" resultType="int">
+		SELECT NVL(t2.quantity, 0) AS quantity FROM (
+			SELECT (TRUNC(SYSDATE, 'MM') + (LEVEL-1)) AS fullDate FROM dual
+			<![CDATA[
+				CONNECT BY LEVEL <= LAST_DAY(TRUNC(SYSDATE)) - TRUNC(SYSDATE, 'MM') + 1
+			]]>
+		)t1
+		LEFT JOIN (
+			SELECT TO_CHAR(created_at, 'yyyy-MM-dd') AS created_at, COUNT(*) AS quantity FROM tl_b_prescription_info
+			GROUP BY TO_CHAR(created_at, 'yyyy-MM-dd')
+		)t2 ON TO_CHAR(t1.fullDate, 'yyyy-MM-dd') = t2.created_at
+		ORDER BY fullDate ASC
+	</select>
+
+</mapper>

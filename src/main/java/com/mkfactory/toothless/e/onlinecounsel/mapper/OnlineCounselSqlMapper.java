@@ -54,7 +54,7 @@ public interface OnlineCounselSqlMapper {
 	
 	public List<OnlineCounselReplyDto> selectReplyListByCounselPk(int counsel_pk);
 	
-	
+	public CounselorDto selectCounselorDtoByCounselorId(int counselorId);
 	
 	
 	

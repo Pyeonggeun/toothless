@@ -621,6 +621,7 @@
         		.then(response => {
         			
         			const diseaseDataListOptionsBox = document.getElementById("diseaseDataListOptionsBox");
+        			diseaseDataListOptionsBox.innerHTML = "";
         			
         			for(e of response.data) {
         				
