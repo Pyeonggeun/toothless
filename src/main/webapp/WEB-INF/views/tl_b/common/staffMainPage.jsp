@@ -39,7 +39,7 @@
         					rentalDate.getFullYear() + "." + ("0" + (rentalDate.getMonth() + 1)).slice(-2) + "." + ("0" + rentalDate.getDate()).slice(-2) + "~" +
         					returnDate.getFullYear() + "." + ("0" + (returnDate.getMonth() + 1)).slice(-2) + "." + ("0" + returnDate.getDate()).slice(-2);
         				
-        				itemWrapper.appendChild(itemWrapper);
+	        			itemBox.appendChild(itemWrapper);
         				
         			}
         			
