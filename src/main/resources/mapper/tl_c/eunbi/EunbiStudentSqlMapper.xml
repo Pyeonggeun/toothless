@@ -215,5 +215,11 @@
 	</select>
 
 
+	<!-- 지원학생 몇명인지 -->
+	<select id="countApplyingStudent" resultType="int">
+		SELECT COUNT(*) FROM tl_c_student_applying
+		WHERE internship_course_pk = #{internship_course_pk}
+	</select>
+
 
 </mapper>

@@ -108,6 +108,8 @@ body {
 			<jsp:include page="../../common/ajdksSideMenubarForStaff.jsp"></jsp:include>
 
 			<!-- 본문 -->
+			<div class="col">
+			<div class="row">
 			<div class="col mx-5">
 
 
@@ -369,6 +371,9 @@ body {
 
 				</div>
 			
+			</div>
+			</div>
+			<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 			</div>
 		</div>
 

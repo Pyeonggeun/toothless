@@ -210,7 +210,7 @@
 			<div class="col mx-5">
 			
 				<!-- 본문작성공간 -->
-				<div class="row mt-5">
+				<div class="row mt-4">
 						<div class="col fw-semibold" style="font-size:1.3em">
 							<span class="text-secondary fs-3">&gt;</span>
 							학생 정보 상세보기

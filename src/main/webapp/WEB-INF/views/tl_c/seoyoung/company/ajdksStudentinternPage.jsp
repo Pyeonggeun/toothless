@@ -106,7 +106,7 @@
 
 						<!-- 본문작성공간 -->
 						<br> <br>
-						<div class="row">
+						<div class="row mt-2">
 							<div class="col-auto">
 								<h2>
 									<span class="fw-bolder"><i class="bi bi-building-check"></i>&nbsp;현장
@@ -122,7 +122,7 @@
 
 						<br>
 
-						<div class="row row-cols-2">
+						<div class="row row-cols-2 mt-2 mb-4">
 							<c:forEach items="${list}" var="companyList">
 								<div class="col px-3 text-center">
 									<div class="card mb-3 px-3btext-center">
@@ -187,6 +187,7 @@
 
 					</div>
 				</div>
+				<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 			</div>
 		</div>
 		<!-- 전체 container 출구 -->

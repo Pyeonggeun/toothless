@@ -214,12 +214,13 @@
 				studentDetailPageBtn.classList.add("btn", "btn-outline-secondary", "btn-sm", "rounded-1");
 				studentDetailPageBtn.setAttribute("href", "./viewStudentDetailPage?student_pk="+intern.studentInfoDto.student_pk+"");
 				
-				const readInternReport = internWrapper.querySelector(".readInternReport");
-				readInternReport.innerText = "업무일지확인";
-				readInternReport.classList.add("btn", "btn-outline-secondary", "btn-sm", "rounded-1");
-				readInternReport.setAttribute("href", "./viewInternTimeCard?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
-				
 				if(now <= internshipEndDate){
+					
+					const readInternReport = internWrapper.querySelector(".readInternReport");
+					readInternReport.innerText = "업무일지확인";
+					readInternReport.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1");
+					readInternReport.setAttribute("href", "./viewInternTimeCard?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
+					
 					const internEvaluation = internWrapper.querySelector(".internEvaluation");
 					internEvaluation.setAttribute("style", "font-size:0.95em");
 					internEvaluation.classList.add("text-secondary", "fw-bold");
@@ -227,6 +228,12 @@
 					
 				}else if(now > internshipEndDate){
 					if(intern.didProfessorEvaluateIntern === 0){
+						
+						const readInternReport = internWrapper.querySelector(".readInternReport");
+						readInternReport.innerText = "업무일지확인";
+						readInternReport.classList.add("btn", "btn-outline-secondary", "btn-sm", "rounded-1");
+						readInternReport.setAttribute("href", "./viewInternTimeCard?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
+						
 						const evaluationButton = internWrapper.querySelector(".evaluationButton");
 						evaluationButton.innerText = "평가하기";
 						evaluationButton.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1", "open-Modal");
@@ -237,6 +244,12 @@
 						inputStudentInternPk.setAttribute("value",intern.studentInternDto.student_intern_pk);
 						
 					}else if(intern.didProfessorEvaluateIntern !== 0){
+						
+						const readInternReport = internWrapper.querySelector(".readInternReport");
+						readInternReport.innerText = "업무일지확인";
+						readInternReport.classList.add("btn", "btn-outline-secondary", "btn-sm", "rounded-1");
+						readInternReport.setAttribute("href", "./viewInternTimeCard?student_intern_pk="+intern.studentInternDto.student_intern_pk+"");
+						
 						const internEvaluation = internWrapper.querySelector(".internEvaluation");
 						internEvaluation.setAttribute("style", "font-size:0.95em");
 						internEvaluation.classList.add("text-secondary", "fw-bold");
