@@ -15,6 +15,7 @@ import com.mkfactory.toothless.donot.touch.dto.ExternalInfoDto;
 import com.mkfactory.toothless.x.dto.AttendanceBookDto;
 import com.mkfactory.toothless.x.dto.AttendanceStatusDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
+import com.mkfactory.toothless.x.dto.LectureReviewDto;
 import com.mkfactory.toothless.x.dto.LectureStudentDto;
 import com.mkfactory.toothless.x.dto.LectureTestDto;
 import com.mkfactory.toothless.x.dto.LifeLecturerDto;
@@ -45,7 +46,13 @@ public class LifeLecturerServiceImpl {
 		LectureInfoDto lectureInfoDto = lifeLecturerSqlMapper.selectLectureInfo(leecture_info_key);
 		int roundCount = lifeLecturerSqlMapper.lectureRoundCount(openLectureDto);			
 		LifeLecturerDto lifeLecturerDto = lifeLecturerSqlMapper.selectLecturerDto(openLectureDto.getLecturer_key());
-		 
+		
+		Map<String, Object> reviewMap = lifeLecturerSqlMapper.selectTotalReviewScore(lecturer_key);
+		int totalReviewScore = Integer.parseInt(reviewMap.get("TOTAL_STAR").toString()) ;
+		int studentReviewCount = Integer.parseInt(reviewMap.get("TOTAL_STUDENT").toString()) ;
+		double result = (double)totalReviewScore/studentReviewCount;
+		
+		map.put("result", result);
 		map.put("lifeLecturerDto", lifeLecturerDto);
 		map.put("openLectureDto", openLectureDto);
 		map.put("lectureInfoDto", lectureInfoDto);
@@ -647,6 +654,13 @@ public class LifeLecturerServiceImpl {
 			}
 		 }
 		 return list;
+	}
+	
+	public List<LectureReviewDto> getLectureReviewList(int open_lecture_key){
+		
+		List<LectureReviewDto> list = lifeLecturerSqlMapper.selectOpenLecutreReviewList(open_lecture_key);
+		
+		return list;
 	}
 	
 }

@@ -85,6 +85,10 @@
          		for(e of goTestInfoPage ){
          			e.setAttribute("onclick" ,"location.href='./testInfoListPage?open_lecture_key="+response.data.lectureTestDto.open_lecture_key+"'");	
          		}
+         		const reviewPage = document.querySelectorAll(".reviewPage");
+         		for(e of reviewPage ){
+         			e.setAttribute("onclick" ,"location.href='./lectureReviewPage?open_lecture_key="+open_lecture_key+"'");	
+         		}
          		
          	
     		});
@@ -281,21 +285,21 @@
     				for(ee of e.qList){
     					
     					const choiceBoxWrapper =  document.querySelector("#choiceBoxTemplete .choiceBoxWrapper").cloneNode(true);
-    					console.log(choiceBoxWrapper);
+    					
     					const choice = choiceBoxWrapper.querySelector(".choice");
     					choice.innerText = ee.questionChoiceDto.choice;
     					
     					const answerCheckBox = choiceBoxWrapper.querySelector(".answerCheckBox");
     					if(ee.questionChoiceDto.answer =="true" && ee.testResultDto != null){
    							answerCheckBox.checked = true;	
-   							console.log(answerCheckBox.checked);
+   							
    							CheckAnswerNumber.classList.add("answer");
    							test_score += e.testQuestionDto.test_point;
     					}else if (ee.questionChoiceDto.answer =="false" && ee.testResultDto != null){
     						CheckAnswerNumber.classList.add("noAnswer");
     						answerCheckBox.checked = true;
     						choice.classList.add("text-danger");
-    						console.log(answerCheckBox.checked);
+    						
     					}
 						if(ee.questionChoiceDto.answer =="true"){
 							choice.classList.add("text-primary");
@@ -532,12 +536,12 @@
 						    <div id="flush-collapseFour" class="accordion-collapse collapse">
 						      <div class="accordion-body text-light"  style="background-color: #133369;">
 						      	<div class="row">
-						      		<div class="col ms-3">
+						      		<div class="col ms-3 reviewPage" style="cursor: pointer;">
 						      			만족도 조사
 						      		</div>
 						      	</div>
 						      	<div class="row">
-						      		<div class="col ms-3 mt-2">
+						      		<div class="col ms-3 mt-2 reviewPage" style="cursor: pointer;">
 						      			후기
 						      		</div>
 						      	</div>

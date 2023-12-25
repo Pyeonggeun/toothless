@@ -18,20 +18,22 @@
     		.then((response) => {
     			const lecturerNmae = document.querySelector("#lecturerNmae");
     			lecturerNmae.innerText = response.data.name;
-    			testOpenLecturerName = response.data.name;
+
     		});
 			
 		}
      	
-     
      	let open_lecture_key = null;
-     	function getUrlKey() {
+     	function loadPageInfo() {
      		const urlParams = new URLSearchParams(location.search);
      		const key = urlParams.get("open_lecture_key");
      		open_lecture_key = key;
      		
-     		loadLectureStudentTotalInfoList(open_lecture_key);
-     		openLectureInfo(open_lecture_key);
+     		
+     		loadReviewListPage(open_lecture_key);
+     		openLectureInfo(open_lecture_key)
+     		
+     		
      		const goLectureManagementPage = document.querySelector("#goLectureManagementPage");
      		goLectureManagementPage.setAttribute("onclick" ,"location.href='./lectureManagementPage?open_lecture_key="+open_lecture_key+"'");
      		const goStudentListPage = document.querySelector("#goStudentListPage");
@@ -48,75 +50,9 @@
      		}
      		
      		
-		}  
-     	
-      	function loadLectureStudentTotalInfoList(open_lecture_key) {
-			
-     		const url = "./loadLectureStudentTotalInfoList?open_lecture_key="+open_lecture_key;
-			fetch(url)
-    		.then(response => response.json())
-    		.then((response) => {
-    			
-    			const studentTotalInfoListBox = document.querySelector("#studentTotalInfoListBox");
-    			studentTotalInfoListBox.innerHtml ="";
-    			
-    			if(response.data[0] == null){
-    				studentTotalInfoListBox.innerText = "수강신청 된 학생이 존재하지 않습니다.";
-    				studentTotalInfoListBox.classList.add("text-center" , "text-secondary");
-    			}else{
-	    			for(e of response.data){
-	    				const studentTotalInfoListWrapper = document.querySelector("#studentTotalInfoListTemplet .studentTotalInfoListWrapper").cloneNode(true);	
-	    				
-	    				const number = studentTotalInfoListWrapper.querySelector(".number");
-	    				number.innerText = e.externalInfoDto.external_id;
-	    				
-	        			const name = studentTotalInfoListWrapper.querySelector(".name");
-	        			name.innerText = e.lifeStudentDto.name;
-	        			
-	        			const gender = studentTotalInfoListWrapper.querySelector(".gender");
-	        			if(e.lifeStudentDto.gender == "M"){
-	        				gender.innerText = "남";	
-	        			}else{
-	        				gender.innerText = "여";
-	        			}
-	        			
-	        			const attendanceScore = studentTotalInfoListWrapper.querySelector(".attendanceScore");
-	        			attendanceScore.innerText = e.studentAttendanceAvg+"점";
-	        			
-	        			const testAvgScore = studentTotalInfoListWrapper.querySelector(".testAvgScore");
-	        			testAvgScore.innerText = e.studentTestScoreAvg+"점";
-	        			
-	        			const totalScore = studentTotalInfoListWrapper.querySelector(".totalScore");
-	        			if(e.studentTestScoreAvg == 0){
-	        				totalScore.innerText = e.studentAttendanceAvg+"점";
-	        			}else{
-	        				totalScore.innerText = (e.studentTestScoreAvg+ e.studentAttendanceAvg)/2+"점";	
-	        			}
-	        			
-	        			
-	        			const status =studentTotalInfoListWrapper.querySelector(".status");
-	        			status.innerText = e.status;
-	        			if(e.status == "수료완료"){
-	        				status.classList.add("text-primary");
-	        			}else if(e.status == "미수료") {
-	        				status.classList.add("text-danger");
-	        			}
-	        			
-	        			const goAttendancePageButton = studentTotalInfoListWrapper.querySelector(".goAttendancePageButton");
-	        			goAttendancePageButton.setAttribute("onclick", "location.href='./attendanceStudentListPage?open_lecture_key="+open_lecture_key+"'");
-	        			
-	        			const goTestListPageButton = studentTotalInfoListWrapper.querySelector(".goTestListPageButton");
-						goTestListPageButton.setAttribute("onclick", "location.href='./testInfoListPage?open_lecture_key="+open_lecture_key+"'");
-	        			
-	        			studentTotalInfoListBox.appendChild(studentTotalInfoListWrapper);
-	    			}
-    			
-    			}
-    			
-    		});
-			
-		}
-      	function openLectureInfo(open_lecture_key){
+     		
+		}   
+     	function openLectureInfo(open_lecture_key){
      		const url = "./loadOpenLectureInfo?open_lecture_key="+open_lecture_key;
      		fetch(url)
     		.then(response => response.json())
@@ -125,35 +61,59 @@
     			const openLecutreName = document.querySelector("#openLecutreName");
     			openLecutreName.innerText = "제 "+response.data.roundCount+"회"+response.data.lectureInfoDto.name;
     			
-				const open_date = document.querySelector("#open_date");
-				const openDate = new Date(response.data.openLectureDto.open_date);
-				open_date.innerText = openDate.getFullYear() +"."+ (openDate.getMonth()+1) + "."+ openDate.getDate();
 				
-				const close_date = document.querySelector("#close_date");
-				const closeDate = new Date(response.data.openLectureDto.close_date);
-				close_date.innerText = closeDate.getFullYear() +"."+ (closeDate.getMonth()+1) + "."+ closeDate.getDate();
-				
-				const max_studentAndCurrentStudent = document.querySelector("#max_studentAndCurrentStudent");
-				max_studentAndCurrentStudent.innerText = response.data.lectureStudentCount+"명/"+response.data.openLectureDto.max_student+"명";
-				
-				const essential_grade = document.querySelector("#essential_grade");
-				essential_grade.innerText = response.data.lectureInfoDto.essential_grade+"점";
-				
-				const essential_attendance = document.querySelector("#essential_attendance");
-				essential_attendance.innerText = response.data.lectureInfoDto.essential_attendance+"점";
-				
-				const totalStudyingHour = document.querySelector("#totalStudyingHour");
-				totalStudyingHour.innerText = response.data.lectureInfoDto.total_hour/8+"일 ("+response.data.lectureInfoDto.total_hour+"시간)"
 				
     		});
      	}
      	
-     	
-     	
+		function loadReviewListPage(open_lecture_key) {
+			const url = "./reviewListPage?open_lecture_key="+open_lecture_key;
+			fetch(url)
+    		.then(response => response.json())
+    		.then((response) => {
+
+    			const lectureReviewListBox = document.querySelector("#lectureReviewListBox");
+    			if(response.data[0] == null){
+    				lectureReviewListBox.innerText = "등록되어있는 후기가 존재하지 않습니다.";
+    				lectureReviewListBox.classList.add("text-center" , "text-secondary");
+    			}else{
+    				
+    				for(e of response.data){
+    					lectureReviewListBox.classList.remove("text-center" , "text-secondary");
+    					const lectureReviewListWrapper = document.querySelector("#lectureReviewListTemplete .lectureReviewListWrapper").cloneNode(true);	
+    					
+    					const reviewNumber = lectureReviewListWrapper.querySelector(".reviewNumber");
+    					reviewNumber.innerText = e.lecture_review_key;
+    					const review = lectureReviewListWrapper.querySelector(".review");
+    					review.innerText = e.review;
+    					const star_count = lectureReviewListWrapper.querySelector(".star_count");
+    					star_count.innerText = e.star_count +"점";
+    					
+    					const created_at = lectureReviewListWrapper.querySelector(".created_at");
+    					
+    					const createdDate = new Date(e.created_at);
+	         			const created_day = createdDate.getFullYear()+"-"+(createdDate.getMonth()+1) + "-"+ createdDate.getDate();
+    					
+	         			created_at.innerText = created_day;
+	         			
+	         			lectureReviewListBox.appendChild(lectureReviewListWrapper);
+        			}	
+    			}
+    			
+    			
+    			
+    		});
+		}
+
+
+		
+		
+	
+		
 		
 		window.addEventListener("DOMContentLoaded", () =>{
-			getUrlKey();
-			getMyInfo();
+     		getMyInfo();
+     		loadPageInfo();
         });
      
         </script>
@@ -187,7 +147,7 @@
     </head>
     <body>
         <div class="container-fluid">
-             <div onclick="location.href='./mainPage'" class="row pb-1 mt-2" style="cursor: pointer;">
+            <div onclick="location.href='./mainPage'" class="row pb-1 mt-2" style="cursor: pointer;">
                 <div class="col-1 text-end">
                     <img src="../../resources/img/another/logo_black.png" alt="" style="height: 3em;">
                 </div>
@@ -195,7 +155,7 @@
                     MK대학교 평생교육센터
                 </div>
             </div>
-            <div class="row text-light" style="background-color: #133369;">
+          <div class="row text-light" style="background-color: #133369;">
            		<div class="col-9"></div>
             	<div id="lecturerNmae" class="col mt-1 text-end pe-0" style="font-size: small">
             		
@@ -290,12 +250,12 @@
 						    <div id="flush-collapseFour" class="accordion-collapse collapse">
 						      <div class="accordion-body text-light"  style="background-color: #133369;">
 						      	<div class="row">
-						      		<div class="col ms-3 reviewPage" style="cursor: pointer;">
+						      		<div class="col ms-3 reviewPage">
 						      			만족도 조사
 						      		</div>
 						      	</div>
 						      	<div class="row">
-						      		<div class="col ms-3 mt-2 reviewPage" style="cursor: pointer;">
+						      		<div class="col ms-3 mt-2 reviewPage">
 						      			후기
 						      		</div>
 						      	</div>
@@ -305,104 +265,41 @@
 						</div>
                     </div>
                 </div>
-                <div class="col ms-5 mt-5">
-                    <div class="row">
-                        <div id="openLecutreName"class="col fs-4 fw-bold border-bottom border-black border-2">
-                            
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col ms-3">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="row">
-                                        <div class="col-2 fw-bold align-self-center border py-2" style="background-color: rgb(240, 240, 240);">
-                                            강의 시작일
-                                        </div>
-                                        <div id="open_date" class="col-4 text-center align-self-center border text-secondary py-2">
-                                            2023.11.18
-                                        </div>
-                                        <div class="col-2 fw-bold align-self-center border py-2" style="background-color: rgb(240, 240, 240);">
-                                            강의 종료일
-                                        </div>
-                                        <div id="close_date" class="col-4 text-center align-self-center border text-secondary py-2">
-                                            2023.12.28
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-2 fw-bold align-self-cente border py-2" style="background-color: rgb(240, 240, 240);">
-                                            총 수업일수
-                                        </div>
-                                        <div id="totalStudyingHour" class="col-4 text-center align-self-center border text-secondary py-2">
-                                            30일 (240시간)
-                                        </div>
-                                        <div class="col-2 fw-bold align-self-center border py-2" style="background-color: rgb(240, 240, 240);">
-                                            재적 인원
-                                        </div>
-                                        <div id="max_studentAndCurrentStudent" class="col-4 text-center align-self-center border text-secondary py-2">
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-2 fw-bold align-self-center border py-2" style="background-color: rgb(240, 240, 240);">
-                                          최소 시험점수  
-                                        </div>
-                                        <div id="essential_grade" class="col-4 text-center align-self-center border text-secondary py-2">
-                                            
-                                        </div>
-                                        <div class="col-2 fw-bold align-self-center border py-2" style="background-color: rgb(240, 240, 240);">
-                                           	최소 출석점수
-                                        </div>
-                                        <div id="essential_attendance"class="col-4 text-center align-self-center border text-secondary py-2">
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">  
-                            </div>
-                        </div>
-                    </div>
+                <div class="col ms-5">
                     <div class="row mt-5">
-                        <div class="col fw-bold fs-5 text-light" style="background-color: #133369;">
-                            수강생 현황
+                        <div id="openLecutreName" class="col fs-4 fw-bold border-bottom border-black border-2">
+                           
                         </div>
                     </div>
-                    <div class="row bg-white border border-black py-3 px-3 overflow-y-auto" style="height: 40em;">
+                    <div class="row mt-1">
+                        <div class="col fw-bold fs-5 text-light" style="background-color: #133369;">
+                            강의 만족도 평가
+                        </div>
+                    </div>
+                    <div class="row bg-white border border-black py-3 px-3" style="height: 40em;">
                         <div class="col my-0">
                             <div class="row fw-bold text-center" style="background-color: rgb(240, 240, 240);">
-                                <div class="col-2 border align-self-center border py-2">
-                                    학생번호
-                                </div>
                                 <div class="col-1 border align-self-center border py-2">
-                                    학생명
+                                    번호
+                                </div>
+                                <div class="col-8 border align-self-center border py-2">
+                                    후기
                                 </div>
                                 <div class="col border align-self-center border py-2">
-                                    성별
+                                    별점
                                 </div>
-                                <div class="col-1 border align-self-center border py-2">
-                                    출결점수
-                                </div>
-                                <div class="col-1 border align-self-center border py-2">
-                                    시험점수
-                                </div>
-                                <div class="col-1 border align-self-center border py-2">
-                                    종합점수
-                                </div>
-                                <div class="col-1 border align-self-center border py-2">
-                                    수료 상태
-                                </div>
-                                <div class="col-4 border align-self-center border py-2">
-                                    관리
+                                <div class="col border align-self-center border py-2">
+                                    작성일
                                 </div>
                             </div>
                             <!-- 반복문 구간 -->
-                            <div id="studentTotalInfoListBox" class="col" style="font-size: small;">
-                                
+                            <div id="lectureReviewListBox" class="col">
+                              
                             </div>
                         </div>
                     </div>
-                  	<div class="row py-5"></div>  
+                  
+                    <div class="row py-5"></div>
                 </div>
                 <div class="col-1"></div>
             </div>
@@ -410,7 +307,7 @@
             	<div class="col-7">
             		<div class="row">
             			<div class="col-1">
-            				<img src="../../resources/img/another/logo_white.png" alt="" style="height: 5em;">
+            				<img src="../../resources/img/another/logo_black.png" alt="" style="height: 3em;">
             			</div>
                         <div class="col fw-bold fs-3 align-self-center">
                             MK University
@@ -508,37 +405,27 @@
             </div>
         </div>
 
-		<div id="studentTotalInfoListTemplet" class="d-none">
-			<div class="row text-center studentTotalInfoListWrapper">
-                <div class="col-2 border align-self-center border py-2 number">
-                    20220233
-                </div>
-                <div class="col-1 border align-self-center border py-2 name">
-                    조인춘
-                </div>
-                <div class="col border align-self-center border py-2 gender">
-                    성별
-                </div>
-                <div class="col-1 border align-self-center border py-2 attendanceScore">
-                    83점
-                </div>
-                <div class="col-1 border align-self-center border py-2 testAvgScore">
-                    90점
-                </div>
-                <div class="col-1 border align-self-center border py-2 totalScore">
-                    87점
-                </div>
-                <div class="col-1 border align-self-center border py-2 status">
-                    
-                </div>
-                <div class="col-4 border align-self-center border py-2">
-                    <button class="btn btn-outline-primary py-0 goAttendancePageButton" style="font-size: small;">출결현황보기</button>
-                    <button class="btn btn-outline-primary py-0 goTestListPageButton" style="font-size: small;">시험현황보기</button>
-                </div>
-            </div>
+		<div id="lectureReviewListTemplete" class="d-none">
+            <div class="row text-center lectureReviewListWrapper">
+                <div class="col-1 h-auto border align-self-center border py-2 reviewNumber">
+                     1
+                 </div>
+                 <div class="col-8 h-auto border align-self-center border py-2 review">
+                     너무 좋았어요~~~
+                 </div>
+                 <div class="col h-auto border align-self-center border py-2 text-secondary star_count" style="font-size: small">
+                     5점
+                 </div>
+                 <div class="col h-auto border align-self-center border py-2 text-secondary created_at" style="font-size: small">
+                     2023.12.11
+                 </div>
+             </div>
+        </div>
 		</div>
 		
-        
+		
+		
+		
         
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

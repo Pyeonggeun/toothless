@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mkfactory.toothless.donot.touch.dto.RestResponseDto;
 import com.mkfactory.toothless.x.dto.AttendanceBookDto;
 import com.mkfactory.toothless.x.dto.AttendanceStatusDto;
+import com.mkfactory.toothless.x.dto.LectureReviewDto;
 import com.mkfactory.toothless.x.dto.LectureTestDto;
 import com.mkfactory.toothless.x.dto.LifeLecturerDto;
 import com.mkfactory.toothless.x.dto.QuestionChoiceDto;
@@ -284,6 +285,17 @@ public class RestLifeLecutrerController {
 		return responseDto;
 		
 	}
-	
+	@RequestMapping("reviewListPage")
+	public RestResponseDto reviewListPage(int open_lecture_key) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		List<LectureReviewDto> list = lifeLecturerService.getLectureReviewList(open_lecture_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(list);
+		
+		return responseDto;
+	}
+
 	
 }
