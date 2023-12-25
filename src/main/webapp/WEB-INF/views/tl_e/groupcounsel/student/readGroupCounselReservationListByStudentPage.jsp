@@ -20,6 +20,26 @@
 		
 	</style>
 
+	<script>
+	
+	function showModal(groupCounselReservationId){
+		
+		const writeModal = bootstrap.Modal.getOrCreateInstance("#writeModal");
+		
+		const hiddenValue = document.querySelector("#hiddenValue");
+		hiddenValue.setAttribute("value", groupCounselReservationId);
+		
+		writeModal.show();
+		
+		
+		
+	}	
+	
+	
+	</script>
+
+
+
 
 </head>
 <body>
@@ -45,7 +65,7 @@
 			
 			        <div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height: 100%; position: absolute; bottom: 0; left: 0;"></div>
 			
-			        <div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 20.5%; transform: translate(-50%, 50%);">집단 상담 예약</div>
+			        <div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 24.2%; transform: translate(-50%, 50%);">집단 상담</div>
 			
 			        <div style="color: white; position: absolute; font-size: 5em; bottom: 36%; transform: translate(-50%, -50%); text-align: center; left: -8%; border-top: 1px; border-top-style: solid; border-top-color: white; width: 80%;"></div>
 			
@@ -72,40 +92,96 @@
 				<div class="col my-0 py-4"></div>
 			</div>
 			
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col">
+					<div class="fw-bold" style="font-size: 1.1em; color:black;"><i class="bi bi-house-door-fill"></i> / 집단 상담 / 예약 조회</div>
+				</div>
+				<div class="col-1"></div>
+			</div>
+			
+			<div class="row my-0">
+				<div class="col my-0 py-4"></div>
+			</div>			
 			
 			<div class="row mt-0 pt-0">
-					
 				<div class="col">
+					<div class="row" style="height:3em;"></div>
 					<div class="row mb-5">
 						<div class="col-1"></div>
-						<div class="col rounded-4" style="width:100%; height: 25em; background-color: gray; opacity: 0.1;"></div>
+						<div class="col rounded-4" style="width:100%; height: 30em; background-color: rgba(103, 148, 103, 0.1);">
+							<div class="row">
+								<div class="col">
+									<div class="row" style="height: 5em;"></div>
+									<div class="row">
+										<div class="col-2"></div>
+										<div class="col">
+											<div class="fw-bold" style="font-size: 1.7em; color: black;">다양한 주제와 전문 상담가들과 함께하는 집단 상담 프로그램</div>
+											<div class="fw-bold" style="font-size: 1.7em; color: black;">& 감정을 나누고 새로운 경험을 쌓아보세요</div>
+										</div>
+									</div>
+									<div class="row" style="height: 1em;"></div>
+									<div class="row">
+										<div class="col-2"></div>
+										<div class="col">
+											<div class="fw-bold" style="font-size: 1em; color: black;">Explore group counseling programs with diverse topics and professional counselors.</div>
+											<div class="fw-bold" style="font-size: 1em; color: black;">Share emotions and gain new experiences.</div>
+										</div>
+									</div>									
+									<div class="row" style="height: 3.5em;"></div>
+									<div class="row">
+										<div class="col-2 text-center" style="padding-top: 0.4em;">
+										</div>
+										<div class="col">
+											<input class="form-control" type="text" style="width: 100%;" placeholder="Search">
+										</div>
+									</div>
+									<div class="row" style="height: 1em;"></div>
+									<div class="row">
+										<div class="col"></div>
+										<div class="col-1 text-end">
+											<div class="fw-bold" style="font-size: 1.7em;"><i class="bi bi-search" style="cursor: pointer;"></i></div>
+										</div>
+									</div>														
+								</div>
+								<div class="col-1"></div>
+								<div class="col-4">
+									<div class="row" style="height: 12em;"></div>
+									<div class="row">
+										<div class="col pt-0 mt-0 text-end">
+											<div style="font-size: 15em; color: gray; opacity: 0.2;">MKU</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="col-1"></div>
 					</div>
 					<div class="row pt-5">
 						<div class="col-1"></div>
 						<div class="col">
-							<div class="row border-top border-2 border-black text-bg-light">
+							<div class="row border-top border-2 border-black">
 								<div class="col"></div>
 							</div>
 						
-							<div class="row py-3 border-bottom border-1 text-bg-light">
+							<div class="row py-2 border-bottom border-1" style="background-color: rgba(103, 148, 103, 0.1);">
 								<div class="col-3">
-									<div class="fw-bold text-center" style="font-size:1.2em;">상담 제목</div>
+									<div class="fw-bold text-center" style="font-size:1.1em;">상담 제목</div>
 								</div>
 								<div class="col-2">
-									<div class="fw-bold text-center" style="font-size:1.2em;">신청 인원</div>
+									<div class="fw-bold text-center" style="font-size:1.0em;">신청 인원</div>
 								</div>
 								<div class="col-2">
-									<div class="fw-bold text-center" style="font-size:1.2em;">장소</div>
+									<div class="fw-bold text-center" style="font-size:1.0em;">장소</div>
 								</div>						
 								<div class="col-2">
-									<div class="fw-bold text-center" style="font-size:1.2em;">상담 일자</div>	
+									<div class="fw-bold text-center" style="font-size:1.0em;">상담 일자</div>	
 								</div>
 								<div class="col-1">
-									<div class="fw-bold text-center" style="font-size:1.2em;">상담 현황</div>
+									<div class="fw-bold text-center" style="font-size:1.0em;">상담 현황</div>
 								</div>
 								<div class="col-2">
-									<div class="fw-bold text-center" style="font-size:1.2em;">만족도 조사</div>
+									<div class="fw-bold text-center" style="font-size:1.0em;">만족도 조사</div>
 								</div>
 							</div>
 							
@@ -129,13 +205,18 @@
 										<div class="col-1">
 											<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">수료</div>
 										</div>
-										<div class="col-2 text-center">
-											<a style="font-size:0.9em;" href="./registerGroupCounselSurvey?group_reservation_id=${list.groupCounselReservationDto.id}">
-												<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">
-												등록
-												</div>
-											</a>
-										</div>
+										<c:choose>
+											<c:when test="${list.count == 0 }">
+												<div class="col-2 text-center">
+													<div class="fw-bold text-center" style="cursor:pointer; font-size:0.9em; color: red;" onclick="showModal(${list.groupCounselReservationDto.id})">등록</div>
+												</div>											
+											</c:when>
+											<c:otherwise>
+												<div class="col-2 text-center">
+													<div class="fw-bold text-secondary text-center" style="font-size:0.9em;">등록완료</div>
+												</div>											
+											</c:otherwise>
+										</c:choose>
 									</c:when>
 									<c:otherwise>
 										<div class="col-1">
@@ -154,7 +235,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row" style="height: 3em;"></div>
+			<div class="row" style="height: 5em;"></div>
 			<div class="row" style="background-color: #5a5a5a; height: 14em;">
 				<div class="col-1"></div>
 				<div class="col">
@@ -184,7 +265,44 @@
 	</div>
 </div>
 
-
+<div id="writeModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <div class="modal-title fw-bold" style="font-size:2em;">만족도 조사</div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+           	<form action="./registerGroupCounselProcess" method="post">
+				<div class="row my-3">
+					<div class="col-2 text-center">
+						<div class="fw-bold" style="font-size: 1.0em;">평점</div>
+					</div>
+					<div class="col">
+						<input type="number" min="0" max="5" name="score" class="form-control">
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-2 text-center">
+						<div class="fw-bold" style="font-size: 1.0em;">리뷰</div>
+					</div>
+					<div class="col">
+						<textarea class="form-control" name="text" style="width:100%; height: 300px;"></textarea>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-10 text-center">
+					</div>
+					<div class="col">
+						<input id="hiddenValue" type="hidden" name="group_reservation_id">
+						<input class="form-control" type="submit" value="등록">
+					</div>
+				</div>	
+				</form>					     			
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

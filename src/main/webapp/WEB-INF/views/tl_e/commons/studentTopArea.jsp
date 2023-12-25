@@ -46,14 +46,19 @@
     
     <jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
 	<!-- 네비바 -->
-	<div class="row pb-3">
+	<div class="row pb-3 bg-white">
 		<div class="col-2">
 			<div class="row" style="height: 0.15em;"></div>
 			<div class="row">
 				<div class="col text-center">
-					<span onclick="location.href='/toothless/tl_e/commons/counselCenterStudentMainPage'" class="fw-bold" style="cursor: pointer; font-size: 2em; color: #8FBC8F">MKU </span>
-					<span class="fw-bold" style="font-size: 1.3em; color: black"></span>
-					<span onclick="location.href='/toothless/tl_e/commons/counselCenterStudentMainPage'" class="fw-bold" style="cursor: pointer; font-size: 1.4em; color: black">상담센터</span>				
+					<div class="row">
+						<div class="col text-end mx-0 pe-2" style="padding-top: 0.2em;">
+							<span onclick="location.href='/toothless/tl_e/commons/counselCenterStudentMainPage'" class="fw-bold" style="cursor: pointer; font-size: 2em; color: #8FBC8F">MKU </span>
+						</div>
+						<div class="col text-start mx-0 px-0" style="padding-top: 0.7em;">
+							<span onclick="location.href='/toothless/tl_e/commons/counselCenterStudentMainPage'" class="fw-bold" style="cursor: pointer; font-size: 1.4em; color: black">상담센터</span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

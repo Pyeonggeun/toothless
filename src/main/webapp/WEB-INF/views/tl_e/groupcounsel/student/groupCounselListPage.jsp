@@ -52,7 +52,7 @@
 	
 	        <div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height: 100%; position: absolute; bottom: 0; left: 0;"></div>
 	
-	        <div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 20.5%; transform: translate(-50%, 50%);">집단 상담 신청</div>
+	        <div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 24.2%; transform: translate(-50%, 50%);">집단 상담</div>
 	
 	        <div style="color: white; position: absolute; font-size: 5em; bottom: 36%; transform: translate(-50%, -50%); text-align: center; left: -8%; border-top: 1px; border-top-style: solid; border-top-color: white; width: 80%;"></div>
 	
@@ -71,14 +71,30 @@
 	        <div style="color: white; position: absolute; font-size: 0.9em; bottom: 3%; transform: translate(-50%, -50%); text-align: center; left: 82.5%;">Tel. 010-4097-3054</div>
 	    </div>
 	</div>
-	
-	<div class="row" style="height:10em;"></div>
+
+	<div class="row my-0">
+		<div class="col my-0 py-4"></div>
+	</div>
 	
 	<div class="row">
 		<div class="col-1"></div>
+		<div class="col" style="padding-left: 2.1em;">
+			<div class="fw-bold" style="font-size: 1.1em; color:black;"><i class="bi bi-house-door-fill"></i> / 집단 상담 / 상담 신청</div>
+		</div>
+		<div class="col-1"></div>
+	</div>
+	
+	<div class="row my-0">
+		<div class="col my-0 py-4"></div>
+	</div>		
+	
+	<div class="row" style="height: 3em;"></div>
+	
+	<div class="row pb-4">
+		<div class="col-1"></div>
 		<div class="col" style="padding-left: 1.9em;">
-			<span class="fw-bold" style="font-size: 3em;">집단 상담</span>
-			<span class="fw-bold" style="font-size: 1.2em; color: #8FBC8F;">List</span>
+			<span class="fw-bold" style="font-size: 2.5em;">집단 상담 </span>
+			<span class="fw-bold" style="font-size: 2.1em; color: #0A6E0A;">List</span>
 		</div>
 	</div>
 	

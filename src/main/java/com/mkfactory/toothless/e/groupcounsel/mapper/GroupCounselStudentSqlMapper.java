@@ -15,4 +15,8 @@ public interface GroupCounselStudentSqlMapper {
 	
 	
 	public void insertGroupCounselSurvey(GroupCounselSurvey groupCounselSurvey);
+	
+	public int countGroupSurvey(int group_reservation_id);
+	
+	
 }

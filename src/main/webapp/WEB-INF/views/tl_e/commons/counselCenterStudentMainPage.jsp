@@ -423,7 +423,7 @@
 						</div>
 					</div>
 					<div class="row pt-5">
-						<div class="col">
+						<div class="col" style="cursor: pointer;">
 							<div class="row">
 								<div class="col-1"></div>
 								<div id="onlineBanner" class="col" onclick="location.href='/toothless/tl_e/onlineCounsel/onlineCounselMainPage'" style="height: 23em; width: 80%; background-color: white; cursor: pointer;">
@@ -440,15 +440,15 @@
 									</div>
 									<div class="row">
 										<div class="col text-center pt-3">
-											<div class="text-secondary fw-bold" style="font-size: 1.1em;">MK대학교는 늘 최선을 다하며</div>
-											<div class="text-secondary fw-bold" style="font-size: 1.1em;">학생들을 위한 학교가 되겠습니다.</div>
+											<div class="text-secondary fw-bold" style="font-size: 1.1em;">온라인으로 편리한 상담</div>
+											<div class="text-secondary fw-bold" style="font-size: 1.1em;">언제 어디서나 당신의 곁에</div>
 										</div>
 									</div>
 								</div>
 								<div class="col-1"></div>
 							</div>
 						</div>
-						<div class="col">
+						<div class="col" style="cursor: pointer;">
 							<div class="row">
 								<div class="col-1"></div>
 								<div id="offlineBanner" class="col" onclick="location.href='/toothless/tl_e/offlineCounsel/selectCounselorPage'" style="height: 23em; width: 80%; background-color: white; cursor: pointer;">
@@ -465,15 +465,15 @@
 									</div>
 									<div class="row">
 										<div class="col text-center pt-3">
-											<div class="text-secondary fw-bold" style="font-size: 1.1em;">MK대학교는 늘 최선을 다하며</div>
-											<div class="text-secondary fw-bold" style="font-size: 1.1em;">학생들을 위한 학교가 되겠습니다.</div>
+											<div class="text-secondary fw-bold" style="font-size: 1.1em;">안전하고 따뜻한 대화</div>
+											<div class="text-secondary fw-bold" style="font-size: 1.1em;">마음의 변화를 경험하세요</div>
 										</div>
 									</div>								
 								</div>
 								<div class="col-1"></div>
 							</div>
 						</div>
-						<div class="col">
+						<div class="col" style="cursor: pointer;">
 							<div class="row">
 								<div class="col-1"></div>
 								<div id="groupBanner" class="col" onclick="location.href='/toothless/tl_e/groupcounsel/student/groupCounselListPage'" style="height: 23em; width: 80%; background-color: white; cursor: pointer;">
@@ -490,15 +490,15 @@
 									</div>
 									<div class="row">
 										<div class="col text-center pt-3">
-											<div class="text-secondary fw-bold" style="font-size: 1.1em;">MK대학교는 늘 최선을 다하며</div>
-											<div class="text-secondary fw-bold" style="font-size: 1.1em;">학생들을 위한 학교가 되겠습니다.</div>
+											<div class="text-secondary fw-bold" style="font-size: 1.1em;">함께 나누는 지식과 경험</div>
+											<div class="text-secondary fw-bold" style="font-size: 1.1em;">다양한 주제와 함께하는 집단 상담</div>
 										</div>
 									</div>								
 								</div>
 								<div class="col-1"></div>
 							</div>
 						</div>
-						<div class="col">
+						<div class="col" style="cursor: pointer;">
 							<div class="row">
 								<div class="col-1"></div>
 								<div id="testBanner" class="col" style="height: 23em; width: 80%; background-color: white; cursor: pointer;">
@@ -515,8 +515,8 @@
 									</div>
 									<div class="row">
 										<div class="col text-center pt-3">
-											<div class="text-secondary fw-bold" style="font-size: 1.1em;">MK대학교는 늘 최선을 다하며</div>
-											<div class="text-secondary fw-bold" style="font-size: 1.1em;">학생들을 위한 학교가 되겠습니다.</div>
+											<div class="text-secondary fw-bold" style="font-size: 1.1em;">나를 알아가는 첫 걸음</div>
+											<div class="text-secondary fw-bold" style="font-size: 1.1em;">나만의 성장을 위해 시작하세요</div>
 										</div>
 									</div>								
 								</div>
@@ -566,8 +566,8 @@
 
 	<div class="col groupCounselWrapper">
 		<div class="row">
-			<div class="col">
-				<img class="groupCounselImage img-fluid rounded-2" style="border-style: solid; border-width: 2px; border-color: #8FBC8F; opacity: 0.8;">
+			<div class="col" style="cursor: pointer;">
+				<img class="groupCounselImage img-fluid rounded-2" style="border-style: solid; border-width: 2px; border-color: #8FBC8F; opacity: 0.8;" onclick="location.href='/toothless/tl_e/groupcounsel/student/readGroupCounselReservationListByStudentPage'">
 			</div>
 		</div>
 		<div class="row pt-2">
@@ -588,7 +588,7 @@
 
 	<div class="col offlineCounselWrapper">	
 		<div class="row">
-			<div class="col py-3 px-2 me-2" style="border-radius: 3%; border-style: solid; border-width: 2px; border-color: #8FBC8F; height: 14em;">
+			<div class="col py-3 px-2 me-2" style="border-radius: 3%; border-style: solid; border-width: 2px; border-color: #8FBC8F; height: 14em; cursor: pointer;" onclick="location.href='/toothless/tl_e/offlineCounsel/checkOfflineCounselReservationStudentPage'">
 				<div class="row">
 					<div class="col-1">
 						<span class="fw-bold" style="color: #8FBC8F;">☘ </span> 
