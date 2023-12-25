@@ -39,6 +39,9 @@
 			<div class="col-4"></div>
 			<div class="col">
 				<c:choose>
+					<c:when test="${!empty sessionStudentInfo }">
+						<a href="/toothless/another/student/loginPage"><button class="btn btn-dark rounded-pill py-3" style="background-color: #055160;">로그인페이지로 돌아가기</button></a>
+					</c:when>
 					<c:when test="${!empty sessionStaffInfo }">
 						<a href="/toothless/another/staff/loginPage"><button class="btn btn-dark rounded-pill py-3" style="background-color: #055160;">로그인페이지로 돌아가기</button></a>
 					</c:when>
@@ -48,10 +51,6 @@
 					<c:when test="${!empty sessionExternalInfo }">
 						<a href="/toothless/another/external/loginPage"><button class="btn btn-dark rounded-pill py-3" style="background-color: #055160;">로그인페이지로 돌아가기</button></a>
 					</c:when>
-					<c:otherwise>
-						<a href="/toothless/another/student/loginPage"><button class="btn btn-dark rounded-pill py-3" style="background-color: #055160;">로그인페이지로 돌아가기</button></a>
-					</c:otherwise>
-					
 				</c:choose>
 			</div>
 			<div class="col-4"></div>

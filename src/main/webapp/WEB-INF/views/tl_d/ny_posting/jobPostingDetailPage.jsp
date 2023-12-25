@@ -149,16 +149,16 @@
 				</div>
 				<div class="row mt-2">
 					<div class="col"><a class="btn btn-secondary" href="./jobPostingListPage">목록으로</a></div>
-					<div class="col-8"></div>
+					<div class="col-7"></div>
 					<div class="col pe-0 text-end">
 						<c:choose>
 							<c:when test="${empty sessionStaffInfo}">
-								<button class="btn btn-outline-dark" disabled>수정</button>
-								<button class="btn btn-dark" disabled>삭제</button>
+								<button class="btn btn-outline-dark" disabled><i class="bi bi-pencil-square"></i>&nbsp;수정</button>
+								<button class="btn btn-dark" disabled><i class="bi bi-x-square"></i>&nbsp;삭제</button>
 							</c:when>
 							<c:otherwise>
-								<a class="btn btn-outline-dark" href="./modifyJobPostingPage?id=${jobPostingDetail.jobPostingDto.job_posting_pk}">수정</a>
-								<a class="btn btn-dark" href="./removeJobPostingProcess?id=${jobPostingDetail.jobPostingDto.job_posting_pk}">삭제</a>
+								<a class="btn btn-outline-dark" href="./modifyJobPostingPage?id=${jobPostingDetail.jobPostingDto.job_posting_pk}"><i class="bi bi-pencil-square"></i>&nbsp;수정</a>
+								<a class="btn btn-dark" href="./removeJobPostingProcess?id=${jobPostingDetail.jobPostingDto.job_posting_pk}"><i class="bi bi-x-square"></i>&nbsp;삭제</a>
 							</c:otherwise>
 						</c:choose>
 					</div>

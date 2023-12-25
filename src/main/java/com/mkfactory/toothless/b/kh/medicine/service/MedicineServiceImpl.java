@@ -270,6 +270,7 @@ public class MedicineServiceImpl {
 	//rest 게시판정보가져오기
 	
 	public List<StudentboardDto> selectStudentBoard(){
+		
 		return medicineSqlMapper.selectStudentBoard();
 	}
 	

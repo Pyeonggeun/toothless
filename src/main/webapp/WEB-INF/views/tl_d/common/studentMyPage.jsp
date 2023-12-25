@@ -8,6 +8,23 @@
 	<meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        
+        
+    <%-- 종민 --%>    
+    <style>
+        /* 선택한 요소에 대한 스타일을 지정할 수 있습니다. */
+        .custom-cursor {
+            cursor: pointer; /* 마우스 커서를 포인터로 설정합니다. */
+        }
+    </style>
+	<script>
+	    function changeCursor() {
+	        // 요소에 마우스를 올렸을 때 커서를 바꿉니다.
+	        document.querySelector('.custom-cursor');
+	    }
+	</script>    
+    
+            
 </head>
 <body>
 	<div class="container-fluid">
@@ -74,6 +91,24 @@
 							</div>
 							<div class="col-1"></div>
 						</div>
+						
+						<%--하 이거 어따넣지 미응답 만족도조사 
+						<div class="row ps-3">
+							<div class="col">
+								구직희망 프로그램 만족도 조사	
+								<c:choose>
+									<c:when test="${countUnAnsweredHJF==0}">
+											<span class="fw-bold">0</span> 건									
+									</c:when>
+										
+									<c:otherwise>										
+										  <span onmouseover="changeCursor()" data-bs-toggle="modal" data-bs-target="#myUnAnsweredHJF" class="fw-bold custom-cursor" style="font-size:1.2em;">${countUnAnsweredHJF}</span> 건										
+									</c:otherwise>
+								</c:choose>													 
+							</div>	
+						</div>						
+						--%>
+						
 					</div>
 					<%-- 학생 정보 끝 --%>
 					<%-- 상담이력 --%>	
@@ -358,6 +393,59 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	
+	
+<%-- 미응답 만족도 조사 모달--%>	
+<div class="modal fade" id="myUnAnsweredHJF" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">미응답 만족도 조사 리스트</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col">
+        		<div class="row fw-bold border-2 border-bottom pb-3">
+        			<div class="col">
+        				신청번호
+        			</div>
+        			<div class="col">
+        				구직 희망 신청일
+        			</div>
+        			<div class="col">
+        				만족도 조사하기
+        			</div>										        													        			
+        		</div>
+        		<div class="row pt-2">
+        			<div class="col">
+        				<c:forEach items="${hopeJobDtoList}" var="e">
+        					<div class="row py-3">
+        						<div class="col">
+        							${e.hope_job_pk}
+        						</div>
+        						<div class="col">
+        							<fmt:formatDate value="${e.created_at}" pattern="yyyy-MM-dd"/>
+        						</div>
+        						<div class="col">
+        							<a href="../jm_consulting/insertHJFPage?hope_job_pk=${e.hope_job_pk}" style="text-decoration: none;"> 바로가기 ></a>
+        						</div>										        																        																        						
+        					</div>										        				
+        				</c:forEach>
+        			</div>
+        		</div>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>										        
+      </div>
+    </div>
+  </div>
+</div>		
+	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

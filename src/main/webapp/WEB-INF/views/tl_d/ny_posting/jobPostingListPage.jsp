@@ -93,7 +93,7 @@
 								</div>
 							</div>
 							<%-- 2번째 공고제목 + 태그 --%>
-							<div class="col-7 pt-4 pb-2 px-0">
+							<div class="col-6 pt-4 pb-2 px-0">
 								<%-- 공고제목 --%>
 								<div class="row">
 									<div class="col">
@@ -121,25 +121,25 @@
 								</div>
 							</div>
 							<%-- 수정 + 삭제 버튼 --%>
-							<div class="col-2 ms-5 pt-3 mt-3">
+							<div class="col-3 ms-5 pt-3 mt-3">
 								<c:choose>
 									<c:when test="${empty sessionStaffInfo}">
 										<div class="row">
 											<div class="col text-end">
-												<button class="btn btn-outline-dark" disabled>수정</button>
+												<button class="btn btn-outline-dark" disabled><i class="bi bi-pencil-square"></i>&nbsp;수정</button>
 											</div>
 											<div class="col ps-0">
-												<button class="btn btn-dark" disabled>삭제</button>
+												<button class="btn btn-dark" disabled><i class="bi bi-x-square"></i>&nbsp;삭제</button>
 											</div>
 										</div>
 									</c:when>
 									<c:otherwise>
 										<div class="row">
 											<div class="col pe-1 text-end">
-												<a class="btn btn-outline-dark" href="./modifyJobPostingPage?id=${jobPosting.jobPostingDto.job_posting_pk}">수정</a>
+												<a class="btn btn-outline-dark" href="./modifyJobPostingPage?id=${jobPosting.jobPostingDto.job_posting_pk}"><i class="bi bi-pencil-square"></i>&nbsp;수정</a>
 											</div>										
 											<div class="col ps-0">
-												<a class="btn btn-dark" href="./removeJobPostingProcess?id=${jobPosting.jobPostingDto.job_posting_pk}">삭제</a>
+												<a class="btn btn-dark" href="./removeJobPostingProcess?id=${jobPosting.jobPostingDto.job_posting_pk}"><i class="bi bi-x-square"></i>&nbsp;삭제</a>
 											</div>
 										</div>
 									</c:otherwise>

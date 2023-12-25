@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mkfactory.toothless.d.dto.CompanyDto;
+import com.mkfactory.toothless.d.dto.HopeJobDto;
 import com.mkfactory.toothless.d.dto.ProgramDto;
 import com.mkfactory.toothless.d.dto.ResumeDto;
 import com.mkfactory.toothless.d.gw.company.service.CompanyServiceIpml;
@@ -76,7 +77,23 @@ public class EmploymentCommonController {
 			model.addAttribute("getMyOnlineConsultingListNumFive", getMyOnlineConsultingListNumFive);	
 		}
 		
+		//학생 만족도 조사 갯수 및 정보
+		if(studentInfoDto != null) {
+			int student_pk = studentInfoDto.getStudent_pk();	
+			int countUnAnsweredHJF = consultingService.countUnAnsweredHJF(student_pk);
+			
+			model.addAttribute("countUnAnsweredHJF", countUnAnsweredHJF);
+			
+			List<HopeJobDto> hopeJobDtoList = consultingService.getUnAnsweredHJFList(student_pk);
+			
+			if(hopeJobDtoList.size() == 0) {
+				model.addAttribute("hopeJobDtoList", null);
+			}
+			else {
+				model.addAttribute("hopeJobDtoList", hopeJobDtoList);
+			}
 
+		}
 	
 		
 		

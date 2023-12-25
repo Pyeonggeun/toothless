@@ -198,7 +198,7 @@ public class ResumeController {
 		List<CareerCategoryDto> careerCategoryList = resumeService.getCareerCategory();
 		model.addAttribute("careerCategoryList", careerCategoryList);
 		
-		List<Map<String, Object>> careerList = resumeService.getCareerDtoList(resumeDto,false);
+		List<Map<String, Object>> careerList = resumeService.getCareerDtoList(resumeDto,true);
 		model.addAttribute("careerList", careerList);
 		
 		model.addAttribute("resumeDto", resumeDto);
@@ -254,8 +254,9 @@ public class ResumeController {
 	}
 	
 	// 자격증 삭제
-	@RequestMapping("licensseDeleteProcess")
+	@RequestMapping("licenseDeleteProcess")
 	public String licenseDeleteProcess(LicenseDto params) {
+		
 		resumeService.deleteLicenseDto(params);
 		return "redirect:./licenseDetailPage?resume_pk="+ params.getResume_pk();
 	}
