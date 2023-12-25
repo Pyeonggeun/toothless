@@ -461,10 +461,20 @@ function deleteMyHopeJobCategory(){
 			
 				<div class="col">
 				
-					<div class="row mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fw-bold fs-4">
-						<div class="col fw-bold" style="font-size:1.2em;">
-							구직희망 관리 페이지							
-						</div>
+					<div class="row mb-2 mt-5 border-bottom border-3 border-bs-border pb-3 mb-3 fs-4">
+						
+						<div class="col">
+							<div class="row">
+								<div class="col fw-bold" style="font-size:1.2em;">
+									<span>나의 구직희망 프로그램 관리 페이지</span>
+								</div>							
+							</div>
+							<div class="row">
+								<div class="col text-secondary" style="font-size:0.7em;">
+									<span>*구직희망 프로그램을 통해 온라인 상담을 비롯한 학교측 에서 제공하는 다양한 서비스를 받으실 수 있습니다. </span>
+								</div>							
+							</div>														
+						</div>					
 					</div>				
 				
 					<div class="row mt-5">						
@@ -563,7 +573,7 @@ function deleteMyHopeJobCategory(){
 										<div class="col" style="font-size:0.9em;">
 											<div class="row">
 												<div class="col">
-													내 온라인 상담 목록 및 답변 여부를 확인 합니다.
+													내 온라인 상담 목록 및 답변 여부를 확인 합니다
 												</div>
 											</div>
 											<div class="row">
@@ -581,7 +591,7 @@ function deleteMyHopeJobCategory(){
 								</div>						
 							</div>
 							<div class="row">
-								<div class="col pt-1 pb-3" style="font-size:0.8em;">
+								<div class="col pb-3" style="font-size:0.8em;">
 									
 									<a class="navbar-brand" href="./myOnlineConsultingListPage">
 										<button id="checkIsNewOnlineConsultingReply" type="button" class="btn btn-outline-dark position-relative">
@@ -614,16 +624,16 @@ function deleteMyHopeJobCategory(){
 										</div>
 									</div>
 									<div class="row">
-										<div class="col">
-										<span class="pt-2">
-												11
+										<div class="col pt-2">
+										<span class="pt-1" style="font-size:0.9em;">
+												구직희망 프로그램 신청시 작성한 정보를 수정합니다
 											</span>							
 										</div>
 									</div>
 									<div class="row">
 										<div class="col">
-											<span class="text-secondary" style="font-size:0.9em;">
-													*
+											<span class="text-secondary" style="font-size:0.7em;">
+													&nbsp;
 											</span>							
 										</div>
 									</div>																										
@@ -724,7 +734,7 @@ function deleteMyHopeJobCategory(){
 				<div class="col">
 					<div class="row mt-3 ">	
 						
-						<div class="col me-3 text-center border rounded-3"   style="background-color:#c8c9e6">
+						<div class="col me-3 text-center border rounded-3"   style="background-color:#bdbede">
 							<div class="row">
 								<div class="col pt-3">
 									<span style="font-size:3em;">
@@ -980,7 +990,7 @@ function deleteMyHopeJobCategory(){
 					<div class="row mt-3 ">						
 
 		
-						<div class="col me-3 text-center border rounded-3" style="background-color:#b2b5ed">
+						<div class="col me-3 text-center border rounded-3" style="background-color:#abade0">
 							<div class="row">
 								<div class="col pt-3">
 									<span style="font-size:3em;">
@@ -1008,7 +1018,7 @@ function deleteMyHopeJobCategory(){
 									<div class="row">
 										<div class="col">
 											<span class="text-secondary" style="font-size:0.9em;">
-													*종료 시, 복
+													*종료 시, 취소가 불가능합니다
 											</span>							
 										</div>
 									</div>																										
@@ -1038,7 +1048,7 @@ function deleteMyHopeJobCategory(){
 									        </div>
 									        <div class="row pt-2">
 									        	<div class="col text-secondary" style="font-size:0.9em;">
-									        		*종료하신후 복구는 불가능 합니다.
+									        		*프로그램 종료시 취소는 불가능하며, 구직희망 프로그램을 통해 신청한 상담 내역 및 구직희망 정보가 삭제됩니다.
 									        	</div>
 									        </div>									        
 									        

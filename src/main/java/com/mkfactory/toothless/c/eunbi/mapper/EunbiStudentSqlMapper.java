@@ -78,7 +78,8 @@ public interface EunbiStudentSqlMapper {
 	public AjdksTimecardCategoryDto getCompanyTimecardCategory(int timecard_category_pk);
 	public List<AjdksInternReportDto> getInternReport(int student_intern_pk);
 	
-	
+	// 지원학생 몇명인지
+	public int countApplyingStudent(int internship_course_pk);
 	
 	
 	// 검색필터 입학 년도 ,학기 걸기 위한 코드

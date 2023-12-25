@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 
 <!-- 좌측메뉴바 -->
-<div class="col-2 px-0 sticky-top companyleftmenubar" style="background-color: #22212E; color: #E2E2E4; box-shadow: 2px 2px 2px gray; z-index: 2; height: 100vh;">
+<div class="col-2 px-0 sticky-top companyleftmenubar" style="background-color: #22212E; color: #E2E2E4; box-shadow: 2px 2px 2px gray; z-index: 2;">
 
 	<div class="row pt-2 pb-4" style="font-size: 1.1em;">
 		<div class="col text-white text-center fw-bold" style="cursor: pointer;" onclick="location.href='../../taeho/external/companyMainPage'">

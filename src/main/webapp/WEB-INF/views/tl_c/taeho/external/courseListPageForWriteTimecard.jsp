@@ -105,7 +105,7 @@
 					    	</div>
 					    	<div class="row mt-2">
 					    		<div class="col">
-					    			실습담당자 : 김바덕
+					    			실습담당자 : 이장금
 					    		</div>
 					    	</div>
 					    </p>
@@ -116,6 +116,13 @@
 		</div>
 		
 	</div>
+</div>
+
+<div class="row py-5">
+	<div class="col py-5"></div>
+</div>
+<div class="row py-5">
+	<div class="col py-5"></div>
 </div>
 
 <jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>		

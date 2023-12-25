@@ -410,5 +410,18 @@
 			AND life_student_key = #{life_student_key})
 	</select>
 	
+	<select id="selectOpenLecutreReviewList" resultType="com.mkfactory.toothless.x.dto.LectureReviewDto">
+		SELECT * FROM tl_x_lecture_review
+		WHERE lecture_student_key in (SELECT lecture_student_key FROM TL_X_LECTURE_STUDENT
+		WHERE open_lecture_key = #{open_lecture_key})
+	</select>
+	
+	<select id="selectTotalReviewScore" resultType="map">
+		SELECT sum(star_count) AS total_star, count(*) AS total_student  FROM tl_x_lecture_review
+		WHERE lecture_student_key IN (SELECT lecture_student_key FROM TL_X_LECTURE_STUDENT
+		WHERE open_lecture_key in (SELECT open_lecture_key FROM TL_X_OPEN_LECTURE
+		WHERE LECTURER_KEY  =#{lecturer_key}))
+	</select>
+	
 
 </mapper>

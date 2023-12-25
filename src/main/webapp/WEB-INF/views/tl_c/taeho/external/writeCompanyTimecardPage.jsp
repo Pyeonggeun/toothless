@@ -223,6 +223,13 @@
 	</div><!-- 본문 col 출구 -->
 </div>
 
+<div class="row py-5">
+	<div class="col py-5"></div>
+</div>
+<div class="row py-5">
+	<div class="col py-5"></div>
+</div>
+
 <jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>		
 
 	

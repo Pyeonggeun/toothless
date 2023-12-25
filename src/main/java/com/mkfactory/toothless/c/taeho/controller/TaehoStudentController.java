@@ -65,8 +65,11 @@ public class TaehoStudentController {
 		return "redirect:../../../another/student/loginPage";
 	}
 	
-	
-	
+	@RequestMapping("ajdksServicePreparingPage")
+	public String ajdksServicePreparingPage() {
+		
+		return "tl_c/taeho/student/ajdksServicePreparingPage";
+	}
 	
 	
 	

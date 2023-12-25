@@ -97,7 +97,7 @@
 
 
 					<!-- 본문작성공간 -->
-					<div class="col border-start ">
+					<div class="col ">
 
 						<div class="row w-auto px-0">
 							<img src="../../../resources/img/studentMainPageimg/현장실습%20프로그램%20안내.png"
@@ -120,6 +120,9 @@
 					</div>
 				</div>
 			</div>
+			
+			<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
+			
 		</div>
 	</div>
 

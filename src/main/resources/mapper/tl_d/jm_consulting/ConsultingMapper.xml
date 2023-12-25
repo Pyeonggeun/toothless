@@ -647,4 +647,49 @@ WHERE a.IS_END_HOPE_JOB = 'N'
 ORDER BY a.CREATED_AT desc
 </select>
 
+
+<!--  취업상담 리스트 전체뽑기 -->
+<select id="getConsultingListAll" resultType="com.mkfactory.toothless.d.dto.ConsultingDto">
+SELECT * FROM tl_d_consulting 
+</select>
+
+
+<!-- 특정학생 구직희망pk로 취업상담 리스트 전체 뽑기 -->
+<select id="getConsultingAllByHopeJobPk" resultType="com.mkfactory.toothless.d.dto.ConsultingDto">
+SELECT * FROM tl_d_consulting 
+WHERE hope_job_pk = #{hope_job_pk}
+</select>
+
+
+<!-- 취업상담 자세히보기 목록 -->
+<!-- 취업상담 pk로 학생정보 뽑기 -->
+<select id="getStudentInfoByConsultingPk" resultType="com.mkfactory.toothless.donot.touch.dto.StudentInfoDto">
+SELECT * FROM TL_JIC_STUDENT_INFO a
+WHERE a.STUDENT_PK =
+	(
+	SELECT b.STUDENT_PK  FROM TL_D_HOPE_JOB b
+	WHERE b.HOPE_JOB_PK =	
+		(
+		SELECT c.HOPE_JOB_PK  FROM TL_D_CONSULTING c
+		WHERE c.CONSULTING_PK = #{CONSULTING_PK}
+		)
+	)
+</select>
+
+<!-- 취업상담 pk로 교직원 정보 뽑기 -->
+<select id="getStaffInfoByConsultingPk" resultType="com.mkfactory.toothless.donot.touch.dto.StaffInfoDto">
+SELECT * FROM TL_JIC_STAFF_INFO a
+WHERE a.STAFF_PK =
+	(
+	SELECT b.CONSULTING_PK  FROM TL_D_CONSULTING b
+	WHERE b.CONSULTING_PK = #{CONSULTING_PK}
+	)
+</select>
+
+<select id="getConsultingByPk" resultType="com.mkfactory.toothless.d.dto.ConsultingDto">
+SELECT * FROM TL_D_CONSULTING 
+WHERE CONSULTING_PK  = #{CONSULTING_PK}
+</select>
+
+
 </mapper>

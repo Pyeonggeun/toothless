@@ -546,6 +546,7 @@
 							</div>
 							<div class="row">
 								<div class="col mt-2">
+									<input type="hidden" id="inputStudentInternPk">
 									<textarea id="review" rows="5" class="form-control rounded-0"></textarea>
 								</div>
 							</div>

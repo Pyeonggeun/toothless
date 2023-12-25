@@ -108,7 +108,7 @@
 														<c:when test="${internshipCourse.internshipCourseDto.announcement_date <= now && internshipCourse.internshipCourseDto.internship_start_date > now}">
 															<span class="badge rounded-pill text-bg-info">결과발표 완료</span>
 														</c:when>
-														<c:when test="${internshipCourse.internshipCourseDto.internship_start_date < now && internshipCourse.internshipCourseDto.internship_end_date > now}">
+														<c:when test="${internshipCourse.internshipCourseDto.internship_start_date <= now && internshipCourse.internshipCourseDto.internship_end_date >= now}">
 															<span class="badge rounded-pill text-bg-primary">실습과정 진행중</span>
 														</c:when>
 														<c:when test="${internshipCourse.internshipCourseDto.internship_end_date < now && internshipCourse.isExistProfessorEvaluation < internshipCourse.countInternBycoursePk}">
@@ -131,9 +131,22 @@
 												</div>
 											</div>
 											<div class="row mt-3">
-												<div class="col">
-													<span class="fw-semibold">${internshipCourse.countInternBycoursePk}</span>명 진행
-												</div>
+											
+												<c:choose>
+													<c:when test="${internshipCourse.internshipCourseDto.applying_start_date < now && internshipCourse.internshipCourseDto.internship_start_date > now}">
+														<div class="col">
+															<span class="fw-semibold">${internshipCourse.countApplyingStudent}</span>명 지원
+														</div>
+													</c:when>
+													<c:when test="${internshipCourse.internshipCourseDto.internship_start_date <= now}">
+														<div class="col">
+															<span class="fw-semibold">${internshipCourse.countInternBycoursePk}</span>명 진행
+														</div>
+													</c:when>
+													
+												</c:choose>
+												
+												
 											</div>
 											<div class="row mt-2">
 												<div class="col text-secondary fw-semibold" style="font-size:0.9em">

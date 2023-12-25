@@ -44,11 +44,13 @@ var shared_sortHJFScore;
 				
 				const list_name = listWrapper.querySelector(".list_name");
 				const list_name_value = e.studentInfoDto.name;
-				list_name.innerText = list_name_value;
+				list_name.innerText = list_name_value ;
 				
+				
+				//별찍기
 				const list_score = listWrapper.querySelector(".list_score");
 				const list_score_value = e.hopeJobFeedbackDto.hjf_score;
-				list_score.innerText = list_score_value;
+				list_score.innerText = list_score_value + "점";
 				
 				const list_date = listWrapper.querySelector(".list_date");
 				const date = new Date(e.hopeJobFeedbackDto.created_at);
@@ -101,7 +103,7 @@ var shared_sortHJFScore;
 			
 			detail_feedback_pk.innerText = e.hopeJobFeedbackDto.hope_job_feedback_pk ;
 			detail_feedback_name.innerText = e.studentInfoDto.name ;
-			detail_feedback_score.innerText = e.hopeJobFeedbackDto.hjf_score ;
+			detail_feedback_score.innerText = e.hopeJobFeedbackDto.hjf_score +"점";
 			detail_feedback_comment.innerText = e.hopeJobFeedbackDto.hjf_comment ;
 			
 			

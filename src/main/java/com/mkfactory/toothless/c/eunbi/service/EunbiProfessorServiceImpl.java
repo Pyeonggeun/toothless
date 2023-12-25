@@ -96,6 +96,7 @@ public class EunbiProfessorServiceImpl {
 
 			chargedInternship.put("internshipCourseDto", internshipCourseDto);
 			chargedInternship.put("countInternBycoursePk", studentSqlMapper.countInternBycoursePk(internshipCoursePk));
+			chargedInternship.put("countApplyingStudent", studentSqlMapper.countApplyingStudent(internshipCoursePk));
 			chargedInternship.put("companyInfoDto", externalSqlMapper.getCompanyInfo(companyPk));
 			
 			

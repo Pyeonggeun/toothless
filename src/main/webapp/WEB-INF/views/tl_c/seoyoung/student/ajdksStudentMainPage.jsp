@@ -183,7 +183,7 @@
 										<div
 											class="col-2 text-center fw-semibold text-dark-emphasis border-end"
 											style="font-size: 0.95em">실습기간</div>
-										<div class="col-4 text-center" style="font-size: 0.95em">방학
+										<div class="col-4 text-center border-end" style="font-size: 0.95em">방학
 											중 1개월 이상 2개월 미만</div>
 										<div class="col-3 text-center" style="font-size: 0.95em">방학
 											중 2개월 이상</div>
@@ -194,7 +194,7 @@
 									<div class="row fs-6 pb-2 my-1 border-bottom">
 										<div
 											class="col  text-center fw-semibold text-dark-emphasis border-end">인정학점수</div>
-										<div class="col-4 text-center" style="font-size: 0.95em">3학점</div>
+										<div class="col-4 text-center border-end" style="font-size: 0.95em">3학점</div>
 										<div class="col-3 text-center" style="font-size: 0.95em">6학점</div>
 										<div class="col-3  text-center border-start"
 											style="font-size: 0.95em">15학점</div>
@@ -216,7 +216,7 @@
 											4학년 재학생</div>
 									</div>
 								</div>
-								<div class="row pb-1 my-1 text-end me-5">
+								<div class="row pb-1 my-1 text-end">
 									<p class="fst-italic text-secondary" style="font-size: 0.85em">※
 										5학기 이상 등록한 학생들에 의하며 졸업예정자 및 휴학생은 학점인정 불가 합니다.</p>
 								</div>
@@ -318,9 +318,10 @@
 					</div>
 
 				</div>
-				
+				<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 			</div>
-		</div><jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
+		</div>
+
 	</div>
 
 

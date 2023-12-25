@@ -149,8 +149,6 @@ public class EunbiStudentServiceImpl {
 			int studentPk = studentInternDto.getStudent_pk();
 			int internPk = studentInternDto.getStudent_intern_pk();
 			
-			System.out.println(internPk);
-			
 			StudentInfoDto studentInfoDto = studentSqlMapper.getStudentInfoByStudentPk(studentPk);
 			int studentDepartmentPk = studentInfoDto.getDepartment_pk();
 			int studentProfessorPk = studentInfoDto.getProfessor_pk();
@@ -202,6 +200,7 @@ public class EunbiStudentServiceImpl {
 			
 			endedCourse.put("didSatisfaction", studentSqlMapper.didSatisfaction(studentInternPk));
 			endedCourse.put("studentInternPk", studentInternPk);
+			System.out.println("인턴" + studentInternPk);
 			
 			if(studentSqlMapper.calculateGrade(studentInternPk) == null) {
 				endedCourse.put("grade", "0");

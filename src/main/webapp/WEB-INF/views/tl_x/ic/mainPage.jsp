@@ -70,7 +70,8 @@
 				do_moveManagementPage.setAttribute("onclick", "lectureManagementPageMove("+response.data.openLectureDto.open_lecture_key+")");
 
     			
-    			
+    			const totalReviewScore = document.querySelector("#totalReviewScore");
+    			totalReviewScore.innerText = response.data.result.toFixed(1)+"점"
     		});
      		
      		
@@ -268,7 +269,7 @@
                 <div class="col-2 mt-2">
                     <div class="row">
                         <div id="expectedLecture" class="col fw-bold fs-3  text-center number">
-                            3
+                            
                         </div>
                     </div>
                     <div class="row">
@@ -280,7 +281,7 @@
                 <div class="col-2 mt-2">
                     <div class="row ">
                         <div id="closeLecture" class="col fs-3 fw-bold text-center number">
-                            5
+                            
                         </div>
                     </div>
                     <div class="row">
@@ -293,8 +294,8 @@
                     <div class="row">
                         <div class="col mt-2">
                         	<div class="row">
-                            	<div class="col fs-3 fw-bold text-center">
-                                    4.7점
+                            	<div id="totalReviewScore"class="col fs-3 fw-bold text-center">
+                                    
                         		</div>
                             </div>
                             <div class="row">

@@ -74,6 +74,18 @@
 					</div>
 				</div>
 				
+				<c:if test="${empty timecatedReport}">
+					<div class="row mt-3">
+					<div class="col px-4 py-4 mt-2" style="background-color:#e6ecf5">
+						<div class="row">
+							<div class="col mx-2 py-2">
+								<i class="bi bi-exclamation-triangle"></i>&nbsp;&nbsp;아직 작성된 업무일지가 없습니다.
+							</div>
+						</div>
+					</div>
+				</div>
+				</c:if>
+				
 				<div class="row">
 					<div class="col">
 						<div class="row mt-4">
@@ -149,7 +161,7 @@
 							
 							<c:forEach items="${timecatedReport}" var="report">
 								<div class="col mt-3 px-4">
-									<div class="row border rounded-1" style="height:23em">
+									<div class="row border rounded-1" style="height:28em">
 										<div class="col">
 											<div class="row">
 												<div class="col py-2 fw-semibold bg-body-secondary">
@@ -197,7 +209,7 @@
 															</div>
 														</div>
 														<div class="row mt-1">
-															<div class="col" style="font-size:0.8em">
+															<div class="col" style="font-size:0.8em; height:12em;">
 																${report.timecard.company_log}
 															</div>
 														</div>
@@ -214,7 +226,7 @@
 															<c:choose>
 																<c:when test="${reportDate == cardDate}">
 																	<div class="row mt-1">
-																		<div class="col" style="font-size:0.8em">
+																		<div class="col" style="font-size:0.8em; height:13em;">
 																			${internReport.report_content}
 																		</div>
 																	</div>
@@ -239,7 +251,12 @@
 				
 			</div>
 		</div>
-		
+		<c:if test="${empty timecatedReport}">
+			<div class="row my-5">
+				<div class="col my-5">
+				</div>
+			</div>
+		</c:if>
 		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 	</div>
 	

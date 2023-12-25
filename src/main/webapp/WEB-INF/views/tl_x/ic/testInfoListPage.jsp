@@ -44,7 +44,10 @@
      		for(e of goTestInfoPage ){
      			e.setAttribute("onclick" ,"location.href='./testInfoListPage?open_lecture_key="+open_lecture_key+"'");	
      		}
-     		
+     		const reviewPage = document.querySelectorAll(".reviewPage");
+     		for(e of reviewPage ){
+     			e.setAttribute("onclick" ,"location.href='./lectureReviewPage?open_lecture_key="+open_lecture_key+"'");	
+     		}
 		}        
 		function lectureTestListInfo(open_lecture_key) {
 			
@@ -391,12 +394,12 @@
 						    <div id="flush-collapseFour" class="accordion-collapse collapse">
 						      <div class="accordion-body text-light"  style="background-color: #133369;">
 						      	<div class="row">
-						      		<div class="col ms-3">
+						      		<div class="col ms-3 reviewPage" style="cursor: pointer;">
 						      			만족도 조사
 						      		</div>
 						      	</div>
 						      	<div class="row">
-						      		<div class="col ms-3 mt-2">
+						      		<div class="col ms-3 mt-2 reviewPage" style="cursor: pointer;">
 						      			후기
 						      		</div>
 						      	</div>

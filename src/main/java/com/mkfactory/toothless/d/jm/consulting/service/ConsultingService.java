@@ -680,6 +680,49 @@ public class ConsultingService {
 	}
 	
 	
+	
+	//컨설팅 리스트 출력
+	public List<Map<String, Object>> getConsultingAllByHopeJobPk(int hope_job_pk){
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		List<ConsultingDto> consultingDtoList = consultingMapper.getConsultingAllByHopeJobPk(hope_job_pk);
+		
+		for(ConsultingDto consultingDto : consultingDtoList) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			int staff_pk = consultingDto.getStaff_pk();
+			StaffInfoDto staffInfoDto = consultingMapper.getStaffInfoByPk(staff_pk);
+			
+			StudentInfoDto studentIfDto = consultingMapper.getStudentInfoByHopeJobPk(hope_job_pk);
+			map.put("consultingDto", consultingDto);
+			map.put("studentIfDto", studentIfDto);
+			map.put("staffInfoDto", staffInfoDto);
+
+			list.add(map);
+		}
+	
+		return list;
+	}
+	
+	//취업상담 자세히보기 페이지
+	public Map<String, Object> getDetailConsultingInfo(int consulting_pk){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		StudentInfoDto studentInfoDto = consultingMapper.getStudentInfoByConsultingPk(consulting_pk);
+		StaffInfoDto staffInfoDto = consultingMapper.getStaffInfoByConsultingPk(consulting_pk);
+		ConsultingDto consultingDto = consultingMapper.getConsultingByPk(consulting_pk);
+		
+		map.put("consultingDto", consultingDto);
+		map.put("staffInfoDto", staffInfoDto);
+		map.put("studentInfoDto", studentInfoDto);
+
+		
+		
+		return map;
+		
+	}
 
 	
 }
