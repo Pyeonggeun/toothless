@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,10 +67,21 @@ public class DormStudentServiceDm {
 		dormStudentSqlMapperDm.dormNoticeInsertByDormNoticeDto(dormNoticeDto);
 	}
 	
-	public DormNoticeDto dormNoticeInfoByDormNoticePk(int dorm_notice_pk) {
+	public DormNoticeDto dormNoticeInfoByDormNoticePk(int dorm_notice_pk, Boolean escape) {
+		
+		DormNoticeDto dormNoticeInfo = dormStudentSqlMapperDm.dormNoticeInfoByDormNoticePk(dorm_notice_pk);
+		
+		if(escape) {
+			// html escape
+			String content = dormNoticeInfo.getContent();
+			content = StringEscapeUtils.escapeHtml4(content);
+			content = content.replaceAll("\n", "<br>");
+			
+			dormNoticeInfo.setContent(content);
+		}
 		
 		
-		return dormStudentSqlMapperDm.dormNoticeInfoByDormNoticePk(dorm_notice_pk);
+		return dormNoticeInfo;
 	}
 	
 	public void deleteDormNoticeInfoByDormNoticePk(int dorm_notice_pk) {

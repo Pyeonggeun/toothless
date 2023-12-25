@@ -44,13 +44,13 @@
                 width: 100%;
                 height: 100vh;
                 content: "";
-                background: url("../../resources/img/another/backgroundimg.png");
+                background: url("resources/img/another/backgroundimg.png");
                 background-size: cover;
                 display: grid;
                 position: absolute;
                 top: 0;
                 left: 0;
-                z-index: -1;
+                z-index: -2;
                 opacity: 0.6;
                 font-size: 0px;
             }
@@ -82,6 +82,35 @@
     </head>
     <body>
         <div class="container-fluid">
+        	<div class="fixed-top" style="z-index: -1">
+                <div class="row mt-5"></div>
+                <div class="row mt-5"></div>
+                <div class="row mt-5"></div>
+                <div class="row mt-5"></div>
+                <div class="row mt-5"></div>
+                <div class="row" >
+                    <div class="col-1"></div>
+                    <div class="col border border-black border-2 fw-bold text-start" style="background-color: #f1f3d4;">
+                        <div class="row">
+                            <div class="col">
+                                메인 유저(학생)                               
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                ID: S202322                            
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                PW: 1111                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9"></div>
+                </div>
+            </div>
+        
             <div class="row mt-5 align-self-center">
                 <div class="col-3"></div>
 
@@ -91,7 +120,7 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col-1 p-0">
-                                    <img src="../../resources/img/another/logo_black.png" alt="" class="img-fluid">
+                                    <img src="resources/img/another/logo_black.png" alt="" class="img-fluid">
                                 </div>
                                 <div class="col p-0 align-self-center text-black fw-bold fs-3">
                                     MK University<span class="fs-6"> | </span> <span class="fs-5">포털사이트</span> 
@@ -136,7 +165,7 @@
                                         	<div class="col">
                                         		<div class="row bg-main pb-1">
                                         			 <div class="col-3 d-grid px-0">
-                                                		<a class="navbar-brand bg-main text-white" href="/toothless/another/student/loginPage">학생</a>
+                                                		<a class="navbar-brand bg-main text-white" href="/toothless/">학생</a>
                                             		</div>
                                             		<div class="col-3 d-grid px-0">
                                                 		<a class="navbar-brand border border-2 bg-white" href="/toothless/another/staff/loginPage">교직원</a>

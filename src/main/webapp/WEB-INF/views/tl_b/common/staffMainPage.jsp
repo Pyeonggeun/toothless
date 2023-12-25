@@ -13,8 +13,171 @@
         <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
         
         <script>
+        
+        	function reloadItemList() {
+        		
+        		const url = "./getItemList";
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			const itemBox = document.getElementById("itemBox");
+        			itemBox.innerHTML = "";
+        			
+        			for(e of response.data) {
+        				
+        				const itemWrapper = document.querySelector("#templete .itemWrapper").cloneNode(true);
+        				
+        				itemWrapper.querySelector(".itemName").innerText = e.NAME;
+        				itemWrapper.querySelector(".itemCategory").innerText = e.CATEGORYNAME;
+        				
+        				const rentalDate = new Date(e.RENTAL_DATE);
+	        			const returnDate = new Date(e.RETURN_DATE);
+        				
+	        			itemWrapper.querySelector(".itemDate").innerText =
+        					rentalDate.getFullYear() + "." + ("0" + (rentalDate.getMonth() + 1)).slice(-2) + "." + ("0" + rentalDate.getDate()).slice(-2) + "~" +
+        					returnDate.getFullYear() + "." + ("0" + (returnDate.getMonth() + 1)).slice(-2) + "." + ("0" + returnDate.getDate()).slice(-2);
+        				
+	        			itemBox.appendChild(itemWrapper);
+        				
+        			}
+        			
+        		});
+        		
+        	}
+        	
+        	function reloadEduList() {
+        		
+        		const url = "./getEduList";
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			const eduBox = document.getElementById("eduBox");
+        			eduBox.innerHTML = "";
+        			
+        			for(e of response.data) {
+        				
+        				const eduWrapper = document.querySelector("#templete .eduWrapper").cloneNode(true);
+        				
+        				eduWrapper.querySelector(".eduNumber").innerText = e.EDU_PK;
+        				eduWrapper.querySelector(".eduName").innerText = e.NAME;
+        				eduWrapper.querySelector(".eduCurrentCount").innerText = e.QUANTITY;
+        				eduWrapper.querySelector(".eduTotalCount").innerText = e.CAPACITY;
+        				
+						const eduDate = new Date(e.EDU_DATE);
+        				
+						eduWrapper.querySelector(".eduDate").innerText =
+							eduDate.getFullYear() + "." + ("0" + (eduDate.getMonth() + 1)).slice(-2) + "." + ("0" + eduDate.getDate()).slice(-2);
+						
+						eduBox.appendChild(eduWrapper);
+        				
+        			}
+        			
+        		});
+        		
+        	}
+        	
+        	function reloadStudentboardList() {
+        		
+        		const url = "./getStudentboardList";
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+
+        			const studentBox = document.getElementById("studentBox");
+        			studentBox.innerHTML = "";
+        			
+        			for(e of response.data) {
+        				
+        				const studentWrapper = document.querySelector("#templete .studentWrapper").cloneNode(true);
+        				
+        				studentWrapper.querySelector(".studentName").innerText = e.TITLE;
+        				
+						const studentDate = new Date(e.CREATED_AT);
+        				
+						studentWrapper.querySelector(".studentDate").innerText =
+							studentDate.getFullYear() + "-" + ("0" + (studentDate.getMonth() + 1)).slice(-2) + "-" + ("0" + studentDate.getDate()).slice(-2);
+						
+						studentBox.appendChild(studentWrapper);
+        				
+        			}
+        			
+        		});
+        		
+        	}
+        	
+        	function reloadStaffboardList() {
+        		
+        		const url = "./getStaffboardList";;
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			const staffBox = document.getElementById("staffBox")
+        			staffBox.innerHTML = "";
+        			
+        			for(e of response.data) {
+        				
+        				const staffWrapper = document.querySelector(".staffWrapper").cloneNode(true);
+        				
+        				staffWrapper.querySelector(".staffName").innerText = e.TITLE;
+        				
+						const staffDate = new Date(e.CREATED_AT);
+        				
+						staffWrapper.querySelector(".staffDate").innerText =
+							staffDate.getFullYear() + "-" + ("0" + (staffDate.getMonth() + 1)).slice(-2) + "-" + ("0" + staffDate.getDate()).slice(-2);
+						
+						staffBox.appendChild(staffWrapper);
+        				
+        			}
+        			
+        		});
+        		
+        	}
+        	
+        	function reloadMedicineCount() {
+        		
+        		const url = "./getMedicineCount";
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			resetMedicineBox();
+        			
+        			document.getElementById("medicineTotalCount").innerText = response.data.totalMedicineCount;
+            		document.getElementById("medicineAddCount").innerText = response.data.addMedicineCount;
+            		document.getElementById("medicineOutCount").innerText = response.data.outMedicineCount;            		
+            		document.getElementById("medicineDisposalCount").innerText = response.data.disposalMedicineCount;
+            		document.getElementById("medicineLossCount").innerText = response.data.lossMedicineCount;
+            		document.getElementById("medicineAdjustmentCount").innerText = response.data.adjustmentMedicineCount;
+        			
+        		});
+        		
+        	}
+        	
+        	function reloadUserCountList() {
+        		
+        		const url = "./getUserCountList";
+        		
+        		fetch(url)
+        		.then(response => response.json())
+        		.then(response => {
+        			
+        			const list = response.data;
+        			
+        			reloadChart(list);
+        			
+        		});
+        		
+        	}
 			
-        	function reloadChart() {
+        	function reloadChart(list) {
         		
         		const date = new Date();
         		const year = date.getFullYear();
@@ -27,10 +190,10 @@
         			lastDate.getFullYear() + "-" + ("0" + (lastDate.getMonth() + 1)).slice(-2) + "-" + ("0" + lastDate.getDate()).slice(-2);
         		
         		let chartData = [];
-        		for (let i = 1; i <= 31; i++) {
-        		    let randomUsers = Math.floor(Math.random() * 20); // 0에서 20까지의 랜덤한 수
+        		for (let i = 1 ; i <= lastDate.getDate() ; i++) {
+        		    let user = list[i-1];
         		    let currentDate = new Date(year, month, i);
-        		    chartData.push({ x: currentDate, y: randomUsers });
+        		    chartData.push({x: currentDate, y: user});
         		}
         		
         		
@@ -59,7 +222,6 @@
 				            },
 					        y: {
 					          beginAtZero: true,
-					          max: 20,
 					          stepSize: 5
 					        }
 				      	}
@@ -68,9 +230,25 @@
         		
         	}
         	
+        	function resetMedicineBox(){
+        		
+        		document.getElementById("medicineTotalCount").innerText = "";
+        		document.getElementById("medicineAddCount").innerText = "";
+        		document.getElementById("medicineOutCount").innerText = "";
+        		document.getElementById("medicineDisposalCount").innerText = "";
+        		document.getElementById("medicineLossCount").innerText = "";
+        		document.getElementById("medicineAdjustmentCount").innerText = "";
+        		
+        	}
+        	
 			window.addEventListener("DOMContentLoaded", () => {
 	    		
-	    		reloadChart();
+				reloadItemList();
+				reloadEduList();
+				reloadStudentboardList();
+				reloadStaffboardList();
+				reloadMedicineCount();
+				reloadUserCountList();
 	    		
 	    	});
         
@@ -129,45 +307,7 @@
                                                             </div>
                                                             
                                                             <div class="row">
-                                                            	<div class="col">
-                                                            	
-                                                            		<div class="row mt-1">
-                                                            			<div class="col">
-                                                            				<div class="row" style="font-size: 0.85em;">
-                                                            					<div class="col-2 text-center">P3000</div>
-                                                            					<div class="col text-center">들것</div>
-                                                            					<div class="col text-center">2023-12-13~2023-12-23</div>
-                                                            				</div>
-                                                            			</div>
-                                                            		</div>
-                                                            		
-                                                            		<div class="row mt-1">
-                                                            			<div class="col">
-                                                            				<div class="row" style="font-size: 0.85em;">
-                                                            					<div class="col-2 text-center">P3000</div>
-                                                            					<div class="col text-center">들것</div>
-                                                            					<div class="col text-center">2023-12-13~2023-12-23</div>
-                                                            				</div>
-                                                            			</div>
-                                                            		</div>
-                                                            		<div class="row mt-1">
-                                                            			<div class="col">
-                                                            				<div class="row" style="font-size: 0.85em;">
-                                                            					<div class="col-2 text-center">P3000</div>
-                                                            					<div class="col text-center">들것</div>
-                                                            					<div class="col text-center">2023-12-13~2023-12-23</div>
-                                                            				</div>
-                                                            			</div>
-                                                            		</div>
-                                                            		<div class="row mt-1">
-                                                            			<div class="col">
-                                                            				<div class="row" style="font-size: 0.85em;">
-                                                            					<div class="col-2 text-center">P3000</div>
-                                                            					<div class="col text-center">들것</div>
-                                                            					<div class="col text-center">2023-12-13~2023-12-23</div>
-                                                            				</div>
-                                                            			</div>
-                                                            		</div>
+                                                            	<div id="itemBox" class="col">
                                                             	
                                                             	</div>
                                                             </div>
@@ -194,34 +334,8 @@
                                                             </div>
                                                             
                                                             <div class="row">
-                                                            	<div class="col">
-                                                            	
-                                                            		<div class="row mt-1">
-                                                            			<div class="col">
-                                                            				<div class="row" style="font-size: 0.85em;">
-                                                            					<div class="col text-center">121</div>
-		                                                                    	<div class="col-6 text-center">크리스마스 특별 행사 Fun! Fun! English in Movie 1회</div>
-		                                                                    	<div class="col text-center">
-		                                                                    		<span class="fw-bold" style="color: #005EAD">2</span> / <span>20</span>
-		                                                                    	</div>
-		                                                                    	<div class="col text-center">2023-12-30</div>
-                                                            				</div>
-                                                            			</div>
-                                                            		</div>
+                                                            	<div id="eduBox" class="col">
                                                             		
-                                                            		<div class="row mt-1">
-                                                            			<div class="col">
-                                                            				<div class="row" style="font-size: 0.85em;">
-                                                            					<div class="col text-center">81</div>
-		                                                                    	<div class="col-6 text-center">2024 MK대학교 보건센터 겨울방학 교육프로그램</div>
-		                                                                    	<div class="col text-center">
-		                                                                    		<span class="fw-bold" style="color: #005EAD">9</span> / <span>10</span>
-		                                                                    	</div>
-		                                                                    	<div class="col text-center">2023-12-25</div>
-                                                            				</div>
-                                                            			</div>
-                                                            		</div>
-                                                            	
                                                             	</div>
                                                             </div>
                                                         </div>
@@ -241,58 +355,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-                                                                <div class="col px-2">
-                                                                   
-                                                                	<div class="row mt-2">
-                                                                		<div class="col">
-                                                                			<div class="row" style="font-size: 0.8em">
-                                                                				<div class="col d-block text-truncate">
-                                                                					[잡담]'2024 행정업무 온라인 서비스 개편'에 대한 안내사항이 있다고 합니다.
-                                                                				</div>
-                                                                				<div class="col-3 text-end">
-                                                                					2023-12-21
-                                                                				</div>
-                                                                			</div>
-                                                                		</div>
-                                                                	</div>
+                                                                <div id="studentBox" class="col px-2">
                                                                 	
-                                                                	<div class="row mt-2">
-                                                                		<div class="col">
-                                                                			<div class="row" style="font-size: 0.8em">
-                                                                				<div class="col d-block text-truncate">
-                                                                					[잡담]'2024 행정업무 온라인 서비스 개편'에 대한 안내사항이 있다고 합니다.
-                                                                				</div>
-                                                                				<div class="col-3 text-end">
-                                                                					2023-12-21
-                                                                				</div>
-                                                                			</div>
-                                                                		</div>
-                                                                	</div>
-                                                                	<div class="row mt-2">
-                                                                		<div class="col">
-                                                                			<div class="row" style="font-size: 0.8em">
-                                                                				<div class="col d-block text-truncate">
-                                                                					[잡담]'2024 행정업무 온라인 서비스 개편'에 대한 안내사항이 있다고 합니다.
-                                                                				</div>
-                                                                				<div class="col-3 text-end">
-                                                                					2023-12-21
-                                                                				</div>
-                                                                			</div>
-                                                                		</div>
-                                                                	</div>
-                                                                	<div class="row mt-2">
-                                                                		<div class="col">
-                                                                			<div class="row" style="font-size: 0.8em">
-                                                                				<div class="col d-block text-truncate">
-                                                                					[잡담]'2024 행정업무 온라인 서비스 개편'에 대한 안내사항이 있다고 합니다.
-                                                                				</div>
-                                                                				<div class="col-3 text-end">
-                                                                					2023-12-21
-                                                                				</div>
-                                                                			</div>
-                                                                		</div>
-                                                                	</div>
-
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -322,7 +386,7 @@
 		                                                                                </div>
 		                                                                            </div>
 		                                                                            <div class="row mt-1">
-		                                                                                <div class="col fw-bold" style="font-size: large;">
+		                                                                                <div id="medicineTotalCount" class="col fw-bold" style="font-size: large;">
 		                                                                                    1000
 		                                                                                </div>
 		                                                                            </div>
@@ -343,7 +407,7 @@
 		                                                                                </div>
 		                                                                            </div>
 		                                                                            <div class="row mt-1">
-		                                                                                <div class="col fw-bold" style="font-size: large;">
+		                                                                                <div id="medicineAddCount" class="col fw-bold" style="font-size: large;">
 		                                                                                    1000
 		                                                                                </div>
 		                                                                            </div>
@@ -364,7 +428,7 @@
 		                                                                                </div>
 		                                                                            </div>
 		                                                                            <div class="row mt-1">
-		                                                                                <div class="col fw-bold" style="font-size: large;">
+		                                                                                <div id="medicineOutCount" class="col fw-bold" style="font-size: large;">
 		                                                                                    1000
 		                                                                                </div>
 		                                                                            </div>
@@ -385,7 +449,7 @@
 		                                                                                </div>
 		                                                                            </div>
 		                                                                            <div class="row mt-1">
-		                                                                                <div class="col fw-bold" style="font-size: large;">
+		                                                                                <div id="medicineDisposalCount" class="col fw-bold" style="font-size: large;">
 		                                                                                    1000
 		                                                                                </div>
 		                                                                            </div>
@@ -406,7 +470,7 @@
 		                                                                                </div>
 		                                                                            </div>
 		                                                                            <div class="row mt-1">
-		                                                                                <div class="col fw-bold" style="font-size: large;">
+		                                                                                <div id="medicineLossCount" class="col fw-bold" style="font-size: large;">
 		                                                                                    1000
 		                                                                                </div>
 		                                                                            </div>
@@ -427,7 +491,7 @@
 		                                                                                </div>
 		                                                                            </div>
 		                                                                            <div class="row mt-1">
-		                                                                                <div class="col fw-bold" style="font-size: large;">
+		                                                                                <div id="medicineAdjustmentCount" class="col fw-bold" style="font-size: large;">
 		                                                                                    1000
 		                                                                                </div>
 		                                                                            </div>
@@ -454,125 +518,15 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-1">
-                                                                <div class="col px-2">
-                                                                   
-                                                                	<div class="row mt-2">
-                                                                		<div class="col">
-                                                                			<div class="row" style="font-size: 0.8em">
-                                                                				<div class="col d-block text-truncate">
-                                                                					결핵예방주간 손씻기 교육 및 마스크, 손소독제 배부 알림
-                                                                				</div>
-                                                                				<div class="col-3 text-end">
-                                                                					2023-12-21
-                                                                				</div>
-                                                                			</div>
-                                                                		</div>
-                                                                	</div>
+                                                                <div id="staffBox" class="col px-2">
                                                                 	
-                                                                	<div class="row mt-2">
-                                                                		<div class="col">
-                                                                			<div class="row" style="font-size: 0.8em">
-                                                                				<div class="col d-block text-truncate">
-                                                                					[잡담]'2024 행정업무 온라인 서비스 개편'에 대한 안내사항이 있다고 합니다.
-                                                                				</div>
-                                                                				<div class="col-3 text-end">
-                                                                					2023-12-21
-                                                                				</div>
-                                                                			</div>
-                                                                		</div>
-                                                                	</div>
-                                                                	<div class="row mt-2">
-                                                                		<div class="col">
-                                                                			<div class="row" style="font-size: 0.8em">
-                                                                				<div class="col d-block text-truncate">
-                                                                					[잡담]'2024 행정업무 온라인 서비스 개편'에 대한 안내사항이 있다고 합니다.
-                                                                				</div>
-                                                                				<div class="col-3 text-end">
-                                                                					2023-12-21
-                                                                				</div>
-                                                                			</div>
-                                                                		</div>
-                                                                	</div>
-                                                                	<div class="row mt-2">
-                                                                		<div class="col">
-                                                                			<div class="row" style="font-size: 0.8em">
-                                                                				<div class="col d-block text-truncate">
-                                                                					[잡담]'2024 행정업무 온라인 서비스 개편'에 대한 안내사항이 있다고 합니다.
-                                                                				</div>
-                                                                				<div class="col-3 text-end">
-                                                                					2023-12-21
-                                                                				</div>
-                                                                			</div>
-                                                                		</div>
-                                                                	</div>
-                                                                	<div class="row mt-2">
-                                                                		<div class="col">
-                                                                			<div class="row" style="font-size: 0.8em">
-                                                                				<div class="col d-block text-truncate">
-                                                                					[잡담]'2024 행정업무 온라인 서비스 개편'에 대한 안내사항이 있다고 합니다.
-                                                                				</div>
-                                                                				<div class="col-3 text-end">
-                                                                					2023-12-21
-                                                                				</div>
-                                                                			</div>
-                                                                		</div>
-                                                                	</div>
-                                                                	<div class="row mt-2">
-                                                                		<div class="col">
-                                                                			<div class="row" style="font-size: 0.8em">
-                                                                				<div class="col d-block text-truncate">
-                                                                					[잡담]'2024 행정업무 온라인 서비스 개편'에 대한 안내사항이 있다고 합니다.
-                                                                				</div>
-                                                                				<div class="col-3 text-end">
-                                                                					2023-12-21
-                                                                				</div>
-                                                                			</div>
-                                                                		</div>
-                                                                	</div>
-                                                                	<div class="row mt-2">
-                                                                		<div class="col">
-                                                                			<div class="row" style="font-size: 0.8em">
-                                                                				<div class="col d-block text-truncate">
-                                                                					[잡담]'2024 행정업무 온라인 서비스 개편'에 대한 안내사항이 있다고 합니다.
-                                                                				</div>
-                                                                				<div class="col-3 text-end">
-                                                                					2023-12-21
-                                                                				</div>
-                                                                			</div>
-                                                                		</div>
-                                                                	</div>
-                                                                	<div class="row mt-2">
-                                                                		<div class="col">
-                                                                			<div class="row" style="font-size: 0.8em">
-                                                                				<div class="col d-block text-truncate">
-                                                                					[잡담]'2024 행정업무 온라인 서비스 개편'에 대한 안내사항이 있다고 합니다.
-                                                                				</div>
-                                                                				<div class="col-3 text-end">
-                                                                					2023-12-21
-                                                                				</div>
-                                                                			</div>
-                                                                		</div>
-                                                                	</div>
-                                                                	<div class="row mt-2">
-                                                                		<div class="col">
-                                                                			<div class="row" style="font-size: 0.8em">
-                                                                				<div class="col d-block text-truncate">
-                                                                					[잡담]'2024 행정업무 온라인 서비스 개편'에 대한 안내사항이 있다고 합니다.
-                                                                				</div>
-                                                                				<div class="col-3 text-end">
-                                                                					2023-12-21
-                                                                				</div>
-                                                                			</div>
-                                                                		</div>
-                                                                	</div>
-
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col px-4">
                                                             <div class="row">
                                                                 <div class="col fw-bold" style="font-size: large;">
-                                                                    보건실 이용자통계
+                                                                    보건센터 이용자통계
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -595,6 +549,59 @@
                     <jsp:include page="../commonJsp/staffBottomBanner.jsp"></jsp:include>
                 </div>
             </div>
+        </div>
+        
+        <div id="templete" class="d-none">
+        	
+    		<div class="itemWrapper row mt-1">
+    			<div class="col">
+    				<div class="row" style="font-size: 0.85em;">
+    					<div class="itemName col-2 text-center">P3000</div>
+    					<div class="itemCategory col text-center">들것</div>
+    					<div class="itemDate col text-center">2023-12-13~2023-12-23</div>
+    				</div>
+    			</div>
+    		</div>
+    		
+    		<div class="eduWrapper row mt-1">
+       			<div class="col">
+       				<div class="row" style="font-size: 0.85em;">
+       					<div class="eduNumber col text-center">121</div>
+                 	<div class="eduName col-6 text-center">크리스마스 특별 행사 Fun! Fun! English in Movie 1회</div>
+                 	<div class="col text-center">
+                 		<span class="eduCurrentCount fw-bold" style="color: #005EAD">2</span> / <span class="eduTotalCount">20</span>
+                 	</div>
+                 	<div class="eduDate col text-center">2023-12-30</div>
+       				</div>
+       			</div>
+       		</div>
+       		
+       		<div class="studentWrapper row mt-2">
+        		<div class="col">
+        			<div class="row" style="font-size: 0.8em">
+        				<div class="studentName col d-block text-truncate">
+        					[잡담]'2024 행정업무 온라인 서비스 개편'에 대한 안내사항이 있다고 합니다.
+        				</div>
+        				<div class="studentDate col-3 text-end">
+        					2023-12-21
+        				</div>
+        			</div>
+        		</div>
+        	</div>
+        	
+        	<div class="staffWrapper row mt-2">
+           		<div class="col">
+           			<div class="row" style="font-size: 0.8em">
+           				<div class="staffName col d-block text-truncate">
+           					결핵예방주간 손씻기 교육 및 마스크, 손소독제 배부 알림
+           				</div>
+           				<div class="staffDate col-3 text-end">
+           					2023-12-21
+           				</div>
+           			</div>
+           		</div>
+           	</div>
+        	
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

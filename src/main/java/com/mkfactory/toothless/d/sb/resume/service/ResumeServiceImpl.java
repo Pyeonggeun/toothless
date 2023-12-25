@@ -154,7 +154,7 @@ public class ResumeServiceImpl {
 	
 	
 	// 해당 이력성에 작성한 경력 목록 가져오기
-	public List<Map<String, Object>> getCareerDtoList(ResumeDto resumeDto) {
+	public List<Map<String, Object>> getCareerDtoList(ResumeDto resumeDto, boolean escape) {
 		// 이력서 번호에 해당되는 경력 리스트 뽑아오기
 		
 		List<Map<String, Object>> careerList = new ArrayList<Map<String,Object>>();
@@ -166,6 +166,22 @@ public class ResumeServiceImpl {
 			CareerCategoryDto careerName = resumeSqlMapper.getCareerCategoryNameByCategoryPk(category_pk);
 			Map<String, Object> map = new HashMap<String, Object>();
 			
+			if(escape) {
+				
+				String careerContent = careerDto.getCareer_contents();
+				
+				if (careerContent != null) {
+					careerContent = StringEscapeUtils.escapeHtml4(careerContent);
+			  
+					careerContent = careerContent.replaceAll("<","&lt;");
+					careerContent = careerContent.replaceAll(">", "&gt;");
+					careerContent = careerContent.replaceAll("\n", "<br>");
+			      
+					careerDto.setCareer_contents(careerContent);
+					
+			      
+				}
+			}
 			map.put("careerName", careerName);
 			map.put("careerDto", careerDto);
 			

@@ -67,6 +67,11 @@
 		SELECT * FROM cp_counselor WHERE external_pk = #{external_pk}
 	</select>
 	
+	<select id="selectCounselorDtoByCounselorId" resultType="com.mkfactory.toothless.e.dto.CounselorDto">
+		SELECT * FROM cp_counselor WHERE id = #{id}
+	</select>
+	
+	
 	<select id="selectCounselTypeDto" resultType="com.mkfactory.toothless.e.dto.CounselorTypeDto">
 		SELECT * FROM cp_counselor_type WHERE counselor_id = #{counselor_id}
 	</select>

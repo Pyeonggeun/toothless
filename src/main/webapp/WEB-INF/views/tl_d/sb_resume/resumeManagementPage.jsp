@@ -34,8 +34,10 @@
 			
 			const generalResumeListBox = document.getElementById("generalResumeListBox");
 			generalResumeListBox.innerHTML = "";
-			
+		
 			if(response.data.length ==0){
+				generalResumeListBox.classList.add("py-3")
+				
 				generalResumeListBox.innerText ="등록된  이력서가 없습니다.";
 				return;
 			}
@@ -371,6 +373,12 @@
         getLicenseDto(resume_pk);
        	const aaa = document.querySelector(".aaa");
        	aaa.setAttribute("href", "./resumeDetailPage?resume_pk="+resume_pk);
+       	const update_resume = document.querySelector(".update_resume");
+       	update_resume.setAttribute("href", "./resumeUpdatePage?resume_pk="+resume_pk);
+       	const update_career = document.querySelector(".update_career");
+       	update_career.setAttribute("href", "./careerDetailPage?resume_pk="+resume_pk);
+       	const update_license = document.querySelector(".update_license");
+       	update_license.setAttribute("href", "./licenseDetailPage?resume_pk="+resume_pk);
         modal.show();
         // show 하면 뜨고 hide 하면 닫힘
     }
@@ -679,11 +687,13 @@
 					<div class="col">
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
 							<div class="col fw-bold">자소서</div>
-							<div class="col-1"><a href="./resumeUpdatePage?resume_pk=${resumeDto.resume_pk }">수정</a></div>							
+							<div class="col-2">
+								<a class="update_resume btn btn-outline-secondary"role="button"><i class="bi bi-pencil"></i>수정</a>
+							</div>							
 						</div>
 						
 						<div class="row border-bottom">
-							<div class="coverLetter col ">${resumeDto.cover_letter }</div>
+							<div class="coverLetter col "></div>
 						</div>
 					</div>
 				</div>
@@ -692,7 +702,9 @@
 					<div class="col">
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
 							<div class="col fw-bold">경력 사항</div>
-							<div class="col-1"><a href="./careerDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
+							<div class="col-2">
+							<a class="update_career btn btn-outline-secondary"role="button"><i class="bi bi-pencil"></i>상세</a>
+							</div>
 						</div>
 						<div class="row border-bottom border-2 border-gray pb-3 mt-5">
 							<div class="col fw-bold">카테고리</div>
@@ -709,7 +721,9 @@
 					<div class="col">
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
 							<div class="col fw-bold">자격증</div>
-							<div class="col-1"><a href="./licenseDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
+							<div class="col-2">
+								<a class="update_license btn btn-outline-secondary"role="button"><i class="bi bi-pencil"></i>상세</a>
+							</div>
 						</div>
 						<div class="row border-bottom border-2 border-gray pb-3 mt-5">
 							<div class="col fw-bold">자격증 명</div>

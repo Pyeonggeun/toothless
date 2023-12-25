@@ -146,6 +146,7 @@
 								stepSize: 1, // 눈금 간격 설정
 								font: {								 
 									family: 'Gowun Dodum, sans-serif',
+									weight : 'bold'
 								}
 							}
 						},
@@ -154,6 +155,7 @@
 								stepSize: 1, // 눈금 간격 설정
 								font: {								 
 									family: 'Gowun Dodum, sans-serif',
+									weight : 'bold'
 								}
 							}
 						}
@@ -164,12 +166,14 @@
 								font: {
 									 // 원하는 글꼴 패밀리로 변경(먼저나온 폰트 지정 못할시 쉼표 뒤에꺼로 지정됨)
 									family: 'Gowun Dodum, sans-serif',
+									weight : 'bold'
 								}
 							}
 						},
 						title: {
 							font: {								 
 								family: 'Gowun Dodum, sans-serif',
+								weight : 'bold'
 							}
 						}
 						// 기타 플러그인 설정
@@ -192,7 +196,8 @@
 			for(e of freeboardList){
 				
 				const newFreeTr = document.createElement("tr");				
-				newFreeTr.setAttribute("onclick", "freeBoardDetailPage(e.FREEID)");
+				newFreeTr.setAttribute("onclick", "redirectFreeBoardDetailPage(" + e.FREEID + ")");
+				newFreeTr.setAttribute("role","button");
 				
 				const freeId = document.createElement("th");
 				freeId.setAttribute("class", "text-center");				
@@ -203,7 +208,7 @@
 				freeTitle.setAttribute("colspan", 2);
 				freeTitle.innerText = e.FREETITLE;
 				
-				const maxLength = 15;
+				const maxLength = 10;
 				
 				if(freeTitle.textContent.length > maxLength){
 					const resizeText = freeTitle.textContent.slice(0, maxLength) + '...';
@@ -212,8 +217,8 @@
 				
 				if(e.COMMENTVALUE > 0){
 					const commentValue = document.createElement("span");
-					commentValue.setAttribute("class", "text-danger fw-bold");
-					commentValue.innerText = "[" + e.COMMENTVALUE + "]"
+					commentValue.setAttribute("class", "text-danger fw-bold small");
+					commentValue.innerText = " [" + e.COMMENTVALUE + "]"
 					freeTitle.appendChild(commentValue);
 				}
 				
@@ -235,10 +240,12 @@
 				newFreeTr.appendChild(freeRegdate);
 				
 				tbody_freeBoard.appendChild(newFreeTr);
-			}
-			
-		});
-		
+			}			
+		});		
+	}
+	
+	function redirectFreeBoardDetailPage(id){
+		window.location.href = "/toothless/tl_e/freeboardCounsel/readFreeboardPostPage?id="+id;
 	}
 	
 	function getNoticeListForStaffMain(){
@@ -254,7 +261,8 @@
 			for(e of noticeList){
 				
 				const newNoticeTr = document.createElement("tr");				
-				newNoticeTr.setAttribute("onclick", "noticeDetailPage(e.ID)");
+				newNoticeTr.setAttribute("onclick", "redirectNoticeDetailPage(" + e.NOTICEID + ")");
+				newNoticeTr.setAttribute("role","button");
 				
 				const noticeId = document.createElement("th");
 				noticeId.setAttribute("class", "text-center");				
@@ -265,7 +273,7 @@
 				noticeTitle.setAttribute("colspan", 2);
 				noticeTitle.innerText = e.NOTICETITLE;
 				
-				const maxLength = 15;
+				const maxLength = 10;
 				
 				if(noticeTitle.textContent.length > maxLength){
 					const resizeText = noticeTitle.textContent.slice(0, maxLength) + '...';
@@ -274,8 +282,8 @@
 				
 				if(e.NOTICECOMMENTVALUE > 0){
 					const commentValue = document.createElement("span");
-					commentValue.setAttribute("class", "text-danger fw-bold");
-					commentValue.innerText = "[" + e.NOTICECOMMENTVALUE + "]"
+					commentValue.setAttribute("class", "text-danger fw-bold small");
+					commentValue.innerText = " [" + e.NOTICECOMMENTVALUE + "]"
 					noticeTitle.appendChild(commentValue);
 				}
 				
@@ -302,6 +310,10 @@
 		});
 	}
 	
+	function redirectNoticeDetailPage(id){
+		window.location.href = "/toothless/tl_e/notice/readNoticeBoardPage_Staff?id="+id;
+	}
+	
 	
 	function getGroupCounselListForStaffMain(){
 		fetch("./getGroupCounselListForStaffMain")
@@ -316,7 +328,8 @@
 			for(e of groupCounselList){
 				
 				const newGroupTr = document.createElement("tr");				
-				newGroupTr.setAttribute("onclick", "groupCounselDetailPage(e.ID)");
+				newGroupTr.setAttribute("onclick", "redirectGroupCounselDetailPage(" + e.ID + ")");
+				newGroupTr.setAttribute("role","button");
 				
 				const groupCounselId = document.createElement("th");
 				groupCounselId.setAttribute("class", "text-center");				
@@ -347,6 +360,10 @@
 			}
 			
 		});
+	}
+	
+	function redirectGroupCounselDetailPage(id){
+		window.location.href = "/toothless/tl_e/groupcounsel/staff/groupCounselDetailPage?id="+id;
 	}
 	
 	
@@ -408,12 +425,11 @@
 	
 	window.addEventListener("DOMContentLoaded", ()=>{
 		
-		getAllCompleteCounselList()
-		chartControl()
+		getAllCompleteCounselList()		
 		getGroupCounselListForStaffMain()
 		getNoticeListForStaffMain()
 		getFreeboardForStaffMain()
-		
+		chartControl()		
 	});
 
 
@@ -428,10 +444,15 @@
 		<div class="row">
 			<div id="topBannerCol" class="col">
 				<div class="row mt-3">
-					<div class="col ms-5">
+					<div class="col ms-1">
+						<span class="fs-1 fw-bold text-white">MKU Counsel Center</span>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col ms-1">
 						<span class="fs-1 fw-bold text-white">Management</span>
 					</div>
-				</div>				
+				</div>					
 			</div>
 		</div>
 		
@@ -444,7 +465,7 @@
 					<div class="col bg-white border border-0 rounded me-3">
 						<div class="row mt-2">
 							<div class="col text-center">
-								<span class="fw-bold fs-2">상담사 상담실적</span>
+								<span class="fw-bold fs-2">상담사 누적실적</span>
 							</div>
 						</div>
 						<div class="row mt-2">
@@ -521,13 +542,17 @@
 							<div class="col">
 								<div class="row mt-4">
 									<div class="col text-center">
-										<span class="fw-bold fs-4">집단상담</span>
+										<div class="row justify-content-center">
+											<div class="col-5 border-bottom">
+												<span class="fw-bold fs-4">집단상담</span>
+											</div>
+										</div>										
 									</div>
 								</div>
 								<div class="row">
 									<div class="col text-end">
 										<a href="../groupcounsel/staff/groupCounselListPage" class="btn btn-white"> 
-											<span class="fw-bold small">more</span>
+											<span class="fw-bold small text-body-tertiary">more</span>
 										</a>										
 									</div>
 								</div>
@@ -538,17 +563,27 @@
 							<div class="col">
 								<div class="row mt-3 scrollableBoardListRow">
 									<div class="col">
-										<table class="table table-sm table-hover">
+										<table class="table table-sm table-hover">										
 											<thead>
 												<tr class="text-center">
-													<th scope="col">No.</th>
-													<th scope="col" colspan="2">제목</th>
-													<th scope="col">작성일</th>
-													<th scope="col">인원</th>													
-													<th scope="col">상태</th>
+													<th scope="col">
+														<span class="small">No.</span>
+													</th>
+													<th scope="col" colspan="2">
+														<span class="small">제목</span>
+													</th>
+													<th scope="col">
+														<span class="small">작성일</span>
+													</th>
+													<th scope="col">
+														<span class="small">인원</span>
+													</th>													
+													<th scope="col">
+														<span class="small">상태</span>
+													</th>
 												</tr>
 											</thead>
-											<tbody id="tbody_groupCounselBoard" class="mt-3">
+											<tbody id="tbody_groupCounselBoard" class="table-group-divider mt-3">
 												
 											</tbody>
 										</table>									
@@ -564,13 +599,17 @@
 							<div class="col">
 								<div class="row mt-4">
 									<div class="col text-center">
-										<span class="fw-bold fs-4">공지사항</span>
+										<div class="row justify-content-center">
+											<div class="col-5 border-bottom">
+												<span class="fw-bold fs-4">공지사항</span>
+											</div>
+										</div>		
 									</div>
 								</div>
 								<div class="row">
 									<div class="col text-end">										
 										<a href="../notice/noticeMainPage_Staff" class="btn btn-white"> 
-											<span class="fw-bold small">more</span>
+											<span class="fw-bold small text-body-tertiary">more</span>
 										</a>										
 									</div>
 								</div>
@@ -584,14 +623,24 @@
 										<table class="table table-sm table-hover">
 											<thead>
 												<tr class="text-center">
-													<th scope="col">No.</th>
-													<th scope="col" colspan="2">제목</th>
-													<th scope="col">조회수</th>
-													<th scope="col">작성자</th>													
-													<th scope="col">작성일</th>
+													<th scope="col">
+														<span class="small">No.</span>
+													</th>
+													<th scope="col" colspan="2">
+														<span class="small">제목</span>
+													</th>
+													<th scope="col">
+														<span class="small">조회수</span>
+													</th>
+													<th scope="col">
+														<span class="small">작성자</span>
+													</th>													
+													<th scope="col">
+														<span class="small">작성일</span>
+													</th>
 												</tr>
 											</thead>
-											<tbody id="tbody_noticeBoard" class="mt-3">
+											<tbody id="tbody_noticeBoard" class="table-group-divider mt-3">
 												
 											</tbody>
 										</table>									
@@ -607,13 +656,17 @@
 							<div class="col">
 								<div class="row mt-4">
 									<div class="col text-center">
-										<span class="fw-bold fs-4">학생 자유게시판</span>
+										<div class="row justify-content-center">
+											<div class="col-5 border-bottom">
+												<span class="fw-bold fs-4">학생게시판</span>
+											</div>
+										</div>		
 									</div>
 								</div>
 								<div class="row">
 									<div class="col text-end">										
 										<a href="../freeboardCounsel/freeboardCounselPage" class="btn btn-white"> 
-											<span class="fw-bold small">more</span>
+											<span class="fw-bold small text-body-tertiary">more</span>
 										</a>										
 									</div>
 								</div>
@@ -627,14 +680,24 @@
 										<table class="table table-sm table-hover">
 											<thead>
 												<tr class="text-center">
-													<th scope="col">No.</th>
-													<th scope="col" colspan="2">제목</th>
-													<th scope="col">조회수</th>
-													<th scope="col">작성자</th>													
-													<th scope="col">작성일</th>
+													<th scope="col">
+														<span class="small">No.</span>
+													</th>
+													<th scope="col" colspan="2">
+														<span class="small">제목</span>
+													</th>
+													<th scope="col">
+														<span class="small">조회수</span>
+													</th>
+													<th scope="col">
+														<span class="small">작성자</span>
+													</th>													
+													<th scope="col">
+														<span class="small">작성일</span>
+													</th>
 												</tr>
 											</thead>											
-												<tbody id="tbody_freeBoard" class="mt-3">
+												<tbody id="tbody_freeBoard" class="table-group-divider mt-3">
 													
 												</tbody>											
 										</table>									

@@ -151,7 +151,6 @@ public class OnlineCounselService {
 	
 	public void writeOnlineCounselReply(OnlineCounselReplyDto onlineCounselReplyDto) {
 		
-		onlineCounselReplyDto.setCounselor_id(onlineCounselSqlMapper.selectCounselorDto(onlineCounselReplyDto.getCounselor_id()).getId());
 		onlineCounselSqlMapper.insertOnlineCounselReply(onlineCounselReplyDto);
 		
 	}
@@ -166,11 +165,12 @@ public class OnlineCounselService {
 		System.out.println(counsel_pk);
 		for(OnlineCounselReplyDto onlineCounselReplyDto : replies) {
 			Map<String, Object> map = new HashMap<>();
-			System.out.println(onlineCounselReplyDto.getCounselor_id());
-			map.put("counselorDto", onlineCounselSqlMapper.selectCounselorDto(onlineCounselReplyDto.getCounselor_id()));
+			map.put("counselorDto", onlineCounselSqlMapper.selectCounselorDtoByCounselorId(onlineCounselReplyDto.getCounselor_id()));
 			map.put("replyDto", onlineCounselReplyDto);
 			
 			list.add(map);
+			
+			System.out.println();
 		}
 		
 		

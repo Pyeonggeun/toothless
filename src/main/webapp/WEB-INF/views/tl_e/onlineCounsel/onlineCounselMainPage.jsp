@@ -21,7 +21,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
+
 	<jsp:include page="../commons/studentTopArea.jsp"></jsp:include>
 
 	<div class="row">
@@ -30,7 +30,7 @@
 			
 			<div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height: 100%; position: absolute; bottom: 0; left: 0;"></div>
 			
-			<div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 20%; transform: translate(-50%, 50%);">온라인 상담센터</div>
+			<div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 20%; transform: translate(-50%, 50%);">온라인 상담</div>
 			
 			<div style="color: white; position: absolute; font-size: 5em; bottom: 36%; transform: translate(-50%, -50%); text-align: center; left: -8%; border-top: 1px; border-top-style: solid; border-top-color: white; width: 80%;"></div>
 			
@@ -74,7 +74,7 @@
 			</div>
 			<div class="row">
 				<div class="col border-bottom py-1 rounded d-flex justify-content-center d-flex align-items-center" style="font-size: 1.1em; text-align: center; background-color: beige;">
-					<a class="link-dark link-offset-2 link-underline link-underline-opacity-0" href="./studentMyCounselPage">내 상담</a>
+					<a class="link-dark link-offset-2 link-underline link-underline-opacity-0" href="./studentMyCounselPage">나의 상담</a>
 				</div>
 			</div>
 			<div class="row">
@@ -188,40 +188,41 @@
 				
 				
 				<!-- 상담 process -->
-				<div class="row mt-3 pt-5">
-					<div class="col" style="font-weight: bold; font-size: 1.5em;'">
-						상담 신청 및 진행과정
-					</div>
+				<div class="row mt-3">
+				<div class="col-1"></div>
+				<div class="col ms-3 mt-3" style="font-size: 1.2em; text-align: left;">
+					<span style="color: green; font-size: 2.0em;"><i class="bi bi-check-lg"></i></span>&nbsp;&nbsp;상담은 이<span style="color: green; font-weight: bold;">&nbsp;&nbsp과정</span>으로 진행돼요&nbsp;&nbsp;!
 				</div>
-				<div class="row mt-4">
+			</div>
+				<div class="row mt-1">
 					<div class="col-1"></div>
-					<div class="col" style="background-color: whitesmoke;">
+					<div class="col">
 						<div class="row mx-1">
-							<div class="col mt-5">
-								<div class="p-1" style=" border: medium solid red; border-radius: 0.5em; font-size: 0.9em; background-color: white;">STEP 01</div>
+							<div class="col mt-2">
+								<div class="p-1" style=" border: medium solid lightblue; border-radius: 0.5em; font-size: 0.9em; background-color: white;">STEP 01</div>
 							</div>
-							<div class="col mt-5">
-								<div class="p-1" style=" border: medium solid navy; border-radius: 0.5em; font-size: 0.9em; background-color: white;">STEP 02</div>
+							<div class="col mt-2">
+								<div class="p-1" style=" border: medium solid lightblue; border-radius: 0.5em; font-size: 0.9em; background-color: white;">STEP 02</div>
 							</div>
-							<div class="col mt-5">
+							<div class="col mt-2">
 								<div class="p-1" style=" border: medium solid lightblue; border-radius: 0.5em; font-size: 0.9em; background-color: white;">STEP 03</div>
 							</div>
-							<div class="col mt-5">
-								<div class="p-1" style=" border: medium solid green; border-radius: 0.5em; font-size: 0.9em; background-color: white;">STEP 04</div>
+							<div class="col mt-2">
+								<div class="p-1" style=" border: medium solid lightblue; border-radius: 0.5em; font-size: 0.9em; background-color: white;">STEP 04</div>
 							</div>
 						</div>
-						<div class="row mx-1 my-2 pt-2 pb-4">
+						<div class="row mx-1 pb-4">
 							<div class="col my-3">
-								<div class="p-3" style=" border: medium solid red; border-radius: 0.5em; font-size: 0.85em; background-color: white;">온라인상담센터 접속</div>
+								<div class="p-3" style=" border: medium solid lightblue; border-radius: 0.5em; font-size: 0.85em; background-color: white;">온라인상담센터 접속</div>
 							</div>
 							<div class="col my-3">
-								<div class="p-3" style=" border: medium solid darkblue; border-radius: 0.5em; font-size: 0.85em; background-color: white;">상담 작성 버튼 누르기</div>
+								<div class="p-3" style=" border: medium solid lightblue; border-radius: 0.5em; font-size: 0.85em; background-color: white;">상담 작성 버튼 누르기</div>
 							</div>
 							<div class="col my-3">
 								<div class="p-3" style=" border: medium solid lightblue; border-radius: 0.5em; font-size: 0.85em; background-color: white;">전문 상담사의 답변 확인하기</div>
 							</div>
 							<div class="col my-3">
-								<div class="p-3" style=" border: medium solid green; border-radius: 0.5em; font-size: 0.85em; background-color: white;">온라인 상담 완료</div>
+								<div class="p-3" style=" border: medium solid lightblue; border-radius: 0.5em; font-size: 0.85em; background-color: white;">온라인 상담 완료</div>
 							</div>
 						</div>
 					</div>
@@ -230,7 +231,7 @@
 				
 				
 				<!-- 상담 작성 -->
-				<div class="row mt-5">
+				<div class="row mt-2">
 					<div class="col-9"></div>
 					<div class="col mt-5 text-center">
 						<a href="./writeOnlineCounselPage" class="link-light link-offset-2 link-underline link-underline-opacity-0 btn d-grid" style="background-color: #679467; color: white;">상담 작성</a>
@@ -252,31 +253,32 @@
 	
 	
 	
-	<!-- 풋터 -->
-	<div class="row mt-5" style="background-color: #5a5a5a;">
-		<div class="col-1"></div>
-		<div class="col">
-			<div class="row" style="height: 3em;"></div>
-			<div class="row">
-				<div class="col">
-					<span style="font-size: 1.4em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
-					<span style="font-size: 1.2em; color: white; font-weight: 500;">▪</span>
-					<span style="font-size: 1.2em; color: white; font-weight: 500;">이메일무단수집거부</span>
-				</div>
-			</div>
-			<div class="row pt-4">
-				<div class="col">
-					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
-				</div>
-			</div>
-			<div class="row pt-2">
-				<div class="col">
-					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
-				</div>
-			</div>
-			<div class="row pt-4" style="border-bottom-style: solid; border-bottom-color: gray; border-bottom-width: 1px;"></div>
-		</div>
-		<div class="col-1"></div>
-	</div>
+<!-- footer start -->
+         <div class="row mt-3" style="background-color: #5a5a5a; height: 14em;">
+            <div class="col-1"></div>
+            <div class="col">
+               <div class="row" style="height: 4em;"></div>
+               <div class="row">
+                  <div class="col">
+                     <span style="font-size: 1.4em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
+                     <span style="font-size: 1.2em; color: white; font-weight: 500;">▪</span>
+                     <span style="font-size: 1.2em; color: white; font-weight: 500;">이메일무단수집거부</span>
+                  </div>
+               </div>
+               <div class="row pt-4">
+                  <div class="col">
+                     <div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
+                  </div>
+               </div>
+               <div class="row pt-2">
+                  <div class="col">
+                     <div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
+                  </div>
+               </div>
+               <div class="row pt-4" style="border-bottom-style: solid; border-bottom-color: gray; border-bottom-width: 1px;"></div>
+            </div>
+            <div class="col-1"></div>
+         </div>
+		<!-- footer end -->
 </body>
 </html>

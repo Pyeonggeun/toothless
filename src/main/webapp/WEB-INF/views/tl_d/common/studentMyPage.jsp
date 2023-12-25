@@ -142,11 +142,11 @@
 										<div class="col-3">
 											<%-- 회사 이름 --%>
 											<div class="row">
-												<div class="col pt-2 ms-2">${list.companyDto.com_name }</div>
+												<div class="col ms-2 px-0">${list.companyDto.com_name }</div>
 											</div>
 											<%-- 가족기업여부 --%>
 											<div class="row mb-2">
-												<div class="col ms-2">
+												<div class="col ms-2 px-0">
 													<c:if test="${list.companyDto.is_family_company ne null and list.companyDto.is_family_company eq 'Y'}">
 														<span class="badge text-bg-info text-white">Family</span>
 													</c:if>						

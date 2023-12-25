@@ -494,7 +494,7 @@ window.addEventListener("DOMContentLoaded", () => {
 <div id="resumeListTemplete" class="d-none">
 	<div class="publicResumeWrapper row border-bottom">
 		<div class="col-1"></div>
-		<div class="modal_resume_title col-6 p-3 fw-bold fs-4">
+		<div class="modal_resume_title col-6 p-3 fw-bold fs-5">
 			이력서 제목
 		</div>
 		<div class="modal_stu_name col p-3 fw-bold">이름</div>

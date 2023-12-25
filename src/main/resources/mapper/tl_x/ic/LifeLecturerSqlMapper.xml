@@ -3,10 +3,34 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mkfactory.toothless.x.ic.mapper.LifeLecturerSqlMapper">
-	<!--  개설된 강의중 강사키 맞는 리스트 가지고 오기 -->
-	<select id="selectMyOpenLectureInfoList" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+	<!-- 진행중 -->
+	<select id="selectMyOpenLectureInfo" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
 		SELECT * FROM tl_x_open_lecture
 		WHERE lecturer_key = #{lecturer_key}
+		<![CDATA[
+		and to_date(CLOSE_DATE, 'yyyy.mm.dd') >= to_date(SYSDATE, 'yyyy.mm.dd')
+		and to_date(open_DATE, 'yyyy.mm.dd') <= to_date(SYSDATE, 'yyyy.mm.dd')
+		]]>
+		ORDER BY open_lecture_key DESC
+	</select>
+	
+	<!--  진행예정 -->
+	<select id="selectMyExpectedLectureInfoList" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+		SELECT * FROM tl_x_open_lecture
+		WHERE lecturer_key = #{lecturer_key}
+		<![CDATA[
+		and to_date(open_DATE, 'yyyy.mm.dd') >= to_date(SYSDATE, 'yyyy.mm.dd')
+		]]>
+		ORDER BY open_lecture_key DESC
+	</select>
+	
+	<!--  종료된 강의 리스트 -->
+	<select id="selectMyCloseLectureInfoList" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+		SELECT * FROM tl_x_open_lecture
+		WHERE lecturer_key = #{lecturer_key}
+		 <![CDATA[
+		and to_date(close_DATE, 'yyyy.mm.dd') < to_date(SYSDATE, 'yyyy.mm.dd')
+		]]>
 		ORDER BY open_lecture_key DESC
 	</select>
 	<!--  수업 기본 정보 -->
@@ -73,11 +97,11 @@
 		WHERE lecture_student_key = #{lecture_student_key}
 	</select>
 	
-	<select id="selectLectureInfoDto" resultType="com.mkfactory.toothless.x.dto.OpenLectureDto">
+	<select id="selectLectureInfoDto" resultType="com.mkfactory.toothless.x.dto.LectureInfoDto">
 		SELECT * FROM tl_x_lecture_info
 		WHERE lecture_info_key in (
 			SELECT lecture_info_key FROM tl_x_open_lecture
-			WHERE open_lecture_key = #{open_lecture_key)
+			WHERE open_lecture_key = #{open_lecture_key})
 	</select>
 	
 	<select id="selectLectureCount" resultType="int">
@@ -204,7 +228,7 @@
 	
 	<select id="selectTestingStudentCount" resultType="int">
 	<!--  이거 아님 -->
-		SELECT count(*) FROM tl_x_test_result
+		SELECT count(DISTINCT(lecture_student_key)) FROM tl_x_test_result
 		WHERE lecture_test_key = #{lecture_test_key}	
 	</select>
 	
@@ -307,25 +331,29 @@
 		AND status LIKE '결석'
 	</select>
 	
-	<select id="selectAttendanceDtoList" resultType="com.mkfactory.toothless.x.dto.AttendanceStatusDto">
-		SELECT * FROM tl_x_attendance_status
-		WHERE attendance_book_key IN (
-			SELECT attendance_book_key FROM tl_x_attendance_book
-			WHERE open_lecture_key = #{open_lecture_key})
+	<select id="selectAttendanceDtoList" resultType="int">
+	SELECT LECTURE_STUDENT_KEY FROM tl_x_attendance_status
+	WHERE attendance_book_key IN (
+	SELECT attendance_book_key FROM tl_x_attendance_book
+	WHERE open_lecture_key = #{open_lecture_key})
+	GROUP BY LECTURE_STUDENT_KEY
 	</select>
 	
 	
 	
 	<select id="selectStudentTestScoreAvg" resultType="int">
-		SELECT sum(test_point) AS totalscore FROM tl_x_question_choice qqc
-			INNER JOIN (
-				SELECT * FROM tl_x_lecture_test ltk
-					INNER JOIN tl_x_test_question tq ON ltk.lecture_test_key = tq.lecture_test_key
-					INNER JOIN tl_x_test_result tr ON ltk.lecture_test_key = tr.lecture_test_key
-				WHERE open_lecture_key = #{open_lecture_key}
-				AND lecture_student_key = #{lecture_student_key}) ww ON ww.test_question_key = qqc.test_question_key
-		WHERE answer LIKE 'true'
-	
+		SELECT nvl(sum(TEST_POINT),0)  FROM TL_X_TEST_QUESTION
+		WHERE TEST_QUESTION_KEY IN (SELECT TEST_QUESTION_KEY  FROM tl_x_question_choice
+							WHERE QUESTION_CHOICE_KEY IN (
+								SELECT QUESTION_CHOICE_KEY FROM TL_X_TEST_RESULT
+								WHERE lecture_student_key  = #{lecture_student_key})
+							and answer LIKE 'true')
+		AND LECTURE_TEST_KEY  IN (SELECT LECTURE_TEST_KEY FROM TL_X_LECTURE_TEST
+		WHERE open_lecture_key  =#{open_lecture_key})
+	</select>
+	<select id="selectTestCount" resultType="int">
+		SELECT count(*) FROM TL_X_LECTURE_TEST
+		WHERE open_lecture_key = #{open_lecture_key}
 	</select>
 	<select id="selectStudentTestingCount" resultType="int">
 		SELECT count(*) FROM tl_x_lecture_test
@@ -373,7 +401,14 @@
 		WHERE lecture_test_key = #{lecture_test_key})
 	</select>
 	
-	
+	<select id="selectStudentTestingDay" resultType="Date">
+		SELECT max(created_at) FROM TL_X_TEST_RESULT
+			WHERE lecture_test_key =#{lecture_test_key}
+			AND lecture_student_key = (SELECT LECTURE_STUDENT_KEY  FROM TL_X_LECTURE_STUDENT
+			WHERE open_lecture_key  = (SELECT open_lecture_key FROM TL_X_OPEN_LECTURE
+			WHERE open_lecture_key = (SELECT open_lecture_key FROM TL_X_LECTURE_TEST))
+			AND life_student_key = #{life_student_key})
+	</select>
 	
 
 </mapper>

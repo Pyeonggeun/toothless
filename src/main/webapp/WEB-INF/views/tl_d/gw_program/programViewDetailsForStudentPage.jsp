@@ -42,7 +42,7 @@
 					</div>
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">프로그램 카테고리</div>
-						<div class="col p-1 ps-4">${program.programDto.program_category_pk}</div>
+						<div class="col p-1 ps-4">${program.programCategoryDto.program_category_name}</div>
 					</div>
 					<div class="row border-bottom py-3">
 						<div class="col-2 border-end border-bs-border p-1 ps-2 fw-bold">프로그램 일정</div>

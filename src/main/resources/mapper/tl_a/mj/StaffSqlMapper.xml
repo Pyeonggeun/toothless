@@ -202,7 +202,7 @@
 			) t1
 		) t2
 		<![CDATA[
-		WHERE t2.rnum > ((SELECT count(*) FROM TL_A_DORM_NOTICE) - 2)
+		WHERE t2.rnum > ((SELECT count(*) FROM TL_A_DORM_NOTICE) - 4)
 		]]>
 	</select>
 	

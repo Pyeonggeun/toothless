@@ -27,6 +27,17 @@
     #headerSize {
     	font-size: 0.8em;
     }
+    
+    #topBannerCol
+	{	
+		background-image: url("/toothless/resources/img/counselCenterStaff/topBanner01.jpg");
+		background-position: center;
+		background-size: cover;
+		height: 14em;
+		background-repeat: no-repeat;
+		
+	}
+    
 </style>
 
 <script>
@@ -79,7 +90,20 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 	<jsp:include page="../commons/staffTopArea.jsp"></jsp:include>
+	
+	<!-- 상단 배너 이미지 -->
+	<div class="row">
+		<div id="topBannerCol" class="col">
+			<div class="row mt-3">
+				<div class="col ms-5">
+					<span class="fs-1 fw-bold text-white">Management</span>
+				</div>
+			</div>				
+		</div>
+	</div>
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-1"></div>
@@ -93,20 +117,20 @@
 							<c:if test="${!empty sessionStaffInfo&&sessionStaffInfo.staff_pk==list.noticeBoardDto.staff_pk}">	
 								<div class="col-1 border-top">
 									<div class="row">
-										<div class="col" style="font-size: 1em;">
+										<div class="col mt-1" style="font-size: 1em;">
 											<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: red" href="./deleteNoticeArticleProcess?id=${list.noticeBoardDto.id }">삭제</a>
 										</div>
 									</div>
 								</div>
 								<div class="col-1 border-top">
 									<div class="row">
-										<div class="col" style="font-size: 1em;">
+										<div class="col mt-1" style="font-size: 1em;">
 											<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./updateNoticeArticlePage?id=${list.noticeBoardDto.id }">수정</a>
 										</div>
 									</div>
 								</div>
 							</c:if>
-							<div class="col-1 mb-1 border-top" style="font-size: 0.8em"><fmt:formatDate value="${list.noticeBoardDto.created_at }" pattern="yyyy-MM-dd"/></div>
+							<div class="col-1 border-top mb-0 d-flex align-items-center justify-content-center" style="font-size: 0.8em"><fmt:formatDate value="${list.noticeBoardDto.created_at }" pattern="yyyy-MM-dd"/></div>
 						</div>
 					</div>
 				</div>
@@ -203,7 +227,7 @@
 			<div class="col-1"></div>
 			<div class="col">
 				<div class="row">
-					<div class="col">공지사항</div>
+					<div class="col fw-bold">공지사항</div>
 					<div class="col"></div>
 					<div class="col"></div>
 				</div>
@@ -218,7 +242,7 @@
 					<c:forEach items="${mainList }" var="mainList">
 						<div id="headerSize" class="col-1">${mainList.noticeBoardDto.id }</div>
 						<div class="col-8 border-bottom">
-							<div class="row">
+							<div class="row mt-1">
 								<div class="col-9">
 									<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./readNoticeBoardPage_Staff?id=${mainList.noticeBoardDto.id }">${mainList.noticeBoardDto.title }</a>
 									<c:if test="${mainList.commentCount > 0 }">
@@ -246,39 +270,39 @@
 		</div>
 	</div>
 	
-	<!-- 풋터 -->
-	<div class="row mt-5" style="background-color: #5a5a5a;">
+	<!-- footer start -->
+	<div class="row mt-5" style="background-color: #686868; height: 11.3em;">
 		<div class="col-1"></div>
 		<div class="col">
-			<div class="row" style="height: 4em;"></div>
+			<div class="row" style="height: 2.5em;"></div>
 			<div class="row">
 				<div class="col">
-					<span style="font-size: 1.4em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
-					<span style="font-size: 1.2em; color: white; font-weight: 500;">▪</span>
-					<span style="font-size: 1.2em; color: white; font-weight: 500;">이메일무단수집거부</span>
+					<span style="font-size: 1.1em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
+					<span style="font-size: 0.9em; color: white; font-weight: 500;">▪</span>
+					<span style="font-size: 0.9em; color: white; font-weight: 500;">이메일무단수집거부</span>
 				</div>
 			</div>
 			<div class="row pt-4">
 				<div class="col">
-					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
+					<div style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
 				</div>
 			</div>
 			<div class="row pt-2">
 				<div class="col">
-					<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
+					<div style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
 				</div>
 			</div>
-			<div class="row pt-4" style="border-bottom-style: solid; border-bottom-color: gray; border-bottom-width: 1px;"></div>
 		</div>
 		<div class="col-1"></div>
 	</div>
+	<!-- footer end -->
 	
 	<div id="templete" class="d-none">
 		<div class="commentWrapper row">
-			<div class="col border-bottom"><i class="bi bi-chat-dots"></i></div>
+			<div class="col-1 border-bottom"><i class="bi bi-chat-dots-fill" style="color: orange;"></i></div>
 			<div class="commentText col border-bottom"></div>
-			<div class="commentNickname col border-bottom"></div>
-			<div class="commentDate col border-bottom"></div>
+			<div class="commentNickname col-2 border-bottom"></div>
+			<div class="commentDate col-2 border-bottom"></div>
 		</div>		
 	</div>
 	

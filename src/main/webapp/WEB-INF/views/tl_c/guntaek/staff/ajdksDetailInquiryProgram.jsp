@@ -101,12 +101,17 @@
 					</div>
 					
 					
-					<div class="row">
-					<div class="col-1"></div>
-						<div class="col-10 d-flex justify-content-center"><img class="img-fluid" src="/Git_imageFile/${EduDto.poster_image}">
+					
+					<div class="row border mt-4">
+						
+				
+					<div class="col-12 d-flex justify-content-center px-0 mx-0" style="height:100em;" >
+							<img class="img-fluid" src="/Git_imageFile/${EduDto.poster_image}">
 					</div>
-					<div class="col-1"></div>
+			
 					</div>
+					
+					
 
 					<div class="row mt-5">
 					<div class="col-2"> <h4 style="font-weight:bold;">상세내용</h4></div>
@@ -144,13 +149,14 @@
 					
 					
 					
-						<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
+						
 					</div>
 					<!-- 본문 작성 공간 -->	
 							
 				</div>
 				
 				
+					<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
 			</div>
 		</div>	
 	

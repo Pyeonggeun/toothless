@@ -26,36 +26,6 @@
 </head>
 <body>
 	<jsp:include page="../commons/counselorTopArea.jsp"></jsp:include>
-	
-	<div class="row">
-	    <div class="col mx-0 px-0" style="height: 35em; position: relative;">
-			<img class="banner img-fluid" src="/toothless/resources/img/groupCounsel/fff.jpg" style="width: 100%; height: 100%;">
-			
-			<div style="background-color: #a0a0a0; opacity: 0.4; width: 100%; height: 100%; position: absolute; bottom: 0; left: 0;"></div>
-			
-			<div class="title-text" style="font-size: 4em; color: white; position: absolute; bottom: 48%; left: 20.5%; transform: translate(-50%, 50%);">상담사 </div>
-			
-			<div style="color: white; position: absolute; font-size: 5em; bottom: 36%; transform: translate(-50%, -50%); text-align: center; left: -8%; border-top: 1px; border-top-style: solid; border-top-color: white; width: 80%;"></div>
-			
-			<div style="color: white; position: absolute; font-size: 1.4em; bottom: 24.5%; transform: translate(-50%, -50%); text-align: center; left: 19.6%;">당신의 말 한 마디가</div>
-			
-			<div style="color: white; position: absolute; font-size: 1.4em; bottom: 17.5%; transform: translate(-50%, -50%); text-align: center; left: 24.2%;">누군가의 희망이됩니다 </div>
-			
-			<div style="height: 17em; width: 18em; border-radius: 0px 50px 0px 0px; background-color: #679467; opacity: 0.9; position: absolute; bottom: -24.2%; transform: translate(-50%, -50%); text-align: center; left: 85%;"></div>
-			
-			<div style="font-weight: 900; color: #464646; position: absolute; font-size: 1.5em; bottom: 34%; transform: translate(-50%, -50%); text-align: center; left: 82%;">Contact Us</div>
-			
-			<div style="font-weight: 900; color: white; position: absolute; font-size: 2.6em; bottom: 10%; transform: translate(-50%, -50%); text-align: center; left: 84%;">1544-3054</div>
-			
-			<div style="color: white; position: absolute; font-size: 0.9em; bottom: 8%; transform: translate(-50%, -50%); text-align: center; left: 83.5%;">E-mail. mkmk@naver.com</div>
-			
-			<div style="color: white; position: absolute; font-size: 0.9em; bottom: 3%; transform: translate(-50%, -50%); text-align: center; left: 82.5%;">Tel. 010-4097-3054</div>
-	    </div>
-	</div>	
-	
-	
-	
-
 		
 		<!-- 상담사 Tip -->
 	<div class="row">
@@ -73,7 +43,7 @@
 	<div class="row mt-3 text-center">
 		<div class="col-1"></div>
 		<!-- 팁1 -->
-		<div class="col" style="background-color: beige;">
+		<div class="col" style="background-color:  rgb(244, 244, 241);">
 			<div class="row p-3" style=" border: medium solid lightblue; border-radius: 0.5em; font-size: 0.9em;">
 				<div class="col" style="min-height: 4em;">
 					<div class="row">
@@ -90,7 +60,7 @@
 		</div>
 		
 		<!-- 팁2 -->
-		<div class="col ms-1" style="background-color: beige;">
+		<div class="col ms-1" style="background-color:  rgb(244, 244, 241);">
 			<div class="row p-3" style=" border: medium solid lightblue; border-radius: 0.5em; font-size: 0.9em;">
 				<div class="col">
 					<div class="row">
@@ -107,7 +77,7 @@
 		</div>
 		
 		<!-- 팁3 -->
-		<div class="col ms-1" style="background-color: beige;">
+		<div class="col ms-1" style="background-color:  rgb(244, 244, 241);">
 			<div class="row p-3" style=" border: medium solid lightblue; border-radius: 0.5em; font-size: 0.9em;">
 				<div class="col">
 					<div class="row">
@@ -127,7 +97,7 @@
 	<div class="row mt-1 text-center">	
 		<div class="col-1"></div>
 		<!-- 팁4 -->
-		<div class="col" style="background-color: beige;">
+		<div class="col" style="background-color:  rgb(244, 244, 241);">
 			<div class="row p-3" style=" border: medium solid lightblue; border-radius: 0.5em; font-size: 0.9em;">
 				<div class="col">
 					<div class="row">
@@ -144,7 +114,7 @@
 		</div>
 		
 		<!-- 팁5 -->
-		<div class="col ms-1" style="background-color: beige;">
+		<div class="col ms-1" style="background-color:  rgb(244, 244, 241);">
 			<div class="row p-3" style=" border: medium solid lightblue; border-radius: 0.5em; font-size: 0.9em;">
 				<div class="col">
 					<div class="row">
@@ -160,7 +130,7 @@
 			</div>
 		</div>
 		<!-- 팁6 -->
-		<div class="col ms-1" style="background-color: beige;">
+		<div class="col ms-1" style="background-color:  rgb(244, 244, 241);">
 			<div class="row p-3" style=" border: medium solid lightblue; border-radius: 0.5em; font-size: 0.9em;">
 				<div class="col">
 					<div class="row">
@@ -181,65 +151,181 @@
 	
 		<!-- 하단 -->			
 	<div class="container">
+	
+	
+		<!-- 검색창 -->
 		<div class="row">
 			<div class="col">
-				<hr>
+				<div class="row pt-5">
+					<div class="col fs-3 fw-bold">
+						상담 조회
+					</div>
+				</div>
+				<div class="row pt-4">
+					<div class="col">
+						<div class="row border" style="background-color: rgb(244, 244, 241);">
+							<div class="col">
+								<div class="row pt-3 pb-3 align-items-center border-bottom">
+									<div class="col-1 fw-bold">
+										상담번호
+									</div>
+									<div class="col-3">
+										<input class="form-control" type="number">
+									</div>
+									<div class="col-1 fw-bold">
+										상담종류
+									</div>
+									<div class="col-3">
+										<select class="form-select">
+										 	<c:forEach items="${counselList }" var="mapList">
+										 		<c:forEach items="${mapList }" var="list">
+										 			<option value=${list.typeCategoryDto.id }>${list.typeCategoryDto.name }</option>
+										 		</c:forEach>
+										 	</c:forEach>
+										</select>								
+									</div>
+									<div class="col-1"></div>
+								</div>
+								<div class="row py-3 align-items-center border-bottom">
+									<div class="col-1 fw-bold">
+										이름
+									</div>
+									<div class="col-3">
+										<input class="form-control" type="text">
+									</div>
+									<div class="col-1 fw-bold">
+										상담상태
+									</div>
+									<div class="col-3">
+										<select class="form-select">
+										  <option value="1" selected>전체</option>
+										  <option value="2">신청</option>
+										  <option value="3">완료</option>
+										  <option value="4">취소</option>
+										  <option value="5">노쇼</option>
+										</select>								
+									</div>
+									<div class="col-1"></div>
+								</div>
+								<div class="row pt-3 pb-3 border-bottom">
+									<div class="col-1 fw-bold pt-1">
+										일자
+									</div>
+									<div class="col-2">
+										<select class="form-select">
+										  <option selected>일자</option>
+										  <option value="1">상담신청일</option>
+										  <option value="2">상담예약일</option>
+										</select>								
+									</div>
+									<div class="col-3 ps-5">
+										<input class="form-control" type="date">
+									</div>
+								</div>
+								<div class="row py-3">
+									<div class="col-4"></div>
+									<div class="col-2 d-grid">
+										<input class="btn btn-outline-success" type="submit" value="초기화" style="background-color: black; color: white;">
+									</div>
+									<div class="col-2 d-grid rounded" style="background-color:black;">
+										<input class="btn" style="color: white;" type="submit" value="검색">
+									</div>
+									<div class="col-4"></div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="row mt-5">
+					<div class="col-7"></div>
+					<div class="col">
+						<div class="row">
+							<div class="col"></div>
+							<div class="col-4">
+								<div class="row" style=" font-size: 0.8em; font-weight: bold">
+									<div class="col"><i class="bi bi-check-lg" style="color: red;"></i> : 만족도 조사 요망</div>
+								</div>
+								<div class="row" style="font-size: 0.8em; font-weight: bold">
+									<div class="col"><i class="bi bi-check-lg" style="color: orange;"></i> : 답변 대기</div>
+								</div>
+								<div class="row" style="font-size: 0.8em; font-weight: bold">
+									<div class="col"><i class="bi bi-check-lg" style="color: green;"></i> : 만족도 조사 완료</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<!-- 3사분면 -->
-			<div class="col">
-				<div class="row">
-					<div class="col border-bottom">
-						상담
+				<div class="row pt-3 pb-3 border-bottom border-dark fw-bold" style="background-color: rgb(244, 244, 241);">
+					<div class="col-1 text-center">
+						상담번호
+					</div>
+					<div class="col-2 text-center">
+						상담종류
+					</div>
+					<div class="col-2 text-center">
+						이름
+					</div>
+					<div class="col">
+						제목
+					</div>
+					<div class="col-1 text-center">
+						상담상태
+					</div>
+					<div class="col-2 text-center">
+						등록일자
 					</div>
 				</div>
 				<div class="row">
-					<div class="col">
-						<div class="row" style="font-weight: bold; font-size: 0.9em;">
-							<div class="col-1">상태</div>
-							<div class="col-2">작성자</div>
-							<div class="col-3">카테고리</div>
-							<div class="col">제목</div>
-							<div class="col-2">작성일</div>				
-						</div>
+					<div id="reservationListBox" class="col">
+						
 					</div>
-					<div class="row">
+				</div>
+				
+				<div class="row">
 						<div class="col">
 							<c:forEach items="${counselList }" var="mapList">
 								<c:forEach items="${mapList }" var="list">
 								<c:set var="title" value="${list.onlineCounselBoardDto.title }"></c:set>
-									<div class="row">
-										<div class="col-1">
-											<c:choose>
-												<c:when test="${ list.isSurveyed == 0}">
-													<i class="bi bi-check-lg" style="color: orange;"></i>
-												</c:when>
-												<c:otherwise>
-													<i class="bi bi-check-lg" style="color: green;"></i>
-												</c:otherwise>
-											</c:choose>
+									<div class="row mt-3">
+										<div class="col-1 text-center">
+											${list.onlineCounselBoardDto.id }
 										</div>
-										<div class="col-2">
-											${list.studentInfoDto.name }
-										</div>
-										<div class="col-3">
+										<div class="col-2 text-center">
 											${list.typeCategoryDto.name }
+										</div>
+										<div class="col-2 text-center">
+											${list.studentInfoDto.name }
 										</div>
 										<div class="col">
 											<c:choose>
-												<c:when test="${fn:length(title) > 9 }">
-													<c:set var="cuttedTitle" value="${fn:substring(title, 0, 9)}"></c:set>
+												<c:when test="${fn:length(title) > 15 }">
+													<c:set var="cuttedTitle" value="${fn:substring(title, 0, 15)}"></c:set>
 														<a href="./counselorOnlineCounselReadCounselPage?counsel_pk=${list.onlineCounselBoardDto.id }" class="link-offset-2 link-underline link-underline-opacity-0" style="color: black;"> 
 															${cuttedTitle }...
 														</a>
 												</c:when>
 												<c:otherwise>
-													${title }													
+													<a href="./counselorOnlineCounselReadCounselPage?counsel_pk=${list.onlineCounselBoardDto.id }" class="link-offset-2 link-underline link-underline-opacity-0" style="color: black;"> 
+															${title }...
+														</a>
+																										
 												</c:otherwise>
 											</c:choose>
 										</div>
-										<div class="col-2">
+										<div class="col-1 text-center">
+											<c:if test="${ list.isSurveyed == 0 && list.replyCount != 0 }">
+												<i class="bi bi-check-lg" style="color: red;"></i>
+											</c:if>
+											<c:if test="${list.replyCount == 0 }">
+												<i class="bi bi-check-lg" style="color: orange;"></i>
+											</c:if>
+											<c:if test="${  list.isSurveyed != 0 && list.replyCount != 0}">
+												<i class="bi bi-check-lg" style="color: green;"></i>
+											</c:if>
+										</div>
+										<div class="col-2 text-center">
 											${list.onlineCounselBoardDto.created_at }
 										</div>
 									</div>									
@@ -247,56 +333,73 @@
 							</c:forEach>
 						</div>
 					</div>
-				</div>
-			</div>
-		
-	
-	
-		<!-- 4사분면 -->
-			<div class="col ms-1">
-				<div class="row border-bottom">
-					<div class="col">
-						답변 한 상담
+					<div class="row my-2">
+						<div class="col-10"></div>
+						<div class="col">
+							<select class="form-select">
+							  <option selected>전체</option>
+							  <option value="1">오름차순</option>
+							  <option value="2">내림차순</option>
+							</select>								
+						</div>
 					</div>
-				</div>
-				<div class="row">
+				
+				
+				
+				
+				
+				<div class="row pt-5">
 					<div class="col">
+						<nav aria-label="Page navigation example">
+						  <ul class="pagination justify-content-center">
+						    <li class="startPageNumli page-item">
+						      <a class="startPageNumber page-link text-dark">&lt;</a>
+						    </li>
+						    
+						    <li class="endPageNumli page-item">
+						      <a class="endPageNumber page-link text-dark">&gt;</a>
+						    </li>
+						  </ul>
+						</nav>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-		
+	
+	
+	
+	
+	
 		
 
 			
 			
-		<!-- 풋터 -->
-		<div class="row mt-5" style="background-color: #5a5a5a;">
-			<div class="col-1"></div>
-			<div class="col">
-				<div class="row" style="height: 3em;"></div>
-				<div class="row">
-					<div class="col">
-						<span style="font-size: 1.4em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
-						<span style="font-size: 1.2em; color: white; font-weight: 500;">▪</span>
-						<span style="font-size: 1.2em; color: white; font-weight: 500;">이메일무단수집거부</span>
-					</div>
+<!-- footer start -->
+	<div class="row mt-3" style="background-color: #686868; height: 11.3em;">
+		<div class="col-1"></div>
+		<div class="col">
+			<div class="row" style="height: 2.5em;"></div>
+			<div class="row">
+				<div class="col">
+					<span style="font-size: 1.1em; color: #FF8200; font-weight: 500;">개인정보처리방침</span>
+					<span style="font-size: 0.9em; color: white; font-weight: 500;">▪</span>
+					<span style="font-size: 0.9em; color: white; font-weight: 500;">이메일무단수집거부</span>
 				</div>
-				<div class="row pt-4">
-					<div class="col">
-						<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
-					</div>
-				</div>
-				<div class="row pt-2">
-					<div class="col">
-						<div class="fw-bold" style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
-					</div>
-				</div>
-				<div class="row pt-4" style="border-bottom-style: solid; border-bottom-color: gray; border-bottom-width: 1px;"></div>
 			</div>
-			<div class="col-1"></div>
+			<div class="row pt-4">
+				<div class="col">
+					<div style="color:#d2d2d2; font-size: 0.9em;">서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층) / 대표자:정현경 / 사업자등록번호:220-90-07535 / 통신판매번호:제 강남-8062호 / TEL:02-561-1911 / FAX:02-538-2613</div>
+				</div>
+			</div>
+			<div class="row pt-2">
+				<div class="col">
+					<div style="color:#d2d2d2; font-size: 0.9em;">©2023 MK NATIONAL UNIVERSITY. ALL RIGHTS RESERVED.</div>
+				</div>
+			</div>
 		</div>
+		<div class="col-1"></div>
+	</div>
+		<!-- footer end -->
 </body>
 </html>
 

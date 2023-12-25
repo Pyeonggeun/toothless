@@ -38,32 +38,27 @@ public class EunbiExternalServiceImpl {
 	public List<Map<String, Object>> getNeedEvaluationCourse(int companyPk){
 		
 		List<Map<String, Object>> endInternshipCourseList = new ArrayList<>();
+			
+		List<AjdksInternshipCourseDto> internshipCourseList = externalSqlMapper.getEndInternshipCourse(companyPk);
 		
-		if(externalSqlMapper.isEndCourseNull(companyPk) == 0) {
+		for(AjdksInternshipCourseDto internshipCourseDto : internshipCourseList) {
 			
-			return null;
-		}else {
+			Map<String, Object> endInternshipCourseInfo = new HashMap<>();
 			
-			List<AjdksInternshipCourseDto> internshipCourseList = externalSqlMapper.getEndInternshipCourse(companyPk);
+			int internshipCoursePk = internshipCourseDto.getInternship_course_pk();
 			
-			for(AjdksInternshipCourseDto internshipCourseDto : internshipCourseList) {
-				
-				Map<String, Object> endInternshipCourseInfo = new HashMap<>();
-				
-				int internshipCoursePk = internshipCourseDto.getInternship_course_pk();
-				
-				int countIntern = studentSqlMapper.countInternBycoursePk(internshipCoursePk);
-				int countDidCompanyEvaluate = externalSqlMapper.countCompanyEvaluationToIntern(internshipCoursePk);
-				
-				endInternshipCourseInfo.put("internshipCourseDto", internshipCourseDto);
-				endInternshipCourseInfo.put("countInternBycoursePk", countIntern);
-				endInternshipCourseInfo.put("countDidCompanyEvaluate", countDidCompanyEvaluate);
-				
-				endInternshipCourseList.add(endInternshipCourseInfo);
-			}
-		
-			return endInternshipCourseList;
+			int countIntern = studentSqlMapper.countInternBycoursePk(internshipCoursePk);
+			int countDidCompanyEvaluate = externalSqlMapper.countCompanyEvaluationToIntern(internshipCoursePk);
+			
+			endInternshipCourseInfo.put("internshipCourseDto", internshipCourseDto);
+			endInternshipCourseInfo.put("countInternBycoursePk", countIntern);
+			endInternshipCourseInfo.put("countDidCompanyEvaluate", countDidCompanyEvaluate);
+			
+			endInternshipCourseList.add(endInternshipCourseInfo);
 		}
+	
+		return endInternshipCourseList;
+		
 		
 	}
 	

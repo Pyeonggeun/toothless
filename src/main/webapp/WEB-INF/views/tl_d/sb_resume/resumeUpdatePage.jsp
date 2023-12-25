@@ -29,7 +29,46 @@
 			<div class="col">
 				<form action="./resumeUpdateProcess" method="post">
 					<input type="hidden" name="resume_pk" value="${resumeDto.resume_pk }">
+					
 					<div class="row">
+						<div class="col fs-4 fw-bold mt-5 pb-3 border-bottom border-3">이력서 수정</div>
+						
+					</div>
+					
+					<div class="row">
+						<div class="col">
+							<div class="row border-bottom border-2 border-black pb-3 mt-5">
+								<div class="col fw-bold">이력서 제목</div>
+							</div>
+							
+							<div class="row mt-2">
+								<div class="col p-2 ms-2 fs-3">
+									<textarea name="resume_title" rows="1" cols="75">${resumeDto.resume_title }</textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col">
+							<div class="row border-bottom border-2 border-black pb-3 mt-5">
+								<div class="col fw-bold">자소서 내용</div>
+							</div>
+							
+							<div class="row mt-2">
+								<div class="col">
+									<textarea name="cover_letter" rows="15" cols="120"> ${resumeDto.cover_letter }</textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					
+					
+					
+					<%-- <div class="row">
 						<div class="col fs-5 fw-bold mt-5">이력서 수정</div>
 					</div>
 					
@@ -70,11 +109,14 @@
 							</div>
 							
 						</div>
-					</div>
-					</form>
+					</div> --%>
+					
 					
 					<div class="row mt-2">
 						<div class="col"></div>
+						<div class="col-2 d-flex justify-content-end">
+							<button type="submit" class="btn btn-primary">수정완료</button>
+						</div>
 						<div class="col-2">
 							<form action="./resumeDetailPage" method="post">
 								<input type="hidden" name="resume_pk" value="${resumeDto.resume_pk}">
@@ -82,7 +124,8 @@
 							</form>
 						</div>
 					</div>
-				
+					
+					</form>
 				
 			</div>
 			

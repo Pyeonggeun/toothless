@@ -7,7 +7,7 @@
                 <div class="col bg-white py-1">
                     <div class="row">
                         <div class="col text-end" style="font-size: 0.75em; margin-right: 12.2em">
-                            <span id="studentName" class="fw-bold"></span> 님 | <a href="../../another/student/logoutProcess" class="link-underline link-underline-opacity-0 link-dark">로그아웃</a>
+                            <a class="link-underline link-underline-opacity-0 link-dark" href="../common/studentMainPage">HOME</a> | <span id="studentName" class="fw-bold d-inline"></span> 님 | <a href="../../another/student/logoutProcess" class="link-underline link-underline-opacity-0 link-dark">로그아웃</a>
                         </div>
                     </div>
                 </div>

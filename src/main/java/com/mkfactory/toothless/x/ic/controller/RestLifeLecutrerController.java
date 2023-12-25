@@ -38,14 +38,36 @@ public class RestLifeLecutrerController {
 	public RestResponseDto loadMylecture(int lecturer_key) {
 		RestResponseDto responseDto = new RestResponseDto();
 		
-		List<Map<String, Object>> list = lifeLecturerService.getMyLecutre(lecturer_key);
+		Map<String, Object> map = lifeLecturerService.getMyLecutre(lecturer_key);
 		
 		responseDto.setResult("success");
-		responseDto.setData(list);
+		responseDto.setData(map);
 		
 		return responseDto;
 	}
+	@RequestMapping("expectedLectureList")
+	public RestResponseDto expectedLectureList(int lecturer_key){
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> map = lifeLecturerService.getMyExpectedLecutre(lecturer_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(map);
+		
+		return responseDto;
+	}
+	@RequestMapping("loadMyCloselectureList")
+	public RestResponseDto loadMyCloselectureList(int lecturer_key){
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		List<Map<String, Object>> map = lifeLecturerService.getMyCloseLecutre(lecturer_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(map);
+		
+		return responseDto;
 	
+	}
 	@RequestMapping("lectureStudentList")
 	public RestResponseDto lectureStudentList(int open_lecture_key) {
 		RestResponseDto responseDto = new RestResponseDto();
@@ -239,5 +261,29 @@ public class RestLifeLecutrerController {
 		
 		return responseDto;
 	}
+	@RequestMapping("loadTestingStduentInfo")
+	public RestResponseDto loadTestingStduentInfo(int life_student_key, int lecture_test_key) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		Map<String, Object> map = lifeLecturerService.getTestingStudentInfo(life_student_key, lecture_test_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(map);
+		
+		return responseDto;
+	}
+	@RequestMapping("getNoAttendanceBookDateList")
+	public RestResponseDto getNoAttendanceBookDateList(int open_lecture_key) {
+		RestResponseDto responseDto = new RestResponseDto();
+		
+		List<String> list = lifeLecturerService.noLectureAttendanceBook(open_lecture_key);
+		
+		responseDto.setResult("success");
+		responseDto.setData(list);
+		
+		return responseDto;
+		
+	}
+	
 	
 }

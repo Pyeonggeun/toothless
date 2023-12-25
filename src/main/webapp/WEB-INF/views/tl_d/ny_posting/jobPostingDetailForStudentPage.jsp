@@ -40,7 +40,7 @@
 								<%-- 기업명 + 가족기업 여부 --%>
 								<div class="row">
 									<c:if test="${jobPostingDetailForStudent.companyDto.is_family_company ne null and jobPostingDetailForStudent.companyDto.is_family_company eq 'Y'}">
-										<div class="col-1"><span class="badge text-bg-info text-white">Family</span></div>
+										<div class="col-1 ps-0"><span class="badge text-bg-info text-white">Family</span></div>
 									</c:if>
 									<div class="col-3 px-0">${jobPostingDetailForStudent.companyDto.com_name}
 										<c:if test="${empty sessionStudentInfo}">
@@ -75,7 +75,7 @@
 									<div class="col-1 px-0 me-5 text-secondary">
 										#&nbsp;<fmt:formatDate value="${jobPostingDetailForStudent.jobPostingDto.posting_deadline}" pattern="~MM/dd(EEE)"/>
 									</div>
-									<div class="col">
+									<div class="col ps-0">
 										<c:choose>
 											<c:when test="${jobPostingDetailForStudent.postingDeadlineList.contains(jobPostingDetailForStudent.jobPostingDto.job_posting_pk)}">
 												<span class="badge text-bg-danger">마감임박!</span>

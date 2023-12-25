@@ -50,7 +50,7 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                z-index: -1;
+                z-index: -2;
                 opacity: 0.6;
                 font-size: 0px;
             }
@@ -82,6 +82,47 @@
     </head>
     <body>
         <div class="container-fluid">
+            <div class="fixed-top" style="z-index: -1;">
+        		<div class="row mt-5"></div>
+        		<div class="row mt-5"></div>
+        		<div class="row mt-5"></div>
+        		<div class="row mt-5"></div>	
+                <div class="row" >
+                    <div class="col border border-black border-2 fw-bold text-start" style="background-color: #f1f3d4;">
+                        <div class="row">
+                            <div class="col">
+                                메인 유저(외부인)                               
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                            C조 현장실습 기업) ID: EC202301 | PW: Ec202301!                        
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                            D조 기업) ID: ED202301 | PW: 1234                        
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                            E조 상담사) ID: EE202308 | PW: 0000                        
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                            X조 평생교육원 강사) ID: ES202331 | PW: 1234
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col">
+                            X조 평생교육원 수강생) ID: ES202316 | PW: 1234 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9"></div>
+                </div>
+            </div>
             <div class="row mt-5 align-self-center">
                 <div class="col-3"></div>
 
@@ -136,16 +177,16 @@
                                         	<div class="col">
                                         		<div class="row bg-main pb-1">
                                         			 <div class="col-3 d-grid px-0">
-                                                		<a class="navbar-brand border border-2 bg-white" href="../student/loginPage">학생</a>
+                                                		<a class="navbar-brand border border-2 bg-white" href="/toothless/">학생</a>
                                             		</div>
                                             		<div class="col-3 d-grid px-0">
-                                                		<a class="navbar-brand border border-2 bg-white" href="../staff/loginPage">교직원</a>
+                                                		<a class="navbar-brand border border-2 bg-white" href="/toothless/another/staff/loginPage">교직원</a>
                                             		</div>
 		                                            <div class="col-3 d-grid px-0">
-		                                                <a class="navbar-brand border border-2 bg-white" href="../professor/loginPage">교수</a>
+		                                                <a class="navbar-brand border border-2 bg-white" href="/toothless/another/professor/loginPage">교수</a>
 		                                            </div>
 		                                            <div class="col-3 d-grid px-0">
-		                                                <a class="navbar-brand bg-main text-white" href="../external/loginPage">외부인</a>
+		                                                <a class="navbar-brand bg-main text-white" href="/toothless/another/external/loginPage">외부인</a>
 		                                            </div>	
                                         		</div>
                                         	</div>

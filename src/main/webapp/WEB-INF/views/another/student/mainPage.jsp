@@ -168,6 +168,108 @@
                     </div>
                 </div>
             </div>
+            <div class="row mt-5"></div>
+            <div class="row mt-5"></div>
+            <div class="row ps-3 py-5 mt-5 text-light" style="font-size: small; background-color: #133369   ;">
+            	<div class="col-7">
+            		<div class="row">
+            			<div class="col-1">
+            				<img src="../../resources/img/another/logo_white.png" alt="" style="height: 5em;">
+            			</div>
+                        <div class="col fw-bold fs-3 align-self-center">
+                            MK University
+                        </div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				주소: (06134) 서울특별시 강남구 테헤란로7길 7 에스코빌딩 6~7층 
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            			    평생교육원 센터 : 1541-1541 e-mail: se001@naver.com
+            			</div>
+            		</div>
+                    <div class="row mt-2">
+            			<div class="col">
+            				Copyright 2023 Seoul National University All Rights Reserved.
+            			</div>
+            		</div>
+            	</div>
+            	<div class="col ">
+            		<div class="row">
+            			<div class="col mt-1 fw-bold fs-6">
+            				POLICY
+            			</div>
+            		</div>
+            		<div class="row mt-3">
+            			<div class="col">
+            				이용약관
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				개인정보처리방침
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				정보공시
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				행정센터
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				이메일 무단수집 거부
+            			</div>
+            		</div>
+            	</div>
+            	<div class="col">
+            		<div class="row mt-1">
+            			<div class="col fw-bold fs-6">
+            				학사 문의
+            			</div>
+            		</div>
+            		<div class="row mt-3">
+            			<div class="col">
+            				MON - FRI | 09:00 - 17:00
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				LUNCH | 12:30 - 13:30
+            			</div>
+            		</div>
+            		<div class="row mt-2">
+            			<div class="col">
+            				HOLLYDAY OFF
+            			</div>
+            		</div>
+            	</div>
+            	<div class="col">
+            		<div class="row">
+            			<div class="col mt-1 fw-bold fs-6">
+            				SNS SERVICE
+            			</div>
+            		</div>
+            		<div class="row mt-3">
+            			<div class="col-1 fs-4 me-1">
+            				<i class="bi bi-twitter"></i> 
+            			</div>
+            			<div class="col-1 fs-4 me-1">
+            				<i class="bi bi-facebook"></i> 
+            			</div>
+            			<div class="col-1 fs-4">
+            				<i class="bi bi-instagram"></i>
+            			</div>
+            			
+            		</div>
+            	</div>
+            </div>
         </div>
         
 

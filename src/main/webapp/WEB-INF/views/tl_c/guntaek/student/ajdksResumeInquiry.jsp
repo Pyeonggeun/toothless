@@ -269,9 +269,9 @@
 					</div>
 				</div>
 			</div>
-			
+				 	<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>		
 		</div>
-	 	<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>		
+
 	</div>
 	
 <!-- 전체 container 출구 -->

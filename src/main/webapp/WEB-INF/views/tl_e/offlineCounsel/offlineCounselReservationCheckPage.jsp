@@ -12,6 +12,15 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gowun+Dodum&family=Quicksand:wght@300&display=swap" rel="stylesheet">
+	
+	<style>
+		*{
+			font-family: 'Gowun Dodum', sans-serif;
+		}
+	</style>
 
 	<script>
 		
@@ -213,8 +222,6 @@
 						counselorTextBox.innerText = "";
 					}else{
 						counselorTextBox.innerText = map.counselDocumentDto.text;
-						counselorTextBox.classList.remove("py-3");
-						counselorTextBox.classList.add("py-0");
 					}
 				}else{
 					counselorText = document.createElement("textarea");
@@ -376,6 +383,7 @@
 					pageNumber.classList.add("page-link");
 					pageNumber.innerText = i;
 					pageNumber.classList.add("text-dark");
+					pageNumber.style.cursor = "pointer";
 					pageNumWrapper.appendChild(pageNumber);
 					
 					pagination.insertBefore(pageNumWrapper, pagination.querySelector('.endPageNumli'));
@@ -620,11 +628,11 @@
 						<nav aria-label="Page navigation example">
 						  <ul class="pagination justify-content-center">
 						    <li class="startPageNumli page-item">
-						      <a class="startPageNumber page-link text-dark">&lt;</a>
+						      <a class="startPageNumber page-link text-dark" style="cursor: pointer;">&lt;</a>
 						    </li>
 						    
 						    <li class="endPageNumli page-item">
-						      <a class="endPageNumber page-link text-dark">&gt;</a>
+						      <a class="endPageNumber page-link text-dark" style="cursor: pointer;">&gt;</a>
 						    </li>
 						  </ul>
 						</nav>
@@ -805,15 +813,15 @@
 					<div class="row text-center border-bottom border-dark align-items-center">
 						<div class="col-2 py-3 fw-bold border-end border-dark" style="background-color: rgb(244, 244, 241);">
 							<div class="row">
-								<div class="col">
+								<div class="col py-3">
 									신청자<br>
 									코멘트
 								</div>
 							</div>
 						</div>
-						<div class="col py-3">
+						<div class="col py-2">
 							<div class="row">
-								<div class="studentText col text-start">
+								<div class="studentText col text-start py-3">
 									${map.offlineReservationDto.text }
 								</div>
 							</div>
@@ -840,17 +848,16 @@
 					<div class="row text-center align-items-center">
 						<div class="col-2 py-5 fw-bold border-end border-dark" style="background-color: rgb(244, 244, 241);">
 							<div class="row">
-								<div class="col">
-									<br>
+								<div class="col py-2">
 									상담자의<br>
 									평가
-									<br>
 								</div>
 							</div>
 						</div>
 						<div class="col">
 							<div class="row">
-								<div class="counselorTextBox col text-start py-3 d-grid">
+								<div class="counselorTextBox col text-start py-3 d-grid overflow-auto" style="height: 10em;">
+								
 									
 								</div>
 							</div>
