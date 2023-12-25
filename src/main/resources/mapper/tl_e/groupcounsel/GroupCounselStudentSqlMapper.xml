@@ -44,7 +44,10 @@
 	</insert>
 
 
-
+	<select id="countGroupSurvey" resultType="int">
+		SELECT COUNT(*) FROM CP_GROUP_SURVEY cgs 
+		WHERE group_reservation_id = #{group_reservation_id}	
+	</select>
 
 
 

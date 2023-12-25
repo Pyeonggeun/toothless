@@ -157,6 +157,11 @@ public class GroupCounselStaffServiceImpl {
 			int groupCounselId = groupCounselCounselorDto.getGroup_counsel_id();
 			GroupCounselDto groupCounselDto = groupCounselStaffMapper.getGroupCounsel(groupCounselId);
 			
+			int count = groupCounselStaffMapper.selectGroupCounselReservationCount(groupCounselId);
+			Date today = groupCounselStaffMapper.selectSysdate();
+			
+			map.put("today", today);
+			map.put("count", count);
 			map.put("groupCounselCounselorDto", groupCounselCounselorDto);
 			map.put("groupCounselDto", groupCounselDto);
 			

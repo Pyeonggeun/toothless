@@ -233,7 +233,6 @@
 
 
 
-
 	<div class="row">
 		
 		<!-- 내용 -->
@@ -246,7 +245,7 @@
 				<div class="col">
 					<div class="row">
 						<div class="col-1"></div>
-						<div class="col-5">
+						<div class="col-6">
 							<div class="row pb-5 mb-2">
 								<div class="col">
 									<div class="fw-bold" style="font-size:1.9em; color: #07355e;">상담 정보</div>
@@ -271,7 +270,7 @@
 												<div class="col">
 													<div class="row">
 														<div class="col">
-															<div class="fw-bold" style="font-size: 1.4em;">[<fmt:formatDate value="${groupCounselDetail.groupCounselDto.start_apply_date }" pattern="yy.MM.dd"/>] ${groupCounselDetail.groupCounselDto.title}</div>
+															<div class="fw-bold" style="font-size: 1.4em;">[<fmt:formatDate value="${groupCounselDetail.groupCounselDto.counsel_date }" pattern="yy.MM.dd"/>] ${groupCounselDetail.groupCounselDto.title}</div>
 														</div>
 													</div>
 													<div class="row pt-3">
@@ -314,7 +313,7 @@
 											</div>
 										</div>
 										<div class="col-5 text-end">
-											<img class="img-fluid" style="width: 90%;" src="/uploadFiles/${groupCounselDetail.groupCounselDto.posterImage }">
+											<img class="img-fluid" style="width: 73%;" src="/uploadFiles/${groupCounselDetail.groupCounselDto.posterImage }">
 										</div>
 									</div>
 								</div>
@@ -372,11 +371,11 @@
 							
 							
 						</div>
-						<div class="col-2"></div>
+						<div class="col-1"></div>
 					</div>
 					
 					<div class="row mt-5">
-						<div class="col-6"></div>
+						<div class="col-7"></div>
 						<div class="col-4 ms-5">
 							<div class="row pb-5 mb-2">
 								<div class="col">
@@ -411,7 +410,7 @@
 								</div>
 							</div>					
 						</div>
-						<div class="col-2"></div>
+						<div class="col-1"></div>
 					</div>
 				</div>
 			</div>
@@ -419,11 +418,6 @@
 	</div>
 
 	<div class="row" style="height:8em;"></div>
-	<div class="row">
-		<div class="col text-center fw-bold">
-			<hr>
-		</div>
-	</div>
 	<div class="row" style="background-color: #686868; height: 11.3em;">
 		<div class="col-1"></div>
 		<div class="col">

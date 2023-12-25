@@ -17,7 +17,17 @@
 		*{
 			font-family: 'Gowun Dodum', sans-serif;
 		}
+
 		
+		#topBannerCol{   
+		   background-image: url("/toothless/resources/img/counselCenterStaff/topBanner01.jpg");
+		   background-position: center;
+		   background-size: cover;
+		   height: 14em;
+		   background-repeat: no-repeat;
+		   
+		}
+
 	</style>
 
 	<script>
@@ -46,7 +56,32 @@
 <div class="container-fluid">
 
 
+	<div class="row">
+	   <div id="topBannerCol" class="col">
+	      <div class="row mt-3">
+	         <div class="col ms-5">
+	            <span class="fs-1 fw-bold text-white">GroupCounsel</span>
+	         </div>
+	      </div>            
+	   </div>
+	</div>
 	
+	<div class="row my-0">
+		<div class="col my-0 py-4"></div>
+	</div>
+	
+	<div class="row">
+		<div class="col-1"></div>
+		<div class="col">
+			<div class="fw-bold" style="font-size: 1.1em; color:black;"><i class="bi bi-house-door-fill"></i> / 집단 상담 / 상담 관리</div>
+		</div>
+		<div class="col-1"></div>
+	</div>
+	
+	<div class="row my-0">
+		<div class="col my-0 py-4"></div>
+	</div>	
+
 
 	
 	<div class="row">
@@ -55,14 +90,59 @@
 		<div class="col">
 
 				
-			<div class="row" style="height:8em;"></div>
+			<div class="row" style="height:2em;"></div>
 			
 			<div class="row mt-0 pt-0">
 					
 				<div class="col">
 					<div class="row mb-5">
 						<div class="col-1"></div>
-						<div class="col rounded-4" style="width:100%; height: 25em; background-color: gray; opacity: 0.1;"></div>
+						<div class="col rounded-4 text-bg-light" style="width:100%; height: 30em;">
+							<div class="row">
+								<div class="col">
+									<div class="row" style="height: 5em;"></div>
+									<div class="row">
+										<div class="col-2"></div>
+										<div class="col">
+											<div class="fw-bold" style="font-size: 1.7em; color: black;">다양한 주제와 전문 상담가들과 함께하는 집단 상담 프로그램</div>
+											<div class="fw-bold" style="font-size: 1.7em; color: black;">& 감정을 나누고 새로운 경험을 쌓아보세요</div>
+										</div>
+									</div>
+									<div class="row" style="height: 1em;"></div>
+									<div class="row">
+										<div class="col-2"></div>
+										<div class="col">
+											<div class="fw-bold" style="font-size: 1em; color: black;">Explore group counseling programs with diverse topics and professional counselors.</div>
+											<div class="fw-bold" style="font-size: 1em; color: black;">Share emotions and gain new experiences.</div>
+										</div>
+									</div>									
+									<div class="row" style="height: 3.5em;"></div>
+									<div class="row">
+										<div class="col-2 text-center" style="padding-top: 0.4em;">
+										</div>
+										<div class="col">
+											<input class="form-control" type="text" style="width: 100%;" placeholder="Search">
+										</div>
+									</div>
+									<div class="row" style="height: 1em;"></div>
+									<div class="row">
+										<div class="col"></div>
+										<div class="col-1 text-end">
+											<div class="fw-bold" style="font-size: 1.7em;"><i class="bi bi-search" style="cursor: pointer;"></i></div>
+										</div>
+									</div>														
+								</div>
+								<div class="col-1"></div>
+								<div class="col-4">
+									<div class="row" style="height: 12em;"></div>
+									<div class="row">
+										<div class="col pt-0 mt-0 text-end">
+											<div style="font-size: 15em; color: gray; opacity: 0.2;">MKU</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>						
 						<div class="col-1"></div>
 					</div>
 					<div class="row pt-5">
@@ -72,24 +152,24 @@
 								<div class="col"></div>
 							</div>
 						
-							<div class="row py-3 border-bottom border-1 text-bg-light">
+							<div class="row border-bottom border-1 text-bg-light" style="padding-top: 0.7em; padding-bottom: 0.7em;">
 								<div class="col-3">
-									<div class="fw-bold text-center" style="font-size:1.2em;">상담 제목</div>
+									<div class="fw-bold text-center" style="font-size:1.1em;">상담 제목</div>
 								</div>
 								<div class="col-2">
-									<div class="fw-bold text-center" style="font-size:1.2em;">신청 인원</div>
+									<div class="fw-bold text-center" style="font-size:1.1em;">신청 인원</div>
 								</div>
 								<div class="col-2">
-									<div class="fw-bold text-center" style="font-size:1.2em;">장소</div>
+									<div class="fw-bold text-center" style="font-size:1.1em;">장소</div>
 								</div>						
 								<div class="col-2">
-									<div class="fw-bold text-center" style="font-size:1.2em;">상담 일자</div>	
+									<div class="fw-bold text-center" style="font-size:1.1em;">상담 일자</div>	
 								</div>
 								<div class="col-2">
-									<div class="fw-bold text-center" style="font-size:1.2em;">신청 기간</div>
+									<div class="fw-bold text-center" style="font-size:1.1em;">신청 기간</div>
 								</div>
 								<div class="col-1">
-									<div class="fw-bold text-center" style="font-size:1.2em;">상담 현황</div>
+									<div class="fw-bold text-center" style="font-size:1.1em;">상담 현황</div>
 								</div>
 							</div>
 							
@@ -144,11 +224,7 @@
 	
 	
 	<div class="row" style="height:8em;"></div>
-	<div class="row">
-		<div class="col text-center fw-bold">
-			<hr>
-		</div>
-	</div>
+	
 	<div class="row" style="background-color: #686868; height: 11.3em;">
 		<div class="col-1"></div>
 		<div class="col">

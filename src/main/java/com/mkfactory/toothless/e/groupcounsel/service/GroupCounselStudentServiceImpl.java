@@ -85,6 +85,8 @@ public class GroupCounselStudentServiceImpl {
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			
+			// 설문조사count
+			int count = groupCounselStudentMapper.countGroupSurvey(groupCounselReservationDto.getId());
 			//해당 집단상담
 			GroupCounselDto groupCounselDto = groupCounselStaffMapper.selectGroupCounselById(groupCounselReservationDto.getGroup_counsel_id());
 			//집단상담에 등록된 상담원들
@@ -102,7 +104,7 @@ public class GroupCounselStudentServiceImpl {
 					
 					groupCounselCounselorListByGroupCounsel.add(map2);
 				}
-				
+			map.put("count", count);	
 			map.put("groupCounselReservationDto", groupCounselReservationDto);
 			map.put("groupCounselDto", groupCounselDto);
 			map.put("groupCounselCounselorListByGroupCounsel", groupCounselCounselorListByGroupCounsel);
