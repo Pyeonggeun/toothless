@@ -117,7 +117,7 @@
 
 
 
-						<div class="row">
+						<div class="row pt-5">
 							<h2>
 								<span class="fw-bolder"><i class="bi bi-building-check"></i>&nbsp;실습생
 									선발 </span>
@@ -442,6 +442,18 @@
 
 					</div>
 				</div>
+				
+				<div class="row py-5">
+					<div class="col py-5"></div>
+				</div>
+				<div class="row py-5">
+					<div class="col py-5"></div>
+				</div>
+				
+				
+		<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>
+				
+				
 			</div>
 
 		</div>

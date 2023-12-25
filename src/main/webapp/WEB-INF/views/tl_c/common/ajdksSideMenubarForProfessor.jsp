@@ -17,8 +17,8 @@
 			</div>
 			<!-- 접속자 정보 -->
 			<div class="row mt-2">
-				<div class="col" style="font-size: 0.9em;">
-					간단한 접속자 정보
+				<div class="col" style="font-size: 1em;">
+					${sessionProfessorInfo.professor_id }&nbsp;간호학과&nbsp;${sessionProfessorInfo.name }
 				</div>
 			</div>
 		</div>	
@@ -47,7 +47,7 @@
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;나의 실습생 조회</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../taeho/student/ajdksServicePreparingPage'">&gt;&nbsp;나의 실습생 조회</span>
 					</div>
 				</div>
 			</div>
@@ -66,7 +66,7 @@
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;학생만족도조사결과 확인</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../taeho/student/ajdksServicePreparingPage'">&gt;&nbsp;학생만족도조사결과 확인</span>
 					</div>
 				</div>
 			</div>
@@ -80,12 +80,12 @@
 			<div class="content text-white-50">
 				<div class="row pt-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;받은쪽지함</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../taeho/student/ajdksServicePreparingPage'">&gt;&nbsp;받은쪽지함</span>
 					</div>
 				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='#'">&gt;&nbsp;보낸쪽지함</span>
+						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../taeho/student/ajdksServicePreparingPage'">&gt;&nbsp;보낸쪽지함</span>
 					</div>
 				</div>
 			</div>

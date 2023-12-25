@@ -253,13 +253,12 @@
 				</div>
 
 			</div>
-
-			<!-- 하단 여백 -->
-			<div class="row">
-				<div class="col">
-					<!-- 하이루 -->				
-				</div>
-			</div>
+			
+			<div class="row py-5">
+				<div class="col"></div>
+			</div>			
+			
+			<jsp:include page="../../common/ajdksFooter.jsp"></jsp:include>			
 				
 			</div>
 		</div>

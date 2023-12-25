@@ -72,7 +72,7 @@
 					<div class="col">
 
 						<!-- 본문작성공간 -->
-						<div class="col border-start ">
+						<div class="col">
 
 							<div class="row w-auto px-0">
 								<img src="../../../resources/img/studentMainPageimg/FAQ.png"
