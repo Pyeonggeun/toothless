@@ -207,7 +207,7 @@
 				</div>
 				<div class="row mt-2">
 					<div class="col-10 me-2"></div>
-					<div class="col ms-5"><a class="btn btn-outline-secondary" href="./jobPostingListForCompanyPage">목록으로</a></div>
+					<div class="col ms-5"><a class="btn btn-outline-secondary" href="./jobPostingListForCompanyPage"><i class="bi bi-card-text"></i>&nbsp;목록으로</a></div>
 				</div>
 				<div class="row mb-5 pb-5">
 					<div class="col mb-5 pb-5"></div>
