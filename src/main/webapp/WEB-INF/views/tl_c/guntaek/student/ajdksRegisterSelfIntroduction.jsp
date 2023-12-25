@@ -190,7 +190,7 @@
 							                        
 							                        <div class="row">
 							                      		<div class="col mt-4 d-flex justify-content-center">
-							                        	 <input type ="submit" value="제출 버튼">                            
+							                        	 <input type ="submit" value="사진제출">                            
 							                			</div>   	
 							                        </div>
 							                       </form>
@@ -508,27 +508,23 @@
 								<div class = "col-4"></div>			
 						 		<div class ="col-4"></div>
 						 			<div class ="col-4 text-end">
-												<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+												<button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
 														내용 불러오기
 												</button>
 												<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 												  <div class="modal-dialog">
 												    <div class="modal-content">
-												      <div class="modal-header">
+												      <div class="modal-header" style="border-bottom: none;">
 												        
 												        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 												        
 												      </div>
 												        <div class="modal-body">
-														<h1 class="modal-title fs-5 d-flex justify-content-center" id="exampleModalLabel">이력서 불러오기</h1>	       
+														<span class="modal-title fs-5 d-flex justify-content-center" id="exampleModalLabel" style="font-size: 1em;"">저장된 이력서를 불러오시겠습니까?</span>	       
 														</div>
 												    
-												      <div class="modal-footer">
+												      <div class="modal-footer" style="border-top: none;">
 												        <a href ="./ajdksRegisterSelfIntroduction" class="btn btn-secondary">아니오</a>
-												        
-												        
-												    
-
 												        <a href ="./ajdksRegisterSelfIntroduction?Student_pk=${selfIntroductionDto.student_pk}" class="btn btn-primary">네</a>
 												      	
 												      </div>
@@ -536,7 +532,7 @@
 												  </div>
 												</div>
 												
-										<input type="submit" value="이력서 수정" class="btn btn-dark bi bi-person">
+										<input type="submit" value="이력서 수정" class="btn btn-secondary bi bi-person">
 						 		</div>
 						 	</div>
 								 	
@@ -594,7 +590,7 @@
 					
 					<div class="col-10"></div>
 					<div class="col-2 d-flex justify-content-end">
-						<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
 						   				자격증 등록
 						</button>
 					</div>
@@ -644,9 +640,9 @@
             <input class="w-100 h-100 border" type="text" name="certification_name " >
           </div>
           <div class="col-4 px-0">
-            <input class="w-100 h-100 border" type="date" name="certification_acquisition_date">
+            <input class="w-100 h-100 border text-center" type="date" name="certification_acquisition_date">
           </div>
-          <div class="col-4 px-0">
+          <div class="col-4 px-0 text-center">
             <input class="w-100 h-100 border" name="imageLink" type="file" accept="image/*">
           </div>
          <div class="col"></div>

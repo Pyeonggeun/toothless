@@ -122,7 +122,7 @@
 										</div>
 										<div class="col-1 text-end fs-5 me-1">
 											<a href="#" class="btn"><i
-												class="bi bi-plus-lg text-primary"></i></a>
+												class="bi bi-plus-lg text-secondary"></i></a>
 										</div>
 
 									</div>
@@ -171,7 +171,7 @@
 										</div>
 										<div class="col-1 text-end fw-bold fs-5  me-1">
 											<a href="#" class="btn"><i
-												class="bi bi-plus-lg text-primary"></i></a>
+												class="bi bi-plus-lg text-secondary"></i></a>
 										</div>
 									</div>
 									<div class="row fw-semibold fs-6 pb-1 my-2 border-bottom">
@@ -238,7 +238,7 @@
 											</div>
 											<div class="col-1 text-end fw-bold fs-5  me-1">
 												<a href="#" class="btn"><i
-													class="bi bi-plus-lg text-primary"></i></a>
+													class="bi bi-plus-lg text-secondary"></i></a>
 											</div>
 										</div>
 									</div>
@@ -261,8 +261,8 @@
 										<i class="bi bi-bookmark-check"></i> 담당업무 및 연락처
 									</div>
 									<div class="col-1 text-end fw-bold fs-5 me-1">
-										<a href="../gw_company/companyManagementPage" class="btn"><i
-											class="bi bi-plus-lg text-primary"></i></a>
+										<a href="#" class="btn"><i
+											class="bi bi-plus-lg text-secondary"></i></a>
 									</div>
 								</div>
 								<div class="row fw-semibold fs-6 pb-1 my-2 border-bottom">

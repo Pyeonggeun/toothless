@@ -69,11 +69,6 @@
 			<input type="checkbox" id="title4"/>
 			<label class="pt-3 pb-2 ps-3" for="title4"><i class="bi bi-bookmark-star"></i>&nbsp;실습생 관리</label>			
 			<div class="content text-white-50">
-				<div class="row pt-2 ps-2">
-					<div class="col ps-4">
-						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../taeho/external/readStudentInternListPage'">&gt;&nbsp;실습생 조회</span>
-					</div>
-				</div>
 				<div class="row py-2 ps-2">
 					<div class="col ps-4">
 						<span style="font-size: 0.9em; cursor: pointer;" onclick="location.href='../../taeho/external/courseListPageForWriteTimecard'">&gt;&nbsp;출근부 관리</span>

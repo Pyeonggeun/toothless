@@ -78,7 +78,7 @@
 		AND TO_CHAR(sysdate, 'yyyy/MM/dd') >= TO_CHAR(tcic.INTERNSHIP_START_DATE, 'yyyy/MM/dd')
 		AND TO_CHAR(sysdate, 'yyyy/MM/dd') <= TO_CHAR(tcic.INTERNSHIP_END_DATE, 'yyyy/MM/dd')
 		]]> 
-		ORDER BY attendance_pk DESC
+		ORDER BY attendance_pk ASC
 	</select>
 	
 	

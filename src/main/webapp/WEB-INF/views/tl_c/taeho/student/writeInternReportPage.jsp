@@ -274,7 +274,7 @@
 	<div id="reportTemplate" class="d-none">
 		<div class="reportWrapper col pt-3">
 			
-			<div class="card" style="height: 13em;">
+			<div class="card" style="height: 22em;">
 				<div class="reportDate card-header ps-3">
 					<!-- 날짜 -->
 				</div>

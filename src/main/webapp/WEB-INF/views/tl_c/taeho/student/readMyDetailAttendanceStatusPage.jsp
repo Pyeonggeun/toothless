@@ -231,10 +231,10 @@
 	
 	<div id="attendanceTemplate" class="d-none">
 		<div class="attendanceWrapper row border-bottom">
-			<div class="attendanceDate col py-2 text-center border-end"><!-- 출근일자 --></div>
-			<div class="getinTime col py-2 text-center border-end"><!-- 출근시간 --></div>
-			<div class="getoffTime col py-2 text-center border-end"><!-- 퇴근시간 --></div>
-			<div class="attendanceStatus col py-2 text-center"><!-- 출결상태 --></div>		
+			<div class="attendanceDate col py-3 text-center border-end"><!-- 출근일자 --></div>
+			<div class="getinTime col py-3 text-center border-end"><!-- 출근시간 --></div>
+			<div class="getoffTime col py-3 text-center border-end"><!-- 퇴근시간 --></div>
+			<div class="attendanceStatus col py-3 text-center"><!-- 출결상태 --></div>		
 		</div>
 	</div>	
 			

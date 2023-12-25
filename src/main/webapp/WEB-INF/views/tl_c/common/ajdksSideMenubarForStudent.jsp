@@ -17,8 +17,8 @@
 			</div>
 			<!-- 접속자 정보 -->
 			<div class="row mt-2">
-				<div class="col" style="font-size: 0.9em;">
-					간단한 접속자 정보
+				<div class="col" style="font-size: 1em;">
+					${sessionStudentInfo.student_id }&nbsp;경영학과&nbsp;${sessionStudentInfo.name }
 				</div>
 			</div>
 		</div>	
