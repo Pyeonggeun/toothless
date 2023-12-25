@@ -256,8 +256,7 @@ public class ResumeController {
 	// 자격증 삭제
 	@RequestMapping("licenseDeleteProcess")
 	public String licenseDeleteProcess(LicenseDto params) {
-		System.out.println(params.getLicense_pk());
-		System.out.println(params.getResume_pk());
+		
 		resumeService.deleteLicenseDto(params);
 		return "redirect:./licenseDetailPage?resume_pk="+ params.getResume_pk();
 	}
