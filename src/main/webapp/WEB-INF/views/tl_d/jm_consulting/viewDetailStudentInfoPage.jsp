@@ -14,7 +14,8 @@
 
 	//취업상담 내용 등록
 	function insertConsulting(){
-		const templeteWrapper = document.querySelector("#templeteWrapper");
+		const templeteWrapper = document.querySelector("#templeteWrapper").cloneNode(true);
+
 		const consulting_contents = templeteWrapper.querySelector(".consulting_contents").value;
 		const consulting_date = templeteWrapper.querySelector(".consulting_date").value;
 		const hope_job_pk = templeteWrapper.querySelector(".hope_job_pk").value;
@@ -279,13 +280,20 @@
 									<span class="fw-bold">${viewStudentDetailPageStats.countConsultingByHopeJobPk}</span> 건
 								</div>												
 							</div>
-							<div class="row mt-3">
+							<div class="row mt-3" style=" display:flex; align-items:center;">
 								<div class="col-3 fw-bold">
 									온라인상담 내역
 								</div>	
-								<div class="col-9">
+								<div class="col">
 									<span class="fw-bold">${viewStudentDetailPageStats.countOnConsultingByHopeJobPk}</span> 건
-								</div>												
+								</div>	
+								<div class="col text-end">
+								
+									<button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#ModalList">
+									  <span class="fw-bold">취업상담 목록</span>
+									</button>
+									
+								</div>																					
 							</div>
 							<div class="row mt-3 pb-3">
 								<div class="col-3 fw-bold">
@@ -351,11 +359,11 @@
         <div id="templeteWrapper" class="row mt-3">
 						<div class="col">
 							<div class="row">
-								<div class="col-3 fw-bold">
-									교직원 이름
+								<div class="col fw-bold">
+									학생 이름
 								</div>
 								<div class="col-9 staff_name">
-									${sessionStaffInfo.name}
+									${viewStudentDetailPageStats.studentInfoDto.name }
 								</div>								
 							</div>
 							
@@ -412,67 +420,82 @@
   </div>
 </div>
 
-<%--
-<div class="d-none" id="insertConsultingTemplete">
 
-					<div id="templeteWrapper" class="row mt-3">
+
+
+
+
+
+
+
+<%--목록모달 --%>
+<div class="modal fade" id="ModalList" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">취업상담 내용 목록</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+      
+        <div id="ModalList" class="row mt-3">
 						<div class="col">
-							<div class="row">
+							<div class="row border-bottom pb-1 mb-2">
 								<div class="col-3 fw-bold">
-									교직원 이름
+									학생 이름
 								</div>
-								<div class="col-9 staff_name">
-									${sessionStaffInfo.name}
-								</div>								
+								<div class="col-3 fw-bold">
+									담당 교직원
+								</div>	
+								<div class="col-3 fw-bold">
+									상담일
+								</div>	
+								<div class="col-3 fw-bold">
+									자세히 보기
+								</div>																																
 							</div>
 							
-							<form action="insertConsultingProcess" method="post">
-							<div class="row">
-								<div class="col">
-									<div class="row mt-3">
-										<div class="col fw-bold">
-											상담내용
-										</div>
+							<c:forEach items="${getConsultingAllByHopeJobPk}" var="e">
+								<div class="row pt-1">
+									<div class="col-3">
+										${e.studentIfDto.name }
 									</div>
-		
-									<div class="row mt-1">
-										<div class="col border ms-3" style="height:10em;" >
-											<textarea class="consulting_contents" style="border:none; width:100%; height:100%; outline:none;" name="consulting_contents"></textarea>
-										</div>
-									</div>
+									<div class="col-3">
+										${e.staffInfoDto.name }
+									</div>	
+									<div class="col-3 text-secondary">
+										<fmt:formatDate value="${e.consultingDto.created_at }" pattern="yy.MM.dd"/>										
+									</div>	
+									<div class="col-3">
+										<a href="./ConsultingDetailPage?consulting_pk=${e.consultingDto.consulting_pk}">
+											이동
+										</a>
+										
+									</div>																																
 								</div>
-							</div>
-							
-							
-							<div class="row mt-3">
-								<div class="col-2 fw-bold">
-									상담날짜
-								</div>
-								<div class="col-6 border">
-									<input class="consulting_date" style="border:none; outline:none; width:100%; height:100%" type="date" name="consulting_date">
-								</div>		
-								
-								<div class="col-4">
-									
-								</div>															
-							</div>								
-							
-							<div class="row mt-3">
-								<div class="col">
-									<input class="hope_job_pk" name="hope_job_pk" type="hidden" value="${viewStudentDetailPageStats.hopeJobDto.hope_job_pk}">
-									
-									
-									<input type="submit" value="등록">
-								</div>							
-							</div>	
-							</form>						
+							</c:forEach>
+						
+				
+											
 						</div>
 					</div>
-
-
+					
+					
+					
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
 </div>
 
- --%>
+
+
+
+
+
 
 
 

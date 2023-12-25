@@ -133,7 +133,8 @@ public interface ConsultingMapper {
 	
 	//구직희망pk로 학생정보 뽑기
 	public StudentInfoDto getStudentInfoByHopeJobPk(int HOPE_JOB_PK);
-	
+	//구직희망 pk로 컨설팅 리스트 다 뽑기
+	public List<ConsultingDto> getConsultingAllByHopeJobPk(int hope_job_pk);
 	//진행중 구직희망 리스트 싹 다 뽑기
 	public List<HopeJobDto> getOngoingHopeJobList(
 			@Param("searchType") String searchType,
@@ -166,6 +167,17 @@ public interface ConsultingMapper {
 	//구직희만신청 메인페이지 출력용 5건
 	public List<Map<String, Object>> getHopeJobInfoNumFive();
 	
+	//취업상담 리스트 싹 다
+	public List<ConsultingDto> getConsultingListAll();
+	
+	
+	//취업상담 자세히보기 페이지
+	//취업상담 pk로 학생정보 뽑기
+	public StudentInfoDto getStudentInfoByConsultingPk(int CONSULTING_PK);
+	//취업상담 pk로 교직원 정보 뽑기
+	public StaffInfoDto getStaffInfoByConsultingPk(int CONSULTING_PK);
+	//취업상담 pk로 취업상담 정보 뽑기
+	public ConsultingDto getConsultingByPk(int CONSULTING_PK);
 
 	
 	

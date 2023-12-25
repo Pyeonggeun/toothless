@@ -467,6 +467,10 @@ public class ConsultingController {
 		Map<String, Object> viewStudentDetailPageStats = consultingService.viewStudentDetailPageInfo(hope_job_pk);
 		model.addAttribute("viewStudentDetailPageStats", viewStudentDetailPageStats);
 		
+		//취업상담 관련 내용
+		List<Map<String, Object>> getConsultingAllByHopeJobPk = consultingService.getConsultingAllByHopeJobPk(hope_job_pk);
+		model.addAttribute("getConsultingAllByHopeJobPk", getConsultingAllByHopeJobPk);
+		
 		
 		
 		return"tl_d/jm_consulting/viewDetailStudentInfoPage";
@@ -546,6 +550,17 @@ public class ConsultingController {
 //
 //		model.addAttribute("progressOnlinceConsultingNumFive", progressOnlinceConsultingNumFive);
 //	}
+	
+
+	//취업상담 자세히보기
+	@RequestMapping("ConsultingDetailPage")
+		public String ConsultingDetailPage(Model model, int consulting_pk) {
+			
+		Map<String, Object> map = consultingService.getDetailConsultingInfo(consulting_pk);
+		
+		model.addAttribute("map", map);
+		return"tl_d/jm_consulting/ConsultingDetailPage";
+	}
 	
 	
 }
