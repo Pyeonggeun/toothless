@@ -34,8 +34,10 @@
 			
 			const generalResumeListBox = document.getElementById("generalResumeListBox");
 			generalResumeListBox.innerHTML = "";
-			
+		
 			if(response.data.length ==0){
+				generalResumeListBox.classList.add("py-3")
+				
 				generalResumeListBox.innerText ="등록된  이력서가 없습니다.";
 				return;
 			}
@@ -701,7 +703,7 @@
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
 							<div class="col fw-bold">경력 사항</div>
 							<div class="col-2">
-							<a class="update_career btn btn-outline-secondary"role="button"><i class="bi bi-pencil"></i>수정</a>
+							<a class="update_career btn btn-outline-secondary"role="button"><i class="bi bi-pencil"></i>상세</a>
 							</div>
 						</div>
 						<div class="row border-bottom border-2 border-gray pb-3 mt-5">
@@ -720,7 +722,7 @@
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
 							<div class="col fw-bold">자격증</div>
 							<div class="col-2">
-								<a class="update_license btn btn-outline-secondary"role="button"><i class="bi bi-pencil"></i>수정</a>
+								<a class="update_license btn btn-outline-secondary"role="button"><i class="bi bi-pencil"></i>상세</a>
 							</div>
 						</div>
 						<div class="row border-bottom border-2 border-gray pb-3 mt-5">

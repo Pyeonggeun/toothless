@@ -202,7 +202,7 @@ window.addEventListener("DOMContentLoaded", () => {
 			<div class="col">
 				<div class="row bg-body-white border-bottom mt-4 pb-0">
 					<a class="col-1 pe-2 text-end navbar-brand" href="../common/companyMainPage">
-		                <img class="opacity-55 img-fluid" src="../../resources/img/employment/companyBanner.jpg">
+		                <img src="../../resources/img/another/logo_black.png" alt="" style="height: 4em;">
 		            </a>
 		            <a class="col-4 ps-0 fw-bold fs-1 text-start navbar-brand" href="../common/companyMainPage">
 		                MK University<span class="fs-6"> | </span> <span class="fs-5">취업지원센터</span> 
@@ -267,7 +267,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		</div>
 		<div class="row">
 			<div class="col px-0">
-				<img  class="opacity-55" src="../../resources/img/employment/companyBanner.png" style="width: 119rem; height : 30rem;">
+				<img class="opacity-55 img-fluid" src="../../resources/img/employment/companyBanner.jpg">
 			</div>		
 		</div>
 	 	<%-- 전체 크기 --%>
@@ -388,7 +388,7 @@ window.addEventListener("DOMContentLoaded", () => {
 					<div class="col">
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
 							<div class="col fw-bold">자소서</div>
-							<div class="col-1"><a href="./resumeUpdatePage?resume_pk=${resumeDto.resume_pk }">수정</a></div>							
+							<%-- <div class="col-1"><a href="./resumeUpdatePage?resume_pk=${resumeDto.resume_pk }">수정</a></div> --%>							
 						</div>
 						
 						<div class="row border-bottom">
@@ -401,7 +401,7 @@ window.addEventListener("DOMContentLoaded", () => {
 					<div class="col">
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
 							<div class="col fw-bold">경력 사항</div>
-							<div class="col-1"><a href="./careerDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
+							<%-- <div class="col-1"><a href="./careerDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div> --%>
 						</div>
 						<div class="row border-bottom border-2 border-gray pb-3 mt-5">
 							<div class="col fw-bold">카테고리</div>
@@ -418,7 +418,7 @@ window.addEventListener("DOMContentLoaded", () => {
 					<div class="col">
 						<div class="row border-bottom border-2 border-black pb-3 mt-5">
 							<div class="col fw-bold">자격증</div>
-							<div class="col-1"><a href="./licenseDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div>
+							<%-- <div class="col-1"><a href="./licenseDetailPage?resume_pk=${resumeDto.resume_pk }">수정</a></div> --%>
 						</div>
 						<div class="row border-bottom border-2 border-gray pb-3 mt-5">
 							<div class="col fw-bold">자격증 명</div>
