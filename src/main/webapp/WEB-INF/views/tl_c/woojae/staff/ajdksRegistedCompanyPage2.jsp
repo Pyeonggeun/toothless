@@ -283,9 +283,7 @@
 				</div>
 				<div class="row mt-5">
 					<div id="catBox" class="col mt-2">
-						<%-- <c:forEach items="${categoryList}" var="CL"> --%>
-							 <!-- <input name="searchType" type="checkbox"> -->
-						<%-- </c:forEach> --%>
+						
 					</div>
 					<div class="col-1 d-flex justify-content-end">
 						<button onclick="reload()" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i></button>
@@ -352,8 +350,3 @@
 </body>
 </html>
 
-<%--
-	<c:if test="${!empty sessionStaffInfo}">
-	
-	</c:if>
- --%>
