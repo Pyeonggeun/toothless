@@ -11,6 +11,7 @@ import com.mkfactory.toothless.donot.touch.dto.NotificationDto;
 import com.mkfactory.toothless.x.dto.AttendanceBookDto;
 import com.mkfactory.toothless.x.dto.AttendanceStatusDto;
 import com.mkfactory.toothless.x.dto.LectureInfoDto;
+import com.mkfactory.toothless.x.dto.LectureReviewDto;
 import com.mkfactory.toothless.x.dto.LectureStudentDto;
 import com.mkfactory.toothless.x.dto.LectureTestDto;
 import com.mkfactory.toothless.x.dto.LifeLecturerDto;
@@ -119,6 +120,10 @@ public interface LifeLecturerSqlMapper {
 	
 	public Date selectStudentTestingDay(@Param("lecture_test_key") int lecture_test_key,
 										@Param("life_student_key") int life_student_key);
+	
+	public List<LectureReviewDto> selectOpenLecutreReviewList(int open_lecture_key);
+	
+	public Map<String, Object> selectTotalReviewScore(int lecturer_key);
 	
 
 }
