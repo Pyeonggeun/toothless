@@ -80,9 +80,74 @@
 		});
 	}
 	
+	function reloadNoticeList(){
+		
+		const url = "./getNoticeList";
+		
+		fetch(url)
+		.then(response => response.json())
+		.then(response => {
+			
+			const noticeListBox = document.getElementById("noticeListBox");
+			noticeListBox.innerHTML = "";
+			
+			for(e of response.data){
+				
+				const noticeWrapper = document.querySelector("#templeteNoticeList .noticeWrapper").cloneNode(true);
+				
+				const noticePk = noticeWrapper.querySelector(".noticePk");
+				noticePk.innerText = e.noticeBoardDto.id;
+				
+				const noticeTitle = noticeWrapper.querySelector(".noticeTitle");
+				const titleUrl = noticeTitle.querySelector(".titleUrl");
+				
+				if(e.commentCount > 0){
+					const titleSpan = noticeTitle.querySelector(".titleSpan");					
+					titleSpan.innerText = "[" + e.commentCount + "]";
+				}
+				/* else{
+					const titleSpan = noticeTitle.querySelector("#titleSpan");
+					titleSpan.innerHTML = "";
+				} */
+				
+				if(e.imageCount > 0){
+					const imageSpan = noticeTitle.querySelector(".imageSpan");
+					const iTag = document.createElement("i");
+					iTag.setAttribute("class", "bi bi-card-image");
+					
+					imageSpan.appendChild(iTag);
+				}
+				
+				titleUrl.setAttribute("href", "./readNoticeBoardPage_Staff?id=" + e.noticeBoardDto.id);				
+				titleUrl.innerText = e.noticeBoardDto.title;
+				
+				const likeSpan = noticeTitle.querySelector(".likeSpan");
+				likeSpan.innerText = "[" + "추천" + e.likeCount + "]";
+				const dislikeSpan = noticeTitle.querySelector(".dislikeSpan");
+				dislikeSpan.innerText = "[" + "비추천" + e.disLikeCount + "]";
+				
+				const noticeNickname = noticeWrapper.querySelector(".noticeNickname");
+				noticeNickname.innerText = e.staffInfoDto.name;
+				
+				const noticeReadCount = noticeWrapper.querySelector(".noticeReadCount");
+				noticeReadCount.innerText = e.noticeBoardDto.read_count;
+				
+				const noticeDate = noticeWrapper.querySelector(".noticeDate");
+				const date = new Date(e.noticeBoardDto.created_at);
+				const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+				noticeDate.innerText = date.getFullYear() + "." + (date.getMonth() + 1) + "." + day;
+				
+				noticeListBox.appendChild(noticeWrapper);
+				
+			}
+			
+		});
+	}
+	
 	// 해당 jsp화면이 열리면? 실행되야하는 함수
 	window.addEventListener("DOMContentLoaded", () => {
 		reloadCommentList()
+		reloadNoticeList()
 	});
 	
 	
@@ -217,11 +282,10 @@
 				</div>
 				<div id="commentListBox" class="row">
 					<div class="col">
-					
+
 					</div>
 				</div>
 			</div>
-			<div class="col-1"></div>
 		</div>
 		<div class="row mt-3">
 			<div class="col-1"></div>
@@ -238,32 +302,10 @@
 					<div id="headerSize" class="col-1"><i class="bi bi-person-arms-up"></i>&nbsp;&nbsp;조회수</div>
 					<div id="headerSize" class="col-1"><i class="bi bi-calendar-heart-fill"></i>&nbsp;&nbsp;작성일</div>
 				</div>
-				<div class="row">
-					<c:forEach items="${mainList }" var="mainList">
-						<div id="headerSize" class="col-1">${mainList.noticeBoardDto.id }</div>
-						<div class="col-8 border-bottom">
-							<div class="row mt-1">
-								<div class="col-9">
-									<a class="link-offset-2 link-underline link-underline-opacity-0" style="color: black" href="./readNoticeBoardPage_Staff?id=${mainList.noticeBoardDto.id }">${mainList.noticeBoardDto.title }</a>
-									<c:if test="${mainList.commentCount > 0 }">
-										<span class="fw-bold text-danger" style="font-size:0.7em;">[${mainList.commentCount }]</span> 
-									</c:if>
-									<c:if test="${mainList.imageCount > 0 }">
-										<i class="bi bi-card-image"></i>
-									</c:if>
-								</div>
-								<div class="col-1">
-									<span class="fw-bold" style="font-size:0.7em;">추천[${mainList.likeCount }]</span>
-								</div>
-								<div class="col-2">
-									<span class="fw-bold" style="font-size:0.7em;">비추천[${mainList.disLikeCount }]</span>
-								</div>
-							</div>
-						</div>
-						<div id="headerSize" class="col-1 text-center">${mainList.staffInfoDto.name }</div>
-						<div id="headerSize" class="col-1 text-center">${mainList.noticeBoardDto.read_count }</div>
-						<div id="headerSize" class="col-1 text-center"><fmt:formatDate value="${mainList.noticeBoardDto.created_at }" pattern="yy-MM-dd"/></div>
-					</c:forEach>
+				<div id="noticeListBox" class="row">
+					<div class="col">
+						
+					</div>
 				</div>
 			</div>
 			<div class="col-1"></div>
@@ -304,6 +346,29 @@
 			<div class="commentNickname col-2 border-bottom"></div>
 			<div class="commentDate col-2 border-bottom"></div>
 		</div>		
+	</div>
+	<div id="templeteNoticeList" class="d-none">
+		<div class="noticeWrapper row">
+			<div class="noticePk col-1"></div>
+			<div class="noticeTitle col-8">
+				<div class="row">
+					<div class="col-9">
+						<a class="titleUrl link-offset-2 link-underline link-underline-opacity-0 ps-2" style="color: black"></a>
+						<span class="titleSpan fw-bold text-danger" style="font-size:0.7em;"></span>
+						<span class="imageSpan"></span>
+					</div>
+					<div class="col pe-0 text-end">
+						<span class="likeSpan fw-bold" style="font-size:0.7em;"></span>
+					</div>
+					<div class="col ps-0 pe-4 text-end">
+						<span class="dislikeSpan fw-bold" style="font-size:0.7em;"></span>
+					</div>
+				</div>
+			</div>
+			<div class="noticeNickname col-1 text-end pe-1"></div>
+			<div class="noticeReadCount col-1 text-end pe-4"></div>
+			<div class="noticeDate col-1 text-center ps-4 pe-0"></div>
+		</div>
 	</div>
 	
 

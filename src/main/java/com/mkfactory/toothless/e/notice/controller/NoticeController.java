@@ -29,12 +29,6 @@ public class NoticeController {
 	@Autowired
 	private NoticeServiceImpl noticeService;
 	
-	// 아무거나
-	@RequestMapping("exercise")
-	public String exercise() {
-		return "tl_e/notice/exercise";
-	}
-	
 	// 공지사항 직원 메인페이지
 	@RequestMapping("noticeMainPage_Staff")
 	public String noticeMainPage_Staff(Model model, String searchType, String searchWord) {	
