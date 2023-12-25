@@ -18,14 +18,14 @@
     <jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
         <div class="container-fluid">
 			
-			<!-- 메인 사진 -->        
+			<!-- 메인 사진      
 			<div class="row">
            		<div class="col px-0">
                		<img class="img-fluid" src="../../resources/img/healthRoom/mainPage/adhy-savala-zbpgmGe27p8-unsplash.jpg"
                		style="height: 14vh; width: 100%; object-fit: cover; object-position: 70% 90%;">
                		
 	            </div>
-	        </div>
+	        </div>-->   
 	        	
         	
 			<div class="row mt-4">
@@ -174,7 +174,7 @@
 										</div>
 									</div>
 
-									<div class="row">
+									<!-- <div class="row">
 										<div class="col align-self-center text-start"
 										style="font-size: 16px; color: #535D66;">
 											<span>조&nbsp;회&nbsp;&nbsp;수</span>
@@ -182,7 +182,7 @@
 											10
 											</span>
 										</div>
-									</div>
+									</div> -->
 									
 									
 

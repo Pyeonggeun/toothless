@@ -17,7 +17,7 @@
 	<jsp:include page="../../another/commons/studentNaviLogo.jsp"></jsp:include>
 	<jsp:include page="../commonJsp/studentTopBanner.jsp"></jsp:include>
 	<div class="container-fluid">
-		<div class="row">
+		<div class="row mt-4">
 			<div class="col"></div>
 			<div class="col-8"> <!--교육목록-->
 				<div class="row">
@@ -192,12 +192,12 @@
 							</div>
 							<!-- 평가내용 -->
 							<div class="col align-self-center">
-								<textarea name="content" class="mt-1" rows="1" cols="80" placeholder="악플은 안돼용" style="border-color: #C4C3C4;"></textarea>
+								<textarea name="content" class="mt-1" rows="1" cols="80" placeholder="평가내용을 입력해주세요" style="border-color: #C4C3C4;"></textarea>
 								<input name="edu_apply_pk" type="hidden" value="${edu_apply_pk }">
 								<!-- <input type="submit" value="만족도 등록" role="button"
 								 style="background-color: #FBBC05; font-size: 0.8em;"> -->
 							</div>
-							<div class="col ms-0">
+							<div class="col mt-1 ms-0 px-0">
 								<button type="submit" class="mt-1 d-grid btn btn-sm fw-bold text-white"
 								style="background-color: #FBBC05; font-size: 0.8em;">만족도 등록</button>
 							</div>
@@ -213,7 +213,7 @@
 
 
 		<!-- 만족도 내역 -->
-		<div class="row mt-5">
+		<div class="row mt-5 mb-5">
 			<div class="col"></div>
 			<div class="col-8">
 				<div class="row">
@@ -229,7 +229,7 @@
 									프로그램명
 							</div>
 							<!-- 별점 -->
-							<div class="col">
+							<div class="col-3">
 								별점
 							</div>
 							<!-- 평가내용 -->
@@ -247,7 +247,7 @@
 							<div class="col">
 								${myser.name}
 							</div>
-							<div class="col">
+							<div class="col-3">
 								<c:choose>
 									<c:when test="${myser.eduStsfcSurveyDto.star_rated eq 5}">
 										⭐⭐⭐⭐⭐

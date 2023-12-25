@@ -121,7 +121,7 @@
                                                                     </c:when>
                                                                 </c:choose>
                                                             </div>
-                                                            <div class="col align-self-center text-center">
+                                                            <div class="col align-self-center text-start ms-5">
                                                                 ${ser.eduStsfcSurveyDto.content }
                                                             </div>
                                                         </div>

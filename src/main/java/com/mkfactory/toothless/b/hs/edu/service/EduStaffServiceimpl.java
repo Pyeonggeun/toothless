@@ -187,7 +187,7 @@ public class EduStaffServiceimpl {
 	
 	
 	//상세 글보기
-	public Map<String, Object> getEduProg(EduApplyDto eduApplyDto){
+	public Map<String, Object> getEduProg(EduApplyDto eduApplyDto, boolean escape){
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -199,13 +199,13 @@ public class EduStaffServiceimpl {
 		String apply_end_date = sdf.format(eduDto.getApply_end_date());
 		String edu_date = sdf.format(eduDto.getEdu_date());
 		
-		String content = eduDto.getContent();
-//      content = content.replaceAll("<", "&lt;");
-//      content = content.replaceAll(">", "&gt;");
-      
-	    content = StringEscapeUtils.escapeHtml4(content);
-	    content = content.replaceAll("\n", "<br>");
-	    eduDto.setContent(content);
+		if(escape) {
+			String content = eduDto.getContent();
+		    content = StringEscapeUtils.escapeHtml4(content);
+		    content = content.replaceAll("\n", "<br>");
+		    eduDto.setContent(content);
+		}
+		
 
 //출력 쪽은 replaceAll 쪽 '', '' 요거 바꿔줘서 넣으면 됩니다!
 // 표시는 < , > 이거도 바꾸는 거라 넣을거면 출력하는 부분에도 같이 넣어주셔야 돼용!
@@ -225,18 +225,6 @@ public class EduStaffServiceimpl {
 	
 	//교육프로그램 수정, 삭제
 	public void updateEduProg(EduDto eduDto) {
-		
-		String content = eduDto.getContent();
-//      content = content.replaceAll("<", "&lt;");
-//      content = content.replaceAll(">", "&gt;");
-      
-	    content = StringEscapeUtils.escapeHtml4(content);
-	    content = content.replaceAll("<br>", "\n");
-	    eduDto.setContent(content);
-
-//출력 쪽은 replaceAll 쪽 '', '' 요거 바꿔줘서 넣으면 됩니다!
-// 표시는 < , > 이거도 바꾸는 거라 넣을거면 출력하는 부분에도 같이 넣어주셔야 돼용!
-		
 		
 		
 		eduStaffSqlMapper.update(eduDto);

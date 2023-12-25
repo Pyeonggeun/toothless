@@ -139,8 +139,6 @@ public class EduStaffController {
 		if(eduImage != null) {
 			String rootPath = "C:/uploadFiles/eduImage/";
 			
-			
-			
 			// 날짜별 폴더 생성
 	         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
 	         // 아래 new Date는 현재 날짜 반환 format으로 문자로 반환
@@ -198,7 +196,7 @@ public class EduStaffController {
 		}
 		
 		
-		Map<String, Object> map = eduStaffService.getEduProg(eduApplyDto);
+		Map<String, Object> map = eduStaffService.getEduProg(eduApplyDto, true);
 		
 		model.addAttribute("qwer", map);
 		
@@ -209,9 +207,10 @@ public class EduStaffController {
 	@RequestMapping("updateEduProgPage")
 	public String updateEduProgPage(Model model,EduApplyDto eduApplyDto, HttpSession session) {
 		
-		model.addAttribute("update", eduStaffService.getEduProg(eduApplyDto));
+		model.addAttribute("update", eduStaffService.getEduProg(eduApplyDto, false));
 		
 		StaffInfoDto sessionStaffInfo = (StaffInfoDto)session.getAttribute("sessionStaffInfo");
+		
 		
 		if(sessionStaffInfo == null) {
 			

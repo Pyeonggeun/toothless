@@ -116,7 +116,7 @@
 
                                 <div class="col">
                                     <span style="font-size: 18px;">
-                                    	이민규
+                                    	한고은
                                    	</span>
                                 </div>
                             </div>

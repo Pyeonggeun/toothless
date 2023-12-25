@@ -72,7 +72,7 @@ public class EduStudentController {
 
 //		System.out.println(eduApplyDto.getStudent_pk());
 //		System.out.println(eduApplyDto.getEdu_pk());
-		Map<String, Object> map = eduStaffService.getEduProg(eduApplyDto);
+		Map<String, Object> map = eduStaffService.getEduProg(eduApplyDto, true);
 		
 		model.addAttribute("qwer", map);
 		
