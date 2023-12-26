@@ -117,8 +117,7 @@ function showCounselorInfoModal(counselorId){
 		const counselorLicenseRow = document.getElementById("counselorLicenseRow");
 		counselorLicenseRow.innerHTML = "";
 		const counselorLicenseList = [...counselorDetail.counselorLicenseList];
-		if(counselorLicenseList.length > 0){
-			console.log("counselorLicenseList.length > 0 에 걸림");
+		if(counselorLicenseList.length > 0){			
 			for(e of counselorLicenseList){
 				const counselorLicenseWrapper = document.querySelector("#templete #counselorLicenseWrapper").cloneNode(true);
 				const counselorLicense = counselorLicenseWrapper.querySelector("#counselorLicense");
@@ -126,8 +125,7 @@ function showCounselorInfoModal(counselorId){
 				counselorLicenseRow.appendChild(counselorLicenseWrapper);
 			}
 		}
-		else if(counselorLicenseList.length === 0){
-			console.log("counselorLicenseList.length === 0 에 걸림");
+		else if(counselorLicenseList.length === 0){			
 			const counselorLicenseWrapper = document.querySelector("#templete #counselorLicenseWrapper").cloneNode(true);
 			counselorLicenseWrapper.innerHTML ="";
 			const licenseNotExist = document.createElement("span");
@@ -577,9 +575,9 @@ window.addEventListener("DOMContentLoaded", ()=>{
 <div id="counselorInfoModal" class="modal fade" area-hidden="true" tabindex="-1">
       <div class="modal-dialog modal-lg">
           <div class="modal-content">
-              <div class="modal-header bg-dark-subtle">                        
+              <div class="modal-header bg-dark">                        
                   <span class="modal-title fw-bold fs-2 ms-5 text-white">상담원 상세정보</span>
-                  <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>                            
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>                            
               </div>
               <div class="container modal-body">
                   <div class="row mt-2">

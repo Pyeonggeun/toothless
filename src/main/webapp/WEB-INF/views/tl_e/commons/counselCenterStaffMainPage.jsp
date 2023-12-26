@@ -143,7 +143,7 @@
 						x: {
 							beginAtZero: true, // x축이 0부터 시작하도록 설정
 							ticks: {
-								stepSize: 1, // 눈금 간격 설정
+								/* stepSize: 1, // 눈금 간격 설정 */
 								font: {								 
 									family: 'Gowun Dodum, sans-serif',
 									weight : 'bold'
