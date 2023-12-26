@@ -79,7 +79,7 @@
   							  		
   							  	<div class="row ">
   							  		<div class="rounded-top col-12 d-flex justify-content-center align-items-center" style="height: 2.5em; background-color: #6D7A93; color: white;">
-									    <span class ="d-flex align-itmes-center"style="font-size: 1.1em; font-weight: bold; font-family: 'Arial', sans-serif;">
+									    <span class ="d-flex align-itmes-center"style="font-size: 0.9em; font-weight: bold; font-family: 'Arial', sans-serif;">
 									        ${a.title}
 									    </span>
 									</div>
@@ -123,7 +123,7 @@
   							  		
   							  	<div class="row ">
   							  		<div class="rounded-top col-12 d-flex justify-content-center align-items-center" style="height: 2.5em; background-color: #6D7A93; color: white;">
-									    <span class ="d-flex align-itmes-center"style="font-size: 1.1em; font-weight: bold; font-family: 'Arial', sans-serif;">
+									    <span class ="d-flex align-itmes-center"style="font-size: 0.9em; font-weight: bold; font-family: 'Arial', sans-serif;">
 									        ${a.title}
 									    </span>
 									</div>

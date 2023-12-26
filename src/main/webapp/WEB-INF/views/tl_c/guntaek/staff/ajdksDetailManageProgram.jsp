@@ -75,7 +75,7 @@
 						
 					
 				
-					<div class="row mt-5">
+					<div class="row mt-5 ">
 					<div class="col fw-bold">
 								<h3 style="font-weight:bold"> <i class="bi bi-list-task"></i>&nbsp;&nbsp;&nbsp;${programDto.title}</h3>	
 					</div>
@@ -86,7 +86,7 @@
 					</div>
 					
 					<!-- 이미지 그림 -->					
-					<div class ="row">
+					<div class ="row mt-4 border">
 						<div class="col-1"></div>
 						
 							<div class="col-10 d-flex justify-content-center"><img class="img-fluid" src="/Git_imageFile/${programDto.poster_image}"
@@ -101,7 +101,7 @@
 					
 					<c:if test ="${!empty myStudentApplyList}">
 					
-					<div class="row mt-4 ">
+					<div class="row mt-5 ">
 						
 						<div class ="col-1"></div>
 						<div class = "col-2 d-flex align-items-center justify-content-center border " style ="background-color:#f9f9f9">이름</div>
@@ -116,7 +116,7 @@
 					
 					<c:if test ="${empty myStudentApplyList}">
 					
-						<div class="row mt-4 text-center">
+						<div class="row mt-5 text-center">
 							<h4 style ="font-weight: bold;">아직 등록한 학생이 없습니다.</h4>
 						</div>
 					</c:if>
