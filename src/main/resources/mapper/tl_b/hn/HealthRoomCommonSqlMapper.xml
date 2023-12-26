@@ -19,21 +19,21 @@
 	</select>
 	
 	<select id="getEduList" resultType="map">
-		SELECT t1.edu_pk, t1.name, t2.quantity, t1.capacity, t1.edu_date FROM (
+		SELECT t1.edu_pk, t1.name, NVL(t2.quantity, 0) AS quantity, t1.capacity, t1.edu_date FROM (
 			SELECT * FROM (
 				SELECT tbei.*, rownum rnum FROM tl_b_edu_info tbei
 				WHERE TO_CHAR(tbei.edu_date, 'yyyy-MM-dd') >= TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-				ORDER BY tbei.edu_date ASC
 			)t3
 			<![CDATA[
 				WHERE t3.rnum <= 4
 			]]>
 		)t1
-		INNER JOIN (
+		LEFT JOIN (
 			SELECT edu_pk, COUNT(*) AS quantity FROM tl_b_edu_apply
 			WHERE status LIKE 'N'
 			GROUP BY edu_pk
 		)t2 ON t1.edu_pk = t2.edu_pk
+		ORDER BY t1.edu_date ASC
 	</select>
 	
 	<select id="getStudentboardList" resultType="map">
