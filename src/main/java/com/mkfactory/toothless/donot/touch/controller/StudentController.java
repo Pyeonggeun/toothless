@@ -32,7 +32,7 @@ public class StudentController {
 		StudentInfoDto studentInfoDto = studentService.loginByStudentIdAndPassword(params);
 		
 		if( studentInfoDto == null ) {
-			return "redirect:./loginPage";
+			return "redirect: /toothless/";
 		}
 		session.setAttribute("sessionStudentInfo", studentInfoDto);
 		

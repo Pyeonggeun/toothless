@@ -276,7 +276,7 @@
                             강의 만족도 평가
                         </div>
                     </div>
-                    <div class="row bg-white border border-black py-3 px-3" style="height: 40em;">
+                    <div class="row bg-white border border-black py-3 px-3 overflow-y-auto" style="height: 40em;">
                         <div class="col my-0">
                             <div class="row fw-bold text-center" style="background-color: rgb(240, 240, 240);">
                                 <div class="col-1 border align-self-center border py-2">
