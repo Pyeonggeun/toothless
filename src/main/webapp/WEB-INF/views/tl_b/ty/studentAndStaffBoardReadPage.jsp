@@ -94,7 +94,7 @@
                                         <div class="row mb-2 border-2 border-bottom border-black">
                                         	<div class="col text-secondary" style="font-size: 15px;">
                                         		댓 글
-                                        		[${replyCount}]
+                                        		[${replyCount}] |
                                         	</div>
                                         </div>
                                         

@@ -75,42 +75,43 @@
                                 <div class="col"></div>
                                 <div class="col-8">
                                     <form id="frm" action="./noticeUpdateProcess" method="post" enctype="multipart/form-data" >
-                                 <div class="row my-5">
-                                    <div class="col border-bottom border-3 fw-bold fs-3">공지사항 글 수정</div>
-                                 </div>
-                                 <div class="row mt-5">
-                                    <div class="col  fw-bold" style="font-size: 1.1em;">
-                                        작성자: ${sessionStaffInfo.name }
-                                    </div>
-                                 </div>
-                                 <div class="row mt-3">
-                                    <div class="form-floating">
-                                        <textarea id="inputTitle" name="title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 30px;">${update.noticeboardDto.title }</textarea>
-                                    </div>
-                                 </div>
-                                 <div class="row  mt-3">
-                                    <div class="col">
-                                        <div class="form-floating">
-                                            <textarea id="inputText" name="content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 300px">${update.noticeboardDto.content }</textarea>
-                                        </div>
-                                    </div>
-                                 </div>
-                                 <div class="row">
-                                    <div class="col mt-2 text-start">
-                                        대표이미지 등록: <input id="inputImage" name="imageFile" type="file" accept="image/*" enctype="multipart/form-data">
-                                    </div>
-                                 </div>
-                                 <div class="row ">
-                                    <div class="col mt-2 text-start">
-                                        상세이미지 등록: <input name="imageFiles" type="file" accept="image/*" multiple="multiple">
-                                    </div>
-                                    <div class="col mb-3 text-end">
-                                        <input type="button" onclick="formSubmit()" class="btn btn-outline-primary" value="수정">
-                                    	<a href="./staffBoardReadPage?id=${update.noticeboardDto.studentboard_pk }">
-                                    		<input type="button" class="btn btn-outline-primary" value="취소">
-                                    	</a>
-                                    </div>
-                                 </div>
+		                                 <div class="row my-5">
+		                                    <div class="col border-bottom border-3 fw-bold fs-3">공지사항 글 수정</div>
+		                                 </div>
+		                                 <div class="row mt-5">
+		                                    <div class="col  fw-bold" style="font-size: 1.1em;">
+		                                        작성자: ${sessionStaffInfo.name }
+		                                    </div>
+		                                 </div>
+		                                 <div class="row mt-3">
+		                                    <div class="form-floating">
+		                                        <textarea id="inputTitle" name="title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 30px;">${update.noticeboardDto.title }</textarea>
+		                                    </div>
+		                                 </div>
+		                                 <div class="row  mt-3">
+		                                    <div class="col">
+		                                        <div class="form-floating">
+		                                            <textarea id="inputText" name="content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 300px">${update.noticeboardDto.content }</textarea>
+		                                        </div>
+		                                    </div>
+		                                 </div>
+		                                 <div class="row">
+		                                    <div class="col mt-2 text-start">
+		                                        대표이미지 등록: <input id="inputImage" name="imageFile" type="file" accept="image/*">
+		                                    </div>
+		                                 </div>
+		                                 <div class="row ">
+		                                    <div class="col mt-2 text-start">
+		                                        상세이미지 등록: <input name="imageFiles" type="file" accept="image/*" multiple="multiple">
+		                                    </div>
+		                                    <div class="col mb-3 text-end">
+		                                        <input type="button" onclick="formSubmit()" class="btn btn-outline-primary" value="수정">
+		                                    	<a href="./staffBoardReadPage?id=${update.noticeboardDto.studentboard_pk }">
+		                                    		<input type="button" class="btn btn-outline-primary" value="취소">
+		                                    	</a>
+		                                    </div>
+		                                    <input name="studentboard_pk" type="hidden" value="${update.noticeboardDto.studentboard_pk }"> 
+		                                 </div>
                                     </form>  
                                 </div>
                                 <div class="col"></div>
