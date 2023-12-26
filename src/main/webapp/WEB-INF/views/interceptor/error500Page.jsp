@@ -42,16 +42,16 @@
 			<div class="col text-start pe-0">
 				<c:choose>
 					<c:when test="${!empty sessionStaffInfo }">
-						<a href="/toothless/another/staff/loginPage"><button class="btn btn-dark rounded-pill py-3" style="background-color: #055160;">로그인페이지로 돌아가기</button></a>
+						<a href="/toothless/"><button class="btn btn-dark rounded-pill py-3" style="background-color: #055160;">로그인페이지로 돌아가기</button></a>
 					</c:when>
 					<c:when test="${!empty sessionProfessorInfo }">
-						<a href="/toothless/another/professor/loginPage"><button class="btn btn-dark rounded-pill py-3" style="background-color: #055160;">로그인페이지로 돌아가기</button></a>
+						<a href="/toothless/"><button class="btn btn-dark rounded-pill py-3" style="background-color: #055160;">로그인페이지로 돌아가기</button></a>
 					</c:when>
 					<c:when test="${!empty sessionExternalInfo }">
-						<a href="/toothless/another/external/loginPage"><button class="btn btn-dark rounded-pill py-3" style="background-color: #055160;">로그인페이지로 돌아가기</button></a>
+						<a href="/toothless/"><button class="btn btn-dark rounded-pill py-3" style="background-color: #055160;">로그인페이지로 돌아가기</button></a>
 					</c:when>
 					<c:otherwise>
-						<a href="/toothless/another/student/loginPage"><button class="btn btn-dark rounded-pill py-3" style="background-color: #055160;">로그인페이지로 돌아가기</button></a>
+						<a href="/toothless/"><button class="btn btn-dark rounded-pill py-3" style="background-color: #055160;">로그인페이지로 돌아가기</button></a>
 					</c:otherwise>
 					
 				</c:choose>
