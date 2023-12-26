@@ -56,7 +56,7 @@
                                         </div>
                                         <div class="col-10"></div>
                                      </div>
-                                    <div class="row py-5">
+                                    <div class="row ">
                                         <div class="col"></div>
 																			
                                         <div class="col-7">
@@ -65,19 +65,20 @@
                                             </div>
                                             <form id="frm" action="./studentBoardPage" method="get">
                                             <div class="row mt-5 pt-3 mb-2">
-                                                <div class="col-6 ps-0">
+                                                <div class="col-2 ps-0">
                                                 	[Total] ${total }개
                                                 </div>
+                                                <div class="col-4"></div>
                                                 <div class="col-2 ">
                                                     <select name="searchType" class="form-select" aria-label="Default select example">
                                                         <option selected value="title">제목</option>
                                                         <option value="content">내용</option>
                                                     </select>
                                                 </div>
-                                                <div class="col pe-0 ">
+                                                <div class="col-3 ">
                                                     <input id="inputComment" name="searchWord" class="form-control " type="text" placeholder="내용입력">
                                                 </div> 
-                                                <div class="col-1 me-0 pe-0 text-start">
+                                                <div class="col text-start">
                                                     <input type="button" onclick="formSubmit()" class="btn btn-outline-primary" value="검색">
                                                 </div>
                                             </div>

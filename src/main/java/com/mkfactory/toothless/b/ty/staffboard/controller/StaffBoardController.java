@@ -180,9 +180,10 @@ public class StaffBoardController {
 		int staffPk = sessionStaffInfo.getStaff_pk();
 		params.setStaff_pk(staffPk);
 		
+		System.out.println("id값몇임?"+id);
 		List<Map<String, Object>>readList = staffBoardService.bestRead();
 		List<Map<String, Object>> list = staffBoardService.replyList(id);
-		Map<String, Object> map = staffBoardService.viewDtls(id);
+		Map<String, Object> map = staffBoardService.viewDtls(id, true);
 
 		model.addAttribute("read", map);
 		model.addAttribute("reply", list);
@@ -204,16 +205,19 @@ public class StaffBoardController {
 	}
 	@RequestMapping("noticeUpdatePage")
 	public String noticeUpdatePage(Model model, int id) {
-		Map<String, Object> map = staffBoardService.viewDtls(id);
+		Map<String, Object> map = staffBoardService.viewDtls(id, false);
 		model.addAttribute("update",map);
 		return"tl_b/ty/noticeUpdatePage";
 	}
 	@RequestMapping("noticeUpdateProcess")
 	public String noticeUpdateProcess(StudentboardDto params, HttpSession session,MultipartFile imageFile, MultipartFile[] imageFiles) {
-		staffBoardService.update(params);
 		
+		System.out.println("김태");
 		List<StudentboardImageDto> boardImageDtoList = new ArrayList<>();
 		if(imageFile != null) {
+			
+			System.out.println("이팔첵");
+			
 			// 경로 수정
 			String rootPath = "C:/uploadFiles/mainImage/";
 			
@@ -289,8 +293,15 @@ public class StaffBoardController {
 			int staffPk = sessionStaffInfo.getStaff_pk();
 			params.setStaff_pk(staffPk);
 			
-			staffBoardService.staffWrite(params, boardImageDtoList);
-		
+//			staffBoardService.staffWrite(params, boardImageDtoList);
+			System.out.println(params.getContent());
+			System.out.println(params.getTitle());
+			System.out.println(params.getImg_link());
+			
+			System.out.println("김태1");
+			staffBoardService.update(params);
+			System.out.println("김태2");
+			System.out.println("stupk"+params.getStudentboard_pk());
 		
 		return"redirect:./staffBoardReadPage?id="+params.getStudentboard_pk();
 	}
