@@ -92,22 +92,9 @@
 							<div class="col-1"></div>
 						</div>
 						
-						<%--하 이거 어따넣지 미응답 만족도조사 
-						<div class="row ps-3">
-							<div class="col">
-								구직희망 프로그램 만족도 조사	
-								<c:choose>
-									<c:when test="${countUnAnsweredHJF==0}">
-											<span class="fw-bold">0</span> 건									
-									</c:when>
-										
-									<c:otherwise>										
-										  <span onmouseover="changeCursor()" data-bs-toggle="modal" data-bs-target="#myUnAnsweredHJF" class="fw-bold custom-cursor" style="font-size:1.2em;">${countUnAnsweredHJF}</span> 건										
-									</c:otherwise>
-								</c:choose>													 
-							</div>	
-						</div>						
-						--%>
+						
+					
+						
 						
 					</div>
 					<%-- 학생 정보 끝 --%>
@@ -307,7 +294,7 @@
 					<div class="row border-bottom border-2">
 							<div class="col fs-5 fw-bold mt-5 pb-1">온라인 상담 이력</div>
 							<div class="col fs-5 fw-bold mt-5 text-end"><a class="navbar-brand" href="../jm_consulting/myOnlineConsultingListPage"><i class="bi bi-plus-lg"></i></a></div>
-						</div>
+					</div>
 						
 						<c:choose>
 							<c:when test="${getMyOnlineConsultingListNumFive.size()==0}">
@@ -357,7 +344,20 @@
 							</c:otherwise>
 							
 						</c:choose>
-						
+						<div class="row ps-3">
+							<div class="col" style="font-size:1.1em;">
+								<i class="bi bi-info-circle"></i> 미응답 구직희망 프로그램 만족도 조사	
+								<c:choose>
+									<c:when test="${countUnAnsweredHJF==0}">
+											<span class="fw-bold">0</span> 건									
+									</c:when>
+										
+									<c:otherwise>										
+										  <span onmouseover="changeCursor()" data-bs-toggle="modal" data-bs-target="#myUnAnsweredHJF" class="fw-bold custom-cursor text-primary" style="font-size:1.2em;">${countUnAnsweredHJF}</span> 건										
+									</c:otherwise>
+								</c:choose>													 
+							</div>	
+						</div>	
 						
 						<%-- 신청한 프로그램 끝 --%>
 					</div>
@@ -402,7 +402,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">미응답 만족도 조사 리스트</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+        미응답 만족도 조사 리스트 <br><span class="text-secondary" style="font-size:0.7em;">*종료된 구직희망 프로그램에 대한 만족도조사 부탁드립니다</span>
+        </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
