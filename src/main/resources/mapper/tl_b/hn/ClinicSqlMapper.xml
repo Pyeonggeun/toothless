@@ -87,7 +87,7 @@
 			WHERE cpw.status LIKE 'N'
 		)t1
 		<![CDATA[
-			WHERE t1.rnum >= (#{pageNumber}-1)*20 + 1 AND t1.rnum <= #{pageNumber}*20
+			WHERE t1.rnum >= (#{pageNumber}-1)*16 + 1 AND t1.rnum <= #{pageNumber}*16
 		]]>
 		ORDER BY created_at ASC
 	</select>

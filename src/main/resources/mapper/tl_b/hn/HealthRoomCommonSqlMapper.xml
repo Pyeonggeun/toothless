@@ -97,7 +97,7 @@
 			]]>
 		)t1
 		LEFT JOIN (
-			SELECT TO_CHAR(created_at, 'yyyy-MM-dd') AS created_at, COUNT(*) AS quantity FROM tl_b_prescription_info
+			SELECT TO_CHAR(created_at, 'yyyy-MM-dd') AS created_at, COUNT(*) AS quantity FROM tl_b_clinic_patient_log
 			GROUP BY TO_CHAR(created_at, 'yyyy-MM-dd')
 		)t2 ON TO_CHAR(t1.fullDate, 'yyyy-MM-dd') = t2.created_at
 		ORDER BY fullDate ASC
