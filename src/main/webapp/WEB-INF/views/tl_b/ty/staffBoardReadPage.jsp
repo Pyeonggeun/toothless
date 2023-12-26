@@ -93,13 +93,12 @@
                                         
                                         <div class="row border-2 border-bottom border-black">
                                         	<div class="col text-secondary" style="font-size: 15px;">
-                                        		댓 글
-                                        		[${replyCount}]
+                                        		댓 글 [${replyCount}] 
                                         	</div>
                                         </div>
                                         
                                         <c:forEach items="${reply }" var="boardReply">
-                                        <div class="row">
+                                        <div class="row mt-3">
                                             <div class="col" style="font-size:20px;">
                                                 ${boardReply.replyDto.content }
                                             </div>
