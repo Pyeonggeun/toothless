@@ -89,35 +89,37 @@
 				
 				for(info of response.data){
 					
-						let internshipStartDate = new Date(info.internshipCourseDto.internship_start_date);
-						let internshipEndDate = new Date(info.internshipCourseDto.internship_end_date);
-						internshipStartDate = internshipStartDate.getFullYear() + "." + (internshipStartDate.getMonth()+1) + "." + internshipStartDate.getDate();
-						internshipEndDate = internshipEndDate.getFullYear() + "." + (internshipEndDate.getMonth()+1) + "." + internshipEndDate.getDate();
+					let internshipStartDate = new Date(info.internshipCourseDto.internship_start_date);
+					let internshipEndDate = new Date(info.internshipCourseDto.internship_end_date);
+					internshipStartDate = internshipStartDate.getFullYear() + "." + (internshipStartDate.getMonth()+1) + "." + internshipStartDate.getDate();
+					internshipEndDate = internshipEndDate.getFullYear() + "." + (internshipEndDate.getMonth()+1) + "." + internshipEndDate.getDate();
+					
+					let i = 1;
+					
+					index.innerText = i;
+					courseTitle.innerText = info.internshipCourseDto.course_title;
+					companyName.innerText = info.companyInfoDto.company_name;
+					chargedProfessor.innerText = info.professorDto.name;
+					
+					internshipPeroid.innerText = internshipStartDate + " - " + internshipEndDate;
+					
+					if(info.grade === 0){
 						
-						let i = 1;
+						showGrade.setAttribute("style", "font-size:0.95em");
+						showGrade.classList.add("text-secondary", "fw-bold");
+						showGrade.innerText = "평가 미완료";
 						
-						index.innerText = i;
-						courseTitle.innerText = info.internshipCourseDto.course_title;
-						companyName.innerText = info.companyInfoDto.company_name;
-						chargedProfessor.innerText = info.professorDto.name;
+						evaluationDetails.innerText=""
 						
-						internshipPeroid.innerText = internshipStartDate + " - " + internshipEndDate;
+						const noEvaluation = document.getElementById("noEvaluation");
+						noEvaluation.classList.remove("d-none");
 						
-						if(info.grade === 0){
+						evaluationDetails.innerText="ㅡ";
+						
+					}else{
+						
+						if(info.didSatisfaction === 0){
 							
-							showGrade.setAttribute("style", "font-size:0.95em");
-							showGrade.classList.add("text-secondary", "fw-bold");
-							showGrade.innerText = "평가 미완료";
-							
-							evaluationDetails.innerText=""
-							
-							const noEvaluation = document.getElementById("noEvaluation");
-							noEvaluation.classList.remove("d-none");
-							
-							evaluationDetails.innerText="ㅡ"
-						}else{
-							
-							if(info.didSatisfaction === 0){
 							satisfactionButton.innerText = "만족도평가";
 							satisfactionButton.classList.add("btn", "btn-secondary", "btn-sm", "rounded-1", "open-Modal");
 							
@@ -130,34 +132,34 @@
 							inputStudentInternPk.setAttribute("value", info.studentInternPk);
 							
 							satisfactionButton.setAttribute("onclick", "openModal()");
-							
-							evaluationDetails.innerText="평가상세보기"
-							evaluationDetails.classList.add("btn", "btn-secondary-outline", "btn-sm", "rounded-1");
-							evaluationDetails.setAttribute("href", "./viewEvaluationDetailPage?student_intern_pk=" + info.studentInternPk);
-							
-							}else if(info.didSatisfaction !== 0){
-								showGrade.setAttribute("style", "font-size:0.95em");
-								
-								const needSatisfaction = document.getElementById("needSatisfaction");
-								needSatisfaction.classList.add("d-none");
-								const noEvaluation = document.getElementById("noEvaluation");
-								noEvaluation.classList.add("d-none");
-								
-								if(info.grade === "fail"){
-									showGrade.classList.add("text-danger-emphasis", "fw-bold");
-								}else{
-									showGrade.classList.add("text-primary-emphasis", "fw-bold");
-								}
-								
-								showGrade.innerText = info.grade;
-							}
-						}
 						
-						i++;
+						}else if(info.didSatisfaction !== 0){
+							showGrade.setAttribute("style", "font-size:0.95em");
+							
+							const needSatisfaction = document.getElementById("needSatisfaction");
+							needSatisfaction.classList.add("d-none");
+							const noEvaluation = document.getElementById("noEvaluation");
+							noEvaluation.classList.add("d-none");
+							
+							evaluationDetails.classList.add("btn", "btn-outline-secondary", "btn-sm", "rounded-1");
+							evaluationDetails.setAttribute("href", "./viewEvaluationDetailPage?student_intern_pk=" + info.studentInternPk);
+							evaluationDetails.innerText="평가상세보기"
+							
+							if(info.grade === "fail"){
+								showGrade.classList.add("text-danger-emphasis", "fw-bold");
+							}else{
+								showGrade.classList.add("text-primary-emphasis", "fw-bold");
+							}
+							
+							showGrade.innerText = info.grade;
+						}
 					}
-				
-				gradeInquiryListBox.appendChild(gradeInquiryWrapper);
+					
+					i++;
 				}
+			
+			gradeInquiryListBox.appendChild(gradeInquiryWrapper);
+			}
 
 		});
 	}
@@ -506,7 +508,7 @@
 			
 			</div>
 			<div class="col-1 align-self-center d-grid px-2 border-end">
-				<span class="evaluationDetails"></span>
+				<a class="evaluationDetails"></a>
 			</div>
 			<div class="showGrade col-1 align-self-center d-grid px-2">
 				<span class="satisfactionButton"></span>
