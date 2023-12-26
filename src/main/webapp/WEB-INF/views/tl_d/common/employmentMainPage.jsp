@@ -40,16 +40,16 @@
 					</div>
 				</div>
 				<c:forEach items="${noticeList}" var="list">
-					<div class="row border-bottom border-bs-border pb-2 mb-2 px-1">
+					<div class="row border-bottom border-bs-border mb-2 px-1">
 						
-						<div class="col fw-bold pt-3">
+						<div class="col fw-bold pt-2 my-1">
 							<a class="navbar-brand" href="../hc_board/readNoticePageForStudent?id=${list.notice_board_pk }">
-								<span class="d-inline-block text-truncate" style="max-width: 23em;">
+								<span class="d-inline-block text-truncate" style="max-width: 22em;">
 									${list.notice_title}
 								</span>	
 							</a>	
 						</div>
-						<div class="col-2 pt-3">
+						<div class="col-2 pt-2 my-1">
 							<fmt:formatDate value="${list.created_at}" pattern="yy.MM.dd"/>
 						</div>
 					</div>
