@@ -85,7 +85,7 @@
 							<div class="col">
 								<div class="row pt-2">
 									<div class="col-3 fw-semibold text-dark-emphasis align-self-center">
-										- 성실성 평가점수
+										- 성실성 평가점수 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -116,8 +116,8 @@
 										</c:when>
 									</c:choose>
 									</div>
-									<div class="col-3 fw-semibold text-dark-emphasis align-self-center ms-2">
-										- 책임감 평가점수
+									<div class="col-3 fw-semibold text-dark-emphasis align-self-center ms-3">
+										- 책임감 평가점수 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -152,7 +152,7 @@
 								
 								<div class="row border-bottom pb-4">
 									<div class="col-3 fw-semibold text-dark-emphasis align-self-center">
-										- 협조성 평가점수
+										- 협조성 평가점수 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -183,8 +183,8 @@
 										</c:when>
 									</c:choose>
 									</div>
-									<div class="col-3 fw-semibold text-dark-emphasis align-self-center ms-2">
-										- 업무달성도
+									<div class="col-3 fw-semibold text-dark-emphasis align-self-center ms-3">
+										- 업무달성도 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -240,7 +240,7 @@
 							<div class="col">
 								<div class="row pt-2">
 									<div class="col-3 fw-semibold text-dark-emphasis align-self-center">
-										- 성실성 평가점수
+										- 성실성 평가점수 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -271,8 +271,8 @@
 										</c:when>
 									</c:choose>
 									</div>
-									<div class="col-3 fw-semibold text-dark-emphasis align-self-center ms-2">
-										- 책임감 평가점수
+									<div class="col-3 fw-semibold text-dark-emphasis align-self-center ms-3">
+										- 책임감 평가점수 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -307,7 +307,7 @@
 								
 								<div class="row border-bottom pb-4">
 									<div class="col-3 fw-semibold text-dark-emphasis align-self-center">
-										- 협조성 평가점수
+										- 협조성 평가점수 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -338,8 +338,8 @@
 										</c:when>
 									</c:choose>
 									</div>
-									<div class="col-3 fw-semibold text-dark-emphasis align-self-center ms-2">
-										- 업무달성도
+									<div class="col-3 fw-semibold text-dark-emphasis align-self-center ms-3">
+										- 업무달성도 :
 									</div>
 									<div class="col align-self-center">
 									<c:choose>
@@ -391,7 +391,7 @@
 					<div class="col px-4 py-4 text-dark-emphasis">
 						<div class="row">
 							<div class="col fw-semibold">
-								평가 상세 주의사항
+								평가 상세 열람시 주의사항
 							</div>
 						</div>
 						<div class="row">

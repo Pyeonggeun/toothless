@@ -72,8 +72,10 @@
                                         &nbsp; | 
                                         <i class="bi bi-eye"></i>
                                         ${read.noticeboardDto.read_count }
-                                        &nbsp; | <i class="text-danger bi bi-heart-fill"></i>${likeCount }
-                                     	<i class="bi bi-chat-dots"></i>${replyCount}
+                                        &nbsp; | 
+                                        <i class="text-danger bi bi-heart-fill"></i>${aa }
+                                        &nbsp; | 	
+                                        <i class="bi bi-chat-dots"></i>${replyCount}
                                     </div>
                                 </div>
                                 <div class="row mb-5 mt-5 pt-3">
@@ -95,11 +97,22 @@
                                         	<div class="col text-secondary" style="font-size: 15px;">
                                         		댓 글
                                         		[${replyCount}] |
+                                        		 <c:choose>
+                                                    <c:when test="${count==0 }">
+                                                        <a href="./likeProcess?student_pk=${sessionStudentInfo.student_pk }&studentboard_pk=${read.noticeboardDto.studentboard_pk}">
+                                                        <i class="text-danger bi bi-heart"></i></a>${aa }
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a  href="./likeProcess?student_pk=${sessionStudentInfo.student_pk }&studentboard_pk=${read.noticeboardDto.studentboard_pk}">
+                                                        <i class="text-danger bi bi-heart-fill"></i></a>${aa }
+                                                    </c:otherwise>
+                                                </c:choose>  
+                                        		
                                         	</div>
                                         </div>
                                         
                                         <c:forEach items="${reply }" var="boardReply">
-                                        <div class="row">
+                                        <div class="row mt-3">
                                             <div class="col" style="font-size:20px;">
                                                 ${boardReply.replyDto.content }
                                             </div>
