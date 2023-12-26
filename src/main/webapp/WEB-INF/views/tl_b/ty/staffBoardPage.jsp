@@ -67,7 +67,7 @@
                                                 <div class="col-6 ps-0">
                                                 	[Total] ${total }개
                                                 </div>
-                                                <div class="col-2 ">
+                                                <div class="col-2 ms-5  ">
                                                     <select name="searchType" class="form-select" aria-label="Default select example">
                                                         <option selected value="title">제목</option>
                                                         <option value="content">내용</option>
@@ -76,7 +76,7 @@
                                                 <div class="col pe-0 ">
                                                     <input id="inputComment" name="searchWord" class="form-control " type="text" placeholder="내용입력">
                                                 </div> 
-                                                <div class="col-1 me-0 pe-0 text-start">
+                                                <div class="col-1 text-start">
                                                     <input type="button" onclick="formSubmit()" class="btn btn-outline-primary" value="검색">
                                                 </div>
                                             </div>
@@ -122,14 +122,9 @@
                                                     </c:forEach>
                                                 </div>
                                             </div>
-                                            <div class="row mt-3">
-                                                <div class="col me-0 pe-0 text-end">
-                                                    <a href="./staffWriteBoardPage">
-                                                    	<input type="button" class="btn btn-outline-primary " value="글쓰기">
-                                                    </a>
-                                                </div>
-                                            </div>
+                                            
                                             <div class="row mt-4">
+                                            	<div class="col"></div>
                                                 <div class="col">
                                                     <nav aria-label="Page navigation example ">
                                                         <ul class="pagination  justify-content-center ">
@@ -148,6 +143,11 @@
 	                                                        </li>
                                                         </ul>
                                                     </nav>
+                                                </div>
+                                                <div class="col me-0 pe-0 text-end">
+                                                    <a href="./staffWriteBoardPage">
+                                                    	<input type="button" class="btn btn-outline-primary " value="글쓰기">
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

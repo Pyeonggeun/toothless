@@ -90,7 +90,7 @@ public class StudentBoardController {
 
 		List<Map<String, Object>>readList = staffBoardService.bestRead();
 		List<Map<String, Object>> reply = staffBoardService.replyList(id);
-		Map<String, Object> read = staffBoardService.viewDtls(id);
+		Map<String, Object> read = staffBoardService.viewDtls(id, false);
 		
 		
 		StudentboardLikeDto likeDto = new StudentboardLikeDto();

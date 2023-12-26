@@ -25,7 +25,7 @@ public interface StaffBoardSqlMapper {
 		public StaffInfoDto selectById(int id);
 		public StudentboardDto selectNoticeId(int id);
 		public void deleteNotice(int id);
-		public void updateRead(StudentboardDto studentboardDto);
+		public void updateBoard(StudentboardDto studentboardDto);
 		public void increase(int id);
 		
 		//댓글
