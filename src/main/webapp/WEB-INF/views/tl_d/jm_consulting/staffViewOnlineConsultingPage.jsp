@@ -520,7 +520,7 @@
 											</div>
 											<div class="row ms-1 px-2 py-2 pb-2 border-bottom border-black">
 												<div class="col modal_contents text-start ps-0 pb-2">
-													<textarea class="modal_textarea py-3 border border-black text-start" rows="20" cols="60" placeholder="답변입력"></textarea>
+													<textarea class="modal_textarea py-3 border border-black text-start" rows="20" cols="55" placeholder="답변입력"></textarea>
 
 												</div>
 											</div>														

@@ -251,7 +251,7 @@
                                     
                                         <c:otherwise>
                                             <button class="btn fw-bold" style="background-color: #a6abb2; border: none;" disabled>
-                                                프로그램 신청
+                                                신청 완료
                                             </button>
                                         </c:otherwise>
                                     </c:choose>

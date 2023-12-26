@@ -103,22 +103,20 @@ public class StaffBoardServiceImpl {
 		}
 		return list;
 	}
-	public Map<String, Object> viewDtls(int id){
+	public Map<String, Object> viewDtls(int id, boolean escape){
 		Map<String, Object> map = new HashMap<>();
 		
 		StudentboardDto studentboardDto = staffBoardSqlMapper.selectNoticeId(id);
 		int staffPk = studentboardDto.getStaff_pk();
 		StaffInfoDto staffInfoDto = staffBoardSqlMapper.selectById(staffPk);
-		
-		String content = studentboardDto.getContent();
-//      content = content.replaceAll("<", "&lt;");
-//      content = content.replaceAll(">", "&gt;");
-      
+	
+		if(escape) {
+		  String content = studentboardDto.getContent();
 	      content = StringEscapeUtils.escapeHtml4(content);
 	      content = content.replaceAll("\n", "<br>" );
 	      studentboardDto.setContent(content);
-		
-		
+		}
+
 		List<StudentboardImageDto> boardImageDtoList =
 				staffBoardSqlMapper.getArticleImageList(id);
 		
@@ -132,7 +130,11 @@ public class StaffBoardServiceImpl {
 		staffBoardSqlMapper.deleteNotice(id);
 	}
 	public void update(StudentboardDto studentboardDto) {
-		staffBoardSqlMapper.updateRead(studentboardDto);
+		System.out.println("ser"+studentboardDto.getContent());
+		System.out.println("ser"+studentboardDto.getTitle());
+		System.out.println("ser"+studentboardDto.getImg_link());
+		System.out.println("ser"+studentboardDto.getStudentboard_pk());
+		staffBoardSqlMapper.updateBoard(studentboardDto);
 	}
 	public void increaseCount(int id) {
 		staffBoardSqlMapper.increase(id);	

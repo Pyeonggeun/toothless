@@ -92,7 +92,7 @@
 									${map.eduDto.edu_pk }
 								</div> --%>
 								
-								<div class="col-2 align-self-center fw-bold" ><!-- 이미지 -->
+								<div class="col-2 my-2 align-self-center fw-bold" ><!-- 이미지 -->
 									
 									<a href="./readEduProgPageForStudent?edu_pk=${map.eduDto.edu_pk}">
 										<img class="img img-fluid"

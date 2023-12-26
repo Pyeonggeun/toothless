@@ -158,9 +158,9 @@ public class LifeLecturerServiceImpl {
 			
 			if(open_date.after(currentDate)==true && open_date.equals(currentDate) != true) {
 				status = "진행예정";
-			}else if(open_date.before(currentDate) == true && close_date.after(currentDate)==true) {
+			}else if(open_date.before(currentDate) == false && close_date.after(currentDate)== false) {
 				status = "진행중";
-			}else if(close_date.after(currentDate)==false && close_date.equals(currentDate) == false) {
+			}else if(close_date.after(currentDate)== true && close_date.equals(currentDate) == false) {
 				status = "종료";
 			}
 			
