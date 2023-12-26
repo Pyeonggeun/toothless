@@ -462,19 +462,13 @@
 				const goodRate = document.createElement("img");
 				goodRate.setAttribute("src", "/toothless/resources/img/counselorImage/icon/goodRate.png");
 				goodRate.setAttribute("class", "img-fluid");				
-				starRateIcon.appendChild(goodRate);
-				/* const goodRate = document.createElement("i");
-				goodRate.setAttribute("class", "bi bi-emoji-sunglasses-fill");				
-				starRateIcon.appendChild(goodRate); */
+				starRateIcon.appendChild(goodRate);				
 			}
 			else{
 				const badRate = document.createElement("img");
 				badRate.setAttribute("src", "/toothless/resources/img/counselorImage/icon/badRate.png");				
 				badRate.setAttribute("class", "img-fluid");				
-				starRateIcon.appendChild(badRate);
-				/* const badRate = document.createElement("i");
-				badRate.setAttribute("class", "bi bi-emoji-expressionless-fill");				
-				starRateIcon.appendChild(badRate); */
+				starRateIcon.appendChild(badRate);				
 			}
 			
 			
@@ -813,9 +807,9 @@
 <div id="counselorInfoModal" class="modal fade" area-hidden="true" tabindex="-1">
        <div class="modal-dialog modal-lg">
            <div class="modal-content">
-               <div class="modal-header">                        
-                   <span class="modal-title fw-bold fs-2 ms-5">상담원 상세정보</span>
-                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                            
+               <div class="modal-header bg-dark">                        
+                   <span class="modal-title fw-bold fs-2 ms-5 text-white">상담원 상세정보</span>
+                   <button type="button" class="btn btn-close btn-dark" data-bs-dismiss="modal" aria-label="Close"></button>                            
                </div>
                <div class="container modal-body">
                    <div class="row mt-2">
