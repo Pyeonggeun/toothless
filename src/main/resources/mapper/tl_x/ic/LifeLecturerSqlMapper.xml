@@ -403,11 +403,11 @@
 	
 	<select id="selectStudentTestingDay" resultType="Date">
 		SELECT max(created_at) FROM TL_X_TEST_RESULT
-			WHERE lecture_test_key =#{lecture_test_key}
-			AND lecture_student_key = (SELECT LECTURE_STUDENT_KEY  FROM TL_X_LECTURE_STUDENT
-			WHERE open_lecture_key  = (SELECT open_lecture_key FROM TL_X_OPEN_LECTURE
-			WHERE open_lecture_key = (SELECT open_lecture_key FROM TL_X_LECTURE_TEST))
-			AND life_student_key = #{life_student_key})
+		WHERE lecture_test_key = #{lecture_test_key}
+		AND lecture_student_key in (SELECT LECTURE_STUDENT_KEY  FROM TL_X_LECTURE_STUDENT
+		WHERE open_lecture_key  IN  (SELECT open_lecture_key FROM TL_X_OPEN_LECTURE
+		WHERE open_lecture_key in (SELECT open_lecture_key FROM TL_X_LECTURE_TEST))
+		AND life_student_key = #{life_student_key})
 	</select>
 	
 	<select id="selectOpenLecutreReviewList" resultType="com.mkfactory.toothless.x.dto.LectureReviewDto">

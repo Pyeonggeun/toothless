@@ -95,6 +95,7 @@
 	        			
 	        			
 	        			const status =studentTotalInfoListWrapper.querySelector(".status");
+	        			
 	        			status.innerText = e.status;
 	        			if(e.status == "수료완료"){
 	        				status.classList.add("text-primary");
