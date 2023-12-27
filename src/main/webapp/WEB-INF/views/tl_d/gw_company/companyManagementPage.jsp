@@ -33,7 +33,7 @@
 		        
 		        
 				const comManagerName=comWrapper.querySelector(".comManagerName");
-				comManagerName.innerText=e.companyDto.com_pk;
+				comManagerName.innerText=e.companyManagerDto.com_manager_name;
 				
 				const isFamilyCompany=comWrapper.querySelector(".isFamilyCompany");
 				isFamilyCompany.innerText=e.companyDto.is_family_company;
