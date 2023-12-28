@@ -195,6 +195,7 @@
 						
 						carouselWrapper.querySelector(".round").innerText = e.round;
 						carouselWrapper.querySelector(".category").innerText = e.categoryName;
+						carouselWrapper.querySelector(".name").innerText = e.lectureInfo.name;
 						
 						const openDate = new Date(e.openLectureInfo.open_date);
 						const closeDate = new Date(e.openLectureInfo.close_date);
