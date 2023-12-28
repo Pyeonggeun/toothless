@@ -293,7 +293,7 @@ public class LifeStudentServiceImpl {
 			
 			Map<String, Object> testMap = new HashMap<String, Object>();
 			
-			boolean isCompleteTest = lifeStudentSqlMapper.isCompleteTest(lectureTestDto.getLecture_test_key()) > 0 ? true : false;
+			boolean isCompleteTest = lifeStudentSqlMapper.isCompleteTest(lectureTestDto.getLecture_test_key(), lecture_student_key) > 0 ? true : false;
 			
 			testMap.put("lectureTestInfo", lectureTestDto);
 			testMap.put("testScore", lifeStudentSqlMapper.getStudentTestScoreByLectureTestKeyAndLectureStudentKey(lectureTestDto.getLecture_test_key(), lecture_student_key));
