@@ -130,14 +130,14 @@
                                 <!-- 제목, 이외 여러 프로그램 정보들-->
                                 <div class="col ms-5">
                                     <div class="row mt-4 ms-5"> 
-                                        <div class="col ms-5 d-flex justify-content-center" style ="font-weight: bold; font-size:1.2em"> ${list.eduList.title}</div>
+                                        <div class="col ms-5 d-flex justify-content-center" style ="font-weight: bold; font-size:1.1em"> ${list.eduList.title}</div>
                                     </div>
                                     <div class="row mt-4"></div>
                                     
                                     
                                     
-                                    <div class="row mt-5"> 
-                                       <div class="col-9">
+                                    <div class="row mt-4"> 
+                                       <div class="col-12">
                                        			진행 날짜
 	                                    	<span style="color:gray;">
 	                                    	   &nbsp;&nbsp; ${list.eduList.progress_date}
@@ -145,7 +145,7 @@
 										</div>
                                     </div>
                                     <div class="row mt-1"> 
-                                        <div class="col-9 ">마감 날짜 &nbsp;&nbsp; 
+                                        <div class="col-12 ">마감 날짜 &nbsp;&nbsp; 
                                         
 											<span style ="color:gray;">
 												<fmt:formatDate pattern = "yyyy-MM-dd" value ="${list.eduList.deadline_date}"/> 

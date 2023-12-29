@@ -156,11 +156,17 @@ public class LifeLecturerServiceImpl {
 			
 			String status = null;
 			
+			System.out.println(open_date.after(currentDate));
+			System.out.println(open_date.equals(currentDate));
+			System.out.println(open_date.before(currentDate));
+			System.out.println(close_date.after(currentDate));
+			System.out.println(close_date.after(currentDate));
+			System.out.println(close_date.equals(currentDate));
 			if(open_date.after(currentDate)==true && open_date.equals(currentDate) != true) {
 				status = "진행예정";
-			}else if(open_date.before(currentDate) == false && close_date.after(currentDate)== false) {
+			}else if(open_date.before(currentDate) == true && close_date.after(currentDate)== true) {
 				status = "진행중";
-			}else if(close_date.after(currentDate)== true && close_date.equals(currentDate) == false) {
+			}else if(close_date.after(currentDate)== false && close_date.equals(currentDate) == false) {
 				status = "종료";
 			}
 			
@@ -615,7 +621,7 @@ public class LifeLecturerServiceImpl {
 	public Map<String, Object> getTestingStudentInfo(int life_student_key, int lecture_test_key) {
 		Map<String, Object> map = new HashMap<>();
 		LifeStudentDto lifeStudentDto =  lifeLecturerSqlMapper.selectStudentDto(life_student_key);
-		Date testingDate = lifeLecturerSqlMapper.selectStudentTestingDay(lecture_test_key, life_student_key);
+		Date testingDate = lifeLecturerSqlMapper.selectStudentTestingDay(life_student_key, lecture_test_key);
 		
 		map.put("lifeStudentDto", lifeStudentDto);
 		map.put("testingDate", testingDate);

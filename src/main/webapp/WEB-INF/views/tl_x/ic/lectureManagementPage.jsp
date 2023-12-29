@@ -413,6 +413,8 @@
      	            }
 
      	            hideTestWriteModal();
+     	            const lectureTestListBox = document.querySelector("#lectureTestListBox");
+     	           lectureTestListBox.innerHTML ="";
      	            lectureTestListInfo(open_lecture_key);
      	        });
      	    }

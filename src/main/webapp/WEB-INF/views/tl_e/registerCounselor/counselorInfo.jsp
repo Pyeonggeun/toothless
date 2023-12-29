@@ -106,13 +106,9 @@ function showCounselorInfoModal(counselorId){
 		const counselorTypeList = [...counselorDetail.counselorTypeList];
 		for(e of counselorTypeList){				
 			const counselorType = document.createElement("div");
-			counselorType.setAttribute("class", "col-auto small border rounded-pill");				
-			/* counselorType.classList.add("small");
-			counselorType.classList.add("border");
-			counselorType.classList.add("rounded-pill"); */
+			counselorType.setAttribute("class", "col-auto small border rounded-pill");
 			counselorType.innerText = e.CATEGORYNAME;
-			counselorTypeRow.appendChild(counselorType);
-			
+			counselorTypeRow.appendChild(counselorType);			
 		}
 		
 		const counselorCareer = document.getElementById("counselorCareer");
@@ -121,7 +117,7 @@ function showCounselorInfoModal(counselorId){
 		const counselorLicenseRow = document.getElementById("counselorLicenseRow");
 		counselorLicenseRow.innerHTML = "";
 		const counselorLicenseList = [...counselorDetail.counselorLicenseList];
-		if(counselorLicenseList.length > 0){
+		if(counselorLicenseList.length > 0){			
 			for(e of counselorLicenseList){
 				const counselorLicenseWrapper = document.querySelector("#templete #counselorLicenseWrapper").cloneNode(true);
 				const counselorLicense = counselorLicenseWrapper.querySelector("#counselorLicense");
@@ -129,7 +125,7 @@ function showCounselorInfoModal(counselorId){
 				counselorLicenseRow.appendChild(counselorLicenseWrapper);
 			}
 		}
-		else{
+		else if(counselorLicenseList.length === 0){			
 			const counselorLicenseWrapper = document.querySelector("#templete #counselorLicenseWrapper").cloneNode(true);
 			counselorLicenseWrapper.innerHTML ="";
 			const licenseNotExist = document.createElement("span");
@@ -147,19 +143,13 @@ function showCounselorInfoModal(counselorId){
 			const goodRate = document.createElement("img");
 			goodRate.setAttribute("src", "/toothless/resources/img/counselorImage/icon/goodRate.png");
 			goodRate.setAttribute("class", "img-fluid");				
-			starRateIcon.appendChild(goodRate);
-			/* const goodRate = document.createElement("i");
-			goodRate.setAttribute("class", "bi bi-emoji-sunglasses-fill");				
-			starRateIcon.appendChild(goodRate); */
+			starRateIcon.appendChild(goodRate);			
 		}
 		else{
 			const badRate = document.createElement("img");
 			badRate.setAttribute("src", "/toothless/resources/img/counselorImage/icon/badRate.png");				
 			badRate.setAttribute("class", "img-fluid");				
-			starRateIcon.appendChild(badRate);
-			/* const badRate = document.createElement("i");
-			badRate.setAttribute("class", "bi bi-emoji-expressionless-fill");				
-			starRateIcon.appendChild(badRate); */
+			starRateIcon.appendChild(badRate);			
 		}
 		
 		
@@ -172,8 +162,7 @@ function showCounselorInfoModal(counselorId){
 		const star04 = document.getElementById("star04");
 		star04.innerText = "(" + counselorDetail.totalScoreInfo.SCORE4 + ")";
 		const star05 = document.getElementById("star05");
-		star05.innerText = "(" + counselorDetail.totalScoreInfo.SCORE5 + ")";
-		
+		star05.innerText = "(" + counselorDetail.totalScoreInfo.SCORE5 + ")";		
 	});
 	
 	/*
@@ -229,7 +218,8 @@ function processSearchData(searchData){
 		const counselorName = counselorboxWrapper.querySelector(".counselorName");
 		counselorName.innerText = e.NAME;
 		
-		counselorboxWrapper.setAttribute("onclick", "showCounselorInfoModal(e.COUNSELORID)");	
+		counselorboxWrapper.setAttribute("onclick", "showCounselorInfoModal("+ e.COUNSELORID + ")");
+		counselorboxWrapper.setAttribute("role", "button");		
 		counselorListBox.appendChild(counselorboxWrapper);
 		
 	}
@@ -257,13 +247,10 @@ function searchCounselor(){
 	
 	console.log("searchCounselor() 실행됨");
 	
-	
-	
 	const searchCounselorType = getSearchCounselorType();
 	const searchCounselorName = document.getElementById("searchByCounselorName").value;		
 	const searchScoreOption = document.getElementById("searchScoreOption").value;		
-	const searchGenderOption = getSelectGender();
-	
+	const searchGenderOption = getSelectGender();	
 	
 	const url = "./restGetCounselorInfo";
 	const searchOption = {
@@ -588,9 +575,9 @@ window.addEventListener("DOMContentLoaded", ()=>{
 <div id="counselorInfoModal" class="modal fade" area-hidden="true" tabindex="-1">
       <div class="modal-dialog modal-lg">
           <div class="modal-content">
-              <div class="modal-header">                        
-                  <span class="modal-title fw-bold fs-2 ms-5">상담원 상세정보</span>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                            
+              <div class="modal-header bg-dark">                        
+                  <span class="modal-title fw-bold fs-2 ms-5 text-white">상담원 상세정보</span>
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>                            
               </div>
               <div class="container modal-body">
                   <div class="row mt-2">
@@ -885,6 +872,14 @@ window.addEventListener("DOMContentLoaded", ()=>{
 				<span class="counselorName fw-bold"></span> 상담사					
 			</div>
 		</div>								
+	</div>
+	
+	<div id="counselorLicenseWrapper" class="col-12 border rounded text-center">
+		<div class="row mt-2 mb-2 text-center">
+			<div class="col">
+				<img id="counselorLicense" src="" class="img-fluid">
+			</div>
+		</div>                        								
 	</div>
 	
 	

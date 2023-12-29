@@ -87,7 +87,7 @@
          		}
          		const reviewPage = document.querySelectorAll(".reviewPage");
          		for(e of reviewPage ){
-         			e.setAttribute("onclick" ,"location.href='./lectureReviewPage?open_lecture_key="+open_lecture_key+"'");	
+         			e.setAttribute("onclick" ,"location.href='./lectureReviewPage?open_lecture_key="+response.data.lectureTestDto.open_lecture_key+"'");	
          		}
          		
          	

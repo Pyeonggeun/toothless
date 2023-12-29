@@ -104,11 +104,13 @@
 					
 					<div class="row border mt-4">
 						
-				
-					<div class="col-12 d-flex justify-content-center px-0 mx-0" style="height:100em;" >
-							<img class="img-fluid" src="/Git_imageFile/${EduDto.poster_image}">
+					<div class="col-2"></div>
+					<div class="col-8 d-flex justify-content-center px-0 mx-0" style="height:100em;" >
+							<img class="w-100 h-100 img-fluid" src="/Git_imageFile/${EduDto.poster_image}">
 					</div>
-			
+					
+					
+					<div class="col-2"></div>
 					</div>
 					
 					

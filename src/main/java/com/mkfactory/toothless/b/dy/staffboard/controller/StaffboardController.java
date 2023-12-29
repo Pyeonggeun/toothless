@@ -29,6 +29,8 @@ public class StaffboardController {
 	@Autowired
 	private StaffboardServiceImpl staffboardService;
 	
+	
+	
 	//교직원용 게시판 페이지
 	@RequestMapping("staffboardPage")
 	public String staffboardPage(Model model, String searchType, String searchWord) {

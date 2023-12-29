@@ -407,6 +407,7 @@
 	<select id="isCompleteTest" resultType="int">
 		SELECT COUNT(*) FROM (
 			SELECT lecture_test_key FROM tl_x_test_result
+			WHERE lecture_student_key = #{lecture_student_key}
 			GROUP BY lecture_test_key
 		)t1
 		WHERE t1.lecture_test_key = #{lecture_test_key}

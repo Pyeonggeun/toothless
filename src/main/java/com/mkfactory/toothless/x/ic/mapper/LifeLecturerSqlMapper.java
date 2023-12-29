@@ -118,8 +118,8 @@ public interface LifeLecturerSqlMapper {
 	public int selectLecutreKeyByLifeStudentKeyAndLectureTestKey(@Param("lecture_test_key") int lecture_test_key,
 																@Param("life_student_key") int life_student_key);
 	
-	public Date selectStudentTestingDay(@Param("lecture_test_key") int lecture_test_key,
-										@Param("life_student_key") int life_student_key);
+	public Date selectStudentTestingDay(@Param("life_student_key") int life_student_key,
+										@Param("lecture_test_key") int lecture_test_key);
 	
 	public List<LectureReviewDto> selectOpenLecutreReviewList(int open_lecture_key);
 	
