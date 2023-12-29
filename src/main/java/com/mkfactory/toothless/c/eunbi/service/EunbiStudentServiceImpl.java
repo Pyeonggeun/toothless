@@ -69,10 +69,14 @@ public class EunbiStudentServiceImpl {
 			AjdksSelfIntroductionDto selfIntroductionDto = studentSqlMapper.getSelfIntroductionByStudentPk(studentPk);
 			
 			selfIntroduction.put("selfIntroduction", selfIntroductionDto);
-			selfIntroduction.put("certificationList", studentSqlMapper.getCertificationsByStudentPk(studentPk));
 		}
 		
 		return selfIntroduction;
+	}
+	
+	public List<AjdksCertificationDto> viewCertificationList(int studentPk) {
+		
+		return studentSqlMapper.getCertificationsByStudentPk(studentPk);
 	}
 	
 	// 해당 과정 지원학생 출력
@@ -212,41 +216,6 @@ public class EunbiStudentServiceImpl {
 		
 		return internshipList;
 	}
-	
-	// 학생이 참여 완료한 현장실습 성적 조회하기
-		public List<Map<String, Object>> viewEvaluationsForStudent(int studentPk){
-			
-			List<Map<String, Object>> internshipList = new ArrayList<>();
-				
-			List<AjdksInternshipCourseDto> endInternshipCourses = studentSqlMapper.getEndInternshipCourseByStudentPk(studentPk);
-			
-			for(AjdksInternshipCourseDto internshipCourseDto : endInternshipCourses) {
-				int companyPk = internshipCourseDto.getCompany_pk();
-				int professorPk = internshipCourseDto.getProfessor_pk();
-				
-				int internshipCoursePk = internshipCourseDto.getInternship_course_pk();
-				int studentInternPk = studentSqlMapper.getInternPkByStudentPkAndCoursePk(studentPk, internshipCoursePk);
-				
-				Map<String, Object> endedCourse = new HashMap<>();
-				
-				endedCourse.put("internshipCourseDto", internshipCourseDto);
-				endedCourse.put("companyInfoDto", externalSqlMapper.getCompanyInfo(companyPk));
-				endedCourse.put("professorDto", professorSqlMapper.getProfessorInfo(professorPk));
-				
-				endedCourse.put("didSatisfaction", studentSqlMapper.didSatisfaction(studentInternPk));
-				endedCourse.put("studentInternPk", studentInternPk);
-				
-				if(studentSqlMapper.calculateGrade(studentInternPk) == null) {
-					endedCourse.put("grade", "0");
-				}else {
-					endedCourse.put("grade", studentSqlMapper.calculateGrade(studentInternPk));
-				}
-				
-				internshipList.add(endedCourse);
-			}
-			
-			return internshipList;
-		}
 	
 	public Map<String, Object> getEvaluation(int studentInternPk) {
 		

@@ -132,6 +132,17 @@ public class EunbiRestProfessorController {
 		return restResponseDto;
 	}
 	
+	@RequestMapping("getCertificationList")
+	public RestResponseDto getCertificationList(int student_pk) {
+		
+		RestResponseDto restResponseDto = new RestResponseDto();
+		
+		restResponseDto.setData(studentService.viewCertificationList(student_pk));
+		
+		restResponseDto.setResult("Success");
+		
+		return restResponseDto;
+	}
 	
 	
 	
