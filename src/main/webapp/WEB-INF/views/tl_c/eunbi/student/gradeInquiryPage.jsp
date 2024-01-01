@@ -184,13 +184,6 @@
     	const review = document.getElementById("review");
     	const inputStudentInternPk = document.getElementById("inputStudentInternPk");
     	
-    	if (inputStudentInternPk.value.trim() === '' ||
-	        ratingValue.value.trim() === '' ||
-	        review.value.trim() === '') {
-	        alert('모든 필드를 입력해주세요.');
-	        return;
-	    }
-    	
     	fetch("./writeSatisfaction", {
 			method: "post",
 			headers: {
@@ -348,7 +341,7 @@
 		
 		const ratingValue = document.getElementById("ratingValue");
 		ratingValue.removeAttribute("value");
-		ratingValue.setAttribute("value","4");
+		ratingValue.setAttribute("value","5");
 	}
 	
 	
@@ -530,9 +523,9 @@
 							<div class="row">
 								<div class="col fw-semibold d-flex">
 									<span class="align-self-center">별점</span>
-									<i id="star1" onclick="star1()" class="radioBtn bi bi-star fs-2 align-self-center text-warning ms-4" name="rating"></i>
-									<i id="star2" onclick="star2()" class="radioBtn bi bi-star fs-2 align-self-center text-warning ms-3" name="rating"></i>
-									<i id="star3" onclick="star3()" class="radioBtn bi bi-star fs-2 align-self-center text-warning ms-3" name="rating"></i>
+									<i id="star1" onclick="star1()" class="bi bi-star fs-2 align-self-center text-warning ms-4" name="rating"></i>
+									<i id="star2" onclick="star2()" class="bi bi-star fs-2 align-self-center text-warning ms-3" name="rating"></i>
+									<i id="star3" onclick="star3()" class="bi bi-star fs-2 align-self-center text-warning ms-3" name="rating"></i>
 									<i id="star4" onclick="star4()" class="bi bi-star fs-2 align-self-center text-warning ms-3" name="rating"></i>
 									<i id="star5" onclick="star5()" class="bi bi-star fs-2 align-self-center text-warning ms-3" name="rating"></i>
 								</div>
@@ -548,12 +541,16 @@
 							</div>
 							<div class="row">
 								<div class="col mt-2">
+									<input type="hidden" id="ratingValue">
 									<input type="hidden" id="inputStudentInternPk">
-									<textarea id="review" rows="5" class="form-control rounded-0"></textarea>
+									<textarea id="review" rows="7" class="form-control rounded-0"></textarea>
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="modal-footer border-0 mb-3">
+					<button id="submitButton" onclick="writeSatisfaction()" class="closeModal btn btn-secondary rounded-0">제출</button>
 				</div>
 				
 			</div>

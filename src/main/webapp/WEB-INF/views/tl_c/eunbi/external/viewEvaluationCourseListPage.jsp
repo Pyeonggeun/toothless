@@ -112,7 +112,6 @@
 	function showCourseInfo(internshipCoursePk){
 		
 		toggleCourseInfoButton(internshipCoursePk);
-		
 		reloadCourseInfo(internshipCoursePk);
 		
 	}
@@ -129,14 +128,10 @@
 	function changeActive(internshipCoursePk){
 		
 		const targetValue = internshipCoursePk;
-		console.log(targetValue);
 		
 		const showCourseInfoButton = document.querySelector(".showCourseInfoButton");
 		const getValue = showCourseInfoButton.dataset.value;
 		
-		if(targetValue === getValue){
-			showCourseInfoButton.classList.add("active");
-		}
 	}
 	
 	function reloadCourseInfo(internshipCoursePk){	

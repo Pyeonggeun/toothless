@@ -113,20 +113,20 @@
 	
 	function reloadCertification(){
 		
-		fetch("./getSelfIntroduction?student_pk=" + student_pk)
+		fetch("./getCertificationList?student_pk=" + student_pk)
 		.then(response => response.json())
 		.then(response => {
 			
 			const certificationListBox = document.getElementById("certificationListBox");
 			certificationListBox.innerHTML = "";
 			
-			for(certification of response.data.certificationList){
+			for(certification of response.data){
 				
 				const certificationWrapper = document.querySelector("#certificationListTemplete .certificationWrapper").cloneNode(true);
 				
-				const certificationName = document.querySelector(".certificationName");
-				const acquisitionDate = document.querySelector(".acquisitionDate");
-				const certificationFile = document.querySelector(".certificationFile");
+				const certificationName = certificationWrapper.querySelector(".certificationName");
+				const acquisitionDate = certificationWrapper.querySelector(".acquisitionDate");
+				const certificationFile = certificationWrapper.querySelector(".certificationFile");
 				
 				let acquisition_date = new Date(certification.certification_acquisition_date);
 				
@@ -375,10 +375,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="row">
-												<div class="col my-5 py-5">
-												</div>
-											</div>
+											
 										</div>
 									</div>
 								</div>

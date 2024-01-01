@@ -121,20 +121,20 @@
 	
 	function reloadCertification(){
 		
-		fetch("./getSelfIntroduction?student_pk=" + student_pk)
+		fetch("./getCertificationList?student_pk=" + student_pk)
 		.then(response => response.json())
 		.then(response => {
 			
 			const certificationListBox = document.getElementById("certificationListBox");
 			certificationListBox.innerHTML = "";
 			
-			for(certification of response.data.certificationList){
+			for(certification of response.data){
 				
 				const certificationWrapper = document.querySelector("#certificationListTemplete .certificationWrapper").cloneNode(true);
 				
-				const certificationName = document.querySelector(".certificationName");
-				const acquisitionDate = document.querySelector(".acquisitionDate");
-				const certificationFile = document.querySelector(".certificationFile");
+				const certificationName = certificationWrapper.querySelector(".certificationName");
+				const acquisitionDate = certificationWrapper.querySelector(".acquisitionDate");
+				const certificationFile = certificationWrapper.querySelector(".certificationFile");
 				
 				let acquisition_date = new Date(certification.certification_acquisition_date);
 				
@@ -190,7 +190,6 @@
 		getProfessorPk();
 		reloadStudentDetails();
 		showSelfIntroduction();
-		reloadCertification();
 	});
 	
 </script>
@@ -402,8 +401,10 @@
 		</div>
 		
 	</div>
-	
-	
+
+
+</div><!-- 전체 container 출구 -->
+
 	<!-- 자격증 리스트 -->
 	<div id="certificationListTemplete" class="d-none">
 		<div class="certificationWrapper row py-2 border-bottom">
@@ -419,20 +420,8 @@
 		</div>
 	</div>
 	
-	<!-- 자격증이 존재하지 않을 때 -->
 	
-
-
-
-
-
-
-
-
-
-
-
-</div><!-- 전체 container 출구 -->
+	
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

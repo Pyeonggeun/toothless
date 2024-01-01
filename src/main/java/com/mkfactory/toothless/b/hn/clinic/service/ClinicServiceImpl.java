@@ -147,6 +147,8 @@ public class ClinicServiceImpl {
 			prescriptionMap.put("prescriptionInfo", prescriptionDto);
 			prescriptionMap.put("medicineName", clinicSqlMapper.getMedicineNameByMedicineCodePk(prescriptionDto.getMedicine_code_pk()));
 			
+			list.add(prescriptionMap);
+			
 		}
 		
 		map.put("clinicPatientLogInfo", clinicPatientLogDto);

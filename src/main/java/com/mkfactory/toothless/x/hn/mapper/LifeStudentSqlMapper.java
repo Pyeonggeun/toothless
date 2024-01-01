@@ -67,7 +67,7 @@ public interface LifeStudentSqlMapper {
 	public int getStudentTotalTestCount(int lecture_student_key);
 	public List<LectureTestDto> getLectureTestInfoByOpenLectureKey(int open_lecture_key);
 	public int getStudentTestScoreByLectureTestKeyAndLectureStudentKey(@Param("lecture_test_key") int lecture_test_key, @Param("lecture_student_key") int lecture_student_key);
-	public int isCompleteTest(int lecture_test_key);
+	public int isCompleteTest(@Param("lecture_test_key") int lecture_test_key, @Param("lecture_student_key") int lecture_student_key);
 	
 	public String getTestNameByLectureTestKey(int lecture_test_key);
 	public List<TestQuestionDto> getTestQuestionListByLectureTestKey(int lecture_test_key);
