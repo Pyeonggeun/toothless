@@ -84,11 +84,11 @@
 				
 					<div class="row">
                         <div class="col-2 d-flex justify-content-center align-items-center border" style ="height: 12em;">
-                            <div class="row border border-end border-start border-bottom">
-                            	<div class="col border">
-                                	<img class="img-fluid " src="/Git_imageFile/${imageLink}" style ="height:8em">
-                                </div>
-                            </div>
+                            
+                           
+                                	<img class="img-fluid w-100" src="/Git_imageFile/${imageLink}" style ="height:11em">
+                              
+                          
                                 
 
                         </div>
